@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:toXDelta="0%p"
+    android:fromXDelta="100%p"
+    android:duration="@android:integer/config_longAnimTime" />

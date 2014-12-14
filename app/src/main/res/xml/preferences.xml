@@ -1,0 +1,69 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory android:title="@string/app_settings">
+        <ListPreference
+            android:key="@string/pref_font_choice_key"
+            android:title="@string/pref_font_choice"
+            android:dialogTitle="@string/pref_font_choice"
+            android:entries="@array/fonts_array"
+            android:entryValues="@array/fonts_type_array"
+            android:defaultValue="sans-serif-light" />
+
+        <ListPreference
+            android:key="@string/pref_font_size_key"
+            android:title="@string/pref_font_size"
+            android:dialogTitle="@string/pref_font_size"
+            android:entries="@array/font_size_choices_array"
+            android:entryValues="@array/font_size_array"
+            android:defaultValue="21" />
+
+        <ListPreference
+            android:key="@string/pref_theme_key"
+            android:title="@string/pref_theme"
+            android:dialogTitle="@string/pref_theme"
+            android:entries="@array/themes_array"
+            android:entryValues="@array/themes_array"
+            android:defaultValue="@string/theme_light" />
+
+        <CheckBoxPreference
+            android:key="@string/pref_pin_key"
+            android:title="@string/pref_pin"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/social">
+        <Preference
+            android:key="@string/pref_twitter_key"
+            android:title="@string/pref_twitter">
+            <intent android:data="@string/twitter_url" android:action="android.intent.action.VIEW" />
+        </Preference>
+        <Preference
+            android:key="@string/pref_email_key"
+            android:title="@string/pref_email">
+            <intent android:data="@string/writeily_email" android:action="android.intent.action.VIEW">
+                <extra android:name="android.intent.extra.SUBJECT" android:value="@string/email_header" />
+            </intent>
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/meta">
+        <Preference
+            android:key="@string/pref_rate_writeily_key"
+            android:title="@string/pref_rate_writeily">
+            <intent android:data="@string/writeily_url" android:action="android.intent.action.VIEW" />
+        </Preference>
+
+        <me.writeily.writeilypro.dialog.AboutDialog
+            android:dialogMessage="@string/about_string"
+            android:dialogTitle="@string/pref_about_dialog_title"
+            android:title="@string/pref_about_dialog_title"/>
+
+        <me.writeily.writeilypro.dialog.AboutDialog
+            android:dialogMessage="@string/attribution_string"
+            android:dialogTitle="@string/pref_attribution_dialog_title"
+            android:title="@string/pref_attribution_dialog_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

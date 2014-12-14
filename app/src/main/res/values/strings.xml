@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Writeily</string>
+    <string name="action_settings">Settings</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="notes">Notes</string>
+    <string name="archive">Archives</string>
+    <string name="plus">+</string>
+    <string name="new_note">New note</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="delete">Delete</string>
+    <string name="star">Star</string>
+    <string name="starred">Starred</string>
+    <string name="restore">Restore</string>
+    <string name="wr_import">Import</string>
+    <string name="unstar">Unstar</string>
+
+    <string name="sync">Sync</string>
+
+    <string name="empty_notes_list_hint">When you create a new note,\nthis is where it will show up</string>
+    <string name="empty_archives_hint">When you archive a note, \nthis is where it will show up</string>
+    <string name="empty_starred_hint">When you star a note,\nthis is where it will show up</string>
+    <string name="search_hint">Search notes</string>
+    <string name="share_string">Share to&#8230;</string>
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+    <string name="preview">Preview</string>
+    <string name="app_settings">App Settngs</string>
+    <string name="social">Social</string>
+    <string name="meta">Meta</string>
+
+    <string name="twitter_url">https://twitter.com/writeily</string>
+    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
+    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
+    <string name="email_header">Feedback about Writeily</string>
+
+    <string name="about_string">
+        Writeily Pro 1.0\n\n
+        Developed by Jeff Martin (http://jeffreymartin.ca)\n
+    </string>
+
+    <string name="attribution_string">
+        Writeily uses the following libraries:\n\n
+
+        CommonsWare AndDown 0.2.0\n\n
+
+        All libraries used are licensed under the Apache License v2.0 \n
+    </string>
+
+    <!-- Preferences -->
+    <string name="pref_font_choice_key">pref_font_choice</string>
+    <string name="pref_font_choice">Note Editor Font</string>
+    <string name="pref_theme_key">pref_theme</string>
+    <string name="pref_theme">Theme</string>
+    <string name="pref_rate_writeily_key">pref_rate_writeily</string>
+    <string name="pref_rate_writeily">Rate Writeily on Google Play</string>
+    <string name="pref_about_dialog_title">About Writeily</string>
+    <string name="pref_attribution_dialog_title">Attributions</string>
+    <string name="pref_twitter_key">pref_twitter_key</string>
+    <string name="pref_twitter">Follow Writeily on Twitter</string>
+    <string name="pref_email_key">pref_email_key</string>
+    <string name="pref_email">Email Support</string>
+    <string name="share_text">Plain Text</string>
+    <string name="share_html">HTML</string>
+    <string name="share_as">Share as&#8230;</string>
+    <string name="pref_font_size">Font Size</string>
+    <string name="pref_font_size_key">pref_font_size_key</string>
+    <string name="pref_pin">Pin Lock</string>
+    <string name="pin_title">Enter your pin</string>
+    <string name="pin_go">Go</string>
+    <string name="pref_pin_key">pref_pin</string>
+    <string name="incorrect_pin_text">Incorrect pin</string>
+    <string name="title">Title</string>
+    <string name="untitled">Untitled</string>
+    <string name="empty_directory">This directory is empty</string>
+    <string name="navigate_up_folder">Back to previous folder</string>
+
+</resources>

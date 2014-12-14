@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.github.dcendents:android-maven-plugin:1.0'
+    }
+}
+
+apply plugin: 'android-library'
+
+version '0.2.0'
+group 'com.commonsware.cwac'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+
+task packageNativeLibs_ARM(type: Jar) {
+    baseName 'libtestlib'
+    classifier 'armeabi'
+    from(file('libs/armeabi/')) {
+        include '**/*.so'
+    }
+    into('lib/armeabi')
+    destinationDir(file('libs/'))
+}
+
+task packageNativeLibs_ARMv7(type: Jar) {
+    baseName 'libtestlib'
+    classifier 'armeabi-v7a'
+    from(file('libs/armeabi-v7a/')) {
+        include '**/*.so'
+    }
+    into('lib/armeabi-v7a')
+    destinationDir(file('libs/'))
+}
+
+task packageNativeLibs_x86(type: Jar) {
+    baseName 'libtestlib'
+    classifier 'x86'
+    from(file('libs/x86/')) {
+        include '**/*.so'
+    }
+    into('lib/x86')
+    destinationDir(file('libs/'))
+}
+
+task packageNativeLibs(description: "package native libraries") {
+
+}
+
+packageNativeLibs.dependsOn 'packageNativeLibs_ARM'
+packageNativeLibs.dependsOn 'packageNativeLibs_ARMv7'
+packageNativeLibs.dependsOn 'packageNativeLibs_x86'
+
+//task ndkBuild(type: Exec, description: "Task to run ndk-build") {
+//    commandLine "/Applications/Android Studio.app/ndk/ndk-build"
+//}
+
+//packageNativeLibs.dependsOn 'ndkBuild'
+
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn packageNativeLibs }
+
+clean.dependsOn 'cleanPackageNativeLibs'
+

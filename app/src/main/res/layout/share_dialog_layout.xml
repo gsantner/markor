@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/share_dialog_layout"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.Light">
+
+    <Button
+        android:id="@+id/share_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:drawableTop="@drawable/share_as_text"
+        android:background="@drawable/dialog_button_background"
+        android:text="@string/share_text"
+        android:textColor="@color/green"
+        android:fontFamily="sans-serif-condensed"
+        style="?android:attr/borderlessButtonStyle" />
+
+    <Button
+        android:id="@+id/share_html"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:drawableTop="@drawable/share_as_html"
+        android:background="@drawable/dialog_button_background"
+        android:text="@string/share_html"
+        android:textColor="@color/green"
+        android:fontFamily="sans-serif-condensed"
+        style="?android:attr/borderlessButtonStyle" />
+
+</LinearLayout>
