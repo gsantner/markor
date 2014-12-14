@@ -1,17 +1,16 @@
 package me.writeily.writeilypro;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,50 +23,55 @@ import me.writeily.writeilypro.model.WriteilySingleton;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class ImportFragment extends Fragment {
+public class ImportActivity extends ActionBarActivity {
 
-    private Context context;
-
-    private View layoutView;
     private ListView filesListView;
-    private TextView hintTextView;
+    private TextView emptyFolderTextView;
 
     private ArrayList<File> files;
     private FileAdapter filesAdapter;
 
     private File previousDir;
-    private TextView importHeader;
+    private Button previousDirButton;
+    private Toolbar toolbar;
 
-    public ImportFragment() {
+    public ImportActivity() {
         super();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
-        hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
+    protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_import);
 
-        if (files == null) {
-            files = new ArrayList<File>();
-            hintTextView.setVisibility(View.VISIBLE);
-            hintTextView.setText(getString(R.string.empty_directory));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        context = getActivity().getApplicationContext();
-        filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
-        filesAdapter = new FileAdapter(context, files);
+        emptyFolderTextView = (TextView) findViewById(R.id.empty_hint);
+        emptyFolderTextView.setText(getString(R.string.empty_directory));
+
+        if (files== null) {
+            files = new ArrayList<File>();
+        }
+
+        filesListView = (ListView) findViewById(R.id.notes_listview);
+        filesAdapter = new FileAdapter(this, files);
 
         filesListView.setOnItemClickListener(new FilesItemClickListener());
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         filesListView.setAdapter(filesAdapter);
 
-        // ListView header to help navigate the directories
-        importHeader = (TextView) inflater.inflate(R.layout.import_header_view, null);
+        // Previous dir button to help navigate the directories
+        previousDirButton = (Button) findViewById(R.id.import_header_btn);
+        previousDirButton.setOnClickListener(new PreviousDirClickListener());
 
         File dir = new File(Environment.getExternalStorageDirectory().getPath());
         listFilesInDirectory(dir);
+        checkIfDirectoryEmpty();
 
-        return layoutView;
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -77,12 +81,24 @@ public class ImportFragment extends Fragment {
         super.onResume();
     }
 
-    private void checkIfDataEmpty() {
-        if (files.isEmpty()) {
-            hintTextView.setVisibility(View.VISIBLE);
-            hintTextView.setText(getString(R.string.empty_directory));
+    @Override
+    public void onBackPressed() {
+        if (previousDir != null) {
+            goToPreviousDir();
         } else {
-            hintTextView.setVisibility(View.INVISIBLE);
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                overridePendingTransition(R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -98,47 +114,41 @@ public class ImportFragment extends Fragment {
 
         // Refresh the files adapter with the new ArrayList
         if (filesAdapter != null) {
-            filesAdapter = new FileAdapter(context, files);
+            filesAdapter = new FileAdapter(this, files);
             filesListView.setAdapter(filesAdapter);
         }
 
-        checkHideHeader();
-        checkIfDataEmpty();
+        checkHidePreviousDirButton();
+    }
+
+    private void checkIfDirectoryEmpty() {
+        if (files.isEmpty()) {
+            emptyFolderTextView.setVisibility(View.VISIBLE);
+            emptyFolderTextView.setText(getString(R.string.empty_notes_list_hint));
+        } else {
+            emptyFolderTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
      * Hide the header when getting to the external dir so the app doesn't show too much.
      */
-    private void checkHideHeader() {
-        File dir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (previousDir == null || previousDir.getPath().equalsIgnoreCase(dir.getAbsolutePath())) {
-            filesListView.removeHeaderView(importHeader);
+    private void checkHidePreviousDirButton() {
+        File compareRootDir = new File(Environment.getExternalStorageDirectory().getPath());
+        if (previousDir == null || previousDir.getPath().equalsIgnoreCase(compareRootDir.getAbsolutePath())) {
+            previousDirButton.setVisibility(View.GONE);
             previousDir = null;
         } else {
-            if (filesListView.getHeaderViewsCount() <= 0) {
-                filesListView.addHeaderView(importHeader);
-            }
+            previousDirButton.setVisibility(View.VISIBLE);
         }
     }
 
-    /** Search **/
-    public void search(CharSequence query) {
-        if (query.length() > 0) {
-            filesAdapter.getFilter().filter(query);
+    private void goToPreviousDir() {
+        if (previousDir != null) {
+            previousDir = previousDir.getParentFile();
         }
-    }
 
-    public void clearSearchFilter() {
-        filesAdapter.getFilter().filter("");
-
-        // Workaround to an (apparently) bug in Android's ArrayAdapter... not pretty
-        filesAdapter = new FileAdapter(context, files);
-        filesListView.setAdapter(filesAdapter);
-        filesAdapter.notifyDataSetChanged();
-    }
-
-    public void clearItemSelection() {
-        filesAdapter.notifyDataSetChanged();
+        listFilesInDirectory(previousDir);
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
@@ -172,7 +182,6 @@ public class ImportFragment extends Fragment {
         public void onDestroyActionMode(ActionMode mode) {
         }
 
-
         @Override
         public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
             final int numSelected = filesListView.getCheckedItemCount();
@@ -194,26 +203,22 @@ public class ImportFragment extends Fragment {
     private class FilesItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            // Note: need to decrement i by 1 because of the header view
-            i = filesListView.getHeaderViewsCount() > 0 ? i - 1 : i;
+            File file = filesAdapter.getItem(i);
 
-            if (i < 0) {
-                if (previousDir != null) {
-                    previousDir = previousDir.getParentFile();
-                }
-
-                listFilesInDirectory(previousDir);
+            // Refresh list if directory, else import
+            if (file.isDirectory()) {
+                previousDir = file;
+                listFilesInDirectory(file);
             } else {
-                File file = filesAdapter.getItem(i);
-
-                // Refresh list if directory, else import
-                if (file.isDirectory()) {
-                    previousDir = file;
-                    listFilesInDirectory(file);
-                } else {
-                    // TODO save file in writeily folder?
-                }
+                // TODO save file in writeily folder?
             }
+        }
+    }
+
+    private class PreviousDirClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            goToPreviousDir();
         }
     }
 }

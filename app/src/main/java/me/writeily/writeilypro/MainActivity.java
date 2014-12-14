@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
     private NotesFragment notesFragment;
     private ArchivesFragment archivesFragment;
     private StarredFragment starredFragment;
-    private ImportFragment importFragment;
+    private ImportActivity importActivity;
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -87,9 +87,8 @@ public class MainActivity extends ActionBarActivity {
                     setToolbarTitle(getString(R.string.starred));
                 } else if (archivesFragment.isVisible()) {
                     setToolbarTitle(getString(R.string.archive));
-                } else if (importFragment.isVisible()) {
-                    setToolbarTitle(getString(R.string.import_from_device));
                 }
+
                 invalidateOptionsMenu();
             }
 
@@ -115,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
         notesFragment = new NotesFragment();
         archivesFragment = new ArchivesFragment();
         starredFragment = new StarredFragment();
-        importFragment = new ImportFragment();
+        importActivity = new ImportActivity();
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
@@ -186,7 +185,6 @@ public class MainActivity extends ActionBarActivity {
                         else if (starredFragment.isVisible())
                             starredFragment.search(query);
                     }
-//                    searchView.clearFocus();
                     return false;
                 }
 
@@ -298,6 +296,11 @@ public class MainActivity extends ActionBarActivity {
         startActivity(settingsIntent);
     }
 
+    private void showImportActivity() {
+        Intent importIntent = new Intent(this, ImportActivity.class);
+        startActivity(importIntent);
+    }
+
     /**
      * Set the ActionBar title to @title.
      */
@@ -326,10 +329,7 @@ public class MainActivity extends ActionBarActivity {
                     setToolbarTitle(getString(R.string.archive));
                 }
             } else if (i == 3) {
-                if (!importFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, importFragment).commit();
-                    setToolbarTitle(getString(R.string.import_from_device));
-                }
+                showImportActivity();
             } else if (i == 4) {
                 showSettings();
             }
