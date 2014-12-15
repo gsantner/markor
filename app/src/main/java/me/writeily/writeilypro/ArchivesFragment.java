@@ -153,7 +153,7 @@ public class ArchivesFragment extends Fragment {
                     mode.finish();
                     return true;
                 case R.id.context_menu_restore:
-                    WriteilySingleton.getInstance().moveSelectedNotes(archivesListView, archivesAdapter, Constants.ARCHIVED_FOLDER, Constants.NOTES_FOLDER);
+                    WriteilySingleton.getInstance().moveSelectedNotes(archivesListView, archivesAdapter, Constants.NOTES_FOLDER);
                     listNotes();
                     mode.finish();
                     return true;

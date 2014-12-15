@@ -136,12 +136,12 @@ public class StarredFragment extends Fragment {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
-                    WriteilySingleton.getInstance().moveSelectedNotes(starredListView, starredAdapter, Constants.STARRED_FOLDER, Constants.ARCHIVED_FOLDER);
+                    WriteilySingleton.getInstance().moveSelectedNotes(starredListView, starredAdapter, Constants.ARCHIVED_FOLDER);
                     listNotes();
                     mode.finish();
                     return true;
                 case R.id.context_menu_unstar:
-                    WriteilySingleton.getInstance().moveSelectedNotes(starredListView, starredAdapter, Constants.STARRED_FOLDER, Constants.NOTES_FOLDER);
+                    WriteilySingleton.getInstance().moveSelectedNotes(starredListView, starredAdapter, Constants.NOTES_FOLDER);
                     listNotes();
                     mode.finish();
                     return true;

@@ -84,8 +84,6 @@ public class NotesFragment extends Fragment {
         notes = new ArrayList<File>();
 
         try {
-            readInternalStorageFiles();
-
             // Load from SD card
             File dir = new File(Environment.getExternalStorageDirectory() + Constants.WRITEILY_FOLDER);
             notes = WriteilySingleton.getInstance().addTextFilesFromDirectory(dir, notes);
@@ -100,20 +98,6 @@ public class NotesFragment extends Fragment {
         }
 
         checkIfDataEmpty();
-    }
-
-    /**
-     * Load files from app's internal storage (FOR LEGACY SUPPORT)
-     * TODO delete legacy files after moving
-     */
-    private void readInternalStorageFiles() {
-        File dir = context.getFilesDir();
-
-        for (File f : dir.listFiles()) {
-            if (f.getName().toString().endsWith(Constants.TXT_EXT)) {
-                WriteilySingleton.getInstance().moveFile(f.getName(), dir.getAbsolutePath(), Constants.NOTES_FOLDER);
-            }
-        }
     }
 
     /** Search **/
@@ -154,12 +138,12 @@ public class NotesFragment extends Fragment {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.context_menu_archive:
-                    WriteilySingleton.getInstance().moveSelectedNotes(notesListView, notesAdapter, Constants.NOTES_FOLDER, Constants.ARCHIVED_FOLDER);
+                    WriteilySingleton.getInstance().moveSelectedNotes(notesListView, notesAdapter, Constants.ARCHIVED_FOLDER);
                     listNotes();
                     mode.finish();
                     return true;
                 case R.id.context_menu_star:
-                    WriteilySingleton.getInstance().moveSelectedNotes(notesListView, notesAdapter, Constants.NOTES_FOLDER, Constants.STARRED_FOLDER);
+                    WriteilySingleton.getInstance().moveSelectedNotes(notesListView, notesAdapter, Constants.STARRED_FOLDER);
                     mode.finish();
                     return true;
                 default:

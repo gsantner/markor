@@ -36,17 +36,18 @@ public class WriteilySingleton {
         return writeilySingletonInstnce;
     }
 
-    public void moveFile(String filename, String sourceDir, String destinationDir) {
-        Log.d("MOVING FILE", "File: " + filename + " from " + sourceDir + " to " + destinationDir);
+    public void moveFile(File file, String destinationDir) {
         try {
+            String filename = file.getName();
+
             FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + destinationDir + filename);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
 
-            FileInputStream is = new FileInputStream(Environment.getExternalStorageDirectory() + sourceDir + filename);
+            FileInputStream is = new FileInputStream(file);
             InputStreamReader reader = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(reader);
 
-            String fileContent = "";
+            String fileContent;
             StringBuilder fileContentBuilder = new StringBuilder();
 
             while ((fileContent = br.readLine()) != null) {
@@ -60,8 +61,7 @@ public class WriteilySingleton {
             fos.close();
 
             // Delete old file
-            File oldFile = new File(Environment.getExternalStorageDirectory() + sourceDir + filename);
-            oldFile.delete();
+            file.delete();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -69,12 +69,12 @@ public class WriteilySingleton {
         }
     }
 
-    public void moveSelectedNotes(ListView notesListView, NotesAdapter notesAdapter, String source, String destination) {
+    public void moveSelectedNotes(ListView notesListView, NotesAdapter notesAdapter, String destination) {
         SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
         for (int i = 0; i < checkedIndices.size(); i++) {
             if (checkedIndices.valueAt(i)) {
-                File note = notesAdapter.getItem(checkedIndices.keyAt(i));
-                moveFile(note.getName(), source, destination);
+                File file = notesAdapter.getItem(checkedIndices.keyAt(i));
+                moveFile(file, destination);
             }
         }
     }
