@@ -70,10 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ImportActivity"
-            android:label="@string/import_from_device">
-        </activity>
     </application>
 
 </manifest>

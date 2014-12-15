@@ -1,11 +1,16 @@
 package me.writeily.writeilypro.model;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import me.writeily.writeilypro.adapter.NotesAdapter;
+import me.writeily.writeilypro.R;
+import me.writeily.writeilypro.adapter.FilesAdapter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -69,32 +74,14 @@ public class WriteilySingleton {
         }
     }
 
-    public void moveSelectedNotes(ListView notesListView, NotesAdapter notesAdapter, String destination) {
+    public void moveSelectedNotes(ListView notesListView, FilesAdapter filesAdapter, String destination) {
         SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
         for (int i = 0; i < checkedIndices.size(); i++) {
             if (checkedIndices.valueAt(i)) {
-                File file = notesAdapter.getItem(checkedIndices.keyAt(i));
+                File file = filesAdapter.getItem(checkedIndices.keyAt(i));
                 moveFile(file, destination);
             }
         }
-    }
-
-    /**
-     * Recursively add all .txt files from the specified directory
-     * @param dir the directory to add files from
-     */
-    public ArrayList<File> addTextFilesFromDirectory(File dir, ArrayList<File> notes) {
-        for (File f : dir.listFiles()) {
-
-            Log.d("Adding text file:", f.getAbsolutePath());
-
-            if (f.getName().endsWith(Constants.TXT_EXT)) {
-                notes.add(f);
-            } else if (f.isDirectory() && !f.getAbsolutePath().contains("archived")) {
-                addTextFilesFromDirectory(f, notes);
-            }
-        }
-        return notes;
     }
 
     /**
