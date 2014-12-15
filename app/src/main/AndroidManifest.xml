@@ -59,7 +59,6 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:theme="@style/AppTheme.Light"
             android:parentActivityName=".MainActivity">
         </activity>
 

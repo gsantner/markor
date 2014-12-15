@@ -2,6 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/import_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -32,6 +33,7 @@
         android:text="@string/navigate_up_folder"
         android:textSize="16sp"
         android:textColor="@color/dark_grey"
+        android:textAllCaps="false"
         android:background="@color/lighter_grey" />
     <ListView
         android:id="@+id/notes_listview"

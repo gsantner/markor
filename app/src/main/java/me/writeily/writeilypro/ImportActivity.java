@@ -2,6 +2,7 @@ package me.writeily.writeilypro;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +36,8 @@ public class ImportActivity extends ActionBarActivity {
     private File previousDir;
     private Button previousDirButton;
     private Toolbar toolbar;
+    private View activityLayout;
+    private ImageView fileIdentifierImageView;
 
     public ImportActivity() {
         super();
@@ -43,12 +47,15 @@ public class ImportActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_import);
 
+        activityLayout = findViewById(R.id.import_activity_layout);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        fileIdentifierImageView = (ImageView) findViewById(R.id.file_identifier_icon);
         emptyFolderTextView = (TextView) findViewById(R.id.empty_hint);
 
         if (files== null) {
@@ -68,6 +75,8 @@ public class ImportActivity extends ActionBarActivity {
 
         File dir = new File(Environment.getExternalStorageDirectory().getPath());
         listFilesInDirectory(dir);
+
+        setupAppearancePreferences();
 
         super.onCreate(savedInstanceState);
     }
@@ -97,6 +106,20 @@ public class ImportActivity extends ActionBarActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void setupAppearancePreferences() {
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+
+        if (!theme.equals("")) {
+            if (theme.equals(getString(R.string.theme_dark))) {
+                activityLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+                previousDirButton.setBackgroundColor(getResources().getColor(R.color.grey));
+            } else {
+                activityLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
+                previousDirButton.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
+            }
         }
     }
 
