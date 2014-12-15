@@ -161,6 +161,7 @@ public class NoteActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
+                overridePendingTransition(R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
                 return true;
             case R.id.action_share:
                 showShareDialog();

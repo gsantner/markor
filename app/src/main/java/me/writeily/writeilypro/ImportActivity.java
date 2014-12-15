@@ -50,7 +50,6 @@ public class ImportActivity extends ActionBarActivity {
         }
 
         emptyFolderTextView = (TextView) findViewById(R.id.empty_hint);
-        emptyFolderTextView.setText(getString(R.string.empty_directory));
 
         if (files== null) {
             files = new ArrayList<File>();
@@ -69,7 +68,6 @@ public class ImportActivity extends ActionBarActivity {
 
         File dir = new File(Environment.getExternalStorageDirectory().getPath());
         listFilesInDirectory(dir);
-        checkIfDirectoryEmpty();
 
         super.onCreate(savedInstanceState);
     }
@@ -95,7 +93,7 @@ public class ImportActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
-                overridePendingTransition(R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
+                overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_out_down);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -119,12 +117,13 @@ public class ImportActivity extends ActionBarActivity {
         }
 
         checkHidePreviousDirButton();
+        checkIfDirectoryEmpty();
     }
 
     private void checkIfDirectoryEmpty() {
-        if (files.isEmpty()) {
+        if (files == null || files.isEmpty()) {
             emptyFolderTextView.setVisibility(View.VISIBLE);
-            emptyFolderTextView.setText(getString(R.string.empty_notes_list_hint));
+            emptyFolderTextView.setText(getString(R.string.empty_directory));
         } else {
             emptyFolderTextView.setVisibility(View.INVISIBLE);
         }

@@ -36,7 +36,6 @@ public class MainActivity extends ActionBarActivity {
     private NotesFragment notesFragment;
     private ArchivesFragment archivesFragment;
     private StarredFragment starredFragment;
-    private ImportActivity importActivity;
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -114,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
         notesFragment = new NotesFragment();
         archivesFragment = new ArchivesFragment();
         starredFragment = new StarredFragment();
-        importActivity = new ImportActivity();
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
@@ -298,6 +296,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void showImportActivity() {
         Intent importIntent = new Intent(this, ImportActivity.class);
+        overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_in_up);
         startActivity(importIntent);
     }
 
