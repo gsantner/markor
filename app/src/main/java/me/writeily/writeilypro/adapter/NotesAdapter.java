@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.writeily.writeilypro.R;
@@ -52,9 +53,10 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
 
         String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_theme_key), "");
 
-        View row = inflater.inflate(R.layout.note_item, viewGroup, false);
+        View row = inflater.inflate(R.layout.file_item, viewGroup, false);
         TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
+        ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm");
 
@@ -64,8 +66,19 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
         if (!theme.equals("")) {
             if (theme.equals(context.getString(R.string.theme_dark))) {
                 noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
+                if (getItem(i).isDirectory()) {
+                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
+                } else {
+                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
+                }
             } else {
                 noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
+
+                if (getItem(i).isDirectory()) {
+                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+                } else {
+                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
+                }
             }
         }
 
