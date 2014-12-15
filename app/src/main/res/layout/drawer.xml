@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <FrameLayout
@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             android:choiceMode="singleChoice"
             android:layout_gravity="start"
-            android:divider="@null"
-            android:background="@android:color/white" />
+            android:divider="@null" />
     </LinearLayout>
 </RelativeLayout>
