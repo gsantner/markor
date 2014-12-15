@@ -276,10 +276,10 @@ public class MainActivity extends ActionBarActivity {
         if (!theme.equals("")) {
             if (theme.equals(getString(R.string.theme_dark))) {
                 frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-                drawerListView.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+                drawerView.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             } else {
                 frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
-                drawerListView.setBackgroundColor(getResources().getColor(android.R.color.white));
+                drawerView.setBackgroundColor(getResources().getColor(android.R.color.white));
             }
 
             drawerAdapter.notifyDataSetChanged();
