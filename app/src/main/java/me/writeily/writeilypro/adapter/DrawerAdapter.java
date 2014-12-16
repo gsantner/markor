@@ -54,10 +54,6 @@ public class DrawerAdapter extends BaseAdapter {
 
             if (getItem(i).equalsIgnoreCase(context.getString(R.string.notes))) {
                 drawerIcon.setImageResource(R.drawable.ic_notes_light);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.archive))) {
-                drawerIcon.setImageResource(R.drawable.ic_trash_light);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.starred))) {
-                drawerIcon.setImageResource(R.drawable.ic_star_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
                 drawerIcon.setImageResource(R.drawable.ic_folder_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {
@@ -69,10 +65,6 @@ public class DrawerAdapter extends BaseAdapter {
 
             if (getItem(i).equalsIgnoreCase(context.getString(R.string.notes))) {
                 drawerIcon.setImageResource(R.drawable.ic_notes);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.archive))) {
-                drawerIcon.setImageResource(R.drawable.ic_trash);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.starred))) {
-                drawerIcon.setImageResource(R.drawable.ic_star);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
                 drawerIcon.setImageResource(R.drawable.ic_folder);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {

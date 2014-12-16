@@ -3,8 +3,10 @@ package me.writeily.writeilypro.model;
 import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.View;
 import android.widget.ListView;
 
+import me.writeily.writeilypro.R;
 import me.writeily.writeilypro.adapter.NotesAdapter;
 
 import java.io.BufferedReader;
@@ -80,32 +82,25 @@ public class WriteilySingleton {
     }
 
     /**
-     * Recursively add all .txt files from the specified directory
-     * @param dir the directory to add files from
+     * Hide the header when getting to the external dir so the app doesn't show too much.
      */
-    public ArrayList<File> addTextFilesFromDirectory(File dir, ArrayList<File> notes) {
-        for (File f : dir.listFiles()) {
+    public boolean isRootDir(File previousDir, File compareDir) {
+        return (previousDir == null || previousDir.getPath().equalsIgnoreCase(compareDir.getAbsolutePath()));
+    }
 
-            Log.d("Adding text file:", f.getAbsolutePath());
-
-            if (f.getName().endsWith(Constants.TXT_EXT)) {
-                notes.add(f);
-            } else if (f.isDirectory() && !f.getAbsolutePath().contains("archived")) {
-                addTextFilesFromDirectory(f, notes);
-            }
-        }
-        return notes;
+    public boolean isDirectoryEmpty(ArrayList<File> files) {
+        return (files == null || files.isEmpty());
     }
 
     /**
      * Recursively add all files from the specified directory
      * @param dir the directory to add files from
      */
-    public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> notes) {
+    public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> files) {
         for (File f : dir.listFiles()) {
             Log.d("Adding file:", f.getAbsolutePath());
-            notes.add(f);
+            files.add(f);
         }
-        return notes;
+        return files;
     }
 }

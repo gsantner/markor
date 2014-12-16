@@ -36,8 +36,6 @@ public class MainActivity extends ActionBarActivity {
     private String[] drawerArrayList;
 
     private NotesFragment notesFragment;
-    private ArchivesFragment archivesFragment;
-    private StarredFragment starredFragment;
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -87,10 +85,6 @@ public class MainActivity extends ActionBarActivity {
             public void onDrawerClosed(View v) {
                 if (notesFragment.isVisible()) {
                     setToolbarTitle(getString(R.string.notes));
-                } else if (starredFragment.isVisible()) {
-                    setToolbarTitle(getString(R.string.starred));
-                } else if (archivesFragment.isVisible()) {
-                    setToolbarTitle(getString(R.string.archive));
                 }
 
                 invalidateOptionsMenu();
@@ -124,8 +118,6 @@ public class MainActivity extends ActionBarActivity {
 
         // Set up the fragments
         notesFragment = new NotesFragment();
-        archivesFragment = new ArchivesFragment();
-        starredFragment = new StarredFragment();
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
@@ -202,10 +194,6 @@ public class MainActivity extends ActionBarActivity {
                     if (query != null) {
                         if (notesFragment.isVisible())
                             notesFragment.search(query);
-                        else if (archivesFragment.isVisible())
-                            archivesFragment.search(query);
-                        else if (starredFragment.isVisible())
-                            starredFragment.search(query);
                     }
                     return false;
                 }
@@ -218,18 +206,6 @@ public class MainActivity extends ActionBarActivity {
                                 notesFragment.clearSearchFilter();
                             } else {
                                 notesFragment.search(newText);
-                            }
-                        } else if (archivesFragment.isVisible()) {
-                            if (newText.equalsIgnoreCase("")) {
-                                archivesFragment.clearSearchFilter();
-                            } else {
-                                archivesFragment.search(newText);
-                            }
-                        } else if (starredFragment.isVisible()) {
-                            if (newText.equalsIgnoreCase("")) {
-                                starredFragment.clearSearchFilter();
-                            } else {
-                                starredFragment.search(newText);
                             }
                         }
                     }
@@ -342,18 +318,8 @@ public class MainActivity extends ActionBarActivity {
                     setToolbarTitle(getString(R.string.notes));
                 }
             } else if (i == 1) {
-                if (!starredFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, starredFragment).commit();
-                    setToolbarTitle(getString(R.string.starred));
-                }
-            } else if (i == 2) {
-                if (!archivesFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, archivesFragment).commit();
-                    setToolbarTitle(getString(R.string.archive));
-                }
-            } else if (i == 3) {
                 showImportActivity();
-            } else if (i == 4) {
+            } else if (i == 2) {
                 showSettings();
             }
 

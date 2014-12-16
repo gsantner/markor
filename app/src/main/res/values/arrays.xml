@@ -2,8 +2,6 @@
 <resources>
     <string-array name="drawer_array">
         <item>@string/notes</item>
-        <item>@string/starred</item>
-        <item>@string/archive</item>
         <item>@string/import_from_device</item>
         <item>@string/action_settings</item>
     </string-array>

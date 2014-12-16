@@ -33,11 +33,11 @@ public class ImportActivity extends ActionBarActivity {
     private ArrayList<File> files;
     private FileAdapter filesAdapter;
 
+    private File rootDir;
     private File previousDir;
     private Button previousDirButton;
     private Toolbar toolbar;
     private View activityLayout;
-    private ImageView fileIdentifierImageView;
 
     public ImportActivity() {
         super();
@@ -55,7 +55,6 @@ public class ImportActivity extends ActionBarActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        fileIdentifierImageView = (ImageView) findViewById(R.id.file_identifier_icon);
         emptyFolderTextView = (TextView) findViewById(R.id.empty_hint);
 
         if (files== null) {
@@ -73,9 +72,6 @@ public class ImportActivity extends ActionBarActivity {
         previousDirButton = (Button) findViewById(R.id.import_header_btn);
         previousDirButton.setOnClickListener(new PreviousDirClickListener());
 
-        File dir = new File(Environment.getExternalStorageDirectory().getPath());
-        listFilesInDirectory(dir);
-
         setupAppearancePreferences();
 
         super.onCreate(savedInstanceState);
@@ -83,8 +79,8 @@ public class ImportActivity extends ActionBarActivity {
 
     @Override
     public void onResume() {
-        File dir = new File(Environment.getExternalStorageDirectory().getPath());
-        listFilesInDirectory(dir);
+        rootDir = new File(Environment.getExternalStorageDirectory().getPath());
+        listFilesInDirectory(rootDir);
         super.onResume();
     }
 
@@ -139,30 +135,7 @@ public class ImportActivity extends ActionBarActivity {
             filesListView.setAdapter(filesAdapter);
         }
 
-        checkHidePreviousDirButton();
-        checkIfDirectoryEmpty();
-    }
-
-    private void checkIfDirectoryEmpty() {
-        if (files == null || files.isEmpty()) {
-            emptyFolderTextView.setVisibility(View.VISIBLE);
-            emptyFolderTextView.setText(getString(R.string.empty_directory));
-        } else {
-            emptyFolderTextView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    /**
-     * Hide the header when getting to the external dir so the app doesn't show too much.
-     */
-    private void checkHidePreviousDirButton() {
-        File compareRootDir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (previousDir == null || previousDir.getPath().equalsIgnoreCase(compareRootDir.getAbsolutePath())) {
-            previousDirButton.setVisibility(View.GONE);
-            previousDir = null;
-        } else {
-            previousDirButton.setVisibility(View.VISIBLE);
-        }
+        checkDirectoryStatus();
     }
 
     private void goToPreviousDir() {
@@ -171,6 +144,25 @@ public class ImportActivity extends ActionBarActivity {
         }
 
         listFilesInDirectory(previousDir);
+    }
+
+    private void checkDirectoryStatus() {
+        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
+
+        if (writeilySingleton.isRootDir(previousDir, rootDir)) {
+            previousDirButton.setVisibility(View.GONE);
+            previousDir = null;
+        } else {
+            previousDirButton.setVisibility(View.VISIBLE);
+        }
+
+        // Check if dir is empty
+        if (writeilySingleton.isDirectoryEmpty(files)) {
+            emptyFolderTextView.setVisibility(View.VISIBLE);
+            emptyFolderTextView.setText(getString(R.string.empty_directory));
+        } else {
+            emptyFolderTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
