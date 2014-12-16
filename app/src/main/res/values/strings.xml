@@ -45,6 +45,7 @@
     <string name="attribution_string">
         Writeily uses the following libraries:\n\n
 
+        FloatingActionButton by BaseLab\n
         CommonsWare AndDown 0.2.0\n\n
 
         All libraries used are licensed under the Apache License v2.0 \n
