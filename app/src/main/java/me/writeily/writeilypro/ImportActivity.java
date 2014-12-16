@@ -79,12 +79,6 @@ public class ImportActivity extends ActionBarActivity {
     }
 
     @Override
-    public void finish() {
-        Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
-        super.finish();
-    }
-
-    @Override
     public void onResume() {
         rootDir = new File(Environment.getExternalStorageDirectory().getPath());
         listFilesInDirectory(rootDir);
@@ -172,6 +166,10 @@ public class ImportActivity extends ActionBarActivity {
         }
     }
 
+    private void showImportConfirmation() {
+        Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
+    }
+
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -192,6 +190,7 @@ public class ImportActivity extends ActionBarActivity {
                 // TODO multiple import files
                 case R.id.context_menu_import:
                     WriteilySingleton.getInstance().copySelectedNotes(filesListView, filesAdapter, Constants.NOTES_FOLDER);
+                    showImportConfirmation();
                     mode.finish();
                     finish();
                     return true;
@@ -233,7 +232,8 @@ public class ImportActivity extends ActionBarActivity {
                 listFilesInDirectory(file);
             } else {
                 WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-                writeilySingleton.moveFile(file, Constants.NOTES_FOLDER);
+                writeilySingleton.copyFile(file, Constants.NOTES_FOLDER);
+                showImportConfirmation();
                 finish();
             }
         }
