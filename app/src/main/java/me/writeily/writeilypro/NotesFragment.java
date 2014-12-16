@@ -37,7 +37,7 @@ public class NotesFragment extends Fragment {
     private Button previousDirButton;
 
     private File rootDir;
-    private File previousDir;
+    private File currentDir;
 
     private WriteilySingleton writeilySingleton;
 
@@ -94,6 +94,10 @@ public class NotesFragment extends Fragment {
         }
     }
 
+    public void listFilesInDirectory() {
+        listFilesInDirectory(new File(getCurrentDir()));
+    }
+
     private void listFilesInDirectory(File directory) {
         files = new ArrayList<File>();
 
@@ -114,17 +118,17 @@ public class NotesFragment extends Fragment {
     }
 
     private void goToPreviousDir() {
-        if (previousDir != null) {
-            previousDir = previousDir.getParentFile();
+        if (currentDir != null) {
+            currentDir = currentDir.getParentFile();
         }
 
-        listFilesInDirectory(previousDir);
+        listFilesInDirectory(currentDir);
     }
 
     private void checkDirectoryStatus() {
-        if (writeilySingleton.isRootDir(previousDir, rootDir)) {
+        if (writeilySingleton.isRootDir(currentDir, rootDir)) {
             previousDirButton.setVisibility(View.GONE);
-            previousDir = null;
+            currentDir = null;
         } else {
             previousDirButton.setVisibility(View.VISIBLE);
         }
@@ -156,6 +160,14 @@ public class NotesFragment extends Fragment {
 
     public void clearItemSelection() {
         filesAdapter.notifyDataSetChanged();
+    }
+
+    public String getCurrentDir() {
+        return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
+    }
+
+    public String getRootDir() {
+        return rootDir.getAbsolutePath();
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
@@ -219,7 +231,7 @@ public class NotesFragment extends Fragment {
 
             // Refresh list if directory, else import
             if (file.isDirectory()) {
-                previousDir = file;
+                currentDir = file;
                 listFilesInDirectory(file);
             } else {
                 File note = filesAdapter.getItem(i);

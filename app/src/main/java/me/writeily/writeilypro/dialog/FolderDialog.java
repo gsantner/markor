@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import me.writeily.writeilypro.R;
 import me.writeily.writeilypro.model.Constants;
@@ -20,6 +21,7 @@ import me.writeily.writeilypro.model.Constants;
 public class FolderDialog extends DialogFragment {
 
     private EditText folderNameEditText;
+    private String currentDir;
 
     public FolderDialog() {
     }
@@ -27,7 +29,7 @@ public class FolderDialog extends DialogFragment {
     public void sendBroadcast(String name) {
         Intent broadcast = new Intent();
         broadcast.setAction(Constants.FOLDER_DIALOG_TAG);
-        broadcast.putExtra(Constants.FOLDER_NAME, name);
+        broadcast.putExtra(Constants.FOLDER_NAME, currentDir + "/" + name);
         getActivity().sendBroadcast(broadcast);
     }
 
@@ -36,6 +38,7 @@ public class FolderDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dialogView = inflater.inflate(R.layout.folder_dialog, null);
+        currentDir = getArguments().getString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, "");
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getResources().getString(R.string.create_folder));
@@ -45,6 +48,7 @@ public class FolderDialog extends DialogFragment {
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Broadcast result to MainActivity
+                        sendBroadcast(folderNameEditText.getText().toString());
                     }
                 });
 

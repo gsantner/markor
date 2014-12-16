@@ -22,6 +22,7 @@ public class Constants {
     public static final String SET_PIN_ACTION = "set_pin";
     public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";
     public static final String FOLDER_NAME = "folder_name";
+    public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
     public static String NOTE_KEY = "note_key";
     public static final int SET_PIN_REQUEST_CODE = 3;
 

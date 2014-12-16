@@ -2,7 +2,10 @@ package me.writeily.writeilypro;
 
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
@@ -146,7 +149,13 @@ public class MainActivity extends ActionBarActivity {
 
     private void showFolderNameDialog() {
         FragmentManager fragManager = getFragmentManager();
+
+        Bundle args = new Bundle();
+        String currentDir = notesFragment.getCurrentDir();
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, currentDir);
+
         FolderDialog folderDialog = new FolderDialog();
+        folderDialog.setArguments(args);
         folderDialog.show(fragManager, Constants.FOLDER_DIALOG_TAG);
     }
 
@@ -269,12 +278,17 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
+        IntentFilter ifilter = new IntentFilter();
+        ifilter.addAction(Constants.FOLDER_DIALOG_TAG);
+        registerReceiver(folderBroadcastReceiver, ifilter);
+
         super.onResume();
         setupAppearancePreferences();
     }
 
     @Override
     protected void onPause() {
+        unregisterReceiver(folderBroadcastReceiver);
         super.onPause();
     }
 
@@ -335,4 +349,15 @@ public class MainActivity extends ActionBarActivity {
             drawerLayout.closeDrawer(drawerView);
         }
     }
+
+    private BroadcastReceiver folderBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
+                createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
+                notesFragment.listFilesInDirectory();
+            }
+        }
+    };
 }
