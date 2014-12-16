@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
-    <string name="device_notes">Notes on device</string>
+    <string name="notes">Notes</string>
     <string name="archive">Archives</string>
     <string name="plus">+</string>
     <string name="new_note">New note</string>
@@ -27,6 +27,7 @@
     <string name="share_string">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
+    <string name="import_from_device">Import from device</string>
     <string name="preview">Preview</string>
     <string name="app_settings">App Settings</string>
     <string name="social">Social</string>
@@ -45,7 +46,6 @@
     <string name="attribution_string">
         Writeily uses the following libraries:\n\n
 
-        FloatingActionButton by BaseLab\n
         CommonsWare AndDown 0.2.0\n\n
 
         All libraries used are licensed under the Apache License v2.0 \n

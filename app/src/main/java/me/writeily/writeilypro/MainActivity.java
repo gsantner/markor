@@ -17,12 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
 import android.widget.RelativeLayout;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.writeily.writeilypro.adapter.DrawerAdapter;
 import me.writeily.writeilypro.model.Constants;
@@ -35,7 +33,9 @@ public class MainActivity extends ActionBarActivity {
 
     private String[] drawerArrayList;
 
-    private FilesFragment filesFragment;
+    private NotesFragment notesFragment;
+    private ArchivesFragment archivesFragment;
+    private StarredFragment starredFragment;
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -45,10 +45,7 @@ public class MainActivity extends ActionBarActivity {
     private DrawerAdapter drawerAdapter;
 
     private Toolbar toolbar;
-
-    private FloatingActionsMenu fabMenu;
-    private FloatingActionButton fabCreateNote;
-    private FloatingActionButton fabCreateFolder;
+    private Button fab;
 
     private View frameLayout;
 
@@ -83,8 +80,14 @@ public class MainActivity extends ActionBarActivity {
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
 
             public void onDrawerClosed(View v) {
-                if (filesFragment.isVisible())
-                    setToolbarTitle(getString(R.string.device_notes));
+                if (notesFragment.isVisible()) {
+                    setToolbarTitle(getString(R.string.notes));
+                } else if (starredFragment.isVisible()) {
+                    setToolbarTitle(getString(R.string.starred));
+                } else if (archivesFragment.isVisible()) {
+                    setToolbarTitle(getString(R.string.archive));
+                }
+
                 invalidateOptionsMenu();
             }
 
@@ -96,49 +99,31 @@ public class MainActivity extends ActionBarActivity {
 
         drawerLayout.setDrawerListener(drawerToggle);
 
-        fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
-        fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
-        fabCreateFolder = (FloatingActionButton) findViewById(R.id.create_folder);
-
-        fabCreateNote.setOnClickListener(new View.OnClickListener() {
+        fab = (Button) findViewById(R.id.new_note_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNote();
-            }
-        });
-
-        fabCreateFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFolder();
+                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
             }
         });
 
         // Set up the fragments
-        filesFragment = new FilesFragment();
+        notesFragment = new NotesFragment();
+        archivesFragment = new ArchivesFragment();
+        starredFragment = new StarredFragment();
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.frame, filesFragment)
+                .replace(R.id.frame, notesFragment)
                 .commit();
 
-        setToolbarTitle(getString(R.string.device_notes));
+        setToolbarTitle(getString(R.string.notes));
         initFolders();
 
         super.onCreate(savedInstanceState);
-    }
-
-    private void createNote() {
-        Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
-        fabMenu.collapse();
-    }
-
-    private void createFolder() {
-        // TODO
-        fabMenu.collapse();
     }
 
     /**
@@ -191,8 +176,12 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     if (query != null) {
-                        if (filesFragment.isVisible())
-                            filesFragment.search(query);
+                        if (notesFragment.isVisible())
+                            notesFragment.search(query);
+                        else if (archivesFragment.isVisible())
+                            archivesFragment.search(query);
+                        else if (starredFragment.isVisible())
+                            starredFragment.search(query);
                     }
                     return false;
                 }
@@ -200,11 +189,23 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (newText != null) {
-                        if (filesFragment.isVisible()) {
+                        if (notesFragment.isVisible()) {
                             if (newText.equalsIgnoreCase("")) {
-                                filesFragment.clearSearchFilter();
+                                notesFragment.clearSearchFilter();
                             } else {
-                                filesFragment.search(newText);
+                                notesFragment.search(newText);
+                            }
+                        } else if (archivesFragment.isVisible()) {
+                            if (newText.equalsIgnoreCase("")) {
+                                archivesFragment.clearSearchFilter();
+                            } else {
+                                archivesFragment.search(newText);
+                            }
+                        } else if (starredFragment.isVisible()) {
+                            if (newText.equalsIgnoreCase("")) {
+                                starredFragment.clearSearchFilter();
+                            } else {
+                                starredFragment.search(newText);
                             }
                         }
                     }
@@ -293,6 +294,12 @@ public class MainActivity extends ActionBarActivity {
         startActivity(settingsIntent);
     }
 
+    private void showImportActivity() {
+        Intent importIntent = new Intent(this, ImportActivity.class);
+        overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_in_up);
+        startActivity(importIntent);
+    }
+
     /**
      * Set the ActionBar title to @title.
      */
@@ -306,11 +313,23 @@ public class MainActivity extends ActionBarActivity {
             FragmentManager fm = getFragmentManager();
 
             if (i == 0) {
-                if (!filesFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, filesFragment).commit();
-                    setToolbarTitle(getString(R.string.device_notes));
+                if (!notesFragment.isVisible()) {
+                    fm.beginTransaction().replace(R.id.frame, notesFragment).commit();
+                    setToolbarTitle(getString(R.string.notes));
                 }
             } else if (i == 1) {
+                if (!starredFragment.isVisible()) {
+                    fm.beginTransaction().replace(R.id.frame, starredFragment).commit();
+                    setToolbarTitle(getString(R.string.starred));
+                }
+            } else if (i == 2) {
+                if (!archivesFragment.isVisible()) {
+                    fm.beginTransaction().replace(R.id.frame, archivesFragment).commit();
+                    setToolbarTitle(getString(R.string.archive));
+                }
+            } else if (i == 3) {
+                showImportActivity();
+            } else if (i == 4) {
                 showSettings();
             }
 

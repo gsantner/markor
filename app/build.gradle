@@ -24,5 +24,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/android-support-v7-recyclerview.jar')
-    compile 'com.getbase:floatingactionbutton:1.3.0'
 }

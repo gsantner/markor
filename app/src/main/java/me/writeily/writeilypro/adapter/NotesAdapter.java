@@ -20,13 +20,13 @@ import java.util.ArrayList;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class FilesAdapter extends BaseAdapter implements Filterable {
+public class NotesAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
     private ArrayList<File> data;
     private ArrayList<File> filteredData;
 
-    public FilesAdapter(Context context, ArrayList<File> content) {
+    public NotesAdapter(Context context, ArrayList<File> content) {
         this.context = context;
         this.data = content;
         this.filteredData = data;

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="drawer_array">
-        <item>@string/device_notes</item>
+        <item>@string/notes</item>
+        <item>@string/starred</item>
+        <item>@string/archive</item>
+        <item>@string/import_from_device</item>
         <item>@string/action_settings</item>
     </string-array>
 

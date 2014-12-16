@@ -52,12 +52,14 @@ public class DrawerAdapter extends BaseAdapter {
         if (theme.equals(context.getString(R.string.theme_dark))) {
             drawerTitle.setTextColor(context.getResources().getColor(android.R.color.white));
 
-            if (getItem(i).equalsIgnoreCase(context.getString(R.string.device_notes))) {
+            if (getItem(i).equalsIgnoreCase(context.getString(R.string.notes))) {
                 drawerIcon.setImageResource(R.drawable.ic_notes_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.archive))) {
                 drawerIcon.setImageResource(R.drawable.ic_trash_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.starred))) {
                 drawerIcon.setImageResource(R.drawable.ic_star_light);
+            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
+                drawerIcon.setImageResource(R.drawable.ic_folder_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {
                 drawerIcon.setImageResource(R.drawable.ic_settings_light);
             }
@@ -65,12 +67,14 @@ public class DrawerAdapter extends BaseAdapter {
         } else {
             drawerTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
-            if (getItem(i).equalsIgnoreCase(context.getString(R.string.device_notes))) {
+            if (getItem(i).equalsIgnoreCase(context.getString(R.string.notes))) {
                 drawerIcon.setImageResource(R.drawable.ic_notes);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.archive))) {
                 drawerIcon.setImageResource(R.drawable.ic_trash);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.starred))) {
                 drawerIcon.setImageResource(R.drawable.ic_star);
+            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
+                drawerIcon.setImageResource(R.drawable.ic_folder);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {
                 drawerIcon.setImageResource(R.drawable.ic_settings);
             }

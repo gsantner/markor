@@ -10,7 +10,7 @@
     android:minHeight="56dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/file_background">
+    android:background="@drawable/note_background">
 
     <ImageView
         android:id="@+id/file_identifier_icon"
