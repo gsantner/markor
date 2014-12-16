@@ -61,7 +61,12 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm");
 
         noteTitle.setText(getItem(i).getName());
-        noteExtra.setText("Last modified: " + formatter.format(getItem(i).lastModified()));
+
+        if (!getItem(i).isDirectory()) {
+            noteExtra.setText("Last modified: " + formatter.format(getItem(i).lastModified()));
+        } else {
+            noteExtra.setText("Number of files: " + ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length));
+        }
 
         if (!theme.equals("")) {
             if (theme.equals(context.getString(R.string.theme_dark))) {

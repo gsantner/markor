@@ -25,6 +25,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.writeily.writeilypro.adapter.DrawerAdapter;
+import me.writeily.writeilypro.dialog.FolderDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.settings.SettingsActivity;
 
@@ -139,7 +140,14 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void createFolder() {
+        showFolderNameDialog();
         fabMenu.collapse();
+    }
+
+    private void showFolderNameDialog() {
+        FragmentManager fragManager = getFragmentManager();
+        FolderDialog folderDialog = new FolderDialog();
+        folderDialog.show(fragManager, Constants.FOLDER_DIALOG_TAG);
     }
 
     /**

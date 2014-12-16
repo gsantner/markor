@@ -4,6 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import me.writeily.writeilypro.R;
@@ -71,11 +72,11 @@ public class WriteilySingleton {
         }
     }
 
-    public void moveSelectedNotes(ListView notesListView, NotesAdapter notesAdapter, String destination) {
+    public void moveSelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {
         SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
         for (int i = 0; i < checkedIndices.size(); i++) {
             if (checkedIndices.valueAt(i)) {
-                File file = notesAdapter.getItem(checkedIndices.keyAt(i));
+                File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
                 moveFile(file, destination);
             }
         }

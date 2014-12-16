@@ -15,11 +15,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import me.writeily.writeilypro.adapter.FileAdapter;
+import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
 
 /**
@@ -75,6 +77,12 @@ public class ImportActivity extends ActionBarActivity {
         setupAppearancePreferences();
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void finish() {
+        Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
+        super.finish();
     }
 
     @Override
@@ -184,8 +192,9 @@ public class ImportActivity extends ActionBarActivity {
             switch (item.getItemId()) {
                 // TODO multiple import files
                 case R.id.context_menu_import:
-//                    WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.NOTES_FOLDER, Constants.ARCHIVED_FOLDER);
-//                    mode.finish();
+                    WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.NOTES_FOLDER);
+                    mode.finish();
+                    finish();
                     return true;
                 default:
                     return false;
@@ -224,7 +233,9 @@ public class ImportActivity extends ActionBarActivity {
                 previousDir = file;
                 listFilesInDirectory(file);
             } else {
-                // TODO save file in writeily folder?
+                WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
+                writeilySingleton.moveFile(file, Constants.NOTES_FOLDER);
+                finish();
             }
         }
     }

@@ -20,6 +20,8 @@ public class Constants {
     public static final int MAX_TITLE_LENGTH = 25;
     public static final String USER_PIN_KEY = "user_pin";
     public static final String SET_PIN_ACTION = "set_pin";
+    public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";
+    public static final String FOLDER_NAME = "folder_name";
     public static String NOTE_KEY = "note_key";
     public static final int SET_PIN_REQUEST_CODE = 3;
 

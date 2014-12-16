@@ -6,10 +6,10 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green"
+    android:background="?attr/colorPrimary"
     android:minHeight="@dimen/abc_action_bar_default_height_material"
     android:elevation="3dp"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:theme="?attr/actionBarStyle"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
     <EditText
         android:id="@+id/edit_note_title"

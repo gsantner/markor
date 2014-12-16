@@ -78,5 +78,7 @@
     <string name="untitled">Untitled</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
+    <string name="folder_name_hint">Enter the name of your folder</string>
+    <string name="create_folder">Create Folder</string>
 
 </resources>
