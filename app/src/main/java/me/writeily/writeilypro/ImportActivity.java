@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -192,7 +191,7 @@ public class ImportActivity extends ActionBarActivity {
             switch (item.getItemId()) {
                 // TODO multiple import files
                 case R.id.context_menu_import:
-                    WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.NOTES_FOLDER);
+                    WriteilySingleton.getInstance().copySelectedNotes(filesListView, filesAdapter, Constants.NOTES_FOLDER);
                     mode.finish();
                     finish();
                     return true;

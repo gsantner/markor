@@ -3,12 +3,8 @@ package me.writeily.writeilypro.model;
 import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-
-import me.writeily.writeilypro.R;
-import me.writeily.writeilypro.adapter.NotesAdapter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +35,7 @@ public class WriteilySingleton {
         return writeilySingletonInstnce;
     }
 
-    public void moveFile(File file, String destinationDir) {
+    public void copyFile(File file, String destinationDir) {
         try {
             String filename = file.getName();
 
@@ -62,14 +58,18 @@ public class WriteilySingleton {
 
             writer.close();
             fos.close();
-
-            // Delete old file
-            file.delete();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void moveFile(File file, String destinationDir) {
+        copyFile(file, destinationDir);
+
+        // Delete the old file after copying it over
+        file.delete();
     }
 
     public void moveSelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {
@@ -78,6 +78,16 @@ public class WriteilySingleton {
             if (checkedIndices.valueAt(i)) {
                 File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
                 moveFile(file, destination);
+            }
+        }
+    }
+
+    public void copySelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {
+        SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
+        for (int i = 0; i < checkedIndices.size(); i++) {
+            if (checkedIndices.valueAt(i)) {
+                File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
+                copyFile(file, destination);
             }
         }
     }
