@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
 import android.widget.RelativeLayout;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.writeily.writeilypro.adapter.DrawerAdapter;
 import me.writeily.writeilypro.model.Constants;
@@ -45,7 +47,10 @@ public class MainActivity extends ActionBarActivity {
     private DrawerAdapter drawerAdapter;
 
     private Toolbar toolbar;
-    private Button fab;
+
+    private FloatingActionsMenu fabMenu;
+    private FloatingActionButton fabCreateNote;
+    private FloatingActionButton fabCreateFolder;
 
     private View frameLayout;
 
@@ -99,13 +104,21 @@ public class MainActivity extends ActionBarActivity {
 
         drawerLayout.setDrawerListener(drawerToggle);
 
-        fab = (Button) findViewById(R.id.new_note_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
+        fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
+        fabCreateFolder = (FloatingActionButton) findViewById(R.id.create_folder);
+
+        fabCreateNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+                createNote();
+            }
+        });
+
+        fabCreateFolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFolder();
             }
         });
 
@@ -124,6 +137,17 @@ public class MainActivity extends ActionBarActivity {
         initFolders();
 
         super.onCreate(savedInstanceState);
+    }
+
+    private void createNote() {
+        Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+        fabMenu.collapse();
+    }
+
+    private void createFolder() {
+        fabMenu.collapse();
     }
 
     /**
