@@ -114,4 +114,18 @@ public class WriteilySingleton {
         }
         return files;
     }
+
+    /**
+     * Recursively add all files from the specified directory
+     * @param dir the directory to add files from
+     */
+    public ArrayList<File> addDirectories(File dir, ArrayList<File> files) {
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                Log.d("Adding directory:", f.getAbsolutePath());
+                files.add(f);
+            }
+        }
+        return files;
+    }
 }

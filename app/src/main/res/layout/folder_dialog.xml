@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:theme="@style/AppTheme.Light">
+    android:theme="@style/AppTheme">
     <EditText
         android:id="@+id/folder_name"
         android:hint="@string/folder_name_hint"

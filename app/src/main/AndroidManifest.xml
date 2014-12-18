@@ -59,7 +59,7 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:theme="@style/AppTheme.Light"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
         </activity>
 
@@ -69,10 +69,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".ImportActivity"
-            android:label="@string/import_from_device">
         </activity>
     </application>
 

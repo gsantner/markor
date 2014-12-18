@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:id="@+id/import_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-
-    <include android:id="@+id/toolbar" layout="@layout/toolbar" />
+    android:theme="@style/AppTheme">
 
     <TextView
         android:id="@+id/empty_hint"
@@ -23,7 +20,6 @@
         android:id="@+id/import_header_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:minHeight="56dp"
         android:gravity="center"
         android:paddingLeft="16dp"
@@ -40,7 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/import_header_btn"
-        android:choiceMode="multipleChoiceModal"
+        android:choiceMode="singleChoice"
+        android:listSelector="@color/light_green"
         android:layout_gravity="start"
         android:background="@android:color/transparent" />
+
 </RelativeLayout>

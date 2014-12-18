@@ -10,4 +10,8 @@
         android:title="@string/star"
         app:showAsAction="always" />
 
+    <item android:id="@+id/context_menu_move"
+        android:title="@string/move"
+        app:showAsAction="always" />
+
 </menu>

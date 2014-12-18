@@ -18,6 +18,18 @@
     <string name="wr_import">Import</string>
     <string name="unstar">Unstar</string>
 
+    <string name="incorrect_pin_text">Incorrect pin</string>
+    <string name="title">Title</string>
+    <string name="untitled">Untitled</string>
+    <string name="empty_directory">This directory is empty</string>
+    <string name="navigate_up_folder">Back to previous folder</string>
+    <string name="folder_name_hint">Enter the name of your folder</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="move">Move</string>
+
+    <string name="import_from_device">Import from device</string>
+    <string name="select_folder_move">Select folder</string>
+
     <string name="sync">Sync</string>
 
     <string name="empty_notes_list_hint">When you create a new note,\nthis is where it will show up</string>
@@ -27,7 +39,6 @@
     <string name="share_string">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
-    <string name="import_from_device">Import from device</string>
     <string name="preview">Preview</string>
     <string name="app_settings">App Settings</string>
     <string name="social">Social</string>
@@ -73,12 +84,5 @@
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
     <string name="pref_pin_key">pref_pin</string>
-    <string name="incorrect_pin_text">Incorrect pin</string>
-    <string name="title">Title</string>
-    <string name="untitled">Untitled</string>
-    <string name="empty_directory">This directory is empty</string>
-    <string name="navigate_up_folder">Back to previous folder</string>
-    <string name="folder_name_hint">Enter the name of your folder</string>
-    <string name="create_folder">Create Folder</string>
 
 </resources>

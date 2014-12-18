@@ -23,13 +23,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.writeily.writeilypro.adapter.DrawerAdapter;
+import me.writeily.writeilypro.dialog.FilesystemDialog;
 import me.writeily.writeilypro.dialog.FolderDialog;
 import me.writeily.writeilypro.model.Constants;
+import me.writeily.writeilypro.model.WriteilySingleton;
 import me.writeily.writeilypro.settings.SettingsActivity;
 
 import java.io.File;
@@ -133,6 +136,11 @@ public class MainActivity extends ActionBarActivity {
         initFolders();
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void createNote() {
@@ -316,10 +324,15 @@ public class MainActivity extends ActionBarActivity {
         startActivity(settingsIntent);
     }
 
-    private void showImportActivity() {
-        Intent importIntent = new Intent(this, ImportActivity.class);
-        overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_in_up);
-        startActivity(importIntent);
+    private void showImportDialog() {
+        FragmentManager fragManager = getFragmentManager();
+
+        Bundle args = new Bundle();
+        args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FILE_ACCESS_TYPE);
+
+        FilesystemDialog filesystemDialog = new FilesystemDialog();
+        filesystemDialog.setArguments(args);
+        filesystemDialog.show(fragManager, Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
     }
 
     /**
@@ -340,7 +353,7 @@ public class MainActivity extends ActionBarActivity {
                     setToolbarTitle(getString(R.string.notes));
                 }
             } else if (i == 1) {
-                showImportActivity();
+                showImportDialog();
             } else if (i == 2) {
                 showSettings();
             }
@@ -360,4 +373,25 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     };
+
+    private BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
+            if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
+                importFile(new File(fileName));
+                notesFragment.listFilesInDirectory();
+            } else {
+                // TODO this needs to be in notesfragment...
+            }
+        }
+    };
+
+    private void importFile(File file) {
+        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
+        writeilySingleton.copyFile(file, Constants.NOTES_FOLDER);
+        Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
+    }
+
 }

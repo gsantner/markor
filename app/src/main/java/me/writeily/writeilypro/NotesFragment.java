@@ -1,6 +1,8 @@
 package me.writeily.writeilypro;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import me.writeily.writeilypro.adapter.NotesAdapter;
+import me.writeily.writeilypro.dialog.FilesystemDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
 
@@ -81,8 +84,29 @@ public class NotesFragment extends Fragment {
     public void onResume() {
         writeilySingleton = WriteilySingleton.getInstance();
         listFilesInDirectory(rootDir);
-
         super.onResume();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.FILESYSTEM_ACTIVITY_FOLDER_REQUEST_CODE) {
+                String folderPath = data.getStringExtra(Constants.FILESYSTEM_FOLDER_PATH);
+                WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, folderPath);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void promptForDirectory() {
+        FragmentManager fragManager = getFragmentManager();
+
+        Bundle args = new Bundle();
+        args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
+
+        FilesystemDialog filesystemDialog = new FilesystemDialog();
+        filesystemDialog.setArguments(args);
+        filesystemDialog.show(fragManager, Constants.FILESYSTEM_MOVE_DIALOG_TAG);
     }
 
     private void checkIfDataEmpty() {
@@ -194,6 +218,10 @@ public class NotesFragment extends Fragment {
                     return true;
                 case R.id.context_menu_star:
                     WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.STARRED_FOLDER);
+                    mode.finish();
+                    return true;
+                case R.id.context_menu_move:
+                    promptForDirectory();
                     mode.finish();
                     return true;
                 default:
