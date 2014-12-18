@@ -12,12 +12,6 @@
 
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-
-        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
-    </style>
-
-    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
 </resources>
