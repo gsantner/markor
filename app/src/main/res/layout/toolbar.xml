@@ -6,8 +6,8 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
+    android:background="@color/primary"
     android:elevation="3dp"
     android:minHeight="@dimen/abc_action_bar_default_height_material"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:theme="@style/LightTextToolbarOverlay"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />

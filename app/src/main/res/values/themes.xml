@@ -3,15 +3,24 @@
     <style name="AppTheme" parent="AppTheme.Parent" />
 
     <style name="AppTheme.Parent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:actionModeBackground">@drawable/actionmode_background</item>
-        <item name="windowActionModeOverlay">true</item>
-
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/dark_green</item>
-        <item name="colorAccent">@color/orange</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/dark_primary</item>
+        <item name="colorAccent">@color/secondary</item>
 
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
+    <style name="LightTextToolbarOverlay" parent="Theme.AppCompat.Light">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:actionModeBackground">@color/dark_primary</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
 </resources>

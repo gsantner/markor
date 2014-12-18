@@ -8,12 +8,12 @@
     </item>
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/light_green" />
+            <solid android:color="@color/light_grey" />
         </shape>
     </item>
     <item android:state_activated="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/light_green" />
+            <solid android:color="@color/light_grey" />
         </shape>
     </item>
     <item android:state_selected="true">

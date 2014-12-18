@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green">
+    android:background="@color/primary">
 
     <include android:id="@+id/toolbar_nonelevated" layout="@layout/toolbar_nonelevated" />
 
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="128dp"
-        android:background="@color/green">
+        android:background="@color/primary">
 
         <TextView
             android:layout_width="match_parent"
