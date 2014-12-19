@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/context_menu_move"
+        android:icon="@drawable/ic_move"
+        android:title="@string/move"
+        app:showAsAction="always" />
+
     <item android:id="@+id/context_menu_archive"
         android:icon="@drawable/ic_archive_light"
         android:title="@string/archive"
         app:showAsAction="always" />
-
-    <item android:id="@+id/context_menu_move"
-        android:title="@string/move"
-        app:showAsAction="always" />
-
 </menu>

@@ -216,10 +216,6 @@ public class NotesFragment extends Fragment {
                     listFilesInDirectory(rootDir);
                     mode.finish();
                     return true;
-                case R.id.context_menu_star:
-                    WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.STARRED_FOLDER);
-                    mode.finish();
-                    return true;
                 case R.id.context_menu_move:
                     promptForDirectory();
                     mode.finish();
@@ -232,7 +228,6 @@ public class NotesFragment extends Fragment {
         @Override
         public void onDestroyActionMode(ActionMode mode) {
         }
-
 
         @Override
         public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
