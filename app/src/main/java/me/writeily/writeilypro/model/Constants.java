@@ -40,7 +40,6 @@ public class Constants {
     // ----- DEFAULT FOLDERS -----
     public static final String WRITEILY_FOLDER = "/writeily/";
     public static final String NOTES_FOLDER = "/writeily/notes/";
-    public static final String STARRED_FOLDER = "/writeily/starred/";
     public static final String ARCHIVED_FOLDER = "/writeily/archived/";
 
     // ----- REQUEST CODES -----

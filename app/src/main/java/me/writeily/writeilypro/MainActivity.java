@@ -177,11 +177,9 @@ public class MainActivity extends ActionBarActivity {
 
         if (writeilyFolderCreated) {
             File notesFolder = new File(Environment.getExternalStorageDirectory() + Constants.NOTES_FOLDER);
-            File starredFolder = new File(Environment.getExternalStorageDirectory() + Constants.STARRED_FOLDER);
             File archivedFolder = new File(Environment.getExternalStorageDirectory() + Constants.ARCHIVED_FOLDER);
 
             createFolder(notesFolder);
-            createFolder(starredFolder);
             createFolder(archivedFolder);
         }
     }
