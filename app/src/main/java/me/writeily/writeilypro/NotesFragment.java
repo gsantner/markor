@@ -211,8 +211,8 @@ public class NotesFragment extends Fragment {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.context_menu_archive:
-                    WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, Constants.ARCHIVED_FOLDER);
+                case R.id.context_menu_delete:
+                    WriteilySingleton.getInstance().deleteSelectedNotes(filesListView, filesAdapter);
                     listFilesInDirectory(rootDir);
                     mode.finish();
                     return true;

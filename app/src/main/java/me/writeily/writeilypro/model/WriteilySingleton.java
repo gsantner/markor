@@ -69,7 +69,21 @@ public class WriteilySingleton {
         copyFile(file, destinationDir);
 
         // Delete the old file after copying it over
-        file.delete();
+        deleteFile(file);
+    }
+
+    public boolean deleteFile(File file) {
+        return file.delete();
+    }
+
+    public void deleteSelectedNotes(ListView notesListView, BaseAdapter notesAdapter) {
+        SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
+        for (int i = 0; i < checkedIndices.size(); i++) {
+            if (checkedIndices.valueAt(i)) {
+                File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
+                deleteFile(file);
+            }
+        }
     }
 
     public void moveSelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {

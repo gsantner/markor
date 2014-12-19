@@ -145,6 +145,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void createNote() {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir());
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         fabMenu.collapse();
@@ -172,16 +173,7 @@ public class MainActivity extends ActionBarActivity {
      */
     private void initFolders() {
         File writeilyFolder = new File(Environment.getExternalStorageDirectory() + Constants.WRITEILY_FOLDER);
-
-        boolean writeilyFolderCreated = createFolder(writeilyFolder);
-
-        if (writeilyFolderCreated) {
-            File notesFolder = new File(Environment.getExternalStorageDirectory() + Constants.NOTES_FOLDER);
-            File archivedFolder = new File(Environment.getExternalStorageDirectory() + Constants.ARCHIVED_FOLDER);
-
-            createFolder(notesFolder);
-            createFolder(archivedFolder);
-        }
+        createFolder(writeilyFolder);
     }
 
     /**
@@ -388,7 +380,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void importFile(File file) {
         WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-        writeilySingleton.copyFile(file, Constants.NOTES_FOLDER);
+        writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
         Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
     }
 

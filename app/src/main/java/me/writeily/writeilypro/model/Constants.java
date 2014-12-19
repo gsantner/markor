@@ -39,8 +39,6 @@ public class Constants {
 
     // ----- DEFAULT FOLDERS -----
     public static final String WRITEILY_FOLDER = "/writeily/";
-    public static final String NOTES_FOLDER = "/writeily/notes/";
-    public static final String ARCHIVED_FOLDER = "/writeily/archived/";
 
     // ----- REQUEST CODES -----
     public static final int SET_PIN_REQUEST_CODE = 3;
@@ -55,4 +53,5 @@ public class Constants {
     public static final String MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#0099ff;text-decoration:underline;}}</style></head><body>";
     public static final String DARK_MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#ffffff;text-decoration:underline;}a:visited{color:#dddddd}}</style></head><body>";
     public static final String MD_HTML_SUFFIX = "</body></html>";
+    public static final String NOTE_SOURCE_DIR = "note_source_dir";
 }

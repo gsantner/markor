@@ -36,6 +36,7 @@ public class NoteActivity extends ActionBarActivity {
 
     private EditText noteTitle;
     private EditText content;
+    private String sourceDir;
 
     public NoteActivity() {
     }
@@ -65,6 +66,8 @@ public class NoteActivity extends ActionBarActivity {
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
 
         Intent receivingIntent = getIntent();
+        sourceDir = receivingIntent.getStringExtra(Constants.NOTE_SOURCE_DIR);
+
         String intentAction = receivingIntent.getAction();
         String type = receivingIntent.getType();
 
@@ -273,13 +276,13 @@ public class NoteActivity extends ActionBarActivity {
                     noteTitle.setText(noteTitle.getText().toString() + Constants.TXT_EXT);
                 }
 
-                note = new File(Environment.getExternalStorageDirectory() + "/writeily/notes/" + noteTitle.getText());
+                note = new File(sourceDir + "/" + noteTitle.getText());
             }
 
             // If we have to rename the file, do a delete and create
             if (!noteTitle.getText().toString().equals(note.getName())) {
                 note.delete();
-                note = new File(Environment.getExternalStorageDirectory() + "/writeily/notes/" + noteTitle.getText());
+                note = new File(sourceDir + noteTitle.getText());
             }
 
             FileOutputStream fos = new FileOutputStream(note);

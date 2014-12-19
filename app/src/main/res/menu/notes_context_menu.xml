@@ -4,9 +4,8 @@
         android:icon="@drawable/ic_move"
         android:title="@string/move"
         app:showAsAction="always" />
-
-    <item android:id="@+id/context_menu_archive"
-        android:icon="@drawable/ic_archive_light"
-        android:title="@string/archive"
+    <item android:id="@+id/context_menu_delete"
+        android:icon="@drawable/ic_trash_light"
+        android:title="@string/delete"
         app:showAsAction="always" />
 </menu>
