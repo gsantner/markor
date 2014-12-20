@@ -276,9 +276,14 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
-        IntentFilter ifilter = new IntentFilter();
-        ifilter.addAction(Constants.FOLDER_DIALOG_TAG);
-        registerReceiver(folderBroadcastReceiver, ifilter);
+        IntentFilter ifilterFolderDialog = new IntentFilter();
+        ifilterFolderDialog.addAction(Constants.FOLDER_DIALOG_TAG);
+        registerReceiver(folderBroadcastReceiver, ifilterFolderDialog);
+
+        IntentFilter ifilterFsDialog = new IntentFilter();
+        ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
+        ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
+        registerReceiver(folderBroadcastReceiver, ifilterFsDialog);
 
         super.onResume();
         setupAppearancePreferences();
@@ -287,6 +292,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         unregisterReceiver(folderBroadcastReceiver);
+        unregisterReceiver(fsBroadcastReceiver);
         super.onPause();
     }
 
@@ -373,7 +379,7 @@ public class MainActivity extends ActionBarActivity {
                 importFile(new File(fileName));
                 notesFragment.listFilesInDirectory();
             } else {
-                // TODO this needs to be in notesfragment...
+                // TODO move notes...
             }
         }
     };
@@ -381,7 +387,7 @@ public class MainActivity extends ActionBarActivity {
     private void importFile(File file) {
         WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
         writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
-        Toast.makeText(this, "Imported to the \"notes\" folder", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
     }
 
 }

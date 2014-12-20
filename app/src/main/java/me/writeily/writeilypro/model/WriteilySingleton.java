@@ -123,8 +123,10 @@ public class WriteilySingleton {
      */
     public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> files) {
         for (File f : dir.listFiles()) {
-            Log.d("Adding file:", f.getAbsolutePath());
-            files.add(f);
+            if (!f.getName().startsWith(".")) {
+                Log.d("Adding file:", f.getAbsolutePath());
+                files.add(f);
+            }
         }
         return files;
     }
