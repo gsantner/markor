@@ -1,6 +1,5 @@
 package me.writeily.writeilypro;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -19,13 +18,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import me.writeily.writeilypro.adapter.NotesAdapter;
 import me.writeily.writeilypro.dialog.FilesystemDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * Created by jeff on 2014-04-11.
@@ -35,6 +34,7 @@ public class NotesFragment extends Fragment {
     private Context context;
 
     private View layoutView;
+
     private ListView filesListView;
     private TextView hintTextView;
     private Button previousDirButton;
@@ -45,7 +45,10 @@ public class NotesFragment extends Fragment {
     private WriteilySingleton writeilySingleton;
 
     private ArrayList<File> files;
+
     private NotesAdapter filesAdapter;
+    private ActionMode actionMode;
+
 
     public NotesFragment() {
         super();
@@ -87,17 +90,6 @@ public class NotesFragment extends Fragment {
         super.onResume();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == Constants.FILESYSTEM_ACTIVITY_FOLDER_REQUEST_CODE) {
-                String folderPath = data.getStringExtra(Constants.FILESYSTEM_FOLDER_PATH);
-                WriteilySingleton.getInstance().moveSelectedNotes(filesListView, filesAdapter, folderPath);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void promptForDirectory() {
         FragmentManager fragManager = getFragmentManager();
 
@@ -118,9 +110,7 @@ public class NotesFragment extends Fragment {
         }
     }
 
-    public void listFilesInDirectory() {
-        listFilesInDirectory(new File(getCurrentDir()));
-    }
+    public void listFilesInCurrentDirectory() { listFilesInDirectory(new File(getCurrentDir())); }
 
     private void listFilesInDirectory(File directory) {
         files = new ArrayList<File>();
@@ -166,6 +156,26 @@ public class NotesFragment extends Fragment {
         }
     }
 
+    public String getCurrentDir() {
+        return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
+    }
+
+    public String getRootDir() {
+        return rootDir.getAbsolutePath();
+    }
+
+    public ListView getFilesListView() {
+        return filesListView;
+    }
+
+    public NotesAdapter getFilesAdapter() {
+        return filesAdapter;
+    }
+
+    public void finishActionMode() {
+        actionMode.finish();
+    }
+
     /** Search **/
     public void search(CharSequence query) {
         if (query.length() > 0) {
@@ -186,14 +196,6 @@ public class NotesFragment extends Fragment {
         filesAdapter.notifyDataSetChanged();
     }
 
-    public String getCurrentDir() {
-        return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
-    }
-
-    public String getRootDir() {
-        return rootDir.getAbsolutePath();
-    }
-
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -210,6 +212,7 @@ public class NotesFragment extends Fragment {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            actionMode = mode;
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
                     WriteilySingleton.getInstance().deleteSelectedNotes(filesListView, filesAdapter);
@@ -218,7 +221,6 @@ public class NotesFragment extends Fragment {
                     return true;
                 case R.id.context_menu_move:
                     promptForDirectory();
-                    mode.finish();
                     return true;
                 default:
                     return false;

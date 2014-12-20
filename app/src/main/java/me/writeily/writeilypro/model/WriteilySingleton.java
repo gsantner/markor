@@ -88,18 +88,20 @@ public class WriteilySingleton {
         }
     }
 
-    public void moveSelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {
-        SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
+    public void moveSelectedNotes(ListView filesListView, BaseAdapter filesAdapter, String destination) {
+        SparseBooleanArray checkedIndices = filesListView.getCheckedItemPositions();
+        Log.d("WOEIQWPOEIWJESUSCHRISTKEEPSOULKEEP", "checkedIndices Size: " + checkedIndices);
         for (int i = 0; i < checkedIndices.size(); i++) {
+            Log.d("WOEIQWPOEIWJESUSCHRISTKEEPSOULKEEP", "Index: " + i);
             if (checkedIndices.valueAt(i)) {
-                File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
+                File file = (File) filesAdapter.getItem(checkedIndices.keyAt(i));
+                Log.d("WOEIWPEOIKEEPSOULKEEPSOULKEEPSOULKEEPSOULK", file.getName());
                 moveFile(file, destination);
             }
         }
     }
 
-    public void copySelectedNotes(ListView notesListView, BaseAdapter notesAdapter, String destination) {
-        SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
+    public void copySelectedNotes(SparseBooleanArray checkedIndices, BaseAdapter notesAdapter, String destination) {
         for (int i = 0; i < checkedIndices.size(); i++) {
             if (checkedIndices.valueAt(i)) {
                 File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));

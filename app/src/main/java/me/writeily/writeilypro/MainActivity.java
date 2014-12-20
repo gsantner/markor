@@ -371,7 +371,7 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                notesFragment.listFilesInDirectory();
+                notesFragment.listFilesInCurrentDirectory();
             }
         }
     };
@@ -383,9 +383,11 @@ public class MainActivity extends ActionBarActivity {
             String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
-                notesFragment.listFilesInDirectory();
+                notesFragment.listFilesInCurrentDirectory();
             } else {
-
+                WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
+                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.finishActionMode();
             }
         }
     };
