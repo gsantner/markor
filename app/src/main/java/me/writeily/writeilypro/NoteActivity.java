@@ -276,7 +276,7 @@ public class NoteActivity extends ActionBarActivity {
                     noteTitle.setText(noteTitle.getText().toString() + Constants.TXT_EXT);
                 }
 
-                note = new File(sourceDir + "File.separator" + noteTitle.getText());
+                note = new File(sourceDir + File.separator + noteTitle.getText());
             }
 
             // If we have to rename the file, do a delete and create
