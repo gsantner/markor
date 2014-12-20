@@ -234,10 +234,6 @@ public class MainActivity extends ActionBarActivity {
                     if (!hasFocus) {
                         searchItem.collapseActionView();
                         searchView.setQuery("", false);
-                    } else {
-                        if (drawerLayout.isDrawerOpen(drawerListView)) {
-                            drawerLayout.closeDrawer(drawerListView);
-                        }
                     }
                 }
             });
