@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,9 +38,11 @@ public class WriteilySingleton {
 
     public void copyFile(File file, String destinationDir) {
         try {
+            Log.d("DGTETHETTDJEDETHNTEJESUSJRTR", "copying " + file.getName() + " to " + destinationDir);
             String filename = file.getName();
 
-            FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + destinationDir + filename);
+            File outputFile = new File(destinationDir + File.separator + filename);
+            FileOutputStream fos = new FileOutputStream(outputFile);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
 
             FileInputStream is = new FileInputStream(file);

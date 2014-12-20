@@ -283,7 +283,7 @@ public class MainActivity extends ActionBarActivity {
         IntentFilter ifilterFsDialog = new IntentFilter();
         ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
         ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
-        registerReceiver(folderBroadcastReceiver, ifilterFsDialog);
+        registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
 
         super.onResume();
         setupAppearancePreferences();
