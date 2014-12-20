@@ -38,7 +38,6 @@ public class WriteilySingleton {
 
     public void copyFile(File file, String destinationDir) {
         try {
-            Log.d("DGTETHETTDJEDETHNTEJESUSJRTR", "copying " + file.getName() + " to " + destinationDir);
             String filename = file.getName();
 
             File outputFile = new File(destinationDir + File.separator + filename);

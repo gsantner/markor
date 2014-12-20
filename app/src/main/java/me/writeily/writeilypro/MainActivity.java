@@ -331,6 +331,12 @@ public class MainActivity extends ActionBarActivity {
         filesystemDialog.show(fragManager, Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
     }
 
+    private void importFile(File file) {
+        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
+        writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
+        Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
+    }
+
     /**
      * Set the ActionBar title to @title.
      */
@@ -379,15 +385,9 @@ public class MainActivity extends ActionBarActivity {
                 importFile(new File(fileName));
                 notesFragment.listFilesInDirectory();
             } else {
-                // TODO move notes...
+
             }
         }
     };
-
-    private void importFile(File file) {
-        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-        writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
-        Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
-    }
 
 }
