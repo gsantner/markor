@@ -88,5 +88,6 @@
     <string name="pref_theme_key">pref_theme</string>
     <string name="pref_font_size_key">pref_font_size_key</string>
     <string name="pref_email_key">pref_email_key</string>
+    <string name="confirm_delete">Confirm Delete</string>
 
 </resources>

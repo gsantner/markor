@@ -82,6 +82,12 @@ public class WriteilySingleton {
     }
 
     public boolean deleteFile(File file) {
+        if (file.isDirectory()) {
+            for (File childFile : file.listFiles()) {
+                deleteFile(childFile);
+            }
+        }
+
         return file.delete();
     }
 

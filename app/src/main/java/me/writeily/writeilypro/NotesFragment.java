@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import me.writeily.writeilypro.adapter.NotesAdapter;
+import me.writeily.writeilypro.dialog.ConfirmDialog;
 import me.writeily.writeilypro.dialog.FilesystemDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
@@ -122,10 +123,15 @@ public class NotesFragment extends Fragment {
         if (isLastDirStored) {
             String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();
             pm.edit().putString(getString(R.string.pref_last_open_directory), saveDir).apply();
-
         }
 
         writeilySingleton.setNotesLastDirectory(currentDir);
+    }
+
+    private void confirmDelete() {
+        FragmentManager fragManager = getFragmentManager();
+        ConfirmDialog confirmDialog = new ConfirmDialog();
+        confirmDialog.show(fragManager, Constants.CONFIRM_DIALOG_TAG);
     }
 
     private void promptForDirectory() {
@@ -257,9 +263,7 @@ public class NotesFragment extends Fragment {
             actionMode = mode;
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
-                    WriteilySingleton.getInstance().deleteSelectedNotes(filesListView, filesAdapter);
-                    listFilesInDirectory(rootDir);
-                    mode.finish();
+                    confirmDelete();
                     return true;
                 case R.id.context_menu_move:
                     promptForDirectory();

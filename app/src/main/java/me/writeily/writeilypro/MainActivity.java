@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -16,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -281,6 +283,10 @@ public class MainActivity extends ActionBarActivity {
         ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
         registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
 
+        IntentFilter ifilterConfirmDialog = new IntentFilter();
+        ifilterConfirmDialog.addAction(Constants.CONFIRM_DIALOG_TAG);
+        registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
+
         super.onResume();
         setupAppearancePreferences();
     }
@@ -289,6 +295,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         unregisterReceiver(folderBroadcastReceiver);
         unregisterReceiver(fsBroadcastReceiver);
+        unregisterReceiver(confirmBroadcastReceiver);
         super.onPause();
     }
 
@@ -388,4 +395,16 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    private BroadcastReceiver confirmBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("WOEIWPEOIWEWOPIJESUS", "confirming stuff");
+            if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
+                WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
+                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.finishActionMode();
+            }
+        }
+    };
 }
