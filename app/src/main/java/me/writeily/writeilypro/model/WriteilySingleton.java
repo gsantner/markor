@@ -1,6 +1,5 @@
 package me.writeily.writeilypro.model;
 
-import android.os.Environment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.BaseAdapter;
@@ -8,7 +7,6 @@ import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,18 +20,27 @@ import java.util.ArrayList;
  */
 public class WriteilySingleton {
 
-    private static WriteilySingleton writeilySingletonInstnce = null;
+    private static WriteilySingleton writeilySingletonInstance = null;
+    private static File notesLastDirectory = null;
 
     private static void WriteilySingleton() {
 
     }
 
     public static WriteilySingleton getInstance() {
-        if (writeilySingletonInstnce == null) {
-            writeilySingletonInstnce = new WriteilySingleton();
+        if (writeilySingletonInstance == null) {
+            writeilySingletonInstance = new WriteilySingleton();
         }
 
-        return writeilySingletonInstnce;
+        return writeilySingletonInstance;
+    }
+
+    public File getNotesLastDirectory() {
+        return notesLastDirectory;
+    }
+
+    public void setNotesLastDirectory(File notesLastDirectory) {
+        WriteilySingleton.notesLastDirectory = notesLastDirectory;
     }
 
     public void copyFile(File file, String destinationDir) {
@@ -90,12 +97,9 @@ public class WriteilySingleton {
 
     public void moveSelectedNotes(ListView filesListView, BaseAdapter filesAdapter, String destination) {
         SparseBooleanArray checkedIndices = filesListView.getCheckedItemPositions();
-        Log.d("WOEIQWPOEIWJESUSCHRISTKEEPSOULKEEP", "checkedIndices Size: " + checkedIndices);
         for (int i = 0; i < checkedIndices.size(); i++) {
-            Log.d("WOEIQWPOEIWJESUSCHRISTKEEPSOULKEEP", "Index: " + i);
             if (checkedIndices.valueAt(i)) {
                 File file = (File) filesAdapter.getItem(checkedIndices.keyAt(i));
-                Log.d("WOEIWPEOIKEEPSOULKEEPSOULKEEPSOULKEEPSOULK", file.getName());
                 moveFile(file, destination);
             }
         }

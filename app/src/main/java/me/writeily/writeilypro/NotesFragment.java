@@ -4,8 +4,11 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -86,8 +89,47 @@ public class NotesFragment extends Fragment {
     @Override
     public void onResume() {
         writeilySingleton = WriteilySingleton.getInstance();
-        listFilesInDirectory(rootDir);
+        retrieveCurrentFolder();
+        listFilesInDirectory(currentDir);
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        saveCurrentFolder();
+        super.onPause();
+    }
+
+    private void retrieveCurrentFolder() {
+        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean isLastDirStored = pm.getBoolean(getString(R.string.pref_remember_directory_key), false);
+        if (isLastDirStored) {
+            String rememberedDir = pm.getString(getString(R.string.pref_last_open_directory), null);
+            currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
+        }
+
+        if (currentDir != null) {
+            Log.d("UGH", currentDir.getAbsolutePath());
+        }
+
+        // Two-fold check, in case user doesn't have the preference to remember directories enabled
+        // This code remembers last directory WITHIN the app (not leaving it)
+        if (currentDir == null) {
+            currentDir = (writeilySingleton.getNotesLastDirectory() != null) ? writeilySingleton.getNotesLastDirectory() : rootDir;
+        }
+    }
+
+    private void saveCurrentFolder() {
+        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean isLastDirStored = pm.getBoolean(getString(R.string.pref_remember_directory_key), false);
+
+        if (isLastDirStored) {
+            String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();
+            pm.edit().putString(getString(R.string.pref_last_open_directory), saveDir).apply();
+
+        }
+
+        writeilySingleton.setNotesLastDirectory(currentDir);
     }
 
     private void promptForDirectory() {
@@ -158,6 +200,10 @@ public class NotesFragment extends Fragment {
 
     public String getCurrentDir() {
         return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
+    }
+
+    public void setCurrentDir(File dir) {
+        currentDir = dir;
     }
 
     public String getRootDir() {

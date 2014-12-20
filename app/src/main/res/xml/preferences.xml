@@ -28,6 +28,11 @@
             android:defaultValue="@string/theme_light" />
 
         <CheckBoxPreference
+            android:key="@string/pref_remember_directory_key"
+            android:title="@string/pref_remember_directory"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="@string/pref_pin_key"
             android:title="@string/pref_pin"
             android:defaultValue="false" />
