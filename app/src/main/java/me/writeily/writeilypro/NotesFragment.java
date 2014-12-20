@@ -108,10 +108,6 @@ public class NotesFragment extends Fragment {
             currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
         }
 
-        if (currentDir != null) {
-            Log.d("UGH", currentDir.getAbsolutePath());
-        }
-
         // Two-fold check, in case user doesn't have the preference to remember directories enabled
         // This code remembers last directory WITHIN the app (not leaving it)
         if (currentDir == null) {
