@@ -6,6 +6,7 @@
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
     <string name="notes">Notes</string>
+    <string name="dbx_notes">Dropbox Notes</string>
     <string name="archive">Archives</string>
     <string name="plus">+</string>
     <string name="new_note">New note</string>
@@ -31,6 +32,11 @@
     <string name="select_folder_move">Select folder</string>
 
     <string name="sync">Sync</string>
+    <string name="sync_dropbox_required">Link your Dropbox account to Writeily to edit notes on the cloud</string>
+
+    <string name="sync_none">None</string>
+    <string name="sync_dropbox">Dropbox</string>
+    <string name="sync_drive">Google Drive</string>
 
     <string name="empty_notes_list_hint">When you create a new note,\nthis is where it will show up</string>
     <string name="empty_archives_hint">When you archive a note, \nthis is where it will show up</string>
@@ -89,5 +95,8 @@
     <string name="pref_font_size_key">pref_font_size_key</string>
     <string name="pref_email_key">pref_email_key</string>
     <string name="confirm_delete">Confirm Delete</string>
+    <string name="pref_sync_key">pref_sync_key</string>
+    <string name="pref_sync">Sync</string>
+    <string name="pref_sync_option">Sync Option</string>
 
 </resources>

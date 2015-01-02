@@ -38,6 +38,16 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/sync">
+        <ListPreference
+            android:key="@string/pref_sync_key"
+            android:title="@string/pref_sync"
+            android:dialogTitle="@string/pref_sync_option"
+            android:entries="@array/sync_array"
+            android:entryValues="@array/sync_array"
+            android:defaultValue="@string/sync_none" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/social">
         <Preference
             android:key="@string/pref_twitter_key"

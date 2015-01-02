@@ -4,8 +4,10 @@ package me.writeily.writeilypro.model;
  * Created by jeff on 2014-04-11.
  */
 public class Constants {
+    public static final String DBX_KEY = "ongbyah1nq92h1f";
+    public static final String DBX_SECRET = "0e4t39aginwtp62";
+
     // ----- FILE EXTENSIONS -----
-    public static final String WRITEILY_EXT = ".writeily";
     public static final String TXT_EXT = ".txt";
     public static final String MD_EXT = ".md";
     public static final String MARKDOWN_EXT = ".markdown";
@@ -13,7 +15,7 @@ public class Constants {
 
     public static final String UTF_CHARSET = "utf-8";
 
-    public static final int MAX_TITLE_LENGTH = 25;
+    public static final int MAX_TITLE_LENGTH = 15;
     public static final String USER_PIN_KEY = "user_pin";
     public static final String SET_PIN_ACTION = "set_pin";
     public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";
@@ -22,10 +24,7 @@ public class Constants {
     public static final String FILESYSTEM_FILE_NAME = "filesystem_file_name";
 
     // ----- DIALOG TAGS -----
-    public static final String SHARE_DIALOG_TAG = "share_dialog_tag";
     public static final String SHARE_BROADCAST_TAG = "share_broadcast_tag";
-    public static final String BROADCAST_EXTRA = "broadcast_extra";
-    public static final String SHARE_TYPE_TAG = "share_type_tag";
     public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
     public static final String CONFIRM_DIALOG_TAG = "confirm_dialog_tag";
@@ -36,6 +35,7 @@ public class Constants {
     public static final String FILESYSTEM_FOLDER_ACCESS_TYPE = "FILESYSTEM_FOLDER_ACCESS_TYPE";
     public static final String FILESYSTEM_FILE_ACCESS_TYPE = "FILESYSTEM_FILE_ACCESS_TYPE";
     public static final String NOTE_KEY = "note_key";
+    public static final String DBX_NOTE_KEY = "dbx_note_key";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
 
     // ----- DEFAULT FOLDERS -----
@@ -44,6 +44,7 @@ public class Constants {
     // ----- REQUEST CODES -----
     public static final int SET_PIN_REQUEST_CODE = 3;
     public static final int FILESYSTEM_ACTIVITY_FOLDER_REQUEST_CODE = 2;
+    public static final int DBX_REQUEST_LINK_CODE = 2007;
 
     // ----- SHARE INT ENUMERATIONS -----
     public static final int SHARE_TXT_TYPE = 0;
