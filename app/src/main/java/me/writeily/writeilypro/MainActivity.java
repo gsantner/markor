@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -36,7 +35,7 @@ import me.writeily.writeilypro.dialog.FolderDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
 import me.writeily.writeilypro.settings.SettingsActivity;
-import me.writeily.writeilypro.sync.DropboxFragment;
+import me.writeily.writeilypro.dropbox.DropboxFragment;
 
 import java.io.File;
 

@@ -6,6 +6,7 @@ package me.writeily.writeilypro.model;
 public class Constants {
     public static final String DBX_KEY = "ongbyah1nq92h1f";
     public static final String DBX_SECRET = "0e4t39aginwtp62";
+    public static final String DBX_ROOT_DIR = "/";
 
     // ----- FILE EXTENSIONS -----
     public static final String TXT_EXT = ".txt";
@@ -38,6 +39,10 @@ public class Constants {
     public static final String DBX_NOTE_KEY = "dbx_note_key";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
 
+    public static final String DBX_NOTE_PATH = "dbx_note_path";
+    public static final String DBX_NOTE_CONTENT = "dbx_note_content";
+    public static final String DBX_NOTE_TITLE = "dbx_note_title";
+
     // ----- DEFAULT FOLDERS -----
     public static final String WRITEILY_FOLDER = "/writeily/";
 
@@ -46,15 +51,9 @@ public class Constants {
     public static final int FILESYSTEM_ACTIVITY_FOLDER_REQUEST_CODE = 2;
     public static final int DBX_REQUEST_LINK_CODE = 2007;
 
-    // ----- SHARE INT ENUMERATIONS -----
-    public static final int SHARE_TXT_TYPE = 0;
-    public static final int SHARE_HTML_TYPE = 1;
-
     // ----- HTML PREFIX AND SUFFIXES -----
-    public static final String UNSTYLED_HTML_PREFIX = "<html><body>";
     public static final String MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#0099ff;text-decoration:underline;}}</style></head><body>";
     public static final String DARK_MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#ffffff;text-decoration:underline;}a:visited{color:#dddddd}}</style></head><body>";
     public static final String MD_HTML_SUFFIX = "</body></html>";
     public static final String NOTE_SOURCE_DIR = "note_source_dir";
-    public static final String CONFIRM_RESPONSE = "confirm_response";
 }

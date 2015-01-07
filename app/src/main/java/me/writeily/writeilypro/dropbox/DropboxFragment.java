@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.sync;
+package me.writeily.writeilypro.dropbox;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -24,15 +24,12 @@ import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import me.writeily.writeilypro.NoteActivity;
 import me.writeily.writeilypro.R;
 import me.writeily.writeilypro.adapter.DropboxNotesAdapter;
-import me.writeily.writeilypro.adapter.NotesAdapter;
 import me.writeily.writeilypro.model.Constants;
-import me.writeily.writeilypro.model.WriteilySingleton;
 
 /**
  * Created by jeff on 14-12-20.
@@ -45,33 +42,30 @@ public class DropboxFragment extends Fragment {
     private TextView hintTextView;
     private Button previousDirButton;
 
-    private String rootDir;
     private DbxFileInfo currentDir;
 
-    private WriteilySingleton writeilySingleton;
+    private DropboxSingleton dropboxSingleton;
 
     private ArrayList<DbxFileInfo> dbxFiles;
 
     private DropboxNotesAdapter dbxFilesAdapter;
     private ActionMode actionMode;
 
-    private DbxAccountManager dbxAccountManager;
-    private DbxFileSystem dbxFilesystem;
-
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View layoutView = inflater.inflate(R.layout.files_list_fragment, container, false);
+
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
-        rootDir = "/";
+        dropboxSingleton = DropboxSingleton.getInstance();
 
         context = getActivity().getApplicationContext();
-        dbxAccountManager = DbxAccountManager.getInstance(context, Constants.DBX_KEY, Constants.DBX_SECRET);
+        dropboxSingleton.setDbxAccountManager(DbxAccountManager.getInstance(context, Constants.DBX_KEY, Constants.DBX_SECRET));
 
         hintTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dbxAccountManager.hasLinkedAccount()) {
-                    dbxAccountManager.startLink(getActivity(), Constants.DBX_REQUEST_LINK_CODE);
+                if (!dropboxSingleton.getDbxAccountManager().hasLinkedAccount()) {
+                    dropboxSingleton.getDbxAccountManager().startLink(getActivity(), Constants.DBX_REQUEST_LINK_CODE);
                 }
             }
         });
@@ -96,11 +90,11 @@ public class DropboxFragment extends Fragment {
         checkIfDataEmpty();
 
         try {
-            if (dbxAccountManager.hasLinkedAccount()) {
-                dbxFilesystem = DbxFileSystem.forAccount(dbxAccountManager.getLinkedAccount());
+            if (dropboxSingleton.getDbxAccountManager().hasLinkedAccount()) {
+                dropboxSingleton.setDbxFileSystem(DbxFileSystem.forAccount(dropboxSingleton.getDbxAccountManager().getLinkedAccount()));
                 hintTextView.setText(getString(R.string.empty_directory));
 
-                listDirectory(rootDir);
+                listDirectory(Constants.DBX_ROOT_DIR);
             } else {
                 hintTextView.setText(getString(R.string.sync_dropbox_required));
             }
@@ -113,6 +107,7 @@ public class DropboxFragment extends Fragment {
 
     @Override
     public void onResume() {
+        dropboxSingleton = DropboxSingleton.getInstance();
         super.onResume();
     }
 
@@ -126,7 +121,7 @@ public class DropboxFragment extends Fragment {
         DbxPath dbxPath = new DbxPath(dir);
 
         try {
-            for (DbxFileInfo f : dbxFilesystem.listFolder(dbxPath)) {
+            for (DbxFileInfo f : dropboxSingleton.getDbxFileSystem().listFolder(dbxPath)) {
                 if (!f.toString().startsWith(".")) {
                     dbxFiles.add(f);
                 }
@@ -144,7 +139,7 @@ public class DropboxFragment extends Fragment {
     }
 
     private void checkDirectoryStatus() {
-        if (currentDir != null && currentDir.toString().equalsIgnoreCase(rootDir)) {
+        if (currentDir != null && currentDir.toString().equalsIgnoreCase(Constants.DBX_ROOT_DIR)) {
             previousDirButton.setVisibility(View.GONE);
             currentDir = null;
         } else {
@@ -248,15 +243,31 @@ public class DropboxFragment extends Fragment {
             // Refresh list if directory, else import
             if (file.isFolder) {
                 currentDir = file;
-                listDirectory(rootDir);
+                listDirectory(Constants.DBX_ROOT_DIR);
             } else {
-                DbxFileInfo note = dbxFilesAdapter.getItem(i);
+                DbxFileInfo dbxFileInfo = dbxFilesAdapter.getItem(i);
+                DbxPath notePath = dbxFileInfo.path;
+                DbxFile note = null;
 
-                Intent intent = new Intent(context, NoteActivity.class);
-//                intent.putExtra(Constants.DBX_NOTE_KEY, note);
+                try {
+                    note = dropboxSingleton.getDbxFileSystem().open(notePath);
+                    String noteContent = note.readString();
 
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+                    Intent intent = new Intent(context, DropboxNoteActivity.class);
+                    intent.putExtra(Constants.DBX_NOTE_PATH, notePath.toString());
+                    intent.putExtra(Constants.DBX_NOTE_CONTENT, noteContent);
+
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+                } catch (DbxException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (note != null) {
+                        note.close();
+                    }
+                }
             }
         }
     }

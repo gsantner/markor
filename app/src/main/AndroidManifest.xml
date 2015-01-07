@@ -53,6 +53,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".dropbox.DropboxNoteActivity"
+            android:label="@string/sync_dropbox">
+        </activity>
+
         <activity android:name=".PreviewActivity"
             android:label="@string/preview">
         </activity>
