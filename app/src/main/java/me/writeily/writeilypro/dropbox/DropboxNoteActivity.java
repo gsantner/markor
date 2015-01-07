@@ -123,31 +123,6 @@ public class DropboxNoteActivity extends ActionBarActivity {
         super.onPause();
     }
 
-    private void setupAppearancePreferences() {
-        String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), "");
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-        String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), "");
-
-        if (!fontSize.equals("")) {
-            content.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(fontSize));
-        }
-
-        if (!fontType.equals("")) {
-            content.setTypeface(Typeface.create(fontType, Typeface.NORMAL));
-        }
-
-        if (!theme.equals("")) {
-            if (theme.equals(getString(R.string.theme_dark))) {
-                content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-                content.setTextColor(getResources().getColor(android.R.color.white));
-            } else {
-                content.setBackgroundColor(getResources().getColor(android.R.color.white));
-                content.setTextColor(getResources().getColor(R.color.dark_grey));
-            }
-        }
-    }
-
     private void previewNote() {
         saveNote();
         Intent intent = new Intent(this, PreviewActivity.class);
