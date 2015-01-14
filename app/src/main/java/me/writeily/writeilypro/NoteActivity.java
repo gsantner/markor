@@ -224,6 +224,7 @@ public class NoteActivity extends ActionBarActivity {
 
     private void previewNote() {
         saveNote();
+
         Intent intent = new Intent(this, PreviewActivity.class);
 
         // .replace is a workaround for Markdown lists requiring two \n characters
@@ -266,7 +267,7 @@ public class NoteActivity extends ActionBarActivity {
                         return;
                     }
 
-                    String snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
+                    String snippet = content.getText().toString().substring(0, 15).replace("[^\\w\\s]+", " ");
                     noteTitle.setText(snippet);
                 }
 

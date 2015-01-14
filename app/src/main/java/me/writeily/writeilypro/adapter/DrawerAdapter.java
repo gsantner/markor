@@ -56,8 +56,6 @@ public class DrawerAdapter extends BaseAdapter {
                 drawerIcon.setImageResource(R.drawable.ic_notes_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
                 drawerIcon.setImageResource(R.drawable.ic_folder_light);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.dbx_notes))) {
-                drawerIcon.setImageResource(R.drawable.ic_cloud_light);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {
                 drawerIcon.setImageResource(R.drawable.ic_settings_light);
             }
@@ -69,8 +67,6 @@ public class DrawerAdapter extends BaseAdapter {
                 drawerIcon.setImageResource(R.drawable.ic_notes);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.import_from_device))) {
                 drawerIcon.setImageResource(R.drawable.ic_folder);
-            } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.dbx_notes))) {
-                drawerIcon.setImageResource(R.drawable.ic_cloud);
             } else if (getItem(i).equalsIgnoreCase(context.getString(R.string.action_settings))) {
                 drawerIcon.setImageResource(R.drawable.ic_settings);
             }

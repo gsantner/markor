@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -35,7 +36,6 @@ import me.writeily.writeilypro.dialog.FolderDialog;
 import me.writeily.writeilypro.model.Constants;
 import me.writeily.writeilypro.model.WriteilySingleton;
 import me.writeily.writeilypro.settings.SettingsActivity;
-import me.writeily.writeilypro.dropbox.DropboxFragment;
 
 import java.io.File;
 
@@ -45,7 +45,6 @@ public class MainActivity extends ActionBarActivity {
     private String[] drawerArrayList;
 
     private NotesFragment notesFragment;
-    private DropboxFragment dropboxFragment;
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -95,8 +94,6 @@ public class MainActivity extends ActionBarActivity {
             public void onDrawerClosed(View v) {
                 if (notesFragment.isVisible()) {
                     setToolbarTitle(getString(R.string.notes));
-                } else if (dropboxFragment.isVisible()) {
-                    setToolbarTitle(getString(R.string.dbx_notes));
                 }
 
                 invalidateOptionsMenu();
@@ -130,7 +127,6 @@ public class MainActivity extends ActionBarActivity {
 
         // Set up the fragments
         notesFragment = new NotesFragment();
-        dropboxFragment = new DropboxFragment();
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
@@ -146,12 +142,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == Constants.DBX_REQUEST_LINK_CODE) {
-                // refresh dropbox fragment files list
-            }
-        }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -221,8 +211,6 @@ public class MainActivity extends ActionBarActivity {
                     if (query != null) {
                         if (notesFragment.isVisible())
                             notesFragment.search(query);
-                        else if (dropboxFragment.isVisible())
-                            dropboxFragment.search(query);
                     }
                     return false;
                 }
@@ -235,12 +223,6 @@ public class MainActivity extends ActionBarActivity {
                                 notesFragment.clearSearchFilter();
                             } else {
                                 notesFragment.search(newText);
-                            }
-                        } else if (dropboxFragment.isVisible()) {
-                            if (newText.equalsIgnoreCase("")) {
-                                dropboxFragment.clearSearchFilter();
-                            } else {
-                                dropboxFragment.search(newText);
                             }
                         }
                     }
@@ -376,13 +358,8 @@ public class MainActivity extends ActionBarActivity {
                     setToolbarTitle(getString(R.string.notes));
                 }
             } else if (i == 1) {
-                if (!dropboxFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, dropboxFragment).commit();
-                    setToolbarTitle(getString(R.string.dbx_notes));
-                }
-            } else if (i == 2) {
                 showImportDialog();
-            } else if (i == 3) {
+            } else if (i == 2) {
                 showSettings();
             }
 
