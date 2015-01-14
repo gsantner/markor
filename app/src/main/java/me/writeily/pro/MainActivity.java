@@ -1,4 +1,4 @@
-package me.writeily.writeilypro;
+package me.writeily.pro;
 
 import android.app.FragmentManager;
 import android.app.SearchManager;
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -30,12 +29,12 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import me.writeily.writeilypro.adapter.DrawerAdapter;
-import me.writeily.writeilypro.dialog.FilesystemDialog;
-import me.writeily.writeilypro.dialog.FolderDialog;
-import me.writeily.writeilypro.model.Constants;
-import me.writeily.writeilypro.model.WriteilySingleton;
-import me.writeily.writeilypro.settings.SettingsActivity;
+import me.writeily.pro.adapter.DrawerAdapter;
+import me.writeily.pro.dialog.FilesystemDialog;
+import me.writeily.pro.dialog.FolderDialog;
+import me.writeily.pro.model.Constants;
+import me.writeily.pro.model.WriteilySingleton;
+import me.writeily.pro.settings.SettingsActivity;
 
 import java.io.File;
 

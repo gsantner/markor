@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.dialog;
+package me.writeily.pro.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import me.writeily.writeilypro.R;
-import me.writeily.writeilypro.model.Constants;
+import me.writeily.pro.R;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.

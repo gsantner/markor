@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="me.writeily.pro.MainActivity"
             android:label="@string/app_name" >
         </activity>
 
-        <activity android:name=".NoteActivity"
+        <activity android:name="me.writeily.pro.NoteActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -52,18 +52,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PreviewActivity"
+        <activity android:name="me.writeily.pro.PreviewActivity"
             android:label="@string/preview">
         </activity>
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name="me.writeily.pro.settings.SettingsActivity"
             android:label="@string/action_settings"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="me.writeily.pro.MainActivity">
         </activity>
 
-        <activity android:name=".PinActivity"
+        <activity android:name="me.writeily.pro.PinActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

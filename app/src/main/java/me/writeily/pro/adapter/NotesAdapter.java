@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.adapter;
+package me.writeily.pro.adapter;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
@@ -11,7 +11,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.writeily.writeilypro.R;
+import me.writeily.pro.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

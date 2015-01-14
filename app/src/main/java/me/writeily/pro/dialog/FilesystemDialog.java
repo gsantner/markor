@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.dialog;
+package me.writeily.pro.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,10 +17,10 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
-import me.writeily.writeilypro.R;
-import me.writeily.writeilypro.adapter.FileAdapter;
-import me.writeily.writeilypro.model.Constants;
-import me.writeily.writeilypro.model.WriteilySingleton;
+import me.writeily.pro.R;
+import me.writeily.pro.adapter.FileAdapter;
+import me.writeily.pro.model.Constants;
+import me.writeily.pro.model.WriteilySingleton;
 
 /**
  * Created by jeff on 2014-04-11.

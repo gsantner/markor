@@ -1,4 +1,4 @@
-package me.writeily.writeilypro;
+package me.writeily.pro;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import me.writeily.writeilypro.model.Constants;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-08-20.

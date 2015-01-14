@@ -60,12 +60,12 @@
             <intent android:data="@string/writeily_url" android:action="android.intent.action.VIEW" />
         </Preference>
 
-        <me.writeily.writeilypro.dialog.AboutDialog
+        <me.writeily.pro.dialog.AboutDialog
             android:dialogMessage="@string/about_string"
             android:dialogTitle="@string/pref_about_dialog_title"
             android:title="@string/pref_about_dialog_title"/>
 
-        <me.writeily.writeilypro.dialog.AboutDialog
+        <me.writeily.pro.dialog.AboutDialog
             android:dialogMessage="@string/attribution_string"
             android:dialogTitle="@string/pref_attribution_dialog_title"
             android:title="@string/pref_attribution_dialog_title" />

@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.settings;
+package me.writeily.pro.settings;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,9 +10,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import me.writeily.writeilypro.PinActivity;
-import me.writeily.writeilypro.R;
-import me.writeily.writeilypro.model.Constants;
+import me.writeily.pro.PinActivity;
+import me.writeily.pro.R;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.

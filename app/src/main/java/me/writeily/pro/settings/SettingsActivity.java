@@ -1,11 +1,11 @@
-package me.writeily.writeilypro.settings;
+package me.writeily.pro.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import me.writeily.writeilypro.R;
+import me.writeily.pro.R;
 
 /**
  * Created by jeff on 2014-04-11.

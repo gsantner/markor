@@ -1,4 +1,4 @@
-package me.writeily.writeilypro;
+package me.writeily.pro;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import me.writeily.writeilypro.model.Constants;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.

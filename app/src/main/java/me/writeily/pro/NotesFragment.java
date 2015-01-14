@@ -1,4 +1,4 @@
-package me.writeily.writeilypro;
+package me.writeily.pro;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,11 +23,11 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
-import me.writeily.writeilypro.adapter.NotesAdapter;
-import me.writeily.writeilypro.dialog.ConfirmDialog;
-import me.writeily.writeilypro.dialog.FilesystemDialog;
-import me.writeily.writeilypro.model.Constants;
-import me.writeily.writeilypro.model.WriteilySingleton;
+import me.writeily.pro.adapter.NotesAdapter;
+import me.writeily.pro.dialog.ConfirmDialog;
+import me.writeily.pro.dialog.FilesystemDialog;
+import me.writeily.pro.model.Constants;
+import me.writeily.pro.model.WriteilySingleton;
 
 /**
  * Created by jeff on 2014-04-11.

@@ -1,4 +1,4 @@
-package me.writeily.writeilypro;
+package me.writeily.pro;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.commonsware.cwac.anddown.AndDown;
-import me.writeily.writeilypro.model.Constants;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-13.

@@ -1,10 +1,10 @@
-package me.writeily.writeilypro.dialog;
+package me.writeily.pro.dialog;
 
 import android.content.Context;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 
-import me.writeily.writeilypro.R;
+import me.writeily.pro.R;
 
 /**
  * Created by jeff on 2014-04-11.

@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.dialog;
+package me.writeily.pro.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,21 +6,9 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import me.writeily.writeilypro.R;
-import me.writeily.writeilypro.adapter.FileAdapter;
-import me.writeily.writeilypro.model.Constants;
-import me.writeily.writeilypro.model.WriteilySingleton;
+import me.writeily.pro.R;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.

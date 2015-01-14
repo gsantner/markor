@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.model;
+package me.writeily.pro.model;
 
 /**
  * Created by jeff on 2014-04-11.

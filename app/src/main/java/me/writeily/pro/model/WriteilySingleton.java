@@ -1,4 +1,4 @@
-package me.writeily.writeilypro.model;
+package me.writeily.pro.model;
 
 import android.util.Log;
 import android.util.SparseBooleanArray;
