@@ -19,14 +19,6 @@
             android:entryValues="@array/font_size_array"
             android:defaultValue="21" />
 
-        <ListPreference
-            android:key="@string/pref_theme_key"
-            android:title="@string/pref_theme"
-            android:dialogTitle="@string/pref_theme"
-            android:entries="@array/themes_array"
-            android:entryValues="@array/themes_array"
-            android:defaultValue="@string/theme_light" />
-
         <CheckBoxPreference
             android:key="@string/pref_remember_directory_key"
             android:title="@string/pref_remember_directory"

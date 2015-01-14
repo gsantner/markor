@@ -50,8 +50,6 @@ public class FileAdapter extends BaseAdapter implements Filterable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_theme_key), "");
-
         View row = inflater.inflate(R.layout.file_item, viewGroup, false);
         TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
@@ -60,25 +58,12 @@ public class FileAdapter extends BaseAdapter implements Filterable {
         noteTitle.setText(getItem(i).getName());
         noteExtra.setText(getItem(i).getAbsolutePath());
 
-        // Theme Adjustments
-        if (!theme.equals("")) {
-            if (theme.equals(context.getString(R.string.theme_dark))) {
-                noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
+        noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
-                if (getItem(i).isDirectory()) {
-                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
-                } else {
-                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
-                }
-            } else {
-                noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
-
-                if (getItem(i).isDirectory()) {
-                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
-                } else {
-                    fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
-                }
-            }
+        if (getItem(i).isDirectory()) {
+            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+        } else {
+            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
         }
 
         return row;

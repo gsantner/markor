@@ -287,7 +287,6 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
 
         super.onResume();
-        setupAppearancePreferences();
     }
 
     @Override
@@ -296,22 +295,6 @@ public class MainActivity extends ActionBarActivity {
         unregisterReceiver(fsBroadcastReceiver);
         unregisterReceiver(confirmBroadcastReceiver);
         super.onPause();
-    }
-
-    private void setupAppearancePreferences() {
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-        if (!theme.equals("")) {
-            if (theme.equals(getString(R.string.theme_dark))) {
-                frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-                drawerView.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            } else {
-                frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
-                drawerView.setBackgroundColor(getResources().getColor(android.R.color.white));
-            }
-
-            drawerAdapter.notifyDataSetChanged();
-        }
     }
 
     /**

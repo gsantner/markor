@@ -47,17 +47,7 @@ public class PreviewActivity extends ActionBarActivity {
     }
 
     private void renderMarkdown() {
-        String markdownHtml = "";
-
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-        if (!theme.equals("")) {
-            if (theme.equals(getString(R.string.theme_dark))) {
-                markdownHtml += Constants.DARK_MD_HTML_PREFIX;
-            } else {
-                markdownHtml += Constants.MD_HTML_PREFIX;
-            }
-        }
+        String markdownHtml = Constants.MD_HTML_PREFIX;
 
         AndDown andDown = new AndDown();
         markdownHtml += andDown.markdownToHtml(markdownRaw) + Constants.MD_HTML_SUFFIX;

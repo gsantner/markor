@@ -45,10 +45,6 @@ public class Constants {
     public static final int SET_PIN_REQUEST_CODE = 3;
     public static final int FILESYSTEM_ACTIVITY_FOLDER_REQUEST_CODE = 2;
 
-    // ----- SHARE INT ENUMERATIONS -----
-    public static final int SHARE_TXT_TYPE = 0;
-    public static final int SHARE_HTML_TYPE = 1;
-
     // ----- HTML PREFIX AND SUFFIXES -----
     public static final String UNSTYLED_HTML_PREFIX = "<html><body>";
     public static final String MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#0099ff;text-decoration:underline;}}</style></head><body>";
