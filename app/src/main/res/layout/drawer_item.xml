@@ -24,8 +24,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingLeft="32dp"
-        android:paddingStart="32dp"
-        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
         android:fontFamily="sans-serif-bold"
         android:textSize="14sp"
         android:textColor="@color/dark_grey" />

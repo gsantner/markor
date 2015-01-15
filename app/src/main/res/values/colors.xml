@@ -2,8 +2,8 @@
 <resources>
     <color name="grey">#ff727272</color>
     <color name="dark_grey">#ff212121</color>
-    <color name="light_grey">#B6B6B6</color>
-    <color name="lighter_grey">#ffEAEAEA</color>
+    <color name="light_grey">#ffC0C0C0</color>
+    <color name="lighter_grey">#ffE0E0E0</color>
 
     <color name="primary">#388E3C</color>
     <color name="light_primary">#81C784</color>
