@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,9 +79,7 @@ public class NoteActivity extends ActionBarActivity {
             note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
         }
 
-        if (note == null) {
-            note = null;
-        } else {
+        if (note != null) {
             content.setText(readNote());
             noteTitle.setText(note.getName());
         }
@@ -249,13 +248,13 @@ public class NoteActivity extends ActionBarActivity {
             // Creating a new note
             if (note == null) {
                 if (noteTitle == null || noteTitle.getText().length() == 0) {
-                    if (content.getText().length() == 0) {
+                    if (content.getText().toString().length() == 0) {
                         // If they didn't write anything at all, don't bother saving the file
                         return;
                     } else {
                         String snippet = "";
-                        if (content.getText().length() < Constants.MAX_TITLE_LENGTH) {
-                            snippet = content.getText().toString().substring(0, content.getText().length()).replace("[^\\w\\s]+", " ");
+                        if (content.getText().toString().length() < Constants.MAX_TITLE_LENGTH) {
+                            snippet = content.getText().toString().substring(0, content.getText().toString().length()).replace("[^\\w\\s]+", " ");
                         } else {
                             snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
                         }
@@ -264,17 +263,22 @@ public class NoteActivity extends ActionBarActivity {
                 }
 
                 // Ensure there's a .txt suffix
-                if (!noteTitle.getText().toString().endsWith(Constants.TXT_EXT)) {
+                if (!noteTitle.getText().toString().endsWith(Constants.TXT_EXT) &&
+                    !noteTitle.getText().toString().endsWith(Constants.MD_EXT) &&
+                    !noteTitle.getText().toString().endsWith(Constants.MARKDOWN_EXT) &&
+                    !noteTitle.getText().toString().endsWith(Constants.MDOWN_EXT)) {
+
+                    // Default to txt
                     noteTitle.setText(noteTitle.getText().toString() + Constants.TXT_EXT);
                 }
 
-                note = new File(sourceDir + File.separator + noteTitle.getText());
+                note = new File(sourceDir + File.separator + noteTitle.getText().toString());
             }
 
             // If we have to rename the file, do a delete and create
             if (!noteTitle.getText().toString().equals(note.getName())) {
                 note.delete();
-                note = new File(sourceDir + noteTitle.getText());
+                note = new File(sourceDir + File.separator + noteTitle.getText().toString());
             }
 
             FileOutputStream fos = new FileOutputStream(note);

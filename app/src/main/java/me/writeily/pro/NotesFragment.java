@@ -307,6 +307,7 @@ public class NotesFragment extends Fragment {
                 File note = filesAdapter.getItem(i);
 
                 Intent intent = new Intent(context, NoteActivity.class);
+                intent.putExtra(Constants.NOTE_SOURCE_DIR, getCurrentDir());
                 intent.putExtra(Constants.NOTE_KEY, note);
 
                 startActivity(intent);

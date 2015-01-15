@@ -5,7 +5,6 @@ package me.writeily.pro.model;
  */
 public class Constants {
     // ----- FILE EXTENSIONS -----
-    public static final String WRITEILY_EXT = ".writeily";
     public static final String TXT_EXT = ".txt";
     public static final String MD_EXT = ".md";
     public static final String MARKDOWN_EXT = ".markdown";
