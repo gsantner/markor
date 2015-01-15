@@ -13,7 +13,7 @@ public class Constants {
 
     public static final String UTF_CHARSET = "utf-8";
 
-    public static final int MAX_TITLE_LENGTH = 25;
+    public static final int MAX_TITLE_LENGTH = 20;
     public static final String USER_PIN_KEY = "user_pin";
     public static final String SET_PIN_ACTION = "set_pin";
     public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";

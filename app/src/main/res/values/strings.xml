@@ -17,7 +17,7 @@
     <string name="restore">Restore</string>
     <string name="wr_import">Import</string>
     <string name="unstar">Unstar</string>
-
+    <string name="confirm_delete">Confirm Delete</string>
     <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>
     <string name="untitled">Untitled</string>
@@ -86,6 +86,5 @@
     <string name="pref_theme_key">pref_theme</string>
     <string name="pref_font_size_key">pref_font_size_key</string>
     <string name="pref_email_key">pref_email_key</string>
-    <string name="confirm_delete">Confirm Delete</string>
 
 </resources>

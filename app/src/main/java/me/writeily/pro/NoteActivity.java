@@ -252,10 +252,15 @@ public class NoteActivity extends ActionBarActivity {
                     if (content.getText().length() == 0) {
                         // If they didn't write anything at all, don't bother saving the file
                         return;
+                    } else {
+                        String snippet = "";
+                        if (content.getText().length() < Constants.MAX_TITLE_LENGTH) {
+                            snippet = content.getText().toString().substring(0, content.getText().length()).replace("[^\\w\\s]+", " ");
+                        } else {
+                            snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
+                        }
+                        noteTitle.setText(snippet);
                     }
-
-                    String snippet = content.getText().toString().substring(0, 15).replace("[^\\w\\s]+", " ");
-                    noteTitle.setText(snippet);
                 }
 
                 // Ensure there's a .txt suffix
