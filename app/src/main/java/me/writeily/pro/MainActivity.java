@@ -9,14 +9,12 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -381,7 +379,6 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("WOEIWPEOIWEWOPIJESUS", "confirming stuff");
             if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
                 WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
                 notesFragment.listFilesInCurrentDirectory();
