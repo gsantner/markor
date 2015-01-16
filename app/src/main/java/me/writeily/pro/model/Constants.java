@@ -4,12 +4,6 @@ package me.writeily.pro.model;
  * Created by jeff on 2014-04-11.
  */
 public class Constants {
-    // ----- FILE EXTENSIONS -----
-    public static final String TXT_EXT = ".txt";
-    public static final String MD_EXT = ".md";
-    public static final String MARKDOWN_EXT = ".markdown";
-    public static final String MDOWN_EXT = ".mdown";
-
     public static final String UTF_CHARSET = "utf-8";
 
     public static final int MAX_TITLE_LENGTH = 20;

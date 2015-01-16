@@ -261,16 +261,6 @@ public class NoteActivity extends ActionBarActivity {
                     }
                 }
 
-                // Ensure there's a .txt suffix
-                if (!noteTitle.getText().toString().endsWith(Constants.TXT_EXT) &&
-                    !noteTitle.getText().toString().endsWith(Constants.MD_EXT) &&
-                    !noteTitle.getText().toString().endsWith(Constants.MARKDOWN_EXT) &&
-                    !noteTitle.getText().toString().endsWith(Constants.MDOWN_EXT)) {
-
-                    // Default to txt
-                    noteTitle.setText(noteTitle.getText().toString() + Constants.TXT_EXT);
-                }
-
                 note = new File(sourceDir + File.separator + noteTitle.getText().toString());
             }
 
