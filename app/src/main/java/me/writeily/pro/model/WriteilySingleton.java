@@ -43,6 +43,17 @@ public class WriteilySingleton {
         WriteilySingleton.notesLastDirectory = notesLastDirectory;
     }
 
+    public String copyDirectory(File dir, String destinationDir) {
+        String dirName = dir.getName();
+        File outputFile = new File(destinationDir + File.separator + dirName + File.separator);
+
+        if (!outputFile.exists()) {
+            outputFile.mkdir();
+        }
+
+        return outputFile.getAbsolutePath();
+    }
+
     public void copyFile(File file, String destinationDir) {
         try {
             String filename = file.getName();
@@ -75,10 +86,30 @@ public class WriteilySingleton {
     }
 
     public void moveFile(File file, String destinationDir) {
-        copyFile(file, destinationDir);
+        /* Rules:
+         * 1. Don't move a file to the same location, no point
+         * 2. Don't move a folder to itself
+         * 3. Don't move a folder into its children
+         */
 
-        // Delete the old file after copying it over
-        deleteFile(file);
+        if (destinationDir != null &&
+            !destinationDir.equalsIgnoreCase(file.getParentFile().getAbsolutePath()) &&
+            !destinationDir.startsWith(file.getAbsolutePath())) {
+
+            if (file.isDirectory()) {
+                String newDestinationDir = copyDirectory(file, destinationDir);
+
+                for (File dirFile : file.listFiles()) {
+                    moveFile(dirFile, newDestinationDir);
+                }
+            } else {
+                copyFile(file, destinationDir);
+            }
+
+            // Delete the old file after copying it over
+            deleteFile(file);
+
+        }
     }
 
     public boolean deleteFile(File file) {

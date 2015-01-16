@@ -66,20 +66,27 @@ public class FilesystemDialog extends DialogFragment {
         isMovingFile = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setView(dialogView);
 
         if (isMovingFile) {
             dialogBuilder.setTitle(getResources().getString(R.string.select_folder_move));
+
+            dialogBuilder.setPositiveButton("Move here", new
+                    DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendBroadcast(selectedPath);
+                        }
+                    });
         } else {
             dialogBuilder.setTitle(getResources().getString(R.string.import_from_device));
-        }
 
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setPositiveButton("Select", new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendBroadcast(selectedPath);
-                    }
-                });
+            dialogBuilder.setPositiveButton("Select", new
+                    DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendBroadcast(selectedPath);
+                        }
+                    });
+        }
 
         dialogBuilder.setNegativeButton("Cancel", new
                 DialogInterface.OnClickListener() {
@@ -191,13 +198,9 @@ public class FilesystemDialog extends DialogFragment {
 
             // Refresh list if directory, else import
             if (file.isDirectory()) {
-                if (!isMovingFile || (selectedPath != null && selectedPath.equalsIgnoreCase(file.getAbsolutePath()))) {
-                    currentDir = file;
-                    selectedPath = null;
-                    listFilesInDirectory(file);
-                } else {
-                    selectedPath = file.getAbsolutePath();
-                }
+                currentDir = file;
+                selectedPath = file.getAbsolutePath();
+                listFilesInDirectory(file);
             } else {
                 selectedPath = file.getAbsolutePath();
             }
