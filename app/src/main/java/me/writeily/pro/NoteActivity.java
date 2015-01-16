@@ -223,15 +223,6 @@ public class NoteActivity extends ActionBarActivity {
 
         String shareContent = content.getText().toString();
 
-//        if (type == Constants.SHARE_TXT_TYPE) {
-//            shareContent = content.getText().toString();
-//        } else if (type == Constants.SHARE_HTML_TYPE) {
-//            AndDown andDown = new AndDown();
-//            shareContent = Constants.UNSTYLED_HTML_PREFIX +
-//                           andDown.markdownToHtml(content.getText().toString()) +
-//                           Constants.MD_HTML_SUFFIX;
-//        }
-
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent);

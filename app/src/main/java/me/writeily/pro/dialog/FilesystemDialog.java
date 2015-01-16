@@ -117,10 +117,11 @@ public class FilesystemDialog extends DialogFragment {
 
     @Override
     public void onResume() {
-        rootDir = new File(Environment.getExternalStorageDirectory().getPath());
         if (isMovingFile) {
+            rootDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER);
             listDirectories(rootDir);
         } else {
+            rootDir = new File(Environment.getExternalStorageDirectory().getPath());
             listFilesInDirectory(rootDir);
         }
         super.onResume();
@@ -169,7 +170,11 @@ public class FilesystemDialog extends DialogFragment {
             currentDir = currentDir.getParentFile();
         }
 
-        listFilesInDirectory(currentDir);
+        if (isMovingFile) {
+            listDirectories(currentDir);
+        } else {
+            listFilesInDirectory(currentDir);
+        }
     }
 
     private void checkDirectoryStatus() {
