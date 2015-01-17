@@ -19,6 +19,9 @@
     </style>
 
     <style name="LightTextToolbarOverlay" parent="Theme.AppCompat">
+        <item name="android:actionModeBackground">@color/dark_primary</item>
+        <item name="actionModeBackground">@color/dark_primary</item>
+
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
