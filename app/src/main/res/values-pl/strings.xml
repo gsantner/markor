@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Writeily Pro</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="open_drawer">Otwórz listę aplikacji</string>
+    <string name="close_drawer">Zamknij listę aplikacji</string>
+    <string name="notes">Notatki</string>
+    <string name="archive">Archiwum</string>
+    <string name="plus">+</string>
+    <string name="new_note">Nowa notatka</string>
+    <string name="theme_light">Jasny</string>
+    <string name="theme_dark">Ciemny</string>
+    <string name="delete">Usuń</string>
+    <string name="star">Oznacz gwiazdką</string>
+    <string name="starred">Oznaczone gwiazdką</string>
+    <string name="restore">Przywróć</string>
+    <string name="wr_import">Wczytaj</string>
+    <string name="unstar">Usuń gwiazdkę</string>
+
+    <string name="incorrect_pin_text">Niewłaściwy kod PIN</string>
+    <string name="title">Tytuł</string>
+    <string name="untitled">Bez tytułu</string>
+    <string name="empty_directory">Ten katalog jest pusty</string>
+    <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
+    <string name="folder_name_hint">Wpisz nazwę folderu</string>
+    <string name="create_folder">Utwórz folder</string>
+    <string name="move">Przenieś</string>
+
+    <string name="import_from_device">Wczytaj z urządzenia</string>
+    <string name="select_folder_move">Wybierz folder</string>
+
+    <string name="empty_notes_list_hint">Gdy stworzysz nową notatkę,\nto pojawi się ona w tym miejscu</string>
+    <string name="empty_archives_hint">Gdy zarchiwizujesz notatkę,\nto pojawi się ona w tym miejscu</string>
+    <string name="empty_starred_hint">Gdy oznaczysz notatkę gwiazdką,\nto pojawi się ona w tym miejscu</string>
+    <string name="search_hint">Szukaj notatek</string>
+    <string name="share_string">Udostępnij...</string>
+    <string name="share">Udostępnij</string>
+    <string name="search">Szukaj</string>
+    <string name="preview">Podgląd</string>
+    <string name="app_settings">Ustawienia aplikacji</string>
+    <string name="social">Społecznościowe</string>
+    <string name="meta">Meta</string>
+
+    <string name="twitter_url">https://twitter.com/writeily</string>
+    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
+    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
+    <string name="email_header">Opinie o Writeily</string>
+
+    <string name="about_string">
+        Writeily Pro 1.1\n\n
+        Aplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)\n
+    </string>
+
+    <string name="attribution_string">
+      Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\n
+
+      Krizoman (Polish)\n\n
+
+      Writeily wykorzystuje następujące biblioteki:\n\n
+      CommonsWare AndDown 0.2.0\n\n
+      Wszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
+    </string>
+
+    <!-- Preferences -->
+    <string name="pref_remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
+    <string name="pref_font_choice">Czcionka edytora notatek</string>
+    <string name="pref_theme">Motyw</string>
+    <string name="pref_rate_writeily">Oceń Writeily w Google Play</string>
+    <string name="pref_about_dialog_title">O Writeily</string>
+    <string name="pref_attribution_dialog_title">Użyte biblioteki i podziękowania</string>
+    <string name="pref_twitter">Śledź Writeily na Twitterze</string>
+    <string name="pref_email">Wsparcie przez e-mail</string>
+    <string name="share_text">Tekst</string>
+    <string name="share_html">HTML</string>
+    <string name="share_as">Udostępnij jako...</string>
+    <string name="pref_font_size">Rozmiar czcionki</string>
+    <string name="pref_pin">Blokada kodem PIN</string>
+    <string name="pin_title">Wpisz swój kod PIN</string>
+    <string name="pin_go">Przejdź</string>
+    <string name="confirm_delete">Potwierdzaj usuwanie</string>
+
+
+</resources>
