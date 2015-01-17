@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/light_grey">
+            android:background="@color/lighter_grey">
         </LinearLayout>
     </HorizontalScrollView>
 

@@ -206,6 +206,10 @@ public class NoteActivity extends ActionBarActivity {
             Button shortcutButton = new Button(this);
             shortcutButton.setText(shortcut);
             shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+            shortcutButton.setTextSize(18);
+            shortcutButton.setTypeface(null, Typeface.BOLD);
+            shortcutButton.setTextColor(getResources().getColor(R.color.grey));
             shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
             shortcutButton.setOnClickListener(new KeyboardBarListener());
 
