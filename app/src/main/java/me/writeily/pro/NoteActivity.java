@@ -303,7 +303,7 @@ public class NoteActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             CharSequence shortcut = ((Button) v).getText();
-            content.append(shortcut);
+            content.getText().insert(content.getSelectionStart(), shortcut);
         }
     }
 }
