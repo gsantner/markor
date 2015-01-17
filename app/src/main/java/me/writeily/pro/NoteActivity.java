@@ -12,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,6 +39,7 @@ public class NoteActivity extends ActionBarActivity {
 
     private EditText noteTitle;
     private EditText content;
+    private ViewGroup keyboardBarView;
     private String sourceDir;
 
     public NoteActivity() {
@@ -63,6 +68,7 @@ public class NoteActivity extends ActionBarActivity {
         context = getApplicationContext();
         content = (EditText) findViewById(R.id.note_content);
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
+        keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
 
         Intent receivingIntent = getIntent();
         sourceDir = receivingIntent.getStringExtra(Constants.NOTE_SOURCE_DIR);
@@ -85,6 +91,7 @@ public class NoteActivity extends ActionBarActivity {
 
         // Set up the font and background activity_preferences
         setupAppearancePreferences();
+        setupKeyboardBar();
 
         super.onCreate(savedInstanceState);
     }
@@ -194,6 +201,18 @@ public class NoteActivity extends ActionBarActivity {
         super.onPause();
     }
 
+    private void setupKeyboardBar() {
+        for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
+            Button shortcutButton = new Button(this);
+            shortcutButton.setText(shortcut);
+            shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
+            shortcutButton.setOnClickListener(new KeyboardBarListener());
+
+            keyboardBarView.addView(shortcutButton);
+        }
+    }
+
     private void setupAppearancePreferences() {
         String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), "");
         String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), "");
@@ -273,6 +292,14 @@ public class NoteActivity extends ActionBarActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class KeyboardBarListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            CharSequence shortcut = ((Button) v).getText();
+            content.append(shortcut);
         }
     }
 }

@@ -4,6 +4,7 @@ package me.writeily.pro.model;
  * Created by jeff on 2014-04-11.
  */
 public class Constants {
+    public static final String[] KEYBOARD_SHORTCUTS = {"*", "-", "_", "#", "(", ")", "[", "]"};
     public static final String UTF_CHARSET = "utf-8";
 
     public static final int MAX_TITLE_LENGTH = 20;
