@@ -167,17 +167,25 @@ public class WriteilySingleton {
      * @param dir the directory to add files from
      */
     public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> files) {
+        ArrayList<File> addedFiles = new ArrayList<>();
+
         for (File f : dir.listFiles()) {
             if (!f.getName().startsWith(".")) {
-                Log.d("Adding file:", f.getAbsolutePath());
-                files.add(f);
+                if (f.isDirectory()) {
+                    files.add(f);
+                } else {
+                    addedFiles.add(f);
+                }
             }
         }
+
+        // Append addedFiles to files so directories appear first
+        files.addAll(addedFiles);
         return files;
     }
 
     /**
-     * Recursively add all files from the specified directory
+     * Recursively add all directories from the specified directory
      * @param dir the directory to add files from
      */
     public ArrayList<File> addDirectories(File dir, ArrayList<File> files) {
