@@ -9,12 +9,14 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -271,6 +273,8 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
+        setupAppearancePreferences();
+
         IntentFilter ifilterFolderDialog = new IntentFilter();
         ifilterFolderDialog.addAction(Constants.FOLDER_DIALOG_TAG);
         registerReceiver(folderBroadcastReceiver, ifilterFolderDialog);
@@ -294,6 +298,21 @@ public class MainActivity extends ActionBarActivity {
         unregisterReceiver(confirmBroadcastReceiver);
         super.onPause();
     }
+
+    private void setupAppearancePreferences() {
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            drawerView.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+        } else {
+            frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
+            drawerView.setBackgroundColor(getResources().getColor(android.R.color.white));
+        }
+
+        drawerAdapter.notifyDataSetChanged();
+    }
+
 
     /**
      * Show the SettingsFragment

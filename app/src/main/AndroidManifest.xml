@@ -59,7 +59,7 @@
         <activity
             android:name="me.writeily.pro.settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.Light"
             android:parentActivityName="me.writeily.pro.MainActivity">
         </activity>
 

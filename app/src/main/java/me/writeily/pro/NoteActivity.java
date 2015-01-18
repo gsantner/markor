@@ -89,10 +89,6 @@ public class NoteActivity extends ActionBarActivity {
             noteTitle.setText(note.getName());
         }
 
-        // Set up the font and background activity_preferences
-        setupAppearancePreferences();
-        setupKeyboardBar();
-
         super.onCreate(savedInstanceState);
     }
 
@@ -190,6 +186,10 @@ public class NoteActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
+        // Set up the font and background activity_preferences
+        setupKeyboardBar();
+        setupAppearancePreferences();
+
         IntentFilter ifilter = new IntentFilter();
         ifilter.addAction(Constants.SHARE_BROADCAST_TAG);
         super.onResume();
@@ -209,15 +209,23 @@ public class NoteActivity extends ActionBarActivity {
 
             shortcutButton.setTextSize(18);
             shortcutButton.setTypeface(null, Typeface.BOLD);
-            shortcutButton.setTextColor(getResources().getColor(R.color.grey));
             shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
             shortcutButton.setOnClickListener(new KeyboardBarListener());
+
+            String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+
+            if (theme.equals(getString(R.string.theme_dark))) {
+                shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
+            } else {
+                shortcutButton.setTextColor(getResources().getColor(R.color.grey));
+            }
 
             keyboardBarView.addView(shortcutButton);
         }
     }
 
     private void setupAppearancePreferences() {
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
         String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), "");
         String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), "");
 
@@ -227,6 +235,16 @@ public class NoteActivity extends ActionBarActivity {
 
         if (!fontType.equals("")) {
             content.setTypeface(Typeface.create(fontType, Typeface.NORMAL));
+        }
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            content.setTextColor(getResources().getColor(android.R.color.white));
+            keyboardBarView.setBackgroundColor(getResources().getColor(R.color.grey));
+        } else {
+            content.setBackgroundColor(getResources().getColor(android.R.color.white));
+            content.setTextColor(getResources().getColor(R.color.dark_grey));
+            keyboardBarView.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
     }
 

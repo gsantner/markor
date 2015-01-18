@@ -49,6 +49,7 @@ public class FileAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_theme_key), "");
 
         View row = inflater.inflate(R.layout.file_item, viewGroup, false);
         TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
@@ -58,12 +59,23 @@ public class FileAdapter extends BaseAdapter implements Filterable {
         noteTitle.setText(getItem(i).getName());
         noteExtra.setText(getItem(i).getAbsolutePath());
 
-        noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
+        // Theme Adjustments
+        if (theme.equals(context.getString(R.string.theme_dark))) {
+            noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
 
-        if (getItem(i).isDirectory()) {
-            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+            if (getItem(i).isDirectory()) {
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
+            } else {
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
+            }
         } else {
-            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
+            noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
+
+            if (getItem(i).isDirectory()) {
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+            } else {
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
+            }
         }
 
         return row;
