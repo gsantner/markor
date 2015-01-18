@@ -137,6 +137,7 @@ public class FilesystemDialog extends DialogFragment {
             workingDirectoryText.setVisibility(View.VISIBLE);
             rootDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER);
             listDirectories(rootDir);
+            currentDir = rootDir;
         } else {
             workingDirectoryText.setVisibility(View.GONE);
             rootDir = new File(Environment.getExternalStorageDirectory().getPath());

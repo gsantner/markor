@@ -110,6 +110,7 @@ public class NotesFragment extends Fragment {
             previousDirButton.setTextColor(getResources().getColor(R.color.lighter_grey));
         } else {
             previousDirButton.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
+            previousDirButton.setTextColor(getResources().getColor(R.color.dark_grey));
         }
 
     }

@@ -20,8 +20,11 @@
         android:id="@+id/working_directory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:minHeight="5dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="16dp"
         android:textColor="@android:color/white"
         android:textSize="15sp"/>
 
