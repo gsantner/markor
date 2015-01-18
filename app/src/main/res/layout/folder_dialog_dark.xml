@@ -13,6 +13,6 @@
         android:paddingTop="30dp"
         android:paddingBottom="8dp"
         android:textSize="16sp"
-        android:textColor="@color/dark_grey"
+        android:textColor="@android:color/white"
         android:textColorHint="@color/light_grey" />
 </LinearLayout>

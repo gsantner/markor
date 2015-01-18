@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +41,7 @@ public class FilesystemDialog extends DialogFragment {
 
     private boolean isMovingFile;
     private String selectedPath;
+    private TextView workingDirectoryText;
 
     public FilesystemDialog() {
         super();
@@ -62,11 +64,21 @@ public class FilesystemDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View dialogView = inflater.inflate(R.layout.filesystem_dialog, null);
+        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
 
         isMovingFile = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
 
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder dialogBuilder;
+        View dialogView;
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
+            dialogView = inflater.inflate(R.layout.filesystem_dialog_dark, null);
+        } else {
+            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
+            dialogView = inflater.inflate(R.layout.filesystem_dialog, null);
+        }
+
         dialogBuilder.setView(dialogView);
 
         if (isMovingFile) {
@@ -107,6 +119,7 @@ public class FilesystemDialog extends DialogFragment {
             files = new ArrayList<File>();
         }
 
+        workingDirectoryText = (TextView) dialog.findViewById(R.id.working_directory);
         filesListView = (ListView) dialog.findViewById(R.id.notes_listview);
         filesAdapter = new FileAdapter(getActivity().getApplicationContext(), files);
 
@@ -129,6 +142,8 @@ public class FilesystemDialog extends DialogFragment {
             rootDir = new File(Environment.getExternalStorageDirectory().getPath());
             listFilesInDirectory(rootDir);
         }
+
+        workingDirectoryText.setText("Current folder: " + rootDir.getPath());
         super.onResume();
     }
 
@@ -211,6 +226,8 @@ public class FilesystemDialog extends DialogFragment {
                 currentDir = file;
                 selectedPath = null;
                 listFilesInDirectory(file);
+
+                workingDirectoryText.setText("Current folder: " + currentDir.getPath());
             } else {
                 selectedPath = file.getAbsolutePath();
             }

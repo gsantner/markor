@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
 
 import me.writeily.pro.R;
 import me.writeily.pro.model.Constants;
@@ -27,7 +29,15 @@ public class ConfirmDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder dialogBuilder;
+        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
+        } else {
+            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
+        }
+
         dialogBuilder.setTitle(getResources().getString(R.string.confirm_delete));
 
         dialogBuilder.setPositiveButton("Confirm", new
