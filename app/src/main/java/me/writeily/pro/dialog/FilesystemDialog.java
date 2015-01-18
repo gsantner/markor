@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,7 +84,11 @@ public class FilesystemDialog extends DialogFragment {
             dialogBuilder.setPositiveButton("Select", new
                     DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            sendBroadcast(selectedPath);
+                            if (selectedPath != null) {
+                                sendBroadcast(selectedPath);
+                            } else {
+                                Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
         }
@@ -204,7 +209,7 @@ public class FilesystemDialog extends DialogFragment {
             // Refresh list if directory, else import
             if (file.isDirectory()) {
                 currentDir = file;
-                selectedPath = file.getAbsolutePath();
+                selectedPath = null;
                 listFilesInDirectory(file);
             } else {
                 selectedPath = file.getAbsolutePath();
