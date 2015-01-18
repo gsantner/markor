@@ -91,6 +91,8 @@ public class NotesFragment extends Fragment {
         writeilySingleton = WriteilySingleton.getInstance();
         retrieveCurrentFolder();
         listFilesInDirectory(currentDir);
+
+        setupAppearancePreferences();
         super.onResume();
     }
 
@@ -98,6 +100,18 @@ public class NotesFragment extends Fragment {
     public void onPause() {
         saveCurrentFolder();
         super.onPause();
+    }
+
+    private void setupAppearancePreferences() {
+        String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_theme_key), "");
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            previousDirButton.setBackgroundColor(getResources().getColor(R.color.grey));
+            previousDirButton.setTextColor(getResources().getColor(R.color.lighter_grey));
+        } else {
+            previousDirButton.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
+        }
+
     }
 
     private void retrieveCurrentFolder() {

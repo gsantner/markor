@@ -196,10 +196,10 @@ public class FilesystemDialog extends DialogFragment {
         }
 
         if (isMovingFile) {
+            showCurrentDirectory(currentDir.getAbsolutePath());
             listDirectories(currentDir);
         } else {
             listFilesInDirectory(currentDir);
-            showCurrentDirectory(currentDir.getAbsolutePath());
         }
     }
 
