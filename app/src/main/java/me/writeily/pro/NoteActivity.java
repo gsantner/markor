@@ -202,25 +202,27 @@ public class NoteActivity extends ActionBarActivity {
     }
 
     private void setupKeyboardBar() {
-        for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
-            Button shortcutButton = new Button(this);
-            shortcutButton.setText(shortcut);
-            shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        if (keyboardBarView.getChildCount() == 0) {
+            for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
+                Button shortcutButton = new Button(this);
+                shortcutButton.setText(shortcut);
+                shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            shortcutButton.setTextSize(18);
-            shortcutButton.setTypeface(null, Typeface.BOLD);
-            shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
-            shortcutButton.setOnClickListener(new KeyboardBarListener());
+                shortcutButton.setTextSize(18);
+                shortcutButton.setTypeface(null, Typeface.BOLD);
+                shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
+                shortcutButton.setOnClickListener(new KeyboardBarListener());
 
-            String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+                String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
 
-            if (theme.equals(getString(R.string.theme_dark))) {
-                shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
-            } else {
-                shortcutButton.setTextColor(getResources().getColor(R.color.grey));
+                if (theme.equals(getString(R.string.theme_dark))) {
+                    shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
+                } else {
+                    shortcutButton.setTextColor(getResources().getColor(R.color.grey));
+                }
+
+                keyboardBarView.addView(shortcutButton);
             }
-
-            keyboardBarView.addView(shortcutButton);
         }
     }
 
