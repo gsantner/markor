@@ -83,16 +83,14 @@ public class FilesystemDialog extends DialogFragment {
 
         if (isMovingFile) {
             dialogBuilder.setTitle(getResources().getString(R.string.select_folder_move));
-
             dialogBuilder.setPositiveButton("Move here", new
                     DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            sendBroadcast(selectedPath);
+                            sendBroadcast(currentDir.getAbsolutePath());
                         }
                     });
         } else {
             dialogBuilder.setTitle(getResources().getString(R.string.import_from_device));
-
             dialogBuilder.setPositiveButton("Select", new
                     DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -136,15 +134,22 @@ public class FilesystemDialog extends DialogFragment {
     @Override
     public void onResume() {
         if (isMovingFile) {
+            workingDirectoryText.setVisibility(View.VISIBLE);
             rootDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER);
             listDirectories(rootDir);
         } else {
+            workingDirectoryText.setVisibility(View.GONE);
             rootDir = new File(Environment.getExternalStorageDirectory().getPath());
             listFilesInDirectory(rootDir);
         }
 
-        workingDirectoryText.setText("Current folder: " + rootDir.getPath());
+        showCurrentDirectory(rootDir.getAbsolutePath());
         super.onResume();
+    }
+
+    private void showCurrentDirectory(String folder) {
+        String currentFolder = folder.substring(folder.lastIndexOf("/") + 1);
+        workingDirectoryText.setText("Current folder: " + currentFolder);
     }
 
     private void listFilesInDirectory(File directory) {
@@ -194,6 +199,7 @@ public class FilesystemDialog extends DialogFragment {
             listDirectories(currentDir);
         } else {
             listFilesInDirectory(currentDir);
+            showCurrentDirectory(currentDir.getAbsolutePath());
         }
     }
 
@@ -226,8 +232,7 @@ public class FilesystemDialog extends DialogFragment {
                 currentDir = file;
                 selectedPath = null;
                 listFilesInDirectory(file);
-
-                workingDirectoryText.setText("Current folder: " + currentDir.getPath());
+                showCurrentDirectory(currentDir.getAbsolutePath());
             } else {
                 selectedPath = file.getAbsolutePath();
             }
