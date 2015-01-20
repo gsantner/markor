@@ -82,10 +82,19 @@
     <string name="pref_pin">Pin Lock</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
-	
-	<!-- Font Size -->
-	<string name="font_size_normal">Normal</string>
-	<string name="font_size_large">Large</string>
-	<string name="font_size_small">Small</string>
-	
+
+    <!-- Font Size -->
+    <string name="font_size_normal">Normal</string>
+    <string name="font_size_large">Large</string>
+    <string name="font_size_small">Small</string>
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Last modified: %s</string>
+    <string name="number_of_files">Number of files: %d</string>
+    <string name="move_here">Move here</string>
+    <string name="select">Select</string>
+    <string name="no_selected_file">No file selected</string>
+    <string name="current_folder">Current folder:</string>
+    <string name="create">Create</string>
+
 </resources>

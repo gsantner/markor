@@ -53,7 +53,7 @@ public class FolderDialog extends DialogFragment {
         dialogBuilder.setTitle(getResources().getString(R.string.create_folder));
         dialogBuilder.setView(dialogView);
 
-        dialogBuilder.setPositiveButton("Create", new
+        dialogBuilder.setPositiveButton(getResources().getString(R.string.create), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Broadcast result to MainActivity
@@ -61,7 +61,7 @@ public class FolderDialog extends DialogFragment {
                     }
                 });
 
-        dialogBuilder.setNegativeButton("Cancel", new
+        dialogBuilder.setNegativeButton(getResources().getString(android.R.string.cancel), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
