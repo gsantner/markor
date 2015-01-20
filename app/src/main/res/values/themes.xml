@@ -1,7 +1,7 @@
 <resources>
     <style name="AppTheme" parent="AppTheme.Parent" />
 
-    <style name="AppTheme.Parent" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Parent" parent="Theme.AppCompat">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -18,7 +18,7 @@
         <item name="actionModeBackground">@color/dark_primary</item>
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
