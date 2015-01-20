@@ -9,10 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -62,7 +58,6 @@ public class PinActivity extends ActionBarActivity {
         pin4 = (EditText) findViewById(R.id.pin4);
 
         attachPinListeners();
-        attachPinKeyListeners();
 
         super.onCreate(savedInstanceState);
     }
@@ -74,44 +69,6 @@ public class PinActivity extends ActionBarActivity {
         }
 
         super.onBackPressed();
-    }
-
-    private void attachPinKeyListeners() {
-        pin1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    pin1.setText("");
-                }
-            }
-        });
-
-        pin2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    pin2.setText("");
-                }
-            }
-        });
-
-        pin3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    pin3.setText("");
-                }
-            }
-        });
-
-        pin4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    pin4.setText("");
-                }
-            }
-        });
     }
 
     private void attachPinListeners() {
@@ -210,18 +167,9 @@ public class PinActivity extends ActionBarActivity {
             } else {
                 if (enteredPin.length() == 4) {
                     Toast.makeText(context, getString(R.string.incorrect_pin_text), Toast.LENGTH_SHORT).show();
-                    resetPin();
                 }
             }
         }
-    }
-
-    private void resetPin() {
-        pin1.setText("");
-        pin2.setText("");
-        pin3.setText("");
-        pin4.setText("");
-        pin1.requestFocus();
     }
 
     /**

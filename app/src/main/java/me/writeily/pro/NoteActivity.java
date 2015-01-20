@@ -26,6 +26,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import me.writeily.pro.model.Constants;
 
@@ -93,29 +96,8 @@ public class NoteActivity extends ActionBarActivity {
     }
 
     private String readNote() {
-        StringBuilder result = new StringBuilder();
-
-        try {
-            FileInputStream is = new FileInputStream(note.getAbsolutePath());
-
-            if (is != null) {
-                InputStreamReader reader = new InputStreamReader(is);
-                BufferedReader bufferedReader = new BufferedReader(reader);
-
-                String readString;
-                while ((readString = bufferedReader.readLine()) != null) {
-                    result.append(readString + "\n");
-                }
-            }
-
-            is.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result.toString();
+        java.net.URI oldUri = note.toURI();
+        return readFileUri(Uri.parse(oldUri.toString()));
     }
 
     private void openFromSendAction(Intent receivingIntent) {
@@ -128,25 +110,52 @@ public class NoteActivity extends ActionBarActivity {
         readFileUriFromIntent(fileUri);
     }
 
+    private Uri getUriFromFile(File f) {
+        Uri u = null;
+        if (f != null) {
+            u = Uri.parse(f.toURI().toString());
+        }
+        return u;
+    }
+
+    private File getFileFromUri(Uri u) {
+        File f = null;
+        if (u != null) {
+            try {
+                f = new File(new java.net.URI(URLEncoder.encode(u.toString(), "UTF-8")));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        return f;
+    }
+
     private void readFileUriFromIntent(Uri fileUri) {
-        String uriContent = "";
+        if (fileUri != null) {
+            note = getFileFromUri(fileUri);
+            content.setText(readFileUri(fileUri));
+        }
+    }
+
+    private String readFileUri(Uri fileUri) {
+        StringBuilder uriContent = new StringBuilder();
         if (fileUri != null) {
             try {
                 InputStreamReader reader = new InputStreamReader(getContentResolver().openInputStream(fileUri));
                 BufferedReader br = new BufferedReader(reader);
 
                 while (br.ready()) {
-                    uriContent = br.readLine();
+                    uriContent.append(br.readLine());
                 }
-
-                note = null;
-                content.setText(uriContent);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return uriContent.toString();
     }
 
     @Override
@@ -256,6 +265,10 @@ public class NoteActivity extends ActionBarActivity {
         Intent intent = new Intent(this, PreviewActivity.class);
 
         // .replace is a workaround for Markdown lists requiring two \n characters
+        if (note != null) {
+            Uri uriBase = getUriFromFile(note.getParentFile());
+            intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
+        }
         intent.putExtra(Constants.MD_PREVIEW_KEY, content.getText().toString().replace("\n-", "\n\n-"));
 
         startActivity(intent);
@@ -291,7 +304,7 @@ public class NoteActivity extends ActionBarActivity {
                         } else {
                             snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
                         }
-                        noteTitle.setText(snippet.replaceAll("\\n", " ").trim());
+                        noteTitle.setText(snippet);
                     }
                 }
 
@@ -301,7 +314,7 @@ public class NoteActivity extends ActionBarActivity {
             // If we have to rename the file, do a delete and create
             if (!noteTitle.getText().toString().equals(note.getName())) {
                 note.delete();
-                note = new File(sourceDir + File.separator + noteTitle.getText().toString().trim());
+                note = new File(sourceDir + File.separator + noteTitle.getText().toString());
             }
 
             FileOutputStream fos = new FileOutputStream(note);

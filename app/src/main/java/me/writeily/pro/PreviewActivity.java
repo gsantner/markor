@@ -17,6 +17,7 @@ public class PreviewActivity extends ActionBarActivity {
 
     private WebView previewWebView;
     private String markdownRaw;
+    private String baseFolder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class PreviewActivity extends ActionBarActivity {
 
         previewWebView = (WebView) findViewById(R.id.preview_webview);
         markdownRaw = getIntent().getStringExtra(Constants.MD_PREVIEW_KEY);
+        baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
 
         renderMarkdown();
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class PreviewActivity extends ActionBarActivity {
         AndDown andDown = new AndDown();
         markdownHtml += andDown.markdownToHtml(markdownRaw) + Constants.MD_HTML_SUFFIX;
 
-        previewWebView.loadDataWithBaseURL(null, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
+        previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
     }
+
+
 }
