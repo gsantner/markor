@@ -54,7 +54,7 @@
 
         -----\n\n
 
-        Writeily Pro icon designed in collaboration with Minty123\n\n
+        Writeily Pro Icon gestaltet in Zusammenarbeit mit: Minty123\n\n
 
         -----\n\n
 
@@ -82,10 +82,19 @@
     <string name="pref_pin">PIN-Sperre</string>
     <string name="pin_title">Geben Sie eine PIN ein</string>
     <string name="pin_go">Los</string>
-	
-		<!-- Font Size -->
-	<string name="font_size_normal">Normal</string>
-	<string name="font_size_large">Groß</string>
+
+    <!-- Font Size -->
+    <string name="font_size_normal">Normal</string>
+    <string name="font_size_large">Groß</string>
 	<string name="font_size_small">Klein</string>
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Zuletzt bearbeitet: %s</string>
+    <string name="number_of_files">Dateien: %d</string>
+    <string name="move_here">Hierher verschieben</string>
+    <string name="select">Auswählen</string>
+    <string name="no_selected_file">Es wurde keine Datei ausgewählt</string>
+    <string name="current_folder">Aktueller Ordner:</string>
+    <string name="create">Erstellen</string>
 
 </resources>

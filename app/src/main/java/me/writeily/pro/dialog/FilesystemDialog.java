@@ -83,7 +83,7 @@ public class FilesystemDialog extends DialogFragment {
 
         if (isMovingFile) {
             dialogBuilder.setTitle(getResources().getString(R.string.select_folder_move));
-            dialogBuilder.setPositiveButton("Move here", new
+            dialogBuilder.setPositiveButton(getResources().getString(R.string.move_here), new
                     DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             sendBroadcast(currentDir.getAbsolutePath());
@@ -91,19 +91,19 @@ public class FilesystemDialog extends DialogFragment {
                     });
         } else {
             dialogBuilder.setTitle(getResources().getString(R.string.import_from_device));
-            dialogBuilder.setPositiveButton("Select", new
+            dialogBuilder.setPositiveButton(getResources().getString(R.string.select), new
                     DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             if (selectedPath != null) {
                                 sendBroadcast(selectedPath);
                             } else {
-                                Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getResources().getString(R.string.no_selected_file), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
         }
 
-        dialogBuilder.setNegativeButton("Cancel", new
+        dialogBuilder.setNegativeButton(getResources().getString(android.R.string.cancel), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -150,7 +150,7 @@ public class FilesystemDialog extends DialogFragment {
 
     private void showCurrentDirectory(String folder) {
         String currentFolder = folder.substring(folder.lastIndexOf("/") + 1);
-        workingDirectoryText.setText("Current folder: " + currentFolder);
+        workingDirectoryText.setText(getResources().getString(R.string.current_folder) + " " + currentFolder);
     }
 
     private void listFilesInDirectory(File directory) {

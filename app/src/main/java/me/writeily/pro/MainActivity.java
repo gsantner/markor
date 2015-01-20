@@ -10,24 +10,25 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.support.v7.widget.SearchView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import java.io.File;
 
 import me.writeily.pro.adapter.DrawerAdapter;
 import me.writeily.pro.dialog.FilesystemDialog;
@@ -35,8 +36,6 @@ import me.writeily.pro.dialog.FolderDialog;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
 import me.writeily.pro.settings.SettingsActivity;
-
-import java.io.File;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -61,6 +60,42 @@ public class MainActivity extends ActionBarActivity {
     private View frameLayout;
 
     private SearchView searchView;
+    private BroadcastReceiver folderBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
+                createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
+                notesFragment.listFilesInCurrentDirectory();
+            }
+        }
+    };
+    private BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
+            if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
+                importFile(new File(fileName));
+                notesFragment.listFilesInCurrentDirectory();
+            } else {
+                WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
+                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.finishActionMode();
+            }
+        }
+    };
+    private BroadcastReceiver confirmBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
+                WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
+                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.finishActionMode();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +214,7 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * Creates the specified folder if it doesn't already exist.
+     *
      * @param folder
      * @return
      */
@@ -313,7 +349,6 @@ public class MainActivity extends ActionBarActivity {
         drawerAdapter.notifyDataSetChanged();
     }
 
-
     /**
      * Show the SettingsFragment
      */
@@ -366,43 +401,4 @@ public class MainActivity extends ActionBarActivity {
             drawerLayout.closeDrawer(drawerView);
         }
     }
-
-    private BroadcastReceiver folderBroadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
-                createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                notesFragment.listFilesInCurrentDirectory();
-            }
-        }
-    };
-
-    private BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
-            if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
-                importFile(new File(fileName));
-                notesFragment.listFilesInCurrentDirectory();
-            } else {
-                WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
-                notesFragment.listFilesInCurrentDirectory();
-                notesFragment.finishActionMode();
-            }
-        }
-    };
-
-    private BroadcastReceiver confirmBroadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
-                WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
-                notesFragment.listFilesInCurrentDirectory();
-                notesFragment.finishActionMode();
-            }
-        }
-    };
 }

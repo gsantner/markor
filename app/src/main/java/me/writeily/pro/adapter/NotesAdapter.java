@@ -2,6 +2,7 @@ package me.writeily.pro.adapter;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,10 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.writeily.pro.R;
-
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import me.writeily.pro.R;
 
 /**
  * Created by jeff on 2014-04-11.
@@ -57,14 +57,18 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
         ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm");
-
         noteTitle.setText(getItem(i).getName());
 
         if (!getItem(i).isDirectory()) {
-            noteExtra.setText("Last modified: " + formatter.format(getItem(i).lastModified()));
+
+            String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
+                    (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
+            String lastModified = String.format(context.getString(R.string.last_modified), formattedDate);
+            noteExtra.setText(lastModified);
         } else {
-            noteExtra.setText("Number of files: " + ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length));
+            int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
+            String numberOfFiles = String.format(context.getString(R.string.number_of_files), fileAmount);
+            noteExtra.setText(numberOfFiles);
         }
 
         // Theme Adjustments
