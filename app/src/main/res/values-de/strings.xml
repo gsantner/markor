@@ -96,5 +96,8 @@
     <string name="no_selected_file">Es wurde keine Datei ausgewählt</string>
     <string name="current_folder">Aktueller Ordner:</string>
     <string name="create">Erstellen</string>
+    <string name="select_elements">Elemente auswählen</string>
+    <string name="one_item_selected">Ein Element ausgewählt</string>
+    <string name="more_items_selected">%d Elemente ausgewählt</string>
 
 </resources>

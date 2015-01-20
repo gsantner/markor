@@ -263,7 +263,7 @@ public class NotesFragment extends Fragment {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.notes_context_menu, menu);
-            mode.setTitle("Select files");
+            mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }
 
@@ -300,10 +300,10 @@ public class NotesFragment extends Fragment {
                     actionMode.setSubtitle(null);
                     break;
                 case 1:
-                    actionMode.setSubtitle("One item selected");
+                    actionMode.setSubtitle(getResources().getString(R.string.one_item_selected));
                     break;
                 default:
-                    actionMode.setSubtitle(numSelected + " items selected");
+                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), numSelected));
                     break;
             }
         }
