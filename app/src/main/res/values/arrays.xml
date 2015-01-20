@@ -15,9 +15,9 @@
     </string-array>
 
     <string-array name="font_size_choices_array">
-        <item>Normal</item>
-        <item>Large</item>
-        <item>Small</item>
+        <item>@string/font_size_normal</item>
+        <item>@string/font_size_large</item>
+        <item>@string/font_size_small</item>
     </string-array>
 
     <string-array name="font_size_array">

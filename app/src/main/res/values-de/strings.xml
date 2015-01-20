@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Writeily Pro</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="open_drawer">Drawer öffnen</string>
+    <string name="close_drawer">Drawer schließen</string>
+    <string name="notes">Notizen</string>
+    <string name="archive">Archive</string>
+    <string name="plus">+</string>
+    <string name="new_note">Neue Notiz</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="delete">Löschen</string>
+    <string name="star">Zu Favoriten hinzufügen</string>
+    <string name="starred">Favoriten</string>
+    <string name="restore">Wiederherstellen</string>
+    <string name="wr_import">Importieren</string>
+    <string name="unstar">Von Favoriten entfernen</string>
+    <string name="confirm_delete">Löschen bestätigen</string>
+    <string name="incorrect_pin_text">Ungültige PIN</string>
+    <string name="title">Titel</string>
+    <string name="untitled">Unbenannt</string>
+    <string name="empty_directory">Das Verzeichnis ist leer</string>
+    <string name="navigate_up_folder">Zum vorherigen Ordner</string>
+    <string name="folder_name_hint">Ordnername eingeben</string>
+    <string name="create_folder">Ordner erstellen</string>
+    <string name="move">Verschieben</string>
+
+    <string name="import_from_device">Importieren</string>
+    <string name="select_folder_move">Ordner auswählen</string>
+
+    <string name="empty_notes_list_hint">Wenn Sie eine neue Notiz erstellen,\nwird sie hier aufgeführt.</string>
+    <string name="empty_archives_hint">Wenn Sie eine Notiz archivieren,\nwird sie hier aufgeführt.</string>
+    <string name="empty_starred_hint">Wenn Sie eine Notiz als Favorit markieren,\nwird sie hier aufgeführt.</string>
+    <string name="search_hint">Notizen durchsuchen</string>
+    <string name="share_string">Teilen mit&#8230;</string>
+    <string name="share">Teilen</string>
+    <string name="search">Suchen</string>
+    <string name="preview">Vorschau</string>
+    <string name="app_settings">App-Einstellungen</string>
+    <string name="social">Kontakt</string>
+    <string name="meta">Sonstiges</string>
+
+    <string name="twitter_url">https://twitter.com/writeily</string>
+    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
+    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
+    <string name="email_header">Feedback about Writeily</string>
+
+    <string name="about_string">
+        Writeily Pro 1.1.0\n\n
+        Entwickelt von Jeff Martin (http://jeffreymartin.ca)\n
+    </string>
+
+    <string name="attribution_string">
+        Besonderer Dank gilt den Übersetzern von Writeily Pro:\n\n
+        Krizoman (Polnisch)\n
+		Minty123 (Deutsch)\n\n
+
+        Writeily nutzt folgende Bibliotheken:\n\n
+
+        CommonsWare AndDown 0.2.0\n\n
+
+        Die Nutzung der Bibliotheken erfolgt unter der Apache License v2.0 . \n
+    </string>
+
+    <!-- Preferences -->
+    <string name="pref_remember_directory">Letzten Ordner merken</string>
+    <string name="pref_font_choice">Schriftart im Editor</string>
+    <string name="pref_theme">Thema</string>
+    <string name="pref_rate_writeily">Writeily auf Google Play bewerten</string>
+    <string name="pref_about_dialog_title">Über Writeily</string>
+    <string name="pref_attribution_dialog_title">Anerkennung</string>
+    <string name="pref_twitter">Writeily auf Twitter folgen</string>
+    <string name="pref_email">Email an den Entwickler</string>
+    <string name="share_text">Reintext</string>
+    <string name="share_html">HTML</string>
+    <string name="share_as">Teilen als&#8230;</string>
+    <string name="pref_font_size">Schriftgröße</string>
+    <string name="pref_pin">PIN-Sperre</string>
+    <string name="pin_title">Geben Sie eine PIN ein</string>
+    <string name="pin_go">Los</string>
+	
+		<!-- Font Size -->
+	<string name="font_size_normal">Normal</string>
+	<string name="font_size_large">Groß</string>
+	<string name="font_size_small">Klein</string>
+
+</resources>
