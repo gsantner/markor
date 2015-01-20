@@ -25,6 +25,7 @@ public class Constants {
     public static final String FILESYSTEM_FOLDER_ACCESS_TYPE = "FILESYSTEM_FOLDER_ACCESS_TYPE";
     public static final String FILESYSTEM_FILE_ACCESS_TYPE = "FILESYSTEM_FILE_ACCESS_TYPE";
     public static final String NOTE_KEY = "note_key";
+    public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
     public static final String USER_PIN_KEY = "user_pin";
 
