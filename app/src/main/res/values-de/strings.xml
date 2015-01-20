@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Writeily Pro</string>
     <string name="action_settings">Einstellungen</string>
     <string name="open_drawer">Drawer öffnen</string>
     <string name="close_drawer">Drawer schließen</string>
     <string name="notes">Notizen</string>
     <string name="archive">Archive</string>
-    <string name="plus">+</string>
     <string name="new_note">Neue Notiz</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
@@ -42,9 +40,6 @@
     <string name="social">Kontakt</string>
     <string name="meta">Sonstiges</string>
 
-    <string name="twitter_url">https://twitter.com/writeily</string>
-    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
-    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
     <string name="email_header">Feedback about Writeily</string>
 
     <string name="about_string">
@@ -56,6 +51,12 @@
         Besonderer Dank gilt den Übersetzern von Writeily Pro:\n\n
         Krizoman (Polnisch)\n
 		Minty123 (Deutsch)\n\n
+
+        -----\n\n
+
+        Writeily Pro icon designed in collaboration with Minty123\n\n
+
+        -----\n\n
 
         Writeily nutzt folgende Bibliotheken:\n\n
 
@@ -69,6 +70,7 @@
     <string name="pref_font_choice">Schriftart im Editor</string>
     <string name="pref_theme">Thema</string>
     <string name="pref_rate_writeily">Writeily auf Google Play bewerten</string>
+    <string name="pref_donate_writeily">Spenden</string>
     <string name="pref_about_dialog_title">Über Writeily</string>
     <string name="pref_attribution_dialog_title">Anerkennung</string>
     <string name="pref_twitter">Writeily auf Twitter folgen</string>

@@ -60,6 +60,12 @@
             <intent android:data="@string/writeily_url" android:action="android.intent.action.VIEW" />
         </Preference>
 
+        <Preference
+            android:key="@string/pref_donate_writeily_key"
+            android:title="@string/pref_donate_writeily">
+            <intent android:data="@string/writeily_donate_url" android:action="android.intent.action.VIEW" />
+        </Preference>
+
         <me.writeily.pro.dialog.AboutDialog
             android:dialogMessage="@string/about_string"
             android:dialogTitle="@string/pref_about_dialog_title"

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Writeily Pro</string>
+    <string name="plus">+</string>
+
+    <string name="pref_donate_writeily_key">pref_donate_writeily</string>
     <string name="pref_rate_writeily_key">pref_rate_writeily</string>
     <string name="pref_twitter_key">pref_twitter_key</string>
     <string name="pref_pin_key">pref_pin</string>
@@ -9,4 +13,9 @@
     <string name="pref_theme_key">pref_theme</string>
     <string name="pref_font_size_key">pref_font_size_key</string>
     <string name="pref_email_key">pref_email_key</string>
+
+    <string name="twitter_url">https://twitter.com/writeily</string>
+    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
+    <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=me.writeily.donate</string>
+    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
 </resources>

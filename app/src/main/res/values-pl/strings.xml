@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Writeily Pro</string>
     <string name="action_settings">Ustawienia</string>
     <string name="open_drawer">Otwórz listę aplikacji</string>
     <string name="close_drawer">Zamknij listę aplikacji</string>
     <string name="notes">Notatki</string>
     <string name="archive">Archiwum</string>
-    <string name="plus">+</string>
     <string name="new_note">Nowa notatka</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
@@ -42,9 +40,6 @@
     <string name="social">Społecznościowe</string>
     <string name="meta">Meta</string>
 
-    <string name="twitter_url">https://twitter.com/writeily</string>
-    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
-    <string name="writeily_email">mailto:writeily.app@gmail.com</string>
     <string name="email_header">Opinie o Writeily</string>
 
     <string name="about_string">
@@ -58,6 +53,12 @@
       Krizoman (polski)\n
 	  Minty123 (niemiecki)\n\n
 
+      -----\n\n
+
+      Writeily Pro icon designed in collaboration with Minty123\n\n
+
+      -----\n\n
+
       Writeily wykorzystuje następujące biblioteki:\n\n
       CommonsWare AndDown 0.2.0\n\n
       Wszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
@@ -68,6 +69,7 @@
     <string name="pref_font_choice">Czcionka edytora notatek</string>
     <string name="pref_theme">Motyw</string>
     <string name="pref_rate_writeily">Oceń Writeily w Google Play</string>
+    <string name="pref_donate_writeily">Podarować</string>
     <string name="pref_about_dialog_title">O Writeily</string>
     <string name="pref_attribution_dialog_title">Użyte biblioteki i podziękowania</string>
     <string name="pref_twitter">Śledź Writeily na Twitterze</string>
