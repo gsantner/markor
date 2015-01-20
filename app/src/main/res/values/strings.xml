@@ -54,7 +54,8 @@
 
     <string name="attribution_string">
         Special thanks to the following people who have helped translate Writeily Pro into other languages:\n\n
-        Krizoman (Polish)\n\n
+        Krizoman (Polish)\n
+		Minty123 (German)\n\n
 
         Writeily uses the following libraries:\n\n
 
@@ -79,5 +80,10 @@
     <string name="pref_pin">Pin Lock</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
-
+	
+	<!-- Font Size -->
+	<string name="font_size_normal">Normal</string>
+	<string name="font_size_large">Large</string>
+	<string name="font_size_small">Small</string>
+	
 </resources>

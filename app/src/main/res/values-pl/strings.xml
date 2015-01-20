@@ -34,7 +34,7 @@
     <string name="empty_archives_hint">Gdy zarchiwizujesz notatkę,\nto pojawi się ona w tym miejscu</string>
     <string name="empty_starred_hint">Gdy oznaczysz notatkę gwiazdką,\nto pojawi się ona w tym miejscu</string>
     <string name="search_hint">Szukaj notatek</string>
-    <string name="share_string">Udostępnij...</string>
+    <string name="share_string">Udostępnij&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>
@@ -55,7 +55,8 @@
     <string name="attribution_string">
       Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\n
 
-      Krizoman (Polish)\n\n
+      Krizoman (polski)\n
+	  Minty123 (niemiecki)\n\n
 
       Writeily wykorzystuje następujące biblioteki:\n\n
       CommonsWare AndDown 0.2.0\n\n
@@ -73,12 +74,16 @@
     <string name="pref_email">Wsparcie przez e-mail</string>
     <string name="share_text">Tekst</string>
     <string name="share_html">HTML</string>
-    <string name="share_as">Udostępnij jako...</string>
+    <string name="share_as">Udostępnij jako&#8230;</string>
     <string name="pref_font_size">Rozmiar czcionki</string>
     <string name="pref_pin">Blokada kodem PIN</string>
     <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
 
+	<!-- Font Size -->
+	<string name="font_size_normal">Normalny</string>
+	<string name="font_size_large">Duży</string>
+	<string name="font_size_small">Mały</string>
 
 </resources>
