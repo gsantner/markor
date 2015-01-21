@@ -43,21 +43,19 @@
     <string name="email_header">Feedback about Writeily</string>
 
     <string name="about_string">
-        Writeily Pro 1.1.0\n\n
+        Writeily Pro 1.1.1\n\n
         Developed by Jeff Martin (http://jeffreymartin.ca)\n
     </string>
 
-    <string name="attribution_string">
+    <string name="contributors_attribution_string">
         Special thanks to the following people who have helped translate Writeily Pro into other languages:\n\n
         Krizoman (Polish)\n
 		Minty123 (German)\n\n
 
-        -----\n\n
-
         Writeily Pro icon designed in collaboration with Minty123\n\n
+    </string>
 
-        -----\n\n
-
+    <string name="libraries_attribution_string">
         Writeily uses the following libraries:\n\n
 
         CommonsWare AndDown 0.2.0\n\n

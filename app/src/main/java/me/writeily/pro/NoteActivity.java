@@ -148,6 +148,7 @@ public class NoteActivity extends ActionBarActivity {
 
                 while (br.ready()) {
                     uriContent.append(br.readLine());
+                    uriContent.append("\n");
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

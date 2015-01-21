@@ -30,6 +30,7 @@ public class SettingsFragment extends PreferenceFragment {
         context = getActivity().getApplicationContext();
         pinPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_pin_key));
 
+
         // Listen for Pin Preference change
         pinPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

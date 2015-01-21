@@ -43,22 +43,20 @@
     <string name="email_header">Opinie o Writeily</string>
 
     <string name="about_string">
-        Writeily Pro 1.1.0\n\n
+        Writeily Pro 1.1.1\n\n
         Aplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)\n
     </string>
 
-    <string name="attribution_string">
+    <string name="contributors_attribution_string">
       Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\n
 
       Krizoman (polski)\n
 	  Minty123 (niemiecki)\n\n
 
-      -----\n\n
-
       Writeily Pro icon designed in collaboration with Minty123\n\n
+    </string>
 
-      -----\n\n
-
+    <string name="libraries_attribution_string">
       Writeily wykorzystuje następujące biblioteki:\n\n
       CommonsWare AndDown 0.2.0\n\n
       Wszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
