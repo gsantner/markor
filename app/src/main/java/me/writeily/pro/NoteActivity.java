@@ -305,7 +305,7 @@ public class NoteActivity extends ActionBarActivity {
                         } else {
                             snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
                         }
-                        noteTitle.setText(snippet);
+                        noteTitle.setText(snippet.replaceAll("\\n", " ").trim());
                     }
                 }
 
@@ -315,7 +315,7 @@ public class NoteActivity extends ActionBarActivity {
             // If we have to rename the file, do a delete and create
             if (!noteTitle.getText().toString().equals(note.getName())) {
                 note.delete();
-                note = new File(sourceDir + File.separator + noteTitle.getText().toString());
+                note = new File(sourceDir + File.separator + noteTitle.getText().toString().trim());
             }
 
             FileOutputStream fos = new FileOutputStream(note);
