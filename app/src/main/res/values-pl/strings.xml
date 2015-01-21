@@ -47,13 +47,15 @@
         Aplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)\n
     </string>
 
-    <string name="contributors_attribution_string">
+    <string name="translators_attribution_string">
       Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\n
 
       Krizoman (polski)\n
 	  Minty123 (niemiecki)\n\n
+    </string>
 
-      Writeily Pro icon designed in collaboration with Minty123\n\n
+    <string name="contributors_attribution_string">
+        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro icon designed in collaboration with Minty123\n\n
     </string>
 
     <string name="libraries_attribution_string">
@@ -68,6 +70,7 @@
     <string name="pref_theme">Motyw</string>
     <string name="pref_rate_writeily">Oceń Writeily w Google Play</string>
     <string name="pref_donate_writeily">Podarować</string>
+    <string name="translators_title">Translators</string>
     <string name="pref_about_dialog_title">O Writeily</string>
     <string name="pref_attribution_dialog_title">Użyte biblioteki i podziękowania</string>
     <string name="pref_twitter">Śledź Writeily na Twitterze</string>

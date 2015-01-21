@@ -43,24 +43,19 @@
     <string name="email_header">Feedback about Writeily</string>
 
     <string name="about_string">
-        Writeily Pro 1.1.1\n\n
-        Entwickelt von Jeff Martin (http://jeffreymartin.ca)\n
+        Writeily Pro 1.1.1\n\nEntwickelt von Jeff Martin (http://jeffreymartin.ca)
+    </string>
+
+    <string name="translators_attribution_string">
+        Besonderer Dank gilt den Übersetzern von Writeily Pro:\n\nKrizoman (Polnisch)\nMinty123 (Deutsch)
     </string>
 
     <string name="contributors_attribution_string">
-        Besonderer Dank gilt den Übersetzern von Writeily Pro:\n\n
-        Krizoman (Polnisch)\n
-		Minty123 (Deutsch)\n\n
-
-        Writeily Pro Icon gestaltet in Zusammenarbeit mit: Minty123\n\n
+        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro Icon gestaltet in Zusammenarbeit mit: Minty123\n\n
     </string>
 
     <string name="libraries_attribution_string">
-        Writeily nutzt folgende Bibliotheken:\n\n
-
-        CommonsWare AndDown 0.2.0\n\n
-
-        Die Nutzung der Bibliotheken erfolgt unter der Apache License v2.0 . \n
+        Writeily nutzt folgende Bibliotheken:\n\nCommonsWare AndDown 0.2.0\nDie Nutzung der Bibliotheken erfolgt unter der Apache License v2.0
     </string>
 
     <!-- Preferences -->
@@ -69,6 +64,7 @@
     <string name="pref_theme">Thema</string>
     <string name="pref_rate_writeily">Writeily auf Google Play bewerten</string>
     <string name="pref_donate_writeily">Spenden</string>
+    <string name="translators_title">Translators</string>
     <string name="pref_about_dialog_title">Über Writeily</string>
     <string name="pref_attribution_dialog_title">Anerkennung</string>
     <string name="pref_twitter">Writeily auf Twitter folgen</string>
