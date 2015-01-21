@@ -6,32 +6,10 @@
         <item>@string/action_settings</item>
     </string-array>
 
-    <string-array name="fonts_array">
-        <item>Roboto Light (Default)</item>
-        <item>Roboto Condensed</item>
-        <item>Roboto Regular</item>
-        <item>Roboto Bold</item>
-        <item>Monospace</item>
-    </string-array>
-
     <string-array name="font_size_choices_array">
         <item>@string/font_size_normal</item>
         <item>@string/font_size_large</item>
         <item>@string/font_size_small</item>
-    </string-array>
-
-    <string-array name="font_size_array">
-        <item>21</item>
-        <item>25</item>
-        <item>17</item>
-    </string-array>
-
-    <string-array name="fonts_type_array">
-        <item>sans-serif-light</item>
-        <item>sans-serif-condensed</item>
-        <item>sans-serif-regular</item>
-        <item>sans-serif-bold</item>
-        <item>monospace</item>
     </string-array>
 
     <string-array name="themes_array">

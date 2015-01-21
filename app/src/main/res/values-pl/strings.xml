@@ -43,25 +43,19 @@
     <string name="email_header">Opinie o Writeily</string>
 
     <string name="about_string">
-        Writeily Pro 1.1.1\n\n
-        Aplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)\n
+        Writeily Pro 1.1.1\n\nAplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)
     </string>
 
     <string name="translators_attribution_string">
-      Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\n
-
-      Krizoman (polski)\n
-	  Minty123 (niemiecki)\n\n
+      Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\nKrizoman (polski)\nMinty123 (niemiecki)
     </string>
 
     <string name="contributors_attribution_string">
-        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro icon designed in collaboration with Minty123\n\n
+        Writeily Pro is open source on GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro icon designed in collaboration with Minty123
     </string>
 
     <string name="libraries_attribution_string">
-      Writeily wykorzystuje następujące biblioteki:\n\n
-      CommonsWare AndDown 0.2.0\n\n
-      Wszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
+      Writeily wykorzystuje następujące biblioteki:\n\nCommonsWare AndDown 0.2.0\n\nWszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
     </string>
 
     <!-- Preferences -->
@@ -89,4 +83,14 @@
 	<string name="font_size_large">Duży</string>
 	<string name="font_size_small">Mały</string>
 
+    <string name="last_modified">Ostatnio zmieniony: %s</string>
+    <string name="number_of_files">Liczba plików: %d</string>
+    <string name="move_here">Przenieś tutaj</string>
+    <string name="select">Wybierać</string>
+    <string name="no_selected_file">Nie wybrano pliku</string>
+    <string name="current_folder">Aktualny katalog:</string>
+    <string name="create">Utworzyć</string>
+    <string name="select_elements">Wybierać pliki</string>
+    <string name="one_item_selected">jeden wybrany</string>
+    <string name="more_items_selected">%d wybrany</string>
 </resources>

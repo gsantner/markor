@@ -18,4 +18,26 @@
     <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
     <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=me.writeily.donate</string>
     <string name="writeily_email">mailto:writeily.app@gmail.com</string>
+
+    <string-array name="fonts_array">
+        <item>Roboto Light (Default)</item>
+        <item>Roboto Condensed</item>
+        <item>Roboto Regular</item>
+        <item>Roboto Bold</item>
+        <item>Monospace</item>
+    </string-array>
+
+    <string-array name="font_size_array">
+        <item>21</item>
+        <item>25</item>
+        <item>17</item>
+    </string-array>
+
+    <string-array name="fonts_type_array">
+        <item>sans-serif-light</item>
+        <item>sans-serif-condensed</item>
+        <item>sans-serif-regular</item>
+        <item>sans-serif-bold</item>
+        <item>monospace</item>
+    </string-array>
 </resources>

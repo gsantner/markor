@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="@string/translators_attribution_string"
+            android:text="@string/about_string"
             android:textSize="15sp"
             android:textStyle="normal"
             android:textColor="@color/dark_grey"/>
@@ -63,18 +63,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="@string/contributors_attribution_string"
+            android:text="@string/translators_attribution_string"
             android:textSize="15sp"
             android:textStyle="normal"
             android:textColor="@color/dark_grey" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/libraries_attribution_string"
-            android:textSize="15sp"
-            android:textStyle="normal"
-            android:textColor="@color/dark_grey" />
     </LinearLayout>
 
     <LinearLayout

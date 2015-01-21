@@ -51,11 +51,11 @@
     </string>
 
     <string name="contributors_attribution_string">
-        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro Icon gestaltet in Zusammenarbeit mit: Minty123\n\n
+        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro Icon gestaltet in Zusammenarbeit mit: Minty123
     </string>
 
     <string name="libraries_attribution_string">
-        Writeily nutzt folgende Bibliotheken:\n\nCommonsWare AndDown 0.2.0\nDie Nutzung der Bibliotheken erfolgt unter der Apache License v2.0
+        Writeily nutzt folgende Bibliotheken:\n\nCommonsWare AndDown 0.2.0\n\nDie Nutzung der Bibliotheken erfolgt unter der Apache License v2.0
     </string>
 
     <!-- Preferences -->
