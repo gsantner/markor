@@ -42,22 +42,6 @@
 
     <string name="email_header">Feedback about Writeily</string>
 
-    <string name="about_string">
-        Writeily Pro 1.1.1\n\nDeveloped by Jeff Martin (http://jeffreymartin.ca)
-    </string>
-
-    <string name="translators_attribution_string">
-        Special thanks to the following people who have helped translate Writeily Pro into other languages:\n\nKrizoman (Polish)\nMinty123 (German)
-    </string>
-
-    <string name="contributors_attribution_string">
-        Writeily Pro is open source at GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro icon designed in collaboration with Minty123
-    </string>
-
-    <string name="libraries_attribution_string">
-        Writeily uses the following libraries:\n\nCommonsWare AndDown 0.2.0\n\nAll libraries used are licensed under the Apache License v2.0
-    </string>
-
     <!-- Preferences -->
     <string name="pref_remember_directory">Remember last folder location on startup</string>
     <string name="pref_font_choice">Note Editor Font</string>
@@ -93,5 +77,17 @@
     <string name="select_elements">Select entries</string>
     <string name="one_item_selected">One item selected</string>
     <string name="more_items_selected">%d items selected</string>
+
+    <!-- About screen -->
+    <string name="about_version_title">Version</string>
+    <string name="about_source_title">Source code available on GitHub</string>
+    <string name="about_developer_section">Developer</string>
+    <string name="about_contributors_section">Contributors</string>
+    <string name="about_libraries_section">Libraries</string>
+    <string name="about_translators_section">Translators</string>
+    <string name="about_german">German</string>
+    <string name="about_polish">Polish</string>
+    <string name="tap_website">Tap to visit website</string>
+    <string name="tap_github">Tap to visit profile on GitHub</string>
 
 </resources>
