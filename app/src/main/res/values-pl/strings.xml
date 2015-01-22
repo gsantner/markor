@@ -42,22 +42,6 @@
 
     <string name="email_header">Opinie o Writeily</string>
 
-    <string name="about_string">
-        Writeily Pro 1.1.1\n\nAplikacja stworzona przez Jeff Martin (http://jeffreymartin.ca)
-    </string>
-
-    <string name="translators_attribution_string">
-      Specjalne podziękowania dla wszystkich wspaniałych ludzi którzy przetłumaczyli Writeily:\n\nKrizoman (polski)\nMinty123 (niemiecki)
-    </string>
-
-    <string name="contributors_attribution_string">
-        Writeily Pro is open source on GitHub. Many thanks to the following contributors:\n\ndavydsantos\nminty123\npatcon\n\nWriteily Pro icon designed in collaboration with Minty123
-    </string>
-
-    <string name="libraries_attribution_string">
-      Writeily wykorzystuje następujące biblioteki:\n\nCommonsWare AndDown 0.2.0\n\nWszystkie użyte biblioteki są objęte licencją Apache License v2.0\n
-    </string>
-
     <!-- Preferences -->
     <string name="pref_remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
     <string name="pref_font_choice">Czcionka edytora notatek</string>
@@ -66,7 +50,6 @@
     <string name="pref_donate_writeily">Podarować</string>
     <string name="translators_title">Translators</string>
     <string name="pref_about_dialog_title">O Writeily</string>
-    <string name="pref_attribution_dialog_title">Użyte biblioteki i podziękowania</string>
     <string name="pref_twitter">Śledź Writeily na Twitterze</string>
     <string name="pref_email">Wsparcie przez e-mail</string>
     <string name="share_text">Tekst</string>
@@ -78,10 +61,10 @@
     <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
 
-	<!-- Font Size -->
-	<string name="font_size_normal">Normalny</string>
-	<string name="font_size_large">Duży</string>
-	<string name="font_size_small">Mały</string>
+    <!-- Font Size -->
+    <string name="font_size_normal">Normalny</string>
+    <string name="font_size_large">Duży</string>
+    <string name="font_size_small">Mały</string>
 
     <string name="last_modified">Ostatnio zmieniony: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
@@ -93,4 +76,16 @@
     <string name="select_elements">Wybierać pliki</string>
     <string name="one_item_selected">jeden wybrany</string>
     <string name="more_items_selected">%d wybrany</string>
+
+    <!-- About screen -->
+    <string name="about_version_title">Wersja</string>
+    <string name="about_source_title">Source code available on GitHub</string>
+    <string name="about_developer_section">Programista</string>
+    <string name="about_contributors_section">Contributors</string>
+    <string name="about_libraries_section">Biblioteki</string>
+    <string name="about_translators_section">tłumacze</string>
+    <string name="about_german">Niemiecki</string>
+    <string name="about_polish">Polski</string>
+    <string name="tap_website">Tap to visit website</string>
+    <string name="tap_github">Tap to visit profile on GitHub</string>
 </resources>

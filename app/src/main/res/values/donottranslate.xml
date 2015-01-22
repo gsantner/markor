@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Writeily Pro</string>
+    <string name="app_version">1.1.1</string>
     <string name="plus">+</string>
 
     <string name="pref_donate_writeily_key">pref_donate_writeily</string>
@@ -18,6 +19,24 @@
     <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
     <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=me.writeily.donate</string>
     <string name="writeily_email">mailto:writeily.app@gmail.com</string>
+
+    <!-- About Screen -->
+    <string name="main_developer">Jeff Martin</string>
+    <string name="main_developer_url">http://jeffreymartin.ca</string>
+    <string name="contributor_minty123">Minty123</string>
+    <string name="contributor_minty123_url">https://github.com/Minty123</string>
+    <string name="contributor_davydsantos">davydsantos</string>
+    <string name="contributor_davydsantos_url">https://github.com/davydsantos</string>
+    <string name="contributor_patcon">patcon</string>
+    <string name="contributor_patcon_url">https://github.com/patcon</string>
+
+    <string name="translators_german">Minty123</string>
+    <string name="translators_polish">Krizoman</string>
+
+    <string name="library_anddown">CommonsWare AndDown 0.2.0</string>
+    <string name="licence_apache20">Apache License v2.0</string>
+
+    <string name="source_url">https://github.com/jffrymrtn/writeily-pro</string>
 
     <string-array name="fonts_array">
         <item>Roboto Light (Default)</item>

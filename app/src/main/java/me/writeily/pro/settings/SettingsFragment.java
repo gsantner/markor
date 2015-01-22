@@ -9,6 +9,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 
 import me.writeily.pro.PinActivity;
 import me.writeily.pro.R;
@@ -17,8 +18,9 @@ import me.writeily.pro.model.Constants;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    OnThemeChangedListener mCallback;
     CheckBoxPreference pinPreference;
     Context context;
 
@@ -29,7 +31,6 @@ public class SettingsFragment extends PreferenceFragment {
 
         context = getActivity().getApplicationContext();
         pinPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_pin_key));
-
 
         // Listen for Pin Preference change
         pinPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -47,6 +48,9 @@ public class SettingsFragment extends PreferenceFragment {
                 return true;
             }
         });
+
+        // Register PreferenceChangeListener
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -60,5 +64,32 @@ public class SettingsFragment extends PreferenceFragment {
                 pinPreference.setChecked(false);
             }
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        ActionBarActivity activity = (ActionBarActivity) mCallback;
+
+        if (activity.getString(R.string.pref_theme_key).equals(key)) {
+            mCallback.onThemeChanged();
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Make sure the container has implemented the callback interface
+        try {
+            mCallback = (OnThemeChangedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + "must implement OnThemeChangedListener");
+        }
+    }
+
+    // Needed for callback to container activity
+    public interface OnThemeChangedListener {
+        public void onThemeChanged();
     }
 }

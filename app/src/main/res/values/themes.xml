@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="AppTheme.Parent" />
 
     <style name="AppTheme.Parent" parent="Theme.AppCompat">
@@ -16,6 +17,7 @@
 
         <item name="android:actionModeBackground">@color/dark_primary</item>
         <item name="actionModeBackground">@color/dark_primary</item>
+        <item name="android:windowBackground">@color/dark_grey</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
