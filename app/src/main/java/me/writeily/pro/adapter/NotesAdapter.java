@@ -59,35 +59,33 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
 
         noteTitle.setText(getItem(i).getName());
 
-        if (!getItem(i).isDirectory()) {
+        // Theme Adjustments
+        if (theme.equals(context.getString(R.string.theme_dark))) {
+            noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
+        } else {
+            // Use default
+        }
 
+        // File or folder?
+        if (!getItem(i).isDirectory()) {
+            // Set icon
+            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
+            fileIdentifierImageView.setBackground(context.getResources().getDrawable(R.drawable.ic_notes_bg));
+
+            // Set extra information
             String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
                     (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
             String lastModified = String.format(context.getString(R.string.last_modified), formattedDate);
             noteExtra.setText(lastModified);
         } else {
+            // Set icon
+            fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
+            fileIdentifierImageView.setBackground(context.getResources().getDrawable(R.drawable.ic_folder_bg));
+
+            // Set extra information
             int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
             String numberOfFiles = String.format(context.getString(R.string.number_of_files), fileAmount);
             noteExtra.setText(numberOfFiles);
-        }
-
-        // Theme Adjustments
-        if (theme.equals(context.getString(R.string.theme_dark))) {
-            noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
-
-            if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
-            } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
-            }
-        } else {
-            noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
-
-            if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
-            } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
-            }
         }
 
         return row;
