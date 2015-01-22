@@ -16,37 +16,34 @@
         android:id="@+id/file_identifier_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingStart="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:gravity="center_vertical"
         android:contentDescription="@null" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="22sp"
+            android:textSize="17sp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="@color/dark_grey" />
+            android:textColor="@android:color/secondary_text_light" />
         <TextView
             android:id="@+id/note_extra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
             android:fontFamily="sans-serif-light"
             android:textSize="15sp"
-            android:ellipsize="end"
+            android:ellipsize="middle"
             android:singleLine="true"
-            android:textColor="@color/light_grey" />
+            android:textColor="@android:color/tertiary_text_dark" />
     </LinearLayout>
 
 </LinearLayout>
