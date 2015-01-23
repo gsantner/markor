@@ -9,11 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import me.writeily.pro.R;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.
  */
-public class SettingsActivity extends ActionBarActivity implements SettingsFragment.OnThemeChangedListener {
+public class SettingsActivity extends ActionBarActivity implements SettingsFragment.WriteilySettingsListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,19 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.frame, new SettingsFragment())
-                .commit();
+        // Show main settings page or about screen?
+        boolean showAbout = getIntent().getBooleanExtra(Constants.INTENT_EXTRA_SHOW_ABOUT, false);
+
+        if (!showAbout) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.frame, new SettingsFragment())
+                    .commit();
+        } else {
+            setTitle(R.string.pref_about_dialog_title);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.frame, new AboutFragment())
+                    .commit();
+        }
     }
 
     @Override
@@ -61,6 +72,13 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
         finish();
 
         overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAboutClicked() {
+        Intent intent = getIntent();
+        intent.putExtra(Constants.INTENT_EXTRA_SHOW_ABOUT, true);
         startActivity(intent);
     }
 }

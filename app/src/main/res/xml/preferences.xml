@@ -76,75 +76,11 @@
                 android:data="@string/writeily_donate_url" />
         </Preference>
 
-        <PreferenceScreen
-            android:key="about"
-            android:title="@string/pref_about_dialog_title">
+        <Preference
+            android:key="@string/pref_about_key"
+            android:title="@string/pref_about_dialog_title" />
 
-            <Preference
-                android:summary="@string/app_version"
-                android:title="@string/about_version_title" />
-
-            <Preference
-                android:summary="@string/tap_website"
-                android:title="@string/about_source_title">
-                <intent
-                    android:action="android.intent.action.VIEW"
-                    android:data="@string/source_url" />
-            </Preference>
-
-            <PreferenceCategory android:title="@string/about_developer_section">
-                <Preference
-                    android:summary="@string/tap_website"
-                    android:title="@string/main_developer">
-                    <intent
-                        android:action="android.intent.action.VIEW"
-                        android:data="@string/main_developer_url" />
-                </Preference>
-            </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/about_contributors_section">
-                <Preference
-                    android:summary="@string/tap_github"
-                    android:title="@string/contributor_minty123">
-                    <intent
-                        android:action="android.intent.action.VIEW"
-                        android:data="@string/contributor_minty123_url" />
-                </Preference>
-
-                <Preference
-                    android:summary="@string/tap_github"
-                    android:title="@string/contributor_davydsantos">
-                    <intent
-                        android:action="android.intent.action.VIEW"
-                        android:data="@string/contributor_davydsantos_url" />
-                </Preference>
-
-                <Preference
-                    android:summary="@string/tap_github"
-                    android:title="@string/contributor_patcon">
-                    <intent
-                        android:action="android.intent.action.VIEW"
-                        android:data="@string/contributor_patcon_url" />
-                </Preference>
-
-            </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/about_translators_section">
-                <Preference
-                    android:summary="@string/translators_german"
-                    android:title="@string/about_german"></Preference>
-
-                <Preference
-                    android:summary="@string/translators_polish"
-                    android:title="@string/about_polish"></Preference>
-            </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/about_libraries_section">
-                <Preference
-                    android:summary="@string/licence_apache20"
-                    android:title="@string/library_anddown"></Preference>
-            </PreferenceCategory>
-        </PreferenceScreen>
     </PreferenceCategory>
+
 
 </PreferenceScreen>

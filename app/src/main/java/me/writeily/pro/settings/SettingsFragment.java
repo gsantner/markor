@@ -20,7 +20,7 @@ import me.writeily.pro.model.Constants;
  */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    OnThemeChangedListener mCallback;
+    WriteilySettingsListener mCallback;
     CheckBoxPreference pinPreference;
     Context context;
 
@@ -51,6 +51,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         // Register PreferenceChangeListener
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+        // Workaround for About-Screen
+        Preference aboutScreen = (Preference) findPreference(getString(R.string.pref_about_key));
+        aboutScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                if (mCallback == null) {
+                    return false;
+                }
+
+                mCallback.onAboutClicked();
+                return true;
+            }
+        });
+
+
     }
 
     @Override
@@ -81,7 +97,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         // Make sure the container has implemented the callback interface
         try {
-            mCallback = (OnThemeChangedListener) activity;
+            mCallback = (WriteilySettingsListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + "must implement OnThemeChangedListener");
@@ -89,7 +105,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     // Needed for callback to container activity
-    public interface OnThemeChangedListener {
+    public interface WriteilySettingsListener {
         public void onThemeChanged();
+
+        public void onAboutClicked();
     }
 }
