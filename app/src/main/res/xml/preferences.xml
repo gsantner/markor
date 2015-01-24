@@ -4,6 +4,26 @@
 
     <PreferenceCategory android:title="@string/app_settings">
         <ListPreference
+            android:defaultValue="@string/theme_light"
+            android:dialogTitle="@string/pref_theme"
+            android:entries="@array/themes_array"
+            android:entryValues="@array/themes_array"
+            android:key="@string/pref_theme_key"
+            android:title="@string/pref_theme" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_remember_directory_key"
+            android:title="@string/pref_remember_directory" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_pin_key"
+            android:title="@string/pref_pin" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/editor_settings">
+        <ListPreference
             android:defaultValue="sans-serif-light"
             android:dialogTitle="@string/pref_font_choice"
             android:entries="@array/fonts_array"
@@ -24,28 +44,6 @@
             android:key="@string/pref_show_markdown_shortcuts_key"
             android:title="@string/pref_show_markdown_shortcuts" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_pin_key"
-            android:title="@string/pref_pin" />
-
-        <ListPreference
-            android:defaultValue="@string/theme_light"
-            android:dialogTitle="@string/pref_theme"
-            android:entries="@array/themes_array"
-            android:entryValues="@array/themes_array"
-            android:key="@string/pref_theme_key"
-            android:title="@string/pref_theme" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_remember_directory_key"
-            android:title="@string/pref_remember_directory" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_pin_key"
-            android:title="@string/pref_pin" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/social">
