@@ -79,7 +79,7 @@
 
     <!-- About screen -->
     <string name="about_version_title">Wersja</string>
-    <string name="about_source_title">Source code available on GitHub</string>
+    <string name="about_source_title">Writeily is open source on GitHub</string>
     <string name="about_developer_section">Programista</string>
     <string name="about_contributors_section">Contributors</string>
     <string name="about_libraries_section">Biblioteki</string>

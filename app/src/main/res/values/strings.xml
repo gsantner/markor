@@ -58,6 +58,7 @@
     <string name="share_as">Share as&#8230;</string>
     <string name="pref_font_size">Font Size</string>
     <string name="pref_pin">Pin Lock</string>
+    <string name="pref_show_markdown_shortcuts">Show Markdown shortcuts bar</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
 
@@ -80,7 +81,7 @@
 
     <!-- About screen -->
     <string name="about_version_title">Version</string>
-    <string name="about_source_title">Source code available on GitHub</string>
+    <string name="about_source_title">Writeily is Open Source on GitHub</string>
     <string name="about_developer_section">Developer</string>
     <string name="about_contributors_section">Contributors</string>
     <string name="about_libraries_section">Libraries</string>

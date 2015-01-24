@@ -19,6 +19,16 @@
             android:key="@string/pref_font_size_key"
             android:title="@string/pref_font_size" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_show_markdown_shortcuts_key"
+            android:title="@string/pref_show_markdown_shortcuts" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_pin_key"
+            android:title="@string/pref_pin" />
+
         <ListPreference
             android:defaultValue="@string/theme_light"
             android:dialogTitle="@string/pref_theme"

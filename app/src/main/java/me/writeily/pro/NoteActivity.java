@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,6 +44,8 @@ public class NoteActivity extends ActionBarActivity {
 
     private EditText noteTitle;
     private EditText content;
+    private ScrollView scrollView;
+
     private ViewGroup keyboardBarView;
     private String sourceDir;
 
@@ -71,6 +75,7 @@ public class NoteActivity extends ActionBarActivity {
         context = getApplicationContext();
         content = (EditText) findViewById(R.id.note_content);
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
+        scrollView = (ScrollView) findViewById(R.id.note_scrollview);
         keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
 
         Intent receivingIntent = getIntent();
@@ -212,7 +217,9 @@ public class NoteActivity extends ActionBarActivity {
     }
 
     private void setupKeyboardBar() {
-        if (keyboardBarView.getChildCount() == 0) {
+        boolean showShortcuts = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_show_markdown_shortcuts_key), true);
+
+        if (showShortcuts && keyboardBarView.getChildCount() == 0) {
             for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
                 Button shortcutButton = new Button(this);
                 shortcutButton.setText(shortcut);
@@ -233,6 +240,14 @@ public class NoteActivity extends ActionBarActivity {
 
                 keyboardBarView.addView(shortcutButton);
             }
+        } else if (!showShortcuts) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            params.setMargins(0, 0, 0, 0);
+            scrollView.setLayoutParams(params);
         }
     }
 
