@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -321,7 +322,30 @@ public class NotesFragment extends Fragment {
             } else {
                 File note = filesAdapter.getItem(i);
 
-                Intent intent = new Intent(context, NoteActivity.class);
+                boolean previewFirst = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_preview_first_key), false);
+
+                Intent intent;
+
+                if (previewFirst) {
+                    intent = new Intent(context, PreviewActivity.class);
+
+                    // .replace is a workaround for Markdown lists requiring two \n characters
+                    if (note != null) {
+                        Uri uriBase = null;
+                        if (note.getParentFile() != null) {
+                            uriBase = Uri.parse(note.getParentFile().toURI().toString());
+                        }
+
+                        intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
+                    }
+
+                    Uri noteUri = Uri.parse(note.toURI().toString());
+                    String content = WriteilySingleton.getInstance().readFileUri(noteUri, context);
+                    intent.putExtra(Constants.MD_PREVIEW_KEY, content.replace("\n-", "\n\n-"));
+                } else {
+                    intent = new Intent(context, NoteActivity.class);
+                }
+
                 intent.putExtra(Constants.NOTE_SOURCE_DIR, getCurrentDir());
                 intent.putExtra(Constants.NOTE_KEY, note);
 

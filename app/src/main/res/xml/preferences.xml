@@ -18,6 +18,11 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:key="@string/pref_preview_first_key"
+            android:title="@string/pref_preview_first" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="@string/pref_pin_key"
             android:title="@string/pref_pin" />
     </PreferenceCategory>

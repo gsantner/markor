@@ -1,5 +1,7 @@
 package me.writeily.pro.model;
 
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.BaseAdapter;
@@ -13,6 +15,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -149,6 +154,48 @@ public class WriteilySingleton {
                 copyFile(file, destination);
             }
         }
+    }
+
+    public Uri getUriFromFile(File f) {
+        Uri u = null;
+        if (f != null) {
+            u = Uri.parse(f.toURI().toString());
+        }
+        return u;
+    }
+
+    public File getFileFromUri(Uri u) {
+        File f = null;
+        if (u != null) {
+            try {
+                f = new File(new java.net.URI(URLEncoder.encode(u.toString(), "UTF-8")));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        return f;
+    }
+
+    public String readFileUri(Uri fileUri, Context context) {
+        StringBuilder uriContent = new StringBuilder();
+        if (fileUri != null) {
+            try {
+                InputStreamReader reader = new InputStreamReader(context.getContentResolver().openInputStream(fileUri));
+                BufferedReader br = new BufferedReader(reader);
+
+                while (br.ready()) {
+                    uriContent.append(br.readLine());
+                    uriContent.append("\n");
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return uriContent.toString();
     }
 
     /**

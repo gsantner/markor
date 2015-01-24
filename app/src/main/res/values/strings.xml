@@ -36,6 +36,7 @@
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="preview">Preview</string>
+    <string name="edit">Edit</string>
     <string name="app_settings">App Settings</string>
     <string name="editor_settings">Editor Settings</string>
     <string name="social">Social</string>
@@ -49,6 +50,7 @@
     <string name="pref_theme">Theme</string>
     <string name="pref_rate_writeily">Rate Writeily on Google Play</string>
     <string name="pref_donate_writeily">Donate</string>
+    <string name="pref_preview_first">Preview first when opening notes</string>
     <string name="translators_title">Translators</string>
     <string name="pref_about_dialog_title">About Writeily</string>
     <string name="pref_attribution_dialog_title">Attributions</string>

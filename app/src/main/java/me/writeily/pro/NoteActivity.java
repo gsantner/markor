@@ -20,19 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 
 import me.writeily.pro.model.Constants;
+import me.writeily.pro.model.WriteilySingleton;
 
 /**
  * Created by jeff on 2014-04-11.
@@ -102,7 +97,7 @@ public class NoteActivity extends ActionBarActivity {
 
     private String readNote() {
         java.net.URI oldUri = note.toURI();
-        return readFileUri(Uri.parse(oldUri.toString()));
+        return WriteilySingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
     }
 
     private void openFromSendAction(Intent receivingIntent) {
@@ -115,53 +110,11 @@ public class NoteActivity extends ActionBarActivity {
         readFileUriFromIntent(fileUri);
     }
 
-    private Uri getUriFromFile(File f) {
-        Uri u = null;
-        if (f != null) {
-            u = Uri.parse(f.toURI().toString());
-        }
-        return u;
-    }
-
-    private File getFileFromUri(Uri u) {
-        File f = null;
-        if (u != null) {
-            try {
-                f = new File(new java.net.URI(URLEncoder.encode(u.toString(), "UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-        }
-        return f;
-    }
-
     private void readFileUriFromIntent(Uri fileUri) {
         if (fileUri != null) {
-            note = getFileFromUri(fileUri);
-            content.setText(readFileUri(fileUri));
+            note = WriteilySingleton.getInstance().getFileFromUri(fileUri);
+            content.setText(WriteilySingleton.getInstance().readFileUri(fileUri, this));
         }
-    }
-
-    private String readFileUri(Uri fileUri) {
-        StringBuilder uriContent = new StringBuilder();
-        if (fileUri != null) {
-            try {
-                InputStreamReader reader = new InputStreamReader(getContentResolver().openInputStream(fileUri));
-                BufferedReader br = new BufferedReader(reader);
-
-                while (br.ready()) {
-                    uriContent.append(br.readLine());
-                    uriContent.append("\n");
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return uriContent.toString();
     }
 
     @Override
@@ -282,9 +235,10 @@ public class NoteActivity extends ActionBarActivity {
 
         // .replace is a workaround for Markdown lists requiring two \n characters
         if (note != null) {
-            Uri uriBase = getUriFromFile(note.getParentFile());
+            Uri uriBase = WriteilySingleton.getInstance().getUriFromFile(note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
         }
+
         intent.putExtra(Constants.MD_PREVIEW_KEY, content.getText().toString().replace("\n-", "\n\n-"));
 
         startActivity(intent);

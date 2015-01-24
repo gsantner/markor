@@ -1,13 +1,18 @@
 package me.writeily.pro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.commonsware.cwac.anddown.AndDown;
+
+import java.io.File;
+
 import me.writeily.pro.model.Constants;
 
 /**
@@ -18,6 +23,8 @@ public class PreviewActivity extends ActionBarActivity {
     private WebView previewWebView;
     private String markdownRaw;
     private String baseFolder = null;
+    private String currentDir;
+    private File note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +40,18 @@ public class PreviewActivity extends ActionBarActivity {
         markdownRaw = getIntent().getStringExtra(Constants.MD_PREVIEW_KEY);
         baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
 
+        currentDir = getIntent().getStringExtra(Constants.NOTE_SOURCE_DIR);
+        note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
+
+        setTitle(note.getName());
         renderMarkdown();
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preview_menu, menu);
+        return true;
     }
 
     @Override
@@ -43,9 +60,32 @@ public class PreviewActivity extends ActionBarActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_share:
+                shareNote();
+                return true;
+            case R.id.action_edit:
+                editNote();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void shareNote() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, markdownRaw);
+        shareIntent.setType("text/plain");
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
+    }
+
+    private void editNote() {
+        Intent intent = new Intent(this, NoteActivity.class);
+        intent.putExtra(Constants.NOTE_SOURCE_DIR, currentDir);
+        intent.putExtra(Constants.NOTE_KEY, note);
+
+        startActivity(intent);
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
     }
 
     private void renderMarkdown() {
