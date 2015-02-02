@@ -239,6 +239,7 @@ public class NoteActivity extends ActionBarActivity {
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
         }
 
+        intent.putExtra(Constants.NOTE_KEY, note);
         intent.putExtra(Constants.MD_PREVIEW_KEY, content.getText().toString().replace("\n-", "\n\n-"));
 
         startActivity(intent);

@@ -86,6 +86,8 @@
     <string name="about_translators_section">Traductores</string>
     <string name="about_german">Alemán</string>
     <string name="about_polish">Polaco</string>
+    <string name="about_spanish">Español</string>
+    <string name="about_french">Francés</string>
     <string name="tap_website">Pulsa para visitar el sitio web</string>
     <string name="tap_github">Pulsa para visitar mi perfil en GitHub</string>
 	

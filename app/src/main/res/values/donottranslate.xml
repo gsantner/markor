@@ -35,6 +35,8 @@
 
     <string name="translators_german">Minty123</string>
     <string name="translators_polish">Krizoman</string>
+    <string name="translators_french">Tristan Stanic</string>
+    <string name="translators_spanish">Carlos Mares</string>
 
     <string name="library_anddown">CommonsWare AndDown 0.2.0</string>
     <string name="licence_apache20">Apache License v2.0</string>

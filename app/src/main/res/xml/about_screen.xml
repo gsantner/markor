@@ -58,6 +58,14 @@
         <Preference
             android:summary="@string/translators_polish"
             android:title="@string/about_polish" />
+
+        <Preference
+            android:summary="@string/translators_french"
+            android:title="@string/about_french" />
+
+        <Preference
+            android:summary="@string/translators_spanish"
+            android:title="@string/about_spanish" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/about_libraries_section">
