@@ -15,6 +15,13 @@ public class AndDown {
   // advance extensions set: footnotes(bit 2), math(bit 9)
   public static final int FLAG_EXTENSIONS_ADVANCE = FLAG_EXTENSIONS_MEDIUM | 0x204;
 
+  static final int[] EXTENSIONS_LEVEL = {
+    FLAG_EXTENSIONS_NONE,
+    FLAG_EXTENSIONS_BASIC,
+    FLAG_EXTENSIONS_MEDIUM,
+    FLAG_EXTENSIONS_ADVANCE,
+  };
+
   // Disable emphasis_between_words(bit 11)
   public static final int FLAG_NO_INTRA_EMPHASIS = 1 << 11;
   // Require a space after '#' in headers(bit 12)
@@ -31,5 +38,19 @@ public class AndDown {
 
   public String markdownToHtml(String raw) {
     return markdownToHtml(raw, FLAG_DEFAULT);
+  }
+
+  /**
+   * convent markdown to html
+   *
+   * @raw: markdown in plain text
+   * @flag: extension flags for markdown rendering
+   * @level: 0 - none, 1 - basic, 2 - medium, 3 - advance, other value are ignored
+   */
+  public String markdownToHtml(String raw, int flag, int level) {
+    if (level >= 0 && level < EXTENSIONS_LEVEL.length) {
+      flag |= EXTENSIONS_LEVEL[level];
+    }
+    return markdownToHtml(raw, flag);
   }
 }
