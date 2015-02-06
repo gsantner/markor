@@ -16,4 +16,11 @@
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
     </string-array>
+
+    <string-array name="markdown_extension">
+        <item>@string/markdown_extension_none</item>
+        <item>@string/markdown_extension_basic</item>
+        <item>@string/markdown_extension_medium</item>
+        <item>@string/markdown_extension_advance</item>
+    </string-array>
 </resources>
