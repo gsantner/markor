@@ -90,6 +90,7 @@
     <string name="about_polish">Polnisch</string>
     <string name="about_spanish">Spaans</string>
     <string name="about_french">Frans</string>
+    <string name="about_chinese_simplified">Chinesisch (vereinfacht)</string>
     <string name="about_libraries_section">Bibliotheken</string>
     <string name="about_source_title">Quellcode verfügbar auf GitHub</string>
 
