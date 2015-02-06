@@ -5,26 +5,28 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#ifdef _MSC_VER
+#ifndef _MSC_VER
+#include <strings.h>
+#else
 #define strncasecmp	_strnicmp
 #endif
 
 int
-hoedown_autolink_is_safe(const uint8_t *link, size_t link_len)
+hoedown_autolink_is_safe(const uint8_t *data, size_t size)
 {
-	static const size_t valid_uris_count = 5;
+	static const size_t valid_uris_count = 6;
 	static const char *valid_uris[] = {
-		"/", "http://", "https://", "ftp://", "mailto:"
+		"http://", "https://", "/", "#", "ftp://", "mailto:"
 	};
-
+	static const size_t valid_uris_size[] = { 7, 8, 1, 1, 6, 7 };
 	size_t i;
 
 	for (i = 0; i < valid_uris_count; ++i) {
-		size_t len = strlen(valid_uris[i]);
+		size_t len = valid_uris_size[i];
 
-		if (link_len > len &&
-			strncasecmp((char *)link, valid_uris[i], len) == 0 &&
-			isalnum(link[len]))
+		if (size > len &&
+			strncasecmp((char *)data, valid_uris[i], len) == 0 &&
+			isalnum(data[len]))
 			return 1;
 	}
 

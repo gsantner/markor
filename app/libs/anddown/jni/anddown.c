@@ -14,7 +14,7 @@
 */
 
 #include "com_commonsware_cwac_anddown_AndDown.h"
-#include "markdown.h"
+#include "document.h"
 #include "html.h"
 #include "buffer.h"
 
@@ -26,7 +26,7 @@ JNIEXPORT jstring JNICALL Java_com_commonsware_cwac_anddown_AndDown_markdownToHt
   struct hoedown_buffer *ib, *ob;
   jstring result;
   hoedown_renderer *renderer;
-  hoedown_markdown *markdown;
+  hoedown_document *document;
   const char* str;
 
   str = (*env)->GetStringUTFChars(env, raw, NULL);
@@ -38,10 +38,10 @@ JNIEXPORT jstring JNICALL Java_com_commonsware_cwac_anddown_AndDown_markdownToHt
   (*env)->ReleaseStringUTFChars(env, raw, str);
 
   renderer = hoedown_html_renderer_new(0, 0);
-  markdown = hoedown_markdown_new(0, 16, renderer);
+  document = hoedown_document_new(renderer, 0, 16);
 
-  hoedown_markdown_render(ob, ib->data, ib->size, markdown);
-  hoedown_markdown_free(markdown);
+  hoedown_document_render(document, ob, ib->data, ib->size);
+  hoedown_document_free(document);
 
   result=(*env)->NewStringUTF(env, hoedown_buffer_cstr(ob));
 
