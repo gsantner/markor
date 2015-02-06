@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">设置</string>
+    <string name="open_drawer">打开抽屉</string>
+    <string name="close_drawer">关闭抽屉</string>
+    <string name="notes">笔记</string>
+    <string name="archive">归档</string>
+    <string name="new_note">新建笔记</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">暗色</string>
+    <string name="delete">删除</string>
+    <string name="star">星标</string>
+    <string name="starred">已加星标</string>
+    <string name="restore">恢复</string>
+    <string name="wr_import">导入</string>
+    <string name="unstar">取消星标</string>
+    <string name="confirm_delete">确认删除</string>
+    <string name="incorrect_pin_text">PIN 码不正确</string>
+    <string name="title">标题</string>
+    <string name="untitled">未命名</string>
+    <string name="empty_directory">空文件夹</string>
+    <string name="navigate_up_folder">返回上一级目录</string>
+    <string name="folder_name_hint">输入文件夹名</string>
+    <string name="create_folder">创建文件夹</string>
+    <string name="move">移动</string>
+
+    <string name="import_from_device">从设备导入</string>
+    <string name="select_folder_move">选择文件夹</string>
+
+    <string name="empty_notes_list_hint">当您创建新笔记时，\n它会显示在这里</string>
+    <string name="empty_archives_hint">当您存档笔记时，\n它会显示在这里</string>
+    <string name="empty_starred_hint">当您星标笔记时，\n它会显示在这里</string>
+    <string name="search_hint">搜索笔记</string>
+    <string name="share_string">分享到&#8230;</string>
+    <string name="share">分享</string>
+    <string name="search">搜索</string>
+    <string name="preview">预览</string>
+    <string name="edit">编辑</string>
+    <string name="app_settings">应用设置</string>
+    <string name="editor_settings">编辑器设置</string>
+    <string name="social">社交</string>
+    <string name="meta">杂项</string>
+
+    <string name="email_header">Feedback about Writeily</string>
+
+    <!-- Preferences -->
+    <string name="pref_remember_directory">启动时打开上次的文件夹</string>
+    <string name="pref_font_choice">编辑器字体</string>
+    <string name="pref_theme">主题</string>
+    <string name="pref_rate_writeily">给个好评</string>
+    <string name="pref_donate_writeily">捐赠</string>
+    <string name="pref_preview_first">打开笔记时先预览</string>
+    <string name="translators_title">翻译人员</string>
+    <string name="pref_about_dialog_title">关于 Writeily</string>
+    <string name="pref_attribution_dialog_title">Attributions</string>
+    <string name="pref_twitter">在 Twitter 上关注 Writeily</string>
+    <string name="pref_email">给作者发邮件</string>
+    <string name="share_text">纯文本</string>
+    <string name="share_html">HTML</string>
+    <string name="share_as">分享为&#8230;</string>
+    <string name="pref_font_size">字体大小</string>
+    <string name="pref_pin">PIN 锁</string>
+    <string name="pref_show_markdown_shortcuts">显示 Markdown 快捷栏</string>
+    <string name="pin_title">输入你的 PIN</string>
+    <string name="pin_go">接受</string>
+    <string name="pref_markdown_extension">Markdown 语法扩展</string>
+
+    <!-- Font Size -->
+    <string name="font_size_normal">中等</string>
+    <string name="font_size_large">大</string>
+    <string name="font_size_small">小</string>
+
+    <!-- Markdown extension -->
+    <string name="markdown_extension_none">无扩展</string>
+    <string name="markdown_extension_basic">基础扩展语法</string>
+    <string name="markdown_extension_medium">中等扩展语法</string>
+    <string name="markdown_extension_advance">高级扩展语法</string>
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">最后修改：%s</string>
+    <string name="number_of_files">文件数：%d</string>
+    <string name="move_here">移动到这里</string>
+    <string name="select">选择</string>
+    <string name="no_selected_file">没有选中的文件</string>
+    <string name="current_folder">当前文件夹：</string>
+    <string name="create">创建</string>
+    <string name="select_elements">选择项目</string>
+    <string name="one_item_selected">1 项已选择</string>
+    <string name="more_items_selected">%d 项已选择</string>
+
+    <!-- About screen -->
+    <string name="about_version_title">版本</string>
+    <string name="about_source_title">源代码托管在 GitHub 上</string>
+    <string name="about_developer_section">开发者</string>
+    <string name="about_contributors_section">贡献者</string>
+    <string name="about_libraries_section">代码库</string>
+    <string name="about_translators_section">翻译人员</string>
+    <string name="about_german">德语</string>
+    <string name="about_polish">波兰语</string>
+    <string name="about_spanish">西班牙语</string>
+    <string name="about_french">法语</string>
+    <string name="about_chinese_simplified">中文 (简体)</string>
+    <string name="tap_website">访问网站</string>
+    <string name="tap_github">访问 GitHub 主页</string>
+
+</resources>
