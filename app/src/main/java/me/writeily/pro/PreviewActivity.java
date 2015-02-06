@@ -43,7 +43,12 @@ public class PreviewActivity extends ActionBarActivity {
         currentDir = getIntent().getStringExtra(Constants.NOTE_SOURCE_DIR);
         note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
 
-        setTitle(note.getName());
+        if (note != null) {
+            setTitle(note.getName());
+        } else {
+            setTitle(getResources().getString(R.string.preview));
+        }
+
         renderMarkdown();
         super.onCreate(savedInstanceState);
     }
