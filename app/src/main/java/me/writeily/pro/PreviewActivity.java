@@ -96,7 +96,7 @@ public class PreviewActivity extends ActionBarActivity {
 
     private void editNote() {
         isEditIncoming = true;
-        
+
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra(Constants.NOTE_SOURCE_DIR, currentDir);
         intent.putExtra(Constants.NOTE_KEY, note);
