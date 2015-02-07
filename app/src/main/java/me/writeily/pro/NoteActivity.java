@@ -43,6 +43,7 @@ public class NoteActivity extends ActionBarActivity {
 
     private ViewGroup keyboardBarView;
     private String sourceDir;
+    private boolean isPreviewIncoming = false;
 
     public NoteActivity() {
     }
@@ -166,6 +167,11 @@ public class NoteActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         saveNote();
+
+        if (isPreviewIncoming) {
+            finish();
+        }
+
         super.onPause();
     }
 
@@ -230,7 +236,6 @@ public class NoteActivity extends ActionBarActivity {
 
     private void previewNote() {
         saveNote();
-
         Intent intent = new Intent(this, PreviewActivity.class);
 
         // .replace is a workaround for Markdown lists requiring two \n characters
@@ -242,6 +247,7 @@ public class NoteActivity extends ActionBarActivity {
         intent.putExtra(Constants.NOTE_KEY, note);
         intent.putExtra(Constants.MD_PREVIEW_KEY, content.getText().toString().replace("\n-", "\n\n-"));
 
+        isPreviewIncoming = true;
         startActivity(intent);
     }
 
