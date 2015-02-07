@@ -32,7 +32,7 @@ public class AndDown {
   public static final int FLAG_DISABLE_INDENTED_CODE = 1 << 14;
 
   // default flag for markdown rendering
-  public static final int FLAG_DEFAULT = FLAG_EXTENSIONS_NONE;
+  public static final int FLAG_DEFAULT = FLAG_EXTENSIONS_ADVANCE;
 
   public native String markdownToHtml(String raw, int flag);
 

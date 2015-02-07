@@ -64,7 +64,6 @@
     <string name="pref_show_markdown_shortcuts">显示 Markdown 快捷栏</string>
     <string name="pin_title">输入你的 PIN</string>
     <string name="pin_go">接受</string>
-    <string name="pref_markdown_extension">Markdown 语法扩展</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">中等</string>

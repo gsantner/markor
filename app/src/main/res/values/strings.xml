@@ -64,7 +64,6 @@
     <string name="pref_show_markdown_shortcuts">Show Markdown shortcuts bar</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
-    <string name="pref_markdown_extension">Markdown Syntax Extension</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normal</string>

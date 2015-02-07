@@ -11,14 +11,6 @@
             android:key="@string/pref_theme_key"
             android:title="@string/pref_theme" />
 
-        <ListPreference
-            android:defaultValue="0"
-            android:dialogTitle="@string/pref_markdown_extension"
-            android:entries="@array/markdown_extension"
-            android:entryValues="@array/markdown_extension_array"
-            android:key="@string/pref_markdown_extension_key"
-            android:title="@string/pref_markdown_extension" />
-
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_remember_directory_key"
