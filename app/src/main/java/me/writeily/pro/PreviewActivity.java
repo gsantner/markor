@@ -97,7 +97,6 @@ public class PreviewActivity extends ActionBarActivity {
         String markdownHtml = Constants.MD_HTML_PREFIX;
 
         String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-        String extension = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_markdown_extension_key), "0");
 
         if (!theme.equals("")) {
             if (theme.equals(getString(R.string.theme_dark))) {
@@ -108,7 +107,7 @@ public class PreviewActivity extends ActionBarActivity {
         }
 
         AndDown andDown = new AndDown();
-        markdownHtml += andDown.markdownToHtml(markdownRaw, 0, Integer.parseInt(extension)) + Constants.MD_HTML_SUFFIX;
+        markdownHtml += andDown.markdownToHtml(markdownRaw, 0, 3) + Constants.MD_HTML_SUFFIX;
 
         previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
     }

@@ -17,7 +17,6 @@
     <string name="pref_font_size_key">pref_font_size_key</string>
     <string name="pref_email_key">pref_email_key</string>
     <string name="pref_about_key">pref_about</string>
-    <string name="pref_markdown_extension_key">pref_markdown_extension</string>
 
     <string name="twitter_url">https://twitter.com/writeily</string>
     <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily.pro</string>
@@ -65,12 +64,5 @@
         <item>sans-serif-regular</item>
         <item>sans-serif-bold</item>
         <item>monospace</item>
-    </string-array>
-
-    <string-array name="markdown_extension_array">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
     </string-array>
 </resources>
