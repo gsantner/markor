@@ -25,6 +25,7 @@ public class PreviewActivity extends ActionBarActivity {
     private String baseFolder = null;
     private String currentDir;
     private File note;
+    private boolean isEditIncoming = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,15 @@ public class PreviewActivity extends ActionBarActivity {
 
         renderMarkdown();
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onPause() {
+        if (isEditIncoming) {
+            finish();
+        }
+
+        super.onPause();
     }
 
     @Override
@@ -85,6 +95,8 @@ public class PreviewActivity extends ActionBarActivity {
     }
 
     private void editNote() {
+        isEditIncoming = true;
+        
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra(Constants.NOTE_SOURCE_DIR, currentDir);
         intent.putExtra(Constants.NOTE_KEY, note);
