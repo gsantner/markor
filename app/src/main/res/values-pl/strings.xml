@@ -36,6 +36,7 @@
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>
+    <string name="edit">Edycja</string>
     <string name="app_settings">Ustawienia aplikacji</string>
     <string name="social">Społecznościowe</string>
     <string name="meta">Meta</string>
@@ -48,8 +49,10 @@
     <string name="pref_theme">Motyw</string>
     <string name="pref_rate_writeily">Oceń Writeily w Google Play</string>
     <string name="pref_donate_writeily">Podarować</string>
-    <string name="translators_title">Translators</string>
+    <string name="pref_preview_first">Preview first when opening notes</string>
+    <string name="translators_title">Translator</string>
     <string name="pref_about_dialog_title">O Writeily</string>
+    <string name="pref_attribution_dialog_title">Atrybucji</string>
     <string name="pref_twitter">Śledź Writeily na Twitterze</string>
     <string name="pref_email">Wsparcie przez e-mail</string>
     <string name="share_text">Tekst</string>
@@ -57,6 +60,7 @@
     <string name="share_as">Udostępnij jako&#8230;</string>
     <string name="pref_font_size">Rozmiar czcionki</string>
     <string name="pref_pin">Blokada kodem PIN</string>
+    <string name="pref_show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
     <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>

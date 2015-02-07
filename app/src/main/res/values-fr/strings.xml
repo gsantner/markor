@@ -36,6 +36,7 @@
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
     <string name="preview">Apperçu</string>
+    <string name="edit">Éditer</string>
     <string name="editor_settings">Editor Paramètres</string>
     <string name="app_settings">Paramètres</string>
     <string name="social">Social</string>
@@ -49,6 +50,7 @@
     <string name="pref_theme">Thème</string>
     <string name="pref_rate_writeily">Apprécier Writeily sur Google Play</string>
     <string name="pref_donate_writeily">Donation</string>
+    <string name="pref_preview_first">Preview first when opening notes</string>
     <string name="translators_title">Traducteurs</string>
     <string name="pref_about_dialog_title">A propos de Writeily</string>
     <string name="pref_attribution_dialog_title">Attributions</string>
@@ -59,6 +61,7 @@
     <string name="share_as">Partager en tant que&#8230;</string>
     <string name="pref_font_size">Taille Police</string>
     <string name="pref_pin">Verouiller NIP</string>
+    <string name="pref_show_markdown_shortcuts">Afficher la barre de Markdown</string>
     <string name="pin_title">Entrez votre NIP</string>
     <string name="pin_go">Accepter</string>
 
