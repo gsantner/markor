@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
@@ -11,9 +11,8 @@
     <ScrollView
         android:id="@+id/note_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_marginBottom="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fillViewport="true">
 
         <EditText
@@ -36,11 +35,9 @@
     </ScrollView>
 
     <HorizontalScrollView
+        android:id="@+id/keyboard_bar_scroll"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="50dp">
         <LinearLayout
             android:id="@+id/keyboard_bar"
             android:layout_height="match_parent"
@@ -50,4 +47,4 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-</RelativeLayout>
+</LinearLayout>
