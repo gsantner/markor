@@ -58,6 +58,7 @@
     <string name="share_text">Plain Text</string>
     <string name="share_html">HTML</string>
     <string name="share_html_source">HTML Source</string>
+    <string name="share_image">Image</string>
     <string name="share_as">Share as&#8230;</string>
     <string name="pref_font_size">Font Size</string>
     <string name="pref_pin">Pin Lock</string>
