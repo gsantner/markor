@@ -129,9 +129,11 @@ public class PreviewActivity extends ActionBarActivity {
 
     private Bitmap getBitmapFromWebView(WebView webView) {
         try {
+            float scale = 1.0f / getResources().getDisplayMetrics().density;
             Picture picture = webView.capturePicture();
-            Bitmap bitmap = Bitmap.createBitmap(picture.getWidth(), picture.getHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap((int) (picture.getWidth() * scale), (int) (picture.getHeight() * scale), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
+            canvas.scale(scale, scale);
             picture.draw(canvas);
             return bitmap;
         } catch (Exception e) {
