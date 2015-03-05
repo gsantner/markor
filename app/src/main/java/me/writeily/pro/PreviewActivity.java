@@ -22,6 +22,7 @@ public class PreviewActivity extends ActionBarActivity {
 
     private WebView previewWebView;
     private String markdownRaw;
+    private String markdownHtml;
     private String baseFolder = null;
     private String currentDir;
     private File note;
@@ -75,8 +76,14 @@ public class PreviewActivity extends ActionBarActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            case R.id.action_share:
-                shareNote();
+            case R.id.action_share_text:
+                shareText(markdownRaw, "text/plain");
+                return true;
+            case R.id.action_share_html:
+                shareText(markdownHtml, "text/html");
+                return true;
+            case R.id.action_share_html_source:
+                shareText(markdownHtml, "text/plain");
                 return true;
             case R.id.action_edit:
                 editNote();
@@ -86,11 +93,11 @@ public class PreviewActivity extends ActionBarActivity {
         }
     }
 
-    private void shareNote() {
+    private void shareText(String text, String type) {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, markdownRaw);
-        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        shareIntent.setType(type);
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
     }
 
@@ -106,7 +113,7 @@ public class PreviewActivity extends ActionBarActivity {
     }
 
     private void renderMarkdown() {
-        String markdownHtml = Constants.MD_HTML_PREFIX;
+        markdownHtml = Constants.MD_HTML_PREFIX;
 
         String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
 
