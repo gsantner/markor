@@ -200,13 +200,7 @@ public class NoteActivity extends ActionBarActivity {
                 keyboardBarView.addView(shortcutButton);
             }
         } else if (!showShortcuts) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-            );
-
-            params.setMargins(0, 0, 0, 0);
-            scrollView.setLayoutParams(params);
+            findViewById(R.id.keyboard_bar_scroll).setVisibility(View.GONE);
         }
     }
 
