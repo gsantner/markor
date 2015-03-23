@@ -5,7 +5,18 @@
     <item android:id="@+id/action_share"
         android:title="@string/share"
         android:icon="@drawable/ic_share_light"
-        app:showAsAction="always" />
+        app:showAsAction="always" >
+        <menu>
+            <item android:id="@+id/action_share_text"
+                android:title="@string/share_text" />
+            <item android:id="@+id/action_share_html"
+                android:title="@string/share_html" />
+            <item android:id="@+id/action_share_html_source"
+                android:title="@string/share_html_source" />
+            <item android:id="@+id/action_share_image"
+                android:title="@string/share_image" />
+        </menu>
+    </item>
     <item android:id="@+id/action_edit"
         android:title="@string/preview"
         android:icon="@drawable/ic_edit_light"
