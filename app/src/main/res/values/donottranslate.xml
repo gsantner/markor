@@ -25,9 +25,14 @@
     <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=me.writeily.donate</string>
     <string name="writeily_email">mailto:writeily.app@gmail.com</string>
 
+    <string name="share_html">HTML</string>
+    <string name="share_html_source">HTML Source</string>
+
     <!-- About Screen -->
     <string name="main_developer">Jeff Martin</string>
     <string name="main_developer_url">http://jeffreymartin.ca</string>
+    <string name="contributor_plafue">plafue</string>
+    <string name="contributor_plafue_url">https://github.com/plafue</string>
     <string name="contributor_minty123">Minty123</string>
     <string name="contributor_minty123_url">https://github.com/Minty123</string>
     <string name="contributor_davydsantos">davydsantos</string>

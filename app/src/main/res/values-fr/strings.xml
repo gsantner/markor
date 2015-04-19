@@ -57,11 +57,14 @@
     <string name="pref_twitter">Suivre Writeily sur Twitter</string>
     <string name="pref_email">Email Support Technique</string>
     <string name="share_text">Text Brut</string>
-    <string name="share_html">HTML</string>
+    <string name="share_image">Image</string>
     <string name="share_as">Partager en tant que&#8230;</string>
     <string name="pref_font_size">Taille Police</string>
     <string name="pref_pin">Verouiller NIP</string>
     <string name="pref_show_markdown_shortcuts">Afficher la barre de Markdown</string>
+    <string name="pref_highlighting_activated">Markdown coloration syntaxique</string>
+    <string name="pref_highlighting_delay">Délai en millisecondes pour soulignant rafraîchissement</string>
+    <string name="pref_highlighting_delay_summary">Des valeurs plus élevées sont plus faciles sur la batterie</string>
     <string name="pin_title">Entrez votre NIP</string>
     <string name="pin_go">Accepter</string>
 

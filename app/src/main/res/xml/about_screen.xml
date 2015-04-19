@@ -26,6 +26,14 @@
     <PreferenceCategory android:title="@string/about_contributors_section">
         <Preference
             android:summary="@string/tap_github"
+            android:title="@string/contributor_plafue">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/contributor_plafue_url" />
+        </Preference>
+
+        <Preference
+            android:summary="@string/tap_github"
             android:title="@string/contributor_minty123">
             <intent
                 android:action="android.intent.action.VIEW"
