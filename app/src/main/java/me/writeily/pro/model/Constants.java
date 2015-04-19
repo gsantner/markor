@@ -1,5 +1,7 @@
 package me.writeily.pro.model;
 
+import android.os.Environment;
+
 /**
  * Created by jeff on 2014-04-11.
  */
@@ -17,12 +19,14 @@ public class Constants {
     public static final String SHARE_BROADCAST_TAG = "share_broadcast_tag";
     public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
+    public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
     public static final String CONFIRM_DIALOG_TAG = "confirm_dialog_tag";
 
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
     public static final String FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY = "FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY";
     public static final String FILESYSTEM_FOLDER_ACCESS_TYPE = "FILESYSTEM_FOLDER_ACCESS_TYPE";
+    public static final String FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE = "FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE";
     public static final String FILESYSTEM_FILE_ACCESS_TYPE = "FILESYSTEM_FILE_ACCESS_TYPE";
     public static final String NOTE_KEY = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
@@ -44,4 +48,6 @@ public class Constants {
 
     // ----- INTENT EXTRAS -----
     public static final String INTENT_EXTRA_SHOW_ABOUT = "writeily.intent.settings.ABOUT";
+
+    public static final String DEFAULT_WRITEILY_STORAGE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER;
 }

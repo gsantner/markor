@@ -1,7 +1,10 @@
 package me.writeily.pro.settings;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -16,11 +19,26 @@ import me.writeily.pro.model.Constants;
  */
 public class SettingsActivity extends ActionBarActivity implements SettingsFragment.WriteilySettingsListener {
 
+    SettingsFragment settingsFragment;
+
+    private final BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                editor.putString(getString(R.string.pref_root_directory),intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
+                editor.apply();
+                settingsFragment.updateRootDirSummary();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Context context = getApplicationContext();
         String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_theme_key), "");
+        settingsFragment = new SettingsFragment();
 
         if (theme.equals(context.getString(R.string.theme_dark))) {
             setTheme(R.style.AppTheme);
@@ -42,7 +60,7 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
 
         if (!showAbout) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.frame, new SettingsFragment())
+                    .replace(R.id.frame, settingsFragment)
                     .commit();
         } else {
             setTitle(R.string.pref_about_dialog_title);
@@ -80,5 +98,20 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
         Intent intent = getIntent();
         intent.putExtra(Constants.INTENT_EXTRA_SHOW_ABOUT, true);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onResume() {
+        IntentFilter ifilterFsDialog = new IntentFilter();
+        ifilterFsDialog.addAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
+        registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(fsBroadcastReceiver);
+        super.onPause();
     }
 }
