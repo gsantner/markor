@@ -29,6 +29,7 @@ import me.writeily.pro.model.WriteilySingleton;
  */
 public class FilesystemDialog extends DialogFragment {
 
+    public static final String EXTERNAL_STORAGE_PATH = Environment.getExternalStorageDirectory().getPath();
     private ListView filesListView;
     private TextView emptyFolderTextView;
 
@@ -40,6 +41,7 @@ public class FilesystemDialog extends DialogFragment {
     private Button previousDirButton;
 
     private boolean isMovingFile;
+    private boolean isSelectingFolder;
     private String selectedPath;
     private TextView workingDirectoryText;
 
@@ -50,11 +52,14 @@ public class FilesystemDialog extends DialogFragment {
     public void sendBroadcast(String name) {
         Intent broadcast = new Intent();
 
-        if (!isMovingFile) {
-            broadcast.setAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
+        if (isMovingFile) {
+            broadcast.setAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
+            broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
+        } else if (isSelectingFolder) {
+            broadcast.setAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
             broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
         } else {
-            broadcast.setAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
+            broadcast.setAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
             broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
         }
 
@@ -64,9 +69,10 @@ public class FilesystemDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
+        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER);
 
         isMovingFile = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
+        isSelectingFolder = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
 
         AlertDialog.Builder dialogBuilder;
         View dialogView;
@@ -81,7 +87,15 @@ public class FilesystemDialog extends DialogFragment {
 
         dialogBuilder.setView(dialogView);
 
-        if (isMovingFile) {
+        if (isSelectingFolder) {
+            dialogBuilder.setTitle(getResources().getString(R.string.select_root_folder));
+            dialogBuilder.setPositiveButton(getResources().getString(R.string.select_this_folder), new
+                    DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendBroadcast(currentDir.getAbsolutePath());
+                        }
+                    });
+        } else if (isMovingFile) {
             dialogBuilder.setTitle(getResources().getString(R.string.select_folder_move));
             dialogBuilder.setPositiveButton(getResources().getString(R.string.move_here), new
                     DialogInterface.OnClickListener() {
@@ -113,7 +127,7 @@ public class FilesystemDialog extends DialogFragment {
         AlertDialog dialog = dialogBuilder.show();
         emptyFolderTextView = (TextView) dialog.findViewById(R.id.empty_hint);
 
-        if (files== null) {
+        if (files == null) {
             files = new ArrayList<File>();
         }
 
@@ -135,17 +149,26 @@ public class FilesystemDialog extends DialogFragment {
     public void onResume() {
         if (isMovingFile) {
             workingDirectoryText.setVisibility(View.VISIBLE);
-            rootDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER);
+            rootDir = getRootFolderFromPrefsOrDefault();
             listDirectories(rootDir);
             currentDir = rootDir;
-        } else {
+        } else if (isSelectingFolder) {
+            workingDirectoryText.setVisibility(View.VISIBLE);
+            rootDir = new File(EXTERNAL_STORAGE_PATH);
+            listFilesInDirectory(rootDir);
+            currentDir = rootDir;
+        }else {
             workingDirectoryText.setVisibility(View.GONE);
-            rootDir = new File(Environment.getExternalStorageDirectory().getPath());
+            rootDir = new File(EXTERNAL_STORAGE_PATH);
             listFilesInDirectory(rootDir);
         }
 
         showCurrentDirectory(rootDir.getAbsolutePath());
         super.onResume();
+    }
+
+    private File getRootFolderFromPrefsOrDefault() {
+        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 
     private void showCurrentDirectory(String folder) {
