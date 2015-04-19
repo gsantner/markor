@@ -82,7 +82,7 @@ public class NotesFragment extends Fragment {
         previousDirButton = (Button) layoutView.findViewById(R.id.import_header_btn);
         previousDirButton.setOnClickListener(new PreviousDirClickListener());
 
-        rootDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER);
+        rootDir = getRootFolderFromPrefsOrDefault();
 
         return layoutView;
     }
@@ -90,11 +90,16 @@ public class NotesFragment extends Fragment {
     @Override
     public void onResume() {
         writeilySingleton = WriteilySingleton.getInstance();
+        rootDir = getRootFolderFromPrefsOrDefault();
         retrieveCurrentFolder();
         listFilesInDirectory(currentDir);
 
         setupAppearancePreferences();
         super.onResume();
+    }
+
+    private File getRootFolderFromPrefsOrDefault() {
+        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 
     @Override

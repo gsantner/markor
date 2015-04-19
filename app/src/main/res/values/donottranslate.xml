@@ -14,6 +14,7 @@
     <string name="pref_highlighting_delay_key">pref_highlighting_delay_key</string>
     <string name="pref_remember_directory_key">pref_remember_directory_key</string>
     <string name="pref_last_open_directory">pref_last_open_directory</string>
+    <string name="pref_root_directory">pref_root_directory</string>
     <string name="pref_font_choice_key">pref_font_choice</string>
     <string name="pref_theme_key">pref_theme</string>
     <string name="pref_font_size_key">pref_font_size_key</string>
