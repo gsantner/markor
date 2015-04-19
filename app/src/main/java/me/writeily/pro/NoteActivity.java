@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import java.io.File;
@@ -26,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import me.writeily.pro.editor.HighlightingEditor;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
 
@@ -38,7 +38,7 @@ public class NoteActivity extends ActionBarActivity {
     private Context context;
 
     private EditText noteTitle;
-    private EditText content;
+    private HighlightingEditor content;
     private ScrollView scrollView;
 
     private ViewGroup keyboardBarView;
@@ -69,7 +69,7 @@ public class NoteActivity extends ActionBarActivity {
         }
 
         context = getApplicationContext();
-        content = (EditText) findViewById(R.id.note_content);
+        content = (HighlightingEditor)findViewById(R.id.note_content);
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
         scrollView = (ScrollView) findViewById(R.id.note_scrollview);
         keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
