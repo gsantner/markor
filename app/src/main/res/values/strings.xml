@@ -63,6 +63,9 @@
     <string name="pref_font_size">Font Size</string>
     <string name="pref_pin">Pin Lock</string>
     <string name="pref_show_markdown_shortcuts">Show Markdown shortcuts bar</string>
+    <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
+    <string name="pref_highlighting_delay">Delay in miliseconds for highlighting refresh</string>
+    <string name="pref_highlighting_delay_summary">Higher values are easier on the battery</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
 
