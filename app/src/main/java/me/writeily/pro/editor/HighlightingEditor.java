@@ -1,7 +1,9 @@
 package me.writeily.pro.editor;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -9,17 +11,19 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import me.writeily.pro.R;
+
 public class HighlightingEditor extends EditText {
 
+    public static final int DEFAULT_DELAY = 500;
     private Highlighter highlighter;
+    private SharedPreferences prefs;
 
     interface OnTextChangedListener {
         void onTextChanged(String text);
     }
 
-    public OnTextChangedListener onTextChangedListener = null;
-    public int updateDelay = 100;
-    public boolean dirty = false;
+    private OnTextChangedListener onTextChangedListener = null;
 
     private final Handler updateHandler = new Handler();
     private final Runnable updateRunnable =
@@ -38,12 +42,18 @@ public class HighlightingEditor extends EditText {
 
     public HighlightingEditor(Context context) {
         super(context);
-        init();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        if(prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key),false)) {
+            init();
+        }
     }
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        if(prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key),false)) {
+            init();
+        }
     }
 
     private void init() {
@@ -51,6 +61,30 @@ public class HighlightingEditor extends EditText {
         setHorizontallyScrolling(true);
 
         setFilters(new InputFilter[]{new IndentationFilter()});
+        
+        final int highlightingDelay = getHighlightingDelayFromPrefs();
+
+        highlighter = new Highlighter(new HighlighterColors() {
+
+            private static final int COLOR_HEADER = 0xffef6C00;
+            private static final int COLOR_LINK = 0xff1ea3fd;
+            private static final int COLOR_LIST = COLOR_HEADER;
+
+            @Override
+            public int getHeaderColor() {
+                return COLOR_HEADER;
+            }
+
+            @Override
+            public int getLinkColor() {
+                return COLOR_LINK;
+            }
+
+            @Override
+            public int getListColor() {
+                return COLOR_LIST;
+            }
+        });
 
         addTextChangedListener(
                 new TextWatcher() {
@@ -77,34 +111,11 @@ public class HighlightingEditor extends EditText {
                         if (!modified)
                             return;
 
-                        dirty = true;
                         updateHandler.postDelayed(
                                 updateRunnable,
-                                updateDelay);
+                                highlightingDelay);
                     }
                 });
-
-        highlighter = new Highlighter(new HighlighterColors() {
-
-            private static final int COLOR_HEADER = 0xffef6C00;
-            private static final int COLOR_LINK = 0xff1ea3fd;
-            private static final int COLOR_LIST = COLOR_HEADER;
-
-            @Override
-            public int getHeaderColor() {
-                return COLOR_HEADER;
-            }
-
-            @Override
-            public int getLinkColor() {
-                return COLOR_LINK;
-            }
-
-            @Override
-            public int getListColor() {
-                return COLOR_LIST;
-            }
-        });
     }
 
     private void cancelUpdate() {
@@ -115,6 +126,15 @@ public class HighlightingEditor extends EditText {
         modified = false;
         highlighter.run(e);
         modified = true;
+    }
+
+    private String getStringFromStringTable(int preference_key) {
+        return this.getContext().getString(preference_key);
+    }
+
+    private int getHighlightingDelayFromPrefs() {
+        String value = prefs.getString(getStringFromStringTable(R.string.pref_highlighting_delay_key), "");
+        return value == null || value.equals("") ? DEFAULT_DELAY : Integer.valueOf(value);
     }
 
     private class IndentationFilter implements InputFilter {
