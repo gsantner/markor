@@ -49,6 +49,20 @@
             android:key="@string/pref_show_markdown_shortcuts_key"
             android:title="@string/pref_show_markdown_shortcuts" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_highlighting_activated_key"
+            android:title="@string/pref_highlighting_activated" />
+
+        <EditTextPreference
+            android:defaultValue="500"
+            android:inputType="number"
+            android:numeric="integer"
+            android:key="@string/pref_highlighting_delay_key"
+            android:title="@string/pref_highlighting_delay"
+            android:summary="@string/pref_highlighting_delay_summary"
+            android:dependency="@string/pref_highlighting_activated_key"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/social">
