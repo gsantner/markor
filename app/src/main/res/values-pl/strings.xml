@@ -57,11 +57,14 @@
     <string name="pref_twitter">Śledź Writeily na Twitterze</string>
     <string name="pref_email">Wsparcie przez e-mail</string>
     <string name="share_text">Tekst</string>
-    <string name="share_html">HTML</string>
+    <string name="share_image">Obraz</string>
     <string name="share_as">Udostępnij jako&#8230;</string>
     <string name="pref_font_size">Rozmiar czcionki</string>
     <string name="pref_pin">Blokada kodem PIN</string>
     <string name="pref_show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
+    <string name="pref_highlighting_activated">Markdown podświetlanie składni</string>
+    <string name="pref_highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżanie</string>
+    <string name="pref_highlighting_delay_summary">Wyższe wartości są łatwiejsze w akumulatorze</string>
     <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>

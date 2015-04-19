@@ -57,11 +57,15 @@
     <string name="pref_twitter">在 Twitter 上关注 Writeily</string>
     <string name="pref_email">给作者发邮件</string>
     <string name="share_text">纯文本</string>
+    <string name="share_image">Image</string>
     <string name="share_html">HTML</string>
     <string name="share_as">分享为&#8230;</string>
     <string name="pref_font_size">字体大小</string>
     <string name="pref_pin">PIN 锁</string>
     <string name="pref_show_markdown_shortcuts">显示 Markdown 快捷栏</string>
+    <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
+    <string name="pref_highlighting_delay">Delay in milliseconds for highlighting refresh</string>
+    <string name="pref_highlighting_delay_summary">Higher values are easier on the battery</string>
     <string name="pin_title">输入你的 PIN</string>
     <string name="pin_go">接受</string>
 
