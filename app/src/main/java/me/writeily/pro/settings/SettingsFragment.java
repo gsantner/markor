@@ -1,6 +1,7 @@
 package me.writeily.pro.settings;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import me.writeily.pro.PinActivity;
 import me.writeily.pro.R;
+import me.writeily.pro.dialog.FilesystemDialog;
 import me.writeily.pro.model.Constants;
 
 /**
@@ -66,7 +68,31 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             }
         });
 
+        setUpStorageDirPreference();
 
+    }
+
+    private void setUpStorageDirPreference() {
+        final Preference rootDir = (Preference) findPreference(getString(R.string.pref_root_directory));
+        rootDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FragmentManager fragManager = getFragmentManager();
+
+                Bundle args = new Bundle();
+                args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
+                FilesystemDialog filesystemDialog = new FilesystemDialog();
+                filesystemDialog.setArguments(args);
+                filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
+                return true;
+            }
+        });
+        updateRootDirSummary();
+    }
+
+    public void updateRootDirSummary() {
+        Preference rootDir = findPreference(getString(R.string.pref_root_directory));;
+        rootDir.setSummary(PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 
     @Override

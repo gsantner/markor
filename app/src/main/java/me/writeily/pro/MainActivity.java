@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -208,8 +207,8 @@ public class MainActivity extends ActionBarActivity {
      * Create folders, if they don't already exist.
      */
     private void initFolders() {
-        File writeilyFolder = new File(Environment.getExternalStorageDirectory() + Constants.WRITEILY_FOLDER);
-        createFolder(writeilyFolder);
+        File defaultWriteilyFolder = new File(Constants.DEFAULT_WRITEILY_STORAGE_FOLDER);
+        createFolder(defaultWriteilyFolder);
     }
 
     /**

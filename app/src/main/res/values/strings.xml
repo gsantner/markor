@@ -26,6 +26,7 @@
 
     <string name="import_from_device">Import from device</string>
     <string name="select_folder_move">Select folder</string>
+    <string name="select_root_folder">Select folder</string>
 
     <string name="empty_notes_list_hint">When you create a new note,\nthis is where it will show up</string>
     <string name="empty_archives_hint">When you archive a note, \nthis is where it will show up</string>
@@ -76,6 +77,7 @@
     <string name="last_modified">Last modified: %s</string>
     <string name="number_of_files">Number of files: %d</string>
     <string name="move_here">Move here</string>
+    <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
     <string name="no_selected_file">No file selected</string>
     <string name="current_folder">Current folder:</string>
