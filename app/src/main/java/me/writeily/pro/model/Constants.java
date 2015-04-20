@@ -6,7 +6,9 @@ import android.os.Environment;
  * Created by jeff on 2014-04-11.
  */
 public class Constants {
-    public static final String[] KEYBOARD_SHORTCUTS = {"*", "-", "_", "#", "!", ":", "(", ")", "[", "]"};
+    public static final String[] KEYBOARD_SHORTCUTS = {"*", "-", "_", "#", "!", ":"};
+    public static final String[] KEYBOARD_SHORTCUTS_BRACKETS = { "(", ")", "[", "]"};
+    public static final String[] KEYBOARD_SMART_SHORTCUTS = {"()", "[]"};
     public static final String UTF_CHARSET = "utf-8";
 
     public static final int MAX_TITLE_LENGTH = 20;

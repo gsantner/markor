@@ -65,6 +65,8 @@
     <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
     <string name="pref_highlighting_delay">Delay in milliseconds for highlighting refresh</string>
     <string name="pref_highlighting_delay_summary">Higher values are easier on the battery</string>
+    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
+    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
     <string name="pin_title">Enter your pin</string>
     <string name="pin_go">Go</string>
 
