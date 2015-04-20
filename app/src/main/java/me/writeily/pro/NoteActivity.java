@@ -179,29 +179,59 @@ public class NoteActivity extends ActionBarActivity {
         boolean showShortcuts = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_show_markdown_shortcuts_key), true);
 
         if (showShortcuts && keyboardBarView.getChildCount() == 0) {
-            for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
-                Button shortcutButton = new Button(this);
-                shortcutButton.setText(shortcut);
-                shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
-                shortcutButton.setTextSize(18);
-                shortcutButton.setTypeface(null, Typeface.BOLD);
-                shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
-                shortcutButton.setOnClickListener(new KeyboardBarListener());
-
-                String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-                if (theme.equals(getString(R.string.theme_dark))) {
-                    shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
-                } else {
-                    shortcutButton.setTextColor(getResources().getColor(R.color.grey));
-                }
-
-                keyboardBarView.addView(shortcutButton);
+            appendRegularShortcuts();
+            if(isSmartShortcutsActivated()) {
+                appendSmartBracketShortcuts();
+            } else {
+                appendRegularBracketShortcuts();
             }
         } else if (!showShortcuts) {
             findViewById(R.id.keyboard_bar_scroll).setVisibility(View.GONE);
         }
+    }
+
+    private void appendRegularShortcuts() {
+        for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
+            appendButton(shortcut, new KeyboardBarListener());
+        }
+    }
+
+    private void appendRegularBracketShortcuts() {
+        for (String shortcut : Constants.KEYBOARD_SHORTCUTS_BRACKETS) {
+            appendButton(shortcut, new KeyboardBarListener());
+        }
+
+    }
+
+    private void appendSmartBracketShortcuts() {
+        for (String shortcut : Constants.KEYBOARD_SMART_SHORTCUTS) {
+            appendButton(shortcut, new KeyboardBarSmartShortCutListener());
+        }
+    }
+
+    private void appendButton(String shortcut, View.OnClickListener l) {
+        Button shortcutButton = new Button(this);
+        shortcutButton.setText(shortcut);
+        shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+        shortcutButton.setTextSize(18);
+        shortcutButton.setTypeface(null, Typeface.BOLD);
+        shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
+        shortcutButton.setOnClickListener(l);
+
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+
+        if (theme.equals(getString(R.string.theme_dark))) {
+            shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
+        } else {
+            shortcutButton.setTextColor(getResources().getColor(R.color.grey));
+        }
+
+        keyboardBarView.addView(shortcutButton);
+    }
+
+    private boolean isSmartShortcutsActivated() {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_smart_shortcuts_key),false);
     }
 
     private void setupAppearancePreferences() {
@@ -308,6 +338,22 @@ public class NoteActivity extends ActionBarActivity {
         public void onClick(View v) {
             CharSequence shortcut = ((Button) v).getText();
             content.getText().insert(content.getSelectionStart(), shortcut);
+        }
+    }
+
+    private class KeyboardBarSmartShortCutListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            CharSequence shortcut = ((Button) v).getText();
+            if(content.hasSelection()) {
+                CharSequence selected = content.getText().subSequence(content.getSelectionStart(),
+                        content.getSelectionEnd());
+                content.getText().replace(content.getSelectionStart(), content.getSelectionEnd(),
+                        Character.toString(shortcut.charAt(0)) + selected + shortcut.charAt(1));
+            } else {
+                content.getText().insert(content.getSelectionStart(), shortcut);
+                content.setSelection(content.getSelectionStart() - 2);
+            }
         }
     }
 }
