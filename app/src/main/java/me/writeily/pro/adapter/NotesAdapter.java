@@ -60,7 +60,6 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
         noteTitle.setText(getItem(i).getName());
 
         if (!getItem(i).isDirectory()) {
-
             String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
                     (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
             String lastModified = String.format(context.getString(R.string.last_modified), formattedDate);
