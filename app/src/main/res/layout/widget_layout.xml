@@ -23,7 +23,7 @@
         </LinearLayout>
         
         <Button
-            android:id="@+id/new_note"
+            android:id="@+id/widget_new_note"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
