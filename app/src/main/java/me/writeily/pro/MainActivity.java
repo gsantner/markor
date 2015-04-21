@@ -96,6 +96,8 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
@@ -323,6 +325,11 @@ public class MainActivity extends ActionBarActivity {
         ifilterConfirmDialog.addAction(Constants.CONFIRM_DIALOG_TAG);
         registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
 
+        IntentFilter ifilterRenameDialog = new IntentFilter();
+        ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
+        renameBroadcastReceiver.setNotesFragment(notesFragment);
+        registerReceiver(renameBroadcastReceiver, ifilterRenameDialog);
+
         super.onResume();
     }
 
@@ -331,6 +338,7 @@ public class MainActivity extends ActionBarActivity {
         unregisterReceiver(folderBroadcastReceiver);
         unregisterReceiver(fsBroadcastReceiver);
         unregisterReceiver(confirmBroadcastReceiver);
+        unregisterReceiver(renameBroadcastReceiver);
         super.onPause();
     }
 
