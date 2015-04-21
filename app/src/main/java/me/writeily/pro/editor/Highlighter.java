@@ -9,19 +9,21 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Highlighter {
-
     final HighlighterColors colors;
+    final String fontType;
+    final Integer fontSize;
 
-    public Highlighter(final HighlighterColors colors) {
+    public Highlighter(final HighlighterColors colors, String fontType, String fontSize) {
         this.colors = colors;
+        this.fontType = fontType;
+        this.fontSize = Integer.valueOf(fontSize);
     }
 
     enum HighlighterPattern {
@@ -47,6 +49,7 @@ class Highlighter {
             if (e.length() == 0)
                 return e;
 
+            createHeaderSpanForMatches(e, HighlighterPattern.HEADER.pattern, colors.getHeaderColor());
             createColorSpanForMatches(e, HighlighterPattern.HEADER.pattern, colors.getHeaderColor());
             createColorSpanForMatches(e, HighlighterPattern.LINK.pattern, colors.getLinkColor());
             createColorSpanForMatches(e, HighlighterPattern.LIST.pattern, colors.getListColor());
@@ -62,10 +65,14 @@ class Highlighter {
         return e;
     }
 
+    private void createHeaderSpanForMatches(Editable e, Pattern pattern, int headerColor) {
+        createSpanForMatches(e, pattern, new HeaderSpanCreator(this, e, headerColor));
+    }
+
     private void createMonospaceSpanForMatches(Editable e, Pattern pattern) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
-            public ParcelableSpan create() {
+            public ParcelableSpan create(Matcher m) {
                 return new TypefaceSpan("monospace");
             }
         });
@@ -76,7 +83,7 @@ class Highlighter {
 
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
-            public ParcelableSpan create() {
+            public ParcelableSpan create(Matcher m) {
                 return new StrikethroughSpan();
             }
         });
@@ -86,7 +93,7 @@ class Highlighter {
                                            final int style) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
-            public ParcelableSpan create() {
+            public ParcelableSpan create(Matcher m) {
                 return new StyleSpan(style);
             }
         });
@@ -96,7 +103,7 @@ class Highlighter {
                                            final int color) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
-            public ParcelableSpan create() {
+            public ParcelableSpan create(Matcher m) {
                 return new ForegroundColorSpan(color);
             }
         });
@@ -108,7 +115,7 @@ class Highlighter {
         for (Matcher m = pattern.matcher(e);
              m.find(); ) {
             e.setSpan(
-                    spanCreator.create(),
+                    spanCreator.create(m),
                     m.start(),
                     m.end(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -118,6 +125,7 @@ class Highlighter {
 
     private void clearSpans(Editable e) {
 
+        clearSpanType(e, TextAppearanceSpan.class);
         clearSpanType(e, ForegroundColorSpan.class);
         clearSpanType(e, BackgroundColorSpan.class);
         clearSpanType(e, StrikethroughSpan.class);
@@ -132,4 +140,5 @@ class Highlighter {
             e.removeSpan(spans[n]);
         }
     }
+
 }

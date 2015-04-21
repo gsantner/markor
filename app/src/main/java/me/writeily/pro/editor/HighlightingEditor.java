@@ -43,7 +43,7 @@ public class HighlightingEditor extends EditText {
     public HighlightingEditor(Context context) {
         super(context);
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        if(prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key),false)) {
+        if (prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key), false)) {
             init();
         }
     }
@@ -51,7 +51,7 @@ public class HighlightingEditor extends EditText {
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        if(prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key),false)) {
+        if (prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key), false)) {
             init();
         }
     }
@@ -61,7 +61,7 @@ public class HighlightingEditor extends EditText {
         setHorizontallyScrolling(true);
 
         setFilters(new InputFilter[]{new IndentationFilter()});
-        
+
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
         highlighter = new Highlighter(new HighlighterColors() {
@@ -84,7 +84,9 @@ public class HighlightingEditor extends EditText {
             public int getListColor() {
                 return COLOR_LIST;
             }
-        });
+        },
+                prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
+                prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
 
         addTextChangedListener(
                 new TextWatcher() {
