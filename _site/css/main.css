@@ -1,0 +1,159 @@
+/*****************************************************************************/
+/*
+/* Common
+/*
+/*****************************************************************************/
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #27ae60;
+  font: 15px 'Roboto';
+  font-weight: 300;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
+
+a:hover {
+  border: none;
+  color: #333;
+}
+
+/*****************************************************************************/
+/*
+/* Footer
+/*
+/*****************************************************************************/
+
+.footer {
+  font-family: 'Roboto Condensed';
+  text-align:center;
+  border-top: 1px solid #25b263;
+  background-color: #27ae60;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  overflow: hidden;
+  color: #fff;
+}
+
+.footer .contact {
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+  display: inline-block;
+}
+
+/*****************************************************************************/
+/*
+/* Home
+/*
+/*****************************************************************************/
+#home {
+  height: 100%;
+  width: 100%;
+  margin-top: 16px;
+  text-align: center;
+}
+
+#home .header {
+  text-align: center;
+  color: #fff;
+}
+
+#home .googleplay {
+  margin-top: 16px;
+}
+
+#home .title {
+  font-weight: 300;
+  font-size: 5.5em;
+}
+
+#home .tagline {
+  font-weight: 300;
+  font-size: 1.15em;
+}
+
+#love {
+  color: #ccc;
+}
+
+/*****************************************************************************/
+/*
+/* About
+/*
+/*****************************************************************************/
+.about {
+  width: 55%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 32px;
+  font-size: 120%;
+}
+
+.about .subtitle {
+  font-family: 'Roboto Condensed';
+  font-size: 1.5em;
+  padding-bottom: 16px;
+}
+
+#info {
+  background-color: #2dd175;
+  color: #222;
+  line-height: 24px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: justify;
+  padding-top: 1em;
+  padding-bottom: 3em;
+}
+
+#info a {
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+
+.carousel {
+  margin-top: 32px;
+  width: auto;
+}
+
+.carousel * {
+  margin: 0 auto;
+}
+
+.carousel-image {
+  max-height: 525px;
+}
+
+/*****************************************************************************/
+/*
+/* Posts
+/*
+/*****************************************************************************/
+
+/* standard */
+.post ul, .post ol {
+  margin-left: 1.35em;
+}
