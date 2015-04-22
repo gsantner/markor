@@ -80,7 +80,7 @@ public class NotesFragment extends Fragment {
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         filesListView.setAdapter(filesAdapter);
 
-        previousDirButton = (Button) layoutView.findViewById(R.id.import_header_btn);
+        previousDirButton = (Button) layoutView.findViewById(R.id.previous_dir_button);
         previousDirButton.setOnClickListener(new PreviousDirClickListener());
 
         rootDir = getRootFolderFromPrefsOrDefault();
@@ -196,7 +196,7 @@ public class NotesFragment extends Fragment {
         checkDirectoryStatus();
     }
 
-    private void goToPreviousDir() {
+    public void goToPreviousDir() {
         if (currentDir != null) {
             currentDir = currentDir.getParentFile();
         }
