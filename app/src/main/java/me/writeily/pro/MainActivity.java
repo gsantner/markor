@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
             }
         }
     };
@@ -77,10 +77,10 @@ public class MainActivity extends ActionBarActivity {
             String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
             } else {
                 WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
         }
@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
                 WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
         }
@@ -184,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void createNote() {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir());
+        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir().getAbsolutePath());
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         fabMenu.collapse();
@@ -199,8 +199,7 @@ public class MainActivity extends ActionBarActivity {
         FragmentManager fragManager = getFragmentManager();
 
         Bundle args = new Bundle();
-        String currentDir = notesFragment.getCurrentDir();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, currentDir);
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, notesFragment.getCurrentDir().getAbsolutePath());
 
         FolderDialog folderDialog = new FolderDialog();
         folderDialog.setArguments(args);
@@ -379,7 +378,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void importFile(File file) {
         WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-        writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
+        writeilySingleton.copyFile(file, notesFragment.getCurrentDir().getAbsolutePath());
         Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
     }
 
