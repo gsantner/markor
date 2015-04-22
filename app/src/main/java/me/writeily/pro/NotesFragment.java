@@ -25,6 +25,7 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.writeily.pro.adapter.NotesAdapter;
 import me.writeily.pro.dialog.ConfirmDialog;
@@ -258,7 +259,8 @@ public class NotesFragment extends Fragment {
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
-        File fileToRename;
+        List<File> selectedItems = new ArrayList<File>();
+
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
@@ -284,7 +286,7 @@ public class NotesFragment extends Fragment {
                     promptForDirectory();
                     return true;
                 case RENAME_CONTEXT_BUTTON_ID:
-                    promptForNewName(fileToRename);
+                    promptForNewName(selectedItems.get(0));
                     return true;
                 default:
                     return false;
@@ -306,30 +308,35 @@ public class NotesFragment extends Fragment {
 
         @Override
         public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean checked) {
-            final int numSelected = filesListView.getCheckedItemCount();
 
-            switch (numSelected) {
+            switch (filesListView.getCheckedItemCount()) {
                 case 0:
                     actionMode.setSubtitle(null);
                     hideRenameButton(actionMode);
                     break;
                 case 1:
                     actionMode.setSubtitle(getResources().getString(R.string.one_item_selected));
-                    showRenameButton(actionMode, filesListView.getCheckedItemPositions().keyAt(0));
+                    manageClickedVIew(i, checked);
+                    showRenameButton(actionMode);
                     break;
                 default:
-                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), numSelected));
+                    manageClickedVIew(i, checked);
+                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), filesListView.getCheckedItemCount()));
                     hideRenameButton(actionMode);
                     break;
             }
+        }
+
+        private void manageClickedVIew(int i, boolean checked) {
+            if(checked) { selectedItems.add((File) simpleSectionAdapter.getItem(i));}
+            else { selectedItems.remove((File) simpleSectionAdapter.getItem(i));}
         }
 
         private void hideRenameButton(ActionMode actionMode) {
             showRenameContextButton(actionMode.getMenu(), false);
         }
 
-        private void showRenameButton(ActionMode actionMode, int position) {
-            fileToRename = (File) simpleSectionAdapter.getItem(position);
+        private void showRenameButton(ActionMode actionMode) {
             showRenameContextButton(actionMode.getMenu(), true);
         }
 
