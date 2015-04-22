@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
-    private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver();
+    private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
     private boolean doubleBackToExitPressedOnce;
 
     @Override
@@ -328,7 +328,6 @@ public class MainActivity extends ActionBarActivity {
 
         IntentFilter ifilterRenameDialog = new IntentFilter();
         ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
-        renameBroadcastReceiver.setNotesFragment(notesFragment);
         registerReceiver(renameBroadcastReceiver, ifilterRenameDialog);
 
         super.onResume();

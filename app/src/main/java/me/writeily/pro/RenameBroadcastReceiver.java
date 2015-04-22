@@ -13,7 +13,8 @@ class RenameBroadcastReceiver extends BroadcastReceiver {
 
     private NotesFragment notesFragment;
 
-    public void setNotesFragment(NotesFragment notesFragment) {
+    public RenameBroadcastReceiver(NotesFragment notesFragment) {
+        super();
         this.notesFragment = notesFragment;
     }
 
@@ -23,20 +24,20 @@ class RenameBroadcastReceiver extends BroadcastReceiver {
             String newName = intent.getStringExtra(Constants.RENAME_NEW_NAME);
             File sourceFile = new File(intent.getStringExtra(Constants.RENAME_SOURCE_FILE));
             File targetFile = new File(sourceFile.getParent(), newName);
-            if(targetFile.exists()){
-                Toast.makeText(context,context.getString(R.string.rename_error_target_already_exists),Toast.LENGTH_LONG).show();
+
+            if (targetFile.exists()) {
+                Toast.makeText(context, context.getString(R.string.rename_error_target_already_exists), Toast.LENGTH_LONG).show();
                 notesFragment.finishActionMode();
                 return;
             }
-            boolean result = sourceFile.renameTo(targetFile);
-            if(result){
-                Toast.makeText(context,context.getString(R.string.rename_success),Toast.LENGTH_LONG).show();
+
+            if (sourceFile.renameTo(targetFile)) {
+                Toast.makeText(context, context.getString(R.string.rename_success), Toast.LENGTH_LONG).show();
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
-                notesFragment.finishActionMode();
             } else {
-                Toast.makeText(context,context.getString(R.string.rename_fail),Toast.LENGTH_LONG).show();
-                notesFragment.finishActionMode();
+                Toast.makeText(context, context.getString(R.string.rename_fail), Toast.LENGTH_LONG).show();
             }
+            notesFragment.finishActionMode();
         }
     }
 }

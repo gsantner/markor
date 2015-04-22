@@ -26,37 +26,22 @@ class Highlighter {
         this.fontSize = Integer.valueOf(fontSize);
     }
 
-    enum HighlighterPattern {
-        LIST(Pattern.compile("\\n\\s+(\\*|\\d*\\.)\\s")),
-        HEADER(Pattern.compile("(((\\n|^)#+.*?\\n)|((\\n|^).*?\\n(-|=)+))")),
-        LINK(Pattern.compile("\\[[^\\]]*\\]\\([^\\)]*\\)")),
-        STRIKETHROUGH(Pattern.compile("~~.+~~")),
-        MONOSPACED(Pattern.compile("`.+`")),
-        BOLD(Pattern.compile("\\*{2}.+?\\*{2}")),
-        ITALICS(Pattern.compile("[^\\*]\\*[^\\*\\n]+\\*[^\\*]"));
-
-        private Pattern pattern;
-
-        HighlighterPattern(Pattern pattern) {
-            this.pattern = pattern;
-        }
-    }
-
     public Editable run(Editable e) {
         try {
             clearSpans(e);
 
-            if (e.length() == 0)
+            if (e.length() == 0) {
                 return e;
+            }
 
-            createHeaderSpanForMatches(e, HighlighterPattern.HEADER.pattern, colors.getHeaderColor());
-            createColorSpanForMatches(e, HighlighterPattern.HEADER.pattern, colors.getHeaderColor());
-            createColorSpanForMatches(e, HighlighterPattern.LINK.pattern, colors.getLinkColor());
-            createColorSpanForMatches(e, HighlighterPattern.LIST.pattern, colors.getListColor());
-            createStyleSpanForMatches(e, HighlighterPattern.BOLD.pattern, Typeface.BOLD);
-            createStyleSpanForMatches(e, HighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
-            createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH.pattern);
-            createMonospaceSpanForMatches(e, HighlighterPattern.MONOSPACED.pattern);
+            createHeaderSpanForMatches(e, HighlighterPattern.HEADER.getPattern(), colors.getHeaderColor());
+            createColorSpanForMatches(e,  HighlighterPattern.HEADER.getPattern(), colors.getHeaderColor());
+            createColorSpanForMatches(e,  HighlighterPattern.LINK.getPattern(), colors.getLinkColor());
+            createColorSpanForMatches(e,  HighlighterPattern.LIST.getPattern(), colors.getListColor());
+            createStyleSpanForMatches(e,  HighlighterPattern.BOLD.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(e,  HighlighterPattern.ITALICS.getPattern(), Typeface.ITALIC);
+            createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH.getPattern());
+            createMonospaceSpanForMatches(e, HighlighterPattern.MONOSPACED.getPattern());
 
         } catch (Exception ex) {
             // Ignoring errors
@@ -66,10 +51,12 @@ class Highlighter {
     }
 
     private void createHeaderSpanForMatches(Editable e, Pattern pattern, int headerColor) {
+
         createSpanForMatches(e, pattern, new HeaderSpanCreator(this, e, headerColor));
     }
 
     private void createMonospaceSpanForMatches(Editable e, Pattern pattern) {
+
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher m) {
@@ -111,16 +98,10 @@ class Highlighter {
 
 
     private void createSpanForMatches(final Editable e, final Pattern pattern,
-                                      final SpanCreator spanCreator) {
-        for (Matcher m = pattern.matcher(e);
-             m.find(); ) {
-            e.setSpan(
-                    spanCreator.create(m),
-                    m.start(),
-                    m.end(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                      final SpanCreator creator) {
+        for (Matcher m = pattern.matcher(e); m.find(); ) {
+            e.setSpan(creator.create(m), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-
     }
 
     private void clearSpans(Editable e) {

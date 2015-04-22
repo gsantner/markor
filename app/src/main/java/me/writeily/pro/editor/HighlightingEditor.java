@@ -64,29 +64,9 @@ public class HighlightingEditor extends EditText {
 
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
-        highlighter = new Highlighter(new HighlighterColors() {
-
-            private static final int COLOR_HEADER = 0xffef6C00;
-            private static final int COLOR_LINK = 0xff1ea3fd;
-            private static final int COLOR_LIST = COLOR_HEADER;
-
-            @Override
-            public int getHeaderColor() {
-                return COLOR_HEADER;
-            }
-
-            @Override
-            public int getLinkColor() {
-                return COLOR_LINK;
-            }
-
-            @Override
-            public int getListColor() {
-                return COLOR_LIST;
-            }
-        },
-                prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
-                prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
+        highlighter = new Highlighter(new MyHighlighterColorsNeutral(),
+            prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
+            prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
 
         addTextChangedListener(
                 new TextWatcher() {
