@@ -107,7 +107,6 @@
     <string name="about_chinese_simplified">Chinese (Simplified)</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
-    <string name="sorry_no_folders">Sorry! No folder rename support at the moment!</string>
     <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_fail">Failed to rename</string>
