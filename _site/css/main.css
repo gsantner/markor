@@ -18,9 +18,8 @@ html, body {
 
 body {
   background-color: #27ae60;
-  font: 15px 'Roboto';
-  font-weight: 300;
-  color: #333;
+  font: 15px 'Open Sans';
+  color: #555;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -82,21 +81,33 @@ a:hover {
 }
 
 #home .googleplay {
+  width: 100px;
+  margin: 0 auto;
   margin-top: 16px;
+  padding: 0.25em 1em 0.25em 1em;
+  color: #fff;
+
+  border-radius: 5px;
+  border: 1px solid #fff;
+}
+
+#home .googleplay:hover {
+  background-color: #fff;
+  color: #27ae60;
 }
 
 #home .title {
-  font-weight: 300;
-  font-size: 5.5em;
+  font-weight: 400;
+  font-size: 5em;
 }
 
 #home .tagline {
   font-weight: 300;
-  font-size: 1.15em;
+  font-size: 1.25em;
 }
 
 #love {
-  color: #ccc;
+  color: #dadada;
 }
 
 /*****************************************************************************/
@@ -113,7 +124,6 @@ a:hover {
 }
 
 .about .subtitle {
-  font-family: 'Roboto Condensed';
   font-size: 1.5em;
   padding-bottom: 16px;
 }
@@ -134,26 +144,13 @@ a:hover {
   border-bottom: 1px solid #333;
 }
 
-.carousel {
+.screenshot {
   margin-top: 32px;
+  margin-bottom: 32px;
   width: auto;
 }
 
-.carousel * {
-  margin: 0 auto;
-}
-
-.carousel-image {
-  max-height: 525px;
-}
-
-/*****************************************************************************/
-/*
-/* Posts
-/*
-/*****************************************************************************/
-
-/* standard */
-.post ul, .post ol {
-  margin-left: 1.35em;
+.screenshot-image {
+  height: 500px;
+  width: auto;
 }
