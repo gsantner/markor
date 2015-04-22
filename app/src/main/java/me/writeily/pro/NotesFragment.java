@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import me.writeily.pro.adapter.NotesAdapter;
 import me.writeily.pro.dialog.ConfirmDialog;
 import me.writeily.pro.dialog.FilesystemDialog;
+import me.writeily.pro.dialog.RenameDialog;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
 
@@ -35,6 +35,7 @@ import me.writeily.pro.model.WriteilySingleton;
  */
 public class NotesFragment extends Fragment {
 
+    public static final int RENAME_CONTEXT_BUTTON_ID = 103;
     private Context context;
 
     private View layoutView;
@@ -224,10 +225,6 @@ public class NotesFragment extends Fragment {
         return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
     }
 
-    public void setCurrentDir(File dir) {
-        currentDir = dir;
-    }
-
     public String getRootDir() {
         return rootDir.getAbsolutePath();
     }
@@ -260,11 +257,8 @@ public class NotesFragment extends Fragment {
         filesAdapter.notifyDataSetChanged();
     }
 
-    public void clearItemSelection() {
-        filesAdapter.notifyDataSetChanged();
-    }
-
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
+        File fileToRename;
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
@@ -272,6 +266,7 @@ public class NotesFragment extends Fragment {
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }
+
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -288,9 +283,21 @@ public class NotesFragment extends Fragment {
                 case R.id.context_menu_move:
                     promptForDirectory();
                     return true;
+                case RENAME_CONTEXT_BUTTON_ID:
+                    promptForNewName(fileToRename);
+                    return true;
                 default:
                     return false;
             }
+        }
+
+        private void promptForNewName(File renameable) {
+            FragmentManager fragManager = getFragmentManager();
+            Bundle args = new Bundle();
+            args.putString(Constants.RENAME_SOURCE_FILE, renameable.getAbsolutePath());
+            RenameDialog renameDialog = new RenameDialog();
+            renameDialog.setArguments(args);
+            renameDialog.show(fragManager, Constants.RENAME_DIALOG_TAG);
         }
 
         @Override
@@ -298,20 +305,43 @@ public class NotesFragment extends Fragment {
         }
 
         @Override
-        public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+        public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean checked) {
             final int numSelected = filesListView.getCheckedItemCount();
 
             switch (numSelected) {
                 case 0:
                     actionMode.setSubtitle(null);
+                    hideRenameButton(actionMode);
                     break;
                 case 1:
                     actionMode.setSubtitle(getResources().getString(R.string.one_item_selected));
+                    showRenameButton(actionMode, filesListView.getCheckedItemPositions().keyAt(0));
                     break;
                 default:
                     actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), numSelected));
+                    hideRenameButton(actionMode);
                     break;
             }
+        }
+
+        private void hideRenameButton(ActionMode actionMode) {
+            showRenameContextButton(actionMode.getMenu(), false);
+        }
+
+        private void showRenameButton(ActionMode actionMode, int position) {
+            fileToRename = filesAdapter.getItem(position);
+            showRenameContextButton(actionMode.getMenu(), true);
+        }
+
+        private void showRenameContextButton(Menu menu, boolean show) {
+            if (show) {
+                menu.add(Menu.FIRST+1, RENAME_CONTEXT_BUTTON_ID,Menu.FIRST,R.string.rename)
+                        .setIcon(R.drawable.ic_edit_light);
+
+            } else {
+                menu.setGroupVisible(1, false);
+                menu.removeItem(RENAME_CONTEXT_BUTTON_ID);
+            };
         }
     };
 

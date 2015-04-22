@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+    <EditText
+        android:id="@+id/new_name"
+        android:hint="@string/new_name_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="8dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/light_grey"
+        android:inputType="textPersonName"/>
+</LinearLayout>
