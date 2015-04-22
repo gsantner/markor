@@ -25,11 +25,13 @@ public class RenameDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final File file = new File(getArguments().getString(Constants.RENAME_SOURCE_FILE));
+
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
         AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater, theme);
         AlertDialog dialog = dialogBuilder.show();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
         newNameField = (EditText) dialog.findViewById(R.id.new_name);
         return dialog;
     }
@@ -64,6 +66,7 @@ public class RenameDialog extends DialogFragment {
                         dialog.dismiss();
                     }
                 });
+
         return dialogBuilder;
     }
 
