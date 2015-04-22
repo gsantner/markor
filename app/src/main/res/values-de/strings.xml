@@ -10,12 +10,14 @@
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
     <string name="delete">Löschen</string>
+    <string name="rename">Umbenennen</string>
     <string name="star">Zu Favoriten hinzufügen</string>
     <string name="starred">Favoriten</string>
     <string name="restore">Wiederherstellen</string>
     <string name="wr_import">Importieren</string>
     <string name="unstar">Von Favoriten entfernen</string>
     <string name="confirm_delete">Löschen bestätigen</string>
+    <string name="enter_new_name">Neuer Name eingeben</string>
     <string name="incorrect_pin_text">Ungültige PIN</string>
     <string name="title">Titel</string>
     <string name="untitled">Unbenannt</string>
@@ -27,6 +29,7 @@
 
     <string name="import_from_device">Importieren</string>
     <string name="select_folder_move">Ordner auswählen</string>
+    <string name="select_root_folder">Ordner auswählen</string>
 
     <string name="empty_notes_list_hint">Wenn Sie eine neue Notiz erstellen,\nwird sie hier aufgeführt.</string>
     <string name="empty_archives_hint">Wenn Sie eine Notiz archivieren,\nwird sie hier aufgeführt.</string>
@@ -41,6 +44,8 @@
     <string name="app_settings">App-Einstellungen</string>
     <string name="social">Kontakt</string>
     <string name="meta">Sonstiges</string>
+    <string name="directories">Ordner</string>
+    <string name="files">Notizen</string>
 
     <string name="email_header">Feedback zu Writeily</string>
 
@@ -65,6 +70,8 @@
     <string name="pref_highlighting_activated">Markdown syntax-hervorhebung</string>
     <string name="pref_highlighting_delay">Zeit in Millisekunden, für die Hervorhebung refresh</string>
     <string name="pref_highlighting_delay_summary">Höhere Werte sind besser auf die Batterie</string>
+    <string name="pref_smart_shortcuts">Smarte Klammer</string>
+    <string name="pref_smart_shortcuts_summary">Ausgewählten Text wird von {}, [] und () eingerahmt</string>
     <string name="pin_title">Geben Sie eine PIN ein</string>
     <string name="pin_go">Los</string>
 
@@ -78,6 +85,7 @@
     <string name="number_of_files">Dateien: %d</string>
     <string name="move_here">Hierher verschieben</string>
     <string name="select">Auswählen</string>
+    <string name="select_this_folder">Diesen Ordner auswählen</string>
     <string name="no_selected_file">Es wurde keine Datei ausgewählt</string>
     <string name="current_folder">Aktueller Ordner:</string>
     <string name="create">Erstellen</string>
@@ -99,5 +107,8 @@
     <string name="about_chinese_simplified">Chinesisch (vereinfacht)</string>
     <string name="about_libraries_section">Bibliotheken</string>
     <string name="about_source_title">Quellcode verfügbar auf GitHub</string>
+    <string name="rename_error_target_already_exists">Zielornamen schon vergeben!</string>
+    <string name="rename_success">Erfolgreich umbenannt</string>
+    <string name="rename_fail">Fehler beim Umbennenen aufgetreten</string>
 
 </resources>
