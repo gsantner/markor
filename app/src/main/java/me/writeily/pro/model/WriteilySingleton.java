@@ -211,12 +211,12 @@ public class WriteilySingleton {
 
     /**
      * Recursively add all files from the specified directory
-     * @param dir the directory to add files from
+     * @param sourceDir the directory to add files from
      */
-    public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> files) {
+    public ArrayList<File> addFilesFromDirectory(File sourceDir, ArrayList<File> files) {
         ArrayList<File> addedFiles = new ArrayList<>();
 
-        for (File f : dir.listFiles()) {
+        for (File f : sourceDir.listFiles()) {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);

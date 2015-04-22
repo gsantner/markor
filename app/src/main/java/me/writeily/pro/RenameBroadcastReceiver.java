@@ -31,7 +31,7 @@ class RenameBroadcastReceiver extends BroadcastReceiver {
             boolean result = sourceFile.renameTo(targetFile);
             if(result){
                 Toast.makeText(context,context.getString(R.string.rename_success),Toast.LENGTH_LONG).show();
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             } else {
                 Toast.makeText(context,context.getString(R.string.rename_fail),Toast.LENGTH_LONG).show();
