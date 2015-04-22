@@ -6,6 +6,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -14,21 +15,23 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.writeily.pro.R;
 
 /**
  * Created by jeff on 2014-04-11.
  */
-public class NotesAdapter extends BaseAdapter implements Filterable {
+public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
     private Context context;
-    private ArrayList<File> data;
-    private ArrayList<File> filteredData;
+    private List<File> data;
+    private List<File> filteredData;
 
-    public NotesAdapter(Context context, ArrayList<File> content) {
+    public NotesAdapter(Context context, int resource, List<File> objects) {
+        super(context, resource, objects);
         this.context = context;
-        this.data = content;
+        this.data = objects;
         this.filteredData = data;
     }
 
@@ -59,15 +62,10 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
 
         noteTitle.setText(getItem(i).getName());
 
-        if (!getItem(i).isDirectory()) {
-            String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
-                    (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
-            String lastModified = String.format(context.getString(R.string.last_modified), formattedDate);
-            noteExtra.setText(lastModified);
+        if (getItem(i).isDirectory()) {
+            noteExtra.setText(generateExtraForFile(i));
         } else {
-            int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
-            String numberOfFiles = String.format(context.getString(R.string.number_of_files), fileAmount);
-            noteExtra.setText(numberOfFiles);
+            noteExtra.setText(generateExtraForDirectory(i));
         }
 
         // Theme Adjustments
@@ -90,6 +88,17 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
         }
 
         return row;
+    }
+
+    private String generateExtraForFile(int i) {
+        int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
+        return String.format(context.getString(R.string.number_of_files), fileAmount);
+    }
+
+    private String generateExtraForDirectory(int i) {
+        String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
+                (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
+        return String.format(context.getString(R.string.last_modified), formattedDate);
     }
 
     @Override

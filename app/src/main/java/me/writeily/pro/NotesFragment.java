@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mobsandgeeks.adapters.Sectionizer;
+import com.mobsandgeeks.adapters.SimpleSectionAdapter;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -49,9 +52,16 @@ public class NotesFragment extends Fragment {
 
     private WriteilySingleton writeilySingleton;
 
-    private ArrayList<File> files;
+    private ArrayList<File> filesCurrentlyShown = new ArrayList<File>();
 
     private NotesAdapter filesAdapter;
+    private SimpleSectionAdapter<File> simpleSectionAdapter;
+    private Sectionizer<File> sectionizer = new Sectionizer<File>() {
+        @Override
+        public String getSectionTitleForItem(File instance) {
+            return instance.isDirectory() ? "Directories" : "Files";
+        }
+    };
     private ActionMode actionMode;
 
 
@@ -61,24 +71,18 @@ public class NotesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        context = getActivity().getApplicationContext();
         layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
-
-        if (files == null) {
-            files = new ArrayList<File>();
-            hintTextView.setVisibility(View.VISIBLE);
-            hintTextView.setText(getString(R.string.empty_notes_list_hint));
-        }
-
-        checkIfDataEmpty();
-
-        context = getActivity().getApplicationContext();
         filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
-        filesAdapter = new NotesAdapter(context, files);
+
+        filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
+        simpleSectionAdapter =
+                new SimpleSectionAdapter<> (context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
 
         filesListView.setOnItemClickListener(new NotesItemClickListener());
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
-        filesListView.setAdapter(filesAdapter);
+        filesListView.setAdapter(simpleSectionAdapter);
 
         previousDirButton = (Button) layoutView.findViewById(R.id.previous_dir_button);
         previousDirButton.setOnClickListener(new PreviousDirClickListener());
@@ -93,7 +97,7 @@ public class NotesFragment extends Fragment {
         writeilySingleton = WriteilySingleton.getInstance();
         rootDir = getRootFolderFromPrefsOrDefault();
         retrieveCurrentFolder();
-        listFilesInDirectory(currentDir);
+        listFilesInDirectory(getCurrentDir());
 
         setupAppearancePreferences();
         super.onResume();
@@ -166,34 +170,32 @@ public class NotesFragment extends Fragment {
         filesystemDialog.show(fragManager, Constants.FILESYSTEM_MOVE_DIALOG_TAG);
     }
 
-    private void checkIfDataEmpty() {
-        if (files.isEmpty()) {
-            hintTextView.setVisibility(View.VISIBLE);
-            hintTextView.setText(getString(R.string.empty_notes_list_hint));
-        } else {
-            hintTextView.setVisibility(View.INVISIBLE);
-        }
+
+    public void listFilesInDirectory(File directory) {
+        reloadFiles(directory);
+        hideBackButtonIfInRootDir();
+        showEmptyDirHintIfEmpty();
+        reloadAdapter();
     }
 
-    public void listFilesInCurrentDirectory() { listFilesInDirectory(new File(getCurrentDir())); }
-
-    private void listFilesInDirectory(File directory) {
-        files = new ArrayList<File>();
+    private void reloadFiles(File directory) {
 
         try {
             // Load from SD card
-            files = WriteilySingleton.getInstance().addFilesFromDirectory(directory, files);
+            filesCurrentlyShown = WriteilySingleton.getInstance().addFilesFromDirectory(directory, new ArrayList<File>());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        // Refresh the files adapter with the new ArrayList
+    private void reloadAdapter() {
         if (filesAdapter != null) {
-            filesAdapter = new NotesAdapter(context, files);
-            filesListView.setAdapter(filesAdapter);
+            filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
+            simpleSectionAdapter =
+                    new SimpleSectionAdapter<> (context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+            filesListView.setAdapter(simpleSectionAdapter);
+            simpleSectionAdapter.notifyDataSetChanged();
         }
-
-        checkDirectoryStatus();
     }
 
     public void goToPreviousDir() {
@@ -201,19 +203,11 @@ public class NotesFragment extends Fragment {
             currentDir = currentDir.getParentFile();
         }
 
-        listFilesInDirectory(currentDir);
+        listFilesInDirectory(getCurrentDir());
     }
 
-    private void checkDirectoryStatus() {
-        if (writeilySingleton.isRootDir(currentDir, rootDir)) {
-            previousDirButton.setVisibility(View.GONE);
-            currentDir = null;
-        } else {
-            previousDirButton.setVisibility(View.VISIBLE);
-        }
-
-        // Check if dir is empty
-        if (writeilySingleton.isDirectoryEmpty(files)) {
+    private void showEmptyDirHintIfEmpty() {
+        if (writeilySingleton.isDirectoryEmpty(filesCurrentlyShown)) {
             hintTextView.setVisibility(View.VISIBLE);
             hintTextView.setText(getString(R.string.empty_directory));
         } else {
@@ -221,12 +215,21 @@ public class NotesFragment extends Fragment {
         }
     }
 
-    public String getCurrentDir() {
-        return (currentDir == null) ? getRootDir() : currentDir.getAbsolutePath();
+    private void hideBackButtonIfInRootDir() {
+        if (writeilySingleton.isRootDir(currentDir, rootDir)) {
+            previousDirButton.setVisibility(View.GONE);
+            currentDir = null;
+        } else {
+            previousDirButton.setVisibility(View.VISIBLE);
+        }
     }
 
-    public String getRootDir() {
-        return rootDir.getAbsolutePath();
+    public File getCurrentDir() {
+        return (currentDir == null) ? getRootDir() : currentDir.getAbsoluteFile();
+    }
+
+    public File getRootDir() {
+        return rootDir.getAbsoluteFile();
     }
 
     public ListView getFilesListView() {
@@ -251,10 +254,7 @@ public class NotesFragment extends Fragment {
     public void clearSearchFilter() {
         filesAdapter.getFilter().filter("");
 
-        // Workaround to an (apparently) bug in Android's ArrayAdapter... not pretty
-        filesAdapter = new NotesAdapter(context, files);
-        filesListView.setAdapter(filesAdapter);
-        filesAdapter.notifyDataSetChanged();
+        reloadAdapter();
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
@@ -329,7 +329,7 @@ public class NotesFragment extends Fragment {
         }
 
         private void showRenameButton(ActionMode actionMode, int position) {
-            fileToRename = filesAdapter.getItem(position);
+            fileToRename = (File) simpleSectionAdapter.getItem(position);
             showRenameContextButton(actionMode.getMenu(), true);
         }
 
@@ -348,14 +348,15 @@ public class NotesFragment extends Fragment {
     private class NotesItemClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            File file = filesAdapter.getItem(i);
+            File file = (File) simpleSectionAdapter.getItem(i);
 
             // Refresh list if directory, else import
             if (file.isDirectory()) {
                 currentDir = file;
                 listFilesInDirectory(file);
             } else {
-                File note = filesAdapter.getItem(i);
+
+                File note = (File) simpleSectionAdapter.getItem(i);
 
                 boolean previewFirst = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_preview_first_key), false);
 
