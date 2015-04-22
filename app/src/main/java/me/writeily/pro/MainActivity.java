@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -97,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
     };
 
     private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver();
+    private boolean doubleBackToExitPressedOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -407,5 +409,34 @@ public class MainActivity extends ActionBarActivity {
             // Close the drawer
             drawerLayout.closeDrawer(drawerView);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        if (drawerLayout.isDrawerOpen(drawerView)) {
+            drawerLayout.closeDrawer(drawerView);
+        } else if (!onRootDirectory()) {
+            notesFragment.goToPreviousDir();
+        } else {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
+    private boolean onRootDirectory() {
+        return findViewById(R.id.previous_dir_button).getVisibility() != View.VISIBLE;
     }
 }
