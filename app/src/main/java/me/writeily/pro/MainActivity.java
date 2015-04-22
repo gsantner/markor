@@ -100,6 +100,8 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -171,8 +173,6 @@ public class MainActivity extends ActionBarActivity {
 
         setToolbarTitle(getString(R.string.notes));
         initFolders();
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
