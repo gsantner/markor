@@ -59,7 +59,7 @@ public class NotesFragment extends Fragment {
     private Sectionizer<File> sectionizer = new Sectionizer<File>() {
         @Override
         public String getSectionTitleForItem(File instance) {
-            return instance.isDirectory() ? "Directories" : "Files";
+            return instance.isDirectory() ? getString(R.string.directories) : getString(R.string.files);
         }
     };
     private ActionMode actionMode;
