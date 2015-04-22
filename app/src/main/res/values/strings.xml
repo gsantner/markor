@@ -44,6 +44,8 @@
     <string name="editor_settings">Editor Settings</string>
     <string name="social">Social</string>
     <string name="meta">Meta</string>
+    <string name="directories">Directories</string>
+    <string name="files">Files</string>
 
     <string name="email_header">Feedback about Writeily</string>
 
