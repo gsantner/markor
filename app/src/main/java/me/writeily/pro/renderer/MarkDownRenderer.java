@@ -12,8 +12,7 @@ public class MarkDownRenderer {
     AndDown andDown = new AndDown();
 
     public String renderMarkdown(String markdownRaw, Context context) {
-        return Constants.MD_HTML_PREFIX +
-                themeStringFromContext(context) +
+        return  themeStringFromContext(context) +
                 andDown.markdownToHtml(markdownRaw) +
                 Constants.MD_HTML_SUFFIX;
     }
