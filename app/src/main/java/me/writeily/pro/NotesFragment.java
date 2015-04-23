@@ -64,7 +64,7 @@ public class NotesFragment extends Fragment {
         }
     };
     private ActionMode actionMode;
-
+    private List<File> selectedItems = new ArrayList<File>();
 
     public NotesFragment() {
         super();
@@ -258,8 +258,11 @@ public class NotesFragment extends Fragment {
         reloadAdapter();
     }
 
+    public List<File> getSelectedItems(){
+        return selectedItems;
+    }
+
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
-        List<File> selectedItems = new ArrayList<File>();
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -286,7 +289,7 @@ public class NotesFragment extends Fragment {
                     promptForDirectory();
                     return true;
                 case RENAME_CONTEXT_BUTTON_ID:
-                    promptForNewName(selectedItems.get(0));
+                    promptForNewName((File) simpleSectionAdapter.getItem(0));
                     return true;
                 default:
                     return false;
