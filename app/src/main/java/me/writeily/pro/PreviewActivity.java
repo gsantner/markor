@@ -35,6 +35,7 @@ public class PreviewActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,7 +58,6 @@ public class PreviewActivity extends ActionBarActivity {
         }
 
         renderMarkdown();
-        super.onCreate(savedInstanceState);
     }
 
     @Override
