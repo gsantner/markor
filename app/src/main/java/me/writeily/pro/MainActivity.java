@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
-                WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
+                WriteilySingleton.getInstance().deleteSelectedItems(notesFragment.getSelectedItems());
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
