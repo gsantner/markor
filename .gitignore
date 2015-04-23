@@ -1,7 +1,6 @@
 .gradle
 /local.properties
 .DS_Store
-/build
 
 
 ### Android template
@@ -20,7 +19,6 @@ bin/
 gen/
 
 # Gradle files
-.gradle/
 build/
 /*/build/
 
