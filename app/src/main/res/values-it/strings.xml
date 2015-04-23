@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Impostazioni</string>
+    <string name="open_drawer">Apri il drawer</string>
+    <string name="close_drawer">Chiudi il drawer</string>
+    <string name="notes">Note</string>
+    <string name="archive">Archivi</string>
+    <string name="new_note">Nuova nota</string>
+    <string name="theme_light">Chiaro</string>
+    <string name="theme_dark">Scuro</string>
+    <string name="delete">Elimina</string>
+    <string name="rename">Rinomina</string>
+    <string name="star">Speciale</string>
+    <string name="starred">Aggiunto a speciali</string>
+    <string name="restore">Ripristina</string>
+    <string name="wr_import">Importa</string>
+    <string name="unstar">Non aggiunto a speciali</string>
+    <string name="confirm_delete">Conferma eliminazione</string>
+    <string name="enter_new_name">Inserire il nuovo nome</string>
+    <string name="incorrect_pin_text">PIN errato</string>
+    <string name="title">Titolo</string>
+    <string name="untitled">Senza titolo</string>
+    <string name="empty_directory">Questa directory è vuota</string>
+    <string name="navigate_up_folder">Indietro alla cartella precedente</string>
+    <string name="folder_name_hint">Inserire il nome della cartella</string>
+    <string name="new_name_hint">Inserire il nuovo nome</string>
+    <string name="create_folder">Crea cartella</string>
+    <string name="move">Sposta</string>
+
+    <string name="import_from_device">Importa dal dispositivo</string>
+    <string name="select_folder_move">Seleziona cartella</string>
+    <string name="select_root_folder">Seleziona cartella</string>
+
+    <string name="empty_notes_list_hint">Quando si crea una nuova nota,\napparirà qui</string>
+    <string name="empty_archives_hint">Quanto una nota viene archiviata, \napparirà qui</string>
+    <string name="empty_starred_hint">Quando una nota viene contrassegnata come «Speciale»,\napparirà qui</string>
+    <string name="search_hint">Cerca note</string>
+    <string name="share_string">Condividi con&#8230;</string>
+    <string name="share">Condividi</string>
+    <string name="search">Cerca</string>
+    <string name="preview">Anteprima</string>
+    <string name="edit">Modifica</string>
+    <string name="app_settings">Impostazioni applicazione</string>
+    <string name="editor_settings">Impostazioni editor</string>
+    <string name="social">Social</string>
+    <string name="meta">Altro</string>
+    <string name="directories">Directory</string>
+    <string name="files">File</string>
+
+    <string name="email_header">Feedback su Writeily</string>
+
+    <!-- Preferences -->
+    <string name="pref_remember_directory">All'avvio ricorda posizione ultima cartella</string>
+    <string name="pref_font_choice">Tipo di carattere dell'editor</string>
+    <string name="pref_theme">Tema</string>
+    <string name="pref_rate_writeily">Valuta Writeily su Google Play</string>
+    <string name="pref_donate_writeily">Donazioni</string>
+    <string name="pref_preview_first">All'apertura delle note mostra prima l'anterpima</string>
+    <string name="translators_title">Traduttori</string>
+    <string name="pref_about_dialog_title">Informazioni su Writeily</string>
+    <string name="pref_attribution_dialog_title">Attribuzioni</string>
+    <string name="pref_twitter">Segui Writeily su Twitter</string>
+    <string name="pref_email">Supporto via email</string>
+    <string name="share_text">Testo semplice</string>
+    <string name="share_image">Immagine</string>
+    <string name="share_as">Condividi come&#8230;</string>
+    <string name="pref_font_size">Dimensione del carattere</string>
+    <string name="pref_pin">Blocco con PIN</string>
+    <string name="pref_show_markdown_shortcuts">Mostra barra delle scorciatoie Markdown</string>
+    <string name="pref_highlighting_activated">Evidenziazione della sintassi Markdown</string>
+    <string name="pref_highlighting_delay">Ritardo in millisecondi per l'aggiornamento dell'evidenziazione</string>
+    <string name="pref_highlighting_delay_summary">I valori elevati influenzano meno la batteria</string>
+    <string name="pref_smart_shortcuts">Scorciatoie veloci per le parentesi</string>
+    <string name="pref_smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
+    <string name="pin_title">Inserire il PIN</string>
+    <string name="pin_go">Vai</string>
+
+    <!-- Font Size -->
+    <string name="font_size_normal">Normale</string>
+    <string name="font_size_large">Grande</string>
+    <string name="font_size_small">Piccolo</string>
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Ultima modifica: %s</string>
+    <string name="number_of_files">Numero di file: %d</string>
+    <string name="move_here">Sposta qui</string>
+    <string name="select_this_folder">Seleziona questa cartella</string>
+    <string name="select">Seleziona</string>
+    <string name="no_selected_file">Nessun file selezionato</string>
+    <string name="current_folder">Cartella corrente:</string>
+    <string name="create">Crea</string>
+    <string name="select_elements">Seleziona voci</string>
+    <string name="one_item_selected">Un elemento selezionato</string>
+    <string name="more_items_selected">%d elementi selezionati</string>
+
+    <!-- About screen -->
+    <string name="about_version_title">Versione</string>
+    <string name="about_source_title">Writeily è open source su GitHub</string>
+    <string name="about_developer_section">Sviluppatore</string>
+    <string name="about_contributors_section">Contributori</string>
+    <string name="about_libraries_section">Librerie</string>
+    <string name="about_translators_section">Traduttori</string>
+    <string name="about_italian">Italiano</string>
+    <string name="about_german">Tedesco</string>
+    <string name="about_polish">Polacco</string>
+    <string name="about_spanish">Spagnolo</string>
+    <string name="about_french">Francese</string>
+    <string name="about_chinese_simplified">Cinese (semplificato)</string>
+    <string name="tap_website">Tocca per visitare il sito web</string>
+    <string name="tap_github">Tocca per visitare il profilo su GitHub</string>
+    <string name="rename_error_target_already_exists">File o cartella di destinazione già esistenti.</string>
+    <string name="rename_success">Rinominata con successo</string>
+    <string name="rename_fail">Impossibile rinominare</string>
+
+</resources>
