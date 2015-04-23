@@ -6,18 +6,16 @@ import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-import com.commonsware.cwac.anddown.AndDown;
-
 import java.io.File;
 import java.io.FileOutputStream;
 
+import me.writeily.pro.renderer.MarkDownRenderer;
 import me.writeily.pro.model.Constants;
 
 /**
@@ -28,10 +26,10 @@ public class PreviewActivity extends ActionBarActivity {
     private WebView previewWebView;
     private String markdownRaw;
     private String markdownHtml;
-    private String baseFolder = null;
     private String currentDir;
     private File note;
     private boolean isEditIncoming = false;
+    private MarkDownRenderer renderer = new MarkDownRenderer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +44,22 @@ public class PreviewActivity extends ActionBarActivity {
 
         previewWebView = (WebView) findViewById(R.id.preview_webview);
         markdownRaw = getIntent().getStringExtra(Constants.MD_PREVIEW_KEY);
-        baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
-
+        String baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
         currentDir = getIntent().getStringExtra(Constants.NOTE_SOURCE_DIR);
         note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
 
+        setTitleFromNote(note);
+        markdownHtml = renderer.renderMarkdown(markdownRaw, getApplicationContext());
+
+        previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
+    }
+
+    private void setTitleFromNote(File note) {
         if (note != null) {
-            setTitle(note.getName());
+            setTitle(this.note.getName());
         } else {
             setTitle(getResources().getString(R.string.preview));
         }
-
-        renderMarkdown();
     }
 
     @Override
@@ -172,25 +174,4 @@ public class PreviewActivity extends ActionBarActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
     }
-
-    private void renderMarkdown() {
-        markdownHtml = Constants.MD_HTML_PREFIX;
-
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-        if (!theme.equals("")) {
-            if (theme.equals(getString(R.string.theme_dark))) {
-                markdownHtml += Constants.DARK_MD_HTML_PREFIX;
-            } else {
-                markdownHtml += Constants.MD_HTML_PREFIX;
-            }
-        }
-
-        AndDown andDown = new AndDown();
-        markdownHtml += andDown.markdownToHtml(markdownRaw) + Constants.MD_HTML_SUFFIX;
-
-        previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
-    }
-
-
 }
