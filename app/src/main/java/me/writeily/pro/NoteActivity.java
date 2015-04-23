@@ -60,6 +60,7 @@ public class NoteActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,8 +93,6 @@ public class NoteActivity extends ActionBarActivity {
             content.setText(readNote());
             noteTitle.setText(note.getName());
         }
-
-        super.onCreate(savedInstanceState);
     }
 
     private String readNote() {
