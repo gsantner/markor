@@ -35,6 +35,7 @@ public class PinActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // Get the Intent (to check if coming from Settings)
         String action = getIntent().getAction();
 
@@ -63,8 +64,6 @@ public class PinActivity extends ActionBarActivity {
 
         attachPinListeners();
         attachPinKeyListeners();
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
