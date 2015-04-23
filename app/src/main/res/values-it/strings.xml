@@ -50,12 +50,12 @@
     <string name="email_header">Feedback su Writeily</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">All'avvio ricorda posizione ultima cartella</string>
-    <string name="pref_font_choice">Tipo di carattere dell'editor</string>
+    <string name="pref_remember_directory">All\'avvio ricorda posizione ultima cartella</string>
+    <string name="pref_font_choice">Tipo di carattere dell\'editor</string>
     <string name="pref_theme">Tema</string>
     <string name="pref_rate_writeily">Valuta Writeily su Google Play</string>
     <string name="pref_donate_writeily">Donazioni</string>
-    <string name="pref_preview_first">All'apertura delle note mostra prima l'anterpima</string>
+    <string name="pref_preview_first">All\'apertura delle note mostra prima l\'anterpima</string>
     <string name="translators_title">Traduttori</string>
     <string name="pref_about_dialog_title">Informazioni su Writeily</string>
     <string name="pref_attribution_dialog_title">Attribuzioni</string>
@@ -68,7 +68,7 @@
     <string name="pref_pin">Blocco con PIN</string>
     <string name="pref_show_markdown_shortcuts">Mostra barra delle scorciatoie Markdown</string>
     <string name="pref_highlighting_activated">Evidenziazione della sintassi Markdown</string>
-    <string name="pref_highlighting_delay">Ritardo in millisecondi per l'aggiornamento dell'evidenziazione</string>
+    <string name="pref_highlighting_delay">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione</string>
     <string name="pref_highlighting_delay_summary">I valori elevati influenzano meno la batteria</string>
     <string name="pref_smart_shortcuts">Scorciatoie veloci per le parentesi</string>
     <string name="pref_smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
