@@ -1,1 +1,1 @@
-include ':app:libs:anddown', ':app'
+include ':app'
