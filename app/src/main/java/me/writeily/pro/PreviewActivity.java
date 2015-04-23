@@ -187,7 +187,7 @@ public class PreviewActivity extends ActionBarActivity {
         }
 
         AndDown andDown = new AndDown();
-        markdownHtml += andDown.markdownToHtml(markdownRaw, 0, 3) + Constants.MD_HTML_SUFFIX;
+        markdownHtml += andDown.markdownToHtml(markdownRaw) + Constants.MD_HTML_SUFFIX;
 
         previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
     }
