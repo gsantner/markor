@@ -65,6 +65,7 @@ public class NotesFragment extends Fragment {
     };
     private ActionMode actionMode;
     private List<File> selectedItems = new ArrayList<File>();
+    private int sectionHeadersTextLayout;
 
     public NotesFragment() {
         super();
