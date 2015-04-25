@@ -22,7 +22,7 @@ class RenameBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Constants.RENAME_DIALOG_TAG)) {
             String newName = intent.getStringExtra(Constants.RENAME_NEW_NAME);
-            File sourceFile = new File(intent.getStringExtra(Constants.RENAME_SOURCE_FILE));
+            File sourceFile = new File(intent.getStringExtra(Constants.SOURCE_FILE));
             File targetFile = new File(sourceFile.getParent(), newName);
 
             if (targetFile.exists()) {

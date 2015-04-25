@@ -7,7 +7,10 @@ import android.util.SparseBooleanArray;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -61,35 +64,20 @@ public class WriteilySingleton {
     }
 
     public void copyFile(File file, String destinationDir) {
+        FileInputStream input = null;
+        FileOutputStream output = null;
         try {
-            String filename = file.getName();
-
-            File outputFile = new File(destinationDir + File.separator + filename);
-            FileOutputStream fos = new FileOutputStream(outputFile);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-
-            FileInputStream is = new FileInputStream(file);
-            InputStreamReader reader = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(reader);
-
-            String fileContent;
-            StringBuilder fileContentBuilder = new StringBuilder();
-
-            while ((fileContent = br.readLine()) != null) {
-                fileContentBuilder.append(fileContent + "\n");
-            }
-
-            writer.write(fileContentBuilder.toString());
-            writer.flush();
-
-            writer.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            input = new FileInputStream(file);
+            output = new FileOutputStream(new File(destinationDir, file.getName()));
+            IOUtils.copy(input, output);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(input);
+            IOUtils.closeQuietly(output);
         }
     }
+
 
     public void moveFile(File file, String destinationDir) {
         /* Rules:

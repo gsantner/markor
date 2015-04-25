@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,7 +23,7 @@ public class RenameDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final File file = new File(getArguments().getString(Constants.RENAME_SOURCE_FILE));
+        final File file = new File(getArguments().getString(Constants.SOURCE_FILE));
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
@@ -74,7 +73,7 @@ public class RenameDialog extends DialogFragment {
         Intent broadcast = new Intent();
         broadcast.setAction(Constants.RENAME_DIALOG_TAG);
         broadcast.putExtra(Constants.RENAME_NEW_NAME, name);
-        broadcast.putExtra(Constants.RENAME_SOURCE_FILE, file.getAbsolutePath());
+        broadcast.putExtra(Constants.SOURCE_FILE, file.getAbsolutePath());
         getActivity().sendBroadcast(broadcast);
     }
 }

@@ -16,6 +16,7 @@
     <string name="wr_import">Import</string>
     <string name="unstar">Unstar</string>
     <string name="confirm_delete">Confirm Delete</string>
+    <string name="confirm_overwrite">File already exists, overwrite?</string>
     <string name="enter_new_name">Enter new name</string>
     <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>

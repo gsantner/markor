@@ -22,7 +22,8 @@ public class ConfirmDialog extends DialogFragment {
 
     public void sendBroadcast() {
         Intent broadcast = new Intent();
-        broadcast.setAction(Constants.CONFIRM_DIALOG_TAG);
+        broadcast.setAction(getTag());
+        broadcast.putExtras(getArguments());
         getActivity().sendBroadcast(broadcast);
     }
 
@@ -31,13 +32,16 @@ public class ConfirmDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
         String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
 
+        int title = getTitleForTag(getTag());
+
         if (theme.equals(getString(R.string.theme_dark))) {
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
         } else {
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
         }
 
-        dialogBuilder.setTitle(getResources().getString(R.string.confirm_delete));
+
+        dialogBuilder.setTitle(getResources().getString(title));
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
@@ -54,5 +58,17 @@ public class ConfirmDialog extends DialogFragment {
                 });
 
         return dialogBuilder.show();
+    }
+
+    private int getTitleForTag(String tag) {
+
+        switch(tag){
+            case Constants.CONFIRM_OVERWRITE_DIALOG_TAG:
+                return R.string.confirm_overwrite;
+
+            case Constants.CONFIRM_DELETE_DIALOG_TAG:
+            default:
+                return R.string.confirm_delete;
+        }
     }
 }
