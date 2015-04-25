@@ -23,6 +23,7 @@ public class Constants {
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
     public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
     public static final String CONFIRM_DIALOG_TAG = "confirm_dialog_tag";
+    public static final String RENAME_DIALOG_TAG = "RENAME_DIALOG_TAG";
 
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
@@ -34,6 +35,8 @@ public class Constants {
     public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
     public static final String USER_PIN_KEY = "user_pin";
+    public static final String RENAME_NEW_NAME = "RENAME_NEW_NAME";
+    public static final String RENAME_SOURCE_FILE = "RENAME_SOURCE_FILE";
 
     // ----- DEFAULT FOLDERS -----
     public static final String WRITEILY_FOLDER = "/writeily/";

@@ -18,10 +18,16 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
 dependencies {
-    compile project('libs:anddown')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.commonsware.cwac:anddown:0.2.4'
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:recyclerview-v7:21.0.3' 
+    compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.getbase:floatingactionbutton:1.3.0'
+    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
 }
