@@ -98,6 +98,8 @@ public class MainActivity extends ActionBarActivity {
     };
 
     private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
+    private BroadcastReceiver browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
+
     private boolean doubleBackToExitPressedOnce;
 
     @Override
@@ -330,6 +332,10 @@ public class MainActivity extends ActionBarActivity {
         ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
         registerReceiver(renameBroadcastReceiver, ifilterRenameDialog);
 
+        IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
+        ifilterSwitchedFolderFilder.addAction(Constants.CURRENT_FOLDER_CHANGED);
+        registerReceiver(browseToFolderBroadcastReceiver, ifilterSwitchedFolderFilder);
+
         super.onResume();
     }
 
@@ -339,6 +345,7 @@ public class MainActivity extends ActionBarActivity {
         unregisterReceiver(fsBroadcastReceiver);
         unregisterReceiver(confirmBroadcastReceiver);
         unregisterReceiver(renameBroadcastReceiver);
+        unregisterReceiver(browseToFolderBroadcastReceiver);
         super.onPause();
     }
 
@@ -418,7 +425,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (drawerLayout.isDrawerOpen(drawerView)) {
             drawerLayout.closeDrawer(drawerView);
-        } else if (!onRootDirectory()) {
+        } else if (!notesFragment.onRooDir()) {
             notesFragment.goToPreviousDir();
         } else {
             this.doubleBackToExitPressedOnce = true;
@@ -434,7 +441,4 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private boolean onRootDirectory() {
-        return findViewById(R.id.previous_dir_button).getVisibility() != View.VISIBLE;
-    }
 }
