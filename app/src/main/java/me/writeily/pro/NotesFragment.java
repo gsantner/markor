@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,7 +45,6 @@ public class NotesFragment extends Fragment {
 
     private ListView filesListView;
     private TextView hintTextView;
-    private Button previousDirButton;
 
     private File rootDir;
     private File currentDir;
@@ -65,7 +63,6 @@ public class NotesFragment extends Fragment {
     };
     private ActionMode actionMode;
     private List<File> selectedItems = new ArrayList<File>();
-    private int sectionHeadersTextLayout;
 
     public NotesFragment() {
         super();
@@ -85,10 +82,6 @@ public class NotesFragment extends Fragment {
         filesListView.setOnItemClickListener(new NotesItemClickListener());
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         filesListView.setAdapter(simpleSectionAdapter);
-
-        previousDirButton = (Button) layoutView.findViewById(R.id.previous_dir_button);
-        previousDirButton.setOnClickListener(new PreviousDirClickListener());
-
         rootDir = getRootFolderFromPrefsOrDefault();
 
         return layoutView;
@@ -100,8 +93,6 @@ public class NotesFragment extends Fragment {
         rootDir = getRootFolderFromPrefsOrDefault();
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
-
-        setupAppearancePreferences();
         super.onResume();
     }
 
@@ -113,19 +104,6 @@ public class NotesFragment extends Fragment {
     public void onPause() {
         saveCurrentFolder();
         super.onPause();
-    }
-
-    private void setupAppearancePreferences() {
-        String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_theme_key), "");
-
-        if (theme.equals(getString(R.string.theme_dark))) {
-            previousDirButton.setBackgroundColor(getResources().getColor(R.color.grey));
-            previousDirButton.setTextColor(getResources().getColor(R.color.lighter_grey));
-        } else {
-            previousDirButton.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
-            previousDirButton.setTextColor(getResources().getColor(R.color.dark_grey));
-        }
-
     }
 
     private void retrieveCurrentFolder() {
@@ -175,9 +153,17 @@ public class NotesFragment extends Fragment {
 
     public void listFilesInDirectory(File directory) {
         reloadFiles(directory);
-        hideBackButtonIfInRootDir();
+        broadcastDirectoryChange(directory, rootDir);
         showEmptyDirHintIfEmpty();
         reloadAdapter();
+    }
+
+    private void broadcastDirectoryChange(File directory, File rootDir) {
+        Intent broadcast = new Intent();
+        broadcast.setAction(Constants.CURRENT_FOLDER_CHANGED);
+        broadcast.putExtra(Constants.CURRENT_FOLDER, directory);
+        broadcast.putExtra(Constants.ROOT_DIR, rootDir);
+        getActivity().sendBroadcast(broadcast);
     }
 
     private void reloadFiles(File directory) {
@@ -217,15 +203,6 @@ public class NotesFragment extends Fragment {
         }
     }
 
-    private void hideBackButtonIfInRootDir() {
-        if (writeilySingleton.isRootDir(currentDir, rootDir)) {
-            previousDirButton.setVisibility(View.GONE);
-            currentDir = null;
-        } else {
-            previousDirButton.setVisibility(View.VISIBLE);
-        }
-    }
-
     public File getCurrentDir() {
         return (currentDir == null) ? getRootDir() : currentDir.getAbsoluteFile();
     }
@@ -261,6 +238,10 @@ public class NotesFragment extends Fragment {
 
     public List<File> getSelectedItems(){
         return selectedItems;
+    }
+
+    public boolean onRooDir() {
+        return writeilySingleton.isRootDir(currentDir, rootDir);
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
