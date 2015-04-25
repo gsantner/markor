@@ -9,18 +9,21 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
     <string name="star">Star</string>
     <string name="starred">Starred</string>
     <string name="restore">Restore</string>
     <string name="wr_import">Import</string>
     <string name="unstar">Unstar</string>
     <string name="confirm_delete">Confirm Delete</string>
+    <string name="enter_new_name">Enter new name</string>
     <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>
     <string name="untitled">Untitled</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
     <string name="folder_name_hint">Enter the name of your folder</string>
+    <string name="new_name_hint">Enter new name</string>
     <string name="create_folder">Create Folder</string>
     <string name="move">Move</string>
 
@@ -41,6 +44,8 @@
     <string name="editor_settings">Editor Settings</string>
     <string name="social">Social</string>
     <string name="meta">Meta</string>
+    <string name="directories">Directories</string>
+    <string name="files">Files</string>
 
     <string name="email_header">Feedback about Writeily</string>
 
@@ -100,7 +105,11 @@
     <string name="about_spanish">Spanish</string>
     <string name="about_french">French</string>
     <string name="about_chinese_simplified">Chinese (Simplified)</string>
+    <string name="about_italian">Italian</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
+    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
+    <string name="rename_success">Successfully renamed</string>
+    <string name="rename_fail">Failed to rename</string>
 
 </resources>

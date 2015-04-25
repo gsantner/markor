@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -65,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
             }
         }
     };
@@ -76,10 +77,10 @@ public class MainActivity extends ActionBarActivity {
             String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
             } else {
                 WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
-                notesFragment.listFilesInCurrentDirectory();
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
         }
@@ -89,15 +90,20 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
-                WriteilySingleton.getInstance().deleteSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter());
-                notesFragment.listFilesInCurrentDirectory();
+                WriteilySingleton.getInstance().deleteSelectedItems(notesFragment.getSelectedItems());
+                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
         }
     };
 
+    private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
+    private boolean doubleBackToExitPressedOnce;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -169,8 +175,6 @@ public class MainActivity extends ActionBarActivity {
 
         setToolbarTitle(getString(R.string.notes));
         initFolders();
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -180,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void createNote() {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir());
+        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir().getAbsolutePath());
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         fabMenu.collapse();
@@ -195,8 +199,7 @@ public class MainActivity extends ActionBarActivity {
         FragmentManager fragManager = getFragmentManager();
 
         Bundle args = new Bundle();
-        String currentDir = notesFragment.getCurrentDir();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, currentDir);
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, notesFragment.getCurrentDir().getAbsolutePath());
 
         FolderDialog folderDialog = new FolderDialog();
         folderDialog.setArguments(args);
@@ -323,6 +326,10 @@ public class MainActivity extends ActionBarActivity {
         ifilterConfirmDialog.addAction(Constants.CONFIRM_DIALOG_TAG);
         registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
 
+        IntentFilter ifilterRenameDialog = new IntentFilter();
+        ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
+        registerReceiver(renameBroadcastReceiver, ifilterRenameDialog);
+
         super.onResume();
     }
 
@@ -331,6 +338,7 @@ public class MainActivity extends ActionBarActivity {
         unregisterReceiver(folderBroadcastReceiver);
         unregisterReceiver(fsBroadcastReceiver);
         unregisterReceiver(confirmBroadcastReceiver);
+        unregisterReceiver(renameBroadcastReceiver);
         super.onPause();
     }
 
@@ -369,7 +377,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void importFile(File file) {
         WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-        writeilySingleton.copyFile(file, notesFragment.getCurrentDir());
+        writeilySingleton.copyFile(file, notesFragment.getCurrentDir().getAbsolutePath());
         Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
     }
 
@@ -399,5 +407,34 @@ public class MainActivity extends ActionBarActivity {
             // Close the drawer
             drawerLayout.closeDrawer(drawerView);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        if (drawerLayout.isDrawerOpen(drawerView)) {
+            drawerLayout.closeDrawer(drawerView);
+        } else if (!onRootDirectory()) {
+            notesFragment.goToPreviousDir();
+        } else {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
+    private boolean onRootDirectory() {
+        return findViewById(R.id.previous_dir_button).getVisibility() != View.VISIBLE;
     }
 }

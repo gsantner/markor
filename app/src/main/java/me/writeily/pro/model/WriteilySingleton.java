@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jeff on 14-12-11.
@@ -127,13 +128,9 @@ public class WriteilySingleton {
         return file.delete();
     }
 
-    public void deleteSelectedNotes(ListView notesListView, BaseAdapter notesAdapter) {
-        SparseBooleanArray checkedIndices = notesListView.getCheckedItemPositions();
-        for (int i = 0; i < checkedIndices.size(); i++) {
-            if (checkedIndices.valueAt(i)) {
-                File file = (File) notesAdapter.getItem(checkedIndices.keyAt(i));
-                deleteFile(file);
-            }
+    public void deleteSelectedItems(List<File> files) {
+        for (File file : files) {
+            deleteFile(file);
         }
     }
 
@@ -211,12 +208,12 @@ public class WriteilySingleton {
 
     /**
      * Recursively add all files from the specified directory
-     * @param dir the directory to add files from
+     * @param sourceDir the directory to add files from
      */
-    public ArrayList<File> addFilesFromDirectory(File dir, ArrayList<File> files) {
+    public ArrayList<File> addFilesFromDirectory(File sourceDir, ArrayList<File> files) {
         ArrayList<File> addedFiles = new ArrayList<>();
 
-        for (File f : dir.listFiles()) {
+        for (File f : sourceDir.listFiles()) {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);

@@ -15,7 +15,7 @@
         android:textSize="24sp"/>
 
     <Button
-        android:id="@+id/import_header_btn"
+        android:id="@+id/previous_dir_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -34,7 +34,7 @@
         android:id="@+id/notes_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/import_header_btn"
+        android:layout_below="@id/previous_dir_button"
         android:choiceMode="multipleChoiceModal"
         android:layout_gravity="start"
         android:background="@android:color/transparent" />
