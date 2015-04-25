@@ -15,10 +15,25 @@
             android:layout_height="match_parent">
 
             <include android:id="@+id/toolbar" layout="@layout/toolbar" />
-
+            <TextView
+                android:id="@+id/breadcrumbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar"
+                android:minHeight="48dp"
+                android:gravity="start|center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/navigate_up_folder"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/breadcrumbs"
+                android:elevation="3dp"
+                android:visibility="invisible"/>
             <FrameLayout
                 android:id="@+id/frame"
-                android:layout_below="@id/toolbar"
+                android:layout_below="@id/breadcrumbs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white" />

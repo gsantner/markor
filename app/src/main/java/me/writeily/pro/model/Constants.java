@@ -14,6 +14,7 @@ public class Constants {
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String SET_PIN_ACTION = "set_pin";
     public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";
+    public static final String CURRENT_FOLDER_CHANGED = "current_folder_changed";
     public static final String FOLDER_NAME = "folder_name";
     public static final String FILESYSTEM_FILE_NAME = "filesystem_file_name";
 
@@ -37,6 +38,8 @@ public class Constants {
     public static final String USER_PIN_KEY = "user_pin";
     public static final String RENAME_NEW_NAME = "RENAME_NEW_NAME";
     public static final String RENAME_SOURCE_FILE = "RENAME_SOURCE_FILE";
+    public static final String CURRENT_FOLDER = "filesystem_current_folder";
+    public static final String ROOT_DIR = "filesystem_root_dir";
 
     // ----- DEFAULT FOLDERS -----
     public static final String WRITEILY_FOLDER = "/writeily/";
