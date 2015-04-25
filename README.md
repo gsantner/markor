@@ -1,6 +1,9 @@
 # Writeily Pro on Google Play
+Download the app for **free**!
 
-Download the app for **free** on Google Play: [https://play.google.com/store/apps/details?id=me.writeily.pro](https://play.google.com/store/apps/details?id=me.writeily.pro)
+[![Get it on F-Droid](http://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/200px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdfilter=writeily&fdid=me.writeily.pro)
+
+[![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=me.writeily.pro)
 
 ## Website
 
