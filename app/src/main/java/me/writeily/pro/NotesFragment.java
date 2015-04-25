@@ -136,7 +136,7 @@ public class NotesFragment extends Fragment {
     private void confirmDelete() {
         FragmentManager fragManager = getFragmentManager();
         ConfirmDialog confirmDialog = new ConfirmDialog();
-        confirmDialog.show(fragManager, Constants.CONFIRM_DIALOG_TAG);
+        confirmDialog.show(fragManager, Constants.CONFIRM_DELETE_DIALOG_TAG);
     }
 
     private void promptForDirectory() {
@@ -281,7 +281,7 @@ public class NotesFragment extends Fragment {
         private void promptForNewName(File renameable) {
             FragmentManager fragManager = getFragmentManager();
             Bundle args = new Bundle();
-            args.putString(Constants.RENAME_SOURCE_FILE, renameable.getAbsolutePath());
+            args.putString(Constants.SOURCE_FILE, renameable.getAbsolutePath());
             RenameDialog renameDialog = new RenameDialog();
             renameDialog.setArguments(args);
             renameDialog.show(fragManager, Constants.RENAME_DIALOG_TAG);

@@ -29,8 +29,10 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.io.File;
+import java.io.Serializable;
 
 import me.writeily.pro.adapter.DrawerAdapter;
+import me.writeily.pro.dialog.ConfirmDialog;
 import me.writeily.pro.dialog.FilesystemDialog;
 import me.writeily.pro.dialog.FolderDialog;
 import me.writeily.pro.model.Constants;
@@ -89,13 +91,23 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.CONFIRM_DIALOG_TAG)) {
+            if (intent.getAction().equals(Constants.CONFIRM_DELETE_DIALOG_TAG)) {
                 WriteilySingleton.getInstance().deleteSelectedItems(notesFragment.getSelectedItems());
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
+            if (intent.getAction().equals(Constants.CONFIRM_OVERWRITE_DIALOG_TAG)) {
+                importFileToStorageDir(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
+            }
         }
     };
+
+    private void importFileToStorageDir(Context context,File serializableExtra) {
+        WriteilySingleton.getInstance().copyFile(serializableExtra,
+                notesFragment.getCurrentDir().getAbsolutePath());
+        Toast.makeText(context, "Imported to \"" + notesFragment.getCurrentDir().getName() + "\"",
+                Toast.LENGTH_LONG).show();
+    }
 
     private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
     private BroadcastReceiver browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
@@ -325,7 +337,8 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
 
         IntentFilter ifilterConfirmDialog = new IntentFilter();
-        ifilterConfirmDialog.addAction(Constants.CONFIRM_DIALOG_TAG);
+        ifilterConfirmDialog.addAction(Constants.CONFIRM_DELETE_DIALOG_TAG);
+        ifilterConfirmDialog.addAction(Constants.CONFIRM_OVERWRITE_DIALOG_TAG);
         registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
 
         IntentFilter ifilterRenameDialog = new IntentFilter();
@@ -383,9 +396,21 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void importFile(File file) {
-        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
-        writeilySingleton.copyFile(file, notesFragment.getCurrentDir().getAbsolutePath());
-        Toast.makeText(this, "Imported to \"Writeily\"", Toast.LENGTH_LONG).show();
+        if (new File(notesFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+            askForConfirmation(file);
+        } else {
+            importFileToStorageDir(this, file);
+        }
+    }
+
+    private void askForConfirmation(Serializable file) {
+        FragmentManager fragManager = getFragmentManager();
+        ConfirmDialog confirmDialog = new ConfirmDialog();
+        Bundle b = new Bundle();
+        b.putSerializable(Constants.SOURCE_FILE, file);
+        confirmDialog.setArguments(b);
+        confirmDialog.show(fragManager, Constants.CONFIRM_OVERWRITE_DIALOG_TAG);
+
     }
 
     /**

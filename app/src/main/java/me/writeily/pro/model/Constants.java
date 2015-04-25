@@ -23,7 +23,8 @@ public class Constants {
     public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
     public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
-    public static final String CONFIRM_DIALOG_TAG = "confirm_dialog_tag";
+    public static final String CONFIRM_DELETE_DIALOG_TAG = "confirm_delete_dialog_tag";
+    public static final String CONFIRM_OVERWRITE_DIALOG_TAG = "confirm_overwrite_dialog_tag";
     public static final String RENAME_DIALOG_TAG = "RENAME_DIALOG_TAG";
 
     // ----- KEYS -----
@@ -37,7 +38,7 @@ public class Constants {
     public static final String MD_PREVIEW_KEY = "md_preview_key";
     public static final String USER_PIN_KEY = "user_pin";
     public static final String RENAME_NEW_NAME = "RENAME_NEW_NAME";
-    public static final String RENAME_SOURCE_FILE = "RENAME_SOURCE_FILE";
+    public static final String SOURCE_FILE = "SOURCE_FILE";
     public static final String CURRENT_FOLDER = "filesystem_current_folder";
     public static final String ROOT_DIR = "filesystem_root_dir";
 
