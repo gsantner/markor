@@ -1,5 +1,5 @@
 # Writeily Pro
-Download the app for **free**!
+The minimalist Markdown editor for Android. Download it for **free**!
 
 [![Get it on F-Droid](http://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/200px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdfilter=writeily&fdid=me.writeily.pro)
 
