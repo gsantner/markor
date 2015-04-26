@@ -58,8 +58,6 @@ public class HighlightingEditor extends EditText {
 
     private void init() {
 
-        setHorizontallyScrolling(true);
-
         setFilters(new InputFilter[]{new IndentationFilter()});
 
         final int highlightingDelay = getHighlightingDelayFromPrefs();
