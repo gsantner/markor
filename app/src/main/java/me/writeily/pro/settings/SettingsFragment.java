@@ -47,20 +47,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                     editor.putString(getString(R.string.pref_lock_type_key), getString(R.string.pref_no_lock_value)).apply();
                     pinPreference.setSummary(PreferenceManager.getDefaultSharedPreferences(context)
                             .getString(getString(R.string.pref_no_lock_value), getString(R.string.pref_no_lock)));
+                    return true;
                 } else if (getString(R.string.pref_pin_lock_value).equals(lockType)) {
                     Intent pinIntent = new Intent(context, PinActivity.class);
                     pinIntent.setAction(Constants.SET_PIN_ACTION);
                     startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
-                    pinPreference.setSummary(PreferenceManager.getDefaultSharedPreferences(context)
-                            .getString(getString(R.string.pref_pin_lock), getString(R.string.pref_no_lock)));
                 } else if (getString(R.string.pref_alpha_pin_lock_value).equals(lockType)) {
                     Intent pinIntent = new Intent(context, AlphanumericPinActivity.class);
                     pinIntent.setAction(Constants.SET_PIN_ACTION);
                     startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
-                    pinPreference.setSummary(PreferenceManager.getDefaultSharedPreferences(context)
-                            .getString(getString(R.string.pref_alpha_pin_lock), getString(R.string.pref_no_lock)));
                 }
-                return true;
+                return false;
             }
         });
 
