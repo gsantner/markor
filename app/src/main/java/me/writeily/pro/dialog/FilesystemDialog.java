@@ -232,7 +232,6 @@ public class FilesystemDialog extends DialogFragment {
 
         if (writeilySingleton.isRootDir(currentDir, rootDir)) {
             previousDirButton.setVisibility(View.GONE);
-            currentDir = null;
         } else {
             previousDirButton.setVisibility(View.VISIBLE);
         }

@@ -34,7 +34,7 @@ import java.io.Serializable;
 import me.writeily.pro.adapter.DrawerAdapter;
 import me.writeily.pro.dialog.ConfirmDialog;
 import me.writeily.pro.dialog.FilesystemDialog;
-import me.writeily.pro.dialog.FolderDialog;
+import me.writeily.pro.dialog.CreateFolderDialog;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
 import me.writeily.pro.settings.SettingsActivity;
@@ -62,11 +62,11 @@ public class MainActivity extends ActionBarActivity {
     private View frameLayout;
 
     private SearchView searchView;
-    private BroadcastReceiver folderBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver createFolderBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.FOLDER_DIALOG_TAG)) {
+            if (intent.getAction().equals(Constants.CREATE_FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
             }
@@ -80,8 +80,8 @@ public class MainActivity extends ActionBarActivity {
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
-            } else {
-                WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getFilesListView(), notesFragment.getFilesAdapter(), fileName);
+            } else if (intent.getAction().equals(Constants.FILESYSTEM_MOVE_DIALOG_TAG)) {
+                WriteilySingleton.getInstance().moveSelectedNotes(notesFragment.getSelectedItems(), fileName);
                 notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
                 notesFragment.finishActionMode();
             }
@@ -215,9 +215,9 @@ public class MainActivity extends ActionBarActivity {
         Bundle args = new Bundle();
         args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, notesFragment.getCurrentDir().getAbsolutePath());
 
-        FolderDialog folderDialog = new FolderDialog();
-        folderDialog.setArguments(args);
-        folderDialog.show(fragManager, Constants.FOLDER_DIALOG_TAG);
+        CreateFolderDialog createFolderDialog = new CreateFolderDialog();
+        createFolderDialog.setArguments(args);
+        createFolderDialog.show(fragManager, Constants.CREATE_FOLDER_DIALOG_TAG);
     }
 
     /**
@@ -327,9 +327,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         setupAppearancePreferences();
 
-        IntentFilter ifilterFolderDialog = new IntentFilter();
-        ifilterFolderDialog.addAction(Constants.FOLDER_DIALOG_TAG);
-        registerReceiver(folderBroadcastReceiver, ifilterFolderDialog);
+        IntentFilter ifilterCreateFolderDialog = new IntentFilter();
+        ifilterCreateFolderDialog.addAction(Constants.CREATE_FOLDER_DIALOG_TAG);
+        registerReceiver(createFolderBroadcastReceiver, ifilterCreateFolderDialog);
 
         IntentFilter ifilterFsDialog = new IntentFilter();
         ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
@@ -354,7 +354,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onPause() {
-        unregisterReceiver(folderBroadcastReceiver);
+        unregisterReceiver(createFolderBroadcastReceiver);
         unregisterReceiver(fsBroadcastReceiver);
         unregisterReceiver(confirmBroadcastReceiver);
         unregisterReceiver(renameBroadcastReceiver);

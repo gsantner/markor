@@ -87,8 +87,8 @@ public class WriteilySingleton {
          */
 
         if (destinationDir != null &&
-            !destinationDir.equalsIgnoreCase(file.getParentFile().getAbsolutePath()) &&
-            !destinationDir.startsWith(file.getAbsolutePath())) {
+                !destinationDir.equalsIgnoreCase(file.getParentFile().getAbsolutePath()) &&
+                !destinationDir.startsWith(file.getAbsolutePath())) {
 
             if (file.isDirectory()) {
                 String newDestinationDir = copyDirectory(file, destinationDir);
@@ -122,13 +122,9 @@ public class WriteilySingleton {
         }
     }
 
-    public void moveSelectedNotes(ListView filesListView, BaseAdapter filesAdapter, String destination) {
-        SparseBooleanArray checkedIndices = filesListView.getCheckedItemPositions();
-        for (int i = 0; i < checkedIndices.size(); i++) {
-            if (checkedIndices.valueAt(i)) {
-                File file = (File) filesAdapter.getItem(checkedIndices.keyAt(i));
-                moveFile(file, destination);
-            }
+    public void moveSelectedNotes(List<File> files, String destination) {
+        for (File file : files) {
+            moveFile(file, destination);
         }
     }
 
@@ -196,6 +192,7 @@ public class WriteilySingleton {
 
     /**
      * Recursively add all files from the specified directory
+     *
      * @param sourceDir the directory to add files from
      */
     public ArrayList<File> addFilesFromDirectory(File sourceDir, ArrayList<File> files) {
@@ -218,6 +215,7 @@ public class WriteilySingleton {
 
     /**
      * Recursively add all directories from the specified directory
+     *
      * @param dir the directory to add files from
      */
     public ArrayList<File> addDirectories(File dir, ArrayList<File> files) {

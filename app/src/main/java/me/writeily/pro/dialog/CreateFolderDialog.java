@@ -17,17 +17,17 @@ import me.writeily.pro.model.Constants;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class FolderDialog extends DialogFragment {
+public class CreateFolderDialog extends DialogFragment {
 
     private EditText folderNameEditText;
     private String currentDir;
 
-    public FolderDialog() {
+    public CreateFolderDialog() {
     }
 
     public void sendBroadcast(String name) {
         Intent broadcast = new Intent();
-        broadcast.setAction(Constants.FOLDER_DIALOG_TAG);
+        broadcast.setAction(Constants.CREATE_FOLDER_DIALOG_TAG);
         broadcast.putExtra(Constants.FOLDER_NAME, currentDir + "/" + name);
         getActivity().sendBroadcast(broadcast);
     }
