@@ -65,7 +65,10 @@
     <string name="share_image">Bild</string>
     <string name="share_as">Teilen als&#8230;</string>
     <string name="pref_font_size">Schriftgröße</string>
-    <string name="pref_pin">PIN-Sperre</string>
+    <string name="pref_lock_settings">Sperre</string>
+    <string name="pref_pin_lock">PIN-Sperre</string>
+    <string name="pref_alpha_pin_lock">Kennwort-Sperre</string>
+    <string name="pref_no_lock">Keine Sperre</string>
     <string name="pref_show_markdown_shortcuts">Zeige Markdown-Shortcut-Leiste</string>
     <string name="pref_highlighting_activated">Markdown syntax-hervorhebung</string>
     <string name="pref_highlighting_delay">Zeit in Millisekunden, für die Hervorhebung refresh</string>
@@ -73,6 +76,7 @@
     <string name="pref_smart_shortcuts">Smarte Klammer</string>
     <string name="pref_smart_shortcuts_summary">Ausgewählten Text wird von {}, [] und () eingerahmt</string>
     <string name="pin_title">Geben Sie eine PIN ein</string>
+    <string name="passphrase_title">Geben Sie ein Kennwort ein</string>
     <string name="pin_go">Los</string>
 
     <!-- Font Size -->

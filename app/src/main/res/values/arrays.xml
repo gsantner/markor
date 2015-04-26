@@ -16,4 +16,10 @@
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
     </string-array>
+
+    <string-array name="possibleLocksStrings">
+        <item>@string/pref_no_lock</item>
+        <item>@string/pref_pin_lock</item>
+        <item>@string/pref_alpha_pin_lock</item>
+    </string-array>
 </resources>
