@@ -13,7 +13,7 @@ public class Constants {
 
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String SET_PIN_ACTION = "set_pin";
-    public static final String FOLDER_DIALOG_TAG = "folder_dialog_tag";
+    public static final String CREATE_FOLDER_DIALOG_TAG = "create_folder_dialog_tag";
     public static final String CURRENT_FOLDER_CHANGED = "current_folder_changed";
     public static final String FOLDER_NAME = "folder_name";
     public static final String FILESYSTEM_FILE_NAME = "filesystem_file_name";

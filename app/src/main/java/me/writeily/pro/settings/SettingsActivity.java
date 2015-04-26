@@ -21,7 +21,7 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
 
     SettingsFragment settingsFragment;
 
-    private final BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver fsSelectFolderBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
@@ -105,13 +105,13 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
     public void onResume() {
         IntentFilter ifilterFsDialog = new IntentFilter();
         ifilterFsDialog.addAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
-        registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
+        registerReceiver(fsSelectFolderBroadcastReceiver, ifilterFsDialog);
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        unregisterReceiver(fsBroadcastReceiver);
+        unregisterReceiver(fsSelectFolderBroadcastReceiver);
         super.onPause();
     }
 }
