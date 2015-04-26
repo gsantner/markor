@@ -65,7 +65,10 @@
     <string name="share_image">Imagen</string>
     <string name="share_as">Compartir como&#8230;</string>
     <string name="pref_font_size">Tamaño de fuente</string>
-    <string name="pref_pin">Bloqueo por Pin</string>
+    <string name="pref_lock_settings">Bloqueo</string>
+    <string name="pref_pin_lock">Pin</string>
+    <string name="pref_alpha_pin_lock">Contraseña</string>
+    <string name="pref_no_lock">Sin bloqueo</string>
     <string name="pref_show_markdown_shortcuts">Mostrar barra de Markdown</string>
     <string name="pref_highlighting_activated">Markdown resaltado de sintaxis</string>
     <string name="pref_highlighting_delay">Retraso en milisegundos para refrescar el resaltado</string>
@@ -73,6 +76,7 @@
     <string name="pref_smart_shortcuts">Botones de paréntesis inteligentes</string>
     <string name="pref_smart_shortcuts_summary">Si hay un text selecionado, {}, [] y () rodearán el texto</string>
     <string name="pin_title">Introduce tu pin</string>
+    <string name="passphrase_title">Introduce tu contraseña</string>
     <string name="pin_go">Aceptar</string>
 	
 	<!-- Font Size -->

@@ -21,10 +21,13 @@
             android:key="@string/pref_preview_first_key"
             android:title="@string/pref_preview_first" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_pin_key"
-            android:title="@string/pref_pin" />
+        <ListPreference
+            android:id="@+id/pref_lock_type"
+            android:title="@string/pref_lock_settings"
+            android:key="@string/pref_lock_type_key"
+            android:defaultValue="0"
+            android:entries="@array/possibleLocksStrings"
+            android:entryValues="@array/possibleLocksValues"/>
 
         <Preference
             android:id="@+id/pref_root_directory"

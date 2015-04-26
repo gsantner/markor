@@ -61,7 +61,7 @@
     <string name="share_html">HTML</string>
     <string name="share_as">分享为&#8230;</string>
     <string name="pref_font_size">字体大小</string>
-    <string name="pref_pin">PIN 锁</string>
+    <string name="pref_pin_lock">PIN 锁</string>
     <string name="pref_show_markdown_shortcuts">显示 Markdown 快捷栏</string>
     <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
     <string name="pref_highlighting_delay">Delay in milliseconds for highlighting refresh</string>

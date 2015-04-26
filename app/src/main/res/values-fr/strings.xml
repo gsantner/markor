@@ -60,7 +60,7 @@
     <string name="share_image">Image</string>
     <string name="share_as">Partager en tant que&#8230;</string>
     <string name="pref_font_size">Taille Police</string>
-    <string name="pref_pin">Verouiller NIP</string>
+    <string name="pref_pin_lock">Verouiller NIP</string>
     <string name="pref_show_markdown_shortcuts">Afficher la barre de Markdown</string>
     <string name="pref_highlighting_activated">Markdown coloration syntaxique</string>
     <string name="pref_highlighting_delay">Délai en millisecondes pour soulignant rafraîchissement</string>

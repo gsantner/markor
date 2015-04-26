@@ -7,6 +7,7 @@
     <string name="pref_donate_writeily_key">pref_donate_writeily</string>
     <string name="pref_rate_writeily_key">pref_rate_writeily</string>
     <string name="pref_twitter_key">pref_twitter_key</string>
+    <string name="pref_lock_type_key">pref_lock_type_key</string>
     <string name="pref_pin_key">pref_pin</string>
     <string name="pref_preview_first_key">pref_edit_first_key</string>
     <string name="pref_show_markdown_shortcuts_key">pref_show_markdown_shortcuts_key</string>
@@ -55,6 +56,10 @@
     <string name="licence_apache20">Apache License v2.0</string>
 
     <string name="source_url">https://github.com/jffrymrtn/writeily-pro</string>
+    <string name="pref_no_lock_value">0</string>
+    <string name="pref_pin_lock_value">1</string>
+    <string name="pref_alpha_pin_lock_value">2</string>
+
 
     <string-array name="fonts_array">
         <item>Roboto Light (Default)</item>
@@ -68,6 +73,12 @@
         <item>21</item>
         <item>25</item>
         <item>17</item>
+    </string-array>
+
+    <string-array name="possibleLocksValues">
+        <item>@string/pref_no_lock_value</item>
+        <item>@string/pref_pin_lock_value</item>
+        <item>@string/pref_alpha_pin_lock_value</item>
     </string-array>
 
     <string-array name="fonts_type_array">
