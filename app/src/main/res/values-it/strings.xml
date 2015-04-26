@@ -67,7 +67,7 @@
     <string name="pref_font_size">Dimensione del carattere</string>
     <string name="pref_lock_settings">Blocco</string>
     <string name="pref_pin_lock">PIN</string>
-    <string name="pref_alpha_pin_lock">Parola d'ordine</string>
+    <string name="pref_alpha_pin_lock">Parola d\'ordine</string>
     <string name="pref_no_lock">Senza blocco</string>
     <string name="pref_show_markdown_shortcuts">Mostra barra delle scorciatoie Markdown</string>
     <string name="pref_highlighting_activated">Evidenziazione della sintassi Markdown</string>
