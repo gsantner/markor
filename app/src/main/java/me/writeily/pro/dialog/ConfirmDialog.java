@@ -23,7 +23,9 @@ public class ConfirmDialog extends DialogFragment {
     public void sendBroadcast() {
         Intent broadcast = new Intent();
         broadcast.setAction(getTag());
-        broadcast.putExtras(getArguments());
+        if (getArguments() != null) {
+            broadcast.putExtras(getArguments());
+        }
         getActivity().sendBroadcast(broadcast);
     }
 
