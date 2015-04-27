@@ -89,8 +89,11 @@ public class NotesFragment extends Fragment {
 
     @Override
     public void onResume() {
-        writeilySingleton = WriteilySingleton.getInstance();
-        rootDir = getRootFolderFromPrefsOrDefault();
+        File possiblyNewRootDir = getRootFolderFromPrefsOrDefault();
+        if (possiblyNewRootDir != rootDir) {
+            rootDir = possiblyNewRootDir;
+            currentDir = possiblyNewRootDir;
+        }
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
         super.onResume();
