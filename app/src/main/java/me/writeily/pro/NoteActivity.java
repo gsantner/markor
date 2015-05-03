@@ -351,7 +351,7 @@ public class NoteActivity extends ActionBarActivity {
                         Character.toString(shortcut.charAt(0)) + selected + shortcut.charAt(1));
             } else {
                 content.getText().insert(content.getSelectionStart(), shortcut);
-                content.setSelection(content.getSelectionStart() - 2);
+                content.setSelection(content.getSelectionStart() - 1);
             }
         }
     }
