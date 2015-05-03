@@ -11,6 +11,8 @@ public class Constants {
     public static final String[] KEYBOARD_SMART_SHORTCUTS = {"()", "[]"};
     public static final String UTF_CHARSET = "utf-8";
 
+    public static final String MD_EXT = ".md";
+
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String SET_PIN_ACTION = "set_pin";
     public static final String CREATE_FOLDER_DIALOG_TAG = "create_folder_dialog_tag";

@@ -298,20 +298,26 @@ public class NoteActivity extends ActionBarActivity {
                         // If they didn't write anything at all, don't bother saving the file
                         return;
                     } else {
+                        // If they didn't specify a title, make one for them
                         String snippet = "";
                         if (content.getText().toString().length() < Constants.MAX_TITLE_LENGTH) {
                             snippet = content.getText().toString().substring(0, content.getText().toString().length()).replace("[^\\w\\s]+", " ");
                         } else {
                             snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
                         }
-                        noteTitle.setText(snippet.replaceAll("\\n", " ").trim());
+                        noteTitle.setText(snippet.replaceAll("\\n", " ").trim() + Constants.MD_EXT);
                     }
                 }
 
                 note = new File(sourceDir + File.separator + noteTitle.getText().toString());
             }
 
-            // If we have to rename the file, do a delete and create
+            // Ensure that the note has a file extension
+            if (!noteTitle.getText().toString().endsWith(Constants.MD_EXT)) {
+                noteTitle.setText(noteTitle.getText().toString() + Constants.MD_EXT);
+            }
+
+            // If we have to rename the file, do a delete and recreate
             if (!noteTitle.getText().toString().equals(note.getName())) {
                 note.delete();
                 note = new File(sourceDir + File.separator + noteTitle.getText().toString().trim());
