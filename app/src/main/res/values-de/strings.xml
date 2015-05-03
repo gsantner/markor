@@ -44,7 +44,7 @@
     <string name="app_settings">App-Einstellungen</string>
     <string name="social">Kontakt</string>
     <string name="meta">Sonstiges</string>
-    <string name="directories">Ordner</string>
+    <string name="folders">Ordner</string>
     <string name="files">Notizen</string>
 
     <string name="email_header">Feedback zu Writeily</string>
