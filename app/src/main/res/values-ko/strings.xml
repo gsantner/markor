@@ -46,7 +46,7 @@
     <string name="editor_settings">편집기 설정</string>
     <string name="social">소셜</string>
     <string name="meta">메타</string>
-    <string name="directories">폴더</string>
+    <string name="folders">폴더</string>
     <string name="files">파일</string>
 
     <string name="email_header">Writeily에 대한 피드백 제공</string>

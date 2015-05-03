@@ -45,7 +45,7 @@
     <string name="editor_settings">Editor Settings</string>
     <string name="social">Social</string>
     <string name="meta">Meta</string>
-    <string name="directories">Directories</string>
+    <string name="folders">Folders</string>
     <string name="files">Files</string>
 
     <string name="email_header">Feedback about Writeily</string>
@@ -98,6 +98,10 @@
     <string name="one_item_selected">One item selected</string>
     <string name="more_items_selected">%d items selected</string>
 
+    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
+    <string name="rename_success">Successfully renamed</string>
+    <string name="rename_fail">Failed to rename</string>
+
     <!-- About screen -->
     <string name="about_version_title">Version</string>
     <string name="about_source_title">Writeily is Open Source on GitHub</string>
@@ -114,8 +118,5 @@
     <string name="about_italian">Italian</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
-    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_fail">Failed to rename</string>
 
 </resources>

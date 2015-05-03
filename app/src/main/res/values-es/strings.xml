@@ -44,7 +44,7 @@
     <string name="app_settings">Ajustes de aplicación</string>
     <string name="social">Social</string>
     <string name="meta">Meta</string>
-    <string name="directories">Carpetas</string>
+    <string name="folders">Carpetas</string>
     <string name="files">Notas</string>
 
     <string name="email_header">Opina sobre Writeily</string>
