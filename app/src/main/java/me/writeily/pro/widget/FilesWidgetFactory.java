@@ -3,6 +3,7 @@ package me.writeily.pro.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -17,12 +18,12 @@ import me.writeily.pro.model.WriteilySingleton;
 /**
  * Created by jeff on 15-04-21.
  */
-public class FilesListWidgetProvider implements RemoteViewsService.RemoteViewsFactory {
+public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context context;
     private ArrayList<File> widgetFilesList;
 
-    public FilesListWidgetProvider(Context context, Intent intent) {
+    public FilesWidgetFactory(Context context, Intent intent) {
         this.context = context;
         widgetFilesList = new ArrayList<File>();
         //appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -38,6 +39,8 @@ public class FilesListWidgetProvider implements RemoteViewsService.RemoteViewsFa
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Log.d("WOQEUWQPOIEWQ", newFilesList.toString());
 
         this.widgetFilesList = newFilesList;
     }
