@@ -3,7 +3,7 @@
 <!--android:configure="com.example.android.ExampleAppWidgetConfigure"-->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="250dp"
-    android:minHeight="40dp"
+    android:minHeight="80dp"
     android:updatePeriodMillis="86400000"
     android:previewImage="@drawable/ic_launcher"
     android:initialLayout="@layout/widget_layout"

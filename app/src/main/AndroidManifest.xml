@@ -14,14 +14,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <receiver android:name="me.writeily.pro.widget.WriteilyWidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/writeily_widget" />
-        </receiver>
-
         <activity
             android:name="me.writeily.pro.MainActivity"
             android:label="@string/app_name" >
@@ -89,6 +81,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="me.writeily.pro.widget.WriteilyWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/writeily_widget" />
+        </receiver>
+
+        <service android:name=".widget.FilesWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

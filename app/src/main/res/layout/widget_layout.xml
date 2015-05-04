@@ -35,13 +35,28 @@
             android:textSize="22sp"
             android:background="@drawable/fab_widget" />
 
-        <ListView
-            android:id="@+id/widget_notes_list"
-            android:layout_below="@id/widget_header"
+        <RelativeLayout
+            android:id="@+id/widget_list_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="@android:color/white" />
+            android:layout_below="@id/widget_header">
+            <TextView
+                android:id="@+id/widget_empty_hint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:textColor="@color/light_grey"
+                android:textSize="24sp"/>
+
+            <ListView
+                android:id="@+id/widget_notes_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@android:color/white" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </FrameLayout>
