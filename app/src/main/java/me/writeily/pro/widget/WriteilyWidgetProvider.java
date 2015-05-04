@@ -61,6 +61,7 @@ public class WriteilyWidgetProvider extends AppWidgetProvider {
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
+            views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
             // Tell the AppWidgetManager to perform an update on the current app widget

@@ -1,7 +1,9 @@
 package me.writeily.pro.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -22,11 +24,12 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     private Context context;
     private ArrayList<File> widgetFilesList;
+    private int appWidgetId;
 
     public FilesWidgetFactory(Context context, Intent intent) {
         this.context = context;
         widgetFilesList = new ArrayList<File>();
-        //appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
     private void updateFiles() {
@@ -67,9 +70,13 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.file_item);
+        RemoteViews rowView = new RemoteViews(context.getPackageName(), R.layout.file_item);
+        rowView.setTextViewText(R.id.note_title, widgetFilesList.get(position).getName());
 
-        return remoteView;
+        Intent intent = new Intent();
+        rowView.setOnClickFillInIntent(android.R.id.text1, intent);
+
+        return rowView;
     }
 
     @Override
