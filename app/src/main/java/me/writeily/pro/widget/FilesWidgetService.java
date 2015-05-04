@@ -10,6 +10,6 @@ public class FilesWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent)
     {
-        return (new FilesListWidgetProvider(getApplicationContext(), intent));
+        return (new FilesWidgetFactory(getApplicationContext(), intent));
     }
 }
