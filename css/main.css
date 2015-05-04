@@ -52,7 +52,7 @@ a:hover {
   padding-left: 2em;
   padding-right: 2em;
   padding-bottom: 1em;
-  padding-top: 1em;
+  padding-top: 2.5em;
   overflow: hidden;
   color: #fff;
 }
@@ -110,6 +110,10 @@ a:hover {
   color: #dadada;
 }
 
+#github-link {
+  color: #fff;
+  font-weight: 300;
+}
 /*****************************************************************************/
 /*
 /* About
