@@ -3,13 +3,13 @@ package me.writeily.pro.editor;
 import java.util.regex.Pattern;
 
 enum HighlighterPattern {
-    LIST(Pattern.compile("\\n\\s+(\\*|\\d*\\.)\\s")),
+    LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.)")),
     HEADER(Pattern.compile("(((\\n|^)#+.*?\\n)|((\\n|^).*?\\n(-|=)+))")),
-    LINK(Pattern.compile("\\[[^\\]]*\\]\\([^\\)]*\\)")),
-    STRIKETHROUGH(Pattern.compile("~~.+~~")),
-    MONOSPACED(Pattern.compile("`.+`")),
-    BOLD(Pattern.compile("\\*{2}.+?\\*{2}")),
-    ITALICS(Pattern.compile("[^\\*]\\*[^\\*\\n]+\\*[^\\*]"));
+    LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
+    STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
+    MONOSPACED(Pattern.compile("`(.*?)`")),
+    BOLD(Pattern.compile("(\\*\\*|__)(.*?)\\1")),
+    ITALICS(Pattern.compile("(\\*|_)(.*?)\\1"));
 
     private Pattern pattern;
 
