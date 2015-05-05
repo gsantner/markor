@@ -31,4 +31,5 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.3.0'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
     compile 'commons-io:commons-io:2.4'
+    compile 'com.google.code.gson:gson:2.3.1'
 }

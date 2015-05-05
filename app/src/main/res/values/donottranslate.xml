@@ -60,6 +60,7 @@
     <string name="pref_no_lock_value">0</string>
     <string name="pref_pin_lock_value">1</string>
     <string name="pref_alpha_pin_lock_value">2</string>
+    <string name="recently_edited_list">recently_edited_list</string>
 
 
     <string-array name="fonts_array">

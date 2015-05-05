@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -34,6 +36,11 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     private void updateFiles() {
         ArrayList<File> newFilesList = new ArrayList<File>();
+
+        // Get the JSONified recently edited list
+        String jsonList = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.recently_edited_list), "");
+        Gson gson = new Gson();
+        // gson.fromJson(jsonList, ArrayList<File>)
         File dir = new File(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
 
         try {
