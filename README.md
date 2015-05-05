@@ -5,7 +5,7 @@ The minimalist Markdown editor for Android. Download it for **free**!
 
 ## Website
 
-The landing page for Writeily is also open sourced in this repository, under the [gh-pages branch](https://github.com/jffrymrtn/writeily/tree/gh-pages).
+The landing page for Writeily is also open sourced in this repository, under the [gh-pages branch](https://github.com/jffrymrtn/writeily-pro/tree/gh-pages).
 
 ## Contributions
 
