@@ -94,6 +94,10 @@
         <Preference
             android:summary="@string/translators_italian"
             android:title="@string/about_italian" />
+
+        <Preference
+            android:summary="@string/translators_croatian"
+            android:title="@string/about_croatian" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/about_libraries_section">
