@@ -45,7 +45,6 @@ a:hover {
 /*****************************************************************************/
 
 .footer {
-  font-family: 'Roboto Condensed';
   text-align:center;
   border-top: 1px solid #25b263;
   background-color: #27ae60;
@@ -81,19 +80,18 @@ a:hover {
 }
 
 #home .storelink {
-  width: 100px;
+  display: inline-block;
+  width: 200px;
   margin: 0 auto;
-  margin-top: 16px;
-  padding: 0.25em 1em 0.25em 1em;
-  color: #fff;
-
-  border-radius: 5px;
-  border: 1px solid #fff;
-}
-
-#home .googleplay:hover {
+  padding: 0.25em 0.15em 0.25em 0.15em;
   background-color: #fff;
   color: #27ae60;
+  box-shadow: 1px 1px 2px rgba(30,30,30,0.5);
+  border-radius: 3px;
+}
+
+#home .storelink:hover {
+  opacity: 0.9;
 }
 
 #home .title {
@@ -104,16 +102,13 @@ a:hover {
 #home .tagline {
   font-weight: 300;
   font-size: 1.25em;
+  margin-bottom: 1.5em;
 }
 
 #love {
   color: #dadada;
 }
 
-#github-link {
-  color: #fff;
-  font-weight: 300;
-}
 /*****************************************************************************/
 /*
 /* About
