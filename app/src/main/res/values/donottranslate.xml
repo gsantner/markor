@@ -57,7 +57,7 @@
     <string name="library_anddown">CommonsWare AndDown 0.2.0</string>
     <string name="licence_apache20">Apache License v2.0</string>
 
-    <string name="source_url">https://github.com/jffrymrtn/writeily-pro</string>
+    <string name="source_url">https://github.com/plafue/writeily-pro</string>
     <string name="pref_no_lock_value">0</string>
     <string name="pref_pin_lock_value">1</string>
     <string name="pref_alpha_pin_lock_value">2</string>
