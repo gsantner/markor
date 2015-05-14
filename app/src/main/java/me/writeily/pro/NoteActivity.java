@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.UUID;
 
 import me.writeily.pro.editor.HighlightingEditor;
 import me.writeily.pro.model.Constants;
@@ -34,6 +36,7 @@ import me.writeily.pro.model.WriteilySingleton;
  */
 public class NoteActivity extends ActionBarActivity {
 
+    public static final String EMPTY_STRING = "";
     private File note;
     private Context context;
 
@@ -91,7 +94,7 @@ public class NoteActivity extends ActionBarActivity {
 
         if (note != null) {
             content.setText(readNote());
-            noteTitle.setText(note.getName());
+            noteTitle.setText(note.getName().replaceAll("((?i)\\.md$)", ""));
         }
     }
 
@@ -218,7 +221,7 @@ public class NoteActivity extends ActionBarActivity {
         shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
         shortcutButton.setOnClickListener(l);
 
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), EMPTY_STRING);
 
         if (theme.equals(getString(R.string.theme_dark))) {
             shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
@@ -234,15 +237,15 @@ public class NoteActivity extends ActionBarActivity {
     }
 
     private void setupAppearancePreferences() {
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-        String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), "");
-        String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), "");
+        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), EMPTY_STRING);
+        String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), EMPTY_STRING);
+        String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), EMPTY_STRING);
 
-        if (!fontSize.equals("")) {
+        if (!fontSize.equals(EMPTY_STRING)) {
             content.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(fontSize));
         }
 
-        if (!fontType.equals("")) {
+        if (!fontType.equals(EMPTY_STRING)) {
             content.setTypeface(Typeface.create(fontType, Typeface.NORMAL));
         }
 
@@ -291,51 +294,47 @@ public class NoteActivity extends ActionBarActivity {
      */
     private void saveNote() {
         try {
-            // Creating a new note
-            if (note == null) {
-                if (noteTitle == null || noteTitle.getText().length() == 0) {
-                    if (content.getText().toString().length() == 0) {
-                        // If they didn't write anything at all, don't bother saving the file
-                        return;
-                    } else {
-                        // If they didn't specify a title, make one for them
-                        String snippet = "";
-                        if (content.getText().toString().length() < Constants.MAX_TITLE_LENGTH) {
-                            snippet = content.getText().toString().substring(0, content.getText().toString().length()).replace("[^\\w\\s]+", " ");
-                        } else {
-                            snippet = content.getText().toString().substring(0, Constants.MAX_TITLE_LENGTH).replace("[^\\w\\s]+", " ");
-                        }
-                        noteTitle.setText(snippet.replaceAll("\\n", " ").trim() + Constants.MD_EXT);
-                    }
-                }
+            String content = this.content.getText().toString();
+            String filename = normalizeFilename(content, noteTitle.getText().toString());
+            if (filename == null) return;
 
-                note = new File(sourceDir + File.separator + noteTitle.getText().toString());
-            }
+            File newNote = new File(sourceDir, filename + Constants.MD_EXT);
+            FileOutputStream fos = new FileOutputStream(newNote);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
 
-            // Ensure that the note has a file extension
-            if (!noteTitle.getText().toString().endsWith(Constants.MD_EXT)) {
-                noteTitle.setText(noteTitle.getText().toString() + Constants.MD_EXT);
-            }
-
-            // If we have to rename the file, do a delete and recreate
-            if (!noteTitle.getText().toString().equals(note.getName())) {
-                note.delete();
-                note = new File(sourceDir + File.separator + noteTitle.getText().toString().trim());
-            }
-
-            FileOutputStream fos = new FileOutputStream(note);
-            OutputStreamWriter  writer = new OutputStreamWriter(fos);
-
-            writer.write(content.getText().toString());
+            writer.write(content);
             writer.flush();
 
             writer.close();
             fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // If we have created a new note due to renaming, delete the old copy
+            if (note != null && !filename.equals(note.getName()) && newNote.exists()) {
+                note.delete();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String normalizeFilename(String content, String title) {
+        String filename = title;
+        if (filename.length() == 0) {
+            if (content.length() == 0) {
+                return null;
+            } else {
+                if (content.length() < Constants.MAX_TITLE_LENGTH) {
+                    filename = content.substring(0, content.length());
+                } else {
+                    filename = content.substring(0, Constants.MAX_TITLE_LENGTH);
+                }
+            }
+        }
+        filename = filename.replaceAll("[\\\\/:\"*?<>|]+", "").trim();
+
+        if(filename.isEmpty()) {
+            filename = "Writeily - " + String.valueOf(UUID.randomUUID().getMostSignificantBits()).substring(0,6);
+        }
+        return filename;
     }
 
     private class KeyboardBarListener implements View.OnClickListener {
