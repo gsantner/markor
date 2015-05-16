@@ -278,7 +278,9 @@ public class FilesystemDialog extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        onDismissListener.onDismiss(dialog);
+        if (onDismissListener != null){
+            onDismissListener.onDismiss(dialog);
+        }
         super.onDismiss(dialog);
     }
 }
