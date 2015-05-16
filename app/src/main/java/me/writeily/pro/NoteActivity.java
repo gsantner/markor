@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -213,13 +213,8 @@ public class NoteActivity extends ActionBarActivity {
     }
 
     private void appendButton(String shortcut, View.OnClickListener l) {
-        Button shortcutButton = new Button(this);
+        TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.keyboard_shortcut, null);
         shortcutButton.setText(shortcut);
-        shortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
-        shortcutButton.setTextSize(18);
-        shortcutButton.setTypeface(null, Typeface.BOLD);
-        shortcutButton.setBackground(getResources().getDrawable(R.drawable.keyboard_shortcut_button));
         shortcutButton.setOnClickListener(l);
 
         String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), EMPTY_STRING);
@@ -350,7 +345,7 @@ public class NoteActivity extends ActionBarActivity {
     private class KeyboardBarListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            CharSequence shortcut = ((Button) v).getText();
+            CharSequence shortcut = ((TextView) v).getText();
             content.getText().insert(content.getSelectionStart(), shortcut);
         }
     }

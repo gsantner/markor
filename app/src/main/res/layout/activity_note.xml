@@ -35,8 +35,10 @@
 
     <HorizontalScrollView
         android:id="@+id/keyboard_bar_scroll"
+        android:background="@color/lighter_grey"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="46dp"
+        android:paddingTop="4dp">
         <LinearLayout
             android:id="@+id/keyboard_bar"
             android:layout_height="match_parent"
