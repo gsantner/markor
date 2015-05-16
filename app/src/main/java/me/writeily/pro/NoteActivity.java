@@ -1,6 +1,7 @@
 package me.writeily.pro;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -29,6 +30,7 @@ import java.util.UUID;
 import me.writeily.pro.editor.HighlightingEditor;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
+import me.writeily.pro.widget.WriteilyWidgetProvider;
 
 /**
  * Created by jeff on 2014-04-11.
@@ -311,11 +313,17 @@ public class NoteActivity extends ActionBarActivity {
             if (note != null && !newNote.getName().equals(note.getName()) && newNote.exists()) {
                 note.delete();
             }
-            Intent brIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            sendBroadcast(brIntent);
+            updateWidgets();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateWidgets() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
+                new ComponentName(context, WriteilyWidgetProvider.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 
     private String normalizeFilename(String content, String title) {
