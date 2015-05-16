@@ -3,21 +3,17 @@ package me.writeily.pro.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.google.gson.Gson;
-
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileFilter;
 
 import me.writeily.pro.R;
-import me.writeily.pro.adapter.NotesAdapter;
 import me.writeily.pro.model.Constants;
-import me.writeily.pro.model.WriteilySingleton;
 
 /**
  * Created by jeff on 15-04-21.
@@ -25,34 +21,23 @@ import me.writeily.pro.model.WriteilySingleton;
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context context;
-    private ArrayList<File> widgetFilesList;
+    private File[] widgetFilesList;
     private int appWidgetId;
 
     public FilesWidgetFactory(Context context, Intent intent) {
         this.context = context;
-        widgetFilesList = new ArrayList<File>();
+        widgetFilesList = new File[0];
         appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
     private void updateFiles() {
-        ArrayList<File> newFilesList = new ArrayList<File>();
-
-        // Get the JSONified recently edited list
-        String jsonList = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.recently_edited_list), "");
-        Gson gson = new Gson();
-        // gson.fromJson(jsonList, ArrayList<File>)
         File dir = new File(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
-
-        try {
-            // Load from SD card
-            newFilesList = WriteilySingleton.getInstance().addFilesFromDirectory(dir, newFilesList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Log.d("WOQEUWQPOIEWQ", newFilesList.toString());
-
-        this.widgetFilesList = newFilesList;
+        this.widgetFilesList = dir.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return !pathname.isDirectory();
+            }
+        });
     }
 
     @Override
@@ -67,22 +52,21 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public void onDestroy() {
-        widgetFilesList.clear();
+        widgetFilesList = new File[0];
     }
 
     @Override
     public int getCount() {
-        return widgetFilesList.size();
+        return widgetFilesList.length;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews rowView = new RemoteViews(context.getPackageName(), R.layout.file_item);
-        rowView.setTextViewText(R.id.note_title, widgetFilesList.get(position).getName());
-
-        Intent intent = new Intent();
-        rowView.setOnClickFillInIntent(android.R.id.text1, intent);
-
+        File file = widgetFilesList[position];
+        Intent fillInIntent = new Intent().putExtra(Constants.NOTE_KEY,file);
+        RemoteViews rowView = new RemoteViews(context.getPackageName(), R.layout.widget_file_item);
+        rowView.setTextViewText(R.id.widget_note_title, Constants.MD_EXTENSION.matcher(file.getName()).replaceAll(""));
+        rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         return rowView;
     }
 

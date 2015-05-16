@@ -66,6 +66,11 @@ public class WriteilyWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
+            Intent openNoteIntent = new Intent(context, NoteActivity.class).setAction(Intent.ACTION_EDIT);
+            PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, 0,
+                    openNoteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
+
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }

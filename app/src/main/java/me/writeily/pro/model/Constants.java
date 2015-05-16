@@ -2,6 +2,8 @@ package me.writeily.pro.model;
 
 import android.os.Environment;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by jeff on 2014-04-11.
  */
@@ -61,4 +63,6 @@ public class Constants {
     public static final String INTENT_EXTRA_SHOW_ABOUT = "writeily.intent.settings.ABOUT";
 
     public static final String DEFAULT_WRITEILY_STORAGE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER;
+
+    public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
 }
