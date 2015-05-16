@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
+import me.writeily.pro.MainActivity;
 import me.writeily.pro.NoteActivity;
 import me.writeily.pro.R;
 
@@ -46,15 +47,16 @@ public class WriteilyWidgetProvider extends AppWidgetProvider {
         for (int i = 0; i < N; i++) {
             int appWidgetId = appWidgetIds[i];
 
-            // Create an Intent to launch NoteActivity
-            Intent newNoteIntent = new Intent(context, NoteActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newNoteIntent, 0);
-
             // Get the layout for the App Widget and attach an on-click listener to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-            // New Note button
+            Intent newNoteIntent = new Intent(context, NoteActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newNoteIntent, 0);
             views.setOnClickPendingIntent(R.id.widget_new_note, pendingIntent);
+
+            Intent goToMain = new Intent(context, MainActivity.class);
+            PendingIntent goToMainPendingIntent = PendingIntent.getActivity(context, 0, goToMain, 0);
+            views.setOnClickPendingIntent(R.id.widget_header, goToMainPendingIntent);
 
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);
