@@ -7,32 +7,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
         <LinearLayout
             android:id="@+id/widget_header"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="16dp"
+            android:layout_height="36sp"
             android:background="@color/primary">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/app_name"
-                android:textSize="19sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:gravity="center|left"
+                android:paddingLeft="15sp" />
         </LinearLayout>
-        
+
         <Button
             android:id="@+id/widget_new_note"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="14dp"
             android:layout_marginEnd="16dp"
             android:text="@string/plus"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:background="@drawable/fab_widget" />
 
         <RelativeLayout
