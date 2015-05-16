@@ -308,7 +308,7 @@ public class NoteActivity extends ActionBarActivity {
             writer.close();
             fos.close();
             // If we have created a new note due to renaming, delete the old copy
-            if (note != null && !note.equals(newNote) && newNote.exists()) {
+            if (note != null && !newNote.getName().equals(note.getName()) && newNote.exists()) {
                 note.delete();
             }
             Intent brIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
