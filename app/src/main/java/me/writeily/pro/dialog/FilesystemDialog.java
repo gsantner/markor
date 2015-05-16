@@ -42,8 +42,10 @@ public class FilesystemDialog extends DialogFragment {
 
     private boolean isMovingFile;
     private boolean isSelectingFolder;
+    private boolean isSelectingForWidget;
     private String selectedPath;
     private TextView workingDirectoryText;
+    private DialogInterface.OnDismissListener onDismissListener;
 
     public FilesystemDialog() {
         super();
@@ -73,6 +75,7 @@ public class FilesystemDialog extends DialogFragment {
 
         isMovingFile = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
         isSelectingFolder = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
+        isSelectingForWidget = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_SELECT_FOLDER_FOR_WIDGET_ACCESS_TYPE);
 
         AlertDialog.Builder dialogBuilder;
         View dialogView;
@@ -87,7 +90,7 @@ public class FilesystemDialog extends DialogFragment {
 
         dialogBuilder.setView(dialogView);
 
-        if (isSelectingFolder) {
+        if (isSelectingFolder || isSelectingForWidget) {
             dialogBuilder.setTitle(getResources().getString(R.string.select_root_folder));
             dialogBuilder.setPositiveButton(getResources().getString(R.string.select_this_folder), new
                     DialogInterface.OnClickListener() {
@@ -147,7 +150,7 @@ public class FilesystemDialog extends DialogFragment {
 
     @Override
     public void onResume() {
-        if (isMovingFile) {
+        if (isMovingFile || isSelectingForWidget) {
             workingDirectoryText.setVisibility(View.VISIBLE);
             rootDir = getRootFolderFromPrefsOrDefault();
             listDirectories(rootDir);
@@ -245,6 +248,10 @@ public class FilesystemDialog extends DialogFragment {
         }
     }
 
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
     private class FilesItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -267,5 +274,11 @@ public class FilesystemDialog extends DialogFragment {
         public void onClick(View v) {
             goToPreviousDir();
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        onDismissListener.onDismiss(dialog);
+        super.onDismiss(dialog);
     }
 }

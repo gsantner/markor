@@ -377,8 +377,6 @@ public class NotesFragment extends Fragment {
                 } else {
                     intent = new Intent(context, NoteActivity.class);
                 }
-
-                intent.putExtra(Constants.NOTE_SOURCE_DIR, getCurrentDir().getAbsolutePath());
                 intent.putExtra(Constants.NOTE_KEY, note);
 
                 startActivity(intent);
