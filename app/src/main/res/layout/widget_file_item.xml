@@ -5,21 +5,29 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="2dp"
-    android:paddingLeft="15dp"
+    android:paddingLeft="10dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:animateLayoutChanges="true"
     android:clickable="true"
-    android:paddingTop="2dp"
+    android:paddingTop="10dp"
     android:baselineAligned="false">
 
+    <ImageView
+        android:id="@+id/widget_note_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:gravity="center|left"
+        android:contentDescription="@null"
+        android:background="@drawable/ic_notes"/>
     <TextView
         android:id="@+id/widget_note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@android:color/secondary_text_light"
-        android:gravity="center_vertical"
+        android:textColor="#f7504d54"
+        android:gravity="center|left"
         android:minHeight="19sp"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:paddingLeft="8dp" />
 </LinearLayout>
