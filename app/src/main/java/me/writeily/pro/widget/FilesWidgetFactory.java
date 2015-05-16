@@ -3,10 +3,6 @@ package me.writeily.pro.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -26,11 +22,8 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     public FilesWidgetFactory(Context context, Intent intent) {
 
         this.context = context;
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        SharedPreferences sharedPreferences = context.getSharedPreferences(
-                "" + appWidgetId, Context.MODE_PRIVATE);
-        String directory = sharedPreferences.getString(Constants.WIDGET_PATH, "");
-        this.dir = new File(directory);
+        this.appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        this.dir = new File(intent.getStringExtra(Constants.FOLDER_NAME));
     }
 
     @Override
