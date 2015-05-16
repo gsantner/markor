@@ -1,5 +1,6 @@
 package me.writeily.pro;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -45,7 +44,7 @@ public class NoteActivity extends ActionBarActivity {
     private ScrollView scrollView;
 
     private ViewGroup keyboardBarView;
-    private String sourceDir;
+    private String targetDirectory;
     private boolean isPreviewIncoming = false;
 
     public NoteActivity() {
@@ -79,7 +78,7 @@ public class NoteActivity extends ActionBarActivity {
         keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
 
         Intent receivingIntent = getIntent();
-        sourceDir = receivingIntent.getStringExtra(Constants.NOTE_SOURCE_DIR);
+        targetDirectory = receivingIntent.getStringExtra(Constants.TARGET_DIR);
 
         String intentAction = receivingIntent.getAction();
         String type = receivingIntent.getType();
@@ -298,7 +297,8 @@ public class NoteActivity extends ActionBarActivity {
             String filename = normalizeFilename(content, noteTitle.getText().toString());
             if (filename == null) return;
 
-            File newNote = new File(sourceDir, filename + Constants.MD_EXT);
+            String parent = targetDirectory != null ? targetDirectory : note.getParent();
+            File newNote = new File(parent, filename + Constants.MD_EXT);
             FileOutputStream fos = new FileOutputStream(newNote);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
 
@@ -308,9 +308,11 @@ public class NoteActivity extends ActionBarActivity {
             writer.close();
             fos.close();
             // If we have created a new note due to renaming, delete the old copy
-            if (note != null && !filename.equals(note.getName()) && newNote.exists()) {
+            if (note != null && !note.equals(newNote) && newNote.exists()) {
                 note.delete();
             }
+            Intent brIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            sendBroadcast(brIntent);
         } catch (IOException e) {
             e.printStackTrace();
         }

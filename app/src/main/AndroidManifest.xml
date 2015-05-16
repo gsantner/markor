@@ -82,6 +82,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".widget.WidgetConfigure">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+
         <receiver android:name="me.writeily.pro.widget.WriteilyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

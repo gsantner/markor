@@ -3,6 +3,7 @@ package me.writeily.pro.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,29 +16,21 @@ import java.io.FileFilter;
 import me.writeily.pro.R;
 import me.writeily.pro.model.Constants;
 
-/**
- * Created by jeff on 15-04-21.
- */
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context context;
-    private File[] widgetFilesList;
+    private File[] widgetFilesList = new File[0];
     private int appWidgetId;
+    private File dir;
 
     public FilesWidgetFactory(Context context, Intent intent) {
-        this.context = context;
-        widgetFilesList = new File[0];
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-    }
 
-    private void updateFiles() {
-        File dir = new File(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
-        this.widgetFilesList = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return !pathname.isDirectory();
-            }
-        });
+        this.context = context;
+        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                "" + appWidgetId, Context.MODE_PRIVATE);
+        String directory = sharedPreferences.getString(Constants.WIDGET_PATH, "");
+        this.dir = new File(directory);
     }
 
     @Override
@@ -48,6 +41,15 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     @Override
     public void onDataSetChanged() {
         updateFiles();
+    }
+
+    private void updateFiles() {
+        this.widgetFilesList = dir.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return !pathname.isDirectory();
+            }
+        });
     }
 
     @Override

@@ -36,6 +36,7 @@ public class Constants {
     public static final String FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY = "FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY";
     public static final String FILESYSTEM_FOLDER_ACCESS_TYPE = "FILESYSTEM_FOLDER_ACCESS_TYPE";
     public static final String FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE = "FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE";
+    public static final String FILESYSTEM_SELECT_FOLDER_FOR_WIDGET_ACCESS_TYPE = "FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE";
     public static final String FILESYSTEM_FILE_ACCESS_TYPE = "FILESYSTEM_FILE_ACCESS_TYPE";
     public static final String NOTE_KEY = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
@@ -57,7 +58,7 @@ public class Constants {
     public static final String MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}</style></head><body>";
     public static final String DARK_MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}</style></head><body>";
     public static final String MD_HTML_SUFFIX = "</body></html>";
-    public static final String NOTE_SOURCE_DIR = "note_source_dir";
+    public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
     public static final String INTENT_EXTRA_SHOW_ABOUT = "writeily.intent.settings.ABOUT";
@@ -65,4 +66,7 @@ public class Constants {
     public static final String DEFAULT_WRITEILY_STORAGE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER;
 
     public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
+
+    // --- WIDGET
+    public static final String WIDGET_PATH = "WIDGET_PATH";
 }

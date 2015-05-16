@@ -198,7 +198,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void createNote() {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        intent.putExtra(Constants.NOTE_SOURCE_DIR, notesFragment.getCurrentDir().getAbsolutePath());
+        intent.putExtra(Constants.TARGET_DIR, notesFragment.getCurrentDir().getAbsolutePath());
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         fabMenu.collapse();

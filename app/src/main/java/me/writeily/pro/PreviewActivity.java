@@ -45,7 +45,6 @@ public class PreviewActivity extends ActionBarActivity {
         previewWebView = (WebView) findViewById(R.id.preview_webview);
         markdownRaw = getIntent().getStringExtra(Constants.MD_PREVIEW_KEY);
         String baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
-        currentDir = getIntent().getStringExtra(Constants.NOTE_SOURCE_DIR);
         note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
 
         setTitleFromNote(note);
@@ -168,7 +167,6 @@ public class PreviewActivity extends ActionBarActivity {
         isEditIncoming = true;
 
         Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra(Constants.NOTE_SOURCE_DIR, currentDir);
         intent.putExtra(Constants.NOTE_KEY, note);
 
         startActivity(intent);
