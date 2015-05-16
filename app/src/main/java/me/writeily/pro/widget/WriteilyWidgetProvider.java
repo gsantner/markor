@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 import me.writeily.pro.MainActivity;
@@ -55,7 +56,10 @@ public class WriteilyWidgetProvider extends AppWidgetProvider {
 
             SharedPreferences sharedPreferences = context.getSharedPreferences(
                     "" + appWidgetIds[i], Context.MODE_PRIVATE);
-            String directory = sharedPreferences.getString(Constants.WIDGET_PATH, "");
+            String directory = sharedPreferences.getString(Constants.WIDGET_PATH,
+                    PreferenceManager.getDefaultSharedPreferences(context)
+                            .getString(context.getResources().getString(R.string.pref_root_directory),
+                                    Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
             Intent newNoteIntent = new Intent(context, NoteActivity.class)
                     .putExtra(Constants.TARGET_DIR, directory);
 

@@ -14,6 +14,7 @@
             android:layout_height="36sp"
             android:background="@color/primary">
             <TextView
+                android:id="@+id/widget_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/app_name"
