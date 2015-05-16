@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import me.writeily.pro.R;
+import me.writeily.pro.model.Constants;
 
 /**
  * Created by jeff on 2014-04-11.
@@ -29,7 +30,6 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
     private Context context;
     private List<File> data;
     private List<File> filteredData;
-    private static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
 
     public NotesAdapter(Context context, int resource, List<File> objects) {
         super(context, resource, objects);
@@ -63,7 +63,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
         ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);
 
-        noteTitle.setText(MD_EXTENSION.matcher(getItem(i).getName()).replaceAll(EMPTY_STRING));
+        noteTitle.setText(Constants.MD_EXTENSION.matcher(getItem(i).getName()).replaceAll(EMPTY_STRING));
 
         if (getItem(i).isDirectory()) {
             noteExtra.setText(generateExtraForFile(i));
