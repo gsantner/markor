@@ -21,7 +21,11 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:textSize="19sp"
         android:fontFamily="sans-serif"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:hint="@string/title"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:nextFocusDown="@+id/note_content"
+        android:singleLine="true"
+        android:imeOptions="flagNavigateNext"
+        />
 </android.support.v7.widget.Toolbar>
