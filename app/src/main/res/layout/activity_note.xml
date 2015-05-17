@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-        <me.writeily.pro.editor.HighlightingEditor
+        <me.writeily.editor.HighlightingEditor
             android:id="@+id/note_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
