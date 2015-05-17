@@ -17,7 +17,6 @@
     <string name="unstar">Desmarcar Favorito</string>
     <string name="confirm_delete">Confirmar deletar?</string>
     <string name="confirm_overwrite">Aquivo já existente, sobrescrever?</string>
-    <string name="enter_new_name">Digite um novo nome</string>
     <string name="incorrect_pin_text">Pin incorreto</string>
     <string name="title">Título</string>
     <string name="untitled">Sem título</string>
@@ -118,7 +117,9 @@
     <string name="about_chinese_simplified">Chinês (simplificado)</string>
     <string name="about_italian">Italiano</string>
     <string name="about_croatian">Croata</string>
+    <string name="about_original_section">Original creator</string>
     <string name="tap_website">Clique para visitar o site</string>
     <string name="tap_github">Clique para visitar o repositório no GitHub</string>
+    <string name="pref_root_directory_title">Select storage folder</string>
 
 </resources>

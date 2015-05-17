@@ -27,6 +27,7 @@
 
     <string name="import_from_device">Wczytaj z urządzenia</string>
     <string name="select_folder_move">Wybierz folder</string>
+    <string name="select_root_folder">Wybierz folder</string>
 
     <string name="empty_notes_list_hint">Gdy stworzysz nową notatkę,\nto pojawi się ona w tym miejscu</string>
     <string name="empty_archives_hint">Gdy zarchiwizujesz notatkę,\nto pojawi się ona w tym miejscu</string>
@@ -42,6 +43,11 @@
     <string name="social">Społecznościowe</string>
     <string name="meta">Meta</string>
     <string name="folders">Teczki</string>
+    <string name="files">Files</string>
+    <string name="rename">Rename</string>
+    <string name="rename_fail">Failed to rename</string>
+    <string name="rename_success">Successfully renamed</string>
+    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
     <string name="email_header">Opinie o Writeily</string>
 
@@ -69,6 +75,14 @@
     <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
+    <string name="confirm_overwrite">File already exists, overwrite?</string>
+    <string name="new_name_hint">Enter new name</string>
+    <string name="pref_lock_settings">Lock</string>
+    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
+    <string name="pref_no_lock">No Lock</string>
+    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
+    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
+    <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normalny</string>
@@ -78,6 +92,7 @@
     <string name="last_modified">Ostatnio zmieniony: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
     <string name="move_here">Przenieś tutaj</string>
+    <string name="select_this_folder">Select this folder</string>
     <string name="select">Wybierać</string>
     <string name="no_selected_file">Nie wybrano pliku</string>
     <string name="current_folder">Aktualny katalog:</string>
@@ -104,4 +119,6 @@
     <string name="about_brazilian_portuguese">Brazylijska odmiana języka portugalskiego</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
+    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="about_original_section">Original creator</string>
 </resources>

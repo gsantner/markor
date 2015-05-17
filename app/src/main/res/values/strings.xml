@@ -17,7 +17,6 @@
     <string name="unstar">Unstar</string>
     <string name="confirm_delete">Confirm Delete</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
-    <string name="enter_new_name">Enter new name</string>
     <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>
     <string name="untitled">Untitled</string>
@@ -122,5 +121,6 @@
     <string name="about_brazilian_portuguese">Brazilian Portuguese</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
+    <string name="pref_root_directory_title">Select storage folder</string>
 
 </resources>

@@ -17,7 +17,6 @@
   <string name="unstar">Odznači favorit</string>
   <string name="confirm_delete">Potvrdi brisanje</string>
   <string name="confirm_overwrite">Datoteka već postoji, prebrisati?</string>
-  <string name="enter_new_name">Unesi novo ime</string>
   <string name="incorrect_pin_text">Pogrešan PIN</string>
   <string name="title">Naslov</string>
   <string name="untitled">Bez naslova</string>
@@ -70,7 +69,7 @@
   <string name="pref_pin_lock">Zaključaj PIN-om</string>
   <string name="pref_alpha_pin_lock">Zaključaj lozinkom</string>
   <string name="pref_no_lock">Bez zaključavanja</string>
-  <string name="pref_root_directory">Odaberi mapu za pohranu</string>
+  <string name="pref_root_directory_title">Odaberi mapu za pohranu</string>
   <string name="pref_show_markdown_shortcuts">Prikaži markdown izbornik</string>
   <string name="pref_highlighting_activated">Isticanje markdown sintakse</string>
   <string name="pref_highlighting_delay">Kašnjenje u milisekundama za obnavljanje isticanja</string>
@@ -118,6 +117,8 @@
   <string name="about_french">Francuski</string>
   <string name="about_chinese_simplified">Kineski (pojednostavljen)</string>
   <string name="about_croatian">Hrvatski</string>
+  <string name="about_brazilian_portuguese">Brazilian Portuguese</string>
+  <string name="about_original_section">Original creator</string>
   <string name="tap_website">Otvori web stranicu</string>
   <string name="tap_github">Otvori GitHub profil</string>
 
