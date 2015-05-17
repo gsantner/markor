@@ -107,6 +107,8 @@
     <string name="about_source_title">Writeily is Open Source on GitHub</string>
     <string name="about_developer_section">Developer</string>
     <string name="about_contributors_section">Contributors</string>
+    <string name="about_original_section">Original creator</string>
+
     <string name="about_libraries_section">Libraries</string>
     <string name="about_translators_section">Translators</string>
     <string name="about_korean">Korean</string>
@@ -117,6 +119,7 @@
     <string name="about_chinese_simplified">Chinese (Simplified)</string>
     <string name="about_italian">Italian</string>
     <string name="about_croatian">Croatian</string>
+    <string name="about_brazilian_portuguese">Brazilian Portuguese</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
 

@@ -17,7 +17,7 @@ For feature requests, bug reports, and all that jazz, feel free to open an [Issu
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Jeff Martin
+Copyright (c) 2015 Pedro Lafuente
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

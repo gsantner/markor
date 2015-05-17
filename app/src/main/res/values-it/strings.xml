@@ -111,6 +111,7 @@
     <string name="about_french">Francese</string>
     <string name="about_chinese_simplified">Cinese (semplificato)</string>
     <string name="about_croatian">Croato</string>
+    <string name="about_brazilian_portuguese">Portoghese brasiliano</string>
     <string name="tap_website">Tocca per visitare il sito web</string>
     <string name="tap_github">Tocca per visitare il profilo su GitHub</string>
     <string name="rename_error_target_already_exists">File o cartella di destinazione già esistenti.</string>
