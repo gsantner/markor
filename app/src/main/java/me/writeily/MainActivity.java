@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
     }
 
-    private RenameBroadcastReceiver renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
-    private BroadcastReceiver browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
+    private RenameBroadcastReceiver renameBroadcastReceiver;
+    private BroadcastReceiver browseToFolderBroadcastReceiver;
 
     private boolean doubleBackToExitPressedOnce;
 
@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the fragments
         notesFragment = new NotesFragment();
+
+        renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
+        browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
         // Load initial fragment
         FragmentManager fm = getFragmentManager();
