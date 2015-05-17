@@ -6,23 +6,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -31,27 +25,17 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.io.File;
 import java.io.Serializable;
 
-import me.writeily.pro.adapter.DrawerAdapter;
 import me.writeily.pro.dialog.ConfirmDialog;
-import me.writeily.pro.dialog.FilesystemDialog;
 import me.writeily.pro.dialog.CreateFolderDialog;
+import me.writeily.pro.dialog.FilesystemDialog;
 import me.writeily.pro.model.Constants;
 import me.writeily.pro.model.WriteilySingleton;
 import me.writeily.pro.settings.SettingsActivity;
 
 
-public class MainActivity extends ActionBarActivity {
-
-    private String[] drawerArrayList;
+public class MainActivity extends AppCompatActivity {
 
     private NotesFragment notesFragment;
-
-    private DrawerLayout drawerLayout;
-    private ListView drawerListView;
-    private RelativeLayout drawerView;
-
-    private ActionBarDrawerToggle drawerToggle;
-    private DrawerAdapter drawerAdapter;
 
     private Toolbar toolbar;
 
@@ -60,8 +44,6 @@ public class MainActivity extends ActionBarActivity {
     private FloatingActionButton fabCreateFolder;
 
     private View frameLayout;
-
-    private SearchView searchView;
     private BroadcastReceiver createFolderBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
@@ -126,39 +108,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         frameLayout = findViewById(R.id.frame);
-        drawerArrayList = getResources().getStringArray(R.array.drawer_array);
-
-        // Set the Navigation Drawer up
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerListView = (ListView) findViewById(R.id.drawer_listview);
-        drawerView = (RelativeLayout) findViewById(R.id.drawer_view);
-
-        // Set the drawer adapter
-        drawerAdapter = new DrawerAdapter(this, drawerArrayList);
-        drawerListView.setAdapter(drawerAdapter);
-        drawerListView.setOnItemClickListener(new DrawerClickListener());
-
-        // Drawer shadow
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
-        // Drawer toggle
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
-
-            public void onDrawerClosed(View v) {
-                if (notesFragment.isVisible()) {
-                    setToolbarTitle(getString(R.string.notes));
-                }
-
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View v) {
-                setToolbarTitle(getString(R.string.app_name));
-                invalidateOptionsMenu();
-            }
-        };
-
-        drawerLayout.setDrawerListener(drawerToggle);
 
         fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
         fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
@@ -187,9 +136,24 @@ public class MainActivity extends ActionBarActivity {
                 .replace(R.id.frame, notesFragment)
                 .commit();
 
-        setToolbarTitle(getString(R.string.notes));
         initFolders();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_settings) {
+
+            showSettings();
+            return true;
+        } else if (item.getItemId() == R.id.action_import) {
+            showImportDialog();
+            return true;
+        }
+        return false;
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -245,16 +209,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
         if (searchView != null) {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -284,7 +248,13 @@ public class MainActivity extends ActionBarActivity {
             searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
+
+                    menu.findItem(R.id.action_import).setVisible(false);
+                    menu.findItem(R.id.action_settings).setVisible(false);
+
                     if (!hasFocus) {
+                        menu.findItem(R.id.action_import).setVisible(true);
+                        menu.findItem(R.id.action_settings).setVisible(true);
                         searchItem.collapseActionView();
                         searchView.setQuery("", false);
                     }
@@ -295,32 +265,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -367,13 +311,9 @@ public class MainActivity extends ActionBarActivity {
 
         if (theme.equals(getString(R.string.theme_dark))) {
             frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            drawerView.setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
-            drawerView.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
-
-        drawerAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -420,27 +360,6 @@ public class MainActivity extends ActionBarActivity {
         toolbar.setTitle(title);
     }
 
-    private class DrawerClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            FragmentManager fm = getFragmentManager();
-
-            if (i == 0) {
-                if (!notesFragment.isVisible()) {
-                    fm.beginTransaction().replace(R.id.frame, notesFragment).commit();
-                    setToolbarTitle(getString(R.string.notes));
-                }
-            } else if (i == 1) {
-                showImportDialog();
-            } else if (i == 2) {
-                showSettings();
-            }
-
-            // Close the drawer
-            drawerLayout.closeDrawer(drawerView);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -448,9 +367,7 @@ public class MainActivity extends ActionBarActivity {
             return;
         }
 
-        if (drawerLayout.isDrawerOpen(drawerView)) {
-            drawerLayout.closeDrawer(drawerView);
-        } else if (!notesFragment.onRooDir()) {
+        if (!notesFragment.onRooDir()) {
             notesFragment.goToPreviousDir();
         } else {
             this.doubleBackToExitPressedOnce = true;
