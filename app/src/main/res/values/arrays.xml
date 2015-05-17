@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="drawer_array">
-        <item>@string/notes</item>
-        <item>@string/import_from_device</item>
-        <item>@string/action_settings</item>
-    </string-array>
-
     <string-array name="font_size_choices_array">
         <item>@string/font_size_normal</item>
         <item>@string/font_size_large</item>

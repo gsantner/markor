@@ -12,7 +12,7 @@
         <item name="colorPrimaryDark">@color/dark_primary</item>
         <item name="colorAccent">@color/secondary</item>
 
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
 
         <item name="android:actionModeBackground">@color/dark_primary</item>
@@ -30,7 +30,7 @@
         <item name="colorPrimaryDark">@color/dark_primary</item>
         <item name="colorAccent">@color/secondary</item>
 
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
 
         <item name="android:actionModeBackground">@color/dark_primary</item>
