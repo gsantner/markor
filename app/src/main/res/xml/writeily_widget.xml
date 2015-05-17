@@ -9,6 +9,6 @@
     android:updatePeriodMillis="86400000"
     android:previewImage="@drawable/widget_preview"
     android:initialLayout="@layout/widget_layout"
-    android:configure="me.writeily.pro.widget.WidgetConfigure"
+    android:configure="me.writeily.widget.WidgetConfigure"
     android:resizeMode="horizontal|vertical">
 </appwidget-provider>
