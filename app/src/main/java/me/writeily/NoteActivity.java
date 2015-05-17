@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -353,7 +352,7 @@ public class NoteActivity extends ActionBarActivity {
     private class KeyboardBarSmartShortCutListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            CharSequence shortcut = ((Button) v).getText();
+            CharSequence shortcut = ((TextView) v).getText();
             if(content.hasSelection()) {
                 CharSequence selected = content.getText().subSequence(content.getSelectionStart(),
                         content.getSelectionEnd());
