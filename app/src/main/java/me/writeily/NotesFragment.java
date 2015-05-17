@@ -277,7 +277,7 @@ public class NotesFragment extends Fragment {
                     promptForDirectory();
                     return true;
                 case RENAME_CONTEXT_BUTTON_ID:
-                    promptForNewName((File) simpleSectionAdapter.getItem(0));
+                    promptForNewName(selectedItems.get(0));
                     return true;
                 default:
                     return false;
