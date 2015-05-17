@@ -168,6 +168,7 @@ public class NotesFragment extends Fragment {
         broadcast.putExtra(Constants.CURRENT_FOLDER, directory);
         broadcast.putExtra(Constants.ROOT_DIR, rootDir);
         getActivity().sendBroadcast(broadcast);
+        clearSearchFilter();
     }
 
     private void reloadFiles(File directory) {
@@ -231,12 +232,13 @@ public class NotesFragment extends Fragment {
     public void search(CharSequence query) {
         if (query.length() > 0) {
             filesAdapter.getFilter().filter(query);
+            simpleSectionAdapter.notifyDataSetChanged();
         }
     }
 
     public void clearSearchFilter() {
         filesAdapter.getFilter().filter("");
-
+        simpleSectionAdapter.notifyDataSetChanged();
         reloadAdapter();
     }
 
