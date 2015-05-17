@@ -15,7 +15,7 @@
 
     <PreferenceCategory android:title="@string/about_developer_section">
         <Preference
-            android:summary="@string/tap_website"
+            android:summary="@string/tap_github"
             android:title="@string/main_developer">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -23,15 +23,17 @@
         </Preference>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/about_contributors_section">
+    <PreferenceCategory android:title="@string/about_original_section">
         <Preference
-            android:summary="@string/tap_github"
-            android:title="@string/contributor_plafue">
+            android:summary="@string/tap_website"
+            android:title="@string/original_creator">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="@string/contributor_plafue_url" />
+                android:data="@string/original_creator_url" />
         </Preference>
+    </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/about_contributors_section">
         <Preference
             android:summary="@string/tap_github"
             android:title="@string/contributor_minty123">
@@ -94,6 +96,10 @@
         <Preference
             android:summary="@string/translators_italian"
             android:title="@string/about_italian" />
+
+        <Preference
+            android:summary="@string/translators_croatian"
+            android:title="@string/about_croatian" />
 
         <Preference
             android:summary="@string/translators_croatian"

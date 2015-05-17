@@ -110,6 +110,7 @@
     <string name="about_chinese_simplified">Chino (simplificado)</string>
     <string name="about_italian">Italiano</string>
     <string name="about_croatian">Croata</string>
+    <string name="about_brazilian_portuguese">Portugués brasileño</string>
     <string name="tap_website">Pulsa para visitar el sitio web</string>
     <string name="tap_github">Pulsa para visitar mi perfil en GitHub</string>
     <string name="rename_error_target_already_exists">¡La carpeta o nota de destino ya existe!</string>

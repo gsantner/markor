@@ -32,8 +32,10 @@
     <string name="share_html_source">HTML Source</string>
 
     <!-- About Screen -->
-    <string name="main_developer">Jeff Martin</string>
-    <string name="main_developer_url">http://jeffreymartin.ca</string>
+    <string name="main_developer">Pedro Lafuente</string>
+    <string name="main_developer_url">https://github.com/plafue</string>
+    <string name="original_creator">Jeff Martin</string>
+    <string name="original_creator_url">http://jeffreymartin.ca</string>
     <string name="contributor_plafue">plafue</string>
     <string name="contributor_plafue_url">https://github.com/plafue</string>
     <string name="contributor_minty123">Minty123</string>
@@ -53,6 +55,7 @@
     <string name="translators_chinese_simplified">Tommy Alex</string>
     <string name="translators_italian">Claudio Arseni</string>
     <string name="translators_croatian">d-ban</string>
+    <string name="translators_brazilian_portuguese">danilofreire</string>
 
     <string name="library_anddown">CommonsWare AndDown 0.2.0</string>
     <string name="licence_apache20">Apache License v2.0</string>
