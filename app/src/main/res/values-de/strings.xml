@@ -17,7 +17,6 @@
     <string name="wr_import">Importieren</string>
     <string name="unstar">Von Favoriten entfernen</string>
     <string name="confirm_delete">Löschen bestätigen</string>
-    <string name="enter_new_name">Neuer Name eingeben</string>
     <string name="incorrect_pin_text">Ungültige PIN</string>
     <string name="title">Titel</string>
     <string name="untitled">Unbenannt</string>
@@ -61,6 +60,8 @@
     <string name="pref_attribution_dialog_title">Anerkennung</string>
     <string name="pref_twitter">Writeily auf Twitter folgen</string>
     <string name="pref_email">Email an den Entwickler</string>
+    <string name="confirm_overwrite">Datei bereits vorhanden, überschreiben?</string>
+    <string name="new_name_hint">Neuer Name eingeben</string>
     <string name="share_text">Reintext</string>
     <string name="share_image">Bild</string>
     <string name="share_as">Teilen als&#8230;</string>
@@ -115,8 +116,10 @@
     <string name="about_brazilian_portuguese">Brasilianisches Portugiesisch</string>
     <string name="about_libraries_section">Bibliotheken</string>
     <string name="about_source_title">Quellcode verfügbar auf GitHub</string>
+    <string name="about_original_section">Original creator</string>
     <string name="rename_error_target_already_exists">Zielornamen schon vergeben!</string>
     <string name="rename_success">Erfolgreich umbenannt</string>
     <string name="rename_fail">Fehler beim Umbennenen aufgetreten</string>
+    <string name="pref_root_directory_title">Select storage folder</string>
 
 </resources>

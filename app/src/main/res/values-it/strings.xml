@@ -16,7 +16,7 @@
     <string name="wr_import">Importa</string>
     <string name="unstar">Non aggiunto a speciali</string>
     <string name="confirm_delete">Conferma eliminazione</string>
-    <string name="enter_new_name">Inserire il nuovo nome</string>
+    <string name="confirm_overwrite">File already exists, overwrite?</string>
     <string name="incorrect_pin_text">PIN errato</string>
     <string name="title">Titolo</string>
     <string name="untitled">Senza titolo</string>
@@ -77,6 +77,7 @@
     <string name="pref_smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
     <string name="pin_title">Inserire il PIN</string>
     <string name="pin_go">Vai</string>
+    <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normale</string>
@@ -117,5 +118,7 @@
     <string name="rename_error_target_already_exists">File o cartella di destinazione già esistenti.</string>
     <string name="rename_success">Rinominata con successo</string>
     <string name="rename_fail">Impossibile rinominare</string>
+    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="about_original_section">Original creator</string>
 
 </resources>

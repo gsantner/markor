@@ -17,7 +17,8 @@
     <string name="wr_import">Importar</string>
     <string name="unstar">Desmarcar Favorito</string>
     <string name="confirm_delete">Confirmar borrado</string>
-    <string name="enter_new_name">Nuevo nombre</string>
+    <string name="confirm_overwrite">Archivo ya existe, ¿reemplazar?</string>
+    <string name="new_name_hint">Nuevo nombre</string>
     <string name="incorrect_pin_text">Pin incorrecto</string>
     <string name="title">Título</string>
     <string name="untitled">Sin Título</string>
@@ -87,6 +88,7 @@
     <string name="last_modified">Última modificación: %s</string>
     <string name="number_of_files">Número de archivos: %d</string>
     <string name="move_here">Mover aquí</string>
+    <string name="select_this_folder">Seleccionar esta carpeta</string>
     <string name="select">Seleccionar</string>
     <string name="no_selected_file">Ningún archivo seleccionado</string>
     <string name="current_folder">Directorio actual:</string>
@@ -116,5 +118,7 @@
     <string name="rename_error_target_already_exists">¡La carpeta o nota de destino ya existe!</string>
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_fail">Failed to rename</string>
-	
+    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="about_original_section">Creador original</string>
+
 </resources>
