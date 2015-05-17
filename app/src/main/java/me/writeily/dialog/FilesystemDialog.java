@@ -57,7 +57,7 @@ public class FilesystemDialog extends DialogFragment {
         if (isMovingFile) {
             broadcast.setAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
             broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
-        } else if (isSelectingFolder) {
+        } else if (isSelectingFolder || isSelectingForWidget) {
             broadcast.setAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
             broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
         } else {
