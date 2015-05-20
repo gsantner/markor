@@ -1,5 +1,6 @@
 language: android
 android:
   components:
-    - platform-tools
-    - tools
+    - build-tools-22.1.1
+    - extra-android-support
+    - extra-android-m2repository
