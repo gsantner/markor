@@ -35,11 +35,11 @@ class Highlighter {
             }
 
             createHeaderSpanForMatches(e, HighlighterPattern.HEADER.getPattern(), colors.getHeaderColor());
-            createColorSpanForMatches(e,  HighlighterPattern.HEADER.getPattern(), colors.getHeaderColor());
             createColorSpanForMatches(e,  HighlighterPattern.LINK.getPattern(), colors.getLinkColor());
             createColorSpanForMatches(e,  HighlighterPattern.LIST.getPattern(), colors.getListColor());
             createStyleSpanForMatches(e,  HighlighterPattern.BOLD.getPattern(), Typeface.BOLD);
             createStyleSpanForMatches(e,  HighlighterPattern.ITALICS.getPattern(), Typeface.ITALIC);
+            createColorSpanForMatches(e,  HighlighterPattern.QUOTATION.getPattern(), colors.getListColor());
             createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH.getPattern());
             createMonospaceSpanForMatches(e, HighlighterPattern.MONOSPACED.getPattern());
 

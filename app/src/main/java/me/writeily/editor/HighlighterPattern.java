@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 enum HighlighterPattern {
     LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.)")),
+    QUOTATION(Pattern.compile("(\\n|^)>")),
     HEADER(Pattern.compile("(((\\n|^)#+.*?\\n)|((\\n|^).*?\\n(-|=)+))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
