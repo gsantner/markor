@@ -22,6 +22,7 @@
     <string name="pref_email_key">pref_email_key</string>
     <string name="pref_about_key">pref_about</string>
     <string name="pref_smart_shortcuts_key">pref_smart_shortcuts_key</string>
+    <string name="pref_render_rtl_key">pref_render_rtl_key</string>
 
     <string name="twitter_url">https://twitter.com/writeily</string>
     <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily</string>

@@ -19,14 +19,18 @@ public class MarkDownRenderer {
 
     private String themeStringFromContext(Context context) {
         String theme = getThemeFromPrefs(context);
+	    String s = "";
         if (!theme.equals("")) {
             if (theme.equals(context.getString(R.string.theme_dark))) {
-                return Constants.DARK_MD_HTML_PREFIX;
+                s += Constants.DARK_MD_HTML_PREFIX;
             } else {
-                return Constants.MD_HTML_PREFIX;
+                s += Constants.MD_HTML_PREFIX;
             }
+	        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.pref_render_rtl_key), false))
+		        s += Constants.MD_HTML_RTL_CSS;
+	        s += Constants.MD_HTML_PREFIX_END;
         }
-        return "";
+        return s;
     }
 
     private String getThemeFromPrefs(Context context) {

@@ -78,6 +78,11 @@
             android:title="@string/pref_smart_shortcuts"
             android:summary="@string/pref_smart_shortcuts_summary" />
 
+	    <CheckBoxPreference
+		    android:defaultValue="false"
+		    android:key="@string/pref_render_rtl_key"
+		    android:title="@string/pref_render_rtl" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/social">
