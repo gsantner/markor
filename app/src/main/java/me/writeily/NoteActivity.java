@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +44,7 @@ public class NoteActivity extends ActionBarActivity {
     private EditText noteTitle;
     private HighlightingEditor content;
     private ScrollView scrollView;
+    private ViewSwitcher viewSwitcher;
 
     private ViewGroup keyboardBarView;
     private String targetDirectory;
@@ -77,6 +79,17 @@ public class NoteActivity extends ActionBarActivity {
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
         scrollView = (ScrollView) findViewById(R.id.note_scrollview);
         keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
+
+        noteTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //TODO Make no change
+                } else {
+                    HeaderViewSwitcher(hasFocus);
+                }
+            }
+        });
 
         Intent receivingIntent = getIntent();
         targetDirectory = receivingIntent.getStringExtra(Constants.TARGET_DIR);
@@ -371,5 +384,19 @@ public class NoteActivity extends ActionBarActivity {
                 content.setSelection(content.getSelectionStart() - 1);
             }
         }
+    }
+
+    public void HeaderViewSwitcher(Boolean hasFocus) {
+        viewSwitcher = (ViewSwitcher)findViewById(R.id.HeaderViewSwitcher);
+        if (!hasFocus) {
+            TextView headerNoteTitle = (TextView)findViewById(R.id.note_title_text);
+            headerNoteTitle.setText(noteTitle.getText().toString());
+            viewSwitcher.showNext();
+        }
+    }
+
+    public void titleClicked(View view) {
+        viewSwitcher.showPrevious();
+        noteTitle.requestFocus();
     }
 }

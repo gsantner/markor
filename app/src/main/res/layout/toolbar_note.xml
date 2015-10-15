@@ -11,21 +11,39 @@
     android:elevation="3dp"
     app:theme="@style/LightTextToolbarOverlay"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-    <EditText
-        android:id="@+id/edit_note_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:textSize="19sp"
-        android:fontFamily="sans-serif"
-        android:inputType="text"
-        android:hint="@string/title"
-        android:textColor="@android:color/white"
-        android:nextFocusDown="@+id/note_content"
-        android:singleLine="true"
-        android:imeOptions="flagNavigateNext"
-        />
+    <ViewSwitcher
+        android:id="@+id/HeaderViewSwitcher"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <EditText
+            android:id="@+id/edit_note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:textSize="19sp"
+            android:fontFamily="sans-serif"
+            android:inputType="text"
+            android:hint="@string/title"
+            android:textColor="@android:color/white"
+            android:nextFocusDown="@+id/note_content"
+            android:singleLine="true"
+            android:imeOptions="flagNavigateNext"
+            />
+        <TextView
+            android:id="@+id/note_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/white"
+            android:onClick="titleClicked"
+            android:singleLine="true" />
+    </ViewSwitcher>
 </android.support.v7.widget.Toolbar>
