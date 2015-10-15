@@ -1,9 +1,13 @@
 package me.writeily;
 
+import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.TextView;
 
 import java.io.File;
@@ -33,7 +37,11 @@ class CurrentFolderChangedReceiver extends BroadcastReceiver {
             breadcrumbs.setVisibility(View.GONE);
         } else {
             breadcrumbs.setText(backButtonText(currentDir, rootDir));
-            breadcrumbs.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                showCircularReveal(breadcrumbs);
+            } else {
+                breadcrumbs.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -43,5 +51,36 @@ class CurrentFolderChangedReceiver extends BroadcastReceiver {
         } else {
             return "... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName();
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void showCircularReveal(View view) {
+        final View myView = view;
+        int cx = myView.getWidth() / 2;
+        int cy = myView.getHeight() / 2;
+        int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
+        Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                myView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        anim.start();
     }
 }
