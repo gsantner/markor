@@ -1,5 +1,7 @@
 package me.writeily;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -16,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -33,6 +37,10 @@ import me.writeily.settings.SettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private MenuItem searchItem;
+
+    private FragmentManager fm;
 
     private NotesFragment notesFragment;
 
@@ -95,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce;
 
+    private static final int ANIM_DURATION_TOOLBAR = 300;
+    private static final int ANIM_DURATION_FAB = 300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -132,11 +143,7 @@ public class MainActivity extends AppCompatActivity {
         renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
         browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
-        // Load initial fragment
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction()
-                .replace(R.id.frame, notesFragment)
-                .commit();
+        startIntroAnimation();
 
         initFolders();
     }
@@ -215,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem = menu.findItem(R.id.action_search);
 
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
@@ -313,8 +320,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (theme.equals(getString(R.string.theme_dark))) {
             frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            RelativeLayout content = (RelativeLayout)findViewById(R.id.activity_main_content_background);
+            content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
+            RelativeLayout content = (RelativeLayout)findViewById(R.id.activity_main_content_background);
+            content.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
     }
 
@@ -383,6 +394,44 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 2000);
         }
+    }
+
+    private void startIntroAnimation() {
+        fabMenu.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
+        int actionbarSize = Utils.dpToPx(56);
+        toolbar.setTranslationY(-actionbarSize);
+
+        toolbar.animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        startContentAnimation();
+                    }
+                })
+                .start();
+    }
+
+    private void startContentAnimation() {
+        fabMenu.animate()
+                .translationY(0)
+                .setInterpolator(new OvershootInterpolator(1.f))
+                .setStartDelay(300)
+                .setDuration(ANIM_DURATION_FAB)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        // Load initial fragment
+                        fm = getFragmentManager();
+                        fm.beginTransaction()
+                                .setCustomAnimations(R.animator.slide_in_up, R.animator.slide_out_down)
+                                .replace(R.id.frame, notesFragment)
+                                .commit();
+                    }
+                })
+                .start();
     }
 
 }

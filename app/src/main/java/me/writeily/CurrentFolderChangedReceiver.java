@@ -1,6 +1,7 @@
 package me.writeily;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -56,31 +57,42 @@ class CurrentFolderChangedReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void showCircularReveal(View view) {
         final View myView = view;
-        int cx = myView.getWidth() / 2;
-        int cy = myView.getHeight() / 2;
-        int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
-        Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                myView.setVisibility(View.VISIBLE);
-            }
+        final int cx = myView.getWidth() / 2;
+        final int cy = myView.getHeight() / 2;
+        final int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
+        myView.setTranslationY(-cy);
+        myView.animate()
+                .translationY(0)
+                .setDuration(300)
+                .setStartDelay(100)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        myView.setVisibility(View.VISIBLE);
+                        Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+                        anim.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                            }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
 
-            }
+                            }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
 
-            }
+                            }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
 
-            }
-        });
-        anim.start();
+                            }
+                        });
+                        anim.start();
+                    }
+                })
+                .start();
     }
 }

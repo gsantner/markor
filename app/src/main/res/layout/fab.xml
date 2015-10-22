@@ -34,6 +34,7 @@
         android:src="@drawable/ic_folder_light"
         android:gravity="center"
         android:paddingTop="0.5dp"
+
         fab:fab_colorNormal="@color/grey"
         fab:fab_title="Create Folder"
         fab:fab_colorPressed="@color/light_grey"/>

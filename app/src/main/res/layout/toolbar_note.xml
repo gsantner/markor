@@ -10,8 +10,7 @@
     android:minHeight="@dimen/abc_action_bar_default_height_material"
     android:contentInsetStart="72dp"
     android:elevation="3dp"
-    app:theme="@style/LightTextToolbarOverlay"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+    app:theme="@style/LightTextToolbarOverlay" >
     <ViewSwitcher
         android:id="@+id/HeaderViewSwitcher"
         android:layout_width="fill_parent"

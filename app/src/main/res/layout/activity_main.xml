@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:theme="@style/AppTheme">
+    android:orientation="vertical">
 
     <!-- Content -->
     <RelativeLayout
+        android:id="@+id/activity_main_content_background"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,14 +29,13 @@
             android:text="@string/navigate_up_folder"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/breadcrumbs"
-            android:background="@android:color/white" />
+            android:layout_below="@id/breadcrumbs" />
 
         <!-- Overlay + Button -->
         <include layout="@layout/fab" />
