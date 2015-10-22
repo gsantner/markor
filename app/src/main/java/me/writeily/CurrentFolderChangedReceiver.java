@@ -57,18 +57,20 @@ class CurrentFolderChangedReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void showCircularReveal(View view) {
         final View myView = view;
-        final int cx = myView.getWidth() / 2;
-        final int cy = myView.getHeight() / 2;
-        final int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
-        myView.setTranslationY(-cy);
+        myView.setVisibility(View.INVISIBLE);
+        final int height = myView.getHeight() / 2;
+        myView.setTranslationY(-height);
         myView.animate()
                 .translationY(0)
                 .setDuration(300)
                 .setStartDelay(100)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
+                    public void onAnimationEnd(Animator animation) {
                         myView.setVisibility(View.VISIBLE);
+                        final int cx = myView.getWidth() / 2;
+                        final int cy = myView.getHeight() / 2;
+                        final int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
                         Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
                         anim.addListener(new Animator.AnimatorListener() {
                             @Override
