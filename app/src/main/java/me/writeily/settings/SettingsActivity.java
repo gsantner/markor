@@ -44,6 +44,7 @@ public class SettingsActivity extends ActionBarActivity implements SettingsFragm
             setTheme(R.style.AppTheme);
         } else {
             // uses light theme
+            setTheme(R.style.AppTheme_Light);
         }
 
         super.onCreate(savedInstanceState);

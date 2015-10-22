@@ -20,5 +20,5 @@
         android:layout_height="wrap_content"
         android:choiceMode="multipleChoiceModal"
         android:layout_gravity="start"
-        android:background="@android:color/transparent" />
+        android:drawSelectorOnTop="true" />
 </RelativeLayout>

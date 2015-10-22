@@ -11,16 +11,16 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/dark_primary</item>
         <item name="colorAccent">@color/secondary</item>
+        <item name="android:windowBackground">@color/dark_grey</item>
 
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
 
         <item name="android:actionModeBackground">@color/dark_primary</item>
         <item name="actionModeBackground">@color/dark_primary</item>
-        <item name="android:windowBackground">@color/dark_grey</item>
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>

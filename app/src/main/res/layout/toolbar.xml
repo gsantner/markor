@@ -9,5 +9,4 @@
     android:background="@color/primary"
     android:elevation="3dp"
     android:minHeight="@dimen/abc_action_bar_default_height_material"
-    android:theme="@style/LightTextToolbarOverlay"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    android:theme="@style/LightTextToolbarOverlay" />

@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_vertical_margin_short">8dp</dimen>
+    <dimen name="btn_fab_size">56dp</dimen>
 </resources>

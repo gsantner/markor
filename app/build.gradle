@@ -28,10 +28,12 @@ dependencies {
     compile 'com.commonsware.cwac:anddown:0.3.0'
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile 'com.android.support:palette-v7:+'
     compile 'com.getbase:floatingactionbutton:1.3.0'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
     compile 'commons-io:commons-io:2.4'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.jakewharton:butterknife:5.1.2'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:1.7.0'
