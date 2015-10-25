@@ -13,6 +13,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp"
         android:paddingTop="16dp"
+        android:inputType="textCapWords"
         android:paddingBottom="16dp"
         android:textSize="16sp"
         android:textColor="@color/dark_grey"

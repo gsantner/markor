@@ -15,10 +15,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
@@ -42,6 +46,8 @@ public class NotesFragment extends Fragment {
     private Context context;
 
     private View layoutView;
+
+    private FloatingActionsMenu fab;
 
     private ListView filesListView;
     private TextView hintTextView;
@@ -73,6 +79,7 @@ public class NotesFragment extends Fragment {
         context = getActivity().getApplicationContext();
         layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
+        fab = (FloatingActionsMenu) layoutView.findViewById(R.id.fab);
         filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
 
         filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
@@ -83,6 +90,33 @@ public class NotesFragment extends Fragment {
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         filesListView.setAdapter(simpleSectionAdapter);
         rootDir = getRootFolderFromPrefsOrDefault();
+
+        filesListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            private int mLastFirstVisibleItem;
+            boolean IS_SCROLLING;
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                    IS_SCROLLING = true;
+                } else {
+                    IS_SCROLLING = false;
+                }
+                int firstVisibleItem = view.getFirstVisiblePosition();
+                if (mLastFirstVisibleItem < firstVisibleItem) {
+                    hideFABOnScrollDown();
+                }
+
+                if (mLastFirstVisibleItem > firstVisibleItem) {
+                    showFABOnScrollUp();
+                }
+
+                mLastFirstVisibleItem = firstVisibleItem;
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
 
         return layoutView;
     }
@@ -392,5 +426,19 @@ public class NotesFragment extends Fragment {
         public void onClick(View v) {
             goToPreviousDir();
         }
+    }
+
+    private void showFABOnScrollUp() {
+        MainActivity.fabMenu.animate()
+                .translationY(0)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
+    }
+
+    private void hideFABOnScrollDown() {
+        MainActivity.fabMenu.animate()
+                .translationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size))
+                .setInterpolator(new AccelerateInterpolator())
+                .start();
     }
 }

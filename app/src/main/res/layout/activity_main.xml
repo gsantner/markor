@@ -28,7 +28,8 @@
             android:paddingRight="16dp"
             android:text="@string/navigate_up_folder"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/frame"

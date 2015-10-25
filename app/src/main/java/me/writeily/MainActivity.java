@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    private FloatingActionsMenu fabMenu;
+    public static FloatingActionsMenu fabMenu;
     private FloatingActionButton fabCreateNote;
     private FloatingActionButton fabCreateFolder;
 
@@ -433,5 +433,4 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .start();
     }
-
 }
