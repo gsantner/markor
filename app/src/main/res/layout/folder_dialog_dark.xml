@@ -10,8 +10,11 @@
         android:hint="@string/folder_name_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingBottom="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="16dp"
+        android:inputType="textCapWords"
+        android:paddingBottom="16dp"
         android:textSize="16sp"
         android:textColor="@android:color/white"
         android:textColorHint="@color/light_grey" />
