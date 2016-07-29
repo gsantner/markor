@@ -19,6 +19,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -195,7 +198,15 @@ public class WriteilySingleton {
     public ArrayList<File> addFilesFromDirectory(File sourceDir, ArrayList<File> files) {
         ArrayList<File> addedFiles = new ArrayList<>();
 
-        for (File f : sourceDir.listFiles()) {
+        List<File> listedData = Arrays.asList(sourceDir.listFiles());
+        Collections.sort(listedData, new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return f1.getName().compareToIgnoreCase(f2.getName());
+            }
+        });
+
+        for (File f : listedData) {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
