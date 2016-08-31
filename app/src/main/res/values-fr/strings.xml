@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="action_settings">Configuration</string>
+    <string name="action_settings">Paramètres</string>
     <string name="open_drawer">Ouvrir Tiroir</string>
     <string name="close_drawer">Fermer Tiroir</string>
     <string name="notes">Notes</string>
@@ -15,25 +14,20 @@
     <string name="starred">Favoris</string>
     <string name="restore">Restaurer</string>
     <string name="wr_import">Importer</string>
-    <string name="unstar">Démarquer Favori</string>
-    <string name="confirm_delete">Confirmer Effacement</string>
-    <string name="confirm_overwrite">File already exists, overwrite?</string>
-    <string name="new_name_hint">Enter new name</string>
-    <string name="incorrect_pin_text">Incorrect NIP</string>
+    <string name="unstar">Supprimer favori</string>
+    <string name="confirm_delete">Confirmer la suppression</string>
+    <string name="confirm_overwrite">Le fichier existe déjà, écraser ?</string>
+    <string name="incorrect_pin_text">Code PIN incorrecte</string>
     <string name="title">Titre</string>
-    <string name="untitled">Non-Titré</string>
+    <string name="untitled">Sans titre</string>
     <string name="empty_directory">Ce dossier est vide</string>
     <string name="navigate_up_folder">Retour au dossier précédent</string>
     <string name="folder_name_hint">Entrez un nom de dossier</string>
+    <string name="new_name_hint">Enter new name</string>
     <string name="create_folder">Créer Dossier</string>
     <string name="move">Déplacer</string>
-    <string name="select_this_folder">Select this folder</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_fail">Failed to rename</string>
-    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
-
-    <string name="import_from_device">Importer depuis un appareil</string>
+    <string name="import_from_device">Importer depuis l\'appareil</string>
     <string name="select_folder_move">Sélectionner Dossier</string>
     <string name="select_root_folder">Sélectionner Dossier</string>
 
@@ -44,24 +38,24 @@
     <string name="share_string">Partager avec&#8230;</string>
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
-    <string name="preview">Apperçu</string>
+    <string name="preview">Aperçu</string>
     <string name="edit">Éditer</string>
-    <string name="editor_settings">Editor Paramètres</string>
-    <string name="app_settings">Paramètres</string>
+    <string name="app_settings">Paramètres de l\'application</string>
+    <string name="editor_settings">Paramètres de l\'éditeur</string>
     <string name="social">Social</string>
     <string name="meta">Meta</string>
-    <string name="files">Fichier</string>
     <string name="folders">Dossiers</string>
+    <string name="files">Fichier</string>
 
     <string name="email_header">Opinion sur Writeily</string>
 
     <!-- Preferences -->
     <string name="pref_remember_directory">Rappeler le plus récent dossier au démarrage</string>
-    <string name="pref_font_choice">Police pour Editeur de Note</string>
+    <string name="pref_font_choice">Police de l\'éditeur</string>
     <string name="pref_theme">Thème</string>
-    <string name="pref_rate_writeily">Apprécier Writeily sur Google Play</string>
-    <string name="pref_donate_writeily">Donation</string>
-    <string name="pref_preview_first">Preview first when opening notes</string>
+    <string name="pref_rate_writeily">Noter Writeily sur Google Play</string>
+    <string name="pref_donate_writeily">Faire un don</string>
+    <string name="pref_preview_first">Aperçu lors de l\'ouverture des notes</string>
     <string name="translators_title">Traducteurs</string>
     <string name="pref_about_dialog_title">A propos de Writeily</string>
     <string name="pref_attribution_dialog_title">Attributions</string>
@@ -71,20 +65,19 @@
     <string name="share_image">Image</string>
     <string name="share_as">Partager en tant que&#8230;</string>
     <string name="pref_font_size">Taille Police</string>
-    <string name="pref_pin_lock">Verouiller NIP</string>
+    <string name="pref_lock_settings">Verrouiller</string>
+    <string name="pref_pin_lock">Code PIN</string>
+    <string name="pref_alpha_pin_lock">Mot de passe</string>
+    <string name="pref_no_lock">Sans</string>
     <string name="pref_show_markdown_shortcuts">Afficher la barre de Markdown</string>
-    <string name="pref_highlighting_activated">Markdown coloration syntaxique</string>
-    <string name="pref_highlighting_delay">Délai en millisecondes pour soulignant rafraîchissement</string>
-    <string name="pref_highlighting_delay_summary">Des valeurs plus élevées sont plus faciles sur la batterie</string>
-    <string name="pin_title">Entrez votre NIP</string>
+    <string name="pref_highlighting_activated">Coloration syntaxique Markdown</string>
+    <string name="pref_highlighting_delay">Délai en milliseconde pour le rafraîchissement de la coloration synthaxique</string>
+    <string name="pref_highlighting_delay_summary">Des valeurs plus élevées utilise moins la batterie</string>
+    <string name="pref_smart_shortcuts">Raccourci parenthèse intelligentes</string>
+    <string name="pref_smart_shortcuts_summary">Si du texte est selectionné, utilisez {}, [] ou () entourera la selection</string>
+    <string name="pin_title">Entrez votre PIN</string>
+    <string name="passphrase_title">Entrer votre mot de passe</string>
     <string name="pin_go">Accepter</string>
-    <string name="pref_lock_settings">Lock</string>
-    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
-    <string name="pref_no_lock">No Lock</string>
-    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
-    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
-    <string name="passphrase_title">Enter your passphrase</string>
-
 
     <!-- Font Size -->
     <string name="font_size_normal">Normal</string>
@@ -95,6 +88,7 @@
     <string name="last_modified">Dernière Modif: %s</string>
     <string name="number_of_files">Nombre de fichier: %d</string>
     <string name="move_here">Déplacer ici</string>
+    <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectioner</string>
     <string name="no_selected_file">Aucun fichier sélectionné</string>
     <string name="current_folder">Dossier en cours:</string>
@@ -103,11 +97,17 @@
     <string name="one_item_selected">Un élément sélectionné</string>
     <string name="more_items_selected">%d éléments sélectionnés</string>
 
+    <string name="rename_error_target_already_exists">Fichier/Dossier cible existe déjà !</string>
+    <string name="rename_success">Renommé avec succès</string>
+    <string name="rename_fail">Renommage échoué</string>
+
     <!-- About screen -->
     <string name="about_version_title">Version</string>
     <string name="about_source_title">Code Source disponible sur GitHub</string>
     <string name="about_developer_section">Developeur</string>
     <string name="about_contributors_section">Contributeurs</string>
+    <string name="about_original_section">Créateur original</string>
+
     <string name="about_libraries_section">Libraries</string>
     <string name="about_translators_section">Traducteurs</string>
     <string name="about_korean">Coréen</string>
@@ -121,8 +121,6 @@
     <string name="about_brazilian_portuguese">Portugais brésilien</string>
     <string name="tap_website">Taper pour visiter site web</string>
     <string name="tap_github">Taper pour visiter le profil sur GitHub</string>
-    <string name="about_original_section">Original creator</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_root_directory_title">Selectionner le dossier de stockage</string>
 
 </resources>
-
