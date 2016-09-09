@@ -30,6 +30,8 @@
 
                 <data android:mimeType="text/plain"
                     android:scheme="file"/>
+                <data android:mimeType="application/octet-stream"
+                    android:scheme="file"/>
             </intent-filter>
 
             <intent-filter>
