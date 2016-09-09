@@ -88,6 +88,8 @@ public class NoteActivity extends ActionBarActivity {
             openFromSendAction(receivingIntent);
         } else if (Intent.ACTION_EDIT.equals(intentAction) && type != null) {
             openFromEditAction(receivingIntent);
+        } else if (Intent.ACTION_VIEW.equals(intentAction) && type != null) {
+            openFromViewAction(receivingIntent);
         } else {
             note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
         }
@@ -111,6 +113,12 @@ public class NoteActivity extends ActionBarActivity {
     private void openFromEditAction(Intent receivingIntent) {
         Uri fileUri = receivingIntent.getData();
         readFileUriFromIntent(fileUri);
+    }
+
+    private void openFromViewAction(Intent receivingIntent) {
+        Uri fileUri = receivingIntent.getData();
+        note = new File(fileUri.getPath());
+        content.setText(WriteilySingleton.getInstance().readFileUri(fileUri, this));
     }
 
     private void readFileUriFromIntent(Uri fileUri) {
