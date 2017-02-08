@@ -20,12 +20,12 @@ android {
 
 repositories {
     maven {
-        url "https://repo.commonsware.com.s3.amazonaws.com"
+        url "https://s3.amazonaws.com/repo.commonsware.com"
     }
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:anddown:0.2.4'
+    compile 'com.commonsware.cwac:anddown:0.3.0'
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.getbase:floatingactionbutton:1.3.0'
