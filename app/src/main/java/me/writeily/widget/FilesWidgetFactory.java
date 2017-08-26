@@ -58,7 +58,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     @Override
     public RemoteViews getViewAt(int position) {
         File file = widgetFilesList[position];
-        Intent fillInIntent = new Intent().putExtra(Constants.NOTE_KEY,file);
+        Intent fillInIntent = new Intent().putExtra(Constants.NOTE_KEY, file);
         RemoteViews rowView = new RemoteViews(context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, Constants.MD_EXTENSION.matcher(file.getName()).replaceAll(""));
         rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);

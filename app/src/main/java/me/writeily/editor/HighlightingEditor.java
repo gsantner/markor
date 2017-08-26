@@ -63,8 +63,8 @@ public class HighlightingEditor extends EditText {
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
         highlighter = new Highlighter(new MyHighlighterColorsNeutral(),
-            prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
-            prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
+                prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
+                prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
 
         addTextChangedListener(
                 new TextWatcher() {

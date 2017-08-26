@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void importFileToStorageDir(Context context,File serializableExtra) {
+    private void importFileToStorageDir(Context context, File serializableExtra) {
         WriteilySingleton.getInstance().copyFile(serializableExtra,
                 notesFragment.getCurrentDir().getAbsolutePath());
         Toast.makeText(context, "Imported to \"" + notesFragment.getCurrentDir().getName() + "\"",
@@ -320,11 +320,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (theme.equals(getString(R.string.theme_dark))) {
             frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            RelativeLayout content = (RelativeLayout)findViewById(R.id.activity_main_content_background);
+            RelativeLayout content = (RelativeLayout) findViewById(R.id.activity_main_content_background);
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
-            RelativeLayout content = (RelativeLayout)findViewById(R.id.activity_main_content_background);
+            RelativeLayout content = (RelativeLayout) findViewById(R.id.activity_main_content_background);
             content.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
     }

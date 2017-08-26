@@ -1,18 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <!-- Content -->
     <RelativeLayout
         android:id="@+id/activity_main_content_background"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"/>
 
         <TextView
             android:id="@+id/breadcrumbs"
@@ -35,9 +35,9 @@
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/breadcrumbs" />
+            android:layout_below="@id/breadcrumbs"/>
 
         <!-- Overlay + Button -->
-        <include layout="@layout/fab" />
+        <include layout="@layout/fab"/>
     </RelativeLayout>
 </LinearLayout>

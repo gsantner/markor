@@ -64,7 +64,7 @@ public class ConfirmDialog extends DialogFragment {
 
     private int getTitleForTag(String tag) {
 
-        switch(tag){
+        switch (tag) {
             case Constants.CONFIRM_OVERWRITE_DIALOG_TAG:
                 return R.string.confirm_overwrite;
 

@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                editor.putString(getString(R.string.pref_root_directory),intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
+                editor.putString(getString(R.string.pref_root_directory), intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
                 editor.apply();
                 settingsFragment.updateRootDirSummary();
             }

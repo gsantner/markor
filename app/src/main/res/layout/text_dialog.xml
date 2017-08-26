@@ -1,20 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_layout"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.Light">
+              android:id="@+id/dialog_layout"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:theme="@style/AppTheme.Light">
+
     <TextView
         android:id="@android:id/message"
-        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingBottom="8dp"
-        android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:textSize="14sp"
+        android:layout_marginRight="5dp"
+        android:autoLink="web"
         android:gravity="center"
-        android:autoLink="web" />
+        android:paddingBottom="8dp"
+        android:paddingTop="30dp"
+        android:text=""
+        android:textSize="14sp"/>
 </LinearLayout>

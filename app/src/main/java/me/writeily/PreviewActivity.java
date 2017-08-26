@@ -15,8 +15,8 @@ import android.webkit.WebView;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import me.writeily.renderer.MarkDownRenderer;
 import me.writeily.model.Constants;
+import me.writeily.renderer.MarkDownRenderer;
 
 /**
  * Created by jeff on 2014-04-13.
@@ -152,8 +152,7 @@ public class PreviewActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }
-        finally {
+        } finally {
             try {
                 if (stream != null) {
                     stream.close();

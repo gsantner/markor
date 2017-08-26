@@ -84,7 +84,7 @@ public class NotesFragment extends Fragment {
 
         filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
         simpleSectionAdapter =
-                new SimpleSectionAdapter<> (context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+                new SimpleSectionAdapter<>(context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
 
         filesListView.setOnItemClickListener(new NotesItemClickListener());
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
@@ -94,6 +94,7 @@ public class NotesFragment extends Fragment {
         filesListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             private int mLastFirstVisibleItem;
             boolean IS_SCROLLING;
+
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
@@ -135,7 +136,7 @@ public class NotesFragment extends Fragment {
     }
 
     private File getRootFolderFromPrefsOrDefault() {
-        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 
     @Override
@@ -219,7 +220,7 @@ public class NotesFragment extends Fragment {
         if (filesAdapter != null) {
             filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
             simpleSectionAdapter =
-                    new SimpleSectionAdapter<> (context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+                    new SimpleSectionAdapter<>(context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
             filesListView.setAdapter(simpleSectionAdapter);
             simpleSectionAdapter.notifyDataSetChanged();
         }
@@ -262,7 +263,9 @@ public class NotesFragment extends Fragment {
         actionMode.finish();
     }
 
-    /** Search **/
+    /**
+     * Search
+     **/
     public void search(CharSequence query) {
         if (query.length() > 0) {
             filesAdapter.getFilter().filter(query);
@@ -276,7 +279,7 @@ public class NotesFragment extends Fragment {
         reloadAdapter();
     }
 
-    public List<File> getSelectedItems(){
+    public List<File> getSelectedItems() {
         return selectedItems;
     }
 
@@ -353,8 +356,11 @@ public class NotesFragment extends Fragment {
         }
 
         private void manageClickedVIew(int i, boolean checked) {
-            if(checked) { selectedItems.add((File) simpleSectionAdapter.getItem(i));}
-            else { selectedItems.remove((File) simpleSectionAdapter.getItem(i));}
+            if (checked) {
+                selectedItems.add((File) simpleSectionAdapter.getItem(i));
+            } else {
+                selectedItems.remove((File) simpleSectionAdapter.getItem(i));
+            }
         }
 
         private void hideRenameButton(ActionMode actionMode) {
@@ -367,15 +373,18 @@ public class NotesFragment extends Fragment {
 
         private void showRenameContextButton(Menu menu, boolean show) {
             if (show) {
-                menu.add(Menu.FIRST+1, RENAME_CONTEXT_BUTTON_ID,Menu.FIRST,R.string.rename)
+                menu.add(Menu.FIRST + 1, RENAME_CONTEXT_BUTTON_ID, Menu.FIRST, R.string.rename)
                         .setIcon(R.drawable.ic_edit_light);
 
             } else {
                 menu.setGroupVisible(1, false);
                 menu.removeItem(RENAME_CONTEXT_BUTTON_ID);
-            };
+            }
+            ;
         }
-    };
+    }
+
+    ;
 
     private class NotesItemClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
