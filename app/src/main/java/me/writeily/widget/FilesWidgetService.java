@@ -8,8 +8,7 @@ import android.widget.RemoteViewsService;
  */
 public class FilesWidgetService extends RemoteViewsService {
     @Override
-    public RemoteViewsFactory onGetViewFactory(Intent intent)
-    {
+    public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return (new FilesWidgetFactory(getApplicationContext(), intent));
     }
 }

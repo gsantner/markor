@@ -101,7 +101,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     public void updateRootDirSummary() {
-        Preference rootDir = findPreference(getString(R.string.pref_root_directory));;
+        Preference rootDir = findPreference(getString(R.string.pref_root_directory));
+        ;
         rootDir.setSummary(PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 

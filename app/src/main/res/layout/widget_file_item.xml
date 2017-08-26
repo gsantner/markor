@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="2dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:animateLayoutChanges="true"
-    android:clickable="true"
-    android:paddingTop="10dp"
-    android:baselineAligned="false">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:animateLayoutChanges="true"
+              android:baselineAligned="false"
+              android:clickable="true"
+              android:orientation="horizontal"
+              android:paddingBottom="2dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/widget_note_icon"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:gravity="center|left"
+        android:background="@drawable/ic_notes"
         android:contentDescription="@null"
-        android:background="@drawable/ic_notes"/>
+        android:gravity="center|left"/>
+
     <TextView
         android:id="@+id/widget_note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="#f7504d54"
         android:gravity="center|left"
         android:minHeight="19sp"
-        android:textSize="16sp"
-        android:paddingLeft="8dp" />
+        android:paddingLeft="8dp"
+        android:singleLine="true"
+        android:textColor="#f7504d54"
+        android:textSize="16sp"/>
 </LinearLayout>

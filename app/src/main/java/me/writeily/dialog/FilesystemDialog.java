@@ -160,7 +160,7 @@ public class FilesystemDialog extends DialogFragment {
             rootDir = new File(EXTERNAL_STORAGE_PATH);
             listFilesInDirectory(rootDir);
             currentDir = rootDir;
-        }else {
+        } else {
             workingDirectoryText.setVisibility(View.GONE);
             rootDir = new File(EXTERNAL_STORAGE_PATH);
             listFilesInDirectory(rootDir);
@@ -171,7 +171,7 @@ public class FilesystemDialog extends DialogFragment {
     }
 
     private File getRootFolderFromPrefsOrDefault() {
-        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory),Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
     }
 
     private void showCurrentDirectory(String folder) {
@@ -278,7 +278,7 @@ public class FilesystemDialog extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (onDismissListener != null){
+        if (onDismissListener != null) {
             onDismissListener.onDismiss(dialog);
         }
         super.onDismiss(dialog);

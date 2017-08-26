@@ -3,6 +3,7 @@ package me.writeily;
 /**
  * Created by gadgetroid on 18/10/15.
  */
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;

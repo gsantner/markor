@@ -80,7 +80,7 @@ public class NoteActivity extends AppCompatActivity {
         }
 
         context = getApplicationContext();
-        content = (HighlightingEditor)findViewById(R.id.note_content);
+        content = (HighlightingEditor) findViewById(R.id.note_content);
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
         scrollView = (ScrollView) findViewById(R.id.note_scrollview);
         keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
@@ -208,7 +208,7 @@ public class NoteActivity extends AppCompatActivity {
 
         if (showShortcuts && keyboardBarView.getChildCount() == 0) {
             appendRegularShortcuts();
-            if(isSmartShortcutsActivated()) {
+            if (isSmartShortcutsActivated()) {
                 appendSmartBracketShortcuts();
             } else {
                 appendRegularBracketShortcuts();
@@ -254,7 +254,7 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private boolean isSmartShortcutsActivated() {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_smart_shortcuts_key),false);
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_smart_shortcuts_key), false);
     }
 
     private void setupAppearancePreferences() {
@@ -361,8 +361,8 @@ public class NoteActivity extends AppCompatActivity {
         }
         filename = filename.replaceAll("[\\\\/:\"*?<>|]+", "").trim();
 
-        if(filename.isEmpty()) {
-            filename = "Writeily - " + String.valueOf(UUID.randomUUID().getMostSignificantBits()).substring(0,6);
+        if (filename.isEmpty()) {
+            filename = "Writeily - " + String.valueOf(UUID.randomUUID().getMostSignificantBits()).substring(0, 6);
         }
         return filename;
     }
@@ -379,7 +379,7 @@ public class NoteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             CharSequence shortcut = ((TextView) v).getText();
-            if(content.hasSelection()) {
+            if (content.hasSelection()) {
                 CharSequence selected = content.getText().subSequence(content.getSelectionStart(),
                         content.getSelectionEnd());
                 content.getText().replace(content.getSelectionStart(), content.getSelectionEnd(),
@@ -392,9 +392,9 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     public void HeaderViewSwitcher(Boolean hasFocus) {
-        viewSwitcher = (ViewSwitcher)findViewById(R.id.HeaderViewSwitcher);
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.HeaderViewSwitcher);
         if (!hasFocus) {
-            TextView headerNoteTitle = (TextView)findViewById(R.id.note_title_text);
+            TextView headerNoteTitle = (TextView) findViewById(R.id.note_title_text);
             headerNoteTitle.setText(noteTitle.getText().toString());
             viewSwitcher.showNext();
         }

@@ -1,11 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/context_menu_move"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/context_menu_move"
         android:icon="@drawable/ic_move"
         android:title="@string/move"
-        app:showAsAction="always" />
-    <item android:id="@+id/context_menu_delete"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/context_menu_delete"
         android:icon="@drawable/ic_trash_light"
         android:title="@string/delete"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>
