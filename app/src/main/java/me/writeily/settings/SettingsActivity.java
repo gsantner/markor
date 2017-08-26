@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -17,7 +17,7 @@ import me.writeily.model.Constants;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class SettingsActivity extends ActionBarActivity implements SettingsFragment.WriteilySettingsListener {
+public class SettingsActivity extends AppCompatActivity implements SettingsFragment.WriteilySettingsListener {
 
     SettingsFragment settingsFragment;
 

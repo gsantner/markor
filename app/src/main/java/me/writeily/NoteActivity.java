@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -37,7 +37,7 @@ import me.writeily.widget.WriteilyWidgetProvider;
 /**
  * Created by jeff on 2014-04-11.
  */
-public class NoteActivity extends ActionBarActivity {
+public class NoteActivity extends AppCompatActivity {
 
     public static final String EMPTY_STRING = "";
     private File note;
@@ -73,7 +73,7 @@ public class NoteActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
             upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -17,7 +17,7 @@ import me.writeily.model.Constants;
 /**
  * Created by jeff on 2014-08-20.
  */
-public class AlphanumericPinActivity extends ActionBarActivity {
+public class AlphanumericPinActivity extends AppCompatActivity {
 
     private Context context;
     private String pin;

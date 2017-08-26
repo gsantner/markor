@@ -1,0 +1,17 @@
+﻿.git
+.github
+.gradle
+.idea
+build
+gradle
+.gitlab-ci.yml
+*.iml
+local.properties
+settings.gradle
+gradlew
+gradlew.bat
+LICENSE.md
+app/build
+app/.gitignore
+app/pom.xml
+app/proguard-rules.pro

@@ -1,0 +1,8 @@
+circle.yml
+gradle
+gradle.properties
+gradlew
+gradlew.bat
+local.properties
+memetastic.iml
+settings.gradle

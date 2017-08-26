@@ -10,7 +10,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import me.writeily.AlphanumericPinActivity;
 import me.writeily.PinActivity;
@@ -123,7 +123,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        ActionBarActivity activity = (ActionBarActivity) mCallback;
+        AppCompatActivity activity = (AppCompatActivity) mCallback;
 
         if (activity.getString(R.string.pref_theme_key).equals(key)) {
             mCallback.onThemeChanged();
