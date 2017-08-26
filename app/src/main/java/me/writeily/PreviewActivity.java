@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import me.writeily.model.Constants;
 /**
  * Created by jeff on 2014-04-13.
  */
-public class PreviewActivity extends ActionBarActivity {
+public class PreviewActivity extends AppCompatActivity {
 
     private WebView previewWebView;
     private String markdownRaw;

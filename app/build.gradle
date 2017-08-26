@@ -1,46 +1,106 @@
 apply plugin: 'com.android.application'
 
+ext {
+    version_sdk = [
+            compileSdk: 26,
+            buildTools: "26.0.1",
+            minSdk    : 16,
+            //targetSdk: compileSdk,
+    ]
+    version_sdk.targetSdk = version_sdk.compileSdk
+    version_lib = [
+            appcompat  : "26.0.0",
+            butterknife: "8.7.0",
+    ]
+}
+
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion version_sdk.compileSdk
+    buildToolsVersion version_sdk.buildTools
 
     defaultConfig {
-        applicationId "me.writeily"
-        minSdkVersion 16
-        targetSdkVersion 22
-    }
+        minSdkVersion version_sdk.minSdk
+        targetSdkVersion version_sdk.targetSdk
 
+        versionCode 33
+        versionName "1.2.3"
+
+        applicationId "me.writeily"
+
+        buildConfigField "boolean", "IS_TEST_BUILD", "false"
+        buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
+        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        flavorDefault {
+        }
+        flavorGplay {
+            buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
+        }
+        flavorTest {
+            applicationId "me.writeily.test"
+            versionCode = Integer.parseInt(new Date().format('yyMMdd'))
+            versionName = new Date().format('yyMMdd')
+            buildConfigField "boolean", "IS_TEST_BUILD", "true"
+        }
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 }
 
-repositories {
-    maven {
-        url "https://s3.amazonaws.com/repo.commonsware.com"
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
+static String[] getUsedAndroidLanguages() {
+    Set<String> langs = new HashSet<>()
+    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
+        final foldername = it.name
+        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates")) {
+            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
+                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
+                    langs.add(foldername.replace("values-", ""))
+
+                }
+            }
+        }
     }
+    return langs.toArray(new String[langs.size()])
 }
 
 dependencies {
-    compile 'com.commonsware.cwac:anddown:0.3.0'
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:recyclerview-v7:21.0.3'
-    compile 'com.android.support:palette-v7:+'
-    compile 'com.getbase:floatingactionbutton:1.3.0'
-    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
-    compile 'commons-io:commons-io:2.4'
-    compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.jakewharton:butterknife:5.1.2'
+    // Android standard libs
+    compile "com.android.support:appcompat-v7:${version_lib.appcompat}"
+    compile "com.android.support:design:${version_lib.appcompat}"
+    compile "com.android.support:support-v4:${version_lib.appcompat}"
+    compile "com.android.support:recyclerview-v7:${version_lib.appcompat}"
+    compile "com.android.support:palette-v7:${version_lib.appcompat}"
 
+    // UI libs
+    compile 'com.commonsware.cwac:anddown:0.4.0'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+
+    // Tool libraries
+    compile "com.jakewharton:butterknife:${version_lib.butterknife}"
+    compile 'commons-io:commons-io:2.5'
+    compile 'com.google.code.gson:gson:2.8.1'
+
+    // Testing
     testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:1.7.0'
-    testCompile 'org.mockito:mockito-all:1.8.4'
-    testCompile('org.robolectric:robolectric:3.0-rc2') {
+    testCompile 'org.assertj:assertj-core:3.8.0'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile('org.robolectric:robolectric:3.4.2') {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-
     }
+
+    // Processors
+    annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
 }
