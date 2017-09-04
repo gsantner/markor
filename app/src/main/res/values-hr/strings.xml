@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <string name="action_settings">Postavke akcija</string>
-  <string name="open_drawer">Otvori ladicu</string>
-  <string name="close_drawer">Zatvori ladicu</string>
-  <string name="notes">Bilješka</string>
-  <string name="archive">Arhiva</string>
-  <string name="new_note">Nova bilješka</string>
-  <string name="theme_light">Svijetla</string>
+    <string name="theme_light">Svijetla</string>
   <string name="theme_dark">Tamna</string>
   <string name="delete">Izbriši</string>
   <string name="rename">Preimenuj</string>
-  <string name="star">Favorit</string>
-  <string name="starred">Favoriti</string>
-  <string name="restore">Vrati</string>
-  <string name="wr_import">Unesi</string>
-  <string name="unstar">Odznači favorit</string>
-  <string name="confirm_delete">Potvrdi brisanje</string>
+    <string name="confirm_delete">Potvrdi brisanje</string>
   <string name="confirm_overwrite">Datoteka već postoji, prebrisati?</string>
   <string name="incorrect_pin_text">Pogrešan PIN</string>
   <string name="title">Naslov</string>
-  <string name="untitled">Bez naslova</string>
-  <string name="empty_directory">Prazna mapa</string>
+    <string name="empty_directory">Prazna mapa</string>
   <string name="navigate_up_folder">Povratak na prethodnu mapu</string>
   <string name="folder_name_hint">Unesite naziv mape</string>
   <string name="new_name_hint">Unesite novi naziv</string>
@@ -31,40 +20,25 @@
   <string name="select_folder_move">Odabir mape</string>
   <string name="select_root_folder">Odaberi korjensku mapu</string>
 
-  <string name="empty_notes_list_hint">Kada stvorite novu bilješku\npojavit će se ovdje</string>
-  <string name="empty_archives_hint">Kada arhivirate bilješku\npojavit će se ovdje</string>
-  <string name="empty_starred_hint">Kada dodate bilješku u omiljene \npojavit će se ovdje</string>
-  <string name="search_hint">Pretraži bilješke</string>
+    <string name="search_hint">Pretraži bilješke</string>
   <string name="share_string">Podjeli sa&#8230;</string>
   <string name="share">Podjeli</string>
   <string name="search">Traži</string>
   <string name="preview">Pregled</string>
-  <string name="edit">Uredi</string>
-  <string name="app_settings">Postavke aplikacije</string>
+    <string name="app_settings">Postavke aplikacije</string>
   <string name="editor_settings">Postavke uređivača</string>
-  <string name="social">Društveno</string>
-  <string name="meta">Meta</string>
-  <string name="folders">Mape</string>
+    <string name="folders">Mape</string>
   <string name="files">Datoteka</string>
 
-  <string name="email_header">Povratne informacije o Writeily</string>
-
-  <!-- Preferences -->
+    <!-- Preferences -->
   <string name="pref_remember_directory">Zapamti posljednju mapu kod novog pokretanja</string>
   <string name="pref_font_choice">Font uređivača bilješki</string>
   <string name="pref_theme">Tema</string>
-  <string name="pref_rate_writeily">Ocjeni Writeily na Google Play</string>
-  <string name="pref_donate_writeily">Doniraj</string>
-  <string name="pref_preview_first">Kod otvaranja bilješke otvori prvo preglednik</string>
-  <string name="translators_title">Prevoditelji</string>
-  <string name="pref_about_dialog_title">O Writeily</string>
-  <string name="pref_attribution_dialog_title">Pripisivanje</string>
-  <string name="pref_twitter">Prati Writeily na Twitteru</string>
-  <string name="pref_email">Email podrška</string>
-  <string name="share_text">Običan tekst</string>
+    <string name="pref_preview_first">Kod otvaranja bilješke otvori prvo preglednik</string>
+    <string name="pref_about_dialog_title">O Marowni</string>
+    <string name="share_text">Običan tekst</string>
   <string name="share_image">Slika</string>
-  <string name="share_as">Dijeli kao&#8230;</string>
-  <string name="pref_font_size">Veličina teksta</string>
+    <string name="pref_font_size">Veličina teksta</string>
   <string name="pref_lock_settings">Zaključaj</string>
   <string name="pref_pin_lock">Zaključaj PIN-om</string>
   <string name="pref_alpha_pin_lock">Zaključaj lozinkom</string>
@@ -78,9 +52,8 @@
   <string name="pref_smart_shortcuts_summary">Ako je tekst označen, {}, [] te () ogradit će označeno</string>
   <string name="pin_title">Unesite PIN</string>
   <string name="passphrase_title">Unesite lozinku</string>
-  <string name="pin_go">Kreni</string>
 
-  <!-- Font Size -->
+    <!-- Font Size -->
   <string name="font_size_normal">Normalno</string>
   <string name="font_size_large">Veliko</string>
   <string name="font_size_small">Malo</string>
@@ -104,7 +77,7 @@
 
   <!-- About screen -->
   <string name="about_version_title">Verzija</string>
-  <string name="about_source_title">Writeily je otvorenog koda na GitHubu</string>
+  <string name="about_source_title">Marowni je otvorenog koda na GitHubu</string>
   <string name="about_developer_section">Razvojni programer</string>
   <string name="about_contributors_section">Suradnici</string>
   <string name="about_libraries_section">Biblioteke</string>
@@ -117,8 +90,7 @@
   <string name="about_french">Francuski</string>
   <string name="about_chinese_simplified">Kineski (pojednostavljen)</string>
   <string name="about_croatian">Hrvatski</string>
-  <string name="about_brazilian_portuguese">Brazilian Portuguese</string>
-  <string name="about_original_section">Original creator</string>
+    <string name="about_original_section">Original creator</string>
   <string name="tap_website">Otvori web stranicu</string>
   <string name="tap_github">Otvori GitHub profil</string>
 

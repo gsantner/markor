@@ -2,23 +2,12 @@
 <resources>
 
     <string name="action_settings">Ustawienia</string>
-    <string name="open_drawer">Otwórz listę aplikacji</string>
-    <string name="close_drawer">Zamknij listę aplikacji</string>
-    <string name="notes">Notatki</string>
-    <string name="archive">Archiwum</string>
-    <string name="new_note">Nowa notatka</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
     <string name="delete">Usuń</string>
-    <string name="star">Oznacz gwiazdką</string>
-    <string name="starred">Oznaczone gwiazdką</string>
-    <string name="restore">Przywróć</string>
-    <string name="wr_import">Wczytaj</string>
-    <string name="unstar">Usuń gwiazdkę</string>
 
     <string name="incorrect_pin_text">Niewłaściwy kod PIN</string>
     <string name="title">Tytuł</string>
-    <string name="untitled">Bez tytułu</string>
     <string name="empty_directory">Ten katalog jest pusty</string>
     <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
     <string name="folder_name_hint">Wpisz nazwę folderu</string>
@@ -29,19 +18,13 @@
     <string name="select_folder_move">Wybierz folder</string>
     <string name="select_root_folder">Wybierz folder</string>
 
-    <string name="empty_notes_list_hint">Gdy stworzysz nową notatkę,\nto pojawi się ona w tym miejscu</string>
-    <string name="empty_archives_hint">Gdy zarchiwizujesz notatkę,\nto pojawi się ona w tym miejscu</string>
-    <string name="empty_starred_hint">Gdy oznaczysz notatkę gwiazdką,\nto pojawi się ona w tym miejscu</string>
     <string name="search_hint">Szukaj notatek</string>
     <string name="share_string">Udostępnij&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>
-    <string name="edit">Edycja</string>
     <string name="app_settings">Ustawienia aplikacji</string>
     <string name="editor_settings">Ustawienia Editor</string>
-    <string name="social">Społecznościowe</string>
-    <string name="meta">Meta</string>
     <string name="folders">Teczki</string>
     <string name="files">Files</string>
     <string name="rename">Rename</string>
@@ -49,23 +32,14 @@
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
-    <string name="email_header">Opinie o Writeily</string>
-
     <!-- Preferences -->
     <string name="pref_remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
     <string name="pref_font_choice">Czcionka edytora notatek</string>
     <string name="pref_theme">Motyw</string>
-    <string name="pref_rate_writeily">Oceń Writeily w Google Play</string>
-    <string name="pref_donate_writeily">Podarować</string>
     <string name="pref_preview_first">Preview first when opening notes</string>
-    <string name="translators_title">Translator</string>
-    <string name="pref_about_dialog_title">O Writeily</string>
-    <string name="pref_attribution_dialog_title">Atrybucji</string>
-    <string name="pref_twitter">Śledź Writeily na Twitterze</string>
-    <string name="pref_email">Wsparcie przez e-mail</string>
+    <string name="pref_about_dialog_title">O Marowni</string>
     <string name="share_text">Tekst</string>
     <string name="share_image">Obraz</string>
-    <string name="share_as">Udostępnij jako&#8230;</string>
     <string name="pref_font_size">Rozmiar czcionki</string>
     <string name="pref_pin_lock">Blokada kodem PIN</string>
     <string name="pref_show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
@@ -73,7 +47,6 @@
     <string name="pref_highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżanie</string>
     <string name="pref_highlighting_delay_summary">Wyższe wartości są łatwiejsze w akumulatorze</string>
     <string name="pin_title">Wpisz swój kod PIN</string>
-    <string name="pin_go">Przejdź</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
     <string name="new_name_hint">Enter new name</string>
@@ -103,7 +76,7 @@
 
     <!-- About screen -->
     <string name="about_version_title">Wersja</string>
-    <string name="about_source_title">Writeily is open source on GitHub</string>
+    <string name="about_source_title">Marowni is open source on GitHub</string>
     <string name="about_developer_section">Programista</string>
     <string name="about_contributors_section">Contributors</string>
     <string name="about_libraries_section">Biblioteki</string>
@@ -116,7 +89,6 @@
     <string name="about_chinese_simplified">Chiński (uproszczony)</string>
     <string name="about_italian">Włoski</string>
     <string name="about_croatian">Chorwacki</string>
-    <string name="about_brazilian_portuguese">Brazylijska odmiana języka portugalskiego</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
     <string name="pref_root_directory_title">Select storage folder</string>

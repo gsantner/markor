@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Marowni</string>
+    <string name="app_version" translatable="false">1.3.2</string>
+    <string name="plus" translatable="false">+</string>
+
+    <string name="pref_lock_type_key" translatable="false">pref_lock_type_key</string>
+    <string name="pref_preview_first_key" translatable="false">pref_edit_first_key</string>
+    <string name="pref_show_markdown_shortcuts_key" translatable="false">pref_show_markdown_shortcuts_key</string>
+    <string name="pref_highlighting_activated_key" translatable="false">pref_highlighting_activated_key</string>
+    <string name="pref_highlighting_delay_key" translatable="false">pref_highlighting_delay_key</string>
+    <string name="pref_remember_directory_key" translatable="false">pref_remember_directory_key</string>
+    <string name="pref_last_open_directory" translatable="false">pref_last_open_directory</string>
+    <string name="pref_root_directory" translatable="false">pref_root_directory</string>
+    <string name="pref_font_choice_key" translatable="false">pref_font_choice</string>
+    <string name="pref_theme_key" translatable="false">pref_theme</string>
+    <string name="pref_font_size_key" translatable="false">pref_font_size_key</string>
+    <string name="pref_about_key" translatable="false">pref_about</string>
+    <string name="pref_smart_shortcuts_key" translatable="false">pref_smart_shortcuts_key</string>
+    <string name="pref_render_rtl_key" translatable="false">pref_render_rtl_key</string>
+
+    <string name="share_html" translatable="false">HTML</string>
+    <string name="share_html_source" translatable="false">HTML Source</string>
+
+    <!-- About Screen -->
+    <string name="main_developer" translatable="false">Pedro Lafuente</string>
+    <string name="main_developer_url" translatable="false">https://github.com/plafue</string>
+    <string name="original_creator" translatable="false">Jeff Martin</string>
+    <string name="original_creator_url" translatable="false">http://jeffreymartin.ca</string>
+    <string name="contributor_minty123" translatable="false">Minty123</string>
+    <string name="contributor_minty123_url" translatable="false">https://github.com/Minty123</string>
+    <string name="contributor_davydsantos" translatable="false">davydsantos</string>
+    <string name="contributor_davydsantos_url" translatable="false">https://github.com/davydsantos</string>
+    <string name="contributor_patcon" translatable="false">patcon</string>
+    <string name="contributor_patcon_url" translatable="false">https://github.com/patcon</string>
+    <string name="contributor_tommyalex" translatable="false">iptux (Tommy Alex)</string>
+    <string name="contributor_tommyalex_url" translatable="false">https://github.com/iptux</string>
+
+    <string name="translators_korean" translatable="false">Halcyonera</string>
+    <string name="translators_german" translatable="false">Minty123</string>
+    <string name="translators_polish" translatable="false">Krizoman</string>
+    <string name="translators_french" translatable="false">Adam Coquery, Tristan Stanic</string>
+    <string name="translators_spanish" translatable="false">Carlos Mares</string>
+    <string name="translators_chinese_simplified" translatable="false">Tommy Alex</string>
+    <string name="translators_italian" translatable="false">Claudio Arseni</string>
+    <string name="translators_croatian" translatable="false">d-ban</string>
+
+    <string name="library_anddown" translatable="false">CommonsWare AndDown 0.2.0</string>
+    <string name="licence_apache20" translatable="false">Apache License v2.0</string>
+
+    <string name="source_url" translatable="false">https://github.com/plafue/marowni-pro</string>
+    <string name="pref_no_lock_value" translatable="false">0</string>
+    <string name="pref_pin_lock_value" translatable="false">1</string>
+    <string name="pref_alpha_pin_lock_value" translatable="false">2</string>
+
+
+    <string-array name="fonts_array" translatable="false">
+        <item>Roboto Light (Default)</item>
+        <item>Roboto Condensed</item>
+        <item>Roboto Regular</item>
+        <item>Roboto Bold</item>
+        <item>Monospace</item>
+    </string-array>
+
+    <string-array name="font_size_array" translatable="false">
+        <item>21</item>
+        <item>25</item>
+        <item>17</item>
+    </string-array>
+
+    <string-array name="possibleLocksValues" translatable="false">
+        <item>@string/pref_no_lock_value</item>
+        <item>@string/pref_pin_lock_value</item>
+        <item>@string/pref_alpha_pin_lock_value</item>
+    </string-array>
+
+    <string-array name="fonts_type_array" translatable="false">
+        <item>sans-serif-light</item>
+        <item>sans-serif-condensed</item>
+        <item>sans-serif-regular</item>
+        <item>sans-serif-bold</item>
+        <item>monospace</item>
+    </string-array>
+</resources>

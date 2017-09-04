@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.github.gsantner.marowni"
-          android:versionCode="8"
-          android:versionName="1.3.2">
+          package="io.github.gsantner.marowni">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -15,12 +12,12 @@
         android:theme="@style/AppTheme.Light">
 
         <activity
-            android:name="io.github.gsantner.marowni.MainActivity"
+            android:name="io.github.gsantner.marowni.activity.MainActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.NoteActivity"
+            android:name="io.github.gsantner.marowni.activity.NoteActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
@@ -63,29 +60,29 @@
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.PreviewActivity"
+            android:name="io.github.gsantner.marowni.activity.PreviewActivity"
             android:label="@string/preview">
         </activity>
 
         <activity
             android:name="io.github.gsantner.marowni.settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:parentActivityName="io.github.gsantner.marowni.MainActivity"
+            android:parentActivityName="io.github.gsantner.marowni.activity.MainActivity"
             android:theme="@style/AppTheme.Light">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.PinActivity"
+            android:name="io.github.gsantner.marowni.activity.PinActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.AlphanumericPinActivity"
+            android:name="io.github.gsantner.marowni.activity.AlphanumericPinActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.PromptPinActivity"
+            android:name="io.github.gsantner.marowni.activity.PromptPinActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -99,13 +96,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="io.github.gsantner.marowni.widget.WriteilyWidgetProvider">
+        <receiver android:name="io.github.gsantner.marowni.widget.MarowniWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/writeily_widget"/>
+                android:resource="@xml/marowni_widget"/>
         </receiver>
 
         <service
