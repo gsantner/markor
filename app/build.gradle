@@ -104,3 +104,19 @@ dependencies {
     // Processors
     annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
 }
+
+
+final String RAW_DIR = "app/src/main/res/raw"
+final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "LICENSE.txt", "CHANGELOG.md", "CONTRIBUTORS.md"]
+
+// Called before building
+task copyRepoFiles(type: Copy) {
+
+    // Copy files over to raw dir
+    from rootProject.files(ROOT_TO_RAW_COPYFILES)
+    into RAW_DIR.replaceFirst("app/", "")
+    rename { String fileName ->
+        fileName.replace(fileName, fileName.toLowerCase())
+    }
+}
+tasks.copyRepoFiles.execute()

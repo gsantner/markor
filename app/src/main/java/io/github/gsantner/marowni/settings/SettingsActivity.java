@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
 
-public class SettingsActivity extends AppCompatActivity implements SettingsFragment.WriteilySettingsListener {
+public class SettingsActivity extends AppCompatActivity implements SettingsFragment.MarowniSettingsListener {
 
     SettingsFragment settingsFragment;
 

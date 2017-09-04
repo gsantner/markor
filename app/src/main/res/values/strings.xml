@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Settings</string>
-    <string name="open_drawer">Open Drawer</string>
-    <string name="close_drawer">Close Drawer</string>
-    <string name="notes">Notes</string>
-    <string name="archive">Archives</string>
-    <string name="new_note">New note</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="delete">Delete</string>
     <string name="rename">Rename</string>
-    <string name="star">Star</string>
-    <string name="starred">Starred</string>
-    <string name="restore">Restore</string>
-    <string name="wr_import">Import</string>
-    <string name="unstar">Unstar</string>
     <string name="confirm_delete">Confirm Delete</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
     <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>
-    <string name="untitled">Untitled</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
     <string name="folder_name_hint">Enter the name of your folder</string>
@@ -31,39 +20,24 @@
     <string name="select_folder_move">Select folder</string>
     <string name="select_root_folder">Select folder</string>
 
-    <string name="empty_notes_list_hint">When you create a new note,\nthis is where it will show up</string>
-    <string name="empty_archives_hint">When you archive a note, \nthis is where it will show up</string>
-    <string name="empty_starred_hint">When you star a note,\nthis is where it will show up</string>
     <string name="search_hint">Search notes</string>
     <string name="share_string">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="preview">Preview</string>
-    <string name="edit">Edit</string>
     <string name="app_settings">App Settings</string>
     <string name="editor_settings">Editor Settings</string>
-    <string name="social">Social</string>
-    <string name="meta">Meta</string>
     <string name="folders">Folders</string>
     <string name="files">Files</string>
-
-    <string name="email_header">Feedback about Writeily</string>
 
     <!-- Preferences -->
     <string name="pref_remember_directory">Remember last folder location on startup</string>
     <string name="pref_font_choice">Note Editor Font</string>
     <string name="pref_theme">Theme</string>
-    <string name="pref_rate_writeily">Rate Writeily on Google Play</string>
-    <string name="pref_donate_writeily">Donate</string>
     <string name="pref_preview_first">Preview first when opening notes</string>
-    <string name="translators_title">Translators</string>
-    <string name="pref_about_dialog_title">About Writeily</string>
-    <string name="pref_attribution_dialog_title">Attributions</string>
-    <string name="pref_twitter">Follow Writeily on Twitter</string>
-    <string name="pref_email">Email Support</string>
+    <string name="pref_about_dialog_title">About Marowni</string>
     <string name="share_text">Plain Text</string>
     <string name="share_image">Image</string>
-    <string name="share_as">Share as&#8230;</string>
     <string name="pref_font_size">Font Size</string>
     <string name="pref_lock_settings">Lock</string>
     <string name="pref_pin_lock">Pin Lock</string>
@@ -78,7 +52,6 @@
     <string name="pref_render_rtl">Render for right-to-left languages</string>
     <string name="pin_title">Enter your pin</string>
     <string name="passphrase_title">Enter your passphrase</string>
-    <string name="pin_go">Go</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normal</string>
@@ -104,7 +77,7 @@
 
     <!-- About screen -->
     <string name="about_version_title">Version</string>
-    <string name="about_source_title">Writeily is Open Source on GitHub</string>
+    <string name="about_source_title">Marowni is Open Source on GitHub</string>
     <string name="about_developer_section">Developer</string>
     <string name="about_contributors_section">Contributors</string>
     <string name="about_original_section">Original creator</string>
@@ -119,7 +92,6 @@
     <string name="about_chinese_simplified">Chinese (Simplified)</string>
     <string name="about_italian">Italian</string>
     <string name="about_croatian">Croatian</string>
-    <string name="about_brazilian_portuguese">Brazilian Portuguese</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
     <string name="pref_root_directory_title">Select storage folder</string>

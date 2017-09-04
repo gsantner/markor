@@ -16,29 +16,13 @@ Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writ
 </a> -->
 </div></br>
 
-
+<!--
 ## Description
-* Ad-Free and no watermarks 
-* Allows you to create memes from
-  * Templates included in the app
-  * Camera pictures
-  * Gallery pictures
-  * Pictures shared into the app
-* Customize meme
-  * Top & bottom caption
-  * Font & border text color
-  * Text size and capitalization
-  * Font
-* Show saved memes
-* Create favorites
-* Share into any app accepting pictures
-* Share any picture into marowni to create meme
-* Change amount of displayed pictures per row
-* Works completly offline, no connection required
+-->
 
 ### Privacy<a name="privacy"></a>
-The app doesn't use your int ernet connection, it's working completly offline. It doesn't share any personal information with other apps or any web-server.
-Custom images can be added via camera and gallery. If the user decides to save a meme image it will be stored locally in the device public pictures folder.
+The app doesn't use your internet connection, it's working completly offline. It doesn't share any personal information with other apps or any web-server.
+If the user decides to save a document it will be stored locally in the device public documents folder or a custom folder.
 
 ## Contributions
 The project is always open for co ntributions and accepts pull requests.
@@ -52,7 +36,7 @@ Translations can be contributed on GitHub or via [E-Mail](https://gsantner.githu
 * App on F-Droid: [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/io.github.gsantner.marowni.txt) | [Page](https://f-droid.org/packages/io.github.gsantner.marowni/) | [Wiki](https://f-droid.org/wiki/page/io.github.gsantner.marowni) | [Build log](https://f-droid.org/wiki/page/io.github.gsantner.marowni/lastbuild)
  
 ## Licensing
-The project is licensed MIT. It is based on writeily and writeily-pro.  
+The project is licensed MIT. It is based on unmaintained projects writeily and writeily-pro.  
 Copyright (c) 2014-2016 Jeff Martin, Pedro Lafuente and writeily contributors  
 Copyright (c) 2017 Gregor Santner and marowni contributors  
 

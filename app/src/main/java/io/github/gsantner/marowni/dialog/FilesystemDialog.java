@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.adapter.FileAdapter;
 import io.github.gsantner.marowni.model.Constants;
-import io.github.gsantner.marowni.model.WriteilySingleton;
+import io.github.gsantner.marowni.model.MarowniSingleton;
 
 public class FilesystemDialog extends DialogFragment {
 
@@ -181,7 +181,7 @@ public class FilesystemDialog extends DialogFragment {
 
         try {
             // Load from SD card
-            files = WriteilySingleton.getInstance().addFilesFromDirectory(directory, files);
+            files = MarowniSingleton.getInstance().addFilesFromDirectory(directory, files);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,7 +200,7 @@ public class FilesystemDialog extends DialogFragment {
 
         try {
             // Load from SD card
-            files = WriteilySingleton.getInstance().addDirectories(directory, files);
+            files = MarowniSingleton.getInstance().addDirectories(directory, files);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -228,16 +228,16 @@ public class FilesystemDialog extends DialogFragment {
     }
 
     private void checkDirectoryStatus() {
-        WriteilySingleton writeilySingleton = WriteilySingleton.getInstance();
+        MarowniSingleton marowniSingleton = MarowniSingleton.getInstance();
 
-        if (writeilySingleton.isRootDir(currentDir, rootDir)) {
+        if (marowniSingleton.isRootDir(currentDir, rootDir)) {
             previousDirButton.setVisibility(View.GONE);
         } else {
             previousDirButton.setVisibility(View.VISIBLE);
         }
 
         // Check if dir is empty
-        if (writeilySingleton.isDirectoryEmpty(files)) {
+        if (marowniSingleton.isDirectoryEmpty(files)) {
             emptyFolderTextView.setVisibility(View.VISIBLE);
             emptyFolderTextView.setText(getString(R.string.empty_directory));
         } else {

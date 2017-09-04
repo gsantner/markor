@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Opções</string>
-    <string name="open_drawer">Abrir Gaveta</string>
-    <string name="close_drawer">Fechar Gaveta</string>
-    <string name="notes">Notas</string>
-    <string name="archive">Arquivos</string>
-    <string name="new_note">Nova Nota</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Escuro</string>
     <string name="delete">Deletar</string>
     <string name="rename">Renomear</string>
-    <string name="star">Favorito</string>
-    <string name="starred">Favoritos</string>
-    <string name="restore">Restaurar</string>
-    <string name="wr_import">Importar</string>
-    <string name="unstar">Desmarcar Favorito</string>
     <string name="confirm_delete">Confirmar deletar?</string>
     <string name="confirm_overwrite">Aquivo já existente, sobrescrever?</string>
     <string name="incorrect_pin_text">Pin incorreto</string>
     <string name="title">Título</string>
-    <string name="untitled">Sem título</string>
     <string name="empty_directory">Esta pasta está vazia</string>
     <string name="navigate_up_folder">Voltar para a pasta anterior</string>
     <string name="folder_name_hint">Digite o nome da pasta</string>
@@ -31,39 +20,24 @@
     <string name="select_folder_move">Selecionar pasta</string>
     <string name="select_root_folder">Selecionar pasta</string>
 
-    <string name="empty_notes_list_hint">Quando você criar uma nova nota,\nela vai aparecer aqui</string>
-    <string name="empty_archives_hint">Quando você arquivar uma nova, \nela vai aparecer aqui</string>
-    <string name="empty_starred_hint">Quando você favoritar uma nota,\nela vai aparecer aqui</string>
     <string name="search_hint">Buscar notas</string>
     <string name="share_string">Compartilhar via&#8230;</string>
     <string name="share">Compartilhar</string>
     <string name="search">Buscar</string>
     <string name="preview">Visualizar</string>
-    <string name="edit">Editar</string>
     <string name="app_settings">Opções do Aplicativo</string>
     <string name="editor_settings">Opções do Editor</string>
-    <string name="social">Social</string>
-    <string name="meta">Meta</string>
     <string name="folders">Pastas</string>
     <string name="files">Arquivos</string>
-
-    <string name="email_header">Dê sua opinião sobre o Writeily</string>
 
     <!-- Preferences -->
     <string name="pref_remember_directory">Abrir a última pasta quando iniciar</string>
     <string name="pref_font_choice">Fonte do Editor de Notas</string>
     <string name="pref_theme">Tema</string>
-    <string name="pref_rate_writeily">Dê sua nota para o Writeily no Google Play</string>
-    <string name="pref_donate_writeily">Faça uma doação</string>
     <string name="pref_preview_first">Visualizar </string>
-    <string name="translators_title">Tradutores</string>
-    <string name="pref_about_dialog_title">Sobre o Writeily</string>
-    <string name="pref_attribution_dialog_title">Agradecimentos</string>
-    <string name="pref_twitter">Siga o Writeily no Twitter</string>
-    <string name="pref_email">Suporte por email</string>
+    <string name="pref_about_dialog_title">Sobre o Marowni</string>
     <string name="share_text">Texto Puro</string>
     <string name="share_image">Imagem</string>
-    <string name="share_as">Compartilhar como&#8230;</string>
     <string name="pref_font_size">Tamanho da fonte</string>
     <string name="pref_lock_settings">Bloquear</string>
     <string name="pref_pin_lock">Pin</string>
@@ -77,7 +51,6 @@
     <string name="pref_smart_shortcuts_summary">Se você selecionar um texto, {}, [] e () vão aparecer nas margens</string>
     <string name="pin_title">Digite o seu pin</string>
     <string name="passphrase_title">Digite sua senha</string>
-    <string name="pin_go">Seguir</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normal</string>
@@ -108,7 +81,6 @@
     <string name="about_contributors_section">Colaboradores</string>
     <string name="about_libraries_section">Bibliotecas</string>
     <string name="about_translators_section">Tradutores</string>
-    <string name="about_brazilian_portuguese">Português brasileiro</string>
     <string name="about_korean">Coreano</string>
     <string name="about_german">Alemão</string>
     <string name="about_polish">Polonês</string>

@@ -81,7 +81,7 @@ public class WidgetConfigure extends Activity {
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
             setResult(RESULT_OK, resultValue);
 
-            Intent i = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this, WriteilyWidgetProvider.class);
+            Intent i = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this, MarowniWidgetProvider.class);
             i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{mAppWidgetId});
             sendBroadcast(i);
 

@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Paramètres</string>
-    <string name="open_drawer">Ouvrir Tiroir</string>
-    <string name="close_drawer">Fermer Tiroir</string>
-    <string name="notes">Notes</string>
-    <string name="archive">Archives</string>
-    <string name="new_note">Nouvelle note</string>
     <string name="theme_light">Clair</string>
     <string name="theme_dark">Foncé</string>
     <string name="delete">Effacer</string>
     <string name="rename">Renommer</string>
-    <string name="star">Marquer Favori</string>
-    <string name="starred">Favoris</string>
-    <string name="restore">Restaurer</string>
-    <string name="wr_import">Importer</string>
-    <string name="unstar">Supprimer favori</string>
     <string name="confirm_delete">Confirmer la suppression</string>
     <string name="confirm_overwrite">Le fichier existe déjà, écraser ?</string>
     <string name="incorrect_pin_text">Code PIN incorrecte</string>
     <string name="title">Titre</string>
-    <string name="untitled">Sans titre</string>
     <string name="empty_directory">Ce dossier est vide</string>
     <string name="navigate_up_folder">Retour au dossier précédent</string>
     <string name="folder_name_hint">Entrez un nom de dossier</string>
@@ -31,39 +20,24 @@
     <string name="select_folder_move">Sélectionner Dossier</string>
     <string name="select_root_folder">Sélectionner Dossier</string>
 
-    <string name="empty_notes_list_hint">Quand vous créez une note,\nc\'est ici qu\'elle apparaitra</string>
-    <string name="empty_archives_hint">Quand vous archivez une note,\nc\'est ici qu\'elle apparaitra</string>
-    <string name="empty_starred_hint">Quand vous marquez une note comme favorite,\nc\'est ici qu\'elle apparaitra</string>
     <string name="search_hint">Chercher notes</string>
     <string name="share_string">Partager avec&#8230;</string>
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
     <string name="preview">Aperçu</string>
-    <string name="edit">Éditer</string>
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="editor_settings">Paramètres de l\'éditeur</string>
-    <string name="social">Social</string>
-    <string name="meta">Meta</string>
     <string name="folders">Dossiers</string>
     <string name="files">Fichier</string>
-
-    <string name="email_header">Opinion sur Writeily</string>
 
     <!-- Preferences -->
     <string name="pref_remember_directory">Rappeler le plus récent dossier au démarrage</string>
     <string name="pref_font_choice">Police de l\'éditeur</string>
     <string name="pref_theme">Thème</string>
-    <string name="pref_rate_writeily">Noter Writeily sur Google Play</string>
-    <string name="pref_donate_writeily">Faire un don</string>
     <string name="pref_preview_first">Aperçu lors de l\'ouverture des notes</string>
-    <string name="translators_title">Traducteurs</string>
-    <string name="pref_about_dialog_title">A propos de Writeily</string>
-    <string name="pref_attribution_dialog_title">Attributions</string>
-    <string name="pref_twitter">Suivre Writeily sur Twitter</string>
-    <string name="pref_email">Email Support Technique</string>
+    <string name="pref_about_dialog_title">A propos de Marowni</string>
     <string name="share_text">Text Brut</string>
     <string name="share_image">Image</string>
-    <string name="share_as">Partager en tant que&#8230;</string>
     <string name="pref_font_size">Taille Police</string>
     <string name="pref_lock_settings">Verrouiller</string>
     <string name="pref_pin_lock">Code PIN</string>
@@ -77,7 +51,6 @@
     <string name="pref_smart_shortcuts_summary">Si du texte est selectionné, utilisez {}, [] ou () entourera la selection</string>
     <string name="pin_title">Entrez votre PIN</string>
     <string name="passphrase_title">Entrer votre mot de passe</string>
-    <string name="pin_go">Accepter</string>
 
     <!-- Font Size -->
     <string name="font_size_normal">Normal</string>
@@ -118,7 +91,6 @@
     <string name="about_chinese_simplified">Chinois (simplifié)</string>
     <string name="about_italian">Italien</string>
     <string name="about_croatian">Croate</string>
-    <string name="about_brazilian_portuguese">Portugais brésilien</string>
     <string name="tap_website">Taper pour visiter site web</string>
     <string name="tap_github">Taper pour visiter le profil sur GitHub</string>
     <string name="pref_root_directory_title">Selectionner le dossier de stockage</string>

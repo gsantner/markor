@@ -12,15 +12,15 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-import io.github.gsantner.marowni.AlphanumericPinActivity;
-import io.github.gsantner.marowni.PinActivity;
+import io.github.gsantner.marowni.activity.AlphanumericPinActivity;
+import io.github.gsantner.marowni.activity.PinActivity;
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.dialog.FilesystemDialog;
 import io.github.gsantner.marowni.model.Constants;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    WriteilySettingsListener mCallback;
+    MarowniSettingsListener mCallback;
     ListPreference pinPreference;
     Context context;
 
@@ -134,7 +134,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         // Make sure the container has implemented the callback interface
         try {
-            mCallback = (WriteilySettingsListener) activity;
+            mCallback = (MarowniSettingsListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + "must implement OnThemeChangedListener");
@@ -142,7 +142,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     // Needed for callback to container activity
-    public interface WriteilySettingsListener {
+    public interface MarowniSettingsListener {
         public void onThemeChanged();
 
         public void onAboutClicked();

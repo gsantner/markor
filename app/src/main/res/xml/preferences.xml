@@ -22,7 +22,6 @@
             android:title="@string/pref_preview_first" />
 
         <ListPreference
-            android:id="@+id/pref_lock_type"
             android:title="@string/pref_lock_settings"
             android:key="@string/pref_lock_type_key"
             android:defaultValue="0"
@@ -30,7 +29,6 @@
             android:entryValues="@array/possibleLocksValues"/>
 
         <Preference
-            android:id="@+id/pref_root_directory"
             android:key="@string/pref_root_directory"
             android:title="@string/pref_root_directory_title"/>
 
@@ -84,50 +82,5 @@
 		    android:title="@string/pref_render_rtl" />
 
     </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/social">
-        <Preference
-            android:key="@string/pref_twitter_key"
-            android:title="@string/pref_twitter">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/twitter_url" />
-        </Preference>
-        <Preference
-            android:key="@string/pref_email_key"
-            android:title="@string/pref_email">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/writeily_email">
-                <extra
-                    android:name="android.intent.extra.SUBJECT"
-                    android:value="@string/email_header" />
-            </intent>
-        </Preference>
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/meta">
-        <Preference
-            android:key="@string/pref_rate_writeily_key"
-            android:title="@string/pref_rate_writeily">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/writeily_url" />
-        </Preference>
-
-        <Preference
-            android:key="@string/pref_donate_writeily_key"
-            android:title="@string/pref_donate_writeily">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/writeily_donate_url" />
-        </Preference>
-
-        <Preference
-            android:key="@string/pref_about_key"
-            android:title="@string/pref_about_dialog_title" />
-
-    </PreferenceCategory>
-
 
 </PreferenceScreen>

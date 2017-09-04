@@ -45,7 +45,7 @@ public class Constants {
     public static final String ROOT_DIR = "filesystem_root_dir";
 
     // ----- DEFAULT FOLDERS -----
-    public static final String WRITEILY_FOLDER = "/writeily/";
+    public static final String WRITEILY_FOLDER = "/marowni/";
 
     // ----- REQUEST CODES -----
     public static final int SET_PIN_REQUEST_CODE = 3;
@@ -60,7 +60,7 @@ public class Constants {
     public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
-    public static final String INTENT_EXTRA_SHOW_ABOUT = "writeily.intent.settings.ABOUT";
+    public static final String INTENT_EXTRA_SHOW_ABOUT = "marowni.intent.settings.ABOUT";
 
     public static final String DEFAULT_WRITEILY_STORAGE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.WRITEILY_FOLDER;
 

@@ -13,7 +13,6 @@
               android:paddingTop="10dp">
 
     <ImageView
-        android:id="@+id/widget_note_icon"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:background="@drawable/ic_notes"
