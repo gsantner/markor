@@ -35,7 +35,7 @@
     <string name="pref_font_choice">Note Editor Font</string>
     <string name="pref_theme">Theme</string>
     <string name="pref_preview_first">Preview first when opening notes</string>
-    <string name="pref_about_dialog_title">About Marowni</string>
+    <string name="about">About Marowni</string>
     <string name="share_text">Plain Text</string>
     <string name="share_image">Image</string>
     <string name="pref_font_size">Font Size</string>
@@ -95,5 +95,11 @@
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
     <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="licenses">Licenses</string>
+    <string name="changelog">Changelog</string>
+    <string name="contributors">Contributors</string>
+    <string name="more_information">More information</string>
+    <string name="show_app_license">Show license of the app</string>
+    <string name="show_third_party_licenses">Show 3rd party licenses</string>
 
 </resources>

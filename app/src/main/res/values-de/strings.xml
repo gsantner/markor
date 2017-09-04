@@ -34,7 +34,7 @@
     <string name="pref_font_choice">Schriftart</string>
     <string name="pref_theme">Thema</string>
     <string name="pref_preview_first">Notizen in Vorschauansicht öffnen</string>
-    <string name="pref_about_dialog_title">Über Marowni</string>
+    <string name="about">Über Marowni</string>
     <string name="confirm_overwrite">Datei bereits vorhanden, überschreiben?</string>
     <string name="new_name_hint">Neuen Namen eingeben</string>
     <string name="share_text">Reintext</string>
