@@ -28,16 +28,17 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.io.File;
 import java.io.Serializable;
 
-import io.github.gsantner.marowni.util.CurrentFolderChangedReceiver;
 import io.github.gsantner.marowni.R;
-import io.github.gsantner.marowni.util.RenameBroadcastReceiver;
-import io.github.gsantner.marowni.util.Utils;
 import io.github.gsantner.marowni.dialog.ConfirmDialog;
 import io.github.gsantner.marowni.dialog.CreateFolderDialog;
 import io.github.gsantner.marowni.dialog.FilesystemDialog;
 import io.github.gsantner.marowni.model.Constants;
 import io.github.gsantner.marowni.model.MarowniSingleton;
 import io.github.gsantner.marowni.settings.SettingsActivity;
+import io.github.gsantner.marowni.util.CurrentFolderChangedReceiver;
+import io.github.gsantner.marowni.util.HelpersA;
+import io.github.gsantner.marowni.util.RenameBroadcastReceiver;
+import io.github.gsantner.marowni.util.Utils;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -155,13 +156,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.action_settings) {
-
-            showSettings();
-            return true;
-        } else if (item.getItemId() == R.id.action_import) {
-            showImportDialog();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings: {
+                showSettings();
+                return true;
+            }
+            case R.id.action_import: {
+                showImportDialog();
+                return true;
+            }
+            case R.id.action_about: {
+                HelpersA.get(this).animateToActivity(AboutActivity.class, false, 123);
+                return true;
+            }
         }
         return false;
 

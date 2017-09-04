@@ -36,7 +36,7 @@
     <string name="pref_font_choice">Fuente del Editor de Notas</string>
     <string name="pref_theme">Tema</string>
     <string name="pref_preview_first">Preview first when opening notes</string>
-    <string name="pref_about_dialog_title">Sobre Marowni</string>
+    <string name="about">Sobre Marowni</string>
     <string name="share_text">Texto plano</string>
     <string name="share_image">Imagen</string>
     <string name="pref_font_size">Tamaño de fuente</string>

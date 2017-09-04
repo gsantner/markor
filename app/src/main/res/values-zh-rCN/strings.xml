@@ -40,7 +40,7 @@
     <string name="pref_font_choice">编辑器字体</string>
     <string name="pref_theme">主题</string>
     <string name="pref_preview_first">打开笔记时先预览</string>
-    <string name="pref_about_dialog_title">关于 Marowni</string>
+    <string name="about">关于 Marowni</string>
     <string name="share_text">纯文本</string>
     <string name="share_image">Image</string>
     <string name="pref_font_size">字体大小</string>

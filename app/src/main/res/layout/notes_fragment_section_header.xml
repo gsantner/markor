@@ -14,7 +14,7 @@
         android:clickable="false"
         android:fontFamily="sans-serif-light"
         android:gravity="start"
-        android:textColor="@color/secondary"
+        android:textColor="@color/accent"
         android:textSize="14sp"
         android:textStyle="bold"/>
 
