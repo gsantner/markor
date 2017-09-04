@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-        <me.writeily.editor.HighlightingEditor
+        <io.github.gsantner.marowni.editor.HighlightingEditor
             android:id="@+id/note_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

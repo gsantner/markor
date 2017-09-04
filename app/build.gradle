@@ -22,10 +22,10 @@ android {
         minSdkVersion version_sdk.minSdk
         targetSdkVersion version_sdk.targetSdk
 
-        versionCode 33
-        versionName "1.2.3"
+        versionCode 1
+        versionName "0.1.0"
 
-        applicationId "me.writeily"
+        applicationId "io.github.gsantner.marowni"
 
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
@@ -45,7 +45,7 @@ android {
             buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
         }
         flavorTest {
-            applicationId "me.writeily.test"
+            applicationId "io.github.gsantner.marowni.test"
             versionCode = Integer.parseInt(new Date().format('yyMMdd'))
             versionName = new Date().format('yyMMdd')
             buildConfigField "boolean", "IS_TEST_BUILD", "true"

@@ -25,8 +25,8 @@
     <string name="pref_render_rtl_key">pref_render_rtl_key</string>
 
     <string name="twitter_url">https://twitter.com/writeily</string>
-    <string name="writeily_url">https://play.google.com/store/apps/details?id=me.writeily</string>
-    <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=me.writeily.donate</string>
+    <string name="writeily_url">https://play.google.com/store/apps/details?id=io.github.gsantner.marowni</string>
+    <string name="writeily_donate_url">https://play.google.com/store/apps/details?id=io.github.gsantner.marowni.donate</string>
     <string name="writeily_email">mailto:writeily.app@gmail.com</string>
 
     <string name="share_html">HTML</string>
