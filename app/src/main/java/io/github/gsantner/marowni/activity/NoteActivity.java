@@ -212,6 +212,9 @@ public class NoteActivity extends AppCompatActivity {
             } else {
                 appendRegularBracketShortcuts();
             }
+            for (String shortcut : Constants.KEYBOARD_SHORTCUTS_MORE) {
+                appendButton(shortcut, new KeyboardBarListener());
+            }
         } else if (!_appSettings.isShowMarkdownShortcuts()) {
             findViewById(R.id.keyboard_bar_scroll).setVisibility(View.GONE);
         }

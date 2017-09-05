@@ -5,9 +5,9 @@
     <color name="colorAccent">@color/accent</color>
 
     <!-- Colors from Palette -->
-    <color name="primary">#388E3C</color>
-    <color name="primary_dark">#2E7D32</color>
-    <color name="primary_light">#81C784</color>
+    <color name="primary">#1e0f03</color>
+    <color name="primary_dark">#190c03</color>
+    <color name="primary_light">#43352a</color>
     <color name="primary_text">@color/light__primary_text</color>
     <color name="secondary_text">@color/light__secondary_text</color>
     <color name="accent">#EF6C00</color>
