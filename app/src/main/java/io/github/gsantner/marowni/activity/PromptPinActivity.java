@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import io.github.gsantner.marowni.R;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class PromptPinActivity extends AppCompatActivity {
 
@@ -22,17 +23,16 @@ public class PromptPinActivity extends AppCompatActivity {
         }
 
         // Get the pin a user may have set
-        String[] stringArray = getResources().getStringArray(R.array.possibleLocksValues);
-        String lockType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_lock_type_key), "");
-        if (lockType == null || lockType.equals("") || stringArray[0].equals(lockType)) {
+        int lockType = AppSettings.get().getLockType();
+        if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__none))) {
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
             this.finish();
-        } else if (stringArray[1].equals(lockType)) {
+        } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__pin))) {
             Intent pinIntent = new Intent(this, PinActivity.class);
             startActivity(pinIntent);
             this.finish();
-        } else if (stringArray[2].equals(lockType)) {
+        } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__password))) {
             Intent pinIntent = new Intent(this, AlphanumericPinActivity.class);
             startActivity(pinIntent);
             this.finish();

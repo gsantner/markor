@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -35,6 +34,7 @@ import io.github.gsantner.marowni.dialog.FilesystemDialog;
 import io.github.gsantner.marowni.model.Constants;
 import io.github.gsantner.marowni.model.MarowniSingleton;
 import io.github.gsantner.marowni.settings.SettingsActivity;
+import io.github.gsantner.marowni.util.AppSettings;
 import io.github.gsantner.marowni.util.CurrentFolderChangedReceiver;
 import io.github.gsantner.marowni.util.HelpersA;
 import io.github.gsantner.marowni.util.RenameBroadcastReceiver;
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
      * Create folders, if they don't already exist.
      */
     private void initFolders() {
-        File defaultMarowniFolder = new File(Constants.DEFAULT_WRITEILY_STORAGE_FOLDER);
+        File defaultMarowniFolder = new File(AppSettings.get().getSaveDirectory());
         createFolder(defaultMarowniFolder);
     }
 
@@ -327,9 +327,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupAppearancePreferences() {
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), "");
-
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             RelativeLayout content = (RelativeLayout) findViewById(R.id.activity_main_content_background);
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));

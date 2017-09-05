@@ -31,32 +31,32 @@
     <string name="files">Files</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Remember last folder location on startup</string>
-    <string name="pref_font_choice">Note Editor Font</string>
-    <string name="pref_theme">Theme</string>
-    <string name="pref_preview_first">Preview first when opening notes</string>
+    <string name="pref_title__remember_directory">Remember last folder location on startup</string>
+    <string name="pref_title__font_choice">Note Editor Font</string>
+    <string name="pref_title__theme">Theme</string>
+    <string name="pref_title__preview_first">Preview first when opening notes</string>
     <string name="about">About Marowni</string>
     <string name="share_text">Plain Text</string>
     <string name="share_image">Image</string>
-    <string name="pref_font_size">Font Size</string>
-    <string name="pref_lock_settings">Lock</string>
-    <string name="pref_pin_lock">Pin Lock</string>
-    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
-    <string name="pref_no_lock">No Lock</string>
-    <string name="pref_show_markdown_shortcuts">Show Markdown shortcuts bar</string>
-    <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
-    <string name="pref_highlighting_delay">Delay in milliseconds for highlighting refresh</string>
-    <string name="pref_highlighting_delay_summary">Higher values are easier on the battery</string>
-    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
-    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
-    <string name="pref_render_rtl">Render for right-to-left languages</string>
+    <string name="pref_title__font_size">Font Size</string>
+    <string name="pref_title__lock_settings">Lock</string>
+    <string name="lock_type__pin">Pin Lock</string>
+    <string name="lock_type__password">Alphanumeric Lock</string>
+    <string name="lock_type__none">No Lock</string>
+    <string name="pref_title__show_markdown_shortcuts">Show Markdown shortcuts bar</string>
+    <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
+    <string name="pref_title__highlighting_delay">Delay in milliseconds for highlighting refresh</string>
+    <string name="pref_title__highlighting_delay_summary">Higher values are easier on the battery</string>
+    <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
+    <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
+    <string name="pref_title__render_rtl">Render for right-to-left languages</string>
     <string name="pin_title">Enter your pin</string>
     <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">Normal</string>
-    <string name="font_size_large">Large</string>
-    <string name="font_size_small">Small</string>
+    <string name="font_size__normal">Normal</string>
+    <string name="font_size__large">Large</string>
+    <string name="font_size__small">Small</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Last modified: %s</string>
@@ -94,7 +94,7 @@
     <string name="about_croatian">Croatian</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
     <string name="contributors">Contributors</string>

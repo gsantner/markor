@@ -36,31 +36,31 @@
     <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">启动时打开上次的文件夹</string>
-    <string name="pref_font_choice">编辑器字体</string>
-    <string name="pref_theme">主题</string>
-    <string name="pref_preview_first">打开笔记时先预览</string>
+    <string name="pref_title__remember_directory">启动时打开上次的文件夹</string>
+    <string name="pref_title__font_choice">编辑器字体</string>
+    <string name="pref_title__theme">主题</string>
+    <string name="pref_title__preview_first">打开笔记时先预览</string>
     <string name="about">关于 Marowni</string>
     <string name="share_text">纯文本</string>
     <string name="share_image">Image</string>
-    <string name="pref_font_size">字体大小</string>
-    <string name="pref_pin_lock">PIN 锁</string>
-    <string name="pref_show_markdown_shortcuts">显示 Markdown 快捷栏</string>
-    <string name="pref_highlighting_activated">Markdown syntax highlighting</string>
-    <string name="pref_highlighting_delay">Delay in milliseconds for highlighting refresh</string>
-    <string name="pref_highlighting_delay_summary">Higher values are easier on the battery</string>
+    <string name="pref_title__font_size">字体大小</string>
+    <string name="lock_type__pin">PIN 锁</string>
+    <string name="pref_title__show_markdown_shortcuts">显示 Markdown 快捷栏</string>
+    <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
+    <string name="pref_title__highlighting_delay">Delay in milliseconds for highlighting refresh</string>
+    <string name="pref_title__highlighting_delay_summary">Higher values are easier on the battery</string>
     <string name="pin_title">输入你的 PIN</string>
-    <string name="pref_lock_settings">Lock</string>
-    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
-    <string name="pref_no_lock">No Lock</string>
-    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
-    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
+    <string name="pref_title__lock_settings">Lock</string>
+    <string name="lock_type__password">Alphanumeric Lock</string>
+    <string name="lock_type__none">No Lock</string>
+    <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
+    <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
     <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">中等</string>
-    <string name="font_size_large">大</string>
-    <string name="font_size_small">小</string>
+    <string name="font_size__normal">中等</string>
+    <string name="font_size__large">大</string>
+    <string name="font_size__small">小</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">最后修改：%s</string>
@@ -91,7 +91,7 @@
     <string name="about_korean">朝鮮的</string>
     <string name="tap_website">访问网站</string>
     <string name="tap_github">访问 GitHub 主页</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
     <string name="about_original_section">Original creator</string>
 
 </resources>

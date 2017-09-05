@@ -68,7 +68,7 @@ public class AboutActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        if (AppSettings.get().isDarkTheme()){
+        if (AppSettings.get().isDarkThemeEnabled()){
             setTheme(R.style.AppTheme_Dark);
         }
         findViewById(R.id.about__activity__content_layout).setBackgroundColor(AppSettings.get().getBackgroundColor());

@@ -7,6 +7,7 @@ import com.commonsware.cwac.anddown.AndDown;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class MarkDownRenderer {
     AndDown andDown = new AndDown();
@@ -18,23 +19,15 @@ public class MarkDownRenderer {
     }
 
     private String themeStringFromContext(Context context) {
-        String theme = getThemeFromPrefs(context);
         String s = "";
-        if (!theme.equals("")) {
-            if (theme.equals(context.getString(R.string.theme_dark))) {
-                s += Constants.DARK_MD_HTML_PREFIX;
-            } else {
-                s += Constants.MD_HTML_PREFIX;
-            }
-            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.pref_render_rtl_key), false))
-                s += Constants.MD_HTML_RTL_CSS;
-            s += Constants.MD_HTML_PREFIX_END;
+        if (AppSettings.get().isDarkThemeEnabled()) {
+            s += Constants.DARK_MD_HTML_PREFIX;
+        } else {
+            s += Constants.MD_HTML_PREFIX;
         }
+        if (AppSettings.get().isRenderRtl())
+            s += Constants.MD_HTML_RTL_CSS;
+        s += Constants.MD_HTML_PREFIX_END;
         return s;
-    }
-
-    private String getThemeFromPrefs(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(context.getString(R.string.pref_theme_key), "");
     }
 }

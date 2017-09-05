@@ -32,31 +32,31 @@
     <string name="files">Notas</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Recordar la última ruta en el inicio</string>
-    <string name="pref_font_choice">Fuente del Editor de Notas</string>
-    <string name="pref_theme">Tema</string>
-    <string name="pref_preview_first">Preview first when opening notes</string>
+    <string name="pref_title__remember_directory">Recordar la última ruta en el inicio</string>
+    <string name="pref_title__font_choice">Fuente del Editor de Notas</string>
+    <string name="pref_title__theme">Tema</string>
+    <string name="pref_title__preview_first">Preview first when opening notes</string>
     <string name="about">Sobre Marowni</string>
     <string name="share_text">Texto plano</string>
     <string name="share_image">Imagen</string>
-    <string name="pref_font_size">Tamaño de fuente</string>
-    <string name="pref_lock_settings">Bloqueo</string>
-    <string name="pref_pin_lock">Pin</string>
-    <string name="pref_alpha_pin_lock">Contraseña</string>
-    <string name="pref_no_lock">Sin bloqueo</string>
-    <string name="pref_show_markdown_shortcuts">Mostrar barra de Markdown</string>
-    <string name="pref_highlighting_activated">Markdown resaltado de sintaxis</string>
-    <string name="pref_highlighting_delay">Retraso en milisegundos para refrescar el resaltado</string>
-    <string name="pref_highlighting_delay_summary">Valores más altos gastan menos batería</string>
-    <string name="pref_smart_shortcuts">Botones de paréntesis inteligentes</string>
-    <string name="pref_smart_shortcuts_summary">Si hay un text selecionado, {}, [] y () rodearán el texto</string>
+    <string name="pref_title__font_size">Tamaño de fuente</string>
+    <string name="pref_title__lock_settings">Bloqueo</string>
+    <string name="lock_type__pin">Pin</string>
+    <string name="lock_type__password">Contraseña</string>
+    <string name="lock_type__none">Sin bloqueo</string>
+    <string name="pref_title__show_markdown_shortcuts">Mostrar barra de Markdown</string>
+    <string name="pref_title__highlighting_activated">Markdown resaltado de sintaxis</string>
+    <string name="pref_title__highlighting_delay">Retraso en milisegundos para refrescar el resaltado</string>
+    <string name="pref_title__highlighting_delay_summary">Valores más altos gastan menos batería</string>
+    <string name="pref_title__smart_shortcuts">Botones de paréntesis inteligentes</string>
+    <string name="pref_title__smart_shortcuts_summary">Si hay un text selecionado, {}, [] y () rodearán el texto</string>
     <string name="pin_title">Introduce tu pin</string>
     <string name="passphrase_title">Introduce tu contraseña</string>
 
     <!-- Font Size -->
-	<string name="font_size_normal">Normal</string>
-	<string name="font_size_large">Grande</string>
-	<string name="font_size_small">Pequeño</string>
+	<string name="font_size__normal">Normal</string>
+	<string name="font_size__large">Grande</string>
+	<string name="font_size__small">Pequeño</string>
 
     <string name="last_modified">Última modificación: %s</string>
     <string name="number_of_files">Número de archivos: %d</string>
@@ -90,7 +90,7 @@
     <string name="rename_error_target_already_exists">¡La carpeta o nota de destino ya existe!</string>
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_fail">Failed to rename</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
     <string name="about_original_section">Creador original</string>
 
 </resources>

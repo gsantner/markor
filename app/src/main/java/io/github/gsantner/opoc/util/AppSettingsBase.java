@@ -18,17 +18,17 @@
  * getters/setters for the app's settings.
  * Example:
     public boolean isAppFirstStart(boolean doSet) {
-        boolean value = getBool(prefApp, R.string.pref_key__app_first_start, true);
+        boolean value = getBool(prefApp, AppSettingskey__app_first_start, true);
         if (doSet) {
-            setBool(prefApp, R.string.pref_key__app_first_start, false);
+            setBool(prefApp, AppSettingskey__app_first_start, false);
         }
         return value;
     }
 
     public boolean isAppCurrentVersionFirstStart(boolean doSet) {
-        int value = getInt(prefApp, R.string.pref_key__app_first_start_current_version, -1);
+        int value = getInt(prefApp, AppSettingskey__app_first_start_current_version, -1);
         if (doSet) {
-            setInt(prefApp, R.string.pref_key__app_first_start_current_version, BuildConfig.VERSION_CODE);
+            setInt(prefApp, AppSettingskey__app_first_start_current_version, BuildConfig.VERSION_CODE);
         }
         return value != BuildConfig.VERSION_CODE && !BuildConfig.IS_TEST_BUILD;
     }

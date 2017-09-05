@@ -1,23 +1,20 @@
 package io.github.gsantner.marowni.editor;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
-import io.github.gsantner.marowni.R;
+import io.github.gsantner.marowni.util.AppSettings;
 
-public class HighlightingEditor extends EditText {
+public class HighlightingEditor extends AppCompatEditText {
 
     public static final int DEFAULT_DELAY = 500;
     private Highlighter highlighter;
-    private SharedPreferences prefs;
 
     interface OnTextChangedListener {
         void onTextChanged(String text);
@@ -42,16 +39,14 @@ public class HighlightingEditor extends EditText {
 
     public HighlightingEditor(Context context) {
         super(context);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        if (prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key), false)) {
+        if (AppSettings.get().isHighlightingEnabled()) {
             init();
         }
     }
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        if (prefs.getBoolean(getStringFromStringTable(R.string.pref_highlighting_activated_key), false)) {
+        if (AppSettings.get().isHighlightingEnabled()) {
             init();
         }
     }
@@ -63,8 +58,8 @@ public class HighlightingEditor extends EditText {
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
         highlighter = new Highlighter(new MyHighlighterColorsNeutral(),
-                prefs.getString(getStringFromStringTable(R.string.pref_font_choice_key), ""),
-                prefs.getString(getStringFromStringTable(R.string.pref_font_size_key), ""));
+                AppSettings.get().getFontFamily(),
+                AppSettings.get().getFontSize());
 
         addTextChangedListener(
                 new TextWatcher() {
@@ -113,8 +108,7 @@ public class HighlightingEditor extends EditText {
     }
 
     private int getHighlightingDelayFromPrefs() {
-        String value = prefs.getString(getStringFromStringTable(R.string.pref_highlighting_delay_key), "");
-        return value == null || value.equals("") ? DEFAULT_DELAY : Integer.valueOf(value);
+        return AppSettings.get().getHighlightingDelay();
     }
 
     private class IndentationFilter implements InputFilter {

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -31,10 +30,8 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                editor.putString(getString(R.string.pref_root_directory), intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
-                editor.apply();
-                settingsFragment.updateRootDirSummary();
+                AppSettings.get().setSaveDirectory(intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
+                settingsFragment.updateSummaries();
             }
         }
     };
@@ -43,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
     protected void onCreate(Bundle savedInstanceState) {
         Context context = getApplicationContext();
         settingsFragment = new SettingsFragment();
-        if (AppSettings.get().isDarkTheme()) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             setTheme(R.style.AppTheme_Dark);
         }
 
@@ -115,26 +112,24 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
             addPreferencesFromResource(R.xml.preferences);
 
             context = getActivity().getApplicationContext();
-            pinPreference = (ListPreference) findPreference(getString(R.string.pref_lock_type_key));
-            updateLockSummary();
+            pinPreference = (ListPreference) findPreference(getString(R.string.pref_key__lock_type));
 
             // Listen for Pin Preference change
             pinPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    String lockType = (String) o;
-                    if (lockType == null || lockType.equals("") || getString(R.string.pref_no_lock_value).equals(lockType)) {
-                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                        editor.putString(Constants.USER_PIN_KEY, "").apply();
-                        editor.putString(getString(R.string.pref_lock_type_key), getString(R.string.pref_no_lock_value)).apply();
-                        pinPreference.setSummary(PreferenceManager.getDefaultSharedPreferences(context)
-                                .getString(getString(R.string.pref_no_lock_value), getString(R.string.pref_no_lock)));
+                    int lockType = Integer.valueOf((String) o);
+                    if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__none))) {
+                        AppSettings appSettings = AppSettings.get();
+                        appSettings.setLockAuthPinOrPassword("");
+                        appSettings.setLockType(lockType);
+                        pinPreference.setSummary(getString(R.string.lock_type__none));
                         return true;
-                    } else if (getString(R.string.pref_pin_lock_value).equals(lockType)) {
+                    } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__pin))) {
                         Intent pinIntent = new Intent(context, PinActivity.class);
                         pinIntent.setAction(Constants.SET_PIN_ACTION);
                         startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
-                    } else if (getString(R.string.pref_alpha_pin_lock_value).equals(lockType)) {
+                    } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__password))) {
                         Intent pinIntent = new Intent(context, AlphanumericPinActivity.class);
                         pinIntent.setAction(Constants.SET_PIN_ACTION);
                         startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
@@ -150,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
         }
 
         private void setUpStorageDirPreference() {
-            final Preference rootDir = (Preference) findPreference(getString(R.string.pref_root_directory));
+            final Preference rootDir = (Preference) findPreference(getString(R.string.pref_key__save_directory));
             rootDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -164,13 +159,16 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
                     return true;
                 }
             });
-            updateRootDirSummary();
+            updateSummaries();
         }
 
-        public void updateRootDirSummary() {
-            Preference rootDir = findPreference(getString(R.string.pref_root_directory));
-            ;
-            rootDir.setSummary(PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+        public void updateSummaries() {
+            Preference pref = findPreference(getString(R.string.pref_key__save_directory));
+            pref.setSummary(AppSettings.get().getSaveDirectory());
+
+            int currentLockType = AppSettings.get().getLockType();
+            pinPreference.setSummary(getResources().getStringArray(R.array.pref_arrdisp__lock_type)[currentLockType]);
+
         }
 
         @Override
@@ -179,21 +177,16 @@ public class SettingsActivity extends AppCompatActivity implements MarowniSettin
 
             if (requestCode == Constants.SET_PIN_REQUEST_CODE) {
                 if (resultCode == Activity.RESULT_OK) {
-                    updateLockSummary();
+                    updateSummaries();
                 }
             }
-        }
-
-        private void updateLockSummary() {
-            Integer currentLockType = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(getString(R.string.pref_lock_type_key), "0"));
-            pinPreference.setSummary(getResources().getStringArray(R.array.possibleLocksStrings)[currentLockType]);
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             AppCompatActivity activity = (AppCompatActivity) mCallback;
 
-            if (activity.getString(R.string.pref_theme_key).equals(key)) {
+            if (activity.getString(R.string.pref_key__app_theme).equals(key)) {
                 mCallback.onThemeChanged();
             }
         }

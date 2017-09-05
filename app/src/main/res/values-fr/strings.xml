@@ -31,31 +31,31 @@
     <string name="files">Fichier</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Rappeler le plus récent dossier au démarrage</string>
-    <string name="pref_font_choice">Police de l\'éditeur</string>
-    <string name="pref_theme">Thème</string>
-    <string name="pref_preview_first">Aperçu lors de l\'ouverture des notes</string>
+    <string name="pref_title__remember_directory">Rappeler le plus récent dossier au démarrage</string>
+    <string name="pref_title__font_choice">Police de l\'éditeur</string>
+    <string name="pref_title__theme">Thème</string>
+    <string name="pref_title__preview_first">Aperçu lors de l\'ouverture des notes</string>
     <string name="about">A propos de Marowni</string>
     <string name="share_text">Text Brut</string>
     <string name="share_image">Image</string>
-    <string name="pref_font_size">Taille Police</string>
-    <string name="pref_lock_settings">Verrouiller</string>
-    <string name="pref_pin_lock">Code PIN</string>
-    <string name="pref_alpha_pin_lock">Mot de passe</string>
-    <string name="pref_no_lock">Sans</string>
-    <string name="pref_show_markdown_shortcuts">Afficher la barre de Markdown</string>
-    <string name="pref_highlighting_activated">Coloration syntaxique Markdown</string>
-    <string name="pref_highlighting_delay">Délai en milliseconde pour le rafraîchissement de la coloration synthaxique</string>
-    <string name="pref_highlighting_delay_summary">Des valeurs plus élevées utilise moins la batterie</string>
-    <string name="pref_smart_shortcuts">Raccourci parenthèse intelligentes</string>
-    <string name="pref_smart_shortcuts_summary">Si du texte est selectionné, utilisez {}, [] ou () entourera la selection</string>
+    <string name="pref_title__font_size">Taille Police</string>
+    <string name="pref_title__lock_settings">Verrouiller</string>
+    <string name="lock_type__pin">Code PIN</string>
+    <string name="lock_type__password">Mot de passe</string>
+    <string name="lock_type__none">Sans</string>
+    <string name="pref_title__show_markdown_shortcuts">Afficher la barre de Markdown</string>
+    <string name="pref_title__highlighting_activated">Coloration syntaxique Markdown</string>
+    <string name="pref_title__highlighting_delay">Délai en milliseconde pour le rafraîchissement de la coloration synthaxique</string>
+    <string name="pref_title__highlighting_delay_summary">Des valeurs plus élevées utilise moins la batterie</string>
+    <string name="pref_title__smart_shortcuts">Raccourci parenthèse intelligentes</string>
+    <string name="pref_title__smart_shortcuts_summary">Si du texte est selectionné, utilisez {}, [] ou () entourera la selection</string>
     <string name="pin_title">Entrez votre PIN</string>
     <string name="passphrase_title">Entrer votre mot de passe</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">Normal</string>
-    <string name="font_size_large">Large</string>
-    <string name="font_size_small">Petit</string>
+    <string name="font_size__normal">Normal</string>
+    <string name="font_size__large">Large</string>
+    <string name="font_size__small">Petit</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Dernière Modif: %s</string>
@@ -93,6 +93,6 @@
     <string name="about_croatian">Croate</string>
     <string name="tap_website">Taper pour visiter site web</string>
     <string name="tap_github">Taper pour visiter le profil sur GitHub</string>
-    <string name="pref_root_directory_title">Selectionner le dossier de stockage</string>
+    <string name="pref_title__root_directory_title">Selectionner le dossier de stockage</string>
 
 </resources>

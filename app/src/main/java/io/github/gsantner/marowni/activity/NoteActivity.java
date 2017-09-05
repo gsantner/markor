@@ -10,7 +10,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -33,6 +32,7 @@ import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.editor.HighlightingEditor;
 import io.github.gsantner.marowni.model.Constants;
 import io.github.gsantner.marowni.model.MarowniSingleton;
+import io.github.gsantner.marowni.util.AppSettings;
 import io.github.gsantner.marowni.widget.MarowniWidgetProvider;
 
 public class NoteActivity extends AppCompatActivity {
@@ -49,6 +49,8 @@ public class NoteActivity extends AppCompatActivity {
     private ViewGroup keyboardBarView;
     private String targetDirectory;
     private boolean isPreviewIncoming = false;
+
+    private AppSettings _appSettings;
 
     public NoteActivity() {
     }
@@ -67,6 +69,7 @@ public class NoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+        _appSettings = AppSettings.get();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -202,16 +205,14 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void setupKeyboardBar() {
-        boolean showShortcuts = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_show_markdown_shortcuts_key), true);
-
-        if (showShortcuts && keyboardBarView.getChildCount() == 0) {
+        if (_appSettings.isShowMarkdownShortcuts() && keyboardBarView.getChildCount() == 0) {
             appendRegularShortcuts();
-            if (isSmartShortcutsActivated()) {
+            if (_appSettings.isSmartShortcutsEnabled()) {
                 appendSmartBracketShortcuts();
             } else {
                 appendRegularBracketShortcuts();
             }
-        } else if (!showShortcuts) {
+        } else if (!_appSettings.isShowMarkdownShortcuts()) {
             findViewById(R.id.keyboard_bar_scroll).setVisibility(View.GONE);
         }
     }
@@ -240,9 +241,7 @@ public class NoteActivity extends AppCompatActivity {
         shortcutButton.setText(shortcut);
         shortcutButton.setOnClickListener(l);
 
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), EMPTY_STRING);
-
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (_appSettings.isDarkThemeEnabled()) {
             shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
         } else {
             shortcutButton.setTextColor(getResources().getColor(R.color.grey));
@@ -251,24 +250,11 @@ public class NoteActivity extends AppCompatActivity {
         keyboardBarView.addView(shortcutButton);
     }
 
-    private boolean isSmartShortcutsActivated() {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_smart_shortcuts_key), false);
-    }
-
     private void setupAppearancePreferences() {
-        String theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_theme_key), EMPTY_STRING);
-        String fontType = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_choice_key), EMPTY_STRING);
-        String fontSize = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_font_size_key), EMPTY_STRING);
+        content.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        content.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
 
-        if (!fontSize.equals(EMPTY_STRING)) {
-            content.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(fontSize));
-        }
-
-        if (!fontType.equals(EMPTY_STRING)) {
-            content.setTypeface(Typeface.create(fontType, Typeface.NORMAL));
-        }
-
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (_appSettings.isDarkThemeEnabled()) {
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             content.setTextColor(getResources().getColor(android.R.color.white));
             keyboardBarView.setBackgroundColor(getResources().getColor(R.color.grey));
