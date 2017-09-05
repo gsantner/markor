@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="0.5dp"
-        android:src="@drawable/ic_insert_drive_file_white_24dp"
+        android:src="@drawable/ic_file_white_24dp"
         fab:fab_colorNormal="@color/grey"
         fab:fab_colorPressed="@color/light_grey"
         fab:fab_size="mini"

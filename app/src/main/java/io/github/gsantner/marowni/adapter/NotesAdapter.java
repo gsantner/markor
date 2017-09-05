@@ -71,17 +71,17 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
             noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
 
             if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_light));
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_white_24dp));
             } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes_light));
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_file_white_24dp));
             }
         } else {
             noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
             if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_white_24dp));
             } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_notes));
+                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_file_white_24dp));
             }
         }
 

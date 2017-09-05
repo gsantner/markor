@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:background="@drawable/ic_notes"
+        android:background="@drawable/ic_file_gray_24dp"
         android:contentDescription="@null"
         android:gravity="center|left"/>
 
