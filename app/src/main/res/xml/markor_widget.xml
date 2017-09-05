@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--android:configure="com.example.android.ExampleAppWidgetConfigure"-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:minHeight="80dp"
+    android:minResizeWidth="80dp"
+    android:minResizeHeight="60dp"
+    android:updatePeriodMillis="86400000"
+    android:previewImage="@drawable/widget_preview"
+    android:initialLayout="@layout/widget_layout"
+    android:configure="net.gsantner.markor.widget.WidgetConfigure"
+    android:resizeMode="horizontal|vertical">
+</appwidget-provider>

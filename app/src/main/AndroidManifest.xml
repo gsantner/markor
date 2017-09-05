@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.github.gsantner.marowni">
+          package="net.gsantner.markor">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".App"
@@ -13,12 +14,12 @@
         android:theme="@style/AppTheme.Light">
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.MainActivity"
+            android:name="net.gsantner.markor.activity.MainActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.NoteActivity"
+            android:name="net.gsantner.markor.activity.NoteActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
@@ -61,29 +62,29 @@
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.PreviewActivity"
+            android:name="net.gsantner.markor.activity.PreviewActivity"
             android:label="@string/preview">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.settings.SettingsActivity"
+            android:name="net.gsantner.markor.settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:parentActivityName="io.github.gsantner.marowni.activity.MainActivity"
+            android:parentActivityName="net.gsantner.markor.activity.MainActivity"
             android:theme="@style/AppTheme.Light">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.PinActivity"
+            android:name="net.gsantner.markor.activity.PinActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.AlphanumericPinActivity"
+            android:name="net.gsantner.markor.activity.AlphanumericPinActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.PromptPinActivity"
+            android:name="net.gsantner.markor.activity.PromptPinActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -92,34 +93,34 @@
         </activity>
 
         <activity
-            android:name="io.github.gsantner.marowni.activity.AboutActivity"
+            android:name="net.gsantner.markor.activity.AboutActivity"
             android:theme="@style/AppTheme.Light"
             android:label="@string/about"
-            android:parentActivityName="io.github.gsantner.marowni.activity.MainActivity"
+            android:parentActivityName="net.gsantner.markor.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.gsantner.marowni.activity.MainActivity"/>
+                android:value="net.gsantner.markor.activity.MainActivity"/>
         </activity>
 
 
-        <activity android:name="io.github.gsantner.marowni.widget.WidgetConfigure">
+        <activity android:name="net.gsantner.markor.widget.WidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
 
-        <receiver android:name="io.github.gsantner.marowni.widget.MarowniWidgetProvider">
+        <receiver android:name="net.gsantner.markor.widget.MarkorWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/marowni_widget"/>
+                android:resource="@xml/markor_widget"/>
         </receiver>
 
         <service
-            android:name="io.github.gsantner.marowni.widget.FilesWidgetService"
+            android:name="net.gsantner.markor.widget.FilesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
