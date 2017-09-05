@@ -4,7 +4,7 @@
 
 # marowni
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
-Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writeily.<br/><br/>
+Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writeily-pro.<br/><br/>
 
 <div style="display:flex;" >
 <a href="https://f-droid.org/repository/browse/?fdid=io.github.gsantner.marowni">

@@ -11,10 +11,22 @@
     android:layout_marginBottom="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginRight="8dp"
-    fab:fab_addButtonColorNormal="@color/primary"
-    fab:fab_addButtonColorPressed="@color/primary_dark"
+    fab:fab_addButtonColorNormal="@color/accent"
+    fab:fab_addButtonColorPressed="@color/accent_light"
     fab:fab_addButtonPlusIconColor="@android:color/white"
     fab:fab_labelStyle="@style/menu_labels_style">
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="0.5dp"
+        android:src="@drawable/ic_folder_white_24dp"
+        fab:fab_colorNormal="@color/grey"
+        fab:fab_colorPressed="@color/light_grey"
+        fab:fab_size="mini"
+        fab:fab_title="Create Folder"/>
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_note"
@@ -28,15 +40,4 @@
         fab:fab_size="mini"
         fab:fab_title="Create Note"/>
 
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_folder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="0.5dp"
-        android:src="@drawable/ic_folder_white_24dp"
-        fab:fab_colorNormal="@color/grey"
-        fab:fab_colorPressed="@color/light_grey"
-        fab:fab_size="mini"
-        fab:fab_title="Create Folder"/>
 </com.getbase.floatingactionbutton.FloatingActionsMenu>

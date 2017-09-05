@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce;
 
-    private static final int ANIM_DURATION_TOOLBAR = 300;
-    private static final int ANIM_DURATION_FAB = 300;
+    private static final int ANIM_DURATION_TOOLBAR = 150;
+    private static final int ANIM_DURATION_FAB = 150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -434,7 +434,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
-                .setStartDelay(300)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -448,19 +447,18 @@ public class MainActivity extends AppCompatActivity {
         fabMenu.animate()
                 .translationY(0)
                 .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
                 .setDuration(ANIM_DURATION_FAB)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         // Load initial fragment
-                        fm = getFragmentManager();
-                        fm.beginTransaction()
-                                .setCustomAnimations(R.animator.slide_in_up, R.animator.slide_out_down)
-                                .replace(R.id.frame, notesFragment)
-                                .commit();
                     }
                 })
                 .start();
+
+        fm = getFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.frame, notesFragment)
+                .commit();
     }
 }
