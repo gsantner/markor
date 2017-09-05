@@ -1,7 +1,7 @@
 ###################
 general:
     artifacts:
-        - /home/ubuntu/marowni/app/build/outputs/apk/
+        - /home/ubuntu/markor/app/build/outputs/apk/
     branches:
         ignore:
             - gh-pages

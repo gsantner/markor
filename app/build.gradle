@@ -25,7 +25,7 @@ android {
         versionCode 1
         versionName "0.1.0"
 
-        applicationId "io.github.gsantner.marowni"
+        applicationId "net.gsantner.markor"
 
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
@@ -45,7 +45,7 @@ android {
             buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
         }
         flavorTest {
-            applicationId "io.github.gsantner.marowni.test"
+            applicationId "net.gsantner.markor.test"
             versionCode = Integer.parseInt(new Date().format('yyMMdd'))
             versionName = new Date().format('yyMMdd')
             buildConfigField "boolean", "IS_TEST_BUILD", "true"
