@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class ConfirmDialog extends DialogFragment {
 
@@ -29,11 +30,9 @@ public class ConfirmDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder dialogBuilder;
-        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
-
         int title = getTitleForTag(getTag());
 
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
         } else {
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);

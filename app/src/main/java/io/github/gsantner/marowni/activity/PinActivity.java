@@ -2,7 +2,6 @@ package io.github.gsantner.marowni.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class PinActivity extends AppCompatActivity {
 
@@ -195,9 +195,9 @@ public class PinActivity extends AppCompatActivity {
         if (isSettingUp) {
             // Check if the pin has 4 digits
             if (enteredPin.length() == 4) {
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-                editor.putString(Constants.USER_PIN_KEY, enteredPin).apply();
-                editor.putString(getString(R.string.pref_lock_type_key), getString(R.string.pref_pin_lock_value));
+                AppSettings appSettings = AppSettings.get();
+                appSettings.setLockType(getString(R.string.pref_value__lock__pin));
+                appSettings.setLockAuthPinOrPassword(enteredPin);
                 setResult(RESULT_OK);
                 finish();
             }

@@ -30,33 +30,33 @@
     <string name="files">Notizen</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Letzten Ordner merken</string>
-    <string name="pref_font_choice">Schriftart</string>
-    <string name="pref_theme">Thema</string>
-    <string name="pref_preview_first">Notizen in Vorschauansicht öffnen</string>
+    <string name="pref_title__remember_directory">Letzten Ordner merken</string>
+    <string name="pref_title__font_choice">Schriftart</string>
+    <string name="pref_title__theme">Thema</string>
+    <string name="pref_title__preview_first">Notizen in Vorschauansicht öffnen</string>
     <string name="about">Über Marowni</string>
     <string name="confirm_overwrite">Datei bereits vorhanden, überschreiben?</string>
     <string name="new_name_hint">Neuen Namen eingeben</string>
     <string name="share_text">Reintext</string>
     <string name="share_image">Bild</string>
-    <string name="pref_font_size">Schriftgröße</string>
-    <string name="pref_lock_settings">Sperre</string>
-    <string name="pref_pin_lock">PIN</string>
-    <string name="pref_alpha_pin_lock">Kennwort</string>
-    <string name="pref_no_lock">Keine</string>
-    <string name="pref_show_markdown_shortcuts">Markdown-Leiste im Editor</string>
-    <string name="pref_highlighting_activated">Markdown-Syntax hervorheben</string>
-    <string name="pref_highlighting_delay">Dauer bis Hervorhebung</string>
-    <string name="pref_highlighting_delay_summary">Wert bis zum Aktualisieren der Hervorhebung in Millisekunden. Höhere Werte verringern den Akkuverbrauch.</string>
-    <string name="pref_smart_shortcuts">Autom. Klammern</string>
-    <string name="pref_smart_shortcuts_summary">Ausgewählten Text bei Klammerauswahl einrahmen</string>
+    <string name="pref_title__font_size">Schriftgröße</string>
+    <string name="pref_title__lock_settings">Sperre</string>
+    <string name="lock_type__pin">PIN</string>
+    <string name="lock_type__password">Kennwort</string>
+    <string name="lock_type__none">Keine</string>
+    <string name="pref_title__show_markdown_shortcuts">Markdown-Leiste im Editor</string>
+    <string name="pref_title__highlighting_activated">Markdown-Syntax hervorheben</string>
+    <string name="pref_title__highlighting_delay">Dauer bis Hervorhebung</string>
+    <string name="pref_title__highlighting_delay_summary">Wert bis zum Aktualisieren der Hervorhebung in Millisekunden. Höhere Werte verringern den Akkuverbrauch.</string>
+    <string name="pref_title__smart_shortcuts">Autom. Klammern</string>
+    <string name="pref_title__smart_shortcuts_summary">Ausgewählten Text bei Klammerauswahl einrahmen</string>
     <string name="pin_title">Geben Sie eine PIN ein</string>
     <string name="passphrase_title">Geben Sie ein Kennwort ein</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">Normal</string>
-    <string name="font_size_large">Groß</string>
-    <string name="font_size_small">Klein</string>
+    <string name="font_size__normal">Normal</string>
+    <string name="font_size__large">Groß</string>
+    <string name="font_size__small">Klein</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Zuletzt bearbeitet: %s</string>
@@ -92,6 +92,6 @@
     <string name="rename_error_target_already_exists">Ordner existiert bereits</string>
     <string name="rename_success">Erfolgreich umbenannt</string>
     <string name="rename_fail">Beim Umbenennen ist ein Fehler aufgetreten</string>
-    <string name="pref_root_directory_title">Speicherort</string>
+    <string name="pref_title__root_directory_title">Speicherort</string>
 
 </resources>

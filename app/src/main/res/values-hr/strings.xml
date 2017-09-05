@@ -31,32 +31,32 @@
   <string name="files">Datoteka</string>
 
     <!-- Preferences -->
-  <string name="pref_remember_directory">Zapamti posljednju mapu kod novog pokretanja</string>
-  <string name="pref_font_choice">Font uređivača bilješki</string>
-  <string name="pref_theme">Tema</string>
-    <string name="pref_preview_first">Kod otvaranja bilješke otvori prvo preglednik</string>
+  <string name="pref_title__remember_directory">Zapamti posljednju mapu kod novog pokretanja</string>
+  <string name="pref_title__font_choice">Font uređivača bilješki</string>
+  <string name="pref_title__theme">Tema</string>
+    <string name="pref_title__preview_first">Kod otvaranja bilješke otvori prvo preglednik</string>
     <string name="about">O Marowni</string>
     <string name="share_text">Običan tekst</string>
   <string name="share_image">Slika</string>
-    <string name="pref_font_size">Veličina teksta</string>
-  <string name="pref_lock_settings">Zaključaj</string>
-  <string name="pref_pin_lock">Zaključaj PIN-om</string>
-  <string name="pref_alpha_pin_lock">Zaključaj lozinkom</string>
-  <string name="pref_no_lock">Bez zaključavanja</string>
-  <string name="pref_root_directory_title">Odaberi mapu za pohranu</string>
-  <string name="pref_show_markdown_shortcuts">Prikaži markdown izbornik</string>
-  <string name="pref_highlighting_activated">Isticanje markdown sintakse</string>
-  <string name="pref_highlighting_delay">Kašnjenje u milisekundama za obnavljanje isticanja</string>
-  <string name="pref_highlighting_delay_summary">Veće vrijednosti manje opterećuju bateriju</string>
-  <string name="pref_smart_shortcuts">Prečica prema pametnim zagradama</string>
-  <string name="pref_smart_shortcuts_summary">Ako je tekst označen, {}, [] te () ogradit će označeno</string>
+    <string name="pref_title__font_size">Veličina teksta</string>
+  <string name="pref_title__lock_settings">Zaključaj</string>
+  <string name="lock_type__pin">Zaključaj PIN-om</string>
+  <string name="lock_type__password">Zaključaj lozinkom</string>
+  <string name="lock_type__none">Bez zaključavanja</string>
+  <string name="pref_title__root_directory_title">Odaberi mapu za pohranu</string>
+  <string name="pref_title__show_markdown_shortcuts">Prikaži markdown izbornik</string>
+  <string name="pref_title__highlighting_activated">Isticanje markdown sintakse</string>
+  <string name="pref_title__highlighting_delay">Kašnjenje u milisekundama za obnavljanje isticanja</string>
+  <string name="pref_title__highlighting_delay_summary">Veće vrijednosti manje opterećuju bateriju</string>
+  <string name="pref_title__smart_shortcuts">Prečica prema pametnim zagradama</string>
+  <string name="pref_title__smart_shortcuts_summary">Ako je tekst označen, {}, [] te () ogradit će označeno</string>
   <string name="pin_title">Unesite PIN</string>
   <string name="passphrase_title">Unesite lozinku</string>
 
     <!-- Font Size -->
-  <string name="font_size_normal">Normalno</string>
-  <string name="font_size_large">Veliko</string>
-  <string name="font_size_small">Malo</string>
+  <string name="font_size__normal">Normalno</string>
+  <string name="font_size__large">Veliko</string>
+  <string name="font_size__small">Malo</string>
 
   <!-- Hard coded string fix -->
   <string name="last_modified">Posljednja izmjena: %s</string>

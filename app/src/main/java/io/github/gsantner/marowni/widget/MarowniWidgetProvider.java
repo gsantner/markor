@@ -14,6 +14,7 @@ import io.github.gsantner.marowni.activity.MainActivity;
 import io.github.gsantner.marowni.activity.NoteActivity;
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class MarowniWidgetProvider extends AppWidgetProvider {
     @Override
@@ -49,10 +50,7 @@ public class MarowniWidgetProvider extends AppWidgetProvider {
 
             SharedPreferences sharedPreferences = context.getSharedPreferences(
                     "" + appWidgetIds[i], Context.MODE_PRIVATE);
-            String directory = sharedPreferences.getString(Constants.WIDGET_PATH,
-                    PreferenceManager.getDefaultSharedPreferences(context)
-                            .getString(context.getResources().getString(R.string.pref_root_directory),
-                                    Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+            String directory = sharedPreferences.getString(Constants.WIDGET_PATH, AppSettings.get().getSaveDirectory());
             Intent newNoteIntent = new Intent(context, NoteActivity.class)
                     .putExtra(Constants.TARGET_DIR, directory);
 

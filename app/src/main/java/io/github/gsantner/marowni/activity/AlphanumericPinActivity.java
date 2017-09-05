@@ -2,7 +2,6 @@ package io.github.gsantner.marowni.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class AlphanumericPinActivity extends AppCompatActivity {
 
@@ -74,9 +74,9 @@ public class AlphanumericPinActivity extends AppCompatActivity {
         String enteredPin = pinView.getText().toString();
 
         if (isSettingUp) {
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-            editor.putString(getString(R.string.pref_lock_type_key), getString(R.string.pref_alpha_pin_lock_value)).apply();
-            editor.putString(Constants.USER_PIN_KEY, enteredPin).apply();
+            AppSettings appSettings = AppSettings.get();
+            appSettings.setLockType(getString(R.string.pref_value__lock__password));
+            appSettings.setLockAuthPinOrPassword(enteredPin);
 
             setResult(RESULT_OK);
             finish();

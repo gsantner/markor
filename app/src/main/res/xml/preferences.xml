@@ -5,81 +5,81 @@
     <PreferenceCategory android:title="@string/app_settings">
         <ListPreference
             android:defaultValue="@string/theme_light"
-            android:dialogTitle="@string/pref_theme"
-            android:entries="@array/themes_array"
-            android:entryValues="@array/themes_array"
-            android:key="@string/pref_theme_key"
-            android:title="@string/pref_theme" />
+            android:dialogTitle="@string/pref_title__theme"
+            android:entries="@array/pref_arr__themes"
+            android:entryValues="@array/pref_arr__themes"
+            android:key="@string/pref_key__app_theme"
+            android:title="@string/pref_title__theme" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/pref_remember_directory_key"
-            android:title="@string/pref_remember_directory" />
+            android:key="@string/pref_key__remember_last_opened_directory"
+            android:title="@string/pref_title__remember_directory" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/pref_preview_first_key"
-            android:title="@string/pref_preview_first" />
+            android:key="@string/pref_key__is_preview_first"
+            android:title="@string/pref_title__preview_first" />
 
         <ListPreference
-            android:title="@string/pref_lock_settings"
-            android:key="@string/pref_lock_type_key"
+            android:title="@string/pref_title__lock_settings"
+            android:key="@string/pref_key__lock_type"
             android:defaultValue="0"
-            android:entries="@array/possibleLocksStrings"
-            android:entryValues="@array/possibleLocksValues"/>
+            android:entries="@array/pref_arrdisp__lock_type"
+            android:entryValues="@array/pref_arrkeys__lock_type"/>
 
         <Preference
-            android:key="@string/pref_root_directory"
-            android:title="@string/pref_root_directory_title"/>
+            android:key="@string/pref_key__save_directory"
+            android:title="@string/pref_title__root_directory_title"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/editor_settings">
         <ListPreference
             android:defaultValue="sans-serif-light"
-            android:dialogTitle="@string/pref_font_choice"
-            android:entries="@array/fonts_array"
-            android:entryValues="@array/fonts_type_array"
-            android:key="@string/pref_font_choice_key"
-            android:title="@string/pref_font_choice" />
+            android:dialogTitle="@string/pref_title__font_choice"
+            android:entries="@array/pref_arrdisp__font_family"
+            android:entryValues="@array/pref_arrkeys__font_family"
+            android:key="@string/pref_key__font_family"
+            android:title="@string/pref_title__font_choice" />
 
         <ListPreference
             android:defaultValue="21"
-            android:dialogTitle="@string/pref_font_size"
-            android:entries="@array/font_size_choices_array"
-            android:entryValues="@array/font_size_array"
-            android:key="@string/pref_font_size_key"
-            android:title="@string/pref_font_size" />
+            android:dialogTitle="@string/pref_title__font_size"
+            android:entries="@array/pref_arrdisp__font_size"
+            android:entryValues="@array/pref_arrkeys__font_size"
+            android:key="@string/pref_key__font_size"
+            android:title="@string/pref_title__font_size" />
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/pref_show_markdown_shortcuts_key"
-            android:title="@string/pref_show_markdown_shortcuts" />
+            android:key="@string/pref_key__is_show_markdown_shortcuts"
+            android:title="@string/pref_title__show_markdown_shortcuts" />
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/pref_highlighting_activated_key"
-            android:title="@string/pref_highlighting_activated" />
+            android:key="@string/pref_key__is_highlighting_activated"
+            android:title="@string/pref_title__highlighting_activated" />
 
         <EditTextPreference
             android:defaultValue="500"
             android:inputType="number"
             android:numeric="integer"
-            android:key="@string/pref_highlighting_delay_key"
-            android:title="@string/pref_highlighting_delay"
-            android:summary="@string/pref_highlighting_delay_summary"
-            android:dependency="@string/pref_highlighting_activated_key"/>
+            android:key="@string/pref_key__highlighting_delay"
+            android:title="@string/pref_title__highlighting_delay"
+            android:summary="@string/pref_title__highlighting_delay_summary"
+            android:dependency="@string/pref_key__is_highlighting_activated"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/pref_smart_shortcuts_key"
-            android:title="@string/pref_smart_shortcuts"
-            android:summary="@string/pref_smart_shortcuts_summary" />
+            android:key="@string/pref_key__is_smart_shortcuts_enabled"
+            android:title="@string/pref_title__smart_shortcuts"
+            android:summary="@string/pref_title__smart_shortcuts_summary" />
 
 	    <CheckBoxPreference
 		    android:defaultValue="false"
-		    android:key="@string/pref_render_rtl_key"
-		    android:title="@string/pref_render_rtl" />
+		    android:key="@string/pref_key__is_render_rtl"
+		    android:title="@string/pref_title__render_rtl" />
 
     </PreferenceCategory>
 

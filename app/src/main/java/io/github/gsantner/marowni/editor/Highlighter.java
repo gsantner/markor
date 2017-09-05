@@ -20,10 +20,10 @@ class Highlighter {
     final String fontType;
     final Integer fontSize;
 
-    public Highlighter(final HighlighterColors colors, String fontType, String fontSize) {
+    public Highlighter(final HighlighterColors colors, String fontType, int fontSize) {
         this.colors = colors;
         this.fontType = fontType;
-        this.fontSize = Integer.valueOf(fontSize);
+        this.fontSize = fontSize;
     }
 
     public Editable run(Editable e) {

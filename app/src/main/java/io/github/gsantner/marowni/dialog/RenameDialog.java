@@ -16,6 +16,7 @@ import java.io.File;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class RenameDialog extends DialogFragment {
 
@@ -26,8 +27,7 @@ public class RenameDialog extends DialogFragment {
         final File file = new File(getArguments().getString(Constants.SOURCE_FILE));
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
-        AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater, theme);
+        AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater);
         AlertDialog dialog = dialogBuilder.show();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
@@ -35,11 +35,11 @@ public class RenameDialog extends DialogFragment {
         return dialog;
     }
 
-    private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater, String theme) {
+    private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
 
         View dialogView;
         AlertDialog.Builder dialogBuilder;
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             dialogView = inflater.inflate(R.layout.rename_dialog_dark, null);
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
         } else {

@@ -32,31 +32,31 @@
     <string name="files">파일</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">시작할 때 마지막 폴더 위치 기억</string>
-    <string name="pref_font_choice">편집기 글꼴 선택</string>
-    <string name="pref_theme">테마</string>
-    <string name="pref_preview_first">노트 열 때 먼저 미리보기</string>
+    <string name="pref_title__remember_directory">시작할 때 마지막 폴더 위치 기억</string>
+    <string name="pref_title__font_choice">편집기 글꼴 선택</string>
+    <string name="pref_title__theme">테마</string>
+    <string name="pref_title__preview_first">노트 열 때 먼저 미리보기</string>
     <string name="about">Marowni에 대해서</string>
     <string name="share_text">평문 텍스트</string>
     <string name="share_image">이미지</string>
-    <string name="pref_font_size">글자 크기</string>
-    <string name="pref_pin_lock">비밀번호 잠금</string>
-    <string name="pref_show_markdown_shortcuts">마크다운 바로가기 바 표시</string>
-    <string name="pref_highlighting_activated">마크다운 문법 강조</string>
-    <string name="pref_highlighting_delay">강조된 부분을 새로고침할 때 약간 지연시키기</string>
-    <string name="pref_highlighting_delay_summary">높을 수록 배터리가 절약됩니다</string>
-    <string name="pref_smart_shortcuts">스마트 괄호 바로가기</string>
-    <string name="pref_smart_shortcuts_summary">텍스트가 선택됐을 때, {}, [] 그리고 () 가 선택 영역을 감싸게 됨</string>
+    <string name="pref_title__font_size">글자 크기</string>
+    <string name="lock_type__pin">비밀번호 잠금</string>
+    <string name="pref_title__show_markdown_shortcuts">마크다운 바로가기 바 표시</string>
+    <string name="pref_title__highlighting_activated">마크다운 문법 강조</string>
+    <string name="pref_title__highlighting_delay">강조된 부분을 새로고침할 때 약간 지연시키기</string>
+    <string name="pref_title__highlighting_delay_summary">높을 수록 배터리가 절약됩니다</string>
+    <string name="pref_title__smart_shortcuts">스마트 괄호 바로가기</string>
+    <string name="pref_title__smart_shortcuts_summary">텍스트가 선택됐을 때, {}, [] 그리고 () 가 선택 영역을 감싸게 됨</string>
     <string name="pin_title">비밀번호 입력</string>
-    <string name="pref_lock_settings">Lock</string>
-    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
-    <string name="pref_no_lock">No Lock</string>
+    <string name="pref_title__lock_settings">Lock</string>
+    <string name="lock_type__password">Alphanumeric Lock</string>
+    <string name="lock_type__none">No Lock</string>
     <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">보통</string>
-    <string name="font_size_large">큼</string>
-    <string name="font_size_small">작음</string>
+    <string name="font_size__normal">보통</string>
+    <string name="font_size__large">큼</string>
+    <string name="font_size__small">작음</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">마지막 변경: %s</string>
@@ -91,7 +91,7 @@
     <string name="rename_error_target_already_exists">파일/폴더가 이미 존재합니다</string>
     <string name="rename_success">이름 바꾸기 성공</string>
     <string name="rename_fail">이름 바꾸기 실패</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
     <string name="about_original_section">Original creator</string>
 
 </resources>

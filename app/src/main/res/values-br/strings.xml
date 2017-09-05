@@ -31,31 +31,31 @@
     <string name="files">Arquivos</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Abrir a última pasta quando iniciar</string>
-    <string name="pref_font_choice">Fonte do Editor de Notas</string>
-    <string name="pref_theme">Tema</string>
-    <string name="pref_preview_first">Visualizar </string>
+    <string name="pref_title__remember_directory">Abrir a última pasta quando iniciar</string>
+    <string name="pref_title__font_choice">Fonte do Editor de Notas</string>
+    <string name="pref_title__theme">Tema</string>
+    <string name="pref_title__preview_first">Visualizar </string>
     <string name="about">Sobre o Marowni</string>
     <string name="share_text">Texto Puro</string>
     <string name="share_image">Imagem</string>
-    <string name="pref_font_size">Tamanho da fonte</string>
-    <string name="pref_lock_settings">Bloquear</string>
-    <string name="pref_pin_lock">Pin</string>
-    <string name="pref_alpha_pin_lock">Senha</string>
-    <string name="pref_no_lock">Sem senha</string>
-    <string name="pref_show_markdown_shortcuts">Mostrar barra com atalhos do Markdown</string>
-    <string name="pref_highlighting_activated">Destaque de sintaxe do Markdown</string>
-    <string name="pref_highlighting_delay">Tempo de atualização do destaque de sintaxe (em millisegundos)</string>
-    <string name="pref_highlighting_delay_summary">Valores maiores gastam menos bateria</string>
-    <string name="pref_smart_shortcuts">Parênteses inteligentes</string>
-    <string name="pref_smart_shortcuts_summary">Se você selecionar um texto, {}, [] e () vão aparecer nas margens</string>
+    <string name="pref_title__font_size">Tamanho da fonte</string>
+    <string name="pref_title__lock_settings">Bloquear</string>
+    <string name="lock_type__pin">Pin</string>
+    <string name="lock_type__password">Senha</string>
+    <string name="lock_type__none">Sem senha</string>
+    <string name="pref_title__show_markdown_shortcuts">Mostrar barra com atalhos do Markdown</string>
+    <string name="pref_title__highlighting_activated">Destaque de sintaxe do Markdown</string>
+    <string name="pref_title__highlighting_delay">Tempo de atualização do destaque de sintaxe (em millisegundos)</string>
+    <string name="pref_title__highlighting_delay_summary">Valores maiores gastam menos bateria</string>
+    <string name="pref_title__smart_shortcuts">Parênteses inteligentes</string>
+    <string name="pref_title__smart_shortcuts_summary">Se você selecionar um texto, {}, [] e () vão aparecer nas margens</string>
     <string name="pin_title">Digite o seu pin</string>
     <string name="passphrase_title">Digite sua senha</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">Normal</string>
-    <string name="font_size_large">Grande</string>
-    <string name="font_size_small">Pequeno</string>
+    <string name="font_size__normal">Normal</string>
+    <string name="font_size__large">Grande</string>
+    <string name="font_size__small">Pequeno</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Última modificação: %s</string>
@@ -92,6 +92,6 @@
     <string name="about_original_section">Original creator</string>
     <string name="tap_website">Clique para visitar o site</string>
     <string name="tap_github">Clique para visitar o repositório no GitHub</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
 
 </resources>

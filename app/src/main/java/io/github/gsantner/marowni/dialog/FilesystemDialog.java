@@ -23,6 +23,7 @@ import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.adapter.FileAdapter;
 import io.github.gsantner.marowni.model.Constants;
 import io.github.gsantner.marowni.model.MarowniSingleton;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class FilesystemDialog extends DialogFragment {
 
@@ -68,7 +69,6 @@ public class FilesystemDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER);
 
         isMovingFile = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
         isSelectingFolder = getArguments().getString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY).equals(Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
@@ -77,7 +77,7 @@ public class FilesystemDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
         View dialogView;
 
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
             dialogView = inflater.inflate(R.layout.filesystem_dialog_dark, null);
         } else {
@@ -168,7 +168,7 @@ public class FilesystemDialog extends DialogFragment {
     }
 
     private File getRootFolderFromPrefsOrDefault() {
-        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+        return new File(AppSettings.get().getSaveDirectory());
     }
 
     private void showCurrentDirectory(String folder) {

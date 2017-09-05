@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class CreateFolderDialog extends DialogFragment {
 
@@ -37,9 +38,8 @@ public class CreateFolderDialog extends DialogFragment {
 
         View dialogView;
         AlertDialog.Builder dialogBuilder;
-        String theme = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.pref_theme_key), "");
 
-        if (theme.equals(getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             dialogView = inflater.inflate(R.layout.folder_dialog_dark, null);
             dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
         } else {

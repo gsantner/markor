@@ -37,6 +37,7 @@ import io.github.gsantner.marowni.dialog.FilesystemDialog;
 import io.github.gsantner.marowni.dialog.RenameDialog;
 import io.github.gsantner.marowni.model.Constants;
 import io.github.gsantner.marowni.model.MarowniSingleton;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class NotesFragment extends Fragment {
 
@@ -134,7 +135,7 @@ public class NotesFragment extends Fragment {
     }
 
     private File getRootFolderFromPrefsOrDefault() {
-        return new File(PreferenceManager.getDefaultSharedPreferences(this.getActivity()).getString(getString(R.string.pref_root_directory), Constants.DEFAULT_WRITEILY_STORAGE_FOLDER));
+        return new File(AppSettings.get().getSaveDirectory());
     }
 
     @Override
@@ -144,10 +145,9 @@ public class NotesFragment extends Fragment {
     }
 
     private void retrieveCurrentFolder() {
-        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean isLastDirStored = pm.getBoolean(getString(R.string.pref_remember_directory_key), false);
-        if (isLastDirStored) {
-            String rememberedDir = pm.getString(getString(R.string.pref_last_open_directory), null);
+        AppSettings appSettings = AppSettings.get();
+        if (appSettings.isRememberLastDirectory()) {
+            String rememberedDir = appSettings.getLastOpenedDirectory();
             currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
         }
 
@@ -159,12 +159,11 @@ public class NotesFragment extends Fragment {
     }
 
     private void saveCurrentFolder() {
+        AppSettings appSettings =AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean isLastDirStored = pm.getBoolean(getString(R.string.pref_remember_directory_key), false);
-
-        if (isLastDirStored) {
+        if (appSettings.isRememberLastDirectory()) {
             String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();
-            pm.edit().putString(getString(R.string.pref_last_open_directory), saveDir).apply();
+            appSettings.setLastOpenedDirectory(saveDir);
         }
 
         marowniSingleton.setNotesLastDirectory(currentDir);
@@ -396,12 +395,9 @@ public class NotesFragment extends Fragment {
             } else {
 
                 File note = (File) simpleSectionAdapter.getItem(i);
-
-                boolean previewFirst = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.pref_preview_first_key), false);
-
                 Intent intent;
 
-                if (previewFirst) {
+                if (AppSettings.get().isPreviewFirst()) {
                     intent = new Intent(context, PreviewActivity.class);
 
                     // .replace is a workaround for Markdown lists requiring two \n characters

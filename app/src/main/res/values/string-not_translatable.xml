@@ -3,29 +3,30 @@
     <string name="app_name" translatable="false">Marowni</string>
     <string name="plus" translatable="false">+</string>
 
-    <string name="pref_lock_type_key" translatable="false">pref_lock_type_key</string>
-    <string name="pref_preview_first_key" translatable="false">pref_edit_first_key</string>
-    <string name="pref_show_markdown_shortcuts_key" translatable="false">pref_show_markdown_shortcuts_key</string>
-    <string name="pref_highlighting_activated_key" translatable="false">pref_highlighting_activated_key</string>
-    <string name="pref_highlighting_delay_key" translatable="false">pref_highlighting_delay_key</string>
-    <string name="pref_remember_directory_key" translatable="false">pref_remember_directory_key</string>
-    <string name="pref_last_open_directory" translatable="false">pref_last_open_directory</string>
-    <string name="pref_root_directory" translatable="false">pref_root_directory</string>
-    <string name="pref_font_choice_key" translatable="false">pref_font_choice</string>
-    <string name="pref_theme_key" translatable="false">pref_theme</string>
-    <string name="pref_font_size_key" translatable="false">pref_font_size_key</string>
-    <string name="pref_about_key" translatable="false">pref_about</string>
-    <string name="pref_smart_shortcuts_key" translatable="false">pref_smart_shortcuts_key</string>
-    <string name="pref_render_rtl_key" translatable="false">pref_render_rtl_key</string>
+    <string name="pref_key__lock_type" translatable="false">pref_key__lock_type</string>
+    <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
+    <string name="pref_key__is_show_markdown_shortcuts" translatable="false">pref_key__is_show_markdown_shortcuts</string>
+    <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
+    <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
+    <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
+    <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
+    <string name="pref_key__save_directory" translatable="false">pref_key__save_directory</string>
+    <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
+    <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
+    <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
+    <string name="pref_key__about" translatable="false">pref_key__about</string>
+    <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
+    <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
+    <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
 
     <string name="share_html" translatable="false">HTML</string>
     <string name="share_html_source" translatable="false">HTML Source</string>
 
     <!-- About Screen -->
     <string name="source_url" translatable="false">https://github.com/gsantner/marowni</string>
-    <string name="pref_no_lock_value" translatable="false">0</string>
-    <string name="pref_pin_lock_value" translatable="false">1</string>
-    <string name="pref_alpha_pin_lock_value" translatable="false">2</string>
+    <string name="pref_value__lock__none" translatable="false">0</string>
+    <string name="pref_value__lock__pin" translatable="false">1</string>
+    <string name="pref_value__lock__password" translatable="false">2</string>
 
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2014-2016
@@ -42,32 +43,4 @@
         \n
     ]]></string>
     <string name="team">Team</string>
-
-    <string-array name="fonts_array" translatable="false">
-        <item>Roboto Light (Default)</item>
-        <item>Roboto Condensed</item>
-        <item>Roboto Regular</item>
-        <item>Roboto Bold</item>
-        <item>Monospace</item>
-    </string-array>
-
-    <string-array name="font_size_array" translatable="false">
-        <item>21</item>
-        <item>25</item>
-        <item>17</item>
-    </string-array>
-
-    <string-array name="possibleLocksValues" translatable="false">
-        <item>@string/pref_no_lock_value</item>
-        <item>@string/pref_pin_lock_value</item>
-        <item>@string/pref_alpha_pin_lock_value</item>
-    </string-array>
-
-    <string-array name="fonts_type_array" translatable="false">
-        <item>sans-serif-light</item>
-        <item>sans-serif-condensed</item>
-        <item>sans-serif-regular</item>
-        <item>sans-serif-bold</item>
-        <item>monospace</item>
-    </string-array>
 </resources>

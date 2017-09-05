@@ -33,34 +33,34 @@
     <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
     <!-- Preferences -->
-    <string name="pref_remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
-    <string name="pref_font_choice">Czcionka edytora notatek</string>
-    <string name="pref_theme">Motyw</string>
-    <string name="pref_preview_first">Preview first when opening notes</string>
+    <string name="pref_title__remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
+    <string name="pref_title__font_choice">Czcionka edytora notatek</string>
+    <string name="pref_title__theme">Motyw</string>
+    <string name="pref_title__preview_first">Preview first when opening notes</string>
     <string name="about">O Marowni</string>
     <string name="share_text">Tekst</string>
     <string name="share_image">Obraz</string>
-    <string name="pref_font_size">Rozmiar czcionki</string>
-    <string name="pref_pin_lock">Blokada kodem PIN</string>
-    <string name="pref_show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
-    <string name="pref_highlighting_activated">Markdown podświetlanie składni</string>
-    <string name="pref_highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżanie</string>
-    <string name="pref_highlighting_delay_summary">Wyższe wartości są łatwiejsze w akumulatorze</string>
+    <string name="pref_title__font_size">Rozmiar czcionki</string>
+    <string name="lock_type__pin">Blokada kodem PIN</string>
+    <string name="pref_title__show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
+    <string name="pref_title__highlighting_activated">Markdown podświetlanie składni</string>
+    <string name="pref_title__highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżanie</string>
+    <string name="pref_title__highlighting_delay_summary">Wyższe wartości są łatwiejsze w akumulatorze</string>
     <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
     <string name="new_name_hint">Enter new name</string>
-    <string name="pref_lock_settings">Lock</string>
-    <string name="pref_alpha_pin_lock">Alphanumeric Lock</string>
-    <string name="pref_no_lock">No Lock</string>
-    <string name="pref_smart_shortcuts">Smart brackets shortcuts</string>
-    <string name="pref_smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
+    <string name="pref_title__lock_settings">Lock</string>
+    <string name="lock_type__password">Alphanumeric Lock</string>
+    <string name="lock_type__none">No Lock</string>
+    <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
+    <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
     <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size_normal">Normalny</string>
-    <string name="font_size_large">Duży</string>
-    <string name="font_size_small">Mały</string>
+    <string name="font_size__normal">Normalny</string>
+    <string name="font_size__large">Duży</string>
+    <string name="font_size__small">Mały</string>
 
     <string name="last_modified">Ostatnio zmieniony: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
@@ -91,6 +91,6 @@
     <string name="about_croatian">Chorwacki</string>
     <string name="tap_website">Tap to visit website</string>
     <string name="tap_github">Tap to visit profile on GitHub</string>
-    <string name="pref_root_directory_title">Select storage folder</string>
+    <string name="pref_title__root_directory_title">Select storage folder</string>
     <string name="about_original_section">Original creator</string>
 </resources>

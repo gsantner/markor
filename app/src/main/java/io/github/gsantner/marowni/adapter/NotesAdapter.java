@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.github.gsantner.marowni.R;
 import io.github.gsantner.marowni.model.Constants;
+import io.github.gsantner.marowni.util.AppSettings;
 
 public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
@@ -51,7 +52,6 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        String theme = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_theme_key), "");
 
         View row = inflater.inflate(R.layout.file_item, viewGroup, false);
         TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
@@ -67,7 +67,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
         }
 
         // Theme Adjustments
-        if (theme.equals(context.getString(R.string.theme_dark))) {
+        if (AppSettings.get().isDarkThemeEnabled()) {
             noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
 
             if (getItem(i).isDirectory()) {
