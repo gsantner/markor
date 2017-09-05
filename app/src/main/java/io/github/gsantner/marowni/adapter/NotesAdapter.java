@@ -1,7 +1,7 @@
 package io.github.gsantner.marowni.adapter;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
+import android.support.annotation.DrawableRes;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,21 +71,31 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
             noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
 
             if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_white_24dp));
+                fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
             } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_file_white_24dp));
+                fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
             }
         } else {
             noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
             if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder_white_24dp));
+                fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
             } else {
-                fileIdentifierImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_file_white_24dp));
+                fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
             }
         }
 
         return row;
+    }
+
+    @DrawableRes
+    public int getIdentifierDrawable(boolean isFolder) {
+        boolean isDark = AppSettings.get().isDarkThemeEnabled();
+        if (isFolder) {
+            return isDark ? R.drawable.ic_folder_white_24dp : R.drawable.ic_folder_gray_24dp;
+        } else {
+            return isDark ? R.drawable.ic_file_white_24dp : R.drawable.ic_file_gray_24dp;
+        }
     }
 
     private String generateExtraForFile(int i) {
