@@ -44,8 +44,13 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Locale;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
@@ -308,5 +313,31 @@ public class Helpers {
 
     public float dp2px(final float dp) {
         return dp * _context.getResources().getDisplayMetrics().density;
+    }
+
+    public boolean copyFile(File src, File dest) {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            try {
+                is = new FileInputStream(src);
+                os = new FileOutputStream(dest);
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = is.read(buf)) > 0) {
+                    os.write(buf, 0, len);
+                }
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
+                if (os != null) {
+                    os.close();
+                }
+            }
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
     }
 }
