@@ -71,26 +71,10 @@
     <string name="more_items_selected">%d elementos seleccionados</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Versión</string>
-    <string name="about_source_title">Código fuente disponible en GitHub</string>
-    <string name="about_developer_section">Desarrollador</string>
-    <string name="about_contributors_section">Contribuidores</string>
-    <string name="about_libraries_section">Librerias</string>
-    <string name="about_translators_section">Traductores</string>
-    <string name="about_korean">Coreano</string>
-    <string name="about_german">Alemán</string>
-    <string name="about_polish">Polaco</string>
-    <string name="about_spanish">Español</string>
-    <string name="about_french">Francés</string>
-    <string name="about_chinese_simplified">Chino (simplificado)</string>
-    <string name="about_italian">Italiano</string>
-    <string name="about_croatian">Croata</string>
-    <string name="tap_website">Pulsa para visitar el sitio web</string>
-    <string name="tap_github">Pulsa para visitar mi perfil en GitHub</string>
+    <string name="contributors">Contribuidores</string>
     <string name="rename_error_target_already_exists">¡La carpeta o nota de destino ya existe!</string>
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_fail">Failed to rename</string>
     <string name="pref_title__root_directory_title">Select storage folder</string>
-    <string name="about_original_section">Creador original</string>
 
 </resources>

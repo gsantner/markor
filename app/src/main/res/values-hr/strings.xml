@@ -76,22 +76,6 @@
   <string name="rename_fail">Neuspješno preimenovanje</string>
 
   <!-- About screen -->
-  <string name="about_version_title">Verzija</string>
-  <string name="about_source_title">Marowni je otvorenog koda na GitHubu</string>
-  <string name="about_developer_section">Razvojni programer</string>
-  <string name="about_contributors_section">Suradnici</string>
-  <string name="about_libraries_section">Biblioteke</string>
-  <string name="about_translators_section">Prevoditelji</string>
-  <string name="about_korean">Korejski</string>
-  <string name="about_italian">Talijanski</string>
-  <string name="about_german">Njemački</string>
-  <string name="about_polish">Poljski</string>
-  <string name="about_spanish">Španjolski</string>
-  <string name="about_french">Francuski</string>
-  <string name="about_chinese_simplified">Kineski (pojednostavljen)</string>
-  <string name="about_croatian">Hrvatski</string>
-    <string name="about_original_section">Original creator</string>
-  <string name="tap_website">Otvori web stranicu</string>
-  <string name="tap_github">Otvori GitHub profil</string>
+  <string name="contributors">Suradnici</string>
 
 </resources>

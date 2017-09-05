@@ -71,26 +71,10 @@
     <string name="more_items_selected">%d elementi selezionati</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Versione</string>
-    <string name="about_source_title">Marowni è open source su GitHub</string>
-    <string name="about_developer_section">Sviluppatore</string>
-    <string name="about_contributors_section">Contributori</string>
-    <string name="about_libraries_section">Librerie</string>
-    <string name="about_translators_section">Traduttori</string>
-    <string name="about_korean">Coreano</string>
-    <string name="about_italian">Italiano</string>
-    <string name="about_german">Tedesco</string>
-    <string name="about_polish">Polacco</string>
-    <string name="about_spanish">Spagnolo</string>
-    <string name="about_french">Francese</string>
-    <string name="about_chinese_simplified">Cinese (semplificato)</string>
-    <string name="about_croatian">Croato</string>
-    <string name="tap_website">Tocca per visitare il sito web</string>
-    <string name="tap_github">Tocca per visitare il profilo su GitHub</string>
+    <string name="contributors">Contributori</string>
     <string name="rename_error_target_already_exists">File o cartella di destinazione già esistenti.</string>
     <string name="rename_success">Rinominata con successo</string>
     <string name="rename_fail">Impossibile rinominare</string>
     <string name="pref_title__root_directory_title">Select storage folder</string>
-    <string name="about_original_section">Original creator</string>
 
 </resources>
