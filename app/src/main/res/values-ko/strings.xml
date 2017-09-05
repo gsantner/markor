@@ -72,26 +72,10 @@
     <string name="more_items_selected">%d 개의 항목 선택됨</string>
 
     <!-- About screen -->
-    <string name="about_version_title">버전</string>
-    <string name="about_source_title">Marowni는 GitHub에 공개되어 있습니다</string>
-    <string name="about_developer_section">제작자</string>
-    <string name="about_contributors_section">기여자</string>
-    <string name="about_libraries_section">라이브러리</string>
-    <string name="about_translators_section">번역 제공자</string>
-    <string name="about_korean">한국의</string>
-    <string name="about_german">German</string>
-    <string name="about_polish">Polish</string>
-    <string name="about_spanish">Spanish</string>
-    <string name="about_french">French</string>
-    <string name="about_chinese_simplified">Chinese (Simplified)</string>
-    <string name="about_italian">Italian</string>
-    <string name="about_croatian">Croatian</string>
-    <string name="tap_website">웹사이트 방문</string>
-    <string name="tap_github">Github 프로필</string>
+    <string name="contributors">기여자</string>
     <string name="rename_error_target_already_exists">파일/폴더가 이미 존재합니다</string>
     <string name="rename_success">이름 바꾸기 성공</string>
     <string name="rename_fail">이름 바꾸기 실패</string>
     <string name="pref_title__root_directory_title">Select storage folder</string>
-    <string name="about_original_section">Original creator</string>
 
 </resources>

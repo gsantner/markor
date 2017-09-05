@@ -75,24 +75,8 @@
     <string name="rename_fail">Renommage échoué</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Version</string>
-    <string name="about_source_title">Code Source disponible sur GitHub</string>
-    <string name="about_developer_section">Developeur</string>
-    <string name="about_contributors_section">Contributeurs</string>
-    <string name="about_original_section">Créateur original</string>
+    <string name="contributors">Contributeurs</string>
 
-    <string name="about_libraries_section">Libraries</string>
-    <string name="about_translators_section">Traducteurs</string>
-    <string name="about_korean">Coréen</string>
-    <string name="about_german">Allemand</string>
-    <string name="about_polish">Polonais</string>
-    <string name="about_french">Français</string>
-    <string name="about_spanish">Espagnol</string>
-    <string name="about_chinese_simplified">Chinois (simplifié)</string>
-    <string name="about_italian">Italien</string>
-    <string name="about_croatian">Croate</string>
-    <string name="tap_website">Taper pour visiter site web</string>
-    <string name="tap_github">Taper pour visiter le profil sur GitHub</string>
     <string name="pref_title__root_directory_title">Selectionner le dossier de stockage</string>
 
 </resources>

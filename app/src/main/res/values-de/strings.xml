@@ -72,23 +72,7 @@
     <string name="more_items_selected">%d Elemente ausgewählt</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Version</string>
-    <string name="about_developer_section">Entwickler</string>
-    <string name="tap_website">Antippen, um Website zu öffnen</string>
-    <string name="about_contributors_section">Mitwirkende</string>
-    <string name="tap_github">Antippen, um GitHub-Profil zu öffnen</string>
-    <string name="about_translators_section">Übersetzer</string>
-    <string name="about_korean">Koreanisch</string>
-    <string name="about_german">Deutsch</string>
-    <string name="about_polish">Polnisch</string>
-    <string name="about_spanish">Spanisch</string>
-    <string name="about_french">Französisch</string>
-    <string name="about_chinese_simplified">Chinesisch (vereinfacht)</string>
-    <string name="about_italian">Italienisch</string>
-    <string name="about_croatian">Kroatisch</string>
-    <string name="about_libraries_section">Bibliotheken</string>
-    <string name="about_source_title">Quellcode verfügbar auf GitHub</string>
-    <string name="about_original_section">Erfinder</string>
+    <string name="contributors">Mitwirkende</string>
     <string name="rename_error_target_already_exists">Ordner existiert bereits</string>
     <string name="rename_success">Erfolgreich umbenannt</string>
     <string name="rename_fail">Beim Umbenennen ist ein Fehler aufgetreten</string>

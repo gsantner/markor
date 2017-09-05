@@ -14,7 +14,6 @@
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
-    <string name="pref_key__about" translatable="false">pref_key__about</string>
     <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
@@ -23,7 +22,6 @@
     <string name="share_html_source" translatable="false">HTML Source</string>
 
     <!-- About Screen -->
-    <string name="source_url" translatable="false">https://github.com/gsantner/marowni</string>
     <string name="pref_value__lock__none" translatable="false">0</string>
     <string name="pref_value__lock__pin" translatable="false">1</string>
     <string name="pref_value__lock__password" translatable="false">2</string>
@@ -42,5 +40,5 @@
         \nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
         \n
     ]]></string>
-    <string name="team">Team</string>
+    <string name="team">Maintainer</string>
 </resources>

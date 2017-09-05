@@ -75,23 +75,7 @@
     <string name="rename_fail">Erro em renomear</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Versão</string>
-    <string name="about_source_title">Código Disponível no GitHub</string>
-    <string name="about_developer_section">Desenvolvedor</string>
-    <string name="about_contributors_section">Colaboradores</string>
-    <string name="about_libraries_section">Bibliotecas</string>
-    <string name="about_translators_section">Tradutores</string>
-    <string name="about_korean">Coreano</string>
-    <string name="about_german">Alemão</string>
-    <string name="about_polish">Polonês</string>
-    <string name="about_spanish">Espanhol</string>
-    <string name="about_french">Francês</string>
-    <string name="about_chinese_simplified">Chinês (simplificado)</string>
-    <string name="about_italian">Italiano</string>
-    <string name="about_croatian">Croata</string>
-    <string name="about_original_section">Original creator</string>
-    <string name="tap_website">Clique para visitar o site</string>
-    <string name="tap_github">Clique para visitar o repositório no GitHub</string>
+    <string name="contributors">Colaboradores</string>
     <string name="pref_title__root_directory_title">Select storage folder</string>
 
 </resources>

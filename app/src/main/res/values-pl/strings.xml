@@ -75,22 +75,6 @@
     <string name="more_items_selected">%d wybrany</string>
 
     <!-- About screen -->
-    <string name="about_version_title">Wersja</string>
-    <string name="about_source_title">Marowni is open source on GitHub</string>
-    <string name="about_developer_section">Programista</string>
-    <string name="about_contributors_section">Contributors</string>
-    <string name="about_libraries_section">Biblioteki</string>
-    <string name="about_translators_section">tłumacze</string>
-    <string name="about_korean">Koreański</string>
-    <string name="about_german">Niemiecki</string>
-    <string name="about_polish">Polski</string>
-    <string name="about_spanish">Hiszpański</string>
-    <string name="about_french">Francuski</string>
-    <string name="about_chinese_simplified">Chiński (uproszczony)</string>
-    <string name="about_italian">Włoski</string>
-    <string name="about_croatian">Chorwacki</string>
-    <string name="tap_website">Tap to visit website</string>
-    <string name="tap_github">Tap to visit profile on GitHub</string>
+    <string name="contributors">Contributors</string>
     <string name="pref_title__root_directory_title">Select storage folder</string>
-    <string name="about_original_section">Original creator</string>
 </resources>
