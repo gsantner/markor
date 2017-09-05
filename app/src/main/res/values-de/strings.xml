@@ -77,5 +77,12 @@
     <string name="rename_success">Erfolgreich umbenannt</string>
     <string name="rename_fail">Beim Umbenennen ist ein Fehler aufgetreten</string>
     <string name="pref_title__root_directory_title">Speicherort</string>
+    <string name="changelog">Änderungen</string>
+    <string name="licenses">Lizenzen</string>
+    <string name="more_information">Mehr Informationen</string>
+    <string name="pref_title__render_rtl">Rendern von rechts-zu-links Sprachen</string>
+    <string name="show_app_license">Lizenzen der App anzeigen</string>
+    <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
+    <string name="team"></string>
 
 </resources>
