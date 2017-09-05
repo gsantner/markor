@@ -36,6 +36,7 @@ import io.github.gsantner.marowni.model.MarowniSingleton;
 import io.github.gsantner.marowni.settings.SettingsActivity;
 import io.github.gsantner.marowni.util.AppSettings;
 import io.github.gsantner.marowni.util.CurrentFolderChangedReceiver;
+import io.github.gsantner.marowni.util.Helpers;
 import io.github.gsantner.marowni.util.HelpersA;
 import io.github.gsantner.marowni.util.RenameBroadcastReceiver;
 import io.github.gsantner.marowni.util.Utils;
@@ -91,15 +92,14 @@ public class MainActivity extends AppCompatActivity {
                 notesFragment.finishActionMode();
             }
             if (intent.getAction().equals(Constants.CONFIRM_OVERWRITE_DIALOG_TAG)) {
-                importFileToStorageDir(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
+                importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
             }
         }
     };
 
-    private void importFileToStorageDir(Context context, File serializableExtra) {
-        MarowniSingleton.getInstance().copyFile(serializableExtra,
-                notesFragment.getCurrentDir().getAbsolutePath());
-        Toast.makeText(context, "Imported to \"" + notesFragment.getCurrentDir().getName() + "\"",
+    private void importFileToCurrentDirectory(Context context, File sourceFile) {
+        Helpers.get().copyFile(sourceFile, new File(notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
                 Toast.LENGTH_LONG).show();
     }
 
@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
         if (new File(notesFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
             askForConfirmation(file);
         } else {
-            importFileToStorageDir(this, file);
+            importFileToCurrentDirectory(this, file);
         }
     }
 
