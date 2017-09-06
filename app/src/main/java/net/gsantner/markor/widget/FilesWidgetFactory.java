@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.io.File;
-import java.io.FileFilter;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
+
+import java.io.File;
+import java.io.FileFilter;
 
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 

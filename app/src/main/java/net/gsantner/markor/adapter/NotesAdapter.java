@@ -12,13 +12,13 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 

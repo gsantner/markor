@@ -11,11 +11,11 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class FileAdapter extends BaseAdapter implements Filterable {
 

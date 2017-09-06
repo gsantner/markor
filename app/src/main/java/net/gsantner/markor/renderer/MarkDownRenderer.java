@@ -1,11 +1,9 @@
 package net.gsantner.markor.renderer;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 
 import com.commonsware.cwac.anddown.AndDown;
 
-import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 

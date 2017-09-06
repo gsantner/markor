@@ -23,15 +23,16 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.Helpers;
+import net.gsantner.markor.util.HelpersA;
+
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Helpers;
-import net.gsantner.markor.util.HelpersA;
 import io.github.gsantner.opoc.util.SimpleMarkdownParser;
 
 @SuppressWarnings("unused")
@@ -68,7 +69,7 @@ public class AboutActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        if (AppSettings.get().isDarkThemeEnabled()){
+        if (AppSettings.get().isDarkThemeEnabled()) {
             setTheme(R.style.AppTheme_Dark);
         }
         findViewById(R.id.about__activity__content_layout).setBackgroundColor(AppSettings.get().getBackgroundColor());

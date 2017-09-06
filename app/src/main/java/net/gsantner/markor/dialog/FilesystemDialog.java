@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,14 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.FileAdapter;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class FilesystemDialog extends DialogFragment {
 

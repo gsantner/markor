@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import java.io.File;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.NotesFragment;
 import net.gsantner.markor.model.Constants;
+
+import java.io.File;
 
 public class RenameBroadcastReceiver extends BroadcastReceiver {
 

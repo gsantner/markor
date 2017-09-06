@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.TextView;
 
-import java.io.File;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Constants;
+
+import java.io.File;
 
 public class CurrentFolderChangedReceiver extends BroadcastReceiver {
 
