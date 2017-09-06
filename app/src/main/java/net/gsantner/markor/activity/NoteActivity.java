@@ -2,7 +2,6 @@ package net.gsantner.markor.activity;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PorterDuff;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,10 +35,7 @@ import java.io.OutputStreamWriter;
 import java.util.UUID;
 
 public class NoteActivity extends AppCompatActivity {
-
-    public static final String EMPTY_STRING = "";
     private File note;
-    private Context context;
 
     private EditText noteTitle;
     private HighlightingEditor content;
@@ -52,19 +47,6 @@ public class NoteActivity extends AppCompatActivity {
     private boolean isPreviewIncoming = false;
 
     private AppSettings _appSettings;
-
-    public NoteActivity() {
-    }
-
-    public NoteActivity(Context context) {
-        this.context = context;
-        this.note = null;
-    }
-
-    public NoteActivity(Context context, File note) {
-        this.context = context;
-        this.note = note;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +63,6 @@ public class NoteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        context = getApplicationContext();
         content = (HighlightingEditor) findViewById(R.id.note_content);
         noteTitle = (EditText) findViewById(R.id.edit_note_title);
         scrollView = (ScrollView) findViewById(R.id.note_scrollview);
@@ -257,10 +238,6 @@ public class NoteActivity extends AppCompatActivity {
     private void setupAppearancePreferences() {
         content.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
         content.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
-        if (content.getTypeface().equals(Typeface.DEFAULT)) {
-            Log.d("hi", "HI");
-        }
-
 
         if (_appSettings.isDarkThemeEnabled()) {
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
@@ -332,9 +309,9 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void updateWidgets() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
-                new ComponentName(context, MarkorWidgetProvider.class));
+                new ComponentName(getApplicationContext(), MarkorWidgetProvider.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 

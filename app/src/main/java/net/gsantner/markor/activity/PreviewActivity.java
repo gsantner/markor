@@ -20,11 +20,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class PreviewActivity extends AppCompatActivity {
-
     private WebView previewWebView;
     private String markdownRaw;
     private String markdownHtml;
-    private String currentDir;
     private File note;
     private boolean isEditIncoming = false;
     private MarkDownRenderer renderer = new MarkDownRenderer();

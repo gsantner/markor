@@ -1,6 +1,5 @@
 package net.gsantner.markor.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,7 +16,6 @@ import net.gsantner.markor.util.AppSettings;
 
 public class AlphanumericPinActivity extends AppCompatActivity {
 
-    private Context context;
     private String pin;
 
     private EditText pinView;
@@ -43,7 +41,6 @@ public class AlphanumericPinActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_alphanumeric_pin);
-        context = getApplicationContext();
 
         // Find pin EditTexts
         pinView = (EditText) findViewById(R.id.passcode);
@@ -85,7 +82,7 @@ public class AlphanumericPinActivity extends AppCompatActivity {
             if (enteredPin.equalsIgnoreCase(pin)) {
                 startMain();
             } else {
-                Toast.makeText(context, getString(R.string.incorrect_pin_text), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.incorrect_pin_text), Toast.LENGTH_SHORT).show();
                 resetPin();
             }
         }

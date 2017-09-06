@@ -17,8 +17,6 @@ import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 
 public class PinActivity extends AppCompatActivity {
-
-    private Context context;
     private String pin;
 
     private EditText pin1;
@@ -47,7 +45,6 @@ public class PinActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_pin);
-        context = getApplicationContext();
 
         // Find pin EditTexts
         pin1 = (EditText) findViewById(R.id.pin1);
@@ -207,7 +204,7 @@ public class PinActivity extends AppCompatActivity {
                 startMain();
             } else {
                 if (enteredPin.length() == 4) {
-                    Toast.makeText(context, getString(R.string.incorrect_pin_text), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.incorrect_pin_text), Toast.LENGTH_SHORT).show();
                     resetPin();
                 }
             }
