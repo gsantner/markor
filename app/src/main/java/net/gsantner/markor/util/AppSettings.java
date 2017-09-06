@@ -3,10 +3,11 @@ package net.gsantner.markor.util;
 import android.content.Context;
 import android.os.Environment;
 
-import java.io.File;
-
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+
+import java.io.File;
+
 import io.github.gsantner.opoc.util.AppSettingsBase;
 
 public class AppSettings extends AppSettingsBase {
@@ -45,7 +46,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isRememberLastDirectory() {
-        return getBool(R.string.pref_key__remember_last_opened_directory, false);
+        return getBool(R.string.pref_key__remember_last_opened_directory, true);
     }
 
     public boolean isPreviewFirst() {
@@ -68,11 +69,11 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public String getFontFamily() {
-        return getString(R.string.pref_key__font_family, "sans-serif-light");
+        return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
 
     public int getFontSize() {
-        return getIntOfStringPref(R.string.pref_key__font_size, 21);
+        return getIntOfStringPref(R.string.pref_key__font_size, 18);
     }
 
     public boolean isShowMarkdownShortcuts() {
@@ -95,7 +96,7 @@ public class AppSettings extends AppSettingsBase {
         return getString(R.string.pref_key__last_opened_directory, getSaveDirectory());
     }
 
-    public void setLastOpenedDirectory(String value){
+    public void setLastOpenedDirectory(String value) {
         setString(R.string.pref_key__last_opened_directory, value);
     }
 

@@ -12,7 +12,7 @@
             android:title="@string/pref_title__theme" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="@string/pref_key__remember_last_opened_directory"
             android:title="@string/pref_title__remember_directory" />
 
@@ -36,7 +36,7 @@
 
     <PreferenceCategory android:title="@string/editor_settings">
         <ListPreference
-            android:defaultValue="sans-serif-light"
+            android:defaultValue="@string/default_font_family"
             android:dialogTitle="@string/pref_title__font_choice"
             android:entries="@array/pref_arrdisp__font_family"
             android:entryValues="@array/pref_arrkeys__font_family"
@@ -46,7 +46,7 @@
         <ListPreference
             android:defaultValue="21"
             android:dialogTitle="@string/pref_title__font_size"
-            android:entries="@array/pref_arrdisp__font_size"
+            android:entries="@array/pref_arrkeys__font_size"
             android:entryValues="@array/pref_arrkeys__font_size"
             android:key="@string/pref_key__font_size"
             android:title="@string/pref_title__font_size" />

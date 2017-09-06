@@ -28,9 +28,6 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.io.File;
-import java.io.Serializable;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.ConfirmDialog;
 import net.gsantner.markor.dialog.CreateFolderDialog;
@@ -44,6 +41,9 @@ import net.gsantner.markor.util.Helpers;
 import net.gsantner.markor.util.HelpersA;
 import net.gsantner.markor.util.RenameBroadcastReceiver;
 import net.gsantner.markor.util.Utils;
+
+import java.io.File;
+import java.io.Serializable;
 
 
 public class MainActivity extends AppCompatActivity {

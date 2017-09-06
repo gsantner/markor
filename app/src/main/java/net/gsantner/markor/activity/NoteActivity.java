@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,18 +23,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.UUID;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.editor.HighlightingEditor;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.UUID;
 
 public class NoteActivity extends AppCompatActivity {
 
@@ -256,6 +257,10 @@ public class NoteActivity extends AppCompatActivity {
     private void setupAppearancePreferences() {
         content.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
         content.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
+        if (content.getTypeface().equals(Typeface.DEFAULT)) {
+            Log.d("hi", "HI");
+        }
+
 
         if (_appSettings.isDarkThemeEnabled()) {
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));

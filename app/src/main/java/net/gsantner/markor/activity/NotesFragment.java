@@ -26,10 +26,6 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
@@ -38,6 +34,10 @@ import net.gsantner.markor.dialog.RenameDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotesFragment extends Fragment {
 
@@ -159,7 +159,7 @@ public class NotesFragment extends Fragment {
     }
 
     private void saveCurrentFolder() {
-        AppSettings appSettings =AppSettings.get();
+        AppSettings appSettings = AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
         if (appSettings.isRememberLastDirectory()) {
             String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();

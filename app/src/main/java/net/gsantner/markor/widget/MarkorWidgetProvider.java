@@ -7,12 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.NoteActivity;
-import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 

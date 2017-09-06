@@ -3,23 +3,10 @@
     <string name="app_name" translatable="false">Markor</string>
     <string name="plus" translatable="false">+</string>
 
-    <string name="pref_key__lock_type" translatable="false">pref_key__lock_type</string>
-    <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
-    <string name="pref_key__is_show_markdown_shortcuts" translatable="false">pref_key__is_show_markdown_shortcuts</string>
-    <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
-    <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
-    <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
-    <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
-    <string name="pref_key__save_directory" translatable="false">pref_key__save_directory</string>
-    <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
-    <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
-    <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
-    <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
-    <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
-    <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
-
+    <string name="default_font_family" translatable="false">sans-serif-light</string>
     <string name="share_html" translatable="false">HTML</string>
     <string name="share_html_source" translatable="false">HTML Source</string>
+    <string name="team" translatable="false">Maintainer</string>
 
     <!-- About Screen -->
     <string name="pref_value__lock__none" translatable="false">0</string>
@@ -40,5 +27,21 @@
         \nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
         \n
     ]]></string>
-    <string name="team" translatable="false">Maintainer</string>
+
+
+    <!-- Preference keys -->
+    <string name="pref_key__lock_type" translatable="false">pref_key__lock_type</string>
+    <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
+    <string name="pref_key__is_show_markdown_shortcuts" translatable="false">pref_key__is_show_markdown_shortcuts</string>
+    <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
+    <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
+    <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
+    <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
+    <string name="pref_key__save_directory" translatable="false">pref_key__save_directory</string>
+    <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
+    <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
+    <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
+    <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
+    <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
+    <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
 </resources>

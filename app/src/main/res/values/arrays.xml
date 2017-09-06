@@ -5,14 +5,16 @@
         <item>@string/theme_dark</item>
     </string-array>
 
-    <string-array name="pref_arrdisp__font_size" translatable="false">
-        <item>@string/font_size__small</item>
-        <item>@string/font_size__normal</item>
-        <item>@string/font_size__large</item>
-    </string-array>
     <string-array name="pref_arrkeys__font_size" translatable="false">
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
         <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
         <item>21</item>
+        <item>23</item>
         <item>25</item>
     </string-array>
 
@@ -29,17 +31,35 @@
 
 
     <string-array name="pref_arrdisp__font_family" translatable="false">
-        <item>Roboto Light (Default)</item>
-        <item>Roboto Condensed</item>
-        <item>Roboto Regular</item>
+        <item>Roboto Regular (Default)</item>
+        <item>Roboto Light</item>
         <item>Roboto Bold</item>
+        <item>Roboto Medium</item>
         <item>Monospace</item>
+        <item>Noto Serif</item>
+        <item>Cutive Mono</item>
+        <item>Roboto Condensed</item>
+        <item>Roboto Thin</item>
+        <item>Roboto Black</item>
+        <item>Coming Soon</item>
+        <item>Carrois Gothic</item>
+        <item>Dancing Script</item>
+
     </string-array>
     <string-array name="pref_arrkeys__font_family" translatable="false">
-        <item>sans-serif-light</item>
-        <item>sans-serif-condensed</item>
         <item>sans-serif-regular</item>
+        <item>sans-serif-light</item>
         <item>sans-serif-bold</item>
+        <item>sans-serif-medium</item>
         <item>monospace</item>
+        <item>serif</item>
+        <item>serif-monospace</item>
+        <item>sans-serif-condensed</item>
+        <item>sans-serif-thin</item>
+        <item>sans-serif-black</item>
+        <item>casual</item>
+        <item>sans-serif-smallcaps</item>
+        <item>cursive</item>
+
     </string-array>
 </resources>

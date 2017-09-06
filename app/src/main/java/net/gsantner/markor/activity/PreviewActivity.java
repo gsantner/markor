@@ -12,12 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.renderer.MarkDownRenderer;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class PreviewActivity extends AppCompatActivity {
 

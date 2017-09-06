@@ -1,7 +1,5 @@
 package net.gsantner.markor.model;
 
-import android.os.Environment;
-
 import java.util.regex.Pattern;
 
 public class Constants {
