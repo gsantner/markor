@@ -3,15 +3,15 @@ package net.gsantner.markor;
 import android.app.Application;
 
 public class App extends Application {
-    private volatile static App app;
+    private volatile static App _app;
 
     public static App get() {
-        return app;
+        return _app;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        app = this;
+        _app = this;
     }
 }

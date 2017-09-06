@@ -42,7 +42,6 @@ import java.util.List;
 public class NotesFragment extends Fragment {
 
     public static final int RENAME_CONTEXT_BUTTON_ID = 103;
-    private Context context;
 
     private View layoutView;
 
@@ -75,7 +74,7 @@ public class NotesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        context = getActivity().getApplicationContext();
+        Context context = getActivity();
         layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
         fab = (FloatingActionsMenu) layoutView.findViewById(R.id.fab);
@@ -160,7 +159,7 @@ public class NotesFragment extends Fragment {
 
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if (appSettings.isRememberLastDirectory()) {
             String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();
             appSettings.setLastOpenedDirectory(saveDir);
@@ -215,9 +214,9 @@ public class NotesFragment extends Fragment {
 
     private void reloadAdapter() {
         if (filesAdapter != null) {
-            filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
+            filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, filesCurrentlyShown);
             simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+                    new SimpleSectionAdapter<>(getActivity().getApplicationContext(), filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
             filesListView.setAdapter(simpleSectionAdapter);
             simpleSectionAdapter.notifyDataSetChanged();
         }
@@ -387,6 +386,7 @@ public class NotesFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             File file = (File) simpleSectionAdapter.getItem(i);
+            Context context = view.getContext();
 
             // Refresh list if directory, else import
             if (file.isDirectory()) {
