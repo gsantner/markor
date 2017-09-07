@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isOverviewStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -307,6 +308,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        if (AppSettings.get().isRecreateMainRequired()){
+            recreate();
+        }
+
         setupAppearancePreferences();
 
         IntentFilter ifilterCreateFolderDialog = new IntentFilter();

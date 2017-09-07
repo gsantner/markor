@@ -62,6 +62,7 @@ public class AboutActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
         setContentView(R.layout.about__activity);
         ButterKnife.bind(this);
 

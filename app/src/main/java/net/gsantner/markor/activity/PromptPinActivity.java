@@ -7,12 +7,14 @@ import android.support.v7.widget.Toolbar;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.Helpers;
 
 public class PromptPinActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
         // Get the Intent (to check if coming from Settings)
         String action = getIntent().getAction();
 
