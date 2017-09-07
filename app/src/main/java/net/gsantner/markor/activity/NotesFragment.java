@@ -432,14 +432,14 @@ public class NotesFragment extends Fragment {
     }
 
     private void showFABOnScrollUp() {
-        MainActivity.fabMenu.animate()
+        MainActivity._fabMenu.animate()
                 .translationY(0)
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .start();
     }
 
     private void hideFABOnScrollDown() {
-        MainActivity.fabMenu.animate()
+        MainActivity._fabMenu.animate()
                 .translationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size))
                 .setInterpolator(new AccelerateInterpolator())
                 .start();

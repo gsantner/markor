@@ -4,11 +4,11 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -34,53 +33,51 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.UUID;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NoteActivity extends AppCompatActivity {
-    private File note;
 
-    private EditText noteTitle;
-    private HighlightingEditor content;
-    private ScrollView scrollView;
-    private ViewSwitcher viewSwitcher;
+    @BindView(R.id.note__activity__edit_note_title)
+    EditText _editNoteTitle;
 
-    private ViewGroup keyboardBarView;
-    private String targetDirectory;
-    private boolean isPreviewIncoming = false;
+    @BindView(R.id.note__activity__note_content_editor)
+    HighlightingEditor _contentEditor;
 
+    @BindView(R.id.note__activity__header_view_switcher)
+    ViewSwitcher _viewSwitcher;
+
+    @BindView(R.id.note__activity__markdownchar_bar)
+    ViewGroup _markdownCharBar;
+
+    @BindView(R.id.note__activity__text_note_title)
+    TextView _headerNoteTitle;
+
+
+    @BindView(R.id.toolbar)
+    Toolbar _toolbar;
+
+    private File _note;
+    private String _targetDirectory;
+    private boolean _isPreviewIncoming = false;
     private AppSettings _appSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+        setContentView(R.layout.note__activity);
+        ButterKnife.bind(this);
         _appSettings = AppSettings.get();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-            upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(_toolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
+            ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        content = (HighlightingEditor) findViewById(R.id.note_content);
-        noteTitle = (EditText) findViewById(R.id.edit_note_title);
-        scrollView = (ScrollView) findViewById(R.id.note_scrollview);
-        keyboardBarView = (ViewGroup) findViewById(R.id.keyboard_bar);
-
-        noteTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    //TODO Make no change
-                } else {
-                    HeaderViewSwitcher(hasFocus);
-                }
-            }
-        });
-
         Intent receivingIntent = getIntent();
-        targetDirectory = receivingIntent.getStringExtra(Constants.TARGET_DIR);
+        _targetDirectory = receivingIntent.getStringExtra(Constants.TARGET_DIR);
 
         String intentAction = receivingIntent.getAction();
         String type = receivingIntent.getType();
@@ -92,17 +89,28 @@ public class NoteActivity extends AppCompatActivity {
         } else if (Intent.ACTION_VIEW.equals(intentAction) && type != null) {
             openFromViewAction(receivingIntent);
         } else {
-            note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
+            _note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
         }
 
-        if (note != null) {
-            content.setText(readNote());
-            noteTitle.setText(note.getName().replaceAll("((?i)\\.md$)", ""));
+        if (_note != null) {
+            _contentEditor.setText(readNote());
+            _editNoteTitle.setText(_note.getName().replaceAll("((?i)\\.md$)", ""));
         }
+
+        _editNoteTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //TODO Make no change
+                } else {
+                    switchHeaderView(hasFocus);
+                }
+            }
+        });
     }
 
     private String readNote() {
-        java.net.URI oldUri = note.toURI();
+        java.net.URI oldUri = _note.toURI();
         return MarkorSingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
     }
 
@@ -118,14 +126,14 @@ public class NoteActivity extends AppCompatActivity {
 
     private void openFromViewAction(Intent receivingIntent) {
         Uri fileUri = receivingIntent.getData();
-        note = new File(fileUri.getPath());
-        content.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
+        _note = new File(fileUri.getPath());
+        _contentEditor.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
     }
 
     private void readFileUriFromIntent(Uri fileUri) {
         if (fileUri != null) {
-            note = MarkorSingleton.getInstance().getFileFromUri(fileUri);
-            content.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
+            _note = MarkorSingleton.getInstance().getFileFromUri(fileUri);
+            _contentEditor.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
         }
     }
 
@@ -179,7 +187,7 @@ public class NoteActivity extends AppCompatActivity {
     protected void onPause() {
         saveNote();
 
-        if (isPreviewIncoming) {
+        if (_isPreviewIncoming) {
             finish();
         }
 
@@ -187,7 +195,7 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void setupKeyboardBar() {
-        if (_appSettings.isShowMarkdownShortcuts() && keyboardBarView.getChildCount() == 0) {
+        if (_appSettings.isShowMarkdownShortcuts() && _markdownCharBar.getChildCount() == 0) {
             appendRegularShortcuts();
             if (_appSettings.isSmartShortcutsEnabled()) {
                 appendSmartBracketShortcuts();
@@ -198,7 +206,7 @@ public class NoteActivity extends AppCompatActivity {
                 appendButton(shortcut, new KeyboardBarListener());
             }
         } else if (!_appSettings.isShowMarkdownShortcuts()) {
-            findViewById(R.id.keyboard_bar_scroll).setVisibility(View.GONE);
+            findViewById(R.id.note__activity__scroll_markdownchar_bar).setVisibility(View.GONE);
         }
     }
 
@@ -232,21 +240,21 @@ public class NoteActivity extends AppCompatActivity {
             shortcutButton.setTextColor(getResources().getColor(R.color.grey));
         }
 
-        keyboardBarView.addView(shortcutButton);
+        _markdownCharBar.addView(shortcutButton);
     }
 
     private void setupAppearancePreferences() {
-        content.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
-        content.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
+        _contentEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _contentEditor.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
 
         if (_appSettings.isDarkThemeEnabled()) {
-            content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            content.setTextColor(getResources().getColor(android.R.color.white));
-            keyboardBarView.setBackgroundColor(getResources().getColor(R.color.grey));
+            _contentEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            _contentEditor.setTextColor(getResources().getColor(android.R.color.white));
+            _markdownCharBar.setBackgroundColor(getResources().getColor(R.color.grey));
         } else {
-            content.setBackgroundColor(getResources().getColor(android.R.color.white));
-            content.setTextColor(getResources().getColor(R.color.dark_grey));
-            keyboardBarView.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
+            _contentEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
+            _contentEditor.setTextColor(getResources().getColor(R.color.dark_grey));
+            _markdownCharBar.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
     }
 
@@ -255,22 +263,22 @@ public class NoteActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PreviewActivity.class);
 
         // .replace is a workaround for Markdown lists requiring two \n characters
-        if (note != null) {
-            Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(note.getParentFile());
+        if (_note != null) {
+            Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(_note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
         }
 
-        intent.putExtra(Constants.NOTE_KEY, note);
-        intent.putExtra(Constants.MD_PREVIEW_KEY, content.getText().toString().replace("\n-", "\n\n-"));
+        intent.putExtra(Constants.NOTE_KEY, _note);
+        intent.putExtra(Constants.MD_PREVIEW_KEY, _contentEditor.getText().toString().replace("\n-", "\n\n-"));
 
-        isPreviewIncoming = true;
+        _isPreviewIncoming = true;
         startActivity(intent);
     }
 
     private void shareNote() {
         saveNote();
 
-        String shareContent = content.getText().toString();
+        String shareContent = _contentEditor.getText().toString();
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -284,11 +292,11 @@ public class NoteActivity extends AppCompatActivity {
      */
     private void saveNote() {
         try {
-            String content = this.content.getText().toString();
-            String filename = normalizeFilename(content, noteTitle.getText().toString());
+            String content = _contentEditor.getText().toString();
+            String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
             if (filename == null) return;
 
-            String parent = targetDirectory != null ? targetDirectory : note.getParent();
+            String parent = _targetDirectory != null ? _targetDirectory : _note.getParent();
             File newNote = new File(parent, filename + Constants.MD_EXT);
             FileOutputStream fos = new FileOutputStream(newNote);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
@@ -298,9 +306,9 @@ public class NoteActivity extends AppCompatActivity {
 
             writer.close();
             fos.close();
-            // If we have created a new note due to renaming, delete the old copy
-            if (note != null && !newNote.getName().equals(note.getName()) && newNote.exists()) {
-                note.delete();
+            // If we have created a new _note due to renaming, delete the old copy
+            if (_note != null && !newNote.getName().equals(_note.getName()) && newNote.exists()) {
+                _note.delete();
             }
             updateWidgets();
         } catch (IOException e) {
@@ -340,7 +348,7 @@ public class NoteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             CharSequence shortcut = ((TextView) v).getText();
-            content.getText().insert(content.getSelectionStart(), shortcut);
+            _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
         }
     }
 
@@ -348,29 +356,27 @@ public class NoteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             CharSequence shortcut = ((TextView) v).getText();
-            if (content.hasSelection()) {
-                CharSequence selected = content.getText().subSequence(content.getSelectionStart(),
-                        content.getSelectionEnd());
-                content.getText().replace(content.getSelectionStart(), content.getSelectionEnd(),
+            if (_contentEditor.hasSelection()) {
+                CharSequence selected = _contentEditor.getText().subSequence(_contentEditor.getSelectionStart(),
+                        _contentEditor.getSelectionEnd());
+                _contentEditor.getText().replace(_contentEditor.getSelectionStart(), _contentEditor.getSelectionEnd(),
                         Character.toString(shortcut.charAt(0)) + selected + shortcut.charAt(1));
             } else {
-                content.getText().insert(content.getSelectionStart(), shortcut);
-                content.setSelection(content.getSelectionStart() - 1);
+                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
+                _contentEditor.setSelection(_contentEditor.getSelectionStart() - 1);
             }
         }
     }
 
-    public void HeaderViewSwitcher(Boolean hasFocus) {
-        viewSwitcher = (ViewSwitcher) findViewById(R.id.HeaderViewSwitcher);
+    public void switchHeaderView(Boolean hasFocus) {
         if (!hasFocus) {
-            TextView headerNoteTitle = (TextView) findViewById(R.id.note_title_text);
-            headerNoteTitle.setText(noteTitle.getText().toString());
-            viewSwitcher.showNext();
+            _headerNoteTitle.setText(_editNoteTitle.getText().toString());
+            _viewSwitcher.showNext();
         }
     }
 
     public void titleClicked(View view) {
-        viewSwitcher.showPrevious();
-        noteTitle.requestFocus();
+        _viewSwitcher.showPrevious();
+        _editNoteTitle.requestFocus();
     }
 }

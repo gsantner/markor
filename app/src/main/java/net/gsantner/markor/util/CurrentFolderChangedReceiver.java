@@ -50,7 +50,7 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
 
     private String backButtonText(File currentDir, File rootDir) {
         if (currentDir.getParentFile().equals(rootDir)) {
-            return "Markor > " + currentDir.getName();
+            return " > " + currentDir.getName();
         } else {
             return "... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName();
         }
