@@ -26,6 +26,7 @@ import net.gsantner.markor.editor.HighlightingEditor;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.Helpers;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
 
 import java.io.File;
@@ -66,6 +67,7 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isEditorStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }

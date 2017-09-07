@@ -111,4 +111,18 @@ public class AppSettings extends AppSettingsBase {
     public boolean isOverviewStatusBarHidden() {
         return getBool(R.string.pref_key__is_overview_statusbar_hidden, false);
     }
+
+    public String getLanguage() {
+        return getString(R.string.pref_key__language, "");
+    }
+
+    public void setRecreateMainRequired(boolean value){
+        setBool(R.string.pref_key__is_main_recreate_required, value);
+    }
+
+    public boolean isRecreateMainRequired(){
+        boolean ret = getBool(R.string.pref_key__is_main_recreate_required, false);
+        setBool(R.string.pref_key__is_main_recreate_required, false);
+        return ret;
+    }
 }

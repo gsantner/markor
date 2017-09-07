@@ -85,4 +85,6 @@
     <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
     <string name="pref_summary__is_statusbar_hidden">Die Statusleiste in dieser Ansicht verstecken</string>
     <string name="pref_title__is_statusbar_hidden">Statusleiste verstecken</string>
+    <string name="pref_title__language">Sprache</string>
+    <string name="pref_desc__language">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
 </resources>

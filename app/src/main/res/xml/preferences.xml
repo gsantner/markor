@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
     <PreferenceCategory android:title="@string/app_settings">
         <ListPreference
@@ -9,30 +9,30 @@
             android:entries="@array/pref_arr__themes"
             android:entryValues="@array/pref_arr__themes"
             android:key="@string/pref_key__app_theme"
-            android:title="@string/pref_title__theme" />
+            android:title="@string/pref_title__theme"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key__remember_last_opened_directory"
-            android:title="@string/pref_title__remember_directory" />
+            android:title="@string/pref_title__remember_directory"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_key__is_preview_first"
-            android:title="@string/pref_title__preview_first" />
+            android:title="@string/pref_title__preview_first"/>
 
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_key__is_preview_first"
-            android:title="@string/pref_title__preview_first" />
+            android:title="@string/pref_title__preview_first"/>
 
         <ListPreference
-            android:title="@string/pref_title__lock_settings"
-            android:key="@string/pref_key__lock_type"
             android:defaultValue="0"
             android:entries="@array/pref_arrdisp__lock_type"
-            android:entryValues="@array/pref_arrkeys__lock_type"/>
+            android:entryValues="@array/pref_arrkeys__lock_type"
+            android:key="@string/pref_key__lock_type"
+            android:title="@string/pref_title__lock_settings"/>
 
         <Preference
             android:key="@string/pref_key__save_directory"
@@ -44,6 +44,13 @@
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden"/>
 
+        <!--suppress AndroidDomInspection -->
+        <io.github.gsantner.opoc.ui.LanguagePreference
+            android:defaultValue=""
+            android:key="@string/pref_key__language"
+            android:summary="@string/pref_desc__language"
+            android:title="@string/pref_title__language"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/editor_settings">
@@ -53,7 +60,7 @@
             android:entries="@array/pref_arrdisp__font_family"
             android:entryValues="@array/pref_arrkeys__font_family"
             android:key="@string/pref_key__font_family"
-            android:title="@string/pref_title__font_choice" />
+            android:title="@string/pref_title__font_choice"/>
 
         <ListPreference
             android:defaultValue="21"
@@ -61,32 +68,32 @@
             android:entries="@array/pref_arrkeys__font_size"
             android:entryValues="@array/pref_arrkeys__font_size"
             android:key="@string/pref_key__font_size"
-            android:title="@string/pref_title__font_size" />
+            android:title="@string/pref_title__font_size"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key__is_show_markdown_shortcuts"
-            android:title="@string/pref_title__show_markdown_shortcuts" />
+            android:title="@string/pref_title__show_markdown_shortcuts"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key__is_highlighting_activated"
-            android:title="@string/pref_title__highlighting_activated" />
+            android:title="@string/pref_title__highlighting_activated"/>
 
         <EditTextPreference
             android:defaultValue="70"
+            android:dependency="@string/pref_key__is_highlighting_activated"
             android:inputType="number"
-            android:numeric="integer"
             android:key="@string/pref_key__highlighting_delay"
-            android:title="@string/pref_title__highlighting_delay"
+            android:numeric="integer"
             android:summary="@string/pref_title__highlighting_delay_summary"
-            android:dependency="@string/pref_key__is_highlighting_activated"/>
+            android:title="@string/pref_title__highlighting_delay"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_key__is_smart_shortcuts_enabled"
-            android:title="@string/pref_title__smart_shortcuts"
-            android:summary="@string/pref_title__smart_shortcuts_summary" />
+            android:summary="@string/pref_title__smart_shortcuts_summary"
+            android:title="@string/pref_title__smart_shortcuts"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -94,10 +101,10 @@
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden"/>
 
-	    <CheckBoxPreference
-		    android:defaultValue="false"
-		    android:key="@string/pref_key__is_render_rtl"
-		    android:title="@string/pref_title__render_rtl" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_render_rtl"
+            android:title="@string/pref_title__render_rtl"/>
 
     </PreferenceCategory>
 
