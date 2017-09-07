@@ -44,4 +44,6 @@
     <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
+    <string name="pref_key__is_editor_statusbar_hidden" translatable="false">pref_key__is_editor_statusbar_hidden</string>
+    <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>
 </resources>
