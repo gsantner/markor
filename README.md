@@ -16,9 +16,19 @@ Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writ
 </a> -->
 </div></br>
 
-<!--
+
 ## Description
--->
+<b>Markdown Editor</b> for notes and files. Simple and lightweight.
+<br/>📝 Edit markdown with highlighting
+<br/>👀 Preview rendered markdown
+<br/>📚 Notebook in Documents or custom folder
+<br/>📖 Notebook with subfolder support
+<br/>📄 Edit markdown files from e.g. filemanager
+<br/>🔏 Set a pin or password to start the app
+<br/>🔲 Dark and Light theme
+<br/>📜 Allows to set language other than system setting
+<br/>
+
 
 ### Privacy<a name="privacy"></a>
 The app doesn't use your internet connection (unless external resources, e.g. pictures are referenced) it's working completly offline. 
