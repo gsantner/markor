@@ -47,53 +47,53 @@ import java.io.Serializable;
 
 
 public class MainActivity extends AppCompatActivity {
+    private NotesFragment _notesFragment;
+    private Toolbar _toolbar;
+    public static FloatingActionsMenu _fabMenu;
+    private FloatingActionButton _fabCreateNote;
+    private FloatingActionButton _fabCreateFolder;
+    private SearchView _searchView;
+    private View _frameLayout;
+    private MenuItem _searchItem;
 
-    private MenuItem searchItem;
+    private FragmentManager _fm;
+    private RenameBroadcastReceiver _renameBroadcastReceiver;
+    private BroadcastReceiver _browseToFolderBroadcastReceiver;
+    private boolean _doubleBackToExitPressedOnce;
 
-    private FragmentManager fm;
-
-    private NotesFragment notesFragment;
-
-    private Toolbar toolbar;
-
-    public static FloatingActionsMenu fabMenu;
-    private FloatingActionButton fabCreateNote;
-    private FloatingActionButton fabCreateFolder;
-
-    private View frameLayout;
-    private BroadcastReceiver createFolderBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver _createFolderBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CREATE_FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
+                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
             }
         }
     };
-    private BroadcastReceiver fsBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver _fsBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
-                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
+                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
             } else if (intent.getAction().equals(Constants.FILESYSTEM_MOVE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().moveSelectedNotes(notesFragment.getSelectedItems(), fileName);
-                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
-                notesFragment.finishActionMode();
+                MarkorSingleton.getInstance().moveSelectedNotes(_notesFragment.getSelectedItems(), fileName);
+                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
+                _notesFragment.finishActionMode();
             }
         }
     };
-    private BroadcastReceiver confirmBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver _confirmBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CONFIRM_DELETE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().deleteSelectedItems(notesFragment.getSelectedItems());
-                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
-                notesFragment.finishActionMode();
+                MarkorSingleton.getInstance().deleteSelectedItems(_notesFragment.getSelectedItems());
+                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
+                _notesFragment.finishActionMode();
             }
             if (intent.getAction().equals(Constants.CONFIRM_OVERWRITE_DIALOG_TAG)) {
                 importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
@@ -102,15 +102,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
-        Helpers.get().copyFile(sourceFile, new File(notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        Helpers.get().copyFile(sourceFile, new File(_notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
                 Toast.LENGTH_LONG).show();
     }
 
-    private RenameBroadcastReceiver renameBroadcastReceiver;
-    private BroadcastReceiver browseToFolderBroadcastReceiver;
-
-    private boolean doubleBackToExitPressedOnce;
 
     private static final int ANIM_DURATION_TOOLBAR = 150;
     private static final int ANIM_DURATION_FAB = 150;
@@ -122,25 +118,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         askForStoragePermission();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
+        _toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (_toolbar != null) {
+            setSupportActionBar(_toolbar);
         }
 
-        frameLayout = findViewById(R.id.frame);
+        _frameLayout = findViewById(R.id.frame);
 
-        fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
-        fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
-        fabCreateFolder = (FloatingActionButton) findViewById(R.id.create_folder);
+        _fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
+        _fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
+        _fabCreateFolder = (FloatingActionButton) findViewById(R.id.create_folder);
 
-        fabCreateNote.setOnClickListener(new View.OnClickListener() {
+        _fabCreateNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createNote();
             }
         });
 
-        fabCreateFolder.setOnClickListener(new View.OnClickListener() {
+        _fabCreateFolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createFolder();
@@ -148,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set up the fragments
-        notesFragment = new NotesFragment();
+        _notesFragment = new NotesFragment();
 
-        renameBroadcastReceiver = new RenameBroadcastReceiver(notesFragment);
-        browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
+        _renameBroadcastReceiver = new RenameBroadcastReceiver(_notesFragment);
+        _browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
         startIntroAnimation();
 
@@ -179,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_settings: {
-                showSettings();
+                HelpersA.get(this).animateToActivity(SettingsActivity.class, false, 124);
                 return true;
             }
             case R.id.action_import: {
@@ -203,22 +199,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNote() {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        intent.putExtra(Constants.TARGET_DIR, notesFragment.getCurrentDir().getAbsolutePath());
+        intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
         startActivity(intent);
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
-        fabMenu.collapse();
+        _fabMenu.collapse();
     }
 
     private void createFolder() {
         showFolderNameDialog();
-        fabMenu.collapse();
+        _fabMenu.collapse();
     }
 
     private void showFolderNameDialog() {
         FragmentManager fragManager = getFragmentManager();
 
         Bundle args = new Bundle();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, notesFragment.getCurrentDir().getAbsolutePath());
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, _notesFragment.getCurrentDir().getAbsolutePath());
 
         CreateFolderDialog createFolderDialog = new CreateFolderDialog();
         createFolderDialog.setArguments(args);
@@ -254,19 +250,19 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        searchItem = menu.findItem(R.id.action_search);
+        _searchItem = menu.findItem(R.id.action_search);
 
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        _searchView = (SearchView) MenuItemCompat.getActionView(_searchItem);
 
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        if (_searchView != null) {
+            _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     if (query != null) {
-                        if (notesFragment.isVisible())
-                            notesFragment.search(query);
+                        if (_notesFragment.isVisible())
+                            _notesFragment.search(query);
                     }
                     return false;
                 }
@@ -274,11 +270,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (newText != null) {
-                        if (notesFragment.isVisible()) {
+                        if (_notesFragment.isVisible()) {
                             if (newText.equalsIgnoreCase("")) {
-                                notesFragment.clearSearchFilter();
+                                _notesFragment.clearSearchFilter();
                             } else {
-                                notesFragment.search(newText);
+                                _notesFragment.search(newText);
                             }
                         }
                     }
@@ -286,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            _searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
 
@@ -296,13 +292,12 @@ public class MainActivity extends AppCompatActivity {
                     if (!hasFocus) {
                         menu.findItem(R.id.action_import).setVisible(true);
                         menu.findItem(R.id.action_settings).setVisible(true);
-                        searchItem.collapseActionView();
-                        searchView.setQuery("", false);
+                        _searchItem.collapseActionView();
                     }
                 }
             });
 
-            searchView.setQueryHint(getString(R.string.search_hint));
+            _searchView.setQueryHint(getString(R.string.search_hint));
         }
 
         return true;
@@ -314,57 +309,49 @@ public class MainActivity extends AppCompatActivity {
 
         IntentFilter ifilterCreateFolderDialog = new IntentFilter();
         ifilterCreateFolderDialog.addAction(Constants.CREATE_FOLDER_DIALOG_TAG);
-        registerReceiver(createFolderBroadcastReceiver, ifilterCreateFolderDialog);
+        registerReceiver(_createFolderBroadcastReceiver, ifilterCreateFolderDialog);
 
         IntentFilter ifilterFsDialog = new IntentFilter();
         ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
         ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
-        registerReceiver(fsBroadcastReceiver, ifilterFsDialog);
+        registerReceiver(_fsBroadcastReceiver, ifilterFsDialog);
 
         IntentFilter ifilterConfirmDialog = new IntentFilter();
         ifilterConfirmDialog.addAction(Constants.CONFIRM_DELETE_DIALOG_TAG);
         ifilterConfirmDialog.addAction(Constants.CONFIRM_OVERWRITE_DIALOG_TAG);
-        registerReceiver(confirmBroadcastReceiver, ifilterConfirmDialog);
+        registerReceiver(_confirmBroadcastReceiver, ifilterConfirmDialog);
 
         IntentFilter ifilterRenameDialog = new IntentFilter();
         ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
-        registerReceiver(renameBroadcastReceiver, ifilterRenameDialog);
+        registerReceiver(_renameBroadcastReceiver, ifilterRenameDialog);
 
         IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
         ifilterSwitchedFolderFilder.addAction(Constants.CURRENT_FOLDER_CHANGED);
-        registerReceiver(browseToFolderBroadcastReceiver, ifilterSwitchedFolderFilder);
+        registerReceiver(_browseToFolderBroadcastReceiver, ifilterSwitchedFolderFilder);
 
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        unregisterReceiver(createFolderBroadcastReceiver);
-        unregisterReceiver(fsBroadcastReceiver);
-        unregisterReceiver(confirmBroadcastReceiver);
-        unregisterReceiver(renameBroadcastReceiver);
-        unregisterReceiver(browseToFolderBroadcastReceiver);
+        unregisterReceiver(_createFolderBroadcastReceiver);
+        unregisterReceiver(_fsBroadcastReceiver);
+        unregisterReceiver(_confirmBroadcastReceiver);
+        unregisterReceiver(_renameBroadcastReceiver);
+        unregisterReceiver(_browseToFolderBroadcastReceiver);
         super.onPause();
     }
 
     private void setupAppearancePreferences() {
         if (AppSettings.get().isDarkThemeEnabled()) {
-            frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            _frameLayout.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             RelativeLayout content = (RelativeLayout) findViewById(R.id.activity_main_content_background);
             content.setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
-            frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
+            _frameLayout.setBackgroundColor(getResources().getColor(android.R.color.white));
             RelativeLayout content = (RelativeLayout) findViewById(R.id.activity_main_content_background);
             content.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
-    }
-
-    /**
-     * Show the SettingsFragment
-     */
-    private void showSettings() {
-        Intent settingsIntent = new Intent(this, SettingsActivity.class);
-        startActivity(settingsIntent);
     }
 
     private void showImportDialog() {
@@ -379,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void importFile(File file) {
-        if (new File(notesFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+        if (new File(_notesFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
             askForConfirmation(file);
         } else {
             importFileToCurrentDirectory(this, file);
@@ -400,38 +387,51 @@ public class MainActivity extends AppCompatActivity {
      * Set the ActionBar title to @title.
      */
     private void setToolbarTitle(String title) {
-        toolbar.setTitle(title);
+        _toolbar.setTitle(title);
     }
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
         }
 
-        if (!notesFragment.onRooDir()) {
-            notesFragment.goToPreviousDir();
+        if (_searchView.isFocused()) {
+            _searchView.clearFocus();
+            _searchView.setSelected(false);
+            return;
+        }
+        if (!_searchView.getQuery().toString().isEmpty() || !_searchView.isIconified()) {
+            _searchView.setQuery("", false);
+            _searchView.setIconified(true);
+            _searchItem.collapseActionView();
+            return;
+        }
+
+
+        if (!_notesFragment.onRooDir()) {
+            _notesFragment.goToPreviousDir();
         } else {
-            this.doubleBackToExitPressedOnce = true;
+            this._doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    doubleBackToExitPressedOnce = false;
+                    _doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
         }
     }
 
     private void startIntroAnimation() {
-        fabMenu.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
+        _fabMenu.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
         int actionbarSize = Utils.dpToPx(56);
-        toolbar.setTranslationY(-actionbarSize);
+        _toolbar.setTranslationY(-actionbarSize);
 
-        toolbar.animate()
+        _toolbar.animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
                 .setListener(new AnimatorListenerAdapter() {
@@ -444,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startContentAnimation() {
-        fabMenu.animate()
+        _fabMenu.animate()
                 .translationY(0)
                 .setInterpolator(new OvershootInterpolator(1.f))
                 .setDuration(ANIM_DURATION_FAB)
@@ -456,9 +456,9 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .start();
 
-        fm = getFragmentManager();
-        fm.beginTransaction()
-                .replace(R.id.frame, notesFragment)
+        _fm = getFragmentManager();
+        _fm.beginTransaction()
+                .replace(R.id.frame, _notesFragment)
                 .commit();
     }
 }

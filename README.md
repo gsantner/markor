@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/gsantner/markor.svg?style=shield)](https://circleci.com/gh/gsantner/markor)
 [![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)
 
-# markor
+# Markor
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
 Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writeily-pro.<br/><br/>
 

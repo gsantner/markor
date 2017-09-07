@@ -41,7 +41,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
     @Override
     public File getItem(int i) {
-        return filteredData.get(i);
+        return i < filteredData.size() ? filteredData.get(i) : null;
     }
 
     @Override
@@ -58,33 +58,35 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
         ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);
 
-        noteTitle.setText(Constants.MD_EXTENSION.matcher(getItem(i).getName()).replaceAll(EMPTY_STRING));
+        File item = getItem(i);
+        if (item != null) {
+            noteTitle.setText(Constants.MD_EXTENSION.matcher(item.getName()).replaceAll(EMPTY_STRING));
 
-        if (getItem(i).isDirectory()) {
-            noteExtra.setText(generateExtraForFile(i));
-        } else {
-            noteExtra.setText(generateExtraForDirectory(i));
-        }
-
-        // Theme Adjustments
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
-
-            if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
+            if (item.isDirectory()) {
+                noteExtra.setText(generateExtraForFile(i));
             } else {
-                fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
+                noteExtra.setText(generateExtraForDirectory(i));
             }
-        } else {
-            noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
-            if (getItem(i).isDirectory()) {
-                fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
+            // Theme Adjustments
+            if (AppSettings.get().isDarkThemeEnabled()) {
+                noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
+
+                if (item.isDirectory()) {
+                    fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
+                } else {
+                    fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
+                }
             } else {
-                fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
+                noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
+
+                if (item.isDirectory()) {
+                    fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
+                } else {
+                    fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
+                }
             }
         }
-
         return row;
     }
 

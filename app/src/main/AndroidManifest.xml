@@ -34,6 +34,22 @@
                 <data
                     android:mimeType="application/octet-stream"
                     android:scheme="file"/>
+
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.md"
+                    android:scheme="file"/>
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.md.txt"
+                    android:scheme="file"/>
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.markdown"
+                    android:scheme="file"/>
             </intent-filter>
 
             <intent-filter>
@@ -94,10 +110,10 @@
 
         <activity
             android:name="net.gsantner.markor.activity.AboutActivity"
-            android:theme="@style/AppTheme.Light"
             android:label="@string/about"
             android:parentActivityName="net.gsantner.markor.activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.gsantner.markor.activity.MainActivity"/>
