@@ -1,0 +1,3 @@
+[submodule "metadata"]
+	path = metadata
+	url = https://github.com/gsantner/markor-metadata-latest.git
