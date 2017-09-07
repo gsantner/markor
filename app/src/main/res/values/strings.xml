@@ -75,6 +75,9 @@
     <string name="rename_success">Successfully renamed</string>
     <string name="rename_fail">Failed to rename</string>
 
+    <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
+    <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
+
     <!-- About screen -->
     <string name="contributors">Contributors</string>
 

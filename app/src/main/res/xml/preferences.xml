@@ -21,6 +21,12 @@
             android:key="@string/pref_key__is_preview_first"
             android:title="@string/pref_title__preview_first" />
 
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_preview_first"
+            android:title="@string/pref_title__preview_first" />
+
         <ListPreference
             android:title="@string/pref_title__lock_settings"
             android:key="@string/pref_key__lock_type"
@@ -31,6 +37,12 @@
         <Preference
             android:key="@string/pref_key__save_directory"
             android:title="@string/pref_title__root_directory_title"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_overview_statusbar_hidden"
+            android:summary="@string/pref_summary__is_statusbar_hidden"
+            android:title="@string/pref_title__is_statusbar_hidden"/>
 
     </PreferenceCategory>
 
@@ -75,6 +87,12 @@
             android:key="@string/pref_key__is_smart_shortcuts_enabled"
             android:title="@string/pref_title__smart_shortcuts"
             android:summary="@string/pref_title__smart_shortcuts_summary" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_editor_statusbar_hidden"
+            android:summary="@string/pref_summary__is_statusbar_hidden"
+            android:title="@string/pref_title__is_statusbar_hidden"/>
 
 	    <CheckBoxPreference
 		    android:defaultValue="false"

@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -113,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        if (AppSettings.get().isOverviewStatusBarHidden()){
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         setContentView(R.layout.activity_main);
         askForStoragePermission();
 
@@ -201,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, NoteActivity.class);
         intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
         startActivity(intent);
-        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         _fabMenu.collapse();
     }
 
