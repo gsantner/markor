@@ -14,7 +14,7 @@
  * Get updates:
  *  https://github.com/gsantner/onePieceOfCode/blob/master/java/SimpleMarkdownParser.java
  * Apply to TextView:
- *   See https://github.com/gsantner/onePieceOfCode/blob/master/android/Helpers.get().java
+ *   See https://github.com/gsantner/onePieceOfCode/blob/master/android/ContextUtils.java
  * Parses most common markdown tags. Only inline tags are supported, multiline/block syntax
  * is not supported (citation, multiline code, ..). This is intended to stay as easy as possible.
  *
@@ -27,7 +27,7 @@
  * FILTER_WEB is intended to be used at engines understanding most common HTML tags.
  */
 
-package io.github.gsantner.opoc.util;
+package net.gsantner.opoc.util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -130,13 +130,13 @@ public class SimpleMarkdownParser {
     //########################
     //## Singleton
     //########################
-    private static SimpleMarkdownParser instance;
+    private static SimpleMarkdownParser __instance;
 
     public static SimpleMarkdownParser get() {
-        if (instance == null) {
-            instance = new SimpleMarkdownParser();
+        if (__instance == null) {
+            __instance = new SimpleMarkdownParser();
         }
-        return instance;
+        return __instance;
     }
 
     //########################
@@ -152,8 +152,8 @@ public class SimpleMarkdownParser {
     //########################
     //## Methods
     //########################
-    public SimpleMarkdownParser setDefaultSmpFilter(SmpFilter _defaultSmpFilter) {
-        this._defaultSmpFilter = _defaultSmpFilter;
+    public SimpleMarkdownParser setDefaultSmpFilter(SmpFilter defaultSmpFilter) {
+        _defaultSmpFilter = defaultSmpFilter;
         return this;
     }
 
