@@ -38,10 +38,11 @@ import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.settings.SettingsActivity;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.CurrentFolderChangedReceiver;
-import net.gsantner.markor.util.Helpers;
-import net.gsantner.markor.util.HelpersA;
+import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.RenameBroadcastReceiver;
 import net.gsantner.markor.util.Utils;
+import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
-        Helpers.get().copyFile(sourceFile, new File(_notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        FileUtils.copyFile(sourceFile, new File(_notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
                 Toast.LENGTH_LONG).show();
     }
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
+        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isOverviewStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_settings: {
-                HelpersA.get(this).animateToActivity(SettingsActivity.class, false, 124);
+                new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, 124);
                 return true;
             }
             case R.id.action_import: {
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_about: {
-                HelpersA.get(this).animateToActivity(AboutActivity.class, false, 123);
+                new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
         }

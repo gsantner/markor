@@ -9,7 +9,7 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package io.github.gsantner.opoc.util;
+package net.gsantner.opoc.util;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -22,17 +22,18 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
-public class HelpersA extends Helpers {
+public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     //########################
     //## Members, Constructors
     //########################
     protected Activity _activity;
 
-    public HelpersA(final Activity activity) {
+    public ActivityUtils(final Activity activity) {
         super(activity);
         _activity = activity;
     }
@@ -105,5 +106,19 @@ public class HelpersA extends Helpers {
                 .setTitle(resTitleId)
                 .setView(textView);
         dialog.show();
+    }
+
+    // Toggle with no param, else set visibility according to first bool
+    public void toggleStatusbarVisibility(boolean... optionalForceVisible) {
+        WindowManager.LayoutParams attrs = _activity.getWindow().getAttributes();
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        if (optionalForceVisible.length == 0) {
+            attrs.flags ^= flag;
+        } else if (optionalForceVisible.length == 1 && optionalForceVisible[0]) {
+            attrs.flags &= ~flag;
+        } else {
+            attrs.flags |= flag;
+        }
+        _activity.getWindow().setAttributes(attrs);
     }
 }

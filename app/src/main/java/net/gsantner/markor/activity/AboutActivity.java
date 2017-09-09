@@ -25,15 +25,16 @@ import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Helpers;
-import net.gsantner.markor.util.HelpersA;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.gsantner.opoc.util.SimpleMarkdownParser;
+
+import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.SimpleMarkdownParser;
 
 @SuppressWarnings("unused")
 public class AboutActivity extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class AboutActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
+        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         setContentView(R.layout.about__activity);
         ButterKnife.bind(this);
 
@@ -81,13 +82,13 @@ public class AboutActivity extends AppCompatActivity {
         textLicense.setMovementMethod(LinkMovementMethod.getInstance());
         textContributors.setMovementMethod(LinkMovementMethod.getInstance());
 
-        Helpers helpers = Helpers.get();
+        ContextUtils helpers = ContextUtils.get();
         helpers.setHtmlToTextView(textTeam,
-                Helpers.get().loadMarkdownForTextViewFromRaw(R.raw.maintainers, "")
+                ContextUtils.get().loadMarkdownForTextViewFromRaw(R.raw.maintainers, "")
         );
 
         helpers.setHtmlToTextView(textContributors,
-                Helpers.get().loadMarkdownForTextViewFromRaw(R.raw.contributors, "")
+                ContextUtils.get().loadMarkdownForTextViewFromRaw(R.raw.contributors, "")
         );
 
         // License text MUST be shown
@@ -117,7 +118,7 @@ public class AboutActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.about__activity__text_app_version: {
                 try {
-                    HelpersA.get(this).showDialogWithHtmlTextView(R.string.changelog, new SimpleMarkdownParser().parse(
+                    new ActivityUtils(this).showDialogWithHtmlTextView(R.string.changelog, new SimpleMarkdownParser().parse(
                             getResources().openRawResource(R.raw.changelog),
                             "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW, SimpleMarkdownParser.FILTER_CHANGELOG
                             ).getHtml()
@@ -128,12 +129,12 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             }
             case R.id.about__activity__button_app_license: {
-                HelpersA.get(this).showDialogWithHtmlTextView(R.string.licenses, Helpers.get().readTextfileFromRawRes(R.raw.license, "", ""), false, null);
+                new ActivityUtils(this).showDialogWithHtmlTextView(R.string.licenses, ContextUtils.get().readTextfileFromRawRes(R.raw.license, "", ""), false, null);
                 break;
             }
             case R.id.about__activity__button_third_party_licenses: {
                 try {
-                    HelpersA.get(this).showDialogWithHtmlTextView(R.string.licenses, new SimpleMarkdownParser().parse(
+                    new ActivityUtils(this).showDialogWithHtmlTextView(R.string.licenses, new SimpleMarkdownParser().parse(
                             getResources().openRawResource(R.raw.licenses_3rd_party),
                             "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml()
                     );

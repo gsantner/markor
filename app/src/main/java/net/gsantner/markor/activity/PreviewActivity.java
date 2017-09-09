@@ -17,7 +17,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.renderer.MarkDownRenderer;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Helpers;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,7 +33,7 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
+        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isEditorStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }

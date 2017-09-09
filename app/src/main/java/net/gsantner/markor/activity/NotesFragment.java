@@ -34,7 +34,7 @@ import net.gsantner.markor.dialog.RenameDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Helpers;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Context context = getActivity();
-        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
+        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
         fab = (FloatingActionsMenu) layoutView.findViewById(R.id.fab);

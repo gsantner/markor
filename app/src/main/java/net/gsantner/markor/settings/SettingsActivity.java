@@ -21,7 +21,7 @@ import net.gsantner.markor.activity.PinActivity;
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Helpers;
+import net.gsantner.markor.util.ContextUtils;
 
 public class SettingsActivity extends AppCompatActivity implements MarkorSettingsListener {
 
@@ -40,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Context context = getApplicationContext();
-        Helpers.get().setAppLanguage(AppSettings.get().getLanguage());
+        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         settingsFragment = new SettingsFragment();
         if (AppSettings.get().isDarkThemeEnabled()) {
             setTheme(R.style.AppTheme_Dark);

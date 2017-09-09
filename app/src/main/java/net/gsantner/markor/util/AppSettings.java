@@ -8,7 +8,7 @@ import net.gsantner.markor.R;
 
 import java.io.File;
 
-import io.github.gsantner.opoc.util.AppSettingsBase;
+import net.gsantner.opoc.util.AppSettingsBase;
 
 public class AppSettings extends AppSettingsBase {
     private AppSettings(Context _context) {
