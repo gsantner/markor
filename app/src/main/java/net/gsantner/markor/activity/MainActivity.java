@@ -45,7 +45,7 @@ import butterknife.OnLongClick;
 
 
 public class MainActivity extends AppCompatActivity {
-    private NotesFragment _notesFragment;
+    private FilesystemListFragment _filesystemListFragment;
     private Toolbar _toolbar;
     private FloatingActionButton _fabCreateNote;
     private FloatingActionButton _fabCreateFolder;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CREATE_FOLDER_DIALOG_TAG)) {
                 createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
-                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
             }
         }
     };
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
             String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
-                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
             } else if (intent.getAction().equals(Constants.FILESYSTEM_MOVE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().moveSelectedNotes(_notesFragment.getSelectedItems(), fileName);
-                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
-                _notesFragment.finishActionMode();
+                MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), fileName);
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
+                _filesystemListFragment.finishActionMode();
             }
         }
     };
@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.CONFIRM_DELETE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().deleteSelectedItems(_notesFragment.getSelectedItems());
-                _notesFragment.listFilesInDirectory(_notesFragment.getCurrentDir());
-                _notesFragment.finishActionMode();
+                MarkorSingleton.getInstance().deleteSelectedItems(_filesystemListFragment.getSelectedItems());
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
+                _filesystemListFragment.finishActionMode();
             }
             if (intent.getAction().equals(Constants.CONFIRM_OVERWRITE_DIALOG_TAG)) {
                 importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
-        FileUtils.copyFile(sourceFile, new File(_notesFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        FileUtils.copyFile(sourceFile, new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
                 Toast.LENGTH_LONG).show();
     }
@@ -143,9 +143,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set up the fragments
-        _notesFragment = new NotesFragment();
+        _filesystemListFragment = new FilesystemListFragment();
 
-        _renameBroadcastReceiver = new RenameBroadcastReceiver(_notesFragment);
+        _renameBroadcastReceiver = new RenameBroadcastReceiver(_filesystemListFragment);
         _browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
         startIntroAnimation();
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNote() {
         if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
             Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-            intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
+            intent.putExtra(Constants.TARGET_DIR, _filesystemListFragment.getCurrentDir().getAbsolutePath());
             startActivity(intent);
         }
     }
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragManager = getSupportFragmentManager();
 
         Bundle args = new Bundle();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, _notesFragment.getCurrentDir().getAbsolutePath());
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, _filesystemListFragment.getCurrentDir().getAbsolutePath());
 
         CreateFolderDialog createFolderDialog = new CreateFolderDialog();
         createFolderDialog.setArguments(args);
@@ -252,8 +252,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     if (query != null) {
-                        if (_notesFragment.isVisible())
-                            _notesFragment.search(query);
+                        if (_filesystemListFragment.isVisible())
+                            _filesystemListFragment.search(query);
                     }
                     return false;
                 }
@@ -261,11 +261,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (newText != null) {
-                        if (_notesFragment.isVisible()) {
+                        if (_filesystemListFragment.isVisible()) {
                             if (newText.equalsIgnoreCase("")) {
-                                _notesFragment.clearSearchFilter();
+                                _filesystemListFragment.clearSearchFilter();
                             } else {
-                                _notesFragment.search(newText);
+                                _filesystemListFragment.search(newText);
                             }
                         }
                     }
@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void importFile(File file) {
-        if (new File(_notesFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+        if (new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
             askForConfirmation(file);
         } else {
             importFileToCurrentDirectory(this, file);
@@ -405,8 +405,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (!_notesFragment.onRooDir()) {
-            _notesFragment.goToPreviousDir();
+        if (!_filesystemListFragment.onRooDir()) {
+            _filesystemListFragment.goToPreviousDir();
         } else {
             this._doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
@@ -440,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
     private void startContentAnimation() {
         _fm = getSupportFragmentManager();
         _fm.beginTransaction()
-                .replace(R.id.frame, _notesFragment)
+                .replace(R.id.frame, _filesystemListFragment)
                 .commit();
     }
 

@@ -40,7 +40,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotesFragment extends Fragment {
+public class FilesystemListFragment extends Fragment {
 
     public static final int RENAME_CONTEXT_BUTTON_ID = 103;
 
@@ -67,7 +67,7 @@ public class NotesFragment extends Fragment {
     private ActionMode actionMode;
     private List<File> selectedItems = new ArrayList<File>();
 
-    public NotesFragment() {
+    public FilesystemListFragment() {
         super();
     }
 
