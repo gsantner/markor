@@ -10,6 +10,7 @@ import java.io.File;
 
 import net.gsantner.opoc.util.AppSettingsBase;
 
+@SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
     private AppSettings(Context _context) {
         super(_context);

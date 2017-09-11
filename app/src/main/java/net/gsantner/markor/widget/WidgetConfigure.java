@@ -10,11 +10,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
 
-public class WidgetConfigure extends Activity {
+public class WidgetConfigure extends AppCompatActivity {
 
     int mAppWidgetId;
 
@@ -38,7 +39,7 @@ public class WidgetConfigure extends Activity {
                     AppWidgetManager.EXTRA_APPWIDGET_ID,
                     AppWidgetManager.INVALID_APPWIDGET_ID);
         }
-        FragmentManager fragManager = getFragmentManager();
+        android.support.v4.app.FragmentManager fragManager = getSupportFragmentManager();
 
         IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
         ifilterSwitchedFolderFilder.addAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);

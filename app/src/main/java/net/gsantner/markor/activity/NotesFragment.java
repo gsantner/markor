@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -177,7 +178,7 @@ public class NotesFragment extends Fragment {
     }
 
     private void promptForDirectory() {
-        FragmentManager fragManager = getFragmentManager();
+        android.support.v4.app.FragmentManager fragManager = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
 
         Bundle args = new Bundle();
         args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);

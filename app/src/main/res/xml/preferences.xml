@@ -61,7 +61,7 @@
             android:title="@string/pref_title__font_choice" />
 
         <ListPreference
-            android:defaultValue="21"
+            android:defaultValue="18"
             android:dialogTitle="@string/pref_title__font_size"
             android:entries="@array/pref_arrkeys__font_size"
             android:entryValues="@array/pref_arrkeys__font_size"
