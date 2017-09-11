@@ -240,12 +240,10 @@ public class NoteActivity extends AppCompatActivity {
         shortcutButton.setText(shortcut);
         shortcutButton.setOnClickListener(l);
 
-        if (_appSettings.isDarkThemeEnabled()) {
-            shortcutButton.setTextColor(getResources().getColor(android.R.color.white));
-        } else {
-            shortcutButton.setTextColor(getResources().getColor(R.color.grey));
-        }
 
+        boolean isDarkTheme = _appSettings.isDarkThemeEnabled();
+        shortcutButton.setTextColor(ContextCompat.getColor(this,
+                isDarkTheme ? android.R.color.white : R.color.grey));
         _markdownCharBar.addView(shortcutButton);
     }
 
@@ -256,11 +254,12 @@ public class NoteActivity extends AppCompatActivity {
         if (_appSettings.isDarkThemeEnabled()) {
             _contentEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             _contentEditor.setTextColor(getResources().getColor(android.R.color.white));
-            _markdownCharBar.setBackgroundColor(getResources().getColor(R.color.grey));
+            findViewById(R.id.note__activity__scroll_markdownchar_bar).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             _contentEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
             _contentEditor.setTextColor(getResources().getColor(R.color.dark_grey));
-            _markdownCharBar.setBackgroundColor(getResources().getColor(R.color.lighter_grey));
+            findViewById(R.id.note__activity__scroll_markdownchar_bar)
+                    .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
     }
 

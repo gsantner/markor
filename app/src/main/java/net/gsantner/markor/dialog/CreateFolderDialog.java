@@ -1,11 +1,11 @@
 package net.gsantner.markor.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -38,13 +38,10 @@ public class CreateFolderDialog extends DialogFragment {
         View dialogView;
         AlertDialog.Builder dialogBuilder;
 
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            dialogView = inflater.inflate(R.layout.folder_dialog_dark, null);
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
-        } else {
-            dialogView = inflater.inflate(R.layout.folder_dialog, null);
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
-        }
+        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
+        dialogView = inflater.inflate(R.layout.folder_dialog_dark, null);
+        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
+                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         dialogBuilder.setTitle(getResources().getString(R.string.create_folder));
         dialogBuilder.setView(dialogView);

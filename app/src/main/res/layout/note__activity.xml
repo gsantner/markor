@@ -76,7 +76,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:scrollbars="vertical"
             android:textColor="@color/dark_grey"
-            android:textCursorDrawable="@drawable/note_cursor_drawable"
+            android:textCursorDrawable="@drawable/cursor_accent"
             android:textSize="21sp"/>
     </ScrollView>
 
@@ -84,14 +84,12 @@
         android:id="@+id/note__activity__scroll_markdownchar_bar"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="@color/lighter_grey"
         android:paddingTop="4dp">
 
         <LinearLayout
             android:id="@+id/note__activity__markdownchar_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/lighter_grey"
             android:orientation="horizontal">
         </LinearLayout>
     </HorizontalScrollView>

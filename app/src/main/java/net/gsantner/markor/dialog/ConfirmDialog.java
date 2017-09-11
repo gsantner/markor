@@ -1,11 +1,11 @@
 package net.gsantner.markor.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
@@ -31,11 +31,9 @@ public class ConfirmDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
         int title = getTitleForTag(getTag());
 
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
-        } else {
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
-        }
+        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
+        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
+                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
 
         dialogBuilder.setTitle(getResources().getString(title));

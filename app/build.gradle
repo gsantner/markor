@@ -84,7 +84,6 @@ dependencies {
 
     // UI libs
     compile 'com.commonsware.cwac:anddown:0.4.0'
-    compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
 
     // Tool libraries

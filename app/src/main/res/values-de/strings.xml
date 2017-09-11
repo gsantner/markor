@@ -89,4 +89,5 @@
     <string name="pref_desc__language">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="error_cannot_create_save_dir">Fehler: Konnte Speicher-Verzeichnis nicht erstellen</string>
     <string name="error_storage_permission">Benötige Dateisystem Berechtigung um in Dokumenten zu speichern</string>
+    <string name="create_note">Notiz erstellen</string>
 </resources>

@@ -1,13 +1,13 @@
 package net.gsantner.markor.activity;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
@@ -46,8 +45,6 @@ public class NotesFragment extends Fragment {
     public static final int RENAME_CONTEXT_BUTTON_ID = 103;
 
     private View layoutView;
-
-    private FloatingActionsMenu fab;
 
     private ListView filesListView;
     private TextView hintTextView;
@@ -80,7 +77,6 @@ public class NotesFragment extends Fragment {
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
-        fab = (FloatingActionsMenu) layoutView.findViewById(R.id.fab);
         filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
 
         filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
@@ -104,13 +100,6 @@ public class NotesFragment extends Fragment {
                     IS_SCROLLING = false;
                 }
                 int firstVisibleItem = view.getFirstVisiblePosition();
-                if (mLastFirstVisibleItem < firstVisibleItem) {
-                    hideFABOnScrollDown();
-                }
-
-                if (mLastFirstVisibleItem > firstVisibleItem) {
-                    showFABOnScrollUp();
-                }
 
                 mLastFirstVisibleItem = firstVisibleItem;
             }
@@ -432,19 +421,5 @@ public class NotesFragment extends Fragment {
         public void onClick(View v) {
             goToPreviousDir();
         }
-    }
-
-    private void showFABOnScrollUp() {
-        MainActivity._fabMenu.animate()
-                .translationY(0)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .start();
-    }
-
-    private void hideFABOnScrollDown() {
-        MainActivity._fabMenu.animate()
-                .translationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size))
-                .setInterpolator(new AccelerateInterpolator())
-                .start();
     }
 }

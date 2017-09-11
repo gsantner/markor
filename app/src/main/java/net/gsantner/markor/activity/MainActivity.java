@@ -2,7 +2,6 @@ package net.gsantner.markor.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -18,12 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.ConfirmDialog;
@@ -43,11 +40,13 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.io.Serializable;
 
+import butterknife.ButterKnife;
+import butterknife.OnLongClick;
+
 
 public class MainActivity extends AppCompatActivity {
     private NotesFragment _notesFragment;
     private Toolbar _toolbar;
-    public static FloatingActionsMenu _fabMenu;
     private FloatingActionButton _fabCreateNote;
     private FloatingActionButton _fabCreateFolder;
     private SearchView _searchView;
@@ -116,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
         if (AppSettings.get().isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main__activity);
+        ButterKnife.bind(this);
 
         _toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (_toolbar != null) {
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         _frameLayout = findViewById(R.id.frame);
 
-        _fabMenu = (FloatingActionsMenu) findViewById(R.id.fab);
         _fabCreateNote = (FloatingActionButton) findViewById(R.id.create_note);
         _fabCreateFolder = (FloatingActionButton) findViewById(R.id.create_folder);
 
@@ -193,19 +192,17 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NoteActivity.class);
             intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
             startActivity(intent);
-            _fabMenu.collapse();
         }
     }
 
     private void createFolder() {
         if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
             showFolderNameDialog();
-            _fabMenu.collapse();
         }
     }
 
     private void showFolderNameDialog() {
-        FragmentManager fragManager = getFragmentManager();
+        FragmentManager fragManager = getSupportFragmentManager();
 
         Bundle args = new Bundle();
         args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, _notesFragment.getCurrentDir().getAbsolutePath());
@@ -372,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void askForConfirmation(Serializable file) {
-        FragmentManager fragManager = getFragmentManager();
+        FragmentManager fragManager = getSupportFragmentManager();
         ConfirmDialog confirmDialog = new ConfirmDialog();
         Bundle b = new Bundle();
         b.putSerializable(Constants.SOURCE_FILE, file);
@@ -425,7 +422,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startIntroAnimation() {
-        _fabMenu.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
         int actionbarSize = Utils.dpToPx(56);
         _toolbar.setTranslationY(-actionbarSize);
 
@@ -442,21 +438,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startContentAnimation() {
-        _fabMenu.animate()
-                .translationY(0)
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setDuration(ANIM_DURATION_FAB)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        // Load initial fragment
-                    }
-                })
-                .start();
-
-        _fm = getFragmentManager();
+        _fm = getSupportFragmentManager();
         _fm.beginTransaction()
                 .replace(R.id.frame, _notesFragment)
                 .commit();
+    }
+
+    @OnLongClick({R.id.create_folder, R.id.create_note})
+    public boolean onLongClicked(View view){
+        switch (view.getId()){
+            case R.id.create_folder: {
+                new ActivityUtils(this).showSnackBar(R.string.create_folder, false);
+                return true;
+            }
+            case R.id.create_note: {
+                new ActivityUtils(this).showSnackBar(R.string.create_note, false);
+                return true;
+            }
+        }
+        return false;
     }
 }
