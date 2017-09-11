@@ -22,8 +22,8 @@ android {
         minSdkVersion version_sdk.minSdk
         targetSdkVersion version_sdk.targetSdk
 
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.1.1"
 
         applicationId "net.gsantner.markor"
 
