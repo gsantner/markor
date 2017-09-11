@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/activity_main_content_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/breadcrumbs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/breadcrumbs"
+            android:elevation="3dp"
+            android:fontFamily="sans-serif"
+            android:gravity="start|center_vertical"
+            android:minHeight="48dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/navigate_up_folder"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/breadcrumbs" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/create_note"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_create_white_24dp"
+                android:tooltipText="@string/create_note"
+                app:elevation="0dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/create_folder"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginBottom="16sp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_create_new_folder_white_24dp"
+                android:tooltipText="@string/create_folder"
+                app:elevation="0dp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -51,6 +51,13 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    public HighlightingEditor(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        if (AppSettings.get().isHighlightingEnabled()) {
+            init();
+        }
+    }
+
     private void init() {
 
         setFilters(new InputFilter[]{new IndentationFilter()});
