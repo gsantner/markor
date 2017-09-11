@@ -83,7 +83,7 @@
         </activity>
 
         <activity
-            android:name="net.gsantner.markor.settings.SettingsActivity"
+            android:name="net.gsantner.markor.activity.SettingsActivity"
             android:label="@string/action_settings"
             android:parentActivityName="net.gsantner.markor.activity.MainActivity"
             android:theme="@style/AppTheme.Light">

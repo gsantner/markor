@@ -1,7 +1,6 @@
-package net.gsantner.markor.settings;
+package net.gsantner.markor.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +10,17 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.AlphanumericPinActivity;
-import net.gsantner.markor.activity.PinActivity;
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.PermissionChecker;
 
 public class SettingsActivity extends AppCompatActivity implements MarkorSettingsListener {
 
@@ -147,17 +146,19 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
         }
 
         private void setUpStorageDirPreference() {
-            final Preference rootDir = (Preference) findPreference(getString(R.string.pref_key__save_directory));
+            final Preference rootDir = findPreference(getString(R.string.pref_key__save_directory));
             rootDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    FragmentManager fragManager = getFragmentManager();
+                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                        FragmentManager fragManager = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
 
-                    Bundle args = new Bundle();
-                    args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
-                    FilesystemDialog filesystemDialog = new FilesystemDialog();
-                    filesystemDialog.setArguments(args);
-                    filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
+                        Bundle args = new Bundle();
+                        args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE);
+                        FilesystemDialog filesystemDialog = new FilesystemDialog();
+                        filesystemDialog.setArguments(args);
+                        filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
+                    }
                     return true;
                 }
             });

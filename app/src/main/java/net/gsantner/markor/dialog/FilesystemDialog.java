@@ -1,12 +1,14 @@
 package net.gsantner.markor.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -76,14 +78,10 @@ public class FilesystemDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
         View dialogView;
 
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Dialog);
-            dialogView = inflater.inflate(R.layout.filesystem_dialog_dark, null);
-        } else {
-            dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Base_Theme_AppCompat_Light_Dialog);
-            dialogView = inflater.inflate(R.layout.filesystem_dialog, null);
-        }
-
+        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
+        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
+                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        dialogView = inflater.inflate(R.layout.filesystem_dialog, null);
         dialogBuilder.setView(dialogView);
 
         if (isSelectingFolder || isSelectingForWidget) {
@@ -140,6 +138,9 @@ public class FilesystemDialog extends DialogFragment {
         // Previous dir button to help navigate the directories
         previousDirButton = (Button) dialog.findViewById(R.id.import_header_btn);
         previousDirButton.setOnClickListener(new PreviousDirClickListener());
+
+        workingDirectoryText.setTextColor(ContextCompat.getColor(workingDirectoryText.getContext(),
+                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
         return dialog;
     }

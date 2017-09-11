@@ -52,6 +52,7 @@
     <string name="pref_title__render_rtl">Render for right-to-left languages</string>
     <string name="pin_title">Enter your pin</string>
     <string name="passphrase_title">Enter your passphrase</string>
+    <string name="error_cannot_create_save_dir">Error: Cannot create save directory</string>
 
     <!-- Font Size -->
     <string name="font_size__normal">Normal</string>
@@ -89,5 +90,6 @@
     <string name="show_third_party_licenses">Show 3rd party licenses</string>
     <string name="pref_desc__language">Change language of this app. Restart app for changes to take effect</string>
     <string name="pref_title__language">Language</string>
+    <string name="error_storage_permission">Need permission for storage to save documents</string>
 
 </resources>

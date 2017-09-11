@@ -1,6 +1,5 @@
 package net.gsantner.markor.activity;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.FragmentManager;
@@ -9,11 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -35,10 +31,10 @@ import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
-import net.gsantner.markor.settings.SettingsActivity;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.CurrentFolderChangedReceiver;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.CurrentFolderChangedReceiver;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.RenameBroadcastReceiver;
 import net.gsantner.markor.util.Utils;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -117,11 +113,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isOverviewStatusBarHidden()){
+        if (AppSettings.get().isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(R.layout.activity_main);
-        askForStoragePermission();
 
         _toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (_toolbar != null) {
@@ -159,20 +154,9 @@ public class MainActivity extends AppCompatActivity {
         initFolders();
     }
 
-    private void askForStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 314
-            );
-        }
-    }
-
-
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 314 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-            finish();
-        }
+        PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
     }
 
     @Override
@@ -184,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_import: {
-                showImportDialog();
+                if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+                    showImportDialog();
+                }
                 return true;
             }
             case R.id.action_about: {
@@ -203,15 +189,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNote() {
-        Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-        intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
-        startActivity(intent);
-        _fabMenu.collapse();
+        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+            intent.putExtra(Constants.TARGET_DIR, _notesFragment.getCurrentDir().getAbsolutePath());
+            startActivity(intent);
+            _fabMenu.collapse();
+        }
     }
 
     private void createFolder() {
-        showFolderNameDialog();
-        _fabMenu.collapse();
+        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+            showFolderNameDialog();
+            _fabMenu.collapse();
+        }
     }
 
     private void showFolderNameDialog() {
@@ -309,7 +299,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if (AppSettings.get().isRecreateMainRequired()){
+        super.onResume();
+        if (AppSettings.get().isRecreateMainRequired()) {
             recreate();
         }
 
@@ -336,9 +327,8 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
         ifilterSwitchedFolderFilder.addAction(Constants.CURRENT_FOLDER_CHANGED);
         registerReceiver(_browseToFolderBroadcastReceiver, ifilterSwitchedFolderFilder);
-
-        super.onResume();
     }
+
 
     @Override
     protected void onPause() {
@@ -363,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImportDialog() {
-        FragmentManager fragManager = getFragmentManager();
+        android.support.v4.app.FragmentManager fragManager = getSupportFragmentManager();
 
         Bundle args = new Bundle();
         args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FILE_ACCESS_TYPE);

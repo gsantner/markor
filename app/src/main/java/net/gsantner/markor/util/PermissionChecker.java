@@ -1,0 +1,48 @@
+package net.gsantner.markor.util;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
+import net.gsantner.markor.R;
+import net.gsantner.opoc.util.ActivityUtils;
+
+import java.io.File;
+
+/**
+ * Created by gregor on 11.09.17.
+ */
+
+public class PermissionChecker {
+
+    public static boolean doIfPermissionGranted(final Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 314
+            );
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkPermissionResult(final Activity activity, int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 314) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                new ActivityUtils(activity).showSnackBar(R.string.error_storage_permission, true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean mkSaveDir(Activity activity) {
+        File saveDir = new File(AppSettings.get().getSaveDirectory());
+        if (!saveDir.exists() && !saveDir.mkdirs()) {
+            new ActivityUtils(activity).showSnackBar(R.string.error_cannot_create_save_dir, false);
+            return false;
+        }
+        return true;
+    }
+}
