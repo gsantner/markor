@@ -6,18 +6,18 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.NotesFragment;
+import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.markor.model.Constants;
 
 import java.io.File;
 
 public class RenameBroadcastReceiver extends BroadcastReceiver {
 
-    private NotesFragment notesFragment;
+    private FilesystemListFragment filesystemListFragment;
 
-    public RenameBroadcastReceiver(NotesFragment notesFragment) {
+    public RenameBroadcastReceiver(FilesystemListFragment filesystemListFragment) {
         super();
-        this.notesFragment = notesFragment;
+        this.filesystemListFragment = filesystemListFragment;
     }
 
     @Override
@@ -29,17 +29,17 @@ public class RenameBroadcastReceiver extends BroadcastReceiver {
 
             if (targetFile.exists()) {
                 Toast.makeText(context, context.getString(R.string.rename_error_target_already_exists), Toast.LENGTH_LONG).show();
-                notesFragment.finishActionMode();
+                filesystemListFragment.finishActionMode();
                 return;
             }
 
             if (sourceFile.renameTo(targetFile)) {
                 Toast.makeText(context, context.getString(R.string.rename_success), Toast.LENGTH_LONG).show();
-                notesFragment.listFilesInDirectory(notesFragment.getCurrentDir());
+                filesystemListFragment.listFilesInDirectory(filesystemListFragment.getCurrentDir());
             } else {
                 Toast.makeText(context, context.getString(R.string.rename_fail), Toast.LENGTH_LONG).show();
             }
-            notesFragment.finishActionMode();
+            filesystemListFragment.finishActionMode();
         }
     }
 }

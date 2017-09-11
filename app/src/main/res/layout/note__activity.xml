@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.Toolbar
@@ -37,8 +38,7 @@
                 android:singleLine="true"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/darker_gray"
-                android:textSize="19sp"
-                />
+                android:textSize="19sp" />
 
             <TextView
                 android:id="@+id/note__activity__text_note_title"
@@ -50,7 +50,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
         </ViewSwitcher>
     </android.support.v7.widget.Toolbar>
 
@@ -77,7 +77,7 @@
             android:scrollbars="vertical"
             android:textColor="@color/dark_grey"
             android:textCursorDrawable="@drawable/cursor_accent"
-            android:textSize="21sp"/>
+            android:textSize="21sp" />
     </ScrollView>
 
     <HorizontalScrollView
@@ -90,8 +90,7 @@
             android:id="@+id/note__activity__markdownchar_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
 </LinearLayout>

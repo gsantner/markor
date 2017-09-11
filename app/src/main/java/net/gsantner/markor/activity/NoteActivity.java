@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.editor.HighlightingEditor;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
@@ -70,6 +73,7 @@ public class NoteActivity extends AppCompatActivity {
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isEditorStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            AndroidBug5497Workaround.assistActivity(this);
         }
         setContentView(R.layout.note__activity);
         ButterKnife.bind(this);
