@@ -24,7 +24,7 @@ public class AppCast {
     //########################
     //## Basics
     //########################
-    private static class FolderNameExtra {
+    private static class PathExtra {
         public static final String EXTRA_PATH = "EXTRA_PATH";
 
         static Intent getFolderNameIntent(String action, String path) {
@@ -53,7 +53,7 @@ public class AppCast {
     //########################
     //## Actions
     //########################
-    public static class CURRENT_FOLDER_CHANGED extends FolderNameExtra {
+    public static class CURRENT_FOLDER_CHANGED extends PathExtra {
         public static final String ACTION = "CURRENT_FOLDER_CHANGED";
         public static final String EXTRA_ROOT_FOLDERPATH = "ROOT_FOLDERPATH";
 
@@ -64,11 +64,22 @@ public class AppCast {
         }
     }
 
-    public static class CREATE_FOLDER extends FolderNameExtra {
+    public static class CREATE_FOLDER extends PathExtra {
         public static final String ACTION = "CREATE_FOLDER";
 
         public static void send(Context c, String path) {
             sendBroadcast(c, getFolderNameIntent(ACTION, path));
+        }
+    }
+
+    public static class RENAME extends PathExtra {
+        public static final String ACTION = "RENAME";
+        public static final String EXTRA_RENAME_TO_NAME = "RENAME_TO"; // Just name, no path
+
+        public static void send(Context c, String path, String renameToName) {
+            Intent intent = getFolderNameIntent(ACTION, path);
+            intent.putExtra(EXTRA_RENAME_TO_NAME, renameToName);
+            sendBroadcast(c, intent);
         }
     }
 

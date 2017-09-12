@@ -25,11 +25,6 @@ public class Constants {
 
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
-    public static final String FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY = "FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY";
-    public static final String FILESYSTEM_FOLDER_ACCESS_TYPE = "FILESYSTEM_FOLDER_ACCESS_TYPE";
-    public static final String FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE = "FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE";
-    public static final String FILESYSTEM_SELECT_FOLDER_FOR_WIDGET_ACCESS_TYPE = "FILESYSTEM_SELECT_FOLDER_FOR_WIDGET_ACCESS_TYPE";
-    public static final String FILESYSTEM_FILE_ACCESS_TYPE = "FILESYSTEM_FILE_ACCESS_TYPE";
     public static final String NOTE_KEY = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";

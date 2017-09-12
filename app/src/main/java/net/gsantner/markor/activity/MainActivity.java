@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         lbm.registerReceiver(_createFolderBroadcastReceiver, AppCast.getLocalBroadcastFilter());
         lbm.registerReceiver(_browseToFolderBroadcastReceiver, AppCast.getLocalBroadcastFilter());
         lbm.registerReceiver(_confirmBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+        lbm.registerReceiver(_renameBroadcastReceiver, AppCast.getLocalBroadcastFilter());
 
         //IntentFilter ifilterCreateFolderDialog = new IntentFilter();
         //ifilterCreateFolderDialog.addAction(Constants.FRAGMENT_TAG);
@@ -179,10 +180,6 @@ public class MainActivity extends AppCompatActivity {
         ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
         ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
         registerReceiver(_fsBroadcastReceiver, ifilterFsDialog);
-
-        IntentFilter ifilterRenameDialog = new IntentFilter();
-        ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
-        registerReceiver(_renameBroadcastReceiver, ifilterRenameDialog);
     }
 
     @Override
@@ -219,9 +216,9 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver _renameBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.RENAME_DIALOG_TAG)) {
-                String newName = intent.getStringExtra(Constants.RENAME_NEW_NAME);
-                File sourceFile = new File(intent.getStringExtra(Constants.SOURCE_FILE));
+            if (intent.getAction().equals(AppCast.RENAME.ACTION)) {
+                String newName = intent.getStringExtra(AppCast.RENAME.EXTRA_RENAME_TO_NAME);
+                File sourceFile = new File(intent.getStringExtra(AppCast.RENAME.EXTRA_PATH));
                 File targetFile = new File(sourceFile.getParent(), newName);
 
                 if (targetFile.exists()) {
@@ -331,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showImportDialog() {
         Bundle args = new Bundle();
-        args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FILE_ACCESS_TYPE);
+        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FILE);
 
         FilesystemDialog filesystemDialog = new FilesystemDialog();
         filesystemDialog.setArguments(args);
