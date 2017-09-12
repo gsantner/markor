@@ -7,7 +7,7 @@
     android:theme="@style/AppTheme">
 
     <TextView
-        android:id="@+id/empty_hint"
+        android:id="@+id/background_hint_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

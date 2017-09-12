@@ -17,14 +17,15 @@
 
     <color name="accent_light">#FF9800</color>
 
-    <color name="light__background">#f9f9f9</color>
+    <color name="light__background">@color/white</color>
+    <color name="light__background_2">#f9f9f9</color>
     <color name="light__primary_text">#212121</color>
     <color name="light__secondary_text">#757575</color>
 
-    <color name="dark__background">#424242</color>
+    <color name="dark__background">@color/dark_grey</color>
+    <color name="dark__background_2">#424242</color>
     <color name="dark__primary_text">@color/white</color>
     <color name="dark__secondary_text">#9e9e9e</color>
-
 
     <color name="white">#ffffffff</color>
     <color name="grey">#ff505050</color>

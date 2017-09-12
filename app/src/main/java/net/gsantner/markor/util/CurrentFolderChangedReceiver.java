@@ -35,7 +35,7 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
     }
 
     private void toggleBreadcrumbsVisibility(File currentDir, File rootDir) {
-        TextView breadcrumbs = context.findViewById(R.id.breadcrumbs);
+        TextView breadcrumbs = context.findViewById(R.id.main__activity__breadcrumbs);
         if (currentDir.equals(rootDir)) {
             breadcrumbs.setVisibility(View.GONE);
         } else {

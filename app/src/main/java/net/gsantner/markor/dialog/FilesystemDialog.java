@@ -121,7 +121,7 @@ public class FilesystemDialog extends DialogFragment {
                 });
 
         AlertDialog dialog = dialogBuilder.show();
-        emptyFolderTextView = (TextView) dialog.findViewById(R.id.empty_hint);
+        emptyFolderTextView = (TextView) dialog.findViewById(R.id.background_hint_text);
 
         if (files == null) {
             files = new ArrayList<File>();
