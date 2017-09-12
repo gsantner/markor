@@ -54,13 +54,13 @@ public class FilesystemDialog extends DialogFragment {
 
         if (isMovingFile) {
             broadcast.setAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
-            broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
+            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
         } else if (isSelectingFolder || isSelectingForWidget) {
             broadcast.setAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
-            broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
+            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
         } else {
             broadcast.setAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
-            broadcast.putExtra(Constants.FILESYSTEM_FILE_NAME, name);
+            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
         }
 
         getActivity().sendBroadcast(broadcast);

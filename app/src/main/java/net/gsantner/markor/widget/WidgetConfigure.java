@@ -1,7 +1,5 @@
 package net.gsantner.markor.widget;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +21,7 @@ public class WidgetConfigure extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
-                String directory = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
+                String directory = intent.getStringExtra(Constants.EXTRA_FILEPATH);
                 complete(directory);
 
             }

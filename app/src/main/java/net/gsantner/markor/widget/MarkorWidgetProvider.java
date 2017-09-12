@@ -63,7 +63,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
-            notesListIntent.putExtra(Constants.FOLDER_NAME, directory);
+            notesListIntent.putExtra(Constants.EXTRA_FOLDERPATH, directory);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
