@@ -1,3 +1,7 @@
+### v0.1.2
+- Fix: Add folder textcolor
+- Mod: Faster folder animation
+
 ### v0.1.1
 - Fix import (#2)
 - Use appcompat in dialogs

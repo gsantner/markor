@@ -5,10 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
@@ -35,16 +37,21 @@ public class CreateFolderDialog extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         currentDir = getArguments().getString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, "");
 
-        View dialogView;
+        View root;
         AlertDialog.Builder dialogBuilder;
 
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogView = inflater.inflate(R.layout.folder_dialog_dark, null);
+        root = inflater.inflate(R.layout.folder_dialog, null);
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         dialogBuilder.setTitle(getResources().getString(R.string.create_folder));
-        dialogBuilder.setView(dialogView);
+        dialogBuilder.setView(root);
+
+        TextView tv = root.findViewById(R.id.create_folder_dialog__folder_name);
+        tv.setTextColor(ContextCompat.getColor(root.getContext(),
+                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+
 
         dialogBuilder.setPositiveButton(getResources().getString(R.string.create), new
                 DialogInterface.OnClickListener() {
@@ -62,7 +69,7 @@ public class CreateFolderDialog extends DialogFragment {
                 });
 
         AlertDialog dialog = dialogBuilder.show();
-        folderNameEditText = (EditText) dialog.findViewById(R.id.folder_name);
+        folderNameEditText = (EditText) dialog.findViewById(R.id.create_folder_dialog__folder_name);
 
         return dialog;
     }
