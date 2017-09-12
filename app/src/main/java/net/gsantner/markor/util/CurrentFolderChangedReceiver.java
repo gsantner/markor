@@ -35,13 +35,14 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
     }
 
     private void toggleBreadcrumbsVisibility(File currentDir, File rootDir) {
-        TextView breadcrumbs = (TextView) context.findViewById(R.id.breadcrumbs);
+        TextView breadcrumbs = context.findViewById(R.id.breadcrumbs);
         if (currentDir.equals(rootDir)) {
             breadcrumbs.setVisibility(View.GONE);
         } else {
             breadcrumbs.setText(backButtonText(currentDir, rootDir));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                showCircularReveal(breadcrumbs);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                    && breadcrumbs.getVisibility() != View.VISIBLE) {
+                showRevealAnimation(breadcrumbs);
             } else {
                 breadcrumbs.setVisibility(View.VISIBLE);
             }
@@ -57,43 +58,23 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void showCircularReveal(View view) {
+    public void showRevealAnimation(View view) {
         final View myView = view;
         myView.setVisibility(View.INVISIBLE);
         final int height = myView.getHeight() / 2;
         myView.setTranslationY(-height);
         myView.animate()
                 .translationY(0)
-                .setDuration(300)
-                .setStartDelay(100)
+                .setDuration(100)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         myView.setVisibility(View.VISIBLE);
-                        final int cx = myView.getWidth() / 2;
-                        final int cy = myView.getHeight() / 2;
-                        final int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
-                        Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
-                        anim.addListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-
-                            }
-                        });
+                        Animator anim = ViewAnimationUtils.createCircularReveal(myView,
+                                myView.getWidth() / 16,
+                                myView.getHeight() / 2,
+                                0, Math.max(myView.getWidth(), myView.getHeight())
+                        );
                         anim.start();
                     }
                 })

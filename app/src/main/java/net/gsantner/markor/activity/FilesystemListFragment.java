@@ -16,8 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -167,7 +165,7 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void promptForDirectory() {
-        android.support.v4.app.FragmentManager fragManager = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
+        android.support.v4.app.FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
 
         Bundle args = new Bundle();
         args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
