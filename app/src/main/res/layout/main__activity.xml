@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/activity_main_content_background"
+        android:id="@+id/main__activity__content_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,12 +16,11 @@
             layout="@layout/toolbar" />
 
         <TextView
-            android:id="@+id/breadcrumbs"
+            android:id="@+id/main__activity__breadcrumbs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:background="@drawable/breadcrumbs"
-            android:elevation="3dp"
             android:fontFamily="sans-serif"
             android:gravity="start|center_vertical"
             android:minHeight="48dp"
@@ -33,10 +32,10 @@
             android:visibility="gone" />
 
         <FrameLayout
-            android:id="@+id/frame"
+            android:id="@+id/main__activity__fragment_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/breadcrumbs" />
+            android:layout_below="@id/main__activity__breadcrumbs" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
             android:padding="0dp">
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/create_note"
+                android:id="@+id/main__activity__create_note_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="62dp"
                 android:layout_marginBottom="8dp"
@@ -60,7 +59,7 @@
                 app:elevation="0dp" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/create_folder"
+                android:id="@+id/main__activity__create_folder_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="62dp"
                 android:layout_marginBottom="16sp"

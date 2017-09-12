@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
 
         if (!showAbout) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.frame, settingsFragment)
+                    .replace(R.id.main__activity__fragment_placeholder, settingsFragment)
                     .commit();
         }
     }

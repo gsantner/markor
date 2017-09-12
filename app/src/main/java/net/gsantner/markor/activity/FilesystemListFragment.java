@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,89 +38,71 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+
 public class FilesystemListFragment extends Fragment {
 
     public static final int RENAME_CONTEXT_BUTTON_ID = 103;
 
-    private View layoutView;
+    @BindView(R.id.filesystemlist__fragment__listview)
+    public ListView _filesListView;
 
-    private ListView filesListView;
-    private TextView hintTextView;
+    @BindView(R.id.filesystemlist__fragment__background_hint_text)
+    public TextView _background_hint_text;
 
-    private File rootDir;
-    private File currentDir;
+    private NotesAdapter _filesAdapter;
 
-    private MarkorSingleton markorSingleton;
 
-    private ArrayList<File> filesCurrentlyShown = new ArrayList<File>();
+    private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
+    private List<File> _selectedItems = new ArrayList<>();
+    private SimpleSectionAdapter<File> _simpleSectionAdapter;
+    private MarkorSingleton _markorSingleton;
+    private ActionMode _actionMode;
+    private File _currentDir;
+    private File _rootDir;
 
-    private NotesAdapter filesAdapter;
-    private SimpleSectionAdapter<File> simpleSectionAdapter;
-    private Sectionizer<File> sectionizer = new Sectionizer<File>() {
+    private Sectionizer<File> _sectionizer = new Sectionizer<File>() {
         @Override
         public String getSectionTitleForItem(File instance) {
             return instance.isDirectory() ? getString(R.string.folders) : getString(R.string.files);
         }
     };
-    private ActionMode actionMode;
-    private List<File> selectedItems = new ArrayList<File>();
-
-    public FilesystemListFragment() {
-        super();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Context context = getActivity();
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        layoutView = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
-        hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
-        filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
+        View root = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
+        ButterKnife.bind(this, root);
+        return root;
+    }
 
-        filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
-        simpleSectionAdapter =
-                new SimpleSectionAdapter<>(context, filesAdapter, R.layout.filesystemlist__fragment__breadcrumbs_header, R.id.notes_fragment_section_text, sectionizer);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Context context = getActivity();
+        _filesAdapter = new NotesAdapter(context, 0, _filesCurrentlyShown);
+        _simpleSectionAdapter = new SimpleSectionAdapter<>(context, _filesAdapter,
+                R.layout.ui__text__item,
+                R.id.notes_fragment_section_text, _sectionizer);
 
-        filesListView.setOnItemClickListener(new NotesItemClickListener());
-        filesListView.setMultiChoiceModeListener(new ActionModeCallback());
-        filesListView.setAdapter(simpleSectionAdapter);
-        rootDir = getRootFolderFromPrefsOrDefault();
-
-        filesListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            private int mLastFirstVisibleItem;
-            boolean IS_SCROLLING;
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                    IS_SCROLLING = true;
-                } else {
-                    IS_SCROLLING = false;
-                }
-                int firstVisibleItem = view.getFirstVisiblePosition();
-
-                mLastFirstVisibleItem = firstVisibleItem;
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            }
-        });
-
-        return layoutView;
+        _filesListView.setMultiChoiceModeListener(new ActionModeCallback());
+        _filesListView.setAdapter(_simpleSectionAdapter);
+        _rootDir = getRootFolderFromPrefsOrDefault();
     }
 
     @Override
     public void onResume() {
-        markorSingleton = MarkorSingleton.getInstance();
+        super.onResume();
+        _markorSingleton = MarkorSingleton.getInstance();
         File possiblyNewRootDir = getRootFolderFromPrefsOrDefault();
-        if (possiblyNewRootDir != rootDir) {
-            rootDir = possiblyNewRootDir;
-            currentDir = possiblyNewRootDir;
+        if (possiblyNewRootDir != _rootDir) {
+            _rootDir = possiblyNewRootDir;
+            _currentDir = possiblyNewRootDir;
         }
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
-        super.onResume();
     }
 
     private File getRootFolderFromPrefsOrDefault() {
@@ -129,21 +111,21 @@ public class FilesystemListFragment extends Fragment {
 
     @Override
     public void onPause() {
-        saveCurrentFolder();
         super.onPause();
+        saveCurrentFolder();
     }
 
     private void retrieveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
         if (appSettings.isRememberLastDirectory()) {
             String rememberedDir = appSettings.getLastOpenedDirectory();
-            currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
+            _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
         }
 
         // Two-fold check, in case user doesn't have the preference to remember directories enabled
         // This code remembers last directory WITHIN the app (not leaving it)
-        if (currentDir == null) {
-            currentDir = (markorSingleton.getNotesLastDirectory() != null) ? markorSingleton.getNotesLastDirectory() : rootDir;
+        if (_currentDir == null) {
+            _currentDir = (_markorSingleton.getNotesLastDirectory() != null) ? _markorSingleton.getNotesLastDirectory() : _rootDir;
         }
     }
 
@@ -151,11 +133,11 @@ public class FilesystemListFragment extends Fragment {
         AppSettings appSettings = AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if (appSettings.isRememberLastDirectory()) {
-            String saveDir = (currentDir == null) ? rootDir.getAbsolutePath() : currentDir.getAbsolutePath();
+            String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
             appSettings.setLastOpenedDirectory(saveDir);
         }
 
-        markorSingleton.setNotesLastDirectory(currentDir);
+        _markorSingleton.setNotesLastDirectory(_currentDir);
     }
 
     private void confirmDelete() {
@@ -178,7 +160,7 @@ public class FilesystemListFragment extends Fragment {
 
     public void listFilesInDirectory(File directory) {
         reloadFiles(directory);
-        broadcastDirectoryChange(directory, rootDir);
+        broadcastDirectoryChange(directory, _rootDir);
         showEmptyDirHintIfEmpty();
         reloadAdapter();
     }
@@ -196,57 +178,51 @@ public class FilesystemListFragment extends Fragment {
 
         try {
             // Load from SD card
-            filesCurrentlyShown = MarkorSingleton.getInstance().addFilesFromDirectory(directory, new ArrayList<File>());
+            _filesCurrentlyShown = MarkorSingleton.getInstance().addFilesFromDirectory(directory, new ArrayList<File>());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void reloadAdapter() {
-        if (filesAdapter != null) {
-            filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, filesCurrentlyShown);
-            simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(getActivity().getApplicationContext(), filesAdapter, R.layout.filesystemlist__fragment__breadcrumbs_header, R.id.notes_fragment_section_text, sectionizer);
-            filesListView.setAdapter(simpleSectionAdapter);
-            simpleSectionAdapter.notifyDataSetChanged();
+        if (_filesAdapter != null) {
+            _filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, _filesCurrentlyShown);
+            _simpleSectionAdapter =
+                    new SimpleSectionAdapter<>(getActivity().getApplicationContext()
+                            , _filesAdapter, R.layout.ui__text__item
+                            , R.id.notes_fragment_section_text, _sectionizer);
+            _filesListView.setAdapter(_simpleSectionAdapter);
+            _simpleSectionAdapter.notifyDataSetChanged();
         }
     }
 
     public void goToPreviousDir() {
-        if (currentDir != null) {
-            currentDir = currentDir.getParentFile();
+        if (_currentDir != null) {
+            _currentDir = _currentDir.getParentFile();
         }
 
         listFilesInDirectory(getCurrentDir());
     }
 
     private void showEmptyDirHintIfEmpty() {
-        if (markorSingleton.isDirectoryEmpty(filesCurrentlyShown)) {
-            hintTextView.setVisibility(View.VISIBLE);
-            hintTextView.setText(getString(R.string.empty_directory));
+        if (_markorSingleton.isDirectoryEmpty(_filesCurrentlyShown)) {
+            _background_hint_text.setVisibility(View.VISIBLE);
+            _background_hint_text.setText(getString(R.string.empty_directory));
         } else {
-            hintTextView.setVisibility(View.INVISIBLE);
+            _background_hint_text.setVisibility(View.INVISIBLE);
         }
     }
 
     public File getCurrentDir() {
-        return (currentDir == null) ? getRootDir() : currentDir.getAbsoluteFile();
+        return (_currentDir == null) ? getRootDir() : _currentDir.getAbsoluteFile();
     }
 
     public File getRootDir() {
-        return rootDir.getAbsoluteFile();
-    }
-
-    public ListView getFilesListView() {
-        return filesListView;
-    }
-
-    public NotesAdapter getFilesAdapter() {
-        return filesAdapter;
+        return _rootDir.getAbsoluteFile();
     }
 
     public void finishActionMode() {
-        actionMode.finish();
+        _actionMode.finish();
     }
 
     /**
@@ -254,23 +230,23 @@ public class FilesystemListFragment extends Fragment {
      **/
     public void search(CharSequence query) {
         if (query.length() > 0) {
-            filesAdapter.getFilter().filter(query);
-            simpleSectionAdapter.notifyDataSetChanged();
+            _filesAdapter.getFilter().filter(query);
+            _simpleSectionAdapter.notifyDataSetChanged();
         }
     }
 
     public void clearSearchFilter() {
-        filesAdapter.getFilter().filter("");
-        simpleSectionAdapter.notifyDataSetChanged();
+        _filesAdapter.getFilter().filter("");
+        _simpleSectionAdapter.notifyDataSetChanged();
         reloadAdapter();
     }
 
     public List<File> getSelectedItems() {
-        return selectedItems;
+        return _selectedItems;
     }
 
     public boolean onRooDir() {
-        return markorSingleton.isRootDir(currentDir, rootDir);
+        return _markorSingleton.isRootDir(_currentDir, _rootDir);
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
@@ -291,7 +267,7 @@ public class FilesystemListFragment extends Fragment {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            actionMode = mode;
+            _actionMode = mode;
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
                     confirmDelete();
@@ -300,7 +276,7 @@ public class FilesystemListFragment extends Fragment {
                     promptForDirectory();
                     return true;
                 case RENAME_CONTEXT_BUTTON_ID:
-                    promptForNewName(selectedItems.get(0));
+                    promptForNewName(_selectedItems.get(0));
                     return true;
                 default:
                     return false;
@@ -323,7 +299,7 @@ public class FilesystemListFragment extends Fragment {
         @Override
         public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean checked) {
 
-            switch (filesListView.getCheckedItemCount()) {
+            switch (_filesListView.getCheckedItemCount()) {
                 case 0:
                     actionMode.setSubtitle(null);
                     hideRenameButton(actionMode);
@@ -335,7 +311,7 @@ public class FilesystemListFragment extends Fragment {
                     break;
                 default:
                     manageClickedVIew(i, checked);
-                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), filesListView.getCheckedItemCount()));
+                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), _filesListView.getCheckedItemCount()));
                     hideRenameButton(actionMode);
                     break;
             }
@@ -343,9 +319,9 @@ public class FilesystemListFragment extends Fragment {
 
         private void manageClickedVIew(int i, boolean checked) {
             if (checked) {
-                selectedItems.add((File) simpleSectionAdapter.getItem(i));
+                _selectedItems.add((File) _simpleSectionAdapter.getItem(i));
             } else {
-                selectedItems.remove((File) simpleSectionAdapter.getItem(i));
+                _selectedItems.remove((File) _simpleSectionAdapter.getItem(i));
             }
         }
 
@@ -370,47 +346,43 @@ public class FilesystemListFragment extends Fragment {
         }
     }
 
-    ;
+    @OnItemClick(R.id.filesystemlist__fragment__listview)
+    public void onNotesItemClickListener(AdapterView<?> adapterView, View view, int i, long l) {
+        File file = (File) _simpleSectionAdapter.getItem(i);
+        Context context = view.getContext();
 
-    private class NotesItemClickListener implements android.widget.AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            File file = (File) simpleSectionAdapter.getItem(i);
-            Context context = view.getContext();
+        // Refresh list if directory, else import
+        if (file.isDirectory()) {
+            _currentDir = file;
+            listFilesInDirectory(file);
+        } else {
 
-            // Refresh list if directory, else import
-            if (file.isDirectory()) {
-                currentDir = file;
-                listFilesInDirectory(file);
-            } else {
+            File note = (File) _simpleSectionAdapter.getItem(i);
+            Intent intent;
 
-                File note = (File) simpleSectionAdapter.getItem(i);
-                Intent intent;
+            if (AppSettings.get().isPreviewFirst()) {
+                intent = new Intent(context, PreviewActivity.class);
 
-                if (AppSettings.get().isPreviewFirst()) {
-                    intent = new Intent(context, PreviewActivity.class);
-
-                    // .replace is a workaround for Markdown lists requiring two \n characters
-                    if (note != null) {
-                        Uri uriBase = null;
-                        if (note.getParentFile() != null) {
-                            uriBase = Uri.parse(note.getParentFile().toURI().toString());
-                        }
-
-                        intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
+                // .replace is a workaround for Markdown lists requiring two \n characters
+                if (note != null) {
+                    Uri uriBase = null;
+                    if (note.getParentFile() != null) {
+                        uriBase = Uri.parse(note.getParentFile().toURI().toString());
                     }
 
-                    Uri noteUri = Uri.parse(note.toURI().toString());
-                    String content = MarkorSingleton.getInstance().readFileUri(noteUri, context);
-                    intent.putExtra(Constants.MD_PREVIEW_KEY, content.replace("\n-", "\n\n-"));
-                } else {
-                    intent = new Intent(context, NoteActivity.class);
+                    intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
                 }
-                intent.putExtra(Constants.NOTE_KEY, note);
 
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+                Uri noteUri = Uri.parse(note.toURI().toString());
+                String content = MarkorSingleton.getInstance().readFileUri(noteUri, context);
+                intent.putExtra(Constants.MD_PREVIEW_KEY, content.replace("\n-", "\n\n-"));
+            } else {
+                intent = new Intent(context, NoteActivity.class);
             }
+            intent.putExtra(Constants.NOTE_KEY, note);
+
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         }
     }
 

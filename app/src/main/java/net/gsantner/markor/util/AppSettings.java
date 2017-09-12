@@ -25,7 +25,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getBackgroundColor() {
-        return isDarkThemeEnabled() ? rcolor(R.color.dark__background) : rcolor(R.color.light__background);
+        return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
     }
 
     public void setLockType(String value) {

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:paddingLeft="15dp"
-              android:paddingTop="15dp">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/notes_fragment_section_text"
@@ -16,6 +19,6 @@
         android:gravity="start"
         android:textColor="@color/accent"
         android:textSize="14sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </LinearLayout>
