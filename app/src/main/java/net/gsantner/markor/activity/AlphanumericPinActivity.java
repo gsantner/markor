@@ -42,7 +42,7 @@ public class AlphanumericPinActivity extends AppCompatActivity {
             isSettingUp = true;
         }
 
-        setContentView(R.layout.activity_alphanumeric_pin);
+        setContentView(R.layout.alphanumeric_pin__activity);
 
         // Find pin EditTexts
         pinView = (EditText) findViewById(R.id.passcode);

@@ -1,7 +1,6 @@
 package net.gsantner.markor.dialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,7 +80,7 @@ public class FilesystemDialog extends DialogFragment {
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
-        dialogView = inflater.inflate(R.layout.filesystem_dialog, null);
+        dialogView = inflater.inflate(R.layout.ui__filesystem__dialog, null);
         dialogBuilder.setView(dialogView);
 
         if (isSelectingFolder || isSelectingForWidget) {

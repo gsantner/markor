@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.settings__activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {

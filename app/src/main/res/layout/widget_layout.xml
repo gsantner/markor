@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,10 +16,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center|left"
+                android:gravity="center|start"
+                android:paddingEnd="0sp"
                 android:paddingLeft="15sp"
+                android:paddingRight="0sp"
+                android:paddingStart="15sp"
                 android:text="@string/app_name"
-                android:textSize="16sp"/>
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Button
@@ -32,9 +36,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="14dp"
             android:layout_marginTop="14dp"
-            android:background="@drawable/fab_widget"
+            android:background="@drawable/fab_circle"
             android:text="@string/plus"
-            android:textSize="18sp"/>
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:id="@+id/widget_list_container"
@@ -50,14 +55,14 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:textColor="@color/light_grey"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <ListView
                 android:id="@+id/widget_notes_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@android:color/white"/>
+                android:background="@android:color/white" />
         </RelativeLayout>
     </RelativeLayout>
 

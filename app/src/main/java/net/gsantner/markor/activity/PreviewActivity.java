@@ -37,7 +37,7 @@ public class PreviewActivity extends AppCompatActivity {
         if (AppSettings.get().isEditorStatusBarHidden()){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setContentView(R.layout.activity_preview);
+        setContentView(R.layout.preview__activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {

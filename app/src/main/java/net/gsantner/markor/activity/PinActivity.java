@@ -45,7 +45,7 @@ public class PinActivity extends AppCompatActivity {
             isSettingUp = true;
         }
 
-        setContentView(R.layout.activity_pin);
+        setContentView(R.layout.pin__activity);
 
         // Find pin EditTexts
         pin1 = (EditText) findViewById(R.id.pin1);

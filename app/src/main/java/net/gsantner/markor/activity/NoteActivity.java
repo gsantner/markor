@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -17,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -240,7 +238,7 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void appendButton(String shortcut, View.OnClickListener l) {
-        TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.keyboard_shortcut, null);
+        TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
         shortcutButton.setText(shortcut);
         shortcutButton.setOnClickListener(l);
 
