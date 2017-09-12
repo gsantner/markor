@@ -53,7 +53,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View row = inflater.inflate(R.layout.file_item, viewGroup, false);
+        View row = inflater.inflate(R.layout.ui__file__item, viewGroup, false);
         TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
         TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
         ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);

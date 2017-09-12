@@ -41,7 +41,7 @@ public class CreateFolderDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
 
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        root = inflater.inflate(R.layout.folder_dialog, null);
+        root = inflater.inflate(R.layout.ui__create_folder__dialog, null);
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 

@@ -73,13 +73,13 @@ public class FilesystemListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Context context = getActivity();
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        layoutView = inflater.inflate(R.layout.notes_fragment, container, false);
+        layoutView = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
         hintTextView = (TextView) layoutView.findViewById(R.id.empty_hint);
         filesListView = (ListView) layoutView.findViewById(R.id.notes_listview);
 
         filesAdapter = new NotesAdapter(context, 0, filesCurrentlyShown);
         simpleSectionAdapter =
-                new SimpleSectionAdapter<>(context, filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+                new SimpleSectionAdapter<>(context, filesAdapter, R.layout.filesystemlist__fragment__breadcrumbs_header, R.id.notes_fragment_section_text, sectionizer);
 
         filesListView.setOnItemClickListener(new NotesItemClickListener());
         filesListView.setMultiChoiceModeListener(new ActionModeCallback());
@@ -206,7 +206,7 @@ public class FilesystemListFragment extends Fragment {
         if (filesAdapter != null) {
             filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, filesCurrentlyShown);
             simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(getActivity().getApplicationContext(), filesAdapter, R.layout.notes_fragment_section_header, R.id.notes_fragment_section_text, sectionizer);
+                    new SimpleSectionAdapter<>(getActivity().getApplicationContext(), filesAdapter, R.layout.filesystemlist__fragment__breadcrumbs_header, R.id.notes_fragment_section_text, sectionizer);
             filesListView.setAdapter(simpleSectionAdapter);
             simpleSectionAdapter.notifyDataSetChanged();
         }

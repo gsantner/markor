@@ -1,5 +1,5 @@
 ### v0.1.2
-- Fix: Add folder textcolor
+- Fix: Create folder textcolor
 - Mod: Faster folder animation
 
 ### v0.1.1

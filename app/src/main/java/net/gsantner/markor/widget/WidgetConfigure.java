@@ -32,6 +32,7 @@ public class WidgetConfigure extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -57,9 +58,6 @@ public class WidgetConfigure extends AppCompatActivity {
             }
         });
         filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
-
-        super.onCreate(savedInstanceState);
-
     }
 
     public final void complete(String directory) {
