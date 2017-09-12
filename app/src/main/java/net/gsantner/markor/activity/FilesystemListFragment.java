@@ -148,7 +148,7 @@ public class FilesystemListFragment extends Fragment {
         FragmentManager fragManager = getActivity().getSupportFragmentManager();
 
         Bundle args = new Bundle();
-        args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
+        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FOLDER);
 
         FilesystemDialog filesystemDialog = new FilesystemDialog();
         filesystemDialog.setArguments(args);
