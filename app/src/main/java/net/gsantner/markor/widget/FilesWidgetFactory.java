@@ -14,16 +14,15 @@ import java.io.FileFilter;
 
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private Context context;
-    private File[] widgetFilesList = new File[0];
-    private int appWidgetId;
-    private File dir;
+    private Context _context;
+    private File[] _widgetFilesList = new File[0];
+    private int _appWidgetId;
+    private File _dir;
 
     public FilesWidgetFactory(Context context, Intent intent) {
-
-        this.context = context;
-        this.appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        this.dir = new File(intent.getStringExtra(Constants.FOLDER_NAME));
+        _context = context;
+        _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        _dir = new File(intent.getStringExtra(Constants.EXTRA_FOLDERPATH));
     }
 
     @Override
@@ -37,7 +36,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void updateFiles() {
-        this.widgetFilesList = dir.listFiles(new FileFilter() {
+        this._widgetFilesList = _dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return !pathname.isDirectory();
@@ -47,19 +46,19 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public void onDestroy() {
-        widgetFilesList = new File[0];
+        _widgetFilesList = new File[0];
     }
 
     @Override
     public int getCount() {
-        return widgetFilesList.length;
+        return _widgetFilesList.length;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        File file = widgetFilesList[position];
+        File file = _widgetFilesList[position];
         Intent fillInIntent = new Intent().putExtra(Constants.NOTE_KEY, file);
-        RemoteViews rowView = new RemoteViews(context.getPackageName(), R.layout.widget_file_item);
+        RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, Constants.MD_EXTENSION.matcher(file.getName()).replaceAll(""));
         rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         return rowView;

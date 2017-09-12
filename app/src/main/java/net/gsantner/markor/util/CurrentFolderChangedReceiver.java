@@ -27,9 +27,9 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Constants.CURRENT_FOLDER_CHANGED)) {
-            File directory = (File) intent.getSerializableExtra(Constants.CURRENT_FOLDER);
-            File rootDir = (File) intent.getSerializableExtra(Constants.ROOT_DIR);
+        if (intent.getAction().equals(AppCast.CURRENT_FOLDER_CHANGED.ACTION)) {
+            File directory = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_PATH));
+            File rootDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_ROOT_FOLDERPATH));
             toggleBreadcrumbsVisibility(directory, rootDir);
         }
     }

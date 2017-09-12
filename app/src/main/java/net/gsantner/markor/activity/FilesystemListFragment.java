@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,12 +30,12 @@ import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.dialog.RenameDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +55,7 @@ public class FilesystemListFragment extends Fragment {
 
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
-    private List<File> _selectedItems = new ArrayList<>();
+    private ArrayList<File> _selectedItems = new ArrayList<>();
     private SimpleSectionAdapter<File> _simpleSectionAdapter;
     private MarkorSingleton _markorSingleton;
     private ActionMode _actionMode;
@@ -141,13 +140,12 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void confirmDelete() {
-        FragmentManager fragManager = getFragmentManager();
-        ConfirmDialog confirmDialog = new ConfirmDialog();
-        confirmDialog.show(fragManager, Constants.CONFIRM_DELETE_DIALOG_TAG);
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(ConfirmDialog.WHAT_DELETE, getSelectedItems());
+        confirmDialog.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
     private void promptForDirectory() {
-        android.support.v4.app.FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+        FragmentManager fragManager = getActivity().getSupportFragmentManager();
 
         Bundle args = new Bundle();
         args.putString(Constants.FILESYSTEM_ACTIVITY_ACCESS_TYPE_KEY, Constants.FILESYSTEM_FOLDER_ACCESS_TYPE);
@@ -166,11 +164,7 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void broadcastDirectoryChange(File directory, File rootDir) {
-        Intent broadcast = new Intent();
-        broadcast.setAction(Constants.CURRENT_FOLDER_CHANGED);
-        broadcast.putExtra(Constants.CURRENT_FOLDER, directory);
-        broadcast.putExtra(Constants.ROOT_DIR, rootDir);
-        getActivity().sendBroadcast(broadcast);
+        AppCast.CURRENT_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), rootDir.getAbsolutePath());
         clearSearchFilter();
     }
 
@@ -241,7 +235,7 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
-    public List<File> getSelectedItems() {
+    public ArrayList<File> getSelectedItems() {
         return _selectedItems;
     }
 

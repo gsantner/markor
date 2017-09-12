@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -26,16 +27,16 @@ import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.CurrentFolderChangedReceiver;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.markor.util.RenameBroadcastReceiver;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private SearchView _searchView;
     private MenuItem _searchItem;
 
-    private RenameBroadcastReceiver _renameBroadcastReceiver;
     private BroadcastReceiver _browseToFolderBroadcastReceiver;
     private boolean _doubleBackToExitPressedOnce;
 
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(_toolbar);
 
         _filesystemListFragment = new FilesystemListFragment();
-        _renameBroadcastReceiver = new RenameBroadcastReceiver(_filesystemListFragment);
         _browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
         getSupportFragmentManager().beginTransaction()
@@ -167,34 +166,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupAppearancePreferences();
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        lbm.registerReceiver(_createFolderBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+        lbm.registerReceiver(_browseToFolderBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+        lbm.registerReceiver(_confirmBroadcastReceiver, AppCast.getLocalBroadcastFilter());
 
-        IntentFilter ifilterCreateFolderDialog = new IntentFilter();
-        ifilterCreateFolderDialog.addAction(Constants.CREATE_FOLDER_DIALOG_TAG);
-        registerReceiver(_createFolderBroadcastReceiver, ifilterCreateFolderDialog);
+        //IntentFilter ifilterCreateFolderDialog = new IntentFilter();
+        //ifilterCreateFolderDialog.addAction(Constants.FRAGMENT_TAG);
+        //registerReceiver(_createFolderBroadcastReceiver, ifilterCreateFolderDialog);
 
         IntentFilter ifilterFsDialog = new IntentFilter();
         ifilterFsDialog.addAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
         ifilterFsDialog.addAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
         registerReceiver(_fsBroadcastReceiver, ifilterFsDialog);
 
-        IntentFilter ifilterConfirmDialog = new IntentFilter();
-        ifilterConfirmDialog.addAction(Constants.CONFIRM_DELETE_DIALOG_TAG);
-        ifilterConfirmDialog.addAction(Constants.CONFIRM_OVERWRITE_DIALOG_TAG);
-        registerReceiver(_confirmBroadcastReceiver, ifilterConfirmDialog);
-
         IntentFilter ifilterRenameDialog = new IntentFilter();
         ifilterRenameDialog.addAction(Constants.RENAME_DIALOG_TAG);
         registerReceiver(_renameBroadcastReceiver, ifilterRenameDialog);
-
-        IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
-        ifilterSwitchedFolderFilder.addAction(Constants.CURRENT_FOLDER_CHANGED);
-        registerReceiver(_browseToFolderBroadcastReceiver, ifilterSwitchedFolderFilder);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(_createFolderBroadcastReceiver);
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        lbm.unregisterReceiver(_createFolderBroadcastReceiver);
         unregisterReceiver(_fsBroadcastReceiver);
         unregisterReceiver(_confirmBroadcastReceiver);
         unregisterReceiver(_renameBroadcastReceiver);
@@ -221,12 +216,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private BroadcastReceiver _renameBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.RENAME_DIALOG_TAG)) {
+                String newName = intent.getStringExtra(Constants.RENAME_NEW_NAME);
+                File sourceFile = new File(intent.getStringExtra(Constants.SOURCE_FILE));
+                File targetFile = new File(sourceFile.getParent(), newName);
+
+                if (targetFile.exists()) {
+                    Toast.makeText(context, context.getString(R.string.rename_error_target_already_exists), Toast.LENGTH_LONG).show();
+                    _filesystemListFragment.finishActionMode();
+                    return;
+                }
+
+                if (sourceFile.renameTo(targetFile)) {
+                    Toast.makeText(context, context.getString(R.string.rename_success), Toast.LENGTH_LONG).show();
+                    _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
+                } else {
+                    Toast.makeText(context, context.getString(R.string.rename_fail), Toast.LENGTH_LONG).show();
+                }
+                _filesystemListFragment.finishActionMode();
+            }
+        }
+    };
+
+
     private BroadcastReceiver _createFolderBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.CREATE_FOLDER_DIALOG_TAG)) {
-                createFolder(new File(intent.getStringExtra(Constants.FOLDER_NAME)));
+            if (intent.getAction().equals(AppCast.CREATE_FOLDER.ACTION)) {
+                createFolder(new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH)));
                 _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
             }
         }
@@ -235,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String fileName = intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME);
+            String fileName = intent.getStringExtra(Constants.EXTRA_FILEPATH);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
                 importFile(new File(fileName));
                 _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
@@ -249,14 +270,18 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver _confirmBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
+        @SuppressWarnings("unchecked")
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.CONFIRM_DELETE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().deleteSelectedItems(_filesystemListFragment.getSelectedItems());
-                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                _filesystemListFragment.finishActionMode();
-            }
-            if (intent.getAction().equals(Constants.CONFIRM_OVERWRITE_DIALOG_TAG)) {
-                importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(Constants.SOURCE_FILE));
+            if (intent.getAction().equals(AppCast.CONFIRM.ACTION)) {
+                if (intent.getStringExtra(AppCast.CONFIRM.EXTRA_WHAT).equals(ConfirmDialog.WHAT_DELETE)) {
+                    List<File> selected = (List<File>) intent.getSerializableExtra(ConfirmDialog.EXTRA_DATA);
+                    MarkorSingleton.getInstance().deleteSelectedItems(selected);
+                    _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
+                    _filesystemListFragment.finishActionMode();
+                }
+                if (intent.getStringExtra(AppCast.CONFIRM.EXTRA_WHAT).equals(ConfirmDialog.WHAT_OVERWRITE)) {
+                    importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(AppCast.CONFIRM.EXTRA_DATA));
+                }
             }
         }
     };
@@ -290,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
 
         CreateFolderDialog createFolderDialog = new CreateFolderDialog();
         createFolderDialog.setArguments(args);
-        createFolderDialog.show(fragManager, Constants.CREATE_FOLDER_DIALOG_TAG);
+        createFolderDialog.show(fragManager, CreateFolderDialog.FRAGMENT_TAG);
     }
 
     private boolean createFolder(File folder) {
@@ -321,14 +346,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void askForConfirmation(Serializable file) {
-        FragmentManager fragManager = getSupportFragmentManager();
-        ConfirmDialog confirmDialog = new ConfirmDialog();
-        Bundle b = new Bundle();
-        b.putSerializable(Constants.SOURCE_FILE, file);
-        confirmDialog.setArguments(b);
-        confirmDialog.show(fragManager, Constants.CONFIRM_OVERWRITE_DIALOG_TAG);
-
+    private void askForConfirmation(File file) {
+        ConfirmDialog d = ConfirmDialog.newInstance(ConfirmDialog.WHAT_OVERWRITE, file);
+        d.show(getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
     @Override

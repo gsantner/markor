@@ -30,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
-                AppSettings.get().setSaveDirectory(intent.getStringExtra(Constants.FILESYSTEM_FILE_NAME));
+                AppSettings.get().setSaveDirectory(intent.getStringExtra(Constants.EXTRA_FILEPATH));
                 settingsFragment.updateSummaries();
             }
         }

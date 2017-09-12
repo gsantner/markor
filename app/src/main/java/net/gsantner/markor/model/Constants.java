@@ -13,18 +13,14 @@ public class Constants {
 
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String SET_PIN_ACTION = "set_pin";
-    public static final String CREATE_FOLDER_DIALOG_TAG = "create_folder_dialog_tag";
-    public static final String CURRENT_FOLDER_CHANGED = "current_folder_changed";
-    public static final String FOLDER_NAME = "folder_name";
-    public static final String FILESYSTEM_FILE_NAME = "filesystem_file_name";
+    public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
+    public static final String EXTRA_FILEPATH = "filesystem_filepath";
 
     // ----- DIALOG TAGS -----
     public static final String SHARE_BROADCAST_TAG = "share_broadcast_tag";
     public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
     public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
-    public static final String CONFIRM_DELETE_DIALOG_TAG = "confirm_delete_dialog_tag";
-    public static final String CONFIRM_OVERWRITE_DIALOG_TAG = "confirm_overwrite_dialog_tag";
     public static final String RENAME_DIALOG_TAG = "RENAME_DIALOG_TAG";
 
     // ----- KEYS -----
