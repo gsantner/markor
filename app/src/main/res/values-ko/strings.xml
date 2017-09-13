@@ -8,18 +8,15 @@
     <string name="rename">이름 바꾸기</string>
     <string name="confirm_delete">삭제 확인</string>
     <string name="confirm_overwrite">파일이 이미 있습니다. 덮어쓸까요?</string>
-    <string name="incorrect_pin_text">잘못된 비밀번호</string>
     <string name="title">제목</string>
     <string name="empty_directory">이 폴더는 비어있습니다</string>
     <string name="navigate_up_folder">이전 폴더로 가기</string>
     <string name="folder_name_hint">폴더의 이름을 입력하세요</string>
-    <string name="new_name_hint">새 이름을 입력하세요</string>
     <string name="create_folder">폴더 만들기</string>
     <string name="move">이동</string>
 
     <string name="import_from_device">기기에서 가져오기</string>
     <string name="select_folder_move">폴더 선택</string>
-    <string name="select_root_folder">폴더 선택</string>
 
     <string name="search_hint">노트 검색</string>
     <string name="share_string">&#8230; 공유</string>
@@ -40,32 +37,20 @@
     <string name="share_text">평문 텍스트</string>
     <string name="share_image">이미지</string>
     <string name="pref_title__font_size">글자 크기</string>
-    <string name="lock_type__pin">비밀번호 잠금</string>
     <string name="pref_title__show_markdown_shortcuts">마크다운 바로가기 바 표시</string>
     <string name="pref_title__highlighting_activated">마크다운 문법 강조</string>
     <string name="pref_title__highlighting_delay">강조된 부분을 새로고침할 때 약간 지연시키기</string>
     <string name="pref_title__highlighting_delay_summary">높을 수록 배터리가 절약됩니다</string>
     <string name="pref_title__smart_shortcuts">스마트 괄호 바로가기</string>
     <string name="pref_title__smart_shortcuts_summary">텍스트가 선택됐을 때, {}, [] 그리고 () 가 선택 영역을 감싸게 됨</string>
-    <string name="pin_title">비밀번호 입력</string>
-    <string name="pref_title__lock_settings">Lock</string>
-    <string name="lock_type__password">Alphanumeric Lock</string>
-    <string name="lock_type__none">No Lock</string>
-    <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size__normal">보통</string>
-    <string name="font_size__large">큼</string>
-    <string name="font_size__small">작음</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">마지막 변경: %s</string>
     <string name="number_of_files">파일 갯수: %d</string>
-    <string name="move_here">여기로 이동</string>
     <string name="select_this_folder">이 폴더 선택</string>
     <string name="select">선택</string>
-    <string name="no_selected_file">파일 선택되지 않음</string>
-    <string name="current_folder">현재 폴더:</string>
     <string name="create">만들기</string>
     <string name="select_elements">항목 선택</string>
     <string name="one_item_selected">하나의 항목 선택됨</string>
@@ -73,9 +58,6 @@
 
     <!-- About screen -->
     <string name="contributors">기여자</string>
-    <string name="rename_error_target_already_exists">파일/폴더가 이미 존재합니다</string>
-    <string name="rename_success">이름 바꾸기 성공</string>
-    <string name="rename_fail">이름 바꾸기 실패</string>
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
 
 </resources>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_arr__themes" translatable="false">
+    <string-array name="pref_arrdisp__app_themes" translatable="false">
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__app_themes" translatable="false">
+        <item>light</item>
+        <item>dark</item>
     </string-array>
 
     <string-array name="pref_arrkeys__font_size" translatable="false">
@@ -17,18 +22,6 @@
         <item>23</item>
         <item>25</item>
     </string-array>
-
-    <string-array name="pref_arrdisp__lock_type" translatable="false">
-        <item>@string/lock_type__none</item>
-        <item>@string/lock_type__pin</item>
-        <item>@string/lock_type__password</item>
-    </string-array>
-    <string-array name="pref_arrkeys__lock_type" translatable="false">
-        <item>@string/pref_value__lock__none</item>
-        <item>@string/pref_value__lock__pin</item>
-        <item>@string/pref_value__lock__password</item>
-    </string-array>
-
 
     <string-array name="pref_arrdisp__font_family" translatable="false">
         <item>Roboto Regular (Default)</item>
@@ -46,6 +39,7 @@
         <item>Dancing Script</item>
 
     </string-array>
+
     <string-array name="pref_arrkeys__font_family" translatable="false">
         <item>sans-serif-regular</item>
         <item>sans-serif-light</item>
@@ -60,6 +54,5 @@
         <item>casual</item>
         <item>sans-serif-smallcaps</item>
         <item>cursive</item>
-
     </string-array>
 </resources>

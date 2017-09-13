@@ -395,7 +395,6 @@ public class FilesystemListFragment extends Fragment {
             intent.putExtra(Constants.NOTE_KEY, note);
 
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
         }
     }
 

@@ -1,21 +1,19 @@
 package net.gsantner.markor.activity;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -23,51 +21,68 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
 
-public class SettingsActivity extends AppCompatActivity implements MarkorSettingsListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    SettingsFragment settingsFragment;
+public class SettingsActivity extends AppCompatActivity {
+    static class RESULT {
+        static final int NOCHANGE = -1;
+        static final int CHANGED = 1;
+        static final int RESTART_REQ = 2;
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Context context = getApplicationContext();
+    @BindView(R.id.toolbar)
+    protected Toolbar toolbar;
+
+    private AppSettings appSettings;
+    public static int activityRetVal = RESULT.NOCHANGE;
+
+    public void onCreate(Bundle b) {
+        super.onCreate(b);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        settingsFragment = new SettingsFragment();
         if (AppSettings.get().isDarkThemeEnabled()) {
             setTheme(R.style.AppTheme_Dark);
         }
-
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.settings__activity);
+        ButterKnife.bind(this);
+        toolbar.setTitle(R.string.action_settings);
+        setSupportActionBar(toolbar);
+        appSettings = AppSettings.get();
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SettingsActivity.this.onBackPressed();
+            }
+        });
+        showFragment(SettingsFragmentMaster.TAG, false);
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    protected void showFragment(String tag, boolean addToBackStack) {
+        PreferenceFragment fragment = (PreferenceFragment) getFragmentManager().findFragmentByTag(tag);
+        if (fragment == null) {
+            switch (tag) {
+                case SettingsFragmentMaster.TAG:
+                default:
+                    fragment = new SettingsFragmentMaster();
+                    toolbar.setTitle(R.string.action_settings);
+                    break;
+            }
         }
-
-        // Show main settings page or about screen?
-        boolean showAbout = getIntent().getBooleanExtra(Constants.INTENT_EXTRA_SHOW_ABOUT, false);
-
-        if (!showAbout) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.main__activity__fragment_placeholder, settingsFragment)
-                    .commit();
+        FragmentTransaction t = getFragmentManager().beginTransaction();
+        if (addToBackStack) {
+            t.addToBackStack(tag);
         }
+        t.replace(R.id.settings__activity__fragment_placeholder, fragment, tag).commit();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    protected void onStop() {
+        setResult(activityRetVal);
+        super.onStop();
     }
 
-    @Override
-    public void onThemeChanged() {
+
+    public void restartActivity() {
         // Restart settings activity to reflect theme changes
         Intent intent = getIntent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -78,127 +93,75 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
         startActivity(intent);
     }
 
+    public static class SettingsFragmentMaster extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+        public static final String TAG = "SettingsFragmentMaster";
 
-    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-        MarkorSettingsListener mCallback;
-        ListPreference pinPreference;
-        Context context;
+        AppSettings _appSettings;
 
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        public void onCreate(Bundle savedInstances) {
+            super.onCreate(savedInstances);
+            _appSettings = AppSettings.get();
             getPreferenceManager().setSharedPreferencesName("app");
             addPreferencesFromResource(R.xml.preferences);
-
-            context = getActivity().getApplicationContext();
-            pinPreference = (ListPreference) findPreference(getString(R.string.pref_key__lock_type));
-
-            // Listen for Pin Preference change
-            pinPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    int lockType = Integer.valueOf((String) o);
-                    if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__none))) {
-                        AppSettings appSettings = AppSettings.get();
-                        appSettings.setLockAuthPinOrPassword("");
-                        appSettings.setLockType(lockType);
-                        pinPreference.setSummary(getString(R.string.lock_type__none));
-                        return true;
-                    } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__pin))) {
-                        Intent pinIntent = new Intent(context, PinActivity.class);
-                        pinIntent.setAction(Constants.SET_PIN_ACTION);
-                        startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
-                    } else if (lockType == Integer.valueOf(getString(R.string.pref_value__lock__password))) {
-                        Intent pinIntent = new Intent(context, AlphanumericPinActivity.class);
-                        pinIntent.setAction(Constants.SET_PIN_ACTION);
-                        startActivityForResult(pinIntent, Constants.SET_PIN_REQUEST_CODE);
-                    }
-                    return false;
-                }
-            });
-
-            // Register PreferenceChangeListener
-            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-            setUpStorageDirPreference();
         }
 
-        private void setUpStorageDirPreference() {
-            final Preference rootDir = findPreference(getString(R.string.pref_key__save_directory));
-            rootDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-                            @Override
-                            public void onFsSelected(String request, File file) {
-                                AppSettings as = AppSettings.get();
-                                as.setSaveDirectory(file.getAbsolutePath());
-                                as.setRecreateMainRequired(true);
-                                as.setLastOpenedDirectory(as.getSaveDirectory());
-                                updateSummaries();
-                            }
-
-                            @Override
-                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                opt.titleText = R.string.pref_title__root_directory_title;
-                            }
-                        }, fragManager, getActivity());
-                    }
-                    return true;
-                }
-            });
+        @Override
+        public void onResume() {
+            super.onResume();
+            _appSettings.registerPreferenceChangedListener(this);
             updateSummaries();
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            _appSettings.unregisterPreferenceChangedListener(this);
         }
 
         public void updateSummaries() {
             Preference pref = findPreference(getString(R.string.pref_key__save_directory));
             pref.setSummary(AppSettings.get().getSaveDirectory());
-
-            int currentLockType = AppSettings.get().getLockType();
-            pinPreference.setSummary(getResources().getStringArray(R.array.pref_arrdisp__lock_type)[currentLockType]);
-
-        }
-
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == Constants.SET_PIN_REQUEST_CODE) {
-                if (resultCode == Activity.RESULT_OK) {
-                    updateSummaries();
-                }
-            }
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            AppCompatActivity activity = (AppCompatActivity) mCallback;
-
-            if (activity.getString(R.string.pref_key__app_theme).equals(key)) {
-                mCallback.onThemeChanged();
-            }
-            if (activity.getString(R.string.pref_key__language).equals(key)) {
-                AppSettings.get().setRecreateMainRequired(true);
+            activityRetVal = RESULT.CHANGED;
+            if (key.equals(getString(R.string.pref_key__language))) {
+                activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
+            } else if (key.equals(getString(R.string.pref_key__app_theme))) {
+                ((SettingsActivity) getActivity()).restartActivity();
             }
         }
 
         @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
+        public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference preference) {
+            if (isAdded() && preference.hasKey()) {
+                switch (preference.getTitleRes()) {
+                    case R.string.pref_title__save_directory: {
+                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                            FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                                @Override
+                                public void onFsSelected(String request, File file) {
+                                    AppSettings as = AppSettings.get();
+                                    as.setSaveDirectory(file.getAbsolutePath());
+                                    as.setRecreateMainRequired(true);
+                                    as.setLastOpenedDirectory(as.getSaveDirectory());
+                                    updateSummaries();
+                                }
 
-            // Make sure the container has implemented the callback interface
-            try {
-                mCallback = (MarkorSettingsListener) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString()
-                        + "must implement OnThemeChangedListener");
+                                @Override
+                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                    opt.titleText = R.string.pref_title__save_directory;
+                                }
+                            }, fragManager, getActivity());
+                            return true;
+                        }
+                    }
+                }
             }
+            return super.onPreferenceTreeClick(screen, preference);
         }
     }
-}
-
-// Needed for callback to container activity
-interface MarkorSettingsListener {
-    public void onThemeChanged();
 }

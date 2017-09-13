@@ -7,19 +7,16 @@
     <string name="rename">Rename</string>
     <string name="confirm_delete">Confirm Delete</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
-    <string name="incorrect_pin_text">Incorrect pin</string>
     <string name="title">Title</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
     <string name="folder_name_hint">Enter the name of your folder</string>
-    <string name="new_name_hint">Enter new name</string>
     <string name="create_folder">Create Folder</string>
     <string name="create_note">Create Note</string>
     <string name="move">Move</string>
 
     <string name="import_from_device">Import from device</string>
     <string name="select_folder_move">Select folder</string>
-    <string name="select_root_folder">Select folder</string>
 
     <string name="search_hint">Search notes</string>
     <string name="share_string">Share to&#8230;</string>
@@ -40,10 +37,6 @@
     <string name="share_text">Plain Text</string>
     <string name="share_image">Image</string>
     <string name="pref_title__font_size">Font Size</string>
-    <string name="pref_title__lock_settings">Lock</string>
-    <string name="lock_type__pin">Pin Lock</string>
-    <string name="lock_type__password">Alphanumeric Lock</string>
-    <string name="lock_type__none">No Lock</string>
     <string name="pref_title__show_markdown_shortcuts">Show Markdown shortcuts bar</string>
     <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
     <string name="pref_title__highlighting_delay">Delay in milliseconds for highlighting refresh</string>
@@ -51,31 +44,19 @@
     <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
     <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
     <string name="pref_title__render_rtl">Render for right-to-left languages</string>
-    <string name="pin_title">Enter your pin</string>
-    <string name="passphrase_title">Enter your passphrase</string>
     <string name="error_cannot_create_save_dir">Error: Cannot create save directory</string>
 
     <!-- Font Size -->
-    <string name="font_size__normal">Normal</string>
-    <string name="font_size__large">Large</string>
-    <string name="font_size__small">Small</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Last modified: %s</string>
     <string name="number_of_files">Number of files: %d</string>
-    <string name="move_here">Move here</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
-    <string name="no_selected_file">No file selected</string>
-    <string name="current_folder">Current folder:</string>
     <string name="create">Create</string>
     <string name="select_elements">Select entries</string>
     <string name="one_item_selected">One item selected</string>
     <string name="more_items_selected">%d items selected</string>
-
-    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_fail">Failed to rename</string>
 
     <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
@@ -83,7 +64,7 @@
     <!-- About screen -->
     <string name="contributors">Contributors</string>
 
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
     <string name="more_information">More information</string>

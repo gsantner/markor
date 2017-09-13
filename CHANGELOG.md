@@ -1,3 +1,12 @@
+### v0.1.3
+- New FilesystemDialog
+- Save if title/content changed
+- Rework most callbacks and broadcasts
+- Rework settings
+- Overall refactoring
+- Remove startup ""authentication""
+- Remove slow animations
+
 ### v0.1.2
 - Fix: Create folder textcolor
 - Mod: Faster folder animation

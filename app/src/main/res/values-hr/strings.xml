@@ -7,18 +7,15 @@
   <string name="rename">Preimenuj</string>
     <string name="confirm_delete">Potvrdi brisanje</string>
   <string name="confirm_overwrite">Datoteka već postoji, prebrisati?</string>
-  <string name="incorrect_pin_text">Pogrešan PIN</string>
-  <string name="title">Naslov</string>
+    <string name="title">Naslov</string>
     <string name="empty_directory">Prazna mapa</string>
   <string name="navigate_up_folder">Povratak na prethodnu mapu</string>
   <string name="folder_name_hint">Unesite naziv mape</string>
-  <string name="new_name_hint">Unesite novi naziv</string>
-  <string name="create_folder">Stvori mapu</string>
+    <string name="create_folder">Stvori mapu</string>
   <string name="move">Premjesti</string>
 
   <string name="import_from_device">Unesi sa uređaja</string>
   <string name="select_folder_move">Odabir mape</string>
-  <string name="select_root_folder">Odaberi korjensku mapu</string>
 
     <string name="search_hint">Pretraži bilješke</string>
   <string name="share_string">Podjeli sa&#8230;</string>
@@ -39,43 +36,27 @@
     <string name="share_text">Običan tekst</string>
   <string name="share_image">Slika</string>
     <string name="pref_title__font_size">Veličina teksta</string>
-  <string name="pref_title__lock_settings">Zaključaj</string>
-  <string name="lock_type__pin">Zaključaj PIN-om</string>
-  <string name="lock_type__password">Zaključaj lozinkom</string>
-  <string name="lock_type__none">Bez zaključavanja</string>
-  <string name="pref_title__root_directory_title">Odaberi mapu za pohranu</string>
+    <string name="pref_title__save_directory">Odaberi mapu za pohranu</string>
   <string name="pref_title__show_markdown_shortcuts">Prikaži markdown izbornik</string>
   <string name="pref_title__highlighting_activated">Isticanje markdown sintakse</string>
   <string name="pref_title__highlighting_delay">Kašnjenje u milisekundama za obnavljanje isticanja</string>
   <string name="pref_title__highlighting_delay_summary">Veće vrijednosti manje opterećuju bateriju</string>
   <string name="pref_title__smart_shortcuts">Prečica prema pametnim zagradama</string>
   <string name="pref_title__smart_shortcuts_summary">Ako je tekst označen, {}, [] te () ogradit će označeno</string>
-  <string name="pin_title">Unesite PIN</string>
-  <string name="passphrase_title">Unesite lozinku</string>
 
     <!-- Font Size -->
-  <string name="font_size__normal">Normalno</string>
-  <string name="font_size__large">Veliko</string>
-  <string name="font_size__small">Malo</string>
 
-  <!-- Hard coded string fix -->
+    <!-- Hard coded string fix -->
   <string name="last_modified">Posljednja izmjena: %s</string>
   <string name="number_of_files">Broj datoteka: %d</string>
-  <string name="move_here">Premjesti ovdje</string>
-  <string name="select_this_folder">Označi ovu mapu</string>
+    <string name="select_this_folder">Označi ovu mapu</string>
   <string name="select">Unesi</string>
-  <string name="no_selected_file">Nema odabranih datoteka</string>
-  <string name="current_folder">Trenutna mapa:</string>
-  <string name="create">Stvori</string>
+    <string name="create">Stvori</string>
   <string name="select_elements">Odaberite stavke</string>
   <string name="one_item_selected">Odabrana jedna stavka</string>
   <string name="more_items_selected">%d odabrane stavke</string>
 
-  <string name="rename_error_target_already_exists">Datoteka/mapa već postoji!</string>
-  <string name="rename_success">Uspješno preimenovano</string>
-  <string name="rename_fail">Neuspješno preimenovanje</string>
-
-  <!-- About screen -->
+    <!-- About screen -->
   <string name="contributors">Suradnici</string>
 
 </resources>

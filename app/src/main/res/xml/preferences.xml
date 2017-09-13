@@ -6,8 +6,8 @@
         <ListPreference
             android:defaultValue="@string/theme_light"
             android:dialogTitle="@string/pref_title__theme"
-            android:entries="@array/pref_arr__themes"
-            android:entryValues="@array/pref_arr__themes"
+            android:entries="@array/pref_arrdisp__app_themes"
+            android:entryValues="@array/pref_arrkeys__app_themes"
             android:key="@string/pref_key__app_theme"
             android:title="@string/pref_title__theme" />
 
@@ -20,17 +20,10 @@
             android:defaultValue="false"
             android:key="@string/pref_key__is_preview_first"
             android:title="@string/pref_title__preview_first" />
-        
-        <ListPreference
-            android:defaultValue="0"
-            android:entries="@array/pref_arrdisp__lock_type"
-            android:entryValues="@array/pref_arrkeys__lock_type"
-            android:key="@string/pref_key__lock_type"
-            android:title="@string/pref_title__lock_settings" />
 
         <Preference
             android:key="@string/pref_key__save_directory"
-            android:title="@string/pref_title__root_directory_title" />
+            android:title="@string/pref_title__save_directory" />
 
         <CheckBoxPreference
             android:defaultValue="false"
