@@ -1,6 +1,9 @@
 [![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![CircleCI](https://circleci.com/gh/gsantner/markor.svg?style=shield)](https://circleci.com/gh/gsantner/markor)
 [![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)
+[![Donate Bitcoin](https://img.shields.io/badge/donate-bitcoin-orange.svg)](https://gsantner.github.io/#donate)
+[![Donate LiberaPay](https://img.shields.io/badge/donate-liberapay-orange.svg)](https://liberapay.com/gsantner/donate)
+
 
 # Markor
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
