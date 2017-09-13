@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.gsantner.markor.R;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -35,7 +37,6 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import net.gsantner.markor.R;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDialogAdapter.UiFilesystemDialogViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener {
@@ -87,12 +88,15 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
-        holder.image.setColorFilter(ContextCompat.getColor(_context, _dopt.secondaryTextColor),
+        if (_currentSelection.contains(file)) {
+            holder.image.setImageResource(_dopt.selectedItemImage);
+        }
+        holder.image.setColorFilter(ContextCompat.getColor(_context,
+                _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
 
-        holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
-                _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
-
+        //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
+        //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -135,7 +139,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             case R.id.ui__filesystem_item__root: {
                 // A own item was clicked
                 TagContainer data = (TagContainer) view.getTag();
-                if (!_currentSelection.isEmpty()) {
+                if (areItemsSelected()) {
                     // There are 1 or more items selected yet
                     if (!toggleSelection(data) && data.file.isDirectory()) {
                         loadFolder(data.file);
@@ -164,7 +168,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 return;
             }
             case R.id.ui__filesystem_dialog__button_ok: {
-                if (_dopt.doSelectMultiple && !_currentSelection.isEmpty()) {
+                if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
                 } else if (_dopt.doSelectFolder && _currentFolder.exists()) {
@@ -180,6 +184,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
             toggleSelection(data);
         }
+    }
+
+    public boolean areItemsSelected(){
+        return !_currentSelection.isEmpty();
     }
 
     public boolean toggleSelection(TagContainer data) {
@@ -198,6 +206,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             }
         }
         notifyItemChanged(data.position);
+        _dopt.listener.onFsDoUiUpdate(this);
         return ret;
     }
 

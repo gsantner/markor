@@ -39,13 +39,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import net.gsantner.markor.R;
+
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import net.gsantner.markor.R;
 
 public class FilesystemDialog extends DialogFragment
         implements FilesystemDialogData.SelectionListener {
@@ -57,8 +58,8 @@ public class FilesystemDialog extends DialogFragment
     public static FilesystemDialog newInstance(FilesystemDialogData.Options options) {
         FilesystemDialog f = new FilesystemDialog();
         f.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-        f.setDialogOptions(options);
         options.listener.onFsDialogConfig(options);
+        f.setDialogOptions(options);
         return f;
     }
 
@@ -157,9 +158,10 @@ public class FilesystemDialog extends DialogFragment
         _filesystemDialogAdapter = new FilesystemDialogAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemDialogAdapter);
         _filesystemDialogAdapter.getFilter().filter("");
+        onFsDoUiUpdate(_filesystemDialogAdapter);
     }
 
-    private int rcolor(@ColorRes int colorRes){
+    private int rcolor(@ColorRes int colorRes) {
         return ContextCompat.getColor(getActivity(), colorRes);
     }
 
@@ -193,7 +195,7 @@ public class FilesystemDialog extends DialogFragment
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsNothingSelected("");
+                onFsNothingSelected(_dopt.requestId);
                 break;
             }
 
@@ -234,6 +236,13 @@ public class FilesystemDialog extends DialogFragment
     public void onFsDialogConfig(FilesystemDialogData.Options opt) {
         if (_callback != null) {
             _callback.onFsDialogConfig(opt);
+        }
+    }
+
+    @Override
+    public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+        if (_dopt.doSelectMultiple && _dopt.doSelectFile) {
+            _buttonOk.setVisibility(adapter.areItemsSelected() ? View.VISIBLE : View.GONE);
         }
     }
 }

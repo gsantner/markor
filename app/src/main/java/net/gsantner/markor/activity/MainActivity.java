@@ -300,19 +300,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImportDialog() {
-        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionAdapter() {
+        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+            @Override
+            public void onFsSelected(String request, File file) {
+                importFile(file);
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
+            }
+
             @Override
             public void onFsMultiSelected(String request, File... files) {
-                super.onFsMultiSelected(request, files);
                 for (File file : files) {
                     importFile(file);
                 }
+                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
             }
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                 opt.titleText = R.string.import_from_device;
                 opt.doSelectMultiple = true;
+                opt.doSelectFile = true;
+                opt.doSelectFolder = true;
             }
         }, getSupportFragmentManager(), this);
     }
