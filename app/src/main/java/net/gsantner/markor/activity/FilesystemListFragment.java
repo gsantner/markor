@@ -36,6 +36,7 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -141,7 +142,17 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void confirmDelete() {
-        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(ConfirmDialog.WHAT_DELETE, getSelectedItems());
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(R.string.confirm_delete, getSelectedItems(),
+                new ConfirmDialog.ConfirmDialogCallback() {
+                    @Override
+                    public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
+                        if (confirmed) {
+                            MarkorSingleton.getInstance().deleteSelectedItems(getSelectedItems());
+                            listFilesInDirectory(getCurrentDir());
+                            finishActionMode();
+                        }
+                    }
+                });
         confirmDialog.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 

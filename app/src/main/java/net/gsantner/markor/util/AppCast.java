@@ -41,8 +41,7 @@ public class AppCast {
         IntentFilter intentFilter = new IntentFilter();
         String[] BROADCAST_ACTIONS = {
                 CURRENT_FOLDER_CHANGED.ACTION,
-                CREATE_FOLDER.ACTION,
-                CONFIRM.ACTION
+                CREATE_FOLDER.ACTION
         };
         for (String action : BROADCAST_ACTIONS) {
             intentFilter.addAction(action);
@@ -69,30 +68,6 @@ public class AppCast {
 
         public static void send(Context c, String path) {
             sendBroadcast(c, getFolderNameIntent(ACTION, path));
-        }
-    }
-
-    public static class RENAME extends PathExtra {
-        public static final String ACTION = "RENAME";
-        public static final String EXTRA_RENAME_TO_NAME = "RENAME_TO"; // Just name, no path
-
-        public static void send(Context c, String path, String renameToName) {
-            Intent intent = getFolderNameIntent(ACTION, path);
-            intent.putExtra(EXTRA_RENAME_TO_NAME, renameToName);
-            sendBroadcast(c, intent);
-        }
-    }
-
-    public static class CONFIRM {
-        public static final String ACTION = "CONFIRM";
-        public static final String EXTRA_WHAT = "WHAT";
-        public static final String EXTRA_DATA = "DATA";
-
-        public static void send(Context c, String what, Serializable data) {
-            Intent intent = new Intent(ACTION);
-            intent.putExtra(EXTRA_WHAT, what);
-            intent.putExtra(EXTRA_DATA, data);
-            sendBroadcast(c, intent);
         }
     }
 }
