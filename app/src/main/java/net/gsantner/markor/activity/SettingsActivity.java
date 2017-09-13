@@ -131,6 +131,9 @@ public class SettingsActivity extends AppCompatActivity {
                 _appSettings.setRecreateMainRequired(true);
             } else if (key.equals(getString(R.string.pref_key__app_theme))) {
                 ((SettingsActivity) getActivity()).restartActivity();
+            } else if (key.equals(getString(R.string.pref_key__is_overview_statusbar_hidden))) {
+                activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
             }
         }
 

@@ -2,8 +2,8 @@
 <resources>
 
     <string name="action_settings">设置</string>
-    <string name="theme_light">浅色</string>
-    <string name="theme_dark">暗色</string>
+    <string name="light">浅色</string>
+    <string name="dark">暗色</string>
     <string name="delete">删除</string>
     <string name="confirm_delete">确认删除</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>

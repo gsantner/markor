@@ -2,8 +2,8 @@
 
 <resources>
     <string name="action_settings">설정</string>
-    <string name="theme_light">밝은 테마</string>
-    <string name="theme_dark">어두운 테마</string>
+    <string name="light">밝은 테마</string>
+    <string name="dark">어두운 테마</string>
     <string name="delete">삭제</string>
     <string name="rename">이름 바꾸기</string>
     <string name="confirm_delete">삭제 확인</string>
