@@ -146,7 +146,7 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void promptForMoveDirectory() {
-        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsSelected(String request, File file) {
                 super.onFsSelected(request, file);

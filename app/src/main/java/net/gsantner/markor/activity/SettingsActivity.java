@@ -129,7 +129,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
                 public boolean onPreferenceClick(Preference preference) {
                     if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
                         FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
                             public void onFsSelected(String request, File file) {
                                 AppSettings as = AppSettings.get();

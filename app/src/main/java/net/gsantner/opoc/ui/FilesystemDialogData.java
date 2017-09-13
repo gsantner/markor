@@ -30,10 +30,12 @@ public class FilesystemDialogData {
         void onFsNothingSelected(String request);
 
         void onFsDialogConfig(final Options opt);
+
+        void onFsDoUiUpdate(final FilesystemDialogAdapter adapter);
     }
 
     public static class Options {
-        public SelectionListener listener = new SelectionAdapter();
+        public SelectionListener listener = new SelectionListenerAdapter();
         public File rootFolder = Environment.getExternalStorageDirectory();
         public String requestId = "show_dialog";
 
@@ -68,6 +70,8 @@ public class FilesystemDialogData {
         @DrawableRes
         public int folderImage = android.R.drawable.ic_menu_view;
         @DrawableRes
+        public int selectedItemImage = android.R.drawable.checkbox_on_background;
+        @DrawableRes
         public int fileImage = android.R.drawable.ic_menu_edit;
         @DrawableRes
         public int upButtonImage = android.R.drawable.arrow_up_float;
@@ -85,7 +89,7 @@ public class FilesystemDialogData {
         public int titleTextColor = primaryTextColor;
     }
 
-    public static class SelectionAdapter implements SelectionListener {
+    public static class SelectionListenerAdapter implements SelectionListener {
         @Override
         public void onFsSelected(String request, File file) {
         }
@@ -100,6 +104,11 @@ public class FilesystemDialogData {
 
         @Override
         public void onFsDialogConfig(Options opt) {
+
+        }
+
+        @Override
+        public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
 
         }
     }
