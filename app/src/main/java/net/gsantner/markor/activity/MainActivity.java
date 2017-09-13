@@ -37,7 +37,7 @@ import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.util.List;
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -206,24 +206,6 @@ public class MainActivity extends AppCompatActivity {
             String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH); // nullable
             String action = intent.getAction();
             switch (action) {
-                case AppCast.RENAME.ACTION: {
-                    String newName = intent.getStringExtra(AppCast.RENAME.EXTRA_RENAME_TO_NAME);
-                    File sourceFile = new File(intent.getStringExtra(AppCast.RENAME.EXTRA_PATH));
-                    File targetFile = new File(sourceFile.getParent(), newName);
-                    if (targetFile.exists()) {
-                        Toast.makeText(context, context.getString(R.string.rename_error_target_already_exists), Toast.LENGTH_LONG).show();
-                        _filesystemListFragment.finishActionMode();
-                        return;
-                    }
-                    if (sourceFile.renameTo(targetFile)) {
-                        Toast.makeText(context, context.getString(R.string.rename_success), Toast.LENGTH_LONG).show();
-                        _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                    } else {
-                        Toast.makeText(context, context.getString(R.string.rename_fail), Toast.LENGTH_LONG).show();
-                    }
-                    _filesystemListFragment.finishActionMode();
-                    return;
-                }
                 case AppCast.CREATE_FOLDER.ACTION: {
                     createFolder(new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH)));
                     _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
@@ -238,18 +220,6 @@ public class MainActivity extends AppCompatActivity {
                     MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), filepath);
                     _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
                     _filesystemListFragment.finishActionMode();
-                    return;
-                }
-                case AppCast.CONFIRM.ACTION: {
-                    if (intent.getStringExtra(AppCast.CONFIRM.EXTRA_WHAT).equals(ConfirmDialog.WHAT_DELETE)) {
-                        List<File> selected = (List<File>) intent.getSerializableExtra(ConfirmDialog.EXTRA_DATA);
-                        MarkorSingleton.getInstance().deleteSelectedItems(selected);
-                        _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                        _filesystemListFragment.finishActionMode();
-                    }
-                    if (intent.getStringExtra(AppCast.CONFIRM.EXTRA_WHAT).equals(ConfirmDialog.WHAT_OVERWRITE)) {
-                        importFileToCurrentDirectory(context, (File) intent.getSerializableExtra(AppCast.CONFIRM.EXTRA_DATA));
-                    }
                     return;
                 }
             }
@@ -325,17 +295,23 @@ public class MainActivity extends AppCompatActivity {
         }, getSupportFragmentManager(), this);
     }
 
-    private void importFile(File file) {
+    private void importFile(final File file) {
         if (new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
-            askForConfirmation(file);
+            // Ask if overwriting is okay
+            ConfirmDialog d = ConfirmDialog.newInstance(R.string.confirm_overwrite, file,
+                    new ConfirmDialog.ConfirmDialogCallback() {
+                        @Override
+                        public void onConfirmDialogAnswer(boolean confirmed,Serializable data) {
+                            if (confirmed) {
+                                importFileToCurrentDirectory(MainActivity.this, file);
+                            }
+                        }
+                    });
+            d.show(getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
         } else {
+            // Import
             importFileToCurrentDirectory(this, file);
         }
-    }
-
-    private void askForConfirmation(File file) {
-        ConfirmDialog d = ConfirmDialog.newInstance(ConfirmDialog.WHAT_OVERWRITE, file);
-        d.show(getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
     @Override
