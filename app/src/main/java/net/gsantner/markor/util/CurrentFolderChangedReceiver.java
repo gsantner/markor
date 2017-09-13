@@ -21,11 +21,11 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(AppCast.CURRENT_FOLDER_CHANGED.ACTION)) {
+        /*if (intent.getAction().equals(AppCast.CURRENT_FOLDER_CHANGED.ACTION)) {
             File directory = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_PATH));
             File rootDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_ROOT_FOLDERPATH));
             toggleBreadcrumbsVisibility(directory, rootDir);
-        }
+        }*/
     }
 
     private void toggleBreadcrumbsVisibility(File currentDir, File rootDir) {
@@ -33,17 +33,12 @@ public class CurrentFolderChangedReceiver extends BroadcastReceiver {
         if (currentDir.equals(rootDir)) {
             breadcrumbs.setVisibility(View.GONE);
         } else {
-            breadcrumbs.setText(backButtonText(currentDir, rootDir));
+            String text = currentDir.getParentFile().equals(rootDir)
+                    ? (" > " + currentDir.getName())
+                    : ("... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName()
+            );
+            breadcrumbs.setText(text);
             breadcrumbs.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    private String backButtonText(File currentDir, File rootDir) {
-        if (currentDir.getParentFile().equals(rootDir)) {
-            return " > " + currentDir.getName();
-        } else {
-            return "... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName();
         }
     }
 }

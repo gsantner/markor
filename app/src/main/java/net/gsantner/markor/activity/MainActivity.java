@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -56,11 +57,13 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main__activity__content_background)
     public RelativeLayout _contentRoot;
 
+    @BindView(R.id.main__activity__breadcrumbs)
+    public TextView _breadcrumbs;
+
     private FilesystemListFragment _filesystemListFragment;
     private SearchView _searchView;
     private MenuItem _searchItem;
 
-    private BroadcastReceiver _browseToFolderBroadcastReceiver;
     private boolean _doubleBackToExitPressedOnce;
 
     @Override
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(_toolbar);
 
         _filesystemListFragment = new FilesystemListFragment();
-        _browseToFolderBroadcastReceiver = new CurrentFolderChangedReceiver(this);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main__activity__fragment_placeholder, _filesystemListFragment)
@@ -168,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
         setupAppearancePreferences();
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.registerReceiver(_browseToFolderBroadcastReceiver, new IntentFilter(AppCast.CURRENT_FOLDER_CHANGED.ACTION));
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
     }
 
@@ -176,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.unregisterReceiver(_browseToFolderBroadcastReceiver);
         lbm.unregisterReceiver(_localBroadcastReceiver);
     }
 
@@ -220,6 +220,21 @@ public class MainActivity extends AppCompatActivity {
                     MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), filepath);
                     _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
                     _filesystemListFragment.finishActionMode();
+                    return;
+                }
+                case AppCast.CURRENT_FOLDER_CHANGED.ACTION: {
+                    File currentDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_PATH));
+                    File rootDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_ROOT_FOLDERPATH));
+                    if (currentDir.equals(rootDir)) {
+                        _breadcrumbs.setVisibility(View.GONE);
+                    } else {
+                        String text = currentDir.getParentFile().equals(rootDir)
+                                ? (" > " + currentDir.getName())
+                                : ("... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName()
+                        );
+                        _breadcrumbs.setText(text);
+                        _breadcrumbs.setVisibility(View.VISIBLE);
+                    }
                     return;
                 }
             }
@@ -301,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
             ConfirmDialog d = ConfirmDialog.newInstance(R.string.confirm_overwrite, file,
                     new ConfirmDialog.ConfirmDialogCallback() {
                         @Override
-                        public void onConfirmDialogAnswer(boolean confirmed,Serializable data) {
+                        public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
                             if (confirmed) {
                                 importFileToCurrentDirectory(MainActivity.this, file);
                             }
