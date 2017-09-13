@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
+ * with it. If we meet some day, and you think it is worth it, you can buy me a
+ * coke in return. Provided as is without any kind of warranty. Do not blame or
+ * sue me if something goes wrong. No attribution required.    - Gregor Santner
+ *
+ * License: Creative Commons Zero (CC0 1.0)
+ *  http://creativecommons.org/publicdomain/zero/1.0/
+ */
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/ui__filesystem_dialog__root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+
+    <TextView
+        android:id="@+id/ui__filesystem_dialog__title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/primary"
+        android:gravity="center_vertical|start"
+        android:minHeight="48dp"
+        android:padding="16dp"
+        tools:text="Select file"/>
+
+    <LinearLayout
+        android:id="@+id/ui__filesystem_dialog__utilbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui__filesystem_dialog__title"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ui__filesystem_dialog__dir_up"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/arrow_up_float"/>
+
+
+        <ImageView
+            android:id="@+id/ui__filesystem_dialog__home"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/star_big_on"/>
+
+
+        <ImageView
+            android:id="@+id/ui__filesystem_dialog__search_button"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:scaleType="fitEnd"
+            android:src="@android:drawable/ic_menu_search"/>
+
+        <EditText
+            android:id="@+id/ui__filesystem_dialog__search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:hint="Search..."/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ui__filesystem_dialog__list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/ui__filesystem_dialog__buttons"
+        android:layout_below="@+id/ui__filesystem_dialog__utilbar"
+        android:minHeight="100dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layoutManager="LinearLayoutManager"/>
+
+    <LinearLayout
+        android:id="@+id/ui__filesystem_dialog__buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/ui__filesystem_dialog__button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/primary"
+            tools:text="Cancel"/>
+
+        <TextView
+            android:id="@+id/ui__filesystem_dialog__button_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/primary"
+            tools:text="Select folder"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

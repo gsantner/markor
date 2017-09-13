@@ -43,19 +43,6 @@ public class WidgetConfigure extends AppCompatActivity {
         IntentFilter ifilterSwitchedFolderFilder = new IntentFilter();
         ifilterSwitchedFolderFilder.addAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
         registerReceiver(fsBroadcastReceiver, ifilterSwitchedFolderFilder);
-
-        Bundle args = new Bundle();
-        args.putString(FilesystemDialog.EXTRA_WHAT, FilesystemDialog.WHAT_FOLDER_SELECT_WIDGET);
-        FilesystemDialog filesystemDialog = new FilesystemDialog();
-        filesystemDialog.setArguments(args);
-        filesystemDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
-        filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
     }
 
     public final void complete(String directory) {

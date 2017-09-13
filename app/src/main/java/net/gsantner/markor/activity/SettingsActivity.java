@@ -1,12 +1,11 @@
 package net.gsantner.markor.activity;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -18,23 +17,17 @@ import android.view.MenuItem;
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.FilesystemDialog;
 import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.ui.FilesystemDialogData;
+
+import java.io.File;
 
 public class SettingsActivity extends AppCompatActivity implements MarkorSettingsListener {
 
     SettingsFragment settingsFragment;
-
-    private final BroadcastReceiver fsSelectFolderBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.FILESYSTEM_SELECT_FOLDER_TAG)) {
-                AppSettings.get().setSaveDirectory(intent.getStringExtra(Constants.EXTRA_FILEPATH));
-                settingsFragment.updateSummaries();
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +80,6 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
         startActivity(intent);
     }
 
-    @Override
-    public void onResume() {
-        IntentFilter ifilterFsDialog = new IntentFilter();
-        ifilterFsDialog.addAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
-        registerReceiver(fsSelectFolderBroadcastReceiver, ifilterFsDialog);
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        unregisterReceiver(fsSelectFolderBroadcastReceiver);
-        super.onPause();
-    }
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         MarkorSettingsListener mCallback;
@@ -151,13 +131,19 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                        FragmentManager fragManager = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
+                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                        FilesystemDialog.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+                            @Override
+                            public void onFsSelected(String request, File file) {
+                                AppSettings.get().setSaveDirectory(file.getAbsolutePath());
+                                updateSummaries();
+                            }
 
-                        Bundle args = new Bundle();
-                        args.putString(FilesystemDialog.EXTRA_WHAT, FilesystemDialog.WHAT_FOLDER_SELECT);
-                        FilesystemDialog filesystemDialog = new FilesystemDialog();
-                        filesystemDialog.setArguments(args);
-                        filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);
+                            @Override
+                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                opt.titleText = R.string.pref_title__root_directory_title;
+                            }
+                        }, fragManager, getActivity());
                     }
                     return true;
                 }

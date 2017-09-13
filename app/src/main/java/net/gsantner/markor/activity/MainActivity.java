@@ -33,6 +33,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.CurrentFolderChangedReceiver;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -254,12 +255,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String fileName = intent.getStringExtra(Constants.EXTRA_FILEPATH);
+            String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH);
             if (intent.getAction().equals(Constants.FILESYSTEM_IMPORT_DIALOG_TAG)) {
-                importFile(new File(fileName));
+                importFile(new File(filepath));
                 _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
             } else if (intent.getAction().equals(Constants.FILESYSTEM_MOVE_DIALOG_TAG)) {
-                MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), fileName);
+                MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), filepath);
                 _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
                 _filesystemListFragment.finishActionMode();
             }
@@ -328,10 +329,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImportDialog() {
-        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(
-                FilesystemDialog.TYPE_SELECT_FILE,
-                FilesystemDialog.WHAT_FILE_IMPORT, Environment.getExternalStorageDirectory().getPath());
-        filesystemDialog.show(getSupportFragmentManager(), FilesystemDialog.FRAGMENT_TAG);
+        FilesystemDialog.showFileDialog(new FilesystemDialogData.SelectionAdapter() {
+            @Override
+            public void onFsMultiSelected(String request, File... files) {
+                super.onFsMultiSelected(request, files);
+                for (File file : files) {
+                    importFile(file);
+                }
+            }
+
+            @Override
+            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                opt.titleText = R.string.import_from_device;
+                opt.doSelectMultiple = true;
+            }
+        }, getSupportFragmentManager(), this);
     }
 
     private void importFile(File file) {
