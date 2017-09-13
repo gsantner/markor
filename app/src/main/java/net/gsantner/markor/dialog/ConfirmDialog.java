@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 public class ConfirmDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "ConfirmDialog";
-    public static final String EXTRA_WHAT = "EXTRA_WHAT";
+    public static final String EXTRA_WHAT = "EXTRA_TYPE";
     public static final String WHAT_DELETE = "WHAT_DELETE";
     public static final String WHAT_OVERWRITE = "WHAT_OVERWRITE";
     public static final String EXTRA_DATA = "EXTRA_DATA";
