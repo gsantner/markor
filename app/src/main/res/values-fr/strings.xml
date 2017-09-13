@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Paramètres</string>
-    <string name="theme_light">Clair</string>
-    <string name="theme_dark">Foncé</string>
+    <string name="light">Clair</string>
+    <string name="dark">Foncé</string>
     <string name="delete">Supprimer</string>
     <string name="rename">Renommer</string>
     <string name="confirm_delete">Confirmez la suppression</string>

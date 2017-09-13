@@ -20,7 +20,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isDarkThemeEnabled() {
-        return getString(R.string.pref_key__app_theme, "").equals(rstr(R.string.theme_dark));
+        return getString(R.string.pref_key__app_theme, "").equals(rstr(R.string.app_theme_dark));
     }
 
     public int getBackgroundColor() {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Impostazioni</string>
-    <string name="theme_light">Chiaro</string>
-    <string name="theme_dark">Scuro</string>
+    <string name="light">Chiaro</string>
+    <string name="dark">Scuro</string>
     <string name="delete">Elimina</string>
     <string name="rename">Rinomina</string>
     <string name="confirm_delete">Conferma eliminazione</string>

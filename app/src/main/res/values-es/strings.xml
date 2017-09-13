@@ -2,8 +2,8 @@
 <resources>
 
     <string name="action_settings">Ajustes</string>
-    <string name="theme_light">Claro</string>
-    <string name="theme_dark">Oscuro</string>
+    <string name="light">Claro</string>
+    <string name="dark">Oscuro</string>
     <string name="delete">Eliminar</string>
     <string name="rename">Renombrar</string>
     <string name="confirm_delete">Confirmar borrado</string>

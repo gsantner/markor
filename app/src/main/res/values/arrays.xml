@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="pref_arrdisp__app_themes" translatable="false">
-        <item>@string/theme_light</item>
-        <item>@string/theme_dark</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
     </string-array>
 
     <string-array name="pref_arrkeys__app_themes" translatable="false">
-        <item>light</item>
-        <item>dark</item>
+        <item>@string/app_theme_light</item>
+        <item>@string/app_theme_dark</item>
     </string-array>
 
     <string-array name="pref_arrkeys__font_size" translatable="false">

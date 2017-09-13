@@ -2,8 +2,8 @@
 <resources>
 
     <string name="action_settings">Einstellungen</string>
-    <string name="theme_light">Hell</string>
-    <string name="theme_dark">Dunkel</string>
+    <string name="light">Hell</string>
+    <string name="dark">Dunkel</string>
     <string name="delete">Löschen</string>
     <string name="rename">Umbenennen</string>
     <string name="confirm_delete">Löschen bestätigen</string>

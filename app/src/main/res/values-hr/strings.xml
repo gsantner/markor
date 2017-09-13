@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <string name="action_settings">Postavke akcija</string>
-    <string name="theme_light">Svijetla</string>
-  <string name="theme_dark">Tamna</string>
+    <string name="light">Svijetla</string>
+  <string name="dark">Tamna</string>
   <string name="delete">Izbriši</string>
   <string name="rename">Preimenuj</string>
     <string name="confirm_delete">Potvrdi brisanje</string>

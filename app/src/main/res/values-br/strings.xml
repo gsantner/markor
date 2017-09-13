@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Opções</string>
-    <string name="theme_light">Claro</string>
-    <string name="theme_dark">Escuro</string>
+    <string name="light">Claro</string>
+    <string name="dark">Escuro</string>
     <string name="delete">Deletar</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar deletar?</string>

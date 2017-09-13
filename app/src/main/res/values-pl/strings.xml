@@ -2,8 +2,8 @@
 <resources>
 
     <string name="action_settings">Ustawienia</string>
-    <string name="theme_light">Jasny</string>
-    <string name="theme_dark">Ciemny</string>
+    <string name="light">Jasny</string>
+    <string name="dark">Ciemny</string>
     <string name="delete">Usuń</string>
 
     <string name="title">Tytuł</string>
