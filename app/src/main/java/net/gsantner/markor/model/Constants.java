@@ -12,7 +12,6 @@ public class Constants {
     public static final String MD_EXT = ".md";
 
     public static final int MAX_TITLE_LENGTH = 20;
-    public static final String SET_PIN_ACTION = "set_pin";
     public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
     public static final String EXTRA_FILEPATH = "filesystem_filepath";
 
@@ -28,14 +27,8 @@ public class Constants {
     public static final String NOTE_KEY = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
-    public static final String USER_PIN_KEY = "user_pin";
     public static final String RENAME_NEW_NAME = "RENAME_NEW_NAME";
     public static final String SOURCE_FILE = "SOURCE_FILE";
-    public static final String CURRENT_FOLDER = "filesystem_current_folder";
-    public static final String ROOT_DIR = "filesystem_root_dir";
-
-    // ----- REQUEST CODES -----
-    public static final int SET_PIN_REQUEST_CODE = 3;
 
     // ----- HTML PREFIX AND SUFFIXES -----
     public static final String UNSTYLED_HTML_PREFIX = "<html><body>";
@@ -47,8 +40,6 @@ public class Constants {
     public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
-    public static final String INTENT_EXTRA_SHOW_ABOUT = "markor.intent.settings.ABOUT";
-
     public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
 
     // --- WIDGET
