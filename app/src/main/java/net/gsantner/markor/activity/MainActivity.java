@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -327,12 +328,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImportDialog() {
-        Bundle args = new Bundle();
-        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FILE);
-
-        FilesystemDialog filesystemDialog = new FilesystemDialog();
-        filesystemDialog.setArguments(args);
-        filesystemDialog.show(getSupportFragmentManager(), Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
+        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(
+                FilesystemDialog.TYPE_SELECT_FILE,
+                FilesystemDialog.WHAT_FILE_IMPORT, Environment.getExternalStorageDirectory().getPath());
+        filesystemDialog.show(getSupportFragmentManager(), FilesystemDialog.FRAGMENT_TAG);
     }
 
     private void importFile(File file) {

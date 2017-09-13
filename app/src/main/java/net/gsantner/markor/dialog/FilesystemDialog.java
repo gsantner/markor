@@ -26,12 +26,20 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class FilesystemDialog extends DialogFragment {
-    public static final String EXTRA_ACCESS_TYPE = "EXTRA_ACCESS_TYPE";
+    public static final String FRAGMENT_TAG = "FilesystemDialog";
 
-    public static final String AT_FOLDER_SELECT_WIDGET = "FILESYSTEM_SELECT_FOLDER_FOR_WIDGET_ACCESS_TYPE";
-    public static final String AT_FOLDER_SELECT = "FILESYSTEM_SELECT_FOLDER_ACCESS_TYPE";
-    public static final String AT_FOLDER = "FILESYSTEM_FOLDER_ACCESS_TYPE";
-    public static final String AT_FILE = "FILESYSTEM_FILE_ACCESS_TYPE";
+    public static final String EXTRA_WHAT = "EXTRA_WHAT";
+    public static final String EXTRA_ROOT_DIR = "EXTRA_ROOT_DIR";
+
+    public static final String WHAT_FOLDER_SELECT_WIDGET = "WHAT_FOLDER_SELECT_WIDGET";
+    public static final String WHAT_FOLDER_SELECT = "WHAT_FOLDER_SELECT";
+    public static final String WHAT_FOLDER_MOVE = "WHAT_FOLDER_MOVE";
+    public static final String WHAT_FILE_IMPORT = "WHAT_FILE_IMPORT";
+
+
+    public static final String EXTRA_TYPE = "EXTRA_TYPE";
+    public static final String TYPE_SELECT_FILE = "TYPE_SELECT_FILE";
+    public static final String TYPE_SELECT_FOLDER = "TYPE_SELECT_FOLDER";
 
     private ListView _filesListView;
     private TextView _emptyFolderTextView;
@@ -52,6 +60,19 @@ public class FilesystemDialog extends DialogFragment {
     private TextView _workingDirectoryText;
     private DialogInterface.OnDismissListener _onDismissListener;
 
+    public FilesystemDialog(){
+        super();
+    }
+
+    public static FilesystemDialog newInstance(String type, String what, String rootDir) {
+        FilesystemDialog filesystemDialog = new FilesystemDialog();
+        Bundle args = new Bundle();
+        args.putString(EXTRA_TYPE, type);
+        args.putString(EXTRA_WHAT, what);
+        args.putString(EXTRA_ROOT_DIR, rootDir);
+        filesystemDialog.setArguments(args);
+        return filesystemDialog;
+    }
 
     public void sendBroadcast(String name) {
         Intent broadcast = new Intent();
@@ -62,7 +83,7 @@ public class FilesystemDialog extends DialogFragment {
         } else if (_isSelectingFolder || _isSelectingForWidget) {
             broadcast.setAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
             broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
-        } else {
+        } else if (_isImportingFile) {
             broadcast.setAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
             broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
         }
@@ -74,10 +95,10 @@ public class FilesystemDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-        _isMovingFile = getArguments().getString(EXTRA_ACCESS_TYPE).equals(AT_FOLDER);
-        _isSelectingFolder = getArguments().getString(EXTRA_ACCESS_TYPE).equals(AT_FOLDER_SELECT);
-        _isSelectingForWidget = getArguments().getString(EXTRA_ACCESS_TYPE).equals(AT_FOLDER_SELECT_WIDGET);
-        _isImportingFile = getArguments().getString(EXTRA_ACCESS_TYPE).equals(AT_FILE);
+        _isMovingFile = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_MOVE);
+        _isSelectingFolder = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_SELECT);
+        _isSelectingForWidget = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_SELECT_WIDGET);
+        _isImportingFile = getArguments().getString(EXTRA_WHAT).equals(WHAT_FILE_IMPORT);
 
         AlertDialog.Builder dialogBuilder;
         View dialogView;
@@ -104,7 +125,7 @@ public class FilesystemDialog extends DialogFragment {
                             sendBroadcast(_currentDir.getAbsolutePath());
                         }
                     });
-        } else {
+        } else if (_isImportingFile) {
             dialogBuilder.setTitle(getResources().getString(R.string.import_from_device));
             dialogBuilder.setPositiveButton(getResources().getString(R.string.select), new
                     DialogInterface.OnClickListener() {

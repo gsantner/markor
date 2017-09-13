@@ -154,7 +154,7 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
                         FragmentManager fragManager = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FOLDER_SELECT);
+                        args.putString(FilesystemDialog.EXTRA_WHAT, FilesystemDialog.WHAT_FOLDER_SELECT);
                         FilesystemDialog filesystemDialog = new FilesystemDialog();
                         filesystemDialog.setArguments(args);
                         filesystemDialog.show(fragManager, Constants.FILESYSTEM_SELECT_FOLDER_TAG);

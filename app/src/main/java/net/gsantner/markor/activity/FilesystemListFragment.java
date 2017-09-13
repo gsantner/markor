@@ -144,15 +144,11 @@ public class FilesystemListFragment extends Fragment {
         confirmDialog.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
-    private void promptForDirectory() {
-        FragmentManager fragManager = getActivity().getSupportFragmentManager();
-
-        Bundle args = new Bundle();
-        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FOLDER);
-
-        FilesystemDialog filesystemDialog = new FilesystemDialog();
-        filesystemDialog.setArguments(args);
-        filesystemDialog.show(fragManager, Constants.FILESYSTEM_MOVE_DIALOG_TAG);
+    private void promptForMoveDirectory() {
+        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(
+                FilesystemDialog.TYPE_SELECT_FOLDER,
+                FilesystemDialog.WHAT_FOLDER_MOVE, AppSettings.get().getSaveDirectory());
+        filesystemDialog.show(getActivity().getSupportFragmentManager(), FilesystemDialog.FRAGMENT_TAG);
     }
 
 
@@ -267,7 +263,7 @@ public class FilesystemListFragment extends Fragment {
                     confirmDelete();
                     return true;
                 case R.id.context_menu_move:
-                    promptForDirectory();
+                    promptForMoveDirectory();
                     return true;
                 case RENAME_CONTEXT_BUTTON_ID:
                     promptForNewName(_selectedItems.get(0));

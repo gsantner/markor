@@ -45,7 +45,7 @@ public class WidgetConfigure extends AppCompatActivity {
         registerReceiver(fsBroadcastReceiver, ifilterSwitchedFolderFilder);
 
         Bundle args = new Bundle();
-        args.putString(FilesystemDialog.EXTRA_ACCESS_TYPE, FilesystemDialog.AT_FOLDER_SELECT_WIDGET);
+        args.putString(FilesystemDialog.EXTRA_WHAT, FilesystemDialog.WHAT_FOLDER_SELECT_WIDGET);
         FilesystemDialog filesystemDialog = new FilesystemDialog();
         filesystemDialog.setArguments(args);
         filesystemDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
