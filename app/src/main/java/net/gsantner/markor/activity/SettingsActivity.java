@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -15,9 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.dialog.FilesystemDialog;
+import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.model.Constants;
-import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -122,7 +120,6 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
             // Register PreferenceChangeListener
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
             setUpStorageDirPreference();
-
         }
 
         private void setUpStorageDirPreference() {
@@ -132,10 +129,13 @@ public class SettingsActivity extends AppCompatActivity implements MarkorSetting
                 public boolean onPreferenceClick(Preference preference) {
                     if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
                         FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                        FilesystemDialog.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
                             @Override
                             public void onFsSelected(String request, File file) {
-                                AppSettings.get().setSaveDirectory(file.getAbsolutePath());
+                                AppSettings as = AppSettings.get();
+                                as.setSaveDirectory(file.getAbsolutePath());
+                                as.setRecreateMainRequired(true);
+                                as.setLastOpenedDirectory(as.getSaveDirectory());
                                 updateSummaries();
                             }
 

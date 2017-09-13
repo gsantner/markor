@@ -26,7 +26,7 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
-import net.gsantner.markor.dialog.FilesystemDialog;
+import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.MarkorSingleton;
@@ -146,7 +146,7 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void promptForMoveDirectory() {
-        FilesystemDialog.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
             @Override
             public void onFsSelected(String request, File file) {
                 super.onFsSelected(request, file);

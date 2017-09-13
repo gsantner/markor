@@ -17,9 +17,10 @@ import android.support.v4.app.FragmentManager;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
-public class FilesystemDialog {
+public class FilesystemDialogCreator {
     private static FilesystemDialogData.Options prepareFsDialogOpts
             (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
@@ -40,6 +41,8 @@ public class FilesystemDialog {
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
 
+        opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
+        opts.secondaryTextColor = darkTheme ? R.color.dark__secondary_text : R.color.light__secondary_text;
         opts.backgroundColor = darkTheme ? R.color.dark__background : R.color.light__background;
         opts.titleTextColor = titleLight ? R.color.dark__primary_text : R.color.light__primary_text;
         opts.fileImage = R.drawable.ic_file_white_24dp;
@@ -51,8 +54,8 @@ public class FilesystemDialog {
     }
 
     private static void showDialog(FragmentManager fm, FilesystemDialogData.Options opts) {
-        net.gsantner.opoc.ui.FilesystemDialog filesystemDialog = net.gsantner.opoc.ui.FilesystemDialog.newInstance(opts);
-        filesystemDialog.show(fm, net.gsantner.opoc.ui.FilesystemDialog.FRAGMENT_TAG);
+        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(opts);
+        filesystemDialog.show(fm, FilesystemDialog.FRAGMENT_TAG);
     }
 
     public static void showFileDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context) {

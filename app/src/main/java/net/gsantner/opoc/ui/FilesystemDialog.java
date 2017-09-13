@@ -10,7 +10,7 @@
  * ----------------------------------------------------------------------------
  */
 /*
- * Revision 001 of FilesystemDialog
+ * Revision 001 of FilesystemDialogCreator
  * A simple filesystem dialog with file, folder and multiple selection
  * most bits (color, text, images) can be controller using FilesystemDialogData.
  * The data container contains a listener callback for results.
@@ -22,6 +22,7 @@ package net.gsantner.opoc.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -51,7 +52,7 @@ public class FilesystemDialog extends DialogFragment
     //########################
     //## Static
     //########################
-    public static final String FRAGMENT_TAG = "FilesystemDialog";
+    public static final String FRAGMENT_TAG = "FilesystemDialogCreator";
 
     public static FilesystemDialog newInstance(FilesystemDialogData.Options options) {
         FilesystemDialog f = new FilesystemDialog();
@@ -118,35 +119,35 @@ public class FilesystemDialog extends DialogFragment
         Context context = getContext();
 
         _buttonCancel.setVisibility(_dopt.cancelButtonEnable ? View.VISIBLE : View.GONE);
-        _buttonCancel.setTextColor(ContextCompat.getColor(context, _dopt.accentColor));
+        _buttonCancel.setTextColor(rcolor(_dopt.accentColor));
         _buttonCancel.setText(_dopt.cancelButtonText);
 
         _buttonOk.setVisibility(_dopt.okButtonEnable ? View.VISIBLE : View.GONE);
-        _buttonOk.setTextColor(ContextCompat.getColor(context, _dopt.accentColor));
+        _buttonOk.setTextColor(rcolor(_dopt.accentColor));
         _buttonOk.setText(_dopt.okButtonText);
 
-        _dialogTitle.setTextColor(ContextCompat.getColor(context, _dopt.titleTextColor));
-        _dialogTitle.setBackgroundColor(ContextCompat.getColor(context, _dopt.primaryColor));
+        _dialogTitle.setTextColor(rcolor(_dopt.titleTextColor));
+        _dialogTitle.setBackgroundColor(rcolor(_dopt.primaryColor));
         _dialogTitle.setText(_dopt.titleText);
         _dialogTitle.setVisibility(_dopt.titleTextEnable ? View.VISIBLE : View.GONE);
 
         _upButton.setImageResource(_dopt.upButtonImage);
         _upButton.setVisibility(_dopt.upButtonEnable ? View.VISIBLE : View.GONE);
-        _upButton.setColorFilter(ContextCompat.getColor(context, _dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+        _upButton.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
-        _homeButton.setColorFilter(ContextCompat.getColor(context, _dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+        _homeButton.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         _buttonSearch.setImageResource(_dopt.searchButtonImage);
         _buttonSearch.setVisibility(_dopt.searchEnable ? View.VISIBLE : View.GONE);
-        _buttonSearch.setColorFilter(ContextCompat.getColor(context, _dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+        _buttonSearch.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         _searchEdit.setHint(_dopt.searchHint);
-        _searchEdit.setTextColor(ContextCompat.getColor(context, _dopt.primaryTextColor));
-        _searchEdit.setHintTextColor(ContextCompat.getColor(context, _dopt.secondaryTextColor));
+        _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
+        _searchEdit.setHintTextColor(rcolor(_dopt.secondaryTextColor));
 
-        root.setBackgroundColor(ContextCompat.getColor(context, _dopt.backgroundColor));
+        root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
@@ -156,6 +157,10 @@ public class FilesystemDialog extends DialogFragment
         _filesystemDialogAdapter = new FilesystemDialogAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemDialogAdapter);
         _filesystemDialogAdapter.getFilter().filter("");
+    }
+
+    private int rcolor(@ColorRes int colorRes){
+        return ContextCompat.getColor(getActivity(), colorRes);
     }
 
     private void setDialogOptions(FilesystemDialogData.Options options) {
