@@ -33,6 +33,7 @@ import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -145,10 +146,21 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void promptForMoveDirectory() {
-        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(
-                FilesystemDialog.TYPE_SELECT_FOLDER,
-                FilesystemDialog.WHAT_FOLDER_MOVE, AppSettings.get().getSaveDirectory());
-        filesystemDialog.show(getActivity().getSupportFragmentManager(), FilesystemDialog.FRAGMENT_TAG);
+        FilesystemDialog.showFolderDialog(new FilesystemDialogData.SelectionAdapter() {
+            @Override
+            public void onFsSelected(String request, File file) {
+                super.onFsSelected(request, file);
+                MarkorSingleton.getInstance().moveSelectedNotes(getSelectedItems(), file.getAbsolutePath());
+                listFilesInDirectory(getCurrentDir());
+                finishActionMode();
+            }
+
+            @Override
+            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                opt.titleText = R.string.select_folder_move;
+                opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
+            }
+        }, getActivity().getSupportFragmentManager(), getActivity());
     }
 
 

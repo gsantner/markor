@@ -1,308 +1,68 @@
+/*
+ * ------------------------------------------------------------------------------
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
+ * with it. If we meet some day, and you think it is worth it, you can buy me a
+ * coke in return. Provided as is without any kind of warranty. Do not blame or
+ * sue me if something goes wrong. No attribution required.    - Gregor Santner
+ *
+ * License: Creative Commons Zero (CC0 1.0)
+ *  http://creativecommons.org/publicdomain/zero/1.0/
+ * ----------------------------------------------------------------------------
+ */
 package net.gsantner.markor.dialog;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Context;
+import android.support.v4.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.adapter.FileAdapter;
-import net.gsantner.markor.model.Constants;
-import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.ui.FilesystemDialogData;
 
-import java.io.File;
-import java.util.ArrayList;
-
-public class FilesystemDialog extends DialogFragment {
-    public static final String FRAGMENT_TAG = "FilesystemDialog";
-
-    public static final String EXTRA_WHAT = "EXTRA_WHAT";
-    public static final String EXTRA_ROOT_DIR = "EXTRA_ROOT_DIR";
-
-    public static final String WHAT_FOLDER_SELECT_WIDGET = "WHAT_FOLDER_SELECT_WIDGET";
-    public static final String WHAT_FOLDER_SELECT = "WHAT_FOLDER_SELECT";
-    public static final String WHAT_FOLDER_MOVE = "WHAT_FOLDER_MOVE";
-    public static final String WHAT_FILE_IMPORT = "WHAT_FILE_IMPORT";
-
-
-    public static final String EXTRA_TYPE = "EXTRA_TYPE";
-    public static final String TYPE_SELECT_FILE = "TYPE_SELECT_FILE";
-    public static final String TYPE_SELECT_FOLDER = "TYPE_SELECT_FOLDER";
-
-    private ListView _filesListView;
-    private TextView _emptyFolderTextView;
-
-    private ArrayList<File> _files;
-    private FileAdapter _filesAdapter;
-
-    private File _rootDir;
-    private File _currentDir;
-    private Button _previousDirButton;
-
-    private boolean _isMovingFile;
-    private boolean _isSelectingFolder;
-    private boolean _isSelectingForWidget;
-    private boolean _isImportingFile;
-
-    private String _selectedPath;
-    private TextView _workingDirectoryText;
-    private DialogInterface.OnDismissListener _onDismissListener;
-
-    public FilesystemDialog(){
-        super();
-    }
-
-    public static FilesystemDialog newInstance(String type, String what, String rootDir) {
-        FilesystemDialog filesystemDialog = new FilesystemDialog();
-        Bundle args = new Bundle();
-        args.putString(EXTRA_TYPE, type);
-        args.putString(EXTRA_WHAT, what);
-        args.putString(EXTRA_ROOT_DIR, rootDir);
-        filesystemDialog.setArguments(args);
-        return filesystemDialog;
-    }
-
-    public void sendBroadcast(String name) {
-        Intent broadcast = new Intent();
-
-        if (_isMovingFile) {
-            broadcast.setAction(Constants.FILESYSTEM_MOVE_DIALOG_TAG);
-            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
-        } else if (_isSelectingFolder || _isSelectingForWidget) {
-            broadcast.setAction(Constants.FILESYSTEM_SELECT_FOLDER_TAG);
-            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
-        } else if (_isImportingFile) {
-            broadcast.setAction(Constants.FILESYSTEM_IMPORT_DIALOG_TAG);
-            broadcast.putExtra(Constants.EXTRA_FILEPATH, name);
-        }
-
-        getActivity().sendBroadcast(broadcast);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-
-        _isMovingFile = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_MOVE);
-        _isSelectingFolder = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_SELECT);
-        _isSelectingForWidget = getArguments().getString(EXTRA_WHAT).equals(WHAT_FOLDER_SELECT_WIDGET);
-        _isImportingFile = getArguments().getString(EXTRA_WHAT).equals(WHAT_FILE_IMPORT);
-
-        AlertDialog.Builder dialogBuilder;
-        View dialogView;
-
+public class FilesystemDialog {
+    private static FilesystemDialogData.Options prepareFsDialogOpts
+            (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
+        FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
+        ContextUtils cu = new ContextUtils(context);
+        boolean titleLight = cu.shouldColorOnTopBeLight(cu.color(opts.primaryColor));
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
-        dialogView = inflater.inflate(R.layout.ui__filesystem__dialog, null);
-        dialogBuilder.setView(dialogView);
 
-        if (_isSelectingFolder || _isSelectingForWidget) {
-            dialogBuilder.setTitle(getResources().getString(R.string.select_root_folder));
-            dialogBuilder.setPositiveButton(getResources().getString(R.string.select_this_folder), new
-                    DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendBroadcast(_currentDir.getAbsolutePath());
-                        }
-                    });
-        } else if (_isMovingFile) {
-            dialogBuilder.setTitle(getResources().getString(R.string.select_folder_move));
-            dialogBuilder.setPositiveButton(getResources().getString(R.string.move_here), new
-                    DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendBroadcast(_currentDir.getAbsolutePath());
-                        }
-                    });
-        } else if (_isImportingFile) {
-            dialogBuilder.setTitle(getResources().getString(R.string.import_from_device));
-            dialogBuilder.setPositiveButton(getResources().getString(R.string.select), new
-                    DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (_selectedPath != null) {
-                                sendBroadcast(_selectedPath);
-                            } else {
-                                Toast.makeText(getActivity(), getResources().getString(R.string.no_selected_file), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+        if (listener != null) {
+            opts.listener = listener;
         }
+        opts.doSelectFolder = doSelectFolder;
+        opts.doSelectFile = !doSelectFolder;
 
-        dialogBuilder.setNegativeButton(getResources().getString(android.R.string.cancel), new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+        opts.searchHint = R.string.search_hint;
+        opts.searchButtonImage = R.drawable.ic_action_search;
+        opts.homeButtonImage = R.drawable.ic_home_black_24dp;
+        opts.upButtonImage = R.drawable.ic_arrow_back_white_24dp;
+        opts.upButtonEnable = true;
+        opts.homeButtonEnable = true;
 
-        AlertDialog dialog = dialogBuilder.show();
-        _emptyFolderTextView = dialog.findViewById(R.id.background_hint_text);
+        opts.backgroundColor = darkTheme ? R.color.dark__background : R.color.light__background;
+        opts.titleTextColor = titleLight ? R.color.dark__primary_text : R.color.light__primary_text;
+        opts.fileImage = R.drawable.ic_file_white_24dp;
+        opts.folderImage = R.drawable.ic_folder_white_24dp;
 
-        if (_files == null) {
-            _files = new ArrayList<>();
-        }
+        opts.titleText = R.string.select;
 
-        _workingDirectoryText = dialog.findViewById(R.id.working_directory);
-        _filesListView = dialog.findViewById(R.id.notes_listview);
-        _filesAdapter = new FileAdapter(getActivity().getApplicationContext(), _files);
-
-        _filesListView.setOnItemClickListener(new FilesItemClickListener());
-        _filesListView.setAdapter(_filesAdapter);
-
-        // Previous dir button to help navigate the directories
-        _previousDirButton = dialog.findViewById(R.id.import_header_btn);
-        _previousDirButton.setOnClickListener(new PreviousDirClickListener());
-
-        _workingDirectoryText.setTextColor(ContextCompat.getColor(_workingDirectoryText.getContext(),
-                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
-
-        return dialog;
+        return opts;
     }
 
-    @Override
-    public void onResume() {
-        if (_isMovingFile || _isSelectingForWidget) {
-            _workingDirectoryText.setVisibility(View.VISIBLE);
-            _rootDir = getRootFolderFromPrefsOrDefault();
-            listDirectories(_rootDir);
-            _currentDir = _rootDir;
-        } else if (_isSelectingFolder) {
-            _workingDirectoryText.setVisibility(View.VISIBLE);
-            _rootDir = new File(Environment.getExternalStorageDirectory().getPath());
-            listFilesInDirectory(_rootDir);
-            _currentDir = _rootDir;
-        } else {
-            _workingDirectoryText.setVisibility(View.GONE);
-            _rootDir = new File(Environment.getExternalStorageDirectory().getPath());
-            listFilesInDirectory(_rootDir);
-        }
-
-        showCurrentDirectory(_rootDir.getAbsolutePath());
-        super.onResume();
+    private static void showDialog(FragmentManager fm, FilesystemDialogData.Options opts) {
+        net.gsantner.opoc.ui.FilesystemDialog filesystemDialog = net.gsantner.opoc.ui.FilesystemDialog.newInstance(opts);
+        filesystemDialog.show(fm, net.gsantner.opoc.ui.FilesystemDialog.FRAGMENT_TAG);
     }
 
-    private File getRootFolderFromPrefsOrDefault() {
-        return new File(AppSettings.get().getSaveDirectory());
+    public static void showFileDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context) {
+        final FilesystemDialogData.Options opts = prepareFsDialogOpts(context, false, listener);
+        showDialog(fm, opts);
     }
 
-    private void showCurrentDirectory(String folder) {
-        String currentFolder = folder.substring(folder.lastIndexOf("/") + 1);
-        _workingDirectoryText.setText(getResources().getString(R.string.current_folder) + " " + currentFolder);
-    }
-
-    private void listFilesInDirectory(File directory) {
-        _files = new ArrayList<>();
-
-        try {
-            // Load from SD card
-            _files = MarkorSingleton.getInstance().addFilesFromDirectory(directory, _files);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Refresh the _files adapter with the new ArrayList
-        if (_filesAdapter != null) {
-            _filesAdapter = new FileAdapter(getActivity().getApplicationContext(), _files);
-            _filesListView.setAdapter(_filesAdapter);
-        }
-
-        checkDirectoryStatus();
-    }
-
-    private void listDirectories(File directory) {
-        _files = new ArrayList<>();
-
-        try {
-            // Load from SD card
-            _files = MarkorSingleton.getInstance().addDirectories(directory, _files);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Refresh the _files adapter with the new ArrayList
-        if (_filesAdapter != null) {
-            _filesAdapter = new FileAdapter(getActivity().getApplicationContext(), _files);
-            _filesListView.setAdapter(_filesAdapter);
-        }
-
-        checkDirectoryStatus();
-    }
-
-    private void goToPreviousDir() {
-        if (_currentDir != null) {
-            _currentDir = _currentDir.getParentFile();
-        }
-
-        if (_isMovingFile) {
-            showCurrentDirectory(_currentDir.getAbsolutePath());
-            listDirectories(_currentDir);
-        } else {
-            listFilesInDirectory(_currentDir);
-        }
-    }
-
-    private void checkDirectoryStatus() {
-        MarkorSingleton markorSingleton = MarkorSingleton.getInstance();
-
-        if (markorSingleton.isRootDir(_currentDir, _rootDir)) {
-            _previousDirButton.setVisibility(View.GONE);
-        } else {
-            _previousDirButton.setVisibility(View.VISIBLE);
-        }
-
-        // Check if dir is empty
-        if (markorSingleton.isDirectoryEmpty(_files)) {
-            _emptyFolderTextView.setVisibility(View.VISIBLE);
-            _emptyFolderTextView.setText(getString(R.string.empty_directory));
-        } else {
-            _emptyFolderTextView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this._onDismissListener = onDismissListener;
-    }
-
-    private class FilesItemClickListener implements AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            File file = _filesAdapter.getItem(i);
-
-            // Refresh list if directory, else import
-            if (file.isDirectory()) {
-                _currentDir = file;
-                _selectedPath = null;
-                listFilesInDirectory(file);
-                showCurrentDirectory(_currentDir.getAbsolutePath());
-            } else {
-                _selectedPath = file.getAbsolutePath();
-            }
-        }
-    }
-
-    private class PreviousDirClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            goToPreviousDir();
-        }
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        if (_onDismissListener != null) {
-            _onDismissListener.onDismiss(dialog);
-        }
-        super.onDismiss(dialog);
+    public static void showFolderDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context) {
+        final FilesystemDialogData.Options opts = prepareFsDialogOpts(context, true, listener);
+        opts.okButtonText = R.string.select_this_folder;
+        showDialog(fm, opts);
     }
 }
