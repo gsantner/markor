@@ -22,8 +22,16 @@ import net.gsantner.markor.util.ContextUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PreviewActivity extends AppCompatActivity {
-    private WebView previewWebView;
+    @BindView(R.id.preview__activity__webview)
+    public WebView _previewWebView;
+
+    @BindView(R.id.toolbar)
+    public Toolbar _toolbar;
+
     private String markdownRaw;
     private String markdownHtml;
     private File note;
@@ -34,18 +42,17 @@ public class PreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isEditorStatusBarHidden()){
+        if (AppSettings.get().isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(R.layout.preview__activity);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
+        setSupportActionBar(_toolbar);
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        previewWebView = (WebView) findViewById(R.id.preview_webview);
         markdownRaw = getIntent().getStringExtra(Constants.MD_PREVIEW_KEY);
         String baseFolder = getIntent().getStringExtra(Constants.MD_PREVIEW_BASE);
         note = (File) getIntent().getSerializableExtra(Constants.NOTE_KEY);
@@ -53,7 +60,7 @@ public class PreviewActivity extends AppCompatActivity {
         setTitleFromNote(note);
         markdownHtml = renderer.renderMarkdown(markdownRaw, getApplicationContext());
 
-        previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
+        _previewWebView.loadDataWithBaseURL(baseFolder, markdownHtml, "text/html", Constants.UTF_CHARSET, null);
     }
 
     private void setTitleFromNote(File note) {
@@ -66,11 +73,10 @@ public class PreviewActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        super.onPause();
         if (isEditIncoming) {
             finish();
         }
-
-        super.onPause();
     }
 
     @Override
@@ -100,9 +106,8 @@ public class PreviewActivity extends AppCompatActivity {
             case R.id.action_edit:
                 editNote();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void shareText(String text, String type) {
@@ -122,7 +127,7 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void shareImage() {
-        Bitmap bitmap = getBitmapFromWebView(previewWebView);
+        Bitmap bitmap = getBitmapFromWebView(_previewWebView);
         if (bitmap != null) {
             File image = new File(getExternalCacheDir(), note.getName() + ".png");
             if (saveBitmap(bitmap, image)) {
@@ -172,6 +177,5 @@ public class PreviewActivity extends AppCompatActivity {
         intent.putExtra(Constants.NOTE_KEY, note);
 
         startActivity(intent);
-        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
     }
 }

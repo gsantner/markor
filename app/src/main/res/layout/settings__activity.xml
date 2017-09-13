@@ -9,7 +9,7 @@
         layout="@layout/toolbar"/>
 
     <FrameLayout
-        android:id="@+id/main__activity__fragment_placeholder"
+        android:id="@+id/settings__activity__fragment_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"/>

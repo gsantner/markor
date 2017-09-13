@@ -56,7 +56,6 @@ public class NoteActivity extends AppCompatActivity {
     @BindView(R.id.note__activity__text_note_title)
     TextView _headerNoteTitle;
 
-
     @BindView(R.id.toolbar)
     Toolbar _toolbar;
 
@@ -159,7 +158,6 @@ public class NoteActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
-                overridePendingTransition(R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
                 return true;
             case R.id.action_share:
                 shareNote();
@@ -173,25 +171,14 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.anim_slide_out_right, R.anim.anim_slide_in_right);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onResume() {
+        super.onResume();
         // Set up the font and background activity_preferences
         setupKeyboardBar();
         setupAppearancePreferences();
 
         IntentFilter ifilter = new IntentFilter();
         ifilter.addAction(Constants.SHARE_BROADCAST_TAG);
-        super.onResume();
     }
 
     @Override

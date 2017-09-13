@@ -5,10 +5,9 @@ import android.os.Environment;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+import net.gsantner.opoc.util.AppSettingsBase;
 
 import java.io.File;
-
-import net.gsantner.opoc.util.AppSettingsBase;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
@@ -26,24 +25,6 @@ public class AppSettings extends AppSettingsBase {
 
     public int getBackgroundColor() {
         return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
-    }
-
-    public void setLockType(String value) {
-        setString(R.string.pref_key__lock_type, value);
-    }
-
-    public void setLockAuthPinOrPassword(String value) {
-        setString(R.string.pref_key__user_pin, value);
-    }
-
-    public void setLockType(int value) {
-        if (value >= 0 && value < 3) {
-            setString(R.string.pref_key__lock_type, Integer.toString(value));
-        }
-    }
-
-    public int getLockType() {
-        return getIntOfStringPref(R.string.pref_key__lock_type, 0);
     }
 
     public boolean isRememberLastDirectory() {
@@ -117,11 +98,11 @@ public class AppSettings extends AppSettingsBase {
         return getString(R.string.pref_key__language, "");
     }
 
-    public void setRecreateMainRequired(boolean value){
+    public void setRecreateMainRequired(boolean value) {
         setBool(R.string.pref_key__is_main_recreate_required, value);
     }
 
-    public boolean isRecreateMainRequired(){
+    public boolean isRecreateMainRequired() {
         boolean ret = getBool(R.string.pref_key__is_main_recreate_required, false);
         setBool(R.string.pref_key__is_main_recreate_required, false);
         return ret;

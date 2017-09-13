@@ -7,8 +7,6 @@
     <string name="delete">删除</string>
     <string name="confirm_delete">确认删除</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
-    <string name="new_name_hint">Enter new name</string>
-    <string name="incorrect_pin_text">PIN 码不正确</string>
     <string name="title">标题</string>
     <string name="empty_directory">空文件夹</string>
     <string name="navigate_up_folder">返回上一级目录</string>
@@ -18,7 +16,6 @@
 
     <string name="import_from_device">从设备导入</string>
     <string name="select_folder_move">选择文件夹</string>
-    <string name="select_root_folder">选择文件夹</string>
     <string name="select_this_folder">Select this folder</string>
 
     <string name="search_hint">搜索笔记</string>
@@ -30,10 +27,7 @@
     <string name="editor_settings">编辑器设置</string>
     <string name="files">Files</string>
     <string name="rename">Rename</string>
-    <string name="rename_fail">Failed to rename</string>
     <string name="folders">Folders</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">启动时打开上次的文件夹</string>
@@ -44,31 +38,19 @@
     <string name="share_text">纯文本</string>
     <string name="share_image">Image</string>
     <string name="pref_title__font_size">字体大小</string>
-    <string name="lock_type__pin">PIN 锁</string>
     <string name="pref_title__show_markdown_shortcuts">显示 Markdown 快捷栏</string>
     <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
     <string name="pref_title__highlighting_delay">Delay in milliseconds for highlighting refresh</string>
     <string name="pref_title__highlighting_delay_summary">Higher values are easier on the battery</string>
-    <string name="pin_title">输入你的 PIN</string>
-    <string name="pref_title__lock_settings">Lock</string>
-    <string name="lock_type__password">Alphanumeric Lock</string>
-    <string name="lock_type__none">No Lock</string>
     <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
     <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
-    <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size__normal">中等</string>
-    <string name="font_size__large">大</string>
-    <string name="font_size__small">小</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">最后修改：%s</string>
     <string name="number_of_files">文件数：%d</string>
-    <string name="move_here">移动到这里</string>
     <string name="select">选择</string>
-    <string name="no_selected_file">没有选中的文件</string>
-    <string name="current_folder">当前文件夹：</string>
     <string name="create">创建</string>
     <string name="select_elements">选择项目</string>
     <string name="one_item_selected">1 项已选择</string>
@@ -76,6 +58,6 @@
 
     <!-- About screen -->
     <string name="contributors">贡献者</string>
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
 
 </resources>

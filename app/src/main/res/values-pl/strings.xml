@@ -6,7 +6,6 @@
     <string name="theme_dark">Ciemny</string>
     <string name="delete">Usuń</string>
 
-    <string name="incorrect_pin_text">Niewłaściwy kod PIN</string>
     <string name="title">Tytuł</string>
     <string name="empty_directory">Ten katalog jest pusty</string>
     <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
@@ -16,7 +15,6 @@
 
     <string name="import_from_device">Wczytaj z urządzenia</string>
     <string name="select_folder_move">Wybierz folder</string>
-    <string name="select_root_folder">Wybierz folder</string>
 
     <string name="search_hint">Szukaj notatek</string>
     <string name="share_string">Udostępnij&#8230;</string>
@@ -28,9 +26,6 @@
     <string name="folders">Teczki</string>
     <string name="files">Files</string>
     <string name="rename">Rename</string>
-    <string name="rename_fail">Failed to rename</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_error_target_already_exists">Target file/folder already exists!</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Pamiętaj lokalizację ostatniego folderu podczas uruchamiania</string>
@@ -41,34 +36,21 @@
     <string name="share_text">Tekst</string>
     <string name="share_image">Obraz</string>
     <string name="pref_title__font_size">Rozmiar czcionki</string>
-    <string name="lock_type__pin">Blokada kodem PIN</string>
     <string name="pref_title__show_markdown_shortcuts">Pokaż pasek skrótów Markdown</string>
     <string name="pref_title__highlighting_activated">Markdown podświetlanie składni</string>
     <string name="pref_title__highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżanie</string>
     <string name="pref_title__highlighting_delay_summary">Wyższe wartości są łatwiejsze w akumulatorze</string>
-    <string name="pin_title">Wpisz swój kod PIN</string>
     <string name="confirm_delete">Potwierdzaj usuwanie</string>
     <string name="confirm_overwrite">File already exists, overwrite?</string>
-    <string name="new_name_hint">Enter new name</string>
-    <string name="pref_title__lock_settings">Lock</string>
-    <string name="lock_type__password">Alphanumeric Lock</string>
-    <string name="lock_type__none">No Lock</string>
     <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
     <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
-    <string name="passphrase_title">Enter your passphrase</string>
 
     <!-- Font Size -->
-    <string name="font_size__normal">Normalny</string>
-    <string name="font_size__large">Duży</string>
-    <string name="font_size__small">Mały</string>
 
     <string name="last_modified">Ostatnio zmieniony: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
-    <string name="move_here">Przenieś tutaj</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Wybierać</string>
-    <string name="no_selected_file">Nie wybrano pliku</string>
-    <string name="current_folder">Aktualny katalog:</string>
     <string name="create">Utworzyć</string>
     <string name="select_elements">Wybierać pliki</string>
     <string name="one_item_selected">jeden wybrany</string>
@@ -76,5 +58,5 @@
 
     <!-- About screen -->
     <string name="contributors">Contributors</string>
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
 </resources>

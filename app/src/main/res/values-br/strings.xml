@@ -7,18 +7,15 @@
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar deletar?</string>
     <string name="confirm_overwrite">Aquivo já existente, sobrescrever?</string>
-    <string name="incorrect_pin_text">Pin incorreto</string>
     <string name="title">Título</string>
     <string name="empty_directory">Esta pasta está vazia</string>
     <string name="navigate_up_folder">Voltar para a pasta anterior</string>
     <string name="folder_name_hint">Digite o nome da pasta</string>
-    <string name="new_name_hint">Digite um novo nome</string>
     <string name="create_folder">Criar pasta</string>
     <string name="move">Mover</string>
 
     <string name="import_from_device">Importar do aparelho</string>
     <string name="select_folder_move">Selecionar pasta</string>
-    <string name="select_root_folder">Selecionar pasta</string>
 
     <string name="search_hint">Buscar notas</string>
     <string name="share_string">Compartilhar via&#8230;</string>
@@ -39,43 +36,27 @@
     <string name="share_text">Texto Puro</string>
     <string name="share_image">Imagem</string>
     <string name="pref_title__font_size">Tamanho da fonte</string>
-    <string name="pref_title__lock_settings">Bloquear</string>
-    <string name="lock_type__pin">Pin</string>
-    <string name="lock_type__password">Senha</string>
-    <string name="lock_type__none">Sem senha</string>
     <string name="pref_title__show_markdown_shortcuts">Mostrar barra com atalhos do Markdown</string>
     <string name="pref_title__highlighting_activated">Destaque de sintaxe do Markdown</string>
     <string name="pref_title__highlighting_delay">Tempo de atualização do destaque de sintaxe (em millisegundos)</string>
     <string name="pref_title__highlighting_delay_summary">Valores maiores gastam menos bateria</string>
     <string name="pref_title__smart_shortcuts">Parênteses inteligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Se você selecionar um texto, {}, [] e () vão aparecer nas margens</string>
-    <string name="pin_title">Digite o seu pin</string>
-    <string name="passphrase_title">Digite sua senha</string>
 
     <!-- Font Size -->
-    <string name="font_size__normal">Normal</string>
-    <string name="font_size__large">Grande</string>
-    <string name="font_size__small">Pequeno</string>
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Última modificação: %s</string>
     <string name="number_of_files">Número de arquivos: %d</string>
-    <string name="move_here">Mover para cá</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
-    <string name="no_selected_file">Nenhum arquivo selecionado</string>
-    <string name="current_folder">Pasta atual:</string>
     <string name="create">Criar</string>
     <string name="select_elements">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="more_items_selected">%d itens selecionados</string>
 
-    <string name="rename_error_target_already_exists">Arquivo/pasta já existente!</string>
-    <string name="rename_success">Renomeado com sucesso</string>
-    <string name="rename_fail">Erro em renomear</string>
-
     <!-- About screen -->
     <string name="contributors">Colaboradores</string>
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
 
 </resources>

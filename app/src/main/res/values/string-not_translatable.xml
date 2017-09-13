@@ -9,14 +9,10 @@
     <string name="team" translatable="false">Maintainer</string>
 
     <!-- About Screen -->
-    <string name="pref_value__lock__none" translatable="false">0</string>
-    <string name="pref_value__lock__pin" translatable="false">1</string>
-    <string name="pref_value__lock__password" translatable="false">2</string>
-
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2014-2016
         \n**Jeff Martin, Pedro Lafuente and writeily contributors**
-        \n### Copyright © 2015-2017
+        \n### Copyright © 2017
         \n**Gregor Santner and markor contributors**
         \n
         \n**Get the official version of Markor:**
@@ -30,7 +26,6 @@
 
 
     <!-- Preference keys -->
-    <string name="pref_key__lock_type" translatable="false">pref_key__lock_type</string>
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_show_markdown_shortcuts" translatable="false">pref_key__is_show_markdown_shortcuts</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
@@ -43,7 +38,6 @@
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
     <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
-    <string name="pref_key__user_pin" translatable="false">pref_key__user_pin</string>
     <string name="pref_key__is_editor_statusbar_hidden" translatable="false">pref_key__is_editor_statusbar_hidden</string>
     <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>

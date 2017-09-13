@@ -8,8 +8,6 @@
     <string name="rename">Renombrar</string>
     <string name="confirm_delete">Confirmar borrado</string>
     <string name="confirm_overwrite">Archivo ya existe, ¿reemplazar?</string>
-    <string name="new_name_hint">Nuevo nombre</string>
-    <string name="incorrect_pin_text">Pin incorrecto</string>
     <string name="title">Título</string>
     <string name="empty_directory">Este directorio está vacío</string>
     <string name="navigate_up_folder">Volver a la anterior carpeta</string>
@@ -19,7 +17,6 @@
 
     <string name="import_from_device">Importar del dispositivo</string>
     <string name="select_folder_move">Seleccionar carpeta</string>
-    <string name="select_root_folder">Seleccionar carpeta</string>
 
     <string name="search_hint">Buscar notas</string>
     <string name="share_string">Compartir vía&#8230;</string>
@@ -40,31 +37,19 @@
     <string name="share_text">Texto plano</string>
     <string name="share_image">Imagen</string>
     <string name="pref_title__font_size">Tamaño de fuente</string>
-    <string name="pref_title__lock_settings">Bloqueo</string>
-    <string name="lock_type__pin">Pin</string>
-    <string name="lock_type__password">Contraseña</string>
-    <string name="lock_type__none">Sin bloqueo</string>
     <string name="pref_title__show_markdown_shortcuts">Mostrar barra de Markdown</string>
     <string name="pref_title__highlighting_activated">Markdown resaltado de sintaxis</string>
     <string name="pref_title__highlighting_delay">Retraso en milisegundos para refrescar el resaltado</string>
     <string name="pref_title__highlighting_delay_summary">Valores más altos gastan menos batería</string>
     <string name="pref_title__smart_shortcuts">Botones de paréntesis inteligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Si hay un text selecionado, {}, [] y () rodearán el texto</string>
-    <string name="pin_title">Introduce tu pin</string>
-    <string name="passphrase_title">Introduce tu contraseña</string>
 
     <!-- Font Size -->
-	<string name="font_size__normal">Normal</string>
-	<string name="font_size__large">Grande</string>
-	<string name="font_size__small">Pequeño</string>
 
     <string name="last_modified">Última modificación: %s</string>
     <string name="number_of_files">Número de archivos: %d</string>
-    <string name="move_here">Mover aquí</string>
     <string name="select_this_folder">Seleccionar esta carpeta</string>
     <string name="select">Seleccionar</string>
-    <string name="no_selected_file">Ningún archivo seleccionado</string>
-    <string name="current_folder">Directorio actual:</string>
     <string name="create">Crear</string>
     <string name="select_elements">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
@@ -72,9 +57,6 @@
 
     <!-- About screen -->
     <string name="contributors">Contribuidores</string>
-    <string name="rename_error_target_already_exists">¡La carpeta o nota de destino ya existe!</string>
-    <string name="rename_success">Successfully renamed</string>
-    <string name="rename_fail">Failed to rename</string>
-    <string name="pref_title__root_directory_title">Select storage folder</string>
+    <string name="pref_title__save_directory">Select storage folder</string>
 
 </resources>
