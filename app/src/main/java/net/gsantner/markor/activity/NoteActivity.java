@@ -64,12 +64,13 @@ public class NoteActivity extends AppCompatActivity {
     private String _targetDirectory;
     private boolean _isPreviewIncoming = false;
     private AppSettings _appSettings;
+    private String _initalContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isEditorStatusBarHidden()){
+        if (AppSettings.get().isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             AndroidBug5497Workaround.assistActivity(this);
         }
@@ -119,7 +120,9 @@ public class NoteActivity extends AppCompatActivity {
 
     private String readNote() {
         java.net.URI oldUri = _note.toURI();
-        return MarkorSingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
+        String noteContent = MarkorSingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
+        _initalContent = _note.getName() + noteContent;
+        return noteContent;
     }
 
     private void openFromSendAction(Intent receivingIntent) {
@@ -298,6 +301,9 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
+        if (_note != null && _initalContent.equals(_note.getName() + _contentEditor.getText().toString())) {
+            return;
+        }
         try {
             String content = _contentEditor.getText().toString();
             String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
