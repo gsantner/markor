@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +37,7 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -142,12 +142,13 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void confirmDelete() {
-        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(R.string.confirm_delete, getSelectedItems(),
+        final ArrayList<File> itemsToDelete = new ArrayList<>(_selectedItems);
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(R.string.confirm_delete, itemsToDelete,
                 new ConfirmDialog.ConfirmDialogCallback() {
                     @Override
                     public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
                         if (confirmed) {
-                            MarkorSingleton.getInstance().deleteSelectedItems(getSelectedItems());
+                            MarkorSingleton.getInstance().deleteSelectedItems(itemsToDelete);
                             listFilesInDirectory(getCurrentDir());
                             finishActionMode();
                         }
@@ -157,11 +158,12 @@ public class FilesystemListFragment extends Fragment {
     }
 
     private void promptForMoveDirectory() {
+        final ArrayList<File> filesToMove = new ArrayList<>(_selectedItems);
         FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsSelected(String request, File file) {
                 super.onFsSelected(request, file);
-                MarkorSingleton.getInstance().moveSelectedNotes(getSelectedItems(), file.getAbsolutePath());
+                MarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
                 listFilesInDirectory(getCurrentDir());
                 finishActionMode();
             }
@@ -176,14 +178,15 @@ public class FilesystemListFragment extends Fragment {
 
 
     public void listFilesInDirectory(File directory) {
+        _selectedItems.clear();
         reloadFiles(directory);
-        broadcastDirectoryChange(directory, _rootDir);
+        broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
         reloadAdapter();
     }
 
-    private void broadcastDirectoryChange(File directory, File rootDir) {
-        AppCast.CURRENT_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), rootDir.getAbsolutePath());
+    private void broadcastDirectoryChange(File directory) {
+        AppCast.VIEW_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), false);
         clearSearchFilter();
     }
 
@@ -236,6 +239,7 @@ public class FilesystemListFragment extends Fragment {
 
     public void finishActionMode() {
         _actionMode.finish();
+        _selectedItems.clear();
     }
 
     /**
@@ -284,25 +288,24 @@ public class FilesystemListFragment extends Fragment {
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
                     confirmDelete();
+                    finishActionMode();
                     return true;
                 case R.id.context_menu_move:
                     promptForMoveDirectory();
+                    finishActionMode();
                     return true;
-                case RENAME_CONTEXT_BUTTON_ID:
+                case R.id.context_menu_rename:
                     promptForNewName(_selectedItems.get(0));
+                    finishActionMode();
                     return true;
                 default:
                     return false;
             }
         }
 
-        private void promptForNewName(File renameable) {
-            FragmentManager fragManager = getFragmentManager();
-            Bundle args = new Bundle();
-            args.putString(Constants.SOURCE_FILE, renameable.getAbsolutePath());
-            RenameDialog renameDialog = new RenameDialog();
-            renameDialog.setArguments(args);
-            renameDialog.show(fragManager, Constants.RENAME_DIALOG_TAG);
+        private void promptForNewName(File file) {
+            RenameDialog renameDialog = RenameDialog.newInstance(file);
+            renameDialog.show(getFragmentManager(), RenameDialog.FRAGMENT_TAG);
         }
 
         @Override
@@ -315,17 +318,17 @@ public class FilesystemListFragment extends Fragment {
             switch (_filesListView.getCheckedItemCount()) {
                 case 0:
                     actionMode.setSubtitle(null);
-                    hideRenameButton(actionMode);
+                    setRenameButtonVisibility(actionMode, false);
                     break;
                 case 1:
                     actionMode.setSubtitle(getResources().getString(R.string.one_item_selected));
                     manageClickedVIew(i, checked);
-                    showRenameButton(actionMode);
+                    setRenameButtonVisibility(actionMode, true);
                     break;
                 default:
                     manageClickedVIew(i, checked);
                     actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), _filesListView.getCheckedItemCount()));
-                    hideRenameButton(actionMode);
+                    setRenameButtonVisibility(actionMode, false);
                     break;
             }
         }
@@ -338,26 +341,12 @@ public class FilesystemListFragment extends Fragment {
             }
         }
 
-        private void hideRenameButton(ActionMode actionMode) {
-            showRenameContextButton(actionMode.getMenu(), false);
+        private void setRenameButtonVisibility(ActionMode actionMode, boolean visible) {
+            Menu menu = actionMode.getMenu();
+            MenuItem item = menu.findItem(R.id.context_menu_rename);
+            item.setVisible(visible);
         }
-
-        private void showRenameButton(ActionMode actionMode) {
-            showRenameContextButton(actionMode.getMenu(), true);
-        }
-
-        private void showRenameContextButton(Menu menu, boolean show) {
-            if (show) {
-                menu.add(Menu.FIRST + 1, RENAME_CONTEXT_BUTTON_ID, Menu.FIRST, R.string.rename)
-                        .setIcon(R.drawable.ic_edit_light);
-
-            } else {
-                menu.setGroupVisible(1, false);
-                menu.removeItem(RENAME_CONTEXT_BUTTON_ID);
-            }
-            ;
-        }
-    }
+    } // End: Action Mode callback
 
     @OnItemClick(R.id.filesystemlist__fragment__listview)
     public void onNotesItemClickListener(AdapterView<?> adapterView, View view, int i, long l) {
@@ -395,13 +384,6 @@ public class FilesystemListFragment extends Fragment {
             intent.putExtra(Constants.NOTE_KEY, note);
 
             startActivity(intent);
-        }
-    }
-
-    private class PreviousDirClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            goToPreviousDir();
         }
     }
 }

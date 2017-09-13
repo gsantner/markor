@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,7 +30,6 @@ import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.CurrentFolderChangedReceiver;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -186,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
             switch (view.getId()) {
                 case R.id.main__activity__create_folder_fab: {
-                    showFolderNameDialog();
+                    showCreateFolderDialog();
                     break;
                 }
                 case R.id.main__activity__create_note_fab: {
@@ -222,9 +220,9 @@ public class MainActivity extends AppCompatActivity {
                     _filesystemListFragment.finishActionMode();
                     return;
                 }
-                case AppCast.CURRENT_FOLDER_CHANGED.ACTION: {
-                    File currentDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_PATH));
-                    File rootDir = new File(intent.getStringExtra(AppCast.CURRENT_FOLDER_CHANGED.EXTRA_ROOT_FOLDERPATH));
+                case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
+                    File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
+                    File rootDir = new File(AppSettings.get().getSaveDirectory());
                     if (currentDir.equals(rootDir)) {
                         _breadcrumbs.setVisibility(View.GONE);
                     } else {
@@ -234,6 +232,9 @@ public class MainActivity extends AppCompatActivity {
                         );
                         _breadcrumbs.setText(text);
                         _breadcrumbs.setVisibility(View.VISIBLE);
+                    }
+                    if (intent.getBooleanExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_FORCE_RELOAD, false)) {
+                        _filesystemListFragment.listFilesInDirectory(currentDir);
                     }
                     return;
                 }
@@ -262,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
     }
 
-    private void showFolderNameDialog() {
+    private void showCreateFolderDialog() {
         FragmentManager fragManager = getSupportFragmentManager();
 
         Bundle args = new Bundle();
