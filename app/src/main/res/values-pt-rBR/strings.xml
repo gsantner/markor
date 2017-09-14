@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Configurações</string>
+    <string name="light">Luz</string>
+    <string name="dark">Escuro</string>
+    <string name="delete">Apagar</string>
+    <string name="rename">Renomear</string>
+    <string name="confirm_delete">Confirmar exclusão</string>
+    <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
+    <string name="title">Título</string>
+    <string name="empty_directory">Pasta vazia</string>
+    <string name="navigate_up_folder">Retornar à pasta anterior</string>
+    <string name="folder_name_hint">Nomear pasta</string>
+    <string name="create_folder">Criar pasta</string>
+    <string name="create_note">Criar nota</string>
+    <string name="move">Mover</string>
+
+    <string name="import_from_device">Importar do dispositivo</string>
+    <string name="select_folder_move">Selecionar pastas</string>
+
+    <string name="search_hint">Procurar notas</string>
+    <string name="share_string">Compartilhar com…</string>
+    <string name="share">Compartilhar</string>
+    <string name="search">Procurar</string>
+    <string name="preview">Pré-visualização</string>
+    <string name="app_settings">Configurações do aplicativo</string>
+    <string name="editor_settings">Configurações do editor</string>
+    <string name="folders">Pastas</string>
+    <string name="files">Arquivos</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Lembrar última pasta ao iniciar</string>
+    <string name="pref_title__font_choice">Fonte das notas</string>
+    <string name="pref_title__theme">Tema</string>
+    <string name="pref_title__preview_first">Pré-visualização ao abrir notas</string>
+    <string name="about">Sobre o Markor</string>
+    <string name="share_text">Texto puro</string>
+    <string name="share_image">Imagem</string>
+    <string name="pref_title__font_size">Tamanho da fonte</string>
+    <string name="pref_title__show_markdown_shortcuts">Mostrar atalhos de Markdown</string>
+    <string name="pref_title__highlighting_activated">Realce de sintaxe Markdown</string>
+    <string name="pref_title__highlighting_delay">Atraso de milissegundos para atualização de realce</string>
+    <string name="pref_title__highlighting_delay_summary">Valores mais altos aliviam a bateria</string>
+    <string name="pref_title__render_rtl">Renderizar para línguas de escrita da direita à esquerda</string>
+    <string name="error_cannot_create_save_dir">Erro: Impossível criar pasta de becape</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Últimas modificações: %s</string>
+    <string name="number_of_files">Número de arquivos: %d</string>
+    <string name="select_this_folder">Selecionar esta pasta</string>
+    <string name="select">Selecionar</string>
+    <string name="create">Criar</string>
+    <string name="select_elements">Selecionar entradas</string>
+    <string name="one_item_selected">Um item selecionado</string>
+    <string name="more_items_selected">%d itens selecionados</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Esconder barra de tarefas nesta visualização</string>
+    <string name="pref_title__is_statusbar_hidden">Esconder barra de status</string>
+
+    <!-- About screen -->
+    <string name="contributors">Colaboradores</string>
+
+    <string name="pref_title__save_directory">Escolher pasta de armazenamento</string>
+    <string name="licenses">Licenças</string>
+    <string name="changelog">Histórico de atualizações</string>
+    <string name="more_information">Mais informações</string>
+    <string name="show_app_license">Exibir licença</string>
+    <string name="show_third_party_licenses">Exibir licenças de 3os</string>
+    <string name="pref_desc__language">Mudar língua do aplicativo. Reiniciar para aplicar</string>
+    <string name="pref_title__language">Língua</string>
+</resources>
