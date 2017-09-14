@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Настройки</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
+    <string name="delete">Удалить</string>
+    <string name="rename">Переименовать</string>
+    <string name="confirm_delete">Подтвердить удаление</string>
+    <string name="confirm_overwrite">Файл уже существует, перезаписать?</string>
+    <string name="title">Заголовок</string>
+    <string name="empty_directory">Эта директория пуста</string>
+    <string name="navigate_up_folder">В предыдущую директорию</string>
+    <string name="folder_name_hint">Введите имя директории</string>
+    <string name="create_folder">Создать директорию</string>
+    <string name="create_note">Создать заметку</string>
+    <string name="move">Переместить</string>
+
+    <string name="import_from_device">Импортировать с устройства</string>
+    <string name="select_folder_move">Выбрать директорию</string>
+
+    <string name="search_hint">Поиск заметок</string>
+    <string name="share_string">Поделиться с...</string>
+    <string name="share">Поделиться</string>
+    <string name="search">Поиск</string>
+    <string name="preview">Предпросмотр</string>
+    <string name="app_settings">Настройки приложения</string>
+    <string name="editor_settings">Настройки редактора</string>
+    <string name="folders">Директории</string>
+    <string name="files">Файлы</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Помнить последнюю открытую директорию</string>
+    <string name="pref_title__font_choice">Шрифт редактора заметок</string>
+    <string name="pref_title__theme">Тема</string>
+    <string name="pref_title__preview_first">Сначала показать предпросмотр при открытии заметки</string>
+    <string name="about">О программе Markor</string>
+    <string name="share_text">Просто текст</string>
+    <string name="share_image">Изображение</string>
+    <string name="pref_title__font_size">Размер шрифта</string>
+    <string name="pref_title__show_markdown_shortcuts">Показывать сокращения markdown</string>
+    <string name="pref_title__highlighting_activated">Подсветка синтаксиса markdown</string>
+    <string name="pref_title__highlighting_delay">Задержка обновления подсветки синтаксиса в миллисекундах</string>
+    <string name="pref_title__highlighting_delay_summary">БОльшие значения меньше расходуют батарею</string>
+    <string name="pref_title__smart_shortcuts">Умные скобки</string>
+    <string name="pref_title__smart_shortcuts_summary">{}, [] и () будут окружать выделенный текст</string>
+    <string name="pref_title__render_rtl">Работать с языками \"справа-налево"</string>
+    <string name="error_cannot_create_save_dir">Ошибка: невозможно сохранить директорию</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Дата изменения: %s</string>
+    <string name="number_of_files">Число файлов: %d</string>
+    <string name="select_this_folder">Выбрать текущую директорию</string>
+    <string name="select">Выбрать</string>
+    <string name="create">Создать</string>
+    <string name="select_elements">Выбрать элементы</string>
+    <string name="one_item_selected">Один элемент выбран</string>
+    <string name="more_items_selected">%d элементов выбрано</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Скрыть строку статуса</string>
+    <string name="pref_title__is_statusbar_hidden">Скрыть строку статуса</string>
+
+    <!-- About screen -->
+    <string name="contributors">Разработчики</string>
+
+    <string name="pref_title__save_directory">Выбрать рабочую директорию</string>
+    <string name="licenses">Лицензии</string>
+    <string name="changelog">Список изменений</string>
+    <string name="more_information">Больше информации</string>
+    <string name="show_app_license">Показать лицензию приложения</string>
+    <string name="show_third_party_licenses">Показать лицензии сторонних компонентов</string>
+    <string name="pref_desc__language">Сменить язык приложения. Перезагрузите для сохранения изменений.</string>
+    <string name="pref_title__language">Язык</string>
+    <string name="error_storage_permission">Нужно резрешение на запись чтобы сохранить</string>
+
+</resources>
