@@ -26,3 +26,4 @@ Where:
 * **[Carlos Mares]()**<br/>~° Spanish translation
 * **[Claudio Arseni]()**<br/>~° Italian translation
 * **[d-ban]()**<br/>~° Croatian translation
+* **[Luís F.S. Rosa](https://github.com/luisfsr)**<br/>~° Brazilian Portuguese translation
