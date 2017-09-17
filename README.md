@@ -38,7 +38,7 @@ It doesn't share any personal information with other apps or any web-server, unl
 Document will be stored locally in the device public documents folder or a custom folder.
 
 ## Contributions
-The project is always open for co ntributions and accepts pull requests.
+The project is always open for contributions and welcomes pull requests.
 The project uses [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions), with one exception: private members are `_camelCase` instead of `mBigCamel`. You may use Android Studios _auto reformat feature_ before sending a PR.
 
 Translations can be contributed on GitHub or via [E-Mail](https://gsantner.github.io/#contact). You can use Stringlate ([![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)) to translate the project directly on your Android phone. It allows you to export as E-Mail attachement and to post on GitHub.
@@ -53,22 +53,19 @@ The project is licensed MIT. It is based on unmaintained projects writeily and w
 Copyright (c) 2014-2016 Jeff Martin, Pedro Lafuente and writeily contributors  
 Copyright (c) 2017 Gregor Santner and markor contributors  
 
-<!--
 ## Screenshots
 <div style="display:flex;" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/01.png" width="19%" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/02.png" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/03.png" width="19%" style="margin-left:10px;" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/04.png" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/05.png" width="19%" style="margin-left:10px;" >
 </div>
 
 <div style="display:flex;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/06.png" width="19%" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/07.png" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/08.png" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/09.png" width="19%" style="margin-left:10px;" >
+	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/05.png" width="19%" >
+	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/03.png" width="19%" style="margin-left:10px;" >
+	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/06.png" width="19%" style="margin-left:10px;" >
 </div>
 
+<!--
 ### Notice
 -->
