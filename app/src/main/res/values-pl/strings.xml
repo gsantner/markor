@@ -11,6 +11,7 @@
     <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
     <string name="folder_name_hint">Wpisz nazwę folderu</string>
     <string name="create_folder">Utwórz folder</string>
+    <string name="create_note">Stwórz notatkę</string>
     <string name="move">Przenieś</string>
 
     <string name="import_from_device">Wczytaj z urządzenia</string>
@@ -59,4 +60,10 @@
     <!-- About screen -->
     <string name="contributors">Contributors</string>
     <string name="pref_title__save_directory">Select storage folder</string>
+    <string name="licenses">Licencje</string>
+    <string name="changelog">Zmiany</string>
+    <string name="more_information">Więcej informacji</string>
+    <string name="show_app_license">Pokaż licencję aplikacji</string>
+    <string name="pref_title__language">Język</string>
+    <string name="error_storage_permission">Potrzebuję pozwolenia na zapisywanie dokumentów</string>
 </resources>

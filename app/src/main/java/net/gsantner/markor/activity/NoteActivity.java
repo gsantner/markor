@@ -63,7 +63,7 @@ public class NoteActivity extends AppCompatActivity {
     private String _targetDirectory;
     private boolean _isPreviewIncoming = false;
     private AppSettings _appSettings;
-    private String _initalContent = "";
+    private String _initialContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,7 @@ public class NoteActivity extends AppCompatActivity {
     private String readNote() {
         java.net.URI oldUri = _note.toURI();
         String noteContent = MarkorSingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
-        _initalContent = _note.getName() + noteContent;
+        _initialContent = _note.getName() + noteContent;
         return noteContent;
     }
 
@@ -288,7 +288,7 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
-        if (_note != null && _initalContent.equals(_note.getName() + _contentEditor.getText().toString())) {
+        if (_note != null && _initialContent.equals(_note.getName() + _contentEditor.getText().toString())) {
             return;
         }
         try {

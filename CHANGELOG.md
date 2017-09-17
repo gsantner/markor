@@ -1,3 +1,6 @@
+### v0.1.3
+- Fix: Renaming case sensitive
+
 ### v0.1.2
 - Overall refactoring
 - Remove startup ""authentication""

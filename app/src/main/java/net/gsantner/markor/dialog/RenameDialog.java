@@ -14,7 +14,10 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 
 public class RenameDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
@@ -60,7 +63,7 @@ public class RenameDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (renameFile(file, _newNameField.getText().toString())) {
+                        if (renameFileInSameFolder(file, _newNameField.getText().toString())) {
                             AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                         }
                     }
@@ -76,8 +79,20 @@ public class RenameDialog extends DialogFragment {
         return dialogBuilder;
     }
 
-    private boolean renameFile(File file, String newFileName) {
-        File newFile = new File(file.getParent(), newFileName);
-        return !newFile.exists() && file.renameTo(newFile);
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private boolean renameFileInSameFolder(File srcFile, String destFilename) {
+        File destFile = new File(srcFile.getParent(), destFilename);
+        File cacheFile = new File(getActivity().getCacheDir(), "rename.md");
+        try {
+            FileUtils.moveFile(srcFile, cacheFile);
+            FileUtils.moveFile(cacheFile, destFile);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if (cacheFile.exists()) {
+                cacheFile.delete();
+            }
+        }
     }
 }
