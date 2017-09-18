@@ -288,28 +288,36 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
-        if (_note != null && _initialContent.equals(_note.getName() + _contentEditor.getText().toString())) {
+
+        String content = _contentEditor.getText().toString();
+        String filename = normalizeFilename(content, _editNoteTitle.getText().toString()) + Constants.MD_EXT;
+
+        if (_note != null && _initialContent.equals(filename + content)) {
             return;
         }
+
         try {
-            String content = _contentEditor.getText().toString();
-            String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
+
             if (filename == null) return;
 
             String parent = _targetDirectory != null ? _targetDirectory : _note.getParent();
-            File newNote = new File(parent, filename + Constants.MD_EXT);
+
+            File newNote = new File(parent, filename);
             FileOutputStream fos = new FileOutputStream(newNote);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
 
             writer.write(content);
             writer.flush();
-
             writer.close();
             fos.close();
-            // If we have created a new _note due to renaming, delete the old copy
-            if (_note != null && !newNote.getName().equals(_note.getName()) && newNote.exists()) {
+
+            // FIXME: This ignores renames which only change the case, otherwise the file is deleted
+            if (_note != null && !newNote.getName().equalsIgnoreCase(_note.getName()) && newNote.exists()) {
                 _note.delete();
             }
+            _note=newNote;
+            _initialContent = filename + content;
+
             updateWidgets();
         } catch (IOException e) {
             e.printStackTrace();
