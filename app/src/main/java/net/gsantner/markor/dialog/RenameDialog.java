@@ -13,8 +13,7 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
-
-import org.apache.commons.io.FileUtils;
+import net.gsantner.markor.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +62,7 @@ public class RenameDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (renameFileInSameFolder(file, _newNameField.getText().toString())) {
+                        if (Utils.renameFileInSameFolder(file, _newNameField.getText().toString(), getActivity().getCacheDir().toString())) {
                             AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                         }
                     }
@@ -79,20 +78,5 @@ public class RenameDialog extends DialogFragment {
         return dialogBuilder;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private boolean renameFileInSameFolder(File srcFile, String destFilename) {
-        File destFile = new File(srcFile.getParent(), destFilename);
-        File cacheFile = new File(getActivity().getCacheDir(), "rename.md");
-        try {
-            FileUtils.moveFile(srcFile, cacheFile);
-            FileUtils.moveFile(cacheFile, destFile);
-            return true;
-        } catch (IOException ex) {
-            return false;
-        } finally {
-            if (cacheFile.exists()) {
-                cacheFile.delete();
-            }
-        }
-    }
+
 }
