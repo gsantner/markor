@@ -28,3 +28,4 @@ Where:
 * **[d-ban]()**<br/>~° Croatian translation
 * **[Luís F.S. Rosa](https://github.com/luisfsr)**<br/>~° Brazilian Portuguese translation
 * **[Fedor A. Kuterin](https://github.com/xredor)**<br/>~° Russian translation
+* **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation

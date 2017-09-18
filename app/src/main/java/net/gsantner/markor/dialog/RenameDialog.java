@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.Utils;
 
 import java.io.File;
-import java.io.IOException;
 
 public class RenameDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
@@ -47,17 +47,21 @@ public class RenameDialog extends DialogFragment {
     }
 
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
-        View dialogView;
+        View root;
         AlertDialog.Builder dialogBuilder;
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
-        dialogView = inflater.inflate(R.layout.ui__rename__dialog, null);
+        root = inflater.inflate(R.layout.ui__rename__dialog, null);
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));
-        dialogBuilder.setView(dialogView);
+        dialogBuilder.setView(root);
 
-        ((EditText) dialogView.findViewById(R.id.new_name)).setText(file.getName());
+        EditText editText = root.findViewById(R.id.new_name);
+        editText.setText(file.getName());
+        editText.setTextColor(ContextCompat.getColor(root.getContext(),
+                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
