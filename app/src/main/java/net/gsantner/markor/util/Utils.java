@@ -6,6 +6,11 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Utils {
     private static int screenWidth = 0;
     private static int screenHeight = 0;
@@ -36,5 +41,21 @@ public class Utils {
         }
 
         return screenWidth;
+    }
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean renameFileInSameFolder(File srcFile, String destFilename, String cacheDir) {
+        File destFile = new File(srcFile.getParent(), destFilename);
+        File cacheFile = new File(cacheDir, "rename.md");
+        try {
+            FileUtils.moveFile(srcFile, cacheFile);
+            FileUtils.moveFile(cacheFile, destFile);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if (cacheFile.exists()) {
+                cacheFile.delete();
+            }
+        }
     }
 }

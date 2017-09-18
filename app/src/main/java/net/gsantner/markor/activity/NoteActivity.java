@@ -29,6 +29,7 @@ import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
+import net.gsantner.markor.util.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -64,6 +65,7 @@ public class NoteActivity extends AppCompatActivity {
     private boolean _isPreviewIncoming = false;
     private AppSettings _appSettings;
     private String _initialContent = "";
+    private String _initialFileName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +122,8 @@ public class NoteActivity extends AppCompatActivity {
     private String readNote() {
         java.net.URI oldUri = _note.toURI();
         String noteContent = MarkorSingleton.getInstance().readFileUri(Uri.parse(oldUri.toString()), this);
-        _initialContent = _note.getName() + noteContent;
+        _initialFileName = _note.getName();
+        _initialContent = noteContent;
         return noteContent;
     }
 
@@ -290,33 +293,36 @@ public class NoteActivity extends AppCompatActivity {
     private void saveNote() {
 
         String content = _contentEditor.getText().toString();
-        String filename = normalizeFilename(content, _editNoteTitle.getText().toString()) + Constants.MD_EXT;
+        String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
 
-        if (_note != null && _initialContent.equals(filename + content)) {
-            return;
-        }
+        if (filename == null) return;
+
+        filename = filename  + Constants.MD_EXT;
 
         try {
 
-            if (filename == null) return;
-
             String parent = _targetDirectory != null ? _targetDirectory : _note.getParent();
 
-            File newNote = new File(parent, filename);
-            FileOutputStream fos = new FileOutputStream(newNote);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-
-            writer.write(content);
-            writer.flush();
-            writer.close();
-            fos.close();
-
-            // FIXME: This ignores renames which only change the case, otherwise the file is deleted
-            if (_note != null && !newNote.getName().equalsIgnoreCase(_note.getName()) && newNote.exists()) {
-                _note.delete();
+            if (_note == null || !_note.exists()) {
+                _note = new File(parent, filename);
             }
-            _note=newNote;
-            _initialContent = filename + content;
+            else if (!filename.equals(_initialFileName)) {
+                Utils.renameFileInSameFolder(_note, filename, parent);
+                _note = new File(parent, filename);
+            }
+
+            if (!content.equals(_initialContent)) {
+                FileOutputStream fos = new FileOutputStream(_note);
+                OutputStreamWriter writer = new OutputStreamWriter(fos);
+
+                writer.write(content);
+                writer.flush();
+                writer.close();
+                fos.close();
+            }
+
+            _initialContent = content;
+            _initialFileName = filename;
 
             updateWidgets();
         } catch (IOException e) {
