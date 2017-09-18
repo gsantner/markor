@@ -71,13 +71,15 @@ public class NoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isEditorStatusBarHidden()) {
+        _appSettings = AppSettings.get();
+        if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            AndroidBug5497Workaround.assistActivity(this);
         }
         setContentView(R.layout.note__activity);
         ButterKnife.bind(this);
-        _appSettings = AppSettings.get();
+        if (_appSettings.isEditorStatusBarHidden()) {
+            AndroidBug5497Workaround.assistActivity(this);
+        }
 
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
