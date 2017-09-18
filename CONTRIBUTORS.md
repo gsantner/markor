@@ -8,7 +8,7 @@ Where:
   * Reference: E-Mail, Webpage
   * Text: Information about / kind of contribution
 
-
+  
 
 ## LIST OF CONTRIBUTORS
 -->
@@ -19,14 +19,13 @@ Where:
 * **[Minty123](https://github.com/Minty123)**<br/>~° German translation
 * **[davydsantos](https://github.com/davydsantos)**<br/>~° writeily contributor
 * **[patcon](https://github.com/patcon)**<br/>~° writeily contributor
-* **Halcyonera**<br/>~° Korean translation
-* **Krizoman**<br/>~° Polish translation
-* **[Adam Coquery](https://github.com/Cooq)**<br/>~° French translation
-* **Tristan Stanic**<br/>~° French translation
-* **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation
-* **Carlos Mares**<br/>~° Spanish translation
-* **[Claudio Arseni](https://github.com/Claudinux)**<br/>~° Italian translation
-* **[d-ban](https://github.com/d-ban)**<br/>~° Croatian translation
+* **[Halcyonera]()**<br/>~° Korean translation
+* **[Krizoman]()**<br/>~° Polish translation
+* **[Adam Coquery]()**<br/>~° French translation
+* **[Tristan Stanic]()**<br/>~° French translation
+* **[Carlos Mares]()**<br/>~° Spanish translation
+* **[Claudio Arseni]()**<br/>~° Italian translation
+* **[d-ban]()**<br/>~° Croatian translation
 * **[Luís F.S. Rosa](https://github.com/luisfsr)**<br/>~° Brazilian Portuguese translation
-* **[Danilo Freire](https://github.com/danilofreire)**<br/>~° Brazilian Portuguese translation
 * **[Fedor A. Kuterin](https://github.com/xredor)**<br/>~° Russian translation
+* **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation
