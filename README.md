@@ -47,7 +47,7 @@ Translations can be contributed on GitHub or via [E-Mail](https://gsantner.githu
 * App on F-Droid: [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Page](https://f-droid.org/packages/net.gsantner.markor/) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
  
 ## Licensing
-The project is licensed MIT. It is based on unmaintained projects writeily and writeily-pro.  
+The code of the app is licensed MIT. Localization files and resources (string\*.xml) are licensed CC0 1.0. It is based on unmaintained projects writeily and writeily-pro.  
 Copyright (c) 2014-2016 Jeff Martin, Pedro Lafuente and writeily contributors  
 Copyright (c) 2017 Gregor Santner and markor contributors  
 
