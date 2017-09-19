@@ -34,9 +34,7 @@ Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writ
 
 
 ### Privacy<a name="privacy"></a>
-The app doesn't use your internet connection (unless external resources, e.g. pictures are referenced) it's working completly offline. 
-It doesn't share any personal information with other apps or any web-server, unless the share button was pressed.
-Document will be stored locally in the device public documents folder or a custom folder.
+The app doesn't use your internet connection unless external resources (e.g. pictures) are referenced in the user created markdown (text) document files. Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared. The created markdown documents can be shared to other apps (text only) from inside the app by pressing the share button. Document will be stored locally in the device public documents folder or a custom folder.
 
 ## Contributions
 The project is always open for contributions and welcomes pull requests.
