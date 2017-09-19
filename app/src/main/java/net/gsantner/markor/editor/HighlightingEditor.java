@@ -187,7 +187,14 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String addBulletPointIfNeeded(char character) {
-            return character == '*' ? Character.toString(character) + " " : "";
+            if(character == '*' || character == '+' ||  character == '-'){
+                //TODO: Numbered lists
+                return Character.toString(character) + " ";
+            }
+            else{
+                return "";
+            }
+
         }
     }
 
