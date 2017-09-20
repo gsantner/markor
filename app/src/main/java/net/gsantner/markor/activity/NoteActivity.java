@@ -36,6 +36,7 @@ import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -315,7 +316,7 @@ public class NoteActivity extends AppCompatActivity {
                 _note = new File(parent, filename);
             }
             else if (!filename.equals(_initialFileName)) {
-                net.gsantner.opoc.util.ContextUtils.renameFileInSameFolder(_note, filename, parent);
+                FileUtils.renameFileInSameFolder(_note, filename);
                 _note = new File(parent, filename);
             }
 

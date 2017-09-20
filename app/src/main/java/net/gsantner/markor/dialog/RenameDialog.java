@@ -21,7 +21,7 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
@@ -73,7 +73,7 @@ public class RenameDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ContextUtils.renameFileInSameFolder(file, _newNameField.getText().toString(), getActivity().getCacheDir().toString())) {
+                        if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
                             AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                         }
                     }
