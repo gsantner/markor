@@ -37,7 +37,6 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -194,7 +193,7 @@ public class FilesystemListFragment extends Fragment {
 
         try {
             // Load from SD card
-            _filesCurrentlyShown = MarkorSingleton.getInstance().addFilesFromDirectory(directory, new ArrayList<File>());
+            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<File>());
         } catch (Exception e) {
             e.printStackTrace();
         }
