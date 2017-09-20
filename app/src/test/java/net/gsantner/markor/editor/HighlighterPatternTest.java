@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.editor;
 
 import org.junit.Test;
@@ -68,7 +75,7 @@ public class HighlighterPatternTest {
                 {HighlighterPattern.ITALICS.getPattern(), "**s*", 1},
                 {HighlighterPattern.ITALICS.getPattern(), "*s**", 1},
                 {HighlighterPattern.ITALICS.getPattern(), "*s*", 1},
-                {HighlighterPattern.ITALICS.getPattern(), "*s\n\n*", 0},                
+                {HighlighterPattern.ITALICS.getPattern(), "*s\n\n*", 0},
                 {HighlighterPattern.ITALICS.getPattern(), "_s_", 1},
                 {HighlighterPattern.ITALICS.getPattern(), "__s_", 1},
                 {HighlighterPattern.ITALICS.getPattern(), "_s__", 1},
@@ -88,10 +95,10 @@ public class HighlighterPatternTest {
     }
 
     @Test
-    public void testHeaders(){
+    public void testHeaders() {
         int count = 0;
 
-        for(Matcher m = highlighterPattern.matcher(string); m.find(); ) {
+        for (Matcher m = highlighterPattern.matcher(string); m.find(); ) {
             count++;
         }
 

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.activity;
 
 import android.appwidget.AppWidgetManager;
@@ -29,7 +36,6 @@ import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
-import net.gsantner.markor.util.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -309,7 +315,7 @@ public class NoteActivity extends AppCompatActivity {
                 _note = new File(parent, filename);
             }
             else if (!filename.equals(_initialFileName)) {
-                Utils.renameFileInSameFolder(_note, filename, parent);
+                net.gsantner.opoc.util.ContextUtils.renameFileInSameFolder(_note, filename, parent);
                 _note = new File(parent, filename);
             }
 

@@ -57,6 +57,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -64,6 +66,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.Random;
 
 import static android.graphics.Bitmap.CompressFormat;
 
@@ -76,6 +79,29 @@ public class ContextUtils {
 
     public ContextUtils(Context context) {
         _context = context;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean renameFileInSameFolder(File srcFile, String destFilename, String cacheDir) {
+        File destFile = new File(srcFile.getParent(), destFilename);
+        Random random = new Random();
+        File cacheFile;
+
+        // Move file temporary, otherwise "hello.txt"->"heLLo.txt" will not work (file exist)
+        do {
+            cacheFile = new File(cacheDir, random.nextInt() + "rename.tmp");
+        } while (cacheFile.exists());
+        try {
+            org.apache.commons.io.FileUtils.moveFile(srcFile, cacheFile);
+            org.apache.commons.io.FileUtils.moveFile(cacheFile, destFile);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if (cacheFile.exists()) {
+                cacheFile.delete();
+            }
+        }
     }
 
     public Context context() {

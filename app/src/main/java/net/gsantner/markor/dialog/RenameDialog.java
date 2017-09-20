@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.dialog;
 
 import android.app.Dialog;
@@ -14,7 +21,7 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.Utils;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 
@@ -66,7 +73,7 @@ public class RenameDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (Utils.renameFileInSameFolder(file, _newNameField.getText().toString(), getActivity().getCacheDir().toString())) {
+                        if (ContextUtils.renameFileInSameFolder(file, _newNameField.getText().toString(), getActivity().getCacheDir().toString())) {
                             AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                         }
                     }
