@@ -73,5 +73,6 @@
     <string name="pref_desc__language">Change language of this app. Restart app for changes to take effect</string>
     <string name="pref_title__language">Language</string>
     <string name="error_storage_permission">Need permission for storage to save documents</string>
+    <string name="open_with">Open with</string>
 
 </resources>

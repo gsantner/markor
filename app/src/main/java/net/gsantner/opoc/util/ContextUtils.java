@@ -51,6 +51,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
