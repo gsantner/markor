@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.activity;
 
 import android.content.Context;
@@ -43,8 +50,6 @@ import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 public class FilesystemListFragment extends Fragment {
-
-    public static final int RENAME_CONTEXT_BUTTON_ID = 103;
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;

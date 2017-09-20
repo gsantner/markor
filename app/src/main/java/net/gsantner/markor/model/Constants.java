@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.model;
 
 import java.util.regex.Pattern;
@@ -20,15 +27,12 @@ public class Constants {
     public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
     public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
     public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
-    public static final String RENAME_DIALOG_TAG = "RENAME_DIALOG_TAG";
 
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
     public static final String NOTE_KEY = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
-    public static final String RENAME_NEW_NAME = "RENAME_NEW_NAME";
-    public static final String SOURCE_FILE = "SOURCE_FILE";
 
     // ----- HTML PREFIX AND SUFFIXES -----
     public static final String UNSTYLED_HTML_PREFIX = "<html><body>";

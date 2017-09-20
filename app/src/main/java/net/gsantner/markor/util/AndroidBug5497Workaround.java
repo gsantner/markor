@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2013-2017 Joseph Johnson https://stackoverflow.com/a/19494006
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.util;
-
 
 import android.app.Activity;
 import android.graphics.Rect;
@@ -7,7 +12,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
-// From https://stackoverflow.com/a/19494006
 public class AndroidBug5497Workaround {
 
     // For more information, see https://code.google.com/p/android/issues/detail?id=5497
