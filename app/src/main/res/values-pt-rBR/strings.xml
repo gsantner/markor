@@ -16,7 +16,7 @@
     <string name="move">Mover</string>
 
     <string name="import_from_device">Importar do dispositivo</string>
-    <string name="select_folder_move">Selecionar pastas</string>
+    <string name="select_folder">Selecionar pastas</string>
 
     <string name="search_hint">Procurar notas</string>
     <string name="share_string">Compartilhar com…</string>

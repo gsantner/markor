@@ -16,7 +16,7 @@
     <string name="move">Move</string>
 
     <string name="import_from_device">Import from device</string>
-    <string name="select_folder_move">Select folder</string>
+    <string name="select_folder">Select folder</string>
 
     <string name="search_hint">Search notes</string>
     <string name="share_string">Share to&#8230;</string>

@@ -16,7 +16,7 @@
     <string name="move">Verschieben</string>
 
     <string name="import_from_device">Von Gerät importieren</string>
-    <string name="select_folder_move">Ordner auswählen</string>
+    <string name="select_folder">Ordner auswählen</string>
 
     <string name="search_hint">Notizen suchen</string>
     <string name="share_string">Teilen nach…</string>

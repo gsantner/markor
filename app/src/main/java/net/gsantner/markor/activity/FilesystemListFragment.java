@@ -174,7 +174,7 @@ public class FilesystemListFragment extends Fragment {
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                opt.titleText = R.string.select_folder_move;
+                opt.titleText = R.string.select_folder;
                 opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
