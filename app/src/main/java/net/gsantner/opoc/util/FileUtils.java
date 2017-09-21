@@ -13,6 +13,10 @@
 package net.gsantner.opoc.util;
 
 
+import android.webkit.MimeTypeMap;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,8 +27,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
 public class FileUtils {
@@ -79,6 +85,61 @@ public class FileUtils {
         return lines;
     }
 
+    public static byte[] readBinaryFile(final File file) {
+        try {
+            return readCloseBinaryStream(new FileInputStream(file), (int) file.length());
+        } catch (FileNotFoundException e) {
+            System.err.println("readBinaryFile: File " + file + " not found.");
+        }
+
+        return new byte[0];
+    }
+
+    public static byte[] readCloseBinaryStream(final InputStream stream, int byteCount) {
+        final ArrayList<String> lines = new ArrayList<>();
+        BufferedInputStream reader = null;
+        byte[] buf = new byte[byteCount];
+        int totalBytesRead = 0;
+        try {
+            reader = new BufferedInputStream(stream);
+            while (totalBytesRead < byteCount) {
+                int bytesRead = reader.read(buf, totalBytesRead, byteCount - totalBytesRead);
+                if (bytesRead > 0) {
+                    totalBytesRead = totalBytesRead + bytesRead;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return buf;
+    }
+
+    public static boolean writeFile(final File file, byte[] data) {
+        try {
+            OutputStream output = null;
+            try {
+                output = new BufferedOutputStream(new FileOutputStream(file));
+                output.write(data);
+                output.flush();
+                return true;
+            } finally {
+                if (output != null) {
+                    output.close();
+                }
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
     public static boolean writeFile(final File file, final String content) {
         BufferedWriter writer = null;
         try {
@@ -104,6 +165,11 @@ public class FileUtils {
     }
 
     public static boolean copyFile(final File src, final File dst) {
+        // Just touch file if src is empty
+        if (src.length() == 0) {
+            return touch(dst);
+        }
+
         InputStream is = null;
         FileOutputStream os = null;
         try {
@@ -115,6 +181,7 @@ public class FileUtils {
                 while ((len = is.read(buf)) > 0) {
                     os.write(buf, 0, len);
                 }
+                return true;
             } finally {
                 if (is != null) {
                     is.close();
@@ -126,7 +193,6 @@ public class FileUtils {
         } catch (IOException ex) {
             return false;
         }
-        return true;
     }
 
     // Returns -1 if the file did not contain any of the needles, otherwise,
@@ -165,5 +231,53 @@ public class FileUtils {
             ok &= file.delete();
         }
         return ok;
+    }
+
+    public static String getMimeType(String url) {
+        String mime = null;
+        String ext = MimeTypeMap.getFileExtensionFromUrl(url);
+        return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
+    }
+
+
+    public static boolean renameFile(File srcFile, File destFile) {
+        if (srcFile.getAbsolutePath().equals(destFile.getAbsolutePath())) {
+            return false;
+        }
+
+        // renameTo will fail in case of case-changed filename in same dir.Even on case-sensitive FS!!!
+        if (srcFile.getParent().equals(destFile.getParent()) && srcFile.getName().toLowerCase().equals(destFile.getName().toLowerCase())) {
+            File tmpFile = new File(destFile.getParent(), UUID.randomUUID().getLeastSignificantBits() + ".tmp");
+            if (!tmpFile.exists()) {
+                renameFile(srcFile, tmpFile);
+                srcFile = tmpFile;
+            }
+        }
+
+        if (!srcFile.renameTo(destFile)) {
+            if (copyFile(srcFile, destFile) && !srcFile.delete()) {
+                if (!destFile.delete()) {
+                    return false;
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean renameFileInSameFolder(File srcFile, String destFilename) {
+        return renameFile(srcFile, new File(srcFile.getParent(), destFilename));
+    }
+
+    public static boolean touch(File file) {
+        try {
+            if (!file.exists()) {
+                new FileOutputStream(file).close();
+            }
+            return file.setLastModified(System.currentTimeMillis());
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

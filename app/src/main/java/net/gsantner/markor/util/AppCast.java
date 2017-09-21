@@ -1,5 +1,9 @@
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.util;
-
 
 import android.content.Context;
 import android.content.Intent;

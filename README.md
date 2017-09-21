@@ -8,35 +8,33 @@
 
 # Markor
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
-Minimalist Markdown editor for Android<br/>Fork of the unmaintained project writeily-pro.<br/><br/>
+<b>Markdown Texteditor for Android</b> for notes and files. Simple and lightweight.
+<br/> Write down your notes and ideas!<br/><br/>
 
 <div style="display:flex;" >
 <a href="https://f-droid.org/repository/browse/?fdid=net.gsantner.markor">
     <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">
 </a>
-<!--
 <a href="https://play.google.com/store/apps/details?id=net.gsantner.markor">
     <img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a> -->
+</a>
 </div></br>
 
 
 ## Description
-<b>Markdown Editor</b> for notes and files. Simple and lightweight.
-<br/>📝 Edit markdown with highlighting
-<br/>👀 Preview rendered markdown
+<b>Markdown Texteditor</b> for notes and files. Simple and lightweight.
+<br/>📝 Write down notes and ideas
+<br/>🖍 Edit textfiles in markdown format
 <br/>📚 Notebook in Documents or custom folder
 <br/>📖 Notebook with subfolder support
-<br/>📄 Edit markdown files from e.g. filemanager
+<br/>📄 Edit markdown files from other apps
+<br/>👀 Preview rendered markdown
 <br/>🔲 Dark and Light theme
 <br/>📜 Allows to set language other than system setting
 <br/>
 
-
 ### Privacy<a name="privacy"></a>
-The app doesn't use your internet connection (unless external resources, e.g. pictures are referenced) it's working completly offline. 
-It doesn't share any personal information with other apps or any web-server, unless the share button was pressed.
-Document will be stored locally in the device public documents folder or a custom folder.
+The app doesn't use your internet connection unless external resources (e.g. pictures) are referenced in the user created markdown (text) document files. Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared. The created markdown documents can be shared to other apps (text only) from inside the app by pressing the share button. Document will be stored locally in the device public documents folder or a custom folder.
 
 ## Contributions
 The project is always open for contributions and welcomes pull requests.
@@ -48,11 +46,12 @@ Translations can be contributed on GitHub or via [E-Mail](https://gsantner.githu
 #### Resources
 * Project: [Changelog](/CHANGELOG.md) | [Issues level/beginner](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen+label%3Alevel%2Fbeginner) | [License](/LICENSE.txt) | [CoC](/CODE_OF_CONDUCT.md)
 * App on F-Droid: [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Page](https://f-droid.org/packages/net.gsantner.markor/) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
- 
+
 ## Licensing
-The project is licensed MIT. It is based on unmaintained projects writeily and writeily-pro.  
-Copyright (c) 2014-2016 Jeff Martin, Pedro Lafuente and writeily contributors  
-Copyright (c) 2017 Gregor Santner and markor contributors  
+The code of the app is licensed MIT (See [LICENSE](/LICENSE.txt) for details).  
+Localization files and resources (string\*.xml) are licensed CC0 1.0.  
+Project is based on unmaintained projects writeily and writeily-pro.
+
 
 ## Screenshots
 <div style="display:flex;" >

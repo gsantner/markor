@@ -117,11 +117,14 @@ public class SimpleMarkdownParser {
             text = text
                     .replace("New:", "<font color='#276230'>New:</font>")
                     .replace("Added:", "<font color='#276230'>Added:</font>")
+                    .replace("Add:", "<font color='#276230'>Add:</font>")
                     .replace("Fixed:", "<font color='#005688'>Fixed:</font>")
+                    .replace("Fix:", "<font color='#005688'>Fix:</font>")
                     .replace("Removed:", "<font color='#C13524'>Removed:</font>")
                     .replace("Updated:", "<font color='#555555'>Updated:</font>")
                     .replace("Improved:", "<font color='#555555'>Improved:</font>")
                     .replace("Modified:", "<font color='#555555'>Modified:</font>")
+                    .replace("Mod:", "<font color='#555555'>Mod:</font>")
             ;
             return text;
         }

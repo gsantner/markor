@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.adapter;
 
 import android.content.Context;
@@ -23,25 +30,25 @@ import java.util.List;
 public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
     public static final String EMPTY_STRING = "";
-    private Context context;
-    private List<File> data;
-    private List<File> filteredData;
+    private Context _context;
+    private List<File> _data;
+    private List<File> _filteredData;
 
     public NotesAdapter(Context context, int resource, List<File> objects) {
         super(context, resource, objects);
-        this.context = context;
-        this.data = objects;
-        this.filteredData = data;
+        _context = context;
+        _data = objects;
+        _filteredData = _data;
     }
 
     @Override
     public int getCount() {
-        return filteredData.size();
+        return _filteredData.size();
     }
 
     @Override
     public File getItem(int i) {
-        return i < filteredData.size() ? filteredData.get(i) : null;
+        return i < _filteredData.size() ? _filteredData.get(i) : null;
     }
 
     @Override
@@ -51,12 +58,12 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View row = inflater.inflate(R.layout.ui__file__item, viewGroup, false);
-        TextView noteTitle = (TextView) row.findViewById(R.id.note_title);
-        TextView noteExtra = (TextView) row.findViewById(R.id.note_extra);
-        ImageView fileIdentifierImageView = (ImageView) row.findViewById(R.id.file_identifier_icon);
+        TextView noteTitle = row.findViewById(R.id.note_title);
+        TextView noteExtra = row.findViewById(R.id.note_extra);
+        ImageView fileIdentifierImageView = row.findViewById(R.id.file_identifier_icon);
 
         File item = getItem(i);
         if (item != null) {
@@ -70,7 +77,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
             // Theme Adjustments
             if (AppSettings.get().isDarkThemeEnabled()) {
-                noteTitle.setTextColor(context.getResources().getColor(android.R.color.white));
+                noteTitle.setTextColor(_context.getResources().getColor(android.R.color.white));
 
                 if (item.isDirectory()) {
                     fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
@@ -78,7 +85,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
                     fileIdentifierImageView.setImageResource(getIdentifierDrawable(false));
                 }
             } else {
-                noteTitle.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                noteTitle.setTextColor(_context.getResources().getColor(R.color.dark_grey));
 
                 if (item.isDirectory()) {
                     fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
@@ -102,13 +109,13 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
     private String generateExtraForFile(int i) {
         int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
-        return String.format(context.getString(R.string.number_of_files), fileAmount);
+        return String.format(_context.getString(R.string.number_of_files), fileAmount);
     }
 
     private String generateExtraForDirectory(int i) {
-        String formattedDate = DateUtils.formatDateTime(context, getItem(i).lastModified(),
+        String formattedDate = DateUtils.formatDateTime(_context, getItem(i).lastModified(),
                 (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
-        return String.format(context.getString(R.string.last_modified), formattedDate);
+        return String.format(_context.getString(R.string.last_modified), formattedDate);
     }
 
     @Override
@@ -120,12 +127,12 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
                 FilterResults searchResults = new FilterResults();
 
                 if (constraint == null || constraint.length() == 0) {
-                    searchResults.values = data;
-                    searchResults.count = data.size();
+                    searchResults.values = _data;
+                    searchResults.count = _data.size();
                 } else {
                     ArrayList<File> searchResultsData = new ArrayList<File>();
 
-                    for (File item : data) {
+                    for (File item : _data) {
                         if (item.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                             searchResultsData.add(item);
                         }
@@ -139,7 +146,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredData = (ArrayList<File>) results.values;
+                _filteredData = (ArrayList<File>) results.values;
                 notifyDataSetChanged();
             }
         };

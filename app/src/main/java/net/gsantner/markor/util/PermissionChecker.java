@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.util;
 
 import android.Manifest;
@@ -29,11 +34,11 @@ public class PermissionChecker {
 
     public static boolean checkPermissionResult(final Activity activity, int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 314) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                new ActivityUtils(activity).showSnackBar(R.string.error_storage_permission, true);
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 return true;
             }
         }
+        new ActivityUtils(activity).showSnackBar(R.string.error_storage_permission, true);
         return false;
     }
 

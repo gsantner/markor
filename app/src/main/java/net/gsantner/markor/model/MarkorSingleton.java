@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.model;
 
 import android.content.Context;
@@ -5,6 +12,8 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.BaseAdapter;
+
+import net.gsantner.markor.util.ContextUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -192,7 +201,7 @@ public class MarkorSingleton {
      *
      * @param sourceDir the directory to add files from
      */
-    public ArrayList<File> addFilesFromDirectory(File sourceDir, ArrayList<File> files) {
+    public ArrayList<File> addMarkdownFilesFromDirectory(File sourceDir, ArrayList<File> files) {
         ArrayList<File> addedFiles = new ArrayList<>();
 
         List<File> listedData = Arrays.asList(sourceDir.listFiles());
@@ -207,7 +216,7 @@ public class MarkorSingleton {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
-                } else {
+                } else if (ContextUtils.get().isMaybeMarkdownFile(f)) {
                     addedFiles.add(f);
                 }
             }

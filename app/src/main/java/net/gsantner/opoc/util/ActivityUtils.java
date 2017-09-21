@@ -22,6 +22,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -76,9 +77,16 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
 
-    public void showSnackBar(@StringRes int stringId, boolean showLong) {
-        Snackbar.make(_activity.findViewById(android.R.id.content), stringId,
+    public void showSnackBar(@StringRes int stringResId, boolean showLong) {
+        Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
                 showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void showSnackBar(@StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
+        Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
+                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
+                .setAction(actionResId, listener)
+                .show();
     }
 
     public void hideSoftKeyboard() {
