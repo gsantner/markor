@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.editor;
 
 import android.content.Context;
@@ -13,7 +20,6 @@ import net.gsantner.markor.util.AppSettings;
 
 public class HighlightingEditor extends AppCompatEditText {
 
-    public static final int DEFAULT_DELAY = 500;
     private Highlighter highlighter;
 
     interface OnTextChangedListener {
@@ -131,15 +137,16 @@ public class HighlightingEditor extends AppCompatEditText {
             if (modified &&
                     end - start == 1 &&
                     start < source.length() &&
-                    dstart < dest.length()) {
-                char c = source.charAt(start);
+                    dstart <= dest.length()) {
+                char newChar = source.charAt(start);
 
-                if (c == '\n')
+                if (newChar == '\n') {
                     return autoIndent(
                             source,
                             dest,
                             dstart,
                             dend);
+                }
             }
 
             return source;
@@ -166,11 +173,12 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-            if (istart > -1) {
+            //TODO: Auto-populate the next number for ordered-lists in addition to bullet points
+            if (istart > -1 && istart < dest.length()-1) {
                 int iend;
 
                 for (iend = ++istart;
-                     iend < dend;
+                     iend < dest.length()-1;
                      ++iend) {
                     char c = dest.charAt(iend);
 
@@ -181,6 +189,11 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
 
                 return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+            } else if (istart > -1){
+                return addBulletPointIfNeeded(dest.charAt(istart));
+            }
+            else if (dest.length() > 0){
+                return addBulletPointIfNeeded(dest.charAt(0));
             } else {
                 return "";
             }
@@ -188,7 +201,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
         private String addBulletPointIfNeeded(char character) {
             if(character == '*' || character == '+' ||  character == '-'){
-                //TODO: Numbered lists
                 return Character.toString(character) + " ";
             }
             else{

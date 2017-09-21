@@ -263,15 +263,14 @@ public class NoteActivity extends AppCompatActivity {
     private void previewNote() {
         saveNote();
         Intent intent = new Intent(this, PreviewActivity.class);
-
-        // .replace is a workaround for Markdown lists requiring two \n characters
+        
         if (_note != null) {
             Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(_note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
         }
 
         intent.putExtra(Constants.NOTE_KEY, _note);
-        intent.putExtra(Constants.MD_PREVIEW_KEY, _contentEditor.getText().toString().replace("\n-", "\n\n-"));
+        intent.putExtra(Constants.MD_PREVIEW_KEY, _contentEditor.getText().toString());
 
         _isPreviewIncoming = true;
         startActivity(intent);
