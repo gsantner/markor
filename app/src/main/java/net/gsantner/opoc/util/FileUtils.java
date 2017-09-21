@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
 public class FileUtils {
@@ -164,6 +165,11 @@ public class FileUtils {
     }
 
     public static boolean copyFile(final File src, final File dst) {
+        // Just touch file if src is empty
+        if (src.length() == 0) {
+            return touch(dst);
+        }
+
         InputStream is = null;
         FileOutputStream os = null;
         try {
@@ -175,6 +181,7 @@ public class FileUtils {
                 while ((len = is.read(buf)) > 0) {
                     os.write(buf, 0, len);
                 }
+                return true;
             } finally {
                 if (is != null) {
                     is.close();
@@ -186,7 +193,6 @@ public class FileUtils {
         } catch (IOException ex) {
             return false;
         }
-        return true;
     }
 
     // Returns -1 if the file did not contain any of the needles, otherwise,
@@ -233,16 +239,45 @@ public class FileUtils {
         return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static boolean renameFileInSameFolder(File srcFile, String destFilename) {
-        File destFile = new File(srcFile.getParent(), destFilename);
 
-        byte[] data = readBinaryFile(srcFile);
-        if (data.length > 0) {
-            if (writeFile(destFile, data)) {
-                srcFile.delete();
+    public static boolean renameFile(File srcFile, File destFile) {
+        if (srcFile.getAbsolutePath().equals(destFile.getAbsolutePath())) {
+            return false;
+        }
+
+        // renameTo will fail in case of case-changed filename in same dir.Even on case-sensitive FS!!!
+        if (srcFile.getParent().equals(destFile.getParent()) && srcFile.getName().toLowerCase().equals(destFile.getName().toLowerCase())) {
+            File tmpFile = new File(destFile.getParent(), UUID.randomUUID().getLeastSignificantBits() + ".tmp");
+            if (!tmpFile.exists()) {
+                renameFile(srcFile, tmpFile);
+                srcFile = tmpFile;
+            }
+        }
+
+        if (!srcFile.renameTo(destFile)) {
+            if (copyFile(srcFile, destFile) && !srcFile.delete()) {
+                if (!destFile.delete()) {
+                    return false;
+                }
+                return false;
             }
         }
         return true;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean renameFileInSameFolder(File srcFile, String destFilename) {
+        return renameFile(srcFile, new File(srcFile.getParent(), destFilename));
+    }
+
+    public static boolean touch(File file) {
+        try {
+            if (!file.exists()) {
+                new FileOutputStream(file).close();
+            }
+            return file.setLastModified(System.currentTimeMillis());
+        } catch (IOException e) {
+            return false;
+        }
     }
 }
