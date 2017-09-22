@@ -174,6 +174,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         private String createIndentForNextLine(Spanned dest, int dend, int istart) {
             //TODO: Auto-populate the next number for ordered-lists in addition to bullet points
+            //TODO: Replace this
             if (istart > -1 && istart < dest.length()-1) {
                 int iend;
 
@@ -188,12 +189,27 @@ public class HighlightingEditor extends AppCompatEditText {
                     }
                 }
 
-                return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+                if(iend < dest.length()-1) {
+                    if(dest.charAt(iend+1) == ' '){
+                        return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+                    }
+                    else{
+                        return "";
+                    }
+                }
+                else {
+                    return "";
+                }
             } else if (istart > -1){
-                return addBulletPointIfNeeded(dest.charAt(istart));
+                return "";
             }
-            else if (dest.length() > 0){
-                return addBulletPointIfNeeded(dest.charAt(0));
+            else if (dest.length() > 1){ // You need at least a list marker and a space to trigger auto-list-item
+                if(dest.charAt(1) == ' ') {
+                    return addBulletPointIfNeeded(dest.charAt(0));
+                }
+                else {
+                    return "";
+                }
             } else {
                 return "";
             }

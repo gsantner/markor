@@ -16,8 +16,8 @@ enum HighlighterPattern {
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
     MONOSPACED(Pattern.compile("`(.*?)`")),
-    BOLD(Pattern.compile("(\\*\\*|__)(.*?)\\1")),
-    ITALICS(Pattern.compile("(\\*|_)(.*?)\\1"));
+    BOLD(Pattern.compile("(\\*\\*|__)[^\\s](.*?)\\1")),
+    ITALICS(Pattern.compile("(\\*|_)[^\\s](.*?)\\1"));
 
     private Pattern pattern;
 
