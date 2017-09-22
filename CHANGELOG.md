@@ -1,5 +1,9 @@
 ### v0.1.3
 - Fix: Renaming case sensitive
+- Mod: Syntax highlighting
+- Fix: Widget
+- Added: Copyright notices
+- Changed: Translation license
 
 ### v0.1.2
 - Overall refactoring
