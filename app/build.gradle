@@ -22,8 +22,8 @@ android {
         minSdkVersion version_sdk.minSdk
         targetSdkVersion version_sdk.targetSdk
 
-        versionCode 3
-        versionName "0.1.2"
+        versionCode 4
+        versionName "0.1.3"
 
         applicationId "net.gsantner.markor"
 
@@ -45,7 +45,7 @@ android {
             buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
         }
         flavorTest {
-            applicationId "net.gsantner.markor.test"
+            applicationId "net.gsantner.markor_test"
             versionCode = Integer.parseInt(new Date().format('yyMMdd'))
             versionName = new Date().format('yyMMdd')
             buildConfigField "boolean", "IS_TEST_BUILD", "true"
