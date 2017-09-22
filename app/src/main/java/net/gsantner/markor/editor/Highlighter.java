@@ -47,7 +47,8 @@ class Highlighter {
             createStyleSpanForMatches(e, HighlighterPattern.BOLD.getPattern(), Typeface.BOLD);
             createStyleSpanForMatches(e, HighlighterPattern.ITALICS.getPattern(), Typeface.ITALIC);
             createColorSpanForMatches(e, HighlighterPattern.QUOTATION.getPattern(), colors.getListColor());
-            createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH.getPattern());
+            //FIXME: This is commented out because AndDown/HoeDown don't render this.
+            //createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH.getPattern());
             createMonospaceSpanForMatches(e, HighlighterPattern.MONOSPACED.getPattern());
 
         } catch (Exception ex) {

@@ -12,12 +12,12 @@ import java.util.regex.Pattern;
 enum HighlighterPattern {
     LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.|\\+|-)[^\\S\\n]")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
-    HEADER(Pattern.compile("(((\\n|^)#{1,6}[^\\S\\n][^\\n]+)|((\\n|^).*?\\n(---+|===+)+))")),
+    HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-+|=+)[^\\S\\n]*$))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
-    MONOSPACED(Pattern.compile("`(.*?)`")),
-    BOLD(Pattern.compile("(\\*\\*|__)(.*?)\\1")),
-    ITALICS(Pattern.compile("(\\*|_)(.*?)\\1"));
+    MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
+    BOLD(Pattern.compile("(\\*\\*|__)[^\\s](.*?)\\1")),
+    ITALICS(Pattern.compile("(\\*|_)[^\\s](.*?)\\1"));
 
     private Pattern pattern;
 
