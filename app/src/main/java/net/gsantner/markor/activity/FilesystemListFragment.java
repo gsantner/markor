@@ -369,7 +369,6 @@ public class FilesystemListFragment extends Fragment {
             if (AppSettings.get().isPreviewFirst()) {
                 intent = new Intent(context, PreviewActivity.class);
 
-                // .replace is a workaround for Markdown lists requiring two \n characters
                 if (note != null) {
                     Uri uriBase = null;
                     if (note.getParentFile() != null) {
@@ -381,7 +380,7 @@ public class FilesystemListFragment extends Fragment {
 
                 Uri noteUri = Uri.parse(note.toURI().toString());
                 String content = MarkorSingleton.getInstance().readFileUri(noteUri, context);
-                intent.putExtra(Constants.MD_PREVIEW_KEY, content.replace("\n-", "\n\n-"));
+                intent.putExtra(Constants.MD_PREVIEW_KEY, content);
             } else {
                 intent = new Intent(context, NoteActivity.class);
             }

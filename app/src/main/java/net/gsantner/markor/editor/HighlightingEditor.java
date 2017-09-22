@@ -20,7 +20,6 @@ import net.gsantner.markor.util.AppSettings;
 
 public class HighlightingEditor extends AppCompatEditText {
 
-    public static final int DEFAULT_DELAY = 500;
     private Highlighter highlighter;
 
     interface OnTextChangedListener {
@@ -138,15 +137,16 @@ public class HighlightingEditor extends AppCompatEditText {
             if (modified &&
                     end - start == 1 &&
                     start < source.length() &&
-                    dstart < dest.length()) {
-                char c = source.charAt(start);
+                    dstart <= dest.length()) {
+                char newChar = source.charAt(start);
 
-                if (c == '\n')
+                if (newChar == '\n') {
                     return autoIndent(
                             source,
                             dest,
                             dstart,
                             dend);
+                }
             }
 
             return source;
@@ -173,11 +173,13 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-            if (istart > -1) {
+            //TODO: Auto-populate the next number for ordered-lists in addition to bullet points
+            //TODO: Replace this
+            if (istart > -1 && istart < dest.length()-1) {
                 int iend;
 
                 for (iend = ++istart;
-                     iend < dend;
+                     iend < dest.length()-1;
                      ++iend) {
                     char c = dest.charAt(iend);
 
@@ -187,7 +189,27 @@ public class HighlightingEditor extends AppCompatEditText {
                     }
                 }
 
-                return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+                if(iend < dest.length()-1) {
+                    if(dest.charAt(iend+1) == ' '){
+                        return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+                    }
+                    else{
+                        return "";
+                    }
+                }
+                else {
+                    return "";
+                }
+            } else if (istart > -1){
+                return "";
+            }
+            else if (dest.length() > 1){ // You need at least a list marker and a space to trigger auto-list-item
+                if(dest.charAt(1) == ' ') {
+                    return addBulletPointIfNeeded(dest.charAt(0));
+                }
+                else {
+                    return "";
+                }
             } else {
                 return "";
             }
@@ -195,7 +217,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
         private String addBulletPointIfNeeded(char character) {
             if(character == '*' || character == '+' ||  character == '-'){
-                //TODO: Numbered lists
                 return Character.toString(character) + " ";
             }
             else{
