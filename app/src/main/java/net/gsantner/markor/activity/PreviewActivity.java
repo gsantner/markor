@@ -78,7 +78,7 @@ public class PreviewActivity extends AppCompatActivity {
                     if (ContextUtils.get().isMaybeMarkdownFile(file)) {
                         _note = file;
                         loadNote(_note, null, null);
-                    } else if ((mimetype = FileUtils.getMimeType(url)) != null) {
+                    } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.fromFile(file), mimetype);
