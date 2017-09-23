@@ -11,6 +11,11 @@
     </string-array>
 
     <string-array name="pref_arrkeys__font_size" translatable="false">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
         <item>12</item>
         <item>14</item>
         <item>16</item>
@@ -21,6 +26,7 @@
         <item>21</item>
         <item>23</item>
         <item>25</item>
+        <item>30</item>
     </string-array>
 
     <string-array name="pref_arrdisp__font_family" translatable="false">
