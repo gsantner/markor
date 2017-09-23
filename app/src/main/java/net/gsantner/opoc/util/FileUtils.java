@@ -13,12 +13,11 @@
 package net.gsantner.opoc.util;
 
 
-import android.webkit.MimeTypeMap;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -120,6 +119,29 @@ public class FileUtils {
             }
         }
         return buf;
+    }
+
+    // Read binary stream (of unknown conf size)
+    public static byte[] readCloseBinaryStream(final InputStream stream) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int read;
+            while ((read = stream.read(buffer)) != -1) {
+                baos.write(buffer, 0, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return baos.toByteArray();
     }
 
     public static boolean writeFile(final File file, byte[] data) {
@@ -233,12 +255,16 @@ public class FileUtils {
         return ok;
     }
 
-    public static String getMimeType(String url) {
-        String mime = null;
-        String ext = MimeTypeMap.getFileExtensionFromUrl(url);
-        return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
+    // Example: Check if this is maybe a conf: (str, "jpg", "png", "jpeg")
+    public static boolean hasExtension(String str, String... extensions) {
+        String lc = str.toLowerCase();
+        for (String extension : extensions) {
+            if (lc.endsWith("." + extension.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
-
 
     public static boolean renameFile(File srcFile, File destFile) {
         if (srcFile.getAbsolutePath().equals(destFile.getAbsolutePath())) {

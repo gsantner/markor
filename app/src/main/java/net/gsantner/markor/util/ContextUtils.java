@@ -6,6 +6,7 @@
 package net.gsantner.markor.util;
 
 import android.content.Context;
+import android.webkit.MimeTypeMap;
 
 import net.gsantner.markor.App;
 
@@ -18,6 +19,12 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
 
     public static ContextUtils get() {
         return new ContextUtils(App.get());
+    }
+
+    public static String getMimeType(String url) {
+        String mime = null;
+        String ext = MimeTypeMap.getFileExtensionFromUrl(url);
+        return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
     }
 
     // Either pass file or null and absolutePath
