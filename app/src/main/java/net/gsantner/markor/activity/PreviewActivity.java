@@ -114,7 +114,10 @@ public class PreviewActivity extends AppCompatActivity {
             baseFolder = AppSettings.get().getSaveDirectory();
         }
         _markdownRaw = markdownRaw;
+        long t1=System.currentTimeMillis();
         _markdownHtml = _renderer.renderMarkdown(_markdownRaw, getApplicationContext());
+        long t2=System.currentTimeMillis();
+        long elaps=t2-t1;
         _webview.loadDataWithBaseURL(baseFolder, _markdownHtml, "text/html", Constants.UTF_CHARSET, null);
 
     }

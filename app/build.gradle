@@ -83,8 +83,15 @@ dependencies {
     compile "com.android.support:palette-v7:${version_lib.appcompat}"
 
     // UI libs
-    compile 'com.commonsware.cwac:anddown:0.4.0'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+    compile 'com.atlassian.commonmark:commonmark:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-gfm-tables:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-autolink:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-ins:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-yaml-front-matter:0.10.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-heading-anchor:0.10.0'
+
 
     // Tool libraries
     compile "com.jakewharton:butterknife:${version_lib.butterknife}"
