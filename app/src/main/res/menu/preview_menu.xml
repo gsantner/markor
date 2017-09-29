@@ -12,6 +12,9 @@
                 android:id="@+id/action_share_text"
                 android:title="@string/share_text" />
             <item
+                android:id="@+id/action_share_file"
+                android:title="@string/share_file" />
+            <item
                 android:id="@+id/action_share_html"
                 android:title="@string/share_html" />
             <item
