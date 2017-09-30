@@ -142,6 +142,9 @@ public class PreviewActivity extends AppCompatActivity {
             case R.id.action_share_text:
                 shareText(_markdownRaw, "text/plain");
                 return true;
+            case R.id.action_share_file:
+                shareStream(Uri.fromFile(_note), "text/plain");
+                return true;
             case R.id.action_share_html:
                 shareText(_markdownHtml, "text/html");
                 return true;
