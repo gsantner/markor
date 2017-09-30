@@ -143,7 +143,7 @@ public class PreviewActivity extends AppCompatActivity {
                 shareText(_markdownRaw, "text/plain");
                 return true;
             case R.id.action_share_file:
-                shareFile();
+                shareStream(Uri.fromFile(_note), "text/plain");
                 return true;
             case R.id.action_share_html:
                 shareText(_markdownHtml, "text/html");
@@ -167,10 +167,6 @@ public class PreviewActivity extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         shareIntent.setType(type);
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
-    }
-
-    private void shareFile() {
-        shareStream(Uri.fromFile(_note), "text/plain");
     }
 
     private void shareStream(Uri uri, String type) {
