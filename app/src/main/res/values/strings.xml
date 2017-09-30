@@ -35,6 +35,7 @@
     <string name="pref_title__preview_first">Preview first when opening notes</string>
     <string name="about">About Markor</string>
     <string name="share_text">Plain Text</string>
+    <string name="share_file">File</string>
     <string name="share_image">Image</string>
     <string name="pref_title__font_size">Font Size</string>
     <string name="pref_title__show_markdown_shortcuts">Show Markdown shortcuts bar</string>
