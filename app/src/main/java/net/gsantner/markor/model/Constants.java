@@ -7,6 +7,8 @@
  */
 package net.gsantner.markor.model;
 
+import net.gsantner.markor.BuildConfig;
+
 import java.util.regex.Pattern;
 
 public class Constants {
@@ -48,4 +50,7 @@ public class Constants {
 
     // --- WIDGET
     public static final String WIDGET_PATH = "WIDGET_PATH";
+
+    //FILE PROVIDER AUTHORITIES
+    public static final String FILE_PROVIDER_AUTHORITIES = BuildConfig.APPLICATION_ID + ".provider";
 }
