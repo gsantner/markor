@@ -23,6 +23,10 @@
             <item
                 android:id="@+id/action_share_image"
                 android:title="@string/share_image" />
+            <item
+                android:id="@+id/action_share_pdf"
+                android:title="@string/share_pdf"
+                android:visible="false"/>
         </menu>
     </item>
     <item
