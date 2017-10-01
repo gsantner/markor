@@ -203,12 +203,17 @@ public class PreviewActivity extends AppCompatActivity {
 
     @RequiresApi( api = Build.VERSION_CODES.KITKAT)
     private void sharePdf() {
+        PrintDocumentAdapter printAdapter;
+        String jobName = String.format("%s (%s)",_note.getName(),getString(R.string.app_name));
+
         PrintManager printManager = (PrintManager) PreviewActivity.this
                 .getSystemService(Context.PRINT_SERVICE);
 
-        PrintDocumentAdapter printAdapter = _webview.createPrintDocumentAdapter();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            printAdapter = _webview.createPrintDocumentAdapter(jobName);
+        else
+            printAdapter = _webview.createPrintDocumentAdapter();
 
-        String jobName = getString(R.string.app_name) + " Document";
         printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
     }
 
