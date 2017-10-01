@@ -7,12 +7,18 @@
  */
 package net.gsantner.markor.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -130,6 +136,10 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.preview_menu, menu);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            menu.findItem(R.id.action_share_pdf).setVisible(true);
+
         return true;
     }
 
@@ -153,6 +163,10 @@ public class PreviewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_share_image:
                 shareImage();
+                return true;
+            case R.id.action_share_pdf:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    sharePdf();
                 return true;
             case R.id.action_edit:
                 editNote();
@@ -185,6 +199,22 @@ public class PreviewActivity extends AppCompatActivity {
                 shareStream(Uri.fromFile(image), "image/png");
             }
         }
+    }
+
+    @RequiresApi( api = Build.VERSION_CODES.KITKAT)
+    private void sharePdf() {
+        PrintDocumentAdapter printAdapter;
+        String jobName = String.format("%s (%s)",_note.getName(),getString(R.string.app_name));
+
+        PrintManager printManager = (PrintManager) PreviewActivity.this
+                .getSystemService(Context.PRINT_SERVICE);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            printAdapter = _webview.createPrintDocumentAdapter(jobName);
+        else
+            printAdapter = _webview.createPrintDocumentAdapter();
+
+        printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
     }
 
     private Bitmap getBitmapFromWebView(WebView webView) {
