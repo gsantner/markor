@@ -35,6 +35,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -137,8 +139,9 @@ public class PreviewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.preview_menu, menu);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             menu.findItem(R.id.action_share_pdf).setVisible(true);
+        }
 
         return true;
     }
@@ -165,8 +168,9 @@ public class PreviewActivity extends AppCompatActivity {
                 shareImage();
                 return true;
             case R.id.action_share_pdf:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     sharePdf();
+                }
                 return true;
             case R.id.action_edit:
                 editNote();
@@ -201,19 +205,18 @@ public class PreviewActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi( api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void sharePdf() {
         PrintDocumentAdapter printAdapter;
-        String jobName = String.format("%s (%s)",_note.getName(),getString(R.string.app_name));
+        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+        String jobName = String.format("%s (%s)", FilenameUtils.removeExtension(_note.getName()), getString(R.string.app_name));
 
-        PrintManager printManager = (PrintManager) PreviewActivity.this
-                .getSystemService(Context.PRINT_SERVICE);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             printAdapter = _webview.createPrintDocumentAdapter(jobName);
-        else
+        } else {
+            //noinspection deprecation
             printAdapter = _webview.createPrintDocumentAdapter();
-
+        }
         printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
     }
 
