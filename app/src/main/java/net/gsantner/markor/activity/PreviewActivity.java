@@ -19,6 +19,7 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -156,7 +157,7 @@ public class PreviewActivity extends AppCompatActivity {
                 shareText(_markdownRaw, "text/plain");
                 return true;
             case R.id.action_share_file:
-                shareStream(Uri.fromFile(_note), "text/plain");
+                shareStream(_note, "text/plain");
                 return true;
             case R.id.action_share_html:
                 shareText(_markdownHtml, "text/html");
@@ -187,10 +188,14 @@ public class PreviewActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
     }
 
-    private void shareStream(Uri uri, String type) {
+    private void shareStream(File file, String type) {
+        Uri fileUri = FileProvider.getUriForFile(PreviewActivity.this,
+                Constants.FILE_PROVIDER_AUTHORITIES,
+                file);
+
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
         shareIntent.setType(type);
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
     }
@@ -200,7 +205,7 @@ public class PreviewActivity extends AppCompatActivity {
         if (bitmap != null) {
             File image = new File(getExternalCacheDir(), _note.getName() + ".png");
             if (saveBitmap(bitmap, image)) {
-                shareStream(Uri.fromFile(image), "image/png");
+                shareStream(image, "image/png");
             }
         }
     }
