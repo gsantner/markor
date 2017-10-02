@@ -57,7 +57,6 @@ public class PreviewActivity extends AppCompatActivity {
     private boolean _isEditIncoming = false;
     private MarkDownRenderer _renderer = new MarkDownRenderer();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
