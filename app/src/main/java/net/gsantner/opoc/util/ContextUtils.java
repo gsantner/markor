@@ -388,7 +388,7 @@ public class ContextUtils {
      * @return the scaling factor that needs to be applied to the bitmap
      */
     public int calculateInSampleSize(BitmapFactory.Options options, int maxDimen) {
-        // Raw height and width of conf
+        // Raw height and width of image
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
@@ -429,7 +429,7 @@ public class ContextUtils {
         if (folder.exists() || folder.mkdirs()) {
             FileOutputStream stream = null;
             try {
-                stream = new FileOutputStream(imageFile); // overwrites this conf every time
+                stream = new FileOutputStream(imageFile); // overwrites this image every time
                 image.compress(format, quality, stream);
                 return imageFile;
             } catch (FileNotFoundException ignored) {
