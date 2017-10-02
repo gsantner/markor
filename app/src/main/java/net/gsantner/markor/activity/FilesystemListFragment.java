@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
@@ -67,7 +68,6 @@ public class FilesystemListFragment extends Fragment {
     private ActionMode _actionMode;
     private File _currentDir;
     private File _rootDir;
-
     private Sectionizer<File> _sectionizer = new Sectionizer<File>() {
         @Override
         public String getSectionTitleForItem(File instance) {
@@ -122,11 +122,8 @@ public class FilesystemListFragment extends Fragment {
 
     private void retrieveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-        if (appSettings.isRememberLastDirectory()) {
             String rememberedDir = appSettings.getLastOpenedDirectory();
             _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
-        }
-
         // Two-fold check, in case user doesn't have the preference to remember directories enabled
         // This code remembers last directory WITHIN the app (not leaving it)
         if (_currentDir == null) {
@@ -137,11 +134,8 @@ public class FilesystemListFragment extends Fragment {
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        if (appSettings.isRememberLastDirectory()) {
             String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
             appSettings.setLastOpenedDirectory(saveDir);
-        }
-
         _markorSingleton.setNotesLastDirectory(_currentDir);
     }
 

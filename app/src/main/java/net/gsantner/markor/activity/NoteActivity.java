@@ -74,6 +74,7 @@ public class NoteActivity extends AppCompatActivity {
     private String _initialContent = "";
     private String _initialFileName = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

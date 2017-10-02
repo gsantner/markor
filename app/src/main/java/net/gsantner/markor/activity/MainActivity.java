@@ -71,12 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean _doubleBackToExitPressedOnce;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        if(!AppSettings.get().isRememberLastDirectory()){
+            AppSettings.get().setLastOpenedDirectory(null);
         }
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
