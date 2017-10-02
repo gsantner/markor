@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         if (AppSettings.get().isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        if(!AppSettings.get().isRememberLastDirectory()){
+            AppSettings.get().setLastOpenedDirectory(null);
+        }
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
