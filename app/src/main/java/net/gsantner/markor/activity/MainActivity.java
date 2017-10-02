@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean _doubleBackToExitPressedOnce;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
