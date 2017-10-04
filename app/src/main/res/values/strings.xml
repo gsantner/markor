@@ -76,5 +76,9 @@
     <string name="pref_title__language">Language</string>
     <string name="error_storage_permission">Need permission for storage to save documents</string>
     <string name="open_with">Open with</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_date">Sort by Date</string>
+    <string name="sort_by_name">Sort by Name</string>
+    <string name="sort_by_size">Sort by Size</string>
 
 </resources>
