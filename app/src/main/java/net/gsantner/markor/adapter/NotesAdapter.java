@@ -151,5 +151,4 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
             }
         };
     }
-
 }

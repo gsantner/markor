@@ -256,6 +256,93 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
+    public void sortByName(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        for(int i=0;i<k;i++){
+            for(int j=0;j<k;j++){
+                if(_filesCurrentlyShown.get(i).getName().compareTo(_filesCurrentlyShown.get(j).getName())<0){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        for(int i=k;i<size;i++){
+            for(int j=k;j<size;j++){
+                if(_filesCurrentlyShown.get(i).getName().compareTo(_filesCurrentlyShown.get(j).getName())<0){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        reloadAdapter();
+    }
+
+    public void sortByDate(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        for(int i=0;i<k;i++){
+            for(int j=0;j<k;j++){
+                if(_filesCurrentlyShown.get(i).lastModified()>_filesCurrentlyShown.get(j).lastModified()){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        for(int i=k;i<size;i++){
+            for(int j=k;j<size;j++){
+                if(_filesCurrentlyShown.get(i).lastModified()>_filesCurrentlyShown.get(j).lastModified()){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        reloadAdapter();
+    }
+
+    public void sortBySize(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        for(int i=0;i<k;i++){
+            for(int j=0;j<k;j++){
+                if(_filesCurrentlyShown.get(i).getUsableSpace()>_filesCurrentlyShown.get(j).getUsableSpace()){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        for(int i=k;i<size;i++){
+            for(int j=k;j<size;j++){
+                if(_filesCurrentlyShown.get(i).getUsableSpace()>_filesCurrentlyShown.get(j).getUsableSpace()){
+                    File file = _filesCurrentlyShown.get(j);
+                    _filesCurrentlyShown.set(j,_filesCurrentlyShown.get(i));
+                    _filesCurrentlyShown.set(i,file);
+                }
+            }
+        }
+        reloadAdapter();
+    }
+
     public ArrayList<File> getSelectedItems() {
         return _selectedItems;
     }

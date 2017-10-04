@@ -244,7 +244,6 @@ public class NoteActivity extends AppCompatActivity {
         shortcutButton.setText(shortcut);
         shortcutButton.setOnClickListener(l);
 
-
         boolean isDarkTheme = _appSettings.isDarkThemeEnabled();
         shortcutButton.setTextColor(ContextCompat.getColor(this,
                 isDarkTheme ? android.R.color.white : R.color.grey));
