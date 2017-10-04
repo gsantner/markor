@@ -60,6 +60,11 @@
     <string name="one_item_selected">One item selected</string>
     <string name="more_items_selected">%d items selected</string>
 
+    <plurals name="item_selected">
+        <item quantity="one">%d item selected</item>
+        <item quantity="other">%d items selected</item>
+    </plurals>
+
     <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
 
