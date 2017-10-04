@@ -42,7 +42,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -244,11 +243,6 @@ public class NoteActivity extends AppCompatActivity {
         TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
         shortcutButton.setText(shortcut);
         shortcutButton.setOnClickListener(l);
-        if(shortcutButton.getText().equals("B")){
-            shortcutButton.setTypeface(shortcutButton.getTypeface(),Typeface.BOLD);
-        }else if(shortcutButton.getText().equals("I")){
-            shortcutButton.setTypeface(shortcutButton.getTypeface(),Typeface.ITALIC);
-        }
 
         boolean isDarkTheme = _appSettings.isDarkThemeEnabled();
         shortcutButton.setTextColor(ContextCompat.getColor(this,
