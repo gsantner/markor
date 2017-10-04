@@ -2,7 +2,7 @@
 - Fixed: replaced Uri.fromFile with FileProvider
 - Added: Share as file, share as PDF
 - Use commonmark-java instead of AndDown markdown parser
-- Added: Spanish translation (#26
+- Added: Spanish translation (#26)
 - Added: More font size options
 
 ### v0.1.3
