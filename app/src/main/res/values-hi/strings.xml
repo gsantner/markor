@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="light">हलका</string>
+    <string name="dark">गहरा</string>
+    <string name="delete">हटाना</string>
+    <string name="rename">नाम बदलने</string>
+    <string name="confirm_delete">हटाने की पुष्टि करें</string>
+    <string name="confirm_overwrite">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
+    <string name="title">शीर्षक</string>
+    <string name="empty_directory">यह फ़ोल्डर खाली है</string>
+    <string name="navigate_up_folder">पिछले फ़ोल्डर पर वापस जाएं</string>
+    <string name="folder_name_hint">अपने फ़ोल्डर का नाम दर्ज करें</string>
+    <string name="create_folder">फोल्डर बनाएं</string>
+    <string name="create_note">नोट बनाएं</string>
+    <string name="move">स्थान-परिवर्तन</string>
+
+    <string name="import_from_device">डिवाइस से आयात करें</string>
+    <string name="select_folder">फोल्डर का चयन करें</string>
+
+    <string name="search_hint">नोट खोजें</string>
+    <string name="share_string">Share to&#8230;</string>
+    <string name="share">बांटे</string>
+    <string name="search">खोजें</string>
+    <string name="preview">पूर्व दर्शन</string>
+    <string name="app_settings">एप्लिकेशन सेटिंग</string>
+    <string name="editor_settings">संपादक सेटिंग्स</string>
+    <string name="folders">फ़ोल्डर</string>
+    <string name="files">फ़ाइलें</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
+    <string name="pref_title__font_choice">नोट संपादक फ़ॉन्ट</string>
+    <string name="pref_title__theme">बनावट</string>
+    <string name="pref_title__preview_first">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
+    <string name="about">जानकारी</string>
+    <string name="share_text">सादा टेक्स्ट</string>
+        <string name="share_file">फ़ाइल</string>
+    <string name="share_image">छवि</string>
+    <string name="share_pdf">पीडीएफ</string>
+    <string name="pref_title__font_size">फ़ॉन्ट आकार</string>
+    <string name="pref_title__show_markdown_shortcuts">मार्कडाउन शॉर्टकट बार दिखाएं</string>
+    <string name="pref_title__highlighting_activated">मार्कडाउन सिंटैक्स हाइलाइटिंग</string>
+    <string name="pref_title__highlighting_delay">रीफ़्रेश को उजागर करने के लिए मिलीसेकेंड में देरी</string>
+    <string name="pref_title__highlighting_delay_summary">उच्च मूल्य बैटरी पर आसान है</string>
+    <string name="pref_title__smart_shortcuts">स्मार्ट कोष्ठक शॉर्टकट</string>
+    <string name="pref_title__smart_shortcuts_summary">अगर पाठ का चयन किया जाता है, तो {}, [] और () चयन को घेरेगा</string>
+    <string name="pref_title__render_rtl">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
+    <string name="error_cannot_create_save_dir">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">अंतिम बार संशोधित: %s</string>
+    <string name="number_of_files">फ़ाइलों की संख्या: %d</string>
+    <string name="select_this_folder">इस फ़ोल्डर का चयन करें</string>
+    <string name="select">चयन करें</string>
+    <string name="create">बनाये</string>
+    <string name="select_elements">प्रविष्टियों का चयन करें</string>
+    <string name="one_item_selected">एक आइटम चयनित</string>
+    <string name="more_items_selected">%d आइटम चयनित</string>
+
+    <string name="pref_summary__is_statusbar_hidden">इस दृश्य पर स्टेटस बार छुपाएं</string>
+    <string name="pref_title__is_statusbar_hidden">स्थिति पट्टी छुपाएँ</string>
+
+    <!-- About screen -->
+    <string name="contributors">योगदानकर्ता</string>
+
+    <string name="pref_title__save_directory">स्टोरेज फोल्डर चुनें</string>
+    <string name="licenses">लाइसेंस</string>
+    <string name="changelog">परिवर्तन खाता</string>
+    <string name="more_information">अधिक जानकारी</string>
+    <string name="show_app_license">एप का लाइसेंस दिखाएं</string>
+    <string name="show_third_party_licenses">तीसरे पक्ष के लाइसेंस दिखाएं</string>
+    <string name="pref_desc__language">इस ऐप की भाषा बदलें| परिवर्तन प्रभावी होने के लिए ऐप को पुन: प्रारंभ करें</string>
+    <string name="pref_title__language">भाषा</string>
+    <string name="error_storage_permission">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>
+    <string name="open_with">के साथ खोलें</string>
+
+</resources>
