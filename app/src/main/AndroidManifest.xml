@@ -30,24 +30,21 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:mimeType="text/plain"
-                    android:scheme="file" />
+                <category android:name="android.intent.category.DEFAULT"/>
                 <data
                     android:mimeType="application/octet-stream"
                     android:scheme="file" />
-
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*.md"
                     android:scheme="file" />
-
                 <data
                     android:host="*"
                     android:mimeType="*/*"
@@ -58,7 +55,6 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*.markdown"
                     android:scheme="file" />
-
                 <data
                     android:mimeType="text/x-markdown"
                     android:scheme="file" />
