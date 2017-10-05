@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 ext {
     version_sdk = [
             compileSdk: 26,
-            buildTools: "26.0.1",
+            buildTools: "26.0.0",
             minSdk    : 16,
             //targetSdk: compileSdk,
     ]

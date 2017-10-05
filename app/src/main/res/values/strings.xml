@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Settings</string>
+    <string name="add_new_folder">Add new folder </string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="delete">Delete</string>

@@ -50,21 +50,18 @@
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/main__activity__create_note_fab"
                 android:layout_width="wrap_content"
-                android:layout_height="62dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_create_white_24dp"
                 android:tooltipText="@string/create_note"
-                app:elevation="0dp" />
+                app:elevation="6dp" />
 
             <android.support.design.widget.FloatingActionButton
+                android:visibility="gone"
                 android:id="@+id/main__activity__create_folder_fab"
                 android:layout_width="wrap_content"
-                android:layout_height="62dp"
-                android:layout_marginBottom="16sp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_create_new_folder_white_24dp"
                 android:tooltipText="@string/create_folder"
                 app:elevation="0dp" />
