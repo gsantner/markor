@@ -62,6 +62,7 @@ public class FilesystemListFragment extends Fragment {
 
     private NotesAdapter _filesAdapter;
 
+    private int sortType = 0;
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
@@ -182,7 +183,20 @@ public class FilesystemListFragment extends Fragment {
         reloadFiles(directory);
         broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
-        reloadAdapter();
+        switch(sortType){
+            case 0: {
+                sortByName();
+                break;
+            }
+            case 1: {
+                sortByDate();
+                break;
+            }
+            case 2: {
+                sortBySize();
+                break;
+            }
+        }
     }
 
     private void broadcastDirectoryChange(File directory) {
@@ -279,6 +293,7 @@ public class FilesystemListFragment extends Fragment {
             }
         });
         reloadAdapter();
+        sortType = 0;
     }
 
     public void sortByDate(){
@@ -302,6 +317,7 @@ public class FilesystemListFragment extends Fragment {
             }
         });
         reloadAdapter();
+        sortType = 1;
     }
 
     public void sortBySize(){
@@ -325,6 +341,7 @@ public class FilesystemListFragment extends Fragment {
             }
         });
         reloadAdapter();
+        sortType = 2;
     }
 
     public ArrayList<File> getSelectedItems() {
