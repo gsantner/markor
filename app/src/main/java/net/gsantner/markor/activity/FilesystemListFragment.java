@@ -62,7 +62,7 @@ public class FilesystemListFragment extends Fragment {
 
     private NotesAdapter _filesAdapter;
 
-    private int sortType = 0;
+    private int _sortType = 0;
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
@@ -183,20 +183,7 @@ public class FilesystemListFragment extends Fragment {
         reloadFiles(directory);
         broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
-        switch(sortType){
-            case 0: {
-                sortByName();
-                break;
-            }
-            case 1: {
-                sortByDate();
-                break;
-            }
-            case 2: {
-                sortBySize();
-                break;
-            }
-        }
+        sortAdapter(_sortType);
     }
 
     private void broadcastDirectoryChange(File directory) {
@@ -272,7 +259,7 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
-    public void sortByName(){
+    public void sortAdapter(int sortType){
         int size = _filesCurrentlyShown.size();
         int k=0;
         for(int i=0;i<size;i++){
@@ -280,68 +267,55 @@ public class FilesystemListFragment extends Fragment {
                 k++;
             }
         }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return file1.compareTo(file2);
+        switch(sortType){
+            case 0: {
+                Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return file1.compareTo(file2);
+                    }
+                });
+                Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return file1.compareTo(file2);
+                    }
+                });
+                break;
             }
-        });
-        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return file1.compareTo(file2);
+            case 1: {
+                Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return (int)(file2.lastModified()-file1.lastModified());
+                    }
+                });
+                Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return (int)(file2.lastModified()-file1.lastModified());
+                    }
+                });
+                break;
             }
-        });
-        reloadAdapter();
-        sortType = 0;
-    }
-
-    public void sortByDate(){
-        int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
-                k++;
+            case 2: {
+                Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+                    }
+                });
+                Collections.sort((_filesCurrentlyShown.subList(k, size)), new Comparator<File>() {
+                    @Override
+                    public int compare(File file1, File file2) {
+                        return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+                    }
+                });
+                break;
             }
         }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file2.lastModified()-file1.lastModified());
-            }
-        });
-        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file2.lastModified()-file1.lastModified());
-            }
-        });
         reloadAdapter();
-        sortType = 1;
-    }
-
-    public void sortBySize(){
-        int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
-                k++;
-            }
-        }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
-            }
-        });
-        Collections.sort((_filesCurrentlyShown.subList(k, size)), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
-            }
-        });
-        reloadAdapter();
-        sortType = 2;
+        _sortType = sortType;
     }
 
     public ArrayList<File> getSelectedItems() {

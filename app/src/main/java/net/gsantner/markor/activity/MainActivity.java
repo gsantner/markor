@@ -116,15 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_sort_by_date : {
-                _filesystemListFragment.sortByDate();
+                _filesystemListFragment.sortAdapter(1);
                 return true;
             }
             case R.id.action_sort_by_name :{
-                _filesystemListFragment.sortByName();
+                _filesystemListFragment.sortAdapter(0);
                 return true;
             }
             case R.id.action_sort_by_size :{
-                _filesystemListFragment.sortBySize();
+                _filesystemListFragment.sortAdapter(2);
                 return true;
             }
         }
