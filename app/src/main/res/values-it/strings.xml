@@ -29,10 +29,10 @@
     <string name="files">Files</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Ricorda la posizione dell'ultima cartella all'avvio</string>
-    <string name="pref_title__font_choice">Font dell'Editor delle Note</string>
+    <string name="pref_title__remember_directory">Ricorda la posizione dell\'ultima cartella all\'avvio</string>
+    <string name="pref_title__font_choice">Font dell\'Editor delle Note</string>
     <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Anteprima all'apertura della Nota</string>
+    <string name="pref_title__preview_first">Anteprima all\'apertura della Nota</string>
     <string name="about">About Markor</string>
     <string name="share_text">Testo Puro</string>
     <string name="share_file">File</string>
@@ -41,7 +41,7 @@
     <string name="pref_title__font_size">Grandezza Font</string>
     <string name="pref_title__show_markdown_shortcuts">Mostra barra scorciatoie Markdown</string>
     <string name="pref_title__highlighting_activated">Highlighting della sintassi dei Markdown</string>
-    <string name="pref_title__highlighting_delay">Ritardo in millisecondi dell'aggiornamento dell'highlighting</string>
+    <string name="pref_title__highlighting_delay">Ritardo in millisecondi dell\'aggiornamento dell\'highlighting</string>
     <string name="pref_title__highlighting_delay_summary">Valori più alti impattano meno sulla batteria</string>
     <string name="pref_title__smart_shortcuts">Scorciatoie per parentesi intelligenti</string>
     <string name="pref_title__smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
@@ -70,9 +70,9 @@
     <string name="licenses">Licenze</string>
     <string name="changelog">Changelog</string>
     <string name="more_information">Più informazioni</string>
-    <string name="show_app_license">Mostra licenza dell'app</string>
+    <string name="show_app_license">Mostra licenza dell\'app</string>
     <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
-    <string name="pref_desc__language">Cambia la lingua di questa app. Riavvia l'applicaizione per rendere effettive le modifiche</string>
+    <string name="pref_desc__language">Cambia la lingua di questa app. Riavvia l\'applicaizione per rendere effettive le modifiche</string>
     <string name="pref_title__language">Lingue</string>
     <string name="error_storage_permission">Necessari i permessi per salavare i documenti</string>
     <string name="open_with">Apri con</string>
