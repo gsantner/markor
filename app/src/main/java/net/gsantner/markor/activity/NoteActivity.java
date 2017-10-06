@@ -305,8 +305,10 @@ public class NoteActivity extends AppCompatActivity {
 
         if (filename == null) return;
 
-        filename = filename  + Constants.MD_EXT;
-
+        if (!filename.toLowerCase().contains(Constants.MD_EXT2.toLowerCase())){
+            filename = filename  + Constants.MD_EXT1;
+        }
+        
         try {
 
             String parent = _targetDirectory != null ? _targetDirectory : _note.getParent();

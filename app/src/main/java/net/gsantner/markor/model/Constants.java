@@ -18,7 +18,8 @@ public class Constants {
     public static final String[] KEYBOARD_SHORTCUTS_MORE = {"!", "+", "~", ":", "<", ">"};
     public static final String UTF_CHARSET = "utf-8";
 
-    public static final String MD_EXT = ".md";
+    public static final String MD_EXT1 = ".md";
+    public static final String MD_EXT2 = ".markdown";
 
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
