@@ -45,6 +45,8 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,8 +124,8 @@ public class FilesystemListFragment extends Fragment {
 
     private void retrieveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-            String rememberedDir = appSettings.getLastOpenedDirectory();
-            _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
+        String rememberedDir = appSettings.getLastOpenedDirectory();
+        _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
         // Two-fold check, in case user doesn't have the preference to remember directories enabled
         // This code remembers last directory WITHIN the app (not leaving it)
         if (_currentDir == null) {
@@ -134,8 +136,8 @@ public class FilesystemListFragment extends Fragment {
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
-            appSettings.setLastOpenedDirectory(saveDir);
+        String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
+        appSettings.setLastOpenedDirectory(saveDir);
         _markorSingleton.setNotesLastDirectory(_currentDir);
     }
 
@@ -253,6 +255,75 @@ public class FilesystemListFragment extends Fragment {
     public void clearSearchFilter() {
         _filesAdapter.getFilter().filter("");
         _simpleSectionAdapter.notifyDataSetChanged();
+        reloadAdapter();
+    }
+
+    public void sortByName(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return file1.compareTo(file2);
+            }
+        });
+        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return file1.compareTo(file2);
+            }
+        });
+        reloadAdapter();
+    }
+
+    public void sortByDate(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return (int)(file2.lastModified()-file1.lastModified());
+            }
+        });
+        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return (int)(file2.lastModified()-file1.lastModified());
+            }
+        });
+        reloadAdapter();
+    }
+
+    public void sortBySize(){
+        int size = _filesCurrentlyShown.size();
+        int k=0;
+        for(int i=0;i<size;i++){
+            if(_filesCurrentlyShown.get(i).isDirectory()){
+                k++;
+            }
+        }
+        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+            }
+        });
+        Collections.sort((_filesCurrentlyShown.subList(k, size)), new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+            }
+        });
         reloadAdapter();
     }
 

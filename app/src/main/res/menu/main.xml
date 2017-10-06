@@ -11,6 +11,33 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_sort"
+        android:layout_width="match_parent"
+        android:icon="@drawable/ic_sort_24dp"
+        android:title="@string/sort"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/action_sort_by_date"
+                android:title="@string/sort_by_date"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/action_sort_by_name"
+                android:title="@string/sort_by_name"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/action_sort_by_size"
+                android:title="@string/sort_by_size"
+                app:showAsAction="never"
+                />
+        </menu>
+
+    </item>
+
+    <item
         android:id="@+id/action_import"
         android:title="@string/import_from_device"
         app:showAsAction="never" />

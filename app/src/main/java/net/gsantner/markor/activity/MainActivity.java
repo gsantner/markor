@@ -115,6 +115,18 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
+            case R.id.action_sort_by_date : {
+                _filesystemListFragment.sortByDate();
+                return true;
+            }
+            case R.id.action_sort_by_name :{
+                _filesystemListFragment.sortByName();
+                return true;
+            }
+            case R.id.action_sort_by_size :{
+                _filesystemListFragment.sortBySize();
+                return true;
+            }
         }
         return false;
 

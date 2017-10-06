@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Impostazioni</string>
+    <string name="light">Chiaro</string>
+    <string name="dark">Scuro</string>
+    <string name="delete">Cancella</string>
+    <string name="rename">Rinomina</string>
+    <string name="confirm_delete">Conferma la cancellazione</string>
+    <string name="confirm_overwrite">File già esistente, sovrascrivere?</string>
+    <string name="title">Titolo</string>
+    <string name="empty_directory">Questa cartella è vuota</string>
+    <string name="navigate_up_folder">Vai alla cartella precedente</string>
+    <string name="folder_name_hint">Inserisci il nome della cartella</string>
+    <string name="create_folder">Crea nuova cartella</string>
+    <string name="create_note">Crea nuova nota</string>
+    <string name="move">Sposta</string>
+
+    <string name="import_from_device">Importa dal device</string>
+    <string name="select_folder">Seleziona cartella</string>
+
+    <string name="search_hint">Cerca note</string>
+    <string name="share_string">Condividi con&#8230;</string>
+    <string name="share">Condividi</string>
+    <string name="search">Cerca</string>
+    <string name="preview">Anteprima</string>
+    <string name="app_settings">Impostazioni App</string>
+    <string name="editor_settings">Impostazioni Editor</string>
+    <string name="folders">Cartelle</string>
+    <string name="files">Files</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Ricorda la posizione dell\'ultima cartella all\'avvio</string>
+    <string name="pref_title__font_choice">Font dell\'Editor delle Note</string>
+    <string name="pref_title__theme">Tema</string>
+    <string name="pref_title__preview_first">Anteprima all\'apertura della Nota</string>
+    <string name="about">About Markor</string>
+    <string name="share_text">Testo Puro</string>
+    <string name="share_file">File</string>
+    <string name="share_image">Immagine</string>
+    <string name="share_pdf">PDF</string>
+    <string name="pref_title__font_size">Grandezza Font</string>
+    <string name="pref_title__show_markdown_shortcuts">Mostra barra scorciatoie Markdown</string>
+    <string name="pref_title__highlighting_activated">Highlighting della sintassi dei Markdown</string>
+    <string name="pref_title__highlighting_delay">Ritardo in millisecondi dell\'aggiornamento dell\'highlighting</string>
+    <string name="pref_title__highlighting_delay_summary">Valori più alti impattano meno sulla batteria</string>
+    <string name="pref_title__smart_shortcuts">Scorciatoie per parentesi intelligenti</string>
+    <string name="pref_title__smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
+    <string name="pref_title__render_rtl">Render per lingue destra-verso-sinistra</string>
+    <string name="error_cannot_create_save_dir">Errore: Impossibile creare la directory di salvataggio</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Ultima modifica: %s</string>
+    <string name="number_of_files">Numero di files: %d</string>
+    <string name="select_this_folder">Seleziona questa cartella</string>
+    <string name="select">Seleziona</string>
+    <string name="create">Crea</string>
+    <string name="select_elements">Seleziona elementi</string>
+    <string name="one_item_selected">Un elemento selezionato</string>
+    <string name="more_items_selected">%d elementi selezionati</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Nascondi la statusbar in questa view</string>
+    <string name="pref_title__is_statusbar_hidden">Nascondi statusbar</string>
+
+    <!-- About screen -->
+    <string name="contributors">Chi ha contribuito</string>
+
+    <string name="pref_title__save_directory">Seleziona cartella di salvataggio</string>
+    <string name="licenses">Licenze</string>
+    <string name="changelog">Changelog</string>
+    <string name="more_information">Più informazioni</string>
+    <string name="show_app_license">Mostra licenza dell\'app</string>
+    <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
+    <string name="pref_desc__language">Cambia la lingua di questa app. Riavvia l\'applicaizione per rendere effettive le modifiche</string>
+    <string name="pref_title__language">Lingue</string>
+    <string name="error_storage_permission">Necessari i permessi per salavare i documenti</string>
+    <string name="open_with">Apri con</string>
+    <string name="sort">Ordina</string>
+    <string name="sort_by_date">Ordina per Data</string>
+    <string name="sort_by_name">Ordina per Nome</string>
+    <string name="sort_by_size">Ordina per Grandezza</string>
+
+</resources>
