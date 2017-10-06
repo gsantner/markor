@@ -377,7 +377,7 @@ public class NoteActivity extends AppCompatActivity {
 
                 //Check if Selection includes the shortcut characters
                 if(text.substring( selectionStart, selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9]*")){
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")){
 
                     text = text.substring( selectionStart+ action.length(), selectionEnd);
                     _contentEditor.getText()
@@ -386,7 +386,7 @@ public class NoteActivity extends AppCompatActivity {
                 }
                 //Check if Selection is Preceded by shortcut characters
                 else if(( selectionStart>= action.length())&& (text.substring( selectionStart- action.length(), selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9]*"))) {
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
 
                     text = text.substring( selectionStart, selectionEnd);
                     _contentEditor.getText()
@@ -422,7 +422,7 @@ public class NoteActivity extends AppCompatActivity {
 
                 //Check if Selection includes the shortcut characters
                 if((text.substring( selectionStart, selectionEnd)
-                        .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9]*(\\*\\*|~~|_|`)"))) {
+                        .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
                     text = text.substring( selectionStart+ action.length(),
                             selectionEnd- action.length());
@@ -435,7 +435,7 @@ public class NoteActivity extends AppCompatActivity {
                         ( selectionStart>= action.length()))&&
                         (text.substring( selectionStart- action.length(),
                                 selectionEnd+ action.length())
-                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9]*(\\*\\*|~~|_|`)"))){
+                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))){
 
                     text = text.substring( selectionStart, selectionEnd);
                     _contentEditor.getText()
