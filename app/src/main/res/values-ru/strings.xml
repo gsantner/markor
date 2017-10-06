@@ -40,7 +40,7 @@
     <string name="pref_title__show_markdown_shortcuts">Показывать сокращения markdown</string>
     <string name="pref_title__highlighting_activated">Подсветка синтаксиса markdown</string>
     <string name="pref_title__highlighting_delay">Задержка обновления подсветки синтаксиса в миллисекундах</string>
-    <string name="pref_title__highlighting_delay_summary">БОльшие значения меньше расходуют батарею</string>
+    <string name="pref_title__highlighting_delay_summary">Большие значения меньше расходуют батарею</string>
     <string name="pref_title__smart_shortcuts">Умные скобки</string>
     <string name="pref_title__smart_shortcuts_summary">{}, [] и () будут окружать выделенный текст</string>
     <string name="pref_title__render_rtl">Работать с языками \"справа-налево"</string>
