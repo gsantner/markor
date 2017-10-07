@@ -7,6 +7,7 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,11 +17,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
@@ -46,6 +55,7 @@ public class PreviewActivity extends AppCompatActivity {
     private String _markdownHtml;
     private File _note;
     private boolean _isEditIncoming = false;
+
     private MarkDownRenderer _renderer = new MarkDownRenderer();
 
     @Override
@@ -157,8 +167,16 @@ public class PreviewActivity extends AppCompatActivity {
             case R.id.action_edit:
                 editNote();
                 return true;
+            case R.id.action_make_notification:
+                makeNotification();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void makeNotification() {
+        DialogFragment newFragment = new NotificationDialogFragment();
+        newFragment.show(getFragmentManager(),"TimePicker");
     }
 
     private void shareText(String text, String type) {

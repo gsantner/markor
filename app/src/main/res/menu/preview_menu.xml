@@ -23,6 +23,9 @@
             <item
                 android:id="@+id/action_share_image"
                 android:title="@string/share_image" />
+            <item
+                android:id="@+id/action_make_notification"
+                android:title="Add Notification" />
         </menu>
     </item>
     <item
