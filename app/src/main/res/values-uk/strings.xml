@@ -5,10 +5,10 @@
     <string name="dark">Темна</string>
     <string name="delete">Видалити</string>
     <string name="rename">Перейменувати</string>
-    <string name="confirm_delete">Підтвердити видалення</string>
+    <string name="confirm_delete">Підтвердіть видалення</string>
     <string name="confirm_overwrite">Файл вже існує, перезаписати?</string>
     <string name="title">Заголовок</string>
-    <string name="empty_directory">Дана директорія пуста</string>
+    <string name="empty_directory">Поточна директорія порожня</string>
     <string name="navigate_up_folder">В попередню директорію</string>
     <string name="folder_name_hint">Введіть ім’я директорії</string>
     <string name="create_folder">Створити директорію</string>
@@ -19,38 +19,40 @@
     <string name="select_folder">Обрати директорію</string>
 
     <string name="search_hint">Пошук нотаток</string>
-    <string name="share_string">Поділитися з...</string>
-    <string name="share">Поділитися</string>
+    <string name="share_string">Надіслати до...</string>
+    <string name="share">Надіслати</string>
     <string name="search">Пошук</string>
-    <string name="preview">Предперегляд</string>
+    <string name="preview">Попередній перегляд</string>
     <string name="app_settings">Налаштування додатку</string>
     <string name="editor_settings">Налаштування редактора</string>
     <string name="folders">Директорії</string>
     <string name="files">Файли</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Пам’ятати останню відкриту директорію</string>
+    <string name="pref_title__remember_directory">Запам\'ятовувати останню відкриту директорію</string>
     <string name="pref_title__font_choice">Шрифт редактора нотаток</string>
     <string name="pref_title__theme">Тема</string>
-    <string name="pref_title__preview_first">Спочатку показувати предперегляд при відкритті нотатки</string>
-    <string name="about">Про додаток Markor</string>
-    <string name="share_text">Просто текст</string>
+    <string name="pref_title__preview_first">Показувати попередній перегляд при відкритті нотатки</string>
+    <string name="about">Про Markor</string>
+    <string name="share_text">Звичайний текст</string>
+    <string name="share_file">Файл</string>
     <string name="share_image">Зображення</string>
+    <string name="share_pdf">PDF</string>
     <string name="pref_title__font_size">Розмір шрифту</string>
-    <string name="pref_title__show_markdown_shortcuts">Показувати скорочення markdown</string>
+    <string name="pref_title__show_markdown_shortcuts">Показувати панель скорочень markdown</string>
     <string name="pref_title__highlighting_activated">Підсвітка синтаксису markdown</string>
     <string name="pref_title__highlighting_delay">Затримка оновлення підсвітки синтаксису в мілісекундах</string>
     <string name="pref_title__highlighting_delay_summary">Великі значення менше витрачають батарею</string>
     <string name="pref_title__smart_shortcuts">Розумні дужки</string>
     <string name="pref_title__smart_shortcuts_summary">{}, [] и () будуть оточувати виділений текст</string>
-    <string name="pref_title__render_rtl">Працювати з мовами \"справа-наліво"</string>
-    <string name="error_cannot_create_save_dir">Помилка: неможливо зберегти директорію</string>
+    <string name="pref_title__render_rtl">Відображати для писемності справа-наліво</string>
+    <string name="error_cannot_create_save_dir">Помилка: неможливо створити директорію</string>
 
     <!-- Font Size -->
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Дата зміни: %s</string>
-    <string name="number_of_files">Кількість файлів: %d</string>
+    <string name="number_of_files">Число файлів: %d</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
     <string name="create">Створити</string>
@@ -58,20 +60,29 @@
     <string name="one_item_selected">Один елемент обрано</string>
     <string name="more_items_selected">%d елементів обрано</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Сховати рядок статусу</string>
+    <string name="pref_summary__is_statusbar_hidden">Приховувати рядок статусу</string>
     <string name="pref_title__is_statusbar_hidden">Сховати рядок статусу</string>
 
     <!-- About screen -->
-    <string name="contributors">Розробники</string>
+    <string name="contributors">Автори</string>
 
     <string name="pref_title__save_directory">Обрати робочу директорію</string>
     <string name="licenses">Ліцензії</string>
-    <string name="changelog">Список змін</string>
-    <string name="more_information">Більше інформації</string>
+    <string name="changelog">Перелік змін</string>
+    <string name="more_information">Детальніше</string>
     <string name="show_app_license">Показати ліцензію додатку</string>
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
-    <string name="pref_desc__language">Змінити мову додатку. Перезавантажте для збереження змін.</string>
+    <string name="pref_desc__language">Змінити мову додатку. Перезапустіть додаток для застосування змін.</string>
     <string name="pref_title__language">Мова</string>
-    <string name="error_storage_permission">Потрібен дозвіл на запис щоб зберегтись</string>
+    <string name="error_storage_permission">Потрібен дозвіл на запис для збереження документів</string>
+    <string name="open_with">Відкрити в</string>
+    <string name="sort">Сортування</string>
+    <string name="sort_by_date">Дата</string>
+    <string name="sort_by_name">Ім\'я</string>
+    <string name="sort_by_size">Розмір</string>
+    <string name="format_link_dialog_title">Вставити посилання</string>
+    <string name="format_image_dialog_title">Вставити зображення</string>
+    <string name="format_dialog_url_or_path_hint">URL / Шлях</string>
+    <string name="format_dialog_name_hint">Ім\'я</string>
 
 </resources>
