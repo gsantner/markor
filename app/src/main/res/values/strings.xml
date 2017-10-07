@@ -64,7 +64,7 @@
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
 
     <string name="format_dialog_name_hint">Name</string>
-    <string name="format_dialog_url_hint">URL</string>
+    <string name="format_dialog_url_or_path_hint">URL / Path</string>
     <string name="format_link_dialog_title">Insert Link</string>
     <string name="format_image_dialog_title">Insert Image</string>
 
