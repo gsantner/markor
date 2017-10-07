@@ -175,11 +175,11 @@ public class HighlightingEditor extends AppCompatEditText {
         private String createIndentForNextLine(Spanned dest, int dend, int istart) {
             //TODO: Auto-populate the next number for ordered-lists in addition to bullet points
             //TODO: Replace this
-            if (istart > -1 && istart < dest.length()-1) {
+            if (istart > -1 && istart < dest.length() - 1) {
                 int iend;
 
                 for (iend = ++istart;
-                     iend < dest.length()-1;
+                     iend < dest.length() - 1;
                      ++iend) {
                     char c = dest.charAt(iend);
 
@@ -189,25 +189,21 @@ public class HighlightingEditor extends AppCompatEditText {
                     }
                 }
 
-                if(iend < dest.length()-1) {
-                    if(dest.charAt(iend+1) == ' '){
+                if (iend < dest.length() - 1) {
+                    if (dest.charAt(iend + 1) == ' ') {
                         return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
-                    }
-                    else{
+                    } else {
                         return "";
                     }
-                }
-                else {
+                } else {
                     return "";
                 }
-            } else if (istart > -1){
+            } else if (istart > -1) {
                 return "";
-            }
-            else if (dest.length() > 1){ // You need at least a list marker and a space to trigger auto-list-item
-                if(dest.charAt(1) == ' ') {
+            } else if (dest.length() > 1) { // You need at least a list marker and a space to trigger auto-list-item
+                if (dest.charAt(1) == ' ') {
                     return addBulletPointIfNeeded(dest.charAt(0));
-                }
-                else {
+                } else {
                     return "";
                 }
             } else {
@@ -216,10 +212,9 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String addBulletPointIfNeeded(char character) {
-            if(character == '*' || character == '+' ||  character == '-'){
+            if (character == '*' || character == '+' || character == '-') {
                 return Character.toString(character) + " ";
-            }
-            else{
+            } else {
                 return "";
             }
 

@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         if (AppSettings.get().isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        if(!AppSettings.get().isRememberLastDirectory()){
+        if (!AppSettings.get().isRememberLastDirectory()) {
             AppSettings.get().setLastOpenedDirectory(null);
         }
         setContentView(R.layout.main__activity);
@@ -115,15 +115,15 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
-            case R.id.action_sort_by_date : {
+            case R.id.action_sort_by_date: {
                 _filesystemListFragment.sortAdapter(1);
                 return true;
             }
-            case R.id.action_sort_by_name :{
+            case R.id.action_sort_by_name: {
                 _filesystemListFragment.sortAdapter(0);
                 return true;
             }
-            case R.id.action_sort_by_size :{
+            case R.id.action_sort_by_size: {
                 _filesystemListFragment.sortAdapter(2);
                 return true;
             }
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the _action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         _searchItem = menu.findItem(R.id.action_search);
         _searchView = (SearchView) _searchItem.getActionView();

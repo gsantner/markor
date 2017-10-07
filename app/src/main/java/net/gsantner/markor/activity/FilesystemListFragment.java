@@ -29,7 +29,6 @@ import android.widget.TextView;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
@@ -259,15 +258,15 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
-    public void sortAdapter(int sortType){
+    public void sortAdapter(int sortType) {
         int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
+        int k = 0;
+        for (int i = 0; i < size; i++) {
+            if (_filesCurrentlyShown.get(i).isDirectory()) {
                 k++;
             }
         }
-        switch(sortType){
+        switch (sortType) {
             case 0: {
                 Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
                     @Override
@@ -287,13 +286,13 @@ public class FilesystemListFragment extends Fragment {
                 Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
                     @Override
                     public int compare(File file1, File file2) {
-                        return (int)(file2.lastModified()-file1.lastModified());
+                        return (int) (file2.lastModified() - file1.lastModified());
                     }
                 });
                 Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
                     @Override
                     public int compare(File file1, File file2) {
-                        return (int)(file2.lastModified()-file1.lastModified());
+                        return (int) (file2.lastModified() - file1.lastModified());
                     }
                 });
                 break;
@@ -302,13 +301,13 @@ public class FilesystemListFragment extends Fragment {
                 Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
                     @Override
                     public int compare(File file1, File file2) {
-                        return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+                        return (int) (file1.getUsableSpace() - file2.getUsableSpace());
                     }
                 });
                 Collections.sort((_filesCurrentlyShown.subList(k, size)), new Comparator<File>() {
                     @Override
                     public int compare(File file1, File file2) {
-                        return (int)(file1.getUsableSpace()-file2.getUsableSpace());
+                        return (int) (file1.getUsableSpace() - file2.getUsableSpace());
                     }
                 });
                 break;

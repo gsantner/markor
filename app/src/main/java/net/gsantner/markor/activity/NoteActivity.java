@@ -21,7 +21,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -229,10 +228,10 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
-    private void appendExtraActions(){
+    private void appendExtraActions() {
         for (int[] actions : Constants.KEYBOARD_EXTRA_ACTIONS_ICONS) {
             appendButton(actions[0], new KeyboardExtraActionsListener(actions[1]));
-            }
+        }
     }
 
     private void appendButton(int shortcut, View.OnClickListener l) {
@@ -265,7 +264,7 @@ public class NoteActivity extends AppCompatActivity {
     private void previewNote() {
         saveNote();
         Intent intent = new Intent(this, PreviewActivity.class);
-        
+
         if (_note != null) {
             Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(_note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
@@ -300,7 +299,7 @@ public class NoteActivity extends AppCompatActivity {
 
         if (filename == null) return;
 
-        filename = filename  + Constants.MD_EXT;
+        filename = filename + Constants.MD_EXT;
 
         try {
 
@@ -308,8 +307,7 @@ public class NoteActivity extends AppCompatActivity {
 
             if (_note == null || !_note.exists()) {
                 _note = new File(parent, filename);
-            }
-            else if (!filename.equals(_initialFileName)) {
+            } else if (!filename.equals(_initialFileName)) {
                 FileUtils.renameFileInSameFolder(_note, filename);
                 _note = new File(parent, filename);
             }
@@ -362,145 +360,136 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private class KeyboardRegularActionListener implements View.OnClickListener {
-
-        String action;
+        String _action;
 
         public KeyboardRegularActionListener(String action) {
-            this.action = action;
+            _action = action;
         }
 
         @Override
         public void onClick(View v) {
 
-            if(_contentEditor.hasSelection()){
-                String text= _contentEditor.getText().toString();
+            if (_contentEditor.hasSelection()) {
+                String text = _contentEditor.getText().toString();
                 int selectionStart = _contentEditor.getSelectionStart();
                 int selectionEnd = _contentEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
-                if(text.substring( selectionStart, selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")){
+                if (text.substring(selectionStart, selectionEnd)
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
 
-                    text = text.substring( selectionStart+ action.length(), selectionEnd);
+                    text = text.substring(selectionStart + _action.length(), selectionEnd);
                     _contentEditor.getText()
-                            .replace( selectionStart, selectionEnd, text);
+                            .replace(selectionStart, selectionEnd, text);
 
                 }
                 //Check if Selection is Preceded by shortcut characters
-                else if(( selectionStart>= action.length())&& (text.substring( selectionStart- action.length(), selectionEnd)
+                else if ((selectionStart >= _action.length()) && (text.substring(selectionStart - _action.length(), selectionEnd)
                         .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
 
-                    text = text.substring( selectionStart, selectionEnd);
+                    text = text.substring(selectionStart, selectionEnd);
                     _contentEditor.getText()
-                            .replace( selectionStart- action.length(), selectionEnd, text);
+                            .replace(selectionStart - _action.length(), selectionEnd, text);
 
                 }
                 //Condition to insert shortcut preceding the selection
-                else{
-                        _contentEditor.getText().insert( selectionStart, action);
+                else {
+                    _contentEditor.getText().insert(selectionStart, _action);
                 }
-            } else{
+            } else {
                 //Condition for Empty Selection
-                _contentEditor.getText().insert( _contentEditor.getSelectionStart(), action);
+                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
             }
         }
     }
 
     private class KeyboardSmartActionsListener implements View.OnClickListener {
-
-        String action;
+        String _action;
 
         public KeyboardSmartActionsListener(String action) {
-            this.action = action;
+            _action = action;
         }
 
         @Override
         public void onClick(View v) {
 
-            if ( _contentEditor.hasSelection()) {
-                String text= _contentEditor.getText().toString();
+            if (_contentEditor.hasSelection()) {
+                String text = _contentEditor.getText().toString();
                 int selectionStart = _contentEditor.getSelectionStart();
                 int selectionEnd = _contentEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
-                if((text.substring( selectionStart, selectionEnd)
+                if ((text.substring(selectionStart, selectionEnd)
                         .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
-                    text = text.substring( selectionStart+ action.length(),
-                            selectionEnd- action.length());
+                    text = text.substring(selectionStart + _action.length(),
+                            selectionEnd - _action.length());
                     _contentEditor.getText()
-                            .replace( selectionStart, selectionEnd,text);
+                            .replace(selectionStart, selectionEnd, text);
 
                 }
                 //Check if Selection is Preceded and succeeded by shortcut characters
-                else if((( selectionEnd<=( _contentEditor.length() - action.length()))&&
-                        ( selectionStart>= action.length()))&&
-                        (text.substring( selectionStart- action.length(),
-                                selectionEnd+ action.length())
-                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))){
+                else if (((selectionEnd <= (_contentEditor.length() - _action.length())) &&
+                        (selectionStart >= _action.length())) &&
+                        (text.substring(selectionStart - _action.length(),
+                                selectionEnd + _action.length())
+                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
-                    text = text.substring( selectionStart, selectionEnd);
+                    text = text.substring(selectionStart, selectionEnd);
                     _contentEditor.getText()
-                            .replace( selectionStart- action.length(),
-                            selectionEnd+ action.length(), text);
+                            .replace(selectionStart - _action.length(),
+                                    selectionEnd + _action.length(), text);
 
                 }
                 //Condition to insert shortcut preceding and succeeding the selection
                 else {
-                        _contentEditor.getText().insert( selectionStart, action);
-                        _contentEditor.getText().insert( _contentEditor.getSelectionEnd(), action);
+                    _contentEditor.getText().insert(selectionStart, _action);
+                    _contentEditor.getText().insert(_contentEditor.getSelectionEnd(), _action);
                 }
-            } else{
+            } else {
                 //Condition for Empty Selection
-                _contentEditor.getText().insert( _contentEditor.getSelectionStart(), action)
-                        .insert( _contentEditor.getSelectionEnd(), action);
-                _contentEditor.setSelection( _contentEditor.getSelectionStart() - action.length());
+                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
+                        .insert(_contentEditor.getSelectionEnd(), _action);
+                _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
             }
         }
 
     }
 
     private class KeyboardExtraActionsListener implements View.OnClickListener {
-
-        int action;
+        int _action;
 
         public KeyboardExtraActionsListener(int action) {
-            this.action = action;
+            _action = action;
         }
 
         @Override
         public void onClick(View view) {
-            getAlertDialog(action);
+            getAlertDialog(_action);
         }
 
     }
 
     private void getAlertDialog(int action) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final LayoutInflater inflater = NoteActivity.this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.format_dialog, null);
+        final View view = getLayoutInflater().inflate(R.layout.format_dialog, null);
 
         final EditText link_name = view.findViewById(R.id.format_dialog_name);
-        link_name.setHint(getString(R.string.format_dialog_name_hint));
         final EditText link_url = view.findViewById(R.id.format_dialog_url);
-        link_url.setHint(getString(R.string.format_dialog_url_hint));
+        link_name.setHint(getString(R.string.format_dialog_name_hint));
+        link_url.setHint(getString(R.string.format_dialog_url_or_path_hint));
 
         //Insert Link Action
         if (action == 1) {
             builder.setView(view)
                     .setTitle(getString(R.string.format_link_dialog_title))
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
                                     String.format("[%s](%s)", link_name.getText().toString(),
                                             link_url.getText().toString()));
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
                         }
                     });
         }
@@ -508,17 +497,13 @@ public class NoteActivity extends AppCompatActivity {
         else if (action == 2) {
             builder.setView(view)
                     .setTitle(getString(R.string.format_image_dialog_title))
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
                                     String.format("![%s](%s)", link_name.getText().toString(),
                                             link_url.getText().toString()));
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
                         }
                     });
         }
