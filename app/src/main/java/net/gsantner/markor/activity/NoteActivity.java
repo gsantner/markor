@@ -7,8 +7,10 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
@@ -19,12 +21,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -87,7 +91,6 @@ public class NoteActivity extends AppCompatActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
-
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -206,47 +209,39 @@ public class NoteActivity extends AppCompatActivity {
 
     private void setupKeyboardBar() {
         if (_appSettings.isShowMarkdownShortcuts() && _markdownCharBar.getChildCount() == 0) {
-            appendRegularShortcuts();
-            if (_appSettings.isSmartShortcutsEnabled()) {
-                appendSmartBracketShortcuts();
-            } else {
-                appendRegularBracketShortcuts();
-            }
-            for (String shortcut : Constants.KEYBOARD_SHORTCUTS_MORE) {
-                appendButton(shortcut, new KeyboardBarListener());
-            }
+            appendSmartActions();
+            appendRegularActions();
+            appendExtraActions();
         } else if (!_appSettings.isShowMarkdownShortcuts()) {
             findViewById(R.id.note__activity__scroll_markdownchar_bar).setVisibility(View.GONE);
         }
     }
 
-    private void appendRegularShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
-            appendButton(shortcut, new KeyboardBarListener());
+    private void appendRegularActions() {
+        for (int[] actions : Constants.KEYBOARD_REGULAR_ACTIONS_ICONS) {
+            appendButton(actions[0], new KeyboardRegularActionListener(Constants.KEYBOARD_REGULAR_ACTIONS[actions[1]]));
         }
     }
 
-    private void appendRegularBracketShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SHORTCUTS_BRACKETS) {
-            appendButton(shortcut, new KeyboardBarListener());
-        }
-
-    }
-
-    private void appendSmartBracketShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SMART_SHORTCUTS) {
-            appendButton(shortcut, new KeyboardBarSmartShortCutListener());
+    private void appendSmartActions() {
+        for (int[] actions : Constants.KEYBOARD_SMART_ACTIONS_ICON) {
+            appendButton(actions[0], new KeyboardSmartActionsListener(Constants.KEYBOARD_SMART_ACTIONS[actions[1]]));
         }
     }
 
-    private void appendButton(String shortcut, View.OnClickListener l) {
-        TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
-        shortcutButton.setText(shortcut);
+    private void appendExtraActions(){
+        for (int[] actions : Constants.KEYBOARD_EXTRA_ACTIONS_ICONS) {
+            appendButton(actions[0], new KeyboardExtraActionsListener(actions[1]));
+            }
+    }
+
+    private void appendButton(int shortcut, View.OnClickListener l) {
+        ImageView shortcutButton = (ImageView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
+        shortcutButton.setImageResource(shortcut);
         shortcutButton.setOnClickListener(l);
 
-
         boolean isDarkTheme = _appSettings.isDarkThemeEnabled();
-        shortcutButton.setTextColor(ContextCompat.getColor(this,
+        shortcutButton.setColorFilter(ContextCompat.getColor(this,
                 isDarkTheme ? android.R.color.white : R.color.grey));
         _markdownCharBar.addView(shortcutButton);
     }
@@ -366,28 +361,169 @@ public class NoteActivity extends AppCompatActivity {
         return filename;
     }
 
-    private class KeyboardBarListener implements View.OnClickListener {
+    private class KeyboardRegularActionListener implements View.OnClickListener {
+
+        String action;
+
+        public KeyboardRegularActionListener(String action) {
+            this.action = action;
+        }
+
         @Override
         public void onClick(View v) {
-            CharSequence shortcut = ((TextView) v).getText();
-            _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
+
+            if(_contentEditor.hasSelection()){
+                String text= _contentEditor.getText().toString();
+                int selectionStart = _contentEditor.getSelectionStart();
+                int selectionEnd = _contentEditor.getSelectionEnd();
+
+                //Check if Selection includes the shortcut characters
+                if(text.substring( selectionStart, selectionEnd)
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")){
+
+                    text = text.substring( selectionStart+ action.length(), selectionEnd);
+                    _contentEditor.getText()
+                            .replace( selectionStart, selectionEnd, text);
+
+                }
+                //Check if Selection is Preceded by shortcut characters
+                else if(( selectionStart>= action.length())&& (text.substring( selectionStart- action.length(), selectionEnd)
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
+
+                    text = text.substring( selectionStart, selectionEnd);
+                    _contentEditor.getText()
+                            .replace( selectionStart- action.length(), selectionEnd, text);
+
+                }
+                //Condition to insert shortcut preceding the selection
+                else{
+                        _contentEditor.getText().insert( selectionStart, action);
+                }
+            } else{
+                //Condition for Empty Selection
+                _contentEditor.getText().insert( _contentEditor.getSelectionStart(), action);
+            }
         }
     }
 
-    private class KeyboardBarSmartShortCutListener implements View.OnClickListener {
+    private class KeyboardSmartActionsListener implements View.OnClickListener {
+
+        String action;
+
+        public KeyboardSmartActionsListener(String action) {
+            this.action = action;
+        }
+
         @Override
         public void onClick(View v) {
-            CharSequence shortcut = ((TextView) v).getText();
-            if (_contentEditor.hasSelection()) {
-                CharSequence selected = _contentEditor.getText().subSequence(_contentEditor.getSelectionStart(),
-                        _contentEditor.getSelectionEnd());
-                _contentEditor.getText().replace(_contentEditor.getSelectionStart(), _contentEditor.getSelectionEnd(),
-                        Character.toString(shortcut.charAt(0)) + selected + shortcut.charAt(1));
-            } else {
-                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
-                _contentEditor.setSelection(_contentEditor.getSelectionStart() - 1);
+
+            if ( _contentEditor.hasSelection()) {
+                String text= _contentEditor.getText().toString();
+                int selectionStart = _contentEditor.getSelectionStart();
+                int selectionEnd = _contentEditor.getSelectionEnd();
+
+                //Check if Selection includes the shortcut characters
+                if((text.substring( selectionStart, selectionEnd)
+                        .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
+
+                    text = text.substring( selectionStart+ action.length(),
+                            selectionEnd- action.length());
+                    _contentEditor.getText()
+                            .replace( selectionStart, selectionEnd,text);
+
+                }
+                //Check if Selection is Preceded and succeeded by shortcut characters
+                else if((( selectionEnd<=( _contentEditor.length() - action.length()))&&
+                        ( selectionStart>= action.length()))&&
+                        (text.substring( selectionStart- action.length(),
+                                selectionEnd+ action.length())
+                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))){
+
+                    text = text.substring( selectionStart, selectionEnd);
+                    _contentEditor.getText()
+                            .replace( selectionStart- action.length(),
+                            selectionEnd+ action.length(), text);
+
+                }
+                //Condition to insert shortcut preceding and succeeding the selection
+                else {
+                        _contentEditor.getText().insert( selectionStart, action);
+                        _contentEditor.getText().insert( _contentEditor.getSelectionEnd(), action);
+                }
+            } else{
+                //Condition for Empty Selection
+                _contentEditor.getText().insert( _contentEditor.getSelectionStart(), action)
+                        .insert( _contentEditor.getSelectionEnd(), action);
+                _contentEditor.setSelection( _contentEditor.getSelectionStart() - action.length());
             }
         }
+
+    }
+
+    private class KeyboardExtraActionsListener implements View.OnClickListener {
+
+        int action;
+
+        public KeyboardExtraActionsListener(int action) {
+            this.action = action;
+        }
+
+        @Override
+        public void onClick(View view) {
+            getAlertDialog(action);
+        }
+
+    }
+
+    private void getAlertDialog(int action) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = NoteActivity.this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.format_dialog, null);
+
+        final EditText link_name = view.findViewById(R.id.format_dialog_name);
+        link_name.setHint(getString(R.string.format_dialog_name_hint));
+        final EditText link_url = view.findViewById(R.id.format_dialog_url);
+        link_url.setHint(getString(R.string.format_dialog_url_hint));
+
+        //Insert Link Action
+        if (action == 1) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_link_dialog_title))
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("[%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+        }
+        //Insert Image Action
+        else if (action == 2) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_image_dialog_title))
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("![%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+        }
+
+        builder.show();
     }
 
     public void switchHeaderView(Boolean hasFocus) {
