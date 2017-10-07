@@ -52,7 +52,7 @@
 
     <!-- Hard coded string fix -->
     <string name="last_modified">Дата зміни: %s</string>
-    <string name="number_of_files">Число файлів: %d</string>
+    <string name="number_of_files">Кількість файлів: %d</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
     <string name="create">Створити</string>
