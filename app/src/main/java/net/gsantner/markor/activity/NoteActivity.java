@@ -7,8 +7,10 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
@@ -19,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,7 +91,6 @@ public class NoteActivity extends AppCompatActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
-
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -229,7 +231,7 @@ public class NoteActivity extends AppCompatActivity {
 
     private void appendExtraActions(){
         for (int[] actions : Constants.KEYBOARD_EXTRA_ACTIONS_ICONS) {
-                appendButton(actions[0], new KeyboardRegularActionListener(Constants.KEYBOARD_EXTRA_ACTIONS[actions[1]]));
+            appendButton(actions[0], new KeyboardExtraActionsListener(actions[1]));
             }
     }
 
@@ -456,6 +458,72 @@ public class NoteActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private class KeyboardExtraActionsListener implements View.OnClickListener {
+
+        int action;
+
+        public KeyboardExtraActionsListener(int action) {
+            this.action = action;
+        }
+
+        @Override
+        public void onClick(View view) {
+            getAlertDialog(action);
+        }
+
+    }
+
+    private void getAlertDialog(int action) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = NoteActivity.this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.format_dialog, null);
+
+        final EditText link_name = view.findViewById(R.id.format_dialog_name);
+        link_name.setHint(getString(R.string.format_dialog_name_hint));
+        final EditText link_url = view.findViewById(R.id.format_dialog_url);
+        link_url.setHint(getString(R.string.format_dialog_url_hint));
+
+        //Insert Link Action
+        if (action == 1) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_link_dialog_title))
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("[%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+        }
+        //Insert Image Action
+        else if (action == 2) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_image_dialog_title))
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("![%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+        }
+
+        builder.show();
     }
 
     public void switchHeaderView(Boolean hasFocus) {
