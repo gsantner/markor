@@ -22,14 +22,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class HighlighterPatternTest {
 
 
-    @Parameterized.Parameters(name = "{index}: text {1} shoud be found {2} times")
+    @Parameterized.Parameters(name = "{index}: text {1} should be found {2} times")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {HighlighterPattern.HEADER.getPattern(), " # Hi", 0},
                 {HighlighterPattern.HEADER.getPattern(), "# Hi\n", 1},
-                {HighlighterPattern.HEADER.getPattern(), "#Hi\n", 1},
+                {HighlighterPattern.HEADER.getPattern(), "#Hi\n", 0},
                 {HighlighterPattern.HEADER.getPattern(), "## Hi\n", 1},
-                {HighlighterPattern.HEADER.getPattern(), "############ Hi\n", 1},
+                {HighlighterPattern.HEADER.getPattern(), "####### Hi\n", 0},
                 {HighlighterPattern.HEADER.getPattern(), "# Hi\n#Hi again\n", 1},
                 {HighlighterPattern.HEADER.getPattern(), "# Hi\nWhatever\n# Hi again\n", 2},
                 {HighlighterPattern.HEADER.getPattern(), "# Hi\n======", 1},
@@ -61,6 +61,8 @@ public class HighlighterPatternTest {
                 {HighlighterPattern.LIST.getPattern(), "1. asdfasdfas\n2. sadfasdfasdf", 2},
                 {HighlighterPattern.LIST.getPattern(), "1. asdfa 2. sdfas\n", 1},
                 {HighlighterPattern.LIST.getPattern(), "\n99. sdfas", 1},
+                {HighlighterPattern.LIST.getPattern(), "- [ ] item 1", 1},
+                {HighlighterPattern.LIST.getPattern(), "- [x] item 2", 1},
                 {HighlighterPattern.BOLD.getPattern(), "**s**", 1},
                 {HighlighterPattern.BOLD.getPattern(), "****s**", 1},
                 {HighlighterPattern.BOLD.getPattern(), "**s****", 1},
@@ -95,7 +97,7 @@ public class HighlighterPatternTest {
     }
 
     @Test
-    public void testHeaders() {
+    public void testHighlightPattern() {
         int count = 0;
 
         for (Matcher m = highlighterPattern.matcher(string); m.find(); ) {
@@ -103,6 +105,5 @@ public class HighlighterPatternTest {
         }
 
         assertThat(count).isEqualTo(foundCount);
-
     }
 }
