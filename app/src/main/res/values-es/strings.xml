@@ -34,8 +34,8 @@
     <string name="pref_title__theme">Tema</string>
     <string name="pref_title__preview_first">Previsualizar primero al abrir las notas</string>
     <string name="about">Acerca de Markor</string>
-    <string name="share_text">Texto sencillo</string>
-    <string name="share_image">Imagen</string>
+    <string name="plain_text">Texto sencillo</string>
+    <string name="image">Imagen</string>
     <string name="pref_title__font_size">Tamaño de letra</string>
     <string name="pref_title__show_markdown_shortcuts">Mostrar la barra de atajos Markdown</string>
     <string name="pref_title__highlighting_activated">Resaltado de sintaxis Markdown</string>
@@ -74,7 +74,6 @@
     <string name="pref_title__language">Idioma</string>
     <string name="error_storage_permission">Se necesita el permiso de almacenamiento para guardar documentos</string>
     <string name="open_with">Abrir con</string>
-    <string name="share_file">Archivo</string>
-    <string name="share_pdf">PDF</string>
+    <string name="file">Archivo</string>
 
 </resources>

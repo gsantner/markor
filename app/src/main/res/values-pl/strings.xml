@@ -34,10 +34,9 @@
     <string name="pref_title__theme">Motyw</string>
     <string name="pref_title__preview_first">Najpierw podgląd podczas otwierania notatek</string>
     <string name="about">O Markorze</string>
-    <string name="share_text">Zwykły Tekst</string>
-    <string name="share_file">Plik</string>
-    <string name="share_image">Obraz</string>
-    <string name="share_pdf">PDF</string>
+    <string name="plain_text">Zwykły Tekst</string>
+    <string name="file">Plik</string>
+    <string name="image">Obraz</string>
     <string name="pref_title__font_size">Wielkość czcionki</string>
     <string name="pref_title__show_markdown_shortcuts">Pokaż skróty bar skrótów Markdown</string>
     <string name="pref_title__highlighting_activated">Podświetlanie składni Markdowna</string>

@@ -10,10 +10,10 @@
         <menu>
             <item
                 android:id="@+id/action_share_text"
-                android:title="@string/share_text" />
+                android:title="@string/plain_text" />
             <item
                 android:id="@+id/action_share_file"
-                android:title="@string/share_file" />
+                android:title="@string/file" />
             <item
                 android:id="@+id/action_share_html"
                 android:title="@string/share_html" />
@@ -22,10 +22,10 @@
                 android:title="@string/share_html_source" />
             <item
                 android:id="@+id/action_share_image"
-                android:title="@string/share_image" />
+                android:title="@string/image" />
             <item
                 android:id="@+id/action_share_pdf"
-                android:title="@string/share_pdf"
+                android:title="@string/pdf"
                 android:visible="false"/>
         </menu>
     </item>
