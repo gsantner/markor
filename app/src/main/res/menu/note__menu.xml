@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_light"
         android:title="@string/share"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_preview_light"
         android:title="@string/preview"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>

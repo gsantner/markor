@@ -273,7 +273,7 @@ public class FilesystemListFragment extends Fragment {
         Comparator<File> comparator = new Comparator<File>() {
             @Override
             public int compare(File file, File other) {
-                if (sortReverse){
+                if (sortReverse) {
                     File swap = file;
                     file = other;
                     other = swap;
@@ -285,7 +285,7 @@ public class FilesystemListFragment extends Fragment {
                     case SORT_BY_DATE:
                         return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
                     case SORT_BY_FILESIZE:
-                        if (file.isDirectory() && other.isDirectory()){
+                        if (file.isDirectory() && other.isDirectory()) {
                             return other.list().length - file.list().length;
                         }
                         return Long.valueOf(other.length()).compareTo(file.length());
@@ -313,7 +313,7 @@ public class FilesystemListFragment extends Fragment {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.notes_context_menu, menu);
+            inflater.inflate(R.menu.filesystem__context_menu, menu);
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }
