@@ -83,5 +83,6 @@
     <string name="sort_by_date">Sortieren nach Datum</string>
     <string name="sort_by_name">Sortieren nach Name</string>
     <string name="sort_by_size">Sortieren nach Größe</string>
+    <string name="sort_reverse">Ordnung umdrehen</string>
 
 </resources>

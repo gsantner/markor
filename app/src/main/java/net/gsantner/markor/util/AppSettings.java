@@ -10,6 +10,7 @@ import android.os.Environment;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.util.AppSettingsBase;
 
 import java.io.File;
@@ -111,5 +112,22 @@ public class AppSettings extends AppSettingsBase {
         boolean ret = getBool(R.string.pref_key__is_main_recreate_required, false);
         setBool(R.string.pref_key__is_main_recreate_required, false);
         return ret;
+    }
+
+    public void setSortMethod(int value) {
+        setInt(R.string.pref_key__sort_method, value);
+    }
+
+
+    public int getSortMethod() {
+        return getInt(R.string.pref_key__sort_method, FilesystemListFragment.SORT_BY_NAME);
+    }
+
+    public void setSortReverse(boolean value) {
+        setBool(R.string.pref_key__sort_reverse, value);
+    }
+
+    public boolean isSortReverse() {
+        return getBool(R.string.pref_key__sort_reverse, false);
     }
 }
