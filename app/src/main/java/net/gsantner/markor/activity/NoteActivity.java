@@ -104,7 +104,11 @@ public class NoteActivity extends AppCompatActivity {
         String type = receivingIntent.getType();
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
-            openFromSendAction(receivingIntent);
+            if (type.equals("text/plain")) {
+                openTextShareText(receivingIntent);
+            } else {
+                openFromSendAction(receivingIntent);
+            }
         } else if (Intent.ACTION_EDIT.equals(intentAction) && type != null) {
             openFromEditAction(receivingIntent);
         } else if (Intent.ACTION_VIEW.equals(intentAction) && type != null) {
@@ -152,6 +156,11 @@ public class NoteActivity extends AppCompatActivity {
         Uri fileUri = receivingIntent.getData();
         _note = new File(fileUri.getPath());
         _contentEditor.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
+    }
+
+    private void openTextShareText(Intent receivingIntent) {
+        String stringExtra = receivingIntent.getStringExtra(Intent.EXTRA_TEXT);
+        _contentEditor.setText(stringExtra);
     }
 
     private void readFileUriFromIntent(Uri fileUri) {
