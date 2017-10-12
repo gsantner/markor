@@ -1,3 +1,9 @@
+### v0.1.5
+- Added: Translation: Brazilian, Polish, Hindi, French, Russian, Ukrainian, Italian
+- Added: Sort files
+- Added: Replace markdown charbar with actions
+- Improved: Syntax highlighting
+
 ### v0.1.4
 - Fixed: replaced Uri.fromFile with FileProvider
 - Added: Share as file, share as PDF

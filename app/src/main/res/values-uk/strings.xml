@@ -34,10 +34,9 @@
     <string name="pref_title__theme">Тема</string>
     <string name="pref_title__preview_first">Показувати попередній перегляд при відкритті нотатки</string>
     <string name="about">Про Markor</string>
-    <string name="share_text">Звичайний текст</string>
-    <string name="share_file">Файл</string>
-    <string name="share_image">Зображення</string>
-    <string name="share_pdf">PDF</string>
+    <string name="plain_text">Звичайний текст</string>
+    <string name="file">Файл</string>
+    <string name="image">Зображення</string>
     <string name="pref_title__font_size">Розмір шрифту</string>
     <string name="pref_title__show_markdown_shortcuts">Показувати панель скорочень markdown</string>
     <string name="pref_title__highlighting_activated">Підсвітка синтаксису markdown</string>
