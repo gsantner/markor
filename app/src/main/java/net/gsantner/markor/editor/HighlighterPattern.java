@@ -10,11 +10,11 @@ package net.gsantner.markor.editor;
 import java.util.regex.Pattern;
 
 enum HighlighterPattern {
-    LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.|\\+|-)[^\\S\\n]")),
+    LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.|\\+|-)( \\[[ xX]\\])?")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
-    HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-+|=+)[^\\S\\n]*$))")),
+    HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
-    STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
+    STRIKETHROUGH(Pattern.compile("~{2}(.*?)~{2}")),
     MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
     BOLD(Pattern.compile("(\\*\\*|__)[^\\s](.*?)\\1")),
     ITALICS(Pattern.compile("(\\*|_)[^\\s](.*?)\\1"));
