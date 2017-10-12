@@ -84,5 +84,6 @@
     <string name="sort_by_date">Sort by Date</string>
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_size">Sort by Size</string>
+    <string name="sort_reverse">Reverse order</string>
 
 </resources>

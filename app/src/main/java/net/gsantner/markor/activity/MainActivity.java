@@ -44,6 +44,7 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,16 +116,27 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
-            case R.id.action_sort_by_date: {
-                _filesystemListFragment.sortAdapter(1);
-                return true;
-            }
+
             case R.id.action_sort_by_name: {
-                _filesystemListFragment.sortAdapter(0);
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
+                _filesystemListFragment.sortAdapter();
                 return true;
             }
-            case R.id.action_sort_by_size: {
-                _filesystemListFragment.sortAdapter(2);
+            case R.id.action_sort_by_date: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_DATE);
+                _filesystemListFragment.sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_filesize: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_FILESIZE);
+                _filesystemListFragment.sortAdapter();
+                return true;
+            }
+
+            case R.id.action_sort_reverse: {
+                item.setChecked(!item.isChecked());
+                AppSettings.get().setSortReverse(item.isChecked());
+                _filesystemListFragment.sortAdapter();
                 return true;
             }
         }
@@ -135,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the _action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main__menu, menu);
         _searchItem = menu.findItem(R.id.action_search);
         _searchView = (SearchView) _searchItem.getActionView();
 
@@ -178,6 +190,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // Workaround: Show icon in overflow menu
+        if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+            try {
+                Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                m.setAccessible(true);
+                m.invoke(menu, true);
+            } catch (Exception ignored) {
+            }
+        }
+
         return true;
     }
 
