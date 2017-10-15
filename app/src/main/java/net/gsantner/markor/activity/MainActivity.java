@@ -112,10 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
-            case R.id.action_folder :{
-                showCreateFolderDialog();
-                return true ;
-            }
+          
 
         }
         return false;
