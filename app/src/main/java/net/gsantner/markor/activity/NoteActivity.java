@@ -67,6 +67,7 @@ public class NoteActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar _toolbar;
 
+    private String[] _extensions;
     private File _note;
     private String _targetDirectory;
     private boolean _isPreviewIncoming = false;
@@ -126,6 +127,10 @@ public class NoteActivity extends AppCompatActivity {
                 }
             }
         });
+
+        _extensions = new String[]{ Constants.MD_EXT1, Constants.MD_EXT2, Constants.MD_EXT3,Constants.MD_EXT4,
+                                    Constants.MD_EXT5, Constants.MD_EXT6, Constants.MD_EXT7, Constants.MD_EXT8,
+                                    Constants.MD_EXT9,Constants.MD_EXT10, Constants.MD_EXT11, Constants.MD_EXT12};
     }
 
     private String readNote() {
@@ -270,7 +275,7 @@ public class NoteActivity extends AppCompatActivity {
     private void previewNote() {
         saveNote();
         Intent intent = new Intent(this, PreviewActivity.class);
-        
+
         if (_note != null) {
             Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(_note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
@@ -299,13 +304,22 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
-
         String content = _contentEditor.getText().toString();
         String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
 
         if (filename == null) return;
 
-        filename = filename  + Constants.MD_EXT;
+        int f = 0;
+        //Checks if the file contain any of the extensions, defined by the user itself
+        for (String _extension : _extensions) {
+            if (filename.toLowerCase().endsWith(_extension)) {
+                f = 1;
+                break;
+            }
+        }
+        // If the flag still remains zero, means the file does not have any user defined extensions.
+        // So ".md" extension is given to the file.
+        if (f == 0) filename = filename + Constants.MD_EXT1;
 
         try {
 
@@ -313,8 +327,7 @@ public class NoteActivity extends AppCompatActivity {
 
             if (_note == null || !_note.exists()) {
                 _note = new File(parent, filename);
-            }
-            else if (!filename.equals(_initialFileName)) {
+            } else if (!filename.equals(_initialFileName)) {
                 FileUtils.renameFileInSameFolder(_note, filename);
                 _note = new File(parent, filename);
             }
@@ -366,6 +379,18 @@ public class NoteActivity extends AppCompatActivity {
         return filename;
     }
 
+    public void switchHeaderView(Boolean hasFocus) {
+        if (!hasFocus) {
+            _headerNoteTitle.setText(_editNoteTitle.getText().toString());
+            _viewSwitcher.showNext();
+        }
+    }
+
+    public void titleClicked(View view) {
+        _viewSwitcher.showPrevious();
+        _editNoteTitle.requestFocus();
+    }
+
     private class KeyboardBarListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -388,17 +413,5 @@ public class NoteActivity extends AppCompatActivity {
                 _contentEditor.setSelection(_contentEditor.getSelectionStart() - 1);
             }
         }
-    }
-
-    public void switchHeaderView(Boolean hasFocus) {
-        if (!hasFocus) {
-            _headerNoteTitle.setText(_editNoteTitle.getText().toString());
-            _viewSwitcher.showNext();
-        }
-    }
-
-    public void titleClicked(View view) {
-        _viewSwitcher.showPrevious();
-        _editNoteTitle.requestFocus();
     }
 }
