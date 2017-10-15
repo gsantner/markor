@@ -75,6 +75,7 @@ dependencies {
     compile "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
     compile "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
     compile "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
+    compile 'com.github.clans:fab:1.6.4'
 
 
     // Tool libraries

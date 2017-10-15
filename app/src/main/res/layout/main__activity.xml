@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -47,24 +48,33 @@
             android:orientation="vertical"
             android:padding="0dp">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/main__activity__create_note_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_create_white_24dp"
-                android:tooltipText="@string/create_note"
-                app:elevation="6dp" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:visibility="gone"
-                android:id="@+id/main__activity__create_folder_fab"
+            <com.github.clans.fab.FloatingActionMenu
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_create_new_folder_white_24dp"
-                android:tooltipText="@string/create_folder"
-                app:elevation="0dp" />
+                android:elevation="@dimen/fab_elevation"
+                android:layout_margin="@dimen/fab_margin"
+                app:menu_colorNormal="@color/colorAccent"
+                >
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/main__activity__create_note_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_create_white_24dp"
+                    android:tooltipText="@string/create_note"
+                    app:fab_label="@string/create_note"
+                    app:fab_colorNormal="@color/colorAccent"
+                     />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/main__activity__create_folder_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_create_new_folder_white_24dp"
+                    android:tooltipText="@string/create_folder"
+                    app:fab_label="@string/create_folder"
+                    app:fab_colorNormal="@color/colorAccent"
+                    />
+            </com.github.clans.fab.FloatingActionMenu>
 
         </LinearLayout>
     </RelativeLayout>
