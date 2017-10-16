@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 ext {
     version_sdk = [
             compileSdk: 26,
-            buildTools: "26.0.0",
+            buildTools: "26.0.1",
             minSdk    : 16,
             //targetSdk: compileSdk,
     ]
@@ -75,8 +75,6 @@ dependencies {
     compile "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
     compile "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
     compile "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
-    compile 'com.github.clans:fab:1.6.4'
-
 
     // Tool libraries
     compile "com.jakewharton:butterknife:${version_lib.butterknife}"
