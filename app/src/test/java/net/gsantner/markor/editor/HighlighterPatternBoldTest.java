@@ -108,6 +108,12 @@ public class HighlighterPatternBoldTest {
     }
 
     @Test
+    public void italicsStarWithTwoStartCharactersShouldNotMatch() {
+        Matcher m = pattern.matcher("**italic*");
+        assertThat(m.find()).isFalse();
+    }
+
+    @Test
     public void boldInAList() {
         Matcher m = pattern.matcher("* **bold** word");
         assertThat(m.find()).isTrue();

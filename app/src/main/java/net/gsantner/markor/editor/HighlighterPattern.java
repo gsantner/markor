@@ -16,7 +16,7 @@ enum HighlighterPattern {
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
     MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
-    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_){2,3}(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    BOLD(Pattern.compile("(?<=(\\n|^|\\s))((\\*|_){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
     ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_)(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))"));
 
     private Pattern pattern;
