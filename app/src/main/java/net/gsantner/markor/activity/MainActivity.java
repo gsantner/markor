@@ -112,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
                 return true;
             }
-          
-
         }
         return false;
 
