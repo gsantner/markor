@@ -47,6 +47,8 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static net.gsantner.markor.model.Constants._extensions;
+
 public class NoteActivity extends AppCompatActivity {
 
     @BindView(R.id.note__activity__edit_note_title)
@@ -67,7 +69,6 @@ public class NoteActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar _toolbar;
 
-    private String[] _extensions;
     private File _note;
     private String _targetDirectory;
     private boolean _isPreviewIncoming = false;
@@ -128,9 +129,6 @@ public class NoteActivity extends AppCompatActivity {
             }
         });
 
-        _extensions = new String[]{ Constants.MD_EXT1, Constants.MD_EXT2, Constants.MD_EXT3,Constants.MD_EXT4,
-                                    Constants.MD_EXT5, Constants.MD_EXT6, Constants.MD_EXT7, Constants.MD_EXT8,
-                                    Constants.MD_EXT9,Constants.MD_EXT10, Constants.MD_EXT11, Constants.MD_EXT12};
     }
 
     private String readNote() {
