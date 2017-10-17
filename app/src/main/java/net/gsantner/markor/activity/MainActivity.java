@@ -51,7 +51,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
