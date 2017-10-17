@@ -50,6 +50,8 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static net.gsantner.markor.model.Constants.EXTENSIONS;
+
 public class NoteActivity extends AppCompatActivity {
 
     @BindView(R.id.note__activity__edit_note_title)
@@ -132,6 +134,7 @@ public class NoteActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private String readNote() {
@@ -302,13 +305,22 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
-
         String content = _contentEditor.getText().toString();
         String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
 
         if (filename == null) return;
 
-        filename = filename + Constants.MD_EXT;
+        boolean useDefaultExt = 0;
+        //Checks if the file contain any of the extensions, defined by the user itself
+        for (String extension : EXTENSIONS) {
+            if (filename.toLowerCase().endsWith(extension)) {
+                useDefaultExt = 1;
+                break;
+            }
+        }
+        // If the flag still remains zero, means the file does not have any user defined extensions.
+        // So ".md" extension is given to the file.
+        if (useDefaultExt == 0) filename = filename + Constants.MD_EXT1;
 
         try {
 
@@ -366,6 +378,18 @@ public class NoteActivity extends AppCompatActivity {
             filename = "Markor - " + String.valueOf(UUID.randomUUID().getMostSignificantBits()).substring(0, 6);
         }
         return filename;
+    }
+
+    public void switchHeaderView(Boolean hasFocus) {
+        if (!hasFocus) {
+            _headerNoteTitle.setText(_editNoteTitle.getText().toString());
+            _viewSwitcher.showNext();
+        }
+    }
+
+    public void titleClicked(View view) {
+        _viewSwitcher.showPrevious();
+        _editNoteTitle.requestFocus();
     }
 
     private class KeyboardRegularActionListener implements View.OnClickListener {
@@ -518,17 +542,5 @@ public class NoteActivity extends AppCompatActivity {
         }
 
         builder.show();
-    }
-
-    public void switchHeaderView(Boolean hasFocus) {
-        if (!hasFocus) {
-            _headerNoteTitle.setText(_editNoteTitle.getText().toString());
-            _viewSwitcher.showNext();
-        }
-    }
-
-    public void titleClicked(View view) {
-        _viewSwitcher.showPrevious();
-        _editNoteTitle.requestFocus();
     }
 }

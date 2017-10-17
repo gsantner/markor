@@ -26,7 +26,15 @@ public class Constants {
 
     public static final String UTF_CHARSET = "utf-8";
 
-    public static final String MD_EXT = ".md";
+    public static final String MD_EXT1 = ".md";
+    public static final String MD_EXT2 = ".markdown";
+    public static final String MD_EXT3 = ".mkd";
+    public static final String MD_EXT4 = ".mdown";
+    public static final String MD_EXT5 = ".mkdn";
+    public static final String MD_EXT6 = ".txt";
+    public static final String[] EXTENSIONS = new String[]{ Constants.MD_EXT1, Constants.MD_EXT2, Constants.MD_EXT3,
+                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
+
 
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
