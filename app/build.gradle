@@ -9,8 +9,8 @@ ext {
     ]
     version_sdk.targetSdk = version_sdk.compileSdk
     version_lib = [
-            appcompat  : "26.0.0",
-            butterknife: "8.7.0",
+            appcompat  : "26.1.0",
+            butterknife: "8.8.1",
             commonmark: "0.10.0",
     ]
 }
@@ -23,8 +23,8 @@ android {
         minSdkVersion version_sdk.minSdk
         targetSdkVersion version_sdk.targetSdk
 
-        versionCode 5
-        versionName "0.1.4"
+        versionCode 6
+        versionName "0.1.5"
 
         applicationId "net.gsantner.markor"
 

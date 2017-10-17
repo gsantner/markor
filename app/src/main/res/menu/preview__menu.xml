@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_light"
@@ -10,22 +10,22 @@
         <menu>
             <item
                 android:id="@+id/action_share_text"
-                android:title="@string/share_text" />
+                android:title="@string/plain_text"/>
             <item
                 android:id="@+id/action_share_file"
-                android:title="@string/share_file" />
+                android:title="@string/file"/>
             <item
                 android:id="@+id/action_share_html"
-                android:title="@string/share_html" />
+                android:title="@string/share_html"/>
             <item
                 android:id="@+id/action_share_html_source"
-                android:title="@string/share_html_source" />
+                android:title="@string/share_html_source"/>
             <item
                 android:id="@+id/action_share_image"
-                android:title="@string/share_image" />
+                android:title="@string/image"/>
             <item
                 android:id="@+id/action_share_pdf"
-                android:title="@string/share_pdf"
+                android:title="@string/pdf"
                 android:visible="false"/>
         </menu>
     </item>
@@ -33,5 +33,5 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_light"
         android:title="@string/preview"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>

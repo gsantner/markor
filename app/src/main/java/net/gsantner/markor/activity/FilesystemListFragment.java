@@ -29,7 +29,6 @@ import android.widget.TextView;
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
@@ -53,6 +52,9 @@ import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 public class FilesystemListFragment extends Fragment {
+    public static final int SORT_BY_DATE = 0;
+    public static final int SORT_BY_NAME = 1;
+    public static final int SORT_BY_FILESIZE = 2;
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;
@@ -61,7 +63,6 @@ public class FilesystemListFragment extends Fragment {
     public TextView _background_hint_text;
 
     private NotesAdapter _filesAdapter;
-
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
@@ -182,7 +183,7 @@ public class FilesystemListFragment extends Fragment {
         reloadFiles(directory);
         broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
-        reloadAdapter();
+        sortAdapter();
     }
 
     private void broadcastDirectoryChange(File directory) {
@@ -258,72 +259,44 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
-    public void sortByName(){
-        int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
-                k++;
+    public void sortAdapter() {
+        final int sortMethod = AppSettings.get().getSortMethod();
+        final boolean sortReverse = AppSettings.get().isSortReverse();
+        int count = _filesCurrentlyShown.size();
+        int lastFolderIndex = 0;
+        for (int i = 0; i < count; i++) {
+            if (_filesCurrentlyShown.get(i).isDirectory()) {
+                lastFolderIndex++;
             }
         }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return file1.compareTo(file2);
-            }
-        });
-        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return file1.compareTo(file2);
-            }
-        });
-        reloadAdapter();
-    }
 
-    public void sortByDate(){
-        int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
-                k++;
-            }
-        }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
+        Comparator<File> comparator = new Comparator<File>() {
             @Override
-            public int compare(File file1, File file2) {
-                return (int)(file2.lastModified()-file1.lastModified());
-            }
-        });
-        Collections.sort(_filesCurrentlyShown.subList(k, size), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file2.lastModified()-file1.lastModified());
-            }
-        });
-        reloadAdapter();
-    }
+            public int compare(File file, File other) {
+                if (sortReverse) {
+                    File swap = file;
+                    file = other;
+                    other = swap;
+                }
 
-    public void sortBySize(){
-        int size = _filesCurrentlyShown.size();
-        int k=0;
-        for(int i=0;i<size;i++){
-            if(_filesCurrentlyShown.get(i).isDirectory()){
-                k++;
+                switch (sortMethod) {
+                    case SORT_BY_NAME:
+                        return file.compareTo(other);
+                    case SORT_BY_DATE:
+                        return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
+                    case SORT_BY_FILESIZE:
+                        if (file.isDirectory() && other.isDirectory()) {
+                            return other.list().length - file.list().length;
+                        }
+                        return Long.valueOf(other.length()).compareTo(file.length());
+                }
+                return file.compareTo(other);
             }
-        }
-        Collections.sort(_filesCurrentlyShown.subList(0, k), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
-            }
-        });
-        Collections.sort((_filesCurrentlyShown.subList(k, size)), new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return (int)(file1.getUsableSpace()-file2.getUsableSpace());
-            }
-        });
+        };
+
+        Collections.sort(_filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
+        Collections.sort(_filesCurrentlyShown.subList(lastFolderIndex, count), comparator);
+
         reloadAdapter();
     }
 
@@ -340,7 +313,7 @@ public class FilesystemListFragment extends Fragment {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.notes_context_menu, menu);
+            inflater.inflate(R.menu.filesystem__context_menu, menu);
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }

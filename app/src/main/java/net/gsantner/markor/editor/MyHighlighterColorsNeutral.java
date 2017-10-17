@@ -11,7 +11,8 @@ class MyHighlighterColorsNeutral implements HighlighterColors {
 
     private final int COLOR_HEADER = 0xffef6C00;
     private final int COLOR_LINK = 0xff1ea3fd;
-    private final int COLOR_LIST = COLOR_HEADER;
+    private final int COLOR_LIST = 0xffdaa520;
+    private final int COLOR_QUOTE = 0xff88b04b;
 
     @Override
     public int getHeaderColor() {
@@ -27,4 +28,10 @@ class MyHighlighterColorsNeutral implements HighlighterColors {
     public int getListColor() {
         return COLOR_LIST;
     }
+
+    @Override
+    public int getQuotationColor() {
+        return COLOR_QUOTE;
+    }
+
 }

@@ -34,10 +34,9 @@
     <string name="pref_title__theme">Motyw</string>
     <string name="pref_title__preview_first">Najpierw podgląd podczas otwierania notatek</string>
     <string name="about">O Markorze</string>
-    <string name="share_text">Zwykły Tekst</string>
-    <string name="share_file">Plik</string>
-    <string name="share_image">Obraz</string>
-    <string name="share_pdf">PDF</string>
+    <string name="plain_text">Zwykły Tekst</string>
+    <string name="file">Plik</string>
+    <string name="image">Obraz</string>
     <string name="pref_title__font_size">Wielkość czcionki</string>
     <string name="pref_title__show_markdown_shortcuts">Pokaż skróty bar skrótów Markdown</string>
     <string name="pref_title__highlighting_activated">Podświetlanie składni Markdowna</string>
@@ -63,6 +62,11 @@
     <string name="pref_summary__is_statusbar_hidden">Ukryj statubar w tym widoku</string> <!-- I don't know how this better translate -->
     <string name="pref_title__is_statusbar_hidden">Ukryj statusbar</string>
 
+    <string name="format_dialog_name_hint">Nazwa</string>
+    <string name="format_dialog_url_or_path_hint">URL / Ścieżka</string>
+    <string name="format_link_dialog_title">Wstaw link</string>
+    <string name="format_image_dialog_title">Wstaw obrazek</string>
+
     <!-- About screen -->
     <string name="contributors">Współtwórcy</string>
 
@@ -76,5 +80,9 @@
     <string name="pref_title__language">Język</string>
     <string name="error_storage_permission">Potrzebuję zezwolenia do pamięci, żeby zapisywać dokumenty</string>
     <string name="open_with">Otwórz za pomocą&#8230;</string>
+    <string name="sort">Sortuj</string>
+    <string name="sort_by_date">Sortuj według daty</string>
+    <string name="sort_by_name">Sortuj według nazwy</string>
+    <string name="sort_by_size">Sortuj według rozmiaru</string>
 
 </resources>

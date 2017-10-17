@@ -34,8 +34,8 @@
     <string name="pref_title__theme">Thema</string>
     <string name="pref_title__preview_first">Notizen in Vorschauansicht öffnen</string>
     <string name="about">Über Markor</string>
-    <string name="share_text">Klartext</string>
-    <string name="share_image">Bild</string>
+    <string name="plain_text">Klartext</string>
+    <string name="image">Bild</string>
     <string name="pref_title__font_size">Schriftgröße</string>
     <string name="pref_title__show_markdown_shortcuts">Markdown-Leiste im Editor</string>
     <string name="pref_title__highlighting_activated">Markdown-Syntax hervorheben</string>
@@ -74,5 +74,15 @@
     <string name="pref_title__language">Sprache</string>
     <string name="error_storage_permission">Benötige Dateisystem Berechtigung um in Dokumenten zu speichern</string>
     <string name="open_with">Öffnen mit</string>
+    <string name="format_dialog_name_hint">Name</string>
+    <string name="format_dialog_url_or_path_hint">URL / Pfad</string>
+    <string name="format_image_dialog_title">Bild einfügen</string>
+    <string name="format_link_dialog_title">Link einfügen</string>
+    <string name="file">Datei</string>
+    <string name="sort">Sortieren</string>
+    <string name="sort_by_date">Sortieren nach Datum</string>
+    <string name="sort_by_name">Sortieren nach Name</string>
+    <string name="sort_by_size">Sortieren nach Größe</string>
+    <string name="sort_reverse">Ordnung umdrehen</string>
 
 </resources>

@@ -138,7 +138,7 @@ public class PreviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.preview_menu, menu);
+        getMenuInflater().inflate(R.menu.preview__menu, menu);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             menu.findItem(R.id.action_share_pdf).setVisible(true);

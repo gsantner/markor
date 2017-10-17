@@ -34,10 +34,9 @@
     <string name="pref_title__theme">Theme</string>
     <string name="pref_title__preview_first">Preview first when opening notes</string>
     <string name="about">About Markor</string>
-    <string name="share_text">Plain Text</string>
-    <string name="share_file">File</string>
-    <string name="share_image">Image</string>
-    <string name="share_pdf">PDF</string>
+    <string name="plain_text">Plain Text</string>
+    <string name="file">File</string>
+    <string name="image">Image</string>
     <string name="pref_title__font_size">Font Size</string>
     <string name="pref_title__show_markdown_shortcuts">Show Markdown shortcuts bar</string>
     <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
@@ -63,6 +62,11 @@
     <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
 
+    <string name="format_dialog_name_hint">Name</string>
+    <string name="format_dialog_url_or_path_hint">URL / Path</string>
+    <string name="format_link_dialog_title">Insert Link</string>
+    <string name="format_image_dialog_title">Insert Image</string>
+
     <!-- About screen -->
     <string name="contributors">Contributors</string>
 
@@ -80,5 +84,6 @@
     <string name="sort_by_date">Sort by Date</string>
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_size">Sort by Size</string>
+    <string name="sort_reverse">Reverse order</string>
 
 </resources>

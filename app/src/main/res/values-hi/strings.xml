@@ -34,10 +34,9 @@
     <string name="pref_title__theme">बनावट</string>
     <string name="pref_title__preview_first">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
     <string name="about">जानकारी</string>
-    <string name="share_text">सादा टेक्स्ट</string>
-        <string name="share_file">फ़ाइल</string>
-    <string name="share_image">छवि</string>
-    <string name="share_pdf">पीडीएफ</string>
+    <string name="plain_text">सादा टेक्स्ट</string>
+        <string name="file">फ़ाइल</string>
+    <string name="image">छवि</string>
     <string name="pref_title__font_size">फ़ॉन्ट आकार</string>
     <string name="pref_title__show_markdown_shortcuts">मार्कडाउन शॉर्टकट बार दिखाएं</string>
     <string name="pref_title__highlighting_activated">मार्कडाउन सिंटैक्स हाइलाइटिंग</string>

@@ -34,10 +34,9 @@
     <string name="pref_title__theme">Tema</string>
     <string name="pref_title__preview_first">Anteprima all\'apertura della Nota</string>
     <string name="about">About Markor</string>
-    <string name="share_text">Testo Puro</string>
-    <string name="share_file">File</string>
-    <string name="share_image">Immagine</string>
-    <string name="share_pdf">PDF</string>
+    <string name="plain_text">Testo Puro</string>
+    <string name="file">File</string>
+    <string name="image">Immagine</string>
     <string name="pref_title__font_size">Grandezza Font</string>
     <string name="pref_title__show_markdown_shortcuts">Mostra barra scorciatoie Markdown</string>
     <string name="pref_title__highlighting_activated">Highlighting della sintassi dei Markdown</string>

@@ -7,10 +7,13 @@
  */
 package net.gsantner.markor.editor;
 
-public interface HighlighterColors {
+interface HighlighterColors {
+
     int getHeaderColor();
 
     int getLinkColor();
 
     int getListColor();
+
+    int getQuotationColor();
 }
