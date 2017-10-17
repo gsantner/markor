@@ -50,8 +50,6 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static net.gsantner.markor.model.Constants.EXTENSIONS;
-
 public class NoteActivity extends AppCompatActivity {
 
     @BindView(R.id.note__activity__edit_note_title)
@@ -310,17 +308,19 @@ public class NoteActivity extends AppCompatActivity {
 
         if (filename == null) return;
 
-        boolean useDefaultExt = 0;
+        boolean keepExt = false;
         //Checks if the file contain any of the extensions, defined by the user itself
-        for (String extension : EXTENSIONS) {
+        for (String extension : Constants.EXTENSIONS) {
             if (filename.toLowerCase().endsWith(extension)) {
-                useDefaultExt = 1;
+                keepExt = true;
                 break;
             }
         }
         // If the flag still remains zero, means the file does not have any user defined extensions.
         // So ".md" extension is given to the file.
-        if (useDefaultExt == 0) filename = filename + Constants.MD_EXT1;
+        if (!keepExt) {
+            filename = filename + Constants.MD_EXT1_MD;
+        }
 
         try {
 
