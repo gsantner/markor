@@ -31,12 +31,9 @@ public class Constants {
     public static final String MD_EXT3 = ".mkd";
     public static final String MD_EXT4 = ".mdown";
     public static final String MD_EXT5 = ".mkdn";
-    public static final String MD_EXT6 = ".pdf";
-    public static final String MD_EXT7 = ".txt";
-    public static final String MD_EXT8 = ".html";
-    public static final String[] _extensions = new String[]{ Constants.MD_EXT1, Constants.MD_EXT2, Constants.MD_EXT3,
-                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6,
-                                                            Constants.MD_EXT7, Constants.MD_EXT8};
+    public static final String MD_EXT6 = ".txt";
+    public static final String[] EXTENSIONS = new String[]{ Constants.MD_EXT1, Constants.MD_EXT2, Constants.MD_EXT3,
+                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
 
 
     public static final int MAX_TITLE_LENGTH = 20;
