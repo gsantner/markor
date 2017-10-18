@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -231,13 +233,29 @@ public class PreviewActivity extends AppCompatActivity {
 
     private Bitmap getBitmapFromWebView(WebView webView) {
         try {
-            int bitmapWidth = (int) (webView.getWidth() * webView.getScaleX());
-            int bitmapHeight = (int) (webView.getContentHeight() * webView.getScaleY()) + 128;
+            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
 
-            Bitmap bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
+            //Measure WebView's content
+            webView.measure(widthMeasureSpec, heightMeasureSpec);
+            webView.layout(0, 0, webView.getMeasuredWidth(), webView.getMeasuredHeight());
+
+            //Build drawing cache and store its size
+            webView.buildDrawingCache();
+
+            int measuredWidth = webView.getMeasuredWidth();
+            int measuredHeight = webView.getMeasuredHeight();
+
+            //Creates the bitmap and draw WebView's content on in
+            Bitmap bitmap = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888);
+
+            Paint paint = new Paint();
 
             Canvas canvas = new Canvas(bitmap);
+            canvas.drawBitmap(bitmap, 0, bitmap.getHeight(), paint);
+
             webView.draw(canvas);
+            webView.destroyDrawingCache();
 
             return bitmap;
         } catch (Exception e) {
