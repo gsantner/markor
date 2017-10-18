@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,6 +59,11 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WebView.enableSlowWholeDocumentDraw();
+        }
+
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -227,12 +231,14 @@ public class PreviewActivity extends AppCompatActivity {
 
     private Bitmap getBitmapFromWebView(WebView webView) {
         try {
-            float scale = 1.0f / getResources().getDisplayMetrics().density;
-            Picture picture = webView.capturePicture();
-            Bitmap bitmap = Bitmap.createBitmap((int) (picture.getWidth() * scale), (int) (picture.getHeight() * scale), Bitmap.Config.ARGB_8888);
+            int bitmapWidth = (int) (webView.getWidth() * webView.getScaleX());
+            int bitmapHeight = (int) (webView.getContentHeight() * webView.getScaleY()) + 128;
+
+            Bitmap bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
+
             Canvas canvas = new Canvas(bitmap);
-            canvas.scale(scale, scale);
-            picture.draw(canvas);
+            webView.draw(canvas);
+
             return bitmap;
         } catch (Exception e) {
             e.printStackTrace();
