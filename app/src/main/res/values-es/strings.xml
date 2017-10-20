@@ -6,7 +6,7 @@
     <string name="delete">Borrar</string>
     <string name="rename">Cambiar nombre</string>
     <string name="confirm_delete">Confirmar borrado</string>
-    <string name="confirm_overwrite">El archivo ya existe, ¿sobreescribir?</string>
+    <string name="confirm_overwrite">El archivo ya existe, ¿sobrescribir?</string>
     <string name="title">Título</string>
     <string name="empty_directory">Este directorio está vacío</string>
     <string name="navigate_up_folder">Volver a la carpeta anterior</string>
