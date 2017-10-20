@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Paramètres</string>
+    <string name="light">Clair</string>
+    <string name="dark">Sombre</string>
+    <string name="delete">Supprimer</string>
+    <string name="rename">Renommer</string>
+    <string name="confirm_delete">Confirmez la suppression</string>
+    <string name="confirm_overwrite">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
+    <string name="title">Titre</string>
+    <string name="empty_directory">Ce dossier est vide</string>
+    <string name="navigate_up_folder">Retourner au dossier précédent</string>
+    <string name="folder_name_hint">Nom du dossier</string>
+    <string name="create_folder">Nouveau dossier</string>
+    <string name="create_note">Nouvelle note</string>
+    <string name="move">Déplacer</string>
+
+    <string name="import_from_device">Importer depuis cet appareil</string>
+    <string name="select_folder">Sélectionnez le dossier</string>
+
+    <string name="search_hint">Rechercher dans les notes</string>
+    <string name="share_string">Partager avec…</string>
+    <string name="share">Partager</string>
+    <string name="search">Chercher</string>
+    <string name="preview">Aperçu</string>
+    <string name="app_settings">Paramètres de l\'application</string>
+    <string name="editor_settings">Paramètres de l\'éditeur</string>
+    <string name="folders">Dossiers</string>
+    <string name="files">Fichiers</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Se souvenir du dossier courant pour le démarrage suivant</string>
+    <string name="pref_title__font_choice">Police de l\'éditeur</string>
+    <string name="pref_title__theme">Thème</string>
+    <string name="pref_title__preview_first">Ouvrir les notes sur l\'aperçu</string>
+    <string name="about">À propos de Markor</string>
+    <string name="plain_text">Texte brut</string>
+    <string name="file">Fichier</string>
+    <string name="image">Image</string>
+    <string name="pref_title__font_size">Taille de la police</string>
+    <string name="pref_title__show_markdown_shortcuts">Afficher la barre d\'édition Markdown</string>
+    <string name="pref_title__highlighting_activated">Activer la coloration syntaxique Markdown</string>
+    <string name="pref_title__highlighting_delay">Délai de rafraîchissement de la coloration syntaxique en ms</string>
+    <string name="pref_title__highlighting_delay_summary">Un délai plus grand usera moins vite la batterie</string>
+    <string name="pref_title__smart_shortcuts">Activer les parenthèses intelligentes</string>
+    <string name="pref_title__smart_shortcuts_summary">Si du texte est sélectionné, un appui sur {}, [] ou () positionnera les signes correspondants de part et d\'autre de la sélection</string>
+    <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
+    <string name="error_cannot_create_save_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Dernière modification : %s</string>
+    <string name="number_of_files">Nombre de fichiers : %d</string>
+    <string name="select_this_folder">Sélectionner ce dossier</string>
+    <string name="select">Sélectionner</string>
+    <string name="create">Créer</string>
+    <string name="select_elements">Sélectionnez une ou plusieurs entrées</string>
+    <string name="one_item_selected">Une entrée sélectionnée</string>
+    <string name="more_items_selected">%d entrées sélectionnées</string>
+
+    <string name="pref_summary__is_statusbar_hidden">L\'application s\'exécute en mode plein écran</string>
+    <string name="pref_title__is_statusbar_hidden">Cacher la barre de statut</string>
+
+    <!-- About screen -->
+    <string name="contributors">Contributeurs</string>
+
+    <string name="pref_title__save_directory">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
+    <string name="licenses">Licences</string>
+    <string name="changelog">Nouveautés de l\'application</string>
+    <string name="more_information">Plus d\'informations</string>
+    <string name="show_app_license">Afficher la licence de l\'application</string>
+    <string name="show_third_party_licenses">Afficher les licences tierces</string>
+    <string name="pref_desc__language">Changer la langue de l\'interface. Vous devrez redémarrer l\'application pour que ce changement soit pris en compte</string>
+    <string name="pref_title__language">Langue</string>
+    <string name="error_storage_permission">Vous devez autoriser l\'application à écrire dans la mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
+    <string name="open_with">Ouvrir avec</string>
+    <string name="sort">Trier</string>
+    <string name="sort_by_date">Trier par date</string>
+    <string name="sort_by_name">Trier par nom</string>
+    <string name="sort_by_size">Trier par taille</string>
+
+</resources>

@@ -34,13 +34,15 @@
     <string name="pref_title__theme">Tema</string>
     <string name="pref_title__preview_first">Pré-visualização ao abrir notas</string>
     <string name="about">Sobre o Markor</string>
-    <string name="share_text">Texto puro</string>
-    <string name="share_image">Imagem</string>
+    <string name="plain_text">Texto puro</string>
+    <string name="image">Imagem</string>
     <string name="pref_title__font_size">Tamanho da fonte</string>
     <string name="pref_title__show_markdown_shortcuts">Mostrar atalhos de Markdown</string>
     <string name="pref_title__highlighting_activated">Realce de sintaxe Markdown</string>
     <string name="pref_title__highlighting_delay">Atraso de milissegundos para atualização de realce</string>
     <string name="pref_title__highlighting_delay_summary">Valores mais altos aliviam a bateria</string>
+    <string name="pref_title__smart_shortcuts">Atalhos de colchetes inteligentes</string>
+    <string name="pref_title__smart_shortcuts_summary">Se o texto for selecionado, {}, [] e () irá rodear a seleção</string>
     <string name="pref_title__render_rtl">Renderizar para línguas de escrita da direita à esquerda</string>
     <string name="error_cannot_create_save_dir">Erro: Impossível criar pasta de becape</string>
 
@@ -68,6 +70,9 @@
     <string name="more_information">Mais informações</string>
     <string name="show_app_license">Exibir licença</string>
     <string name="show_third_party_licenses">Exibir licenças de 3os</string>
-    <string name="pref_desc__language">Mudar língua do aplicativo. Reiniciar para aplicar</string>
-    <string name="pref_title__language">Língua</string>
+    <string name="pref_desc__language">Mudar línguagem do aplicativo. Reinicie o aplicativo para aplicar a alteração</string>
+    <string name="pref_title__language">Línguagem</string>
+    <string name="error_storage_permission">Necessário permissão para armazenamento de documentos</string>
+    <string name="open_with">Abrir com</string>
+
 </resources>

@@ -9,8 +9,9 @@ ext {
     ]
     version_sdk.targetSdk = version_sdk.compileSdk
     version_lib = [
-            appcompat  : "26.0.0",
-            butterknife: "8.7.0",
+            appcompat  : "26.1.0",
+            butterknife: "8.8.1",
+            commonmark: "0.10.0",
     ]
 }
 
@@ -22,8 +23,8 @@ android {
         minSdkVersion version_sdk.minSdk
         targetSdkVersion version_sdk.targetSdk
 
-        versionCode 4
-        versionName "0.1.3"
+        versionCode 6
+        versionName "0.1.5"
 
         applicationId "net.gsantner.markor"
 
@@ -57,23 +58,6 @@ android {
     }
 }
 
-@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
-static String[] getUsedAndroidLanguages() {
-    Set<String> langs = new HashSet<>()
-    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
-        final foldername = it.name
-        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates")) {
-            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
-                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
-                    langs.add(foldername.replace("values-", ""))
-
-                }
-            }
-        }
-    }
-    return langs.toArray(new String[langs.size()])
-}
-
 dependencies {
     // Android standard libs
     compile "com.android.support:appcompat-v7:${version_lib.appcompat}"
@@ -83,8 +67,15 @@ dependencies {
     compile "com.android.support:palette-v7:${version_lib.appcompat}"
 
     // UI libs
-    compile 'com.commonsware.cwac:anddown:0.4.0'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+    compile "com.atlassian.commonmark:commonmark:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-gfm-tables:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-autolink:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
+    compile "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
+
 
     // Tool libraries
     compile "com.jakewharton:butterknife:${version_lib.butterknife}"
@@ -104,6 +95,23 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
 }
 
+
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
+static String[] getUsedAndroidLanguages() {
+    Set<String> langs = new HashSet<>()
+    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
+        final foldername = it.name
+        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates")) {
+            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
+                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
+                    langs.add(foldername.replace("values-", ""))
+
+                }
+            }
+        }
+    }
+    return langs.toArray(new String[langs.size()])
+}
 
 final String RAW_DIR = "app/src/main/res/raw"
 final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "LICENSE.txt", "CHANGELOG.md", "CONTRIBUTORS.md"]

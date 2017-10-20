@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Ustawienia</string>
+    <string name="light">Jasny</string>
+    <string name="dark">Ciemny</string>
+    <string name="delete">Usuń</string>
+    <string name="rename">Zmień nazwę</string>
+    <string name="confirm_delete">Potwierdź usunięcie</string>
+    <string name="confirm_overwrite">Plik już istnieje, nadpisać?</string>
+    <string name="title">Tytuł</string>
+    <string name="empty_directory">Ten katalog jest pusty</string>
+    <string name="navigate_up_folder">Wróć do popszedniego folderu</string>
+    <string name="folder_name_hint">Wprowadź nazwę folderu</string>
+    <string name="create_folder">Stwórz Folder</string>
+    <string name="create_note">Stwórz Notatkę</string>
+    <string name="move">Przenieś</string>
+
+    <string name="import_from_device">Importuj z urządzenia</string>
+    <string name="select_folder">Wybierz folder</string>
+
+    <string name="search_hint">Szukaj notatkę</string>
+    <string name="share_string">Udostępnij do&#8230;</string>
+    <string name="share">Udostępnij</string>
+    <string name="search">Szukaj</string>
+    <string name="preview">Podgląd</string>
+    <string name="app_settings">Ustawienia Aplikacji</string>
+    <string name="editor_settings">Ustawienia Edytora</string>
+    <string name="folders">Foldery</string>
+    <string name="files">Pliki</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
+    <string name="pref_title__font_choice">Czcionka edytora</string>
+    <string name="pref_title__theme">Motyw</string>
+    <string name="pref_title__preview_first">Najpierw podgląd podczas otwierania notatek</string>
+    <string name="about">O Markorze</string>
+    <string name="plain_text">Zwykły Tekst</string>
+    <string name="file">Plik</string>
+    <string name="image">Obraz</string>
+    <string name="pref_title__font_size">Wielkość czcionki</string>
+    <string name="pref_title__show_markdown_shortcuts">Pokaż skróty bar skrótów Markdown</string>
+    <string name="pref_title__highlighting_activated">Podświetlanie składni Markdowna</string>
+    <string name="pref_title__highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżenia</string>
+    <string name="pref_title__highlighting_delay_summary">Wyższe wartości oszczędzają baterie</string>
+    <string name="pref_title__smart_shortcuts">Sprytna klamra skrótów</string>
+    <string name="pref_title__smart_shortcuts_summary">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
+    <string name="pref_title__render_rtl">Renderowanie dla języków od prawej do lewej</string>
+    <string name="error_cannot_create_save_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Ostatnio zmodyfikowano: %s</string>
+    <string name="number_of_files">Liczba plików: %d</string>
+    <string name="select_this_folder">Wybierz ten folder</string>
+    <string name="select">Wybierz</string>
+    <string name="create">Stwórz</string>
+    <string name="select_elements">Wybierz wpisy</string>
+    <string name="one_item_selected">Zaznaczono jedną rzecz</string>
+    <string name="more_items_selected">Zaznaczono %d rzeczy</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Ukryj statubar w tym widoku</string> <!-- I don't know how this better translate -->
+    <string name="pref_title__is_statusbar_hidden">Ukryj statusbar</string>
+
+    <string name="format_dialog_name_hint">Nazwa</string>
+    <string name="format_dialog_url_or_path_hint">URL / Ścieżka</string>
+    <string name="format_link_dialog_title">Wstaw link</string>
+    <string name="format_image_dialog_title">Wstaw obrazek</string>
+
+    <!-- About screen -->
+    <string name="contributors">Współtwórcy</string>
+
+    <string name="pref_title__save_directory">Wybierz folder zapisu</string>
+    <string name="licenses">Licencja</string>
+    <string name="changelog">Zmiany</string>
+    <string name="more_information">Więcej informacji</string>
+    <string name="show_app_license">Pokaż licencje aplikacji</string>
+    <string name="show_third_party_licenses">Pokaż licencje osób trzecich</string>
+    <string name="pref_desc__language">Zmień język aplikacji. Zrestartuj aplikację, żeby zobaczyć efekt</string>
+    <string name="pref_title__language">Język</string>
+    <string name="error_storage_permission">Potrzebuję zezwolenia do pamięci, żeby zapisywać dokumenty</string>
+    <string name="open_with">Otwórz za pomocą&#8230;</string>
+    <string name="sort">Sortuj</string>
+    <string name="sort_by_date">Sortuj według daty</string>
+    <string name="sort_by_name">Sortuj według nazwy</string>
+    <string name="sort_by_size">Sortuj według rozmiaru</string>
+
+</resources>

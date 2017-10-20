@@ -7,16 +7,34 @@
  */
 package net.gsantner.markor.model;
 
+import net.gsantner.markor.BuildConfig;
+import net.gsantner.markor.R;
+
 import java.util.regex.Pattern;
 
 public class Constants {
-    public static final String[] KEYBOARD_SHORTCUTS = {"*", "-", "_", "#", "´"};
-    public static final String[] KEYBOARD_SHORTCUTS_BRACKETS = {"(", ")", "[", "]"};
-    public static final String[] KEYBOARD_SMART_SHORTCUTS = {"()", "[]"};
-    public static final String[] KEYBOARD_SHORTCUTS_MORE = {"!", "+", "~", ":", "<", ">"};
+    public static final String[] KEYBOARD_REGULAR_ACTIONS = {"> ", "# ", "## ", "### ", "- ", "1. "};
+    public static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {{R.drawable.format_blockquote, 0}, {R.drawable.format_header_1, 1},
+            {R.drawable.format_header_2, 2}, {R.drawable.format_header_3, 3}, {R.drawable.format_list_bulleted, 4},
+            {R.drawable.format_list_numbers, 5}};
+
+    public static final String[] KEYBOARD_SMART_ACTIONS = {"**", "_", "~~", "`", "----\n"};
+    public static final int[][] KEYBOARD_SMART_ACTIONS_ICON = {{R.drawable.format_bold, 0}, {R.drawable.format_italic, 1},
+            {R.drawable.format_strikethrough, 2}, {R.drawable.format_code, 3}, {R.drawable.format_horizontal_line, 4}};
+
+    public static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {{R.drawable.format_link, 1}, {R.drawable.format_image, 2}};
+
     public static final String UTF_CHARSET = "utf-8";
 
-    public static final String MD_EXT = ".md";
+    public static final String MD_EXT1_MD = ".md";
+    public static final String MD_EXT2 = ".markdown";
+    public static final String MD_EXT3 = ".mkd";
+    public static final String MD_EXT4 = ".mdown";
+    public static final String MD_EXT5 = ".mkdn";
+    public static final String MD_EXT6 = ".txt";
+    public static final String[] EXTENSIONS = new String[]{ Constants.MD_EXT1_MD, Constants.MD_EXT2, Constants.MD_EXT3,
+                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
+
 
     public static final int MAX_TITLE_LENGTH = 20;
     public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
@@ -48,4 +66,7 @@ public class Constants {
 
     // --- WIDGET
     public static final String WIDGET_PATH = "WIDGET_PATH";
+
+    //FILE PROVIDER AUTHORITIES
+    public static final String FILE_PROVIDER_AUTHORITIES = BuildConfig.APPLICATION_ID + ".provider";
 }

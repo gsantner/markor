@@ -7,12 +7,19 @@
  */
 package net.gsantner.markor.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,6 +35,8 @@ import net.gsantner.markor.renderer.MarkDownRenderer;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
+
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -129,7 +138,12 @@ public class PreviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.preview_menu, menu);
+        getMenuInflater().inflate(R.menu.preview__menu, menu);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            menu.findItem(R.id.action_share_pdf).setVisible(true);
+        }
+
         return true;
     }
 
@@ -142,6 +156,9 @@ public class PreviewActivity extends AppCompatActivity {
             case R.id.action_share_text:
                 shareText(_markdownRaw, "text/plain");
                 return true;
+            case R.id.action_share_file:
+                shareStream(_note, "text/plain");
+                return true;
             case R.id.action_share_html:
                 shareText(_markdownHtml, "text/html");
                 return true;
@@ -150,6 +167,11 @@ public class PreviewActivity extends AppCompatActivity {
                 return true;
             case R.id.action_share_image:
                 shareImage();
+                return true;
+            case R.id.action_share_pdf:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    sharePdf();
+                }
                 return true;
             case R.id.action_edit:
                 editNote();
@@ -166,10 +188,14 @@ public class PreviewActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
     }
 
-    private void shareStream(Uri uri, String type) {
+    private void shareStream(File file, String type) {
+        Uri fileUri = FileProvider.getUriForFile(PreviewActivity.this,
+                Constants.FILE_PROVIDER_AUTHORITIES,
+                file);
+
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
         shareIntent.setType(type);
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_string)));
     }
@@ -179,9 +205,24 @@ public class PreviewActivity extends AppCompatActivity {
         if (bitmap != null) {
             File image = new File(getExternalCacheDir(), _note.getName() + ".png");
             if (saveBitmap(bitmap, image)) {
-                shareStream(Uri.fromFile(image), "image/png");
+                shareStream(image, "image/png");
             }
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void sharePdf() {
+        PrintDocumentAdapter printAdapter;
+        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+        String jobName = String.format("%s (%s)", FilenameUtils.removeExtension(_note.getName()), getString(R.string.app_name));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            printAdapter = _webview.createPrintDocumentAdapter(jobName);
+        } else {
+            //noinspection deprecation
+            printAdapter = _webview.createPrintDocumentAdapter();
+        }
+        printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
     }
 
     private Bitmap getBitmapFromWebView(WebView webView) {

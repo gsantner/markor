@@ -1,3 +1,16 @@
+### v0.1.5
+- Added: Translation: Brazilian, Polish, Hindi, French, Russian, Ukrainian, Italian
+- Added: Sort files
+- Added: Replace markdown charbar with actions
+- Improved: Syntax highlighting
+
+### v0.1.4
+- Fixed: replaced Uri.fromFile with FileProvider
+- Added: Share as file, share as PDF
+- Use commonmark-java instead of AndDown markdown parser
+- Added: Spanish translation (#26
+- Added: More font size options
+
 ### v0.1.3
 - Fix: Renaming case sensitive
 - Mod: Syntax highlighting

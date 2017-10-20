@@ -10,14 +10,14 @@ package net.gsantner.markor.editor;
 import java.util.regex.Pattern;
 
 enum HighlighterPattern {
-    LIST(Pattern.compile("(\\n|^)\\s*(\\*|\\d+\\.|\\+|-)[^\\S\\n]")),
+    LIST(Pattern.compile("(\\n|^)\\s{0,3}(\\*|\\d+\\.|\\+|-)( \\[[ |x|X]\\])?(?= )")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
-    HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-+|=+)[^\\S\\n]*$))")),
+    HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
-    STRIKETHROUGH(Pattern.compile("\\~\\~(.*?)\\~\\~")),
+    STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
     MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
-    BOLD(Pattern.compile("(\\*\\*|__)[^\\s](.*?)\\1")),
-    ITALICS(Pattern.compile("(\\*|_)[^\\s](.*?)\\1"));
+    BOLD(Pattern.compile("(?<=(\\n|^|\\s))((\\*|_){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_)(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))"));
 
     private Pattern pattern;
 

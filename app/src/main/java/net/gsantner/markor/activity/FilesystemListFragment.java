@@ -44,12 +44,17 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 public class FilesystemListFragment extends Fragment {
+    public static final int SORT_BY_DATE = 0;
+    public static final int SORT_BY_NAME = 1;
+    public static final int SORT_BY_FILESIZE = 2;
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;
@@ -59,7 +64,6 @@ public class FilesystemListFragment extends Fragment {
 
     private NotesAdapter _filesAdapter;
 
-
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
     private SimpleSectionAdapter<File> _simpleSectionAdapter;
@@ -67,7 +71,6 @@ public class FilesystemListFragment extends Fragment {
     private ActionMode _actionMode;
     private File _currentDir;
     private File _rootDir;
-
     private Sectionizer<File> _sectionizer = new Sectionizer<File>() {
         @Override
         public String getSectionTitleForItem(File instance) {
@@ -122,11 +125,8 @@ public class FilesystemListFragment extends Fragment {
 
     private void retrieveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-        if (appSettings.isRememberLastDirectory()) {
-            String rememberedDir = appSettings.getLastOpenedDirectory();
-            _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
-        }
-
+        String rememberedDir = appSettings.getLastOpenedDirectory();
+        _currentDir = (rememberedDir != null) ? new File(rememberedDir) : null;
         // Two-fold check, in case user doesn't have the preference to remember directories enabled
         // This code remembers last directory WITHIN the app (not leaving it)
         if (_currentDir == null) {
@@ -137,11 +137,8 @@ public class FilesystemListFragment extends Fragment {
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
         SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        if (appSettings.isRememberLastDirectory()) {
-            String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
-            appSettings.setLastOpenedDirectory(saveDir);
-        }
-
+        String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
+        appSettings.setLastOpenedDirectory(saveDir);
         _markorSingleton.setNotesLastDirectory(_currentDir);
     }
 
@@ -186,7 +183,7 @@ public class FilesystemListFragment extends Fragment {
         reloadFiles(directory);
         broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
-        reloadAdapter();
+        sortAdapter();
     }
 
     private void broadcastDirectoryChange(File directory) {
@@ -262,6 +259,47 @@ public class FilesystemListFragment extends Fragment {
         reloadAdapter();
     }
 
+    public void sortAdapter() {
+        final int sortMethod = AppSettings.get().getSortMethod();
+        final boolean sortReverse = AppSettings.get().isSortReverse();
+        int count = _filesCurrentlyShown.size();
+        int lastFolderIndex = 0;
+        for (int i = 0; i < count; i++) {
+            if (_filesCurrentlyShown.get(i).isDirectory()) {
+                lastFolderIndex++;
+            }
+        }
+
+        Comparator<File> comparator = new Comparator<File>() {
+            @Override
+            public int compare(File file, File other) {
+                if (sortReverse) {
+                    File swap = file;
+                    file = other;
+                    other = swap;
+                }
+
+                switch (sortMethod) {
+                    case SORT_BY_NAME:
+                        return file.compareTo(other);
+                    case SORT_BY_DATE:
+                        return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
+                    case SORT_BY_FILESIZE:
+                        if (file.isDirectory() && other.isDirectory()) {
+                            return other.list().length - file.list().length;
+                        }
+                        return Long.valueOf(other.length()).compareTo(file.length());
+                }
+                return file.compareTo(other);
+            }
+        };
+
+        Collections.sort(_filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
+        Collections.sort(_filesCurrentlyShown.subList(lastFolderIndex, count), comparator);
+
+        reloadAdapter();
+    }
+
     public ArrayList<File> getSelectedItems() {
         return _selectedItems;
     }
@@ -275,7 +313,7 @@ public class FilesystemListFragment extends Fragment {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.notes_context_menu, menu);
+            inflater.inflate(R.menu.filesystem__context_menu, menu);
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }

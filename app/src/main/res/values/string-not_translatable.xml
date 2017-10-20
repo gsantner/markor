@@ -7,6 +7,7 @@
     <string name="share_html" translatable="false">HTML</string>
     <string name="share_html_source" translatable="false">HTML Source</string>
     <string name="team" translatable="false">Maintainer</string>
+    <string name="pdf" translatable="false">PDF</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
@@ -24,6 +25,11 @@
         \nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
         \n
     ]]></string>
+    
+    <plurals name="item_selected" translatable="false">
+        <item quantity="one">@string/one_item_selected</item>
+        <item quantity="other">@string/more_items_selected</item>
+    </plurals>
 
 
     <!-- Preference keys -->
@@ -43,4 +49,6 @@
     <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
+    <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
+    <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
 </resources>

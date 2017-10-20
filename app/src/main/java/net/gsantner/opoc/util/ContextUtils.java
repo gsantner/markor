@@ -15,6 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -27,6 +28,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
@@ -66,7 +69,7 @@ import java.util.Locale;
 
 import static android.graphics.Bitmap.CompressFormat;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt"})
 public class ContextUtils {
     //########################
     //## Members, Constructors
@@ -336,6 +339,29 @@ public class ContextUtils {
         return result;
     }
 
+    public void setClipboard(String text) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setText(text);
+        } else {
+            ClipData clip = ClipData.newPlainText(_context.getPackageName(), text);
+            ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(clip);
+        }
+    }
+
+    public String[] getClipboard() {
+        String[] ret;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            ret = new String[]{((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).getText().toString()};
+        } else {
+            ClipData data = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip();
+            ret = new String[data.getItemCount()];
+            for (int i = 0; i < data.getItemCount() && i < ret.length; i++) {
+                ret[i] = data.getItemAt(i).getText().toString();
+            }
+        }
+        return ret;
+    }
+
     public float px2dp(final float px) {
         return px / _context.getResources().getDisplayMetrics().density;
     }
@@ -388,7 +414,7 @@ public class ContextUtils {
      * @return the scaling factor that needs to be applied to the bitmap
      */
     public int calculateInSampleSize(BitmapFactory.Options options, int maxDimen) {
-        // Raw height and width of conf
+        // Raw height and width of image
         int height = options.outHeight;
         int width = options.outWidth;
         int inSampleSize = 1;
@@ -429,7 +455,7 @@ public class ContextUtils {
         if (folder.exists() || folder.mkdirs()) {
             FileOutputStream stream = null;
             try {
-                stream = new FileOutputStream(imageFile); // overwrites this conf every time
+                stream = new FileOutputStream(imageFile); // overwrites this image every time
                 image.compress(format, quality, stream);
                 return imageFile;
             } catch (FileNotFoundException ignored) {
@@ -443,5 +469,45 @@ public class ContextUtils {
             }
         }
         return null;
+    }
+
+    public Bitmap drawTextToDrawable(@DrawableRes int resId, String text, int textSize) {
+        Resources resources = _context.getResources();
+        float scale = resources.getDisplayMetrics().density;
+        Bitmap bitmap = getBitmapFromDrawable(resId);
+
+        bitmap = bitmap.copy(bitmap.getConfig(), true);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.rgb(61, 61, 61));
+        paint.setTextSize((int) (textSize * scale));
+        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+        int x = (bitmap.getWidth() - bounds.width()) / 2;
+        int y = (bitmap.getHeight() + bounds.height()) / 2;
+        canvas.drawText(text, x, y, paint);
+
+        return bitmap;
+    }
+
+    public Bitmap getBitmapFromDrawable(int drawableId) {
+        Bitmap bitmap = null;
+        Drawable drawable = ContextCompat.getDrawable(_context, drawableId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (drawable instanceof VectorDrawable || drawable instanceof VectorDrawableCompat)) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                drawable = (DrawableCompat.wrap(drawable)).mutate();
+            }
+
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+        } else if (drawable instanceof BitmapDrawable) {
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        }
+        return bitmap;
     }
 }

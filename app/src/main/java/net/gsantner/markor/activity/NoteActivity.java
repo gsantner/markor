@@ -7,8 +7,10 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -87,7 +90,6 @@ public class NoteActivity extends AppCompatActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
-
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -102,7 +104,11 @@ public class NoteActivity extends AppCompatActivity {
         String type = receivingIntent.getType();
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
-            openFromSendAction(receivingIntent);
+            if (type.equals("text/plain")) {
+                openTextShareText(receivingIntent);
+            } else {
+                openFromSendAction(receivingIntent);
+            }
         } else if (Intent.ACTION_EDIT.equals(intentAction) && type != null) {
             openFromEditAction(receivingIntent);
         } else if (Intent.ACTION_VIEW.equals(intentAction) && type != null) {
@@ -126,6 +132,7 @@ public class NoteActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private String readNote() {
@@ -152,6 +159,11 @@ public class NoteActivity extends AppCompatActivity {
         _contentEditor.setText(MarkorSingleton.getInstance().readFileUri(fileUri, this));
     }
 
+    private void openTextShareText(Intent receivingIntent) {
+        String stringExtra = receivingIntent.getStringExtra(Intent.EXTRA_TEXT);
+        _contentEditor.setText(stringExtra);
+    }
+
     private void readFileUriFromIntent(Uri fileUri) {
         if (fileUri != null) {
             _note = MarkorSingleton.getInstance().getFileFromUri(fileUri);
@@ -161,7 +173,7 @@ public class NoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.note_menu, menu);
+        getMenuInflater().inflate(R.menu.note__menu, menu);
         return true;
     }
 
@@ -206,47 +218,39 @@ public class NoteActivity extends AppCompatActivity {
 
     private void setupKeyboardBar() {
         if (_appSettings.isShowMarkdownShortcuts() && _markdownCharBar.getChildCount() == 0) {
-            appendRegularShortcuts();
-            if (_appSettings.isSmartShortcutsEnabled()) {
-                appendSmartBracketShortcuts();
-            } else {
-                appendRegularBracketShortcuts();
-            }
-            for (String shortcut : Constants.KEYBOARD_SHORTCUTS_MORE) {
-                appendButton(shortcut, new KeyboardBarListener());
-            }
+            appendSmartActions();
+            appendRegularActions();
+            appendExtraActions();
         } else if (!_appSettings.isShowMarkdownShortcuts()) {
             findViewById(R.id.note__activity__scroll_markdownchar_bar).setVisibility(View.GONE);
         }
     }
 
-    private void appendRegularShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SHORTCUTS) {
-            appendButton(shortcut, new KeyboardBarListener());
+    private void appendRegularActions() {
+        for (int[] actions : Constants.KEYBOARD_REGULAR_ACTIONS_ICONS) {
+            appendButton(actions[0], new KeyboardRegularActionListener(Constants.KEYBOARD_REGULAR_ACTIONS[actions[1]]));
         }
     }
 
-    private void appendRegularBracketShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SHORTCUTS_BRACKETS) {
-            appendButton(shortcut, new KeyboardBarListener());
-        }
-
-    }
-
-    private void appendSmartBracketShortcuts() {
-        for (String shortcut : Constants.KEYBOARD_SMART_SHORTCUTS) {
-            appendButton(shortcut, new KeyboardBarSmartShortCutListener());
+    private void appendSmartActions() {
+        for (int[] actions : Constants.KEYBOARD_SMART_ACTIONS_ICON) {
+            appendButton(actions[0], new KeyboardSmartActionsListener(Constants.KEYBOARD_SMART_ACTIONS[actions[1]]));
         }
     }
 
-    private void appendButton(String shortcut, View.OnClickListener l) {
-        TextView shortcutButton = (TextView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
-        shortcutButton.setText(shortcut);
+    private void appendExtraActions() {
+        for (int[] actions : Constants.KEYBOARD_EXTRA_ACTIONS_ICONS) {
+            appendButton(actions[0], new KeyboardExtraActionsListener(actions[1]));
+        }
+    }
+
+    private void appendButton(int shortcut, View.OnClickListener l) {
+        ImageView shortcutButton = (ImageView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
+        shortcutButton.setImageResource(shortcut);
         shortcutButton.setOnClickListener(l);
 
-
         boolean isDarkTheme = _appSettings.isDarkThemeEnabled();
-        shortcutButton.setTextColor(ContextCompat.getColor(this,
+        shortcutButton.setColorFilter(ContextCompat.getColor(this,
                 isDarkTheme ? android.R.color.white : R.color.grey));
         _markdownCharBar.addView(shortcutButton);
     }
@@ -270,7 +274,7 @@ public class NoteActivity extends AppCompatActivity {
     private void previewNote() {
         saveNote();
         Intent intent = new Intent(this, PreviewActivity.class);
-        
+
         if (_note != null) {
             Uri uriBase = MarkorSingleton.getInstance().getUriFromFile(_note.getParentFile());
             intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
@@ -299,13 +303,24 @@ public class NoteActivity extends AppCompatActivity {
      * Save the file to its directory
      */
     private void saveNote() {
-
         String content = _contentEditor.getText().toString();
         String filename = normalizeFilename(content, _editNoteTitle.getText().toString());
 
         if (filename == null) return;
 
-        filename = filename  + Constants.MD_EXT;
+        boolean keepExt = false;
+        //Checks if the file contain any of the extensions, defined by the user itself
+        for (String extension : Constants.EXTENSIONS) {
+            if (filename.toLowerCase().endsWith(extension)) {
+                keepExt = true;
+                break;
+            }
+        }
+        // If the flag still remains zero, means the file does not have any user defined extensions.
+        // So ".md" extension is given to the file.
+        if (!keepExt) {
+            filename = filename + Constants.MD_EXT1_MD;
+        }
 
         try {
 
@@ -313,8 +328,7 @@ public class NoteActivity extends AppCompatActivity {
 
             if (_note == null || !_note.exists()) {
                 _note = new File(parent, filename);
-            }
-            else if (!filename.equals(_initialFileName)) {
+            } else if (!filename.equals(_initialFileName)) {
                 FileUtils.renameFileInSameFolder(_note, filename);
                 _note = new File(parent, filename);
             }
@@ -366,30 +380,6 @@ public class NoteActivity extends AppCompatActivity {
         return filename;
     }
 
-    private class KeyboardBarListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            CharSequence shortcut = ((TextView) v).getText();
-            _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
-        }
-    }
-
-    private class KeyboardBarSmartShortCutListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            CharSequence shortcut = ((TextView) v).getText();
-            if (_contentEditor.hasSelection()) {
-                CharSequence selected = _contentEditor.getText().subSequence(_contentEditor.getSelectionStart(),
-                        _contentEditor.getSelectionEnd());
-                _contentEditor.getText().replace(_contentEditor.getSelectionStart(), _contentEditor.getSelectionEnd(),
-                        Character.toString(shortcut.charAt(0)) + selected + shortcut.charAt(1));
-            } else {
-                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), shortcut);
-                _contentEditor.setSelection(_contentEditor.getSelectionStart() - 1);
-            }
-        }
-    }
-
     public void switchHeaderView(Boolean hasFocus) {
         if (!hasFocus) {
             _headerNoteTitle.setText(_editNoteTitle.getText().toString());
@@ -400,5 +390,157 @@ public class NoteActivity extends AppCompatActivity {
     public void titleClicked(View view) {
         _viewSwitcher.showPrevious();
         _editNoteTitle.requestFocus();
+    }
+
+    private class KeyboardRegularActionListener implements View.OnClickListener {
+        String _action;
+
+        public KeyboardRegularActionListener(String action) {
+            _action = action;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (_contentEditor.hasSelection()) {
+                String text = _contentEditor.getText().toString();
+                int selectionStart = _contentEditor.getSelectionStart();
+                int selectionEnd = _contentEditor.getSelectionEnd();
+
+                //Check if Selection includes the shortcut characters
+                if (text.substring(selectionStart, selectionEnd)
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
+
+                    text = text.substring(selectionStart + _action.length(), selectionEnd);
+                    _contentEditor.getText()
+                            .replace(selectionStart, selectionEnd, text);
+
+                }
+                //Check if Selection is Preceded by shortcut characters
+                else if ((selectionStart >= _action.length()) && (text.substring(selectionStart - _action.length(), selectionEnd)
+                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
+
+                    text = text.substring(selectionStart, selectionEnd);
+                    _contentEditor.getText()
+                            .replace(selectionStart - _action.length(), selectionEnd, text);
+
+                }
+                //Condition to insert shortcut preceding the selection
+                else {
+                    _contentEditor.getText().insert(selectionStart, _action);
+                }
+            } else {
+                //Condition for Empty Selection
+                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
+            }
+        }
+    }
+
+    private class KeyboardSmartActionsListener implements View.OnClickListener {
+        String _action;
+
+        public KeyboardSmartActionsListener(String action) {
+            _action = action;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (_contentEditor.hasSelection()) {
+                String text = _contentEditor.getText().toString();
+                int selectionStart = _contentEditor.getSelectionStart();
+                int selectionEnd = _contentEditor.getSelectionEnd();
+
+                //Check if Selection includes the shortcut characters
+                if ((text.substring(selectionStart, selectionEnd)
+                        .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
+
+                    text = text.substring(selectionStart + _action.length(),
+                            selectionEnd - _action.length());
+                    _contentEditor.getText()
+                            .replace(selectionStart, selectionEnd, text);
+
+                }
+                //Check if Selection is Preceded and succeeded by shortcut characters
+                else if (((selectionEnd <= (_contentEditor.length() - _action.length())) &&
+                        (selectionStart >= _action.length())) &&
+                        (text.substring(selectionStart - _action.length(),
+                                selectionEnd + _action.length())
+                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
+
+                    text = text.substring(selectionStart, selectionEnd);
+                    _contentEditor.getText()
+                            .replace(selectionStart - _action.length(),
+                                    selectionEnd + _action.length(), text);
+
+                }
+                //Condition to insert shortcut preceding and succeeding the selection
+                else {
+                    _contentEditor.getText().insert(selectionStart, _action);
+                    _contentEditor.getText().insert(_contentEditor.getSelectionEnd(), _action);
+                }
+            } else {
+                //Condition for Empty Selection
+                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
+                        .insert(_contentEditor.getSelectionEnd(), _action);
+                _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
+            }
+        }
+
+    }
+
+    private class KeyboardExtraActionsListener implements View.OnClickListener {
+        int _action;
+
+        public KeyboardExtraActionsListener(int action) {
+            _action = action;
+        }
+
+        @Override
+        public void onClick(View view) {
+            getAlertDialog(_action);
+        }
+
+    }
+
+    private void getAlertDialog(int action) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view = getLayoutInflater().inflate(R.layout.format_dialog, null);
+
+        final EditText link_name = view.findViewById(R.id.format_dialog_name);
+        final EditText link_url = view.findViewById(R.id.format_dialog_url);
+        link_name.setHint(getString(R.string.format_dialog_name_hint));
+        link_url.setHint(getString(R.string.format_dialog_url_or_path_hint));
+
+        //Insert Link Action
+        if (action == 1) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_link_dialog_title))
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("[%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    });
+        }
+        //Insert Image Action
+        else if (action == 2) {
+            builder.setView(view)
+                    .setTitle(getString(R.string.format_image_dialog_title))
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                    String.format("![%s](%s)", link_name.getText().toString(),
+                                            link_url.getText().toString()));
+                        }
+                    });
+        }
+
+        builder.show();
     }
 }
