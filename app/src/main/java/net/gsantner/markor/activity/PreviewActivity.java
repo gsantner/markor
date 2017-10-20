@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Picture;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -60,6 +61,11 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WebView.enableSlowWholeDocumentDraw();
+        }
+
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
         if (AppSettings.get().isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -227,12 +233,30 @@ public class PreviewActivity extends AppCompatActivity {
 
     private Bitmap getBitmapFromWebView(WebView webView) {
         try {
-            float scale = 1.0f / getResources().getDisplayMetrics().density;
-            Picture picture = webView.capturePicture();
-            Bitmap bitmap = Bitmap.createBitmap((int) (picture.getWidth() * scale), (int) (picture.getHeight() * scale), Bitmap.Config.ARGB_8888);
+            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+
+            //Measure WebView's content
+            webView.measure(widthMeasureSpec, heightMeasureSpec);
+            webView.layout(0, 0, webView.getMeasuredWidth(), webView.getMeasuredHeight());
+
+            //Build drawing cache and store its size
+            webView.buildDrawingCache();
+
+            int measuredWidth = webView.getMeasuredWidth();
+            int measuredHeight = webView.getMeasuredHeight();
+
+            //Creates the bitmap and draw WebView's content on in
+            Bitmap bitmap = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888);
+
+            Paint paint = new Paint();
+
             Canvas canvas = new Canvas(bitmap);
-            canvas.scale(scale, scale);
-            picture.draw(canvas);
+            canvas.drawBitmap(bitmap, 0, bitmap.getHeight(), paint);
+
+            webView.draw(canvas);
+            webView.destroyDrawingCache();
+
             return bitmap;
         } catch (Exception e) {
             e.printStackTrace();
