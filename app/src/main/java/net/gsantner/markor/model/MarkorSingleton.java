@@ -151,16 +151,16 @@ public class MarkorSingleton {
         return u;
     }
 
+    /**
+     *
+     * @param u Uri of the file.
+     * File path is taken from uri using uri.getPath()
+     * @return
+     */
     public File getFileFromUri(Uri u) {
         File f = null;
         if (u != null) {
-            try {
-                f = new File(new java.net.URI(URLEncoder.encode(u.toString(), "UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            f = new File(u.getPath());
         }
         return f;
     }
