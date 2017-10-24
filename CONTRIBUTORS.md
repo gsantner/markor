@@ -21,3 +21,4 @@ Where:
 * **[Fedor A. Kuterin](https://github.com/xredor)**<br/>~° Russian translation
 * **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation
 * **[Stu Duncan](https://github.com/sjmduncan)**<br/>~° Markor contributor
+* **[Marcus Vinicius Santos](https://about.me/marcusvsantos)**<br/>~° Brazilian Portuguese translation
