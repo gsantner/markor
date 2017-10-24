@@ -75,4 +75,14 @@
     <string name="error_storage_permission">Necessário permissão para armazenamento de documentos</string>
     <string name="open_with">Abrir com</string>
 
+    <string name="file">Arquivo</string>
+    <string name="format_dialog_name_hint">Nome</string>
+    <string name="format_dialog_url_or_path_hint">URL / Caminho</string>
+    <string name="format_link_dialog_title">Inserir Link</string>
+    <string name="format_image_dialog_title">Inserir Imagem</string>
+    <string name="sort">Ordenar</string>
+    <string name="sort_by_date">Ordenar por Data</string>
+    <string name="sort_by_name">Ordenar por Nome</string>
+    <string name="sort_by_size">Ordenar por Tamanho</string>
+    <string name="sort_reverse">Inverter ordem</string>
 </resources>
