@@ -43,7 +43,7 @@
     <string name="pref_title__highlighting_delay">Fördröjning i millisekunder innan syntaxfärgningen uppdateras</string>
     <string name="pref_title__highlighting_delay_summary">Högre värden är bättre för batteriet</string>
     <string name="pref_title__smart_shortcuts">Genvägar för smarta parenteser</string>
-    <string name="pref_title__smart_shortcuts_summary">Om text är vald kommer {}, [] och () att omge valet.</string>
+    <string name="pref_title__smart_shortcuts_summary">Om text är vald kommer {}, [] och () att omge valet</string>
     <string name="pref_title__render_rtl">Visa för höger till vänster-språk</string>
     <string name="error_cannot_create_save_dir">Fel: Kan inte skapa sparningsmapp</string>
 
