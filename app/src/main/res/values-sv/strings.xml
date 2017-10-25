@@ -76,7 +76,7 @@
     <string name="more_information">Mer information</string>
     <string name="show_app_license">Visa licens för appen</string>
     <string name="show_third_party_licenses">Visa tredjepartslicenser</string>
-    <string name="pref_desc__language">Ändra språk i appen. Starta om appen för att ändringar ska träda i kraft</string>
+    <string name="pref_desc__language">Byt språk i appen. Du behöver starta om appen för att ändringen ska träda i kraft</string>
     <string name="pref_title__language">Språk</string>
     <string name="error_storage_permission">Behöver åtkomst till lagringsmedia för att spara dokument</string>
     <string name="open_with">Öppna med</string>
