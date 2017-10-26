@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
-            android:lines="1"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
             tools:text="/sdcard/Documents/somewhere"/>

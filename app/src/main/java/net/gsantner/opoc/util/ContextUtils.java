@@ -245,10 +245,10 @@ public class ContextUtils {
         ));
     }
 
+    @SuppressLint("MissingPermission") // ACCESS_NETWORK_STATE required
     public boolean isConnectedToInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = con == null ? null : con.getActiveNetworkInfo();
         return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
     }
 

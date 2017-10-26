@@ -15,3 +15,9 @@ app/build
 app/.gitignore
 app/pom.xml
 app/proguard-rules.pro
+.hidden
+.travis.yml
+circle.yml
+CODE_OF_CONDUCT*
+gradle.properties
+LICENSE*
