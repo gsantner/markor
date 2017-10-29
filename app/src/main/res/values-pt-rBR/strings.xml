@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Configurações</string>
-    <string name="light">Luz</string>
+    <string name="light">Claro</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>
     <string name="rename">Renomear</string>
@@ -10,7 +10,7 @@
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
     <string name="navigate_up_folder">Retornar à pasta anterior</string>
-    <string name="folder_name_hint">Nomear pasta</string>
+    <string name="folder_name_hint">Introduza o nome da sua pasta</string>
     <string name="create_folder">Criar pasta</string>
     <string name="create_note">Criar nota</string>
     <string name="move">Mover</string>
@@ -70,8 +70,8 @@
     <string name="more_information">Mais informações</string>
     <string name="show_app_license">Exibir licença</string>
     <string name="show_third_party_licenses">Exibir licenças de 3os</string>
-    <string name="pref_desc__language">Mudar línguagem do aplicativo. Reinicie o aplicativo para aplicar a alteração</string>
-    <string name="pref_title__language">Línguagem</string>
+    <string name="pref_desc__language">Mudar linguagem do aplicativo. Reinicie o aplicativo para aplicar a alteração</string>
+    <string name="pref_title__language">Linguagem</string>
     <string name="error_storage_permission">Necessário permissão para armazenamento de documentos</string>
     <string name="open_with">Abrir com</string>
 
