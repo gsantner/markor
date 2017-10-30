@@ -76,6 +76,7 @@ public class NoteActivity extends AppCompatActivity {
     private AppSettings _appSettings;
     private String _initialContent = "";
     private String _initialFileName = "";
+    private String _fileExtension = Constants.MD_EXT1_MD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,16 @@ public class NoteActivity extends AppCompatActivity {
 
         if (_note != null) {
             _contentEditor.setText(readNote());
-            _editNoteTitle.setText(_note.getName().replaceAll("((?i)\\.md$)", ""));
+            _editNoteTitle.setText(Constants.MD_EXTENSION.matcher(_note.getName()).replaceAll(""));
+
+            // Extract existing extension
+            for (String ext : Constants.EXTENSIONS) {
+                if (_note.getName().toLowerCase().endsWith(ext)) {
+                    _fileExtension = ext;
+                    break;
+                }
+            }
+
         }
 
         _editNoteTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -308,19 +318,8 @@ public class NoteActivity extends AppCompatActivity {
 
         if (filename == null) return;
 
-        boolean keepExt = false;
-        //Checks if the file contain any of the extensions, defined by the user itself
-        for (String extension : Constants.EXTENSIONS) {
-            if (filename.toLowerCase().endsWith(extension)) {
-                keepExt = true;
-                break;
-            }
-        }
-        // If the flag still remains zero, means the file does not have any user defined extensions.
-        // So ".md" extension is given to the file.
-        if (!keepExt) {
-            filename = filename + Constants.MD_EXT1_MD;
-        }
+        // Append extension
+        filename += _fileExtension;
 
         try {
 
