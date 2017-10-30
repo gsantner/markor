@@ -138,6 +138,14 @@ public class MainActivity extends AppCompatActivity {
                 _filesystemListFragment.sortAdapter();
                 return true;
             }
+            case  R.id.action_donate: {
+                ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_donate));
+                return true;
+            }
+            case  R.id.action_contribute: {
+                ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_contribute));
+                return true;
+            }
         }
         return false;
 
@@ -145,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
+        ContextUtils cu = ContextUtils.get();
+
         // Inflate the menu; this adds items to the _action bar if it is present.
         getMenuInflater().inflate(R.menu.main__menu, menu);
         _searchItem = menu.findItem(R.id.action_search);
@@ -163,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return false;
                 }
-
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (newText != null) {
@@ -190,16 +199,9 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // Workaround: Show icon in overflow menu
-        if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
-            try {
-                Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                m.setAccessible(true);
-                m.invoke(menu, true);
-            } catch (Exception ignored) {
-            }
-        }
+        menu.findItem(R.id.action_donate).setVisible(!cu.isGooglePlayBuild());
 
+        cu.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
 

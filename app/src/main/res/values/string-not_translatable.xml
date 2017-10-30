@@ -12,6 +12,10 @@
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
 
+
+    <string name="url_donate" translatable="false">https://liberapay.com/gsantner/donate</string>
+    <string name="url_contribute" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
+
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017

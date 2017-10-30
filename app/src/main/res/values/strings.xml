@@ -85,5 +85,8 @@
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_size">Sort by Size</string>
     <string name="sort_reverse">Reverse order</string>
+    <string name="contribute">Contribute</string>
+    <string name="donate">Donate</string>
+    <string name="project_page">Project page</string>
 
 </resources>
