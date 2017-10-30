@@ -66,7 +66,7 @@
             android:title="@string/pref_title__highlighting_activated" />
 
         <EditTextPreference
-            android:defaultValue="70"
+            android:defaultValue="110"
             android:dependency="@string/pref_key__is_highlighting_activated"
             android:inputType="number"
             android:key="@string/pref_key__highlighting_delay"

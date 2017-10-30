@@ -73,7 +73,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getHighlightingDelay() {
-        return getIntOfStringPref(R.string.pref_key__highlighting_delay, 70);
+        return getIntOfStringPref(R.string.pref_key__highlighting_delay, 110);
     }
 
     public boolean isSmartShortcutsEnabled() {

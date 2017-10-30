@@ -57,6 +57,19 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/action_contribute"
+        android:icon="@drawable/ic_bug_report_white_24dp"
+        android:title="@string/contribute"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_donate"
+        android:visible="false"
+        android:icon="@drawable/ic_favorite_white_24dp"
+        android:title="@string/donate"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_info_white_24dp"
         android:title="@string/about"

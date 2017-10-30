@@ -29,6 +29,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,6 +38,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -52,7 +54,10 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -65,11 +70,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 import static android.graphics.Bitmap.CompressFormat;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt", "ConstantConditions", "UnusedReturnValue"})
 public class ContextUtils {
     //########################
     //## Members, Constructors
@@ -322,7 +328,7 @@ public class ContextUtils {
     }
 
     // Find out if color above the given color should be light or dark. true if light
-    public boolean shouldColorOnTopBeLight(int colorOnBottomInt) {
+    public boolean shouldColorOnTopBeLight(@ColorInt int colorOnBottomInt) {
         return 186 > (((0.299 * Color.red(colorOnBottomInt))
                 + ((0.587 * Color.green(colorOnBottomInt))
                 + (0.114 * Color.blue(colorOnBottomInt)))));
@@ -509,5 +515,33 @@ public class ContextUtils {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         }
         return bitmap;
+    }
+
+    public ContextUtils tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            Drawable drawable = item.getIcon();
+            if (drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+            }
+            if (item.hasSubMenu() && recurse) {
+                tintMenuItems(item.getSubMenu(), recurse, iconColor);
+            }
+        }
+        return this;
+    }
+
+    @SuppressLint("PrivateApi")
+    public ContextUtils setSubMenuIconsVisiblity(Menu menu, boolean visible) {
+        if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+            try {
+                Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                m.setAccessible(true);
+                m.invoke(menu, visible);
+            } catch (Exception ignored) {
+            }
+        }
+        return this;
     }
 }
