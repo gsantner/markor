@@ -9,6 +9,7 @@ import android.content.Context;
 import android.webkit.MimeTypeMap;
 
 import net.gsantner.markor.App;
+import net.gsantner.markor.model.Constants;
 
 import java.io.File;
 
@@ -32,6 +33,11 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
         String path = (absolutePath != null && absolutePath.length > 0)
                 ? absolutePath[0] : file.getAbsolutePath();
         path = path.toLowerCase();
-        return path.endsWith(".md") || path.endsWith(".markdown") || path.endsWith(".txt");
+        for (String ext : Constants.EXTENSIONS) {
+            if (path.endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

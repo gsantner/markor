@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="net.gsantner.markor">
+    package="net.gsantner.markor">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -18,8 +18,8 @@
             android:label="@string/app_name">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
@@ -29,51 +29,68 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.EDIT"/>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.EDIT" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:mimeType="application/octet-stream"
-                    android:scheme="file"/>
+                    android:scheme="file" />
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*.md"
-                    android:scheme="file"/>
-
-                <data
-                    android:host="*"
-                    android:mimeType="*/*"
-                    android:pathPattern=".*.md.txt"
-                    android:scheme="file"/>
+                    android:scheme="file" />
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*.markdown"
-                    android:scheme="file"/>
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.mkd"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.mdown"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.mkdn"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*.txt"
+                    android:scheme="file" />
 
                 <data
                     android:mimeType="text/x-markdown"
-                    android:scheme="file"/>
+                    android:scheme="file" />
+                <data
+                    android:mimeType="text/plain"
+                    android:scheme="file" />
             </intent-filter>
         </activity>
 
         <activity
             android:name="net.gsantner.markor.activity.PreviewActivity"
-            android:label="@string/preview"/>
+            android:label="@string/preview" />
 
         <activity
             android:name="net.gsantner.markor.activity.SettingsActivity"
             android:label="@string/action_settings"
             android:parentActivityName="net.gsantner.markor.activity.MainActivity"
-            android:theme="@style/AppTheme.Light"/>
+            android:theme="@style/AppTheme.Light" />
 
         <activity
             android:name="net.gsantner.markor.activity.AboutActivity"
@@ -83,28 +100,28 @@
             android:theme="@style/AppTheme.Light">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.gsantner.markor.activity.MainActivity"/>
+                android:value="net.gsantner.markor.activity.MainActivity" />
         </activity>
 
 
         <activity android:name="net.gsantner.markor.widget.WidgetConfigure">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
         <receiver android:name="net.gsantner.markor.widget.MarkorWidgetProvider">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/markor_widget"/>
+                android:resource="@xml/markor_widget" />
         </receiver>
 
         <service
             android:name="net.gsantner.markor.widget.FilesWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -113,7 +130,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 

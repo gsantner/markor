@@ -62,7 +62,7 @@ public class Constants {
     public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
-    public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
+    public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt))$)");
 
     // --- WIDGET
     public static final String WIDGET_PATH = "WIDGET_PATH";
