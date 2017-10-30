@@ -50,7 +50,7 @@
     <!-- Font Size -->
 
     <!-- Hard coded string fix -->
-    <string name="last_modified">Laatst gewijzigd</string>
+    <string name="last_modified">Laatst gewijzigd: %s</string>
     <string name="number_of_files">Aantal bestanden: %d</string>
     <string name="select_this_folder">Selecteer deze map</string>
     <string name="select">Selecteer</string>
