@@ -39,8 +39,6 @@ Version 2.0, January 2004
 * **Commons IO**
 ~° Copyright Apache Foundation
 
-* **GSON**
-~° Copyright 2008 Google Inc.
 
 `---------------`  
 <small>Licensed under the Apache License, Version 2.0 (the "License");

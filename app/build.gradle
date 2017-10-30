@@ -82,16 +82,10 @@ dependencies {
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_lib.butterknife}"
     implementation 'commons-io:commons-io:2.5'
-    implementation 'com.google.code.gson:gson:2.8.1'
 
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.8.0'
-    testImplementation 'org.mockito:mockito-all:1.10.19'
-    testCompile('org.robolectric:robolectric:3.4.2') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
 
     // Processors
     annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
