@@ -39,6 +39,8 @@ Version 2.0, January 2004
 * **Commons IO**
 ~° Copyright Apache Foundation
 
+* **gene-rate**
+~° Copyright 2017 Pixplicity
 
 `---------------`  
 <small>Licensed under the Apache License, Version 2.0 (the "License");

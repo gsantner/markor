@@ -28,6 +28,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pixplicity.generate.OnFeedbackListener;
+import com.pixplicity.generate.Rate;
+
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.ConfirmDialog;
 import net.gsantner.markor.dialog.CreateFolderDialog;
@@ -44,7 +47,7 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,6 +93,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main__activity__fragment_placeholder, _filesystemListFragment)
                 .commit();
+
+        new Rate.Builder(this)
+                .setTriggerCount(4)
+                .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
+                .setFeedbackAction(new OnFeedbackListener() {
+                    public void onFeedbackTapped() {
+                        ContextUtils.get().showRateOnGplayDialog();
+                    }
+                })
+                .build().count().showRequest();
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -138,11 +151,11 @@ public class MainActivity extends AppCompatActivity {
                 _filesystemListFragment.sortAdapter();
                 return true;
             }
-            case  R.id.action_donate: {
+            case R.id.action_donate: {
                 ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_donate));
                 return true;
             }
-            case  R.id.action_contribute: {
+            case R.id.action_contribute: {
                 ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_contribute));
                 return true;
             }
@@ -173,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return false;
                 }
+
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (newText != null) {

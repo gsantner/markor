@@ -78,6 +78,7 @@ dependencies {
     implementation "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
     implementation "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
 
+    implementation 'com.pixplicity.generate:library:1.1.8'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_lib.butterknife}"
