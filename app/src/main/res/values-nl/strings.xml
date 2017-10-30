@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Instellingen</string>
+    <string name="light">Licht</string>
+    <string name="dark">Donker</string>
+    <string name="delete">Verwijderen</string>
+    <string name="rename">Hernoemen</string>
+    <string name="confirm_delete">Bevestig verwijderen</string>
+    <string name="confirm_overwrite">Bestand bestaat al, overschrijven?</string>
+    <string name="title">Titel</string>
+    <string name="empty_directory">Deze folder is leeg</string>
+    <string name="navigate_up_folder">Terug naar vorige map</string>
+    <string name="folder_name_hint">Typ een naam voor de map</string>
+    <string name="create_folder">Maak folder</string>
+    <string name="create_note">Maak notitie</string>
+    <string name="move">Verplaatsen</string>
+
+    <string name="import_from_device">Importeer van apparaat</string>
+    <string name="select_folder">Selecteer mappen</string>
+
+    <string name="search_hint">Zoek notities</string>
+    <string name="share_string">Delen met...</string>
+    <string name="share">Delen</string>
+    <string name="search">Zoeken</string>
+    <string name="preview">Voorbeeld</string>
+    <string name="app_settings">App Instellingen</string>
+    <string name="editor_settings">Bewerker instellingen</string>
+    <string name="folders">Mappen</string>
+    <string name="files">Bestanden</string>
+
+    <!-- Preferences -->
+    <string name="pref_title__remember_directory">Herinner laatste map bij opstarten</string>
+    <string name="pref_title__font_choice">Notitie Bewerker Lettertype</string>
+    <string name="pref_title__theme">Thema</string>
+    <string name="pref_title__preview_first">Voorbeeld tijdens openen notities</string>
+    <string name="about">Over Markor</string>
+    <string name="plain_text">Platte tekst</string>
+    <string name="file">Bestand</string>
+    <string name="image">Afbeelding</string>
+    <string name="pref_title__font_size">Lettergrootte</string>
+    <string name="pref_title__show_markdown_shortcuts">Laat Markdown codebalk zien</string>
+    <string name="pref_title__highlighting_activated">Markdown code markeren</string>
+    <string name="pref_title__highlighting_delay">Vertraging in milliseconden voor markering ververst</string>
+    <string name="pref_title__highlighting_delay_summary">Hogere waarden zijn beter voor de accu.</string>
+    <string name="pref_title__smart_shortcuts">Slimme haakcodes</string>
+    <string name="pref_title__smart_shortcuts_summary">Als tekst is geselecteerd, {}, [] and () omsluiten de selectie</string>
+    <string name="pref_title__render_rtl">Opbouw voor rechts-naar-links talen</string>
+    <string name="error_cannot_create_save_dir">Fout: Kan geen opslagfolder maken</string>
+
+    <!-- Font Size -->
+
+    <!-- Hard coded string fix -->
+    <string name="last_modified">Laatst gewijzigd</string>
+    <string name="number_of_files">Aantal bestanden: %d</string>
+    <string name="select_this_folder">Selecteer deze map</string>
+    <string name="select">Selecteer</string>
+    <string name="create">Aanmaken</string>
+    <string name="select_elements">Selecteer invoeren</string>
+    <string name="one_item_selected">1 item geselecteerd</string>
+    <string name="more_items_selected">%d items geselecteerd</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Verberg de statusbalk in deze weergave</string>
+    <string name="pref_title__is_statusbar_hidden">Verberg statusbalk</string>
+
+    <string name="format_dialog_name_hint">Naam</string>
+    <string name="format_dialog_url_or_path_hint">URL / Pad</string>
+    <string name="format_link_dialog_title">Voeg koppeling toe</string>
+    <string name="format_image_dialog_title">Voeg afbeelding toe</string>
+
+    <!-- About screen -->
+    <string name="contributors">Bijdragers</string>
+
+    <string name="pref_title__save_directory">Kies opslagmap</string>
+    <string name="licenses">Licenties</string>
+    <string name="changelog">Wijzigingen</string>
+    <string name="more_information">Meer informatie</string>
+    <string name="show_app_license">Bekijk licentie van de app</string>
+    <string name="show_third_party_licenses">Bekijk licenties van derden</string>
+    <string name="pref_desc__language">Wijzig de taal van de app. Herstart de app om de wijzigingen door te voeren</string>
+    <string name="pref_title__language">Taal</string>
+    <string name="error_storage_permission">Er is toestemming nodig voor het opslaan van de documenten</string>
+    <string name="open_with">Open met</string>
+    <string name="sort">Sorteren</string>
+    <string name="sort_by_date">Sorteer op datum</string>
+    <string name="sort_by_name">Sorteer op naam</string>
+    <string name="sort_by_size">Sorteer op bestandsgrootte</string>
+    <string name="sort_reverse">Keer volgorde om</string>
+
+</resources>
