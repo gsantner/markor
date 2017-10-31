@@ -324,7 +324,8 @@ public class NoteActivity extends AppCompatActivity {
 
         try {
 
-            String parent = _targetDirectory != null ? _targetDirectory : _note.getParent();
+            String parent = _targetDirectory != null ? _targetDirectory
+                    : (_note != null ? _note.getParent() : AppSettings.get().getSaveDirectory());
 
             if (_note == null || !_note.exists()) {
                 _note = new File(parent, filename);
