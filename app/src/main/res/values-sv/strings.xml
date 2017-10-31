@@ -6,7 +6,7 @@
     <string name="delete">Radera</string>
     <string name="rename">Byt namn</string>
     <string name="confirm_delete">Bekräfta radering</string>
-    <string name="confirm_overwrite">Filen finns redan, skriva över?</string>
+    <string name="confirm_overwrite_description">Filen finns redan, skriva över?</string>
     <string name="title">Titel</string>
     <string name="empty_directory">Den här mappen är tom</string>
     <string name="navigate_up_folder">Tillbaka till föregående mapp</string>

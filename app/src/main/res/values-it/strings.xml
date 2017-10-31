@@ -6,7 +6,7 @@
     <string name="delete">Cancella</string>
     <string name="rename">Rinomina</string>
     <string name="confirm_delete">Conferma la cancellazione</string>
-    <string name="confirm_overwrite">File già esistente, sovrascrivere?</string>
+    <string name="confirm_overwrite_description">File già esistente, sovrascrivere?</string>
     <string name="title">Titolo</string>
     <string name="empty_directory">Questa cartella è vuota</string>
     <string name="navigate_up_folder">Vai alla cartella precedente</string>

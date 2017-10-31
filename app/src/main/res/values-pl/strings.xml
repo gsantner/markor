@@ -6,7 +6,7 @@
     <string name="delete">Usuń</string>
     <string name="rename">Zmień nazwę</string>
     <string name="confirm_delete">Potwierdź usunięcie</string>
-    <string name="confirm_overwrite">Plik już istnieje, nadpisać?</string>
+    <string name="confirm_overwrite_description">Plik już istnieje, nadpisać?</string>
     <string name="title">Tytuł</string>
     <string name="empty_directory">Ten katalog jest pusty</string>
     <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>

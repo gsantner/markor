@@ -35,6 +35,11 @@
         <item quantity="other">@string/more_items_selected</item>
     </plurals>
 
+    <plurals name="documents" translatable="false">
+        <item quantity="one">@string/document_one</item>
+        <item quantity="other">@string/document_multiple</item>
+    </plurals>
+
 
     <!-- Preference keys -->
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>

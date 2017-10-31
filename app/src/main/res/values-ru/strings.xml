@@ -6,7 +6,7 @@
     <string name="delete">Удалить</string>
     <string name="rename">Переименовать</string>
     <string name="confirm_delete">Подтвердить удаление</string>
-    <string name="confirm_overwrite">Файл уже существует, перезаписать?</string>
+    <string name="confirm_overwrite_description">Файл уже существует, перезаписать?</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Эта директория пуста</string>
     <string name="navigate_up_folder">В предыдущую директорию</string>
