@@ -1,6 +1,6 @@
 /*
  * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.github.io> & Lonami Exo <lonamiwebs.github.io> wrote
+ * Gregor Santner <gsantner.net> & Lonami Exo <lonamiwebs.github.io> wrote
  * this. You can do whatever you want with it. If we meet some day, and you
  * think it is worth it, you can buy us a coke in return. Provided as is without
  * any kind of warranty. Do not blame or sue us if something goes wrong.
