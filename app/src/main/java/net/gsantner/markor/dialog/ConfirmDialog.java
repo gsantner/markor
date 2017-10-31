@@ -11,9 +11,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -23,18 +23,21 @@ import java.io.Serializable;
 public class ConfirmDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "ConfirmDialog";
 
-    private static final String EXTRA_TITLE_RES_ID = "EXTRA_TITLE_RES_ID";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
+    private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     public static final String EXTRA_DATA = "EXTRA_DATA";
 
     private Serializable _data;
     private ConfirmDialogCallback[] _callbacks;
+    private String _summary;
 
-    public static ConfirmDialog newInstance(@StringRes int titleResId,
+    public static ConfirmDialog newInstance(String title, String message,
                                             Serializable data, ConfirmDialogCallback... callbacks) {
         ConfirmDialog confirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DATA, data);
-        args.putInt(EXTRA_TITLE_RES_ID, titleResId);
+        args.putString(EXTRA_TITLE, title);
+        args.putString(EXTRA_MESSAGE, message);
         confirmDialog.setArguments(args);
         confirmDialog.setCallbacks(callbacks);
         return confirmDialog;
@@ -47,7 +50,8 @@ public class ConfirmDialog extends DialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int titleResId = getArguments().getInt(EXTRA_TITLE_RES_ID);
+        String title = getArguments().getString(EXTRA_TITLE);
+        String message = getArguments().getString(EXTRA_MESSAGE);
         _data = getArguments().getSerializable(EXTRA_DATA);
 
         AlertDialog.Builder dialogBuilder;
@@ -55,8 +59,10 @@ public class ConfirmDialog extends DialogFragment {
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
-
-        dialogBuilder.setTitle(getResources().getString(titleResId));
+        dialogBuilder.setTitle(title);
+        if (!TextUtils.isEmpty(message)){
+            dialogBuilder.setMessage(message);
+        }
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
                 DialogInterface.OnClickListener() {

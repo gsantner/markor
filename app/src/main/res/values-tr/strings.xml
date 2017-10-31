@@ -6,7 +6,7 @@
     <string name="delete">Sil</string>
     <string name="rename">Yeniden Adlandır</string>
     <string name="confirm_delete">Silmeyi Onayla</string>
-    <string name="confirm_overwrite">Dosya zaten var, üzerine yazılsın mı?</string>
+    <string name="confirm_overwrite_description">Dosya zaten var, üzerine yazılsın mı?</string>
     <string name="title">Başlık</string>
     <string name="empty_directory">Bu dizin boş</string>
     <string name="navigate_up_folder">Önceki klasöre dön</string>

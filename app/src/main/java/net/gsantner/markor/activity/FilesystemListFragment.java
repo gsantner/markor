@@ -136,7 +136,6 @@ public class FilesystemListFragment extends Fragment {
 
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
         appSettings.setLastOpenedDirectory(saveDir);
         _markorSingleton.setNotesLastDirectory(_currentDir);
@@ -144,7 +143,9 @@ public class FilesystemListFragment extends Fragment {
 
     private void confirmDelete() {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_selectedItems);
-        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(R.string.confirm_delete, itemsToDelete,
+        String message = String.format(getString(R.string.confirm_delete_description), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size()));
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(
+                getString(R.string.confirm_delete), message, itemsToDelete,
                 new ConfirmDialog.ConfirmDialogCallback() {
                     @Override
                     public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
@@ -155,7 +156,7 @@ public class FilesystemListFragment extends Fragment {
                         }
                     }
                 });
-        confirmDialog.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getActivity().getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
     private void promptForMoveDirectory() {
@@ -171,7 +172,7 @@ public class FilesystemListFragment extends Fragment {
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                opt.titleText = R.string.select_folder;
+                opt.titleText = R.string.move;
                 opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
             }
         }, getActivity().getSupportFragmentManager(), getActivity());

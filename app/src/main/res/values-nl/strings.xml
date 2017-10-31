@@ -6,7 +6,7 @@
     <string name="delete">Verwijderen</string>
     <string name="rename">Hernoemen</string>
     <string name="confirm_delete">Bevestig verwijderen</string>
-    <string name="confirm_overwrite">Bestand bestaat al, overschrijven?</string>
+    <string name="confirm_overwrite_description">Bestand bestaat al, overschrijven?</string>
     <string name="title">Titel</string>
     <string name="empty_directory">Deze folder is leeg</string>
     <string name="navigate_up_folder">Terug naar vorige map</string>

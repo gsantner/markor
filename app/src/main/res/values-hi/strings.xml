@@ -6,7 +6,7 @@
     <string name="delete">हटाना</string>
     <string name="rename">नाम बदलने</string>
     <string name="confirm_delete">हटाने की पुष्टि करें</string>
-    <string name="confirm_overwrite">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
+    <string name="confirm_overwrite_description">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
     <string name="title">शीर्षक</string>
     <string name="empty_directory">यह फ़ोल्डर खाली है</string>
     <string name="navigate_up_folder">पिछले फ़ोल्डर पर वापस जाएं</string>

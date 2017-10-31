@@ -6,7 +6,9 @@
     <string name="delete">Delete</string>
     <string name="rename">Rename</string>
     <string name="confirm_delete">Confirm Delete</string>
-    <string name="confirm_overwrite">File already exists, overwrite?</string>
+    <string name="confirm_delete_description">Do you really want to delete this %s?</string>
+    <string name="confirm_overwrite">Confirm Overwrite</string>
+    <string name="confirm_overwrite_description">File already exists, overwrite?</string>
     <string name="title">Title</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
@@ -27,6 +29,8 @@
     <string name="editor_settings">Editor Settings</string>
     <string name="folders">Folders</string>
     <string name="files">Files</string>
+    <string name="document_one">Document</string>
+    <string name="document_multiple">Documents</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Remember last folder location on startup</string>

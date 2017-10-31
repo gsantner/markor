@@ -6,7 +6,7 @@
     <string name="delete">Apagar</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
-    <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
+    <string name="confirm_overwrite_description">O arquivo já existe. Sobrescrever?</string>
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
     <string name="navigate_up_folder">Retornar à pasta anterior</string>

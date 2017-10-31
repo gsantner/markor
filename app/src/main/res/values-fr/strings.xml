@@ -6,7 +6,7 @@
     <string name="delete">Supprimer</string>
     <string name="rename">Renommer</string>
     <string name="confirm_delete">Confirmez la suppression</string>
-    <string name="confirm_overwrite">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
+    <string name="confirm_overwrite_description">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
     <string name="title">Titre</string>
     <string name="empty_directory">Ce dossier est vide</string>
     <string name="navigate_up_folder">Retourner au dossier précédent</string>

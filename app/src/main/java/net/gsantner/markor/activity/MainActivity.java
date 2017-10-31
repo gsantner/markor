@@ -373,8 +373,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void importFile(final File file) {
         if (new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+            String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
-            ConfirmDialog d = ConfirmDialog.newInstance(R.string.confirm_overwrite, file,
+            ConfirmDialog d = ConfirmDialog.newInstance(
+                    getString(R.string.confirm_overwrite), message, file,
                     new ConfirmDialog.ConfirmDialogCallback() {
                         @Override
                         public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
