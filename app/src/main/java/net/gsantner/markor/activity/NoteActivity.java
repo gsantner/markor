@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -124,7 +125,7 @@ public class NoteActivity extends AppCompatActivity {
 
             // Extract existing extension
             for (String ext : Constants.EXTENSIONS) {
-                if (_note.getName().toLowerCase().endsWith(ext)) {
+                if (_note.getName().toLowerCase(Locale.getDefault()).endsWith(ext)) {
                     _fileExtension = ext;
                     break;
                 }
@@ -255,7 +256,7 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void appendButton(int shortcut, View.OnClickListener l) {
-        ImageView shortcutButton = (ImageView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
+        ImageView shortcutButton = (ImageView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, (ViewGroup)null);
         shortcutButton.setImageResource(shortcut);
         shortcutButton.setOnClickListener(l);
 
@@ -504,7 +505,7 @@ public class NoteActivity extends AppCompatActivity {
 
     private void getAlertDialog(int action) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view = getLayoutInflater().inflate(R.layout.format_dialog, null);
+        final View view = getLayoutInflater().inflate(R.layout.format_dialog, (ViewGroup)null);
 
         final EditText link_name = view.findViewById(R.id.format_dialog_name);
         final EditText link_url = view.findViewById(R.id.format_dialog_url);

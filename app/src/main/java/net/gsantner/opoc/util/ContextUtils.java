@@ -445,7 +445,7 @@ public class ContextUtils {
 
     public File writeImageToFileDetectFormat(File imageFile, Bitmap image, int quality) {
         CompressFormat format = CompressFormat.JPEG;
-        String lc = imageFile.getAbsolutePath().toLowerCase();
+        String lc = imageFile.getAbsolutePath().toLowerCase(Locale.ROOT);
         if (lc.endsWith(".png")) {
             format = CompressFormat.PNG;
         }

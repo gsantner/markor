@@ -9,6 +9,7 @@ package net.gsantner.markor.adapter;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
@@ -108,16 +110,22 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
     }
 
     private String generateExtraForFile(int i) {
-        int fileAmount = ((getItem(i).listFiles() == null) ? 0 : getItem(i).listFiles().length);
+        File item = getItem(i);
+        int fileAmount = item == null ? 0 : ((item.listFiles() == null) ? 0 : item.listFiles().length);
         return String.format(_context.getString(R.string.number_of_files), fileAmount);
     }
 
     private String generateExtraForDirectory(int i) {
-        String formattedDate = DateUtils.formatDateTime(_context, getItem(i).lastModified(),
+        File item = getItem(i);
+        if (item == null) {
+            return "";
+        }
+        String formattedDate = DateUtils.formatDateTime(_context, item.lastModified(),
                 (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
         return String.format(_context.getString(R.string.last_modified), formattedDate);
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -133,7 +141,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
                     ArrayList<File> searchResultsData = new ArrayList<File>();
 
                     for (File item : _data) {
-                        if (item.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        if (item.getName().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase(Locale.getDefault()))) {
                             searchResultsData.add(item);
                         }
                     }
@@ -145,6 +153,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 _filteredData = (ArrayList<File>) results.values;
                 notifyDataSetChanged();

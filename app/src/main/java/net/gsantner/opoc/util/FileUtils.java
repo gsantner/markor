@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
@@ -230,7 +231,7 @@ public class FileUtils {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             while ((line = reader.readLine()) != null) {
                 for (i = 0; i != needles.length; ++i)
-                    if (line.toLowerCase().contains(needles[i])) {
+                    if (line.toLowerCase(Locale.ROOT).contains(needles[i])) {
                         return i;
                     }
             }
@@ -257,9 +258,9 @@ public class FileUtils {
 
     // Example: Check if this is maybe a conf: (str, "jpg", "png", "jpeg")
     public static boolean hasExtension(String str, String... extensions) {
-        String lc = str.toLowerCase();
+        String lc = str.toLowerCase(Locale.ROOT);
         for (String extension : extensions) {
-            if (lc.endsWith("." + extension.toLowerCase())) {
+            if (lc.endsWith("." + extension.toLowerCase(Locale.ROOT))) {
                 return true;
             }
         }
@@ -272,7 +273,7 @@ public class FileUtils {
         }
 
         // renameTo will fail in case of case-changed filename in same dir.Even on case-sensitive FS!!!
-        if (srcFile.getParent().equals(destFile.getParent()) && srcFile.getName().toLowerCase().equals(destFile.getName().toLowerCase())) {
+        if (srcFile.getParent().equals(destFile.getParent()) && srcFile.getName().toLowerCase(Locale.getDefault()).equals(destFile.getName().toLowerCase(Locale.getDefault()))) {
             File tmpFile = new File(destFile.getParent(), UUID.randomUUID().getLeastSignificantBits() + ".tmp");
             if (!tmpFile.exists()) {
                 renameFile(srcFile, tmpFile);

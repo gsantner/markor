@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:targetApi="jelly_bean"
-    package="net.gsantner.markor">
+    package="net.gsantner.markor"
+    tools:targetApi="jelly_bean">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -11,8 +11,10 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/full_backup_rules"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme.Light">
 
         <activity

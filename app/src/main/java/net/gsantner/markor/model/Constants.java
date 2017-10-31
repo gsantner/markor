@@ -32,8 +32,8 @@ public class Constants {
     public static final String MD_EXT4 = ".mdown";
     public static final String MD_EXT5 = ".mkdn";
     public static final String MD_EXT6 = ".txt";
-    public static final String[] EXTENSIONS = new String[]{ Constants.MD_EXT1_MD, Constants.MD_EXT2, Constants.MD_EXT3,
-                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
+    public static final String[] EXTENSIONS = new String[]{Constants.MD_EXT1_MD, Constants.MD_EXT2, Constants.MD_EXT3,
+            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
 
 
     public static final int MAX_TITLE_LENGTH = 20;
@@ -69,4 +69,8 @@ public class Constants {
 
     //FILE PROVIDER AUTHORITIES
     public static final String FILE_PROVIDER_AUTHORITIES = BuildConfig.APPLICATION_ID + ".provider";
+
+    // Make resources not marked as unused
+    private static final Object[] unused_ignore = new Object[]
+            {R.color.colorPrimary, R.color.icons, R.color.divider, R.plurals.item_selected, R.string.project_page, R.style.AppTheme, R.raw.readme};
 }

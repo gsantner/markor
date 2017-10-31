@@ -19,7 +19,7 @@
 
 buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
 
-@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 static String[] getUsedAndroidLanguages() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
@@ -28,7 +28,6 @@ static String[] getUsedAndroidLanguages() {
             new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
                 if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
                     langs.add(foldername.replace("values-", ""))
-
                 }
             }
         }
@@ -147,8 +146,8 @@ public class LanguagePreference extends ListPreference {
         String country = locale.getDisplayCountry(locale);
         String language = locale.getDisplayLanguage(locale);
         return locale.getDisplayLanguage(Locale.ENGLISH)
-                + " (" + language.substring(0, 1).toUpperCase() + language.substring(1)
-                + ((!country.isEmpty() && !country.toLowerCase().equals(language.toLowerCase())) ? (", " + country) : "")
+                + " (" + language.substring(0, 1).toUpperCase(Locale.getDefault()) + language.substring(1)
+                + ((!country.isEmpty() && !country.toLowerCase(Locale.getDefault()).equals(language.toLowerCase(Locale.getDefault()))) ? (", " + country) : "")
                 + ")";
     }
 
