@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -59,7 +60,7 @@ public class RenameDialog extends DialogFragment {
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
-        root = inflater.inflate(R.layout.ui__rename__dialog, null);
+        root = inflater.inflate(R.layout.ui__rename__dialog, (ViewGroup)null);
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));
         dialogBuilder.setView(root);

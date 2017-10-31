@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -186,7 +187,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
     }
 
-    public boolean areItemsSelected(){
+    public boolean areItemsSelected() {
         return !_currentSelection.isEmpty();
     }
 
@@ -240,11 +241,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             @Override
             public int compare(File o1, File o2) {
                 if (o1.isDirectory())
-                    return o2.isDirectory() ? o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase()) : -1;
+                    return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
                 else if (o2.isDirectory())
                     return 1;
 
-                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+                return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
             }
         });
 
@@ -276,14 +277,14 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             final FilterResults results = new FilterResults();
-            constraint = constraint.toString().toLowerCase().trim();
+            constraint = constraint.toString().toLowerCase(Locale.getDefault()).trim();
             _filteredList.clear();
 
             if (constraint.length() == 0) {
                 _filteredList.addAll(_originalList);
             } else {
                 for (File file : _originalList) {
-                    if (file.getName().toLowerCase().contains(constraint)) {
+                    if (file.getName().toLowerCase(Locale.getDefault()).contains(constraint)) {
                         _filteredList.add(file);
                     }
                 }

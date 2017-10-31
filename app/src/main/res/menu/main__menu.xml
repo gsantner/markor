@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="net.gsantner.markor.activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.gsantner.markor.activity.MainActivity"
+    tools:ignore="AlwaysShowAction">
 
     <item
         android:id="@+id/action_search"
@@ -9,7 +10,7 @@
         android:icon="@drawable/ic_action_search"
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_sort"
         android:layout_width="match_parent"
@@ -23,23 +24,23 @@
                 android:id="@+id/action_sort_by_name"
                 android:icon="@drawable/ic_sort_by_alpha_white_24dp"
                 android:title="@string/sort_by_name"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_by_date"
                 android:icon="@drawable/ic_date_range_white_24dp"
                 android:title="@string/sort_by_date"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_by_filesize"
                 android:icon="@drawable/ic_sort_24dp"
                 android:title="@string/sort_by_size"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_reverse"
                 android:checkable="true"
                 android:icon="@drawable/ic_rotate_left_white_24dp"
                 android:title="@string/sort_reverse"
-                app:showAsAction="never"/>
+                app:showAsAction="never" />
         </menu>
 
     </item>
@@ -48,31 +49,31 @@
         android:id="@+id/action_import"
         android:icon="@drawable/ic_file_white_24dp"
         android:title="@string/import_from_device"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_white_24dp"
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_contribute"
         android:icon="@drawable/ic_bug_report_white_24dp"
         android:title="@string/contribute"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_donate"
-        android:visible="false"
         android:icon="@drawable/ic_favorite_white_24dp"
         android:title="@string/donate"
-        app:showAsAction="never"/>
+        android:visible="false"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_info_white_24dp"
         android:title="@string/about"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 </menu>
 

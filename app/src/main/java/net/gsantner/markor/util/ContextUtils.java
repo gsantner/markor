@@ -12,6 +12,7 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.model.Constants;
 
 import java.io.File;
+import java.util.Locale;
 
 public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     public ContextUtils(Context context) {
@@ -32,7 +33,7 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     public boolean isMaybeMarkdownFile(File file, String... absolutePath) {
         String path = (absolutePath != null && absolutePath.length > 0)
                 ? absolutePath[0] : file.getAbsolutePath();
-        path = path.toLowerCase();
+        path = path.toLowerCase(Locale.ROOT);
         for (String ext : Constants.EXTENSIONS) {
             if (path.endsWith(ext)) {
                 return true;

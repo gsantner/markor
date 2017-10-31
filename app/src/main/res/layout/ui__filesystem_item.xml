@@ -27,7 +27,7 @@
         android:layout_height="28dp"
         android:layout_gravity="center_vertical|start"
         android:layout_marginRight="16dp"
-        tools:ignore="RtlHardcoded"
+        tools:ignore="ContentDescription,RtlHardcoded"
         tools:src="@android:drawable/btn_radio"/>
 
     <LinearLayout

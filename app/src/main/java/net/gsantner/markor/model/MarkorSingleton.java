@@ -24,9 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -152,9 +149,8 @@ public class MarkorSingleton {
     }
 
     /**
-     *
      * @param u Uri of the file.
-     * File path is taken from uri using uri.getPath()
+     *          File path is taken from uri using uri.getPath()
      * @return
      */
     public File getFileFromUri(Uri u) {

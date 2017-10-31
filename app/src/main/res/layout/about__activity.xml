@@ -163,13 +163,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/show_app_license"/>
+                        android:text="@string/show_app_license"
+                        tools:ignore="ButtonStyle" />
 
                     <Button
                         android:id="@+id/about__activity__button_third_party_licenses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        tools:ignore="ButtonStyle"
                         android:text="@string/show_third_party_licenses"/>
                 </LinearLayout>
 

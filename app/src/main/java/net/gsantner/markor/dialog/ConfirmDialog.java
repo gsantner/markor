@@ -60,7 +60,7 @@ public class ConfirmDialog extends DialogFragment {
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         dialogBuilder.setTitle(title);
-        if (!TextUtils.isEmpty(message)){
+        if (!TextUtils.isEmpty(message)) {
             dialogBuilder.setMessage(message);
         }
 

@@ -50,7 +50,8 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
-            android:src="@android:drawable/arrow_up_float"/>
+            android:src="@android:drawable/arrow_up_float"
+            tools:ignore="ContentDescription" />
 
 
         <ImageView
@@ -62,7 +63,8 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
-            android:src="@android:drawable/star_big_on"/>
+            android:src="@android:drawable/star_big_on"
+            tools:ignore="ContentDescription" />
 
 
         <ImageView
@@ -74,9 +76,11 @@
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
             android:scaleType="fitEnd"
-            android:src="@android:drawable/ic_menu_search"/>
+            android:src="@android:drawable/ic_menu_search"
+            tools:ignore="ContentDescription" />
 
         <EditText
+            android:inputType="text"
             android:id="@+id/ui__filesystem_dialog__search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

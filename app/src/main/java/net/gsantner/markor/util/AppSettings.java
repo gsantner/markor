@@ -14,6 +14,7 @@ import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.util.AppSettingsBase;
 
 import java.io.File;
+import java.util.Locale;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
@@ -49,7 +50,7 @@ public class AppSettings extends AppSettingsBase {
         String dir = getString(R.string.pref_key__save_directory, "");
         if (dir.isEmpty()) {
             dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
-                    , rstr(R.string.app_name).toLowerCase())
+                    , rstr(R.string.app_name).toLowerCase(Locale.ROOT))
                     .getAbsolutePath();
             setSaveDirectory(dir);
         }

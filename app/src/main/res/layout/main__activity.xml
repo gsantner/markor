@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -9,7 +10,8 @@
         android:id="@+id/main__activity__content_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <include
             android:id="@+id/toolbar"
@@ -29,7 +31,8 @@
             android:text="@string/navigate_up_folder"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:targetApi="jelly_bean" />
 
         <FrameLayout
             android:id="@+id/main__activity__fragment_placeholder"
@@ -56,7 +59,8 @@
                 android:layout_marginRight="8dp"
                 android:src="@drawable/ic_create_white_24dp"
                 android:tooltipText="@string/create_note"
-                app:elevation="0dp" />
+                app:elevation="0dp"
+                tools:ignore="UnusedAttribute" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/main__activity__create_folder_fab"
@@ -67,7 +71,8 @@
                 android:layout_marginRight="8dp"
                 android:src="@drawable/ic_create_new_folder_white_24dp"
                 android:tooltipText="@string/create_folder"
-                app:elevation="0dp" />
+                app:elevation="0dp"
+                tools:targetApi="o" />
 
         </LinearLayout>
     </RelativeLayout>
