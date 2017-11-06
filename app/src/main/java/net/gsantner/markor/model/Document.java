@@ -100,8 +100,11 @@ public class Document implements Serializable {
             while (_historyPosition != _history.size() && _history.size() != 0) {
                 _history.remove(_history.size() - 1);
             }
-            _history.add(cloneDocument());
-            _historyPosition++;
+            if (_history.isEmpty() || (!_history.isEmpty() && !_history.get(_history.size() - 1).equals(this))) {
+                _history.add(cloneDocument());
+                _historyPosition++;
+                _lastChanged = System.currentTimeMillis();
+            }
         }
     }
 
@@ -124,7 +127,6 @@ public class Document implements Serializable {
         if (!equalsc(getTitle(), title)) {
             addToHistory();
             _title = title;
-            _lastChanged = System.currentTimeMillis();
         }
     }
 
@@ -136,7 +138,6 @@ public class Document implements Serializable {
         if (!equalsc(getContent(), content)) {
             addToHistory();
             _content = content;
-            _lastChanged = System.currentTimeMillis();
         }
     }
 
@@ -199,5 +200,9 @@ public class Document implements Serializable {
 
     public void setFileExtension(String fileExtension) {
         _fileExtension = fileExtension;
+    }
+
+    public long getLastChanged() {
+        return _lastChanged;
     }
 }
