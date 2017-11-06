@@ -10,4 +10,18 @@
         android:id="@+id/action_preview"
         android:title="@string/preview"
         app:showAsAction="always" />
+
+    <item
+        android:visible="false"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:id="@+id/action_undo"
+        android:title="@string/undo"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:visible="false"
+        android:icon="@drawable/ic_redo_black_24dp"
+        android:id="@+id/action_redo"
+        android:title="@string/redo"
+        app:showAsAction="ifRoom" />
 </menu>

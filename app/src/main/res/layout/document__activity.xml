@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.Light.PopupOverlay">
+            android:theme="@style/LightTextToolbarOverlay">
 
             <ViewSwitcher
                 android:id="@+id/note__activity__header_view_switcher"
