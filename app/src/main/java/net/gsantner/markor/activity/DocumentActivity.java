@@ -138,6 +138,9 @@ public class DocumentActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home: {
+                if (isTaskRoot()) {
+                    startActivity(new Intent(this, MainActivity.class));
+                }
                 super.onBackPressed();
                 return true;
             }
