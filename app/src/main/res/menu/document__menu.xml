@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
+
     <item
-        android:id="@+id/action_share"
+        android:id="@+id/submenu_share"
         android:icon="@drawable/ic_share_light"
         android:title="@string/share"
         app:showAsAction="always">
@@ -14,26 +15,22 @@
                 android:id="@+id/action_share_text"
                 android:title="@string/plain_text" />
             <item
+                android:id="@+id/action_share_pdf"
+                android:title="@string/pdf"
+                android:visible="false" />
+            <item
                 android:id="@+id/action_share_file"
                 android:title="@string/file" />
             <item
                 android:id="@+id/action_share_html"
-                android:title="@string/share_html" />
+                android:title="@string/share_html__mime_html" />
             <item
                 android:id="@+id/action_share_html_source"
-                android:title="@string/share_html_source" />
+                android:title="@string/share_html__mime_plaintext" />
             <item
                 android:id="@+id/action_share_image"
                 android:title="@string/image" />
-            <item
-                android:id="@+id/action_share_pdf"
-                android:title="@string/pdf"
-                android:visible="false" />
         </menu>
     </item>
-    <item
-        android:id="@+id/action_edit"
-        android:icon="@drawable/ic_edit_light"
-        android:title="@string/preview"
-        app:showAsAction="always" />
+
 </menu>

@@ -36,6 +36,7 @@ import net.gsantner.markor.dialog.ConfirmDialog;
 import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -248,8 +249,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.main__activity__create_note_fab: {
-                    Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                    intent.putExtra(Constants.TARGET_DIR, _filesystemListFragment.getCurrentDir().getAbsolutePath());
+                    Intent intent = new Intent(MainActivity.this, DocumentActivity.class);
+                    intent.putExtra(DocumentLoader.EXTRA_PATH, _filesystemListFragment.getCurrentDir());
+                    intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);
                     break;
                 }
@@ -415,12 +417,13 @@ public class MainActivity extends AppCompatActivity {
         if (!_filesystemListFragment.onRooDir()) {
             _filesystemListFragment.goToPreviousDir();
         } else {
-            this._doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
+            _doubleBackToExitPressedOnce = true;
+            new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, new View.OnClickListener() {
+                public void onClick(View view) {
+                    finish();
+                }
+            });
             new Handler().postDelayed(new Runnable() {
-
-                @Override
                 public void run() {
                     _doubleBackToExitPressedOnce = false;
                 }

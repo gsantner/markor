@@ -36,7 +36,7 @@ public class Constants {
             Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
 
 
-    public static final int MAX_TITLE_LENGTH = 20;
+    public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
     public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
     public static final String EXTRA_FILEPATH = "filesystem_filepath";
 
@@ -48,7 +48,7 @@ public class Constants {
 
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
-    public static final String NOTE_KEY = "note_key";
+    public static final String EXTRA_PATH = "note_key";
     public static final String MD_PREVIEW_BASE = "md_preview_base";
     public static final String MD_PREVIEW_KEY = "md_preview_key";
 
@@ -59,7 +59,6 @@ public class Constants {
     public static final String MD_HTML_PREFIX_END = "</head><body>";
     public static final String MD_HTML_RTL_CSS = "<style>body{text-align:right; direction:rtl;}</style>";
     public static final String MD_HTML_SUFFIX = "</body></html>";
-    public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
     public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt))$)");

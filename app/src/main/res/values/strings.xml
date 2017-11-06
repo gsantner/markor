@@ -19,6 +19,7 @@
 
     <string name="import_from_device">Import from device</string>
     <string name="select_folder">Select folder</string>
+    <string name="edit">Edit</string>
 
     <string name="search_hint">Search notes</string>
     <string name="share_string">Share to&#8230;</string>
@@ -31,6 +32,7 @@
     <string name="files">Files</string>
     <string name="document_one">Document</string>
     <string name="document_multiple">Documents</string>
+    <string name="share_html__mime_plaintext">HTML (as plain text)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Remember last folder location on startup</string>
@@ -51,9 +53,6 @@
     <string name="pref_title__render_rtl">Render for right-to-left languages</string>
     <string name="error_cannot_create_save_dir">Error: Cannot create save directory</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Last modified: %s</string>
     <string name="number_of_files">Number of files: %d</string>
     <string name="select_this_folder">Select this folder</string>
@@ -73,7 +72,6 @@
 
     <!-- About screen -->
     <string name="contributors">Contributors</string>
-
     <string name="pref_title__save_directory">Select storage folder</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
@@ -92,5 +90,6 @@
     <string name="contribute">Contribute</string>
     <string name="donate">Donate</string>
     <string name="project_page">Project page</string>
-
+    <string name="press_again_to_exit">Press back again to exit</string>
+    <string name="exit">Exit</string>
 </resources>
