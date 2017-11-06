@@ -6,22 +6,20 @@
     tools:ignore="AlwaysShowAction">
 
     <item
-        android:icon="@drawable/ic_preview_light"
         android:id="@+id/action_preview"
+        android:icon="@drawable/ic_preview_light"
         android:title="@string/preview"
         app:showAsAction="always" />
 
     <item
-        android:visible="false"
-        android:icon="@drawable/ic_undo_black_24dp"
         android:id="@+id/action_undo"
+        android:icon="@drawable/ic_undo_white_24dp"
         android:title="@string/undo"
         app:showAsAction="ifRoom" />
-    
+
     <item
-        android:visible="false"
-        android:icon="@drawable/ic_redo_black_24dp"
         android:id="@+id/action_redo"
+        android:icon="@drawable/ic_redo_white_24dp"
         android:title="@string/redo"
         app:showAsAction="ifRoom" />
 </menu>

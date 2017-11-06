@@ -13,9 +13,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,9 +49,10 @@ import butterknife.OnTextChanged;
 
 @SuppressWarnings("UnusedReturnValue")
 public class DocumentEditFragment extends BaseFragment {
-    public static boolean showPreviewOnBack = false;
+    public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static boolean showPreviewOnBack = false;
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -101,14 +104,7 @@ public class DocumentEditFragment extends BaseFragment {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         }
         _document = loadDocument();
-        _contentEditor.setText(_document.getContent());
-
-        Activity activity = getActivity();
-        if (activity != null && activity instanceof DocumentActivity) {
-            DocumentActivity da = ((DocumentActivity) activity);
-            da.setDocumentTitle(_document.getTitle());
-            da.setDocument(_document);
-        }
+        loadDocumentIntoUi();
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
         _contentEditor.clearFocus();
@@ -125,9 +121,27 @@ public class DocumentEditFragment extends BaseFragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.document__edit__menu, menu);
         ContextUtils cu = ContextUtils.get();
-
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
+
+        Drawable drawable;
+        drawable = menu.findItem(R.id.action_undo).setEnabled(_document.canGoToEarlierVersion()).getIcon();
+        drawable.mutate().setAlpha(_document.canGoToEarlierVersion() ? 255 : 40);
+        drawable = menu.findItem(R.id.action_redo).setEnabled(_document.canGoToNewerVersion()).getIcon();
+        drawable.mutate().setAlpha(_document.canGoToNewerVersion() ? 255 : 40);
+    }
+
+    public void loadDocumentIntoUi() {
+        int editorpos = _contentEditor.getSelectionStart();
+        _contentEditor.setText(_document.getContent());
+        editorpos = editorpos > _contentEditor.length() ? _contentEditor.length() - 1 : editorpos;
+        _contentEditor.setSelection(editorpos < 0 ? 0 : editorpos);
+        Activity activity = getActivity();
+        if (activity != null && activity instanceof DocumentActivity) {
+            DocumentActivity da = ((DocumentActivity) activity);
+            da.setDocumentTitle(_document.getTitle());
+            da.setDocument(_document);
+        }
     }
 
     @Override
@@ -137,13 +151,44 @@ public class DocumentEditFragment extends BaseFragment {
                 // Handled by parent
                 return false;
             }
+            case R.id.action_undo: {
+                if (_document.canGoToEarlierVersion()) {
+                    _document.goToEarlierVersion();
+                    loadDocumentIntoUi();
+                }
+                return true;
+            }
+            case R.id.action_redo: {
+                if (_document.canGoToNewerVersion()) {
+                    _document.goToNewerVersion();
+                    loadDocumentIntoUi();
+                }
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
+    private long _lastChangedThreadStart = 0;
+
     @OnTextChanged(value = R.id.note__activity__note_content_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {
-        _document.setContent(text.toString());
+        if ((_lastChangedThreadStart + HISTORY_DELTA) < System.currentTimeMillis()) {
+            _lastChangedThreadStart = System.currentTimeMillis();
+            _contentEditor.postDelayed(new Runnable() {
+                public void run() {
+                    _document.setContent(text.toString());
+                    Activity activity = getActivity();
+                    if (activity != null && activity instanceof AppCompatActivity) {
+                        ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
+                    }
+                }
+            }, HISTORY_DELTA);
+        }
+        Activity activity = getActivity();
+        if (activity != null && activity instanceof AppCompatActivity) {
+            ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
+        }
     }
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
