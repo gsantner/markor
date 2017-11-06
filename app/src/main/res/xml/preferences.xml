@@ -35,15 +35,11 @@
             android:key="@string/pref_key__language"
             android:summary="@string/pref_desc__language"
             android:title="@string/pref_title__language" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/editor_settings">
-        <ListPreference
+        <net.gsantner.opoc.ui.FontPreference
             android:defaultValue="@string/default_font_family"
-            android:dialogTitle="@string/pref_title__font_choice"
-            android:entries="@array/pref_arrdisp__font_family"
-            android:entryValues="@array/pref_arrkeys__font_family"
             android:key="@string/pref_key__font_family"
             android:title="@string/pref_title__font_choice" />
 
