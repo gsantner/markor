@@ -51,6 +51,7 @@ import android.content.Context;
 import android.os.Build;
 import android.preference.ListPreference;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import net.gsantner.opoc.util.ContextUtils;
@@ -155,7 +156,9 @@ public class LanguagePreference extends ListPreference {
     @Override
     public CharSequence getSummary() {
         Locale locale = new ContextUtils(getContext()).getLocaleByAndroidCode(getValue());
-        return super.getSummary() + "\n\n" + summarizeLocale(locale);
+        String prefix = TextUtils.isEmpty(super.getSummary())
+                ? "" : super.getSummary() + "\n\n";
+        return prefix + summarizeLocale(locale);
     }
 
     public String getSystemLanguageName() {
