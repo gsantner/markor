@@ -92,4 +92,6 @@
     <string name="project_page">Project page</string>
     <string name="press_again_to_exit">Press back again to exit</string>
     <string name="exit">Exit</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 </resources>
