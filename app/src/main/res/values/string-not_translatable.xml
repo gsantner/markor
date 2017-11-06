@@ -4,8 +4,7 @@
     <string name="plus" translatable="false">+</string>
 
     <string name="default_font_family" translatable="false">sans-serif-regular</string>
-    <string name="share_html" translatable="false">HTML</string>
-    <string name="share_html_source" translatable="false">HTML Source</string>
+    <string name="share_html__mime_html" translatable="false">HTML</string>
     <string name="team" translatable="false">Maintainer</string>
     <string name="pdf" translatable="false">PDF</string>
 

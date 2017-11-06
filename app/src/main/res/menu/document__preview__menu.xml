@@ -4,15 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
-
     <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/ic_share_light"
-        android:title="@string/share"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_preview"
-        android:icon="@drawable/ic_preview_light"
-        android:title="@string/preview"
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_light"
+        android:title="@string/edit"
         app:showAsAction="always" />
 </menu>

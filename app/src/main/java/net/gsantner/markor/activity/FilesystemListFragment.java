@@ -9,7 +9,6 @@ package net.gsantner.markor.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,7 +31,7 @@ import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
-import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -391,38 +390,17 @@ public class FilesystemListFragment extends Fragment {
 
     @OnItemClick(R.id.filesystemlist__fragment__listview)
     public void onNotesItemClickListener(AdapterView<?> adapterView, View view, int i, long l) {
-        File file = (File) _simpleSectionAdapter.getItem(i);
+        File clickedFile = (File) _simpleSectionAdapter.getItem(i);
         Context context = view.getContext();
 
         // Refresh list if directory, else import
-        if (file.isDirectory()) {
-            _currentDir = file;
-            listFilesInDirectory(file);
+        if (clickedFile.isDirectory()) {
+            _currentDir = clickedFile;
+            listFilesInDirectory(clickedFile);
         } else {
-
-            File note = (File) _simpleSectionAdapter.getItem(i);
-            Intent intent;
-
-            if (AppSettings.get().isPreviewFirst()) {
-                intent = new Intent(context, PreviewActivity.class);
-
-                if (note != null) {
-                    Uri uriBase = null;
-                    if (note.getParentFile() != null) {
-                        uriBase = Uri.parse(note.getParentFile().toURI().toString());
-                    }
-
-                    intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
-                }
-
-                Uri noteUri = Uri.parse(note.toURI().toString());
-                String content = MarkorSingleton.getInstance().readFileUri(noteUri, context);
-                intent.putExtra(Constants.MD_PREVIEW_KEY, content);
-            } else {
-                intent = new Intent(context, NoteActivity.class);
-            }
-            intent.putExtra(Constants.NOTE_KEY, note);
-
+            Intent intent = new Intent(context, DocumentActivity.class);
+            intent.putExtra(DocumentLoader.EXTRA_PATH, clickedFile);
+            intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
             startActivity(intent);
         }
     }

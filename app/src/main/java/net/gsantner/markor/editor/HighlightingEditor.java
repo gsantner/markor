@@ -9,6 +9,7 @@ package net.gsantner.markor.editor;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
