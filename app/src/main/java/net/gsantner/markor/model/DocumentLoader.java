@@ -89,6 +89,33 @@ public class DocumentLoader {
         return document;
     }
 
+    public static boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
+        boolean ret = false;
+        String filename = DocumentLoader.normalizeTitleForFilename(document) + document.getFileExtension();
+        document.setDoHistory(true);
+        document.setFile(new File(document.getFile().getParentFile(), filename));
+
+        Document documentInitial = document.getInitialVersion();
+        if (argAllowRename) {
+            if (!document.getFile().equals(documentInitial.getFile())) {
+                if (documentInitial.getFile().exists()) {
+                    FileUtils.renameFile(documentInitial.getFile(), document.getFile());
+                }
+            }
+        } else {
+            document.setFile(documentInitial.getFile());
+        }
+
+        if (!currentText.equals(documentInitial.getContent())) {
+            document.forceAddNextChangeToHistory();
+            document.setContent(currentText);
+            ret = FileUtils.writeFile(document.getFile(), document.getContent());
+        } else {
+            ret = true;
+        }
+        return ret;
+    }
+
     public static String normalizeTitleForFilename(Document _document) {
         String name = _document.getTitle();
         if (name.length() == 0) {
@@ -103,7 +130,7 @@ public class DocumentLoader {
                 }
             }
         }
-        name = name.replaceAll("[\\\\/:\"*?<>|]+", "").trim();
+        name = name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
 
         if (name.isEmpty()) {
             name = "Note " + UUID.randomUUID().toString();

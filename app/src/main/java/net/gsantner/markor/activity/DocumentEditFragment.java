@@ -39,7 +39,6 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
@@ -276,30 +275,8 @@ public class DocumentEditFragment extends BaseFragment {
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean ret = false;
-        Object a = getArguments();
         boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, true);
-        String filename = DocumentLoader.normalizeTitleForFilename(_document) + _document.getFileExtension();
-        _document.setDoHistory(true);
-        _document.setFile(new File(_document.getFile().getParentFile(), filename));
-
-        Document documentInitial = _document.getInitialVersion();
-        if (argAllowRename) {
-            if (!_document.getFile().equals(documentInitial.getFile())) {
-                if (documentInitial.getFile().exists()) {
-                    FileUtils.renameFile(documentInitial.getFile(), _document.getFile());
-                }
-            }
-        } else {
-            _document.setFile(documentInitial.getFile());
-        }
-
-        if (!_contentEditor.getText().toString().equals(documentInitial.getContent())) {
-            _document.forceAddNextChangeToHistory();
-            _document.setContent(_contentEditor.getText().toString());
-            ret = FileUtils.writeFile(_document.getFile(), _document.getContent());
-        } else {
-            ret = true;
-        }
+        ret = DocumentLoader.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
         updateLauncherWidgets();
         return ret;
     }

@@ -15,9 +15,12 @@
     <string name="folder_name_hint">Enter the name of your folder</string>
     <string name="create_folder">Create Folder</string>
     <string name="create_note">Create Note</string>
+    <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
 
     <string name="import_from_device">Import from device</string>
+    <string name="import_">Import</string>
+    <string name="append_to_document">Append to  document</string>
     <string name="select_folder">Select folder</string>
     <string name="edit">Edit</string>
 
@@ -99,4 +102,6 @@
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="quicknote">QuickNote</string>
+    <string name="shared">Shared:</string>
+    <string name="append_to_quicknote">Append to QuickNote</string>
 </resources>
