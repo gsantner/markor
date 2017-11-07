@@ -57,7 +57,6 @@ public class DocumentPreviewFragment extends BaseFragment {
     private View _view;
     private Context _context;
     private Document _document;
-    private MarkDownRenderer _mdRenderer = new MarkDownRenderer();
 
     public DocumentPreviewFragment() {
     }
@@ -88,7 +87,7 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        String html = MarkDownRenderer.renderMarkdownIntoWebview(_document, _webView);
+        MarkDownRenderer.renderMarkdownIntoWebview(_document, _webView);
     }
 
     @Override

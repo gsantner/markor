@@ -46,7 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
 public class DocumentEditFragment extends BaseFragment {
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
@@ -96,7 +96,6 @@ public class DocumentEditFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        Context c = getContext();
         setupMarkdownShortcutBar();
         setupAppearancePreferences();
 
@@ -274,9 +273,8 @@ public class DocumentEditFragment extends BaseFragment {
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
-        boolean ret = false;
         boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, true);
-        ret = DocumentLoader.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
+        boolean ret = DocumentLoader.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
         updateLauncherWidgets();
         return ret;
     }

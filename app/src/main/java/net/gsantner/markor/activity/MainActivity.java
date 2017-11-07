@@ -21,29 +21,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.pixplicity.generate.OnFeedbackListener;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.dialog.ConfirmDialog;
-import net.gsantner.markor.dialog.CreateFolderDialog;
-import net.gsantner.markor.dialog.FilesystemDialogCreator;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
-import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
@@ -171,9 +162,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         @SuppressWarnings("unchecked")
         @Override
         public void onReceive(Context context, Intent intent) {
-            String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH); // nullable
             String action = intent.getAction();
-            switch (action) {
+            switch (action == null ? "" : action) {
                 case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
                     File rootDir = new File(AppSettings.get().getSaveDirectory());
@@ -239,17 +229,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Confirm exit with back / snackbar
         _doubleBackToExitPressedOnce = true;
-        new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, new View.OnClickListener() {
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                _doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-
+        new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, view -> finish());
+        new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 
     @Override

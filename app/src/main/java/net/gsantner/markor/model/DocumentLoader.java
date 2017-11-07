@@ -29,6 +29,8 @@ public class DocumentLoader {
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
     public static final String EXTRA_ALLOW_RENAME = "EXTRA_ALLOW_RENAME";
 
+    public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
+
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
@@ -123,10 +125,10 @@ public class DocumentLoader {
                 return null;
             } else {
                 String contentL1 = _document.getContent().split("\n")[0];
-                if (contentL1.length() < Constants.MAX_TITLE_EXTRACTION_LENGTH) {
+                if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
                     name = contentL1.substring(0, contentL1.length());
                 } else {
-                    name = contentL1.substring(0, Constants.MAX_TITLE_EXTRACTION_LENGTH);
+                    name = contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
                 }
             }
         }

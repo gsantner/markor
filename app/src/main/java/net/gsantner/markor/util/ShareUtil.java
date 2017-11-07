@@ -22,8 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.Document;
 
 import java.io.File;
@@ -31,6 +31,8 @@ import java.io.IOException;
 
 @SuppressWarnings("UnusedReturnValue")
 public class ShareUtil {
+    public static final String FILE_PROVIDER_AUTHORITIES = BuildConfig.APPLICATION_ID + ".provider";
+
     private Context _context;
 
     public ShareUtil(Context context) {
@@ -46,7 +48,7 @@ public class ShareUtil {
     }
 
     public void shareStream(File file, String type) {
-        Uri fileUri = FileProvider.getUriForFile(_context, Constants.FILE_PROVIDER_AUTHORITIES, file);
+        Uri fileUri = FileProvider.getUriForFile(_context, FILE_PROVIDER_AUTHORITIES, file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);

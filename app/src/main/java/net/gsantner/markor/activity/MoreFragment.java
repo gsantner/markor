@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -100,13 +99,6 @@ public class MoreFragment extends BaseFragment {
 
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

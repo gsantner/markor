@@ -8,7 +8,6 @@
 package net.gsantner.markor.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -71,21 +70,13 @@ public class RenameDialog extends DialogFragment {
                 darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
 
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
-                            AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
-                        }
-                    }
-                });
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
+            if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
+                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
+            }
+        });
 
-        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.dismiss());
 
         return dialogBuilder;
     }
