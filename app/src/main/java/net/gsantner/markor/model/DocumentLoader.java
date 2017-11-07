@@ -27,6 +27,7 @@ public class DocumentLoader {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
+    public static final String EXTRA_ALLOW_RENAME = "EXTRA_ALLOW_RENAME";
 
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
@@ -38,6 +39,7 @@ public class DocumentLoader {
         if (arguments.hasExtra(EXTRA_DOCUMENT)) {
             bundle.putSerializable(EXTRA_DOCUMENT, arguments.getSerializableExtra(EXTRA_DOCUMENT));
         } else {
+            bundle.putBoolean(EXTRA_ALLOW_RENAME, arguments.getBooleanExtra(EXTRA_ALLOW_RENAME, true));
             bundle.putSerializable(EXTRA_PATH, arguments.getSerializableExtra(EXTRA_PATH));
             bundle.putBoolean(EXTRA_PATH_IS_FOLDER, arguments.getBooleanExtra(EXTRA_PATH_IS_FOLDER, false));
         }

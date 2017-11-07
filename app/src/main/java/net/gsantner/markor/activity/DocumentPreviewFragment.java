@@ -94,7 +94,7 @@ public class DocumentPreviewFragment extends BaseFragment {
         _webView.loadDataWithBaseURL(_document.getFile().getParent(), html, "text/html", Constants.UTF_CHARSET, null);
     }
 
-    private String renderMarkdown(){
+    private String renderMarkdown() {
         String html = _mdRenderer.renderMarkdown(_document.getContent(), _context);
 
         // Default font is set by css in line 1 of generated html

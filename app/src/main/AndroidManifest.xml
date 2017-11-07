@@ -80,7 +80,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.gsantner.markor.activity.MainActivity" />
 
-
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

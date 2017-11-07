@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
  * with it. If we meet some day, and you think it is worth it, you can buy me a
@@ -11,12 +10,12 @@
  */
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/ui__filesystem_dialog__root"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ui__filesystem_dialog__root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp">
 
     <TextView
         android:id="@+id/ui__filesystem_dialog__title"
@@ -28,7 +27,7 @@
         android:gravity="center_vertical|start"
         android:minHeight="48dp"
         android:padding="16dp"
-        tools:text="Select file"/>
+        tools:text="Select file" />
 
     <LinearLayout
         android:id="@+id/ui__filesystem_dialog__utilbar"
@@ -80,7 +79,6 @@
             tools:ignore="ContentDescription" />
 
         <EditText
-            android:inputType="text"
             android:id="@+id/ui__filesystem_dialog__search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,10 +86,11 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
+            android:inputType="text"
             android:maxLines="1"
             android:textSize="14sp"
             android:visibility="gone"
-            tools:hint="Search..."/>
+            tools:hint="Search..." />
 
     </LinearLayout>
 
@@ -104,7 +103,7 @@
         android:minHeight="100dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        app:layoutManager="LinearLayoutManager"/>
+        app:layoutManager="LinearLayoutManager" />
 
     <LinearLayout
         android:id="@+id/ui__filesystem_dialog__buttons"
@@ -124,7 +123,7 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/primary"
-            tools:text="Cancel"/>
+            tools:text="Cancel" />
 
         <TextView
             android:id="@+id/ui__filesystem_dialog__button_ok"
@@ -134,7 +133,7 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/primary"
-            tools:text="Select folder"/>
+            tools:text="Select folder" />
 
     </LinearLayout>
 

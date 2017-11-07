@@ -94,4 +94,9 @@
     <string name="exit">Exit</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="more">More</string>
+    <string name="notebook">Notebook</string>
+    <string name="quicknote">QuickNote</string>
 </resources>

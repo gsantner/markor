@@ -1,31 +1,26 @@
-/*
- * Copyright (c) 2014 Jeff Martin
- * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017 Gregor Santner and Markor contributors
- *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
 package net.gsantner.markor.activity;
 
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pixplicity.generate.OnFeedbackListener;
@@ -38,6 +33,7 @@ import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -48,32 +44,35 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import butterknife.OnPageChange;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
 
-    @BindView(R.id.main__activity__fragment_placeholder)
-    public View _frameLayout;
+    @BindView(R.id.bottom_navigation_bar)
+    BottomNavigationView _bottomNav;
 
-    @BindView(R.id.main__activity__content_background)
-    public RelativeLayout _contentRoot;
+    @BindView(R.id.fab_add_new_item)
+    FloatingActionButton _fab;
 
-    @BindView(R.id.main__activity__breadcrumbs)
-    public TextView _breadcrumbs;
+    @BindView(R.id.main__view_pager_container)
+    ViewPager _viewPager;
+    private SectionsPagerAdapter _viewPagerAdapter;
 
-    private FilesystemListFragment _filesystemListFragment;
-    private SearchView _searchView;
-    private MenuItem _searchItem;
+
+    private FilesystemListFragment _filesystemListFragment; //TODO not populated
 
     private boolean _doubleBackToExitPressedOnce;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +88,16 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
 
-        _filesystemListFragment = new FilesystemListFragment();
+        optShowRate();
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main__activity__fragment_placeholder, _filesystemListFragment)
-                .commit();
 
+        // Setup viewpager
+        _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        _viewPager.setAdapter(_viewPagerAdapter);
+        _bottomNav.setOnNavigationItemSelectedListener(this);
+    }
+
+    private void optShowRate() {
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
@@ -111,53 +114,27 @@ public class MainActivity extends AppCompatActivity {
         PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.action_settings: {
-                new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, 124);
-                return true;
-            }
             case R.id.action_import: {
                 if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
                     showImportDialog();
                 }
                 return true;
             }
-            case R.id.action_about: {
-                new ActivityUtils(this).animateToActivity(AboutActivity.class, false, 123);
+            case R.id.action_create_folder: {
+                showCreateFolderDialog();
                 return true;
             }
-
-            case R.id.action_sort_by_name: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
-                _filesystemListFragment.sortAdapter();
-                return true;
-            }
-            case R.id.action_sort_by_date: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_DATE);
-                _filesystemListFragment.sortAdapter();
-                return true;
-            }
-            case R.id.action_sort_by_filesize: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_FILESIZE);
-                _filesystemListFragment.sortAdapter();
-                return true;
-            }
-
-            case R.id.action_sort_reverse: {
-                item.setChecked(!item.isChecked());
-                AppSettings.get().setSortReverse(item.isChecked());
-                _filesystemListFragment.sortAdapter();
-                return true;
-            }
-            case R.id.action_donate: {
-                ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_donate));
-                return true;
-            }
-            case R.id.action_contribute: {
-                ContextUtils.get().openWebpageInExternalBrowser(getString(R.string.url_contribute));
+            case R.id.action_preview: {
+                // Preview QuickNote
+                Intent intent = new Intent(this, DocumentActivity.class);
+                intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
+                intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getQuickNote());
+                startActivity(intent);
                 return true;
             }
         }
@@ -168,53 +145,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         ContextUtils cu = ContextUtils.get();
-
-        // Inflate the menu; this adds items to the _action bar if it is present.
         getMenuInflater().inflate(R.menu.main__menu, menu);
-        _searchItem = menu.findItem(R.id.action_search);
-        _searchView = (SearchView) _searchItem.getActionView();
-
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        _searchView.setQueryHint(getString(R.string.search_hint));
-        if (_searchView != null) {
-            _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    if (query != null) {
-                        if (_filesystemListFragment.isVisible())
-                            _filesystemListFragment.search(query);
-                    }
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    if (newText != null) {
-                        if (_filesystemListFragment.isVisible()) {
-                            if (newText.equalsIgnoreCase("")) {
-                                _filesystemListFragment.clearSearchFilter();
-                            } else {
-                                _filesystemListFragment.search(newText);
-                            }
-                        }
-                    }
-                    return false;
-                }
-            });
-            _searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    menu.findItem(R.id.action_import).setVisible(hasFocus);
-                    menu.findItem(R.id.action_settings).setVisible(hasFocus);
-                    if (!hasFocus) {
-                        _searchItem.collapseActionView();
-                    }
-                }
-            });
-        }
-
-        menu.findItem(R.id.action_donate).setVisible(!cu.isGooglePlayBuild());
 
         cu.setSubMenuIconsVisiblity(menu, true);
         return true;
@@ -237,26 +168,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
         lbm.unregisterReceiver(_localBroadcastReceiver);
-    }
-
-
-    @OnClick({R.id.main__activity__create_folder_fab, R.id.main__activity__create_note_fab})
-    public void onClickFab(View view) {
-        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
-            switch (view.getId()) {
-                case R.id.main__activity__create_folder_fab: {
-                    showCreateFolderDialog();
-                    break;
-                }
-                case R.id.main__activity__create_note_fab: {
-                    Intent intent = new Intent(MainActivity.this, DocumentActivity.class);
-                    intent.putExtra(DocumentLoader.EXTRA_PATH, _filesystemListFragment.getCurrentDir());
-                    intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
-                    startActivity(intent);
-                    break;
-                }
-            }
-        }
     }
 
     private BroadcastReceiver _localBroadcastReceiver = new BroadcastReceiver() {
@@ -286,14 +197,9 @@ public class MainActivity extends AppCompatActivity {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
                     File rootDir = new File(AppSettings.get().getSaveDirectory());
                     if (currentDir.equals(rootDir)) {
-                        _breadcrumbs.setVisibility(View.GONE);
+                        _toolbar.setTitle(R.string.app_name);
                     } else {
-                        String text = currentDir.getParentFile().equals(rootDir)
-                                ? (" > " + currentDir.getName())
-                                : ("... > " + currentDir.getParentFile().getName() + " > " + currentDir.getName()
-                        );
-                        _breadcrumbs.setText(text);
-                        _breadcrumbs.setVisibility(View.VISIBLE);
+                        _toolbar.setTitle("> " + currentDir.getName());
                     }
                     if (intent.getBooleanExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_FORCE_RELOAD, false)) {
                         _filesystemListFragment.listFilesInDirectory(currentDir);
@@ -304,19 +210,30 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @OnLongClick({R.id.main__activity__create_folder_fab, R.id.main__activity__create_note_fab})
+    @OnLongClick({R.id.fab_add_new_item})
     public boolean onLongClickedFab(View view) {
         switch (view.getId()) {
-            case R.id.main__activity__create_folder_fab: {
-                new ActivityUtils(this).showSnackBar(R.string.create_folder, false);
-                return true;
-            }
-            case R.id.main__activity__create_note_fab: {
-                new ActivityUtils(this).showSnackBar(R.string.create_note, false);
+            case R.id.fab_add_new_item: {
+                showCreateFolderDialog();
                 return true;
             }
         }
         return false;
+    }
+
+    @OnClick({R.id.fab_add_new_item})
+    public void onClickFab(View view) {
+        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+            switch (view.getId()) {
+                case R.id.fab_add_new_item: {
+                    Intent intent = new Intent(this, DocumentActivity.class);
+                    intent.putExtra(DocumentLoader.EXTRA_PATH, _filesystemListFragment.getCurrentDir());
+                    intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
+                    startActivity(intent);
+                    break;
+                }
+            }
+        }
     }
 
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
@@ -343,8 +260,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupAppearancePreferences() {
         int color = ContextCompat.getColor(this, AppSettings.get().isDarkThemeEnabled()
                 ? R.color.dark__background : R.color.light__background);
-        _frameLayout.setBackgroundColor(color);
-        _contentRoot.setBackgroundColor(color);
+        _viewPager.getRootView().setBackgroundColor(color);
     }
 
     private void showImportDialog() {
@@ -401,15 +317,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (_searchView.isFocused()) {
-            _searchView.clearFocus();
-            _searchView.setSelected(false);
-            return;
-        }
-        if (!_searchView.getQuery().toString().isEmpty() || !_searchView.isIconified()) {
-            _searchView.setQuery("", false);
-            _searchView.setIconified(true);
-            _searchItem.collapseActionView();
+
+        BaseFragment frag = _viewPagerAdapter.getCachedFragments().get(_viewPager.getCurrentItem());
+        if (frag != null && frag.onBackPressed()) {
             return;
         }
 
@@ -431,4 +341,95 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        _fab.setVisibility(item.getItemId() == R.id.nav_notebook ? View.VISIBLE : View.INVISIBLE);
+        switch (item.getItemId()) {
+            case R.id.nav_notebook: {
+                _viewPager.setCurrentItem(0);
+                return true;
+            }
+            case R.id.nav_quicknote: {
+                PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+                _viewPager.setCurrentItem(1);
+                return true;
+            }
+            case R.id.nav_more: {
+                _viewPager.setCurrentItem(2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
+    public void onViewPagerPageSelected(int position) {
+        Menu menu = _bottomNav.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            if (i != position) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
+        if (position == 1) {
+            PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+        }
+        menu.getItem(position).setChecked(true);
+        _fab.setVisibility(position == 0 ? View.VISIBLE : View.INVISIBLE);
+
+    }
+
+
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private HashMap<Integer, BaseFragment> _fragCache = new LinkedHashMap<>();
+
+        SectionsPagerAdapter(FragmentManager fragMgr) {
+            super(fragMgr);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            BaseFragment fragment = null;
+            switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
+                default:
+                case R.id.nav_notebook: {
+                    fragment = new FilesystemListFragment();
+                    MainActivity.this._filesystemListFragment = (FilesystemListFragment) fragment;
+                    break;
+                }
+                case R.id.nav_quicknote: {
+                    return DocumentEditFragment.newInstance(AppSettings.get().getQuickNote(), false, false);
+                }
+                case R.id.nav_more: {
+                    return MoreFragment.newInstance();
+                }
+            }
+
+            _fragCache.put(pos, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            _fragCache.remove(position);
+        }
+
+        @Override
+        public int getCount() {
+            return _bottomNav.getMenu().size();
+        }
+
+        public BaseFragment getFragmentByTag(String fragmentTag) {
+            for (BaseFragment frag : _fragCache.values()) {
+                if (fragmentTag.equals(frag.getFragmentTag())) {
+                    return frag;
+                }
+            }
+            return null;
+        }
+
+        public HashMap<Integer, BaseFragment> getCachedFragments() {
+            return _fragCache;
+        }
+    }
 }

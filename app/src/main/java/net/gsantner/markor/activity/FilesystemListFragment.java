@@ -7,11 +7,13 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +35,7 @@ import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -48,10 +51,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
-public class FilesystemListFragment extends Fragment {
+import static android.content.Context.SEARCH_SERVICE;
+
+public class FilesystemListFragment extends BaseFragment {
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
     public static final int SORT_BY_FILESIZE = 2;
+    public static final String FRAGMENT_TAG = "FilesystemListFragment";
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;
@@ -60,6 +66,10 @@ public class FilesystemListFragment extends Fragment {
     public TextView _background_hint_text;
 
     private NotesAdapter _filesAdapter;
+
+
+    private SearchView _searchView;
+    private MenuItem _searchItem;
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
@@ -175,6 +185,86 @@ public class FilesystemListFragment extends Fragment {
         }, getActivity().getSupportFragmentManager(), getActivity());
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.filesystem__menu, menu);
+
+        _searchItem = menu.findItem(R.id.action_search);
+        _searchView = (SearchView) _searchItem.getActionView();
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        _searchView.setQueryHint(getString(R.string.search_hint));
+        if (_searchView != null) {
+            _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    if (query != null) {
+                        if (isVisible())
+                            search(query);
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (newText != null) {
+                        if (isVisible()) {
+                            if (newText.equalsIgnoreCase("")) {
+                                clearSearchFilter();
+                            } else {
+                                search(newText);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
+            _searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    menu.findItem(R.id.action_import).setVisible(hasFocus);
+                    if (!hasFocus) {
+                        _searchItem.collapseActionView();
+                    }
+                }
+            });
+        }
+        ContextUtils cu = ContextUtils.get();
+
+        cu.tintMenuItems(menu, true, Color.WHITE);
+        cu.setSubMenuIconsVisiblity(menu, true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_by_name: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_date: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_DATE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_filesize: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_FILESIZE);
+                sortAdapter();
+                return true;
+            }
+
+            case R.id.action_sort_reverse: {
+                item.setChecked(!item.isChecked());
+                AppSettings.get().setSortReverse(item.isChecked());
+                sortAdapter();
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void listFilesInDirectory(File directory) {
         _selectedItems.clear();
@@ -304,6 +394,28 @@ public class FilesystemListFragment extends Fragment {
 
     public boolean onRooDir() {
         return _markorSingleton.isRootDir(_currentDir, _rootDir);
+    }
+
+    @Override
+    public String getFragmentTag() {
+        return FRAGMENT_TAG;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (_searchView.isFocused()) {
+            _searchView.clearFocus();
+            _searchView.setSelected(false);
+            return true;
+        }
+        if (!_searchView.getQuery().toString().isEmpty() || !_searchView.isIconified()) {
+            _searchView.setQuery("", false);
+            _searchView.setIconified(true);
+            _searchItem.collapseActionView();
+            return true;
+        }
+
+        return false;
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
