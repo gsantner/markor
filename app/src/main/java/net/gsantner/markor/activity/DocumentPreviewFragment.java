@@ -20,12 +20,10 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.renderer.MarkDownRenderer;
 import net.gsantner.markor.ui.BaseFragment;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
@@ -90,17 +88,7 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        String html = renderMarkdown();
-        _webView.loadDataWithBaseURL(_document.getFile().getParent(), html, "text/html", Constants.UTF_CHARSET, null);
-    }
-
-    private String renderMarkdown() {
-        String html = _mdRenderer.renderMarkdown(_document.getContent(), _context);
-
-        // Default font is set by css in line 1 of generated html
-        html = html.replaceFirst("sans-serif-light", AppSettings.get().getFontFamily());
-
-        return html;
+        String html = MarkDownRenderer.renderMarkdownIntoWebview(_document, _webView);
     }
 
     @Override

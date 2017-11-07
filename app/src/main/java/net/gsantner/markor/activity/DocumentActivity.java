@@ -99,8 +99,7 @@ public class DocumentActivity extends AppCompatActivity {
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
             if (type.equals("text/plain")) {
-                //TODO openTextShareText(receivingIntent);
-                // New Fragment: "New document", select between existing
+                showShareInto(receivingIntent.getStringExtra(Intent.EXTRA_TEXT));
             } else {
                 Uri fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
                 file = new File(fileUri.getPath());
@@ -210,6 +209,15 @@ public class DocumentActivity extends AppCompatActivity {
         }
     }
 
+    public void showShareInto(String text) {
+        // Disable edittext when going to shareinto
+        if (_toolbarSwitcher.getNextView() == _toolbarTitleText) {
+            _toolbarSwitcher.showNext();
+        }
+        _toolbarTitleText.setText(R.string.import_);
+        showFragment(DocumentShareIntoFragment.newInstance(text));
+    }
+
     public void showPreview(@Nullable Document document, @Nullable File file) {
         // Disable edittext when going to preview
         if (_toolbarSwitcher.getNextView() == _toolbarTitleText) {
@@ -238,7 +246,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     @OnClick(R.id.note__activity__text_note_title)
     public void onToolbarTitleTapped(View view) {
-        if (getCurrentVisibleFragment() != getExistingFragment(DocumentPreviewFragment.FRAGMENT_TAG)) {
+        if (getCurrentVisibleFragment() == getExistingFragment(DocumentEditFragment.FRAGMENT_TAG)) {
             if (!getIntent().getBooleanExtra(EXTRA_DO_PREVIEW, false)) {
                 _toolbarSwitcher.showPrevious();
                 _toolbarTitleEdit.requestFocus();
