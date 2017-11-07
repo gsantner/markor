@@ -20,7 +20,7 @@
 
     <string name="import_from_device">Import from device</string>
     <string name="import_">Import</string>
-    <string name="append_to_document">Append to  document</string>
+    <string name="append_to__arg_document_name">Append to %s</string>
     <string name="select_folder">Select folder</string>
     <string name="edit">Edit</string>
 
@@ -97,11 +97,7 @@
     <string name="exit">Exit</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
-    <string name="quicknote">QuickNote</string>
-    <string name="shared">Shared:</string>
-    <string name="append_to_quicknote">Append to QuickNote</string>
+    <string name="help">Help</string>
 </resources>

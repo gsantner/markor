@@ -87,4 +87,19 @@
     <string name="contribute">Beitragen</string>
     <string name="donate">Spenden</string>
     <string name="project_page">Projektseite</string>
+    <string name="notebook">Notizbuch</string>
+    <string name="more">Mehr</string>
+    <string name="redo">Wiederherstellen</string>
+    <string name="undo">Rückgängig</string>
+    <string name="exit">Beenden</string>
+    <string name="press_again_to_exit">Nochmal zurück drücken um zu beenden</string>
+    <string name="share_html__mime_plaintext">HTML (als Klartext)</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="append_to__arg_document_name">Anhängen an %s</string>
+    <string name="import_">Importieren</string>
+    <string name="create_new_document">Neues Dokument erstellen</string>
+    <string name="document_multiple">Dokumente</string>
+    <string name="document_one">Dokument</string>
+    <string name="confirm_overwrite">Überschreiben bestätigen</string>
+    <string name="confirm_delete_description">Möchtest du %s wirklich löschen?</string>
 </resources>
