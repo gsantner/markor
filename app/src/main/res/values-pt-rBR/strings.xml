@@ -6,6 +6,8 @@
     <string name="delete">Apagar</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
+    <string name="confirm_delete_description">Você realmente deseja excluir essa %s?</string>
+    <string name="confirm_overwrite">Confirmar sobrescrever</string>
     <string name="confirm_overwrite_description">O arquivo já existe. Sobrescrever?</string>
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
@@ -13,10 +15,14 @@
     <string name="folder_name_hint">Introduza o nome da sua pasta</string>
     <string name="create_folder">Criar pasta</string>
     <string name="create_note">Criar nota</string>
+    <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
 
     <string name="import_from_device">Importar do dispositivo</string>
+    <string name="import_">Importar</string>
+    <string name="append_to__arg_document_name">Acrescentar para %s</string>
     <string name="select_folder">Selecionar pastas</string>
+    <string name="edit">Editar</string>
 
     <string name="search_hint">Procurar notas</string>
     <string name="share_string">Compartilhar com…</string>
@@ -27,6 +33,9 @@
     <string name="editor_settings">Configurações do editor</string>
     <string name="folders">Pastas</string>
     <string name="files">Arquivos</string>
+    <string name="document_one">Documento</string>
+    <string name="document_multiple">Documentos</string>
+    <string name="share_html__mime_plaintext">HTML (como texto simples)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Lembrar última pasta ao iniciar</string>
@@ -35,6 +44,7 @@
     <string name="pref_title__preview_first">Pré-visualização ao abrir notas</string>
     <string name="about">Sobre o Markor</string>
     <string name="plain_text">Texto puro</string>
+    <string name="file">Arquivo</string>
     <string name="image">Imagem</string>
     <string name="pref_title__font_size">Tamanho da fonte</string>
     <string name="pref_title__show_markdown_shortcuts">Mostrar atalhos de Markdown</string>
@@ -46,9 +56,6 @@
     <string name="pref_title__render_rtl">Renderizar para línguas de escrita da direita à esquerda</string>
     <string name="error_cannot_create_save_dir">Erro: Impossível criar pasta de becape</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Últimas modificações: %s</string>
     <string name="number_of_files">Número de arquivos: %d</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
@@ -60,10 +67,14 @@
 
     <string name="pref_summary__is_statusbar_hidden">Esconder barra de tarefas nesta visualização</string>
     <string name="pref_title__is_statusbar_hidden">Esconder barra de status</string>
+    
+    <string name="format_dialog_name_hint">Nome</string>
+    <string name="format_dialog_url_or_path_hint">URL / Caminho</string>
+    <string name="format_link_dialog_title">Inserir Link</string>
+    <string name="format_image_dialog_title">Inserir Imagem</string>
 
     <!-- About screen -->
     <string name="contributors">Colaboradores</string>
-
     <string name="pref_title__save_directory">Escolher pasta de armazenamento</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de atualizações</string>
@@ -74,15 +85,36 @@
     <string name="pref_title__language">Linguagem</string>
     <string name="error_storage_permission">Necessário permissão para armazenamento de documentos</string>
     <string name="open_with">Abrir com</string>
-
-    <string name="file">Arquivo</string>
-    <string name="format_dialog_name_hint">Nome</string>
-    <string name="format_dialog_url_or_path_hint">URL / Caminho</string>
-    <string name="format_link_dialog_title">Inserir Link</string>
-    <string name="format_image_dialog_title">Inserir Imagem</string>
     <string name="sort">Ordenar</string>
     <string name="sort_by_date">Ordenar por Data</string>
     <string name="sort_by_name">Ordenar por Nome</string>
     <string name="sort_by_size">Ordenar por Tamanho</string>
     <string name="sort_reverse">Inverter ordem</string>
+    <string name="contribute">Contribuir</string>
+    <string name="donate">Doar</string>
+    <string name="project_page">Página do projeto</string>
+    <string name="press_again_to_exit">Pressione "volta" novamente para sair</string>
+    <string name="exit">Sair</string>
+    <string name="undo">Desfazer</string>
+    <string name="redo">Refazer</string>
+    <string name="more">Mais</string>
+    <string name="notebook">Caderno</string>
+    <string name="help">Ajuda</string>
+    <string name="special_documents">Documentos especiais</string>
+    <string name="todo_list">Lista de Tarefas </string>
+    <string name="task">Tarefa</string>
+    <string name="category">Categoria</string>
+    <string name="context">Contexto</string>
+    <string name="list">Lista</string>
+    <string name="priority">Prioridade</string>
+    <string name="history">História</string>
+    <string name="sync">Sincronização</string>
+    <string name="save">Salvar</string>
+    <string name="update">Atualização</string>
+    <string name="clear">Limpar</string>
+    <string name="due_date">Data de vencimento</string>
+    <string name="current_date">Data atual</string>
+    <string name="archive">Arquivo</string>
+    <string name="add_task">Adicionar tarefa</string>
+    <string name="pref_summary__quicknote_filepath">O documento a ser carregado e guardado como nota rápida</string>
 </resources>
