@@ -100,4 +100,21 @@
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="help">Help</string>
+    <string name="special_documents">Special documents</string>
+    <string name="todo_list">To-Do List</string>
+    <string name="task">Task</string>
+    <string name="category">Category</string>
+    <string name="context">Context</string>
+    <string name="list">List</string>
+    <string name="priority">Priority</string>
+    <string name="history">History</string>
+    <string name="sync">Sync</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="clear">Clear</string>
+    <string name="due_date">Due date</string>
+    <string name="current_date">Current date</string>
+    <string name="archive">Archive</string>
+    <string name="add_task">Add task</string>
+    <string name="pref_summary__quicknote_filepath">The document to be loaded and saved as QuickNote</string>
 </resources>

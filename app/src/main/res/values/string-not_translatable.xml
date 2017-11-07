@@ -8,6 +8,8 @@
     <string name="team" translatable="false">Maintainer</string>
     <string name="pdf" translatable="false">PDF</string>
     <string name="quicknote" translatable="false">QuickNote</string>
+    <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
+    <string name="todo" translatable="false">To-Do</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
@@ -49,6 +51,7 @@
     <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
     <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
     <string name="pref_key__save_directory" translatable="false">pref_key__save_directory</string>
+    <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>

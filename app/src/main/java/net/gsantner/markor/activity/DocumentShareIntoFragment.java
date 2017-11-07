@@ -105,7 +105,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
             }
             case R.id.document__fragment__share_into__append_to_quicknote: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {
-                    appendToExistingDocument(AppSettings.get().getQuickNote(), false);
+                    appendToExistingDocument(AppSettings.get().getQuickNoteFile(), false);
                     if (getActivity() != null) {
                         getActivity().finish();
                     }
