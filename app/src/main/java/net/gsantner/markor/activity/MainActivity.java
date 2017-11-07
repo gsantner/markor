@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FilesystemListFragment _filesystemListFragment; //TODO not populated
 
     private boolean _doubleBackToExitPressedOnce;
+    private MenuItem _lastBottomMenuItem;
 
 
     @Override
@@ -369,19 +370,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
-    public void onViewPagerPageSelected(int position) {
+    public void onViewPagerPageSelected(int pos) {
         Menu menu = _bottomNav.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            if (i != position) {
-                menu.getItem(i).setChecked(false);
-            }
-        }
-        if (position == 1) {
+        (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
+        _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
+        _fab.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
+
+        if (pos == 1) {
             PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
         }
-        menu.getItem(position).setChecked(true);
-        _fab.setVisibility(position == 0 ? View.VISIBLE : View.INVISIBLE);
-
     }
 
 
