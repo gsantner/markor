@@ -7,6 +7,7 @@
     <string name="share_html__mime_html" translatable="false">HTML</string>
     <string name="team" translatable="false">Maintainer</string>
     <string name="pdf" translatable="false">PDF</string>
+    <string name="quicknote" translatable="false">QuickNote</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>

@@ -48,12 +48,13 @@
                 app:elevation="0dp" />
 
             <TextView
+                android:id="@+id/document__fragment__share_into__append_to_document__text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/append_to_document"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                tools:text="Append to Document"
                 tools:textColor="@color/white" />
         </LinearLayout>
 
@@ -75,12 +76,13 @@
                 app:elevation="0dp" />
 
             <TextView
+                android:id="@+id/document__fragment__share_into__append_to_quicknote__text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/append_to_quicknote"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                tools:text="Append to QuickNote"
                 tools:textColor="@color/white" />
         </LinearLayout>
 

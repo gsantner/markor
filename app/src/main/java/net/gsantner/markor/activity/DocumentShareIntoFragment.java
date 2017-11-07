@@ -76,6 +76,11 @@ public class DocumentShareIntoFragment extends BaseFragment {
             ((TextView) (layout.getChildAt(1))).setTextColor(fg);
         }
 
+        ((TextView)_view.findViewById(R.id.document__fragment__share_into__append_to_document__text))
+                .setText(getString(R.string.append_to__arg_document_name, getString(R.string.document_one)));
+        ((TextView)_view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
+                .setText(getString(R.string.append_to__arg_document_name, getString(R.string.quicknote)));
+
         Document document = new Document();
         document.setContent(_sharedText);
         String html = MarkDownRenderer.renderMarkdownIntoWebview(document, _webView);
@@ -115,7 +120,6 @@ public class DocumentShareIntoFragment extends BaseFragment {
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                 opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
-                opt.titleText = R.string.append_to_document;
             }
 
             @Override
