@@ -6,6 +6,8 @@
     <string name="delete">हटाना</string>
     <string name="rename">नाम बदलने</string>
     <string name="confirm_delete">हटाने की पुष्टि करें</string>
+    <string name="confirm_delete_description">क्या आप वास्तव में %s हटाना चाहते हैं?</string>
+    <string name="confirm_overwrite">ओवरराइट की पुष्टि करें</string>
     <string name="confirm_overwrite_description">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
     <string name="title">शीर्षक</string>
     <string name="empty_directory">यह फ़ोल्डर खाली है</string>
@@ -13,13 +15,17 @@
     <string name="folder_name_hint">अपने फ़ोल्डर का नाम दर्ज करें</string>
     <string name="create_folder">फोल्डर बनाएं</string>
     <string name="create_note">नोट बनाएं</string>
+    <string name="create_new_document">नया दस्तावेज़ बनाएं</string>
     <string name="move">स्थान-परिवर्तन</string>
 
     <string name="import_from_device">डिवाइस से आयात करें</string>
+    <string name="import_">आयात</string>
+    <string name="append_to__arg_document_name">%s में सम्मिलित करें</string>
     <string name="select_folder">फोल्डर का चयन करें</string>
+    <string name="edit">संपादित करें</string>
 
     <string name="search_hint">नोट खोजें</string>
-    <string name="share_string">Share to&#8230;</string>
+    <string name="share_string">साझा करें &#8230;</string>
     <string name="share">बांटे</string>
     <string name="search">खोजें</string>
     <string name="preview">पूर्व दर्शन</string>
@@ -27,6 +33,9 @@
     <string name="editor_settings">संपादक सेटिंग्स</string>
     <string name="folders">फ़ोल्डर</string>
     <string name="files">फ़ाइलें</string>
+    <string name="document_one">दस्तावेज़</string>
+    <string name="document_multiple">दस्तावेज़</string>
+    <string name="share_html__mime_plaintext">HTML (सादा पाठ के रूप में)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
@@ -47,9 +56,6 @@
     <string name="pref_title__render_rtl">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
     <string name="error_cannot_create_save_dir">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">अंतिम बार संशोधित: %s</string>
     <string name="number_of_files">फ़ाइलों की संख्या: %d</string>
     <string name="select_this_folder">इस फ़ोल्डर का चयन करें</string>
@@ -62,9 +68,13 @@
     <string name="pref_summary__is_statusbar_hidden">इस दृश्य पर स्टेटस बार छुपाएं</string>
     <string name="pref_title__is_statusbar_hidden">स्थिति पट्टी छुपाएँ</string>
 
+    <string name="format_dialog_name_hint">नाम</string>
+    <string name="format_dialog_url_or_path_hint">URL / पथ</string>
+    <string name="format_link_dialog_title">लिंक सम्मिलित करें</string>
+    <string name="format_image_dialog_title">चित्र डालें</string>
+
     <!-- About screen -->
     <string name="contributors">योगदानकर्ता</string>
-
     <string name="pref_title__save_directory">स्टोरेज फोल्डर चुनें</string>
     <string name="licenses">लाइसेंस</string>
     <string name="changelog">परिवर्तन खाता</string>
@@ -75,5 +85,37 @@
     <string name="pref_title__language">भाषा</string>
     <string name="error_storage_permission">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>
     <string name="open_with">के साथ खोलें</string>
+    <string name="sort">छाटना</string>
+    <string name="sort_by_date">दिनांक के हिसाब से छाटना</string>
+    <string name="sort_by_name">नाम के हिसाब से छाटना</string>
+    <string name="sort_by_size">आकार के हिसाब से छाटना</string>
+    <string name="sort_reverse">उल्टे क्रम</string>
+    <string name="contribute">योगदान</string>
+    <string name="donate">दान करें</string>
+    <string name="project_page">प्रोजेक्ट पेज</string>
+    <string name="press_again_to_exit">बाहर निकलने के लिए वापस फिर से दबाएं</string>
+    <string name="exit">बाहर जाएं</string>
+    <string name="undo">पूर्ववत करें</string>
+    <string name="redo">फिर से करें</string>
+    <string name="more">अधिक</string>
+    <string name="notebook">स्मरण पुस्तक</string>
+    <string name="help">मदद</string>
+    <string name="special_documents">विशेष दस्तावेज</string>
+    <string name="todo_list">करने के लिए सूची</string>
+    <string name="task">कार्य</string>
+    <string name="category">वर्ग</string>
+    <string name="context">प्रसंग</string>
+    <string name="list">सूची</string>
+    <string name="priority">प्राथमिकता</string>
+    <string name="history">इतिहास</string>
+    <string name="sync">सिंक</string>
+    <string name="save">सहेजें</string>
+    <string name="update">अद्यतन</string>
+    <string name="clear">स्पष्ट</string>
+    <string name="due_date">नियत तारीख</string>
+    <string name="current_date">आज की तारीख</string>
+    <string name="archive">संग्रह</string>
+    <string name="add_task">कार्य जोड़ें</string>
+    <string name="pref_summary__quicknote_filepath">दस्तावेज़ को QuickNote के रूप में लोड और सहेजा जाना चाहिए</string>
 
 </resources>
