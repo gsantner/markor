@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.print.PrintJob;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,7 @@ import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 
 import java.io.File;
@@ -47,6 +49,8 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
 public class DocumentActivity extends AppCompatActivity {
+    public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
+
     @BindView(R.id.document__placeholder_fragment)
     FrameLayout _fragPlaceholder;
     @BindView(R.id.toolbar)
@@ -107,7 +111,7 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         if (file != null) {
-            if (AppSettings.get().isPreviewFirst() && file.exists() && file.isFile()) {
+            if (receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || AppSettings.get().isPreviewFirst() && file.exists() && file.isFile()) {
                 showPreview(null, file);
             } else {
                 showEditor(null, file, fileIsFolder);
@@ -202,7 +206,7 @@ public class DocumentActivity extends AppCompatActivity {
         if (document != null) {
             showFragment(DocumentEditFragment.newInstance(document));
         } else {
-            showFragment(DocumentEditFragment.newInstance(file, fileIsFolder));
+            showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true));
         }
     }
 
@@ -227,11 +231,18 @@ public class DocumentActivity extends AppCompatActivity {
         }
     }
 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
+    }
+
     @OnClick(R.id.note__activity__text_note_title)
     public void onToolbarTitleTapped(View view) {
         if (getCurrentVisibleFragment() != getExistingFragment(DocumentPreviewFragment.FRAGMENT_TAG)) {
-            _toolbarSwitcher.showPrevious();
-            _toolbarTitleEdit.requestFocus();
+            if (!getIntent().getBooleanExtra(EXTRA_DO_PREVIEW, false)) {
+                _toolbarSwitcher.showPrevious();
+                _toolbarTitleEdit.requestFocus();
+            }
         }
     }
 

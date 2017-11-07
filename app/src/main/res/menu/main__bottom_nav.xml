@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.gsantner.markor.activity.MainActivity">
+
+    <item
+        android:id="@+id/nav_notebook"
+        android:icon="@drawable/ic_folder_white_24dp"
+        android:title="@string/notebook" />
+
+    <item
+        android:id="@+id/nav_quicknote"
+        android:icon="@drawable/ic_file_white_24dp"
+        android:title="@string/quicknote" />
+
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_favorite_white_24dp"
+        android:title="@string/more" />
+</menu>

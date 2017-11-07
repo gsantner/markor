@@ -57,6 +57,10 @@ public class AppSettings extends AppSettingsBase {
         return dir;
     }
 
+    public File getQuickNote() {
+        return new File(getSaveDirectory(), "QuickNote.md");
+    }
+
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }

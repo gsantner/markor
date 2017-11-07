@@ -6,7 +6,7 @@ ext {
             minSdk    : 14,
     ]
     version_lib = [
-            appcompat  : "27.0.0",
+            appcompat: "27.0.0",
             butterknife: "8.8.1",
             commonmark: "0.10.0",
     ]
@@ -21,7 +21,9 @@ android {
         targetSdkVersion version_sdk.compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
-        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
+        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {
+            "\"${it}\""
+        }.join(",") + '}')
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
 
         applicationId "net.gsantner.markor"

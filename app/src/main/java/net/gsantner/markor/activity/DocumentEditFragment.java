@@ -62,11 +62,12 @@ public class DocumentEditFragment extends BaseFragment {
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder) {
+    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentLoader.EXTRA_PATH, path);
-        args.putSerializable(DocumentLoader.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putBoolean(DocumentLoader.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, allowRename);
         f.setArguments(args);
         return f;
     }
@@ -113,6 +114,7 @@ public class DocumentEditFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        checkReloadDisk();
         _contentEditor.setText(_document.getContent());
     }
 
@@ -274,15 +276,21 @@ public class DocumentEditFragment extends BaseFragment {
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean ret = false;
+        Object a = getArguments();
+        boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, true);
         String filename = DocumentLoader.normalizeTitleForFilename(_document) + _document.getFileExtension();
         _document.setDoHistory(true);
         _document.setFile(new File(_document.getFile().getParentFile(), filename));
 
         Document documentInitial = _document.getInitialVersion();
-        if (!_document.getFile().equals(documentInitial.getFile())) {
-            if (documentInitial.getFile().exists()) {
-                FileUtils.renameFile(documentInitial.getFile(), _document.getFile());
+        if (argAllowRename) {
+            if (!_document.getFile().equals(documentInitial.getFile())) {
+                if (documentInitial.getFile().exists()) {
+                    FileUtils.renameFile(documentInitial.getFile(), _document.getFile());
+                }
             }
+        } else {
+            _document.setFile(documentInitial.getFile());
         }
 
         if (!_contentEditor.getText().toString().equals(documentInitial.getContent())) {
@@ -320,6 +328,24 @@ public class DocumentEditFragment extends BaseFragment {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(c, MarkorWidgetProvider.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Activity a = getActivity();
+        if (isVisibleToUser && a != null && a instanceof MainActivity) {
+            checkReloadDisk();
+        }
+    }
+
+    private void checkReloadDisk() {
+        Document cmp = DocumentLoader.loadDocument(getActivity(), getArguments(), null);
+        if (!cmp.getContent().equals(_document.getContent())) {
+            _document = cmp;
+            loadDocument();
+            loadDocumentIntoUi();
+        }
     }
 
     //
