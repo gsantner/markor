@@ -16,9 +16,9 @@ import android.widget.RemoteViewsService;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
-import java.io.FileFilter;
 
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -44,12 +44,9 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void updateFiles() {
-        this._widgetFilesList = _dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return !pathname.isDirectory();
-            }
-        });
+        this._widgetFilesList = _dir.listFiles(file ->
+                !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
+        );
     }
 
     @Override

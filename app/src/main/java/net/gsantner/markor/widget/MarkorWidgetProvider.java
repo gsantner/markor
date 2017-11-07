@@ -19,13 +19,14 @@ import android.widget.RemoteViews;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
 
 public class MarkorWidgetProvider extends AppWidgetProvider {
+    public static final String WIDGET_PATH = "WIDGET_PATH";
+
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
@@ -59,7 +60,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
 
             SharedPreferences sharedPreferences = context.getSharedPreferences(
                     "" + appWidgetIds[i], Context.MODE_PRIVATE);
-            String directory = sharedPreferences.getString(Constants.WIDGET_PATH, AppSettings.get().getSaveDirectory());
+            String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getSaveDirectory());
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
                     .putExtra(DocumentLoader.EXTRA_PATH, new File(directory))
                     .putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);

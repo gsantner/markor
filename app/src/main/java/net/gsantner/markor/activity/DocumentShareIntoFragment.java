@@ -26,7 +26,6 @@ import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
-import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
 
@@ -76,20 +75,19 @@ public class DocumentShareIntoFragment extends BaseFragment {
             ((TextView) (layout.getChildAt(1))).setTextColor(fg);
         }
 
-        ((TextView)_view.findViewById(R.id.document__fragment__share_into__append_to_document__text))
+        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_document__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.document_one)));
-        ((TextView)_view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
+        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.quicknote)));
 
         Document document = new Document();
         document.setContent(_sharedText);
-        String html = MarkDownRenderer.renderMarkdownIntoWebview(document, _webView);
+        MarkDownRenderer.renderMarkdownIntoWebview(document, _webView);
     }
 
 
     @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote})
     public void onClick(View view) {
-        ActivityUtils au = new ActivityUtils(getActivity());
         switch (view.getId()) {
             case R.id.document__fragment__share_into__create_document: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {

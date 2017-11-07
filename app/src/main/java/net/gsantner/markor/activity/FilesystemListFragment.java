@@ -39,7 +39,6 @@ import net.gsantner.markor.dialog.ConfirmDialog;
 import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.ui.BaseFragment;
@@ -154,20 +153,13 @@ public class FilesystemListFragment extends BaseFragment {
         @SuppressWarnings("unchecked")
         @Override
         public void onReceive(Context context, Intent intent) {
-            String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH); // nullable
             String action = intent.getAction();
-            switch (action) {
+            switch (action == null ? "" : action) {
                 case AppCast.CREATE_FOLDER.ACTION: {
                     File file = new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH));
                     if (!file.exists() && file.mkdirs()) {
                         listFilesInDirectory(getCurrentDir());
                     }
-                    return;
-                }
-                case Constants.FILESYSTEM_MOVE_DIALOG_TAG: {
-                    MarkorSingleton.getInstance().moveSelectedNotes(getSelectedItems(), filepath);
-                    listFilesInDirectory(getCurrentDir());
-                    finishActionMode();
                     return;
                 }
             }
@@ -254,13 +246,10 @@ public class FilesystemListFragment extends BaseFragment {
                     return false;
                 }
             });
-            _searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    menu.findItem(R.id.action_import).setVisible(hasFocus);
-                    if (!hasFocus) {
-                        _searchItem.collapseActionView();
-                    }
+            _searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+                menu.findItem(R.id.action_import).setVisible(hasFocus);
+                if (!hasFocus) {
+                    _searchItem.collapseActionView();
                 }
             });
         }
@@ -325,7 +314,7 @@ public class FilesystemListFragment extends BaseFragment {
 
         try {
             // Load from SD card
-            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<File>());
+            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<>());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -378,13 +367,9 @@ public class FilesystemListFragment extends BaseFragment {
             String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
             ConfirmDialog d = ConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file,
-                    new ConfirmDialog.ConfirmDialogCallback() {
-                        @Override
-                        public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
-                            if (confirmed) {
-                                importFileToCurrentDirectory(getActivity(), file);
-                            }
+                    getString(R.string.confirm_overwrite), message, file, (ConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
+                        if (confirmed) {
+                            importFileToCurrentDirectory(getActivity(), file);
                         }
                     });
             d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
@@ -396,8 +381,7 @@ public class FilesystemListFragment extends BaseFragment {
 
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
         FileUtils.copyFile(sourceFile, new File(getCurrentDir().getAbsolutePath(), sourceFile.getName()));
-        Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(context, getString(R.string.import_) + ": " + sourceFile.getName(), Toast.LENGTH_LONG).show();
     }
 
     private void showImportDialog() {
@@ -430,7 +414,7 @@ public class FilesystemListFragment extends BaseFragment {
         FragmentManager fragManager = getFragmentManager();
 
         Bundle args = new Bundle();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
+        args.putString(CreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
 
         CreateFolderDialog createFolderDialog = new CreateFolderDialog();
         createFolderDialog.setArguments(args);
@@ -596,6 +580,7 @@ public class FilesystemListFragment extends BaseFragment {
             }
         }
 
+        @SuppressWarnings("RedundantCast")
         private void manageClickedVIew(int i, boolean checked) {
             if (checked) {
                 _selectedItems.add((File) _simpleSectionAdapter.getItem(i));

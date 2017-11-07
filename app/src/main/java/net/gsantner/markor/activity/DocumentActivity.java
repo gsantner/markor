@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.print.PrintJob;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +47,7 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 
+@SuppressWarnings("unused")
 public class DocumentActivity extends AppCompatActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
@@ -187,7 +187,7 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_share_pdf: {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument() && getPreviewWebview() != null) {
-                    PrintJob a = shu.printPdfOfWebview(_document, getPreviewWebview());
+                    shu.printPdfOfWebview(_document, getPreviewWebview());
                 }
                 return true;
             }
@@ -201,7 +201,7 @@ public class DocumentActivity extends AppCompatActivity {
         _toolbarTitleText.setText(title);
     }
 
-    public void showEditor(@Nullable Document document, @Nullable File file, @Nullable boolean fileIsFolder) {
+    public void showEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
         if (document != null) {
             showFragment(DocumentEditFragment.newInstance(document));
         } else {
@@ -268,6 +268,7 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
     @Override
+    @SuppressWarnings("StatementWithEmptyBody")
     public void onBackPressed() {
         FragmentManager fragMgr = getSupportFragmentManager();
         BaseFragment top = getCurrentVisibleFragment();

@@ -8,7 +8,6 @@
 package net.gsantner.markor.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -64,24 +63,18 @@ public class ConfirmDialog extends DialogFragment {
             dialogBuilder.setMessage(message);
         }
 
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        for (ConfirmDialogCallback cdc : _callbacks) {
-                            cdc.onConfirmDialogAnswer(true, _data);
-                        }
-                    }
-                });
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
+            for (ConfirmDialogCallback cdc : _callbacks) {
+                cdc.onConfirmDialogAnswer(true, _data);
+            }
+        });
 
-        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), new
-                DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        for (ConfirmDialogCallback cdc : _callbacks) {
-                            cdc.onConfirmDialogAnswer(false, _data);
-                        }
-                    }
-                });
+        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> {
+            dialog.dismiss();
+            for (ConfirmDialogCallback cdc : _callbacks) {
+                cdc.onConfirmDialogAnswer(false, _data);
+            }
+        });
 
         return dialogBuilder.show();
     }

@@ -16,7 +16,6 @@ import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
@@ -40,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    private AppSettings appSettings;
     public static int activityRetVal = RESULT.NOCHANGE;
 
     public void onCreate(Bundle b) {
@@ -53,13 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.action_settings);
         setSupportActionBar(toolbar);
-        appSettings = AppSettings.get();
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SettingsActivity.this.onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
     }
 
