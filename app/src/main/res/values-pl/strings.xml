@@ -19,7 +19,7 @@
     <string name="move">Przenieś</string>
 
     <string name="import_from_device">Importuj z urządzenia</string>
-    <string name="select_folder">Wybierz folder</string>
+    <string name="import_">Importuj</string>
     <string name="append_to__arg_document_name">Dołącz do %s</string>
     <string name="select_folder">Wybierz folder</string>
     <string name="edit">Edytuj</string>
