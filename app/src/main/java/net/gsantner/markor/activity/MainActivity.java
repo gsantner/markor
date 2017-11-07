@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 // Preview QuickNote
                 Intent intent = new Intent(this, DocumentActivity.class);
                 intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
-                intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getQuickNote());
+                intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getQuickNoteFile());
                 startActivity(intent);
                 return true;
             }
@@ -155,7 +155,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onResume() {
         super.onResume();
         if (AppSettings.get().isRecreateMainRequired()) {
-            recreate();
+            // recreate(); // does not remake fragments
+            Intent intent = getIntent();
+            overridePendingTransition(0, 0);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(intent);
         }
 
         setupAppearancePreferences();
@@ -397,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
                 }
                 case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(AppSettings.get().getQuickNote(), false, false);
+                    return DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
                 }
                 case R.id.nav_more: {
                     return MoreFragment.newInstance();

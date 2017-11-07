@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
@@ -162,6 +163,27 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                     opt.titleText = R.string.pref_title__save_directory;
+                                }
+                            }, fragManager, getActivity());
+                            return true;
+                        }
+                    }
+
+                    case R.string.quicknote: {
+                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                                @Override
+                                public void onFsSelected(String request, File file) {
+                                    AppSettings as = AppSettings.get();
+                                    as.setQuickNoteFile(file);
+                                    as.setRecreateMainRequired(true);
+                                }
+
+                                @Override
+                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                    opt.titleText = R.string.quicknote;
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
                                 }
                             }, fragManager, getActivity());
                             return true;

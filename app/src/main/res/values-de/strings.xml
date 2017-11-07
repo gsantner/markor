@@ -102,4 +102,22 @@
     <string name="document_one">Dokument</string>
     <string name="confirm_overwrite">Überschreiben bestätigen</string>
     <string name="confirm_delete_description">Möchtest du %s wirklich löschen?</string>
+    <string name="help">Hilfe</string>
+    <string name="special_documents">Spezielle Dokumente</string>
+    <string name="todo_list">To-Do Liste</string>
+    <string name="task">Aufgabe</string>
+    <string name="add_task">Aufgabe hinzufügen</string>
+    <string name="pref_summary__quicknote_filepath">Das Dokument, das als QuickNote geladen und gespeichert wird</string>
+    <string name="category">Kategorie</string>
+    <string name="context">Kontext</string>
+    <string name="list">Liste</string>
+    <string name="priority">Priorität</string>
+    <string name="archive">Archiv</string>
+    <string name="history">Verlauf</string>
+    <string name="update">Aktualisieren</string>
+    <string name="due_date">Fälligkeits-Datum</string>
+    <string name="current_date">Aktuelles Datum</string>
+    <string name="sync">Synchronisieren</string>
+    <string name="save">Speichern</string>
+    <string name="clear">Leeren</string>
 </resources>

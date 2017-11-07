@@ -89,4 +89,14 @@
 
     </PreferenceCategory>
 
+
+    <PreferenceCategory android:title="@string/special_documents">
+
+        <Preference
+            android:key="@string/pref_key__quicknote_filepath"
+            android:summary="@string/pref_summary__quicknote_filepath"
+            android:title="@string/quicknote" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
