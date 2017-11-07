@@ -8,12 +8,15 @@
 package net.gsantner.markor.activity;
 
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -71,6 +74,9 @@ public class FilesystemListFragment extends BaseFragment {
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _background_hint_text;
 
+    private Context _context;
+    private View _view;
+
     private NotesAdapter _filesAdapter;
 
 
@@ -92,19 +98,19 @@ public class FilesystemListFragment extends BaseFragment {
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        View root = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
-        ButterKnife.bind(this, root);
-        return root;
+        _view = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
+        _context = _view.getContext();
+        ButterKnife.bind(this, _view);
+        return _view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context = getActivity();
-        _filesAdapter = new NotesAdapter(context, 0, _filesCurrentlyShown);
-        _simpleSectionAdapter = new SimpleSectionAdapter<>(context, _filesAdapter,
+        _filesAdapter = new NotesAdapter(_context, 0, _filesCurrentlyShown);
+        _simpleSectionAdapter = new SimpleSectionAdapter<>(_context, _filesAdapter,
                 R.layout.ui__text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
 
@@ -124,16 +130,13 @@ public class FilesystemListFragment extends BaseFragment {
         }
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
+
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(_context);
+        lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
     }
 
     private File getRootFolderFromPrefsOrDefault() {
         return new File(AppSettings.get().getSaveDirectory());
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveCurrentFolder();
     }
 
     private void retrieveCurrentFolder() {
@@ -146,6 +149,30 @@ public class FilesystemListFragment extends BaseFragment {
             _currentDir = (_markorSingleton.getNotesLastDirectory() != null) ? _markorSingleton.getNotesLastDirectory() : _rootDir;
         }
     }
+
+    private BroadcastReceiver _localBroadcastReceiver = new BroadcastReceiver() {
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH); // nullable
+            String action = intent.getAction();
+            switch (action) {
+                case AppCast.CREATE_FOLDER.ACTION: {
+                    File file = new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH));
+                    if (!file.exists() && file.mkdirs()) {
+                        listFilesInDirectory(getCurrentDir());
+                    }
+                    return;
+                }
+                case Constants.FILESYSTEM_MOVE_DIALOG_TAG: {
+                    MarkorSingleton.getInstance().moveSelectedNotes(getSelectedItems(), filepath);
+                    listFilesInDirectory(getCurrentDir());
+                    finishActionMode();
+                    return;
+                }
+            }
+        }
+    };
 
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
@@ -199,7 +226,7 @@ public class FilesystemListFragment extends BaseFragment {
         _searchItem = menu.findItem(R.id.action_search);
         _searchView = (SearchView) _searchItem.getActionView();
 
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) _context.getSystemService(SEARCH_SERVICE);
         _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         _searchView.setQueryHint(getString(R.string.search_hint));
         if (_searchView != null) {
@@ -306,9 +333,9 @@ public class FilesystemListFragment extends BaseFragment {
 
     private void reloadAdapter() {
         if (_filesAdapter != null) {
-            _filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, _filesCurrentlyShown);
+            _filesAdapter = new NotesAdapter(_context.getApplicationContext(), 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(getActivity().getApplicationContext()
+                    new SimpleSectionAdapter<>(_context.getApplicationContext()
                             , _filesAdapter, R.layout.ui__text__item
                             , R.id.notes_fragment_section_text, _sectionizer);
             _filesListView.setAdapter(_simpleSectionAdapter);

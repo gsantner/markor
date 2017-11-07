@@ -174,17 +174,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             String filepath = intent.getStringExtra(Constants.EXTRA_FILEPATH); // nullable
             String action = intent.getAction();
             switch (action) {
-                case AppCast.CREATE_FOLDER.ACTION: {
-                    createFolder(new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH)));
-                    _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                    return;
-                }
-                case Constants.FILESYSTEM_MOVE_DIALOG_TAG: {
-                    MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), filepath);
-                    _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                    _filesystemListFragment.finishActionMode();
-                    return;
-                }
                 case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
                     File rootDir = new File(AppSettings.get().getSaveDirectory());
@@ -226,10 +215,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
-    }
-
-    private boolean createFolder(File folder) {
-        return !folder.exists() && folder.mkdirs();
     }
 
     private void setupAppearancePreferences() {
