@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
@@ -31,15 +33,19 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
+import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
+import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
@@ -255,11 +261,20 @@ public class FilesystemListFragment extends BaseFragment {
                 sortAdapter();
                 return true;
             }
-
             case R.id.action_sort_reverse: {
                 item.setChecked(!item.isChecked());
                 AppSettings.get().setSortReverse(item.isChecked());
                 sortAdapter();
+                return true;
+            }
+            case R.id.action_import: {
+                if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    showImportDialog();
+                }
+                return true;
+            }
+            case R.id.action_create_folder: {
+                showCreateFolderDialog();
                 return true;
             }
         }
@@ -301,7 +316,7 @@ public class FilesystemListFragment extends BaseFragment {
         }
     }
 
-    public void goToPreviousDir() {
+    public void goDirectoryUp() {
         if (_currentDir != null) {
             _currentDir = _currentDir.getParentFile();
         }
@@ -329,6 +344,70 @@ public class FilesystemListFragment extends BaseFragment {
     public void finishActionMode() {
         _actionMode.finish();
         _selectedItems.clear();
+    }
+
+    private void importFile(final File file) {
+        if (new File(getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+            String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
+            // Ask if overwriting is okay
+            ConfirmDialog d = ConfirmDialog.newInstance(
+                    getString(R.string.confirm_overwrite), message, file,
+                    new ConfirmDialog.ConfirmDialogCallback() {
+                        @Override
+                        public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
+                            if (confirmed) {
+                                importFileToCurrentDirectory(getActivity(), file);
+                            }
+                        }
+                    });
+            d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+        } else {
+            // Import
+            importFileToCurrentDirectory(getActivity(), file);
+        }
+    }
+
+    private void importFileToCurrentDirectory(Context context, File sourceFile) {
+        FileUtils.copyFile(sourceFile, new File(getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void showImportDialog() {
+        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+            @Override
+            public void onFsSelected(String request, File file) {
+                importFile(file);
+                listFilesInDirectory(getCurrentDir());
+            }
+
+            @Override
+            public void onFsMultiSelected(String request, File... files) {
+                for (File file : files) {
+                    importFile(file);
+                }
+                listFilesInDirectory(getCurrentDir());
+            }
+
+            @Override
+            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                opt.titleText = R.string.import_from_device;
+                opt.doSelectMultiple = true;
+                opt.doSelectFile = true;
+                opt.doSelectFolder = true;
+            }
+        }, getFragmentManager(), getActivity());
+    }
+
+    public void showCreateFolderDialog() {
+        FragmentManager fragManager = getFragmentManager();
+
+        Bundle args = new Bundle();
+        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
+
+        CreateFolderDialog createFolderDialog = new CreateFolderDialog();
+        createFolderDialog.setArguments(args);
+        createFolderDialog.show(fragManager, CreateFolderDialog.FRAGMENT_TAG);
     }
 
     /**
@@ -392,7 +471,7 @@ public class FilesystemListFragment extends BaseFragment {
         return _selectedItems;
     }
 
-    public boolean onRooDir() {
+    public boolean isRootDirShown() {
         return _markorSingleton.isRootDir(_currentDir, _rootDir);
     }
 
@@ -412,6 +491,11 @@ public class FilesystemListFragment extends BaseFragment {
             _searchView.setQuery("", false);
             _searchView.setIconified(true);
             _searchItem.collapseActionView();
+            return true;
+        }
+
+        if (!isRootDirShown()) {
+            goDirectoryUp();
             return true;
         }
 

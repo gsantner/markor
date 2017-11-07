@@ -120,16 +120,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.action_import: {
-                if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
-                    showImportDialog();
-                }
-                return true;
-            }
-            case R.id.action_create_folder: {
-                showCreateFolderDialog();
-                return true;
-            }
             case R.id.action_preview: {
                 // Preview QuickNote
                 Intent intent = new Intent(this, DocumentActivity.class);
@@ -189,11 +179,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
                     return;
                 }
-                case Constants.FILESYSTEM_IMPORT_DIALOG_TAG: {
-                    importFile(new File(filepath));
-                    _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-                    return;
-                }
                 case Constants.FILESYSTEM_MOVE_DIALOG_TAG: {
                     MarkorSingleton.getInstance().moveSelectedNotes(_filesystemListFragment.getSelectedItems(), filepath);
                     _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
@@ -221,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onLongClickedFab(View view) {
         switch (view.getId()) {
             case R.id.fab_add_new_item: {
-                showCreateFolderDialog();
+                _filesystemListFragment.showCreateFolderDialog();
                 return true;
             }
         }
@@ -243,23 +228,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void importFileToCurrentDirectory(Context context, File sourceFile) {
-        FileUtils.copyFile(sourceFile, new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), sourceFile.getName()));
-        Toast.makeText(context, "Imported to \"" + sourceFile.getName() + "\"",
-                Toast.LENGTH_LONG).show();
-    }
-
-    private void showCreateFolderDialog() {
-        FragmentManager fragManager = getSupportFragmentManager();
-
-        Bundle args = new Bundle();
-        args.putString(Constants.CURRENT_DIRECTORY_DIALOG_KEY, _filesystemListFragment.getCurrentDir().getAbsolutePath());
-
-        CreateFolderDialog createFolderDialog = new CreateFolderDialog();
-        createFolderDialog.setArguments(args);
-        createFolderDialog.show(fragManager, CreateFolderDialog.FRAGMENT_TAG);
-    }
-
     private boolean createFolder(File folder) {
         return !folder.exists() && folder.mkdirs();
     }
@@ -270,82 +238,33 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _viewPager.getRootView().setBackgroundColor(color);
     }
 
-    private void showImportDialog() {
-        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-            @Override
-            public void onFsSelected(String request, File file) {
-                importFile(file);
-                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-            }
-
-            @Override
-            public void onFsMultiSelected(String request, File... files) {
-                for (File file : files) {
-                    importFile(file);
-                }
-                _filesystemListFragment.listFilesInDirectory(_filesystemListFragment.getCurrentDir());
-            }
-
-            @Override
-            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                opt.titleText = R.string.import_from_device;
-                opt.doSelectMultiple = true;
-                opt.doSelectFile = true;
-                opt.doSelectFolder = true;
-            }
-        }, getSupportFragmentManager(), this);
-    }
-
-    private void importFile(final File file) {
-        if (new File(_filesystemListFragment.getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
-            String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
-            // Ask if overwriting is okay
-            ConfirmDialog d = ConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file,
-                    new ConfirmDialog.ConfirmDialogCallback() {
-                        @Override
-                        public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
-                            if (confirmed) {
-                                importFileToCurrentDirectory(MainActivity.this, file);
-                            }
-                        }
-                    });
-            d.show(getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
-        } else {
-            // Import
-            importFileToCurrentDirectory(this, file);
-        }
-    }
-
     @Override
     public void onBackPressed() {
+        // Exit confirmed with 2xBack
         if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
         }
 
-
+        // Check if fragment handled back press
         BaseFragment frag = _viewPagerAdapter.getCachedFragments().get(_viewPager.getCurrentItem());
         if (frag != null && frag.onBackPressed()) {
             return;
         }
 
+        // Confirm exit with back / snackbar
+        _doubleBackToExitPressedOnce = true;
+        new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                _doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
 
-        if (!_filesystemListFragment.onRooDir()) {
-            _filesystemListFragment.goToPreviousDir();
-        } else {
-            _doubleBackToExitPressedOnce = true;
-            new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, new View.OnClickListener() {
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    _doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
-        }
     }
 
     @Override
