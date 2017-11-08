@@ -235,7 +235,7 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         }
         private String addBulletPointIfNeeded(char character) {
-            if (character == '*' || character == '+' || character == '-') {
+            if (character == '*' || character == '+' || character == '-' || character == '>') {
                 return Character.toString(character) + " ";
             } else {
                 return "";
