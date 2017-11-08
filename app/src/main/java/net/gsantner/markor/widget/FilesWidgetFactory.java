@@ -44,7 +44,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void updateFiles() {
-        this._widgetFilesList = _dir.listFiles(file ->
+        _widgetFilesList = _dir.listFiles(file ->
                 !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
         );
     }
@@ -56,7 +56,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public int getCount() {
-        return _widgetFilesList.length;
+        return _widgetFilesList == null ? 0 : _widgetFilesList.length;
     }
 
     @Override
