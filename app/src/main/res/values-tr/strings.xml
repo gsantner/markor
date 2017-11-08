@@ -6,6 +6,8 @@
     <string name="delete">Sil</string>
     <string name="rename">Yeniden Adlandır</string>
     <string name="confirm_delete">Silmeyi Onayla</string>
+    <string name="confirm_delete_description">Bu %s gerçekten silmek istiyor musunuz?</string>
+    <string name="confirm_overwrite">Üzerine Yazmayı Onayla</string>
     <string name="confirm_overwrite_description">Dosya zaten var, üzerine yazılsın mı?</string>
     <string name="title">Başlık</string>
     <string name="empty_directory">Bu dizin boş</string>
@@ -13,10 +15,14 @@
     <string name="folder_name_hint">Klasörünüzün adını girin</string>
     <string name="create_folder">Klasör Oluştur</string>
     <string name="create_note">Not Oluştur</string>
+    <string name="create_new_document">Yeni belge oluştur</string>
     <string name="move">Taşı</string>
 
     <string name="import_from_device">Cihazdan içe aktar</string>
+    <string name="import_">İçe Aktar</string>
+    <string name="append_to__arg_document_name">Append to %s</string>
     <string name="select_folder">Klasör seç</string>
+    <string name="edit">Düzenle</string>
 
     <string name="search_hint">Notlarda ara</string>
     <string name="share_string">Şununla paylaş&#8230;</string>
@@ -27,6 +33,9 @@
     <string name="editor_settings">Düzenleyici Ayarları</string>
     <string name="folders">Klasörler</string>
     <string name="files">Dosyalar</string>
+    <string name="document_one">Belgeyi</string>
+    <string name="document_multiple">Belgeleri</string>
+    <string name="share_html__mime_plaintext">HTML (düz metin olarak)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Başlangıçta son klasör konumunu hatırla</string>
@@ -47,9 +56,6 @@
     <string name="pref_title__render_rtl">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_save_dir">Hata: Kaydetme dizini oluşturulamıyor</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Son düzenleme: %s</string>
     <string name="number_of_files">Dosya sayısı: %d</string>
     <string name="select_this_folder">Bu klasörü seç</string>
@@ -69,8 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Katkıda Bulunanlar</string>
-
-    <string name="pref_title__save_directory">Depolama klasörü seç</string>
+    <string name="pref_title__save_directory">Depolama klasörünü seç</string>
     <string name="licenses">Lisanslar</string>
     <string name="changelog">Değişiklik Günlüğü</string>
     <string name="more_information">Daha fazla bilgi</string>
@@ -85,5 +90,31 @@
     <string name="sort_by_name">Ada göre sırala</string>
     <string name="sort_by_size">Boyuta göre sırala</string>
     <string name="sort_reverse">Sıralamayı ters çevir</string>
-
+    <string name="contribute">Katkıda Bulun</string>
+    <string name="donate">Bağış Yap</string>
+    <string name="project_page">Proje sayfası</string>
+    <string name="press_again_to_exit">Çıkmak için geriye tekrar basın</string>
+    <string name="exit">Çık</string>
+    <string name="undo">Geri Al</string>
+    <string name="redo">İleri Al</string>
+    <string name="more">Daha Fazla</string>
+    <string name="notebook">Not Defteri</string>
+    <string name="help">Yardım</string>
+    <string name="special_documents">Özel Notlar</string>
+    <string name="todo_list">Yapılacaklar Listesi</string>
+    <string name="task">Görev</string>
+    <string name="category">Kategori</string>
+    <string name="context">Bağlam</string>
+    <string name="list">Liste</string>
+    <string name="priority">Öncelik</string>
+    <string name="history">Geçmiş</string>
+    <string name="sync">Eşitle</string>
+    <string name="save">Kaydet</string>
+    <string name="update">Güncelle</string>
+    <string name="clear">Temizle</string>
+    <string name="due_date">Bitiş tarihi</string>
+    <string name="current_date">Geçerli tarih</string>
+    <string name="archive">Arşiv</string>
+    <string name="add_task">Görev ekle</string>
+    <string name="pref_summary__quicknote_filepath">QuickNote olarak yüklenip kaydedilecek belgeyi seçin</string>
 </resources>
