@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              android:orientation="vertical"
-              android:padding="16dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/new_name"
@@ -14,5 +14,5 @@
         android:paddingTop="30dp"
         android:textColor="@color/dark_grey"
         android:textColorHint="@color/light_grey"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 </LinearLayout>

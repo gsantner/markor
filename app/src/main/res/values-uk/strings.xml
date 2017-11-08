@@ -6,7 +6,7 @@
     <string name="delete">Видалити</string>
     <string name="rename">Перейменувати</string>
     <string name="confirm_delete">Підтвердіть видалення</string>
-    <string name="confirm_overwrite">Файл вже існує, перезаписати?</string>
+    <string name="confirm_overwrite_description">Файл вже існує, перезаписати?</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Поточна директорія порожня</string>
     <string name="navigate_up_folder">В попередню директорію</string>
@@ -19,7 +19,7 @@
     <string name="select_folder">Обрати директорію</string>
 
     <string name="search_hint">Пошук нотаток</string>
-    <string name="share_string">Надіслати до...</string>
+    <string name="share_string">Надіслати до…</string>
     <string name="share">Надіслати</string>
     <string name="search">Пошук</string>
     <string name="preview">Попередній перегляд</string>

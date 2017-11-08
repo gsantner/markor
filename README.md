@@ -1,8 +1,8 @@
 [![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
-[![CircleCI](https://circleci.com/gh/gsantner/markor.svg?style=shield)](https://circleci.com/gh/gsantner/markor)
+[![Build Status](https://travis-ci.org/gsantner/markor.svg?branch=master)](https://travis-ci.org/gsantner/markor)
 [![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)
 [![Chat - Matrix](https://img.shields.io/badge/chat-on%20matrix-blue.svg)](https://matrix.to/#/#markor:matrix.org) [![Chat - FreeNode IRC](https://img.shields.io/badge/chat-on%20irc-blue.svg)](https://kiwiirc.com/client/irc.freenode.net/?nick=markor-anon|?#markor)
-[![Donate Bitcoin](https://img.shields.io/badge/donate-bitcoin-orange.svg)](https://gsantner.github.io/#donate)
+[![Donate Bitcoin](https://img.shields.io/badge/donate-bitcoin-orange.svg)](http://gsantner.net/#donate)
 [![Donate LiberaPay](https://img.shields.io/badge/donate-liberapay-orange.svg)](https://liberapay.com/gsantner/donate)
 
 
@@ -40,7 +40,7 @@ The app doesn't use your internet connection unless external resources (e.g. pic
 The project is always open for contributions and welcomes pull requests.
 The project uses [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions), with one exception: private members are `_camelCase` instead of `mBigCamel`. You may use Android Studios _auto reformat feature_ before sending a PR.
 
-Translations can be contributed on GitHub or via [E-Mail](https://gsantner.github.io/#contact). You can use Stringlate ([![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)) to translate the project directly on your Android phone. It allows you to export as E-Mail attachement and to post on GitHub.
+Translations can be contributed on GitHub or via [E-Mail](http://gsantner.net/#contact). You can use Stringlate ([![Translate - with Stringlate](https://img.shields.io/badge/stringlate-translate-green.svg)](https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&name=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor)) to translate the project directly on your Android phone. It allows you to export as E-Mail attachement and to post on GitHub.
 
 
 #### Resources

@@ -2,7 +2,7 @@
 
 <!--
 /*
- * Gregor Santner <gsantner.github.io> wrote this. You can do whatever you want
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
  * with it. If we meet some day, and you think it is worth it, you can buy me a
  * coke in return. Provided as is without any kind of warranty. Do not blame or
  * sue me if something goes wrong. No attribution required.    - Gregor Santner
@@ -163,13 +163,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/show_app_license"/>
+                        android:text="@string/show_app_license"
+                        tools:ignore="ButtonStyle" />
 
                     <Button
                         android:id="@+id/about__activity__button_third_party_licenses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        tools:ignore="ButtonStyle"
                         android:text="@string/show_third_party_licenses"/>
                 </LinearLayout>
 

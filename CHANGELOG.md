@@ -1,3 +1,21 @@
+### v0.2.0
+- Rework of core functionalities of the app
+- Added QuickNote
+- Redo/Undo editing
+- Seperate Preview/Edit by fragments, unify functions
+- Rewrite storage/handling of documents
+- Improved sharing into the app, allow appending
+- Added bottom navigation
+- New font chooser in settings
+
+### v0.1.6
+- Added: Many new supported languages
+- More supported markdown elements in highlighter
+- More markdown file extensions supported
+- Improved language selection
+- Share as image fixed
+
+
 ### v0.1.5
 - Added: Translation: Brazilian, Polish, Hindi, French, Russian, Ukrainian, Italian
 - Added: Sort files

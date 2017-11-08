@@ -6,7 +6,9 @@
     <string name="delete">Supprimer</string>
     <string name="rename">Renommer</string>
     <string name="confirm_delete">Confirmez la suppression</string>
-    <string name="confirm_overwrite">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
+    <string name="confirm_delete_description">Voulez-vous vraiment supprimer ça %s?</string>
+    <string name="confirm_overwrite">Confirmer écrasement</string>
+    <string name="confirm_overwrite_description">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
     <string name="title">Titre</string>
     <string name="empty_directory">Ce dossier est vide</string>
     <string name="navigate_up_folder">Retourner au dossier précédent</string>
@@ -27,6 +29,8 @@
     <string name="editor_settings">Paramètres de l\'éditeur</string>
     <string name="folders">Dossiers</string>
     <string name="files">Fichiers</string>
+    <string name="document_one">Document</string>
+    <string name="document_multiple">Documents</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Se souvenir du dossier courant pour le démarrage suivant</string>
@@ -45,13 +49,13 @@
     <string name="pref_title__smart_shortcuts">Activer les parenthèses intelligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Si du texte est sélectionné, un appui sur {}, [] ou () positionnera les signes correspondants de part et d\'autre de la sélection</string>
     <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
-    <string name="error_cannot_create_save_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
+    <string name="error_cannot_create_save_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
 
     <!-- Font Size -->
 
     <!-- Hard coded string fix -->
-    <string name="last_modified">Dernière modification : %s</string>
-    <string name="number_of_files">Nombre de fichiers : %d</string>
+    <string name="last_modified">Dernière modification : %s</string>
+    <string name="number_of_files">Nombre de fichiers : %d</string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
     <string name="create">Créer</string>
@@ -61,6 +65,11 @@
 
     <string name="pref_summary__is_statusbar_hidden">L\'application s\'exécute en mode plein écran</string>
     <string name="pref_title__is_statusbar_hidden">Cacher la barre de statut</string>
+
+    <string name="format_dialog_name_hint">Nom</string>
+    <string name="format_dialog_url_or_path_hint">URL / Chemin</string>
+    <string name="format_link_dialog_title">Insérer Lien</string>
+    <string name="format_image_dialog_title">Insérer Image</string>
 
     <!-- About screen -->
     <string name="contributors">Contributeurs</string>
@@ -79,5 +88,9 @@
     <string name="sort_by_date">Trier par date</string>
     <string name="sort_by_name">Trier par nom</string>
     <string name="sort_by_size">Trier par taille</string>
+    <string name="sort_reverse">Inverser l\'ordre</string>
+    <string name="contribute">Contribuer</string>
+    <string name="donate">Don</string>
+    <string name="project_page">Page du projet</string>
 
 </resources>

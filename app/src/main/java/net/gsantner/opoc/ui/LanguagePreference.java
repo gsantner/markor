@@ -1,6 +1,6 @@
 /*
  * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.github.io> wrote this. You can do whatever you want
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
  * with it. If we meet some day, and you think it is worth it, you can buy me a
  * coke in return. Provided as is without any kind of warranty. Do not blame or
  * sue me if something goes wrong. No attribution required.    - Gregor Santner
@@ -19,7 +19,7 @@
 
 buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
 
-@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 static String[] getUsedAndroidLanguages() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
@@ -28,7 +28,6 @@ static String[] getUsedAndroidLanguages() {
             new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
                 if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
                     langs.add(foldername.replace("values-", ""))
-
                 }
             }
         }
@@ -51,6 +50,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.preference.ListPreference;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import net.gsantner.opoc.util.ContextUtils;
@@ -66,32 +67,31 @@ import java.util.Locale;
 @SuppressWarnings({"unused", "SpellCheckingInspection", "WeakerAccess"})
 public class LanguagePreference extends ListPreference {
     private static final String SYSTEM_LANGUAGE_CODE = "";
-    public static String SYSTEM_LANGUAGE_NAME = "System";
 
     // The language of res/values/ -> (usually English)
-    public static String DEFAULT_LANGUAGE_NAME = "English";
-    public static String DEFAULT_LANGUAGE_CODE = "en";
+    public String _systemLanguageName = "★System★";
+    public String _defaultLanguageCode = "en";
 
     public LanguagePreference(Context context) {
         super(context);
-        init(context, null);
+        loadLangs(context, null);
     }
 
     public LanguagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        loadLangs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public LanguagePreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        loadLangs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public LanguagePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
+        loadLangs(context, attrs);
     }
 
     @Override
@@ -103,7 +103,12 @@ public class LanguagePreference extends ListPreference {
         return super.callChangeListener(newValue);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+
+    private void loadLangs(Context context) {
+        loadLangs(context, null);
+    }
+
+    private void loadLangs(Context context, @Nullable AttributeSet attrs) {
         setDefaultValue(SYSTEM_LANGUAGE_CODE);
 
         // Fetch readable details
@@ -127,10 +132,10 @@ public class LanguagePreference extends ListPreference {
             entries[i + 2] = languages.get(i).split(";")[0];
             entryval[i + 2] = languages.get(i).split(";")[1];
         }
-        entries[0] = SYSTEM_LANGUAGE_NAME;
         entryval[0] = SYSTEM_LANGUAGE_CODE;
-        entries[1] = DEFAULT_LANGUAGE_NAME;
-        entryval[1] = DEFAULT_LANGUAGE_CODE;
+        entries[0] = _systemLanguageName + "\n[" + summarizeLocale(context.getResources().getConfiguration().locale) + "]";
+        entryval[1] = _defaultLanguageCode;
+        entries[1] = summarizeLocale(contextUtils.getLocaleByAndroidCode(_defaultLanguageCode));
 
         setEntries(entries);
         setEntryValues(entryval);
@@ -142,8 +147,8 @@ public class LanguagePreference extends ListPreference {
         String country = locale.getDisplayCountry(locale);
         String language = locale.getDisplayLanguage(locale);
         return locale.getDisplayLanguage(Locale.ENGLISH)
-                + " (" + language.substring(0, 1).toUpperCase() + language.substring(1)
-                + ((!country.isEmpty() && !country.toLowerCase().equals(language.toLowerCase())) ? (", " + country) : "")
+                + " (" + language.substring(0, 1).toUpperCase(Locale.getDefault()) + language.substring(1)
+                + ((!country.isEmpty() && !country.toLowerCase(Locale.getDefault()).equals(language.toLowerCase(Locale.getDefault()))) ? (", " + country) : "")
                 + ")";
     }
 
@@ -151,6 +156,26 @@ public class LanguagePreference extends ListPreference {
     @Override
     public CharSequence getSummary() {
         Locale locale = new ContextUtils(getContext()).getLocaleByAndroidCode(getValue());
-        return super.getSummary() + "\n\n" + summarizeLocale(locale);
+        String prefix = TextUtils.isEmpty(super.getSummary())
+                ? "" : super.getSummary() + "\n\n";
+        return prefix + summarizeLocale(locale);
+    }
+
+    public String getSystemLanguageName() {
+        return _systemLanguageName;
+    }
+
+    public void setSystemLanguageName(String systemLanguageName) {
+        _systemLanguageName = systemLanguageName;
+        loadLangs(getContext());
+    }
+
+    public String getDefaultLanguageCode() {
+        return _defaultLanguageCode;
+    }
+
+    public void setDefaultLanguageCode(String defaultLanguageCode) {
+        _defaultLanguageCode = defaultLanguageCode;
+        loadLangs(getContext());
     }
 }

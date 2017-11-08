@@ -8,8 +8,10 @@
 package net.gsantner.markor.renderer;
 
 import android.content.Context;
+import android.webkit.WebView;
 
 import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 import org.commonmark.Extension;
@@ -36,6 +38,20 @@ public class MarkDownRenderer {
 
     Parser parser = Parser.builder().extensions(extensions).build();
     HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
+
+    public static String renderMarkdownIntoWebview(Document document, WebView webView) {
+        String html = new MarkDownRenderer().renderMarkdown(document.getContent(), webView.getContext());
+
+        // Default font is set by css in line 1 of generated html
+        html = html.replaceFirst("sans-serif-light", AppSettings.get().getFontFamily());
+        if (document.getFile() != null && document.getFile().getParentFile() != null) {
+            webView.loadDataWithBaseURL(document.getFile().getParent(), html, "text/html", Constants.UTF_CHARSET, null);
+        } else {
+            webView.loadData(html, "text/html", Constants.UTF_CHARSET);
+        }
+
+        return html;
+    }
 
 
     public String renderMarkdown(String markdownRaw, Context context) {

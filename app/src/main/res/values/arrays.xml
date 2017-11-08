@@ -28,37 +28,4 @@
         <item>25</item>
         <item>30</item>
     </string-array>
-
-    <string-array name="pref_arrdisp__font_family" translatable="false">
-        <item>Roboto Regular (Default)</item>
-        <item>Roboto Light</item>
-        <item>Roboto Bold</item>
-        <item>Roboto Medium</item>
-        <item>Monospace</item>
-        <item>Noto Serif</item>
-        <item>Cutive Mono</item>
-        <item>Roboto Condensed</item>
-        <item>Roboto Thin</item>
-        <item>Roboto Black</item>
-        <item>Coming Soon</item>
-        <item>Carrois Gothic</item>
-        <item>Dancing Script</item>
-
-    </string-array>
-
-    <string-array name="pref_arrkeys__font_family" translatable="false">
-        <item>sans-serif-regular</item>
-        <item>sans-serif-light</item>
-        <item>sans-serif-bold</item>
-        <item>sans-serif-medium</item>
-        <item>monospace</item>
-        <item>serif</item>
-        <item>serif-monospace</item>
-        <item>sans-serif-condensed</item>
-        <item>sans-serif-thin</item>
-        <item>sans-serif-black</item>
-        <item>casual</item>
-        <item>sans-serif-smallcaps</item>
-        <item>cursive</item>
-    </string-array>
 </resources>

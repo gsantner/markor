@@ -1,6 +1,6 @@
 /*
  * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.github.io> wrote this. You can do whatever you want
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
  * with it. If we meet some day, and you think it is worth it, you can buy me a
  * coke in return. Provided as is without any kind of warranty. Do not blame or
  * sue me if something goes wrong. No attribution required.    - Gregor Santner
@@ -29,6 +29,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,6 +38,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -53,6 +55,8 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -65,11 +69,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 import static android.graphics.Bitmap.CompressFormat;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt", "ConstantConditions", "UnusedReturnValue"})
 public class ContextUtils {
     //########################
     //## Members, Constructors
@@ -245,10 +250,10 @@ public class ContextUtils {
         ));
     }
 
+    @SuppressLint("MissingPermission") // ACCESS_NETWORK_STATE required
     public boolean isConnectedToInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = con == null ? null : con.getActiveNetworkInfo();
         return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
     }
 
@@ -322,7 +327,7 @@ public class ContextUtils {
     }
 
     // Find out if color above the given color should be light or dark. true if light
-    public boolean shouldColorOnTopBeLight(int colorOnBottomInt) {
+    public boolean shouldColorOnTopBeLight(@ColorInt int colorOnBottomInt) {
         return 186 > (((0.299 * Color.red(colorOnBottomInt))
                 + ((0.587 * Color.green(colorOnBottomInt))
                 + (0.114 * Color.blue(colorOnBottomInt)))));
@@ -440,7 +445,7 @@ public class ContextUtils {
 
     public File writeImageToFileDetectFormat(File imageFile, Bitmap image, int quality) {
         CompressFormat format = CompressFormat.JPEG;
-        String lc = imageFile.getAbsolutePath().toLowerCase();
+        String lc = imageFile.getAbsolutePath().toLowerCase(Locale.ROOT);
         if (lc.endsWith(".png")) {
             format = CompressFormat.PNG;
         }
@@ -509,5 +514,47 @@ public class ContextUtils {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         }
         return bitmap;
+    }
+
+    public ContextUtils tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            Drawable drawable = item.getIcon();
+            if (drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+            }
+            if (item.hasSubMenu() && recurse) {
+                tintMenuItems(item.getSubMenu(), recurse, iconColor);
+            }
+        }
+        return this;
+    }
+
+    @SuppressLint("PrivateApi")
+    public ContextUtils setSubMenuIconsVisiblity(Menu menu, boolean visible) {
+        if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+            try {
+                Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                m.setAccessible(true);
+                m.invoke(menu, visible);
+            } catch (Exception ignored) {
+            }
+        }
+        return this;
+    }
+
+    public void showRateOnGplayDialog() {
+        String pkgId = "details?id=" + _context.getPackageName();
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                (Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            _context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            _context.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/" + pkgId)));
+        }
     }
 }

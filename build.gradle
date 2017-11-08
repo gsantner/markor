@@ -3,11 +3,11 @@
 buildscript {
     repositories {
         jcenter()
-        mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,10 +20,41 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "LICENSE.txt", "CHANGELOG.md", "CONTRIBUTORS.md"]
+task copyRepoFiles(type: Copy) {
+    from rootProject.files(ROOT_TO_RAW_COPYFILES)
+    into "app/src/main/res/raw"
+    rename { String fileName -> fileName.replace(fileName, fileName.toLowerCase())  }
+} ; tasks.copyRepoFiles.execute()
+
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
+static String[] getUsedAndroidLanguages() {
+    Set<String> langs = new HashSet<>()
+    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
+        final foldername = it.name
+        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates")) {
+            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
+                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
+                    langs.add(foldername.replace("values-", ""))
+                }
+            }
+        }
+    }
+    return langs.toArray(new String[langs.size()])
+}
+
+ext.getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
 }

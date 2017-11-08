@@ -9,13 +9,13 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
@@ -39,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    private AppSettings appSettings;
     public static int activityRetVal = RESULT.NOCHANGE;
 
     public void onCreate(Bundle b) {
@@ -52,13 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.action_settings);
         setSupportActionBar(toolbar);
-        appSettings = AppSettings.get();
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SettingsActivity.this.onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
     }
 
@@ -162,6 +156,27 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                     opt.titleText = R.string.pref_title__save_directory;
+                                }
+                            }, fragManager, getActivity());
+                            return true;
+                        }
+                    }
+
+                    case R.string.quicknote: {
+                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                                @Override
+                                public void onFsSelected(String request, File file) {
+                                    AppSettings as = AppSettings.get();
+                                    as.setQuickNoteFile(file);
+                                    as.setRecreateMainRequired(true);
+                                }
+
+                                @Override
+                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                    opt.titleText = R.string.quicknote;
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
                                 }
                             }, fragManager, getActivity());
                             return true;

@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
-import net.gsantner.markor.model.Constants;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -26,7 +25,7 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 
 public class WidgetConfigure extends AppCompatActivity {
-    int _appWidgetId;
+    private int _appWidgetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,7 @@ public class WidgetConfigure extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            _appWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            _appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
         showSelectionDialog();
     }
@@ -78,16 +75,14 @@ public class WidgetConfigure extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            _appWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            _appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
             Context context = getApplicationContext();
 
             // Store widget filter
             SharedPreferences preferences = context.getSharedPreferences("" + _appWidgetId, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(Constants.WIDGET_PATH, directory);
+            editor.putString(MarkorWidgetProvider.WIDGET_PATH, directory);
             editor.apply();
 
             Intent resultValue = new Intent(context, FilesWidgetService.class);
