@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +42,8 @@ import net.gsantner.markor.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -366,8 +369,18 @@ public class DocumentEditFragment extends BaseFragment {
                     _contentEditor.getText().insert(selectionStart, _action);
                 }
             } else {
-                //Condition for Empty Selection
-                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
+                //Condition for Empty Selection. Should insert the action at the start of the line
+                int cursor = _contentEditor.getSelectionStart();
+                int i=cursor-1;
+                Editable s = _contentEditor.getText();
+                for(i=cursor-1; i> 0; i--){
+                    if(s.charAt(i) == '\n') {
+                        i = i + 1;
+                        break;
+                    }
+                }
+
+                s.insert(i, _action);
             }
         }
     }
@@ -416,9 +429,19 @@ public class DocumentEditFragment extends BaseFragment {
                 }
             } else {
                 //Condition for Empty Selection
-                _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
-                        .insert(_contentEditor.getSelectionEnd(), _action);
-                _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
+                if(false){
+                    // Condition for things that should only be placed at the start of the line even if no text is selected
+
+                }
+                else if(_action == "----\n"){
+                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
+                }
+                else {
+                    // Condition for formatting which is inserted on either side of the cursor
+                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
+                            .insert(_contentEditor.getSelectionEnd(), _action);
+                    _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
+                }
             }
         }
 
@@ -436,44 +459,83 @@ public class DocumentEditFragment extends BaseFragment {
             getAlertDialog(_action);
         }
     }
+    Pattern linkPattern = Pattern.compile("\\[(.*)\\]\\((.*)\\)");
 
     private void getAlertDialog(int action) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final View view = getLayoutInflater().inflate(R.layout.format_dialog, (ViewGroup) null);
 
-        final EditText link_name = view.findViewById(R.id.format_dialog_name);
-        final EditText link_url = view.findViewById(R.id.format_dialog_url);
-        link_name.setHint(getString(R.string.format_dialog_name_hint));
-        link_url.setHint(getString(R.string.format_dialog_url_or_path_hint));
+        final EditText linkName = view.findViewById(R.id.format_dialog_name);
+        final EditText linkUrl = view.findViewById(R.id.format_dialog_url);
+        linkName.setHint(getString(R.string.format_dialog_name_hint));
+        linkUrl.setHint(getString(R.string.format_dialog_url_or_path_hint));
+        int startCursorPos=_contentEditor.getSelectionStart();
+        if(_contentEditor.hasSelection()){
+            String selected_text = _contentEditor.getText().subSequence(
+                    _contentEditor.getSelectionStart(),
+                    _contentEditor.getSelectionEnd()
+            ).toString();
+            linkName.setText(selected_text);
+        }else{
+            Editable contentText = _contentEditor.getText();
+            int lineStartidx = startCursorPos-1;
+            int lineEndidx = startCursorPos - 1;
+            for(lineStartidx = startCursorPos-1; lineStartidx > 0; lineStartidx--){
+                if(contentText.charAt(lineStartidx) == '\n'){
+                    lineStartidx  += 1;
+                    break;
+                }
+            }
+            for(lineEndidx = startCursorPos-1; lineEndidx<=contentText.length()-1; lineEndidx++){
+                if(contentText.charAt(lineEndidx) == '\n'){
+                    break;
+                }
+            }
 
-        //Insert Link Action
+            String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
+            Matcher m = linkPattern.matcher(line);
+            if(m.find()){
+                int stat = lineStartidx + m.regionStart();
+                int en = lineStartidx + m.regionEnd();
+                _contentEditor.setSelection(stat, en);
+                linkName.setText(m.group(1));
+                linkUrl.setText((m.group(2)));
+            }
+        }
+
+        String actionTitle="";
         if (action == 1) {
+            actionTitle = "Insert Link";
+        }else if(action == 2) {
+            actionTitle = "Insert Image";
+        }
             builder.setView(view)
-                    .setTitle(getString(R.string.format_link_dialog_title))
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setTitle(actionTitle)
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(_contentEditor.hasSelection())
+                            {
+                                _contentEditor.setSelection(startCursorPos);
+                            }
+                        }
+                    })
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                    String.format("[%s](%s)", link_name.getText().toString(),
-                                            link_url.getText().toString()));
+                            if (_contentEditor.hasSelection()) {
+                                _contentEditor.getText().replace(_contentEditor.getSelectionStart(),
+                                        _contentEditor.getSelectionEnd(),
+                                        String.format("[%s](%s)", linkName.getText().toString(),
+                                                linkUrl.getText().toString()));
+                                _contentEditor.setSelection(_contentEditor.getSelectionStart());
+                            } else {
+                                _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                                        String.format("[%s](%s)", linkName.getText().toString(),
+                                                linkUrl.getText().toString()));
+                            }
                         }
                     });
-        }
-        //Insert Image Action
-        else if (action == 2) {
-            builder.setView(view)
-                    .setTitle(getString(R.string.format_image_dialog_title))
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                    String.format("![%s](%s)", link_name.getText().toString(),
-                                            link_url.getText().toString()));
-                        }
-                    });
-        }
 
         builder.show();
     }

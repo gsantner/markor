@@ -18,6 +18,9 @@ import android.util.AttributeSet;
 
 import net.gsantner.markor.util.AppSettings;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class HighlightingEditor extends AppCompatEditText {
 
     private Highlighter highlighter;
@@ -27,6 +30,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private OnTextChangedListener onTextChangedListener = null;
+    private Pattern orderedListPrefixPattern = Pattern.compile("(?m)^([0-9]+)(\\.)");
 
     private final Handler updateHandler = new Handler();
     private final Runnable updateRunnable =
@@ -190,27 +194,48 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
 
                 if (iend < dest.length() - 1) {
+                    // This is for any line that is not the first line in a file
                     if (dest.charAt(iend + 1) == ' ') {
                         return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
-                    } else {
-                        return "";
+                    }else{
+                        Matcher m = orderedListPrefixPattern.matcher(dest.toString().substring(iend));
+                        if(m.find()){
+                            return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
+                        } else {
+                            return "";
+                        }
                     }
                 } else {
                     return "";
                 }
             } else if (istart > -1) {
                 return "";
-            } else if (dest.length() > 1) { // You need at least a list marker and a space to trigger auto-list-item
+            } else if (dest.length() > 1) {
+                // This is for the first line in a file.
                 if (dest.charAt(1) == ' ') {
                     return addBulletPointIfNeeded(dest.charAt(0));
-                } else {
-                    return "";
+                }else{
+                    Matcher m = orderedListPrefixPattern.matcher(dest.toString());
+                    if(m.find()){
+                        return addNumericListItemIfNeeded(m.group(1));
+                    } else {
+                        return "";
+                    }
                 }
             } else {
                 return "";
             }
         }
 
+        private String addNumericListItemIfNeeded(String itemNumStr) {
+            try{
+                int nextC = Integer.parseInt(itemNumStr) + 1;
+                return nextC + ". ";
+            }catch (NumberFormatException e){
+                // This should never ever happen
+                return "";
+            }
+        }
         private String addBulletPointIfNeeded(char character) {
             if (character == '*' || character == '+' || character == '-') {
                 return Character.toString(character) + " ";
