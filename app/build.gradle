@@ -2,14 +2,11 @@ apply plugin: 'com.android.application'
 
 ext {
     version_sdk = [
-            compileSdk: 26,
-            buildTools: "26.0.1",
-            minSdk    : 16,
-            //targetSdk: compileSdk,
+            compileSdk: 27,
+            minSdk    : 14,
     ]
-    version_sdk.targetSdk = version_sdk.compileSdk
     version_lib = [
-            appcompat  : "26.1.0",
+            appcompat: "27.0.0",
             butterknife: "8.8.1",
             commonmark: "0.10.0",
     ]
@@ -17,21 +14,28 @@ ext {
 
 android {
     compileSdkVersion version_sdk.compileSdk
-    buildToolsVersion version_sdk.buildTools
+    flavorDimensions "default"
 
     defaultConfig {
         minSdkVersion version_sdk.minSdk
-        targetSdkVersion version_sdk.targetSdk
-
-        versionCode 6
-        versionName "0.1.5"
-
-        applicationId "net.gsantner.markor"
-
+        targetSdkVersion version_sdk.compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
-        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
+        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {
+            "\"${it}\""
+        }.join(",") + '}')
+        buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
+
+        applicationId "net.gsantner.markor"
+        versionName "0.2.0"
+        versionCode 8
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -60,70 +64,32 @@ android {
 
 dependencies {
     // Android standard libs
-    compile "com.android.support:appcompat-v7:${version_lib.appcompat}"
-    compile "com.android.support:design:${version_lib.appcompat}"
-    compile "com.android.support:support-v4:${version_lib.appcompat}"
-    compile "com.android.support:recyclerview-v7:${version_lib.appcompat}"
-    compile "com.android.support:palette-v7:${version_lib.appcompat}"
+    implementation "com.android.support:appcompat-v7:${version_lib.appcompat}"
+    implementation "com.android.support:design:${version_lib.appcompat}"
+    implementation "com.android.support:support-v4:${version_lib.appcompat}"
+    implementation "com.android.support:recyclerview-v7:${version_lib.appcompat}"
+    implementation "com.android.support:palette-v7:${version_lib.appcompat}"
 
     // UI libs
-    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
-    compile "com.atlassian.commonmark:commonmark:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-gfm-tables:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-autolink:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
-    compile "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
+    implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
+    implementation "com.atlassian.commonmark:commonmark:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-tables:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-autolink:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
 
+    implementation 'com.pixplicity.generate:library:1.1.8'
 
     // Tool libraries
-    compile "com.jakewharton:butterknife:${version_lib.butterknife}"
-    compile 'commons-io:commons-io:2.5'
-    compile 'com.google.code.gson:gson:2.8.1'
+    implementation "com.jakewharton:butterknife:${version_lib.butterknife}"
+    implementation 'commons-io:commons-io:2.5'
 
     // Testing
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:3.8.0'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile('org.robolectric:robolectric:3.4.2') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.assertj:assertj-core:3.8.0'
 
     // Processors
     annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
 }
-
-
-@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection"])
-static String[] getUsedAndroidLanguages() {
-    Set<String> langs = new HashSet<>()
-    new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
-        final foldername = it.name
-        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates")) {
-            new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
-                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
-                    langs.add(foldername.replace("values-", ""))
-
-                }
-            }
-        }
-    }
-    return langs.toArray(new String[langs.size()])
-}
-
-final String RAW_DIR = "app/src/main/res/raw"
-final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "LICENSE.txt", "CHANGELOG.md", "CONTRIBUTORS.md"]
-
-// Called before building
-task copyRepoFiles(type: Copy) {
-
-    // Copy files over to raw dir
-    from rootProject.files(ROOT_TO_RAW_COPYFILES)
-    into RAW_DIR.replaceFirst("app/", "")
-    rename { String fileName ->
-        fileName.replace(fileName, fileName.toLowerCase())
-    }
-}
-tasks.copyRepoFiles.execute()

@@ -6,27 +6,36 @@
     <string name="delete">Usuń</string>
     <string name="rename">Zmień nazwę</string>
     <string name="confirm_delete">Potwierdź usunięcie</string>
-    <string name="confirm_overwrite">Plik już istnieje, nadpisać?</string>
+    <string name="confirm_delete_description">Czy na pewno chcesz usunąć ten %s?</string>
+    <string name="confirm_overwrite">Potwierdź nadpisanie</string>
+    <string name="confirm_overwrite_description">Plik już istnieje, nadpisać?</string>
     <string name="title">Tytuł</string>
     <string name="empty_directory">Ten katalog jest pusty</string>
-    <string name="navigate_up_folder">Wróć do popszedniego folderu</string>
+    <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
     <string name="folder_name_hint">Wprowadź nazwę folderu</string>
-    <string name="create_folder">Stwórz Folder</string>
-    <string name="create_note">Stwórz Notatkę</string>
+    <string name="create_folder">Utwórz folder</string>
+    <string name="create_note">Utwórz notatkę</string>
+    <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="move">Przenieś</string>
 
     <string name="import_from_device">Importuj z urządzenia</string>
+    <string name="import_">Importuj</string>
+    <string name="append_to__arg_document_name">Dołącz do %s</string>
     <string name="select_folder">Wybierz folder</string>
+    <string name="edit">Edytuj</string>
 
-    <string name="search_hint">Szukaj notatkę</string>
+    <string name="search_hint">Szukaj notatek</string>
     <string name="share_string">Udostępnij do&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>
-    <string name="app_settings">Ustawienia Aplikacji</string>
-    <string name="editor_settings">Ustawienia Edytora</string>
+    <string name="app_settings">Ustawienia aplikacji</string>
+    <string name="editor_settings">Ustawienia edytora</string>
     <string name="folders">Foldery</string>
     <string name="files">Pliki</string>
+    <string name="document_one">Dokument</string>
+    <string name="document_multiple">Dokumenty</string>
+    <string name="share_html__mime_plaintext">HTML (jako czysty tekst)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
@@ -34,22 +43,19 @@
     <string name="pref_title__theme">Motyw</string>
     <string name="pref_title__preview_first">Najpierw podgląd podczas otwierania notatek</string>
     <string name="about">O Markorze</string>
-    <string name="plain_text">Zwykły Tekst</string>
+    <string name="plain_text">Zwykły tekst</string>
     <string name="file">Plik</string>
     <string name="image">Obraz</string>
     <string name="pref_title__font_size">Wielkość czcionki</string>
-    <string name="pref_title__show_markdown_shortcuts">Pokaż skróty bar skrótów Markdown</string>
+    <string name="pref_title__show_markdown_shortcuts">Pokaż pasek skrótów Markdowna</string>
     <string name="pref_title__highlighting_activated">Podświetlanie składni Markdowna</string>
-    <string name="pref_title__highlighting_delay">Opóźnienie w milisekundach dla podkreślenia odświeżenia</string>
+    <string name="pref_title__highlighting_delay">Opóźnienie odświeżania podświetlenia w milisekundach</string>
     <string name="pref_title__highlighting_delay_summary">Wyższe wartości oszczędzają baterie</string>
     <string name="pref_title__smart_shortcuts">Sprytna klamra skrótów</string>
     <string name="pref_title__smart_shortcuts_summary">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
     <string name="pref_title__render_rtl">Renderowanie dla języków od prawej do lewej</string>
     <string name="error_cannot_create_save_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Ostatnio zmodyfikowano: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
     <string name="select_this_folder">Wybierz ten folder</string>
@@ -59,8 +65,8 @@
     <string name="one_item_selected">Zaznaczono jedną rzecz</string>
     <string name="more_items_selected">Zaznaczono %d rzeczy</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Ukryj statubar w tym widoku</string> <!-- I don't know how this better translate -->
-    <string name="pref_title__is_statusbar_hidden">Ukryj statusbar</string>
+    <string name="pref_summary__is_statusbar_hidden">Ukryj pasek stanu w tym widoku</string>
+    <string name="pref_title__is_statusbar_hidden">Ukryj pasek stanu</string>
 
     <string name="format_dialog_name_hint">Nazwa</string>
     <string name="format_dialog_url_or_path_hint">URL / Ścieżka</string>
@@ -69,9 +75,8 @@
 
     <!-- About screen -->
     <string name="contributors">Współtwórcy</string>
-
     <string name="pref_title__save_directory">Wybierz folder zapisu</string>
-    <string name="licenses">Licencja</string>
+    <string name="licenses">Licencje</string>
     <string name="changelog">Zmiany</string>
     <string name="more_information">Więcej informacji</string>
     <string name="show_app_license">Pokaż licencje aplikacji</string>
@@ -84,5 +89,32 @@
     <string name="sort_by_date">Sortuj według daty</string>
     <string name="sort_by_name">Sortuj według nazwy</string>
     <string name="sort_by_size">Sortuj według rozmiaru</string>
-
+    <string name="sort_reverse">Odwróć kolejność</string>
+    <string name="contribute">Przyczyń się do projektu</string><!-- couldn't find better translation -->
+    <string name="donate">Przekaż darowiznę</string>
+    <string name="project_page">Strona projektu</string>
+    <string name="press_again_to_exit">Naciśnij jeszcze raz, żeby wyjść</string>
+    <string name="exit">Wyjdź</string>
+    <string name="undo">Cofnij</string>
+    <string name="redo">Ponów</string>
+    <string name="more">Więcej</string>
+    <string name="notebook">Notatnik</string>
+    <string name="help">Pomoc</string>
+    <string name="special_documents">Specjalne dokumenty</string>
+    <string name="todo_list">Lista rzeczy do zrobienia</string>
+    <string name="task">Zadanie</string>
+    <string name="category">Kategoria</string>
+    <string name="context">Kontekst</string>
+    <string name="list">Lista</string>
+    <string name="priority">Priorytet</string>
+    <string name="history">Historia</string>
+    <string name="sync">Synchronizuj</string>
+    <string name="save">Zapisz</string>
+    <string name="update">Aktualizuj</string>
+    <string name="clear">Wyczyść</string>
+    <string name="due_date">Termin</string>
+    <string name="current_date">Aktualna data</string>
+    <string name="archive">Archiwum</string>
+    <string name="add_task">Dodaj zadanie</string>
+    <string name="pref_summary__quicknote_filepath">Dokument zostanie załadowany i zapisany jako QuickNote</string>
 </resources>

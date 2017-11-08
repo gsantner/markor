@@ -7,14 +7,17 @@
  */
 package net.gsantner.markor.activity;
 
+import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
@@ -32,14 +36,18 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import net.gsantner.markor.R;
 import net.gsantner.markor.adapter.NotesAdapter;
 import net.gsantner.markor.dialog.ConfirmDialog;
+import net.gsantner.markor.dialog.CreateFolderDialog;
 import net.gsantner.markor.dialog.FilesystemDialogCreator;
 import net.gsantner.markor.dialog.RenameDialog;
-import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.model.MarkorSingleton;
+import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.Serializable;
@@ -51,10 +59,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
-public class FilesystemListFragment extends Fragment {
+import static android.content.Context.SEARCH_SERVICE;
+
+public class FilesystemListFragment extends BaseFragment {
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
     public static final int SORT_BY_FILESIZE = 2;
+    public static final String FRAGMENT_TAG = "FilesystemListFragment";
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;
@@ -62,7 +73,14 @@ public class FilesystemListFragment extends Fragment {
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _background_hint_text;
 
+    private Context _context;
+    private View _view;
+
     private NotesAdapter _filesAdapter;
+
+
+    private SearchView _searchView;
+    private MenuItem _searchItem;
 
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
@@ -79,19 +97,19 @@ public class FilesystemListFragment extends Fragment {
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        View root = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
-        ButterKnife.bind(this, root);
-        return root;
+        _view = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
+        _context = _view.getContext();
+        ButterKnife.bind(this, _view);
+        return _view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context = getActivity();
-        _filesAdapter = new NotesAdapter(context, 0, _filesCurrentlyShown);
-        _simpleSectionAdapter = new SimpleSectionAdapter<>(context, _filesAdapter,
+        _filesAdapter = new NotesAdapter(_context, 0, _filesCurrentlyShown);
+        _simpleSectionAdapter = new SimpleSectionAdapter<>(_context, _filesAdapter,
                 R.layout.ui__text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
 
@@ -111,16 +129,13 @@ public class FilesystemListFragment extends Fragment {
         }
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
+
+        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(_context);
+        lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
     }
 
     private File getRootFolderFromPrefsOrDefault() {
         return new File(AppSettings.get().getSaveDirectory());
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveCurrentFolder();
     }
 
     private void retrieveCurrentFolder() {
@@ -134,9 +149,25 @@ public class FilesystemListFragment extends Fragment {
         }
     }
 
+    private BroadcastReceiver _localBroadcastReceiver = new BroadcastReceiver() {
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action == null ? "" : action) {
+                case AppCast.CREATE_FOLDER.ACTION: {
+                    File file = new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH));
+                    if (!file.exists() && file.mkdirs()) {
+                        listFilesInDirectory(getCurrentDir());
+                    }
+                    return;
+                }
+            }
+        }
+    };
+
     private void saveCurrentFolder() {
         AppSettings appSettings = AppSettings.get();
-        SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         String saveDir = (_currentDir == null) ? _rootDir.getAbsolutePath() : _currentDir.getAbsolutePath();
         appSettings.setLastOpenedDirectory(saveDir);
         _markorSingleton.setNotesLastDirectory(_currentDir);
@@ -144,7 +175,9 @@ public class FilesystemListFragment extends Fragment {
 
     private void confirmDelete() {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_selectedItems);
-        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(R.string.confirm_delete, itemsToDelete,
+        String message = String.format(getString(R.string.confirm_delete_description), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size()));
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(
+                getString(R.string.confirm_delete), message, itemsToDelete,
                 new ConfirmDialog.ConfirmDialogCallback() {
                     @Override
                     public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
@@ -155,7 +188,7 @@ public class FilesystemListFragment extends Fragment {
                         }
                     }
                 });
-        confirmDialog.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getActivity().getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
     }
 
     private void promptForMoveDirectory() {
@@ -171,12 +204,98 @@ public class FilesystemListFragment extends Fragment {
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                opt.titleText = R.string.select_folder;
+                opt.titleText = R.string.move;
                 opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.filesystem__menu, menu);
+
+        _searchItem = menu.findItem(R.id.action_search);
+        _searchView = (SearchView) _searchItem.getActionView();
+
+        SearchManager searchManager = (SearchManager) _context.getSystemService(SEARCH_SERVICE);
+        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        _searchView.setQueryHint(getString(R.string.search_hint));
+        if (_searchView != null) {
+            _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    if (query != null) {
+                        if (isVisible())
+                            search(query);
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (newText != null) {
+                        if (isVisible()) {
+                            if (newText.equalsIgnoreCase("")) {
+                                clearSearchFilter();
+                            } else {
+                                search(newText);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
+            _searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+                menu.findItem(R.id.action_import).setVisible(hasFocus);
+                if (!hasFocus) {
+                    _searchItem.collapseActionView();
+                }
+            });
+        }
+        ContextUtils cu = ContextUtils.get();
+
+        cu.tintMenuItems(menu, true, Color.WHITE);
+        cu.setSubMenuIconsVisiblity(menu, true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_by_name: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_date: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_DATE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_filesize: {
+                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_FILESIZE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_reverse: {
+                item.setChecked(!item.isChecked());
+                AppSettings.get().setSortReverse(item.isChecked());
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_import: {
+                if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    showImportDialog();
+                }
+                return true;
+            }
+            case R.id.action_create_folder: {
+                showCreateFolderDialog();
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void listFilesInDirectory(File directory) {
         _selectedItems.clear();
@@ -195,7 +314,7 @@ public class FilesystemListFragment extends Fragment {
 
         try {
             // Load from SD card
-            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<File>());
+            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<>());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,9 +322,9 @@ public class FilesystemListFragment extends Fragment {
 
     private void reloadAdapter() {
         if (_filesAdapter != null) {
-            _filesAdapter = new NotesAdapter(getActivity().getApplicationContext(), 0, _filesCurrentlyShown);
+            _filesAdapter = new NotesAdapter(_context.getApplicationContext(), 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(getActivity().getApplicationContext()
+                    new SimpleSectionAdapter<>(_context.getApplicationContext()
                             , _filesAdapter, R.layout.ui__text__item
                             , R.id.notes_fragment_section_text, _sectionizer);
             _filesListView.setAdapter(_simpleSectionAdapter);
@@ -213,7 +332,7 @@ public class FilesystemListFragment extends Fragment {
         }
     }
 
-    public void goToPreviousDir() {
+    public void goDirectoryUp() {
         if (_currentDir != null) {
             _currentDir = _currentDir.getParentFile();
         }
@@ -241,6 +360,65 @@ public class FilesystemListFragment extends Fragment {
     public void finishActionMode() {
         _actionMode.finish();
         _selectedItems.clear();
+    }
+
+    private void importFile(final File file) {
+        if (new File(getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
+            String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
+            // Ask if overwriting is okay
+            ConfirmDialog d = ConfirmDialog.newInstance(
+                    getString(R.string.confirm_overwrite), message, file, (ConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
+                        if (confirmed) {
+                            importFileToCurrentDirectory(getActivity(), file);
+                        }
+                    });
+            d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+        } else {
+            // Import
+            importFileToCurrentDirectory(getActivity(), file);
+        }
+    }
+
+    private void importFileToCurrentDirectory(Context context, File sourceFile) {
+        FileUtils.copyFile(sourceFile, new File(getCurrentDir().getAbsolutePath(), sourceFile.getName()));
+        Toast.makeText(context, getString(R.string.import_) + ": " + sourceFile.getName(), Toast.LENGTH_LONG).show();
+    }
+
+    private void showImportDialog() {
+        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+            @Override
+            public void onFsSelected(String request, File file) {
+                importFile(file);
+                listFilesInDirectory(getCurrentDir());
+            }
+
+            @Override
+            public void onFsMultiSelected(String request, File... files) {
+                for (File file : files) {
+                    importFile(file);
+                }
+                listFilesInDirectory(getCurrentDir());
+            }
+
+            @Override
+            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                opt.titleText = R.string.import_from_device;
+                opt.doSelectMultiple = true;
+                opt.doSelectFile = true;
+                opt.doSelectFolder = true;
+            }
+        }, getFragmentManager(), getActivity());
+    }
+
+    public void showCreateFolderDialog() {
+        FragmentManager fragManager = getFragmentManager();
+
+        Bundle args = new Bundle();
+        args.putString(CreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
+
+        CreateFolderDialog createFolderDialog = new CreateFolderDialog();
+        createFolderDialog.setArguments(args);
+        createFolderDialog.show(fragManager, CreateFolderDialog.FRAGMENT_TAG);
     }
 
     /**
@@ -304,8 +482,35 @@ public class FilesystemListFragment extends Fragment {
         return _selectedItems;
     }
 
-    public boolean onRooDir() {
+    public boolean isRootDirShown() {
         return _markorSingleton.isRootDir(_currentDir, _rootDir);
+    }
+
+    @Override
+    public String getFragmentTag() {
+        return FRAGMENT_TAG;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (_searchView.isFocused()) {
+            _searchView.clearFocus();
+            _searchView.setSelected(false);
+            return true;
+        }
+        if (!_searchView.getQuery().toString().isEmpty() || !_searchView.isIconified()) {
+            _searchView.setQuery("", false);
+            _searchView.setIconified(true);
+            _searchItem.collapseActionView();
+            return true;
+        }
+
+        if (!isRootDirShown()) {
+            goDirectoryUp();
+            return true;
+        }
+
+        return false;
     }
 
     private class ActionModeCallback implements ListView.MultiChoiceModeListener {
@@ -375,6 +580,7 @@ public class FilesystemListFragment extends Fragment {
             }
         }
 
+        @SuppressWarnings("RedundantCast")
         private void manageClickedVIew(int i, boolean checked) {
             if (checked) {
                 _selectedItems.add((File) _simpleSectionAdapter.getItem(i));
@@ -392,38 +598,17 @@ public class FilesystemListFragment extends Fragment {
 
     @OnItemClick(R.id.filesystemlist__fragment__listview)
     public void onNotesItemClickListener(AdapterView<?> adapterView, View view, int i, long l) {
-        File file = (File) _simpleSectionAdapter.getItem(i);
+        File clickedFile = (File) _simpleSectionAdapter.getItem(i);
         Context context = view.getContext();
 
         // Refresh list if directory, else import
-        if (file.isDirectory()) {
-            _currentDir = file;
-            listFilesInDirectory(file);
+        if (clickedFile.isDirectory()) {
+            _currentDir = clickedFile;
+            listFilesInDirectory(clickedFile);
         } else {
-
-            File note = (File) _simpleSectionAdapter.getItem(i);
-            Intent intent;
-
-            if (AppSettings.get().isPreviewFirst()) {
-                intent = new Intent(context, PreviewActivity.class);
-
-                if (note != null) {
-                    Uri uriBase = null;
-                    if (note.getParentFile() != null) {
-                        uriBase = Uri.parse(note.getParentFile().toURI().toString());
-                    }
-
-                    intent.putExtra(Constants.MD_PREVIEW_BASE, uriBase.toString());
-                }
-
-                Uri noteUri = Uri.parse(note.toURI().toString());
-                String content = MarkorSingleton.getInstance().readFileUri(noteUri, context);
-                intent.putExtra(Constants.MD_PREVIEW_KEY, content);
-            } else {
-                intent = new Intent(context, NoteActivity.class);
-            }
-            intent.putExtra(Constants.NOTE_KEY, note);
-
+            Intent intent = new Intent(context, DocumentActivity.class);
+            intent.putExtra(DocumentLoader.EXTRA_PATH, clickedFile);
+            intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
             startActivity(intent);
         }
     }

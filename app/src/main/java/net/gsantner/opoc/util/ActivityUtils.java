@@ -1,6 +1,6 @@
 /*
  * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.github.io> wrote this. You can do whatever you want
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
  * with it. If we meet some day, and you think it is worth it, you can buy me a
  * coke in return. Provided as is without any kind of warranty. Do not blame or
  * sue me if something goes wrong. No attribution required.    - Gregor Santner
@@ -93,6 +93,13 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         InputMethodManager inputMethodManager = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (_activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
             inputMethodManager.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void showSoftKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (_activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
+            inputMethodManager.showSoftInput(_activity.getCurrentFocus() ,InputMethodManager.SHOW_FORCED);
         }
     }
 

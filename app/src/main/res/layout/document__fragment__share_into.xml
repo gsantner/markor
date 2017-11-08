@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:background="@color/primary"
+    tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
+
+    <WebView
+        android:id="@+id/document__fragment__share_into__webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/anchorbottom1"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+    </WebView>
+
+
+    <LinearLayout
+        android:id="@+id/anchorbottom1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="99">
+
+        <LinearLayout
+            android:id="@+id/document__fragment__share_into__append_to_document"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_keyboard_return_white_64dp"
+                app:elevation="0dp" />
+
+            <TextView
+                android:id="@+id/document__fragment__share_into__append_to_document__text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                tools:text="Append to Document"
+                tools:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/document__fragment__share_into__append_to_quicknote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_lightning_64dp"
+                app:elevation="0dp" />
+
+            <TextView
+                android:id="@+id/document__fragment__share_into__append_to_quicknote__text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                tools:text="Append to QuickNote"
+                tools:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/document__fragment__share_into__create_document"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_add_white_64dp"
+                app:elevation="0dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/create_new_document"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                tools:textColor="@color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -14,6 +14,7 @@ import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.util.AppSettingsBase;
 
 import java.io.File;
+import java.util.Locale;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
@@ -49,11 +50,20 @@ public class AppSettings extends AppSettingsBase {
         String dir = getString(R.string.pref_key__save_directory, "");
         if (dir.isEmpty()) {
             dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
-                    , rstr(R.string.app_name).toLowerCase())
+                    , rstr(R.string.app_name).toLowerCase(Locale.ROOT))
                     .getAbsolutePath();
             setSaveDirectory(dir);
         }
         return dir;
+    }
+
+    public File getQuickNoteFile() {
+        String defaultValue = new File(getSaveDirectory(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
+        return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
+    }
+
+    public void setQuickNoteFile(File file) {
+        setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
     public String getFontFamily() {
@@ -73,7 +83,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getHighlightingDelay() {
-        return getIntOfStringPref(R.string.pref_key__highlighting_delay, 70);
+        return getIntOfStringPref(R.string.pref_key__highlighting_delay, 110);
     }
 
     public boolean isSmartShortcutsEnabled() {

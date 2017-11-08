@@ -12,7 +12,7 @@ Where:
 
 ## LIST OF CONTRIBUTORS
 -->
-* **[Gregor Santner](https://gsantner.github.io)**<br/>~° Current developer of Markor
+* **[Gregor Santner](http://gsantner.net)**<br/>~° Current developer of Markor
 * **[Pedro Lafuente](https://github.com/plafue)**<br/>~° Main developer of writeily-pro
 * **[Jeff Martin](http://jeffreymartin.ca)**<br/>~° Main developer of writeily
 * **[davydsantos](https://github.com/davydsantos)**<br/>~° writeily contributor
@@ -21,3 +21,4 @@ Where:
 * **[Fedor A. Kuterin](https://github.com/xredor)**<br/>~° Russian translation
 * **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation
 * **[Stu Duncan](https://github.com/sjmduncan)**<br/>~° Markor contributor
+* **[Marcus Vinicius Santos](https://about.me/marcusvsantos)**<br/>~° Brazilian Portuguese translation

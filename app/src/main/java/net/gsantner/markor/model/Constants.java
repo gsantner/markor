@@ -7,7 +7,6 @@
  */
 package net.gsantner.markor.model;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 
 import java.util.regex.Pattern;
@@ -32,25 +31,9 @@ public class Constants {
     public static final String MD_EXT4 = ".mdown";
     public static final String MD_EXT5 = ".mkdn";
     public static final String MD_EXT6 = ".txt";
-    public static final String[] EXTENSIONS = new String[]{ Constants.MD_EXT1_MD, Constants.MD_EXT2, Constants.MD_EXT3,
-                                                            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
+    public static final String[] EXTENSIONS = new String[]{Constants.MD_EXT1_MD, Constants.MD_EXT2, Constants.MD_EXT3,
+            Constants.MD_EXT4, Constants.MD_EXT5, Constants.MD_EXT6};
 
-
-    public static final int MAX_TITLE_LENGTH = 20;
-    public static final String EXTRA_FOLDERPATH = "filesystem_folderpath";
-    public static final String EXTRA_FILEPATH = "filesystem_filepath";
-
-    // ----- DIALOG TAGS -----
-    public static final String SHARE_BROADCAST_TAG = "share_broadcast_tag";
-    public static final String FILESYSTEM_IMPORT_DIALOG_TAG = "filesystem_import_dialog_tag";
-    public static final String FILESYSTEM_MOVE_DIALOG_TAG = "filesystem_move_dialog_tag";
-    public static final String FILESYSTEM_SELECT_FOLDER_TAG = "filesystem_select_folder_dialog_tag";
-
-    // ----- KEYS -----
-    public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
-    public static final String NOTE_KEY = "note_key";
-    public static final String MD_PREVIEW_BASE = "md_preview_base";
-    public static final String MD_PREVIEW_KEY = "md_preview_key";
 
     // ----- HTML PREFIX AND SUFFIXES -----
     public static final String UNSTYLED_HTML_PREFIX = "<html><body>";
@@ -59,14 +42,12 @@ public class Constants {
     public static final String MD_HTML_PREFIX_END = "</head><body>";
     public static final String MD_HTML_RTL_CSS = "<style>body{text-align:right; direction:rtl;}</style>";
     public static final String MD_HTML_SUFFIX = "</body></html>";
-    public static final String TARGET_DIR = "note_source_dir";
 
     // ----- INTENT EXTRAS -----
-    public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.md$)");
+    public static Pattern MD_EXTENSION = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt))$)");
 
-    // --- WIDGET
-    public static final String WIDGET_PATH = "WIDGET_PATH";
-
-    //FILE PROVIDER AUTHORITIES
-    public static final String FILE_PROVIDER_AUTHORITIES = BuildConfig.APPLICATION_ID + ".provider";
+    // Make resources not marked as unused
+    @SuppressWarnings("unused")
+    private static final Object[] unused_ignore = new Object[]
+            {R.color.colorPrimary, R.color.icons, R.color.divider, R.plurals.item_selected, R.string.project_page, R.style.AppTheme, R.raw.readme};
 }
