@@ -434,7 +434,7 @@ public class DocumentEditFragment extends BaseFragment {
 
                 }
                 else if(_action == "----\n"){
-                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
+                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), "\n"+_action);
                 }
                 else {
                     // Condition for formatting which is inserted on either side of the cursor
