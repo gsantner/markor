@@ -373,14 +373,13 @@ public class DocumentEditFragment extends BaseFragment {
                 int cursor = _contentEditor.getSelectionStart();
                 int i=cursor-1;
                 Editable s = _contentEditor.getText();
-                for(i=cursor-1; i> 0; i--){
+                for(; i>= 0; i--){
                     if(s.charAt(i) == '\n') {
-                        i = i + 1;
                         break;
                     }
                 }
 
-                s.insert(i, _action);
+                s.insert(i+1, _action);
             }
         }
     }
@@ -478,15 +477,14 @@ public class DocumentEditFragment extends BaseFragment {
             linkName.setText(selected_text);
         }else{
             Editable contentText = _contentEditor.getText();
-            int lineStartidx = startCursorPos-1;
-            int lineEndidx = startCursorPos - 1;
-            for(lineStartidx = startCursorPos-1; lineStartidx > 0; lineStartidx--){
+            int lineStartidx = Math.max(startCursorPos-1,0);
+            int lineEndidx = Math.min(startCursorPos, contentText.length()-1);
+            for(; lineStartidx > 0; lineStartidx--){
                 if(contentText.charAt(lineStartidx) == '\n'){
-                    lineStartidx  += 1;
                     break;
                 }
             }
-            for(lineEndidx = startCursorPos-1; lineEndidx<=contentText.length()-1; lineEndidx++){
+            for(; lineEndidx<=contentText.length(); lineEndidx++){
                 if(contentText.charAt(lineEndidx) == '\n'){
                     break;
                 }

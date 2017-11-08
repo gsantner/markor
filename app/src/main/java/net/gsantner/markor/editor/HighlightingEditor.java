@@ -177,8 +177,6 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-            //TODO: Auto-populate the next number for ordered-lists in addition to bullet points
-            //TODO: Replace this
             if (istart > -1 && istart < dest.length() - 1) {
                 int iend;
 
