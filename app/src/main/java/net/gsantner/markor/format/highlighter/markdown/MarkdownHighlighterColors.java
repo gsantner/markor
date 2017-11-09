@@ -13,6 +13,8 @@ public interface MarkdownHighlighterColors {
 
     int getLinkColor();
 
+    int getDoublespaceColor();
+
     int getListColor();
 
     int getQuotationColor();
