@@ -9,7 +9,7 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.markor.dialog;
+package net.gsantner.markor.ui;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;

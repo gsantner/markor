@@ -1,4 +1,4 @@
-package net.gsantner.markor.editor.shortcut;
+package net.gsantner.markor.format.shortcut;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.editor.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EscMarkdown extends EditorShortcuts {
+public class EditorShortcutsMarkdown extends EditorShortcuts {
 
-    public EscMarkdown(HighlightingEditor contentEditor, Document document, Activity activity) {
+    public EditorShortcutsMarkdown(HighlightingEditor contentEditor, Document document, Activity activity) {
         super(contentEditor, document, activity);
     }
 

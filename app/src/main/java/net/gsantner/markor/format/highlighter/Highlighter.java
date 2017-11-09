@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor.highlighter;
+package net.gsantner.markor.format.highlighter;
 
 import android.graphics.Typeface;
 import android.text.Editable;
@@ -19,19 +19,20 @@ import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 
-import net.gsantner.markor.editor.highlighter.markdown.HighlighterColors;
-import net.gsantner.markor.editor.highlighter.markdown.HighlighterPattern;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHeaderSpanCreator;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColors;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // TODO: Seperate markdown from this out, make use of derivation/abstract
 public class Highlighter {
-    private final HighlighterColors colors;
-    final String fontType;
-    final Integer fontSize;
+    private final MarkdownHighlighterColors colors;
+    public final String fontType;
+    public final Integer fontSize;
 
-    Highlighter(final HighlighterColors colors, String fontType, int fontSize) {
+    Highlighter(final MarkdownHighlighterColors colors, String fontType, int fontSize) {
         this.colors = colors;
         this.fontType = fontType;
         this.fontSize = fontSize;
@@ -45,14 +46,14 @@ public class Highlighter {
                 return e;
             }
 
-            createHeaderSpanForMatches(e, HighlighterPattern.HEADER, colors.getHeaderColor());
-            createColorSpanForMatches(e, HighlighterPattern.LINK, colors.getLinkColor());
-            createColorSpanForMatches(e, HighlighterPattern.LIST, colors.getListColor());
-            createStyleSpanForMatches(e, HighlighterPattern.BOLD, Typeface.BOLD);
-            createStyleSpanForMatches(e, HighlighterPattern.ITALICS, Typeface.ITALIC);
-            createColorSpanForMatches(e, HighlighterPattern.QUOTATION, colors.getQuotationColor());
-            createSpanWithStrikeThroughForMatches(e, HighlighterPattern.STRIKETHROUGH);
-            createMonospaceSpanForMatches(e, HighlighterPattern.MONOSPACED);
+            createHeaderSpanForMatches(e, MarkdownHighlighterPattern.HEADER, colors.getHeaderColor());
+            createColorSpanForMatches(e, MarkdownHighlighterPattern.LINK, colors.getLinkColor());
+            createColorSpanForMatches(e, MarkdownHighlighterPattern.LIST, colors.getListColor());
+            createStyleSpanForMatches(e, MarkdownHighlighterPattern.BOLD, Typeface.BOLD);
+            createStyleSpanForMatches(e, MarkdownHighlighterPattern.ITALICS, Typeface.ITALIC);
+            createColorSpanForMatches(e, MarkdownHighlighterPattern.QUOTATION, colors.getQuotationColor());
+            createSpanWithStrikeThroughForMatches(e, MarkdownHighlighterPattern.STRIKETHROUGH);
+            createMonospaceSpanForMatches(e, MarkdownHighlighterPattern.MONOSPACED);
 
         } catch (Exception ex) {
             // Ignoring errors
@@ -61,12 +62,12 @@ public class Highlighter {
         return e;
     }
 
-    private void createHeaderSpanForMatches(Editable e, HighlighterPattern pattern, int headerColor) {
+    private void createHeaderSpanForMatches(Editable e, MarkdownHighlighterPattern pattern, int headerColor) {
 
-        createSpanForMatches(e, pattern, new HeaderSpanCreator(this, e, headerColor));
+        createSpanForMatches(e, pattern, new MarkdownHeaderSpanCreator(this, e, headerColor));
     }
 
-    private void createMonospaceSpanForMatches(Editable e, HighlighterPattern pattern) {
+    private void createMonospaceSpanForMatches(Editable e, MarkdownHighlighterPattern pattern) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher matcher) {
@@ -75,7 +76,7 @@ public class Highlighter {
         });
     }
 
-    private void createSpanWithStrikeThroughForMatches(Editable e, HighlighterPattern pattern) {
+    private void createSpanWithStrikeThroughForMatches(Editable e, MarkdownHighlighterPattern pattern) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher matcher) {
@@ -84,7 +85,7 @@ public class Highlighter {
         });
     }
 
-    private void createStyleSpanForMatches(final Editable e, final HighlighterPattern pattern, final int style) {
+    private void createStyleSpanForMatches(final Editable e, final MarkdownHighlighterPattern pattern, final int style) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher matcher) {
@@ -93,7 +94,7 @@ public class Highlighter {
         });
     }
 
-    private void createColorSpanForMatches(final Editable e, final HighlighterPattern pattern, final int color) {
+    private void createColorSpanForMatches(final Editable e, final MarkdownHighlighterPattern pattern, final int color) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher matcher) {
@@ -102,7 +103,7 @@ public class Highlighter {
         });
     }
 
-    private void createSpanForMatches(final Editable e, final HighlighterPattern pattern, final SpanCreator creator) {
+    private void createSpanForMatches(final Editable e, final MarkdownHighlighterPattern pattern, final SpanCreator creator) {
         createSpanForMatches(e, pattern.getPattern(), creator);
     }
 

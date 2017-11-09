@@ -5,12 +5,15 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor.highlighter;
+package net.gsantner.markor.format.highlighter.markdown;
 
-import android.text.ParcelableSpan;
+public interface MarkdownHighlighterColors {
 
-import java.util.regex.Matcher;
+    int getHeaderColor();
 
-public interface SpanCreator {
-    ParcelableSpan create(Matcher m);
+    int getLinkColor();
+
+    int getListColor();
+
+    int getQuotationColor();
 }

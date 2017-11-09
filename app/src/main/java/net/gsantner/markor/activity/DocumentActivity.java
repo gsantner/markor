@@ -30,8 +30,8 @@ import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.model.DocumentLoader;
-import net.gsantner.markor.renderer.MarkDownRenderer;
+import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.format.converter.MarkdownConverter;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
@@ -62,7 +62,7 @@ public class DocumentActivity extends AppCompatActivity {
     @BindView(R.id.note__activity__text_note_title)
     TextView _toolbarTitleText;
 
-    private MarkDownRenderer _mdRenderer = new MarkDownRenderer();
+    private MarkdownConverter _mdRenderer = new MarkdownConverter();
     private FragmentManager _fragManager;
     private Document _document;
 
@@ -94,8 +94,8 @@ public class DocumentActivity extends AppCompatActivity {
         Intent receivingIntent = getIntent();
         String intentAction = receivingIntent.getAction();
         String type = receivingIntent.getType();
-        File file = (File) receivingIntent.getSerializableExtra(DocumentLoader.EXTRA_PATH);
-        boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
+        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
             if (type.equals("text/plain")) {
@@ -174,7 +174,7 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
-                    shu.shareText(_mdRenderer.renderMarkdown(_document.getContent(), this),
+                    shu.shareText(_mdRenderer.convertMarkdownToHtml(_document.getContent(), this),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;

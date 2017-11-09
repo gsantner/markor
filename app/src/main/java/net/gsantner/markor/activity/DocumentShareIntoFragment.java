@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.dialog.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.model.DocumentLoader;
-import net.gsantner.markor.renderer.MarkDownRenderer;
+import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.format.converter.MarkdownConverter;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
@@ -82,7 +82,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
         Document document = new Document();
         document.setContent(_sharedText);
-        MarkDownRenderer.renderMarkdownIntoWebview(document, _webView);
+        MarkdownConverter.convertToHtmlRenderIntoWebview(document, _webView);
     }
 
 
@@ -130,11 +130,11 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
     private void appendToExistingDocument(File file, boolean showEditor) {
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_PATH, file);
-        args.putBoolean(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
-        Document document = DocumentLoader.loadDocument(_context, args, null);
+        args.putSerializable(DocumentIO.EXTRA_PATH, file);
+        args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+        Document document = DocumentIO.loadDocument(_context, args, null);
         String prepend = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent() + "\n");
-        DocumentLoader.saveDocument(document, false, prepend + _sharedText);
+        DocumentIO.saveDocument(document, false, prepend + _sharedText);
         if (showEditor) {
             showInDocumentActivity(document);
         }
@@ -143,15 +143,15 @@ public class DocumentShareIntoFragment extends BaseFragment {
     private void createNewDocument() {
         // Create a new document
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_PATH, new File(AppSettings.get().getSaveDirectory()));
-        args.putBoolean(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
-        Document document = DocumentLoader.loadDocument(_context, args, null);
-        DocumentLoader.saveDocument(document, false, _sharedText);
+        args.putSerializable(DocumentIO.EXTRA_PATH, new File(AppSettings.get().getSaveDirectory()));
+        args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
+        Document document = DocumentIO.loadDocument(_context, args, null);
+        DocumentIO.saveDocument(document, false, _sharedText);
 
         // Load document as file
-        args.putSerializable(DocumentLoader.EXTRA_PATH, document.getFile());
-        args.putBoolean(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
-        document = DocumentLoader.loadDocument(_context, args, null);
+        args.putSerializable(DocumentIO.EXTRA_PATH, document.getFile());
+        args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+        document = DocumentIO.loadDocument(_context, args, null);
         document.setTitle("");
         showInDocumentActivity(document);
     }

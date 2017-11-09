@@ -17,7 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.dialog.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;

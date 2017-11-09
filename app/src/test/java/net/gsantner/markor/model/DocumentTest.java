@@ -9,13 +9,11 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.model;
 
 import net.gsantner.markor.model.Document;
 
 import org.junit.Test;
-
-import java.util.regex.Matcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

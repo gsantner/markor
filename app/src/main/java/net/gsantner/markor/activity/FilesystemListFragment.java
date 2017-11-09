@@ -34,12 +34,12 @@ import com.mobsandgeeks.adapters.Sectionizer;
 import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.adapter.NotesAdapter;
-import net.gsantner.markor.dialog.ConfirmDialog;
-import net.gsantner.markor.dialog.CreateFolderDialog;
-import net.gsantner.markor.dialog.FilesystemDialogCreator;
-import net.gsantner.markor.dialog.RenameDialog;
-import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.ui.FilesystemListAdapter;
+import net.gsantner.markor.ui.ConfirmDialog;
+import net.gsantner.markor.ui.CreateFolderDialog;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.RenameDialog;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
@@ -76,7 +76,7 @@ public class FilesystemListFragment extends BaseFragment {
     private Context _context;
     private View _view;
 
-    private NotesAdapter _filesAdapter;
+    private FilesystemListAdapter _filesAdapter;
 
 
     private SearchView _searchView;
@@ -111,7 +111,7 @@ public class FilesystemListFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        _filesAdapter = new NotesAdapter(_context, 0, _filesCurrentlyShown);
+        _filesAdapter = new FilesystemListAdapter(_context, 0, _filesCurrentlyShown);
         _simpleSectionAdapter = new SimpleSectionAdapter<>(_context, _filesAdapter,
                 R.layout.ui__text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
@@ -333,7 +333,7 @@ public class FilesystemListFragment extends BaseFragment {
 
     private void reloadAdapter() {
         if (_filesAdapter != null) {
-            _filesAdapter = new NotesAdapter(_context.getApplicationContext(), 0, _filesCurrentlyShown);
+            _filesAdapter = new FilesystemListAdapter(_context.getApplicationContext(), 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
                     new SimpleSectionAdapter<>(_context.getApplicationContext()
                             , _filesAdapter, R.layout.ui__text__item
@@ -618,8 +618,8 @@ public class FilesystemListFragment extends BaseFragment {
             listFilesInDirectory(clickedFile);
         } else {
             Intent intent = new Intent(context, DocumentActivity.class);
-            intent.putExtra(DocumentLoader.EXTRA_PATH, clickedFile);
-            intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, false);
+            intent.putExtra(DocumentIO.EXTRA_PATH, clickedFile);
+            intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             startActivity(intent);
         }
     }

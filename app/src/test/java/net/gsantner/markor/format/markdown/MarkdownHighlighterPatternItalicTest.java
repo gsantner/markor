@@ -3,9 +3,9 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.format.markdown;
 
-import net.gsantner.markor.editor.highlighter.markdown.HighlighterPattern;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -16,13 +16,13 @@ import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HighlighterPatternItalicTest {
+public class MarkdownHighlighterPatternItalicTest {
 
     private Pattern pattern;
 
     @Before
     public void before() {
-        pattern = HighlighterPattern.ITALICS.getPattern();
+        pattern = MarkdownHighlighterPattern.ITALICS.getPattern();
     }
 
     @Test

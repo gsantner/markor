@@ -26,7 +26,7 @@ import com.pixplicity.generate.OnFeedbackListener;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 // Preview QuickNote
                 Intent intent = new Intent(this, DocumentActivity.class);
                 intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
-                intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getQuickNoteFile());
+                intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getQuickNoteFile());
                 startActivity(intent);
                 return true;
             }
@@ -198,11 +198,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
                         File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
                                 .getCurrentDir();
-                        intent.putExtra(DocumentLoader.EXTRA_PATH, path);
+                        intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
-                        intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getSaveDirectory());
+                        intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getSaveDirectory());
                     }
-                    intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
+                    intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);
                     break;
                 }

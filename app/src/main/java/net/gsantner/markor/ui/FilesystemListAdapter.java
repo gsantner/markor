@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.adapter;
+package net.gsantner.markor.ui;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.format.converter.MarkdownConverter;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
@@ -29,14 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
+public class FilesystemListAdapter extends ArrayAdapter<File> implements Filterable {
 
     public static final String EMPTY_STRING = "";
     private Context _context;
     private List<File> _data;
     private List<File> _filteredData;
 
-    public NotesAdapter(Context context, int resource, List<File> objects) {
+    public FilesystemListAdapter(Context context, int resource, List<File> objects) {
         super(context, resource, objects);
         _context = context;
         _data = objects;
@@ -69,7 +69,7 @@ public class NotesAdapter extends ArrayAdapter<File> implements Filterable {
 
         File item = getItem(i);
         if (item != null) {
-            noteTitle.setText(Constants.MD_EXTENSION.matcher(item.getName()).replaceAll(EMPTY_STRING));
+            noteTitle.setText(MarkdownConverter.MD_EXTENSION_PATTERN.matcher(item.getName()).replaceAll(EMPTY_STRING));
 
             if (item.isDirectory()) {
                 noteExtra.setText(generateExtraForFile(i));
