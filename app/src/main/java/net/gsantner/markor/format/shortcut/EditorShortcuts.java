@@ -1,4 +1,4 @@
-package net.gsantner.markor.editor.shortcut;
+package net.gsantner.markor.format.shortcut;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.editor.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 

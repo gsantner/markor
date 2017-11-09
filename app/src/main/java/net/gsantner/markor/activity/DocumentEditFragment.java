@@ -25,11 +25,11 @@ import android.view.ViewGroup;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
-import net.gsantner.markor.editor.highlighter.HighlightingEditor;
-import net.gsantner.markor.editor.shortcut.EditorShortcuts;
-import net.gsantner.markor.editor.shortcut.EscMarkdown;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.shortcut.EditorShortcuts;
+import net.gsantner.markor.format.shortcut.EditorShortcutsMarkdown;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -52,7 +52,7 @@ public class DocumentEditFragment extends BaseFragment {
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_DOCUMENT, document);
+        args.putSerializable(DocumentIO.EXTRA_DOCUMENT, document);
         f.setArguments(args);
         return f;
     }
@@ -60,9 +60,9 @@ public class DocumentEditFragment extends BaseFragment {
     public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_PATH, path);
-        args.putBoolean(DocumentLoader.EXTRA_PATH_IS_FOLDER, pathIsFolder);
-        args.putBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, allowRename);
+        args.putSerializable(DocumentIO.EXTRA_PATH, path);
+        args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putBoolean(DocumentIO.EXTRA_ALLOW_RENAME, allowRename);
         f.setArguments(args);
         return f;
     }
@@ -189,7 +189,7 @@ public class DocumentEditFragment extends BaseFragment {
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
     private Document loadDocument() {
-        Document document = DocumentLoader.loadDocument(getActivity(), getArguments(), _document);
+        Document document = DocumentIO.loadDocument(getActivity(), getArguments(), _document);
         if (document.getHistory().isEmpty()) {
             document.forceAddNextChangeToHistory();
             document.addToHistory();
@@ -198,7 +198,7 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     private void setupShortcutBar() {
-        EditorShortcuts editorActions = new EscMarkdown(_contentEditor, _document, getActivity());
+        EditorShortcuts editorActions = new EditorShortcutsMarkdown(_contentEditor, _document, getActivity());
         editorActions.appendShortcutsToBar(_markdownShortcutBar);
     }
 
@@ -242,8 +242,8 @@ public class DocumentEditFragment extends BaseFragment {
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
-        boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentLoader.EXTRA_ALLOW_RENAME, true);
-        boolean ret = DocumentLoader.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
+        boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
+        boolean ret = DocumentIO.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
         updateLauncherWidgets();
         return ret;
     }
@@ -284,7 +284,7 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     private void checkReloadDisk() {
-        Document cmp = DocumentLoader.loadDocument(getActivity(), getArguments(), null);
+        Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
         if (!cmp.getContent().equals(_document.getContent())) {
             _document = cmp;
             loadDocument();

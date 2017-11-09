@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-        <net.gsantner.markor.editor.highlighter.HighlightingEditor
+        <net.gsantner.markor.format.highlighter.HighlightingEditor
             android:id="@+id/document__fragment__edit__content_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

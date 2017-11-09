@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor.highlighter;
+package net.gsantner.markor.format.highlighter.markdown;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -16,11 +16,13 @@ import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import net.gsantner.markor.format.highlighter.Highlighter;
+import net.gsantner.markor.format.highlighter.SpanCreator;
+
 import java.util.regex.Matcher;
 
-// TODO: Seperate markdown from this out, make use of derivation/abstract
-class HeaderSpanCreator implements SpanCreator {
-
+// TODO: Separate markdown from this out, make use of derivation/abstract
+public class MarkdownHeaderSpanCreator implements SpanCreator {
     public static final Character POUND_SIGN = '#';
     public static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
     public static final float STANDARD_PROPORTION_MAX = 1.80f;
@@ -30,7 +32,7 @@ class HeaderSpanCreator implements SpanCreator {
     private final Editable e;
     private final int color;
 
-    public HeaderSpanCreator(Highlighter highlighter, Editable e, int color) {
+    public MarkdownHeaderSpanCreator(Highlighter highlighter, Editable e, int color) {
         this.highlighter = highlighter;
         this.e = e;
         this.color = color;

@@ -21,8 +21,8 @@ import android.webkit.WebView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.model.DocumentLoader;
-import net.gsantner.markor.renderer.MarkDownRenderer;
+import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.format.converter.MarkdownConverter;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
 
@@ -38,7 +38,7 @@ public class DocumentPreviewFragment extends BaseFragment {
     public static DocumentPreviewFragment newInstance(Document document) {
         DocumentPreviewFragment f = new DocumentPreviewFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_DOCUMENT, document);
+        args.putSerializable(DocumentIO.EXTRA_DOCUMENT, document);
         f.setArguments(args);
         return f;
     }
@@ -46,7 +46,7 @@ public class DocumentPreviewFragment extends BaseFragment {
     public static DocumentPreviewFragment newInstance(File path) {
         DocumentPreviewFragment f = new DocumentPreviewFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DocumentLoader.EXTRA_PATH, path);
+        args.putSerializable(DocumentIO.EXTRA_PATH, path);
         f.setArguments(args);
         return f;
     }
@@ -87,7 +87,7 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        MarkDownRenderer.renderMarkdownIntoWebview(_document, _webView);
+        MarkdownConverter.convertToHtmlRenderIntoWebview(_document, _webView);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class DocumentPreviewFragment extends BaseFragment {
     }
 
     private Document loadDocument() {
-        return DocumentLoader.loadDocument(getActivity(), getArguments(), _document);
+        return DocumentIO.loadDocument(getActivity(), getArguments(), _document);
     }
 
     @Override

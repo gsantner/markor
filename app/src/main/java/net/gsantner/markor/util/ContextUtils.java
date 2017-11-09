@@ -9,7 +9,7 @@ import android.content.Context;
 import android.webkit.MimeTypeMap;
 
 import net.gsantner.markor.App;
-import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.format.converter.MarkdownConverter;
 
 import java.io.File;
 import java.util.Locale;
@@ -34,7 +34,7 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
         String path = (absolutePath != null && absolutePath.length > 0)
                 ? absolutePath[0] : file.getAbsolutePath();
         path = path.toLowerCase(Locale.ROOT);
-        for (String ext : Constants.EXTENSIONS) {
+        for (String ext : MarkdownConverter.MD_EXTENSIONS) {
             if (path.endsWith(ext)) {
                 return true;
             }

@@ -14,8 +14,8 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Constants;
-import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     public FilesWidgetFactory(Context context, Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        _dir = (File) intent.getSerializableExtra(DocumentLoader.EXTRA_PATH);
+        _dir = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
     }
 
     @Override
@@ -62,9 +62,9 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     @Override
     public RemoteViews getViewAt(int position) {
         File file = _widgetFilesList[position];
-        Intent fillInIntent = new Intent().putExtra(DocumentLoader.EXTRA_PATH, file);
+        Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file);
         RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
-        rowView.setTextViewText(R.id.widget_note_title, Constants.MD_EXTENSION.matcher(file.getName()).replaceAll(""));
+        rowView.setTextViewText(R.id.widget_note_title, MarkdownConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
         rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         return rowView;
     }

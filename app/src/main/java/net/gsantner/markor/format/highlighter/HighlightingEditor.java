@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor.highlighter;
+package net.gsantner.markor.format.highlighter;
 
 import android.content.Context;
 import android.os.Handler;
@@ -16,7 +16,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
-import net.gsantner.markor.editor.highlighter.markdown.MyHighlighterColorsNeutral;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColorsNeutral;
 import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Matcher;
@@ -76,7 +76,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
-        highlighter = new Highlighter(new MyHighlighterColorsNeutral(),
+        highlighter = new Highlighter(new MarkdownHighlighterColorsNeutral(),
                 AppSettings.get().getFontFamily(),
                 AppSettings.get().getFontSize());
 

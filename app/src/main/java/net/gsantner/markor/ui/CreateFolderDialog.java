@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.dialog;
+package net.gsantner.markor.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;

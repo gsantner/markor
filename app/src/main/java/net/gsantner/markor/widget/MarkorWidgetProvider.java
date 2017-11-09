@@ -19,7 +19,7 @@ import android.widget.RemoteViews;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.model.DocumentLoader;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
@@ -62,8 +62,8 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
                     "" + appWidgetIds[i], Context.MODE_PRIVATE);
             String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getSaveDirectory());
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
-                    .putExtra(DocumentLoader.EXTRA_PATH, new File(directory))
-                    .putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
+                    .putExtra(DocumentIO.EXTRA_PATH, new File(directory))
+                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newDocumentIntent, 0);
             views.setOnClickPendingIntent(R.id.widget_new_note, pendingIntent);
@@ -75,8 +75,8 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
-            notesListIntent.putExtra(DocumentLoader.EXTRA_PATH, new File(directory));
-            notesListIntent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
+            notesListIntent.putExtra(DocumentIO.EXTRA_PATH, new File(directory));
+            notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);

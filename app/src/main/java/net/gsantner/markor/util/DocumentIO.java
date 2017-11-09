@@ -9,7 +9,7 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.markor.model;
+package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +17,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.Locale;
 import java.util.UUID;
 
-public class DocumentLoader {
+public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
@@ -61,7 +63,7 @@ public class DocumentLoader {
 
         Document document = new Document();
         document.setDoHistory(false);
-        document.setFileExtension(Constants.MD_EXT1_MD);
+        document.setFileExtension(MarkdownConverter.EXT_MARKDOWN__MD);
         File extraPath = (File) arguments.getSerializable(EXTRA_PATH);
         File filePath = extraPath;
 
@@ -70,11 +72,11 @@ public class DocumentLoader {
         if (extraPathIsFolder) {
             extraPath.mkdirs();
             while (filePath.exists()) {
-                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), Constants.MD_EXT1_MD));
+                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), MarkdownConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract existing extension
-            for (String ext : Constants.EXTENSIONS) {
+            for (String ext : MarkdownConverter.MD_EXTENSIONS) {
                 if (filePath.getName().toLowerCase(Locale.getDefault()).endsWith(ext)) {
                     document.setFileExtension(ext);
                     break;
@@ -82,7 +84,7 @@ public class DocumentLoader {
             }
 
             // Extract content and title
-            document.setTitle(Constants.MD_EXTENSION.matcher(filePath.getName()).replaceAll(""));
+            document.setTitle(MarkdownConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
             document.setContent(FileUtils.readTextFile(filePath));
         }
 
@@ -93,7 +95,7 @@ public class DocumentLoader {
 
     public static boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
         boolean ret = false;
-        String filename = DocumentLoader.normalizeTitleForFilename(document) + document.getFileExtension();
+        String filename = DocumentIO.normalizeTitleForFilename(document) + document.getFileExtension();
         document.setDoHistory(true);
         document.setFile(new File(document.getFile().getParentFile(), filename));
 

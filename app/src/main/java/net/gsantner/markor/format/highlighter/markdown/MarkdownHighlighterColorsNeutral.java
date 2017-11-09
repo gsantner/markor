@@ -5,9 +5,9 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor.highlighter.markdown;
+package net.gsantner.markor.format.highlighter.markdown;
 
-public class MyHighlighterColorsNeutral implements HighlighterColors {
+public class MarkdownHighlighterColorsNeutral implements MarkdownHighlighterColors {
 
     private final int COLOR_HEADER = 0xffef6C00;
     private final int COLOR_LINK = 0xff1ea3fd;
