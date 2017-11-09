@@ -13,6 +13,7 @@ public class MarkdownHighlighterColorsNeutral implements MarkdownHighlighterColo
     private final int COLOR_LINK = 0xff1ea3fd;
     private final int COLOR_LIST = 0xffdaa520;
     private final int COLOR_QUOTE = 0xff88b04b;
+    private final int COLOR_DOUBLESPACE = 0xffe0e0e0;
 
     @Override
     public int getHeaderColor() {
@@ -27,6 +28,11 @@ public class MarkdownHighlighterColorsNeutral implements MarkdownHighlighterColo
     @Override
     public int getListColor() {
         return COLOR_LIST;
+    }
+
+    @Override
+    public int getDoublespaceColor(){
+        return COLOR_DOUBLESPACE;
     }
 
     @Override
