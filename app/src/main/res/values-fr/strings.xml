@@ -15,10 +15,14 @@
     <string name="folder_name_hint">Nom du dossier</string>
     <string name="create_folder">Nouveau dossier</string>
     <string name="create_note">Nouvelle note</string>
+    <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
 
     <string name="import_from_device">Importer depuis cet appareil</string>
+    <string name="import_">Importer</string>
+    <string name="append_to__arg_document_name">Ajouter à %s</string>
     <string name="select_folder">Sélectionnez le dossier</string>
+    <string name="edit">Éditer</string>
 
     <string name="search_hint">Rechercher dans les notes</string>
     <string name="share_string">Partager avec…</string>
@@ -31,6 +35,7 @@
     <string name="files">Fichiers</string>
     <string name="document_one">Document</string>
     <string name="document_multiple">Documents</string>
+    <string name="share_html__mime_plaintext">HTML (texte brut)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Se souvenir du dossier courant pour le démarrage suivant</string>
@@ -51,9 +56,6 @@
     <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_save_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Dernière modification : %s</string>
     <string name="number_of_files">Nombre de fichiers : %d</string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
@@ -73,7 +75,6 @@
 
     <!-- About screen -->
     <string name="contributors">Contributeurs</string>
-
     <string name="pref_title__save_directory">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
     <string name="licenses">Licences</string>
     <string name="changelog">Nouveautés de l\'application</string>
@@ -92,5 +93,28 @@
     <string name="contribute">Contribuer</string>
     <string name="donate">Don</string>
     <string name="project_page">Page du projet</string>
-
+    <string name="press_again_to_exit">Appuyer encore sur retour pour quitter</string>
+    <string name="exit">Quitter</string>
+    <string name="undo">Annuler</string>
+    <string name="redo">Rétablir</string>
+    <string name="more">Plus</string>
+    <string name="notebook">Bloc note</string>
+    <string name="help">Aide</string>
+    <string name="special_documents">Documents spéciaux</string>
+    <string name="todo_list">Liste à faire</string>
+    <string name="task">Tâche</string>
+    <string name="category">Catégorie</string>
+    <string name="context">Contexte</string>
+    <string name="list">Liste</string>
+    <string name="priority">Priorité</string>
+    <string name="history">Historique</string>
+    <string name="sync">Synchro</string>
+    <string name="save">Enregistrer</string>
+    <string name="update">Mise à jour</string>
+    <string name="clear">Effacer</string>
+    <string name="due_date">Échéance</string>
+    <string name="current_date">Date courante</string>
+    <string name="archive">Archive</string>
+    <string name="add_task">Ajouter une tâche</string>
+    <string name="pref_summary__quicknote_filepath">Le document à charger et à enregistrer comme QuickNote</string>
 </resources>
