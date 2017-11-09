@@ -92,7 +92,10 @@ public class FilesystemListFragment extends BaseFragment {
     private Sectionizer<File> _sectionizer = new Sectionizer<File>() {
         @Override
         public String getSectionTitleForItem(File instance) {
-            return instance.isDirectory() ? getString(R.string.folders) : getString(R.string.files);
+            if (instance != null) {
+                return instance.isDirectory() ? getString(R.string.folders) : getString(R.string.files);
+            }
+            return getString(R.string.file);
         }
     };
 
@@ -159,6 +162,14 @@ public class FilesystemListFragment extends BaseFragment {
                     File file = new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH));
                     if (!file.exists() && file.mkdirs()) {
                         listFilesInDirectory(getCurrentDir());
+                    }
+                    return;
+                }
+
+                case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
+                    File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
+                    if (intent.getBooleanExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_FORCE_RELOAD, false)) {
+                        listFilesInDirectory(currentDir);
                     }
                     return;
                 }

@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     ViewPager _viewPager;
     private SectionsPagerAdapter _viewPagerAdapter;
 
-
-    private FilesystemListFragment _filesystemListFragment; //TODO not populated
-
     private boolean _doubleBackToExitPressedOnce;
     private MenuItem _lastBottomMenuItem;
 
@@ -172,9 +169,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     } else {
                         _toolbar.setTitle("> " + currentDir.getName());
                     }
-                    if (intent.getBooleanExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_FORCE_RELOAD, false)) {
-                        _filesystemListFragment.listFilesInDirectory(currentDir);
-                    }
                     return;
                 }
             }
@@ -185,7 +179,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onLongClickedFab(View view) {
         switch (view.getId()) {
             case R.id.fab_add_new_item: {
-                _filesystemListFragment.showCreateFolderDialog();
+                if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
+                    ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
+                            .showCreateFolderDialog();
+                }
                 return true;
             }
         }
@@ -198,7 +195,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
                     Intent intent = new Intent(this, DocumentActivity.class);
-                    intent.putExtra(DocumentLoader.EXTRA_PATH, _filesystemListFragment.getCurrentDir());
+                    if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
+                        File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
+                                .getCurrentDir();
+                        intent.putExtra(DocumentLoader.EXTRA_PATH, path);
+                    } else {
+                        intent.putExtra(DocumentLoader.EXTRA_PATH, AppSettings.get().getSaveDirectory());
+                    }
                     intent.putExtra(DocumentLoader.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);
                     break;
@@ -281,7 +284,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                 case R.id.nav_notebook: {
                     fragment = new FilesystemListFragment();
-                    MainActivity.this._filesystemListFragment = (FilesystemListFragment) fragment;
                     break;
                 }
                 case R.id.nav_quicknote: {

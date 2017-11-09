@@ -1,3 +1,8 @@
+### v0.2.1
+- Translation update
+- Widget and document list fixes
+- Improve editor actions
+
 ### v0.2.0
 - Rework of core functionalities of the app
 - Added QuickNote
