@@ -49,6 +49,7 @@ public class Highlighter {
             createHeaderSpanForMatches(e, MarkdownHighlighterPattern.HEADER, colors.getHeaderColor());
             createColorSpanForMatches(e, MarkdownHighlighterPattern.LINK, colors.getLinkColor());
             createColorSpanForMatches(e, MarkdownHighlighterPattern.LIST, colors.getListColor());
+            createColorSpanForDoublespace(e, MarkdownHighlighterPattern.DOUBLESPACE, colors.getDoublespaceColor());
             createStyleSpanForMatches(e, MarkdownHighlighterPattern.BOLD, Typeface.BOLD);
             createStyleSpanForMatches(e, MarkdownHighlighterPattern.ITALICS, Typeface.ITALIC);
             createColorSpanForMatches(e, MarkdownHighlighterPattern.QUOTATION, colors.getQuotationColor());
@@ -66,7 +67,14 @@ public class Highlighter {
 
         createSpanForMatches(e, pattern, new MarkdownHeaderSpanCreator(this, e, headerColor));
     }
-
+    private void createColorSpanForDoublespace(Editable e, MarkdownHighlighterPattern pattern, final int color){
+        createSpanForMatches(e, pattern, new SpanCreator() {
+            @Override
+            public ParcelableSpan create(Matcher matcher) {
+                return new BackgroundColorSpan(color);
+            }
+        });
+    }
     private void createMonospaceSpanForMatches(Editable e, MarkdownHighlighterPattern pattern) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
