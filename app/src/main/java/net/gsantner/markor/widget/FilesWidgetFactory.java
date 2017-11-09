@@ -44,7 +44,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void updateFiles() {
-        _widgetFilesList = _dir.listFiles(file ->
+        _widgetFilesList = _dir == null ? new File[0] : _dir.listFiles(file ->
                 !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
         );
     }
