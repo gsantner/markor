@@ -5,14 +5,11 @@
  */
 package net.gsantner.markor.editor;
 
+import net.gsantner.markor.editor.highlighter.markdown.HighlighterPattern;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

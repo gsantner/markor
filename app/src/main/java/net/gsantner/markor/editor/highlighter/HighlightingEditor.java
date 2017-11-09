@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.editor.highlighter;
 
 import android.content.Context;
 import android.os.Handler;
@@ -16,11 +16,13 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
+import net.gsantner.markor.editor.highlighter.markdown.MyHighlighterColorsNeutral;
 import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Seperate markdown from this out, make use of derivation/abstract
 public class HighlightingEditor extends AppCompatEditText {
 
     private Highlighter highlighter;

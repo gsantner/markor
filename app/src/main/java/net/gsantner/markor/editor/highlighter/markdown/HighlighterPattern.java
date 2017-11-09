@@ -5,11 +5,11 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.editor.highlighter.markdown;
 
 import java.util.regex.Pattern;
 
-enum HighlighterPattern {
+public enum HighlighterPattern {
     LIST(Pattern.compile("(\\n|^)\\s{0,3}(\\*|\\d+\\.|\\+|-)( \\[[ |x|X]\\])?(?= )")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
     HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),

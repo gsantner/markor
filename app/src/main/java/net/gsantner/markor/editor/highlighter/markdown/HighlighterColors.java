@@ -5,9 +5,9 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.editor.highlighter.markdown;
 
-interface HighlighterColors {
+public interface HighlighterColors {
 
     int getHeaderColor();
 

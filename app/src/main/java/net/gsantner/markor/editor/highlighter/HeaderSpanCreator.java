@@ -5,7 +5,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package net.gsantner.markor.editor;
+package net.gsantner.markor.editor.highlighter;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -18,6 +18,7 @@ import android.util.TypedValue;
 
 import java.util.regex.Matcher;
 
+// TODO: Seperate markdown from this out, make use of derivation/abstract
 class HeaderSpanCreator implements SpanCreator {
 
     public static final Character POUND_SIGN = '#';
