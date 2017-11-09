@@ -100,7 +100,7 @@
     <string name="more">Mer</string>
     <string name="notebook">Anteckningar</string>
     <string name="help">Hjälp</string>
-    <string name="special_documents">Special documents</string>
+    <string name="special_documents">Specialdokument</string>
     <string name="todo_list">Att göra-lista</string>
     <string name="task">Uppgift</string>
     <string name="category">Kategori</string>
@@ -116,5 +116,5 @@
     <string name="current_date">Nuvarande datum</string>
     <string name="archive">Arkiv</string>
     <string name="add_task">Lägg till uppgift</string>
-    <string name="pref_summary__quicknote_filepath">The document to be loaded and saved as QuickNote</string>
+    <string name="pref_summary__quicknote_filepath">Välj vilket dokument du vill spara snabbanteckningar i.</string>
 </resources>
