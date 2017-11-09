@@ -83,5 +83,21 @@
     <string name="format_image_dialog_title">Вставити зображення</string>
     <string name="format_dialog_url_or_path_hint">URL / Шлях</string>
     <string name="format_dialog_name_hint">Ім\'я</string>
+    <string name="undo">Скасувати</string>
+    <string name="sort_reverse">У зворотному порядку</string>
+    <string name="share_html__mime_plaintext">HTML (як звичайний текст)</string>
+    <string name="redo">Повернути</string>
+    <string name="project_page">Сторінка проекту</string>
+    <string name="press_again_to_exit">Натисніть Назад ще раз щоб вийти</string>
+    <string name="notebook">Записник</string>
+    <string name="more">Ще</string>
+    <string name="document_multiple">Документи</string>
+    <string name="document_one">Документ</string>
+    <string name="donate">Пожертвувати</string>
+    <string name="edit">Редагувати</string>
+    <string name="exit">Вийти</string>
+    <string name="contribute">Допомогти вдосконалити</string>
+    <string name="confirm_overwrite">Підтвердіть перезапис</string>
+    <string name="confirm_delete_description">Дійсно вилучити %s?</string>
 
 </resources>
