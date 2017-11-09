@@ -5,6 +5,8 @@
  */
 package net.gsantner.markor.editor;
 
+import net.gsantner.markor.editor.highlighter.markdown.HighlighterPattern;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

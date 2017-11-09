@@ -96,10 +96,10 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         }
     }
 
-    public void showSoftKeyboard(){
+    public void showSoftKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (_activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-            inputMethodManager.showSoftInput(_activity.getCurrentFocus() ,InputMethodManager.SHOW_FORCED);
+            inputMethodManager.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
         }
     }
 

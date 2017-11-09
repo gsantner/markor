@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
-import net.gsantner.markor.editor.HighlightingEditor;
+import net.gsantner.markor.editor.highlighter.HighlightingEditor;
 import net.gsantner.markor.editor.shortcut.EditorShortcuts;
 import net.gsantner.markor.editor.shortcut.EscMarkdown;
 import net.gsantner.markor.model.Document;

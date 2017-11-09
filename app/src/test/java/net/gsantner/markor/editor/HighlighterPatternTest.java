@@ -7,6 +7,8 @@
  */
 package net.gsantner.markor.editor;
 
+import net.gsantner.markor.editor.highlighter.markdown.HighlighterPattern;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
