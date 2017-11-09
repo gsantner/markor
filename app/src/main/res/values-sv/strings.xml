@@ -6,6 +6,8 @@
     <string name="delete">Radera</string>
     <string name="rename">Byt namn</string>
     <string name="confirm_delete">Bekräfta radering</string>
+    <string name="confirm_delete_description">Vill du verkligen radera den här %s?</string>
+    <string name="confirm_overwrite">Confirm Overwrite</string>
     <string name="confirm_overwrite_description">Filen finns redan, skriva över?</string>
     <string name="title">Titel</string>
     <string name="empty_directory">Den här mappen är tom</string>
@@ -13,10 +15,14 @@
     <string name="folder_name_hint">Ange mappnamn</string>
     <string name="create_folder">Skapa mapp</string>
     <string name="create_note">Skapa anteckning</string>
+    <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
 
     <string name="import_from_device">Importera från enhet</string>
+    <string name="import_">Import</string>
+    <string name="append_to__arg_document_name">Lägg till %s</string>
     <string name="select_folder">Välj map</string>
+    <string name="edit">Redigera</string>
 
     <string name="search_hint">Sök anteckningar</string>
     <string name="share_string">Dela till&#8230;</string>
@@ -27,6 +33,9 @@
     <string name="editor_settings">Redigerarinställningar</string>
     <string name="folders">Mappar</string>
     <string name="files">Filer</string>
+    <string name="document_one">Dokument</string>
+    <string name="document_multiple">Dokument</string>
+    <string name="share_html__mime_plaintext">HTML (som klartext)</string>
 
     <!-- Preferences -->
     <string name="pref_title__remember_directory">Kom ihåg sista mappens plats vid start</string>
@@ -47,9 +56,6 @@
     <string name="pref_title__render_rtl">Visa för höger till vänster-språk</string>
     <string name="error_cannot_create_save_dir">Fel: Kan inte skapa sparningsmapp</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Senast ändrad: %s</string>
     <string name="number_of_files">Antal filer: %d</string>
     <string name="select_this_folder">Välj den här mappen</string>
@@ -69,10 +75,9 @@
 
     <!-- About screen -->
     <string name="contributors">Bidragande personer</string>
-
     <string name="pref_title__save_directory">Välj lagringsmapp</string>
     <string name="licenses">Licenser</string>
-    <string name="changelog">Changelog</string>
+    <string name="changelog">Apphistorik</string>
     <string name="more_information">Mer information</string>
     <string name="show_app_license">Visa licens för appen</string>
     <string name="show_third_party_licenses">Visa tredjepartslicenser</string>
@@ -85,5 +90,31 @@
     <string name="sort_by_name">Sortera efter namn</string>
     <string name="sort_by_size">Sortera efter storlek</string>
     <string name="sort_reverse">Omvänd ordning</string>
-
+    <string name="contribute">Bidra</string>
+    <string name="donate">Donera</string>
+    <string name="project_page">Projektsida</string>
+    <string name="press_again_to_exit">Tryck bakåt igen för att avsluta</string>
+    <string name="exit">Avsluta</string>
+    <string name="undo">Ångra</string>
+    <string name="redo">Gör om</string>
+    <string name="more">Mer</string>
+    <string name="notebook">Anteckningar</string>
+    <string name="help">Hjälp</string>
+    <string name="special_documents">Specialdokument</string>
+    <string name="todo_list">Att göra-lista</string>
+    <string name="task">Uppgift</string>
+    <string name="category">Kategori</string>
+    <string name="context">Kontext</string>
+    <string name="list">Lista</string>
+    <string name="priority">Prioritet</string>
+    <string name="history">Historik</string>
+    <string name="sync">Synka</string>
+    <string name="save">Spara</string>
+    <string name="update">Uppdatera</string>
+    <string name="clear">Rensa</string>
+    <string name="due_date">Förfallodatum</string>
+    <string name="current_date">Nuvarande datum</string>
+    <string name="archive">Arkiv</string>
+    <string name="add_task">Lägg till uppgift</string>
+    <string name="pref_summary__quicknote_filepath">Välj vilket dokument du vill spara snabbanteckningar i.</string>
 </resources>
