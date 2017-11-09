@@ -99,5 +99,26 @@
     <string name="contribute">Допомогти вдосконалити</string>
     <string name="confirm_overwrite">Підтвердіть перезапис</string>
     <string name="confirm_delete_description">Дійсно вилучити %s?</string>
+    <string name="create_new_document">Створити документ</string>
+    <string name="import_">Імпортувати</string>
+    <string name="help">Допомога</string>
+    <string name="special_documents">Особливі документи</string>
+    <string name="todo_list">Список завдань</string>
+    <string name="task">Завдання</string>
+    <string name="category">Категорія</string>
+    <string name="context">Контекст</string>
+    <string name="list">Список</string>
+    <string name="priority">Пріоритет</string>
+    <string name="history">Історія</string>
+    <string name="save">Зберегти</string>
+    <string name="clear">Очистити</string>
+    <string name="due_date">Термін</string>
+    <string name="current_date">Поточна дата</string>
+    <string name="update">Оновити</string>
+    <string name="archive">Архів</string>
+    <string name="add_task">Додати завдання</string>
+    <string name="pref_summary__quicknote_filepath">Документ, що буде використаний як QuickNote</string>
+    <string name="sync">Синхронізувати</string>
+    <string name="append_to__arg_document_name">Додати до %s</string>
 
 </resources>
