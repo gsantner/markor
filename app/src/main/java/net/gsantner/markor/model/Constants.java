@@ -12,16 +12,6 @@ import net.gsantner.markor.R;
 import java.util.regex.Pattern;
 
 public class Constants {
-    public static final String[] KEYBOARD_REGULAR_ACTIONS = {"> ", "# ", "## ", "### ", "- ", "1. "};
-    public static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {{R.drawable.format_blockquote, 0}, {R.drawable.format_header_1, 1},
-            {R.drawable.format_header_2, 2}, {R.drawable.format_header_3, 3}, {R.drawable.format_list_bulleted, 4},
-            {R.drawable.format_list_numbers, 5}};
-
-    public static final String[] KEYBOARD_SMART_ACTIONS = {"**", "_", "~~", "`", "----\n"};
-    public static final int[][] KEYBOARD_SMART_ACTIONS_ICON = {{R.drawable.format_bold, 0}, {R.drawable.format_italic, 1},
-            {R.drawable.format_strikethrough, 2}, {R.drawable.format_code, 3}, {R.drawable.format_horizontal_line, 4}};
-
-    public static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {{R.drawable.format_link, 1}, {R.drawable.format_image, 2}};
 
     public static final String UTF_CHARSET = "utf-8";
 

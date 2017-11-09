@@ -9,16 +9,15 @@
     tools:context="net.gsantner.markor.activity.DocumentEditFragment"
     tools:showIn="@layout/document__activity">
 
-
     <ScrollView
-        android:id="@+id/note__activity__scroll_note"
+        android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
         <net.gsantner.markor.editor.HighlightingEditor
-            android:id="@+id/note__activity__note_content_editor"
+            android:id="@+id/document__fragment__edit__content_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -38,13 +37,13 @@
     </ScrollView>
 
     <HorizontalScrollView
-        android:id="@+id/note__activity__scroll_markdownchar_bar"
+        android:id="@+id/document__fragment__edit__shortcut_bar__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:paddingTop="4dp">
 
         <LinearLayout
-            android:id="@+id/note__activity__markdownchar_bar"
+            android:id="@+id/document__fragment__edit__shortcut_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal" />

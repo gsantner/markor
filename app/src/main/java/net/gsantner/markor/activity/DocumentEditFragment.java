@@ -6,19 +6,15 @@
 package net.gsantner.markor.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,13 +22,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.editor.HighlightingEditor;
-import net.gsantner.markor.model.Constants;
+import net.gsantner.markor.editor.shortcut.EditorShortcuts;
+import net.gsantner.markor.editor.shortcut.EscMarkdown;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.DocumentLoader;
 import net.gsantner.markor.ui.BaseFragment;
@@ -42,8 +37,6 @@ import net.gsantner.markor.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,10 +68,10 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
 
-    @BindView(R.id.note__activity__note_content_editor)
+    @BindView(R.id.document__fragment__edit__content_editor)
     HighlightingEditor _contentEditor;
 
-    @BindView(R.id.note__activity__markdownchar_bar)
+    @BindView(R.id.document__fragment__edit__shortcut_bar)
     ViewGroup _markdownShortcutBar;
 
     private View _view;
@@ -99,7 +92,7 @@ public class DocumentEditFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        setupMarkdownShortcutBar();
+        setupShortcutBar();
         setupAppearancePreferences();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
@@ -174,7 +167,7 @@ public class DocumentEditFragment extends BaseFragment {
 
     private long _lastChangedThreadStart = 0;
 
-    @OnTextChanged(value = R.id.note__activity__note_content_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    @OnTextChanged(value = R.id.document__fragment__edit__content_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {
         if ((_lastChangedThreadStart + HISTORY_DELTA) < System.currentTimeMillis()) {
             _lastChangedThreadStart = System.currentTimeMillis();
@@ -204,25 +197,9 @@ public class DocumentEditFragment extends BaseFragment {
         return document;
     }
 
-    private void setupMarkdownShortcutBar() {
-        if (AppSettings.get().isShowMarkdownShortcuts() && _markdownShortcutBar.getChildCount() == 0) {
-            // Smart Actions
-            for (int[] actions : Constants.KEYBOARD_SMART_ACTIONS_ICON) {
-                appendMarkdownShortcutToBar(actions[0], new KeyboardSmartActionsListener(Constants.KEYBOARD_SMART_ACTIONS[actions[1]]));
-            }
-
-            // Regular actions
-            for (int[] actions : Constants.KEYBOARD_REGULAR_ACTIONS_ICONS) {
-                appendMarkdownShortcutToBar(actions[0], new KeyboardRegularActionListener(Constants.KEYBOARD_REGULAR_ACTIONS[actions[1]]));
-            }
-
-            // Extra actions
-            for (int[] actions : Constants.KEYBOARD_EXTRA_ACTIONS_ICONS) {
-                appendMarkdownShortcutToBar(actions[0], new KeyboardExtraActionsListener(actions[1]));
-            }
-        } else if (!AppSettings.get().isShowMarkdownShortcuts()) {
-            _view.findViewById(R.id.note__activity__scroll_markdownchar_bar).setVisibility(View.GONE);
-        }
+    private void setupShortcutBar() {
+        EditorShortcuts editorActions = new EscMarkdown(_contentEditor, _document, getActivity());
+        editorActions.appendShortcutsToBar(_markdownShortcutBar);
     }
 
     private void setupAppearancePreferences() {
@@ -233,24 +210,13 @@ public class DocumentEditFragment extends BaseFragment {
         if (as.isDarkThemeEnabled()) {
             _contentEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             _contentEditor.setTextColor(getResources().getColor(android.R.color.white));
-            _view.findViewById(R.id.note__activity__scroll_markdownchar_bar).setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            _view.findViewById(R.id.document__fragment__edit__shortcut_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             _contentEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
             _contentEditor.setTextColor(getResources().getColor(R.color.dark_grey));
-            _view.findViewById(R.id.note__activity__scroll_markdownchar_bar)
+            _view.findViewById(R.id.document__fragment__edit__shortcut_bar__scrolling_parent)
                     .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
-    }
-
-    private void appendMarkdownShortcutToBar(int shortcut, View.OnClickListener l) {
-        ImageView btn = (ImageView) getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, (ViewGroup) null);
-        btn.setImageResource(shortcut);
-        btn.setOnClickListener(l);
-
-        boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
-        btn.setColorFilter(ContextCompat.getColor(_context,
-                isDarkTheme ? android.R.color.white : R.color.grey));
-        _markdownShortcutBar.addView(btn);
     }
 
     @Override
@@ -330,213 +296,6 @@ public class DocumentEditFragment extends BaseFragment {
     //
     //
     //
-
-    private class KeyboardRegularActionListener implements View.OnClickListener {
-        String _action;
-
-        public KeyboardRegularActionListener(String action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            if (_contentEditor.hasSelection()) {
-                String text = _contentEditor.getText().toString();
-                int selectionStart = _contentEditor.getSelectionStart();
-                int selectionEnd = _contentEditor.getSelectionEnd();
-
-                //Check if Selection includes the shortcut characters
-                if (text.substring(selectionStart, selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
-
-                    text = text.substring(selectionStart + _action.length(), selectionEnd);
-                    _contentEditor.getText()
-                            .replace(selectionStart, selectionEnd, text);
-
-                }
-                //Check if Selection is Preceded by shortcut characters
-                else if ((selectionStart >= _action.length()) && (text.substring(selectionStart - _action.length(), selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
-
-                    text = text.substring(selectionStart, selectionEnd);
-                    _contentEditor.getText()
-                            .replace(selectionStart - _action.length(), selectionEnd, text);
-
-                }
-                //Condition to insert shortcut preceding the selection
-                else {
-                    _contentEditor.getText().insert(selectionStart, _action);
-                }
-            } else {
-                //Condition for Empty Selection. Should insert the action at the start of the line
-                int cursor = _contentEditor.getSelectionStart();
-                int i=cursor-1;
-                Editable s = _contentEditor.getText();
-                for(; i>= 0; i--){
-                    if(s.charAt(i) == '\n') {
-                        break;
-                    }
-                }
-
-                s.insert(i+1, _action);
-            }
-        }
-    }
-
-    private class KeyboardSmartActionsListener implements View.OnClickListener {
-        String _action;
-
-        public KeyboardSmartActionsListener(String action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (_contentEditor.hasSelection()) {
-                String text = _contentEditor.getText().toString();
-                int selectionStart = _contentEditor.getSelectionStart();
-                int selectionEnd = _contentEditor.getSelectionEnd();
-
-                //Check if Selection includes the shortcut characters
-                if ((text.substring(selectionStart, selectionEnd)
-                        .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
-
-                    text = text.substring(selectionStart + _action.length(),
-                            selectionEnd - _action.length());
-                    _contentEditor.getText()
-                            .replace(selectionStart, selectionEnd, text);
-
-                }
-                //Check if Selection is Preceded and succeeded by shortcut characters
-                else if (((selectionEnd <= (_contentEditor.length() - _action.length())) &&
-                        (selectionStart >= _action.length())) &&
-                        (text.substring(selectionStart - _action.length(),
-                                selectionEnd + _action.length())
-                                .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
-
-                    text = text.substring(selectionStart, selectionEnd);
-                    _contentEditor.getText()
-                            .replace(selectionStart - _action.length(),
-                                    selectionEnd + _action.length(), text);
-
-                }
-                //Condition to insert shortcut preceding and succeeding the selection
-                else {
-                    _contentEditor.getText().insert(selectionStart, _action);
-                    _contentEditor.getText().insert(_contentEditor.getSelectionEnd(), _action);
-                }
-            } else {
-                //Condition for Empty Selection
-                if(false){
-                    // Condition for things that should only be placed at the start of the line even if no text is selected
-
-                }
-                else if(_action == "----\n"){
-                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
-                }
-                else {
-                    // Condition for formatting which is inserted on either side of the cursor
-                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
-                            .insert(_contentEditor.getSelectionEnd(), _action);
-                    _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
-                }
-            }
-        }
-
-    }
-
-    private class KeyboardExtraActionsListener implements View.OnClickListener {
-        int _action;
-
-        public KeyboardExtraActionsListener(int action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View view) {
-            getAlertDialog(_action);
-        }
-    }
-    Pattern linkPattern = Pattern.compile("\\[(.*)\\]\\((.*)\\)");
-
-    private void getAlertDialog(int action) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view = getLayoutInflater().inflate(R.layout.format_dialog, (ViewGroup) null);
-
-        final EditText linkName = view.findViewById(R.id.format_dialog_name);
-        final EditText linkUrl = view.findViewById(R.id.format_dialog_url);
-        linkName.setHint(getString(R.string.format_dialog_name_hint));
-        linkUrl.setHint(getString(R.string.format_dialog_url_or_path_hint));
-        int startCursorPos=_contentEditor.getSelectionStart();
-        if(_contentEditor.hasSelection()){
-            String selected_text = _contentEditor.getText().subSequence(
-                    _contentEditor.getSelectionStart(),
-                    _contentEditor.getSelectionEnd()
-            ).toString();
-            linkName.setText(selected_text);
-        }else{
-            Editable contentText = _contentEditor.getText();
-            int lineStartidx = Math.max(startCursorPos-1,0);
-            int lineEndidx = Math.min(startCursorPos, contentText.length()-1);
-            for(; lineStartidx > 0; lineStartidx--){
-                if(contentText.charAt(lineStartidx) == '\n'){
-                    break;
-                }
-            }
-            for(; lineEndidx<=contentText.length(); lineEndidx++){
-                if(contentText.charAt(lineEndidx) == '\n'){
-                    break;
-                }
-            }
-
-            String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-            Matcher m = linkPattern.matcher(line);
-            if(m.find()){
-                int stat = lineStartidx + m.regionStart();
-                int en = lineStartidx + m.regionEnd();
-                _contentEditor.setSelection(stat, en);
-                linkName.setText(m.group(1));
-                linkUrl.setText((m.group(2)));
-            }
-        }
-
-        String actionTitle="";
-        if (action == 1) {
-            actionTitle = "Insert Link";
-        }else if(action == 2) {
-            actionTitle = "Insert Image";
-        }
-            builder.setView(view)
-                    .setTitle(actionTitle)
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if(_contentEditor.hasSelection())
-                            {
-                                _contentEditor.setSelection(startCursorPos);
-                            }
-                        }
-                    })
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            if (_contentEditor.hasSelection()) {
-                                _contentEditor.getText().replace(_contentEditor.getSelectionStart(),
-                                        _contentEditor.getSelectionEnd(),
-                                        String.format("[%s](%s)", linkName.getText().toString(),
-                                                linkUrl.getText().toString()));
-                                _contentEditor.setSelection(_contentEditor.getSelectionStart());
-                            } else {
-                                _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                        String.format("[%s](%s)", linkName.getText().toString(),
-                                                linkUrl.getText().toString()));
-                            }
-                        }
-                    });
-
-        builder.show();
-    }
 
     public Document getDocument() {
         return _document;
