@@ -195,9 +195,9 @@ public class HighlightingEditor extends AppCompatEditText {
                     // This is for any line that is not the first line in a file
                     if (dest.charAt(iend + 1) == ' ') {
                         return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
-                    }else{
+                    } else {
                         Matcher m = orderedListPrefixPattern.matcher(dest.toString().substring(iend));
-                        if(m.find()){
+                        if (m.find()) {
                             return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
                         } else {
                             return "";
@@ -212,9 +212,9 @@ public class HighlightingEditor extends AppCompatEditText {
                 // This is for the first line in a file.
                 if (dest.charAt(1) == ' ') {
                     return addBulletPointIfNeeded(dest.charAt(0));
-                }else{
+                } else {
                     Matcher m = orderedListPrefixPattern.matcher(dest.toString());
-                    if(m.find()){
+                    if (m.find()) {
                         return addNumericListItemIfNeeded(m.group(1));
                     } else {
                         return "";
@@ -226,14 +226,15 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         private String addNumericListItemIfNeeded(String itemNumStr) {
-            try{
+            try {
                 int nextC = Integer.parseInt(itemNumStr) + 1;
                 return nextC + ". ";
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 // This should never ever happen
                 return "";
             }
         }
+
         private String addBulletPointIfNeeded(char character) {
             if (character == '*' || character == '+' || character == '-' || character == '>') {
                 return Character.toString(character) + " ";
