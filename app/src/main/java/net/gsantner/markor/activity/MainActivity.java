@@ -22,17 +22,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.pixplicity.generate.OnFeedbackListener;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.ui.BaseFragment;
+import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -90,11 +89,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(new OnFeedbackListener() {
-                    public void onFeedbackTapped() {
-                        ContextUtils.get().showRateOnGplayDialog();
-                    }
-                })
+                .setFeedbackAction(() -> new ActivityUtils(MainActivity.this).showRateOnGplayDialog())
                 .build().count().showRequest();
     }
 
@@ -200,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 .getCurrentDir();
                         intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
-                        intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getSaveDirectory());
+                        intent.putExtra(DocumentIO.EXTRA_PATH, new File(AppSettings.get().getSaveDirectory()));
                     }
                     intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);

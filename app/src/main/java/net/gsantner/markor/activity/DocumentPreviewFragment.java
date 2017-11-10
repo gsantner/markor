@@ -20,11 +20,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.DocumentIO;
 
 import java.io.File;
 

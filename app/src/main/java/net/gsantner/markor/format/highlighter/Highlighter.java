@@ -67,7 +67,8 @@ public class Highlighter {
 
         createSpanForMatches(e, pattern, new MarkdownHeaderSpanCreator(this, e, headerColor));
     }
-    private void createColorSpanForDoublespace(Editable e, MarkdownHighlighterPattern pattern, final int color){
+
+    private void createColorSpanForDoublespace(Editable e, MarkdownHighlighterPattern pattern, final int color) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
             public ParcelableSpan create(Matcher matcher) {
@@ -75,6 +76,7 @@ public class Highlighter {
             }
         });
     }
+
     private void createMonospaceSpanForMatches(Editable e, MarkdownHighlighterPattern pattern) {
         createSpanForMatches(e, pattern, new SpanCreator() {
             @Override
