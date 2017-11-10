@@ -117,4 +117,6 @@
     <string name="archive">Archive</string>
     <string name="add_task">Add task</string>
     <string name="pref_summary__quicknote_filepath">The document to be loaded and saved as QuickNote</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Settings in toolbar</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Show settings option in top toolbar on main screen</string>
 </resources>

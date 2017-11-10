@@ -3,6 +3,7 @@ package net.gsantner.markor.activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 startActivity(intent);
                 return true;
             }
+            case R.id.action_settings: {
+                new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
+                return true;
+            }
         }
         return false;
 
@@ -119,8 +124,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         ContextUtils cu = ContextUtils.get();
+        AppSettings as = AppSettings.get();
         getMenuInflater().inflate(R.menu.main__menu, menu);
 
+        menu.findItem(R.id.action_settings).setVisible(as.isShowSettingsOptionInMainToolbar());
+
+        cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
