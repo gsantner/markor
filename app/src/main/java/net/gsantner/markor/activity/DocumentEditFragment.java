@@ -29,10 +29,10 @@ import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.format.shortcut.EditorShortcuts;
 import net.gsantner.markor.format.shortcut.EditorShortcutsMarkdown;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.util.ActivityUtils;
 

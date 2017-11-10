@@ -18,12 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 

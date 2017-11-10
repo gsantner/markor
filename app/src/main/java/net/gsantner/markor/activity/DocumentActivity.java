@@ -29,13 +29,13 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 

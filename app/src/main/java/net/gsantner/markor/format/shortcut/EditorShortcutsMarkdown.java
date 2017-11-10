@@ -225,7 +225,7 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                     break;
                 }
             }
-            for (; lineEndidx <= contentText.length(); lineEndidx++) {
+            for (; lineEndidx < contentText.length(); lineEndidx++) {
                 if (contentText.charAt(lineEndidx) == '\n') {
                     break;
                 }

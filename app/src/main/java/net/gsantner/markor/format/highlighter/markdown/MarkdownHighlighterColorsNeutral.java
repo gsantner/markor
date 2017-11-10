@@ -31,7 +31,7 @@ public class MarkdownHighlighterColorsNeutral implements MarkdownHighlighterColo
     }
 
     @Override
-    public int getDoublespaceColor(){
+    public int getDoublespaceColor() {
         return COLOR_DOUBLESPACE;
     }
 
