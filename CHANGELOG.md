@@ -1,3 +1,9 @@
+### v0.2.2
+- Show document and file amount below folders
+- Settings toolbar option
+- Highlight line-endings with two spaces (MD line break)
+- Translation updates
+
 ### v0.2.1
 - Translation update
 - Widget and document list fixes
