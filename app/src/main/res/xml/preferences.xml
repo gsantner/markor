@@ -31,6 +31,12 @@
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__show_settings_option_in_main_toolbar"
+            android:summary="@string/pref_show_settings_option_in_main_toolbar"
+            android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
+
         <net.gsantner.opoc.ui.LanguagePreference
             android:key="@string/pref_key__language"
             android:summary="@string/pref_desc__language"

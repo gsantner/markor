@@ -63,4 +63,5 @@
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
+    <string name="pref_key__show_settings_option_in_main_toolbar">pref_key__show_settings_option_in_main_toolbar</string>
 </resources>

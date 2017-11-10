@@ -140,4 +140,8 @@ public class AppSettings extends AppSettingsBase {
     public boolean isSortReverse() {
         return getBool(R.string.pref_key__sort_reverse, false);
     }
+
+    public boolean isShowSettingsOptionInMainToolbar() {
+        return getBool(R.string.pref_key__show_settings_option_in_main_toolbar, false);
+    }
 }
