@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("WeakerAccess")
 public class MarkdownConverter {
     //########################
     //## HTML
@@ -48,10 +49,14 @@ public class MarkdownConverter {
     public static final String EXT_MARKDOWN__MKD = ".mkd";
     public static final String EXT_MARKDOWN__MDOWN = ".mdown";
     public static final String EXT_MARKDOWN__MKDN = ".mkdn";
-    public static Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt))$)");
+    public static final String EXT_MARKDOWN__MDWN = ".mdwn";
+    public static final String EXT_MARKDOWN__TEXT = ".text";
+    public static final String EXT_MARKDOWN__RMD = ".rmd";
+
+    public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd))$)");
     public static final String[] MD_EXTENSIONS = new String[]{
             EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
-            EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT
+            EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT, EXT_MARKDOWN__RMD
     };
 
     //########################
