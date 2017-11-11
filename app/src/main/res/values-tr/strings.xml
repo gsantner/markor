@@ -6,7 +6,7 @@
     <string name="delete">Sil</string>
     <string name="rename">Yeniden Adlandır</string>
     <string name="confirm_delete">Silmeyi Onayla</string>
-    <string name="confirm_delete_description">Bu %s gerçekten silmek istiyor musunuz?</string>
+    <string name="confirm_delete_description">Bu %syi gerçekten silmek istiyor musunuz?</string>
     <string name="confirm_overwrite">Üzerine Yazmayı Onayla</string>
     <string name="confirm_overwrite_description">Dosya zaten var, üzerine yazılsın mı?</string>
     <string name="title">Başlık</string>
@@ -20,7 +20,7 @@
 
     <string name="import_from_device">Cihazdan içe aktar</string>
     <string name="import_">İçe Aktar</string>
-    <string name="append_to__arg_document_name">Append to %s</string>
+    <string name="append_to__arg_document_name">%s ekle</string>
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
 
@@ -33,8 +33,8 @@
     <string name="editor_settings">Düzenleyici Ayarları</string>
     <string name="folders">Klasörler</string>
     <string name="files">Dosyalar</string>
-    <string name="document_one">Belgeyi</string>
-    <string name="document_multiple">Belgeleri</string>
+    <string name="document_one">Belge</string>
+    <string name="document_multiple">Belge</string>
     <string name="share_html__mime_plaintext">HTML (düz metin olarak)</string>
 
     <!-- Preferences -->
@@ -117,4 +117,6 @@
     <string name="archive">Arşiv</string>
     <string name="add_task">Görev ekle</string>
     <string name="pref_summary__quicknote_filepath">QuickNote olarak yüklenip kaydedilecek belgeyi seçin</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Araç çubuğundaki ayarlar</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Ana ekrandaki araç çubuğunda ayarlar seçeneğini göster</string>
 </resources>
