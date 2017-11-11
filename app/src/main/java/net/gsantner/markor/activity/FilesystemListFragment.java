@@ -304,6 +304,10 @@ public class FilesystemListFragment extends BaseFragment {
                 showCreateFolderDialog();
                 return true;
             }
+            case R.id.action_refresh: {
+                listFilesInDirectory(getCurrentDir());
+                return true;
+            }
         }
         return false;
     }
