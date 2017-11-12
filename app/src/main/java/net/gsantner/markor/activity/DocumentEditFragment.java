@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -143,10 +144,6 @@ public class DocumentEditFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_preview: {
-                // Handled by parent
-                return false;
-            }
             case R.id.action_undo: {
                 if (_document.canGoToEarlierVersion()) {
                     _document.goToEarlierVersion();

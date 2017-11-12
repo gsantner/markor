@@ -50,6 +50,7 @@ import butterknife.OnTextChanged;
 @SuppressWarnings("unused")
 public class DocumentActivity extends AppCompatActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
+    public static final String EXTRA_LAUNCHER_SHORTCUT_PATH = "EXTRA_LAUNCHER_SHORTCUT_PATH";
 
     @BindView(R.id.document__placeholder_fragment)
     FrameLayout _fragPlaceholder;
@@ -106,6 +107,9 @@ public class DocumentActivity extends AppCompatActivity {
             }
         } else if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) && type != null) {
             Uri fileUri = receivingIntent.getData();
+            if (receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH) != null) {
+                fileUri = Uri.fromFile(new File(receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH)));
+            }
             file = new File(fileUri.getPath());
         }
 
@@ -158,6 +162,10 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_edit: {
                 DocumentEditFragment.showPreviewOnBack = true;
                 showEditor(_document, null, false);
+                return true;
+            }
+            case R.id.action_add_shortcut_launcher_home: {
+                ShareUtil.createLauncherShortcut(this, _document);
                 return true;
             }
             case R.id.action_share_text: {
