@@ -120,4 +120,9 @@
     <string name="sync">Synchronisieren</string>
     <string name="save">Speichern</string>
     <string name="clear">Leeren</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Einstellungen in Werkzeugleiste</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Einstellungs-Option in der  Werkzeugleiste in der Hauptansicht anzeigen</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="add_shortcut_to_launcher_homescreen">Verknüpfung erstellen</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
 </resources>

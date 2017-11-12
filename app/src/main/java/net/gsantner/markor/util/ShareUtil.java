@@ -18,12 +18,15 @@ import android.print.PrintJob;
 import android.print.PrintManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.Document;
 
 import java.io.File;
@@ -37,6 +40,28 @@ public class ShareUtil {
 
     public ShareUtil(Context context) {
         _context = context;
+    }
+
+    public static void createLauncherShortcut(Context c, Document document) {
+        // This is only allowed to call when direct file access is possible!!
+        // So basically only for java.io.File Objects. Virtual files, or content://
+        // in private/restricted space won't work - because of missing permission grant when re-launching
+        if (document != null && document.getFile() != null && !TextUtils.isEmpty(document.getTitle())) {
+            Intent shortcutIntent = new Intent(c, DocumentActivity.class);
+            shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            shortcutIntent.putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, document.getFile().getAbsolutePath());
+            shortcutIntent.setType("text/markdown"); // setData(Uri) -> Uri always gets null on receive
+
+            Intent addIntent = new Intent();
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, document.getTitle());
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.ic_launcher));
+            addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+            c.sendBroadcast(addIntent);
+
+            Toast.makeText(c, R.string.add_shortcut_to_launcher_homescreen_notice, Toast.LENGTH_LONG).show();
+        }
     }
 
     public void shareText(String text, String type) {

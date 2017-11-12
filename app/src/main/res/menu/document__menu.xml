@@ -33,4 +33,11 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/action_add_shortcut_launcher_home"
+        android:icon="@drawable/ic_widgets_black_24dp"
+        android:orderInCategory="900"
+        android:title="@string/add_shortcut_to_launcher_homescreen"
+        app:showAsAction="ifRoom" />
+
 </menu>
