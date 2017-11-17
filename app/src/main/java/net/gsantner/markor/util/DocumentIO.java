@@ -103,7 +103,15 @@ public class DocumentIO {
         if (argAllowRename) {
             if (!document.getFile().equals(documentInitial.getFile())) {
                 if (documentInitial.getFile().exists()) {
-                    FileUtils.renameFile(documentInitial.getFile(), document.getFile());
+                    if (FileUtils.renameFile(documentInitial.getFile(), document.getFile())) {
+                        // Rename succeeded -> Rename everything in history too
+                        for (Document hist : document.getHistory()) {
+                            hist.setFile(document.getFile());
+                            for (Document hist2 : hist.getHistory()) {
+                                hist2.setFile(document.getFile());
+                            }
+                        }
+                    }
                 }
             }
         } else {
