@@ -121,11 +121,15 @@ public class DocumentEditFragment extends BaseFragment {
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
 
+        boolean enable;
         Drawable drawable;
         drawable = menu.findItem(R.id.action_undo).setEnabled(_document.canGoToEarlierVersion()).getIcon();
         drawable.mutate().setAlpha(_document.canGoToEarlierVersion() ? 255 : 40);
         drawable = menu.findItem(R.id.action_redo).setEnabled(_document.canGoToNewerVersion()).getIcon();
         drawable.mutate().setAlpha(_document.canGoToNewerVersion() ? 255 : 40);
+        enable = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
+        drawable = menu.findItem(R.id.action_save).setEnabled(enable).getIcon();
+        drawable.mutate().setAlpha(enable ? 255 : 40);
     }
 
     public void loadDocumentIntoUi() {
@@ -158,6 +162,10 @@ public class DocumentEditFragment extends BaseFragment {
                 }
                 return true;
             }
+            case R.id.action_save: {
+                saveDocument();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,6 +190,7 @@ public class DocumentEditFragment extends BaseFragment {
         if (activity != null && activity instanceof AppCompatActivity) {
             ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
         }
+
     }
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
