@@ -269,7 +269,7 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                             _contentEditor.setSelection(_contentEditor.getSelectionStart());
                         } else {
                             _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                    String.format("[%s](%s)", linkName.getText().toString(),
+                                    String.format("![%s](%s)", linkName.getText().toString(),
                                             linkUrl.getText().toString()));
                         }
                     }

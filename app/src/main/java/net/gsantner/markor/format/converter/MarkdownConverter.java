@@ -82,11 +82,13 @@ public class MarkdownConverter {
 
         // Default font is set by css in line 1 of generated html
         html = html.replaceFirst("sans-serif-light", AppSettings.get().getFontFamily());
+
+        String baseFolder = AppSettings.get().getSaveDirectory();
         if (document.getFile() != null && document.getFile().getParentFile() != null) {
-            webView.loadDataWithBaseURL(document.getFile().getParent(), html, "text/html", UTF_CHARSET, null);
-        } else {
-            webView.loadData(html, "text/html", UTF_CHARSET);
+            baseFolder = document.getFile().getParent();
         }
+        baseFolder = "file://" + baseFolder +"/";
+        webView.loadDataWithBaseURL(baseFolder, html, "text/html", UTF_CHARSET, null);
 
         return html;
     }
