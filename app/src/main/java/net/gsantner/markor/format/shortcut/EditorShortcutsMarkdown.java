@@ -136,7 +136,7 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                 int selectionEnd = _contentEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
-                if ((text.substring(selectionStart, selectionEnd)
+                if (selectionEnd < text.length() && (text.substring(selectionStart, selectionEnd)
                         .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
                     text = text.substring(selectionStart + _action.length(),
