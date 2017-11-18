@@ -1,6 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.version_setup_compileSdk = 27
+    ext.version_setup_minSdk = 17
+    ext.version_setup_targetSdk = ext.version_setup_compileSdk
+    ext.version_setup_buildTools = "27.0.1" // Specifying optional
+
+    // https://developer.android.com/topic/libraries/support-library/revisions.html
+    ext.version_library_appcompat = "27.0.1"
+    // https://github.com/JakeWharton/butterknife/releases
+    ext.version_library_butterknife = "8.8.1"
+    // https://github.com/atlassian/commonmark-java/releases
+    ext.version_library_commonmark = "0.10.0"
+    // https://github.com/guardianproject/NetCipher/releases
+    ext.version_library_netcipher = "2.0.0-alpha1"
+    // https://github.com/JetBrains/kotlin/blob/master/ReadMe.md
+    ext.version_plugin_kotlin = "1.1.60"
+    ext.enable_plugin_kotlin = false
+
     repositories {
         jcenter()
         google()
@@ -8,6 +25,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        if (project.enable_plugin_kotlin) {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_plugin_kotlin"
+        }
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -27,15 +47,17 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "LICENSE.txt", "CHANGELOG.md", "CONTRIBUTORS.md"]
+final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "CHANGELOG.md", "CONTRIBUTORS.md","LICENSE.txt","LICENSE.md","LICENSE"]
 task copyRepoFiles(type: Copy) {
     from rootProject.files(ROOT_TO_RAW_COPYFILES)
     into "app/src/main/res/raw"
-    rename { String fileName -> fileName.replace(fileName, fileName.toLowerCase())  }
-} ; tasks.copyRepoFiles.execute()
+    rename { String fileName -> fileName.replace(fileName, fileName.toLowerCase()) }
+}; tasks.copyRepoFiles.execute()
+
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
-static String[] getUsedAndroidLanguages() {
+// Returns used android languages as a buildConfig array: {'de', 'it', ..}"
+static String getUsedAndroidLanguages() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
         final foldername = it.name
@@ -47,7 +69,7 @@ static String[] getUsedAndroidLanguages() {
             }
         }
     }
-    return langs.toArray(new String[langs.size()])
+    return '{' + langs.collect { "\"${it}\"" }.join(",") + '}'
 }
 
 ext.getGitHash = { ->
