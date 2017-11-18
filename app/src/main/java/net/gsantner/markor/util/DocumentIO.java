@@ -15,6 +15,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.converter.MarkdownConverter;
@@ -149,4 +152,17 @@ public class DocumentIO {
         }
         return name;
     }
+
+    public static final InputFilter INPUT_FILTER_FILESYSTEM_FILENAME = new InputFilter() {
+        private final String blockCharacterSet = "\\/:\"´`'*?<>\n\r@|";
+
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for (int i = 0; !TextUtils.isEmpty(source) && i < source.length(); i++) {
+                if (blockCharacterSet.contains(("" + source.charAt(i)))) {
+                    return "";
+                }
+            }
+            return null;
+        }
+    };
 }

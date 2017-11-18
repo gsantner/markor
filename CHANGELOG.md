@@ -1,3 +1,10 @@
+### v0.2.3
+- Select file/image from filesystem
+- Fix relative web local file loading
+- Added: manually save option
+- Added: Launcher shortcuts
+- Filesystem: Add refresh menu option
+
 ### v0.2.2
 - Show document and file amount below folders
 - Settings toolbar option
