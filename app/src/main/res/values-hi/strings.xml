@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">इस दृश्य पर स्टेटस बार छुपाएं</string>
     <string name="pref_title__is_statusbar_hidden">स्थिति पट्टी छुपाएँ</string>
 
-    <string name="format_dialog_name_hint">नाम</string>
-    <string name="format_dialog_url_or_path_hint">URL / पथ</string>
-    <string name="format_link_dialog_title">लिंक सम्मिलित करें</string>
-    <string name="format_image_dialog_title">चित्र डालें</string>
+    <string name="name">नाम</string>
+    <string name="url_or_path">URL / पथ</string>
+    <string name="insert_link">लिंक सम्मिलित करें</string>
+    <string name="insert_image">चित्र डालें</string>
 
     <!-- About screen -->
     <string name="contributors">योगदानकर्ता</string>

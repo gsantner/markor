@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">L\'application s\'exécute en mode plein écran</string>
     <string name="pref_title__is_statusbar_hidden">Cacher la barre de statut</string>
 
-    <string name="format_dialog_name_hint">Nom</string>
-    <string name="format_dialog_url_or_path_hint">URL / Chemin</string>
-    <string name="format_link_dialog_title">Insérer Lien</string>
-    <string name="format_image_dialog_title">Insérer Image</string>
+    <string name="name">Nom</string>
+    <string name="url_or_path">URL / Chemin</string>
+    <string name="insert_link">Insérer Lien</string>
+    <string name="insert_image">Insérer Image</string>
 
     <!-- About screen -->
     <string name="contributors">Contributeurs</string>

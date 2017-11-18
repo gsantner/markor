@@ -77,6 +77,7 @@ public class DocumentEditFragment extends BaseFragment {
     private View _view;
     private Context _context;
     private Document _document;
+    private EditorShortcuts _editorActions;
 
     public DocumentEditFragment() {
     }
@@ -142,6 +143,7 @@ public class DocumentEditFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
+        _editorActions.setDocument(_document);
     }
 
     @Override
@@ -203,8 +205,8 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     private void setupShortcutBar() {
-        EditorShortcuts editorActions = new EditorShortcutsMarkdown(_contentEditor, _document, getActivity());
-        editorActions.appendShortcutsToBar(_markdownShortcutBar);
+        _editorActions = new EditorShortcutsMarkdown(_contentEditor, _document, getActivity());
+        _editorActions.appendShortcutsToBar(_markdownShortcutBar);
     }
 
     private void setupAppearancePreferences() {

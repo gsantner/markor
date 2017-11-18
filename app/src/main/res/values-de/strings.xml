@@ -74,10 +74,10 @@
     <string name="pref_title__language">Sprache</string>
     <string name="error_storage_permission">Benötige Dateisystem Berechtigung um in Dokumenten zu speichern</string>
     <string name="open_with">Öffnen mit</string>
-    <string name="format_dialog_name_hint">Name</string>
-    <string name="format_dialog_url_or_path_hint">URL / Pfad</string>
-    <string name="format_image_dialog_title">Bild einfügen</string>
-    <string name="format_link_dialog_title">Link einfügen</string>
+    <string name="name">Name</string>
+    <string name="url_or_path">URL / Pfad</string>
+    <string name="insert_image">Bild einfügen</string>
+    <string name="insert_link">Link einfügen</string>
     <string name="file">Datei</string>
     <string name="sort">Sortieren</string>
     <string name="sort_by_date">Sortieren nach Datum</string>
@@ -125,4 +125,5 @@
     <string name="refresh">Aktualisieren</string>
     <string name="add_shortcut_to_launcher_homescreen">Verknüpfung erstellen</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
+    <string name="browse_filesystem">Dateisystem durchsuchen</string>
 </resources>

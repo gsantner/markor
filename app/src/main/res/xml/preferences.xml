@@ -4,7 +4,7 @@
 
     <PreferenceCategory android:title="@string/app_settings">
         <ListPreference
-            android:defaultValue="@string/light"
+            android:defaultValue="@string/app_theme_light"
             android:dialogTitle="@string/pref_title__theme"
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"

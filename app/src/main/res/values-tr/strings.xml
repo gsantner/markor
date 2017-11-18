@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">Bu görünümde durum çubuğunu gizle</string>
     <string name="pref_title__is_statusbar_hidden">Durum çubuğunu gizle</string>
 
-    <string name="format_dialog_name_hint">Ad</string>
-    <string name="format_dialog_url_or_path_hint">URL / Yol</string>
-    <string name="format_link_dialog_title">Bağlantı Ekle</string>
-    <string name="format_image_dialog_title">Görüntü Ekle</string>
+    <string name="name">Ad</string>
+    <string name="url_or_path">URL / Yol</string>
+    <string name="insert_link">Bağlantı Ekle</string>
+    <string name="insert_image">Görüntü Ekle</string>
 
     <!-- About screen -->
     <string name="contributors">Katkıda Bulunanlar</string>
