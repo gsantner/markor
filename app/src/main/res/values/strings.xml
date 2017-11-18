@@ -123,4 +123,5 @@
     <string name="refresh">Refresh</string>
     <string name="add_shortcut_to_launcher_homescreen">Create shortcut</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Tried to add a shortcut to your home screen for editing this document. Note that some launchers may not support this.</string>
+    <string name="file_not_in_save_path_do_import">The selected file is not located in the app\'s save directory. Do you want to copy it to the current folder? This will overwrite existing files.</string>
 </resources>

@@ -258,33 +258,48 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
             actionTitle = R.string.insert_image;
         }
 
+        // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
+        final FilesystemDialogData.SelectionListener fsListener = new FilesystemDialogData.SelectionListenerAdapter() {
+            @Override
+            public void onFsSelected(final String request, final File file) {
+                final String saveDir = AppSettings.get().getSaveDirectory();
+                String text = null;
+                if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
+                    text = FileUtils.relativePath(_document.getFile(), file);
+                } else {
+                    new AlertDialog.Builder(_activity)
+                            .setTitle(R.string.import_)
+                            .setMessage(R.string.file_not_in_save_path_do_import)
+                            .setNegativeButton(android.R.string.no, null)
+                            .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
+                                        File targetCopy = new File(_document.getFile().getParentFile(), file.getName());
+                                        if (FileUtils.copyFile(file, targetCopy)) {
+                                            onFsSelected(request, targetCopy);
+                                        }
+                                    }
+                            ).create().show();
+                }
+                if (text == null) {
+                    text = file.getAbsolutePath();
+                }
+                editPathUrl.setText(text);
+                if (editPathName.getText().toString().isEmpty()) {
+                    text = file.getName();
+                    text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
+                    editPathName.setText(text);
+                }
+            }
+
+            @Override
+            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                // TODO: Set start/home folder
+            }
+        };
+
         buttonBrowseFs.setOnClickListener(button -> {
             if (getActivity() instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) getActivity();
-                FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-                    @Override
-                    public void onFsSelected(String request, File file) {
-                        final String saveDir = AppSettings.get().getSaveDirectory();
-                        String text = null;
-                        if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
-                            text = FileUtils.relativePath(_document.getFile(), file);
-                        }
-                        if (text == null) {
-                            text = file.getAbsolutePath();
-                        }
-                        editPathUrl.setText(text);
-                        if (editPathName.getText().toString().isEmpty()) {
-                            text = file.getName();
-                            text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
-                            editPathName.setText(text);
-                        }
-                    }
-
-                    @Override
-                    public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                        // TODO: Set start/home folder
-                    }
-                }, a.getSupportFragmentManager(), a);
+                FilesystemDialogCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), a);
             }
         });
 
