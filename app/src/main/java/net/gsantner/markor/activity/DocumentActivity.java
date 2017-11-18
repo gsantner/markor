@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -111,6 +112,14 @@ public class DocumentActivity extends AppCompatActivity {
                 fileUri = Uri.fromFile(new File(receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH)));
             }
             file = new File(fileUri.getPath());
+            if (fileUri.toString().startsWith("content://")) {
+                new AlertDialog.Builder(this)
+                        .setMessage("Sorry, but editing texts from content:// URIs is not supported yet. See https://github.com/gsantner/markor/issues/126 . Thanks!")
+                        .setNegativeButton("Go to issue", (dialogInterface, i) -> ContextUtils.get().openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/126"))
+                        .setPositiveButton("OK", null)
+                        .setOnDismissListener((dialogInterface) -> finish())
+                        .create().show();
+            }
         }
 
         if (file != null) {

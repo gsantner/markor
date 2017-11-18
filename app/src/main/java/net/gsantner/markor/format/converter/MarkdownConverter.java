@@ -87,7 +87,7 @@ public class MarkdownConverter {
         if (document.getFile() != null && document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }
-        baseFolder = "file://" + baseFolder +"/";
+        baseFolder = "file://" + baseFolder + "/";
         webView.loadDataWithBaseURL(baseFolder, html, "text/html", UTF_CHARSET, null);
 
         return html;
