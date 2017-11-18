@@ -474,7 +474,8 @@ public class FilesystemListFragment extends BaseFragment {
 
                 switch (sortMethod) {
                     case SORT_BY_NAME:
-                        return file.compareTo(other);
+                        return new File(file.getAbsolutePath().toLowerCase()).compareTo(
+                                new File(other.getAbsolutePath().toLowerCase()));
                     case SORT_BY_DATE:
                         return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
                     case SORT_BY_FILESIZE:

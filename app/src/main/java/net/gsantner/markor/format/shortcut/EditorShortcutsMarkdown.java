@@ -242,12 +242,14 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
             }
         }
 
+        final String formatTemplate = action == 1 ? "[%s](%s)" : "![%s](%s)";
         String actionTitle = "";
         if (action == 1) {
             actionTitle = "Insert Link";
         } else if (action == 2) {
             actionTitle = "Insert Image";
         }
+
         builder.setView(view)
                 .setTitle(actionTitle)
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -264,12 +266,12 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                         if (_contentEditor.hasSelection()) {
                             _contentEditor.getText().replace(_contentEditor.getSelectionStart(),
                                     _contentEditor.getSelectionEnd(),
-                                    String.format("[%s](%s)", linkName.getText().toString(),
+                                    String.format(formatTemplate, linkName.getText().toString(),
                                             linkUrl.getText().toString()));
                             _contentEditor.setSelection(_contentEditor.getSelectionStart());
                         } else {
                             _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                    String.format("![%s](%s)", linkName.getText().toString(),
+                                    String.format(formatTemplate, linkName.getText().toString(),
                                             linkUrl.getText().toString()));
                         }
                     }

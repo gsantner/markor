@@ -7,9 +7,7 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.converter.MarkdownConverter;
@@ -28,6 +25,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.util.MarkorWebViewClient;
 
 import java.io.File;
 
@@ -78,6 +76,7 @@ public class DocumentPreviewFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WebView.enableSlowWholeDocumentDraw();
         }
+        _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
 
         _document = loadDocument();
         showDocument();
@@ -91,31 +90,6 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocument(_document);
         }
         MarkdownConverter.convertToHtmlRenderIntoWebview(_document, _webView);
-
-        WebView _webview = _webView;
-        _webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("file://")) {
-                    File file = new File(url.replace("file://", ""));
-                    String mimetype;
-                    if (ContextUtils.get().isMaybeMarkdownFile(file)) {
-                        //TODO: start new DocumentPreview fragment
-                    } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
-                        Intent intent = new Intent();
-                        intent.setAction(android.content.Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.fromFile(file), mimetype);
-                        startActivity(intent);
-                    } else {
-                        Uri uri = Uri.parse(url);
-                        startActivity(Intent.createChooser(new Intent(Intent.ACTION_VIEW, uri), getString(R.string.open_with)));
-                    }
-                } else {
-                    ContextUtils.get().openWebpageInExternalBrowser(url);
-                }
-                return true;
-            }
-        });
     }
 
     @Override
