@@ -1,29 +1,22 @@
 apply plugin: 'com.android.application'
-
-ext {
-    version_sdk = [
-            compileSdk: 27,
-            minSdk    : 14,
-    ]
-    version_lib = [
-            appcompat: "27.0.0",
-            butterknife: "8.8.1",
-            commonmark: "0.10.0",
-    ]
+if (enable_plugin_kotlin) {
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-android-extensions'
+    apply plugin: 'kotlin-kapt'
 }
 
+ext.version_setup_minSdk = 14
+
 android {
-    compileSdkVersion version_sdk.compileSdk
+    compileSdkVersion version_setup_compileSdk
     flavorDimensions "default"
 
     defaultConfig {
-        minSdkVersion version_sdk.minSdk
-        targetSdkVersion version_sdk.compileSdk
+        minSdkVersion version_setup_minSdk
+        targetSdkVersion version_setup_targetSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
-        buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {
-            "\"${it}\""
-        }.join(",") + '}')
+        buildConfigField "String[]", "APPLICATION_LANGUAGES", "${getUsedAndroidLanguages()}"
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
 
         applicationId "net.gsantner.markor"
@@ -40,6 +33,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        if (enable_plugin_kotlin) {
+            main.java.srcDirs += 'src/main/kotlin'
         }
     }
 
@@ -63,33 +62,43 @@ android {
 }
 
 dependencies {
-    // Android standard libs
-    implementation "com.android.support:appcompat-v7:${version_lib.appcompat}"
-    implementation "com.android.support:design:${version_lib.appcompat}"
-    implementation "com.android.support:support-v4:${version_lib.appcompat}"
-    implementation "com.android.support:recyclerview-v7:${version_lib.appcompat}"
-    implementation "com.android.support:palette-v7:${version_lib.appcompat}"
-
-    // UI libs
-    implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
-    implementation "com.atlassian.commonmark:commonmark:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-gfm-tables:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-autolink:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-ins:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_lib.commonmark}"
-    implementation "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_lib.commonmark}"
-
-    implementation 'com.pixplicity.generate:library:1.1.8'
-
-    // Tool libraries
-    implementation "com.jakewharton:butterknife:${version_lib.butterknife}"
-    implementation 'commons-io:commons-io:2.5'
-
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.8.0'
 
+    // Android standard libs
+    implementation "com.android.support:appcompat-v7:${version_library_appcompat}"
+    implementation "com.android.support:design:${version_library_appcompat}"
+    implementation "com.android.support:support-v4:${version_library_appcompat}"
+    implementation "com.android.support:recyclerview-v7:${version_library_appcompat}"
+    implementation "com.android.support:palette-v7:${version_library_appcompat}"
+
+    // UI libs
+    implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
+    implementation "com.atlassian.commonmark:commonmark:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-gfm-tables:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-autolink:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-ins:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:${version_library_commonmark}"
+    implementation "com.atlassian.commonmark:commonmark-ext-heading-anchor:${version_library_commonmark}"
+
+    implementation 'com.pixplicity.generate:library:1.1.8'
+
+    // Tool libraries
+    implementation "com.jakewharton:butterknife:${version_library_butterknife}"
+    implementation 'commons-io:commons-io:2.5'
+    if (enable_plugin_kotlin) {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$version_plugin_kotlin"
+    }
+
     // Processors
-    annotationProcessor "com.jakewharton:butterknife-compiler:${version_lib.butterknife}"
+    def anpros = ["com.jakewharton:butterknife-compiler:${version_library_butterknife}"]
+    for (anpro in anpros) {
+        if (enable_plugin_kotlin) {
+            kapt anpro
+        } else {
+            annotationProcessor anpro
+        }
+    }
 }
