@@ -20,8 +20,8 @@ android {
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
 
         applicationId "net.gsantner.markor"
-        versionName "0.2.2"
-        versionCode 10
+        versionName "0.2.3"
+        versionCode 11
     }
 
     compileOptions {
