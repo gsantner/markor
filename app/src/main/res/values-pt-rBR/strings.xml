@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">Esconder barra de tarefas nesta visualização</string>
     <string name="pref_title__is_statusbar_hidden">Esconder barra de status</string>
     
-    <string name="format_dialog_name_hint">Nome</string>
-    <string name="format_dialog_url_or_path_hint">URL / Caminho</string>
-    <string name="format_link_dialog_title">Inserir Link</string>
-    <string name="format_image_dialog_title">Inserir Imagem</string>
+    <string name="name">Nome</string>
+    <string name="url_or_path">URL / Caminho</string>
+    <string name="insert_link">Inserir Link</string>
+    <string name="insert_image">Inserir Imagem</string>
 
     <!-- About screen -->
     <string name="contributors">Colaboradores</string>

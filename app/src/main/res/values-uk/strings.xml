@@ -79,10 +79,10 @@
     <string name="sort_by_date">Дата</string>
     <string name="sort_by_name">Ім\'я</string>
     <string name="sort_by_size">Розмір</string>
-    <string name="format_link_dialog_title">Вставити посилання</string>
-    <string name="format_image_dialog_title">Вставити зображення</string>
-    <string name="format_dialog_url_or_path_hint">URL / Шлях</string>
-    <string name="format_dialog_name_hint">Ім\'я</string>
+    <string name="insert_link">Вставити посилання</string>
+    <string name="insert_image">Вставити зображення</string>
+    <string name="url_or_path">URL / Шлях</string>
+    <string name="name">Ім\'я</string>
     <string name="undo">Скасувати</string>
     <string name="sort_reverse">У зворотному порядку</string>
     <string name="share_html__mime_plaintext">HTML (як звичайний текст)</string>

@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">Ocultar la barra de estado en esta vista</string>
     <string name="pref_title__is_statusbar_hidden">Ocultar la barra de estado</string>
 
-    <string name="format_dialog_name_hint">Nombre</string>
-    <string name="format_dialog_url_or_path_hint">URL / Ruta</string>
-    <string name="format_link_dialog_title">Insertar enlace</string>
-    <string name="format_image_dialog_title">Insertar imagen</string>
+    <string name="name">Nombre</string>
+    <string name="url_or_path">URL / Ruta</string>
+    <string name="insert_link">Insertar enlace</string>
+    <string name="insert_image">Insertar imagen</string>
 
     <!-- About screen -->
     <string name="contributors">Contribuidores</string>

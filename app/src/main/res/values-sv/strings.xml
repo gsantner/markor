@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">Dölj statusfältet i den här vyn</string>
     <string name="pref_title__is_statusbar_hidden">Dölj statusfältet</string>
 
-    <string name="format_dialog_name_hint">Namn</string>
-    <string name="format_dialog_url_or_path_hint">URL / sökväg</string>
-    <string name="format_link_dialog_title">Infoga länk</string>
-    <string name="format_image_dialog_title">Infoga bild</string>
+    <string name="name">Namn</string>
+    <string name="url_or_path">URL / sökväg</string>
+    <string name="insert_link">Infoga länk</string>
+    <string name="insert_image">Infoga bild</string>
 
     <!-- About screen -->
     <string name="contributors">Bidragande personer</string>

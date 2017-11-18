@@ -9,6 +9,7 @@
     <string name="confirm_delete_description">Do you really want to delete this %s?</string>
     <string name="confirm_overwrite">Confirm Overwrite</string>
     <string name="confirm_overwrite_description">File already exists, overwrite?</string>
+    <string name="browse_filesystem">Browse filesystem</string>
     <string name="title">Title</string>
     <string name="empty_directory">This directory is empty</string>
     <string name="navigate_up_folder">Back to previous folder</string>
@@ -68,10 +69,10 @@
     <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
 
-    <string name="format_dialog_name_hint">Name</string>
-    <string name="format_dialog_url_or_path_hint">URL / Path</string>
-    <string name="format_link_dialog_title">Insert Link</string>
-    <string name="format_image_dialog_title">Insert Image</string>
+    <string name="name">Name</string>
+    <string name="url_or_path">URL / Path</string>
+    <string name="insert_link">Insert Link</string>
+    <string name="insert_image">Insert Image</string>
 
     <!-- About screen -->
     <string name="contributors">Contributors</string>

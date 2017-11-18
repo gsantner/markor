@@ -75,7 +75,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isShowMarkdownShortcuts() {
-        return getBool(R.string.pref_key__is_show_markdown_shortcuts, false);
+        return getBool(R.string.pref_key__is_show_markdown_shortcuts, true);
     }
 
     public boolean isHighlightingEnabled() {

@@ -62,10 +62,10 @@
     <string name="pref_summary__is_statusbar_hidden">Verberg de statusbalk in deze weergave</string>
     <string name="pref_title__is_statusbar_hidden">Verberg statusbalk</string>
 
-    <string name="format_dialog_name_hint">Naam</string>
-    <string name="format_dialog_url_or_path_hint">URL / Pad</string>
-    <string name="format_link_dialog_title">Voeg koppeling toe</string>
-    <string name="format_image_dialog_title">Voeg afbeelding toe</string>
+    <string name="name">Naam</string>
+    <string name="url_or_path">URL / Pad</string>
+    <string name="insert_link">Voeg koppeling toe</string>
+    <string name="insert_image">Voeg afbeelding toe</string>
 
     <!-- About screen -->
     <string name="contributors">Bijdragers</string>

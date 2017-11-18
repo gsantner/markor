@@ -68,10 +68,10 @@
     <string name="pref_summary__is_statusbar_hidden">Ukryj pasek stanu w tym widoku</string>
     <string name="pref_title__is_statusbar_hidden">Ukryj pasek stanu</string>
 
-    <string name="format_dialog_name_hint">Nazwa</string>
-    <string name="format_dialog_url_or_path_hint">URL / Ścieżka</string>
-    <string name="format_link_dialog_title">Wstaw link</string>
-    <string name="format_image_dialog_title">Wstaw obrazek</string>
+    <string name="name">Nazwa</string>
+    <string name="url_or_path">URL / Ścieżka</string>
+    <string name="insert_link">Wstaw link</string>
+    <string name="insert_image">Wstaw obrazek</string>
 
     <!-- About screen -->
     <string name="contributors">Współtwórcy</string>

@@ -3,16 +3,22 @@ package net.gsantner.markor.format.shortcut;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.util.FileUtils;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,14 +38,14 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                 appendShortcutToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]));
             }
 
-            // Regular actions
-            for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
-                appendShortcutToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
-            }
-
             // Extra actions
             for (int[] actions : KEYBOARD_EXTRA_ACTIONS_ICONS) {
                 appendShortcutToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]));
+            }
+
+            // Regular actions
+            for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
+                appendShortcutToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
             }
         } else if (!AppSettings.get().isShowMarkdownShortcuts()) {
             setBarVisible(barLayout, false);
@@ -201,21 +207,23 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
         }
     }
 
+    @SuppressWarnings("RedundantCast")
     private void getAlertDialog(int action) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view = _activity.getLayoutInflater().inflate(R.layout.format_dialog, (ViewGroup) null);
+        final View view = _activity.getLayoutInflater().inflate(R.layout.ui__select_path_dialog, (ViewGroup) null);
+        final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
+        final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
+        final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
 
-        final EditText linkName = view.findViewById(R.id.format_dialog_name);
-        final EditText linkUrl = view.findViewById(R.id.format_dialog_url);
-        linkName.setHint(_context.getString(R.string.format_dialog_name_hint));
-        linkUrl.setHint(_context.getString(R.string.format_dialog_url_or_path_hint));
         int startCursorPos = _contentEditor.getSelectionStart();
         if (_contentEditor.hasSelection()) {
             String selected_text = _contentEditor.getText().subSequence(
                     _contentEditor.getSelectionStart(),
                     _contentEditor.getSelectionEnd()
             ).toString();
-            linkName.setText(selected_text);
+            editPathName.setText(selected_text);
+        } else if (_contentEditor.getText().toString().isEmpty()) {
+            editPathName.setText("");
         } else {
             Editable contentText = _contentEditor.getText();
             int lineStartidx = Math.max(startCursorPos - 1, 0);
@@ -237,18 +245,48 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                 int stat = lineStartidx + m.regionStart();
                 int en = lineStartidx + m.regionEnd();
                 _contentEditor.setSelection(stat, en);
-                linkName.setText(m.group(1));
-                linkUrl.setText((m.group(2)));
+                editPathName.setText(m.group(1));
+                editPathUrl.setText((m.group(2)));
             }
         }
 
         final String formatTemplate = action == 1 ? "[%s](%s)" : "![%s](%s)";
-        String actionTitle = "";
+        int actionTitle = R.string.select;
         if (action == 1) {
-            actionTitle = "Insert Link";
+            actionTitle = R.string.insert_link;
         } else if (action == 2) {
-            actionTitle = "Insert Image";
+            actionTitle = R.string.insert_image;
         }
+
+        buttonBrowseFs.setOnClickListener(button -> {
+            if (getActivity() instanceof AppCompatActivity) {
+                AppCompatActivity a = (AppCompatActivity) getActivity();
+                FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                    @Override
+                    public void onFsSelected(String request, File file) {
+                        final String saveDir = AppSettings.get().getSaveDirectory();
+                        String text = null;
+                        if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
+                            text = FileUtils.relativePath(_document.getFile(), file);
+                        }
+                        if (text == null) {
+                            text = file.getAbsolutePath();
+                        }
+                        editPathUrl.setText(text);
+                        if (editPathName.getText().toString().isEmpty()) {
+                            text = file.getName();
+                            text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
+                            editPathName.setText(text);
+                        }
+                    }
+
+                    @Override
+                    public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                        // TODO: Set start/home folder
+                    }
+                }, a.getSupportFragmentManager(), a);
+            }
+        });
 
         builder.setView(view)
                 .setTitle(actionTitle)
@@ -266,13 +304,13 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
                         if (_contentEditor.hasSelection()) {
                             _contentEditor.getText().replace(_contentEditor.getSelectionStart(),
                                     _contentEditor.getSelectionEnd(),
-                                    String.format(formatTemplate, linkName.getText().toString(),
-                                            linkUrl.getText().toString()));
+                                    String.format(formatTemplate, editPathName.getText().toString(),
+                                            editPathUrl.getText().toString()));
                             _contentEditor.setSelection(_contentEditor.getSelectionStart());
                         } else {
                             _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
-                                    String.format(formatTemplate, linkName.getText().toString(),
-                                            linkUrl.getText().toString()));
+                                    String.format(formatTemplate, editPathName.getText().toString(),
+                                            editPathUrl.getText().toString()));
                         }
                     }
                 });
