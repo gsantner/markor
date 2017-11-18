@@ -126,4 +126,5 @@
     <string name="add_shortcut_to_launcher_homescreen">Verknüpfung erstellen</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
     <string name="browse_filesystem">Dateisystem durchsuchen</string>
+    <string name="file_not_in_save_path_do_import">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
 </resources>
