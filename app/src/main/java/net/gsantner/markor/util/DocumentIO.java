@@ -54,7 +54,7 @@ public class DocumentIO {
     }
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
-    public static Document loadDocument(Context context, Bundle arguments, @Nullable Document existingDocument) {
+    public static synchronized Document loadDocument(Context context, Bundle arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
             return existingDocument;
         }
@@ -96,7 +96,7 @@ public class DocumentIO {
         return document;
     }
 
-    public static boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
+    public static synchronized boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
         boolean ret = false;
         String filename = DocumentIO.normalizeTitleForFilename(document) + document.getFileExtension();
         document.setDoHistory(true);
