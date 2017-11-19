@@ -291,10 +291,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
                 }
                 case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
+                    fragment = DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
+                    break;
                 }
                 case R.id.nav_more: {
-                    return MoreFragment.newInstance();
+                    fragment = MoreFragment.newInstance();
+                    break;
                 }
             }
 

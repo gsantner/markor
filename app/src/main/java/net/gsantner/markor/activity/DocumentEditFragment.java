@@ -287,6 +287,8 @@ public class DocumentEditFragment extends BaseFragment {
         Activity a = getActivity();
         if (isVisibleToUser && a != null && a instanceof MainActivity) {
             checkReloadDisk();
+        } else if (!isVisibleToUser && _document != null) {
+            saveDocument();
         }
     }
 
