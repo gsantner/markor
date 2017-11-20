@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import net.gsantner.markor.format.highlighter.markdown.MarkdownAutoFormat;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 import net.gsantner.markor.util.AppSettings;
 
 
@@ -51,7 +52,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (AppSettings.get().isHighlightingEnabled()) {
             // Set the default highlighter and auto-formatter
             setAutoFormat(new MarkdownAutoFormat());
-            setHighlighter(new Highlighter());
+            setHighlighter(new MarkdownHighlighter());
             enableHighlighting();
         }
         init();
