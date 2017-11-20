@@ -43,7 +43,7 @@ public class PermissionChecker {
     }
 
     public static boolean mkSaveDir(Activity activity) {
-        File saveDir = new File(AppSettings.get().getSaveDirectory());
+        File saveDir = new File(AppSettings.get().getNotebookDirectoryAsStr());
         if (!saveDir.exists() && !saveDir.mkdirs()) {
             new ActivityUtils(activity).showSnackBar(R.string.error_cannot_create_notebook_dir, false);
             return false;

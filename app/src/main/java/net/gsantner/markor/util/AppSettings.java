@@ -34,8 +34,8 @@ public class AppSettings extends AppSettingsBase {
         return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
     }
 
-    public boolean isRememberLastDirectory() {
-        return getBool(R.string.pref_key__remember_last_opened_directory, true);
+    public boolean isLoadLastDirectoryAtStartup() {
+        return getBool(R.string.pref_key__load_last_directory_at_startup, false);
     }
 
     public boolean isPreviewFirst() {
@@ -46,7 +46,12 @@ public class AppSettings extends AppSettingsBase {
         setString(R.string.pref_key__notebook_directory, value);
     }
 
-    public String getSaveDirectory() {
+
+    public File getNotebookDirectory() {
+        return new File(getNotebookDirectoryAsStr());
+    }
+
+    public String getNotebookDirectoryAsStr() {
         String dir = getString(R.string.pref_key__notebook_directory, "");
         if (dir.isEmpty()) {
             dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
@@ -58,7 +63,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public File getQuickNoteFile() {
-        String defaultValue = new File(getSaveDirectory(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
+        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
         return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
     }
 
@@ -87,7 +92,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public String getLastOpenedDirectory() {
-        return getString(R.string.pref_key__last_opened_directory, getSaveDirectory());
+        return getString(R.string.pref_key__last_opened_directory, getNotebookDirectoryAsStr());
     }
 
     public void setLastOpenedDirectory(String value) {

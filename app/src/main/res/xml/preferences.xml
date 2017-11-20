@@ -49,9 +49,10 @@
     <PreferenceCategory android:title="@string/document_browser">
 
         <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/pref_key__remember_last_opened_directory"
-            android:title="@string/remember_directory" />
+            android:defaultValue="false"
+            android:summary="@string/load_last_directory_at_startup__summary"
+            android:key="@string/pref_key__load_last_directory_at_startup"
+            android:title="@string/load_last_directory_at_startup" />
 
         <CheckBoxPreference
             android:defaultValue="false"

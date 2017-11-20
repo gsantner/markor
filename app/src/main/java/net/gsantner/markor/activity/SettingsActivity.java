@@ -119,7 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         public void updateSummaries() {
             Preference pref = findPreference(getString(R.string.pref_key__notebook_directory));
-            pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getSaveDirectory());
+            pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr());
         }
 
         @Override
@@ -150,7 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     AppSettings as = AppSettings.get();
                                     as.setSaveDirectory(file.getAbsolutePath());
                                     as.setRecreateMainRequired(true);
-                                    as.setLastOpenedDirectory(as.getSaveDirectory());
+                                    as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
                                     updateSummaries();
                                 }
 

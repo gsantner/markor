@@ -83,7 +83,7 @@ public class MarkdownConverter {
         // Default font is set by css in line 1 of generated html
         html = html.replaceFirst("sans-serif-light", AppSettings.get().getFontFamily());
 
-        String baseFolder = AppSettings.get().getSaveDirectory();
+        String baseFolder = AppSettings.get().getNotebookDirectoryAsStr();
         if (document.getFile() != null && document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }

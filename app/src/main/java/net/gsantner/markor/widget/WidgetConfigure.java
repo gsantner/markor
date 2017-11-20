@@ -55,7 +55,7 @@ public class WidgetConfigure extends AppCompatActivity {
                 @Override
                 public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                     opt.titleText = R.string.select_folder;
-                    opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
+                    opt.rootFolder = new File(AppSettings.get().getNotebookDirectoryAsStr());
                 }
             }, fragManager, this);
         }

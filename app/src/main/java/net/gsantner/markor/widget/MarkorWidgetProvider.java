@@ -60,7 +60,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
 
             SharedPreferences sharedPreferences = context.getSharedPreferences(
                     "" + appWidgetIds[i], Context.MODE_PRIVATE);
-            String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getSaveDirectory());
+            String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getNotebookDirectoryAsStr());
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
                     .putExtra(DocumentIO.EXTRA_PATH, new File(directory))
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
