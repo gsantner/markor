@@ -262,7 +262,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         final FilesystemDialogData.SelectionListener fsListener = new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsSelected(final String request, final File file) {
-                final String saveDir = AppSettings.get().getSaveDirectory();
+                final String saveDir = AppSettings.get().getNotebookDirectoryAsStr();
                 String text = null;
                 if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
                     text = FileUtils.relativePath(_document.getFile(), file);

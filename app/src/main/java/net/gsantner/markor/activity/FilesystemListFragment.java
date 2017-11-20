@@ -62,10 +62,10 @@ import butterknife.OnItemClick;
 import static android.content.Context.SEARCH_SERVICE;
 
 public class FilesystemListFragment extends BaseFragment {
+    public static final String FRAGMENT_TAG = "FilesystemListFragment";
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
     public static final int SORT_BY_FILESIZE = 2;
-    public static final String FRAGMENT_TAG = "FilesystemListFragment";
 
     @BindView(R.id.filesystemlist__fragment__listview)
     public ListView _filesListView;
@@ -118,14 +118,14 @@ public class FilesystemListFragment extends BaseFragment {
 
         _filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         _filesListView.setAdapter(_simpleSectionAdapter);
-        _rootDir = getRootFolderFromPrefsOrDefault();
+        _rootDir = AppSettings.get().getNotebookDirectory();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         _markorSingleton = MarkorSingleton.getInstance();
-        File possiblyNewRootDir = getRootFolderFromPrefsOrDefault();
+        File possiblyNewRootDir = AppSettings.get().getNotebookDirectory();
         if (possiblyNewRootDir != _rootDir) {
             _rootDir = possiblyNewRootDir;
             _currentDir = possiblyNewRootDir;
@@ -135,10 +135,6 @@ public class FilesystemListFragment extends BaseFragment {
 
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(_context);
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
-    }
-
-    private File getRootFolderFromPrefsOrDefault() {
-        return new File(AppSettings.get().getSaveDirectory());
     }
 
     private void retrieveCurrentFolder() {
@@ -216,7 +212,7 @@ public class FilesystemListFragment extends BaseFragment {
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                 opt.titleText = R.string.move;
-                opt.rootFolder = new File(AppSettings.get().getSaveDirectory());
+                opt.rootFolder = new File(AppSettings.get().getNotebookDirectoryAsStr());
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }
@@ -622,6 +618,7 @@ public class FilesystemListFragment extends BaseFragment {
             _currentDir = clickedFile;
             listFilesInDirectory(clickedFile);
         } else {
+            saveCurrentFolder();
             Intent intent = new Intent(context, DocumentActivity.class);
             intent.putExtra(DocumentIO.EXTRA_PATH, clickedFile);
             intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);

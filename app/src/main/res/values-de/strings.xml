@@ -134,7 +134,6 @@
     <string name="global">Global</string>
     <string name="main_view">Hauptansicht</string>
     <string name="theme_description">Das global in dieser App verwendete Thema ändern</string>
-    <string name="remember_directory">Ordner merken</string>
     <string name="syntax_highlighting">Syntax Highlighting</string>
     <string name="text_modules">Text Module</string>
     <string name="text_module">Text Modul</string>
@@ -143,4 +142,6 @@
     <string name="highlighting_enabled_summary">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="textmodules_bar_summary">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text Module einfügen</string>
     <string name="editor_font_size_summary">Einstellen der Schriftgröße im Editor</string>
+    <string name="load_last_directory_at_startup">Letzten Ordner merken</string>
+    <string name="load_last_directory_at_startup__summary">Lade den zuletzt geöffneten Ordner beim Starten</string>
 </resources>

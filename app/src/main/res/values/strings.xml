@@ -135,7 +135,7 @@
     <string name="global">Global</string>
     <string name="main_view">Main View</string>
     <string name="theme_description">The overall theme used in the app</string>
-    <string name="remember_directory">Remember directory</string>
+    <string name="load_last_directory_at_startup">Remember last directory</string>
     <string name="syntax_highlighting">Syntax highlighting</string>
     <string name="text_modules">Text modules</string>
     <string name="text_module">Text module</string>
@@ -144,4 +144,5 @@
     <string name="highlighting_enabled_summary">Control whether entered text should be highlighted or not</string>
     <string name="editor_font_size_summary">Control the font size used in the editor</string>
     <string name="textmodules_bar_summary">Show a bar with useful actions to insert common used text modules</string>
+    <string name="load_last_directory_at_startup__summary">Load the last opened folder at startup</string>
 </resources>

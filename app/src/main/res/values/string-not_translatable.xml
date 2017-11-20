@@ -48,7 +48,7 @@
     <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
     <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
-    <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
+    <string name="pref_key__load_last_directory_at_startup" translatable="false">pref_key__load_last_directory_at_startup</string>
     <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
     <string name="pref_key__notebook_directory" translatable="false">pref_key__save_directory</string>
     <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
