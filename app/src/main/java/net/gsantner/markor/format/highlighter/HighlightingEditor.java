@@ -12,27 +12,23 @@ import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColorsNeutral;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.util.AppSettings;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-// TODO: Seperate markdown from this out, make use of derivation/abstract
 public class HighlightingEditor extends AppCompatEditText {
 
     private Highlighter highlighter;
+    private boolean doHighlighting = false;
 
     interface OnTextChangedListener {
         void onTextChanged(String text);
     }
 
     private OnTextChangedListener onTextChangedListener = null;
-    private Pattern orderedListPrefixPattern = Pattern.compile("(?m)^([0-9]+)(\\.)");
 
     private final Handler updateHandler = new Handler();
     private final Runnable updateRunnable =
@@ -49,36 +45,34 @@ public class HighlightingEditor extends AppCompatEditText {
             };
     private boolean modified = true;
 
-    public HighlightingEditor(Context context) {
-        super(context);
-        if (AppSettings.get().isHighlightingEnabled()) {
-            init();
-        }
-    }
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (AppSettings.get().isHighlightingEnabled()) {
-            init();
+            // Set the default highlighter and auto-formatter
+            setAutoFormat(new MarkdownAutoFormat());
+            setHighlighter(new Highlighter());
+            enableHighlighting();
         }
+        init();
     }
 
-    public HighlightingEditor(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        if (AppSettings.get().isHighlightingEnabled()) {
-            init();
-        }
+    private void enableHighlighting() {
+        doHighlighting = true;
+    }
+    private void disableHighlighting(){
+        doHighlighting = false;
     }
 
+    private void setHighlighter(Highlighter newHighlighter){
+        highlighter = newHighlighter;
+    }
+
+    private void setAutoFormat(InputFilter newAutoFormatter){
+        setFilters(new InputFilter[]{ newAutoFormatter });
+    }
     private void init() {
-
-        setFilters(new InputFilter[]{new IndentationFilter()});
-
         final int highlightingDelay = getHighlightingDelayFromPrefs();
-
-        highlighter = new Highlighter(new MarkdownHighlighterColorsNeutral(),
-                AppSettings.get().getFontFamily(),
-                AppSettings.get().getFontSize());
 
         addTextChangedListener(
                 new TextWatcher() {
@@ -117,9 +111,11 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void highlightWithoutChange(Editable e) {
-        modified = false;
-        highlighter.run(e);
-        modified = true;
+        if(doHighlighting) {
+            modified = false;
+            highlighter.run(e);
+            modified = true;
+        }
     }
 
     private String getStringFromStringTable(int preference_key) {
@@ -128,123 +124,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private int getHighlightingDelayFromPrefs() {
         return AppSettings.get().getHighlightingDelay();
-    }
-
-    private class IndentationFilter implements InputFilter {
-        @Override
-        public CharSequence filter(
-                CharSequence source,
-                int start,
-                int end,
-                Spanned dest,
-                int dstart,
-                int dend) {
-
-            if (modified &&
-                    end - start == 1 &&
-                    start < source.length() &&
-                    dstart <= dest.length()) {
-                char newChar = source.charAt(start);
-
-                if (newChar == '\n') {
-                    return autoIndent(
-                            source,
-                            dest,
-                            dstart,
-                            dend);
-                }
-            }
-
-            return source;
-        }
-
-        private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-
-            int istart = findLineBreakPosition(dest, dstart);
-
-            // append white space of previous line and new indent
-            return source + createIndentForNextLine(dest, dend, istart);
-        }
-
-        private int findLineBreakPosition(Spanned dest, int dstart) {
-            int istart = dstart - 1;
-
-            for (; istart > -1; --istart) {
-                char c = dest.charAt(istart);
-
-                if (c == '\n')
-                    break;
-            }
-            return istart;
-        }
-
-        private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-            if (istart > -1 && istart < dest.length() - 1) {
-                int iend;
-
-                for (iend = ++istart;
-                     iend < dest.length() - 1;
-                     ++iend) {
-                    char c = dest.charAt(iend);
-
-                    if (c != ' ' &&
-                            c != '\t') {
-                        break;
-                    }
-                }
-
-                if (iend < dest.length() - 1) {
-                    // This is for any line that is not the first line in a file
-                    if (dest.charAt(iend + 1) == ' ') {
-                        return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
-                    } else {
-                        Matcher m = orderedListPrefixPattern.matcher(dest.toString().substring(iend));
-                        if (m.find()) {
-                            return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
-                        } else {
-                            return "";
-                        }
-                    }
-                } else {
-                    return "";
-                }
-            } else if (istart > -1) {
-                return "";
-            } else if (dest.length() > 1) {
-                // This is for the first line in a file.
-                if (dest.charAt(1) == ' ') {
-                    return addBulletPointIfNeeded(dest.charAt(0));
-                } else {
-                    Matcher m = orderedListPrefixPattern.matcher(dest.toString());
-                    if (m.find()) {
-                        return addNumericListItemIfNeeded(m.group(1));
-                    } else {
-                        return "";
-                    }
-                }
-            } else {
-                return "";
-            }
-        }
-
-        private String addNumericListItemIfNeeded(String itemNumStr) {
-            try {
-                int nextC = Integer.parseInt(itemNumStr) + 1;
-                return nextC + ". ";
-            } catch (NumberFormatException e) {
-                // This should never ever happen
-                return "";
-            }
-        }
-
-        private String addBulletPointIfNeeded(char character) {
-            if (character == '*' || character == '+' || character == '-' || character == '>') {
-                return Character.toString(character) + " ";
-            } else {
-                return "";
-            }
-
-        }
     }
 
 }
