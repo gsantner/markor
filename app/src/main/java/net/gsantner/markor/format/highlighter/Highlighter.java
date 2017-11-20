@@ -8,10 +8,18 @@
 package net.gsantner.markor.format.highlighter;
 
 import android.text.Editable;
+import android.text.InputFilter;
+
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 
 public abstract class Highlighter {
 
     protected abstract Editable run(Editable e);
 
+    public abstract InputFilter getAutoFormatter();
+
+    protected static Highlighter getDefaultHighlighter(){
+        return new MarkdownHighlighter();
+    }
 
 }

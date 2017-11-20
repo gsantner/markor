@@ -3,6 +3,7 @@ package net.gsantner.markor.format.highlighter.markdown;
 import net.gsantner.markor.format.highlighter.Highlighter;
 import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
@@ -14,10 +15,6 @@ import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 
 import net.gsantner.markor.format.highlighter.SpanCreator;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHeaderSpanCreator;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColors;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColorsNeutral;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Matcher;
@@ -61,6 +58,11 @@ public class MarkdownHighlighter extends Highlighter{
         }
 
         return e;
+    }
+
+    @Override
+    public InputFilter getAutoFormatter() {
+        return new MarkdownAutoFormat();
     }
 
     private void createHeaderSpanForMatches(Editable e, MarkdownHighlighterPattern pattern, int headerColor) {
