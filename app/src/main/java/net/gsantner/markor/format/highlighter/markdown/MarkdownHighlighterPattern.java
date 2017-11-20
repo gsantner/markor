@@ -10,7 +10,8 @@ package net.gsantner.markor.format.highlighter.markdown;
 import java.util.regex.Pattern;
 
 public enum MarkdownHighlighterPattern {
-    LIST(Pattern.compile("(\\n|^)\\s{0,3}(\\*|\\d+\\.|\\+|-)( \\[[ |x|X]\\])?(?= )")),
+    LIST(Pattern.compile("(\\n|^)\\s{0,3}(\\*|\\+|-)( \\[[ |x|X]\\])?(?= )")),
+    LISTORD(Pattern.compile("(?m)^([0-9]+)(\\.)")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
     HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),

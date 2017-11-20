@@ -4,15 +4,8 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-/**
- * Created by stud on 21/11/17.
- */
 
 public class MarkdownAutoFormat implements InputFilter {
-    private Pattern orderedListPrefixPattern = Pattern.compile("(?m)^([0-9]+)(\\.)");
-
     @Override
     public CharSequence filter(
             CharSequence source,
@@ -22,8 +15,7 @@ public class MarkdownAutoFormat implements InputFilter {
             int dstart,
             int dend) {
 
-        if (true && //modified &&
-                end - start == 1 &&
+        if (    end - start == 1 &&
                 start < source.length() &&
                 dstart <= dest.length()) {
             char newChar = source.charAt(start);
@@ -78,10 +70,11 @@ public class MarkdownAutoFormat implements InputFilter {
 
             if (iend < dest.length() - 1) {
                 // This is for any line that is not the first line in a file
-                if (dest.charAt(iend + 1) == ' ') {
-                    return dest.subSequence(istart, iend) + addBulletPointIfNeeded(dest.charAt(iend));
+                Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString().substring(iend,dend));
+                if (listMatcher.find()) {
+                    return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
                 } else {
-                    Matcher m = orderedListPrefixPattern.matcher(dest.toString().substring(iend));
+                    Matcher m = MarkdownHighlighterPattern.LISTORD.getPattern().matcher(dest.toString().substring(iend,dend));
                     if (m.find()) {
                         return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
                     } else {
@@ -94,11 +87,11 @@ public class MarkdownAutoFormat implements InputFilter {
         } else if (istart > -1) {
             return "";
         } else if (dest.length() > 1) {
-            // This is for the first line in a file.
-            if (dest.charAt(1) == ' ') {
-                return addBulletPointIfNeeded(dest.charAt(0));
+            Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString());
+            if (listMatcher.find()) {
+                return Character.toString(dest.charAt(0)) + " ";
             } else {
-                Matcher m = orderedListPrefixPattern.matcher(dest.toString());
+                Matcher m = MarkdownHighlighterPattern.LISTORD.getPattern().matcher(dest.toString());
                 if (m.find()) {
                     return addNumericListItemIfNeeded(m.group(1));
                 } else {
@@ -120,12 +113,4 @@ public class MarkdownAutoFormat implements InputFilter {
         }
     }
 
-    private String addBulletPointIfNeeded(char character) {
-        if (character == '*' || character == '+' || character == '-' || character == '>') {
-            return Character.toString(character) + " ";
-        } else {
-            return "";
-        }
-
-    }
 }
