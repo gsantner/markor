@@ -192,7 +192,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
             {R.drawable.format_link, 1}, {R.drawable.format_image, 2}
     };
-    private static final Pattern LINK_PATTERN = Pattern.compile("\\[(.*)\\]\\((.*)\\)");
+    private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
     private class KeyboardExtraActionsListener implements View.OnClickListener {
         int _action;
@@ -226,8 +226,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             editPathName.setText("");
         } else {
             Editable contentText = _contentEditor.getText();
-            int lineStartidx = Math.max(startCursorPos - 1, 0);
+            int lineStartidx = Math.max(startCursorPos, 0);
             int lineEndidx = Math.min(startCursorPos, contentText.length() - 1);
+            lineStartidx = Math.min(lineEndidx, lineStartidx);
             for (; lineStartidx > 0; lineStartidx--) {
                 if (contentText.charAt(lineStartidx) == '\n') {
                     break;
@@ -241,9 +242,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
             String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
             Matcher m = LINK_PATTERN.matcher(line);
-            if (m.find()) {
-                int stat = lineStartidx + m.regionStart();
-                int en = lineStartidx + m.regionEnd();
+            if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
+                int stat = lineStartidx + m.start();
+                int en = lineStartidx + m.end();
                 _contentEditor.setSelection(stat, en);
                 editPathName.setText(m.group(1));
                 editPathUrl.setText((m.group(2)));
