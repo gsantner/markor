@@ -15,8 +15,6 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
-import net.gsantner.markor.format.highlighter.markdown.MarkdownAutoFormat;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 import net.gsantner.markor.util.AppSettings;
 
 
@@ -50,9 +48,8 @@ public class HighlightingEditor extends AppCompatEditText {
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (AppSettings.get().isHighlightingEnabled()) {
-            // Set the default highlighter and auto-formatter
-            setAutoFormat(new MarkdownAutoFormat());
-            setHighlighter(new MarkdownHighlighter());
+            setHighlighter(Highlighter.getDefaultHighlighter());
+            setAutoFormat(highlighter.getAutoFormatter());
             enableHighlighting();
         }
         init();
@@ -67,10 +64,19 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private void setHighlighter(Highlighter newHighlighter){
         highlighter = newHighlighter;
+        enableHighlighting();
     }
 
     private void setAutoFormat(InputFilter newAutoFormatter){
         setFilters(new InputFilter[]{ newAutoFormatter });
+    }
+    private void removeAutoFormat(){
+        setFilters(new InputFilter[]{});
+    }
+    private void enableHighlighterAutoFormat(){
+        if(doHighlighting) {
+            setAutoFormat(highlighter.getAutoFormatter());
+        }
     }
     private void init() {
         final int highlightingDelay = getHighlightingDelayFromPrefs();
