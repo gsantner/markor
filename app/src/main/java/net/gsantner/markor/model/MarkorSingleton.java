@@ -184,8 +184,8 @@ public class MarkorSingleton {
     /**
      * Hide the header when getting to the external dir so the app doesn't show too much.
      */
-    public boolean isRootDir(File previousDir, File compareDir) {
-        return (previousDir == null || previousDir.getPath().equalsIgnoreCase(compareDir.getAbsolutePath()));
+    public boolean isRootDir(File currentDir, File rootDir) {
+        return (currentDir == null || currentDir.getPath().equalsIgnoreCase(rootDir.getAbsolutePath()));
     }
 
     public boolean isDirectoryEmpty(ArrayList<File> files) {

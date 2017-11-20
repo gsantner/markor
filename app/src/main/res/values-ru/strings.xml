@@ -29,10 +29,10 @@
     <string name="files">Файлы</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Помнить последнюю открытую директорию</string>
-    <string name="pref_title__font_choice">Шрифт редактора заметок</string>
-    <string name="pref_title__theme">Тема</string>
-    <string name="pref_title__preview_first">Сначала показать предпросмотр при открытии заметки</string>
+    <string name="remember_last_folder_location_on_startup">Помнить последнюю открытую директорию</string>
+    <string name="document_editor_font">Шрифт редактора заметок</string>
+    <string name="theme">Тема</string>
+    <string name="open_preview_when_open_documents">Сначала показать предпросмотр при открытии заметки</string>
     <string name="about">О программе Markor</string>
     <string name="plain_text">Просто текст</string>
     <string name="image">Изображение</string>
@@ -44,7 +44,7 @@
     <string name="pref_title__smart_shortcuts">Умные скобки</string>
     <string name="pref_title__smart_shortcuts_summary">{}, [] и () будут окружать выделенный текст</string>
     <string name="pref_title__render_rtl">Работать с языками \"справа-налево"</string>
-    <string name="error_cannot_create_save_dir">Ошибка: невозможно сохранить директорию</string>
+    <string name="error_cannot_create_notebook_dir">Ошибка: невозможно сохранить директорию</string>
 
     <!-- Font Size -->
 
@@ -64,7 +64,7 @@
     <!-- About screen -->
     <string name="contributors">Разработчики</string>
 
-    <string name="pref_title__save_directory">Выбрать рабочую директорию</string>
+    <string name="select_storage_folder">Выбрать рабочую директорию</string>
     <string name="licenses">Лицензии</string>
     <string name="changelog">Список изменений</string>
     <string name="more_information">Больше информации</string>

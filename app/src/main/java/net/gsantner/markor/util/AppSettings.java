@@ -43,11 +43,11 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public void setSaveDirectory(String value) {
-        setString(R.string.pref_key__save_directory, value);
+        setString(R.string.pref_key__notebook_directory, value);
     }
 
     public String getSaveDirectory() {
-        String dir = getString(R.string.pref_key__save_directory, "");
+        String dir = getString(R.string.pref_key__notebook_directory, "");
         if (dir.isEmpty()) {
             dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
                     , rstr(R.string.app_name).toLowerCase(Locale.ROOT))
@@ -74,8 +74,8 @@ public class AppSettings extends AppSettingsBase {
         return getIntOfStringPref(R.string.pref_key__font_size, 18);
     }
 
-    public boolean isShowMarkdownShortcuts() {
-        return getBool(R.string.pref_key__is_show_markdown_shortcuts, true);
+    public boolean isEditor_ShowTextmoduleBar() {
+        return getBool(R.string.pref_key__is_show_textmodules_bar, true);
     }
 
     public boolean isHighlightingEnabled() {
@@ -84,10 +84,6 @@ public class AppSettings extends AppSettingsBase {
 
     public int getHighlightingDelay() {
         return getIntOfStringPref(R.string.pref_key__highlighting_delay, 110);
-    }
-
-    public boolean isSmartShortcutsEnabled() {
-        return getBool(R.string.pref_key__is_smart_shortcuts_enabled, false);
     }
 
     public String getLastOpenedDirectory() {
@@ -142,6 +138,6 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
-        return getBool(R.string.pref_key__show_settings_option_in_main_toolbar, false);
+        return getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
     }
 }

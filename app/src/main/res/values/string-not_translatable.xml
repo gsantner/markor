@@ -45,17 +45,16 @@
 
     <!-- Preference keys -->
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
-    <string name="pref_key__is_show_markdown_shortcuts" translatable="false">pref_key__is_show_markdown_shortcuts</string>
+    <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
     <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
     <string name="pref_key__remember_last_opened_directory" translatable="false">pref_key__remember_last_opened_directory</string>
     <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
-    <string name="pref_key__save_directory" translatable="false">pref_key__save_directory</string>
+    <string name="pref_key__notebook_directory" translatable="false">pref_key__save_directory</string>
     <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
-    <string name="pref_key__is_smart_shortcuts_enabled" translatable="false">pref_key__is_smart_shortcuts_enabled</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__is_editor_statusbar_hidden" translatable="false">pref_key__is_editor_statusbar_hidden</string>
     <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>

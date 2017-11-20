@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (como texto simples)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Lembrar última pasta ao iniciar</string>
-    <string name="pref_title__font_choice">Fonte das notas</string>
-    <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Pré-visualização ao abrir notas</string>
+    <string name="remember_last_folder_location_on_startup">Lembrar última pasta ao iniciar</string>
+    <string name="document_editor_font">Fonte das notas</string>
+    <string name="theme">Tema</string>
+    <string name="open_preview_when_open_documents">Pré-visualização ao abrir notas</string>
     <string name="about">Sobre o Markor</string>
     <string name="plain_text">Texto puro</string>
     <string name="file">Arquivo</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Atalhos de colchetes inteligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Se o texto for selecionado, {}, [] e () irá rodear a seleção</string>
     <string name="pref_title__render_rtl">Renderizar para línguas de escrita da direita à esquerda</string>
-    <string name="error_cannot_create_save_dir">Erro: Impossível criar pasta de becape</string>
+    <string name="error_cannot_create_notebook_dir">Erro: Impossível criar pasta de becape</string>
 
     <string name="last_modified">Últimas modificações: %s</string>
     <string name="number_of_files">Número de arquivos: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Colaboradores</string>
-    <string name="pref_title__save_directory">Escolher pasta de armazenamento</string>
+    <string name="select_storage_folder">Escolher pasta de armazenamento</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de atualizações</string>
     <string name="more_information">Mais informações</string>

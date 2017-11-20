@@ -2,40 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <PreferenceCategory android:title="@string/app_settings">
+    <PreferenceCategory android:title="@string/global">
         <ListPreference
             android:defaultValue="@string/app_theme_light"
-            android:dialogTitle="@string/pref_title__theme"
+            android:dialogTitle="@string/theme"
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"
             android:key="@string/pref_key__app_theme"
-            android:title="@string/pref_title__theme" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/pref_key__remember_last_opened_directory"
-            android:title="@string/pref_title__remember_directory" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_key__is_preview_first"
-            android:title="@string/pref_title__preview_first" />
-
-        <Preference
-            android:key="@string/pref_key__save_directory"
-            android:title="@string/pref_title__save_directory" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_key__is_overview_statusbar_hidden"
-            android:summary="@string/pref_summary__is_statusbar_hidden"
-            android:title="@string/pref_title__is_statusbar_hidden" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_key__show_settings_option_in_main_toolbar"
-            android:summary="@string/pref_show_settings_option_in_main_toolbar"
-            android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
+            android:summary="@string/theme_description"
+            android:title="@string/theme" />
 
         <net.gsantner.opoc.ui.LanguagePreference
             android:key="@string/pref_key__language"
@@ -43,15 +18,64 @@
             android:title="@string/pref_title__language" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/editor_settings">
+    <PreferenceCategory android:title="@string/files_and_folders">
+        <Preference
+            android:key="@string/pref_key__notebook_directory"
+            android:title="@string/notebook_directory" />
+
+        <Preference
+            android:key="@string/pref_key__quicknote_filepath"
+            android:summary="@string/pref_summary__quicknote_filepath"
+            android:title="@string/quicknote" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/main_view">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_overview_statusbar_hidden"
+            android:summary="@string/pref_summary__is_statusbar_hidden"
+            android:title="@string/pref_title__is_statusbar_hidden" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key__show_settings_option_in_main_toolbar"
+            android:summary="@string/pref_show_settings_option_in_main_toolbar"
+            android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/document_browser">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key__remember_last_opened_directory"
+            android:title="@string/remember_directory" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_preview_first"
+            android:title="@string/open_preview_when_open_documents" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/editor">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key__is_editor_statusbar_hidden"
+            android:summary="@string/pref_summary__is_statusbar_hidden"
+            android:title="@string/pref_title__is_statusbar_hidden" />
+
         <net.gsantner.opoc.ui.FontPreference
             android:defaultValue="@string/default_font_family"
             android:key="@string/pref_key__font_family"
-            android:title="@string/pref_title__font_choice" />
+            android:title="@string/document_editor_font" />
 
         <ListPreference
             android:defaultValue="18"
             android:dialogTitle="@string/pref_title__font_size"
+            android:summary="@string/editor_font_size_summary"
             android:entries="@array/pref_arrkeys__font_size"
             android:entryValues="@array/pref_arrkeys__font_size"
             android:key="@string/pref_key__font_size"
@@ -59,13 +83,15 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/pref_key__is_show_markdown_shortcuts"
-            android:title="@string/pref_title__show_markdown_shortcuts" />
+            android:key="@string/pref_key__is_show_textmodules_bar"
+            android:summary="@string/textmodules_bar_summary"
+            android:title="@string/text_modules" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key__is_highlighting_activated"
-            android:title="@string/pref_title__highlighting_activated" />
+            android:summary="@string/highlighting_enabled_summary"
+            android:title="@string/syntax_highlighting" />
 
         <EditTextPreference
             android:defaultValue="110"
@@ -73,35 +99,17 @@
             android:inputType="number"
             android:key="@string/pref_key__highlighting_delay"
             android:numeric="integer"
-            android:summary="@string/pref_title__highlighting_delay_summary"
-            android:title="@string/pref_title__highlighting_delay" />
+            android:summary="@string/highlighting_delay_summary"
+            android:title="@string/highlighting_delay" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_key__is_smart_shortcuts_enabled"
-            android:summary="@string/pref_title__smart_shortcuts_summary"
-            android:title="@string/pref_title__smart_shortcuts" />
+    </PreferenceCategory>
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_key__is_editor_statusbar_hidden"
-            android:summary="@string/pref_summary__is_statusbar_hidden"
-            android:title="@string/pref_title__is_statusbar_hidden" />
+    <PreferenceCategory android:title="@string/preview">
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_key__is_render_rtl"
             android:title="@string/pref_title__render_rtl" />
-
-    </PreferenceCategory>
-
-
-    <PreferenceCategory android:title="@string/special_documents">
-
-        <Preference
-            android:key="@string/pref_key__quicknote_filepath"
-            android:summary="@string/pref_summary__quicknote_filepath"
-            android:title="@string/quicknote" />
 
     </PreferenceCategory>
 

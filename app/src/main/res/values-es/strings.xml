@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (como texto sencillo)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Recordar la última localización de carpeta al iniciarse</string>
-    <string name="pref_title__font_choice">Tipo de letra del editor de notas</string>
-    <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Previsualizar primero al abrir las notas</string>
+    <string name="remember_last_folder_location_on_startup">Recordar la última localización de carpeta al iniciarse</string>
+    <string name="document_editor_font">Tipo de letra del editor de notas</string>
+    <string name="theme">Tema</string>
+    <string name="open_preview_when_open_documents">Previsualizar primero al abrir las notas</string>
     <string name="about">Acerca de Markor</string>
     <string name="plain_text">Texto sencillo</string>
     <string name="file">Archivo</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Atajos para paréntesis inteligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Si hay texto seleccionado, {}, [] y () rodearán la selección</string>
     <string name="pref_title__render_rtl">Renderizar para idiomas de derecha a izquierda</string>
-    <string name="error_cannot_create_save_dir">Error: no se puede crear el directorio de guardado</string>
+    <string name="error_cannot_create_notebook_dir">Error: no se puede crear el directorio de guardado</string>
 
     <string name="last_modified">Última modificación: %s</string>
     <string name="number_of_files">Número de archivos: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Contribuidores</string>
-    <string name="pref_title__save_directory">Seleccionar carpeta de almacenamiento</string>
+    <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
     <string name="licenses">Licencias</string>
     <string name="changelog">Registro de cambios</string>
     <string name="more_information">Más información</string>

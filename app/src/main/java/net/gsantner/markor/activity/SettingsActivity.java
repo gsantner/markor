@@ -118,8 +118,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         public void updateSummaries() {
-            Preference pref = findPreference(getString(R.string.pref_key__save_directory));
-            pref.setSummary(AppSettings.get().getSaveDirectory());
+            Preference pref = findPreference(getString(R.string.pref_key__notebook_directory));
+            pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getSaveDirectory());
         }
 
         @Override
@@ -141,7 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference preference) {
             if (isAdded() && preference.hasKey()) {
                 switch (preference.getTitleRes()) {
-                    case R.string.pref_title__save_directory: {
+                    case R.string.notebook_directory: {
                         if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
                             FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
                             FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
@@ -156,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                    opt.titleText = R.string.pref_title__save_directory;
+                                    opt.titleText = R.string.select_storage_folder;
                                 }
                             }, fragManager, getActivity());
                             return true;

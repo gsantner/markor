@@ -29,10 +29,10 @@
     <string name="files">Files</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Ricorda la posizione dell\'ultima cartella all\'avvio</string>
-    <string name="pref_title__font_choice">Font dell\'Editor delle Note</string>
-    <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Anteprima all\'apertura della Nota</string>
+    <string name="remember_last_folder_location_on_startup">Ricorda la posizione dell\'ultima cartella all\'avvio</string>
+    <string name="document_editor_font">Font dell\'Editor delle Note</string>
+    <string name="theme">Tema</string>
+    <string name="open_preview_when_open_documents">Anteprima all\'apertura della Nota</string>
     <string name="about">About Markor</string>
     <string name="plain_text">Testo Puro</string>
     <string name="file">File</string>
@@ -45,7 +45,7 @@
     <string name="pref_title__smart_shortcuts">Scorciatoie per parentesi intelligenti</string>
     <string name="pref_title__smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
     <string name="pref_title__render_rtl">Render per lingue destra-verso-sinistra</string>
-    <string name="error_cannot_create_save_dir">Errore: Impossibile creare la directory di salvataggio</string>
+    <string name="error_cannot_create_notebook_dir">Errore: Impossibile creare la directory di salvataggio</string>
 
     <!-- Font Size -->
 
@@ -65,7 +65,7 @@
     <!-- About screen -->
     <string name="contributors">Chi ha contribuito</string>
 
-    <string name="pref_title__save_directory">Seleziona cartella di salvataggio</string>
+    <string name="select_storage_folder">Seleziona cartella di salvataggio</string>
     <string name="licenses">Licenze</string>
     <string name="changelog">Changelog</string>
     <string name="more_information">Più informazioni</string>
