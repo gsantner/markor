@@ -26,8 +26,8 @@ import android.view.ViewGroup;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.format.shortcut.EditorShortcuts;
-import net.gsantner.markor.format.shortcut.EditorShortcutsMarkdown;
+import net.gsantner.markor.format.textmodule.TextModuleActions;
+import net.gsantner.markor.format.textmodule.MarkdownTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
@@ -71,13 +71,13 @@ public class DocumentEditFragment extends BaseFragment {
     @BindView(R.id.document__fragment__edit__content_editor)
     HighlightingEditor _contentEditor;
 
-    @BindView(R.id.document__fragment__edit__shortcut_bar)
-    ViewGroup _markdownShortcutBar;
+    @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
+    ViewGroup _textModuleActionsBar;
 
     private View _view;
     private Context _context;
     private Document _document;
-    private EditorShortcuts _editorActions;
+    private TextModuleActions _editorActions;
 
     public DocumentEditFragment() {
     }
@@ -205,8 +205,8 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     private void setupShortcutBar() {
-        _editorActions = new EditorShortcutsMarkdown(_contentEditor, _document, getActivity());
-        _editorActions.appendShortcutsToBar(_markdownShortcutBar);
+        _editorActions = new MarkdownTextModuleActions(_contentEditor, _document, getActivity());
+        _editorActions.appendTextModuleActionsToBar(_textModuleActionsBar);
     }
 
     private void setupAppearancePreferences() {
@@ -217,11 +217,11 @@ public class DocumentEditFragment extends BaseFragment {
         if (as.isDarkThemeEnabled()) {
             _contentEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             _contentEditor.setTextColor(getResources().getColor(android.R.color.white));
-            _view.findViewById(R.id.document__fragment__edit__shortcut_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             _contentEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
             _contentEditor.setTextColor(getResources().getColor(R.color.dark_grey));
-            _view.findViewById(R.id.document__fragment__edit__shortcut_bar__scrolling_parent)
+            _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
                     .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
     }
