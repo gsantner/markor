@@ -1,4 +1,4 @@
-package net.gsantner.markor.format.shortcut;
+package net.gsantner.markor.format.textmodule;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,22 +15,22 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 
-public abstract class EditorShortcuts {
+public abstract class TextModuleActions {
     protected HighlightingEditor _contentEditor;
     protected Document _document;
     protected Activity _activity;
     protected Context _context;
 
-    public EditorShortcuts(HighlightingEditor contentEditor, Document document, Activity activity) {
+    public TextModuleActions(HighlightingEditor contentEditor, Document document, Activity activity) {
         _contentEditor = contentEditor;
         _document = document;
         _activity = activity;
         _context = activity != null ? activity : _contentEditor.getContext();
     }
 
-    public abstract void appendShortcutsToBar(ViewGroup viewGroup);
+    public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
 
-    protected void appendShortcutToBar(ViewGroup barLayout, @DrawableRes int iconRes, View.OnClickListener l) {
+    protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, View.OnClickListener l) {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, (ViewGroup) null);
         btn.setImageResource(iconRes);
         btn.setOnClickListener(l);
@@ -42,7 +42,7 @@ public abstract class EditorShortcuts {
     }
 
     protected void setBarVisible(ViewGroup barLayout, boolean visible) {
-        if (barLayout.getId() == R.id.document__fragment__edit__shortcut_bar && barLayout.getParent() instanceof HorizontalScrollView) {
+        if (barLayout.getId() == R.id.document__fragment__edit__textmodule_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
             ((HorizontalScrollView) barLayout.getParent())
                     .setVisibility(visible ? View.VISIBLE : View.GONE);
         }

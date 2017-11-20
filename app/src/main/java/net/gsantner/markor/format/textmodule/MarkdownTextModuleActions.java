@@ -1,4 +1,4 @@
-package net.gsantner.markor.format.shortcut;
+package net.gsantner.markor.format.textmodule;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,30 +22,30 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EditorShortcutsMarkdown extends EditorShortcuts {
+public class MarkdownTextModuleActions extends TextModuleActions {
 
-    public EditorShortcutsMarkdown(HighlightingEditor contentEditor, Document document, Activity activity) {
+    public MarkdownTextModuleActions(HighlightingEditor contentEditor, Document document, Activity activity) {
         super(contentEditor, document, activity);
     }
 
     @Override
-    public void appendShortcutsToBar(ViewGroup barLayout) {
+    public void appendTextModuleActionsToBar(ViewGroup barLayout) {
         if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Smart Actions
             for (int[] actions : KEYBOARD_SMART_ACTIONS_ICON) {
-                appendShortcutToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]));
             }
 
             // Extra actions
             for (int[] actions : KEYBOARD_EXTRA_ACTIONS_ICONS) {
-                appendShortcutToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]));
             }
 
             // Regular actions
             for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
-                appendShortcutToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
