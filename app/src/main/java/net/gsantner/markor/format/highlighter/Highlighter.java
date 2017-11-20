@@ -21,7 +21,9 @@ import android.text.style.TypefaceSpan;
 
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHeaderSpanCreator;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColors;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterColorsNeutral;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
+import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +34,12 @@ public class Highlighter {
     public final String fontType;
     public final Integer fontSize;
 
+    Highlighter()
+    {
+        colors = new MarkdownHighlighterColorsNeutral();
+        fontType = AppSettings.get().getFontFamily();
+        fontSize = AppSettings.get().getFontSize();
+    }
     Highlighter(final MarkdownHighlighterColors colors, String fontType, int fontSize) {
         this.colors = colors;
         this.fontType = fontType;
