@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (düz metin olarak)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Başlangıçta son klasör konumunu hatırla</string>
-    <string name="pref_title__font_choice">Not Düzenleyicisi Yazı Tipi</string>
-    <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Notları önizlemede aç</string>
+    <string name="remember_last_folder_location_on_startup">Başlangıçta son klasör konumunu hatırla</string>
+    <string name="document_editor_font">Not Düzenleyicisi Yazı Tipi</string>
+    <string name="theme">Tema</string>
+    <string name="open_preview_when_open_documents">Notları önizlemede aç</string>
     <string name="about">Markor Hakkında</string>
     <string name="plain_text">Düz Metin</string>
     <string name="file">Dosya</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Akıllı parantez kısayolları</string>
     <string name="pref_title__smart_shortcuts_summary">Metin seçilirse, {}, [] ve () seçimi çevreleyecektir</string>
     <string name="pref_title__render_rtl">Sağdan sola yazılan diller için metin yönünü değiştir</string>
-    <string name="error_cannot_create_save_dir">Hata: Kaydetme dizini oluşturulamıyor</string>
+    <string name="error_cannot_create_notebook_dir">Hata: Kaydetme dizini oluşturulamıyor</string>
 
     <string name="last_modified">Son düzenleme: %s</string>
     <string name="number_of_files">Dosya sayısı: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Katkıda Bulunanlar</string>
-    <string name="pref_title__save_directory">Depolama klasörünü seç</string>
+    <string name="select_storage_folder">Depolama klasörünü seç</string>
     <string name="licenses">Lisanslar</string>
     <string name="changelog">Değişiklik Günlüğü</string>
     <string name="more_information">Daha fazla bilgi</string>

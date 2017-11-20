@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (jako czysty tekst)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
-    <string name="pref_title__font_choice">Czcionka edytora</string>
-    <string name="pref_title__theme">Motyw</string>
-    <string name="pref_title__preview_first">Najpierw podgląd podczas otwierania notatek</string>
+    <string name="remember_last_folder_location_on_startup">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
+    <string name="document_editor_font">Czcionka edytora</string>
+    <string name="theme">Motyw</string>
+    <string name="open_preview_when_open_documents">Najpierw podgląd podczas otwierania notatek</string>
     <string name="about">O Markorze</string>
     <string name="plain_text">Zwykły tekst</string>
     <string name="file">Plik</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Sprytna klamra skrótów</string>
     <string name="pref_title__smart_shortcuts_summary">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
     <string name="pref_title__render_rtl">Renderowanie dla języków od prawej do lewej</string>
-    <string name="error_cannot_create_save_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
+    <string name="error_cannot_create_notebook_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
 
     <string name="last_modified">Ostatnio zmodyfikowano: %s</string>
     <string name="number_of_files">Liczba plików: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Współtwórcy</string>
-    <string name="pref_title__save_directory">Wybierz folder zapisu</string>
+    <string name="select_storage_folder">Wybierz folder zapisu</string>
     <string name="licenses">Licencje</string>
     <string name="changelog">Zmiany</string>
     <string name="more_information">Więcej informacji</string>

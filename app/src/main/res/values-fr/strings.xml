@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (texte brut)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Se souvenir du dossier courant pour le démarrage suivant</string>
-    <string name="pref_title__font_choice">Police de l\'éditeur</string>
-    <string name="pref_title__theme">Thème</string>
-    <string name="pref_title__preview_first">Ouvrir les notes sur l\'aperçu</string>
+    <string name="remember_last_folder_location_on_startup">Se souvenir du dossier courant pour le démarrage suivant</string>
+    <string name="document_editor_font">Police de l\'éditeur</string>
+    <string name="theme">Thème</string>
+    <string name="open_preview_when_open_documents">Ouvrir les notes sur l\'aperçu</string>
     <string name="about">À propos de Markor</string>
     <string name="plain_text">Texte brut</string>
     <string name="file">Fichier</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Activer les parenthèses intelligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Si du texte est sélectionné, un appui sur {}, [] ou () positionnera les signes correspondants de part et d\'autre de la sélection</string>
     <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
-    <string name="error_cannot_create_save_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
+    <string name="error_cannot_create_notebook_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
 
     <string name="last_modified">Dernière modification : %s</string>
     <string name="number_of_files">Nombre de fichiers : %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Contributeurs</string>
-    <string name="pref_title__save_directory">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
+    <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
     <string name="licenses">Licences</string>
     <string name="changelog">Nouveautés de l\'application</string>
     <string name="more_information">Plus d\'informations</string>

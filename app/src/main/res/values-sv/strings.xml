@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (som klartext)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Kom ihåg sista mappens plats vid start</string>
-    <string name="pref_title__font_choice">Redigerartypsnitt</string>
-    <string name="pref_title__theme">Tema</string>
-    <string name="pref_title__preview_first">Öppna anteckningar i granskningsläge</string>
+    <string name="remember_last_folder_location_on_startup">Kom ihåg sista mappens plats vid start</string>
+    <string name="document_editor_font">Redigerartypsnitt</string>
+    <string name="theme">Tema</string>
+    <string name="open_preview_when_open_documents">Öppna anteckningar i granskningsläge</string>
     <string name="about">Om Markor</string>
     <string name="plain_text">Klartext</string>
     <string name="file">Fil</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">Genvägar för smarta parenteser</string>
     <string name="pref_title__smart_shortcuts_summary">Om text är vald kommer {}, [] och () att omge valet</string>
     <string name="pref_title__render_rtl">Visa för höger till vänster-språk</string>
-    <string name="error_cannot_create_save_dir">Fel: Kan inte skapa sparningsmapp</string>
+    <string name="error_cannot_create_notebook_dir">Fel: Kan inte skapa sparningsmapp</string>
 
     <string name="last_modified">Senast ändrad: %s</string>
     <string name="number_of_files">Antal filer: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">Bidragande personer</string>
-    <string name="pref_title__save_directory">Välj lagringsmapp</string>
+    <string name="select_storage_folder">Välj lagringsmapp</string>
     <string name="licenses">Licenser</string>
     <string name="changelog">Apphistorik</string>
     <string name="more_information">Mer information</string>

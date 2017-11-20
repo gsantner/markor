@@ -30,7 +30,7 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
 
     @Override
     public void appendShortcutsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isShowMarkdownShortcuts() && barLayout.getChildCount() == 0) {
+        if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Smart Actions
@@ -47,7 +47,7 @@ public class EditorShortcutsMarkdown extends EditorShortcuts {
             for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
                 appendShortcutToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
             }
-        } else if (!AppSettings.get().isShowMarkdownShortcuts()) {
+        } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
         }
     }

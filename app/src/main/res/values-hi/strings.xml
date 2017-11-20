@@ -38,10 +38,10 @@
     <string name="share_html__mime_plaintext">HTML (सादा पाठ के रूप में)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
-    <string name="pref_title__font_choice">नोट संपादक फ़ॉन्ट</string>
-    <string name="pref_title__theme">बनावट</string>
-    <string name="pref_title__preview_first">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
+    <string name="remember_last_folder_location_on_startup">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
+    <string name="document_editor_font">नोट संपादक फ़ॉन्ट</string>
+    <string name="theme">बनावट</string>
+    <string name="open_preview_when_open_documents">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
     <string name="about">जानकारी</string>
     <string name="plain_text">सादा टेक्स्ट</string>
         <string name="file">फ़ाइल</string>
@@ -54,7 +54,7 @@
     <string name="pref_title__smart_shortcuts">स्मार्ट कोष्ठक शॉर्टकट</string>
     <string name="pref_title__smart_shortcuts_summary">अगर पाठ का चयन किया जाता है, तो {}, [] और () चयन को घेरेगा</string>
     <string name="pref_title__render_rtl">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
-    <string name="error_cannot_create_save_dir">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
+    <string name="error_cannot_create_notebook_dir">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
 
     <string name="last_modified">अंतिम बार संशोधित: %s</string>
     <string name="number_of_files">फ़ाइलों की संख्या: %d</string>
@@ -75,7 +75,7 @@
 
     <!-- About screen -->
     <string name="contributors">योगदानकर्ता</string>
-    <string name="pref_title__save_directory">स्टोरेज फोल्डर चुनें</string>
+    <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
     <string name="licenses">लाइसेंस</string>
     <string name="changelog">परिवर्तन खाता</string>
     <string name="more_information">अधिक जानकारी</string>

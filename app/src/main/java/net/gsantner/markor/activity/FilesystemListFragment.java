@@ -387,7 +387,9 @@ public class FilesystemListFragment extends BaseFragment {
                             importFileToCurrentDirectory(getActivity(), file);
                         }
                     });
-            d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+            if (getFragmentManager() != null) {
+                d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+            }
         } else {
             // Import
             importFileToCurrentDirectory(getActivity(), file);
@@ -426,14 +428,15 @@ public class FilesystemListFragment extends BaseFragment {
     }
 
     public void showCreateFolderDialog() {
-        FragmentManager fragManager = getFragmentManager();
-
+        FragmentManager supFragManager;
         Bundle args = new Bundle();
         args.putString(CreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
 
         CreateFolderDialog createFolderDialog = new CreateFolderDialog();
         createFolderDialog.setArguments(args);
-        createFolderDialog.show(fragManager, CreateFolderDialog.FRAGMENT_TAG);
+        if ((supFragManager = getFragmentManager()) != null) {
+            createFolderDialog.show(supFragManager, CreateFolderDialog.FRAGMENT_TAG);
+        }
     }
 
     /**
@@ -494,12 +497,9 @@ public class FilesystemListFragment extends BaseFragment {
         reloadAdapter();
     }
 
-    public ArrayList<File> getSelectedItems() {
-        return _selectedItems;
-    }
-
-    public boolean isRootDirShown() {
-        return _markorSingleton.isRootDir(_currentDir, _rootDir);
+    public boolean isCurrentDirectoryNotebookDirectoy() {
+        return _currentDir == null || _rootDir == null ||
+                _currentDir.getAbsolutePath().equalsIgnoreCase(_rootDir.getAbsolutePath());
     }
 
     @Override
@@ -521,7 +521,7 @@ public class FilesystemListFragment extends BaseFragment {
             return true;
         }
 
-        if (!isRootDirShown()) {
+        if (!isCurrentDirectoryNotebookDirectoy()) {
             goDirectoryUp();
             return true;
         }

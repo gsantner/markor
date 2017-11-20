@@ -12,10 +12,8 @@
     <string name="browse_filesystem">Browse filesystem</string>
     <string name="title">Title</string>
     <string name="empty_directory">This directory is empty</string>
-    <string name="navigate_up_folder">Back to previous folder</string>
     <string name="folder_name_hint">Enter the name of your folder</string>
     <string name="create_folder">Create Folder</string>
-    <string name="create_note">Create Note</string>
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
 
@@ -25,13 +23,12 @@
     <string name="select_folder">Select folder</string>
     <string name="edit">Edit</string>
 
-    <string name="search_hint">Search notes</string>
+    <string name="search_hint">Search documents</string>
     <string name="share_string">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="preview">Preview</string>
-    <string name="app_settings">App Settings</string>
-    <string name="editor_settings">Editor Settings</string>
+    <string name="editor">Editor</string>
     <string name="folders">Folders</string>
     <string name="files">Files</string>
     <string name="document_one">Document</string>
@@ -39,26 +36,18 @@
     <string name="share_html__mime_plaintext">HTML (as plain text)</string>
 
     <!-- Preferences -->
-    <string name="pref_title__remember_directory">Remember last folder location on startup</string>
-    <string name="pref_title__font_choice">Note Editor Font</string>
-    <string name="pref_title__theme">Theme</string>
-    <string name="pref_title__preview_first">Preview first when opening notes</string>
+    <string name="document_editor_font">Document Editor Font</string>
+    <string name="theme">Theme</string>
+    <string name="open_preview_when_open_documents">Open preview when opening documents</string>
     <string name="about">About Markor</string>
     <string name="plain_text">Plain Text</string>
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="pref_title__font_size">Font Size</string>
-    <string name="pref_title__show_markdown_shortcuts">Show Markdown shortcuts bar</string>
-    <string name="pref_title__highlighting_activated">Markdown syntax highlighting</string>
-    <string name="pref_title__highlighting_delay">Delay in milliseconds for highlighting refresh</string>
-    <string name="pref_title__highlighting_delay_summary">Higher values are easier on the battery</string>
-    <string name="pref_title__smart_shortcuts">Smart brackets shortcuts</string>
-    <string name="pref_title__smart_shortcuts_summary">If text is selected, {}, [] and () will surround the selection</string>
     <string name="pref_title__render_rtl">Render for right-to-left languages</string>
-    <string name="error_cannot_create_save_dir">Error: Cannot create save directory</string>
+    <string name="error_cannot_create_notebook_dir">Error: Cannot create notebook directory</string>
 
     <string name="last_modified">Last modified: %s</string>
-    <string name="number_of_files">Number of files: %d</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
     <string name="create">Create</string>
@@ -66,7 +55,7 @@
     <string name="one_item_selected">One item selected</string>
     <string name="more_items_selected">%d items selected</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Hide the statubar at this view</string>
+    <string name="pref_summary__is_statusbar_hidden">Hide the statusbar at this view</string>
     <string name="pref_title__is_statusbar_hidden">Hide statusbar</string>
 
     <string name="name">Name</string>
@@ -76,7 +65,8 @@
 
     <!-- About screen -->
     <string name="contributors">Contributors</string>
-    <string name="pref_title__save_directory">Select storage folder</string>
+    <string name="select_storage_folder">Select storage folder</string>
+    <string name="notebook_directory">Notebook directory</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
     <string name="more_information">More information</string>
@@ -101,7 +91,6 @@
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="help">Help</string>
-    <string name="special_documents">Special documents</string>
     <string name="todo_list">To-Do List</string>
     <string name="task">Task</string>
     <string name="category">Category</string>
@@ -123,5 +112,36 @@
     <string name="refresh">Refresh</string>
     <string name="add_shortcut_to_launcher_homescreen">Create shortcut</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Tried to add a shortcut to your home screen for editing this document. Note that some launchers may not support this.</string>
-    <string name="file_not_in_save_path_do_import">The selected file is not located in the app\'s save directory. Do you want to copy it to the current folder? This will overwrite existing files.</string>
+    <string name="file_not_in_save_path_do_import">The selected file is not located in the app\'s notebook directory. Do you want to copy it to the current folder? This will overwrite existing files.</string>
+    <string name="files_and_folders">Files and folders</string>
+    <string name="document_browser">Document browser</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Create Note</string>
+    <string name="special_documents" needed="false">Special documents</string>
+    <string name="navigate_up_folder" needed="false">Back to previous folder</string>
+    <string name="app_settings" needed="false">App Settings</string>
+    <string name="editor_settings" needed="false">Editor Settings</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Remember last folder location on startup</string>
+    <string name="pref_title__show_markdown_shortcuts" needed="false">Show Markdown shortcuts bar</string>
+    <string name="pref_title__highlighting_activated" needed="false">Markdown syntax highlighting</string>
+    <string name="pref_title__highlighting_delay" needed="false">Delay in milliseconds for highlighting refresh</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Higher values are easier on the battery</string>
+    <string name="pref_title__smart_shortcuts"  needed="false">Smart brackets shortcuts</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">If text is selected, {}, [] and () will surround the selection</string>
+    <string name="number_of_files" needed="false">Number of files: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Global</string>
+    <string name="main_view">Main View</string>
+    <string name="theme_description">The overall theme used in the app</string>
+    <string name="remember_directory">Remember directory</string>
+    <string name="syntax_highlighting">Syntax highlighting</string>
+    <string name="text_modules">Text modules</string>
+    <string name="text_module">Text module</string>
+    <string name="highlighting_delay">Highlighting delay</string>
+    <string name="highlighting_delay_summary">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and decrease performance. Defaults to 110.</string>
+    <string name="highlighting_enabled_summary">Control whether entered text should be highlighted or not</string>
+    <string name="editor_font_size_summary">Control the font size used in the editor</string>
+    <string name="textmodules_bar_summary">Show a bar with useful actions to insert common used text modules</string>
 </resources>
