@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (action == null ? "" : action) {
                 case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
-                    File rootDir = new File(AppSettings.get().getNotebookDirectoryAsStr());
+                    File rootDir = AppSettings.get().getNotebookDirectory();
                     if (currentDir.equals(rootDir)) {
                         _toolbar.setTitle(R.string.app_name);
                     } else {
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 .getCurrentDir();
                         intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
-                        intent.putExtra(DocumentIO.EXTRA_PATH, new File(AppSettings.get().getNotebookDirectoryAsStr()));
+                        intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getNotebookDirectory());
                     }
                     intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);

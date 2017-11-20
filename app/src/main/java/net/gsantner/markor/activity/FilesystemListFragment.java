@@ -212,7 +212,7 @@ public class FilesystemListFragment extends BaseFragment {
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                 opt.titleText = R.string.move;
-                opt.rootFolder = new File(AppSettings.get().getNotebookDirectoryAsStr());
+                opt.rootFolder = AppSettings.get().getNotebookDirectory();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }

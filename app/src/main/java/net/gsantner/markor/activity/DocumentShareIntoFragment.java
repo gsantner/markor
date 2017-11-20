@@ -117,7 +117,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                opt.rootFolder = new File(AppSettings.get().getNotebookDirectoryAsStr());
+                opt.rootFolder = AppSettings.get().getNotebookDirectory();
             }
 
             @Override
@@ -143,7 +143,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
     private void createNewDocument() {
         // Create a new document
         Bundle args = new Bundle();
-        args.putSerializable(DocumentIO.EXTRA_PATH, new File(AppSettings.get().getNotebookDirectoryAsStr()));
+        args.putSerializable(DocumentIO.EXTRA_PATH, AppSettings.get().getNotebookDirectory());
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
         Document document = DocumentIO.loadDocument(_context, args, null);
         DocumentIO.saveDocument(document, false, _sharedText);
