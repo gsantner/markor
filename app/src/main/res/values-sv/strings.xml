@@ -7,19 +7,18 @@
     <string name="rename">Byt namn</string>
     <string name="confirm_delete">Bekräfta radering</string>
     <string name="confirm_delete_description">Vill du verkligen radera den här %s?</string>
-    <string name="confirm_overwrite">Confirm Overwrite</string>
+    <string name="confirm_overwrite">Skriva över?</string>
     <string name="confirm_overwrite_description">Filen finns redan, skriva över?</string>
+    <string name="browse_filesystem">Bläddra i filsystemet</string>
     <string name="title">Titel</string>
     <string name="empty_directory">Den här mappen är tom</string>
-    <string name="navigate_up_folder">Tillbaka till föregående mapp</string>
     <string name="folder_name_hint">Ange mappnamn</string>
     <string name="create_folder">Skapa mapp</string>
-    <string name="create_note">Skapa anteckning</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
 
     <string name="import_from_device">Importera från enhet</string>
-    <string name="import_">Import</string>
+    <string name="import_">Importera</string>
     <string name="append_to__arg_document_name">Lägg till %s</string>
     <string name="select_folder">Välj map</string>
     <string name="edit">Redigera</string>
@@ -29,8 +28,7 @@
     <string name="share">Dela</string>
     <string name="search">Sök</string>
     <string name="preview">Förhandsgranska</string>
-    <string name="app_settings">Appinställningar</string>
-    <string name="editor_settings">Redigerarinställningar</string>
+    <string name="editor">Redigerare</string>
     <string name="folders">Mappar</string>
     <string name="files">Filer</string>
     <string name="document_one">Dokument</string>
@@ -38,26 +36,18 @@
     <string name="share_html__mime_plaintext">HTML (som klartext)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Kom ihåg sista mappens plats vid start</string>
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
-    <string name="open_preview_when_open_documents">Öppna anteckningar i granskningsläge</string>
+    <string name="open_preview_when_open_documents">Öppna dokument i granskningsläge</string>
     <string name="about">Om Markor</string>
     <string name="plain_text">Klartext</string>
     <string name="file">Fil</string>
     <string name="image">Bild</string>
     <string name="pref_title__font_size">Typsnittsstorlek</string>
-    <string name="pref_title__show_markdown_shortcuts">Visa genvägar för markdown</string>
-    <string name="pref_title__highlighting_activated">Syntaxfärgning för markdown</string>
-    <string name="pref_title__highlighting_delay">Fördröjning i millisekunder innan syntaxfärgningen uppdateras</string>
-    <string name="pref_title__highlighting_delay_summary">Högre värden är bättre för batteriet</string>
-    <string name="pref_title__smart_shortcuts">Genvägar för smarta parenteser</string>
-    <string name="pref_title__smart_shortcuts_summary">Om text är vald kommer {}, [] och () att omge valet</string>
     <string name="pref_title__render_rtl">Visa för höger till vänster-språk</string>
     <string name="error_cannot_create_notebook_dir">Fel: Kan inte skapa sparningsmapp</string>
 
     <string name="last_modified">Senast ändrad: %s</string>
-    <string name="number_of_files">Antal filer: %d</string>
     <string name="select_this_folder">Välj den här mappen</string>
     <string name="select">Välj</string>
     <string name="create">Skapa</string>
@@ -76,6 +66,7 @@
     <!-- About screen -->
     <string name="contributors">Bidragande personer</string>
     <string name="select_storage_folder">Välj lagringsmapp</string>
+    <string name="notebook_directory">Mapp för anteckningar</string>
     <string name="licenses">Licenser</string>
     <string name="changelog">Apphistorik</string>
     <string name="more_information">Mer information</string>
@@ -100,7 +91,6 @@
     <string name="more">Mer</string>
     <string name="notebook">Anteckningar</string>
     <string name="help">Hjälp</string>
-    <string name="special_documents">Specialdokument</string>
     <string name="todo_list">Att göra-lista</string>
     <string name="task">Uppgift</string>
     <string name="category">Kategori</string>
@@ -116,5 +106,43 @@
     <string name="current_date">Nuvarande datum</string>
     <string name="archive">Arkiv</string>
     <string name="add_task">Lägg till uppgift</string>
-    <string name="pref_summary__quicknote_filepath">Välj vilket dokument du vill använda som QuickNote.</string>
+    <string name="pref_summary__quicknote_filepath">Välj vilket dokument du vill använda som QuickNote</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Inställningar i verktygsfält</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Visa genväg till inställningar i huvudvyns verktygsfält</string>
+    <string name="refresh">Uppdatera</string>
+    <string name="add_shortcut_to_launcher_homescreen">Skapa genväg</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Försökte lägga till en genväg till startskärmen för att redigera det här dokumentet. Notera att detta inte stöds av alla hemskärmsappar.</string>
+    <string name="file_not_in_save_path_do_import">Filen du har valt ligger inte i appens anteckningsmapp. Vill du kopiera den till aktuell mapp? Om filen existerar skrivs den över.</string>
+    <string name="files_and_folders">Filar och mappar</string>
+    <string name="document_browser">Dokumentbläddrare</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Skapa anteckning</string>
+    <string name="special_documents" needed="false">Specialdokument</string>
+    <string name="navigate_up_folder" needed="false">Tillbaka till föregående mapp</string>
+    <string name="app_settings" needed="false">Appinställningar</string>
+    <string name="editor_settings" needed="false">Redigerarinställningar</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Kom ihåg sista mappens plats vid start</string>
+    <string name="pref_title__show_markdown_shortcuts" needed="false">Visa genvägar för markdown</string>
+    <string name="pref_title__highlighting_activated" needed="false">Syntaxfärgning för markdown</string>
+    <string name="pref_title__highlighting_delay" needed="false">Fördröjning i millisekunder innan syntaxfärgningen uppdateras</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Högre värden är bättre för batteriet</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Genvägar för smarta parenteser</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Om text är vald kommer {}, [] och () att omge valet</string>
+    <string name="number_of_files" needed="false">Antal filer: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Global</string>
+    <string name="main_view">Huvudvy</string>
+    <string name="theme_description">Appens övergripande tema</string>
+    <string name="load_last_directory_at_startup">Ladda </string>
+    <string name="syntax_highlighting">Syntaxfärgning</string>
+    <string name="text_modules">Textmoduler</string>
+    <string name="text_module">Textmodul</string>
+    <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
+    <string name="highlighting_delay_summary">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan. Standardvärde 110.</string>
+    <string name="highlighting_enabled_summary">Ska inskriven text ska vara syntaxfärgad?</string>
+    <string name="editor_font_size_summary">Ändra typsnittsstorlek i redigeraren</string>
+    <string name="textmodules_bar_summary">Visa verktyg för att infoga vanliga textmoduler</string>
+    <string name="load_last_directory_at_startup__summary">Ladda senaste öppnade mapp vid start</string>
 </resources>
