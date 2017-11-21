@@ -42,7 +42,8 @@ env:
   global:
     - ANDROID_HOME=$HOME/android-sdk
   matrix:
-    - TASK="clean lintFlavorDefaultDebug --stacktrace"
     - TASK="clean build check -x lint --stacktrace"
+    - TASK="clean lintFlavorDefaultDebug --stacktrace"
+    - TASK="clean testFlavorDefaultDebugUnitTest -x lint --stacktrace"
 
 script: "./gradlew --no-daemon --parallel $TASK"
