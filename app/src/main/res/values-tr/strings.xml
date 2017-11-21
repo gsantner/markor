@@ -9,12 +9,11 @@
     <string name="confirm_delete_description">Bu %syi gerçekten silmek istiyor musunuz?</string>
     <string name="confirm_overwrite">Üzerine Yazmayı Onayla</string>
     <string name="confirm_overwrite_description">Dosya zaten var, üzerine yazılsın mı?</string>
+    <string name="browse_filesystem">Dosya sistemine göz at</string>
     <string name="title">Başlık</string>
     <string name="empty_directory">Bu dizin boş</string>
-    <string name="navigate_up_folder">Önceki klasöre dön</string>
     <string name="folder_name_hint">Klasörünüzün adını girin</string>
     <string name="create_folder">Klasör Oluştur</string>
-    <string name="create_note">Not Oluştur</string>
     <string name="create_new_document">Yeni belge oluştur</string>
     <string name="move">Taşı</string>
 
@@ -24,13 +23,12 @@
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
 
-    <string name="search_hint">Notlarda ara</string>
+    <string name="search_hint">Belgelerde ara</string>
     <string name="share_string">Şununla paylaş&#8230;</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
     <string name="preview">Önizleme</string>
-    <string name="app_settings">Uygulama Ayarları</string>
-    <string name="editor_settings">Düzenleyici Ayarları</string>
+    <string name="editor">Düzenleyici</string>
     <string name="folders">Klasörler</string>
     <string name="files">Dosyalar</string>
     <string name="document_one">Belge</string>
@@ -38,26 +36,18 @@
     <string name="share_html__mime_plaintext">HTML (düz metin olarak)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Başlangıçta son klasör konumunu hatırla</string>
-    <string name="document_editor_font">Not Düzenleyicisi Yazı Tipi</string>
+    <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
-    <string name="open_preview_when_open_documents">Notları önizlemede aç</string>
+    <string name="open_preview_when_open_documents">Belgeleri açarken önizlemede aç</string>
     <string name="about">Markor Hakkında</string>
     <string name="plain_text">Düz Metin</string>
     <string name="file">Dosya</string>
     <string name="image">Görüntü</string>
     <string name="pref_title__font_size">Yazı Tipi Boyutu</string>
-    <string name="pref_title__show_markdown_shortcuts">Kısayol çubuğunu göster</string>
-    <string name="pref_title__highlighting_activated">Sözdizimini vurgula</string>
-    <string name="pref_title__highlighting_delay">Vurgulamaların yenilenmesi için milisaniye cinsinden gecikme süresi</string>
-    <string name="pref_title__highlighting_delay_summary">Daha yüksek değerler pil tüketimini azaltır</string>
-    <string name="pref_title__smart_shortcuts">Akıllı parantez kısayolları</string>
-    <string name="pref_title__smart_shortcuts_summary">Metin seçilirse, {}, [] ve () seçimi çevreleyecektir</string>
     <string name="pref_title__render_rtl">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir">Hata: Kaydetme dizini oluşturulamıyor</string>
 
     <string name="last_modified">Son düzenleme: %s</string>
-    <string name="number_of_files">Dosya sayısı: %d</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
     <string name="create">Oluştur</string>
@@ -68,7 +58,7 @@
     <string name="pref_summary__is_statusbar_hidden">Bu görünümde durum çubuğunu gizle</string>
     <string name="pref_title__is_statusbar_hidden">Durum çubuğunu gizle</string>
 
-    <string name="name">Ad</string>
+    <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
     <string name="insert_link">Bağlantı Ekle</string>
     <string name="insert_image">Görüntü Ekle</string>
@@ -76,6 +66,7 @@
     <!-- About screen -->
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="select_storage_folder">Depolama klasörünü seç</string>
+    <string name="notebook_directory">Not defteri dizini</string>
     <string name="licenses">Lisanslar</string>
     <string name="changelog">Değişiklik Günlüğü</string>
     <string name="more_information">Daha fazla bilgi</string>
@@ -100,7 +91,6 @@
     <string name="more">Daha Fazla</string>
     <string name="notebook">Not Defteri</string>
     <string name="help">Yardım</string>
-    <string name="special_documents">Özel Notlar</string>
     <string name="todo_list">Yapılacaklar Listesi</string>
     <string name="task">Görev</string>
     <string name="category">Kategori</string>
@@ -119,4 +109,40 @@
     <string name="pref_summary__quicknote_filepath">QuickNote olarak yüklenip kaydedilecek belgeyi seçin</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Araç çubuğundaki ayarlar</string>
     <string name="pref_show_settings_option_in_main_toolbar">Ana ekrandaki araç çubuğunda ayarlar seçeneğini göster</string>
+    <string name="refresh">Yenile</string>
+    <string name="add_shortcut_to_launcher_homescreen">Kısayol oluştur</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Bu belgeyi düzenlemek için ana ekranınıza bir kısayol eklemeye çalışır. Bazı başlatıcıların bunu desteklemeyebileceğini unutmayın.</string>
+    <string name="file_not_in_save_path_do_import">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, mevcut dosyaların üzerine yazacaktır.</string>
+    <string name="files_and_folders">Dosyalar ve klasörler</string>
+    <string name="document_browser">Belge görüntüleyici</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Not Oluştur</string>
+    <string name="special_documents" needed="false">Özel belgeler</string>
+    <string name="navigate_up_folder" needed="false">Önceki klasöre dön</string>
+    <string name="app_settings" needed="false">Uygulama Ayarları</string>
+    <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Başlangıçta son klasör konumunu hatırla</string>
+    <string name="pref_title__show_markdown_shortcuts" needed="false">Kısayol çubuğunu göster</string>
+    <string name="pref_title__highlighting_activated" needed="false">Sözdizimini vurgula</string>
+    <string name="pref_title__highlighting_delay" needed="false">Vurgulamaların yenilenmesi için milisaniye cinsinden gecikme süresi</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Daha yüksek değerler pil tüketimini azaltır</string>
+    <string name="pref_title__smart_shortcuts"  needed="false">Akıllı parantez kısayolları</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Metin seçilirse, {}, [] ve () seçimi çevreleyecektir</string>
+    <string name="number_of_files" needed="false">Dosya sayısı: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Genel</string>
+    <string name="main_view">Ana Görünüm</string>
+    <string name="theme_description">Uygulamada kullanılan genel tema</string>
+    <string name="load_last_directory_at_startup">Son dizini hatırla</string>
+    <string name="syntax_highlighting">Sözdizimini vurgula</string>
+    <string name="text_modules">Metin modülü</string>
+    <string name="text_module">Metin modülü</string>
+    <string name="highlighting_delay">Vurgulama gecikmesi</string>
+    <string name="highlighting_delay_summary">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür. Varsayılan değer 110'dur.</string>
+    <string name="highlighting_enabled_summary">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
+    <string name="editor_font_size_summary">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
+    <string name="textmodules_bar_summary">Sık kullanılan metin modüllerini eklemek için yararlı eylemler içeren bir çubuk göster</string>
+    <string name="load_last_directory_at_startup__summary">Başlangıçta son açılan klasörü yükle</string>
 </resources>
