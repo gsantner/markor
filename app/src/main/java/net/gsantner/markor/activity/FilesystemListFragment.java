@@ -71,7 +71,7 @@ public class FilesystemListFragment extends BaseFragment {
     public ListView _filesListView;
 
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
-    public TextView _background_hint_text;
+    public TextView _backgroundHintText;
 
     private Context _context;
     private View _view;
@@ -352,11 +352,13 @@ public class FilesystemListFragment extends BaseFragment {
     }
 
     private void showEmptyDirHintIfEmpty() {
-        if (_markorSingleton.isDirectoryEmpty(_filesCurrentlyShown)) {
-            _background_hint_text.setVisibility(View.VISIBLE);
-            _background_hint_text.setText(getString(R.string.empty_directory));
-        } else {
-            _background_hint_text.setVisibility(View.INVISIBLE);
+        if (isAdded()) {
+            if (_markorSingleton.isDirectoryEmpty(_filesCurrentlyShown)) {
+                _backgroundHintText.setVisibility(View.VISIBLE);
+                _backgroundHintText.setText(getString(R.string.empty_directory));
+            } else {
+                _backgroundHintText.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
