@@ -6,30 +6,34 @@
     <string name="delete">Verwijderen</string>
     <string name="rename">Hernoemen</string>
     <string name="confirm_delete">Bevestig verwijderen</string>
+    <string name="confirm_delete_description">Weet je zeker dat je dit %s wilt verwijderen?</string>
+    <string name="confirm_overwrite">Bestand bestaat al, overschrijven?</string>
     <string name="confirm_overwrite_description">Bestand bestaat al, overschrijven?</string>
+    <string name="browse_filesystem">Bekijk bestandssysteem</string>
     <string name="title">Titel</string>
     <string name="empty_directory">Deze folder is leeg</string>
-    <string name="navigate_up_folder">Terug naar vorige map</string>
     <string name="folder_name_hint">Typ een naam voor de map</string>
     <string name="create_folder">Maak folder</string>
-    <string name="create_note">Maak notitie</string>
+    <string name="create_new_document">Maak een nieuw document</string>
     <string name="move">Verplaatsen</string>
 
     <string name="import_from_device">Importeer van apparaat</string>
+    <string name="append_to__arg_document_name">Toevoegen aan %s</string>
     <string name="select_folder">Selecteer mappen</string>
+    <string name="edit">Bewerken</string>
 
     <string name="search_hint">Zoek notities</string>
-    <string name="share_string">Delen met…</string>
+    <string name="share_string">Delen met...</string>
     <string name="share">Delen</string>
     <string name="search">Zoeken</string>
     <string name="preview">Voorbeeld</string>
-    <string name="app_settings">App Instellingen</string>
-    <string name="editor_settings">Bewerker instellingen</string>
+    <string name="editor">Bewerker</string>
     <string name="folders">Mappen</string>
     <string name="files">Bestanden</string>
+    <string name="document_one">Document</string>
+    <string name="document_multiple">Documenten</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Herinner laatste map bij opstarten</string>
     <string name="document_editor_font">Notitie Bewerker Lettertype</string>
     <string name="theme">Thema</string>
     <string name="open_preview_when_open_documents">Voorbeeld tijdens openen notities</string>
@@ -38,20 +42,10 @@
     <string name="file">Bestand</string>
     <string name="image">Afbeelding</string>
     <string name="pref_title__font_size">Lettergrootte</string>
-    <string name="pref_title__show_markdown_shortcuts">Laat Markdown codebalk zien</string>
-    <string name="pref_title__highlighting_activated">Markdown code markeren</string>
-    <string name="pref_title__highlighting_delay">Vertraging in milliseconden voor markering ververst</string>
-    <string name="pref_title__highlighting_delay_summary">Hogere waarden zijn beter voor de accu.</string>
-    <string name="pref_title__smart_shortcuts">Slimme haakcodes</string>
-    <string name="pref_title__smart_shortcuts_summary">Als tekst is geselecteerd, {}, [] and () omsluiten de selectie</string>
     <string name="pref_title__render_rtl">Opbouw voor rechts-naar-links talen</string>
     <string name="error_cannot_create_notebook_dir">Fout: Kan geen opslagfolder maken</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Laatst gewijzigd: %s</string>
-    <string name="number_of_files">Aantal bestanden: %d</string>
     <string name="select_this_folder">Selecteer deze map</string>
     <string name="select">Selecteer</string>
     <string name="create">Aanmaken</string>
@@ -69,7 +63,6 @@
 
     <!-- About screen -->
     <string name="contributors">Bijdragers</string>
-
     <string name="select_storage_folder">Kies opslagmap</string>
     <string name="licenses">Licenties</string>
     <string name="changelog">Wijzigingen</string>
@@ -85,5 +78,38 @@
     <string name="sort_by_name">Sorteer op naam</string>
     <string name="sort_by_size">Sorteer op bestandsgrootte</string>
     <string name="sort_reverse">Keer volgorde om</string>
+    <string name="contribute">Bijdragen</string>
+    <string name="donate">Doneer</string>
+    <string name="exit">Afsluiten</string>
+    <string name="help">Help</string>
+    <string name="category">Categorie</string>
+    <string name="context">Content</string>
+    <string name="clear">Wissen</string>
+    <string name="due_date">Vervaldatum</string>
+    <string name="current_date">Huidige datum</string>
+    <string name="archive">Archief</string>
+    <string name="add_task">Taak toevoegen</string>
+    <string name="add_shortcut_to_launcher_homescreen">Maak snelkoppeling</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Poging om snelkoppeling toe te voegen aan je beginscherm. Niet alle launchers ondersteunen dit.</string>
+    <string name="file_not_in_save_path_do_import">Het geselecteerde bestand is niet opgeslagen in de app\'s notitie map. Wil je het kopiëren naar de huidige map? Dit overschrijft bestaande bestanden.</string>
+    <string name="files_and_folders">Bestanden en mappen</string>
 
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Maak notitie</string>
+    <string name="navigate_up_folder" needed="false">Terug naar vorige map</string>
+    <string name="app_settings" needed="false">App Instellingen</string>
+    <string name="editor_settings" needed="false">Bewerker instellingen</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Herinner laatste map bij opstarten</string>
+    <string name="pref_title__show_markdown_shortcuts" needed="false">Laat Markdown codebalk zien</string>
+    <string name="pref_title__highlighting_activated" needed="false">Markdown code markeren</string>
+    <string name="pref_title__highlighting_delay" needed="false">Vertraging in milliseconden voor markering ververst</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Hogere waarden zijn beter voor de accu.</string>
+    <string name="pref_title__smart_shortcuts"  needed="false">Slimme haakcodes</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Als tekst is geselecteerd, {}, [] and () omsluiten de selectie</string>
+    <string name="number_of_files" needed="false">Aantal bestanden: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Algemeen</string>
+    <string name="highlighting_delay">Gemarkeerde vertraging</string>
+    <string name="editor_font_size_summary">Stel de lettergrootte in die gebruikt wordt in de bewerker</string>
 </resources>
