@@ -39,13 +39,6 @@ public class MarkdownHighlighterPatternListTest {
     }
 
     @Test
-    public void numberItem() {
-        Matcher m = pattern.matcher("1. Item");
-        assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("1.");
-    }
-
-    @Test
     public void linePeriodItemShouldNotMatch() {
         Matcher m = pattern.matcher("-. Item");
         assertThat(m.find()).isFalse();

@@ -28,11 +28,11 @@ public class MarkdownHeaderSpanCreator implements SpanCreator {
     public static final float STANDARD_PROPORTION_MAX = 1.80f;
     public static final float SIZE_STEP = 0.20f;
 
-    private Highlighter highlighter;
+    private MarkdownHighlighter highlighter;
     private final Editable e;
     private final int color;
 
-    public MarkdownHeaderSpanCreator(Highlighter highlighter, Editable e, int color) {
+    public MarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable e, int color) {
         this.highlighter = highlighter;
         this.e = e;
         this.color = color;
