@@ -1,0 +1,26 @@
+<!-- Hello, and thanks for contributing! -->
+
+Fixes issue #
+
+Proposed changes in this pull request:
+
+-
+-
+
+
+
+
+
+<!--
+## Contributors document
+Add yourself! When adding your information to the `CONTRIBUTORS.md` file, please use the following format:
+
+Schema:  **[Name](Reference)**<br/>~° Text 
+Where: 
+  * Name: username, first/lastname 
+  * Reference: E-Mail, Webpage 
+  * Text: Information about / kind of contribution 
+Example:
+* **[Nice Guy](http://niceguy.web)**<br/>~° German localization 
+
+-->

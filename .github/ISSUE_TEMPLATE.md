@@ -1,17 +1,13 @@
 #### General information
+<!-- App version can be e.g. v0.1.1
+     System e.g. Android 7.0.1, Nexus 5X -->
 
-* **App version:**  <!-- See in About - e.g. v0.1.1 -->
-* **Device:**   <!-- eg Nexus 5 -->
-* **Android Version:**  <!--eg Android 7.1 -->
+* **App version:** 
+* **System:** 
+
+#### Description
+What this is about, what happens and how. What needs to be done for it to happen.
 
 
-#### Expected result
-**What is expected?** 
-
-**What do you see instead?**
-
-#### Steps to reproduce
-
-1. …
-2. …
-3. …
+#### Log
+<!-- adb logcat -s net.gsantner.markor -->
