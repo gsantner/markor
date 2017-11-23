@@ -44,7 +44,7 @@ public class MarkdownHighlighter extends Highlighter{
             createHeaderSpanForMatches(e, MarkdownHighlighterPattern.HEADER, colors.getHeaderColor());
             createColorSpanForMatches(e, MarkdownHighlighterPattern.LINK, colors.getLinkColor());
             createColorSpanForMatches(e, MarkdownHighlighterPattern.LIST, colors.getListColor());
-            createColorSpanForMatches(e, MarkdownHighlighterPattern.LISTORD, colors.getListColor());
+            createColorSpanForMatches(e, MarkdownHighlighterPattern.ORDEREDLIST, colors.getListColor());
             createColorSpanForDoublespace(e, MarkdownHighlighterPattern.DOUBLESPACE, colors.getDoublespaceColor());
             createStyleSpanForMatches(e, MarkdownHighlighterPattern.BOLD, Typeface.BOLD);
             createStyleSpanForMatches(e, MarkdownHighlighterPattern.ITALICS, Typeface.ITALIC);
