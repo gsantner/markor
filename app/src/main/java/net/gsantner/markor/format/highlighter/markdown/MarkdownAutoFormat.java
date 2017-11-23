@@ -74,7 +74,7 @@ public class MarkdownAutoFormat implements InputFilter {
                 if (listMatcher.find()) {
                     return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
                 } else {
-                    Matcher m = MarkdownHighlighterPattern.LISTORD.getPattern().matcher(dest.toString().substring(iend,dend));
+                    Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString().substring(iend,dend));
                     if (m.find()) {
                         return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
                     } else {
@@ -91,7 +91,7 @@ public class MarkdownAutoFormat implements InputFilter {
             if (listMatcher.find()) {
                 return Character.toString(dest.charAt(0)) + " ";
             } else {
-                Matcher m = MarkdownHighlighterPattern.LISTORD.getPattern().matcher(dest.toString());
+                Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString());
                 if (m.find()) {
                     return addNumericListItemIfNeeded(m.group(1));
                 } else {
