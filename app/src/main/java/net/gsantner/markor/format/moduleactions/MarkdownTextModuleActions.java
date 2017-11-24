@@ -1,4 +1,9 @@
-package net.gsantner.markor.format.textmodule;
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
+package net.gsantner.markor.format.moduleactions;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,8 +29,8 @@ import java.util.regex.Pattern;
 
 public class MarkdownTextModuleActions extends TextModuleActions {
 
-    public MarkdownTextModuleActions(HighlightingEditor contentEditor, Document document, Activity activity) {
-        super(contentEditor, document, activity);
+    public MarkdownTextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
+        super(activity, document, hlEditor);
     }
 
     @Override
@@ -73,17 +78,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         @Override
         public void onClick(View v) {
 
-            if (_contentEditor.hasSelection()) {
-                String text = _contentEditor.getText().toString();
-                int selectionStart = _contentEditor.getSelectionStart();
-                int selectionEnd = _contentEditor.getSelectionEnd();
+            if (_hlEditor.hasSelection()) {
+                String text = _hlEditor.getText().toString();
+                int selectionStart = _hlEditor.getSelectionStart();
+                int selectionEnd = _hlEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
                 if (text.substring(selectionStart, selectionEnd)
                         .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
 
                     text = text.substring(selectionStart + _action.length(), selectionEnd);
-                    _contentEditor.getText()
+                    _hlEditor.getText()
                             .replace(selectionStart, selectionEnd, text);
 
                 }
@@ -92,19 +97,19 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                         .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
 
                     text = text.substring(selectionStart, selectionEnd);
-                    _contentEditor.getText()
+                    _hlEditor.getText()
                             .replace(selectionStart - _action.length(), selectionEnd, text);
 
                 }
                 //Condition to insert shortcut preceding the selection
                 else {
-                    _contentEditor.getText().insert(selectionStart, _action);
+                    _hlEditor.getText().insert(selectionStart, _action);
                 }
             } else {
                 //Condition for Empty Selection. Should insert the action at the start of the line
-                int cursor = _contentEditor.getSelectionStart();
+                int cursor = _hlEditor.getSelectionStart();
                 int i = cursor - 1;
-                Editable s = _contentEditor.getText();
+                Editable s = _hlEditor.getText();
                 for (; i >= 0; i--) {
                     if (s.charAt(i) == '\n') {
                         break;
@@ -136,10 +141,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         @Override
         public void onClick(View v) {
-            if (_contentEditor.hasSelection()) {
-                String text = _contentEditor.getText().toString();
-                int selectionStart = _contentEditor.getSelectionStart();
-                int selectionEnd = _contentEditor.getSelectionEnd();
+            if (_hlEditor.hasSelection()) {
+                String text = _hlEditor.getText().toString();
+                int selectionStart = _hlEditor.getSelectionStart();
+                int selectionEnd = _hlEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
                 if (selectionEnd < text.length() && (text.substring(selectionStart, selectionEnd)
@@ -147,39 +152,39 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
                     text = text.substring(selectionStart + _action.length(),
                             selectionEnd - _action.length());
-                    _contentEditor.getText()
+                    _hlEditor.getText()
                             .replace(selectionStart, selectionEnd, text);
 
                 }
                 //Check if Selection is Preceded and succeeded by shortcut characters
-                else if (((selectionEnd <= (_contentEditor.length() - _action.length())) &&
+                else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
                         (selectionStart >= _action.length())) &&
                         (text.substring(selectionStart - _action.length(),
                                 selectionEnd + _action.length())
                                 .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
                     text = text.substring(selectionStart, selectionEnd);
-                    _contentEditor.getText()
+                    _hlEditor.getText()
                             .replace(selectionStart - _action.length(),
                                     selectionEnd + _action.length(), text);
 
                 }
                 //Condition to insert shortcut preceding and succeeding the selection
                 else {
-                    _contentEditor.getText().insert(selectionStart, _action);
-                    _contentEditor.getText().insert(_contentEditor.getSelectionEnd(), _action);
+                    _hlEditor.getText().insert(selectionStart, _action);
+                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
                 }
             } else {
                 //Condition for Empty Selection
                 if (false) {
                     // Condition for things that should only be placed at the start of the line even if no text is selected
                 } else if (_action.equals("----\n")) {
-                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action);
+                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action);
                 } else {
                     // Condition for formatting which is inserted on either side of the cursor
-                    _contentEditor.getText().insert(_contentEditor.getSelectionStart(), _action)
-                            .insert(_contentEditor.getSelectionEnd(), _action);
-                    _contentEditor.setSelection(_contentEditor.getSelectionStart() - _action.length());
+                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action)
+                            .insert(_hlEditor.getSelectionEnd(), _action);
+                    _hlEditor.setSelection(_hlEditor.getSelectionStart() - _action.length());
                 }
             }
         }
@@ -215,17 +220,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
 
-        int startCursorPos = _contentEditor.getSelectionStart();
-        if (_contentEditor.hasSelection()) {
-            String selected_text = _contentEditor.getText().subSequence(
-                    _contentEditor.getSelectionStart(),
-                    _contentEditor.getSelectionEnd()
+        int startCursorPos = _hlEditor.getSelectionStart();
+        if (_hlEditor.hasSelection()) {
+            String selected_text = _hlEditor.getText().subSequence(
+                    _hlEditor.getSelectionStart(),
+                    _hlEditor.getSelectionEnd()
             ).toString();
             editPathName.setText(selected_text);
-        } else if (_contentEditor.getText().toString().isEmpty()) {
+        } else if (_hlEditor.getText().toString().isEmpty()) {
             editPathName.setText("");
         } else {
-            Editable contentText = _contentEditor.getText();
+            Editable contentText = _hlEditor.getText();
             int lineStartidx = Math.max(startCursorPos, 0);
             int lineEndidx = Math.min(startCursorPos, contentText.length() - 1);
             lineStartidx = Math.min(lineEndidx, lineStartidx);
@@ -245,7 +250,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                 int stat = lineStartidx + m.start();
                 int en = lineStartidx + m.end();
-                _contentEditor.setSelection(stat, en);
+                _hlEditor.setSelection(stat, en);
                 editPathName.setText(m.group(1));
                 editPathUrl.setText((m.group(2)));
             }
@@ -309,22 +314,22 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (_contentEditor.hasSelection()) {
-                            _contentEditor.setSelection(startCursorPos);
+                        if (_hlEditor.hasSelection()) {
+                            _hlEditor.setSelection(startCursorPos);
                         }
                     }
                 })
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (_contentEditor.hasSelection()) {
-                            _contentEditor.getText().replace(_contentEditor.getSelectionStart(),
-                                    _contentEditor.getSelectionEnd(),
+                        if (_hlEditor.hasSelection()) {
+                            _hlEditor.getText().replace(_hlEditor.getSelectionStart(),
+                                    _hlEditor.getSelectionEnd(),
                                     String.format(formatTemplate, editPathName.getText().toString(),
                                             editPathUrl.getText().toString()));
-                            _contentEditor.setSelection(_contentEditor.getSelectionStart());
+                            _hlEditor.setSelection(_hlEditor.getSelectionStart());
                         } else {
-                            _contentEditor.getText().insert(_contentEditor.getSelectionStart(),
+                            _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
                                     String.format(formatTemplate, editPathName.getText().toString(),
                                             editPathUrl.getText().toString()));
                         }

@@ -20,7 +20,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -66,7 +66,7 @@ public class DocumentIO {
 
         Document document = new Document();
         document.setDoHistory(false);
-        document.setFileExtension(MarkdownConverter.EXT_MARKDOWN__MD);
+        document.setFileExtension(MarkdownTextConverter.EXT_MARKDOWN__MD);
         File extraPath = (File) arguments.getSerializable(EXTRA_PATH);
         File filePath = extraPath;
 
@@ -75,11 +75,11 @@ public class DocumentIO {
         if (extraPathIsFolder) {
             extraPath.mkdirs();
             while (filePath.exists()) {
-                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), MarkdownConverter.EXT_MARKDOWN__MD));
+                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract existing extension
-            for (String ext : MarkdownConverter.MD_EXTENSIONS) {
+            for (String ext : MarkdownTextConverter.MD_EXTENSIONS) {
                 if (filePath.getName().toLowerCase(Locale.getDefault()).endsWith(ext)) {
                     document.setFileExtension(ext);
                     break;
@@ -87,7 +87,7 @@ public class DocumentIO {
             }
 
             // Extract content and title
-            document.setTitle(MarkdownConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
+            document.setTitle(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
             document.setContent(FileUtils.readTextFile(filePath));
         }
 

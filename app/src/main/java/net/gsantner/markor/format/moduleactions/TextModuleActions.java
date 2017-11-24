@@ -1,4 +1,9 @@
-package net.gsantner.markor.format.textmodule;
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
+package net.gsantner.markor.format.moduleactions;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,17 +20,18 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 
+@SuppressWarnings("WeakerAccess")
 public abstract class TextModuleActions {
-    protected HighlightingEditor _contentEditor;
+    protected HighlightingEditor _hlEditor;
     protected Document _document;
     protected Activity _activity;
     protected Context _context;
 
-    public TextModuleActions(HighlightingEditor contentEditor, Document document, Activity activity) {
-        _contentEditor = contentEditor;
+    public TextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
+        _hlEditor = hlEditor;
         _document = document;
         _activity = activity;
-        _context = activity != null ? activity : _contentEditor.getContext();
+        _context = activity != null ? activity : _hlEditor.getContext();
     }
 
     public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
@@ -52,12 +58,12 @@ public abstract class TextModuleActions {
     //
     //
     //
-    public HighlightingEditor getContentEditor() {
-        return _contentEditor;
+    public HighlightingEditor getHighlightingEditor() {
+        return _hlEditor;
     }
 
-    public void setContentEditor(HighlightingEditor contentEditor) {
-        _contentEditor = contentEditor;
+    public void setHighlightingEditor(HighlightingEditor hlEditor) {
+        _hlEditor = hlEditor;
     }
 
     public Document getDocument() {

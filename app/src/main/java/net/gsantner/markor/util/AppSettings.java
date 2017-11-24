@@ -18,7 +18,7 @@ import java.util.Locale;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
-    private AppSettings(Context _context) {
+    public AppSettings(Context _context) {
         super(_context);
     }
 

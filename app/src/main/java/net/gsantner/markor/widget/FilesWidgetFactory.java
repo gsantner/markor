@@ -14,7 +14,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 
@@ -64,7 +64,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
         File file = _widgetFilesList[position];
         Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file);
         RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
-        rowView.setTextViewText(R.id.widget_note_title, MarkdownConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
+        rowView.setTextViewText(R.id.widget_note_title, MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
         rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         return rowView;
     }
