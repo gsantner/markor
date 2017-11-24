@@ -1,6 +1,7 @@
 package net.gsantner.markor.format.highlighter.markdown;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
+
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -20,13 +21,12 @@ import net.gsantner.markor.util.AppSettings;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarkdownHighlighter extends Highlighter{
+public class MarkdownHighlighter extends Highlighter {
     private final MarkdownHighlighterColors colors;
     public final String fontType;
     public final Integer fontSize;
 
-    public MarkdownHighlighter()
-    {
+    public MarkdownHighlighter() {
         colors = new MarkdownHighlighterColorsNeutral();
         fontType = AppSettings.get().getFontFamily();
         fontSize = AppSettings.get().getFontSize();
@@ -51,7 +51,7 @@ public class MarkdownHighlighter extends Highlighter{
             createColorSpanForMatches(e, MarkdownHighlighterPattern.QUOTATION, colors.getQuotationColor());
             createSpanWithStrikeThroughForMatches(e, MarkdownHighlighterPattern.STRIKETHROUGH);
             createMonospaceSpanForMatches(e, MarkdownHighlighterPattern.MONOSPACED);
-            createColorSpanForDoublespace(e, MarkdownHighlighterPattern.MONOSPACED,colors.getDoublespaceColor());
+            createColorSpanForDoublespace(e, MarkdownHighlighterPattern.MONOSPACED, colors.getDoublespaceColor());
 
         } catch (Exception ex) {
             // Ignoring errors

@@ -16,7 +16,6 @@ import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.SpanCreator;
 
 import java.util.regex.Matcher;
