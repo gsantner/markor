@@ -30,18 +30,14 @@ public class HighlightingEditor extends AppCompatEditText {
     private OnTextChangedListener onTextChangedListener = null;
 
     private final Handler updateHandler = new Handler();
-    private final Runnable updateRunnable =
-            new Runnable() {
-                @Override
-                public void run() {
-                    Editable e = getText();
+    private final Runnable updateRunnable = () -> {
+        Editable e = getText();
 
-                    if (onTextChangedListener != null)
-                        onTextChangedListener.onTextChanged(e.toString());
+        if (onTextChangedListener != null)
+            onTextChangedListener.onTextChanged(e.toString());
 
-                    highlightWithoutChange(e);
-                }
-            };
+        highlightWithoutChange(e);
+    };
     private boolean modified = true;
 
 
@@ -50,67 +46,58 @@ public class HighlightingEditor extends AppCompatEditText {
         if (AppSettings.get().isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter());
             setAutoFormat(highlighter.getAutoFormatter());
-            enableHighlighting();
+            setHighlightingEnabled(AppSettings.get().isHighlightingEnabled());
         }
         init();
     }
 
-    private void enableHighlighting() {
-        doHighlighting = true;
-    }
-    private void disableHighlighting(){
-        doHighlighting = false;
+    private void setHighlightingEnabled(boolean enable) {
+        doHighlighting = enable;
     }
 
-    private void setHighlighter(Highlighter newHighlighter){
+    public boolean isDoHighlighting() {
+        return doHighlighting;
+    }
+
+    private void setHighlighter(Highlighter newHighlighter) {
         highlighter = newHighlighter;
-        enableHighlighting();
     }
 
-    private void setAutoFormat(InputFilter newAutoFormatter){
-        setFilters(new InputFilter[]{ newAutoFormatter });
+    private void setAutoFormat(InputFilter newAutoFormatter) {
+        setFilters(new InputFilter[]{newAutoFormatter});
     }
-    private void removeAutoFormat(){
+
+    private void removeAutoFormat() {
         setFilters(new InputFilter[]{});
     }
-    private void enableHighlighterAutoFormat(){
-        if(doHighlighting) {
+
+    private void enableHighlighterAutoFormat() {
+        if (doHighlighting) {
             setAutoFormat(highlighter.getAutoFormatter());
         }
     }
+
     private void init() {
         final int highlightingDelay = getHighlightingDelayFromPrefs();
 
-        addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void onTextChanged(
-                            CharSequence s,
-                            int start,
-                            int before,
-                            int count) {
-                    }
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable e) {
+                cancelUpdate();
+                if (!modified) {
+                    return;
+                }
+                updateHandler.postDelayed(updateRunnable, highlightingDelay);
+            }
 
-                    @Override
-                    public void beforeTextChanged(
-                            CharSequence s,
-                            int start,
-                            int count,
-                            int after) {
-                    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
-                    @Override
-                    public void afterTextChanged(Editable e) {
-                        cancelUpdate();
-
-                        if (!modified)
-                            return;
-
-                        updateHandler.postDelayed(
-                                updateRunnable,
-                                highlightingDelay);
-                    }
-                });
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+        });
     }
 
     private void cancelUpdate() {
@@ -118,15 +105,15 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void highlightWithoutChange(Editable e) {
-        if(doHighlighting) {
+        if (doHighlighting) {
             modified = false;
             highlighter.run(e);
             modified = true;
         }
     }
 
-    private String getStringFromStringTable(int preference_key) {
-        return this.getContext().getString(preference_key);
+    private String rstr(int preference_key) {
+        return getContext().getString(preference_key);
     }
 
     private int getHighlightingDelayFromPrefs() {

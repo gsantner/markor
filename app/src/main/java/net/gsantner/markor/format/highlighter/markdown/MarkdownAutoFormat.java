@@ -15,7 +15,7 @@ public class MarkdownAutoFormat implements InputFilter {
             int dstart,
             int dend) {
 
-        if (    end - start == 1 &&
+        if (end - start == 1 &&
                 start < source.length() &&
                 dstart <= dest.length()) {
             char newChar = source.charAt(start);
@@ -70,11 +70,11 @@ public class MarkdownAutoFormat implements InputFilter {
 
             if (iend < dest.length() - 1) {
                 // This is for any line that is not the first line in a file
-                Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString().substring(iend,dend));
+                Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString().substring(iend, dend));
                 if (listMatcher.find()) {
                     return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
                 } else {
-                    Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString().substring(iend,dend));
+                    Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString().substring(iend, dend));
                     if (m.find()) {
                         return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
                     } else {

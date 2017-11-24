@@ -18,7 +18,7 @@ public abstract class Highlighter {
 
     public abstract InputFilter getAutoFormatter();
 
-    protected static Highlighter getDefaultHighlighter(){
+    protected static Highlighter getDefaultHighlighter() {
         return new MarkdownHighlighter();
     }
 
