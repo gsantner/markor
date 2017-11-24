@@ -26,8 +26,8 @@ import android.view.ViewGroup;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.format.textmodule.MarkdownTextModuleActions;
-import net.gsantner.markor.format.textmodule.TextModuleActions;
+import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
+import net.gsantner.markor.format.moduleactions.TextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
@@ -68,8 +68,8 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
 
-    @BindView(R.id.document__fragment__edit__content_editor)
-    HighlightingEditor _contentEditor;
+    @BindView(R.id.document__fragment__edit__highlighting_editor)
+    HighlightingEditor _hlEditor;
 
     @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
     ViewGroup _textModuleActionsBar;
@@ -103,14 +103,14 @@ public class DocumentEditFragment extends BaseFragment {
         loadDocumentIntoUi();
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
-        _contentEditor.clearFocus();
+        _hlEditor.clearFocus();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         checkReloadDisk();
-        _contentEditor.setText(_document.getContent());
+        _hlEditor.setText(_document.getContent());
     }
 
     @Override
@@ -133,10 +133,10 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     public void loadDocumentIntoUi() {
-        int editorpos = _contentEditor.getSelectionStart();
-        _contentEditor.setText(_document.getContent());
-        editorpos = editorpos > _contentEditor.length() ? _contentEditor.length() - 1 : editorpos;
-        _contentEditor.setSelection(editorpos < 0 ? 0 : editorpos);
+        int editorpos = _hlEditor.getSelectionStart();
+        _hlEditor.setText(_document.getContent());
+        editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
+        _hlEditor.setSelection(editorpos < 0 ? 0 : editorpos);
         Activity activity = getActivity();
         if (activity != null && activity instanceof DocumentActivity) {
             DocumentActivity da = ((DocumentActivity) activity);
@@ -173,11 +173,11 @@ public class DocumentEditFragment extends BaseFragment {
 
     private long _lastChangedThreadStart = 0;
 
-    @OnTextChanged(value = R.id.document__fragment__edit__content_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {
         if ((_lastChangedThreadStart + HISTORY_DELTA) < System.currentTimeMillis()) {
             _lastChangedThreadStart = System.currentTimeMillis();
-            _contentEditor.postDelayed(new Runnable() {
+            _hlEditor.postDelayed(new Runnable() {
                 public void run() {
                     _document.setContent(text.toString());
                     Activity activity = getActivity();
@@ -205,22 +205,22 @@ public class DocumentEditFragment extends BaseFragment {
     }
 
     private void setupShortcutBar() {
-        _editorActions = new MarkdownTextModuleActions(_contentEditor, _document, getActivity());
+        _editorActions = new MarkdownTextModuleActions(getActivity(), _document, _hlEditor);
         _editorActions.appendTextModuleActionsToBar(_textModuleActionsBar);
     }
 
     private void setupAppearancePreferences() {
         AppSettings as = AppSettings.get();
-        _contentEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
-        _contentEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
+        _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
         if (as.isDarkThemeEnabled()) {
-            _contentEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            _contentEditor.setTextColor(getResources().getColor(android.R.color.white));
+            _hlEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            _hlEditor.setTextColor(getResources().getColor(android.R.color.white));
             _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
-            _contentEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
-            _contentEditor.setTextColor(getResources().getColor(R.color.dark_grey));
+            _hlEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
+            _hlEditor.setTextColor(getResources().getColor(R.color.dark_grey));
             _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
                     .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
@@ -250,7 +250,7 @@ public class DocumentEditFragment extends BaseFragment {
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
-        boolean ret = DocumentIO.saveDocument(_document, argAllowRename, _contentEditor.getText().toString());
+        boolean ret = DocumentIO.saveDocument(_document, argAllowRename, _hlEditor.getText().toString());
         updateLauncherWidgets();
         return ret;
     }

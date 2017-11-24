@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -82,7 +82,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
         Document document = new Document();
         document.setContent(_sharedText);
-        MarkdownConverter.convertToHtmlRenderIntoWebview(document, _webView);
+        new MarkdownTextConverter().markupToHtmlShowInWebView(document, _webView);
     }
 
 

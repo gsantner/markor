@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
@@ -70,7 +70,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
 
         File item = getItem(i);
         if (item != null) {
-            noteTitle.setText(MarkdownConverter.MD_EXTENSION_PATTERN.matcher(item.getName()).replaceAll(EMPTY_STRING));
+            noteTitle.setText(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(item.getName()).replaceAll(EMPTY_STRING));
 
             if (item.isDirectory()) {
                 noteExtra.setText(generateExtraForFile(i));

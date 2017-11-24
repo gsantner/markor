@@ -8,10 +8,6 @@
 package net.gsantner.markor.format.converter;
 
 import android.content.Context;
-import android.webkit.WebView;
-
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.AppSettings;
 
 import org.commonmark.Extension;
 import org.commonmark.ext.autolink.AutolinkExtension;
@@ -28,18 +24,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
-public class MarkdownConverter {
-    //########################
-    //## HTML
-    //########################
-    public static final String UTF_CHARSET = "utf-8";
-    public static final String UNSTYLED_HTML_PREFIX = "<html><body>";
-    public static final String MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}</style>";
-    public static final String DARK_MD_HTML_PREFIX = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}</style>";
-    public static final String MD_HTML_PREFIX_END = "</head><body>";
-    public static final String MD_HTML_RTL_CSS = "<style>body{text-align:right; direction:rtl;}</style>";
-    public static final String MD_HTML_SUFFIX = "</body></html>";
-
+public class MarkdownTextConverter extends TextConverter {
     //########################
     //## Extensions
     //########################
@@ -77,39 +62,10 @@ public class MarkdownConverter {
     //########################
     //## Methods
     //########################
-    public static String convertToHtmlRenderIntoWebview(Document document, WebView webView) {
-        String html = new MarkdownConverter().convertMarkdownToHtml(document.getContent(), webView.getContext());
 
-        // Default font is set by css in line 1 of generated html
-        html = html.replaceFirst("sans-serif-light", AppSettings.get().getFontFamily());
-
-        String baseFolder = AppSettings.get().getNotebookDirectoryAsStr();
-        if (document.getFile() != null && document.getFile().getParentFile() != null) {
-            baseFolder = document.getFile().getParent();
-        }
-        baseFolder = "file://" + baseFolder + "/";
-        webView.loadDataWithBaseURL(baseFolder, html, "text/html", UTF_CHARSET, null);
-
-        return html;
-    }
-
-
-    public String convertMarkdownToHtml(String markdownText, Context context) {
-        return themeStringFromContext(context) +
-                renderer.render(parser.parse(markdownText)) +
-                MD_HTML_SUFFIX;
-    }
-
-    private String themeStringFromContext(Context context) {
-        String s = "";
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            s += DARK_MD_HTML_PREFIX;
-        } else {
-            s += MD_HTML_PREFIX;
-        }
-        if (AppSettings.get().isRenderRtl())
-            s += MD_HTML_RTL_CSS;
-        s += MD_HTML_PREFIX_END;
-        return s;
+    @Override
+    public String markupToHtml(String markup, Context context) {
+        String markupRendered = renderer.render(parser.parse(markup));
+        return putContentIntoTemplate(context, markupRendered);
     }
 }

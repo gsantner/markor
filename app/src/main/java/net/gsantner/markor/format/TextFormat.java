@@ -1,0 +1,89 @@
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
+package net.gsantner.markor.format;
+
+import android.app.Activity;
+
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.converter.TextConverter;
+import net.gsantner.markor.format.highlighter.Highlighter;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
+import net.gsantner.markor.format.highlighter.plain.PlainHighlighter;
+import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
+import net.gsantner.markor.format.moduleactions.PlainTextModuleActions;
+import net.gsantner.markor.format.moduleactions.TextModuleActions;
+import net.gsantner.markor.model.Document;
+
+public class TextFormat {
+    public static final int FORMAT_MARKDOWN = 0;
+    public static final int FORMAT_PLAIN = 1;
+
+    public static TextFormat getFormat(int formatType, Activity activity, Document document, HighlightingEditor hlEditor) {
+        TextFormat format = new TextFormat();
+        switch (formatType) {
+            case FORMAT_PLAIN: {
+                format.setConverter(new MarkdownTextConverter());
+                format.setHighlighter(new PlainHighlighter());
+                format.setTextModuleActions(new PlainTextModuleActions(activity, document, hlEditor));
+                break;
+            }
+            default:
+            case FORMAT_MARKDOWN: {
+                format.setConverter(new MarkdownTextConverter());
+                format.setHighlighter(new MarkdownHighlighter());
+                format.setTextModuleActions(new MarkdownTextModuleActions(activity, document, hlEditor));
+                break;
+            }
+        }
+        return format;
+    }
+
+    //
+    //
+    //
+    private TextModuleActions _textModuleActions;
+    private Highlighter _highlighter;
+    private TextConverter _converter;
+
+    public TextFormat() {
+    }
+
+    public TextFormat(TextModuleActions textModuleActions, Highlighter highlighter, MarkdownTextConverter converter) {
+        _textModuleActions = textModuleActions;
+        _highlighter = highlighter;
+        _converter = converter;
+    }
+
+
+    //
+    //
+    //
+
+    public TextModuleActions getTextModuleActions() {
+        return _textModuleActions;
+    }
+
+    public void setTextModuleActions(TextModuleActions textModuleActions) {
+        _textModuleActions = textModuleActions;
+    }
+
+    public Highlighter getHighlighter() {
+        return _highlighter;
+    }
+
+    public void setHighlighter(Highlighter highlighter) {
+        _highlighter = highlighter;
+    }
+
+    public TextConverter getConverter() {
+        return _converter;
+    }
+
+    public void setConverter(TextConverter converter) {
+        _converter = converter;
+    }
+}

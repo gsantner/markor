@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
@@ -65,7 +65,7 @@ public class DocumentActivity extends AppCompatActivity {
     @BindView(R.id.note__activity__text_note_title)
     TextView _toolbarTitleText;
 
-    private MarkdownConverter _mdRenderer = new MarkdownConverter();
+    private MarkdownTextConverter _mdRenderer = new MarkdownTextConverter();
     private FragmentManager _fragManager;
     private Document _document;
 
@@ -194,7 +194,8 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
-                    shu.shareText(_mdRenderer.convertMarkdownToHtml(_document.getContent(), this),
+                    MarkdownTextConverter converter = new MarkdownTextConverter();
+                    shu.shareText(converter.markupToHtml(_document.getContent(), this),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;

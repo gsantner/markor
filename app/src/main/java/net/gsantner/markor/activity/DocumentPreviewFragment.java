@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownConverter;
+import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
@@ -89,7 +89,8 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        MarkdownConverter.convertToHtmlRenderIntoWebview(_document, _webView);
+        MarkdownTextConverter converter = new MarkdownTextConverter();
+        converter.markupToHtmlShowInWebView(_document, _webView);
     }
 
     @Override

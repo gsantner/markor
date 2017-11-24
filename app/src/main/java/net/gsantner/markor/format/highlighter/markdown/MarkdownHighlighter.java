@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.format.highlighter.markdown;
-
-import net.gsantner.markor.format.highlighter.Highlighter;
 
 import android.graphics.Typeface;
 import android.text.Editable;
@@ -8,13 +11,12 @@ import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
-import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 
+import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.SpanCreator;
 import net.gsantner.markor.util.AppSettings;
 
@@ -123,22 +125,6 @@ public class MarkdownHighlighter extends Highlighter {
     private void createSpanForMatches(final Editable e, final Pattern pattern, final SpanCreator creator) {
         for (Matcher m = pattern.matcher(e); m.find(); ) {
             e.setSpan(creator.create(m), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-    }
-
-    private void clearSpans(Editable e) {
-        clearSpanType(e, TextAppearanceSpan.class);
-        clearSpanType(e, ForegroundColorSpan.class);
-        clearSpanType(e, BackgroundColorSpan.class);
-        clearSpanType(e, StrikethroughSpan.class);
-        clearSpanType(e, StyleSpan.class);
-    }
-
-    private <T extends CharacterStyle> void clearSpanType(Editable e, Class<T> spanType) {
-        CharacterStyle[] spans = e.getSpans(0, e.length(), spanType);
-
-        for (int n = spans.length; n-- > 0; ) {
-            e.removeSpan(spans[n]);
         }
     }
 }
