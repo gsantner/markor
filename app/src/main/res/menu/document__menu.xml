@@ -45,6 +45,9 @@
             <item
                 android:id="@+id/action_format_plaintext"
                 android:title="@string/plain_text" />
+            <item
+                android:id="@+id/action_format_todotxt"
+                android:title="@string/todo_txt" />
         </menu>
     </item>
 

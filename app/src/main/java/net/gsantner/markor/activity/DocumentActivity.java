@@ -214,8 +214,9 @@ public class DocumentActivity extends AppCompatActivity {
                 return true;
             }
 
-            case R.id.action_format_markdown:
-            case R.id.action_format_plaintext: {
+            case R.id.action_format_todotxt:
+            case R.id.action_format_plaintext:
+            case R.id.action_format_markdown: {
                 _document.setFormat(item.getItemId());
                 BaseFragment frag = getCurrentVisibleFragment();
                 if (frag != null && frag instanceof TextFormat.TextFormatApplier) {

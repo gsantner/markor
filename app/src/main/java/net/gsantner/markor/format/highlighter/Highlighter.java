@@ -19,6 +19,7 @@ import android.text.style.TextAppearanceSpan;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 
 public abstract class Highlighter {
+    protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
     protected abstract Editable run(Editable e);
 
