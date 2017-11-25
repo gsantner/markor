@@ -14,6 +14,7 @@ import net.gsantner.markor.format.converter.TextConverter;
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 import net.gsantner.markor.format.highlighter.plain.PlainHighlighter;
+import net.gsantner.markor.format.highlighter.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
 import net.gsantner.markor.format.moduleactions.PlainTextModuleActions;
 import net.gsantner.markor.format.moduleactions.TextModuleActions;
@@ -22,6 +23,7 @@ import net.gsantner.markor.model.Document;
 public class TextFormat {
     public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
     public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
+    public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
 
     public interface TextFormatApplier {
         void applyTextFormat(int textFormatId);
@@ -33,6 +35,12 @@ public class TextFormat {
             case FORMAT_PLAIN: {
                 format.setConverter(new PlainTextConverter());
                 format.setHighlighter(new PlainHighlighter());
+                format.setTextModuleActions(new PlainTextModuleActions(activity, document));
+                break;
+            }
+            case FORMAT_TODOTXT: {
+                format.setConverter(new PlainTextConverter());
+                format.setHighlighter(new TodoTxtHighlighter());
                 format.setTextModuleActions(new PlainTextModuleActions(activity, document));
                 break;
             }

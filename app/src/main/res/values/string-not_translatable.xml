@@ -11,6 +11,7 @@
     <string name="markdown" translatable="false">Markdown</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo" translatable="false">To-Do</string>
+    <string name="todo_txt" translatable="false">todo.txt</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>

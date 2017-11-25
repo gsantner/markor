@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownAutoFormat;
 
 public class PlainHighlighter extends Highlighter {
 
@@ -28,7 +27,7 @@ public class PlainHighlighter extends Highlighter {
 
     @Override
     public InputFilter getAutoFormatter() {
-        return new MarkdownAutoFormat();
+        return AUTOFORMATTER_NONE;
     }
 }
 
