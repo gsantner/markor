@@ -12,6 +12,9 @@ import android.text.InputFilter;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.LineBackgroundSpan;
+import android.text.style.LineHeightSpan;
+import android.text.style.ParagraphStyle;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
@@ -31,15 +34,23 @@ public abstract class Highlighter {
 
 
     protected void clearSpans(Editable e) {
-        clearSpanType(e, TextAppearanceSpan.class);
-        clearSpanType(e, ForegroundColorSpan.class);
-        clearSpanType(e, BackgroundColorSpan.class);
-        clearSpanType(e, StrikethroughSpan.class);
-        clearSpanType(e, StyleSpan.class);
+        clearCharacterSpanType(e, TextAppearanceSpan.class);
+        clearCharacterSpanType(e, ForegroundColorSpan.class);
+        clearCharacterSpanType(e, BackgroundColorSpan.class);
+        clearCharacterSpanType(e, StrikethroughSpan.class);
+        clearCharacterSpanType(e, StyleSpan.class);
+        clearParagraphSpanType(e, LineBackgroundSpan.class);
     }
 
-    protected <T extends CharacterStyle> void clearSpanType(Editable e, Class<T> spanType) {
+    protected <T extends CharacterStyle> void clearCharacterSpanType(Editable e, Class<T> spanType) {
         CharacterStyle[] spans = e.getSpans(0, e.length(), spanType);
+
+        for (int n = spans.length; n-- > 0; ) {
+            e.removeSpan(spans[n]);
+        }
+    }
+    protected <T extends ParagraphStyle> void clearParagraphSpanType(Editable e, Class<T> spanType) {
+        ParagraphStyle[] spans = e.getSpans(0, e.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
             e.removeSpan(spans[n]);

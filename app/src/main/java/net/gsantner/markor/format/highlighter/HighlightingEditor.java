@@ -47,6 +47,7 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlighter(Highlighter.getDefaultHighlighter());
             setAutoFormat(highlighter.getAutoFormatter());
             setHighlightingEnabled(AppSettings.get().isHighlightingEnabled());
+            setLineSpacing(0, 1.5f);
         }
         init();
     }

@@ -26,6 +26,7 @@ public enum TodoTxtHighlighterPattern {
     PRIORITY_ANY(Pattern.compile("(?i)(\\n|^)(?:x )?([(][ABCDEF][)] )")),
     DATE(Pattern.compile("(\\n|^| )(\\d{4}-\\d{2}-\\d{2})(\\n|$| )")),
     KEYVALUE(Pattern.compile("(\\w+:)\\w+")),
+    LINE_OF_TEXT(Pattern.compile("(?m)^.*$")),
 
 
     // TODO:
