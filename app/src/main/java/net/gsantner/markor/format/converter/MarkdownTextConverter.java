@@ -64,7 +64,7 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
 
     @Override
-    public String markupToHtml(String markup, Context context) {
+    public String convertMarkup(String markup, Context context) {
         String markupRendered = renderer.render(parser.parse(markup));
         return putContentIntoTemplate(context, markupRendered);
     }

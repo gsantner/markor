@@ -9,7 +9,7 @@
         android:id="@+id/submenu_share"
         android:icon="@drawable/ic_share_light"
         android:title="@string/share"
-        app:showAsAction="always">
+        app:showAsAction="never">
         <menu>
             <item
                 android:id="@+id/action_share_text"
@@ -34,10 +34,26 @@
     </item>
 
     <item
+        android:id="@+id/submenu_format_selection"
+        android:icon="@drawable/ic_format_shapes_black_24dp"
+        android:title="@string/format"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_format_markdown"
+                android:title="@string/markdown" />
+            <item
+                android:id="@+id/action_format_plaintext"
+                android:title="@string/plain_text" />
+        </menu>
+    </item>
+
+
+    <item
         android:id="@+id/action_add_shortcut_launcher_home"
         android:icon="@drawable/ic_widgets_black_24dp"
         android:orderInCategory="900"
         android:title="@string/add_shortcut_to_launcher_homescreen"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

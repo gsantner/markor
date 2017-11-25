@@ -8,6 +8,7 @@
     <string name="team" translatable="false">Maintainer</string>
     <string name="pdf" translatable="false">PDF</string>
     <string name="quicknote" translatable="false">QuickNote</string>
+    <string name="markdown" translatable="false">Markdown</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo" translatable="false">To-Do</string>
 

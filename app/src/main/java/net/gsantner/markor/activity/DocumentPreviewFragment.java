@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
@@ -32,7 +32,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DocumentPreviewFragment extends BaseFragment {
+public class DocumentPreviewFragment extends BaseFragment implements TextFormat.TextFormatApplier {
     public static boolean showEditOnBack = false;
     public static final String FRAGMENT_TAG = "DocumentPreviewFragment";
 
@@ -58,6 +58,7 @@ public class DocumentPreviewFragment extends BaseFragment {
     private View _view;
     private Context _context;
     private Document _document;
+    private TextFormat _textFormat;
 
     public DocumentPreviewFragment() {
     }
@@ -79,7 +80,7 @@ public class DocumentPreviewFragment extends BaseFragment {
         _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
 
         _document = loadDocument();
-        showDocument();
+        applyTextFormat(_document.getFormat()); //showDocument();
     }
 
     private void showDocument() {
@@ -89,8 +90,7 @@ public class DocumentPreviewFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        MarkdownTextConverter converter = new MarkdownTextConverter();
-        converter.markupToHtmlShowInWebView(_document, _webView);
+        _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
     }
 
     @Override
@@ -119,6 +119,12 @@ public class DocumentPreviewFragment extends BaseFragment {
     }
 
     @Override
+    public void applyTextFormat(int textFormatId) {
+        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
+        showDocument();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         showEditOnBack = false;
@@ -136,12 +142,16 @@ public class DocumentPreviewFragment extends BaseFragment {
             Activity activity = getActivity();
             if (activity != null && activity instanceof DocumentActivity) {
                 DocumentActivity da = ((DocumentActivity) activity);
-                da.showEditor(_document, null, false);
+                da.showTextEditor(_document, null, false);
             }
             return true;
         }
         return false;
     }
+
+    //
+    //
+    //
 
     public WebView getWebview() {
         return _webView;

@@ -137,11 +137,12 @@
     <string name="syntax_highlighting">Syntax Highlighting</string>
     <string name="text_modules">Text Module</string>
     <string name="text_module">Text Modul</string>
-    <string name="highlighting_delay">Highliting</string>
+    <string name="highlighting_delay">Highlighting</string>
     <string name="highlighting_delay_summary">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance schmälern. Voreinstellung 110.</string>
     <string name="highlighting_enabled_summary">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="textmodules_bar_summary">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text Module einfügen</string>
     <string name="editor_font_size_summary">Einstellen der Schriftgröße im Editor</string>
     <string name="load_last_directory_at_startup">Letzten Ordner merken</string>
     <string name="load_last_directory_at_startup__summary">Lade den zuletzt geöffneten Ordner beim Starten</string>
+    <string name="format">Format</string>
 </resources>

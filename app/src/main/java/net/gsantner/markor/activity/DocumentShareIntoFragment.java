@@ -82,7 +82,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
         Document document = new Document();
         document.setContent(_sharedText);
-        new MarkdownTextConverter().markupToHtmlShowInWebView(document, _webView);
+        new MarkdownTextConverter().convertMarkupShowInWebView(document, _webView);
     }
 
 
@@ -163,7 +163,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
             if (AppSettings.get().isPreviewFirst()) {
                 a.showPreview(document, null);
             } else {
-                a.showEditor(document, null, false);
+                a.showTextEditor(document, null, false);
             }
         }
 

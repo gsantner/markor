@@ -27,8 +27,7 @@ public abstract class TextModuleActions {
     protected Activity _activity;
     protected Context _context;
 
-    public TextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
-        _hlEditor = hlEditor;
+    public TextModuleActions(Activity activity, Document document) {
         _document = document;
         _activity = activity;
         _context = activity != null ? activity : _hlEditor.getContext();
@@ -62,31 +61,35 @@ public abstract class TextModuleActions {
         return _hlEditor;
     }
 
-    public void setHighlightingEditor(HighlightingEditor hlEditor) {
+    public TextModuleActions setHighlightingEditor(HighlightingEditor hlEditor) {
         _hlEditor = hlEditor;
+        return this;
     }
 
     public Document getDocument() {
         return _document;
     }
 
-    public void setDocument(Document document) {
+    public TextModuleActions setDocument(Document document) {
         _document = document;
+        return this;
     }
 
     public Activity getActivity() {
         return _activity;
     }
 
-    public void setActivity(Activity activity) {
+    public TextModuleActions setActivity(Activity activity) {
         _activity = activity;
+        return this;
     }
 
     public Context getContext() {
         return _context;
     }
 
-    public void setContext(Context context) {
+    public TextModuleActions setContext(Context context) {
         _context = context;
+        return this;
     }
 }

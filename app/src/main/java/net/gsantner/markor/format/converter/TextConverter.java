@@ -24,21 +24,23 @@ public abstract class TextConverter {
     protected static final String HTML002_RIGHT_TO_LEFT = "<style>body{text-align:right; direction:rtl;}</style>";
     protected static final String HTML010_BODY = "</head><body>";
     protected static final String HTML990_BODY_END = "</body></html>";
+    protected static final String CONTENT_TYPE_HTML = "text/html";
+    protected static final String CONTENT_TYPE_PLAIN = "text/plain";
 
     //########################
     //## Methods
     //########################
 
     /**
-     * Convert markup to html and show the result in a WebView
+     * Convert markup to target format and show the result in a WebView
      *
      * @param document The document containting the contents
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String markupToHtmlShowInWebView(Document document, WebView webView) {
+    public String convertMarkupShowInWebView(Document document, WebView webView) {
         Context context = webView.getContext();
-        String html = markupToHtml(document.getContent(), context);
+        String html = convertMarkup(document.getContent(), context);
 
 
         String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
@@ -46,11 +48,19 @@ public abstract class TextConverter {
             baseFolder = document.getFile().getParent();
         }
         baseFolder = "file://" + baseFolder + "/";
-        webView.loadDataWithBaseURL(baseFolder, html, "text/html", UTF_CHARSET, null);
+        webView.loadDataWithBaseURL(baseFolder, html, getContentType(), UTF_CHARSET, null);
 
         return html;
     }
 
+    /**
+     * Convert markup text to target format
+     *
+     * @param markup  Markup text
+     * @param context Android Context
+     * @return html as String
+     */
+    public abstract String convertMarkup(String markup, Context context);
 
     protected String putContentIntoTemplate(Context context, String content) {
         AppSettings as = new AppSettings(context);
@@ -69,13 +79,7 @@ public abstract class TextConverter {
         return html;
     }
 
-
-    /**
-     * Convert markup text to html
-     *
-     * @param markup  Markup text
-     * @param context Android Context
-     * @return html as String
-     */
-    public abstract String markupToHtml(String markup, Context context);
+    protected String getContentType() {
+        return CONTENT_TYPE_HTML;
+    }
 }

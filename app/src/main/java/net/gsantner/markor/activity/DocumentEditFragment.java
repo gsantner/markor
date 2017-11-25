@@ -25,9 +25,8 @@ import android.view.ViewGroup;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
-import net.gsantner.markor.format.moduleactions.TextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
@@ -43,7 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
-public class DocumentEditFragment extends BaseFragment {
+public class DocumentEditFragment extends BaseFragment implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
@@ -77,7 +76,7 @@ public class DocumentEditFragment extends BaseFragment {
     private View _view;
     private Context _context;
     private Document _document;
-    private TextModuleActions _editorActions;
+    private TextFormat _textFormat;
 
     public DocumentEditFragment() {
     }
@@ -93,7 +92,7 @@ public class DocumentEditFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        setupShortcutBar();
+        applyTextFormat(TextFormat.FORMAT_MARKDOWN);
         setupAppearancePreferences();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
@@ -143,7 +142,8 @@ public class DocumentEditFragment extends BaseFragment {
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        _editorActions.setDocument(_document);
+        applyTextFormat(_document.getFormat());
+        _textFormat.getTextModuleActions().setDocument(_document);
     }
 
     @Override
@@ -177,13 +177,11 @@ public class DocumentEditFragment extends BaseFragment {
     public void onContentEditValueChanged(CharSequence text) {
         if ((_lastChangedThreadStart + HISTORY_DELTA) < System.currentTimeMillis()) {
             _lastChangedThreadStart = System.currentTimeMillis();
-            _hlEditor.postDelayed(new Runnable() {
-                public void run() {
-                    _document.setContent(text.toString());
-                    Activity activity = getActivity();
-                    if (activity != null && activity instanceof AppCompatActivity) {
-                        ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
-                    }
+            _hlEditor.postDelayed(() -> {
+                _document.setContent(text.toString());
+                Activity activity = getActivity();
+                if (activity != null && activity instanceof AppCompatActivity) {
+                    ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
                 }
             }, HISTORY_DELTA);
         }
@@ -204,9 +202,18 @@ public class DocumentEditFragment extends BaseFragment {
         return document;
     }
 
-    private void setupShortcutBar() {
-        _editorActions = new MarkdownTextModuleActions(getActivity(), _document, _hlEditor);
-        _editorActions.appendTextModuleActionsToBar(_textModuleActionsBar);
+    public void applyTextFormat(int textFormatId) {
+        _textModuleActionsBar.removeAllViews();
+        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
+        _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _textFormat.getTextModuleActions()
+                .setHighlightingEditor(_hlEditor)
+                .appendTextModuleActionsToBar(_textModuleActionsBar);
+        if (_textModuleActionsBar.getChildCount() == 0) {
+            _textModuleActionsBar.setVisibility(View.GONE);
+        } else {
+            _textModuleActionsBar.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupAppearancePreferences() {

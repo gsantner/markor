@@ -11,6 +11,8 @@
  */
 package net.gsantner.markor.model;
 
+import net.gsantner.markor.format.TextFormat;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class Document implements Serializable {
     private final static int MIN_HISTORY_DELAY = 2000; // [ms]
 
+    private int _format = TextFormat.FORMAT_MARKDOWN;
     private ArrayList<Document> _history = new ArrayList<>();
     private File _file = null; // Full filepath (path + filename + extension)
     private String _title = "";  // The title of the document. May lead to a rename at save
@@ -166,6 +169,10 @@ public class Document implements Serializable {
         return (o1 == null && o2 == null) || o1 != null && o1.equals(o2);
     }
 
+    //
+    //
+    //
+
     public boolean isDoHistory() {
         return _doHistory;
     }
@@ -204,5 +211,13 @@ public class Document implements Serializable {
 
     public long getLastChanged() {
         return _lastChanged;
+    }
+
+    public int getFormat() {
+        return _format;
+    }
+
+    public void setFormat(int format) {
+        _format = format;
     }
 }
