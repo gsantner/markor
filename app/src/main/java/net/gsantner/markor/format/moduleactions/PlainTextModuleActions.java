@@ -8,13 +8,12 @@ package net.gsantner.markor.format.moduleactions;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 
 public class PlainTextModuleActions extends TextModuleActions {
 
-    public PlainTextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
-        super(activity, document, hlEditor);
+    public PlainTextModuleActions(Activity activity, Document document) {
+        super(activity, document);
     }
 
     @Override

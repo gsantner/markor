@@ -51,7 +51,7 @@ public class HighlightingEditor extends AppCompatEditText {
         init();
     }
 
-    private void setHighlightingEnabled(boolean enable) {
+    public void setHighlightingEnabled(boolean enable) {
         doHighlighting = enable;
     }
 
@@ -59,8 +59,9 @@ public class HighlightingEditor extends AppCompatEditText {
         return doHighlighting;
     }
 
-    private void setHighlighter(Highlighter newHighlighter) {
+    public void setHighlighter(Highlighter newHighlighter) {
         highlighter = newHighlighter;
+        reloadHighlighter();
     }
 
     private void setAutoFormat(InputFilter newAutoFormatter) {
@@ -104,16 +105,16 @@ public class HighlightingEditor extends AppCompatEditText {
         updateHandler.removeCallbacks(updateRunnable);
     }
 
+    public void reloadHighlighter() {
+        highlightWithoutChange(getText());
+    }
+
     private void highlightWithoutChange(Editable e) {
         if (doHighlighting) {
             modified = false;
             highlighter.run(e);
             modified = true;
         }
-    }
-
-    private String rstr(int preference_key) {
-        return getContext().getString(preference_key);
     }
 
     private int getHighlightingDelayFromPrefs() {

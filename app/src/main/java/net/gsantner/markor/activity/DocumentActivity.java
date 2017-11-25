@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
@@ -127,7 +128,7 @@ public class DocumentActivity extends AppCompatActivity {
             if (receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || AppSettings.get().isPreviewFirst() && file.exists() && file.isFile()) {
                 showPreview(null, file);
             } else {
-                showEditor(null, file, fileIsFolder);
+                showTextEditor(null, file, fileIsFolder);
             }
         }
 
@@ -173,7 +174,7 @@ public class DocumentActivity extends AppCompatActivity {
 
             case R.id.action_edit: {
                 DocumentEditFragment.showPreviewOnBack = true;
-                showEditor(_document, null, false);
+                showTextEditor(_document, null, false);
                 return true;
             }
             case R.id.action_add_shortcut_launcher_home: {
@@ -195,7 +196,7 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
                     MarkdownTextConverter converter = new MarkdownTextConverter();
-                    shu.shareText(converter.markupToHtml(_document.getContent(), this),
+                    shu.shareText(converter.convertMarkup(_document.getContent(), this),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
@@ -212,6 +213,16 @@ public class DocumentActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
+            case R.id.action_format_markdown:
+            case R.id.action_format_plaintext: {
+                _document.setFormat(item.getItemId());
+                BaseFragment frag = getCurrentVisibleFragment();
+                if (frag != null && frag instanceof TextFormat.TextFormatApplier) {
+                    ((TextFormat.TextFormatApplier) frag).applyTextFormat(item.getItemId());
+                }
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -222,12 +233,14 @@ public class DocumentActivity extends AppCompatActivity {
         _toolbarTitleText.setText(title);
     }
 
-    public void showEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
+    public BaseFragment showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
+        BaseFragment frag;
         if (document != null) {
-            showFragment(DocumentEditFragment.newInstance(document));
+            frag = showFragment(DocumentEditFragment.newInstance(document));
         } else {
-            showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true));
+            frag = showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true));
         }
+        return frag;
     }
 
     public void showShareInto(String text) {
@@ -318,7 +331,7 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
 
-    public void showFragment(BaseFragment fragment) {
+    public BaseFragment showFragment(BaseFragment fragment) {
         BaseFragment currentTop = (BaseFragment) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
 
         if (currentTop == null || !currentTop.getFragmentTag().equals(fragment.getFragmentTag())) {
@@ -326,8 +339,11 @@ public class DocumentActivity extends AppCompatActivity {
                     //.addToBackStack(null)
                     .replace(R.id.document__placeholder_fragment
                             , fragment, fragment.getFragmentTag()).commit();
+        } else {
+            fragment = currentTop;
         }
         supportInvalidateOptionsMenu();
+        return fragment;
     }
 
 

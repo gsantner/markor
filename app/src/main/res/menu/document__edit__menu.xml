@@ -15,7 +15,7 @@
         android:id="@+id/action_undo"
         android:icon="@drawable/ic_undo_white_24dp"
         android:title="@string/undo"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_redo"

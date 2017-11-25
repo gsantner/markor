@@ -7,10 +7,11 @@ package net.gsantner.markor.format;
 
 import android.app.Activity;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.converter.PlainTextConverter;
 import net.gsantner.markor.format.converter.TextConverter;
 import net.gsantner.markor.format.highlighter.Highlighter;
-import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 import net.gsantner.markor.format.highlighter.plain.PlainHighlighter;
 import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
@@ -19,23 +20,27 @@ import net.gsantner.markor.format.moduleactions.TextModuleActions;
 import net.gsantner.markor.model.Document;
 
 public class TextFormat {
-    public static final int FORMAT_MARKDOWN = 0;
-    public static final int FORMAT_PLAIN = 1;
+    public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
+    public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
 
-    public static TextFormat getFormat(int formatType, Activity activity, Document document, HighlightingEditor hlEditor) {
+    public interface TextFormatApplier {
+        void applyTextFormat(int textFormatId);
+    }
+
+    public static TextFormat getFormat(int formatType, Activity activity, Document document) {
         TextFormat format = new TextFormat();
         switch (formatType) {
             case FORMAT_PLAIN: {
-                format.setConverter(new MarkdownTextConverter());
+                format.setConverter(new PlainTextConverter());
                 format.setHighlighter(new PlainHighlighter());
-                format.setTextModuleActions(new PlainTextModuleActions(activity, document, hlEditor));
+                format.setTextModuleActions(new PlainTextModuleActions(activity, document));
                 break;
             }
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(new MarkdownTextConverter());
                 format.setHighlighter(new MarkdownHighlighter());
-                format.setTextModuleActions(new MarkdownTextModuleActions(activity, document, hlEditor));
+                format.setTextModuleActions(new MarkdownTextModuleActions(activity, document));
                 break;
             }
         }

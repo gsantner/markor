@@ -145,4 +145,5 @@
     <string name="editor_font_size_summary">Control the font size used in the editor</string>
     <string name="textmodules_bar_summary">Show a bar with useful actions to insert common used text modules</string>
     <string name="load_last_directory_at_startup__summary">Load the last opened folder at startup</string>
+    <string name="format">Format</string>
 </resources>

@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
@@ -29,8 +28,8 @@ import java.util.regex.Pattern;
 
 public class MarkdownTextModuleActions extends TextModuleActions {
 
-    public MarkdownTextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
-        super(activity, document, hlEditor);
+    public MarkdownTextModuleActions(Activity activity, Document document) {
+        super(activity, document);
     }
 
     @Override
