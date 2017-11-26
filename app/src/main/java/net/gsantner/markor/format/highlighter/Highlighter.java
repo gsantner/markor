@@ -27,6 +27,7 @@ import android.util.Log;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Matcher;
@@ -36,6 +37,9 @@ import java.util.regex.Pattern;
 public abstract class Highlighter {
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
+    protected NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
+    private boolean _isFirstHighlighting = true;
+
     protected abstract Editable run(final HighlightingEditor editor, final Editable editable);
 
     public abstract InputFilter getAutoFormatter();
@@ -44,7 +48,13 @@ public abstract class Highlighter {
         return new MarkdownHighlighter();
     }
 
-    protected NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
+    public int getHighlightingDelay(Context context){
+        int ret = _isFirstHighlighting ? 100  : loadHighlightingDelay(context);
+        _isFirstHighlighting = false;
+        return ret;
+    }
+    protected abstract int loadHighlightingDelay(Context context);
+
 
     //
     // Clear spans
@@ -102,19 +112,6 @@ public abstract class Highlighter {
         }
     }
 
-    private long _profilingValue = -1;
-
-    protected void doProfileEnd() {
-        long now = System.nanoTime();
-        long before = _profilingValue;
-        _profilingValue = now - _profilingValue;
-        Log.e("PROFILING", String.format("Needed time for last span: %f[ms]", _profilingValue / 1000f));
-    }
-
-    protected void doProfileStart() {
-        _profilingValue = System.nanoTime();
-    }
-
     protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style) {
         createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
@@ -146,7 +143,4 @@ public abstract class Highlighter {
     protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator) {
         createSpanForMatchesP(editable, pattern, creator);
     }
-
-
-    public abstract int getHighlightingDelay(Context context);
 }

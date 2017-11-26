@@ -82,7 +82,7 @@ public class MarkdownHighlighter extends Highlighter {
     }
 
     @Override
-    public int getHighlightingDelay(Context context) {
+    public int loadHighlightingDelay(Context context) {
         return new AppSettings(context).getHighlightingDelayMarkdown();
     }
 }

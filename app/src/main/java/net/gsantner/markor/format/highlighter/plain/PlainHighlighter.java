@@ -11,7 +11,6 @@ import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.util.AppSettings;
 
 public class PlainHighlighter extends Highlighter {
 
@@ -34,7 +33,7 @@ public class PlainHighlighter extends Highlighter {
     }
 
     @Override
-    public int getHighlightingDelay(Context context) {
+    public int loadHighlightingDelay(Context context) {
         return 99999;
     }
 }
