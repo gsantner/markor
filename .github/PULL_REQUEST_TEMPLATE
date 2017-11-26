@@ -1,17 +1,11 @@
-<!-- Hello, and thanks for contributing! -->
-
-Fixes issue #
-
-Proposed changes in this pull request:
-
--
--
 
 
 
 
 
-<!--
+
+<!-- 
+Hello, and thanks for contributing!
 ## Contributors document
 Add yourself! When adding your information to the `CONTRIBUTORS.md` file, please use the following format:
 
@@ -22,5 +16,4 @@ Where:
   * Text: Information about / kind of contribution 
 Example:
 * **[Nice Guy](http://niceguy.web)**<br/>~° German localization 
-
 -->
