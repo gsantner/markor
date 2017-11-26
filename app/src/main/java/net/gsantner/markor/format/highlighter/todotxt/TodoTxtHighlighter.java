@@ -43,13 +43,13 @@ public class TodoTxtHighlighter extends Highlighter {
             createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), Typeface.ITALIC);
 
             // Priorities
+            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_ANY.getPattern(), Typeface.BOLD);
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_A.getPattern(), colors.getPriorityColor(1));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_B.getPattern(), colors.getPriorityColor(2));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_C.getPattern(), colors.getPriorityColor(3));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_D.getPattern(), colors.getPriorityColor(4));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_E.getPattern(), colors.getPriorityColor(5));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_F.getPattern(), colors.getPriorityColor(6));
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_ANY.getPattern(), Typeface.BOLD);
 
             // Date
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());

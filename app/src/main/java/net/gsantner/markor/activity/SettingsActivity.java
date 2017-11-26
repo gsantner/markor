@@ -183,6 +183,27 @@ public class SettingsActivity extends AppCompatActivity {
                             return true;
                         }
                     }
+
+                    case R.string.todo: {
+                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                                @Override
+                                public void onFsSelected(String request, File file) {
+                                    AppSettings as = AppSettings.get();
+                                    as.setTodoFile(file);
+                                    as.setRecreateMainRequired(true);
+                                }
+
+                                @Override
+                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                    opt.titleText = R.string.todo;
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
+                                }
+                            }, fragManager, getActivity());
+                            return true;
+                        }
+                    }
                 }
             }
             return super.onPreferenceTreeClick(screen, preference);
