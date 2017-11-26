@@ -107,6 +107,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void reloadHighlighter() {
+        enableHighlighterAutoFormat();
         highlightWithoutChange(getText());
     }
 
