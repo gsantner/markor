@@ -20,6 +20,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
@@ -92,6 +93,14 @@ public class DocumentIO {
         }
 
         document.setFile(filePath);
+
+        if (document.getFormat() == TextFormat.FORMAT_UNKNOWN) {
+            document.setFormat(TextFormat.FORMAT_MARKDOWN);
+            if (document.getFile().getName().toLowerCase().startsWith("todo.")) {
+                document.setFormat(TextFormat.FORMAT_TODOTXT);
+            }
+        }
+
         document.setDoHistory(true);
         return document;
     }

@@ -36,7 +36,7 @@ public class TodoTxtHeaderSpanCreator implements SpanCreator {
         this.color = color;
     }
 
-    public ParcelableSpan create(Matcher m) {
+    public ParcelableSpan create(Matcher m, int iM) {
         final char[] charSequence = extractMatchingRange(m);
         Float proportion = calculateProportionBasedOnHeaderType(charSequence);
         Float size = calculateAdjustedSize(proportion);

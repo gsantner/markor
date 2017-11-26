@@ -12,6 +12,7 @@
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo" translatable="false">To-Do</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
+    <string name="todo_default_filename" translatable="false">todo.txt</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
@@ -65,4 +66,5 @@
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
+    <string name="pref_key__todo_filepath" translatable="false">pref_key__todo_filepath</string>
 </resources>

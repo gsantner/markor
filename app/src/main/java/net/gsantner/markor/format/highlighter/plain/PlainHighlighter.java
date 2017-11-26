@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
 
 public class PlainHighlighter extends Highlighter {
 
@@ -16,13 +17,13 @@ public class PlainHighlighter extends Highlighter {
     }
 
     @Override
-    protected Editable run(Editable e) {
+    protected Editable run(final HighlightingEditor editor, final Editable editable) {
         try {
-            clearSpans(e);
+            clearSpans(editable);
         } catch (Exception ex) {
             // Ignoring errors
         }
-        return e;
+        return editable;
     }
 
     @Override

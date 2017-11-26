@@ -71,6 +71,15 @@ public class AppSettings extends AppSettingsBase {
         setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
+    public File getTodoFile() {
+        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
+        return new File(getString(R.string.pref_key__todo_filepath, defaultValue));
+    }
+
+    public void setTodoFile(File file) {
+        setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
+    }
+
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
