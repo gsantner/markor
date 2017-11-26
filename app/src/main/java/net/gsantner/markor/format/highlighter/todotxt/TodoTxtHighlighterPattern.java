@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public enum TodoTxtHighlighterPattern {
 
     LINK(android.util.Patterns.WEB_URL),
+    NEWLINE_CHARACTER(Pattern.compile("(\\n|^)")),
     CONTEXT(Pattern.compile("(\\B\\+\\w+)")),
     CATEGORY(Pattern.compile("(\\B\\@\\w+)")), // Category = Project
     DONE(Pattern.compile("(?m)^([x|X] ).*$")),
@@ -24,9 +25,10 @@ public enum TodoTxtHighlighterPattern {
     PRIORITY_E(reuse.prio(5)),
     PRIORITY_F(reuse.prio(6)),
     PRIORITY_ANY(Pattern.compile("(?i)(\\n|^)(?:x )?([(][ABCDEF][)] )")),
-    DATE(Pattern.compile("(\\n|^| )(\\d{4}-\\d{2}-\\d{2})(\\n|$| )")),
+    DATE(Pattern.compile("( ?\\d{4}-\\d{2}-\\d{2} )")),
+    LINESTART(Pattern.compile("(?m)^.")),
     KEYVALUE(Pattern.compile("(\\w+:)\\w+")),
-    LINE_OF_TEXT(Pattern.compile("(?m)^.*$")),
+    LINE_OF_TEXT(Pattern.compile("(?m)(.*)?")),
 
 
     // TODO:

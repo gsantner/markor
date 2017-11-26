@@ -7,7 +7,6 @@
  */
 package net.gsantner.markor.format.highlighter;
 
-import android.text.ParcelableSpan;
 import android.text.style.ParagraphStyle;
 
 import java.util.regex.Matcher;
