@@ -21,13 +21,13 @@ public enum MarkdownHighlighterPattern {
     ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_)(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
     DOUBLESPACE(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
 
-    private Pattern pattern;
+    private Pattern _pattern;
 
     MarkdownHighlighterPattern(Pattern pattern) {
-        this.pattern = pattern;
+        _pattern = pattern;
     }
 
     public Pattern getPattern() {
-        return pattern;
+        return _pattern;
     }
 }

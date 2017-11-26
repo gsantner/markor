@@ -12,25 +12,15 @@ import java.util.regex.Matcher;
 
 public class MarkdownAutoFormat implements InputFilter {
     @Override
-    public CharSequence filter(
-            CharSequence source,
-            int start,
-            int end,
-            Spanned dest,
-            int dstart,
-            int dend) {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-        if (end - start == 1 &&
-                start < source.length() &&
-                dstart <= dest.length()) {
+        if (end - start == 1
+                && start < source.length()
+                && dstart <= dest.length()) {
             char newChar = source.charAt(start);
 
             if (newChar == '\n') {
-                return autoIndent(
-                        source,
-                        dest,
-                        dstart,
-                        dend);
+                return autoIndent(source, dest, dstart, dend);
             }
         }
 
@@ -38,7 +28,6 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
     private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-
         int istart = findLineBreakPosition(dest, dstart);
 
         // append white space of previous line and new indent
@@ -50,25 +39,20 @@ public class MarkdownAutoFormat implements InputFilter {
 
         for (; istart > -1; --istart) {
             char c = dest.charAt(istart);
-
-            if (c == '\n')
+            if (c == '\n') {
                 break;
+            }
         }
         return istart;
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-
         if (istart > -1 && istart < dest.length() - 1) {
             int iend;
 
-            for (iend = ++istart;
-                 iend < dest.length() - 1;
-                 ++iend) {
+            for (iend = ++istart; iend < dest.length() - 1; ++iend) {
                 char c = dest.charAt(iend);
-
-                if (c != ' ' &&
-                        c != '\t') {
+                if (c != ' ' && c != '\t') {
                     break;
                 }
             }
@@ -117,5 +101,4 @@ public class MarkdownAutoFormat implements InputFilter {
             return "";
         }
     }
-
 }

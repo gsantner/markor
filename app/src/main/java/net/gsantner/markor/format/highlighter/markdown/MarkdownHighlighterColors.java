@@ -8,7 +8,6 @@
 package net.gsantner.markor.format.highlighter.markdown;
 
 public interface MarkdownHighlighterColors {
-
     int getHeaderColor();
 
     int getLinkColor();

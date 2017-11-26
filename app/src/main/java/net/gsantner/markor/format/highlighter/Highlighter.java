@@ -46,13 +46,13 @@ public abstract class Highlighter {
         return new MarkdownHighlighter();
     }
 
-    public int getHighlightingDelay(Context context) {
-        int ret = _isFirstHighlighting ? 100 : loadHighlightingDelay(context);
+    public int loadHighlightingDelay(Context context) {
+        int ret = _isFirstHighlighting ? 100 : getHighlightingDelay(context);
         _isFirstHighlighting = false;
         return ret;
     }
 
-    protected abstract int loadHighlightingDelay(Context context);
+    protected abstract int getHighlightingDelay(Context context);
 
 
     //
