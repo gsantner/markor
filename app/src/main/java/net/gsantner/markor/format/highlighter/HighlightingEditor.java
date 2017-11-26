@@ -62,6 +62,12 @@ public class HighlightingEditor extends AppCompatEditText {
     public void setHighlighter(Highlighter newHighlighter) {
         highlighter = newHighlighter;
         reloadHighlighter();
+
+        // Alpha in animation
+        setAlpha(0.3f);
+        animate().alpha(1.0f)
+                .setDuration(500)
+                .setListener(null);
     }
 
     private void setAutoFormat(InputFilter newAutoFormatter) {
