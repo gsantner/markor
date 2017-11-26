@@ -10,7 +10,6 @@ package net.gsantner.markor.format.highlighter.markdown;
 // Neutral means good readability in both, light and dark theme
 @SuppressWarnings("FieldCanBeLocal")
 public class MarkdownHighlighterColorsNeutral implements MarkdownHighlighterColors {
-
     private final int COLOR_HEADER = 0xffef6C00;
     private final int COLOR_LINK = 0xff1ea3fd;
     private final int COLOR_LIST = 0xffdaa520;

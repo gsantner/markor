@@ -8,7 +8,6 @@ package net.gsantner.markor.format.markdown;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -130,13 +129,13 @@ public class MarkdownHighlighterPatternItalicTest {
         assertThat(m.group()).isEqualTo("***bold & italic****");
     }
 
-    @Ignore("Ideally this would pass, but I don't think it's possible with regex. As it is, the regex is pretty complex.")
+    /*@Ignore("Ideally this would pass, but I don't think it's possible with regex. As it is, the regex is pretty complex.")
     @Test
     public void italicStarWithExtraPrecedingStarShouldMatch() {
         Matcher m = pattern.matcher("**italic*");
         assertThat(m.find()).isTrue();
         assertThat(m.group()).isEqualTo("**italic*");
-    }
+    }*/
 
     @Test
     public void italicStarWithExtraTrailingStarShouldMatch() {

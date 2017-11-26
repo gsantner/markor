@@ -33,7 +33,7 @@ public class PlainHighlighter extends Highlighter {
     }
 
     @Override
-    public int loadHighlightingDelay(Context context) {
+    public int getHighlightingDelay(Context context) {
         return 99999;
     }
 }

@@ -109,7 +109,7 @@ public class TodoTxtHighlighter extends Highlighter {
     }
 
     @Override
-    public int loadHighlightingDelay(Context context) {
+    public int getHighlightingDelay(Context context) {
         return new AppSettings(context).getHighlightingDelayTodoTxt();
     }
 

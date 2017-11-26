@@ -49,7 +49,7 @@ public class DocumentTest {
     }
 
     @Test
-    public void filenameNormalization(){
+    public void filenameNormalization() {
         assertThat(normalizeTitleForFilename(nd(null, "HelloWorld"))).isEqualTo("HelloWorld");
         assertThat(normalizeTitleForFilename(nd("HelloWorld", "text"))).isEqualTo("HelloWorld");
         assertThat(normalizeTitleForFilename(nd(null, "text\nnewline"))).isEqualTo("text");
@@ -57,12 +57,12 @@ public class DocumentTest {
         assertThat(normalizeTitleForFilename(nd(null, "## hello world"))).isEqualTo("hello world");
     }
 
-    private Document nd(String title, String content){
+    private Document nd(String title, String content) {
         Document document = new Document();
-        if (title != null){
+        if (title != null) {
             document.setTitle(title);
         }
-        if (content != null){
+        if (content != null) {
             document.setContent(content);
         }
         return document;

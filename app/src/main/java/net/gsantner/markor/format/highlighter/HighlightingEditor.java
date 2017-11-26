@@ -20,47 +20,47 @@ import net.gsantner.markor.util.AppSettings;
 
 public class HighlightingEditor extends AppCompatEditText {
 
-    private Highlighter highlighter;
-    private boolean doHighlighting = false;
+    private Highlighter _highlighter;
+    private boolean _doHighlighting = false;
 
     interface OnTextChangedListener {
         void onTextChanged(String text);
     }
 
-    private OnTextChangedListener onTextChangedListener = null;
+    private OnTextChangedListener _onTextChangedListener = null;
 
-    private final Handler updateHandler = new Handler();
-    private final Runnable updateRunnable = () -> {
+    private final Handler _updateHandler = new Handler();
+    private final Runnable _updateRunnable = () -> {
         Editable e = getText();
 
-        if (onTextChangedListener != null)
-            onTextChangedListener.onTextChanged(e.toString());
+        if (_onTextChangedListener != null)
+            _onTextChangedListener.onTextChanged(e.toString());
 
         highlightWithoutChange(e);
     };
-    private boolean modified = true;
+    private boolean _modified = true;
 
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (AppSettings.get().isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter());
-            setAutoFormat(highlighter.getAutoFormatter());
+            setAutoFormat(_highlighter.getAutoFormatter());
             setHighlightingEnabled(AppSettings.get().isHighlightingEnabled());
         }
         init();
     }
 
     public void setHighlightingEnabled(boolean enable) {
-        doHighlighting = enable;
+        _doHighlighting = enable;
     }
 
     public boolean isDoHighlighting() {
-        return doHighlighting;
+        return _doHighlighting;
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
-        highlighter = newHighlighter;
+        _highlighter = newHighlighter;
         reloadHighlighter();
 
         // Alpha in animation
@@ -79,24 +79,24 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void enableHighlighterAutoFormat() {
-        if (doHighlighting) {
-            setAutoFormat(highlighter.getAutoFormatter());
+        if (_doHighlighting) {
+            setAutoFormat(_highlighter.getAutoFormatter());
         }
     }
 
     private void init() {
-        final int highlightingDelay = highlighter != null
-                ? highlighter.getHighlightingDelay(getContext())
+        final int highlightingDelay = _highlighter != null
+                ? _highlighter.loadHighlightingDelay(getContext())
                 : new AppSettings(getContext()).getHighlightingDelayMarkdown();
 
         addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable e) {
                 cancelUpdate();
-                if (!modified) {
+                if (!_modified) {
                     return;
                 }
-                updateHandler.postDelayed(updateRunnable, highlightingDelay);
+                _updateHandler.postDelayed(_updateRunnable, highlightingDelay);
             }
 
             @Override
@@ -110,7 +110,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void cancelUpdate() {
-        updateHandler.removeCallbacks(updateRunnable);
+        _updateHandler.removeCallbacks(_updateRunnable);
     }
 
     public void reloadHighlighter() {
@@ -119,10 +119,10 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void highlightWithoutChange(Editable editable) {
-        if (doHighlighting) {
-            modified = false;
-            highlighter.run(this, editable);
-            modified = true;
+        if (_doHighlighting) {
+            _modified = false;
+            _highlighter.run(this, editable);
+            _modified = true;
         }
     }
 }

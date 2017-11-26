@@ -27,32 +27,32 @@ public class MarkdownHeaderSpanCreator implements SpanCreator {
     public static final float STANDARD_PROPORTION_MAX = 1.80f;
     public static final float SIZE_STEP = 0.20f;
 
-    private MarkdownHighlighter highlighter;
-    private final Editable e;
-    private final int color;
+    private MarkdownHighlighter _highlighter;
+    private final Editable _editable;
+    private final int _color;
 
-    public MarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable e, int color) {
-        this.highlighter = highlighter;
-        this.e = e;
-        this.color = color;
+    public MarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color) {
+        _highlighter = highlighter;
+        _editable = editable;
+        _color = color;
     }
 
     public ParcelableSpan create(Matcher m, int iM) {
         final char[] charSequence = extractMatchingRange(m);
         Float proportion = calculateProportionBasedOnHeaderType(charSequence);
         Float size = calculateAdjustedSize(proportion);
-        return new TextAppearanceSpan(highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
-                ColorStateList.valueOf(color), null);
+        return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
+                ColorStateList.valueOf(_color), null);
     }
 
     private float calculateAdjustedSize(Float proportion) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                highlighter._fontSize * proportion,
+                _highlighter._fontSize * proportion,
                 DISPLAY_METRICS);
     }
 
     private char[] extractMatchingRange(Matcher m) {
-        return e.subSequence(m.start(), m.end()).toString().trim().toCharArray();
+        return _editable.subSequence(m.start(), m.end()).toString().trim().toCharArray();
     }
 
     private Float calculateProportionBasedOnHeaderType(final char[] charSequence) {
