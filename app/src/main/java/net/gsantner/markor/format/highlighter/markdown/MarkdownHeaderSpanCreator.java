@@ -37,17 +37,17 @@ public class MarkdownHeaderSpanCreator implements SpanCreator {
         this.color = color;
     }
 
-    public ParcelableSpan create(Matcher m) {
+    public ParcelableSpan create(Matcher m, int iM) {
         final char[] charSequence = extractMatchingRange(m);
         Float proportion = calculateProportionBasedOnHeaderType(charSequence);
         Float size = calculateAdjustedSize(proportion);
-        return new TextAppearanceSpan(highlighter.fontType, Typeface.BOLD, (int) size.byteValue(),
+        return new TextAppearanceSpan(highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
                 ColorStateList.valueOf(color), null);
     }
 
     private float calculateAdjustedSize(Float proportion) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                highlighter.fontSize * proportion,
+                highlighter._fontSize * proportion,
                 DISPLAY_METRICS);
     }
 

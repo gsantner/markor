@@ -5,6 +5,7 @@
  */
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +44,7 @@ import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         // Setup viewpager
+        removeShiftMode(_bottomNav);
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
         _bottomNav.setOnNavigationItemSelectedListener(this);
@@ -108,12 +114,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
+        AppSettings as = new AppSettings(this);
         switch (item.getItemId()) {
             case R.id.action_preview: {
-                // Preview QuickNote
                 Intent intent = new Intent(this, DocumentActivity.class);
                 intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
-                intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getQuickNoteFile());
+                intent.putExtra(DocumentIO.EXTRA_PATH,
+                        _bottomNav.getSelectedItemId() == R.id.nav_quicknote
+                                ? as.getQuickNoteFile() : as.getTodoFile()
+                );
                 startActivity(intent);
                 return true;
             }
@@ -258,8 +267,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 _viewPager.setCurrentItem(1);
                 return true;
             }
-            case R.id.nav_more: {
+            case R.id.nav_todo: {
+                PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
                 _viewPager.setCurrentItem(2);
+                return true;
+            }
+            case R.id.nav_more: {
+                _viewPager.setCurrentItem(3);
                 return true;
             }
         }
@@ -273,8 +287,30 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         _fab.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
 
-        if (pos == 1) {
+        if (pos == 1 || pos == 2) {
             PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    public static void removeShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                item.setChecked(item.getItemData().isChecked());
+            }
+
+        } catch (NoSuchFieldException e) {
+            Log.e("ERROR NO SUCH FIELD", "Unable to get shift mode field");
+        } catch (IllegalAccessException e) {
+            Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
         }
     }
 
@@ -293,6 +329,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                 case R.id.nav_notebook: {
                     fragment = new FilesystemListFragment();
+                    break;
+                }
+                case R.id.nav_todo: {
+                    fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoFile(), false, false);
                     break;
                 }
                 case R.id.nav_quicknote: {

@@ -110,10 +110,10 @@ public class HighlightingEditor extends AppCompatEditText {
         highlightWithoutChange(getText());
     }
 
-    private void highlightWithoutChange(Editable e) {
+    private void highlightWithoutChange(Editable editable) {
         if (doHighlighting) {
             modified = false;
-            highlighter.run(e);
+            highlighter.run(this, editable);
             modified = true;
         }
     }

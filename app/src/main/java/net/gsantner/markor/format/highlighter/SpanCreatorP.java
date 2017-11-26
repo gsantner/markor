@@ -8,9 +8,10 @@
 package net.gsantner.markor.format.highlighter;
 
 import android.text.ParcelableSpan;
+import android.text.style.ParagraphStyle;
 
 import java.util.regex.Matcher;
 
-public interface SpanCreator {
-    ParcelableSpan create(Matcher matcher, int iM);
+public interface SpanCreatorP {
+    ParagraphStyle create(Matcher matcher, int iM);
 }

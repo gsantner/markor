@@ -21,6 +21,7 @@ import net.gsantner.markor.format.moduleactions.TextModuleActions;
 import net.gsantner.markor.model.Document;
 
 public class TextFormat {
+    public static final int FORMAT_UNKNOWN = 0;
     public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
     public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
     public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;

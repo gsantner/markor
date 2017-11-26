@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Document implements Serializable {
     private final static int MIN_HISTORY_DELAY = 2000; // [ms]
 
-    private int _format = TextFormat.FORMAT_MARKDOWN;
+    private int _format = TextFormat.FORMAT_UNKNOWN;
     private ArrayList<Document> _history = new ArrayList<>();
     private File _file = null; // Full filepath (path + filename + extension)
     private String _title = "";  // The title of the document. May lead to a rename at save
@@ -51,6 +51,7 @@ public class Document implements Serializable {
         target.setFile(source.getFile());
         target.setTitle(source.getTitle());
         target.setContent(source.getContent());
+        target.setFormat(source.getFormat());
         target.setDoHistory(true);
         return target;
     }
