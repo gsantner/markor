@@ -92,7 +92,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        applyTextFormat(TextFormat.FORMAT_MARKDOWN);
+        //applyTextFormat(TextFormat.FORMAT_PLAIN);
         setupAppearancePreferences();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {

@@ -16,24 +16,11 @@
             android:key="@string/pref_key__language"
             android:summary="@string/pref_desc__language"
             android:title="@string/pref_title__language" />
-    </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/files_and_folders">
         <Preference
             android:key="@string/pref_key__notebook_directory"
             android:title="@string/notebook_directory" />
-
-        <Preference
-            android:key="@string/pref_key__quicknote_filepath"
-            android:summary="@string/pref_summary__quicknote_filepath"
-            android:title="@string/quicknote" />
-
-        <Preference
-            android:key="@string/pref_key__todo_filepath"
-            android:summary="@string/pref_summary__todo_filepath"
-            android:title="@string/todo" />
     </PreferenceCategory>
-
 
     <PreferenceCategory android:title="@string/main_view">
         <CheckBoxPreference
@@ -54,8 +41,8 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:summary="@string/load_last_directory_at_startup__summary"
             android:key="@string/pref_key__load_last_directory_at_startup"
+            android:summary="@string/load_last_directory_at_startup__summary"
             android:title="@string/load_last_directory_at_startup" />
 
         <CheckBoxPreference
@@ -80,10 +67,10 @@
         <ListPreference
             android:defaultValue="18"
             android:dialogTitle="@string/pref_title__font_size"
-            android:summary="@string/editor_font_size_summary"
             android:entries="@array/pref_arrkeys__font_size"
             android:entryValues="@array/pref_arrkeys__font_size"
             android:key="@string/pref_key__font_size"
+            android:summary="@string/editor_font_size_summary"
             android:title="@string/pref_title__font_size" />
 
         <CheckBoxPreference
@@ -98,15 +85,6 @@
             android:summary="@string/highlighting_enabled_summary"
             android:title="@string/syntax_highlighting" />
 
-        <EditTextPreference
-            android:defaultValue="110"
-            android:dependency="@string/pref_key__is_highlighting_activated"
-            android:inputType="number"
-            android:key="@string/pref_key__highlighting_delay"
-            android:numeric="integer"
-            android:summary="@string/highlighting_delay_summary"
-            android:title="@string/highlighting_delay" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preview">
@@ -116,6 +94,38 @@
             android:key="@string/pref_key__is_render_rtl"
             android:title="@string/pref_title__render_rtl" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/markdown">
+        <Preference
+            android:key="@string/pref_key__quicknote_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/quicknote" />
+
+        <EditTextPreference
+            android:defaultValue="110"
+            android:dependency="@string/pref_key__is_highlighting_activated"
+            android:inputType="number"
+            android:key="@string/pref_key__highlighting_delay_markdown"
+            android:numeric="integer"
+            android:summary="@string/highlighting_delay_summary"
+            android:title="@string/highlighting_delay" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/todo">
+        <Preference
+            android:key="@string/pref_key__todotxt_filepath"
+            android:summary="@string/pref_summary__todo_filepath"
+            android:title="@string/todo" />
+
+        <EditTextPreference
+            android:defaultValue="170"
+            android:dependency="@string/pref_key__is_highlighting_activated"
+            android:inputType="number"
+            android:key="@string/pref_key__highlighting_delay_todotxt"
+            android:numeric="integer"
+            android:summary="@string/highlighting_delay_summary"
+            android:title="@string/highlighting_delay" />
     </PreferenceCategory>
 
 </PreferenceScreen>

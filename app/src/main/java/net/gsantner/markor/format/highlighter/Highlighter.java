@@ -7,6 +7,7 @@
  */
 package net.gsantner.markor.format.highlighter;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
@@ -22,8 +23,11 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
+import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +43,8 @@ public abstract class Highlighter {
     protected static Highlighter getDefaultHighlighter() {
         return new MarkdownHighlighter();
     }
+
+    protected NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
 
     //
     // Clear spans
@@ -96,6 +102,19 @@ public abstract class Highlighter {
         }
     }
 
+    private long _profilingValue = -1;
+
+    protected void doProfileEnd() {
+        long now = System.nanoTime();
+        long before = _profilingValue;
+        _profilingValue = now - _profilingValue;
+        Log.e("PROFILING", String.format("Needed time for last span: %f[ms]", _profilingValue / 1000f));
+    }
+
+    protected void doProfileStart() {
+        _profilingValue = System.nanoTime();
+    }
+
     protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style) {
         createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
@@ -129,4 +148,5 @@ public abstract class Highlighter {
     }
 
 
+    public abstract int getHighlightingDelay(Context context);
 }

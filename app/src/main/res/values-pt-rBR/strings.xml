@@ -116,5 +116,5 @@
     <string name="current_date">Data atual</string>
     <string name="archive">Arquivo</string>
     <string name="add_task">Adicionar tarefa</string>
-    <string name="pref_summary__quicknote_filepath">O documento a ser carregado e guardado como nota rápida</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">O documento a ser carregado e guardado como \"%s\"</string>
 </resources>

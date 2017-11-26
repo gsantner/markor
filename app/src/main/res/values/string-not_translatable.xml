@@ -50,7 +50,8 @@
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
-    <string name="pref_key__highlighting_delay" translatable="false">pref_key__highlighting_delay</string>
+    <string name="pref_key__highlighting_delay_markdown" translatable="false">pref_key__highlighting_delay</string>
+    <string name="pref_key__highlighting_delay_todotxt" translatable="false">pref_key__highlighting_delay_todotxt</string>
     <string name="pref_key__load_last_directory_at_startup" translatable="false">pref_key__load_last_directory_at_startup</string>
     <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
     <string name="pref_key__notebook_directory" translatable="false">pref_key__save_directory</string>
@@ -66,5 +67,5 @@
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
-    <string name="pref_key__todo_filepath" translatable="false">pref_key__todo_filepath</string>
+    <string name="pref_key__todotxt_filepath" translatable="false">pref_key__todo_filepath</string>
 </resources>

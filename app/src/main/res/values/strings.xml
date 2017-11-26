@@ -106,7 +106,7 @@
     <string name="current_date">Current date</string>
     <string name="archive">Archive</string>
     <string name="add_task">Add task</string>
-    <string name="pref_summary__quicknote_filepath">The document to be loaded and saved as QuickNote</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">The document to be loaded and saved as "%s"</string>
     <string name="pref_summary__todo_filepath">The document to be loaded and saved as To-Do</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Settings in toolbar</string>
     <string name="pref_show_settings_option_in_main_toolbar">Show settings option in top toolbar on main screen</string>
@@ -141,7 +141,7 @@
     <string name="text_modules">Text modules</string>
     <string name="text_module">Text module</string>
     <string name="highlighting_delay">Highlighting delay</string>
-    <string name="highlighting_delay_summary">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and decrease performance. Defaults to 110.</string>
+    <string name="highlighting_delay_summary">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and decrease performance.</string>
     <string name="highlighting_enabled_summary">Control whether entered text should be highlighted or not</string>
     <string name="editor_font_size_summary">Control the font size used in the editor</string>
     <string name="textmodules_bar_summary">Show a bar with useful actions to insert common used text modules</string>

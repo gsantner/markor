@@ -107,7 +107,7 @@
     <string name="todo_list">To-Do Liste</string>
     <string name="task">Aufgabe</string>
     <string name="add_task">Aufgabe hinzufügen</string>
-    <string name="pref_summary__quicknote_filepath">Das Dokument, das als QuickNote geladen und gespeichert wird</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Jenes Dokument, welches als \"%s\" geladen und gespeichert wird</string>
     <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
     <string name="list">Liste</string>
@@ -138,7 +138,7 @@
     <string name="text_modules">Text Module</string>
     <string name="text_module">Text Modul</string>
     <string name="highlighting_delay">Highlighting</string>
-    <string name="highlighting_delay_summary">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance schmälern. Voreinstellung 110.</string>
+    <string name="highlighting_delay_summary">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_summary">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="textmodules_bar_summary">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text Module einfügen</string>
     <string name="editor_font_size_summary">Einstellen der Schriftgröße im Editor</string>

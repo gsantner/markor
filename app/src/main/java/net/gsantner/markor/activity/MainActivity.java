@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
                 intent.putExtra(DocumentIO.EXTRA_PATH,
                         _bottomNav.getSelectedItemId() == R.id.nav_quicknote
-                                ? as.getQuickNoteFile() : as.getTodoFile()
+                                ? as.getQuickNoteFile() : as.getTodoTxtFile()
                 );
                 startActivity(intent);
                 return true;
@@ -324,23 +324,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         @Override
         public Fragment getItem(int pos) {
-            BaseFragment fragment = null;
+            BaseFragment fragment = _fragCache.get(pos);
             switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
                 default:
                 case R.id.nav_notebook: {
-                    fragment = new FilesystemListFragment();
-                    break;
-                }
-                case R.id.nav_todo: {
-                    fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoFile(), false, false);
+                    if (fragment == null) {
+                        fragment = new FilesystemListFragment();
+                    }
                     break;
                 }
                 case R.id.nav_quicknote: {
-                    fragment = DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
+                    if (fragment == null) {
+                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
+                    }
+                    break;
+                }
+                case R.id.nav_todo: {
+                    if (fragment == null) {
+                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoTxtFile(), false, false);
+                    }
                     break;
                 }
                 case R.id.nav_more: {
-                    fragment = MoreFragment.newInstance();
+                    if (fragment == null) {
+                        fragment = MoreFragment.newInstance();
+                    }
                     break;
                 }
             }

@@ -5,6 +5,7 @@
  */
 package net.gsantner.markor.format.highlighter.markdown;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -78,6 +79,11 @@ public class MarkdownHighlighter extends Highlighter {
 
     private void createSpanForMatches(final Editable e, final MarkdownHighlighterPattern pattern, final SpanCreator creator) {
         createSpanForMatches(e, pattern.getPattern(), creator);
+    }
+
+    @Override
+    public int getHighlightingDelay(Context context) {
+        return new AppSettings(context).getHighlightingDelayMarkdown();
     }
 }
 

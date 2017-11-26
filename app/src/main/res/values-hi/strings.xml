@@ -116,6 +116,6 @@
     <string name="current_date">आज की तारीख</string>
     <string name="archive">संग्रह</string>
     <string name="add_task">कार्य जोड़ें</string>
-    <string name="pref_summary__quicknote_filepath">दस्तावेज़ को QuickNote के रूप में लोड और सहेजा जाना चाहिए</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">दस्तावेज़ को \"%s\" के रूप में लोड और सहेजा जाना चाहिए</string>
 
 </resources>

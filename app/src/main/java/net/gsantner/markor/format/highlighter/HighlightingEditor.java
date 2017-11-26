@@ -47,7 +47,6 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlighter(Highlighter.getDefaultHighlighter());
             setAutoFormat(highlighter.getAutoFormatter());
             setHighlightingEnabled(AppSettings.get().isHighlightingEnabled());
-            //setLineSpacing(0, 1.5f);
         }
         init();
     }
@@ -80,7 +79,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void init() {
-        final int highlightingDelay = getHighlightingDelayFromPrefs();
+        final int highlightingDelay = highlighter != null
+                ? highlighter.getHighlightingDelay(getContext())
+                : new AppSettings(getContext()).getHighlightingDelayMarkdown();
 
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,9 +119,4 @@ public class HighlightingEditor extends AppCompatEditText {
             modified = true;
         }
     }
-
-    private int getHighlightingDelayFromPrefs() {
-        return AppSettings.get().getHighlightingDelay();
-    }
-
 }

@@ -106,7 +106,7 @@
     <string name="current_date">現在の日付</string>
     <string name="archive">アーカイブ</string>
     <string name="add_task">タスクを追加</string>
-    <string name="pref_summary__quicknote_filepath">ドキュメントをクイックノートとして読み込みおよび保存します</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">ツールバーに設定</string>
     <string name="pref_show_settings_option_in_main_toolbar">メイン画面のトップバーに設定オプションを表示します</string>
     <string name="refresh">更新</string>
@@ -140,7 +140,7 @@
     <string name="text_modules">テキストモジュール</string>
     <string name="text_module">テキストモジュール</string>
     <string name="highlighting_delay">ハイライト表示の遅延</string>
-    <string name="highlighting_delay_summary">ハイライト表示を更新するまでの時間(ミリ秒)。 小さい値は早くハイライト表示をしますが、バッテリーの消費が早くなり、パフォーマンスが低下します。 デフォルトは 110。</string>
+    <string name="highlighting_delay_summary">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
     <string name="highlighting_enabled_summary">入力したテキストをハイライト表示するかどうかを設定します</string>
     <string name="editor_font_size_summary">エディターで使用するフォントサイズを設定します</string>
     <string name="textmodules_bar_summary">便利な操作を含むバーを表示して、一般的に使用するテキストモジュールを挿入します</string>
