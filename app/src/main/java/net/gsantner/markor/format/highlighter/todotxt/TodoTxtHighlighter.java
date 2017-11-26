@@ -11,6 +11,7 @@ import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.highlighter.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.highlighter.general.HorizontalLineBackgroundParagraphSpan;
 import net.gsantner.markor.util.AppSettings;
 
@@ -34,12 +35,17 @@ public class TodoTxtHighlighter extends Highlighter {
                 return editable;
             }
 
+
+            createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
+                    (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
+
+
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CONTEXT.getPattern(), colors.getContextColor());
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CATEGORY.getPattern(), colors.getCategoryColor());
             createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.KEYVALUE.getPattern(), Typeface.ITALIC);
 
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), colors.getLinkColor());
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(),0.7f);
+            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), 0.7f);
             createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), Typeface.ITALIC);
 
             // Priorities
@@ -53,16 +59,19 @@ public class TodoTxtHighlighter extends Highlighter {
 
             // Date
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(),0.8f);
+            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), 0.8f);
 
             // Paragraph divider
-            createLineBackgroundSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
-                    (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(editor.getCurrentTextColor()));
+            createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
+                    (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(editor.getCurrentTextColor(), 0.8f, editor.getTextSize() / 2f));
 
-            // Do this at the end
+            // Strike out done tasks (apply no other to-do.txt span format afterwards)
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern(), colors.getDoneColor());
             createSpanWithStrikeThroughForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern());
 
+            // Fix for paragraph padding and horizontal rule
+            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINESTART.getPattern(), 0.8f);
+            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINESTART.getPattern(), 1.2f);
         } catch (Exception ex) {
             // Ignoring errors
         }

@@ -15,6 +15,7 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LineBackgroundSpan;
+import android.text.style.LineHeightSpan;
 import android.text.style.ParagraphStyle;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StrikethroughSpan;
@@ -51,6 +52,7 @@ public abstract class Highlighter {
         clearCharacterSpanType(editable, RelativeSizeSpan.class);
         clearCharacterSpanType(editable, StyleSpan.class);
         clearParagraphSpanType(editable, LineBackgroundSpan.class);
+        clearParagraphSpanType(editable, LineHeightSpan.class);
     }
 
     private <T extends CharacterStyle> void clearCharacterSpanType(Editable editable, Class<T> spanType) {
@@ -122,7 +124,7 @@ public abstract class Highlighter {
         createTypefaceSpanForMatches(editable, pattern, "monospace");
     }
 
-    protected void createLineBackgroundSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator) {
+    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator) {
         createSpanForMatchesP(editable, pattern, creator);
     }
 
