@@ -8,9 +8,13 @@ package net.gsantner.markor.format.highlighter.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.util.regex.Matcher;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class TodoTxtAutoFormat implements InputFilter {
+    public static final SimpleDateFormat SDF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+
     @Override
     public CharSequence filter(
             CharSequence source,
@@ -38,7 +42,6 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-
         int istart = findLineBreakPosition(dest, dstart);
 
         // append white space of previous line and new indent
@@ -58,64 +61,6 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-
-        if (istart > -1 && istart < dest.length() - 1) {
-            int iend;
-
-            for (iend = ++istart;
-                 iend < dest.length() - 1;
-                 ++iend) {
-                char c = dest.charAt(iend);
-
-                if (c != ' ' &&
-                        c != '\t') {
-                    break;
-                }
-            }
-
-            if (iend < dest.length() - 1) {
-                // This is for any line that is not the first line in a file
-                Matcher listMatcher = TodoTxtHighlighterPattern.LIST.getPattern().matcher(dest.toString().substring(iend, dend));
-                if (listMatcher.find()) {
-                    return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
-                } else {
-                    Matcher m = TodoTxtHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString().substring(iend, dend));
-                    if (m.find()) {
-                        return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
-                    } else {
-                        return "";
-                    }
-                }
-            } else {
-                return "";
-            }
-        } else if (istart > -1) {
-            return "";
-        } else if (dest.length() > 1) {
-            Matcher listMatcher = TodoTxtHighlighterPattern.LIST.getPattern().matcher(dest.toString());
-            if (listMatcher.find()) {
-                return Character.toString(dest.charAt(0)) + " ";
-            } else {
-                Matcher m = TodoTxtHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString());
-                if (m.find()) {
-                    return addNumericListItemIfNeeded(m.group(1));
-                } else {
-                    return "";
-                }
-            }
-        } else {
-            return "";
-        }
+        return SDF_YYYY_MM_DD.format(new Date()) + " ";
     }
-
-    private String addNumericListItemIfNeeded(String itemNumStr) {
-        try {
-            int nextC = Integer.parseInt(itemNumStr) + 1;
-            return nextC + ". ";
-        } catch (NumberFormatException e) {
-            // This should never ever happen
-            return "";
-        }
-    }
-
 }
