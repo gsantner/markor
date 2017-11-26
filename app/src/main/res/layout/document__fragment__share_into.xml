@@ -28,13 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:weightSum="99">
+        android:weightSum="100">
 
         <LinearLayout
             android:id="@+id/document__fragment__share_into__append_to_document"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="33"
+            android:layout_weight="25"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
@@ -53,8 +53,36 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Append to Document"
+                tools:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/document__fragment__share_into__append_to_todo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_assignment_turned_in_black_24dp"
+                app:elevation="0dp" />
+
+            <TextView
+                android:id="@+id/document__fragment__share_into__append_to_todo__text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                tools:text="Append to To-Do"
                 tools:textColor="@color/white" />
         </LinearLayout>
 
@@ -62,7 +90,7 @@
             android:id="@+id/document__fragment__share_into__append_to_quicknote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="33"
+            android:layout_weight="25"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
@@ -81,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Append to QuickNote"
                 tools:textColor="@color/white" />
         </LinearLayout>
@@ -90,7 +118,7 @@
             android:id="@+id/document__fragment__share_into__create_document"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="33"
+            android:layout_weight="25"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
@@ -104,12 +132,13 @@
                 app:elevation="0dp" />
 
             <TextView
+                android:id="@+id/document__fragment__share_into__create_document__text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/create_new_document"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:textColor="@color/white" />
         </LinearLayout>
 

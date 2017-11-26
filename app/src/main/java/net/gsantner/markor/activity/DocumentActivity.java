@@ -73,14 +73,16 @@ public class DocumentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        AppSettings appSettings = AppSettings.get();
-        if (appSettings.isEditorStatusBarHidden()) {
+        AppSettings as = AppSettings.get();
+        new ContextUtils(getBaseContext()).setAppLanguage(as.getLanguage());
+        if (as.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(R.layout.document__activity);
+        as = new AppSettings(this);
+        new ContextUtils(this).setAppLanguage(as.getLanguage());
         ButterKnife.bind(this);
-        if (appSettings.isEditorStatusBarHidden()) {
+        if (as.isEditorStatusBarHidden()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
