@@ -19,7 +19,7 @@ public enum MarkdownHighlighterPattern {
     MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
     BOLD(Pattern.compile("(?<=(\\n|^|\\s))((\\*|_){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
     ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_)(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
-    DOUBLESPACE(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
+    DOUBLESPACE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
 
     private Pattern _pattern;
 

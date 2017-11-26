@@ -9,20 +9,15 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.ParcelableSpan;
-import android.text.style.BackgroundColorSpan;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.format.highlighter.SpanCreator;
 import net.gsantner.markor.util.AppSettings;
-
-import java.util.regex.Matcher;
 
 public class MarkdownHighlighter extends Highlighter {
     private final MarkdownHighlighterColors _colors;
-    public final String _fontType;
-    public final Integer _fontSize;
+    final String _fontType;
+    final Integer _fontSize;
 
     public MarkdownHighlighter() {
         _colors = new MarkdownHighlighterColorsNeutral();
@@ -43,13 +38,13 @@ public class MarkdownHighlighter extends Highlighter {
             createColorSpanForMatches(editable, MarkdownHighlighterPattern.LINK.getPattern(), _colors.getLinkColor());
             createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST.getPattern(), _colors.getListColor());
             createColorSpanForMatches(editable, MarkdownHighlighterPattern.ORDEREDLIST.getPattern(), _colors.getListColor());
-            createColorSpanForDoublespace(editable, MarkdownHighlighterPattern.DOUBLESPACE, _colors.getDoublespaceColor());
+            createColorBackgroundSpan(editable, MarkdownHighlighterPattern.DOUBLESPACE_ENDING.getPattern(), _colors.getDoublespaceColor());
             createStyleSpanForMatches(editable, MarkdownHighlighterPattern.BOLD.getPattern(), Typeface.BOLD);
             createStyleSpanForMatches(editable, MarkdownHighlighterPattern.ITALICS.getPattern(), Typeface.ITALIC);
             createColorSpanForMatches(editable, MarkdownHighlighterPattern.QUOTATION.getPattern(), _colors.getQuotationColor());
             createSpanWithStrikeThroughForMatches(editable, MarkdownHighlighterPattern.STRIKETHROUGH.getPattern());
             createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.MONOSPACED.getPattern());
-            createColorSpanForDoublespace(editable, MarkdownHighlighterPattern.MONOSPACED, _colors.getDoublespaceColor());
+            createColorBackgroundSpan(editable, MarkdownHighlighterPattern.MONOSPACED.getPattern(), _colors.getDoublespaceColor());
 
         } catch (Exception ex) {
             // Ignoring errors
@@ -58,21 +53,13 @@ public class MarkdownHighlighter extends Highlighter {
         return editable;
     }
 
+    private void createHeaderSpanForMatches(Editable editable, MarkdownHighlighterPattern pattern, int headerColor) {
+        createSpanForMatches(editable, pattern.getPattern(), new MarkdownHeaderSpanCreator(this, editable, headerColor));
+    }
+
     @Override
     public InputFilter getAutoFormatter() {
         return new MarkdownAutoFormat();
-    }
-
-    private void createHeaderSpanForMatches(Editable e, MarkdownHighlighterPattern pattern, int headerColor) {
-        createSpanForMatches(e, pattern, new MarkdownHeaderSpanCreator(this, e, headerColor));
-    }
-
-    private void createColorSpanForDoublespace(Editable e, MarkdownHighlighterPattern pattern, final int color) {
-        createSpanForMatches(e, pattern, (matcher, iM) -> new BackgroundColorSpan(color));
-    }
-
-    private void createSpanForMatches(final Editable e, final MarkdownHighlighterPattern pattern, final SpanCreator creator) {
-        createSpanForMatches(e, pattern.getPattern(), creator);
     }
 
     @Override
