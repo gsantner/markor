@@ -5,11 +5,13 @@
  */
 package net.gsantner.markor.format.highlighter.plain;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.util.AppSettings;
 
 public class PlainHighlighter extends Highlighter {
 
@@ -29,6 +31,11 @@ public class PlainHighlighter extends Highlighter {
     @Override
     public InputFilter getAutoFormatter() {
         return AUTOFORMATTER_NONE;
+    }
+
+    @Override
+    public int getHighlightingDelay(Context context) {
+        return 99999;
     }
 }
 

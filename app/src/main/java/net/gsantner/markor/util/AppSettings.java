@@ -71,13 +71,13 @@ public class AppSettings extends AppSettingsBase {
         setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
-    public File getTodoFile() {
+    public File getTodoTxtFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
-        return new File(getString(R.string.pref_key__todo_filepath, defaultValue));
+        return new File(getString(R.string.pref_key__todotxt_filepath, defaultValue));
     }
 
     public void setTodoFile(File file) {
-        setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__todotxt_filepath, file.getAbsolutePath());
     }
 
     public String getFontFamily() {
@@ -96,8 +96,12 @@ public class AppSettings extends AppSettingsBase {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
-    public int getHighlightingDelay() {
-        return getIntOfStringPref(R.string.pref_key__highlighting_delay, 110);
+    public int getHighlightingDelayMarkdown() {
+        return getIntOfStringPref(R.string.pref_key__highlighting_delay_markdown, 110);
+    }
+
+    public int getHighlightingDelayTodoTxt() {
+        return getIntOfStringPref(R.string.pref_key__highlighting_delay_todotxt, 170);
     }
 
     public String getLastOpenedDirectory() {

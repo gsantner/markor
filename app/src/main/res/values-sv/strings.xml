@@ -106,7 +106,7 @@
     <string name="current_date">Nuvarande datum</string>
     <string name="archive">Arkiv</string>
     <string name="add_task">Lägg till uppgift</string>
-    <string name="pref_summary__quicknote_filepath">Välj vilket dokument du vill använda som QuickNote</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Välj vilket dokument du vill använda som \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Inställningar i verktygsfält</string>
     <string name="pref_show_settings_option_in_main_toolbar">Visa genväg till inställningar i huvudvyns verktygsfält</string>
     <string name="refresh">Uppdatera</string>
@@ -140,7 +140,7 @@
     <string name="text_modules">Textmoduler</string>
     <string name="text_module">Textmodul</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
-    <string name="highlighting_delay_summary">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan. Standardvärde 110.</string>
+    <string name="highlighting_delay_summary">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_summary">Ska inskriven text ska vara syntaxfärgad?</string>
     <string name="editor_font_size_summary">Ändra typsnittsstorlek i redigeraren</string>
     <string name="textmodules_bar_summary">Visa verktyg för att infoga vanliga textmoduler</string>

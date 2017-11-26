@@ -106,7 +106,7 @@
     <string name="current_date">Geçerli tarih</string>
     <string name="archive">Arşiv</string>
     <string name="add_task">Görev ekle</string>
-    <string name="pref_summary__quicknote_filepath">QuickNote olarak yüklenip kaydedilecek belgeyi seçin</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">\"%s\" olarak yüklenip kaydedilecek belgeyi seçin</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Araç çubuğundaki ayarlar</string>
     <string name="pref_show_settings_option_in_main_toolbar">Ana ekrandaki araç çubuğunda ayarlar seçeneğini göster</string>
     <string name="refresh">Yenile</string>
@@ -140,7 +140,7 @@
     <string name="text_modules">Metin modülü</string>
     <string name="text_module">Metin modülü</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
-    <string name="highlighting_delay_summary">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür. Varsayılan değer 110\'dur.</string>
+    <string name="highlighting_delay_summary">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
     <string name="highlighting_enabled_summary">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
     <string name="editor_font_size_summary">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
     <string name="textmodules_bar_summary">Sık kullanılan metin modüllerini eklemek için yararlı eylemler içeren bir çubuk göster</string>

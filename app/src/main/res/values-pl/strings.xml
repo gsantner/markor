@@ -116,5 +116,5 @@
     <string name="current_date">Aktualna data</string>
     <string name="archive">Archiwum</string>
     <string name="add_task">Dodaj zadanie</string>
-    <string name="pref_summary__quicknote_filepath">Dokument zostanie załadowany i zapisany jako QuickNote</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Dokument zostanie załadowany i zapisany jako \"%s\"</string>
 </resources>

@@ -8,12 +8,14 @@
 package net.gsantner.markor.format.highlighter.todotxt;
 
 
+import android.util.Patterns;
+
 import java.util.regex.Pattern;
 
 // See for format description: https://github.com/todotxt/todo.txt/blob/master/README.md
 public enum TodoTxtHighlighterPattern {
 
-    LINK(android.util.Patterns.WEB_URL),
+    LINK(Patterns.WEB_URL),
     NEWLINE_CHARACTER(Pattern.compile("(\\n|^)")),
     CONTEXT(Pattern.compile("(\\B\\+\\w+)")),
     CATEGORY(Pattern.compile("(\\B\\@\\w+)")), // Category = Project
