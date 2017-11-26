@@ -16,7 +16,7 @@ public enum TodoTxtHighlighterPattern {
     LINK(android.util.Patterns.WEB_URL),
     CONTEXT(Pattern.compile("(\\B\\+\\w+)")),
     CATEGORY(Pattern.compile("(\\B\\@\\w+)")), // Category = Project
-    DONE(Pattern.compile("(\\n|^)([x|X] ).*($|\\n)")),
+    DONE(Pattern.compile("(?m)^([x|X] ).*$")),
     PRIORITY_A(reuse.prio(1)),
     PRIORITY_B(reuse.prio(2)),
     PRIORITY_C(reuse.prio(3)),
@@ -53,7 +53,7 @@ public enum TodoTxtHighlighterPattern {
 class reuse {
     // 1=a, 6=f
     static Pattern prio(int prio) {
-        String priority = Character.toString((char) (((int) 'a') - 1 + prio));
-        return Pattern.compile("(?i)(\\n|^)(?:x )?([(]" + priority + "[)] )");
+        String priority = Character.toString((char) (((int) 'A') - 1 + prio));
+        return Pattern.compile("(?mi)^(?:x )?([(]" + priority + "[)] )");
     }
 }

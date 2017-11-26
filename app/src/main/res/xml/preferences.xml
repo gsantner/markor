@@ -28,6 +28,10 @@
             android:summary="@string/pref_summary__quicknote_filepath"
             android:title="@string/quicknote" />
 
+        <Preference
+            android:key="@string/pref_key__todo_filepath"
+            android:summary="@string/pref_summary__todo_filepath"
+            android:title="@string/todo" />
     </PreferenceCategory>
 
 
