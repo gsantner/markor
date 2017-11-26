@@ -23,6 +23,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -67,10 +68,13 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        int fg = AppSettings.get().isDarkThemeEnabled() ? Color.WHITE : Color.BLACK;
+        AppSettings as = new AppSettings(_context);
+        ContextUtils cu = new ContextUtils(_context);
+        cu.setAppLanguage(as.getLanguage());
+        int fg = as.isDarkThemeEnabled() ? Color.WHITE : Color.BLACK;
 
         _view.setBackgroundColor(fg == Color.WHITE ? Color.BLACK : Color.WHITE);
-        for (int resid : new int[]{R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote}) {
+        for (int resid : new int[]{R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo}) {
             LinearLayout layout = _view.findViewById(resid);
             ((TextView) (layout.getChildAt(1))).setTextColor(fg);
         }
@@ -79,6 +83,10 @@ public class DocumentShareIntoFragment extends BaseFragment {
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.document_one)));
         ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.quicknote)));
+        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_todo__text))
+                .setText(getString(R.string.append_to__arg_document_name, getString(R.string.todo)));
+        ((TextView) _view.findViewById(R.id.document__fragment__share_into__create_document__text))
+                .setText(getString(R.string.create_new_document));
 
         Document document = new Document();
         document.setContent(_sharedText);
@@ -108,7 +116,16 @@ public class DocumentShareIntoFragment extends BaseFragment {
                         getActivity().finish();
                     }
                 }
-
+                break;
+            }
+            case R.id.document__fragment__share_into__append_to_todo: {
+                if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                    appendToExistingDocument(AppSettings.get().getTodoTxtFile(), false);
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                }
+                break;
             }
         }
     }

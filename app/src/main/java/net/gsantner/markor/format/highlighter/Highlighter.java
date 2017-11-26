@@ -23,11 +23,9 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Matcher;
@@ -48,11 +46,12 @@ public abstract class Highlighter {
         return new MarkdownHighlighter();
     }
 
-    public int getHighlightingDelay(Context context){
-        int ret = _isFirstHighlighting ? 100  : loadHighlightingDelay(context);
+    public int getHighlightingDelay(Context context) {
+        int ret = _isFirstHighlighting ? 100 : loadHighlightingDelay(context);
         _isFirstHighlighting = false;
         return ret;
     }
+
     protected abstract int loadHighlightingDelay(Context context);
 
 
