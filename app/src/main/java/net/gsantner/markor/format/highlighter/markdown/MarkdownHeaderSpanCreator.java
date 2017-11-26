@@ -20,12 +20,11 @@ import net.gsantner.markor.format.highlighter.SpanCreator;
 
 import java.util.regex.Matcher;
 
-// TODO: Separate markdown from this out, make use of derivation/abstract
 public class MarkdownHeaderSpanCreator implements SpanCreator {
-    public static final Character POUND_SIGN = '#';
-    public static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
-    public static final float STANDARD_PROPORTION_MAX = 1.80f;
-    public static final float SIZE_STEP = 0.20f;
+    private static final Character POUND_SIGN = '#';
+    private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
+    private static final float STANDARD_PROPORTION_MAX = 1.80f;
+    private static final float SIZE_STEP = 0.20f;
 
     private MarkdownHighlighter _highlighter;
     private final Editable _editable;
