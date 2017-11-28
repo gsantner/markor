@@ -8,13 +8,12 @@
     <string name="confirm_delete">Confirmez la suppression</string>
     <string name="confirm_delete_description">Voulez-vous vraiment supprimer ça %s?</string>
     <string name="confirm_overwrite">Confirmer écrasement</string>
-    <string name="confirm_overwrite_description">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
+    <string name="confirm_overwrite_description">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
+    <string name="browse_filesystem">Parcourir le système de fichiers</string>
     <string name="title">Titre</string>
     <string name="empty_directory">Ce dossier est vide</string>
-    <string name="navigate_up_folder">Retourner au dossier précédent</string>
     <string name="folder_name_hint">Nom du dossier</string>
     <string name="create_folder">Nouveau dossier</string>
-    <string name="create_note">Nouvelle note</string>
     <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
 
@@ -24,21 +23,19 @@
     <string name="select_folder">Sélectionnez le dossier</string>
     <string name="edit">Éditer</string>
 
-    <string name="search_hint">Rechercher dans les notes</string>
+    <string name="search_hint">Rechercher dans les documents</string>
     <string name="share_string">Partager avec…</string>
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
     <string name="preview">Aperçu</string>
-    <string name="app_settings">Paramètres de l\'application</string>
-    <string name="editor_settings">Paramètres de l\'éditeur</string>
+    <string name="editor">Éditeur</string>
     <string name="folders">Dossiers</string>
     <string name="files">Fichiers</string>
     <string name="document_one">Document</string>
     <string name="document_multiple">Documents</string>
-    <string name="share_html__mime_plaintext">HTML (texte brut)</string>
+    <string name="share_html__mime_plaintext">HTML (en texte brut)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Se souvenir du dossier courant pour le démarrage suivant</string>
     <string name="document_editor_font">Police de l\'éditeur</string>
     <string name="theme">Thème</string>
     <string name="open_preview_when_open_documents">Ouvrir les notes sur l\'aperçu</string>
@@ -47,17 +44,10 @@
     <string name="file">Fichier</string>
     <string name="image">Image</string>
     <string name="pref_title__font_size">Taille de la police</string>
-    <string name="pref_title__show_markdown_shortcuts">Afficher la barre d\'édition Markdown</string>
-    <string name="pref_title__highlighting_activated">Activer la coloration syntaxique Markdown</string>
-    <string name="pref_title__highlighting_delay">Délai de rafraîchissement de la coloration syntaxique en ms</string>
-    <string name="pref_title__highlighting_delay_summary">Un délai plus grand usera moins vite la batterie</string>
-    <string name="pref_title__smart_shortcuts">Activer les parenthèses intelligentes</string>
-    <string name="pref_title__smart_shortcuts_summary">Si du texte est sélectionné, un appui sur {}, [] ou () positionnera les signes correspondants de part et d\'autre de la sélection</string>
     <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
-    <string name="error_cannot_create_notebook_dir">Erreur : impossible de créer le dossier d\'enregistrement</string>
+    <string name="error_cannot_create_notebook_dir">Erreur : impossible de créer le dossier du bloc note</string>
 
-    <string name="last_modified">Dernière modification : %s</string>
-    <string name="number_of_files">Nombre de fichiers : %d</string>
+    <string name="last_modified">Dernière modification : %s</string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
     <string name="create">Créer</string>
@@ -70,12 +60,13 @@
 
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
-    <string name="insert_link">Insérer Lien</string>
-    <string name="insert_image">Insérer Image</string>
+    <string name="insert_link">Insérer lien</string>
+    <string name="insert_image">Insérer image</string>
 
     <!-- About screen -->
     <string name="contributors">Contributeurs</string>
     <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
+    <string name="notebook_directory">Dossier du bloc note</string>
     <string name="licenses">Licences</string>
     <string name="changelog">Nouveautés de l\'application</string>
     <string name="more_information">Plus d\'informations</string>
@@ -91,17 +82,16 @@
     <string name="sort_by_size">Trier par taille</string>
     <string name="sort_reverse">Inverser l\'ordre</string>
     <string name="contribute">Contribuer</string>
-    <string name="donate">Don</string>
-    <string name="project_page">Page du projet</string>
-    <string name="press_again_to_exit">Appuyer encore sur retour pour quitter</string>
+    <string name="donate">Donner</string>
+    <string name="project_page">Site web du projet</string>
+    <string name="press_again_to_exit">Appuyez à nouveau sur retour pour quitter</string>
     <string name="exit">Quitter</string>
     <string name="undo">Annuler</string>
     <string name="redo">Rétablir</string>
     <string name="more">Plus</string>
     <string name="notebook">Bloc note</string>
     <string name="help">Aide</string>
-    <string name="special_documents">Documents spéciaux</string>
-    <string name="todo_list">Liste à faire</string>
+    <string name="todo_list">À faire</string>
     <string name="task">Tâche</string>
     <string name="category">Catégorie</string>
     <string name="context">Contexte</string>
@@ -117,4 +107,29 @@
     <string name="archive">Archive</string>
     <string name="add_task">Ajouter une tâche</string>
     <string name="pref_summary__loaded_and_saved_as__plus_name">Le document à charger et à enregistrer comme \"%s\"</string>
+    <string name="pref_summary__todo_filepath">Le document à charger et utiliser pour la liste des choses à faire</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Afficher les paramètres dans la barre d\'outils</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Montrer les options de paramétrage dans la barre d\'outils en haut de l\'écran principal</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="add_shortcut_to_launcher_homescreen">Créer un raccourci</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci sur votre écran d\'accueil pour éditer ce document. Toutes les applications de gestion d\'écran d\'accueil ne gèrent pas cette fonctionnalité.</string>
+    <string name="file_not_in_save_path_do_import">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans le dossier courant ? Si une copie précédente y est déjà présente, elle sera écrasée.</string>
+    <string name="files_and_folders">Fichiers et dossiers</string>
+    <string name="document_browser">Explorateur de documents</string>
+
+    <!-- New strings -->
+    <string name="global">Général</string>
+    <string name="main_view">Vue principale</string>
+    <string name="theme_description">Le thème principal utilisé par l\'application</string>
+    <string name="load_last_directory_at_startup">Se souvenir du dossier courrant</string>
+    <string name="syntax_highlighting">Coloration syntaxique</string>
+    <string name="text_modules">Modules de texte</string>
+    <string name="text_module">Module de texte</string>
+    <string name="highlighting_delay">Délai de rafraîchissement</string>
+    <string name="highlighting_delay_summary">Délai de rafraîchissement de la coloration syntaxique en millisecondes. Une faible valeur permettra la prise en compte de la coloration plus tôt, mais a pour conséquence de réduire la réactivité de l\'application et d\'être plus consommateur de batterie.</string>
+    <string name="highlighting_enabled_summary">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
+    <string name="editor_font_size_summary">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
+    <string name="textmodules_bar_summary">Affiche une barre permettant l\'insertion de modules de texte fréquemment utilisés</string>
+    <string name="load_last_directory_at_startup__summary">Charger le dernier dossier ouvert au démarrage suivant</string>
+    <string name="format">Format</string>
 </resources>
