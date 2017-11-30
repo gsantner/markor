@@ -8,12 +8,11 @@ package net.gsantner.markor.format.highlighter.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.text.SimpleDateFormat;
+import net.gsantner.opoc.format.todotxt.SttCommander;
+
 import java.util.Date;
-import java.util.Locale;
 
 public class TodoTxtAutoFormat implements InputFilter {
-    public static final SimpleDateFormat SDF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
 
     @Override
     public CharSequence filter(
@@ -61,6 +60,6 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-        return SDF_YYYY_MM_DD.format(new Date()) + " ";
+        return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
     }
 }

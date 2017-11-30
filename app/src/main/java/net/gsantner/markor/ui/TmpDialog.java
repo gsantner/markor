@@ -32,7 +32,7 @@ import java.util.Locale;
 // TODO: temporary solution for dialog - maybe go for a new one based on FileSystemDialog
 // https://stackoverflow.com/questions/15868940/android-multichoice-item-dialog-with-search-functionality
 public class TmpDialog {
-    public static void showTodoTxtContextDialog(Activity activity, String[] availableData, String[] selectedData, Callback<String> callback) {
+    public static void showTodoTxtContextDialog(Activity activity, List<String> availableData, List<String> selectedData, Callback<String> callback) {
         TmpDialog.Options opt = new TmpDialog.Options();
         opt.callback = callback;
         opt.data = availableData;
@@ -45,8 +45,8 @@ public class TmpDialog {
 
     public static class Options {
         public Callback<String> callback;
-        public String[] data = new String[]{};
-        public String[] alreadyContained = new String[]{};
+        public List<String> data = new ArrayList<>();
+        public List<String> alreadyContained = new ArrayList<>();
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
@@ -87,8 +87,8 @@ public class TmpDialog {
         final List<ListItemWithIndex> allItems = new ArrayList<ListItemWithIndex>();
         final List<ListItemWithIndex> filteredItems = new ArrayList<ListItemWithIndex>();
 
-        for (int i = 0; i < dopt.data.length; i++) {
-            final Object obj = dopt.data[i];
+        for (int i = 0; i < dopt.data.size(); i++) {
+            final Object obj = dopt.data.get(i);
             final ListItemWithIndex listItemWithIndex = new ListItemWithIndex(i, obj.toString());
             allItems.add(listItemWithIndex);
             filteredItems.add(listItemWithIndex);
