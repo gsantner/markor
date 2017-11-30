@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TodoTxtFileRecognitionCheck {
+public class TodoTxtFileRecognitionTests {
 
     @Test
     public void checkTodoTxtFileRecognition() {

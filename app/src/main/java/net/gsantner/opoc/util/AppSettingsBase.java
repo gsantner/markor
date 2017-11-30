@@ -30,16 +30,6 @@
         }
         return value != BuildConfig.VERSION_CODE && !BuildConfig.IS_TEST_BUILD;
     }
-
- * Maybe add a singleton for this:
- * Whereas App.get() is returning ApplicationContext
-    private AppSettings(Context _context) {
-        super(_context);
-    }
-
-    public static AppSettings get() {
-        return new AppSettings(App.get());
-    }
  */
 
 package net.gsantner.opoc.util;
@@ -53,6 +43,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import net.gsantner.opoc.data.PropertyBackend;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +55,7 @@ import java.util.List;
  * Default SharedPreference (_prefApp) will be taken if no SP is specified, else the first one
  */
 @SuppressWarnings({"WeakerAccess", "unused", "SpellCheckingInspection", "SameParameterValue"})
-public class AppSettingsBase {
+public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase> {
     protected static final String ARRAY_SEPARATOR = "%%%";
     protected static final String ARRAY_SEPARATOR_SUBSTITUTE = "§§§";
     public static final String SHARED_PREF_APP = "app";
@@ -190,36 +182,33 @@ public class AppSettingsBase {
         return gp(pref).getString(rstr(keyResourceId), rstr(keyResourceIdDefaultValue));
     }
 
-    public void setStringArray(@StringRes int keyResourceId, Object[] values, final SharedPreferences... pref) {
-        setStringArray(rstr(keyResourceId), values, gp(pref));
-    }
-
-    public void setStringArray(String key, Object[] values, final SharedPreferences... pref) {
-        setStringArray(key, values, gp(pref));
-    }
-
-    private void setStringArray(String key, Object[] values, final SharedPreferences pref) {
+    private void setStringListOne(String key, List<String> values, final SharedPreferences pref) {
         StringBuilder sb = new StringBuilder();
-        for (Object value : values) {
+        for (String value : values) {
             sb.append(ARRAY_SEPARATOR);
-            sb.append(value.toString().replace(ARRAY_SEPARATOR, ARRAY_SEPARATOR_SUBSTITUTE));
+            sb.append(value.replace(ARRAY_SEPARATOR, ARRAY_SEPARATOR_SUBSTITUTE));
         }
         setString(key, sb.toString().replaceFirst(ARRAY_SEPARATOR, ""), pref);
     }
 
-    @NonNull
-    public String[] getStringArray(@StringRes int keyResourceId, final SharedPreferences... pref) {
-        return getStringArray(rstr(keyResourceId), gp(pref));
-    }
-
-    private String[] getStringArray(String key, final SharedPreferences... pref) {
-        String value = gp(pref)
+    private ArrayList<String> getStringListOne(String key, final SharedPreferences pref) {
+        ArrayList<String> ret = new ArrayList<>();
+        String value = pref
                 .getString(key, ARRAY_SEPARATOR)
                 .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR)) {
-            return new String[0];
+            return ret;
         }
-        return value.split(ARRAY_SEPARATOR);
+        ret.addAll(Arrays.asList(value.split(ARRAY_SEPARATOR)));
+        return ret;
+    }
+
+    public void setStringArray(@StringRes int keyResourceId, String[] values, final SharedPreferences... pref) {
+        setStringArray(rstr(keyResourceId), values, pref);
+    }
+
+    public void setStringArray(String key, String[] values, final SharedPreferences... pref) {
+        setStringListOne(key, Arrays.asList(values), gp(pref));
     }
 
     public void setStringList(@StringRes int keyResourceId, List<String> values, final SharedPreferences... pref) {
@@ -230,12 +219,23 @@ public class AppSettingsBase {
         setStringArray(key, values.toArray(new String[values.size()]), pref);
     }
 
+    @NonNull
+    public String[] getStringArray(@StringRes int keyResourceId, final SharedPreferences... pref) {
+        return getStringArray(rstr(keyResourceId), pref);
+    }
+
+    @NonNull
+    public String[] getStringArray(String key, final SharedPreferences... pref) {
+        List<String> list = getStringListOne(key, gp(pref));
+        return list.toArray(new String[list.size()]);
+    }
+
     public ArrayList<String> getStringList(@StringRes int keyResourceId, final SharedPreferences... pref) {
-        return new ArrayList<>(Arrays.asList(getStringArray(rstr(keyResourceId), gp(pref))));
+        return getStringListOne(rstr(keyResourceId), gp(pref));
     }
 
     public ArrayList<String> getStringList(String key, final SharedPreferences... pref) {
-        return new ArrayList<>(Arrays.asList(getStringArray(key, gp(pref))));
+        return getStringListOne(key, gp(pref));
     }
 
     //#################################
@@ -266,56 +266,59 @@ public class AppSettingsBase {
         return Integer.valueOf(strNum);
     }
 
-
-    public void setIntArray(@StringRes int keyResourceId, Object[] values, final SharedPreferences... pref) {
-        setIntArray(rstr(keyResourceId), values, gp(pref));
-    }
-
-    public void setIntArray(String key, Object[] values, final SharedPreferences... pref) {
-        setIntArray(key, values, gp(pref));
-    }
-
-    private void setIntArray(String key, Object[] values, final SharedPreferences pref) {
+    private void setIntListOne(String key, List<Integer> values, final SharedPreferences pref) {
         StringBuilder sb = new StringBuilder();
-        for (Object value : values) {
+        for (Integer value : values) {
             sb.append(ARRAY_SEPARATOR);
             sb.append(value.toString());
         }
         setString(key, sb.toString().replaceFirst(ARRAY_SEPARATOR, ""), pref);
     }
 
-    @NonNull
-    public Integer[] getIntArray(@StringRes int keyResourceId, final SharedPreferences... pref) {
-        return getIntArray(rstr(keyResourceId), gp(pref));
-    }
-
-    private Integer[] getIntArray(String key, final SharedPreferences... pref) {
-        String value = gp(pref).getString(key, ARRAY_SEPARATOR);
+    private ArrayList<Integer> getIntListOne(String key, final SharedPreferences pref) {
+        ArrayList<Integer> ret = new ArrayList<>();
+        String value = pref.getString(key, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR)) {
-            return new Integer[0];
+            return ret;
         }
-        String[] split = value.split(ARRAY_SEPARATOR);
-        Integer[] ret = new Integer[split.length];
-        for (int i = 0; i < ret.length; i++) {
-            ret[i] = Integer.parseInt(split[i]);
+        for (String s : value.split(ARRAY_SEPARATOR)) {
+            ret.add(Integer.parseInt(s));
         }
         return ret;
     }
 
+    public void setIntArray(@StringRes int keyResourceId, Integer[] values, final SharedPreferences... pref) {
+        setIntArray(rstr(keyResourceId), values, gp(pref));
+    }
+
+    public void setIntArray(String key, Integer[] values, final SharedPreferences... pref) {
+        setIntListOne(key, Arrays.asList(values), gp(pref));
+    }
+
+    public Integer[] getIntArray(@StringRes int keyResourceId, final SharedPreferences... pref) {
+        return getIntArray(rstr(keyResourceId), gp(pref));
+    }
+
+    public Integer[] getIntArray(String key, final SharedPreferences... pref) {
+        List<Integer> data = getIntListOne(key, gp(pref));
+        return data.toArray(new Integer[data.size()]);
+    }
+
+
     public void setIntList(@StringRes int keyResourceId, List<Integer> values, final SharedPreferences... pref) {
-        setIntArray(rstr(keyResourceId), values.toArray(new Integer[values.size()]), pref);
+        setIntListOne(rstr(keyResourceId), values, gp(pref));
     }
 
     public void setIntList(String key, List<Integer> values, final SharedPreferences... pref) {
-        setIntArray(key, values.toArray(new Integer[values.size()]), pref);
+        setIntListOne(key, values, gp(pref));
     }
 
     public ArrayList<Integer> getIntList(@StringRes int keyResourceId, final SharedPreferences... pref) {
-        return new ArrayList<>(Arrays.asList(getIntArray(rstr(keyResourceId), gp(pref))));
+        return getIntListOne(rstr(keyResourceId), gp(pref));
     }
 
     public ArrayList<Integer> getIntList(String key, final SharedPreferences... pref) {
-        return new ArrayList<>(Arrays.asList(getIntArray(key, gp(pref))));
+        return getIntListOne(key, gp(pref));
     }
 
 
@@ -404,5 +407,96 @@ public class AppSettingsBase {
 
     public int getColor(@StringRes int keyResourceId, @ColorRes int defaultColor, final SharedPreferences... pref) {
         return gp(pref).getInt(rstr(keyResourceId), rcolor(defaultColor));
+    }
+
+    //
+    // PropertyBackend<String> implementations
+    //
+    @Override
+    public String getString(String key, String defaultValue) {
+        return getString(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public int getInt(String key, int defaultValue) {
+        return getInt(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public long getLong(String key, long defaultValue) {
+        return getLong(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public boolean getBool(String key, boolean defaultValue) {
+        return getBool(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public float getFloat(String key, float defaultValue) {
+        return getFloat(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public double getDouble(String key, double defaultValue) {
+        return getDouble(key, defaultValue, _prefApp);
+    }
+
+    @Override
+    public ArrayList<Integer> getIntList(String key) {
+        return getIntList(key, _prefApp);
+    }
+
+    @Override
+    public ArrayList<String> getStringList(String key) {
+        return getStringList(key, _prefApp);
+    }
+
+    @Override
+    public AppSettingsBase setString(String key, String value) {
+        setString(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setInt(String key, int value) {
+        setInt(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setLong(String key, long value) {
+        setLong(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setBool(String key, boolean value) {
+        setBool(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setFloat(String key, float value) {
+        setFloat(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setDouble(String key, double value) {
+        setDouble(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setIntList(String key, List<Integer> value) {
+        setIntListOne(key, value, _prefApp);
+        return this;
+    }
+
+    @Override
+    public AppSettingsBase setStringList(String key, List<String> value) {
+        setStringListOne(key, value, _prefApp);
+        return this;
     }
 }

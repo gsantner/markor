@@ -44,9 +44,9 @@ public class TodoTxtHighlighter extends Highlighter {
             _profiler.restart("Context");
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CONTEXT.getPattern(), colors.getContextColor());
             _profiler.restart("Category");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CATEGORY.getPattern(), colors.getCategoryColor());
+            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PROJECT.getPattern(), colors.getCategoryColor());
             _profiler.restart("KeyValue");
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.KEYVALUE.getPattern(), Typeface.ITALIC);
+            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.ITALIC);
 
             _profiler.restart("Link Color");
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), colors.getLinkColor());
@@ -71,9 +71,12 @@ public class TodoTxtHighlighter extends Highlighter {
             _profiler.restart("Priority F");
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_F.getPattern(), colors.getPriorityColor(6));
 
-            // Date
+            // Date: Match Creation date before completition date
             _profiler.restart("Date Color");
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
+            //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CREATION_DATE.getPattern(), 0xff00ff00);
+            //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.COMPLETION_DATE.getPattern(), 0xff0000ff);
+
 
             // Paragraph divider
             _profiler.restart("Paragraph divider");
