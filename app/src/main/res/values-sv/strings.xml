@@ -23,8 +23,8 @@
     <string name="select_folder">Välj map</string>
     <string name="edit">Redigera</string>
 
-    <string name="search_hint">Sök anteckningar</string>
-    <string name="share_string">Dela till&#8230;</string>
+    <string name="search_documents">Sök anteckningar</string>
+    <string name="share_to">Dela till&#8230;</string>
     <string name="share">Dela</string>
     <string name="search">Sök</string>
     <string name="preview">Förhandsgranska</string>

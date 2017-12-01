@@ -34,15 +34,25 @@
         \nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
         \n
     ]]></string>
-    
+
     <plurals name="item_selected" translatable="false">
-        <item quantity="one">@string/one_item_selected</item>
-        <item quantity="other">@string/more_items_selected</item>
+        <item quantity="one" translatable="false">@string/one_item_selected</item>
+        <item quantity="other" translatable="false">@string/more_items_selected</item>
     </plurals>
 
     <plurals name="documents" translatable="false">
-        <item quantity="one">@string/document_one</item>
-        <item quantity="other">@string/document_multiple</item>
+        <item quantity="one" translatable="false">@string/document_one</item>
+        <item quantity="other" translatable="false">@string/document_multiple</item>
+    </plurals>
+
+    <plurals name="contexts" translatable="false">
+        <item quantity="one" translatable="false">@string/context</item>
+        <item quantity="other" translatable="false">@string/contexts</item>
+    </plurals>
+
+    <plurals name="projects" translatable="false">
+        <item quantity="one" translatable="false">@string/project</item>
+        <item quantity="other" translatable="false">@string/projects</item>
     </plurals>
 
 

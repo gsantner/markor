@@ -95,7 +95,7 @@ public class ShareUtil {
     }
 
     private void showShareChooser(Intent intent) {
-        _context.startActivity(Intent.createChooser(intent, _context.getResources().getText(R.string.share_string)));
+        _context.startActivity(Intent.createChooser(intent, _context.getResources().getText(R.string.share_to)));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -227,7 +227,7 @@ public class FilesystemListFragment extends BaseFragment {
 
         SearchManager searchManager = (SearchManager) _context.getSystemService(SEARCH_SERVICE);
         _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        _searchView.setQueryHint(getString(R.string.search_hint));
+        _searchView.setQueryHint(getString(R.string.search_documents));
         if (_searchView != null) {
             _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

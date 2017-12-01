@@ -18,8 +18,8 @@
     <string name="import_from_device">Імпортувати з пристрою</string>
     <string name="select_folder">Обрати директорію</string>
 
-    <string name="search_hint">Пошук нотаток</string>
-    <string name="share_string">Надіслати до…</string>
+    <string name="search_documents">Пошук нотаток</string>
+    <string name="share_to">Надіслати до…</string>
     <string name="share">Надіслати</string>
     <string name="search">Пошук</string>
     <string name="preview">Попередній перегляд</string>
