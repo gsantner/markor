@@ -24,8 +24,8 @@
     <string name="select_folder">Wybierz folder</string>
     <string name="edit">Edytuj</string>
 
-    <string name="search_hint">Szukaj notatek</string>
-    <string name="share_string">Udostępnij do&#8230;</string>
+    <string name="search_documents">Szukaj notatek</string>
+    <string name="share_to">Udostępnij do&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>

@@ -18,8 +18,8 @@
     <string name="import_from_device">Импортировать с устройства</string>
     <string name="select_folder">Выбрать директорию</string>
 
-    <string name="search_hint">Поиск заметок</string>
-    <string name="share_string">Поделиться с…</string>
+    <string name="search_documents">Поиск заметок</string>
+    <string name="share_to">Поделиться с…</string>
     <string name="share">Поделиться</string>
     <string name="search">Поиск</string>
     <string name="preview">Предпросмотр</string>

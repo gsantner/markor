@@ -18,8 +18,8 @@
     <string name="import_from_device">Importa dal device</string>
     <string name="select_folder">Seleziona cartella</string>
 
-    <string name="search_hint">Cerca note</string>
-    <string name="share_string">Condividi con&#8230;</string>
+    <string name="search_documents">Cerca note</string>
+    <string name="share_to">Condividi con&#8230;</string>
     <string name="share">Condividi</string>
     <string name="search">Cerca</string>
     <string name="preview">Anteprima</string>

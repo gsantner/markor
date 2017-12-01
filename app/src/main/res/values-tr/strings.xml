@@ -23,8 +23,8 @@
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
 
-    <string name="search_hint">Belgelerde ara</string>
-    <string name="share_string">Şununla paylaş&#8230;</string>
+    <string name="search_documents">Belgelerde ara</string>
+    <string name="share_to">Şununla paylaş&#8230;</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
     <string name="preview">Önizleme</string>

@@ -23,8 +23,8 @@
     <string name="select_folder">Select folder</string>
     <string name="edit">Edit</string>
 
-    <string name="search_hint">Search documents</string>
-    <string name="share_string">Share to&#8230;</string>
+    <string name="search_documents">Search documents</string>
+    <string name="share_to">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="preview">Preview</string>
@@ -99,6 +99,8 @@
     <string name="priority">Priority</string>
     <string name="history">History</string>
     <string name="sync">Sync</string>
+    <string name="browse_somethingsingular_or_add">Add new %s or browse existing ones</string>
+    <string name="search_hint__add_or_custom">Search / Custom</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="clear">Clear</string>
@@ -106,6 +108,7 @@
     <string name="current_date">Current date</string>
     <string name="archive">Archive</string>
     <string name="add_task">Add task</string>
+    <string name="add_something">Add %s</string>
     <string name="pref_summary__loaded_and_saved_as__plus_name">The document to be loaded and saved as "%s"</string>
     <string name="pref_summary__todo_filepath">The document to be loaded and saved as To-Do</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Settings in toolbar</string>
@@ -128,7 +131,7 @@
     <string name="pref_title__highlighting_activated" needed="false">Markdown syntax highlighting</string>
     <string name="pref_title__highlighting_delay" needed="false">Delay in milliseconds for highlighting refresh</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Higher values are easier on the battery</string>
-    <string name="pref_title__smart_shortcuts"  needed="false">Smart brackets shortcuts</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Smart brackets shortcuts</string>
     <string name="pref_title__smart_shortcuts_summary" needed="false">If text is selected, {}, [] and () will surround the selection</string>
     <string name="number_of_files" needed="false">Number of files: %d</string>
 
@@ -147,4 +150,9 @@
     <string name="textmodules_bar_summary">Show a bar with useful actions to insert common used text modules</string>
     <string name="load_last_directory_at_startup__summary">Load the last opened folder at startup</string>
     <string name="format">Format</string>
+    <string name="contexts">Contexts</string>
+    <string name="project">Project</string>
+    <string name="projects">Projects</string>
+    <string name="categories">Categories</string>
+    <string name="none">None</string>
 </resources>

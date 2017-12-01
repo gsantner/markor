@@ -15,7 +15,7 @@ package net.gsantner.opoc.format.todotxt.extension;
 public interface SttTaskParserInfoExtension<TTHIS> {
     int PROP_TASK_LINE = 1001;
     int PROP_LINE_OFFSET_IN_TEXT = 1002;
-    int PROP_CURSOR_OFFSET_IN_LINE = 1002;
+    int PROP_CURSOR_OFFSET_IN_LINE = 1003;
 
     String getTaskLine();
 

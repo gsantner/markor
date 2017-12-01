@@ -31,7 +31,6 @@ public class SttCommander {
     public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     private static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
 
-    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(\\+\\w+)");
     public static final Pattern PATTERN_DESCRIPTION = Pattern.compile("(?:^|\\n)" +
             "(?:" +
             "(?:[Xx](?: " + PT_DATE + " " + PT_DATE + ")?)" + // Done in front
@@ -40,7 +39,8 @@ public class SttCommander {
             " )?" + // End of prefix
             "((a|.)*)" // Take whats left
     );
-    public static final Pattern PATTERN_PROJECTS = Pattern.compile("\\B(\\@\\w+)"); // Project = Category
+    public static final Pattern PATTERN_PROJECTS = Pattern.compile("\\B(?:\\+)(\\w+)");
+    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(?:\\@)(\\w+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
@@ -69,8 +69,6 @@ public class SttCommander {
     //
     // Members, Constructors
     //
-    public int lastParseTextStartOffset;
-
     public SttCommander() {
 
     }
@@ -79,19 +77,19 @@ public class SttCommander {
     // Parsing Methods
     //
 
-    public SttTaskWithParserInfo parseTask(String text, int cursorPosInDocument) {
+    public SttTaskWithParserInfo parseTask(String text, int cursorPosInText) {
         int iOffsetInLine = 0;
         int iLineStart = 0;
         String line = "";
-        if (text != null && cursorPosInDocument < text.length()) {
-            iLineStart = text.lastIndexOf('\n', cursorPosInDocument);
+        if (text != null && cursorPosInText <= text.length()) {
+            iLineStart = text.lastIndexOf('\n', cursorPosInText - 1);
             iLineStart = iLineStart == -1 ? 0 : iLineStart + 1;
             if (iLineStart < text.length()) {
                 int lineEnd = text.indexOf('\n', iLineStart);
-                lineEnd = lineEnd == -1 ? text.length() : lineEnd;
+                lineEnd = lineEnd == -1 ? text.length() : (lineEnd);
                 line = text.substring(iLineStart, lineEnd);
             }
-            iOffsetInLine = cursorPosInDocument - iLineStart;
+            iOffsetInLine = cursorPosInText - iLineStart;
         }
 
         SttTaskWithParserInfo ret = parseTask(line);
@@ -117,11 +115,11 @@ public class SttCommander {
     }
 
     public List<String> parseContexts(String text) {
-        return parseAllUniqueMatches(text, PATTERN_CONTEXTS);
+        return parseAllUniqueMatchesWithOneValue(text, PATTERN_CONTEXTS);
     }
 
     public List<String> parseProjects(String text) {
-        return parseAllUniqueMatches(text, PATTERN_PROJECTS);
+        return parseAllUniqueMatchesWithOneValue(text, PATTERN_PROJECTS);
     }
 
 
@@ -152,7 +150,7 @@ public class SttCommander {
 
     private Map<String, String> parseKeyValuePairs(String line) {
         Map<String, String> values = new HashMap<>();
-        for (String kvp : parseAllUniqueMatches(line, PATTERN_KEY_VALUE_PAIRS)) {
+        for (String kvp : parseAllUniqueMatchesWithOneValue(line, PATTERN_KEY_VALUE_PAIRS)) {
             int s = kvp.indexOf(':');
             values.put(kvp.substring(0, s), kvp.substring(s + 1));
         }
@@ -165,14 +163,14 @@ public class SttCommander {
     //
     public void insertProject(SttTaskWithParserInfo task, String project, int atIndex) {
         String text = task.getTaskLine();
-        project = project.startsWith("@") ? project.substring(1) : project;
+        project = project.startsWith("+") ? project.substring(1) : project;
         String[] split = splitAtIndexFailsafe(text, atIndex);
 
         String left = split[0];
         String right = split[1];
         left = (!left.endsWith(" ") && !left.isEmpty()) ? (left + " ") : left;
         right = (!right.startsWith(" ") && !right.isEmpty()) ? (" " + right) : right;
-        task.setTaskLine(left + "@" + project + right);
+        task.setTaskLine(left + "+" + project + right);
         List<String> projects = task.getProjects();
         if (!projects.contains(project)) {
             projects.add(project);
@@ -182,14 +180,14 @@ public class SttCommander {
 
     public void insertContext(SttTaskWithParserInfo task, String context, int atIndex) {
         String text = task.getTaskLine();
-        context = context.startsWith("+") ? context.substring(1) : context;
+        context = context.startsWith("@") ? context.substring(1) : context;
         String[] split = splitAtIndexFailsafe(text, atIndex);
 
         String left = split[0];
         String right = split[1];
         left = (!left.endsWith(" ") && !left.isEmpty()) ? (left + " ") : left;
         right = (!right.startsWith(" ") && !right.isEmpty()) ? (" " + right) : right;
-        task.setTaskLine(left + "+" + context + right);
+        task.setTaskLine(left + "@" + context + right);
         List<String> contexts = task.getContexts();
         if (!contexts.contains(context)) {
             contexts.add(context);
@@ -197,30 +195,10 @@ public class SttCommander {
         task.setDescription(parseDescription(task.getTaskLine()));
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    private String[] splitAtIndexFailsafe(String text, int atIndex) {
-        String left = "";
-        String right = "";
-
-        if (text == null || text.isEmpty()) {
-
-        } else if (atIndex >= text.length()) {
-            left = text;
-        } else if (atIndex < 0) {
-            right = text;
-        } else {
-            left = text.substring(0, atIndex);
-            right = text.substring(atIndex);
-        }
-
-
-        return new String[]{left, right};
-    }
-
     //
-    // General methods
+    // More Stt Methods
     //
-    public void regenerateTaskLine(SttTaskWithParserInfo task) {
+    public SttCommander regenerateTaskLine(SttTaskWithParserInfo task) {
         StringBuilder sb = new StringBuilder(task.getTaskLine().length() + 5);
         String tmp;
         if (task.isDone()) {
@@ -244,7 +222,44 @@ public class SttCommander {
             sb.append(" ");
         }
         sb.append(task.getDescription());
-        task.setTaskLine(sb.toString());
+        task.setTaskLine(sb.toString().trim());
+        return this;
+    }
+
+    public String regenerateText(String text, SttTaskWithParserInfo task) {
+        regenerateTaskLine(task);
+        return replaceTillEndOfLineFromIndex(task.getLineOffsetInText(), text, task.getTaskLine());
+    }
+
+    //
+    // General methods
+    //
+    @SuppressWarnings("StatementWithEmptyBody")
+    private static String[] splitAtIndexFailsafe(String text, int atIndex) {
+        String left = "";
+        String right = "";
+
+        if (text == null || text.isEmpty()) {
+
+        } else if (atIndex >= text.length()) {
+            left = text;
+        } else if (atIndex < 0) {
+            right = text;
+        } else {
+            left = text.substring(0, atIndex);
+            right = text.substring(atIndex);
+        }
+
+
+        return new String[]{left, right};
+    }
+
+
+    // Replace till the end of the line, starting from index
+    public static String replaceTillEndOfLineFromIndex(int index, String text, String replacementLine) {
+        String[] split = splitAtIndexFailsafe(text, index);
+        split[1] = split[1].contains("\n") ? split[1].replaceFirst(".*(\\n)", replacementLine + "\n") : replacementLine;
+        return split[0] + split[1];
     }
 
     // not empty
@@ -256,12 +271,15 @@ public class SttCommander {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
 
-    private static List<String> parseAllUniqueMatches(String text, Pattern pattern) {
+    // Only captures the first group of each match
+    private static List<String> parseAllUniqueMatchesWithOneValue(String text, Pattern pattern) {
         List<String> ret = new ArrayList<>();
         for (Matcher m = pattern.matcher(text); m.find(); ) {
-            String found = m.group();
-            if (!ret.contains(found)) {
-                ret.add(found);
+            if (m.groupCount() > 0) {
+                String found = m.group(1);
+                if (!ret.contains(found)) {
+                    ret.add(found);
+                }
             }
         }
         return ret;

@@ -24,8 +24,8 @@
     <string name="select_folder">फोल्डर का चयन करें</string>
     <string name="edit">संपादित करें</string>
 
-    <string name="search_hint">नोट खोजें</string>
-    <string name="share_string">साझा करें &#8230;</string>
+    <string name="search_documents">नोट खोजें</string>
+    <string name="share_to">साझा करें &#8230;</string>
     <string name="share">बांटे</string>
     <string name="search">खोजें</string>
     <string name="preview">पूर्व दर्शन</string>

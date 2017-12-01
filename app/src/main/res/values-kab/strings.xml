@@ -24,8 +24,8 @@
     <string name="select_folder">Fren akaram</string>
     <string name="edit">Ẓreg</string>
 
-    <string name="search_hint">Nadi di tizmilin</string>
-    <string name="share_string">Bḍu s…</string>
+    <string name="search_documents">Nadi di tizmilin</string>
+    <string name="share_to">Bḍu s…</string>
     <string name="share">Bḍu</string>
     <string name="search">Nadi</string>
     <string name="preview">Taskant</string>

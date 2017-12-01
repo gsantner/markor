@@ -23,8 +23,8 @@
     <string name="select_folder">Sélectionnez le dossier</string>
     <string name="edit">Éditer</string>
 
-    <string name="search_hint">Rechercher dans les documents</string>
-    <string name="share_string">Partager avec…</string>
+    <string name="search_documents">Rechercher dans les documents</string>
+    <string name="share_to">Partager avec…</string>
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
     <string name="preview">Aperçu</string>

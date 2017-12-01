@@ -24,8 +24,8 @@
     <string name="select_folder">Selecionar pastas</string>
     <string name="edit">Editar</string>
 
-    <string name="search_hint">Procurar notas</string>
-    <string name="share_string">Compartilhar com…</string>
+    <string name="search_documents">Procurar notas</string>
+    <string name="share_to">Compartilhar com…</string>
     <string name="share">Compartilhar</string>
     <string name="search">Procurar</string>
     <string name="preview">Pré-visualização</string>
