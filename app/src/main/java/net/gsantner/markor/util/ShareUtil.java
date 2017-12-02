@@ -81,6 +81,10 @@ public class ShareUtil {
         showShareChooser(intent);
     }
 
+    public Uri getUriFromMarkorProvider(File file) {
+        return FileProvider.getUriForFile(_context, FILE_PROVIDER_AUTHORITIES, file);
+    }
+
     public boolean shareImage(Bitmap bitmap) {
         try {
             File file = File.createTempFile(_context.getString(R.string.app_name), ".png", _context.getExternalCacheDir());
