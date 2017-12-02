@@ -41,6 +41,7 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.opoc.util.ShareUtilBase;
 
 import java.io.File;
 
@@ -180,7 +181,7 @@ public class DocumentActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_add_shortcut_launcher_home: {
-                ShareUtil.createLauncherShortcut(this, _document);
+                shu.createLauncherDesktopShortcut(_document);
                 return true;
             }
             case R.id.action_share_text: {
@@ -205,13 +206,13 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_share_image: {
                 if (saveDocument() && getPreviewWebview() != null) {
-                    shu.shareImage(ShareUtil.getBitmapFromWebView(getPreviewWebview()));
+                    shu.shareImage(ShareUtilBase.getBitmapFromWebView(getPreviewWebview()));
                 }
                 return true;
             }
             case R.id.action_share_pdf: {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument() && getPreviewWebview() != null) {
-                    shu.printPdfOfWebview(_document, getPreviewWebview());
+                    shu.printOrCreatePdfFromWebview(getPreviewWebview(), _document);
                 }
                 return true;
             }
