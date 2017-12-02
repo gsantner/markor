@@ -63,6 +63,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -221,8 +221,16 @@ public class SttCommander {
             sb.append(tmp);
             sb.append(" ");
         }
-        sb.append(task.getDescription());
-        task.setTaskLine(sb.toString().trim());
+
+        // Make sure there is no more than one trailing space
+        tmp = sb.toString().trim();
+        tmp += tmp.isEmpty() ? "" : " ";
+        sb.setLength(0);
+        sb.append(tmp);
+        sb.append(task.getDescription().trim());
+
+
+        task.setTaskLine(sb.toString());
         return this;
     }
 

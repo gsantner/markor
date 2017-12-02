@@ -49,8 +49,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_local_offer_white_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
             {R.drawable.ic_date_range_black_24dp, 4},
-            {R.drawable.ic_add_white_24dp, 5},
-            {R.drawable.ic_delete_white_24dp, 6},
+            //{R.drawable.ic_add_white_24dp, 5},
+            //{R.drawable.ic_delete_white_24dp, 6},
     };
     private static final String[] STT_INSERT_ACTIONS = {
             "toggle_done",
@@ -58,8 +58,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "add_project",
             "set_priority",
             "insert_date",
-            "add_task",
-            "delete_task"
+            //"add_task",
+            //"delete_task"
     };
 
     private class KeyboardRegularActionListener implements View.OnClickListener {
@@ -86,6 +86,9 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
 
             switch (_action) {
                 case "toggle_done": {
+                    origTask.setDone(!origTask.isDone());
+                    origTask.setCompletionDate(SttCommander.getToday());
+                    replaceOrigTaskWithTaskCallback.onCallback(origTask);
                     return;
                 }
                 case "add_context": {

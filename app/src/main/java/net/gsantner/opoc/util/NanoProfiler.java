@@ -16,6 +16,9 @@ import android.util.Log;
 
 import java.text.DecimalFormat;
 
+/**
+ * A timer for quick time measurement. Nano - in both, time and functions
+ */
 public class NanoProfiler {
     private final DecimalFormat formatter = new DecimalFormat("000000000.0000000");
     private long _profilingGroupValue = 0;
