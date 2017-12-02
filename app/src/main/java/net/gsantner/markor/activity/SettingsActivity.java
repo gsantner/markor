@@ -8,14 +8,18 @@ package net.gsantner.markor.activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -23,6 +27,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 
@@ -36,19 +41,31 @@ public class SettingsActivity extends AppCompatActivity {
         static final int RESTART_REQ = 2;
     }
 
+    public static int activityRetVal = RESULT.NOCHANGE;
+    private static int iconColor = Color.WHITE;
+
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    public static int activityRetVal = RESULT.NOCHANGE;
+    private AppSettings _as;
+    private ContextUtils _cu;
+    private PreferenceFragment _curPrefFragment;
 
     public void onCreate(Bundle b) {
+        // Must be applied before setContentView
         super.onCreate(b);
-        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isDarkThemeEnabled()) {
-            setTheme(R.style.AppTheme_Dark);
-        }
+        _as = new AppSettings(this);
+        _cu = new ContextUtils(this);
+        _cu.setAppLanguage(AppSettings.get().getLanguage());
+        PreferenceFragment _curPrefFragment;
+        setTheme(_as.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
+        // Load UI
         setContentView(R.layout.settings__activity);
         ButterKnife.bind(this);
+
+        // Custom code
+        iconColor = _cu.color(_as.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
         toolbar.setTitle(R.string.action_settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -67,12 +84,28 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
             }
         }
+        _curPrefFragment = fragment;
         FragmentTransaction t = getFragmentManager().beginTransaction();
         if (addToBackStack) {
             t.addToBackStack(tag);
         }
         t.replace(R.id.settings__activity__fragment_placeholder, fragment, tag).commit();
     }
+
+    public static final Callback<PreferenceFragment> START_UPDATING_PREF_ICONS = (frag) -> {
+        View view = frag.getView();
+        if (view != null) {
+            final ContextUtils cu = new ContextUtils(view.getContext());
+            Runnable r = () -> {
+                cu.tintIconsInPreferenceFragment(frag, iconColor);
+            };
+            long[] delays = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ?
+                    new long[]{200} : new long[]{200, 2000, 5000, 10000};
+            for (long delay : delays) {
+                view.postDelayed(r, delay);
+            }
+        }
+    };
 
     @Override
     protected void onStop() {
@@ -94,38 +127,50 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static class SettingsFragmentMaster extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         public static final String TAG = "SettingsFragmentMaster";
-
-        AppSettings _appSettings;
+        AppSettings _as;
+        ContextUtils _cu;
 
         public void onCreate(Bundle savedInstances) {
             super.onCreate(savedInstances);
-            _appSettings = AppSettings.get();
+            _as = new AppSettings(getActivity());
+            _cu = new ContextUtils(getActivity());
             getPreferenceManager().setSharedPreferencesName("app");
             addPreferencesFromResource(R.xml.preferences);
         }
 
         @Override
+        public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            //view.postDelayed(() -> {
+            // }, 200);
+            START_UPDATING_PREF_ICONS.onCallback(this);
+        }
+
+        @Override
         public void onResume() {
             super.onResume();
-            _appSettings.registerPreferenceChangedListener(this);
+            _as.registerPreferenceChangedListener(this);
             updateSummaries();
         }
 
         @Override
         public void onPause() {
             super.onPause();
-            _appSettings.unregisterPreferenceChangedListener(this);
+            _as.unregisterPreferenceChangedListener(this);
         }
 
         public void updateSummaries() {
             Preference pref = findPreference(getString(R.string.pref_key__notebook_directory));
             pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr());
+            pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
             pref = findPreference(getString(R.string.pref_key__markdown__quicknote_filepath));
             pref.setSummary(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
                     + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath());
+            pref.setIcon(_cu.tintDrawable(R.drawable.ic_lightning_white_24dp, iconColor));
             pref = findPreference(getString(R.string.pref_key__todotxt_filepath));
             pref.setSummary(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
                     + "\n" + AppSettings.get().getTodoTxtFile().getAbsolutePath());
+            pref.setIcon(_cu.tintDrawable(R.drawable.ic_assignment_turned_in_black_24dp, iconColor));
         }
 
         @Override
@@ -133,13 +178,13 @@ public class SettingsActivity extends AppCompatActivity {
             activityRetVal = RESULT.CHANGED;
             if (key.equals(getString(R.string.pref_key__language))) {
                 activityRetVal = RESULT.RESTART_REQ;
-                _appSettings.setRecreateMainRequired(true);
+                _as.setRecreateMainRequired(true);
             } else if (key.equals(getString(R.string.pref_key__app_theme))) {
                 ((SettingsActivity) getActivity()).restartActivity();
-                _appSettings.setRecreateMainRequired(true);
+                _as.setRecreateMainRequired(true);
             } else if (key.equals(getString(R.string.pref_key__is_overview_statusbar_hidden))) {
                 activityRetVal = RESULT.RESTART_REQ;
-                _appSettings.setRecreateMainRequired(true);
+                _as.setRecreateMainRequired(true);
             }
         }
 

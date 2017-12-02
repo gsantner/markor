@@ -26,8 +26,8 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.IOException;
 

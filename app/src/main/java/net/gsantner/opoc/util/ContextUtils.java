@@ -29,7 +29,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -38,6 +37,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -47,7 +48,6 @@ import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.text.SpannableString;
@@ -58,7 +58,6 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -232,16 +231,6 @@ public class ContextUtils {
             }
         }
         return sb.toString();
-    }
-
-    public void showDialogWithRawFileInWebView(String fileInRaw, @StringRes int resTitleId) {
-        WebView wv = new WebView(_context);
-        wv.loadUrl("file:///android_res/raw/" + fileInRaw);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
-                .setPositiveButton(android.R.string.ok, null)
-                .setTitle(resTitleId)
-                .setView(wv);
-        dialog.show();
     }
 
     @SuppressLint("RestrictedApi")
@@ -521,16 +510,33 @@ public class ContextUtils {
     public ContextUtils tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
-            Drawable drawable = item.getIcon();
-            if (drawable != null) {
-                drawable.mutate();
-                drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
-            }
+            tintDrawable(item.getIcon(), iconColor);
             if (item.hasSubMenu() && recurse) {
                 tintMenuItems(item.getSubMenu(), recurse, iconColor);
             }
         }
         return this;
+    }
+
+    public void tintIconsInPreferenceFragment(PreferenceFragment preferenceFragment, @ColorInt int iconColor) {
+        for (String prefKey : preferenceFragment.getPreferenceManager().getSharedPreferences().getAll().keySet()) {
+            Preference pref = preferenceFragment.findPreference(prefKey);
+            if (pref != null) {
+                pref.setIcon(tintDrawable(pref.getIcon(), iconColor));
+            }
+        }
+    }
+
+    public Drawable tintDrawable(@DrawableRes int drawableRes, @ColorInt int color) {
+        return tintDrawable(_context.getResources().getDrawable(drawableRes), color);
+    }
+
+    public Drawable tintDrawable(@Nullable Drawable drawable, @ColorInt int color) {
+        if (drawable != null) {
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTint(drawable.mutate(), color);
+        }
+        return drawable;
     }
 
     @SuppressLint("PrivateApi")

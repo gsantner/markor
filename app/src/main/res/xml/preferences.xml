@@ -9,15 +9,18 @@
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"
             android:key="@string/pref_key__app_theme"
+            android:icon="@drawable/ic_invert_colors_black_24dp"
             android:summary="@string/theme_description"
             android:title="@string/theme" />
 
         <net.gsantner.opoc.ui.LanguagePreference
+            android:icon="@drawable/ic_language_black_24dp"
             android:key="@string/pref_key__language"
             android:summary="@string/pref_desc__language"
             android:title="@string/pref_title__language" />
 
         <Preference
+            android:icon="@drawable/ic_save_black_24dp"
             android:key="@string/pref_key__notebook_directory"
             android:title="@string/notebook_directory" />
     </PreferenceCategory>
@@ -25,12 +28,14 @@
     <PreferenceCategory android:title="@string/main_view">
         <CheckBoxPreference
             android:defaultValue="false"
+            android:icon="@drawable/ic_visibility_off_black_24dp"
             android:key="@string/pref_key__is_overview_statusbar_hidden"
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden" />
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:icon="@drawable/ic_settings_white_24dp"
             android:key="@string/pref_key__show_settings_option_in_main_toolbar"
             android:summary="@string/pref_show_settings_option_in_main_toolbar"
             android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
@@ -41,12 +46,14 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:icon="@drawable/ic_folder_white_24dp"
             android:key="@string/pref_key__load_last_directory_at_startup"
             android:summary="@string/load_last_directory_at_startup__summary"
             android:title="@string/load_last_directory_at_startup" />
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:icon="@drawable/ic_preview_light"
             android:key="@string/pref_key__is_preview_first"
             android:title="@string/open_preview_when_open_documents" />
 
@@ -55,16 +62,19 @@
     <PreferenceCategory android:title="@string/editor">
         <CheckBoxPreference
             android:defaultValue="false"
+            android:icon="@drawable/ic_visibility_off_black_24dp"
             android:key="@string/pref_key__is_editor_statusbar_hidden"
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden" />
 
         <net.gsantner.opoc.ui.FontPreference
+            android:icon="@drawable/ic_format_shapes_black_24dp"
             android:defaultValue="@string/default_font_family"
             android:key="@string/pref_key__font_family"
             android:title="@string/document_editor_font" />
 
         <ListPreference
+            android:icon="@drawable/ic_format_size_black_24dp"
             android:defaultValue="18"
             android:dialogTitle="@string/pref_title__font_size"
             android:entries="@array/pref_arrkeys__font_size"
@@ -74,20 +84,24 @@
             android:title="@string/pref_title__font_size" />
 
         <CheckBoxPreference
+            android:icon="@drawable/ic_lightning_white_24dp"
             android:defaultValue="true"
             android:key="@string/pref_key__is_show_textmodules_bar"
             android:summary="@string/textmodules_bar_summary"
             android:title="@string/text_modules" />
 
         <CheckBoxPreference
+            android:icon="@drawable/ic_highlight_black_24dp"
             android:defaultValue="true"
             android:key="@string/pref_key__is_highlighting_activated"
             android:summary="@string/highlighting_enabled_summary"
             android:title="@string/syntax_highlighting" />
 
         <CheckBoxPreference
+            android:icon="@drawable/ic_format_color_fill_black_24dp"
             android:defaultValue="true"
             android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
+            android:dependency="@string/pref_key__is_highlighting_activated"
             android:summary="@string/pref_summary__is_highlighting_for_hexcolor_activated"
             android:title="@string/hexcolor_underline" />
 
@@ -96,6 +110,7 @@
     <PreferenceCategory android:title="@string/preview">
 
         <CheckBoxPreference
+            android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
             android:defaultValue="false"
             android:key="@string/pref_key__is_render_rtl"
             android:summary="@string/render_for_right_to_left_languages"
@@ -105,6 +120,7 @@
 
     <PreferenceCategory android:title="@string/markdown">
         <Preference
+            android:icon="@drawable/ic_lightning_white_24dp"
             android:key="@string/pref_key__markdown__quicknote_filepath"
             android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
             android:title="@string/quicknote" />
@@ -121,24 +137,27 @@
 
     <PreferenceCategory android:title="@string/todo">
         <Preference
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:key="@string/pref_key__todotxt_filepath"
             android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
             android:title="@string/todo" />
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:icon="@drawable/ic_date_range_white_24dp"
             android:key="@string/pref_key__todotxt__start_new_tasks_with_todays_date"
             android:summary="@string/start_new_tasks_with_todays_date"
             android:title="@string/tasks_with_todays_date" />
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:icon="@drawable/ic_add_white_24dp"
             android:key="@string/pref_key__todotxt__append_contexts_and_projects_on_end_of_task"
             android:summary="@string/append_contexts_and_projects_on_end_of_task"
             android:title="@string/append_contexts_and_projects" />
 
         <EditTextPreference
-            android:defaultValue="170"
+            android:defaultValue="190"
             android:dependency="@string/pref_key__is_highlighting_activated"
             android:inputType="number"
             android:key="@string/pref_key__todotxt__highlighting_delay"
