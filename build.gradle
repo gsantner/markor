@@ -6,8 +6,10 @@ buildscript {
     ext.version_setup_targetSdk = ext.version_setup_compileSdk
     ext.version_setup_buildTools = "27.0.1" // Specifying optional
 
+    // https://developer.android.com/studio/releases/gradle-plugin.html
+    ext.version_gradle_tools = "3.0.1"
     // https://developer.android.com/topic/libraries/support-library/revisions.html
-    ext.version_library_appcompat = "27.0.1"
+    ext.version_library_appcompat = "27.0.2"
     // https://github.com/JakeWharton/butterknife/releases
     ext.version_library_butterknife = "8.8.1"
     // https://github.com/atlassian/commonmark-java/releases
@@ -23,7 +25,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath "com.android.tools.build:gradle:$version_gradle_tools"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         if (project.enable_plugin_kotlin) {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_plugin_kotlin"
@@ -47,7 +49,7 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "CHANGELOG.md", "CONTRIBUTORS.md","LICENSE.txt","LICENSE.md","LICENSE"]
+final String[] ROOT_TO_RAW_COPYFILES = ["README.md", "CHANGELOG.md", "CONTRIBUTORS.md", "LICENSE.txt", "LICENSE.md", "LICENSE"]
 task copyRepoFiles(type: Copy) {
     from rootProject.files(ROOT_TO_RAW_COPYFILES)
     into "app/src/main/res/raw"
