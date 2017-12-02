@@ -12,17 +12,21 @@ import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.highlighter.general.HexColorCodeUnderliner;
 import net.gsantner.markor.util.AppSettings;
 
 public class MarkdownHighlighter extends Highlighter {
     private final MarkdownHighlighterColors _colors;
     final String _fontType;
     final Integer _fontSize;
+    private final boolean _highlightHexcolorEnabled;
 
     public MarkdownHighlighter() {
+        AppSettings as = AppSettings.get();
         _colors = new MarkdownHighlighterColorsNeutral();
-        _fontType = AppSettings.get().getFontFamily();
-        _fontSize = AppSettings.get().getFontSize();
+        _fontType = as.getFontFamily();
+        _fontSize = as.getFontSize();
+        _highlightHexcolorEnabled = as.isHighlightingHexColorEnabled();
     }
 
     @Override
@@ -45,6 +49,10 @@ public class MarkdownHighlighter extends Highlighter {
             createSpanWithStrikeThroughForMatches(editable, MarkdownHighlighterPattern.STRIKETHROUGH.getPattern());
             createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.MONOSPACED.getPattern());
             createColorBackgroundSpan(editable, MarkdownHighlighterPattern.MONOSPACED.getPattern(), _colors.getDoublespaceColor());
+
+            if (_highlightHexcolorEnabled) {
+                createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderliner.PATTERN, new HexColorCodeUnderliner.ColorUnderlineSpanCreator(), 1);
+            }
 
         } catch (Exception ex) {
             // Ignoring errors

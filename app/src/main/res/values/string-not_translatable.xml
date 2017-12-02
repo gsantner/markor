@@ -78,4 +78,5 @@
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
     <string name="pref_key__todotxt_filepath" translatable="false">pref_key__todo_filepath</string>
+    <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
 </resources>

@@ -85,6 +85,12 @@
             android:summary="@string/highlighting_enabled_summary"
             android:title="@string/syntax_highlighting" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
+            android:summary="@string/pref_summary__is_highlighting_for_hexcolor_activated"
+            android:title="@string/hexcolor_underline" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preview">

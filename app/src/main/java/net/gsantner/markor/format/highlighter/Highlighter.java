@@ -1,6 +1,4 @@
 /*
- * Copyright (c) 2014 Jeff Martin
- * Copyright (c) 2015 Pedro Lafuente
  * Copyright (c) 2017 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
@@ -8,6 +6,7 @@
 package net.gsantner.markor.format.highlighter;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
@@ -25,6 +24,7 @@ import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 
 import net.gsantner.markor.BuildConfig;
+import net.gsantner.markor.format.highlighter.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
 import net.gsantner.opoc.util.NanoProfiler;
 
@@ -66,6 +66,7 @@ public abstract class Highlighter {
         clearCharacterSpanType(editable, StrikethroughSpan.class);
         clearCharacterSpanType(editable, RelativeSizeSpan.class);
         clearCharacterSpanType(editable, StyleSpan.class);
+        clearCharacterSpanType(editable, ColorUnderlineSpan.class);
         clearParagraphSpanType(editable, LineBackgroundSpan.class);
         clearParagraphSpanType(editable, LineHeightSpan.class);
     }
@@ -108,8 +109,8 @@ public abstract class Highlighter {
             ParcelableSpan span = creator.create(m, i);
             if (span != null) {
                 for (int g : groupsToMatch) {
-                    if (g == 0 || g < m.groupCount()) {
-                        editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    if (g == 0 || g <= m.groupCount()) {
+                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -135,8 +136,8 @@ public abstract class Highlighter {
             ParagraphStyle span = creator.create(m, i);
             if (span != null) {
                 for (int g : groupsToMatch) {
-                    if (g == 0 || g < m.groupCount()) {
-                        editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    if (g == 0 || g <= m.groupCount()) {
+                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -144,7 +145,7 @@ public abstract class Highlighter {
     }
 
     protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style), groupsToMatch);
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
 
     protected void createColorSpanForMatches(final Editable editable, final Pattern pattern, final int color, int... groupsToMatch) {
@@ -169,6 +170,14 @@ public abstract class Highlighter {
 
     protected void createMonospaceSpanForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {
         createTypefaceSpanForMatches(editable, pattern, "monospace", groupsToMatch);
+    }
+
+    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
+    }
+
+    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, creator, groupsToMatch);
     }
 
     protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator, int... groupsToMatch) {
