@@ -56,20 +56,25 @@
     </plurals>
 
 
-    <!-- Preference keys -->
+    <!-- Preference keys Markdown -->
+    <string name="pref_key__markdown__highlighting_delay" translatable="false">pref_key__markdown__highlighting_delay</string>
+    <string name="pref_key__markdown__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
+    <!-- Preference keys To-Do -->
+    <string name="pref_key__todotxt__highlighting_delay" translatable="false">pref_key__todotxt__highlighting_delay</string>
+    <string name="pref_key__todotxt_filepath" translatable="false">pref_key__todo_filepath</string>
+    <string name="pref_key__todotxt__start_new_tasks_with_todays_date" translatable="false">pref_key__todotxt__start_new_tasks_with_todays_date</string>
+    <string name="pref_key__todotxt__append_contexts_and_projects_on_end_of_task" translatable="false">pref_key__todotxt__append_contexts_and_projects_on_end_of_task</string>
+    <!-- Preference keys General -->
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
+    <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
-    <string name="pref_key__highlighting_delay_markdown" translatable="false">pref_key__highlighting_delay</string>
-    <string name="pref_key__highlighting_delay_todotxt" translatable="false">pref_key__highlighting_delay_todotxt</string>
     <string name="pref_key__load_last_directory_at_startup" translatable="false">pref_key__load_last_directory_at_startup</string>
-    <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
     <string name="pref_key__notebook_directory" translatable="false">pref_key__save_directory</string>
-    <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
+    <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__font_size" translatable="false">pref_key__font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
-    <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__is_editor_statusbar_hidden" translatable="false">pref_key__is_editor_statusbar_hidden</string>
     <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
@@ -77,6 +82,5 @@
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
-    <string name="pref_key__todotxt_filepath" translatable="false">pref_key__todo_filepath</string>
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
 </resources>

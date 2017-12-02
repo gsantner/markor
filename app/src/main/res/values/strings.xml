@@ -44,7 +44,7 @@
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="pref_title__font_size">Font Size</string>
-    <string name="pref_title__render_rtl">Render for right-to-left languages</string>
+    <string name="render_for_right_to_left_languages">Render for right-to-left languages</string>
     <string name="error_cannot_create_notebook_dir">Error: Cannot create notebook directory</string>
 
     <string name="last_modified">Last modified: %s</string>
@@ -99,7 +99,7 @@
     <string name="priority">Priority</string>
     <string name="history">History</string>
     <string name="sync">Sync</string>
-    <string name="browse_somethingsingular_or_add">Add new %s or browse existing ones</string>
+    <string name="browse_somethingsingular_or_add">Add %s or browse existing ones</string>
     <string name="search_hint__add_or_custom">Search / Custom</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
@@ -110,7 +110,6 @@
     <string name="add_task">Add task</string>
     <string name="add_something">Add %s</string>
     <string name="pref_summary__loaded_and_saved_as__plus_name">The document to be loaded and saved as "%s"</string>
-    <string name="pref_summary__todo_filepath">The document to be loaded and saved as To-Do</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Settings in toolbar</string>
     <string name="pref_show_settings_option_in_main_toolbar">Show settings option in top toolbar on main screen</string>
     <string name="refresh">Refresh</string>
@@ -127,8 +126,8 @@
     <string name="app_settings" needed="false">App Settings</string>
     <string name="editor_settings" needed="false">Editor Settings</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Remember last folder location on startup</string>
-    <string name="pref_title__show_markdown_shortcuts" needed="false">Show Markdown shortcuts bar</string>
-    <string name="pref_title__highlighting_activated" needed="false">Markdown syntax highlighting</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Show Markdown shortcuts bar</string>
+    <string name="markdown_syntax_highlighting" needed="false">Markdown syntax highlighting</string>
     <string name="pref_title__highlighting_delay" needed="false">Delay in milliseconds for highlighting refresh</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Higher values are easier on the battery</string>
     <string name="pref_title__smart_shortcuts" needed="false">Smart brackets shortcuts</string>
@@ -157,4 +156,9 @@
     <string name="none">None</string>
     <string name="pref_summary__is_highlighting_for_hexcolor_activated">Whether or not to underline Hex Color Codes according to color</string>
     <string name="hexcolor_underline">Underline Hex Color Codes</string>
+    <string name="start_new_tasks_with_todays_date">Insert the current date when starting a new task</string>
+    <string name="tasks_with_todays_date">Tasks with today\'s date</string>
+    <string name="append_contexts_and_projects">Append contexts and projects</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate text module action</string>
+    <string name="right_to_left_rendering__abbreviated">RTL rendering</string>
 </resources>

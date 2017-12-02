@@ -8,6 +8,7 @@ package net.gsantner.markor.format.highlighter.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 
 import java.util.Date;
@@ -22,7 +23,6 @@ public class TodoTxtAutoFormat implements InputFilter {
             Spanned dest,
             int dstart,
             int dend) {
-
         if (end - start == 1 &&
                 start < source.length() &&
                 dstart <= dest.length()) {
@@ -60,6 +60,9 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-        return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+        if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
+            return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+        }
+        return "";
     }
 }

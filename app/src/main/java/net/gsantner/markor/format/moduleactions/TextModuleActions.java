@@ -26,11 +26,13 @@ public abstract class TextModuleActions {
     protected Document _document;
     protected Activity _activity;
     protected Context _context;
+    protected AppSettings _as;
 
     public TextModuleActions(Activity activity, Document document) {
         _document = document;
         _activity = activity;
         _context = activity != null ? activity : _hlEditor.getContext();
+        _as = new AppSettings(_context);
     }
 
     public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);

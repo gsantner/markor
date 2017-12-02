@@ -37,13 +37,13 @@
     <string name="plain_text">Klartext</string>
     <string name="image">Bild</string>
     <string name="pref_title__font_size">Schriftgröße</string>
-    <string name="pref_title__show_markdown_shortcuts">Markdown-Leiste im Editor</string>
-    <string name="pref_title__highlighting_activated">Markdown-Syntax hervorheben</string>
+    <string name="show_markdown_shortcuts_bar">Markdown-Leiste im Editor</string>
+    <string name="markdown_syntax_highlighting">Markdown-Syntax hervorheben</string>
     <string name="pref_title__highlighting_delay">Dauer bis Hervorhebung</string>
     <string name="pref_title__highlighting_delay_summary">Wert bis zum Aktualisieren der Hervorhebung in Millisekunden. Höhere Werte verringern den Akkuverbrauch.</string>
     <string name="pref_title__smart_shortcuts">Autom. Klammern</string>
     <string name="pref_title__smart_shortcuts_summary">Ausgewählten Text bei Klammerauswahl einrahmen</string>
-    <string name="pref_title__render_rtl">Rendern von rechts-zu-links Sprachen</string>
+    <string name="render_for_right_to_left_languages">Rendern von rechts-zu-links Sprachen</string>
     <string name="error_cannot_create_notebook_dir">Fehler: Konnte Speicher-Verzeichnis nicht erstellen</string>
 
     <!-- Font Size -->
@@ -135,14 +135,29 @@
     <string name="main_view">Hauptansicht</string>
     <string name="theme_description">Das global in dieser App verwendete Thema ändern</string>
     <string name="syntax_highlighting">Syntax Highlighting</string>
-    <string name="text_modules">Text Module</string>
-    <string name="text_module">Text Modul</string>
-    <string name="highlighting_delay">Highlighting</string>
+    <string name="text_modules">Text-Module</string>
+    <string name="text_module">Text-Modul</string>
+    <string name="highlighting_delay">Highlighting Verzögerung</string>
     <string name="highlighting_delay_summary">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_summary">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
-    <string name="textmodules_bar_summary">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text Module einfügen</string>
+    <string name="textmodules_bar_summary">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
     <string name="editor_font_size_summary">Einstellen der Schriftgröße im Editor</string>
     <string name="load_last_directory_at_startup">Letzten Ordner merken</string>
     <string name="load_last_directory_at_startup__summary">Lade den zuletzt geöffneten Ordner beim Starten</string>
     <string name="format">Format</string>
+    <string name="add_something">%s hinzufügen</string>
+    <string name="search_hint__add_or_custom">Suchen / Benutzerdefiniert</string>
+    <string name="browse_somethingsingular_or_add">%s hinzufügen oder aus Bestehenden auswählen</string>
+    <string name="contexts">Kontexte</string>
+    <string name="project">Projekt</string>
+    <string name="projects">Projekte</string>
+    <string name="categories">Kategorien</string>
+    <string name="none">Nichts</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
+    <string name="hexcolor_underline">Hex-Farb-Codes unterstreichen</string>
+    <string name="tasks_with_todays_date">Aufgaben mit heutigem Datum</string>
+    <string name="right_to_left_rendering__abbreviated">RTL Rendering</string>
+    <string name="append_contexts_and_projects">Kontexte und Projekte anfügen</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Kontexte und Projekte zum Ende von Aufgaben hinzufügen wenn die vorgesehene Text-Modul Aktion verwendet wurde</string>
+    <string name="start_new_tasks_with_todays_date">Das aktuelle Datum einfügen wenn eine neue Aufgabe begonnen wird</string>
 </resources>

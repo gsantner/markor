@@ -38,13 +38,13 @@
     <string name="file">File</string>
     <string name="image">Immagine</string>
     <string name="pref_title__font_size">Grandezza Font</string>
-    <string name="pref_title__show_markdown_shortcuts">Mostra barra scorciatoie Markdown</string>
-    <string name="pref_title__highlighting_activated">Highlighting della sintassi dei Markdown</string>
+    <string name="show_markdown_shortcuts_bar">Mostra barra scorciatoie Markdown</string>
+    <string name="markdown_syntax_highlighting">Highlighting della sintassi dei Markdown</string>
     <string name="pref_title__highlighting_delay">Ritardo in millisecondi dell\'aggiornamento dell\'highlighting</string>
     <string name="pref_title__highlighting_delay_summary">Valori più alti impattano meno sulla batteria</string>
     <string name="pref_title__smart_shortcuts">Scorciatoie per parentesi intelligenti</string>
     <string name="pref_title__smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
-    <string name="pref_title__render_rtl">Render per lingue destra-verso-sinistra</string>
+    <string name="render_for_right_to_left_languages">Render per lingue destra-verso-sinistra</string>
     <string name="error_cannot_create_notebook_dir">Errore: Impossibile creare la directory di salvataggio</string>
 
     <!-- Font Size -->

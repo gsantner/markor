@@ -47,13 +47,13 @@
     <string name="file">Archivo</string>
     <string name="image">Imagen</string>
     <string name="pref_title__font_size">Tamaño de letra</string>
-    <string name="pref_title__show_markdown_shortcuts">Mostrar la barra de atajos Markdown</string>
-    <string name="pref_title__highlighting_activated">Resaltado de sintaxis Markdown</string>
+    <string name="show_markdown_shortcuts_bar">Mostrar la barra de atajos Markdown</string>
+    <string name="markdown_syntax_highlighting">Resaltado de sintaxis Markdown</string>
     <string name="pref_title__highlighting_delay">Retraso en milisegundos para actualizar el resaltado</string>
     <string name="pref_title__highlighting_delay_summary">Valores más altos economizan batería</string>
     <string name="pref_title__smart_shortcuts">Atajos para paréntesis inteligentes</string>
     <string name="pref_title__smart_shortcuts_summary">Si hay texto seleccionado, {}, [] y () rodearán la selección</string>
-    <string name="pref_title__render_rtl">Renderizar para idiomas de derecha a izquierda</string>
+    <string name="render_for_right_to_left_languages">Renderizar para idiomas de derecha a izquierda</string>
     <string name="error_cannot_create_notebook_dir">Error: no se puede crear el directorio de guardado</string>
 
     <string name="last_modified">Última modificación: %s</string>

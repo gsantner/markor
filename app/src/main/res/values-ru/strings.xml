@@ -37,13 +37,13 @@
     <string name="plain_text">Просто текст</string>
     <string name="image">Изображение</string>
     <string name="pref_title__font_size">Размер шрифта</string>
-    <string name="pref_title__show_markdown_shortcuts">Показывать сокращения markdown</string>
-    <string name="pref_title__highlighting_activated">Подсветка синтаксиса markdown</string>
+    <string name="show_markdown_shortcuts_bar">Показывать сокращения markdown</string>
+    <string name="markdown_syntax_highlighting">Подсветка синтаксиса markdown</string>
     <string name="pref_title__highlighting_delay">Задержка обновления подсветки синтаксиса в миллисекундах</string>
     <string name="pref_title__highlighting_delay_summary">Большие значения меньше расходуют батарею</string>
     <string name="pref_title__smart_shortcuts">Умные скобки</string>
     <string name="pref_title__smart_shortcuts_summary">{}, [] и () будут окружать выделенный текст</string>
-    <string name="pref_title__render_rtl">Работать с языками \"справа-налево"</string>
+    <string name="render_for_right_to_left_languages">Работать с языками \"справа-налево"</string>
     <string name="error_cannot_create_notebook_dir">Ошибка: невозможно сохранить директорию</string>
 
     <!-- Font Size -->

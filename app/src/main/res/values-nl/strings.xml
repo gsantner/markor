@@ -42,7 +42,7 @@
     <string name="file">Bestand</string>
     <string name="image">Afbeelding</string>
     <string name="pref_title__font_size">Lettergrootte</string>
-    <string name="pref_title__render_rtl">Opbouw voor rechts-naar-links talen</string>
+    <string name="render_for_right_to_left_languages">Opbouw voor rechts-naar-links talen</string>
     <string name="error_cannot_create_notebook_dir">Fout: Kan geen opslagfolder maken</string>
 
     <string name="last_modified">Laatst gewijzigd: %s</string>
@@ -100,8 +100,8 @@
     <string name="app_settings" needed="false">App Instellingen</string>
     <string name="editor_settings" needed="false">Bewerker instellingen</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Herinner laatste map bij opstarten</string>
-    <string name="pref_title__show_markdown_shortcuts" needed="false">Laat Markdown codebalk zien</string>
-    <string name="pref_title__highlighting_activated" needed="false">Markdown code markeren</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Laat Markdown codebalk zien</string>
+    <string name="markdown_syntax_highlighting" needed="false">Markdown code markeren</string>
     <string name="pref_title__highlighting_delay" needed="false">Vertraging in milliseconden voor markering ververst</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Hogere waarden zijn beter voor de accu.</string>
     <string name="pref_title__smart_shortcuts"  needed="false">Slimme haakcodes</string>

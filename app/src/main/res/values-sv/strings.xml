@@ -44,7 +44,7 @@
     <string name="file">Fil</string>
     <string name="image">Bild</string>
     <string name="pref_title__font_size">Typsnittsstorlek</string>
-    <string name="pref_title__render_rtl">Visa för höger till vänster-språk</string>
+    <string name="render_for_right_to_left_languages">Visa för höger till vänster-språk</string>
     <string name="error_cannot_create_notebook_dir">Fel: Kan inte skapa sparningsmapp</string>
 
     <string name="last_modified">Senast ändrad: %s</string>
@@ -123,8 +123,8 @@
     <string name="app_settings" needed="false">Appinställningar</string>
     <string name="editor_settings" needed="false">Redigerarinställningar</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Kom ihåg sista mappens plats vid start</string>
-    <string name="pref_title__show_markdown_shortcuts" needed="false">Visa genvägar för markdown</string>
-    <string name="pref_title__highlighting_activated" needed="false">Syntaxfärgning för markdown</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Visa genvägar för markdown</string>
+    <string name="markdown_syntax_highlighting" needed="false">Syntaxfärgning för markdown</string>
     <string name="pref_title__highlighting_delay" needed="false">Fördröjning i millisekunder innan syntaxfärgningen uppdateras</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Högre värden är bättre för batteriet</string>
     <string name="pref_title__smart_shortcuts" needed="false">Genvägar för smarta parenteser</string>
