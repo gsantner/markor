@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.opoc.util.ShareUtilBase;
 
 import java.io.File;
 
@@ -35,7 +36,7 @@ public class MarkorWebViewClient extends WebViewClient {
                 Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setDataAndType(su.getUriFromMarkorProvider(file), mimetype);
+                intent.setDataAndType(su.getUriByFileProviderAuthority(file), mimetype);
                 _activity.startActivity(intent);
             } else {
                 Uri uri = Uri.parse(url);

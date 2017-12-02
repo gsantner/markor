@@ -254,7 +254,10 @@ public class FilesystemListFragment extends BaseFragment {
                 }
             });
             _searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
-                menu.findItem(R.id.action_import).setVisible(hasFocus);
+                MenuItem item = menu.findItem(R.id.action_import);
+                if (item != null) {
+                    item.setVisible(hasFocus);
+                }
                 if (!hasFocus) {
                     _searchItem.collapseActionView();
                 }
