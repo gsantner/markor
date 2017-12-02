@@ -32,7 +32,7 @@
     <string name="remember_last_folder_location_on_startup">Letzten Ordner merken</string>
     <string name="document_editor_font">Schriftart</string>
     <string name="theme">Thema</string>
-    <string name="open_preview_when_open_documents">Notizen in Vorschauansicht öffnen</string>
+    <string name="open_preview_when_open_documents">Dokumente in Vorschauansicht öffnen</string>
     <string name="about">Über Markor</string>
     <string name="plain_text">Klartext</string>
     <string name="image">Bild</string>

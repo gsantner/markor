@@ -28,6 +28,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
@@ -123,6 +124,16 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
                 .setOnDismissListener(dismissedListener)
                 .setTitle(resTitleId)
                 .setView(textView);
+        dialog.show();
+    }
+
+    public void showDialogWithRawFileInWebView(String fileInRaw, @StringRes int resTitleId) {
+        WebView wv = new WebView(_context);
+        wv.loadUrl("file:///android_res/raw/" + fileInRaw);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
+                .setPositiveButton(android.R.string.ok, null)
+                .setTitle(resTitleId)
+                .setView(wv);
         dialog.show();
     }
 

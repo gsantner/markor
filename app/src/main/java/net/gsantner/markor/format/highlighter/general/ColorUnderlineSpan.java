@@ -5,17 +5,11 @@
  */
 package net.gsantner.markor.format.highlighter.general;
 
-import android.graphics.Color;
-import android.text.ParcelableSpan;
 import android.text.TextPaint;
-import android.text.style.CharacterStyle;
 import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 
-import net.gsantner.markor.format.highlighter.SpanCreator;
-
 import java.lang.reflect.Method;
-import java.util.regex.Matcher;
 
 public class ColorUnderlineSpan extends UnderlineSpan implements UpdateAppearance {
     private final int _color;

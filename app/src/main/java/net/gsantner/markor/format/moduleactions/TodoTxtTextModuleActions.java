@@ -48,7 +48,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_email_at_sign_24dp, 1},
             {R.drawable.ic_local_offer_white_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
-            {R.drawable.ic_date_range_black_24dp, 4},
+            {R.drawable.ic_date_range_white_24dp, 4},
             //{R.drawable.ic_add_white_24dp, 5},
             //{R.drawable.ic_delete_white_24dp, 6},
     };

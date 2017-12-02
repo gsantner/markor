@@ -101,7 +101,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getHighlightingDelayTodoTxt() {
-        return getIntOfStringPref(R.string.pref_key__todotxt__highlighting_delay, 170);
+        return getIntOfStringPref(R.string.pref_key__todotxt__highlighting_delay, 190);
     }
 
     public String getLastOpenedDirectory() {
