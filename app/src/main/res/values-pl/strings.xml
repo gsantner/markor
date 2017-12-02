@@ -47,13 +47,13 @@
     <string name="file">Plik</string>
     <string name="image">Obraz</string>
     <string name="pref_title__font_size">Wielkość czcionki</string>
-    <string name="pref_title__show_markdown_shortcuts">Pokaż pasek skrótów Markdowna</string>
-    <string name="pref_title__highlighting_activated">Podświetlanie składni Markdowna</string>
+    <string name="show_markdown_shortcuts_bar">Pokaż pasek skrótów Markdowna</string>
+    <string name="markdown_syntax_highlighting">Podświetlanie składni Markdowna</string>
     <string name="pref_title__highlighting_delay">Opóźnienie odświeżania podświetlenia w milisekundach</string>
     <string name="pref_title__highlighting_delay_summary">Wyższe wartości oszczędzają baterie</string>
     <string name="pref_title__smart_shortcuts">Sprytna klamra skrótów</string>
     <string name="pref_title__smart_shortcuts_summary">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
-    <string name="pref_title__render_rtl">Renderowanie dla języków od prawej do lewej</string>
+    <string name="render_for_right_to_left_languages">Renderowanie dla języków od prawej do lewej</string>
     <string name="error_cannot_create_notebook_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
 
     <string name="last_modified">Ostatnio zmodyfikowano: %s</string>

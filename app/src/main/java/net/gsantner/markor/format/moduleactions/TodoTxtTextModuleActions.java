@@ -93,14 +93,16 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
                 case "add_context": {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
-                        sttcmd.insertContext(origTask, callbackPayload, origTask.getCursorOffsetInLine());
+                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
                         replaceOrigTaskWithTaskCallback.onCallback(origTask);
                     });
                     return;
                 }
                 case "add_project": {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
-                        sttcmd.insertProject(origTask, callbackPayload, origTask.getCursorOffsetInLine());
+                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
                         replaceOrigTaskWithTaskCallback.onCallback(origTask);
                     });
                     return;

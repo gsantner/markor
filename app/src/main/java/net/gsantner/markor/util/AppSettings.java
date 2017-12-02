@@ -64,11 +64,11 @@ public class AppSettings extends AppSettingsBase {
 
     public File getQuickNoteFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
-        return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
+        return new File(getString(R.string.pref_key__markdown__quicknote_filepath, defaultValue));
     }
 
     public void setQuickNoteFile(File file) {
-        setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__markdown__quicknote_filepath, file.getAbsolutePath());
     }
 
     public File getTodoTxtFile() {
@@ -96,12 +96,12 @@ public class AppSettings extends AppSettingsBase {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
-    public int getHighlightingDelayMarkdown() {
-        return getIntOfStringPref(R.string.pref_key__highlighting_delay_markdown, 110);
+    public int getMarkdownHighlightingDelay() {
+        return getIntOfStringPref(R.string.pref_key__markdown__highlighting_delay, 110);
     }
 
     public int getHighlightingDelayTodoTxt() {
-        return getIntOfStringPref(R.string.pref_key__highlighting_delay_todotxt, 170);
+        return getIntOfStringPref(R.string.pref_key__todotxt__highlighting_delay, 170);
     }
 
     public String getLastOpenedDirectory() {
@@ -161,5 +161,13 @@ public class AppSettings extends AppSettingsBase {
 
     public boolean isHighlightingHexColorEnabled() {
         return getBool(R.string.pref_key__is_highlighting_for_hexcolor_activated, true);
+    }
+
+    public boolean isTodoAppendProConOnEndEnabled() {
+        return getBool(R.string.pref_key__todotxt__append_contexts_and_projects_on_end_of_task, true);
+    }
+
+    public boolean isTodoStartTasksWithTodaysDateEnabled() {
+        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
     }
 }

@@ -44,7 +44,7 @@
     <string name="file">ファイル</string>
     <string name="image">画像</string>
     <string name="pref_title__font_size">フォントサイズ</string>
-    <string name="pref_title__render_rtl">右から左に言語を描画</string>
+    <string name="render_for_right_to_left_languages">右から左に言語を描画</string>
     <string name="error_cannot_create_notebook_dir">エラー: ノートディレクトリーを作成できません</string>
 
     <string name="last_modified">最終更新: %s</string>
@@ -123,8 +123,8 @@
     <string name="app_settings" needed="false">アプリ設定</string>
     <string name="editor_settings" needed="false">エディター設定</string>
     <string name="remember_last_folder_location_on_startup" needed="false">起動時に最後に開いたフォルダーの場所に戻す</string>
-    <string name="pref_title__show_markdown_shortcuts" needed="false">マークダウンショートカットバーを表示</string>
-    <string name="pref_title__highlighting_activated" needed="false">マークダウン書式ハイライト表示</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">マークダウンショートカットバーを表示</string>
+    <string name="markdown_syntax_highlighting" needed="false">マークダウン書式ハイライト表示</string>
     <string name="pref_title__highlighting_delay" needed="false">ハイライト表示更新の遅延(ミリ秒)</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">高い値がバッテリーに優しいです</string>
     <string name="pref_title__smart_shortcuts"  needed="false">スマートブラケットショートカット</string>

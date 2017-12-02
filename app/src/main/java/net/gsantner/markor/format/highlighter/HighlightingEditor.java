@@ -87,7 +87,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private void init() {
         final int highlightingDelay = _highlighter != null
                 ? _highlighter.loadHighlightingDelay(getContext())
-                : new AppSettings(getContext()).getHighlightingDelayMarkdown();
+                : new AppSettings(getContext()).getMarkdownHighlightingDelay();
 
         addTextChangedListener(new TextWatcher() {
             @Override

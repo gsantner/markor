@@ -38,13 +38,13 @@
     <string name="file">Файл</string>
     <string name="image">Зображення</string>
     <string name="pref_title__font_size">Розмір шрифту</string>
-    <string name="pref_title__show_markdown_shortcuts">Показувати панель скорочень markdown</string>
-    <string name="pref_title__highlighting_activated">Підсвітка синтаксису markdown</string>
+    <string name="show_markdown_shortcuts_bar">Показувати панель скорочень markdown</string>
+    <string name="markdown_syntax_highlighting">Підсвітка синтаксису markdown</string>
     <string name="pref_title__highlighting_delay">Затримка оновлення підсвітки синтаксису в мілісекундах</string>
     <string name="pref_title__highlighting_delay_summary">Великі значення менше витрачають батарею</string>
     <string name="pref_title__smart_shortcuts">Розумні дужки</string>
     <string name="pref_title__smart_shortcuts_summary">{}, [] и () будуть оточувати виділений текст</string>
-    <string name="pref_title__render_rtl">Відображати для писемності справа-наліво</string>
+    <string name="render_for_right_to_left_languages">Відображати для писемності справа-наліво</string>
     <string name="error_cannot_create_notebook_dir">Помилка: неможливо створити директорію</string>
 
     <!-- Font Size -->

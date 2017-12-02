@@ -44,7 +44,7 @@
     <string name="file">Dosya</string>
     <string name="image">Görüntü</string>
     <string name="pref_title__font_size">Yazı Tipi Boyutu</string>
-    <string name="pref_title__render_rtl">Sağdan sola yazılan diller için metin yönünü değiştir</string>
+    <string name="render_for_right_to_left_languages">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir">Hata: Kaydetme dizini oluşturulamıyor</string>
 
     <string name="last_modified">Son düzenleme: %s</string>
@@ -123,8 +123,8 @@
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Başlangıçta son klasör konumunu hatırla</string>
-    <string name="pref_title__show_markdown_shortcuts" needed="false">Kısayol çubuğunu göster</string>
-    <string name="pref_title__highlighting_activated" needed="false">Sözdizimini vurgula</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Kısayol çubuğunu göster</string>
+    <string name="markdown_syntax_highlighting" needed="false">Sözdizimini vurgula</string>
     <string name="pref_title__highlighting_delay" needed="false">Vurgulamaların yenilenmesi için milisaniye cinsinden gecikme süresi</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Daha yüksek değerler pil tüketimini azaltır</string>
     <string name="pref_title__smart_shortcuts"  needed="false">Akıllı parantez kısayolları</string>

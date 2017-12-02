@@ -44,7 +44,7 @@
     <string name="file">Fichier</string>
     <string name="image">Image</string>
     <string name="pref_title__font_size">Taille de la police</string>
-    <string name="pref_title__render_rtl">Activer le support des langues écrites de droite à gauche</string>
+    <string name="render_for_right_to_left_languages">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_notebook_dir">Erreur : impossible de créer le dossier du bloc note</string>
 
     <string name="last_modified">Dernière modification : %s</string>
@@ -107,7 +107,6 @@
     <string name="archive">Archive</string>
     <string name="add_task">Ajouter une tâche</string>
     <string name="pref_summary__loaded_and_saved_as__plus_name">Le document à charger et à enregistrer comme \"%s\"</string>
-    <string name="pref_summary__todo_filepath">Le document à charger et utiliser pour la liste des choses à faire</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Afficher les paramètres dans la barre d\'outils</string>
     <string name="pref_show_settings_option_in_main_toolbar">Montrer les options de paramétrage dans la barre d\'outils en haut de l\'écran principal</string>
     <string name="refresh">Rafraîchir</string>

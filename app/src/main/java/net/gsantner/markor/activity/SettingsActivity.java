@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
         public void updateSummaries() {
             Preference pref = findPreference(getString(R.string.pref_key__notebook_directory));
             pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr());
-            pref = findPreference(getString(R.string.pref_key__quicknote_filepath));
+            pref = findPreference(getString(R.string.pref_key__markdown__quicknote_filepath));
             pref.setSummary(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
                     + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath());
             pref = findPreference(getString(R.string.pref_key__todotxt_filepath));

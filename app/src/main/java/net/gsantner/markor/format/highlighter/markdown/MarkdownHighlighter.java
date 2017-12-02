@@ -12,7 +12,7 @@ import android.text.InputFilter;
 
 import net.gsantner.markor.format.highlighter.Highlighter;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
-import net.gsantner.markor.format.highlighter.general.HexColorCodeUnderliner;
+import net.gsantner.markor.format.highlighter.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.util.AppSettings;
 
 public class MarkdownHighlighter extends Highlighter {
@@ -51,7 +51,7 @@ public class MarkdownHighlighter extends Highlighter {
             createColorBackgroundSpan(editable, MarkdownHighlighterPattern.MONOSPACED.getPattern(), _colors.getDoublespaceColor());
 
             if (_highlightHexcolorEnabled) {
-                createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderliner.PATTERN, new HexColorCodeUnderliner.ColorUnderlineSpanCreator(), 1);
+                createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
             }
 
         } catch (Exception ex) {
@@ -72,7 +72,7 @@ public class MarkdownHighlighter extends Highlighter {
 
     @Override
     public int getHighlightingDelay(Context context) {
-        return new AppSettings(context).getHighlightingDelayMarkdown();
+        return new AppSettings(context).getMarkdownHighlightingDelay();
     }
 }
 

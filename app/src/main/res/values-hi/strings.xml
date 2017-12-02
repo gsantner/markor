@@ -47,13 +47,13 @@
         <string name="file">फ़ाइल</string>
     <string name="image">छवि</string>
     <string name="pref_title__font_size">फ़ॉन्ट आकार</string>
-    <string name="pref_title__show_markdown_shortcuts">मार्कडाउन शॉर्टकट बार दिखाएं</string>
-    <string name="pref_title__highlighting_activated">मार्कडाउन सिंटैक्स हाइलाइटिंग</string>
+    <string name="show_markdown_shortcuts_bar">मार्कडाउन शॉर्टकट बार दिखाएं</string>
+    <string name="markdown_syntax_highlighting">मार्कडाउन सिंटैक्स हाइलाइटिंग</string>
     <string name="pref_title__highlighting_delay">रीफ़्रेश को उजागर करने के लिए मिलीसेकेंड में देरी</string>
     <string name="pref_title__highlighting_delay_summary">उच्च मूल्य बैटरी पर आसान है</string>
     <string name="pref_title__smart_shortcuts">स्मार्ट कोष्ठक शॉर्टकट</string>
     <string name="pref_title__smart_shortcuts_summary">अगर पाठ का चयन किया जाता है, तो {}, [] और () चयन को घेरेगा</string>
-    <string name="pref_title__render_rtl">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
+    <string name="render_for_right_to_left_languages">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
     <string name="error_cannot_create_notebook_dir">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
 
     <string name="last_modified">अंतिम बार संशोधित: %s</string>
