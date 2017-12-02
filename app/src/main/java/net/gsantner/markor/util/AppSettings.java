@@ -158,4 +158,8 @@ public class AppSettings extends AppSettingsBase {
     public boolean isShowSettingsOptionInMainToolbar() {
         return getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
     }
+
+    public boolean isHighlightingHexColorEnabled() {
+        return getBool(R.string.pref_key__is_highlighting_for_hexcolor_activated, true);
+    }
 }

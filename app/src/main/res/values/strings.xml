@@ -155,4 +155,6 @@
     <string name="projects">Projects</string>
     <string name="categories">Categories</string>
     <string name="none">None</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Whether or not to underline Hex Color Codes according to color</string>
+    <string name="hexcolor_underline">Underline Hex Color Codes</string>
 </resources>
