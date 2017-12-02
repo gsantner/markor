@@ -27,7 +27,7 @@
  * FILTER_WEB is intended to be used at engines understanding most common HTML tags.
  */
 
-package net.gsantner.opoc.util;
+package net.gsantner.opoc.format.markdown;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
