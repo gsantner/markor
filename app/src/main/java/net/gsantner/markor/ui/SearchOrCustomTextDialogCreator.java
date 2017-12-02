@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.ui;
 
 import android.app.Activity;
@@ -11,10 +16,6 @@ import net.gsantner.opoc.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by gregor on 02.12.17.
- */
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback<String> callback) {

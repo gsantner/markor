@@ -31,7 +31,7 @@ import net.gsantner.opoc.util.NanoProfiler;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public abstract class Highlighter {
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
@@ -90,56 +90,88 @@ public abstract class Highlighter {
     // Create spans
     //
 
-    protected void createSpanForMatches(final Editable editable, final Pattern pattern, final SpanCreator creator) {
+    /**
+     * Create Span for matches in ParcelableSpan's. Note that this will highlight the full matched pattern
+     * (including optionals) if no group parameters are given.
+     *
+     * @param editable      Text editable
+     * @param pattern       The pattern to match
+     * @param creator       A SpanCreator for ParcelableSpan
+     * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
+     */
+    protected void createSpanForMatches(final Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+        if (groupsToMatch == null || groupsToMatch.length < 1) {
+            groupsToMatch = new int[]{0};
+        }
         int i = 0;
         for (Matcher m = pattern.matcher(editable); m.find(); i++) {
             ParcelableSpan span = creator.create(m, i);
             if (span != null) {
-                editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                for (int g : groupsToMatch) {
+                    if (g == 0 || g < m.groupCount()) {
+                        editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
             }
         }
     }
 
-    // Create spans for paragraphs, these have no common way of derivation with ParcelableSpan
-    protected void createSpanForMatchesP(final Editable editable, final Pattern pattern, final SpanCreatorP creator) {
+
+    /**
+     * Create Span for matches in paragraph's. Note that this will highlight the full matched pattern
+     * (including optionals) if no group parameters are given.
+     *
+     * @param editable      Text editable
+     * @param pattern       The pattern to match
+     * @param creator       A SpanCreator for ParcelableSpan
+     * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
+     */
+    protected void createSpanForMatchesP(final Editable editable, final Pattern pattern, final SpanCreatorP creator, int... groupsToMatch) {
+        if (groupsToMatch == null || groupsToMatch.length < 1) {
+            groupsToMatch = new int[]{0};
+        }
         int i = 0;
         for (Matcher m = pattern.matcher(editable); m.find(); i++) {
             ParagraphStyle span = creator.create(m, i);
             if (span != null) {
-                editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                for (int g : groupsToMatch) {
+                    if (g == 0 || g < m.groupCount()) {
+                        editable.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
             }
         }
     }
 
-    protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
+    protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style), groupsToMatch);
     }
 
-    protected void createColorSpanForMatches(final Editable editable, final Pattern pattern, final int color) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new ForegroundColorSpan(color));
+    protected void createColorSpanForMatches(final Editable editable, final Pattern pattern, final int color, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createColorBackgroundSpan(Editable editable, final Pattern pattern, final int color) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new BackgroundColorSpan(color));
+    protected void createColorBackgroundSpan(Editable editable, final Pattern pattern, final int color, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createSpanWithStrikeThroughForMatches(Editable editable, final Pattern pattern) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new StrikethroughSpan());
+    protected void createSpanWithStrikeThroughForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new StrikethroughSpan(), groupsToMatch);
     }
 
-    protected void createTypefaceSpanForMatches(Editable editable, Pattern pattern, final String typeface) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new TypefaceSpan(typeface));
+    protected void createTypefaceSpanForMatches(Editable editable, Pattern pattern, final String typeface, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new TypefaceSpan(typeface), groupsToMatch);
     }
 
-    protected void createRelativeSizeSpanForMatches(Editable editable, final Pattern pattern, float relativeSize) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize));
+    protected void createRelativeSizeSpanForMatches(Editable editable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
+        createSpanForMatches(editable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
     }
 
-    protected void createMonospaceSpanForMatches(Editable editable, final Pattern pattern) {
-        createTypefaceSpanForMatches(editable, pattern, "monospace");
+    protected void createMonospaceSpanForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {
+        createTypefaceSpanForMatches(editable, pattern, "monospace", groupsToMatch);
     }
 
-    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator) {
-        createSpanForMatchesP(editable, pattern, creator);
+    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator, int... groupsToMatch) {
+        createSpanForMatchesP(editable, pattern, creator, groupsToMatch);
     }
 }
