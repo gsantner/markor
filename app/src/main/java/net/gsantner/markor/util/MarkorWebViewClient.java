@@ -22,6 +22,8 @@ public class MarkorWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (url.startsWith("file://")) {
+            ShareUtil su = new ShareUtil(view.getContext());
+            url = url.replace("%20", " "); // Workaround for parser - cannot deal with spaces and have other entities problems
             File file = new File(url.replace("file://", ""));
             String mimetype;
             if (ContextUtils.get().isMaybeMarkdownFile(file)) {
@@ -32,7 +34,8 @@ public class MarkorWebViewClient extends WebViewClient {
             } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
                 Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file), mimetype);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(su.getUriFromMarkorProvider(file), mimetype);
                 _activity.startActivity(intent);
             } else {
                 Uri uri = Uri.parse(url);

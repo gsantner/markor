@@ -287,7 +287,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 if (text == null) {
                     text = file.getAbsolutePath();
                 }
+
                 editPathUrl.setText(text);
+
                 if (editPathName.getText().toString().isEmpty()) {
                     text = file.getName();
                     text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
@@ -321,16 +323,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        String title = editPathName.getText().toString().replace(")", "\\)");
+                        String url = editPathUrl.getText().toString().replace(")", "\\)")
+                                .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
                         if (_hlEditor.hasSelection()) {
                             _hlEditor.getText().replace(_hlEditor.getSelectionStart(),
                                     _hlEditor.getSelectionEnd(),
-                                    String.format(formatTemplate, editPathName.getText().toString(),
-                                            editPathUrl.getText().toString()));
+                                    String.format(formatTemplate, title, url));
                             _hlEditor.setSelection(_hlEditor.getSelectionStart());
                         } else {
                             _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
-                                    String.format(formatTemplate, editPathName.getText().toString(),
-                                            editPathUrl.getText().toString()));
+                                    String.format(formatTemplate, title, url));
                         }
                     }
                 });
