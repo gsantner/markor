@@ -6,7 +6,7 @@
 * **System:** 
 
 #### Description
-What this is about, what happens and how. What needs to be done for it to happen.
+<!-- What this is about, what happens and how. What needs to be done for it to happen. -->
 
 
 #### Log

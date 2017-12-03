@@ -1,5 +1,12 @@
+### v0.2.4
+- Abstract highlighting, converter and text module actions
+- Added: Support for todo.txt
+- Added: Icons to settings
+- Added: Hex-Color-Code underlining
+- Added: Changelog dialog
+
 ### v0.2.3
-- Select file/image from filesystem
+- Select  file/image from filesystem
 - Fix relative web local file loading
 - Added: manually save option
 - Added: Launcher shortcuts
