@@ -136,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
             );
             updateSummary(R.string.pref_key__todotxt_filepath, R.drawable.ic_assignment_turned_in_black_24dp,
                     getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
-                            + "\n" + AppSettings.get().getTodoTxtFile().getAbsolutePath()
+                            + "\n" + AppSettings.get().getTodoFile().getAbsolutePath()
             );
         }
 

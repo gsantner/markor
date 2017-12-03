@@ -94,7 +94,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote})
+    @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.document__fragment__share_into__create_document: {
@@ -120,7 +120,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
             }
             case R.id.document__fragment__share_into__append_to_todo: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {
-                    appendToExistingDocument(AppSettings.get().getTodoTxtFile(), false);
+                    appendToExistingDocument(AppSettings.get().getTodoFile(), false);
                     if (getActivity() != null) {
                         getActivity().finish();
                     }

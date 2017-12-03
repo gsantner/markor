@@ -72,7 +72,7 @@ public class AppSettings extends AppSettingsBase {
         setString(R.string.pref_key__markdown__quicknote_filepath, file.getAbsolutePath());
     }
 
-    public File getTodoTxtFile() {
+    public File getTodoFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
         return new File(getString(R.string.pref_key__todotxt_filepath, defaultValue));
     }

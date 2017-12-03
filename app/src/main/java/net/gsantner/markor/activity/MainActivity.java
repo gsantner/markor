@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
                 intent.putExtra(DocumentIO.EXTRA_PATH,
                         _bottomNav.getSelectedItemId() == R.id.nav_quicknote
-                                ? as.getQuickNoteFile() : as.getTodoTxtFile()
+                                ? as.getQuickNoteFile() : as.getTodoFile()
                 );
                 startActivity(intent);
                 return true;
@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 case R.id.nav_todo: {
                     if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoTxtFile(), false, false);
+                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoFile(), false, false);
                     }
                     break;
                 }
