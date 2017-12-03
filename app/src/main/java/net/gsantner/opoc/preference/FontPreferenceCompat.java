@@ -12,19 +12,19 @@
 
 /*
  * Define element in Preferences-XML:
-    <net.gsantner.opoc.ui.FontPreference
+    <net.gsantner.opoc.preference.FontPreferenceCompat
         android:icon="@drawable/ic_title_black_24dp"
         android:defaultValue="@string/default_font_family"
         android:key="@string/pref_key__font_family"
         android:title="@string/pref_title__font_choice" />
  */
-package net.gsantner.opoc.ui;
+package net.gsantner.opoc.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.preference.ListPreference;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -36,7 +36,7 @@ import android.util.AttributeSet;
  * setTypeface(Typeface.create(settings.getFontFamilyAsString(), Typeface.NORMAL));
  */
 @SuppressWarnings({"unused", "SpellCheckingInspection", "WeakerAccess"})
-public class FontPreference extends ListPreference {
+public class FontPreferenceCompat extends ListPreference {
     private String _defaultValue;
     private String[] _fontNames = {
             "★Roboto Regular★", "Roboto Light", "Roboto Bold", "Roboto Medium",
@@ -50,24 +50,24 @@ public class FontPreference extends ListPreference {
     };
 
 
-    public FontPreference(Context context) {
+    public FontPreferenceCompat(Context context) {
         super(context);
         loadFonts(context, null);
     }
 
-    public FontPreference(Context context, AttributeSet attrs) {
+    public FontPreferenceCompat(Context context, AttributeSet attrs) {
         super(context, attrs);
         loadFonts(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public FontPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FontPreferenceCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         loadFonts(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public FontPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FontPreferenceCompat(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         loadFonts(context, attrs);
     }

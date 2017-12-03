@@ -38,19 +38,19 @@ static String[] getUsedAndroidLanguages() {
  * Summary: Change language of this app. Restart app for changes to take effect
 
  * Define element in Preferences-XML:
-    <net.gsantner.opoc.ui.LanguagePreference
+    <net.gsantner.opoc.preference.LanguagePreferenceCompat
         android:icon="@drawable/ic_language_black_24dp"
         android:key="@string/pref_key__language"
         android:summary="@string/pref_desc__language"
         android:title="@string/pref_title__language"/>
  */
-package net.gsantner.opoc.ui;
+package net.gsantner.opoc.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.preference.ListPreference;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -65,37 +65,37 @@ import java.util.Locale;
  * A {@link android.preference.ListPreference} that displays a list of languages to select from
  */
 @SuppressWarnings({"unused", "SpellCheckingInspection", "WeakerAccess"})
-public class LanguagePreference extends ListPreference {
+public class LanguagePreferenceCompat extends ListPreference {
     private static final String SYSTEM_LANGUAGE_CODE = "";
 
     // The language of res/values/ -> (usually English)
     public String _systemLanguageName = "★System★";
     public String _defaultLanguageCode = "en";
 
-    public LanguagePreference(Context context) {
+    public LanguagePreferenceCompat(Context context) {
         super(context);
         loadLangs(context, null);
     }
 
-    public LanguagePreference(Context context, AttributeSet attrs) {
+    public LanguagePreferenceCompat(Context context, AttributeSet attrs) {
         super(context, attrs);
         loadLangs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public LanguagePreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LanguagePreferenceCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         loadLangs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public LanguagePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public LanguagePreferenceCompat(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         loadLangs(context, attrs);
     }
 
     @Override
-    protected boolean callChangeListener(Object newValue) {
+    public boolean callChangeListener(Object newValue) {
         if (newValue instanceof String) {
             // Does not apply to existing UI, use recreate()
             new ContextUtils(getContext()).setAppLanguage((String) newValue);

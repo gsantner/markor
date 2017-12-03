@@ -5,17 +5,15 @@
  */
 package net.gsantner.markor.activity;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.Preference;
 import android.support.v7.widget.Toolbar;
 
 import net.gsantner.markor.R;
@@ -23,7 +21,7 @@ import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.activity.GsPreferenceFragment;
+import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.AppSettingsBase;
 
@@ -54,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
         _as = new AppSettings(this);
         _cu = new ContextUtils(this);
         _cu.setAppLanguage(AppSettings.get().getLanguage());
-        PreferenceFragment _curPrefFragment;
         setTheme(_as.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
         // Load UI
@@ -72,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     protected void showFragment(String tag, boolean addToBackStack) {
         String toolbarTitle = getString(R.string.action_settings);
-        GsPreferenceFragment prefFrag = (GsPreferenceFragment) getFragmentManager().findFragmentByTag(tag);
+        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(tag);
         if (prefFrag == null) {
             switch (tag) {
                 case SettingsFragmentMaster.TAG:
@@ -84,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         toolbar.setTitle(toolbarTitle);
-        FragmentTransaction t = getFragmentManager().beginTransaction();
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         if (addToBackStack) {
             t.addToBackStack(tag);
         }
@@ -97,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public static class SettingsFragmentMaster extends GsPreferenceFragment {
+    public static class SettingsFragmentMaster extends GsPreferenceFragmentCompat {
         public static final String TAG = "SettingsFragmentMaster";
 
         private AppSettings _as;
@@ -161,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
-        public Boolean onPreferenceClicked(PreferenceScreen screen, Preference preference) {
+        public Boolean onPreferenceClicked(Preference preference) {
             if (isAdded() && preference.hasKey()) {
                 if (false) {
                 } else if (eq(preference, R.string.pref_key__notebook_directory)) {
