@@ -13,7 +13,7 @@
             android:summary="@string/theme_description"
             android:title="@string/theme" />
 
-        <net.gsantner.opoc.ui.LanguagePreference
+        <net.gsantner.opoc.preference.LanguagePreferenceCompat
             android:icon="@drawable/ic_language_black_24dp"
             android:key="@string/pref_key__language"
             android:summary="@string/pref_desc__language"
@@ -67,7 +67,7 @@
             android:summary="@string/pref_summary__is_statusbar_hidden"
             android:title="@string/pref_title__is_statusbar_hidden" />
 
-        <net.gsantner.opoc.ui.FontPreference
+        <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
             android:key="@string/pref_key__font_family"

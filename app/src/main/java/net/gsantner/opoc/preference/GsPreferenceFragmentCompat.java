@@ -1,4 +1,4 @@
-package net.gsantner.opoc.activity;
+package net.gsantner.opoc.preference;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceGroup;
-import android.preference.PreferenceScreen;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.XmlRes;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -26,7 +25,7 @@ import net.gsantner.opoc.util.ContextUtils;
  * Baseclass for (non-appcompat) PreferenceFragment
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class GsPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int DEFAULT_ICON_TINT_DELAY = 200;
 
     //
@@ -44,7 +43,7 @@ public abstract class GsPreferenceFragment extends PreferenceFragment implements
     // Virtual
     //
 
-    public Boolean onPreferenceClicked(PreferenceScreen screen, Preference preference) {
+    public Boolean onPreferenceClicked(Preference preference) {
         return null;
     }
 
@@ -79,17 +78,17 @@ public abstract class GsPreferenceFragment extends PreferenceFragment implements
     private AppSettingsBase _asb;
     protected ContextUtils _cu;
 
+    @Override
     @Deprecated
-    public void onCreate(Bundle savedInstances) {
-        super.onCreate(savedInstances);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         _asb = getAppSettings(getActivity());
         _cu = new ContextUtils(getActivity());
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
-        afterOnCreate(savedInstances, getActivity());
+        afterOnCreate(savedInstanceState, getActivity());
     }
 
-    public final Callback.a1<PreferenceFragment> updatePreferenceIcons = (frag) -> {
+    public final Callback.a1<PreferenceFragmentCompat> updatePreferenceIcons = (frag) -> {
         try {
             View view = frag.getView();
             final Integer color = getIconTintColor();
@@ -106,7 +105,7 @@ public abstract class GsPreferenceFragment extends PreferenceFragment implements
         }
     };
 
-    public void tintAllPrefIcons(PreferenceFragment preferenceFragment, @ColorInt int iconColor) {
+    public void tintAllPrefIcons(PreferenceFragmentCompat preferenceFragment, @ColorInt int iconColor) {
         for (String prefKey : preferenceFragment.getPreferenceManager().getSharedPreferences().getAll().keySet()) {
             Preference pref = preferenceFragment.findPreference(prefKey);
             if (pref != null) {
@@ -147,14 +146,14 @@ public abstract class GsPreferenceFragment extends PreferenceFragment implements
 
     @Override
     @Deprecated
-    public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference preference) {
+    public boolean onPreferenceTreeClick(Preference preference) {
         if (isAdded() && preference.hasKey()) {
-            Boolean ret = onPreferenceClicked(screen, preference);
+            Boolean ret = onPreferenceClicked(preference);
             if (ret != null) {
                 return ret;
             }
         }
-        return super.onPreferenceTreeClick(screen, preference);
+        return super.onPreferenceTreeClick(preference);
     }
 
     protected void updateSummary(@StringRes int keyResId, String summary) {
