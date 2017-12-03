@@ -24,7 +24,7 @@
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017
-        \n**Gregor Santner and markor contributors**
+        \n**Gregor Santner and Markor contributors**
         \n
         \n**Get the official version of Markor:**
         \n[Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
@@ -83,4 +83,5 @@
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
+    <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>
 </resources>

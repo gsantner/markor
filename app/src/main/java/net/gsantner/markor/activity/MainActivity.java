@@ -42,8 +42,10 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -76,18 +78,36 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        if (AppSettings.get().isOverviewStatusBarHidden()) {
+        AppSettings _as = new AppSettings(this);
+        ContextUtils _cu = new ContextUtils(this);
+        _cu.setAppLanguage(AppSettings.get().getLanguage());
+        if (_as.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        if (!AppSettings.get().isLoadLastDirectoryAtStartup()) {
-            AppSettings.get().setLastOpenedDirectory(null);
+        if (!_as.isLoadLastDirectoryAtStartup()) {
+            _as.setLastOpenedDirectory(null);
         }
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
 
         optShowRate();
+
+        try {
+            if (_as.isAppCurrentVersionFirstStart(true)) {
+                SimpleMarkdownParser smp = SimpleMarkdownParser.get().setDefaultSmpFilter(SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                String html = "";
+                html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
+                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW, SimpleMarkdownParser.FILTER_CHANGELOG);
+                html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+
+                ActivityUtils _au = new ActivityUtils(this);
+                _au.showDialogWithHtmlTextView(R.string.licenses, html);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         // Setup viewpager
