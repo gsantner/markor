@@ -37,8 +37,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -516,15 +514,6 @@ public class ContextUtils {
             }
         }
         return this;
-    }
-
-    public void tintIconsInPreferenceFragment(PreferenceFragment preferenceFragment, @ColorInt int iconColor) {
-        for (String prefKey : preferenceFragment.getPreferenceManager().getSharedPreferences().getAll().keySet()) {
-            Preference pref = preferenceFragment.findPreference(prefKey);
-            if (pref != null) {
-                pref.setIcon(tintDrawable(pref.getIcon(), iconColor));
-            }
-        }
     }
 
     public Drawable tintDrawable(@DrawableRes int drawableRes, @ColorInt int color) {

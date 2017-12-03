@@ -8,7 +8,6 @@ import android.webkit.WebViewClient;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.opoc.util.ShareUtilBase;
 
 import java.io.File;
 

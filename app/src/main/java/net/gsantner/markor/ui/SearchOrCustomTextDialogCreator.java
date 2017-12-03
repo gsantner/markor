@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchOrCustomTextDialogCreator {
-    public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback<String> callback) {
+    public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
@@ -30,7 +30,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback<String> callback) {
+    public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
@@ -42,7 +42,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showPriorityDialog(Activity activity, char selectedPriority, Callback<String> callback) {
+    public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
