@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import net.gsantner.markor.App;
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.util.AppSettingsBase;
@@ -169,5 +170,13 @@ public class AppSettings extends AppSettingsBase {
 
     public boolean isTodoStartTasksWithTodaysDateEnabled() {
         return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
+    }
+
+    public boolean isAppCurrentVersionFirstStart(boolean doSet) {
+        int value = getInt(R.string.pref_key__app_first_start_current_version, -1);
+        if (doSet) {
+            setInt(R.string.pref_key__app_first_start_current_version, BuildConfig.VERSION_CODE);
+        }
+        return value != BuildConfig.VERSION_CODE;
     }
 }

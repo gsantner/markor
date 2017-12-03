@@ -1,6 +1,6 @@
 ## The MIT License (MIT)
 * **writeily and writeily-pro**
-~° Copyright (c) 2014 Jeff Martin
+~° Copyright (c) 2014 Jeff Martin  
 ~° Copyright (c) 2015 Pedro Lafuente
 
 `---------------`  
