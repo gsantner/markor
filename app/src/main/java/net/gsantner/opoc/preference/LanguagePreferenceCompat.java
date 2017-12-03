@@ -11,16 +11,16 @@
  */
 
 /*
- * A ListPreference that displays a list of available languages
  * Requires:
- *     The BuildConfig field "APPLICATION_LANGUAGES" which is a array of all available languages
- *     opoc/ContextUtils
+      The BuildConfig field "APPLICATION_LANGUAGES" which is a array of all available languages
+      opoc/ContextUtils
  * BuildConfig field can be defined by using the method below
 
-buildConfigField("String[]", "APPLICATION_LANGUAGES", '{' + getUsedAndroidLanguages().collect {"\"${it}\""}.join(",")  + '}')
+buildConfigField "String[]", "APPLICATION_LANGUAGES", "${getUsedAndroidLanguages()}"
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
-static String[] getUsedAndroidLanguages() {
+// Returns used android languages as a buildConfig array: {'de', 'it', ..}"
+static String getUsedAndroidLanguages() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
         final foldername = it.name
@@ -32,7 +32,7 @@ static String[] getUsedAndroidLanguages() {
             }
         }
     }
-    return langs.toArray(new String[langs.size()])
+    return '{' + langs.collect { "\"${it}\"" }.join(",") + '}'
 }
 
  * Summary: Change language of this app. Restart app for changes to take effect

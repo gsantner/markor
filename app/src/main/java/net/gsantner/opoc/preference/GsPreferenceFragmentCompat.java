@@ -1,3 +1,23 @@
+/*
+ * ------------------------------------------------------------------------------
+ * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
+ * with it. If we meet some day, and you think it is worth it, you can buy me a
+ * coke in return. Provided as is without any kind of warranty. Do not blame or
+ * sue me if something goes wrong. No attribution required.    - Gregor Santner
+ *
+ * License: Creative Commons Zero (CC0 1.0)
+ *  http://creativecommons.org/publicdomain/zero/1.0/
+ * ----------------------------------------------------------------------------
+ */
+/*
+ * Add dependencies:
+    implementation "com.android.support:preference-v7:${version_library_appcompat}"
+    implementation "com.android.support:preference-v14:${version_library_appcompat}"
+
+ * Apply to activity using setTheme(), add to theme:
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+ */
 package net.gsantner.opoc.preference;
 
 import android.app.Activity;
@@ -22,7 +42,8 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 /**
- * Baseclass for (non-appcompat) PreferenceFragment
+ * Baseclass to use as preference fragment (with support libraries)
+ *
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
