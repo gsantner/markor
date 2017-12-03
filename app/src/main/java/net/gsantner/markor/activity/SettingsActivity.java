@@ -6,29 +6,26 @@
 package net.gsantner.markor.activity;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.activity.GsPreferenceFragment;
 import net.gsantner.opoc.ui.FilesystemDialogData;
-import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.AppSettingsBase;
 
 import java.io.File;
 
@@ -50,7 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private AppSettings _as;
     private ContextUtils _cu;
-    private PreferenceFragment _curPrefFragment;
 
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
@@ -75,38 +71,25 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     protected void showFragment(String tag, boolean addToBackStack) {
-        PreferenceFragment fragment = (PreferenceFragment) getFragmentManager().findFragmentByTag(tag);
-        if (fragment == null) {
+        String toolbarTitle = getString(R.string.action_settings);
+        GsPreferenceFragment prefFrag = (GsPreferenceFragment) getFragmentManager().findFragmentByTag(tag);
+        if (prefFrag == null) {
             switch (tag) {
                 case SettingsFragmentMaster.TAG:
-                default:
-                    fragment = new SettingsFragmentMaster();
-                    toolbar.setTitle(R.string.action_settings);
+                default: {
+                    prefFrag = new SettingsFragmentMaster();
+                    toolbarTitle = prefFrag.getTitleOrDefault(toolbarTitle);
                     break;
+                }
             }
         }
-        _curPrefFragment = fragment;
+        toolbar.setTitle(toolbarTitle);
         FragmentTransaction t = getFragmentManager().beginTransaction();
         if (addToBackStack) {
             t.addToBackStack(tag);
         }
-        t.replace(R.id.settings__activity__fragment_placeholder, fragment, tag).commit();
+        t.replace(R.id.settings__activity__fragment_placeholder, prefFrag, tag).commit();
     }
-
-    public static final Callback<PreferenceFragment> START_UPDATING_PREF_ICONS = (frag) -> {
-        View view = frag.getView();
-        if (view != null) {
-            final ContextUtils cu = new ContextUtils(view.getContext());
-            Runnable r = () -> {
-                cu.tintIconsInPreferenceFragment(frag, iconColor);
-            };
-            long[] delays = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ?
-                    new long[]{200} : new long[]{200, 2000, 5000, 10000};
-            for (long delay : delays) {
-                view.postDelayed(r, delay);
-            }
-        }
-    };
 
     @Override
     protected void onStop() {
@@ -114,178 +97,134 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
     }
 
-
-    public void restartActivity() {
-        // Restart settings activity to reflect theme changes
-        Intent intent = getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        overridePendingTransition(0, 0);
-        finish();
-
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-
-    public static class SettingsFragmentMaster extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class SettingsFragmentMaster extends GsPreferenceFragment {
         public static final String TAG = "SettingsFragmentMaster";
-        AppSettings _as;
-        ContextUtils _cu;
 
-        public void onCreate(Bundle savedInstances) {
-            super.onCreate(savedInstances);
-            _as = new AppSettings(getActivity());
-            _cu = new ContextUtils(getActivity());
-            getPreferenceManager().setSharedPreferencesName("app");
-            addPreferencesFromResource(R.xml.preferences);
-            removePreference(findPreference(getString(R.string.pref_key__app_theme)));
-        }
+        private AppSettings _as;
 
-        private void removePreference(Preference preference) {
-            PreferenceGroup parent = getParent(getPreferenceScreen(), preference);
-            if (parent == null)
-                throw new RuntimeException("Couldn't find preference");
-
-            parent.removePreference(preference);
-        }
-
-        private PreferenceGroup getParent(PreferenceGroup groupToSearchIn, Preference preference) {
-            for (int i = 0; i < groupToSearchIn.getPreferenceCount(); ++i) {
-                Preference child = groupToSearchIn.getPreference(i);
-
-                if (child == preference)
-                    return groupToSearchIn;
-
-                if (child instanceof PreferenceGroup) {
-                    PreferenceGroup childGroup = (PreferenceGroup)child;
-                    PreferenceGroup result = getParent(childGroup, preference);
-                    if (result != null)
-                        return result;
-                }
-            }
-
-            return null;
+        @Override
+        protected void afterOnCreate(Bundle savedInstances, Context context) {
+            super.afterOnCreate(savedInstances, context);
+            _as = new AppSettings(context);
         }
 
         @Override
-        public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            //view.postDelayed(() -> {
-            // }, 200);
-            START_UPDATING_PREF_ICONS.onCallback(this);
+        public int getPreferenceResourceForInflation() {
+            return R.xml.preferences_master;
         }
 
         @Override
-        public void onResume() {
-            super.onResume();
-            _as.registerPreferenceChangedListener(this);
-            updateSummaries();
+        public String getFragmentTag() {
+            return TAG;
         }
 
         @Override
-        public void onPause() {
-            super.onPause();
-            _as.unregisterPreferenceChangedListener(this);
+        public Integer getIconTintColor() {
+            return iconColor;
         }
 
+        @Override
+        protected AppSettingsBase getAppSettings(Context context) {
+            return new AppSettings(context);
+        }
+
+        @Override
         public void updateSummaries() {
-            Preference pref = findPreference(getString(R.string.pref_key__notebook_directory));
-            pref.setSummary(getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr());
-            pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
-            pref = findPreference(getString(R.string.pref_key__markdown__quicknote_filepath));
-            pref.setSummary(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
-                    + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath());
-            pref.setIcon(_cu.tintDrawable(R.drawable.ic_lightning_white_24dp, iconColor));
-            pref = findPreference(getString(R.string.pref_key__todotxt_filepath));
-            pref.setSummary(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
-                    + "\n" + AppSettings.get().getTodoTxtFile().getAbsolutePath());
-            pref.setIcon(_cu.tintDrawable(R.drawable.ic_assignment_turned_in_black_24dp, iconColor));
+            updateSummary(R.string.pref_key__notebook_directory, R.drawable.ic_save_black_24dp,
+                    getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr()
+            );
+            updateSummary(R.string.pref_key__markdown__quicknote_filepath, R.drawable.ic_lightning_white_24dp,
+                    getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
+                            + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath()
+            );
+            updateSummary(R.string.pref_key__todotxt_filepath, R.drawable.ic_assignment_turned_in_black_24dp,
+                    getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
+                            + "\n" + AppSettings.get().getTodoTxtFile().getAbsolutePath()
+            );
         }
 
+
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        protected void onPreferenceChanged(SharedPreferences prefs, String key) {
             activityRetVal = RESULT.CHANGED;
-            if (key.equals(getString(R.string.pref_key__language))) {
+            if (eq(key, R.string.pref_key__language)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
-            } else if (key.equals(getString(R.string.pref_key__app_theme))) {
-                ((SettingsActivity) getActivity()).restartActivity();
+            } else if (eq(key, R.string.pref_key__app_theme)) {
+                restartActivity();
                 _as.setRecreateMainRequired(true);
-            } else if (key.equals(getString(R.string.pref_key__is_overview_statusbar_hidden))) {
+            } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
             }
         }
 
         @Override
-        public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference preference) {
+        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+        public Boolean onPreferenceClicked(PreferenceScreen screen, Preference preference) {
             if (isAdded() && preference.hasKey()) {
-                switch (preference.getTitleRes()) {
-                    case R.string.notebook_directory: {
-                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                            FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-                                @Override
-                                public void onFsSelected(String request, File file) {
-                                    AppSettings as = AppSettings.get();
-                                    as.setSaveDirectory(file.getAbsolutePath());
-                                    as.setRecreateMainRequired(true);
-                                    as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
-                                    updateSummaries();
-                                }
+                if (false) {
+                } else if (eq(preference, R.string.pref_key__notebook_directory)) {
+                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                            @Override
+                            public void onFsSelected(String request, File file) {
+                                AppSettings as = AppSettings.get();
+                                as.setSaveDirectory(file.getAbsolutePath());
+                                as.setRecreateMainRequired(true);
+                                as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
+                                updateSummaries();
+                            }
 
-                                @Override
-                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                    opt.titleText = R.string.select_storage_folder;
-                                }
-                            }, fragManager, getActivity());
-                            return true;
-                        }
+                            @Override
+                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                opt.titleText = R.string.select_storage_folder;
+                            }
+                        }, fragManager, getActivity());
+                        return true;
                     }
+                } else if (eq(preference, R.string.pref_key__markdown__quicknote_filepath)) {
+                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                            @Override
+                            public void onFsSelected(String request, File file) {
+                                AppSettings as = AppSettings.get();
+                                as.setQuickNoteFile(file);
+                                as.setRecreateMainRequired(true);
+                            }
 
-                    case R.string.quicknote: {
-                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-                                @Override
-                                public void onFsSelected(String request, File file) {
-                                    AppSettings as = AppSettings.get();
-                                    as.setQuickNoteFile(file);
-                                    as.setRecreateMainRequired(true);
-                                }
-
-                                @Override
-                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                    opt.titleText = R.string.quicknote;
-                                    opt.rootFolder = Environment.getExternalStorageDirectory();
-                                }
-                            }, fragManager, getActivity());
-                            return true;
-                        }
+                            @Override
+                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                opt.titleText = R.string.quicknote;
+                                opt.rootFolder = Environment.getExternalStorageDirectory();
+                            }
+                        }, fragManager, getActivity());
+                        return true;
                     }
+                } else if (eq(preference, R.string.pref_key__todotxt_filepath)) {
+                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                            @Override
+                            public void onFsSelected(String request, File file) {
+                                AppSettings as = AppSettings.get();
+                                as.setTodoFile(file);
+                                as.setRecreateMainRequired(true);
+                            }
 
-                    case R.string.todo: {
-                        if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                            FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
-                            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
-                                @Override
-                                public void onFsSelected(String request, File file) {
-                                    AppSettings as = AppSettings.get();
-                                    as.setTodoFile(file);
-                                    as.setRecreateMainRequired(true);
-                                }
-
-                                @Override
-                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                    opt.titleText = R.string.todo;
-                                    opt.rootFolder = Environment.getExternalStorageDirectory();
-                                }
-                            }, fragManager, getActivity());
-                            return true;
-                        }
+                            @Override
+                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                opt.titleText = R.string.todo;
+                                opt.rootFolder = Environment.getExternalStorageDirectory();
+                            }
+                        }, fragManager, getActivity());
+                        return true;
                     }
                 }
             }
-            return super.onPreferenceTreeClick(screen, preference);
+            return null;
         }
     }
 }

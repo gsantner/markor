@@ -40,7 +40,7 @@ import java.util.Locale;
 public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
-        public Callback<String> callback;
+        public Callback.a1<String> callback;
         public List<String> data = new ArrayList<>();
         public List<String> highlightData = new ArrayList<>();
         public String messageText = "";
@@ -155,7 +155,7 @@ public class SearchOrCustomTextDialog {
                 .setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                     if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
-                        dopt.callback.onCallback(searchEditText.getText().toString());
+                        dopt.callback.callback(searchEditText.getText().toString());
                     }
                 });
 
@@ -163,7 +163,7 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             dialog.dismiss();
             if (dopt.callback != null) {
-                dopt.callback.onCallback(filteredItems.get(position));
+                dopt.callback.callback(filteredItems.get(position));
             }
         });
 
@@ -171,7 +171,7 @@ public class SearchOrCustomTextDialog {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 dialog.dismiss();
                 if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
-                    dopt.callback.onCallback(searchEditText.getText().toString());
+                    dopt.callback.callback(searchEditText.getText().toString());
                 }
                 return true;
             }

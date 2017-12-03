@@ -76,7 +76,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
 
-            final Callback<SttTaskWithParserInfo> replaceOrigTaskWithTaskCallback = (newTask) -> {
+            final Callback.a1<SttTaskWithParserInfo> replaceOrigTaskWithTaskCallback = (newTask) -> {
                 if (newTask != null) {
                     String out = sttcmd.regenerateText(origText, newTask);
                     _hlEditor.getText().replace(0, origText.length(), out);
@@ -88,14 +88,14 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 case "toggle_done": {
                     origTask.setDone(!origTask.isDone());
                     origTask.setCompletionDate(SttCommander.getToday());
-                    replaceOrigTaskWithTaskCallback.onCallback(origTask);
+                    replaceOrigTaskWithTaskCallback.callback(origTask);
                     return;
                 }
                 case "add_context": {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
                         int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
-                        replaceOrigTaskWithTaskCallback.onCallback(origTask);
+                        replaceOrigTaskWithTaskCallback.callback(origTask);
                     });
                     return;
                 }
@@ -103,7 +103,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
                         int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
-                        replaceOrigTaskWithTaskCallback.onCallback(origTask);
+                        replaceOrigTaskWithTaskCallback.callback(origTask);
                     });
                     return;
                 }
@@ -111,7 +111,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 case "set_priority": {
                     SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, origTask.getPriority(), (callbackPayload) -> {
                         origTask.setPriority((callbackPayload.length() == 1) ? callbackPayload.charAt(0) : SttTask.PRIORITY_NONE);
-                        replaceOrigTaskWithTaskCallback.onCallback(origTask);
+                        replaceOrigTaskWithTaskCallback.callback(origTask);
                     });
                     return;
                 }
