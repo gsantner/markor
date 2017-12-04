@@ -11,7 +11,7 @@
  */
 package net.gsantner.opoc.format.todotxt;
 
-import net.gsantner.opoc.data.MapPropertyBackend;
+import net.gsantner.opoc.util   .MapPropertyBackend;
 
 import java.io.Serializable;
 import java.util.HashMap;

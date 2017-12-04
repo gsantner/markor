@@ -9,9 +9,8 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.markor.format.todotxt;
+package net.gsantner.opoc.format.todotxt;
 
-import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import org.junit.Test;

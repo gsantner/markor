@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverter {
-    public static final Pattern TODOTXT_FILE_PATTERN = Pattern.compile("(?i)(^todo[-.]?.*)|(.*[-.]todo\\.((txt)|(md))$)");
 
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: %FONT%' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";

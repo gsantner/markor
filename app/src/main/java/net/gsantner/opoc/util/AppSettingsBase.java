@@ -43,8 +43,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
-import net.gsantner.opoc.data.PropertyBackend;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -28,6 +28,7 @@ public class SttCommander {
     //
     // Statics
     //
+    public static final Pattern TODOTXT_FILE_PATTERN = Pattern.compile("(?i)(^todo[-.]?.*)|(.*[-.]todo\\.((txt)|(md))$)");
     public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     private static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
 

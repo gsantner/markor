@@ -22,8 +22,8 @@ import android.text.TextUtils;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
-import net.gsantner.markor.format.converter.TodoTxtTextConverter;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -98,7 +98,7 @@ public class DocumentIO {
         if (document.getFormat() == TextFormat.FORMAT_UNKNOWN) {
             String fnlower = document.getFile().getName().toLowerCase();
             document.setFormat(TextFormat.FORMAT_MARKDOWN);
-            if (TodoTxtTextConverter.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
+            if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
             }
         }
