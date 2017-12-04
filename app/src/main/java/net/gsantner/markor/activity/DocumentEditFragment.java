@@ -256,9 +256,12 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
-        boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
-        boolean ret = DocumentIO.saveDocument(_document, argAllowRename, _hlEditor.getText().toString());
-        updateLauncherWidgets();
+        boolean ret = false;
+        if (isAdded() && _hlEditor != null) {
+            boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
+            ret = DocumentIO.saveDocument(_document, argAllowRename, _hlEditor.getText().toString());
+            updateLauncherWidgets();
+        }
         return ret;
     }
 
