@@ -85,7 +85,7 @@ public abstract class ShareUtilBase {
     public boolean shareImage(Bitmap bitmap) {
         try {
             File file = File.createTempFile("SharedFile", ".png", _context.getExternalCacheDir());
-            if (bitmap != null && new net.gsantner.markor.util.ContextUtils(_context).writeImageToFile(file, bitmap, Bitmap.CompressFormat.PNG, 95) != null) {
+            if (bitmap != null && new net.gsantner.opoc.util.ContextUtils(_context).writeImageToFile(file, bitmap, Bitmap.CompressFormat.PNG, 95) != null) {
                 shareStream(file, "image/png");
                 return true;
             }

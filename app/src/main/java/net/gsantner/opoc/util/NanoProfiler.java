@@ -11,8 +11,6 @@
  */
 package net.gsantner.opoc.util;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 
 /**
@@ -50,7 +48,7 @@ public class NanoProfiler {
     public void printProfilingGroup() {
         if (_profilerEnabled) {
             String text = formatter.format(_profilingGroupValue / 1000f).replaceAll("\\G0", " ") + " [ms] for Group " + _groupCount;
-            Log.v("NanoProfiler" + _groupCount, text);
+            System.out.println("NanoProfiler::: " + _groupCount + text);
         }
     }
 
@@ -60,7 +58,7 @@ public class NanoProfiler {
             _profilingValue = now - _profilingValue;
             _profilingGroupValue += _profilingValue / 1000f;
             String text = formatter.format(_profilingValue / 1000f).replaceAll("\\G0", " ") + " [µs] for " + _text;
-            Log.v("NanoProfiler" + _groupCount, text);
+            System.out.println("NanoProfiler::: " + _groupCount + text);
         }
     }
 }

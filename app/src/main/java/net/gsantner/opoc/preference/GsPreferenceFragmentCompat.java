@@ -43,7 +43,6 @@ import net.gsantner.opoc.util.ContextUtils;
 
 /**
  * Baseclass to use as preference fragment (with support libraries)
- *
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {

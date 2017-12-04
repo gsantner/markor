@@ -9,9 +9,7 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.markor.format.todotxt;
-
-import net.gsantner.markor.format.converter.TodoTxtTextConverter;
+package net.gsantner.opoc.format.todotxt;
 
 import org.junit.Test;
 
@@ -23,7 +21,7 @@ public class TodoTxtFileRecognitionTests {
 
     @Test
     public void checkTodoTxtFileRecognition() {
-        Pattern p = TodoTxtTextConverter.TODOTXT_FILE_PATTERN;
+        Pattern p = SttCommander.TODOTXT_FILE_PATTERN;
         assertThat(ispm(p, "todo.txt")).isEqualTo(true);
         assertThat(ispm(p, "ToDO.txt")).isEqualTo(true);
         assertThat(ispm(p, "todo.archive.txt")).isEqualTo(true);

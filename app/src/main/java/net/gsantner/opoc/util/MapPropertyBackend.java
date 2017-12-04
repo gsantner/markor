@@ -9,7 +9,7 @@
  *  http://creativecommons.org/publicdomain/zero/1.0/
  * ----------------------------------------------------------------------------
  */
-package net.gsantner.opoc.data;
+package net.gsantner.opoc.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
