@@ -8,6 +8,7 @@ if (enable_plugin_kotlin) {
 ext.version_setup_minSdk = 14
 
 android {
+    buildToolsVersion version_setup_buildTools
     compileSdkVersion version_setup_compileSdk
     flavorDimensions "default"
 
@@ -24,6 +25,26 @@ android {
         versionCode 12
     }
 
+    productFlavors {
+        flavorDefault {
+        }
+        flavorGplay {
+            buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
+        }
+        flavorTest {
+            applicationId "net.gsantner.markor_test"
+            versionCode = Integer.parseInt(new Date().format('yyMMdd'))
+            versionName = new Date().format('yyMMdd')
+            buildConfigField "boolean", "IS_TEST_BUILD", "true"
+        }
+    }
+
+    sourceSets {
+        if (enable_plugin_kotlin) {
+            main.java.srcDirs += 'src/main/kotlin'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,23 +57,15 @@ android {
         }
     }
 
-    sourceSets {
-        if (enable_plugin_kotlin) {
-            main.java.srcDirs += 'src/main/kotlin'
-        }
-    }
-
-    productFlavors {
-        flavorDefault {
-        }
-        flavorGplay {
-            buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
-        }
-        flavorTest {
-            applicationId "net.gsantner.markor_test"
-            versionCode = Integer.parseInt(new Date().format('yyMMdd'))
-            versionName = new Date().format('yyMMdd')
-            buildConfigField "boolean", "IS_TEST_BUILD", "true"
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                if (details.requested.group == 'com.android.support') {
+                    if (details.requested.name != 'multidex' && details.requested.name != 'multidex-instrumentation') {
+                        details.useVersion "${version_library_appcompat}"
+                    }
+                }
+            }
         }
     }
 
