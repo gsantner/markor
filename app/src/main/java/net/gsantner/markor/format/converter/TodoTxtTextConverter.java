@@ -12,8 +12,6 @@ import android.support.v4.text.TextUtilsCompat;
 
 import net.gsantner.markor.util.AppSettings;
 
-import java.util.regex.Pattern;
-
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverter {
 

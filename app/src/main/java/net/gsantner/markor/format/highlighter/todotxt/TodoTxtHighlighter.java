@@ -36,7 +36,8 @@ public class TodoTxtHighlighter extends Highlighter {
                 return editable;
             }
 
-            _profiler.start(true, "Paragraph top padding");
+            _profiler.start(true, "Todo.Txt Highlighting");
+            _profiler.restart("Paragraph top padding");
             createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
                     (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
 

@@ -98,7 +98,7 @@
             android:title="@string/syntax_highlighting" />
 
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:dependency="@string/pref_key__is_highlighting_activated"
             android:icon="@drawable/ic_format_color_fill_black_24dp"
             android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
@@ -134,6 +134,21 @@
             android:key="@string/pref_key__markdown__quicknote_filepath"
             android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
             android:title="@string/quicknote" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_space_bar_black_24dp"
+            android:key="@string/pref_key__markdown__highlight_lineending_two_or_more_space"
+            android:summary="@string/highlight_line_ending_if_two_or_more_spaces"
+            android:title="@string/highlight_line_ending" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_code_black_24dp"
+            android:key="@string/pref_key__markdown__monospace_some_parts"
+            android:summary="@string/use_different_fonttype_slow_down"
+            android:title="@string/use_monospace_for_code" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/todo">
