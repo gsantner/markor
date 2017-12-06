@@ -101,6 +101,16 @@ public class AppSettings extends AppSettingsBase {
         return getIntOfStringPref(R.string.pref_key__markdown__highlighting_delay, 110);
     }
 
+
+    public boolean isMarkdownHighlightLineEnding() {
+        return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
+    }
+
+    public boolean isMarkdownHighlightCodeFontMonospaceAllowed() {
+        return getBool(R.string.pref_key__markdown__monospace_some_parts, false);
+    }
+
+
     public int getHighlightingDelayTodoTxt() {
         return getIntOfStringPref(R.string.pref_key__todotxt__highlighting_delay, 190);
     }
@@ -161,7 +171,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isHighlightingHexColorEnabled() {
-        return getBool(R.string.pref_key__is_highlighting_for_hexcolor_activated, true);
+        return getBool(R.string.pref_key__is_highlighting_for_hexcolor_activated, false);
     }
 
     public boolean isTodoAppendProConOnEndEnabled() {
@@ -171,6 +181,7 @@ public class AppSettings extends AppSettingsBase {
     public boolean isTodoStartTasksWithTodaysDateEnabled() {
         return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
     }
+
 
     public boolean isAppCurrentVersionFirstStart(boolean doSet) {
         int value = getInt(R.string.pref_key__app_first_start_current_version, -1);

@@ -84,4 +84,6 @@
     <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
     <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>
+    <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
+    <string name="pref_key__markdown__monospace_some_parts" translatable="false">pref_key__markdown__monospace_some_parts</string>
 </resources>

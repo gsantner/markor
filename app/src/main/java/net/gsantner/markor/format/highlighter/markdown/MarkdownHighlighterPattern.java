@@ -10,16 +10,16 @@ package net.gsantner.markor.format.highlighter.markdown;
 import java.util.regex.Pattern;
 
 public enum MarkdownHighlighterPattern {
-    LIST(Pattern.compile("(\\n|^)\\s{0,3}(\\*|\\+|-)( \\[[ |x|X]\\])?(?= )")),
+    LIST(Pattern.compile("(\\n|^)\\s{0,3}([*+-])( \\[[ xX]\\])?(?= )")),
     ORDEREDLIST(Pattern.compile("(?m)^([0-9]+)(\\.)")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
     HEADER(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
-    MONOSPACED(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
-    BOLD(Pattern.compile("(?<=(\\n|^|\\s))((\\*|_){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
-    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(\\*|_)(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
-    DOUBLESPACE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
+    CODE(Pattern.compile("(?m)(`(.*?)`)|(^[^\\S\\n]{4}.*$)")),
+    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(([*_]){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    DOUBLESPACE_LINE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
 
     private Pattern _pattern;
 

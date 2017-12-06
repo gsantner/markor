@@ -160,4 +160,8 @@
     <string name="append_contexts_and_projects">Kontexte und Projekte anfügen</string>
     <string name="append_contexts_and_projects_on_end_of_task">Kontexte und Projekte zum Ende von Aufgaben hinzufügen wenn die vorgesehene Text-Modul Aktion verwendet wurde</string>
     <string name="start_new_tasks_with_todays_date">Das aktuelle Datum einfügen wenn eine neue Aufgabe begonnen wird</string>
+    <string name="highlight_line_ending">Zeilenende hervorheben</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
+    <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
+    <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
 </resources>
