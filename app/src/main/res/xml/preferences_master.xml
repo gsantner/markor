@@ -1,4 +1,5 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -119,14 +120,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/markdown">
-        <EditTextPreference
-            android:defaultValue="110"
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="270"
             android:dependency="@string/pref_key__is_highlighting_activated"
-            android:dialogMessage="@string/highlighting_delay_summary"
+            android:summary="@string/highlighting_delay_summary"
             android:icon="@drawable/ic_highlight_black_24dp"
-            android:inputType="number"
             android:key="@string/pref_key__markdown__highlighting_delay"
-            android:numeric="integer"
+            android:max="3000"
+            app:min="50"
             android:title="@string/highlighting_delay" />
 
         <Preference
@@ -152,14 +153,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/todo">
-        <EditTextPreference
-            android:defaultValue="190"
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="1200"
             android:dependency="@string/pref_key__is_highlighting_activated"
-            android:dialogMessage="@string/highlighting_delay_summary"
+            android:summary="@string/highlighting_delay_summary"
             android:icon="@drawable/ic_highlight_black_24dp"
-            android:inputType="number"
             android:key="@string/pref_key__todotxt__highlighting_delay"
-            android:numeric="integer"
+            android:max="5000"
+            app:min="50"
             android:title="@string/highlighting_delay" />
 
         <Preference

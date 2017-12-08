@@ -71,7 +71,7 @@ public class SearchOrCustomTextDialogCreator {
     private static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
         AppSettings as = new AppSettings(activity);
         dopt.isDarkDialog = as.isDarkThemeEnabled();
-        dopt.textColor = ContextCompat.getColor(activity, dopt.isDarkDialog ? R.color.dark__primary_text : R.color.light__background);
+        dopt.textColor = ContextCompat.getColor(activity, dopt.isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);
         dopt.highlightColor = 0xffF57900;
     }
 }
