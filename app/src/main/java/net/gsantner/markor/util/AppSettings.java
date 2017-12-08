@@ -98,7 +98,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getMarkdownHighlightingDelay() {
-        return getIntOfStringPref(R.string.pref_key__markdown__highlighting_delay, 110);
+        return getInt(R.string.pref_key__markdown__highlighting_delay, 270);
     }
 
 
@@ -112,7 +112,7 @@ public class AppSettings extends AppSettingsBase {
 
 
     public int getHighlightingDelayTodoTxt() {
-        return getIntOfStringPref(R.string.pref_key__todotxt__highlighting_delay, 190);
+        return getInt(R.string.pref_key__todotxt__highlighting_delay, 1200);
     }
 
     public String getLastOpenedDirectory() {

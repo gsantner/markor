@@ -36,7 +36,6 @@ public abstract class Highlighter {
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
-    private boolean _isFirstHighlighting = true;
 
     protected abstract Editable run(final HighlightingEditor editor, final Editable editable);
 
@@ -46,13 +45,7 @@ public abstract class Highlighter {
         return new MarkdownHighlighter();
     }
 
-    public int loadHighlightingDelay(Context context) {
-        int ret = _isFirstHighlighting ? 100 : getHighlightingDelay(context);
-        _isFirstHighlighting = false;
-        return ret;
-    }
-
-    protected abstract int getHighlightingDelay(Context context);
+    public abstract int getHighlightingDelay(Context context);
 
 
     //
