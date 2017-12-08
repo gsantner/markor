@@ -94,16 +94,31 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public static class SettingsFragmentMaster extends GsPreferenceFragmentCompat {
-        public static final String TAG = "SettingsFragmentMaster";
-
-        private AppSettings _as;
+    public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentCompat {
+        protected AppSettings _as;
 
         @Override
-        protected void afterOnCreate(Bundle savedInstances, Context context) {
-            super.afterOnCreate(savedInstances, context);
-            _as = new AppSettings(context);
+        protected AppSettingsBase getAppSettings(Context context) {
+            if (_as == null) {
+                _as = new AppSettings(context);
+            }
+            return _as;
         }
+
+        @Override
+        public Integer getIconTintColor() {
+            return iconColor;
+        }
+
+        @Override
+        protected void onPreferenceChanged(SharedPreferences prefs, String key) {
+            activityRetVal = RESULT.CHANGED;
+        }
+    }
+
+
+    public static class SettingsFragmentMaster extends MarkorSettingsFragment {
+        public static final String TAG = "SettingsFragmentMaster";
 
         @Override
         public int getPreferenceResourceForInflation() {
@@ -113,16 +128,6 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public String getFragmentTag() {
             return TAG;
-        }
-
-        @Override
-        public Integer getIconTintColor() {
-            return iconColor;
-        }
-
-        @Override
-        protected AppSettingsBase getAppSettings(Context context) {
-            return new AppSettings(context);
         }
 
         @Override
@@ -143,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onPreferenceChanged(SharedPreferences prefs, String key) {
-            activityRetVal = RESULT.CHANGED;
+            super.onPreferenceChanged(prefs, key);
             if (eq(key, R.string.pref_key__language)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
