@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Inställningar</string>
+    <string name="settings">Inställningar</string>
     <string name="light">Ljust</string>
     <string name="dark">Mörkt</string>
     <string name="delete">Radera</string>

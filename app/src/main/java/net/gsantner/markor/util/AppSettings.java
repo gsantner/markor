@@ -86,7 +86,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public int getFontSize() {
-        return getIntOfStringPref(R.string.pref_key__font_size, 18);
+        return getInt(R.string.pref_key__font_size, 18);
     }
 
     public boolean isEditor_ShowTextmoduleBar() {
@@ -112,7 +112,7 @@ public class AppSettings extends AppSettingsBase {
 
 
     public int getHighlightingDelayTodoTxt() {
-        return getInt(R.string.pref_key__todotxt__highlighting_delay, 1200);
+        return getInt(R.string.pref_key__todotxt__highlighting_delay, 870);
     }
 
     public String getLastOpenedDirectory() {

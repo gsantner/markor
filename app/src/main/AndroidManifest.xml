@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/action_settings"
+            android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
         <activity

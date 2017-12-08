@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Ayarlar</string>
+    <string name="settings">Ayarlar</string>
     <string name="light">Açık</string>
     <string name="dark">Koyu</string>
     <string name="delete">Sil</string>

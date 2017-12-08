@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Iɣewwaṛen</string>
+    <string name="settings">Iɣewwaṛen</string>
     <string name="light">Aceɛlal</string>
     <string name="dark">Ubrik</string>
     <string name="delete">Kkes</string>
