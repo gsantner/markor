@@ -166,4 +166,5 @@
     <string name="use_monospace_for_code">Use Monospace for code</string>
     <string name="use_different_fonttype_slow_down">Make use of a different font type. Changing the font type dynamically makes an impact on the performance of the app.</string>
     <string name="general">General</string>
+    <string name="resources">Resources</string>
 </resources>

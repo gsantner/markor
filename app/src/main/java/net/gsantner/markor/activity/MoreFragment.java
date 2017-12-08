@@ -71,6 +71,13 @@ public class MoreFragment extends BaseFragment {
             ((ImageView) (layout.getChildAt(0))).setColorFilter(fg, android.graphics.PorterDuff.Mode.MULTIPLY);
             ((TextView) (layout.getChildAt(1))).setTextColor(fg);
         }
+        for (int resid : new int[]{R.id.more__fragment__res_text, R.id.more__fragment__res_title}) {
+            ((TextView) _view.findViewById(resid)).setTextColor(fg);
+        }
+
+        ContextUtils cu = new ContextUtils(_view.getContext());
+        TextView ressourcesText = _view.findViewById(R.id.more__fragment__res_text);
+        cu.setHtmlToTextView(ressourcesText, cu.loadMarkdownForTextViewFromRaw(R.raw.resources, ""));
     }
 
     @OnClick({R.id.more__fragment__action_about, R.id.more__fragment__action_contribute, R.id.more__fragment__action_donate, R.id.more__fragment__action_settings})
