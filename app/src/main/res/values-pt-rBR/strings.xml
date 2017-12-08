@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Configurações</string>
+    <string name="settings">Configurações</string>
     <string name="light">Claro</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>

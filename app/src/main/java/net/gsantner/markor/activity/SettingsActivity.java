@@ -14,7 +14,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -60,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Custom code
         iconColor = _cu.color(_as.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
-        toolbar.setTitle(R.string.action_settings);
+        toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
@@ -68,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     protected void showFragment(String tag, boolean addToBackStack) {
-        String toolbarTitle = getString(R.string.action_settings);
+        String toolbarTitle = getString(R.string.settings);
         GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(tag);
         if (prefFrag == null) {
             switch (tag) {
@@ -114,8 +117,28 @@ public class SettingsActivity extends AppCompatActivity {
         protected void onPreferenceChanged(SharedPreferences prefs, String key) {
             activityRetVal = RESULT.CHANGED;
         }
+
+        @Override
+        protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+            super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+            if (!TextUtils.isEmpty(preferenceScreen.getTitle())) {
+                SettingsActivity a = (SettingsActivity) getActivity();
+                if (a != null) {
+                    a.toolbar.setTitle(preferenceScreen.getTitle());
+                }
+            }
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
+        if (prefFrag != null && prefFrag.canGoBack()) {
+            prefFrag.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
         public static final String TAG = "SettingsFragmentMaster";

@@ -17,7 +17,7 @@
 
         <item name="android:actionModeBackground">@color/primary_dark</item>
         <item name="actionModeBackground">@color/primary_dark</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -35,8 +35,18 @@
 
         <item name="android:actionModeBackground">@color/primary_dark</item>
         <item name="actionModeBackground">@color/primary_dark</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
     </style>
+
+
+    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceCategoryStyle">@style/AppTheme.PreferenceTheme.CategoryStyle</item>
+    </style>
+
+    <style name="AppTheme.PreferenceTheme.CategoryStyle" parent="Preference.Category">
+        <item name="android:layout">@layout/pref_category_text</item>
+    </style>
+
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:actionModeBackground">@color/primary_dark</item>

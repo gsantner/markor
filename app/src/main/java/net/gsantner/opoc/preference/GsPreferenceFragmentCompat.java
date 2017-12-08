@@ -14,8 +14,29 @@
     implementation "com.android.support:preference-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v14:${version_library_appcompat}"
 
- * Apply to activity using setTheme(), add to theme:
+ * Apply to activity using setTheme(), add to styles.xml/theme:
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+ * OR
+    <style name="AppTheme" ...
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+    </style>
+    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
+      <item name="preferenceCategoryStyle">@style/AppTheme.PreferenceTheme.CategoryStyle</item>
+    </style>
+    <style name="AppTheme.PreferenceTheme.CategoryStyle" parent="Preference.Category">
+        <item name="android:layout">@layout/pref_category_text</item>
+    </style>
+
+ * Layout file:
+    <?xml version="1.0" encoding="utf-8"?>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/title"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
+
 
  */
 package net.gsantner.opoc.preference;
@@ -24,16 +45,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.XmlRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceGroup;
+import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -41,11 +64,15 @@ import net.gsantner.opoc.util.AppSettingsBase;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Baseclass to use as preference fragment (with support libraries)
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat
+        implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
     private static final int DEFAULT_ICON_TINT_DELAY = 200;
 
     //
@@ -83,6 +110,10 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     }
 
+    protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+
+    }
+
     public Integer getIconTintColor() {
         return null;
     }
@@ -95,6 +126,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     //
     //
 
+    private final List<PreferenceScreen> _prefScreenBackstack = new ArrayList<>();
     private AppSettingsBase _asb;
     protected ContextUtils _cu;
 
@@ -114,11 +146,8 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             final Integer color = getIconTintColor();
             if (view != null && color != null) {
                 Runnable r = () -> tintAllPrefIcons(frag, color);
-                int d = DEFAULT_ICON_TINT_DELAY;
-                int[] delays = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ?
-                        new int[]{d} : new int[]{d, d * 10, d * 50, d * 100};
-                for (int delay : delays) {
-                    view.postDelayed(r, delay);
+                for (int delayFactor : new int[]{1, 10, 50, 100, 500}) {
+                    view.postDelayed(r, delayFactor * DEFAULT_ICON_TINT_DELAY);
                 }
             }
         } catch (Exception ignored) {
@@ -126,17 +155,27 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     };
 
     public void tintAllPrefIcons(PreferenceFragmentCompat preferenceFragment, @ColorInt int iconColor) {
-        for (String prefKey : preferenceFragment.getPreferenceManager().getSharedPreferences().getAll().keySet()) {
-            Preference pref = preferenceFragment.findPreference(prefKey);
-            if (pref != null) {
-                pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
+        tintPrefIconsRecursive(getPreferenceScreen(), iconColor);
+    }
+
+    private void tintPrefIconsRecursive(PreferenceGroup prefGroup, @ColorInt int iconColor) {
+        if (prefGroup != null) {
+            int prefCount = prefGroup.getPreferenceCount();
+            for (int i = 0; i < prefCount; i++) {
+                Preference pref = prefGroup.getPreference(i);
+                if (pref != null) {
+                    pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
+                    if (pref instanceof PreferenceGroup) {
+                        tintPrefIconsRecursive((PreferenceGroup) pref, iconColor);
+                    }
+                }
             }
         }
     }
 
 
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         updatePreferenceIcons.callback(this);
     }
@@ -176,6 +215,28 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         return super.onPreferenceTreeClick(preference);
     }
 
+
+    @Override
+    public Fragment getCallbackFragment() {
+        return this;
+    }
+
+    @Override
+    public void onStop() {
+        _prefScreenBackstack.clear();
+        super.onStop();
+    }
+
+    @Deprecated
+    @Override
+    public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+        _prefScreenBackstack.add(getPreferenceScreen());
+        preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
+        updatePreferenceIcons.callback(this);
+        onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+        return true;
+    }
+
     protected void updateSummary(@StringRes int keyResId, String summary) {
         updateSummary(keyResId, 0, summary);
     }
@@ -199,6 +260,20 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             return;
         }
         parent.removePreference(preference);
+    }
+
+    public boolean canGoBack() {
+        return !_prefScreenBackstack.isEmpty();
+    }
+
+    public void goBack() {
+        if (canGoBack()) {
+            PreferenceScreen screen = _prefScreenBackstack.remove(_prefScreenBackstack.size() - 1);
+            if (screen != null) {
+                setPreferenceScreen(screen);
+                onPreferenceScreenChanged(this, screen);
+            }
+        }
     }
 
     protected PreferenceGroup getPreferenceParent(PreferenceGroup prefGroup, Preference pref) {

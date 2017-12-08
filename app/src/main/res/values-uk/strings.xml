@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Налаштування</string>
+    <string name="settings">Налаштування</string>
     <string name="light">Світла</string>
     <string name="dark">Темна</string>
     <string name="delete">Видалити</string>
