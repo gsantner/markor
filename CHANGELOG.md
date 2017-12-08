@@ -1,3 +1,9 @@
+### v0.2.5
+- Improve highlighter performance
+- Improve default highlighter settings
+- Added new highlting settings options
+- Preference support lib for settings
+
 ### v0.2.4
 - Abstract highlighting, converter and text module actions
 - Added: Support for todo.txt
