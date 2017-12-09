@@ -23,7 +23,7 @@
     <string name="select_folder">Sélectionnez le dossier</string>
     <string name="edit">Éditer</string>
 
-    <string name="search_documents">Rechercher dans les documents</string>
+    <string name="search_documents">Rechercher des documents</string>
     <string name="share_to">Partager avec…</string>
     <string name="share">Partager</string>
     <string name="search">Chercher</string>
@@ -111,8 +111,8 @@
     <string name="pref_show_settings_option_in_main_toolbar">Montrer les options de paramétrage dans la barre d\'outils en haut de l\'écran principal</string>
     <string name="refresh">Rafraîchir</string>
     <string name="add_shortcut_to_launcher_homescreen">Créer un raccourci</string>
-    <string name="add_shortcut_to_launcher_homescreen_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci sur votre écran d\'accueil pour éditer ce document. Toutes les applications de gestion d\'écran d\'accueil ne gèrent pas cette fonctionnalité.</string>
-    <string name="file_not_in_save_path_do_import">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans le dossier courant ? Si une copie précédente y est déjà présente, elle sera écrasée.</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
+    <string name="file_not_in_save_path_do_import">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans ce dossier ? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
 
@@ -122,13 +122,13 @@
     <string name="theme_description">Le thème principal utilisé par l\'application</string>
     <string name="load_last_directory_at_startup">Se souvenir du dossier courrant</string>
     <string name="syntax_highlighting">Coloration syntaxique</string>
-    <string name="text_modules">Modules de texte</string>
-    <string name="text_module">Module de texte</string>
+    <string name="text_modules">Outils de mise en forme</string>
+    <string name="text_module">Mise en forme du texte</string>
     <string name="highlighting_delay">Délai de rafraîchissement</string>
-    <string name="highlighting_delay_summary">Délai de rafraîchissement de la coloration syntaxique en millisecondes. Une faible valeur permettra la prise en compte de la coloration plus tôt, mais a pour conséquence de réduire la réactivité de l\'application et d\'être plus consommateur de batterie.</string>
+    <string name="highlighting_delay_summary">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_summary">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
     <string name="editor_font_size_summary">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
-    <string name="textmodules_bar_summary">Affiche une barre permettant l\'insertion de modules de texte fréquemment utilisés</string>
+    <string name="textmodules_bar_summary">Affiche une barre d\'outils de texte couramment utilisés</string>
     <string name="load_last_directory_at_startup__summary">Charger le dernier dossier ouvert au démarrage suivant</string>
     <string name="format">Format</string>
 </resources>
