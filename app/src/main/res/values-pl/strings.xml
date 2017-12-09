@@ -9,12 +9,11 @@
     <string name="confirm_delete_description">Czy na pewno chcesz usunąć ten %s?</string>
     <string name="confirm_overwrite">Potwierdź nadpisanie</string>
     <string name="confirm_overwrite_description">Plik już istnieje, nadpisać?</string>
+    <string name="browse_filesystem">Przeglądaj system plików</string>
     <string name="title">Tytuł</string>
     <string name="empty_directory">Ten katalog jest pusty</string>
-    <string name="navigate_up_folder">Wróć do poprzedniego folderu</string>
     <string name="folder_name_hint">Wprowadź nazwę folderu</string>
     <string name="create_folder">Utwórz folder</string>
-    <string name="create_note">Utwórz notatkę</string>
     <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="move">Przenieś</string>
 
@@ -29,8 +28,7 @@
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
     <string name="preview">Podgląd</string>
-    <string name="app_settings">Ustawienia aplikacji</string>
-    <string name="editor_settings">Ustawienia edytora</string>
+    <string name="editor">Edycja</string>
     <string name="folders">Foldery</string>
     <string name="files">Pliki</string>
     <string name="document_one">Dokument</string>
@@ -38,7 +36,6 @@
     <string name="share_html__mime_plaintext">HTML (jako czysty tekst)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
     <string name="open_preview_when_open_documents">Najpierw podgląd podczas otwierania notatek</string>
@@ -47,17 +44,10 @@
     <string name="file">Plik</string>
     <string name="image">Obraz</string>
     <string name="pref_title__font_size">Wielkość czcionki</string>
-    <string name="show_markdown_shortcuts_bar">Pokaż pasek skrótów Markdowna</string>
-    <string name="markdown_syntax_highlighting">Podświetlanie składni Markdowna</string>
-    <string name="pref_title__highlighting_delay">Opóźnienie odświeżania podświetlenia w milisekundach</string>
-    <string name="pref_title__highlighting_delay_summary">Wyższe wartości oszczędzają baterie</string>
-    <string name="pref_title__smart_shortcuts">Sprytna klamra skrótów</string>
-    <string name="pref_title__smart_shortcuts_summary">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
     <string name="render_for_right_to_left_languages">Renderowanie dla języków od prawej do lewej</string>
     <string name="error_cannot_create_notebook_dir">Błąd: Nie można utworzyć katalogu zapisywania</string>
 
     <string name="last_modified">Ostatnio zmodyfikowano: %s</string>
-    <string name="number_of_files">Liczba plików: %d</string>
     <string name="select_this_folder">Wybierz ten folder</string>
     <string name="select">Wybierz</string>
     <string name="create">Stwórz</string>
@@ -76,6 +66,7 @@
     <!-- About screen -->
     <string name="contributors">Współtwórcy</string>
     <string name="select_storage_folder">Wybierz folder zapisu</string>
+    <string name="notebook_directory">Katalog notatek</string>
     <string name="licenses">Licencje</string>
     <string name="changelog">Zmiany</string>
     <string name="more_information">Więcej informacji</string>
@@ -90,7 +81,7 @@
     <string name="sort_by_name">Sortuj według nazwy</string>
     <string name="sort_by_size">Sortuj według rozmiaru</string>
     <string name="sort_reverse">Odwróć kolejność</string>
-    <string name="contribute">Przyczyń się do projektu</string><!-- couldn't find better translation -->
+    <string name="contribute">Przyłącz się do projektu</string>
     <string name="donate">Przekaż darowiznę</string>
     <string name="project_page">Strona projektu</string>
     <string name="press_again_to_exit">Naciśnij jeszcze raz, żeby wyjść</string>
@@ -100,7 +91,6 @@
     <string name="more">Więcej</string>
     <string name="notebook">Notatnik</string>
     <string name="help">Pomoc</string>
-    <string name="special_documents">Specjalne dokumenty</string>
     <string name="todo_list">Lista rzeczy do zrobienia</string>
     <string name="task">Zadanie</string>
     <string name="category">Kategoria</string>
@@ -109,6 +99,7 @@
     <string name="priority">Priorytet</string>
     <string name="history">Historia</string>
     <string name="sync">Synchronizuj</string>
+    <string name="browse_somethingsingular_or_add">Dodaj %s lub przeglądaj istniejący</string>
     <string name="save">Zapisz</string>
     <string name="update">Aktualizuj</string>
     <string name="clear">Wyczyść</string>
@@ -116,5 +107,54 @@
     <string name="current_date">Aktualna data</string>
     <string name="archive">Archiwum</string>
     <string name="add_task">Dodaj zadanie</string>
+    <string name="add_something">Dodaj %s</string>
     <string name="pref_summary__loaded_and_saved_as__plus_name">Dokument zostanie załadowany i zapisany jako \"%s\"</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Ustawienia na pasku narzędzi</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Pokaż opcje ustawienia na górze paska narzędzi na głównym ekranie</string>
+    <string name="refresh">Odświerz</string>
+    <string name="add_shortcut_to_launcher_homescreen">Utwórz skrót</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
+    <string name="file_not_in_save_path_do_import">Wybrany plik nie znajduje się w katalogu notatnika. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejących plików.</string>
+    <string name="files_and_folders">Pliki i foldery</string>
+    <string name="document_browser">Przeglądarka dokumentów</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Utwórz notatkę</string>
+    <string name="special_documents" needed="false">Specjalne dokumenty</string>
+    <string name="navigate_up_folder" needed="false">Wróć do poprzedniego folderu</string>
+    <string name="app_settings" needed="false">Ustawienia aplikacji</string>
+    <string name="editor_settings" needed="false">Ustawienia edytora</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Pokaż pasek skrótów Markdowna</string>
+    <string name="markdown_syntax_highlighting" needed="false">Podświetlanie składni Markdowna</string>
+    <string name="pref_title__highlighting_delay" needed="false">Opóźnienie odświeżania podświetlenia w milisekundach</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Wyższe wartości oszczędzają baterie</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Sprytna klamra skrótów</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
+    <string name="number_of_files" needed="false">Liczba plików: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Ogólne</string>
+    <string name="main_view">Główny Widok</string>
+    <string name="theme_description">Ogólny motyw używany w aplikacji</string>
+    <string name="load_last_directory_at_startup">Zapamiętaj ostatnią lokalizację katalogu</string>
+    <string name="syntax_highlighting">Podświetlanie składni</string>
+    <string name="highlighting_delay">Opóźnienie podświetlania</string>
+    <string name="highlighting_delay_summary">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
+    <string name="highlighting_enabled_summary">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
+    <string name="editor_font_size_summary">Ustaw rozmiar czcionki używany w edytorze</string>
+    <string name="textmodules_bar_summary">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
+    <string name="load_last_directory_at_startup__summary">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
+    <string name="format">Format</string>
+    <string name="project">Projekt</string>
+    <string name="projects">Projekty</string>
+    <string name="categories">Kategorie</string>
+    <string name="none">Nic</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Określa, czy należy podświetlać kody kolorów heksadecymalnych w zależności od koloru</string>
+    <string name="hexcolor_underline">Pokdreślaj kolory w układzie szesnastkowym (Hex)</string>
+    <string name="start_new_tasks_with_todays_date">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
+    <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
+    <string name="right_to_left_rendering__abbreviated">Renderowanie RTL</string>
+    <string name="highlight_line_ending">Podświetl zakończenie linii</string>
+    <string name="use_different_fonttype_slow_down">Użyj innego rodzaju czcionki. Dynamiczne zmienianie rodzaju czcionki ma wpływ na wydajność aplikacji.</string>
 </resources>
