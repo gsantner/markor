@@ -498,7 +498,7 @@ public class FilesystemListFragment extends BaseFragment {
         reloadAdapter();
     }
 
-    public boolean isCurrentDirectoryNotebookDirectoy() {
+    public boolean isCurrentDirectoryNotebookDirectory() {
         return _currentDir == null || _rootDir == null ||
                 _currentDir.getAbsolutePath().equalsIgnoreCase(_rootDir.getAbsolutePath());
     }
@@ -522,7 +522,7 @@ public class FilesystemListFragment extends BaseFragment {
             return true;
         }
 
-        if (!isCurrentDirectoryNotebookDirectoy()) {
+        if (!isCurrentDirectoryNotebookDirectory()) {
             goDirectoryUp();
             return true;
         }
