@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+// Note: Selection color is controller by state-list-drawable
 public class FilesystemListAdapter extends ArrayAdapter<File> implements Filterable {
 
     public static final String EMPTY_STRING = "";
@@ -81,7 +82,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
             // Theme Adjustments
             if (AppSettings.get().isDarkThemeEnabled()) {
                 noteTitle.setTextColor(_context.getResources().getColor(android.R.color.white));
-
+                row.setBackgroundResource(R.drawable.ui__file__item__selection_background_dark);
                 if (item.isDirectory()) {
                     fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
                 } else {
@@ -89,7 +90,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
                 }
             } else {
                 noteTitle.setTextColor(_context.getResources().getColor(R.color.dark_grey));
-
+                row.setBackgroundResource(R.drawable.ui__file__item__selection_background_light);
                 if (item.isDirectory()) {
                     fileIdentifierImageView.setImageResource(getIdentifierDrawable(true));
                 } else {
