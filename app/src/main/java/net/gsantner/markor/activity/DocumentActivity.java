@@ -35,6 +35,7 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.BaseFragment;
+import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -70,20 +71,23 @@ public class DocumentActivity extends AppCompatActivity {
     private MarkdownTextConverter _mdRenderer = new MarkdownTextConverter();
     private FragmentManager _fragManager;
     private Document _document;
+    
+    private AppSettings _appSettings;
+    private ActivityUtils _contextUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppSettings as = AppSettings.get();
-        new ContextUtils(getBaseContext()).setAppLanguage(as.getLanguage());
-        if (as.isEditorStatusBarHidden()) {
+        _appSettings = new AppSettings(this);
+        _contextUtils = new ActivityUtils(this);
+        _contextUtils.setAppLanguage(_appSettings.getLanguage());
+        if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(R.layout.document__activity);
-        as = new AppSettings(this);
-        new ContextUtils(this).setAppLanguage(as.getLanguage());
+        _contextUtils.setAppLanguage(_appSettings.getLanguage());
         ButterKnife.bind(this);
-        if (as.isEditorStatusBarHidden()) {
+        if (_appSettings.isEditorStatusBarHidden()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
@@ -120,7 +124,7 @@ public class DocumentActivity extends AppCompatActivity {
             if (fileUri.toString().startsWith("content://")) {
                 new AlertDialog.Builder(this)
                         .setMessage("Sorry, but editing texts from content:// URIs is not supported yet. See https://github.com/gsantner/markor/issues/126 . Thanks!")
-                        .setNegativeButton("Go to issue", (dialogInterface, i) -> ContextUtils.get().openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/126"))
+                        .setNegativeButton("Go to issue", (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/126"))
                         .setPositiveButton("OK", null)
                         .setOnDismissListener((dialogInterface) -> finish())
                         .create().show();
@@ -128,7 +132,7 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         if (file != null) {
-            if (receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || AppSettings.get().isPreviewFirst() && file.exists() && file.isFile()) {
+            if (receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile()) {
                 showPreview(null, file);
             } else {
                 showTextEditor(null, file, fileIsFolder);
@@ -141,7 +145,6 @@ public class DocumentActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.document__menu, menu);
-        ContextUtils cu = ContextUtils.get();
         String frag = getCurrentVisibleFragment() != null ? getCurrentVisibleFragment().getFragmentTag() : null;
         frag = frag == null ? "" : frag;
 
@@ -149,8 +152,8 @@ public class DocumentActivity extends AppCompatActivity {
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(frag.equals(DocumentPreviewFragment.FRAGMENT_TAG));
 
-        cu.tintMenuItems(menu, true, Color.WHITE);
-        cu.setSubMenuIconsVisiblity(menu, true);
+        _contextUtils.tintMenuItems(menu, true, Color.WHITE);
+        _contextUtils.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
 

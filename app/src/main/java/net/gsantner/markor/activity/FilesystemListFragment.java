@@ -89,15 +89,10 @@ public class FilesystemListFragment extends BaseFragment {
     private ActionMode _actionMode;
     private File _currentDir;
     private File _rootDir;
-    private Sectionizer<File> _sectionizer = new Sectionizer<File>() {
-        @Override
-        public String getSectionTitleForItem(File instance) {
-            if (instance != null) {
-                return instance.isDirectory() ? getString(R.string.folders) : getString(R.string.files);
-            }
-            return getString(R.string.file);
-        }
-    };
+    private Sectionizer<File> _sectionizer = fileObj -> (fileObj == null
+            ? getString(R.string.file)
+            : (getString(fileObj.isDirectory() ? R.string.folders : R.string.files))
+    );
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
