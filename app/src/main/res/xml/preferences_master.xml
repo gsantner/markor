@@ -11,21 +11,6 @@
     <PreferenceScreen
         android:icon="@drawable/ic_file_white_24dp"
         android:title="@string/main_view">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_visibility_off_black_24dp"
-            android:key="@string/pref_key__is_overview_statusbar_hidden"
-            android:summary="@string/pref_summary__is_statusbar_hidden"
-            android:title="@string/pref_title__is_statusbar_hidden" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="@drawable/ic_settings_white_24dp"
-            android:key="@string/pref_key__show_settings_option_in_main_toolbar"
-            android:summary="@string/pref_show_settings_option_in_main_toolbar"
-            android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
-
-
         <PreferenceCategory android:title="@string/files_and_folders">
             <Preference
                 android:icon="@drawable/ic_save_black_24dp"
@@ -58,6 +43,22 @@
                 android:key="@string/pref_key__is_preview_first"
                 android:title="@string/open_preview_when_open_documents" />
 
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/more">
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_visibility_off_black_24dp"
+                android:key="@string/pref_key__is_overview_statusbar_hidden"
+                android:summary="@string/pref_summary__is_statusbar_hidden"
+                android:title="@string/pref_title__is_statusbar_hidden" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_settings_white_24dp"
+                android:key="@string/pref_key__show_settings_option_in_main_toolbar"
+                android:summary="@string/pref_show_settings_option_in_main_toolbar"
+                android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
         </PreferenceCategory>
     </PreferenceScreen>
 

@@ -74,18 +74,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private boolean _doubleBackToExitPressedOnce;
     private MenuItem _lastBottomMenuItem;
 
+    private AppSettings _appSettings;
+    private ActivityUtils _contextUtils;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppSettings _as = new AppSettings(this);
-        ContextUtils _cu = new ContextUtils(this);
-        _cu.setAppLanguage(AppSettings.get().getLanguage());
-        if (_as.isOverviewStatusBarHidden()) {
+        _appSettings = new AppSettings(this);
+        _contextUtils = new ActivityUtils(this);
+        _contextUtils.setAppLanguage(_appSettings.getLanguage());
+        if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        if (!_as.isLoadLastDirectoryAtStartup()) {
-            _as.setLastOpenedDirectory(null);
+        if (!_appSettings.isLoadLastDirectoryAtStartup()) {
+            _appSettings.setLastOpenedDirectory(null);
         }
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
@@ -94,21 +97,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         optShowRate();
 
         try {
-            if (_as.isAppCurrentVersionFirstStart(true)) {
+            if (_appSettings.isAppCurrentVersionFirstStart(true)) {
                 SimpleMarkdownParser smp = SimpleMarkdownParser.get().setDefaultSmpFilter(SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 String html = "";
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW, SimpleMarkdownParser.FILTER_CHANGELOG);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-
                 ActivityUtils _au = new ActivityUtils(this);
                 _au.showDialogWithHtmlTextView(R.string.licenses, html);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         // Setup viewpager
         removeShiftMode(_bottomNav);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(() -> new ActivityUtils(MainActivity.this).showRateOnGplayDialog())
+                .setFeedbackAction(() -> new ActivityUtils(this).showRateOnGplayDialog())
                 .build().count().showRequest();
     }
 
@@ -157,21 +157,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        ContextUtils cu = ContextUtils.get();
-        AppSettings as = AppSettings.get();
         getMenuInflater().inflate(R.menu.main__menu, menu);
 
-        menu.findItem(R.id.action_settings).setVisible(as.isShowSettingsOptionInMainToolbar());
+        menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        cu.tintMenuItems(menu, true, Color.WHITE);
-        cu.setSubMenuIconsVisiblity(menu, true);
+        _contextUtils.tintMenuItems(menu, true, Color.WHITE);
+        _contextUtils.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (AppSettings.get().isRecreateMainRequired()) {
+        if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
             Intent intent = getIntent();
             overridePendingTransition(0, 0);
@@ -201,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (action == null ? "" : action) {
                 case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
-                    File rootDir = AppSettings.get().getNotebookDirectory();
+                    File rootDir = _appSettings.getNotebookDirectory();
                     if (currentDir.equals(rootDir)) {
                         _toolbar.setTitle(R.string.app_name);
                     } else {
@@ -234,11 +232,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.fab_add_new_item: {
                     Intent intent = new Intent(this, DocumentActivity.class);
                     if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
-                        File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
-                                .getCurrentDir();
+                        File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
                         intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
-                        intent.putExtra(DocumentIO.EXTRA_PATH, AppSettings.get().getNotebookDirectory());
+                        intent.putExtra(DocumentIO.EXTRA_PATH, _appSettings.getNotebookDirectory());
                     }
                     intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
                     startActivity(intent);
@@ -249,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void setupAppearancePreferences() {
-        int color = ContextCompat.getColor(this, AppSettings.get().isDarkThemeEnabled()
+        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
                 ? R.color.dark__background : R.color.light__background);
         _viewPager.getRootView().setBackgroundColor(color);
     }
@@ -355,13 +352,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 case R.id.nav_quicknote: {
                     if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getQuickNoteFile(), false, false);
+                        fragment = DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, false);
                     }
                     break;
                 }
                 case R.id.nav_todo: {
                     if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(AppSettings.get().getTodoFile(), false, false);
+                        fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
                     }
                     break;
                 }
