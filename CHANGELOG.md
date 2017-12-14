@@ -1,3 +1,8 @@
+### v0.3.0
+- New project icon
+- Settings ordered in subscreens
+- Additional syntax information
+
 ### v0.2.5
 - Improve highlighter performance
 - Improve default highlighter settings
