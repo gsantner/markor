@@ -20,10 +20,12 @@ import java.util.Locale;
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends AppSettingsBase {
     private final String _themeDarkResStr;
+    private final String _themeLightResStr;
 
     public AppSettings(Context _context) {
         super(_context);
-        _themeDarkResStr = rstr(R.string.app_theme_light);
+        _themeDarkResStr = rstr(R.string.app_theme_dark);
+        _themeLightResStr = rstr(R.string.app_theme_light);
     }
 
     public static AppSettings get() {
@@ -31,7 +33,7 @@ public class AppSettings extends AppSettingsBase {
     }
 
     public boolean isDarkThemeEnabled() {
-        return getString(R.string.pref_key__app_theme, _themeDarkResStr).equals(_themeDarkResStr);
+        return getString(R.string.pref_key__app_theme, _themeLightResStr).equals(_themeDarkResStr);
     }
 
     public int getBackgroundColor() {
