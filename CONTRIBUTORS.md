@@ -24,3 +24,5 @@ Where:
 * **[Marcus Vinicius Santos](https://about.me/marcusvsantos)**<br/>~° Brazilian Portuguese translation
 * **[Mohammed Belkacem](https://github.com/belkacem77)**<br/>~° Kabyle translation
 * **[kRkk](https://github.com/kRkk)**<br/>~° Polish translation
+* **[Dugite Code](https://github.com/dugite-code)**<br/>~° Artwork
+
