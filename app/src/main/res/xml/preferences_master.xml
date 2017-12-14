@@ -187,7 +187,7 @@
     <!-- Most important settings -->
     <PreferenceCategory android:title="@string/general">
         <ListPreference
-            android:defaultValue="@string/app_theme_dark"
+            android:defaultValue="@string/app_theme_light"
             android:dialogTitle="@string/theme"
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"

@@ -23,7 +23,7 @@ public class AppSettings extends AppSettingsBase {
 
     public AppSettings(Context _context) {
         super(_context);
-        _themeDarkResStr = rstr(R.string.app_theme_dark);
+        _themeDarkResStr = rstr(R.string.app_theme_light);
     }
 
     public static AppSettings get() {
