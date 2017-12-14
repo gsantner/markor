@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings">Configurações</string>
-    <string name="light">Claro</string>
+    <string name="light">Luz</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
     <string name="confirm_delete_description">Você realmente deseja excluir essa %s?</string>
-    <string name="confirm_overwrite">Confirmar sobrescrever</string>
+    <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
     <string name="confirm_overwrite_description">O arquivo já existe. Sobrescrever?</string>
+    <string name="browse_filesystem">Navegar no SD</string>
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
-    <string name="navigate_up_folder">Retornar à pasta anterior</string>
-    <string name="folder_name_hint">Introduza o nome da sua pasta</string>
+    <string name="folder_name_hint">Nomear pasta</string>
     <string name="create_folder">Criar pasta</string>
-    <string name="create_note">Criar nota</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
 
@@ -29,8 +28,7 @@
     <string name="share">Compartilhar</string>
     <string name="search">Procurar</string>
     <string name="preview">Pré-visualização</string>
-    <string name="app_settings">Configurações do aplicativo</string>
-    <string name="editor_settings">Configurações do editor</string>
+    <string name="editor">Editor</string>
     <string name="folders">Pastas</string>
     <string name="files">Arquivos</string>
     <string name="document_one">Documento</string>
@@ -38,7 +36,6 @@
     <string name="share_html__mime_plaintext">HTML (como texto simples)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Lembrar última pasta ao iniciar</string>
     <string name="document_editor_font">Fonte das notas</string>
     <string name="theme">Tema</string>
     <string name="open_preview_when_open_documents">Pré-visualização ao abrir notas</string>
@@ -47,17 +44,10 @@
     <string name="file">Arquivo</string>
     <string name="image">Imagem</string>
     <string name="pref_title__font_size">Tamanho da fonte</string>
-    <string name="show_markdown_shortcuts_bar">Mostrar atalhos de Markdown</string>
-    <string name="markdown_syntax_highlighting">Realce de sintaxe Markdown</string>
-    <string name="pref_title__highlighting_delay">Atraso de milissegundos para atualização de realce</string>
-    <string name="pref_title__highlighting_delay_summary">Valores mais altos aliviam a bateria</string>
-    <string name="pref_title__smart_shortcuts">Atalhos de colchetes inteligentes</string>
-    <string name="pref_title__smart_shortcuts_summary">Se o texto for selecionado, {}, [] e () irá rodear a seleção</string>
     <string name="render_for_right_to_left_languages">Renderizar para línguas de escrita da direita à esquerda</string>
     <string name="error_cannot_create_notebook_dir">Erro: Impossível criar pasta de becape</string>
 
     <string name="last_modified">Últimas modificações: %s</string>
-    <string name="number_of_files">Número de arquivos: %d</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
     <string name="create">Criar</string>
@@ -67,7 +57,7 @@
 
     <string name="pref_summary__is_statusbar_hidden">Esconder barra de tarefas nesta visualização</string>
     <string name="pref_title__is_statusbar_hidden">Esconder barra de status</string>
-    
+
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
     <string name="insert_link">Inserir Link</string>
@@ -76,14 +66,15 @@
     <!-- About screen -->
     <string name="contributors">Colaboradores</string>
     <string name="select_storage_folder">Escolher pasta de armazenamento</string>
+    <string name="notebook_directory">Pasta de notas</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de atualizações</string>
     <string name="more_information">Mais informações</string>
     <string name="show_app_license">Exibir licença</string>
     <string name="show_third_party_licenses">Exibir licenças de 3os</string>
-    <string name="pref_desc__language">Mudar linguagem do aplicativo. Reinicie o aplicativo para aplicar a alteração</string>
-    <string name="pref_title__language">Linguagem</string>
-    <string name="error_storage_permission">Necessário permissão para armazenamento de documentos</string>
+    <string name="pref_desc__language">Mudar língua do aplicativo. Reiniciar para aplicar</string>
+    <string name="pref_title__language">Língua</string>
+    <string name="error_storage_permission">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
     <string name="open_with">Abrir com</string>
     <string name="sort">Ordenar</string>
     <string name="sort_by_date">Ordenar por Data</string>
@@ -93,15 +84,14 @@
     <string name="contribute">Contribuir</string>
     <string name="donate">Doar</string>
     <string name="project_page">Página do projeto</string>
-    <string name="press_again_to_exit">Pressione "volta" novamente para sair</string>
+    <string name="press_again_to_exit">Pressione \"volta\" novamente para sair</string>
     <string name="exit">Sair</string>
     <string name="undo">Desfazer</string>
     <string name="redo">Refazer</string>
     <string name="more">Mais</string>
     <string name="notebook">Caderno</string>
     <string name="help">Ajuda</string>
-    <string name="special_documents">Documentos especiais</string>
-    <string name="todo_list">Lista de Tarefas </string>
+    <string name="todo_list">Lista de Tarefas</string>
     <string name="task">Tarefa</string>
     <string name="category">Categoria</string>
     <string name="context">Contexto</string>
@@ -109,6 +99,7 @@
     <string name="priority">Prioridade</string>
     <string name="history">História</string>
     <string name="sync">Sincronização</string>
+    <string name="browse_somethingsingular_or_add">Adicionar %s ou escolher as já existente</string>
     <string name="save">Salvar</string>
     <string name="update">Atualização</string>
     <string name="clear">Limpar</string>
@@ -116,5 +107,46 @@
     <string name="current_date">Data atual</string>
     <string name="archive">Arquivo</string>
     <string name="add_task">Adicionar tarefa</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">O documento a ser carregado e guardado como \"%s\"</string>
+    <string name="add_something">Adicionar %s</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">O documento a ser carregado e guardado como \"%s"</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Exibir opções de edição no topo da tela principal</string>
+    <string name="add_shortcut_to_launcher_homescreen">Criar atalho</string>
+    <string name="file_not_in_save_path_do_import">O arquivo não está no diretório de notas. Quer copiá-lo para lá? Esta ação sobrescreverá os arquivos existentes.</string>
+    <string name="files_and_folders">Arquivos e pastas</string>
+    <string name="document_browser">Navegador de documentos</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Criar nota</string>
+    <string name="special_documents" needed="false">Documentos especiais</string>
+    <string name="navigate_up_folder" needed="false">Retornar à pasta anterior</string>
+    <string name="app_settings" needed="false">Configurações do aplicativo</string>
+    <string name="editor_settings" needed="false">Configurações do editor</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Lembrar última pasta ao iniciar</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Mostrar atalhos de Markdown</string>
+    <string name="markdown_syntax_highlighting" needed="false">Realce de sintaxe Markdown</string>
+    <string name="pref_title__highlighting_delay" needed="false">Atraso de milissegundos para atualização de realce</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Valores mais altos aliviam a bateria</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Atalhos inteligentes de parêntesis</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Se selecionado, (), {} e [] circundarão as seleções</string>
+    <string name="number_of_files" needed="false">Número de arquivos: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Global</string>
+    <string name="main_view">Tela principal</string>
+    <string name="load_last_directory_at_startup">Lembrar da última pasta</string>
+    <string name="highlighting_delay">Realçar delongas</string>
+    <string name="highlighting_delay_summary">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
+    <string name="highlighting_enabled_summary">Controlar se o texto inserido será realçado ou não</string>
+    <string name="editor_font_size_summary">Controlar o tamanho da fonte do editor</string>
+    <string name="load_last_directory_at_startup__summary">Abrir última pasta usada ao iniciar</string>
+    <string name="format">Formatar</string>
+    <string name="contexts">Contextos</string>
+    <string name="categories">Categorias</string>
+    <string name="none">Nenhum</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Sublinhar ou não respectivos códigos de cores HEX</string>
+    <string name="hexcolor_underline">Sublinhar códigos HEX de cor</string>
+    <string name="append_contexts_and_projects">Inserir contextos e projetos</string>
+    <string name="highlight_line_ending">Realçar o fim da linha</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
+    <string name="general">Geral</string>
 </resources>
