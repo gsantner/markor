@@ -141,7 +141,7 @@
     <string name="text_module">Textmodul</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
     <string name="highlighting_delay_summary">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
-    <string name="highlighting_enabled_summary">Ska inskriven text ska vara syntaxfärgad?</string>
+    <string name="highlighting_enabled_summary">Ska inskriven text vara syntaxfärgad?</string>
     <string name="editor_font_size_summary">Ändra typsnittsstorlek i redigeraren</string>
     <string name="textmodules_bar_summary">Visa verktyg för att infoga vanliga textmoduler</string>
     <string name="load_last_directory_at_startup__summary">Ladda senaste öppnade mapp vid start</string>
