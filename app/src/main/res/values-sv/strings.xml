@@ -100,7 +100,7 @@
     <string name="history">Historik</string>
     <string name="sync">Synka</string>
     <string name="browse_somethingsingular_or_add">Lägg till %s eller bläddra bland befintliga</string>
-    <string name="search_hint__add_or_custom">Sök / Custom</string>
+    <string name="search_hint__add_or_custom">Sök / Lägg till</string>
     <string name="save">Spara</string>
     <string name="update">Uppdatera</string>
     <string name="clear">Rensa</string>
