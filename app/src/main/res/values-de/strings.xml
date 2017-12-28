@@ -112,7 +112,7 @@
     <string name="context">Kontext</string>
     <string name="list">Liste</string>
     <string name="priority">Priorität</string>
-    <string name="archive">Archiv</string>
+    <string name="archive">Archivieren</string>
     <string name="history">Verlauf</string>
     <string name="update">Aktualisieren</string>
     <string name="due_date">Fälligkeits-Datum</string>
@@ -168,4 +168,5 @@
     <string name="resources">Ressourcen</string>
     <string name="line_spacing">Zeilenabstand</string>
     <string name="line_spacing_in_percent">Abstand zwischen Zeilen in Prozent</string>
+    <string name="archive_does_move_done_tasks">Erledigte Aufgaben in angegebene Datei im selben Ordner verschieben</string>
 </resources>

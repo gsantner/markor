@@ -199,4 +199,12 @@ public class AppSettings extends AppSettingsBase {
     public float getEditorLineSpacing() {
         return getInt(R.string.pref_key__editor_line_spacing, 100) / 100f;
     }
+
+    public void setLastTodoUsedArchiveFilename(String value){
+        setString(R.string.pref_key__todotxt__last_used_archive_filename, value);
+    }
+
+    public String getLastTodoUsedArchiveFilename(){
+        return getString(R.string.pref_key__todotxt__last_used_archive_filename, "todo.archive.txt");
+    }
 }

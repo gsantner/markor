@@ -7,6 +7,7 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -18,6 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchOrCustomTextDialogCreator {
+    public static void showSttArchiveDialog(Activity activity, Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+        List<String> highlightedData = new ArrayList<>();
+        List<String> availableData = new ArrayList<>();
+        availableData.add("archive.txt");
+        availableData.add("done.txt");
+        availableData.add("todo.done.txt");
+        availableData.add("todo.archive.txt");
+        String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
+        if (!TextUtils.isEmpty(hl)){
+            highlightedData.add(hl);
+            if (!availableData.contains(hl)){
+                availableData.add(hl);
+            }
+        }
+
+        dopt.data = availableData;
+        dopt.highlightData = highlightedData;
+        dopt.titleText = R.string.archive;
+        dopt.searchHintText = R.string.search_hint__add_or_custom;
+        dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);

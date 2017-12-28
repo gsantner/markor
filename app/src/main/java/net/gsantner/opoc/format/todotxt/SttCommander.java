@@ -44,7 +44,8 @@ public class SttCommander {
     public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(?:\\@)(\\w+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
-    public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
+    public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
+    public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)((?:[a-z]+):(?:[a-z0-9_-]+))");
     public static final Pattern PATTERN_PRIORITY_ANY = Pattern.compile("(?:^|\\n)\\(([A-Za-z])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_A = Pattern.compile("(?:^|\\n)\\(([Aa])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_B = Pattern.compile("(?:^|\\n)\\(([Bb])\\)\\s");
