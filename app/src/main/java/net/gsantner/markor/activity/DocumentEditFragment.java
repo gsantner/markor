@@ -46,6 +46,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     public static boolean showPreviewOnBack = false;
 
     public static DocumentEditFragment newInstance(Document document) {
@@ -100,6 +101,12 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         }
         _document = loadDocument();
         loadDocumentIntoUi();
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
+            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
+            if (cursor >= 0 && cursor < _hlEditor.length()){
+                _hlEditor.setSelection(cursor);
+            }
+        }
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
         AppSettings appSettings = new AppSettings(_context);
@@ -111,7 +118,11 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     public void onResume() {
         super.onResume();
         checkReloadDisk();
+        int cursor = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
+        if (cursor >= 0 && cursor < _hlEditor.length()){
+            _hlEditor.setSelection(cursor);
+        }
     }
 
     @Override
@@ -271,6 +282,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveDocument();
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         super.onSaveInstanceState(outState);
     }
 
