@@ -102,7 +102,9 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         loadDocumentIntoUi();
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
+        AppSettings appSettings = new AppSettings(_context);
         _hlEditor.clearFocus();
+        _hlEditor.setLineSpacing(0, appSettings.getEditorLineSpacing());
     }
 
     @Override

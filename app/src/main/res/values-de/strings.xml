@@ -166,4 +166,6 @@
     <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
     <string name="general">Allgemein</string>
     <string name="resources">Ressourcen</string>
+    <string name="line_spacing">Zeilenabstand</string>
+    <string name="line_spacing_in_percent">Abstand zwischen Zeilen in Prozent</string>
 </resources>
