@@ -169,4 +169,5 @@
     <string name="resources">Resources</string>
     <string name="line_spacing_in_percent">Space between lines in percent</string>
     <string name="line_spacing">Line Spacing</string>
+    <string name="archive_does_move_done_tasks">Move done tasks to specified file in same folder</string>
 </resources>

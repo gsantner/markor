@@ -49,6 +49,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_local_offer_white_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
             {R.drawable.ic_date_range_white_24dp, 4},
+           // {R.drawable.ic_archive_black_24dp, 5},
             //{R.drawable.ic_add_white_24dp, 5},
             //{R.drawable.ic_delete_white_24dp, 6},
     };
@@ -58,6 +59,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "add_project",
             "set_priority",
             "insert_date",
+            "archive_done_tasks",
             //"add_task",
             //"delete_task"
     };
@@ -123,6 +125,14 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     return;
                 }
                 case "delete_task": {
+                    return;
+                }
+                case "archive_done_tasks": {
+                    SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
+                        /*int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
+                        replaceOrigTaskWithTaskCallback.callback(origTask);*/
+                    });
                     return;
                 }
             }
