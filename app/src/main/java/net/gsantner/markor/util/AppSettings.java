@@ -195,4 +195,8 @@ public class AppSettings extends AppSettingsBase {
         }
         return value != BuildConfig.VERSION_CODE;
     }
+
+    public float getEditorLineSpacing() {
+        return getInt(R.string.pref_key__editor_line_spacing, 100) / 100f;
+    }
 }

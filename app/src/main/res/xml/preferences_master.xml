@@ -92,6 +92,15 @@
             android:title="@string/pref_title__font_size"
             app:min="1" />
 
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="100"
+            android:icon="@drawable/ic_format_line_spacing_black_24dp"
+            android:key="@string/pref_key__editor_line_spacing"
+            android:max="300"
+            android:summary="@string/line_spacing_in_percent"
+            android:title="@string/line_spacing"
+            app:min="50" />
+
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
                 android:defaultValue="true"

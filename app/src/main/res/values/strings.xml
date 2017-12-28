@@ -167,4 +167,6 @@
     <string name="use_different_fonttype_slow_down">Make use of a different font type. Changing the font type dynamically makes an impact on the performance of the app.</string>
     <string name="general">General</string>
     <string name="resources">Resources</string>
+    <string name="line_spacing_in_percent">Space between lines in percent</string>
+    <string name="line_spacing">Line Spacing</string>
 </resources>
