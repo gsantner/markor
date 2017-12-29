@@ -170,4 +170,9 @@
     <string name="line_spacing_in_percent">Space between lines in percent</string>
     <string name="line_spacing">Line Spacing</string>
     <string name="archive_does_move_done_tasks">Move done tasks to specified file in same folder</string>
+    <string name="key_page_up" translatable="false">Page Up</string>
+    <string name="key_page_down" translatable="false">Page Down</string>
+    <string name="key_pos_1" translatable="false">Pos 1</string>
+    <string name="key_pos_end" translatable="false">Pos End</string>
+    <string name="text_navigation">Text Navigation</string>
 </resources>

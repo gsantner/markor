@@ -28,4 +28,11 @@
         <item>25</item>
         <item>30</item>
     </string-array>
+
+    <string-array name="textmoduleactions_navigation" translatable="false">
+        <item>@string/key_page_up</item>
+        <item>@string/key_page_down</item>
+        <item>@string/key_pos_1</item>
+        <item>@string/key_pos_end</item>
+    </string-array>
 </resources>
