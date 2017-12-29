@@ -103,7 +103,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         loadDocumentIntoUi();
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
             int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()){
+            if (cursor >= 0 && cursor < _hlEditor.length()) {
                 _hlEditor.setSelection(cursor);
             }
         }
@@ -120,7 +120,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         checkReloadDisk();
         int cursor = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
-        if (cursor >= 0 && cursor < _hlEditor.length()){
+        if (cursor >= 0 && cursor < _hlEditor.length()) {
             _hlEditor.setSelection(cursor);
         }
     }
@@ -318,7 +318,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
 
     private void checkReloadDisk() {
         Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
-        if (!cmp.getContent().equals(_document.getContent())) {
+        if (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent())) {
             _document = cmp;
             loadDocument();
             loadDocumentIntoUi();

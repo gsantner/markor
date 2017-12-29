@@ -118,6 +118,12 @@ public class FilesystemDialog extends DialogFragment
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
+        if (_buttonCancel == null) {
+            ButterKnife.bind(this, root);
+            if (_buttonCancel == null) {
+                System.err.println("Error: at " + getClass().getName() + " :: Could not bind UI");
+            }
+        }
 
         _buttonCancel.setVisibility(_dopt.cancelButtonEnable ? View.VISIBLE : View.GONE);
         _buttonCancel.setTextColor(rcolor(_dopt.accentColor));
