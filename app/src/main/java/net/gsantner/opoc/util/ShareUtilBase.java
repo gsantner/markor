@@ -150,7 +150,7 @@ public abstract class ShareUtilBase {
             webView.destroyDrawingCache();
 
             return bitmap;
-        } catch (Exception e) {
+        } catch (Exception | OutOfMemoryError e) {
             e.printStackTrace();
             return null;
         }

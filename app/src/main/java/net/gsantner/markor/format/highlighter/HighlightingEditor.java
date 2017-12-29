@@ -99,7 +99,12 @@ public class HighlightingEditor extends AppCompatEditText {
     private void highlightWithoutChange(Editable editable) {
         if (_hlEnabled) {
             _modified = false;
-            _hl.run(this, editable);
+            try {
+                _hl.run(this, editable);
+            } catch (Exception e) {
+                // In no case ever let highlighting crash the editor
+                e.printStackTrace();
+            }
             _modified = true;
         }
     }

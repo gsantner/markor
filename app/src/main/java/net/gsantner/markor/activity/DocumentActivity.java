@@ -120,7 +120,6 @@ public class DocumentActivity extends AppCompatActivity {
             if (receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH) != null) {
                 fileUri = Uri.fromFile(new File(receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH)));
             }
-            file = new File(fileUri.getPath());
             if (fileUri.toString().startsWith("content://")) {
                 new AlertDialog.Builder(this)
                         .setMessage("Sorry, but editing texts from content:// URIs is not supported yet. See https://github.com/gsantner/markor/issues/126 . Thanks!")
@@ -128,6 +127,8 @@ public class DocumentActivity extends AppCompatActivity {
                         .setPositiveButton("OK", null)
                         .setOnDismissListener((dialogInterface) -> finish())
                         .create().show();
+            } else{
+                file = new File(fileUri.getPath());
             }
         }
 

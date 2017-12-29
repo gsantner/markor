@@ -13,17 +13,19 @@ import java.util.regex.Matcher;
 public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        try {
+            if (end - start == 1
+                    && start < source.length()
+                    && dstart <= dest.length()) {
+                char newChar = source.charAt(start);
 
-        if (end - start == 1
-                && start < source.length()
-                && dstart <= dest.length()) {
-            char newChar = source.charAt(start);
-
-            if (newChar == '\n') {
-                return autoIndent(source, dest, dstart, dend);
+                if (newChar == '\n') {
+                    return autoIndent(source, dest, dstart, dend);
+                }
             }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            e.printStackTrace();
         }
-
         return source;
     }
 
