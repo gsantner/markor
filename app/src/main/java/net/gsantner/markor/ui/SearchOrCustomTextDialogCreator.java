@@ -16,9 +16,22 @@ import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SearchOrCustomTextDialogCreator {
+    public static void showTextNavigationDialog(Activity activity, Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+        String[] actions = activity.getResources().getStringArray(R.array.textmoduleactions_navigation);
+        dopt.data = new ArrayList<>(Arrays.asList(actions));
+        dopt.highlightData = new ArrayList<>();
+        dopt.titleText = R.string.text_navigation;
+        dopt.isSearchEnabled = false;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void showSttArchiveDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -30,9 +43,9 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add("todo.done.txt");
         availableData.add("todo.archive.txt");
         String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
-        if (!TextUtils.isEmpty(hl)){
+        if (!TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
-            if (!availableData.contains(hl)){
+            if (!availableData.contains(hl)) {
                 availableData.add(hl);
             }
         }

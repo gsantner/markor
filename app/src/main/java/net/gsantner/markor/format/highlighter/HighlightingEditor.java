@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 
 import net.gsantner.markor.util.AppSettings;
 
@@ -107,6 +108,11 @@ public class HighlightingEditor extends AppCompatEditText {
             }
             _modified = true;
         }
+    }
+
+    public void pressKeyOnce(int keyEvent_KEYCODE_SOMETHING) {
+        dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));
+        dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyEvent_KEYCODE_SOMETHING, 0));
     }
 
     //
