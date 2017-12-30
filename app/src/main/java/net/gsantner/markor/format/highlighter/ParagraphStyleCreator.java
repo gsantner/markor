@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -9,6 +9,6 @@ import android.text.style.ParagraphStyle;
 
 import java.util.regex.Matcher;
 
-public interface SpanCreatorP {
+public interface ParagraphStyleCreator {
     ParagraphStyle create(Matcher matcher, int iM);
 }

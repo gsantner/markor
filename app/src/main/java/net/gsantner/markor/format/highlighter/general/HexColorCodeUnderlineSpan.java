@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -8,12 +8,12 @@ package net.gsantner.markor.format.highlighter.general;
 import android.graphics.Color;
 import android.text.ParcelableSpan;
 
-import net.gsantner.markor.format.highlighter.SpanCreator;
+import net.gsantner.markor.format.highlighter.ParcelableSpanCreator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HexColorCodeUnderlineSpan implements SpanCreator {
+public class HexColorCodeUnderlineSpan implements ParcelableSpanCreator {
     public static final Pattern PATTERN = Pattern.compile("(?:\\s|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|$)");
 
     public ParcelableSpan create(Matcher matcher, int iM) {

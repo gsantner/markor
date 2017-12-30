@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -15,10 +15,6 @@ import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
-
-/**
- * Created by gregor on 11.09.17.
- */
 
 public class PermissionChecker {
 

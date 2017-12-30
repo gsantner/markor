@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.util;
 
 import android.content.Context;
@@ -13,10 +18,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.ShareUtilBase;
-
-/**
- * Created by gregor on 02.12.17.
- */
 
 public class ShareUtil extends ShareUtilBase {
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";

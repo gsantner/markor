@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -16,11 +16,11 @@ import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import net.gsantner.markor.format.highlighter.SpanCreator;
+import net.gsantner.markor.format.highlighter.ParcelableSpanCreator;
 
 import java.util.regex.Matcher;
 
-public class MarkdownHeaderSpanCreator implements SpanCreator {
+public class MarkdownHeaderSpanCreator implements ParcelableSpanCreator {
     private static final Character POUND_SIGN = '#';
     private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
     private static final float STANDARD_PROPORTION_MAX = 1.80f;

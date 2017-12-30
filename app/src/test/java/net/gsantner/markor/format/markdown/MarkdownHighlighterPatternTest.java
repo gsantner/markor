@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -58,14 +58,14 @@ public class MarkdownHighlighterPatternTest {
                 {MarkdownHighlighterPattern.QUOTATION, "> asdfa > sdfas\n", 1},
                 {MarkdownHighlighterPattern.QUOTATION, ">> sdfas", 1},
                 {MarkdownHighlighterPattern.QUOTATION, "\n> sdfas", 1},
-                {MarkdownHighlighterPattern.LIST, "* asdfasdfas\n* sadfasdfasdf", 2},
-                {MarkdownHighlighterPattern.LIST, "* asdfa > sdfas\n", 1},
-                {MarkdownHighlighterPattern.LIST, "\n* sdfas", 1},
-                {MarkdownHighlighterPattern.ORDEREDLIST, "1. asdfasdfas\n2. sadfasdfasdf", 2},
-                {MarkdownHighlighterPattern.ORDEREDLIST, "1. asdfa 2. sdfas\n", 1},
-                {MarkdownHighlighterPattern.ORDEREDLIST, "\n99. sdfas", 1},
-                {MarkdownHighlighterPattern.LIST, "- [ ] item 1", 1},
-                {MarkdownHighlighterPattern.LIST, "- [x] item 2", 1},
+                {MarkdownHighlighterPattern.LIST_UNORDERED, "* asdfasdfas\n* sadfasdfasdf", 2},
+                {MarkdownHighlighterPattern.LIST_UNORDERED, "* asdfa > sdfas\n", 1},
+                {MarkdownHighlighterPattern.LIST_UNORDERED, "\n* sdfas", 1},
+                {MarkdownHighlighterPattern.LIST_ORDERED, "1. asdfasdfas\n2. sadfasdfasdf", 2},
+                {MarkdownHighlighterPattern.LIST_ORDERED, "1. asdfa 2. sdfas\n", 1},
+                {MarkdownHighlighterPattern.LIST_ORDERED, "\n99. sdfas", 1},
+                {MarkdownHighlighterPattern.LIST_UNORDERED, "- [ ] item 1", 1},
+                {MarkdownHighlighterPattern.LIST_UNORDERED, "- [x] item 2", 1},
                 {MarkdownHighlighterPattern.BOLD, "**s**", 1},
                 {MarkdownHighlighterPattern.BOLD, "****s**", 1},
                 {MarkdownHighlighterPattern.BOLD, "**s****", 1},
@@ -93,7 +93,7 @@ public class MarkdownHighlighterPatternTest {
     public MarkdownHighlighterPatternTest(MarkdownHighlighterPattern pattern, String string, int foundCount) {
         this.string = string;
         this.foundCount = foundCount;
-        this.pattern = pattern.getPattern();
+        this.pattern = pattern.pattern;
     }
 
     @Test
