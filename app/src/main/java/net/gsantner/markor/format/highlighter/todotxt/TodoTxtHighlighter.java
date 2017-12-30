@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -22,7 +22,7 @@ public class TodoTxtHighlighter extends Highlighter {
     public final Integer fontSize;
 
     public TodoTxtHighlighter() {
-        colors = new TodoTxtHighlighterColorsNeutral();
+        colors = new TodoTxtHighlighterColors();
         fontType = AppSettings.get().getFontFamily();
         fontSize = AppSettings.get().getFontSize();
     }

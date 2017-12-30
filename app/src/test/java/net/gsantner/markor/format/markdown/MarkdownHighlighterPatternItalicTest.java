@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -21,7 +21,7 @@ public class MarkdownHighlighterPatternItalicTest {
 
     @Before
     public void before() {
-        pattern = MarkdownHighlighterPattern.ITALICS.getPattern();
+        pattern = MarkdownHighlighterPattern.ITALICS.pattern;
     }
 
     @Test

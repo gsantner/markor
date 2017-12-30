@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -90,10 +90,10 @@ public abstract class Highlighter {
      *
      * @param editable      Text editable
      * @param pattern       The pattern to match
-     * @param creator       A SpanCreator for ParcelableSpan
+     * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatches(final Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+    protected void createSpanForMatches(final Editable editable, final Pattern pattern, final ParcelableSpanCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -117,10 +117,10 @@ public abstract class Highlighter {
      *
      * @param editable      Text editable
      * @param pattern       The pattern to match
-     * @param creator       A SpanCreator for ParcelableSpan
+     * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatchesP(final Editable editable, final Pattern pattern, final SpanCreatorP creator, int... groupsToMatch) {
+    protected void createSpanForMatchesP(final Editable editable, final Pattern pattern, final ParagraphStyleCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -169,11 +169,11 @@ public abstract class Highlighter {
         createSpanForMatches(editable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
-    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, final ParcelableSpanCreator creator, int... groupsToMatch) {
         createSpanForMatches(editable, pattern, creator, groupsToMatch);
     }
 
-    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreatorP creator, int... groupsToMatch) {
+    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final ParagraphStyleCreator creator, int... groupsToMatch) {
         createSpanForMatchesP(editable, pattern, creator, groupsToMatch);
     }
 }

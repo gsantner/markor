@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -38,7 +38,6 @@ import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
@@ -71,7 +70,7 @@ public class DocumentActivity extends AppCompatActivity {
     private MarkdownTextConverter _mdRenderer = new MarkdownTextConverter();
     private FragmentManager _fragManager;
     private Document _document;
-    
+
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
 
@@ -127,7 +126,7 @@ public class DocumentActivity extends AppCompatActivity {
                         .setPositiveButton("OK", null)
                         .setOnDismissListener((dialogInterface) -> finish())
                         .create().show();
-            } else{
+            } else {
                 file = new File(fileUri.getPath());
             }
         }

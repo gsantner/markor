@@ -1,13 +1,17 @@
+/*
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.format.highlighter.general;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.style.ParagraphStyle;
 
-import net.gsantner.markor.format.highlighter.SpanCreatorP;
+import net.gsantner.markor.format.highlighter.ParagraphStyleCreator;
 
 import java.util.regex.Matcher;
-
 
 public class FilledBackgroundParagraphSpan extends BackgroundParagraphSpan {
     private final int _color;
@@ -28,7 +32,7 @@ public class FilledBackgroundParagraphSpan extends BackgroundParagraphSpan {
     //
     //
 
-    public static class EverySecondLineSpanCreatorP implements SpanCreatorP {
+    public static class EverySecondLineSpanCreatorP implements ParagraphStyleCreator {
         private int _color;
 
         public EverySecondLineSpanCreatorP(int color) {

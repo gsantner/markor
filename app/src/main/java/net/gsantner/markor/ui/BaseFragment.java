@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package net.gsantner.markor.ui;
 
 import android.os.Bundle;

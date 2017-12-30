@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -25,7 +25,7 @@ public class MarkdownHighlighter extends Highlighter {
 
     public MarkdownHighlighter() {
         AppSettings as = AppSettings.get();
-        _colors = new MarkdownHighlighterColorsNeutral();
+        _colors = new MarkdownHighlighterColors();
         _fontType = as.getFontFamily();
         _fontSize = as.getFontSize();
         _highlightHexcolorEnabled = as.isHighlightingHexColorEnabled();
@@ -47,29 +47,29 @@ public class MarkdownHighlighter extends Highlighter {
             _profiler.restart("Header");
             createHeaderSpanForMatches(editable, MarkdownHighlighterPattern.HEADER, _colors.getHeaderColor());
             _profiler.restart("Link");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LINK.getPattern(), _colors.getLinkColor());
+            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LINK.pattern, _colors.getLinkColor());
             _profiler.restart("List");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST.getPattern(), _colors.getListColor());
+            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST_UNORDERED.pattern, _colors.getListColor());
             _profiler.restart("OrderedList");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.ORDEREDLIST.getPattern(), _colors.getListColor());
+            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST_ORDERED.pattern, _colors.getListColor());
             if (_highlightLineEnding) {
                 _profiler.restart("Double space ending - bgcolor");
-                createColorBackgroundSpan(editable, MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.getPattern(), _colors.getDoublespaceColor());
+                createColorBackgroundSpan(editable, MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, _colors.getDoublespaceColor());
             }
             _profiler.restart("Bold");
-            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.BOLD.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.BOLD.pattern, Typeface.BOLD);
             _profiler.restart("Italics");
-            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.ITALICS.getPattern(), Typeface.ITALIC);
+            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
             _profiler.restart("Quotation");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.QUOTATION.getPattern(), _colors.getQuotationColor());
+            createColorSpanForMatches(editable, MarkdownHighlighterPattern.QUOTATION.pattern, _colors.getQuotationColor());
             _profiler.restart("Strikethrough");
-            createSpanWithStrikeThroughForMatches(editable, MarkdownHighlighterPattern.STRIKETHROUGH.getPattern());
+            createSpanWithStrikeThroughForMatches(editable, MarkdownHighlighterPattern.STRIKETHROUGH.pattern);
             if (_highlightCodeChangeFont) {
                 _profiler.restart("Code - Font [MonoSpace]");
-                createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.CODE.getPattern());
+                createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.CODE.pattern);
             }
             _profiler.restart("Code - bgolor");
-            createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.getPattern(), _colors.getDoublespaceColor());
+            createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, _colors.getDoublespaceColor());
             if (_highlightHexcolorEnabled) {
                 _profiler.restart("RGB Color underline");
                 createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
@@ -85,7 +85,7 @@ public class MarkdownHighlighter extends Highlighter {
     }
 
     private void createHeaderSpanForMatches(Editable editable, MarkdownHighlighterPattern pattern, int headerColor) {
-        createSpanForMatches(editable, pattern.getPattern(), new MarkdownHeaderSpanCreator(this, editable, headerColor));
+        createSpanForMatches(editable, pattern.pattern, new MarkdownHeaderSpanCreator(this, editable, headerColor));
     }
 
     @Override

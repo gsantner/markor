@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -61,11 +61,11 @@ public class MarkdownAutoFormat implements InputFilter {
 
             if (iend < dest.length() - 1) {
                 // This is for any line that is not the first line in a file
-                Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString().substring(iend, dend));
+                Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
                 if (listMatcher.find()) {
                     return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
                 } else {
-                    Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString().substring(iend, dend));
+                    Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
                     if (m.find()) {
                         return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
                     } else {
@@ -78,11 +78,11 @@ public class MarkdownAutoFormat implements InputFilter {
         } else if (istart > -1) {
             return "";
         } else if (dest.length() > 1) {
-            Matcher listMatcher = MarkdownHighlighterPattern.LIST.getPattern().matcher(dest.toString());
+            Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString());
             if (listMatcher.find()) {
                 return Character.toString(dest.charAt(0)) + " ";
             } else {
-                Matcher m = MarkdownHighlighterPattern.ORDEREDLIST.getPattern().matcher(dest.toString());
+                Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString());
                 if (m.find()) {
                     return addNumericListItemIfNeeded(m.group(1));
                 } else {
