@@ -1,3 +1,8 @@
+### v0.3.1
+- Option for custom line height
+- Remember cursor position when switching away from app
+- Special keyboard actions (Page up, Tab,..)
+
 ### v0.3.0
 - New project icon
 - Settings ordered in subscreens
