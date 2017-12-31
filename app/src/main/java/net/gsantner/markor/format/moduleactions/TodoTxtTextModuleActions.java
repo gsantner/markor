@@ -50,7 +50,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_star_border_black_24dp, 3},
             {R.drawable.ic_date_range_white_24dp, 4},
             {R.drawable.ic_archive_black_24dp, 5},
-            {CommonTextModuleActions.ACTION_TEXT_NAVIGATION__ICON, 6}
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 6}
             //{R.drawable.ic_add_white_24dp, 5},
             //{R.drawable.ic_delete_white_24dp, 6},
     };
@@ -61,7 +61,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "set_priority",
             "insert_date",
             "archive_done_tasks",
-            CommonTextModuleActions.ACTION_TEXT_NAVIGATION,
+            CommonTextModuleActions.ACTION_SPECIAL_KEY,
             //"add_task",
             //"delete_task"
     };

@@ -20,14 +20,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchOrCustomTextDialogCreator {
-    public static void showTextNavigationDialog(Activity activity, Callback.a1<String> callback) {
+    public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
-        String[] actions = activity.getResources().getStringArray(R.array.textmoduleactions_navigation);
+        String[] actions = activity.getResources().getStringArray(R.array.textmoduleactions_press_key__text);
         dopt.data = new ArrayList<>(Arrays.asList(actions));
-        dopt.highlightData = new ArrayList<>();
-        dopt.titleText = R.string.text_navigation;
+
+        List<String> highlightedData = new ArrayList<>();
+        highlightedData.add(activity.getString(R.string.key_pos_1_document));
+        highlightedData.add(activity.getString(R.string.key_pos_end_document));
+
+        dopt.highlightData = highlightedData;
+        dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

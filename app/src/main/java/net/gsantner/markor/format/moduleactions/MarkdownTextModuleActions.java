@@ -194,7 +194,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
-            {R.drawable.format_link, 1}, {R.drawable.format_image, 2}
+            {R.drawable.format_link, 1}, {R.drawable.format_image, 2},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3}
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -207,7 +208,16 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         @Override
         public void onClick(View view) {
-            getAlertDialog(_action);
+            switch (_action) {
+                case 3: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                default: {
+                    getAlertDialog(_action);
+                    break;
+                }
+            }
         }
     }
 
