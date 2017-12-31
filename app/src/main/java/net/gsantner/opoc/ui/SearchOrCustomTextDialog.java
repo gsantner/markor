@@ -151,13 +151,15 @@ public class SearchOrCustomTextDialog {
         dialogBuilder.setView(linearLayout)
                 .setTitle(dopt.titleText)
                 .setOnCancelListener(null)
-                .setNegativeButton(dopt.cancelButtonText, null)
-                .setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
-                    dialogInterface.dismiss();
-                    if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
-                        dopt.callback.callback(searchEditText.getText().toString());
-                    }
-                });
+                .setNegativeButton(dopt.cancelButtonText, null);
+        if (dopt.isSearchEnabled) {
+            dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
+                dialogInterface.dismiss();
+                if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
+                    dopt.callback.callback(searchEditText.getText().toString());
+                }
+            });
+        }
 
         final AlertDialog dialog = dialogBuilder.create();
         listView.setOnItemClickListener((parent, view, position, id) -> {

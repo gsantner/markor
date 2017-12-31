@@ -169,4 +169,13 @@
     <string name="line_spacing">Zeilenabstand</string>
     <string name="line_spacing_in_percent">Abstand zwischen Zeilen in Prozent</string>
     <string name="archive_does_move_done_tasks">Erledigte Aufgaben in angegebene Datei im selben Ordner verschieben</string>
+    <string name="key_page_up">Vorherige Seite (Bild↑)</string>
+    <string name="key_page_down">Nächste Seite (Bild↓)</string>
+    <string name="key_pos_1">Zeilen-Start (Pos 1)</string>
+    <string name="key_pos_end">Zeilen-Ende (Ende)</string>
+    <string name="key_pos_1_document">Dokumenten Beginn</string>
+    <string name="key_pos_end_document">Dokumenten Ende</string>
+    <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
+    <string name="key_tab">Tabulator</string>
+    <string name="special_key">Spezielle Tasten</string>
 </resources>

@@ -108,9 +108,15 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void pressKeyOnce(int keyEvent_KEYCODE_SOMETHING) {
+    public void simulateKeyPress(int keyEvent_KEYCODE_SOMETHING) {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyEvent_KEYCODE_SOMETHING, 0));
+    }
+
+    public void insertOrReplaceTextOnCursor(String newText) {
+        int start = Math.max(getSelectionStart(), 0);
+        int end = Math.max(getSelectionEnd(), 0);
+        getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());
     }
 
     //
