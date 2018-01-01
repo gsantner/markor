@@ -282,14 +282,16 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveDocument();
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-        outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
+        if (_hlEditor != null) {
+            outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
+        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onPause() {
-        saveDocument();
         super.onPause();
+        saveDocument();
     }
 
     @Override
