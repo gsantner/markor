@@ -6,6 +6,7 @@
 package net.gsantner.markor.format.moduleactions;
 
 import android.app.Activity;
+import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +18,9 @@ import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO
 public class TodoTxtTextModuleActions extends TextModuleActions {
@@ -49,10 +53,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_local_offer_white_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
             {R.drawable.ic_date_range_white_24dp, 4},
- //           {R.drawable.ic_archive_black_24dp, 5},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5}
+            //           {R.drawable.ic_archive_black_24dp, 5},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
             //{R.drawable.ic_add_white_24dp, 5},
-            //{R.drawable.ic_delete_white_24dp, 6},
+            {R.drawable.ic_delete_white_24dp, 6},
     };
     private static final String[] STT_INSERT_ACTIONS = {
             "toggle_done",
@@ -60,10 +64,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "add_project",
             "set_priority",
             "insert_date",
-     //       "archive_done_tasks",
+            //       "archive_done_tasks",
             CommonTextModuleActions.ACTION_SPECIAL_KEY,
             //"add_task",
-            //"delete_task"
+            "delete_task"
     };
 
     private class KeyboardRegularActionListener implements View.OnClickListener {
@@ -127,6 +131,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     return;
                 }
                 case "delete_task": {
+                    removeTasksBetweenIndexes(_hlEditor.getText(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
                     return;
                 }
                 case "archive_done_tasks": {
@@ -158,4 +163,22 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             }*/
         }
     }
+
+
+    // Removes all lines that are between first and second index param
+    // These can be anywhere in a line and will expand to line start and ending
+    private static List<SttTaskWithParserInfo> removeTasksBetweenIndexes(Editable editable, int indexSomewhereInLineStart, int indexSomewhereInLineEnd) {
+        int len = editable.length();
+        final SttCommander.SttTasksInTextRange found = SttCommander.get()
+                .findLinesBetweenIndex(editable.toString(), indexSomewhereInLineStart, indexSomewhereInLineEnd);
+
+        // Finally delete
+        if (found.startIndex >= 0 && found.startIndex < len && found.endIndex >= 0 && found.endIndex <= len) {
+            editable.delete(found.startIndex, found.endIndex);
+            return found.tasks;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
 }
