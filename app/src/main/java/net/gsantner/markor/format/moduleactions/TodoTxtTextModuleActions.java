@@ -87,10 +87,15 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
                 if (updatedTask != null) {
                     SttCommander.SttTasksInTextRange rangeInfo = sttcmd.findTasksBetweenIndex(origText, origTask.getLineOffsetInText(), origTask.getLineOffsetInText());
-                    String out = sttcmd.regenerateText(origText, updatedTask);
-                    _hlEditor.getText()
-                            .delete(rangeInfo.startIndex, rangeInfo.endIndex)
-                            .insert(rangeInfo.startIndex, updatedTask.getTaskLine() + "\n");
+                    Editable editable = _hlEditor.getText();
+                    rangeInfo.startIndex = Math.max(rangeInfo.startIndex, 0);
+                    rangeInfo.endIndex = Math.max(rangeInfo.endIndex, 0);
+                    try {
+                        editable.delete(rangeInfo.startIndex, rangeInfo.endIndex);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    editable.insert(rangeInfo.startIndex, updatedTask.getTaskLine() + "\n");
 
                     // Try to figure out new cursor pos
                     int cursor = rangeInfo.startIndex + origTask.getCursorOffsetInLine();
@@ -120,7 +125,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
                         if (_as.isTodoAppendProConOnEndEnabled()) {
-                            _hlEditor.setSelection(_hlEditor.getSelectionStart() - callbackPayload.length() - 2);
+                            int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
+                            _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }
                     });
                     return;
@@ -131,7 +137,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
                         if (_as.isTodoAppendProConOnEndEnabled()) {
-                            _hlEditor.setSelection(_hlEditor.getSelectionStart() - callbackPayload.length() - 2);
+                            int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
+                            _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }
                     });
                     return;
