@@ -84,10 +84,25 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
 
-            final Callback.a1<SttTaskWithParserInfo> replaceOrigTaskWithTaskCallback = (newTask) -> {
-                if (newTask != null) {
-                    String out = sttcmd.regenerateText(origText, newTask);
-                    _hlEditor.getText().replace(0, origText.length(), out);
+            final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
+                if (updatedTask != null) {
+                    SttCommander.SttTasksInTextRange rangeInfo = sttcmd.findTasksBetweenIndex(origText, origTask.getLineOffsetInText(), origTask.getLineOffsetInText());
+                    String out = sttcmd.regenerateText(origText, updatedTask);
+                    _hlEditor.getText()
+                            .delete(rangeInfo.startIndex, rangeInfo.endIndex)
+                            .insert(rangeInfo.startIndex, updatedTask.getTaskLine() + "\n");
+
+                    // Try to figure out new cursor pos
+                    int cursor = rangeInfo.startIndex + origTask.getCursorOffsetInLine();
+                    if (cursor != 0) {
+                        cursor += _hlEditor.getText().length() - origText.length(); // difference
+                    }
+                    if (cursor == _hlEditor.getText().length()) {
+                        cursor--; // Move to last char in text;
+                    }
+                    if (cursor >= 0 && cursor <= _hlEditor.getText().length()) {
+                        _hlEditor.setSelection(cursor);
+                    }
                 }
             };
 
@@ -96,14 +111,17 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 case "toggle_done": {
                     origTask.setDone(!origTask.isDone());
                     origTask.setCompletionDate(SttCommander.getToday());
-                    replaceOrigTaskWithTaskCallback.callback(origTask);
+                    cbUpdateOrigTask.callback(origTask);
                     return;
                 }
                 case "add_context": {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
                         int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
-                        replaceOrigTaskWithTaskCallback.callback(origTask);
+                        cbUpdateOrigTask.callback(origTask);
+                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                            _hlEditor.setSelection(_hlEditor.getSelectionStart() - callbackPayload.length() - 2);
+                        }
                     });
                     return;
                 }
@@ -111,7 +129,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
                         int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
-                        replaceOrigTaskWithTaskCallback.callback(origTask);
+                        cbUpdateOrigTask.callback(origTask);
+                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                            _hlEditor.setSelection(_hlEditor.getSelectionStart() - callbackPayload.length() - 2);
+                        }
                     });
                     return;
                 }
@@ -119,7 +140,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 case "set_priority": {
                     SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, origTask.getPriority(), (callbackPayload) -> {
                         origTask.setPriority((callbackPayload.length() == 1) ? callbackPayload.charAt(0) : SttTask.PRIORITY_NONE);
-                        replaceOrigTaskWithTaskCallback.callback(origTask);
+                        cbUpdateOrigTask.callback(origTask);
                     });
                     return;
                 }
@@ -170,7 +191,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
     private static List<SttTaskWithParserInfo> removeTasksBetweenIndexes(Editable editable, int indexSomewhereInLineStart, int indexSomewhereInLineEnd) {
         int len = editable.length();
         final SttCommander.SttTasksInTextRange found = SttCommander.get()
-                .findLinesBetweenIndex(editable.toString(), indexSomewhereInLineStart, indexSomewhereInLineEnd);
+                .findTasksBetweenIndex(editable.toString(), indexSomewhereInLineStart, indexSomewhereInLineEnd);
 
         // Finally delete
         if (found.startIndex >= 0 && found.startIndex < len && found.endIndex >= 0 && found.endIndex <= len) {
@@ -180,5 +201,4 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             return new ArrayList<>();
         }
     }
-
 }

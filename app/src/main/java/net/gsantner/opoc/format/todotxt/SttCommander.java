@@ -273,7 +273,7 @@ public class SttCommander {
 
     // Find all lines that are between first and second index param
     // These can be anywhere in a line and will expand to line start and ending
-    public SttTasksInTextRange findLinesBetweenIndex(String text, int indexSomewhereInLineStart, int indexSomewhereInLineEnd) {
+    public SttTasksInTextRange findTasksBetweenIndex(String text, int indexSomewhereInLineStart, int indexSomewhereInLineEnd) {
         final SttTasksInTextRange found = new SttTasksInTextRange();
         final SttCommander sttcmd = SttCommander.get();
         int i = indexSomewhereInLineStart;
