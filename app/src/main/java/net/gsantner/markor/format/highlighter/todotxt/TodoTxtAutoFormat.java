@@ -61,7 +61,10 @@ public class TodoTxtAutoFormat implements InputFilter {
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
         if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
-            return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+            if (dend == 0 || (dend == dest.length() || dend == dest.length() - 1)
+                    || (dest.charAt(dend) == '\n')) {
+                return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+            }
         }
         return "";
     }
