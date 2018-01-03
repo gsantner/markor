@@ -100,6 +100,7 @@
     <string name="history">Historia</string>
     <string name="sync">Synchronizuj</string>
     <string name="browse_somethingsingular_or_add">Dodaj %s lub przeglądaj istniejący</string>
+    <string name="search_hint__add_or_custom">Szukaj / Niestandardowe</string>
     <string name="save">Zapisz</string>
     <string name="update">Aktualizuj</string>
     <string name="clear">Wyczyść</string>
@@ -111,7 +112,7 @@
     <string name="pref_summary__loaded_and_saved_as__plus_name">Dokument zostanie załadowany i zapisany jako \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Ustawienia na pasku narzędzi</string>
     <string name="pref_show_settings_option_in_main_toolbar">Pokaż opcje ustawienia na górze paska narzędzi na głównym ekranie</string>
-    <string name="refresh">Odświerz</string>
+    <string name="refresh">Odśwież</string>
     <string name="add_shortcut_to_launcher_homescreen">Utwórz skrót</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
     <string name="file_not_in_save_path_do_import">Wybrany plik nie znajduje się w katalogu notatnika. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejących plików.</string>
@@ -157,4 +158,18 @@
     <string name="right_to_left_rendering__abbreviated">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="use_different_fonttype_slow_down">Użyj innego rodzaju czcionki. Dynamiczne zmienianie rodzaju czcionki ma wpływ na wydajność aplikacji.</string>
+    <string name="general">Ogólne</string>
+    <string name="resources">Zasoby</string>
+    <string name="line_spacing_in_percent">Odstęp między wierszami w procentach</string>
+    <string name="line_spacing">Odstępy między wierszami</string>
+    <string name="archive_does_move_done_tasks">Przenieś wykonane zadania do określonego pliku w tym samym folderze</string>
+    <string name="special_key">Specialne Klawisze</string>
+    <string name="key_page_up">Strona w górę (Page Up)</string>
+    <string name="key_page_down">Strona w dół (Page Down)</string>
+    <string name="key_pos_1" >Początek Linii (Pos Home)</string>
+    <string name="key_pos_end" >Koniec Linii (Pos End)</string>
+    <string name="key_pos_1_document" >Koniec Dokumentu</string>
+    <string name="key_pos_end_document" >Początek Dokumentu</string>
+    <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
+    <string name="key_tab">Tabulator</string>
 </resources>
