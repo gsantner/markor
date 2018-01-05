@@ -25,4 +25,5 @@ Where:
 * **[Mohammed Belkacem](https://github.com/belkacem77)**<br/>~° Kabyle translation
 * **[kRkk](https://github.com/kRkk)**<br/>~° Polish translation
 * **[Dugite Code](https://github.com/dugite-code)**<br/>~° Artwork
+* **[billchenchina](https://github.com/billchenchina)**<br/>~° Simplified Chinese translation
 
