@@ -118,7 +118,7 @@ public class LanguagePreferenceCompat extends ListPreference {
         if (bcof instanceof String[]) {
             for (String langId : (String[]) bcof) {
                 Locale locale = contextUtils.getLocaleByAndroidCode(langId);
-                languages.add(summarizeLocale(locale) + ";" + langId);
+                languages.add(summarizeLocale(locale, langId) + ";" + langId);
             }
         }
 
@@ -133,9 +133,9 @@ public class LanguagePreferenceCompat extends ListPreference {
             entryval[i + 2] = languages.get(i).split(";")[1];
         }
         entryval[0] = SYSTEM_LANGUAGE_CODE;
-        entries[0] = _systemLanguageName + "\n[" + summarizeLocale(context.getResources().getConfiguration().locale) + "]";
+        entries[0] = _systemLanguageName + "\n[" + summarizeLocale(context.getResources().getConfiguration().locale, "") + "]";
         entryval[1] = _defaultLanguageCode;
-        entries[1] = summarizeLocale(contextUtils.getLocaleByAndroidCode(_defaultLanguageCode));
+        entries[1] = summarizeLocale(contextUtils.getLocaleByAndroidCode(_defaultLanguageCode), _defaultLanguageCode);
 
         setEntries(entries);
         setEntryValues(entryval);
@@ -143,13 +143,21 @@ public class LanguagePreferenceCompat extends ListPreference {
 
     // Concat english and localized language name
     // Append country if country specific (e.g. Portuguese Brazil)
-    private String summarizeLocale(Locale locale) {
+    private String summarizeLocale(final Locale locale, final String localeAndroidCode) {
         String country = locale.getDisplayCountry(locale);
         String language = locale.getDisplayLanguage(locale);
-        return locale.getDisplayLanguage(Locale.ENGLISH)
+        String ret = locale.getDisplayLanguage(Locale.ENGLISH)
                 + " (" + language.substring(0, 1).toUpperCase(Locale.getDefault()) + language.substring(1)
                 + ((!country.isEmpty() && !country.toLowerCase(Locale.getDefault()).equals(language.toLowerCase(Locale.getDefault()))) ? (", " + country) : "")
                 + ")";
+
+        if (localeAndroidCode.equals("zh-rCN")) {
+            ret = ret.substring(0, ret.indexOf(" ") + 1) + "Simplified" + ret.substring(ret.indexOf(" "));
+        } else if (localeAndroidCode.equals("zh-rTW")) {
+            ret = ret.substring(0, ret.indexOf(" ") + 1) + "Traditional" + ret.substring(ret.indexOf(" "));
+        }
+
+        return ret;
     }
 
     // Add current language to summary
@@ -158,7 +166,7 @@ public class LanguagePreferenceCompat extends ListPreference {
         Locale locale = new ContextUtils(getContext()).getLocaleByAndroidCode(getValue());
         String prefix = TextUtils.isEmpty(super.getSummary())
                 ? "" : super.getSummary() + "\n\n";
-        return prefix + summarizeLocale(locale);
+        return prefix + summarizeLocale(locale, getValue());
     }
 
     public String getSystemLanguageName() {
