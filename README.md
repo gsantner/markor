@@ -47,7 +47,7 @@ Translations can be contributed on GitHub or via [E-Mail](http://gsantner.net/#c
 
 
 #### Resources
-* Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [for beginners](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen+label%3Alevel%2Fbeginner) | [License](/LICENSE.txt) | [CoC](/CODE_OF_CONDUCT.md)
+* Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [for beginners](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) | [License](/LICENSE.txt) | [CoC](/CODE_OF_CONDUCT.md)
 * App on F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor/) [2](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
 * App on Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Crash60](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
 
