@@ -95,6 +95,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    sttcmd.regenerateTaskLine(updatedTask);
                     editable.insert(rangeInfo.startIndex, updatedTask.getTaskLine() + "\n");
 
                     // Try to figure out new cursor pos
