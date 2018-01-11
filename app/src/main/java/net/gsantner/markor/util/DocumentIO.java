@@ -97,8 +97,11 @@ public class DocumentIO {
 
         if (document.getFormat() == TextFormat.FORMAT_UNKNOWN) {
             String fnlower = document.getFile().getName().toLowerCase();
+
             if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
+            } else if (fnlower.endsWith(".txt")) {
+                document.setFormat(TextFormat.FORMAT_PLAIN);
             } else if (ContextUtils.get().isMaybeMarkdownFile(filePath)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else {
