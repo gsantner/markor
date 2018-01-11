@@ -7,6 +7,7 @@ package net.gsantner.markor.format.moduleactions;
 
 import android.app.Activity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +19,9 @@ import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +56,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.ic_local_offer_white_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
             {R.drawable.ic_date_range_white_24dp, 4},
-            //           {R.drawable.ic_archive_black_24dp, 5},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
             //{R.drawable.ic_add_white_24dp, 5},
             {R.drawable.ic_delete_white_24dp, 6},
+            {R.drawable.ic_archive_black_24dp, 7},
     };
     private static final String[] STT_INSERT_ACTIONS = {
             "toggle_done",
@@ -64,10 +67,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "add_project",
             "set_priority",
             "insert_date",
-            //       "archive_done_tasks",
             CommonTextModuleActions.ACTION_SPECIAL_KEY,
             //"add_task",
-            "delete_task"
+            "delete_task",
+            "archive_done_tasks",
     };
 
     private class KeyboardRegularActionListener implements View.OnClickListener {
@@ -164,11 +167,35 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     return;
                 }
                 case "archive_done_tasks": {
-                    //SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
-                        /*int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
-                        sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
-                        replaceOrigTaskWithTaskCallback.callback(origTask);*/
-                    //});
+                    SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
+                        // Don't do parse tasks in this case, performance wise
+                        ArrayList<String> keep = new ArrayList<>();
+                        ArrayList<String> move = new ArrayList<>();
+                        for (String task : _hlEditor.getText().toString().split("\n")) {
+                            if (task.startsWith("x ")) {
+                                move.add(task);
+                            } else {
+                                keep.add(task);
+                            }
+                        }
+                        if (!move.isEmpty()) {
+                            File todoFile = _document.getFile();
+                            if (todoFile != null && (todoFile.getParentFile().exists() || todoFile.getParentFile().mkdirs())) {
+                                File doneFile = new File(todoFile.getParentFile(), callbackPayload);
+                                String doneFileContents = "";
+                                if (doneFile.exists() && doneFile.canRead()) {
+                                    doneFileContents = FileUtils.readTextFile(doneFile).trim();
+                                }
+                                doneFileContents += TextUtils.join("\n", move);
+                                if (FileUtils.writeFile(doneFile, doneFileContents)) {
+                                    // All went good
+                                    _hlEditor.setText(TextUtils.join("\n", keep));
+                                }
+                            }
+                        } else {
+                            // Maybe show a nice message popup? :)
+                        }
+                    });
                     return;
                 }
             }
