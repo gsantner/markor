@@ -171,7 +171,21 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                         // Don't do parse tasks in this case, performance wise
                         ArrayList<String> keep = new ArrayList<>();
                         ArrayList<String> move = new ArrayList<>();
-                        for (String task : _hlEditor.getText().toString().split("\n")) {
+
+                        String newCursorTarget = origTask.getTaskLine();
+                        if (origTask.isDone()) {
+                            int pos = origTask.getLineOffsetInText() + origTask.getTaskLine().length() + 1;
+                            while (pos < origText.length()) {
+                                SttTaskWithParserInfo task = sttcmd.parseTask(origText, pos);
+                                if (!task.isDone()) {
+                                    newCursorTarget = task.getTaskLine();
+                                    break;
+                                }
+                                pos += task.getTaskLine().length() + 1;
+                            }
+                        }
+
+                        for (String task : origText.split("\n")) {
                             if (task.startsWith("x ")) {
                                 move.add(task);
                             } else {
@@ -190,6 +204,11 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                                 if (FileUtils.writeFile(doneFile, doneFileContents)) {
                                     // All went good
                                     _hlEditor.setText(TextUtils.join("\n", keep));
+                                    int newIndex = _hlEditor.getText().toString().indexOf(newCursorTarget);
+                                    if (newIndex < 0 || newIndex >= _hlEditor.length()) {
+                                        newIndex = _hlEditor.length();
+                                    }
+                                    _hlEditor.setSelection(newIndex);
                                 }
                             }
                         } else {
