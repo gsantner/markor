@@ -4,7 +4,7 @@ buildscript {
     ext.version_setup_compileSdk = 27
     ext.version_setup_minSdk = 17
     ext.version_setup_targetSdk = ext.version_setup_compileSdk
-    ext.version_setup_buildTools = "27.0.1" // Specifying optional
+    ext.version_setup_buildTools = "27.0.3" // Specifying optional
 
     // https://developer.android.com/studio/releases/gradle-plugin.html
     ext.version_gradle_tools = "3.0.1"
@@ -16,8 +16,8 @@ buildscript {
     ext.version_library_commonmark = "0.10.0"
     // https://github.com/guardianproject/NetCipher/releases
     ext.version_library_netcipher = "2.0.0-alpha1"
-    // https://github.com/JetBrains/kotlin/blob/master/ReadMe.md
-    ext.version_plugin_kotlin = "1.1.60"
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin#LookAtCentral
+    ext.version_plugin_kotlin = "1.2.10"
     ext.enable_plugin_kotlin = false
 
     repositories {
@@ -43,6 +43,10 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
+
+    tasks.matching { task -> task.name.matches('.*generate.*Resources') }.all {
+        task -> task.dependsOn copyRepoFiles
+    }
 }
 
 task clean(type: Delete) {
@@ -54,7 +58,7 @@ task copyRepoFiles(type: Copy) {
     from rootProject.files(ROOT_TO_RAW_COPYFILES)
     into "app/src/main/res/raw"
     rename { String fileName -> fileName.replace(fileName, fileName.toLowerCase()) }
-}; tasks.copyRepoFiles.execute()
+}
 
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
@@ -75,10 +79,13 @@ static String getUsedAndroidLanguages() {
 }
 
 ext.getGitHash = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'rev-parse', 'HEAD'
-        standardOutput = stdout
+    try {
+        def stdout = new ByteArrayOutputStream() exec {
+            commandLine 'git', 'rev-parse', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return '???'
     }
-    return stdout.toString().trim()
 }
