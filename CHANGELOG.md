@@ -1,3 +1,8 @@
+### v0.3.2
+- Todotxt: Support delete, archive tasks
+- Todotxt: Try to keep cursor position
+- Translation updates :)
+
 ### v0.3.1
 - Option for custom line height
 - Remember cursor position when switching away from app
