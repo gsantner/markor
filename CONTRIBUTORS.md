@@ -19,6 +19,7 @@ Where:
 * **[patcon](https://github.com/patcon)**<br/>~° writeily contributor
 * **[Luís F.S. Rosa](https://github.com/luisfsr)**<br/>~° Brazilian Portuguese translation
 * **[Fedor A. Kuterin](https://github.com/xredor)**<br/>~° Russian translation
+* **[Nikola Trubitsyn](https://github.com/trubitsyn)**<br/>~° Russian translation
 * **[Étienne Deparis](https://etienne.depar.is)**<br/>~° French translation
 * **[Stu Duncan](https://github.com/sjmduncan)**<br/>~° Markor contributor
 * **[Marcus Vinicius Santos](https://about.me/marcusvsantos)**<br/>~° Brazilian Portuguese translation
