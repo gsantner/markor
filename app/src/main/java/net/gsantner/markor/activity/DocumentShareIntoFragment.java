@@ -26,6 +26,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
@@ -63,6 +64,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
         _view = view;
         _context = view.getContext();
         _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
+        _sharedText = _sharedText.trim();
         return view;
     }
 
@@ -85,6 +87,10 @@ public class DocumentShareIntoFragment extends BaseFragment {
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.quicknote)));
         ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_todo__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.todo)));
+        _view.findViewById(R.id.document__fragment__share_into__append_to_todo__text)
+                .setVisibility(_sharedText.contains("\n") ? View.INVISIBLE : View.VISIBLE);
+        _view.findViewById(R.id.document__fragment__share_into__append_to_todo)
+                .setVisibility(_sharedText.contains("\n") ? View.INVISIBLE : View.VISIBLE);
         ((TextView) _view.findViewById(R.id.document__fragment__share_into__create_document__text))
                 .setText(getString(R.string.create_new_document));
 
@@ -96,6 +102,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
     @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo})
     public void onClick(View view) {
+        AppSettings appSettings = new AppSettings(_context);
         switch (view.getId()) {
             case R.id.document__fragment__share_into__create_document: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {
@@ -120,6 +127,12 @@ public class DocumentShareIntoFragment extends BaseFragment {
             }
             case R.id.document__fragment__share_into__append_to_todo: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                    if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
+                        String today = SttCommander.getToday() + " ";
+                        if (!_sharedText.startsWith(today)) {
+                            _sharedText = today + _sharedText;
+                        }
+                    }
                     appendToExistingDocument(AppSettings.get().getTodoFile(), false);
                     if (getActivity() != null) {
                         getActivity().finish();
@@ -150,8 +163,8 @@ public class DocumentShareIntoFragment extends BaseFragment {
         args.putSerializable(DocumentIO.EXTRA_PATH, file);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
         Document document = DocumentIO.loadDocument(_context, args, null);
-        String prepend = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent() + "\n");
-        DocumentIO.saveDocument(document, false, prepend + _sharedText);
+        String currentContent = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent().trim() + "\n");
+        DocumentIO.saveDocument(document, false, currentContent + _sharedText);
         if (showEditor) {
             showInDocumentActivity(document);
         }
