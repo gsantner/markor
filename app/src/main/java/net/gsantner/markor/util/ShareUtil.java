@@ -12,23 +12,20 @@ import android.print.PrintJob;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.util.ShareUtilBase;
 
-public class ShareUtil extends ShareUtilBase {
+public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
     public ShareUtil(Context context) {
         super(context);
-    }
-
-    @Override
-    public String getFileProviderAuthority() {
-        return FILE_PROVIDER_AUTHORITY;
+        setFileProviderAuthority(FILE_PROVIDER_AUTHORITY);
+        setChooserTitle(_context.getString(R.string.share_to));
     }
 
     public void createLauncherDesktopShortcut(Document document) {
@@ -39,20 +36,15 @@ public class ShareUtil extends ShareUtilBase {
             Intent shortcutIntent = new Intent(_context, DocumentActivity.class);
             shortcutIntent.putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, document.getFile().getAbsolutePath());
             shortcutIntent.setType("text/markdown"); // setData(Uri) -> Uri always gets null on receive
-            super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle(), _context.getString(R.string.add_shortcut_to_launcher_homescreen_notice));
+            super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
+            Toast.makeText(_context, R.string.add_shortcut_to_launcher_homescreen_notice, Toast.LENGTH_LONG).show();
         }
     }
-
-    @Override
-    public void showShareChooser(Intent intent) {
-        super.showShareChooser(intent, _context.getString(R.string.share_to));
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
     public PrintJob printOrCreatePdfFromWebview(WebView webview, Document document) {
         String jobName = String.format("%s (%s)", document.getTitle(), _context.getString(R.string.app_name));
-        return super.printOrCreatePdfFromWebview(webview, jobName);
+        return super.print(webview, jobName);
     }
 }

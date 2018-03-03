@@ -337,6 +337,10 @@ public class ContextUtils {
         return result;
     }
 
+    /***
+     * Replace (primary) clipboard contents with given text
+     * @param text Text to be set
+     */
     public void setClipboard(String text) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setText(text);
