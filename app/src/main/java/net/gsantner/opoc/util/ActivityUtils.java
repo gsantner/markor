@@ -94,16 +94,16 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     public void hideSoftKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (_activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-            inputMethodManager.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
+            imm.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
 
     public void showSoftKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (_activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-            inputMethodManager.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
+        InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
+            imm.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
         }
     }
 
@@ -151,7 +151,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         _activity.getWindow().setAttributes(attrs);
     }
 
-    public void showRateOnGplayDialog() {
+    public void showGooglePlayEntryForThisApp() {
         String pkgId = "details?id=" + _activity.getPackageName();
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

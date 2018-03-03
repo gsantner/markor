@@ -11,24 +11,25 @@
  */
 package net.gsantner.opoc.util;
 
+@SuppressWarnings("unused")
 public class Callback {
-    public static interface a1<A> {
+    public interface a1<A> {
         void callback(A arg1);
     }
 
-    public static interface a2<A, B> {
+    public interface a2<A, B> {
         void callback(A arg1, B arg2);
     }
 
-    public static interface a3<A, B, C> {
+    public interface a3<A, B, C> {
         void callback(A arg1, B arg2, C arg3);
     }
 
-    public static interface a4<A, B, C, D> {
+    public interface a4<A, B, C, D> {
         void callback(A arg1, B arg2, C arg3, D arg4);
     }
 
-    public static interface a5<A, B, C, D, E> {
+    public interface a5<A, B, C, D, E> {
         void callback(A arg1, B arg2, C arg3, D arg4, E arg5);
     }
 }

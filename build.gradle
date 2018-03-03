@@ -9,7 +9,7 @@ buildscript {
     // https://developer.android.com/studio/releases/gradle-plugin.html
     ext.version_gradle_tools = "3.0.1"
     // https://developer.android.com/topic/libraries/support-library/revisions.html
-    ext.version_library_appcompat = "27.0.2"
+    ext.version_library_appcompat = "27.1.0"
     // https://github.com/JakeWharton/butterknife/releases
     ext.version_library_butterknife = "8.8.1"
     // https://github.com/atlassian/commonmark-java/releases
@@ -17,7 +17,7 @@ buildscript {
     // https://github.com/guardianproject/NetCipher/releases
     ext.version_library_netcipher = "2.0.0-alpha1"
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin#LookAtCentral
-    ext.version_plugin_kotlin = "1.2.10"
+    ext.version_plugin_kotlin = "1.2.21"
     ext.enable_plugin_kotlin = false
 
     repositories {

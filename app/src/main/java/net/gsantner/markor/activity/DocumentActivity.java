@@ -6,6 +6,7 @@
 package net.gsantner.markor.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -40,8 +41,7 @@ import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.ShareUtilBase;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 
@@ -160,7 +160,7 @@ public class DocumentActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         _toolbarTitleEdit.clearFocus();
-        ShareUtil shu = new ShareUtil(this);
+        net.gsantner.markor.util.ShareUtil shu = new net.gsantner.markor.util.ShareUtil(this);
 
         switch (item.getItemId()) {
             case android.R.id.home: {
@@ -209,7 +209,7 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_share_image: {
                 if (saveDocument() && getPreviewWebview() != null) {
-                    shu.shareImage(ShareUtilBase.getBitmapFromWebView(getPreviewWebview()));
+                    shu.shareImage(ShareUtil.getBitmapFromWebView(getPreviewWebview()), Bitmap.CompressFormat.JPEG);
                 }
                 return true;
             }

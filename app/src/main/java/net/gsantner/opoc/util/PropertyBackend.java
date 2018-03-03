@@ -13,6 +13,7 @@ package net.gsantner.opoc.util;
 
 import java.util.List;
 
+@SuppressWarnings({"UnusedReturnValue", "SpellCheckingInspection"})
 public interface PropertyBackend<TKEY, TTHIS> {
     String getString(TKEY key, String defaultValue);
 

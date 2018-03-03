@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(() -> new ActivityUtils(this).showRateOnGplayDialog())
+                .setFeedbackAction(() -> new ActivityUtils(this).showGooglePlayEntryForThisApp())
                 .build().count().showRequest();
     }
 
