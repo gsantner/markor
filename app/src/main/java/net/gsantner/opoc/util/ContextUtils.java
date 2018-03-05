@@ -100,18 +100,23 @@ public class ContextUtils {
         public static final String ARRAY = "array";
         public static final String DIMEN = "dimen";
         public static final String MENU = "menu";
+        public static final String BOOL = "bool";
         public static final String RAW = "raw";
     }
 
-    public String str(@StringRes int strResId) {
+    public String rstr(@StringRes int strResId) {
         return _context.getString(strResId);
     }
 
-    public Drawable drawable(@DrawableRes int resId) {
+    public String rstr(String strResKey) {
+        return rstr(getResId(ResType.STRING, strResKey));
+    }
+
+    public Drawable rdrawable(@DrawableRes int resId) {
         return ContextCompat.getDrawable(_context, resId);
     }
 
-    public int color(@ColorRes int resId) {
+    public int rcolor(@ColorRes int resId) {
         return ContextCompat.getColor(_context, resId);
     }
 
@@ -159,14 +164,23 @@ public class ContextUtils {
     }
 
     /**
-     * Get field from PackageId.BuildConfig
+     * Get field from ${applicationId}.BuildConfig
      * May be helpful in libraries, where a access to
      * BuildConfig would only get values of the library
-     * rather than the app ones
+     * rather than the app ones. It awaits a string resource
+     * of the package set in manifest (root element).
+     * Falls back to applicationId of the app which may differ from manifest.
      */
     public Object getBuildConfigValue(String fieldName) {
+        String pkg;
         try {
-            Class<?> c = Class.forName(_context.getPackageName() + ".BuildConfig");
+            pkg = rstr("manifest_package_id");
+        } catch (Resources.NotFoundException ex) {
+            pkg = _context.getPackageName();
+        }
+        pkg += ".BuildConfig";
+        try {
+            Class<?> c = Class.forName(pkg);
             return c.getField(fieldName).get(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,7 +188,7 @@ public class ContextUtils {
         }
     }
 
-    public boolean getBuildConfigBoolean(String fieldName, boolean defaultValue) {
+    public boolean bcbool(String fieldName, boolean defaultValue) {
         Object field = getBuildConfigValue(fieldName);
         if (field != null && field instanceof Boolean) {
             return (Boolean) field;
@@ -182,27 +196,35 @@ public class ContextUtils {
         return defaultValue;
     }
 
+    public String bcstr(String fieldName, String defaultValue) {
+        Object field = getBuildConfigValue(fieldName);
+        if (field != null && field instanceof String) {
+            return (String) field;
+        }
+        return defaultValue;
+    }
+
     public boolean isGooglePlayBuild() {
-        return getBuildConfigBoolean("IS_GPLAY_BUILD", true);
+        return bcbool("IS_GPLAY_BUILD", true);
     }
 
     public boolean isFossBuild() {
-        return getBuildConfigBoolean("IS_FOSS_BUILD", false);
+        return bcbool("IS_FOSS_BUILD", false);
     }
 
     // Requires donate__bitcoin_* resources (see below) to be available as string resource
     public void showDonateBitcoinRequest(@StringRes final int strResBitcoinId, @StringRes final int strResBitcoinAmount, @StringRes final int strResBitcoinMessage, @StringRes final int strResAlternativeDonateUrl) {
         if (!isGooglePlayBuild()) {
             String btcUri = String.format("bitcoin:%s?amount=%s&label=%s&message=%s",
-                    str(strResBitcoinId), str(strResBitcoinAmount),
-                    str(strResBitcoinMessage), str(strResBitcoinMessage));
+                    rstr(strResBitcoinId), rstr(strResBitcoinAmount),
+                    rstr(strResBitcoinMessage), rstr(strResBitcoinMessage));
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(btcUri));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             try {
                 _context.startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                openWebpageInExternalBrowser(str(strResAlternativeDonateUrl));
+                openWebpageInExternalBrowser(rstr(strResAlternativeDonateUrl));
             }
         }
     }
@@ -239,7 +261,7 @@ public class ContextUtils {
     @SuppressWarnings("RestrictedApi")
     public void setTintColorOfButton(AppCompatButton button, @ColorRes int resColor) {
         button.setSupportBackgroundTintList(ColorStateList.valueOf(
-                color(resColor)
+                rcolor(resColor)
         ));
     }
 
@@ -272,7 +294,7 @@ public class ContextUtils {
             return new SimpleMarkdownParser()
                     .parse(_context.getResources().openRawResource(rawMdFile),
                             prepend, SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
-                    .replaceColor("#000001", color(getResId(ResType.COLOR, "accent")))
+                    .replaceColor("#000001", rcolor(getResId(ResType.COLOR, "accent")))
                     .removeMultiNewlines().replaceBulletCharacter("*").getHtml();
         } catch (IOException e) {
             e.printStackTrace();
@@ -337,10 +359,6 @@ public class ContextUtils {
         return result;
     }
 
-    /***
-     * Replace (primary) clipboard contents with given text
-     * @param text Text to be set
-     */
     public void setClipboard(String text) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setText(text);

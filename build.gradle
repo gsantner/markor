@@ -63,7 +63,7 @@ task copyRepoFiles(type: Copy) {
 
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 // Returns used android languages as a buildConfig array: {'de', 'it', ..}"
-static String getUsedAndroidLanguages() {
+static String findUsedAndroidLocales() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
         final foldername = it.name
@@ -80,12 +80,13 @@ static String getUsedAndroidLanguages() {
 
 ext.getGitHash = { ->
     try {
-        def stdout = new ByteArrayOutputStream() exec {
+        def stdout = new ByteArrayOutputStream()
+        exec {
             commandLine 'git', 'rev-parse', 'HEAD'
             standardOutput = stdout
         }
         return stdout.toString().trim()
-    } catch (Exception e) {
-        return '???'
+    } catch (Exception ignored) {
+        return 'unknown'
     }
 }
