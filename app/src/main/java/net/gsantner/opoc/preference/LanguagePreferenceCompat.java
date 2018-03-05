@@ -114,7 +114,7 @@ public class LanguagePreferenceCompat extends ListPreference {
         // Fetch readable details
         ContextUtils contextUtils = new ContextUtils(context);
         List<String> languages = new ArrayList<>();
-        Object bcof = contextUtils.getBuildConfigValue("APPLICATION_LANGUAGES");
+        Object bcof = contextUtils.getBuildConfigValue("DETECTED_ANDROID_LOCALES");
         if (bcof instanceof String[]) {
             for (String langId : (String[]) bcof) {
                 Locale locale = contextUtils.getLocaleByAndroidCode(langId);

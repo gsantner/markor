@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Custom code
-        iconColor = _contextUtils.color(_appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        iconColor = _contextUtils.rcolor(_appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));

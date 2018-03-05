@@ -25,7 +25,7 @@ public class FilesystemDialogCreator {
             (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
-        boolean titleLight = cu.shouldColorOnTopBeLight(cu.color(opts.primaryColor));
+        boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(opts.primaryColor));
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
 
         if (listener != null) {
