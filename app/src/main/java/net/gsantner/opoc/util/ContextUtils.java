@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -46,19 +45,17 @@ import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.AppCompatButton;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
@@ -69,11 +66,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.graphics.Bitmap.CompressFormat;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "ObsoleteSdkInt", "ConstantConditions", "UnusedReturnValue"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection"})
 public class ContextUtils {
     //########################
     //## Members, Constructors
@@ -155,7 +155,7 @@ public class ContextUtils {
     public void openWebpageInExternalBrowser(final String url) {
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         try {
             _context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
@@ -220,7 +220,7 @@ public class ContextUtils {
                     rstr(strResBitcoinMessage), rstr(strResBitcoinMessage));
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(btcUri));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
             try {
                 _context.startActivity(intent);
             } catch (ActivityNotFoundException e) {
@@ -257,36 +257,43 @@ public class ContextUtils {
         return sb.toString();
     }
 
-    @SuppressLint("RestrictedApi")
-    @SuppressWarnings("RestrictedApi")
-    public void setTintColorOfButton(AppCompatButton button, @ColorRes int resColor) {
-        button.setSupportBackgroundTintList(ColorStateList.valueOf(
-                rcolor(resColor)
-        ));
-    }
-
-    @SuppressLint("MissingPermission") // ACCESS_NETWORK_STATE required
+    /**
+     * Get internet connection state - the permission ACCESS_NETWORK_STATE is required
+     *
+     * @return True if internet connection available
+     */
     public boolean isConnectedToInternet() {
-        ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = con == null ? null : con.getActiveNetworkInfo();
-        return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
+        try {
+            ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            @SuppressLint("MissingPermission") NetworkInfo activeNetInfo =
+                    con == null ? null : con.getActiveNetworkInfo();
+            return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
+        } catch (Exception ignored) {
+            throw new RuntimeException("Error: Developer forgot to declare a permission");
+        }
     }
 
-    public boolean isConnectedToInternet(@Nullable @StringRes Integer warnMessageStringRes) {
-        final boolean result = isConnectedToInternet();
-        if (!result && warnMessageStringRes != null)
-            Toast.makeText(_context, _context.getString(warnMessageStringRes), Toast.LENGTH_SHORT).show();
-
-        return result;
+    public boolean isAppInstalled(String packageName) {
+        PackageManager pm = _context.getApplicationContext().getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
-    public void restartApp(Class classToStartupWith) {
-        Intent restartIntent = new Intent(_context, classToStartupWith);
-        PendingIntent restartIntentP = PendingIntent.getActivity(_context, 555,
-                restartIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+    public void restartApp(Class classToStart) {
+        Intent inte = new Intent(_context, classToStart);
+        PendingIntent inteP = PendingIntent.getActivity(_context, 555, inte, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, restartIntentP);
-        System.exit(0);
+        if (mgr != null) {
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, inteP);
+        } else {
+            inte.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(inte);
+        }
+        Runtime.getRuntime().exit(0);
     }
 
     public String loadMarkdownForTextViewFromRaw(@RawRes int rawMdFile, String prepend) {
@@ -348,7 +355,6 @@ public class ContextUtils {
                 + (0.114 * Color.blue(colorOnBottomInt)))));
     }
 
-    @SuppressWarnings("deprecation")
     public Spanned htmlToSpanned(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -359,39 +365,51 @@ public class ContextUtils {
         return result;
     }
 
-    public void setClipboard(String text) {
+    public boolean setClipboard(String text) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-            ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setText(text);
+            android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null) {
+                cm.setText(text);
+                return true;
+            }
         } else {
-            ClipData clip = ClipData.newPlainText(_context.getPackageName(), text);
-            ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(clip);
-        }
-    }
-
-    public String[] getClipboard() {
-        String[] ret;
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-            ret = new String[]{((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).getText().toString()};
-        } else {
-            ClipData data = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip();
-            ret = new String[data.getItemCount()];
-            for (int i = 0; i < data.getItemCount() && i < ret.length; i++) {
-                ret[i] = data.getItemAt(i).getText().toString();
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null) {
+                ClipData clip = ClipData.newPlainText(_context.getPackageName(), text);
+                cm.setPrimaryClip(clip);
+                return true;
             }
         }
-        return ret;
+        return false;
     }
 
-    public float px2dp(final float px) {
+    public List<String> getClipboard() {
+        List<String> clipper = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null) {
+                clipper.add(cm.getText().toString());
+            }
+
+        } else {
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null && cm.hasPrimaryClip()) {
+                ClipData data = cm.getPrimaryClip();
+                for (int i = 0; i < data.getItemCount() && i < data.getItemCount(); i++) {
+                    clipper.add(data.getItemAt(i).getText().toString());
+                }
+            }
+
+        }
+        return clipper;
+    }
+
+    public float convertPxToDp(final float px) {
         return px / _context.getResources().getDisplayMetrics().density;
     }
 
-    public float dp2px(final float dp) {
+    public float convertDpToPx(final float dp) {
         return dp * _context.getResources().getDisplayMetrics().density;
-    }
-
-    public void setViewVisible(View view, boolean visible) {
-        view.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     public static void setDrawableWithColorToImageView(ImageView imageView, @DrawableRes int drawableResId, @ColorRes int colorResId) {
@@ -453,31 +471,40 @@ public class ContextUtils {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    public File writeImageToFileJpeg(File imageFile, Bitmap image) {
+    public boolean writeImageToFileJpeg(File imageFile, Bitmap image) {
         return writeImageToFile(imageFile, image, Bitmap.CompressFormat.JPEG, 95);
     }
 
-
-    public File writeImageToFileDetectFormat(File imageFile, Bitmap image, int quality) {
-        CompressFormat format = CompressFormat.JPEG;
-        String lc = imageFile.getAbsolutePath().toLowerCase(Locale.ROOT);
-        if (lc.endsWith(".png")) {
-            format = CompressFormat.PNG;
+    /**
+     * Write bitmap to the filesystem
+     *
+     * @param targetFile The file to be written in
+     * @param image      The image as android {@link Bitmap}
+     * @param format     One format of {@link CompressFormat}, null will determine based on filename
+     * @param quality    Quality level, defaults to 95
+     * @return True if writing was successful
+     */
+    public boolean writeImageToFile(File targetFile, Bitmap image, CompressFormat format, Integer quality) {
+        File folder = new File(targetFile.getParent());
+        if (quality == null || quality < 0 || quality > 100) {
+            quality = 95;
         }
-        if (lc.endsWith(".webp")) {
-            format = CompressFormat.WEBP;
+        if (format == null) {
+            format = CompressFormat.JPEG;
+            String lc = targetFile.getAbsolutePath().toLowerCase(Locale.ROOT);
+            if (lc.endsWith(".png")) {
+                format = CompressFormat.PNG;
+            }
+            if (lc.endsWith(".webp")) {
+                format = CompressFormat.WEBP;
+            }
         }
-        return writeImageToFile(imageFile, image, format, quality);
-    }
-
-    public File writeImageToFile(File imageFile, Bitmap image, CompressFormat format, int quality) {
-        File folder = new File(imageFile.getParent());
         if (folder.exists() || folder.mkdirs()) {
             FileOutputStream stream = null;
             try {
-                stream = new FileOutputStream(imageFile); // overwrites this image every time
+                stream = new FileOutputStream(targetFile); // overwrites this image every time
                 image.compress(format, quality, stream);
-                return imageFile;
+                return true;
             } catch (FileNotFoundException ignored) {
             } finally {
                 try {
@@ -488,13 +515,13 @@ public class ContextUtils {
                 }
             }
         }
-        return null;
+        return false;
     }
 
-    public Bitmap drawTextToDrawable(@DrawableRes int resId, String text, int textSize) {
+    public Bitmap drawTextOnDrawable(@DrawableRes int resId, String text, int textSize) {
         Resources resources = _context.getResources();
         float scale = resources.getDisplayMetrics().density;
-        Bitmap bitmap = getBitmapFromDrawable(resId);
+        Bitmap bitmap = bitmapToDrawable(resId);
 
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
@@ -512,7 +539,7 @@ public class ContextUtils {
         return bitmap;
     }
 
-    public Bitmap getBitmapFromDrawable(int drawableId) {
+    public Bitmap bitmapToDrawable(@DrawableRes int drawableId) {
         Bitmap bitmap = null;
         Drawable drawable = ContextCompat.getDrawable(_context, drawableId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (drawable instanceof VectorDrawable || drawable instanceof VectorDrawableCompat)) {
@@ -520,8 +547,7 @@ public class ContextUtils {
                 drawable = (DrawableCompat.wrap(drawable)).mutate();
             }
 
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
@@ -531,7 +557,8 @@ public class ContextUtils {
         return bitmap;
     }
 
-    public ContextUtils tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
+    @SuppressWarnings("ConstantConditions")
+    public void tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
             tintDrawable(item.getIcon(), iconColor);
@@ -539,7 +566,6 @@ public class ContextUtils {
                 tintMenuItems(item.getSubMenu(), recurse, iconColor);
             }
         }
-        return this;
     }
 
     public Drawable tintDrawable(@DrawableRes int drawableRes, @ColorInt int color) {
@@ -554,16 +580,15 @@ public class ContextUtils {
         return drawable;
     }
 
-    @SuppressLint("PrivateApi")
-    public ContextUtils setSubMenuIconsVisiblity(Menu menu, boolean visible) {
+    public void setSubMenuIconsVisiblity(Menu menu, boolean visible) {
         if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
             try {
-                Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                @SuppressLint("PrivateApi") Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
                 m.setAccessible(true);
                 m.invoke(menu, visible);
             } catch (Exception ignored) {
+                Log.d(getClass().getName(), "Error: 'setSubMenuIconsVisiblity' not supported on this device");
             }
         }
-        return this;
     }
 }
