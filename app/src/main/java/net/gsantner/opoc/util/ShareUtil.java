@@ -141,15 +141,30 @@ public class ShareUtil {
     /**
      * Share the given bitmap with given format
      *
-     * @param bitmap Image
-     * @param format A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
+     * @param bitmap   Image
+     * @param format   A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
+     * @param filename Filename without ext., null or nothing supplied will default to SharedFile.
      * @return if success, true
      */
     public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format) {
+        return shareImage(bitmap, format, 95, "SharedImage");
+    }
+
+
+    /**
+     * Share the given bitmap with given format
+     *
+     * @param bitmap    Image
+     * @param format    A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
+     * @param imageName Filename without extension
+     * @param quality   Quality of the exported image [0-100]
+     * @return if success, true
+     */
+    public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format, int quality, String imageName) {
         try {
             String ext = format.name().toLowerCase();
-            File file = File.createTempFile("SharedFile", "." + ext.replace("jpeg", "jpg"), _context.getExternalCacheDir());
-            if (bitmap != null && new net.gsantner.opoc.util.ContextUtils(_context).writeImageToFile(file, bitmap, format, 95)) {
+            File file = File.createTempFile(imageName, "." + ext.replace("jpeg", "jpg"), _context.getExternalCacheDir());
+            if (bitmap != null && new net.gsantner.opoc.util.ContextUtils(_context).writeImageToFile(file, bitmap, format, quality)) {
                 shareStream(file, "image/" + ext);
                 return true;
             }
