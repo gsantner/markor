@@ -31,7 +31,7 @@
     }
  */
 
-package net.gsantner.opoc.util;
+package net.gsantner.opoc.preference;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -48,36 +48,36 @@ import java.util.List;
 
 
 /**
- * Wrapper for settings based on SharedPreferences with keys in resources
+ * Wrapper for settings based on SharedPreferences, optionally with keys in resources
  * Default SharedPreference (_prefApp) will be taken if no SP is specified, else the first one
  */
 @SuppressWarnings({"WeakerAccess", "unused", "SpellCheckingInspection", "SameParameterValue"})
-public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase> {
+public class SharedPreferencesPropertyBackend implements PropertyBackend<String, SharedPreferencesPropertyBackend> {
     protected static final String ARRAY_SEPARATOR = "%%%";
     protected static final String ARRAY_SEPARATOR_SUBSTITUTE = "§§§";
     public static final String SHARED_PREF_APP = "app";
 
-    //########################
-    //## Members, Constructors
-    //########################
+    //
+    // Members, Constructors
+    //
     protected final SharedPreferences _prefApp;
     protected final String _prefAppName;
     protected final Context _context;
 
-    public AppSettingsBase(final Context context) {
+    public SharedPreferencesPropertyBackend(final Context context) {
         this(context, SHARED_PREF_APP);
     }
 
-    public AppSettingsBase(final Context context, final String prefAppName) {
+    public SharedPreferencesPropertyBackend(final Context context, final String prefAppName) {
         _context = context.getApplicationContext();
         _prefAppName = TextUtils.isEmpty(prefAppName) ?
                 _context.getPackageName() + "_preferences" : prefAppName;
         _prefApp = _context.getSharedPreferences(_prefAppName, Context.MODE_PRIVATE);
     }
 
-    //#####################
-    //## Methods
-    //#####################
+    //
+    // Methods
+    //
     public Context getContext() {
         return _context;
     }
@@ -136,9 +136,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return (pref != null && pref.length > 0 ? pref[0] : _prefApp);
     }
 
-    //#################################
-    //## Getter for resources
-    //#################################
+    //
+    // Getter for resources
+    //
     public String rstr(@StringRes int stringKeyResourceId) {
         return _context.getString(stringKeyResourceId);
     }
@@ -148,9 +148,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
     }
 
 
-    //#################################
-    //## Getter & Setter for String
-    //#################################
+    //
+    // Getter & Setter for String
+    //
     public void setString(@StringRes int keyResourceId, String value, final SharedPreferences... pref) {
         gp(pref).edit().putString(rstr(keyResourceId), value).apply();
     }
@@ -235,9 +235,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return getStringListOne(key, gp(pref));
     }
 
-    //#################################
-    //## Getter & Setter for integer
-    //#################################
+    //
+    // Getter & Setter for integer
+    //
     public void setInt(@StringRes int keyResourceId, int value, final SharedPreferences... pref) {
         gp(pref).edit().putInt(rstr(keyResourceId), value).apply();
     }
@@ -319,9 +319,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
     }
 
 
-    //#################################
-    //## Getter & Setter for Long
-    //#################################
+    //
+    // Getter & Setter for Long
+    //
     public void setLong(@StringRes int keyResourceId, long value, final SharedPreferences... pref) {
         gp(pref).edit().putLong(rstr(keyResourceId), value).apply();
     }
@@ -338,9 +338,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return gp(pref).getLong(key, defaultValue);
     }
 
-    //#################################
-    //## Getter & Setter for Float
-    //#################################
+    //
+    // Getter & Setter for Float
+    //
     public void setFloat(@StringRes int keyResourceId, float value, final SharedPreferences... pref) {
         gp(pref).edit().putFloat(rstr(keyResourceId), value).apply();
     }
@@ -357,9 +357,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return gp(pref).getFloat(key, defaultValue);
     }
 
-    //#################################
-    //## Getter & Setter for Double
-    //#################################
+    //
+    // Getter & Setter for Double
+    //
     public void setDouble(@StringRes int keyResourceId, double value, final SharedPreferences... pref) {
         setLong(rstr(keyResourceId), Double.doubleToRawLongBits(value));
     }
@@ -376,9 +376,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return Double.longBitsToDouble(getLong(key, Double.doubleToRawLongBits(defaultValue), gp(pref)));
     }
 
-    //#################################
-    //## Getter & Setter for boolean
-    //#################################
+    //
+    // Getter & Setter for boolean
+    //
     public void setBool(@StringRes int keyResourceId, boolean value, final SharedPreferences... pref) {
         gp(pref).edit().putBoolean(rstr(keyResourceId), value).apply();
     }
@@ -395,9 +395,9 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
         return gp(pref).getBoolean(key, defaultValue);
     }
 
-    //#################################
-    //## Getter & Setter for Color
-    //#################################
+    //
+    // Getter & Setter for Color
+    //
     public int getColor(String key, @ColorRes int defaultColor, final SharedPreferences... pref) {
         return gp(pref).getInt(key, rcolor(defaultColor));
     }
@@ -450,49 +450,49 @@ public class AppSettingsBase implements PropertyBackend<String, AppSettingsBase>
     }
 
     @Override
-    public AppSettingsBase setString(String key, String value) {
+    public SharedPreferencesPropertyBackend setString(String key, String value) {
         setString(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setInt(String key, int value) {
+    public SharedPreferencesPropertyBackend setInt(String key, int value) {
         setInt(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setLong(String key, long value) {
+    public SharedPreferencesPropertyBackend setLong(String key, long value) {
         setLong(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setBool(String key, boolean value) {
+    public SharedPreferencesPropertyBackend setBool(String key, boolean value) {
         setBool(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setFloat(String key, float value) {
+    public SharedPreferencesPropertyBackend setFloat(String key, float value) {
         setFloat(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setDouble(String key, double value) {
+    public SharedPreferencesPropertyBackend setDouble(String key, double value) {
         setDouble(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setIntList(String key, List<Integer> value) {
+    public SharedPreferencesPropertyBackend setIntList(String key, List<Integer> value) {
         setIntListOne(key, value, _prefApp);
         return this;
     }
 
     @Override
-    public AppSettingsBase setStringList(String key, List<String> value) {
+    public SharedPreferencesPropertyBackend setStringList(String key, List<String> value) {
         setStringListOne(key, value, _prefApp);
         return this;
     }

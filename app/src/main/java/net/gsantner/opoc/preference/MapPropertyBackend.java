@@ -8,7 +8,7 @@
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.opoc.util;
+package net.gsantner.opoc.preference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
