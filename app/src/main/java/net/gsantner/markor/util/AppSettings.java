@@ -12,13 +12,13 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.FilesystemListFragment;
-import net.gsantner.opoc.util.AppSettingsBase;
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.Locale;
 
 @SuppressWarnings("SameParameterValue")
-public class AppSettings extends AppSettingsBase {
+public class AppSettings extends SharedPreferencesPropertyBackend {
     private final String _themeDarkResStr;
     private final String _themeLightResStr;
 

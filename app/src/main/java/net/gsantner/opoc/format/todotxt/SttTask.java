@@ -10,7 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.format.todotxt;
 
-import net.gsantner.opoc.util.MapPropertyBackend;
+import net.gsantner.opoc.preference.MapPropertyBackend;
 
 import java.io.Serializable;
 import java.util.HashMap;

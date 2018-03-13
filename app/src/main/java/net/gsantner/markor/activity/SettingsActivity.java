@@ -26,7 +26,7 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemDialogData;
-import net.gsantner.opoc.util.AppSettingsBase;
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 
@@ -101,7 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         protected AppSettings _as;
 
         @Override
-        protected AppSettingsBase getAppSettings(Context context) {
+        protected SharedPreferencesPropertyBackend getAppSettings(Context context) {
             if (_as == null) {
                 _as = new AppSettings(context);
             }
