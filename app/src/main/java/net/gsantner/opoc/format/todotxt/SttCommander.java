@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // Text = the whole document ;; line = one task line, \n separated
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "SameParameterValue"})
 public class SttCommander {
     //
     // Statics
