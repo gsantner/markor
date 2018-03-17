@@ -157,7 +157,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             case R.id.ui__filesystem_dialog__dir_up: {
                 _currentSelection.clear();
                 File parent = _currentFolder.getParentFile();
-                if (parent != null && parent.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath())) {
+                if (parent != null && (!_dopt.mustStartWithRootFolder || parent.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath()))) {
                     loadFolder(parent);
                 }
                 return;

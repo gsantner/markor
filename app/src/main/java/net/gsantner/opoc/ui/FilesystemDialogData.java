@@ -44,6 +44,8 @@ public class FilesystemDialogData {
                 doSelectFile = false,
                 doSelectMultiple = false;
 
+        public boolean mustStartWithRootFolder = true;
+
         // Visibility of elements
         public boolean
                 titleTextEnable = true,
