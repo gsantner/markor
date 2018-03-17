@@ -19,12 +19,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +33,6 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.MarkorSingleton;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.ui.ConfirmDialog;
 import net.gsantner.markor.ui.CreateFolderDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -46,6 +43,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -56,12 +54,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 import static android.content.Context.SEARCH_SERVICE;
 
-public class FilesystemListFragment extends BaseFragment {
+public class FilesystemListFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "FilesystemListFragment";
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
@@ -72,9 +69,6 @@ public class FilesystemListFragment extends BaseFragment {
 
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _backgroundHintText;
-
-    private Context _context;
-    private View _view;
 
     private FilesystemListAdapter _filesAdapter;
 
@@ -95,19 +89,16 @@ public class FilesystemListFragment extends BaseFragment {
     );
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ContextUtils.get().setAppLanguage(AppSettings.get().getLanguage());
-        _view = inflater.inflate(R.layout.filesystemlist__fragment, container, false);
-        _context = _view.getContext();
-        ButterKnife.bind(this, _view);
-        return _view;
+    protected int getLayoutResId() {
+        return R.layout.filesystemlist__fragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        _filesAdapter = new FilesystemListAdapter(_context, 0, _filesCurrentlyShown);
-        _simpleSectionAdapter = new SimpleSectionAdapter<>(_context, _filesAdapter,
+        Context c = getContext();
+        _filesAdapter = new FilesystemListAdapter(c, 0, _filesCurrentlyShown);
+        _simpleSectionAdapter = new SimpleSectionAdapter<>(c, _filesAdapter,
                 R.layout.ui__text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
 
@@ -128,8 +119,11 @@ public class FilesystemListFragment extends BaseFragment {
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
 
-        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(_context);
-        lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+        Context c = getContext();
+        if (c != null) {
+            LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(c);
+            lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+        }
     }
 
     private void retrieveCurrentFolder() {
@@ -220,7 +214,7 @@ public class FilesystemListFragment extends BaseFragment {
         _searchItem = menu.findItem(R.id.action_search);
         _searchView = (SearchView) _searchItem.getActionView();
 
-        SearchManager searchManager = (SearchManager) _context.getSystemService(SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) _searchView.getContext().getSystemService(SEARCH_SERVICE);
         _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         _searchView.setQueryHint(getString(R.string.search_documents));
         if (_searchView != null) {
@@ -330,10 +324,11 @@ public class FilesystemListFragment extends BaseFragment {
     }
 
     private void reloadAdapter() {
-        if (_filesAdapter != null) {
-            _filesAdapter = new FilesystemListAdapter(_context.getApplicationContext(), 0, _filesCurrentlyShown);
+        Context c = getContext();
+        if (_filesAdapter != null && c != null) {
+            _filesAdapter = new FilesystemListAdapter(c, 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
-                    new SimpleSectionAdapter<>(_context.getApplicationContext()
+                    new SimpleSectionAdapter<>(c
                             , _filesAdapter, R.layout.ui__text__item
                             , R.id.notes_fragment_section_text, _sectionizer);
             _filesListView.setAdapter(_simpleSectionAdapter);

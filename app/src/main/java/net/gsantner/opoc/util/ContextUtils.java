@@ -90,7 +90,7 @@ public class ContextUtils {
     //########################
     //##    Resources
     //########################
-    static class ResType {
+    public static class ResType {
         public static final String DRAWABLE = "drawable";
         public static final String STRING = "string";
         public static final String PLURAL = "plural";

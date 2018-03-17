@@ -6,30 +6,26 @@
 package net.gsantner.markor.activity;
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // TODO: Replace this quickly added content with something better useable, e.g. RecyclerView + Adapter
-public class MoreFragment extends BaseFragment {
+public class MoreFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "MoreFragment";
 
     public static MoreFragment newInstance() {
@@ -39,45 +35,42 @@ public class MoreFragment extends BaseFragment {
         return f;
     }
 
-    private View _view;
-    private Context _context;
-
     public MoreFragment() {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.more__fragment, container, false);
-        ButterKnife.bind(this, view);
-        _view = view;
-        _context = view.getContext();
-        return view;
+    protected int getLayoutResId() {
+        return R.layout.more__fragment;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        _view.findViewById(R.id.more__fragment__action_donate).setVisibility(ContextUtils.get().isGooglePlayBuild() ? View.GONE : View.VISIBLE);
+        view.findViewById(R.id.more__fragment__action_donate).setVisibility(ContextUtils.get().isGooglePlayBuild() ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        View fragView = getView();
 
-        int fg = AppSettings.get().isDarkThemeEnabled() ? Color.WHITE : Color.BLACK;
+        if (fragView != null) {
+            int fg = AppSettings.get().isDarkThemeEnabled() ? Color.WHITE : Color.BLACK;
 
 
-        for (int resid : new int[]{R.id.more__fragment__action_about, R.id.more__fragment__action_contribute, R.id.more__fragment__action_donate, R.id.more__fragment__action_settings}) {
-            LinearLayout layout = _view.findViewById(resid);
-            ((ImageView) (layout.getChildAt(0))).setColorFilter(fg, android.graphics.PorterDuff.Mode.MULTIPLY);
-            ((TextView) (layout.getChildAt(1))).setTextColor(fg);
+            for (int resid : new int[]{R.id.more__fragment__action_about, R.id.more__fragment__action_contribute, R.id.more__fragment__action_donate, R.id.more__fragment__action_settings}) {
+                LinearLayout layout = fragView.findViewById(resid);
+                ((ImageView) (layout.getChildAt(0))).setColorFilter(fg, android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) (layout.getChildAt(1))).setTextColor(fg);
+            }
+            for (int resid : new int[]{R.id.more__fragment__res_text, R.id.more__fragment__res_title}) {
+                ((TextView) fragView.findViewById(resid)).setTextColor(fg);
+            }
+
+            ContextUtils cu = new ContextUtils(fragView.getContext());
+            TextView ressourcesText = fragView.findViewById(R.id.more__fragment__res_text);
+            cu.setHtmlToTextView(ressourcesText, cu.loadMarkdownForTextViewFromRaw(R.raw.resources, ""));
         }
-        for (int resid : new int[]{R.id.more__fragment__res_text, R.id.more__fragment__res_title}) {
-            ((TextView) _view.findViewById(resid)).setTextColor(fg);
-        }
-
-        ContextUtils cu = new ContextUtils(_view.getContext());
-        TextView ressourcesText = _view.findViewById(R.id.more__fragment__res_text);
-        cu.setHtmlToTextView(ressourcesText, cu.loadMarkdownForTextViewFromRaw(R.raw.resources, ""));
     }
 
     @OnClick({R.id.more__fragment__action_about, R.id.more__fragment__action_contribute, R.id.more__fragment__action_donate, R.id.more__fragment__action_settings})

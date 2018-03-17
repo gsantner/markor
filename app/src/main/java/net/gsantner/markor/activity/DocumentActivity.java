@@ -35,12 +35,12 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -224,7 +224,7 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {
                 _document.setFormat(item.getItemId());
-                BaseFragment frag = getCurrentVisibleFragment();
+                GsFragmentBase frag = getCurrentVisibleFragment();
                 if (frag != null && frag instanceof TextFormat.TextFormatApplier) {
                     ((TextFormat.TextFormatApplier) frag).applyTextFormat(item.getItemId());
                 }
@@ -240,8 +240,8 @@ public class DocumentActivity extends AppCompatActivity {
         _toolbarTitleText.setText(title);
     }
 
-    public BaseFragment showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
-        BaseFragment frag;
+    public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
+        GsFragmentBase frag;
         if (document != null) {
             frag = showFragment(DocumentEditFragment.newInstance(document));
         } else {
@@ -312,7 +312,7 @@ public class DocumentActivity extends AppCompatActivity {
     @SuppressWarnings("StatementWithEmptyBody")
     public void onBackPressed() {
         FragmentManager fragMgr = getSupportFragmentManager();
-        BaseFragment top = getCurrentVisibleFragment();
+        GsFragmentBase top = getCurrentVisibleFragment();
         if (top != null) {
             if (!top.onBackPressed()) {
                 if (fragMgr.getBackStackEntryCount() == 1) {
@@ -338,8 +338,8 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
 
-    public BaseFragment showFragment(BaseFragment fragment) {
-        BaseFragment currentTop = (BaseFragment) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
+    public GsFragmentBase showFragment(GsFragmentBase fragment) {
+        GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
 
         if (currentTop == null || !currentTop.getFragmentTag().equals(fragment.getFragmentTag())) {
             _fragManager.beginTransaction()
@@ -354,17 +354,17 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
 
-    public synchronized BaseFragment getExistingFragment(final String fragmentTag) {
+    public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
         FragmentManager fmgr = getSupportFragmentManager();
-        BaseFragment fragment = (BaseFragment) fmgr.findFragmentByTag(fragmentTag);
+        GsFragmentBase fragment = (GsFragmentBase) fmgr.findFragmentByTag(fragmentTag);
         if (fragment != null) {
             return fragment;
         }
         return null;
     }
 
-    private BaseFragment getCurrentVisibleFragment() {
-        return (BaseFragment) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
+    private GsFragmentBase getCurrentVisibleFragment() {
+        return (GsFragmentBase) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
     }
 
     public void setDocument(Document document) {
