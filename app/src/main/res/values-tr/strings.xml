@@ -130,7 +130,7 @@
     <string name="markdown_syntax_highlighting" needed="false">Sözdizimini vurgula</string>
     <string name="pref_title__highlighting_delay" needed="false">Vurgulamaların yenilenmesi için milisaniye cinsinden gecikme süresi</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Daha yüksek değerler pil tüketimini azaltır</string>
-    <string name="pref_title__smart_shortcuts"  needed="false">Akıllı parantez kısayolları</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Akıllı parantez kısayolları</string>
     <string name="pref_title__smart_shortcuts_summary" needed="false">Metin seçilirse, {}, [] ve () seçimi çevreleyecektir</string>
     <string name="number_of_files" needed="false">Dosya sayısı: %d</string>
 
@@ -173,10 +173,10 @@
     <string name="special_key">Özel Tuş</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
-    <string name="key_pos_1" >Satır Başlangıcı (Pos Home)</string>
-    <string name="key_pos_end" >Satır Sonu (Pos End)</string>
-    <string name="key_pos_1_document" >Belge Başlangıcı</string>
-    <string name="key_pos_end_document" >Belge Sonu</string>
+    <string name="key_pos_1">Satır Başlangıcı (Pos Home)</string>
+    <string name="key_pos_end">Satır Sonu (Pos End)</string>
+    <string name="key_pos_1_document">Belge Başlangıcı</string>
+    <string name="key_pos_end_document">Belge Sonu</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
     <string name="key_tab">Tab</string>
 </resources>

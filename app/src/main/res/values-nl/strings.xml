@@ -104,7 +104,7 @@
     <string name="markdown_syntax_highlighting" needed="false">Markdown code markeren</string>
     <string name="pref_title__highlighting_delay" needed="false">Vertraging in milliseconden voor markering ververst</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Hogere waarden zijn beter voor de accu.</string>
-    <string name="pref_title__smart_shortcuts"  needed="false">Slimme haakcodes</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Slimme haakcodes</string>
     <string name="pref_title__smart_shortcuts_summary" needed="false">Als tekst is geselecteerd, {}, [] and () omsluiten de selectie</string>
     <string name="number_of_files" needed="false">Aantal bestanden: %d</string>
 

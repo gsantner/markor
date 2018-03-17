@@ -178,4 +178,6 @@
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="special_key">Spezielle Tasten</string>
+    <string name="start_on_bottom">Unten beginnen</string>
+    <string name="start_on_bottom_summary">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
 </resources>

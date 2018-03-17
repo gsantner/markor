@@ -78,6 +78,12 @@
             android:key="@string/pref_key__is_show_textmodules_bar"
             android:summary="@string/textmodules_bar_summary"
             android:title="@string/text_modules" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
+            android:key="@string/pref_key__editor_start_editing_on_bottom"
+            android:summary="@string/start_on_bottom_summary"
+            android:title="@string/start_on_bottom" />
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
