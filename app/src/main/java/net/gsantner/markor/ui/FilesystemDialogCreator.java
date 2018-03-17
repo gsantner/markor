@@ -41,6 +41,7 @@ public class FilesystemDialogCreator {
         opts.selectedItemImage = R.drawable.ic_check_black_24dp;
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
+        opts.mustStartWithRootFolder = false;
 
         opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
         opts.secondaryTextColor = darkTheme ? R.color.dark__secondary_text : R.color.light__secondary_text;
