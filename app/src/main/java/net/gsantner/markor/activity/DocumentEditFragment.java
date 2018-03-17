@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,21 +27,20 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.widget.MarkorWidgetProvider;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
-public class DocumentEditFragment extends BaseFragment implements TextFormat.TextFormatApplier {
+public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
@@ -74,8 +72,6 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
     ViewGroup _textModuleActionsBar;
 
-    private View _view;
-    private Context _context;
     private Document _document;
     private TextFormat _textFormat;
 
@@ -83,18 +79,14 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.document__fragment__edit, container, false);
-        ButterKnife.bind(this, view);
-        _view = view;
-        _context = view.getContext();
-        return view;
+    protected int getLayoutResId() {
+        return R.layout.document__fragment__edit;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         //applyTextFormat(TextFormat.FORMAT_PLAIN);
-        setupAppearancePreferences();
+        setupAppearancePreferences(view);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
@@ -109,7 +101,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         }
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
-        AppSettings appSettings = new AppSettings(_context);
+        AppSettings appSettings = new AppSettings(view.getContext());
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, appSettings.getEditorLineSpacing());
     }
@@ -212,6 +204,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
             document.forceAddNextChangeToHistory();
             document.addToHistory();
         }
+
         return document;
     }
 
@@ -229,7 +222,7 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         }
     }
 
-    private void setupAppearancePreferences() {
+    private void setupAppearancePreferences(View fragmentView) {
         AppSettings as = AppSettings.get();
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
@@ -237,11 +230,11 @@ public class DocumentEditFragment extends BaseFragment implements TextFormat.Tex
         if (as.isDarkThemeEnabled()) {
             _hlEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
             _hlEditor.setTextColor(getResources().getColor(android.R.color.white));
-            _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
+            fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
             _hlEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
             _hlEditor.setTextColor(getResources().getColor(R.color.dark_grey));
-            _view.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
+            fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
                     .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
         }
     }

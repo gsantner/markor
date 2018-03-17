@@ -25,8 +25,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
-import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
+import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
 

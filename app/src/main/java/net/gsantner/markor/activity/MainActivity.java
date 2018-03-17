@@ -35,12 +35,12 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
 import java.io.File;
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         removeShiftMode(_bottomNav);
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
+        _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
     }
 
@@ -259,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         // Check if fragment handled back press
-        BaseFragment frag = _viewPagerAdapter.getCachedFragments().get(_viewPager.getCurrentItem());
+        GsFragmentBase frag = _viewPagerAdapter.getCachedFragments().get(_viewPager.getCurrentItem());
         if (frag != null && frag.onBackPressed()) {
             return;
         }
@@ -332,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private HashMap<Integer, BaseFragment> _fragCache = new LinkedHashMap<>();
+        private HashMap<Integer, GsFragmentBase> _fragCache = new LinkedHashMap<>();
 
         SectionsPagerAdapter(FragmentManager fragMgr) {
             super(fragMgr);
@@ -340,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         @Override
         public Fragment getItem(int pos) {
-            BaseFragment fragment = _fragCache.get(pos);
+            GsFragmentBase fragment = _fragCache.get(pos);
             switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
                 default:
                 case R.id.nav_notebook: {
@@ -384,8 +385,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return _bottomNav.getMenu().size();
         }
 
-        public BaseFragment getFragmentByTag(String fragmentTag) {
-            for (BaseFragment frag : _fragCache.values()) {
+        public GsFragmentBase getFragmentByTag(String fragmentTag) {
+            for (GsFragmentBase frag : _fragCache.values()) {
                 if (fragmentTag.equals(frag.getFragmentTag())) {
                     return frag;
                 }
@@ -393,7 +394,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return null;
         }
 
-        public HashMap<Integer, BaseFragment> getCachedFragments() {
+        public HashMap<Integer, GsFragmentBase> getCachedFragments() {
             return _fragCache;
         }
     }

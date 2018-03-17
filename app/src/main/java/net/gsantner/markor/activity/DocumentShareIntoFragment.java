@@ -5,14 +5,11 @@
  */
 package net.gsantner.markor.activity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,22 +17,21 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.converter.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DocumentShareIntoFragment extends BaseFragment {
+public class DocumentShareIntoFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
 
@@ -50,48 +46,42 @@ public class DocumentShareIntoFragment extends BaseFragment {
     @BindView(R.id.document__fragment__share_into__webview)
     WebView _webView;
 
-    private View _view;
-    private Context _context;
     private String _sharedText;
 
     public DocumentShareIntoFragment() {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.document__fragment__share_into, container, false);
-        ButterKnife.bind(this, view);
-        _view = view;
-        _context = view.getContext();
-        _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
-        _sharedText = _sharedText.trim();
-        return view;
+    protected int getLayoutResId() {
+        return R.layout.document__fragment__share_into;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        AppSettings as = new AppSettings(_context);
-        ContextUtils cu = new ContextUtils(_context);
+        AppSettings as = new AppSettings(view.getContext());
+        ContextUtils cu = new ContextUtils(view.getContext());
         cu.setAppLanguage(as.getLanguage());
+        _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
+        _sharedText = _sharedText.trim();
         int fg = as.isDarkThemeEnabled() ? Color.WHITE : Color.BLACK;
 
-        _view.setBackgroundColor(fg == Color.WHITE ? Color.BLACK : Color.WHITE);
+        view.setBackgroundColor(fg == Color.WHITE ? Color.BLACK : Color.WHITE);
         for (int resid : new int[]{R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo}) {
-            LinearLayout layout = _view.findViewById(resid);
+            LinearLayout layout = view.findViewById(resid);
             ((TextView) (layout.getChildAt(1))).setTextColor(fg);
         }
 
-        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_document__text))
+        ((TextView) view.findViewById(R.id.document__fragment__share_into__append_to_document__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.document_one)));
-        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
+        ((TextView) view.findViewById(R.id.document__fragment__share_into__append_to_quicknote__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.quicknote)));
-        ((TextView) _view.findViewById(R.id.document__fragment__share_into__append_to_todo__text))
+        ((TextView) view.findViewById(R.id.document__fragment__share_into__append_to_todo__text))
                 .setText(getString(R.string.append_to__arg_document_name, getString(R.string.todo)));
-        _view.findViewById(R.id.document__fragment__share_into__append_to_todo__text)
+        view.findViewById(R.id.document__fragment__share_into__append_to_todo__text)
                 .setVisibility(_sharedText.contains("\n") ? View.INVISIBLE : View.VISIBLE);
-        _view.findViewById(R.id.document__fragment__share_into__append_to_todo)
+        view.findViewById(R.id.document__fragment__share_into__append_to_todo)
                 .setVisibility(_sharedText.contains("\n") ? View.INVISIBLE : View.VISIBLE);
-        ((TextView) _view.findViewById(R.id.document__fragment__share_into__create_document__text))
+        ((TextView) view.findViewById(R.id.document__fragment__share_into__create_document__text))
                 .setText(getString(R.string.create_new_document));
 
         Document document = new Document();
@@ -102,7 +92,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
 
     @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo})
     public void onClick(View view) {
-        AppSettings appSettings = new AppSettings(_context);
+        AppSettings appSettings = new AppSettings(view.getContext());
         switch (view.getId()) {
             case R.id.document__fragment__share_into__create_document: {
                 if (PermissionChecker.doIfPermissionGranted(getActivity())) {
@@ -162,7 +152,7 @@ public class DocumentShareIntoFragment extends BaseFragment {
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, file);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-        Document document = DocumentIO.loadDocument(_context, args, null);
+        Document document = DocumentIO.loadDocument(getContext(), args, null);
         String currentContent = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent().trim() + "\n");
         DocumentIO.saveDocument(document, false, currentContent + _sharedText);
         if (showEditor) {
@@ -175,13 +165,13 @@ public class DocumentShareIntoFragment extends BaseFragment {
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, AppSettings.get().getNotebookDirectory());
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
-        Document document = DocumentIO.loadDocument(_context, args, null);
+        Document document = DocumentIO.loadDocument(getContext(), args, null);
         DocumentIO.saveDocument(document, false, _sharedText);
 
         // Load document as file
         args.putSerializable(DocumentIO.EXTRA_PATH, document.getFile());
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-        document = DocumentIO.loadDocument(_context, args, null);
+        document = DocumentIO.loadDocument(getContext(), args, null);
         document.setTitle("");
         showInDocumentActivity(document);
     }

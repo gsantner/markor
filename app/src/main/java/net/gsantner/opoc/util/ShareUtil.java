@@ -141,8 +141,8 @@ public class ShareUtil {
     /**
      * Share the given bitmap with given format
      *
-     * @param bitmap   Image
-     * @param format   A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
+     * @param bitmap Image
+     * @param format A {@link Bitmap.CompressFormat}, supporting JPEG,PNG,WEBP
      * @return if success, true
      */
     public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format) {
@@ -154,7 +154,7 @@ public class ShareUtil {
      * Share the given bitmap with given format
      *
      * @param bitmap    Image
-     * @param format    A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
+     * @param format    A {@link Bitmap.CompressFormat}, supporting JPEG,PNG,WEBP
      * @param imageName Filename without extension
      * @param quality   Quality of the exported image [0-100]
      * @return if success, true

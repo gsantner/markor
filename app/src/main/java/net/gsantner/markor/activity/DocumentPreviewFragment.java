@@ -6,33 +6,29 @@
 package net.gsantner.markor.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.BaseFragment;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.MarkorWebViewClient;
+import net.gsantner.opoc.activity.GsFragmentBase;
 
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class DocumentPreviewFragment extends BaseFragment implements TextFormat.TextFormatApplier {
+public class DocumentPreviewFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static boolean showEditOnBack = false;
     public static final String FRAGMENT_TAG = "DocumentPreviewFragment";
 
@@ -55,8 +51,6 @@ public class DocumentPreviewFragment extends BaseFragment implements TextFormat.
     @BindView(R.id.preview__activity__webview)
     WebView _webView;
 
-    private View _view;
-    private Context _context;
     private Document _document;
     private TextFormat _textFormat;
 
@@ -64,12 +58,8 @@ public class DocumentPreviewFragment extends BaseFragment implements TextFormat.
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.document__fragment__preview, container, false);
-        ButterKnife.bind(this, view);
-        _view = view;
-        _context = view.getContext();
-        return view;
+    protected int getLayoutResId() {
+        return R.layout.document__fragment__preview;
     }
 
     @Override
