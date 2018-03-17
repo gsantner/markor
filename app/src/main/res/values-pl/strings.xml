@@ -166,10 +166,10 @@
     <string name="special_key">Specialne Klawisze</string>
     <string name="key_page_up">Strona w górę (Page Up)</string>
     <string name="key_page_down">Strona w dół (Page Down)</string>
-    <string name="key_pos_1" >Początek Linii (Pos Home)</string>
-    <string name="key_pos_end" >Koniec Linii (Pos End)</string>
-    <string name="key_pos_1_document" >Koniec Dokumentu</string>
-    <string name="key_pos_end_document" >Początek Dokumentu</string>
+    <string name="key_pos_1">Początek Linii (Pos Home)</string>
+    <string name="key_pos_end">Koniec Linii (Pos End)</string>
+    <string name="key_pos_1_document">Koniec Dokumentu</string>
+    <string name="key_pos_end_document">Początek Dokumentu</string>
     <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
 </resources>

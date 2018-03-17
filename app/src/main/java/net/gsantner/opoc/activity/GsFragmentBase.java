@@ -28,9 +28,11 @@ import butterknife.ButterKnife;
  * A common base fragment to extend from
  */
 public abstract class GsFragmentBase extends Fragment {
-    protected ContextUtils _cu;
     private boolean _fragmentFirstTimeVisible = true;
     private final Object _fragmentFirstTimeVisibleSync = new Object();
+
+    protected ContextUtils _cu;
+    protected Bundle _savedInstanceState = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,17 @@ public abstract class GsFragmentBase extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Inflate the fragments layout. Don't override this method, just supply the needed
+     * {@link LayoutRes} via abstract method {@link #getLayoutResId()}, super does the rest
+     */
+    @Deprecated
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         _cu = new ContextUtils(inflater.getContext());
         _cu.setAppLanguage(getAppLanguage());
+        _savedInstanceState = savedInstanceState;
         View view = inflater.inflate(getLayoutResId(), container, false);
         ButterKnife.bind(this, view);
         return view;

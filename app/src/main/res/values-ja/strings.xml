@@ -127,7 +127,7 @@
     <string name="markdown_syntax_highlighting" needed="false">マークダウン書式ハイライト表示</string>
     <string name="pref_title__highlighting_delay" needed="false">ハイライト表示更新の遅延(ミリ秒)</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">高い値がバッテリーに優しいです</string>
-    <string name="pref_title__smart_shortcuts"  needed="false">スマートブラケットショートカット</string>
+    <string name="pref_title__smart_shortcuts" needed="false">スマートブラケットショートカット</string>
     <string name="pref_title__smart_shortcuts_summary" needed="false">テキストを選択すると、選択を {}、[]、() で囲みます</string>
     <string name="number_of_files" needed="false">ファイル数: %d</string>
 
