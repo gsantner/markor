@@ -15,15 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class MapPropertyBackend<TKEY> implements PropertyBackend<TKEY, MapPropertyBackend> {
-    private Map<TKEY, List<String>> _pStringList = new HashMap<>();
-    private Map<TKEY, List<Integer>> _pIntList = new HashMap<>();
-    private Map<TKEY, Boolean> _pBoolean = new HashMap<>();
-    private Map<TKEY, String> _pString = new HashMap<>();
-    private Map<TKEY, Double> _pDouble = new HashMap<>();
-    private Map<TKEY, Integer> _pInt = new HashMap<>();
-    private Map<TKEY, Float> _pFloat = new HashMap<>();
-    private Map<TKEY, Long> _pLong = new HashMap<>();
+    private final Map<TKEY, List<String>> _pStringList = new HashMap<>();
+    private final Map<TKEY, List<Integer>> _pIntList = new HashMap<>();
+    private final Map<TKEY, Boolean> _pBoolean = new HashMap<>();
+    private final Map<TKEY, String> _pString = new HashMap<>();
+    private final Map<TKEY, Double> _pDouble = new HashMap<>();
+    private final Map<TKEY, Integer> _pInt = new HashMap<>();
+    private final Map<TKEY, Float> _pFloat = new HashMap<>();
+    private final Map<TKEY, Long> _pLong = new HashMap<>();
 
     public MapPropertyBackend() {
 

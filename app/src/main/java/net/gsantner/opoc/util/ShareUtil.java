@@ -143,7 +143,6 @@ public class ShareUtil {
      *
      * @param bitmap   Image
      * @param format   A {@link Bitmap.CompressFormat}, supporting JPEG,PNG, WEBP
-     * @param filename Filename without ext., null or nothing supplied will default to SharedFile.
      * @return if success, true
      */
     public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format) {

@@ -33,7 +33,7 @@ import java.io.InputStreamReader;
 /**
  * Simple Markdown Parser
  */
-@SuppressWarnings({"WeakerAccess", "CaughtExceptionImmediatelyRethrown", "SameParameterValue", "unused", "SpellCheckingInspection", "RepeatedSpace", "SingleCharAlternation"})
+@SuppressWarnings({"WeakerAccess", "CaughtExceptionImmediatelyRethrown", "SameParameterValue", "unused", "SpellCheckingInspection", "RepeatedSpace", "SingleCharAlternation", "Convert2Lambda"})
 public class SimpleMarkdownParser {
     //########################
     //## Statics
