@@ -1,7 +1,11 @@
 ### v0.3.3
+- Add support for editing files from most file managers
+- Allow to open from Own/NextCloud
+- Hints about using Markor with Dropbox
 - Allow to set document folder outside of internal storage
 - Fix import dialog orientation crash
 - Add option to start editing on bottom
+- md: moduleaction: end line with 2 spaces
 - Improve project icon
 - Trim share-into text
 - Improved exporting/sharing

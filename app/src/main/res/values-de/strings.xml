@@ -180,4 +180,7 @@
     <string name="special_key">Spezielle Tasten</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_summary">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor erlaubt es nur lokale, offline verfügbare, Dokumente zu editieren und unterstützt Datei-Manager welche den vollen Dateipfad inklusive Dateinamen bereitstellen. Leider stellte die App nicht alle benötigten Informationen bereit und kann nicht mir Markor benutzt werden :(.</string>
+    <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
+    <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweiße in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
 </resources>

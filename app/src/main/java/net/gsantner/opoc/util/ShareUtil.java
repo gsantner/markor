@@ -12,6 +12,7 @@
 
 package net.gsantner.opoc.util;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -314,5 +316,69 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_EMAIL, to);
         }
         showChooser(intent, null);
+    }
+
+    /**
+     * Try to force extract a absolute filepath from an intent
+     *
+     * @param receivingIntent The intent from {@link Activity#getIntent()}
+     * @return A file or null if extraction did not succeed
+     */
+    public File extractFileFromIntent(Intent receivingIntent) {
+        String action = receivingIntent.getAction();
+        String type = receivingIntent.getType();
+        File tmpf;
+        String tmps;
+        String fileStr;
+
+        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action))) {
+            // Simple Mobile Tools - FileManager
+            if (receivingIntent.hasExtra((tmps = "real_file_path_2"))) {
+                return new File(receivingIntent.getStringExtra(tmps));
+            }
+
+            // Analyze data/Uri
+            Uri fileUri = receivingIntent.getData();
+            if (fileUri != null && (fileStr = fileUri.toString()) != null) {
+                // Uri contains file
+                if (fileStr.startsWith("file://")) {
+                    return new File(fileUri.getPath());
+                }
+                if (fileStr.startsWith((tmps = "content://"))) {
+                    fileStr = fileStr.substring(tmps.length());
+                    String fileProvider = fileStr.substring(0, fileStr.indexOf("/"));
+                    fileStr = fileStr.substring(fileProvider.length() + 1);
+
+                    // Some file managers dont add leading slash
+                    if (fileStr.startsWith("storage/")) {
+                        fileStr = "/" + fileStr;
+                    }
+                    // Some do add some custom prefix
+                    for (String prefix : new String[]{"file", "document", "root_files"}) {
+                        if (fileStr.startsWith(prefix)) {
+                            fileStr = fileStr.substring(prefix.length());
+                        }
+                    }
+                    // Next/OwnCloud Fileprovider
+                    for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
+                        if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
+                            return new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
+                        }
+                    }
+                    // Mi File Explorer
+                    if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
+                        return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
+                    }
+                    // URI Encoded paths with full path after content://package/
+                    if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
+                        tmpf = new File(Uri.decode(fileStr));
+                        if (tmpf.exists()) {
+                            return tmpf;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
