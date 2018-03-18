@@ -152,7 +152,7 @@
     <string name="categories">Kategorie</string>
     <string name="none">Nic</string>
     <string name="pref_summary__is_highlighting_for_hexcolor_activated">Określa, czy należy podświetlać kody kolorów heksadecymalnych w zależności od koloru</string>
-    <string name="hexcolor_underline">Pokdreślaj kolory w układzie szesnastkowym (Hex)</string>
+    <string name="hexcolor_underline">Podkreślaj kolory w układzie szesnastkowym (Hex)</string>
     <string name="start_new_tasks_with_todays_date">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="right_to_left_rendering__abbreviated">Renderowanie RTL</string>

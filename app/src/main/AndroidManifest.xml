@@ -93,6 +93,16 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
+
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/htm" />
+                <data android:mimeType="text/html" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <action android:name="android.intent.action.VIEW" />

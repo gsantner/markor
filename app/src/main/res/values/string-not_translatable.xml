@@ -21,6 +21,11 @@
     <string name="url_donate" translatable="false">https://liberapay.com/gsantner/donate</string>
     <string name="url_contribute" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
 
+    <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[
+    <b>Dropbox:</b> Android/data/com.dropbox.android/files/u123456/scratch/
+    \n<b>Own/NextCloud:</b> %s]]></string>
+
+
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017-2018

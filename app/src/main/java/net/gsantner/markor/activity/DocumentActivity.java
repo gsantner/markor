@@ -19,6 +19,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -54,7 +55,7 @@ import butterknife.OnTextChanged;
 @SuppressWarnings("unused")
 public class DocumentActivity extends AppCompatActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
-    public static final String EXTRA_LAUNCHER_SHORTCUT_PATH = "EXTRA_LAUNCHER_SHORTCUT_PATH";
+    public static final String EXTRA_LAUNCHER_SHORTCUT_PATH = "real_file_path_2";
 
     @BindView(R.id.document__placeholder_fragment)
     FrameLayout _fragPlaceholder;
@@ -114,20 +115,19 @@ public class DocumentActivity extends AppCompatActivity {
                 Uri fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
                 file = new File(fileUri.getPath());
             }
-        } else if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) && type != null) {
-            Uri fileUri = receivingIntent.getData();
-            if (receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH) != null) {
-                fileUri = Uri.fromFile(new File(receivingIntent.getStringExtra(EXTRA_LAUNCHER_SHORTCUT_PATH)));
-            }
-            if (fileUri.toString().startsWith("content://")) {
+        } else if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction))) {
+            file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
+            if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
+                String msg = getString(R.string.filemanager_doesnot_supply_required_data) + "\n\n"
+                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
+                        + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
+
                 new AlertDialog.Builder(this)
-                        .setMessage("Sorry, but editing texts from content:// URIs is not supported yet. See https://github.com/gsantner/markor/issues/126 . Thanks!")
-                        .setNegativeButton("Go to issue", (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/126"))
-                        .setPositiveButton("OK", null)
+                        .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
+                        .setNegativeButton(R.string.more_information, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
+                        .setPositiveButton(android.R.string.ok, null)
                         .setOnDismissListener((dialogInterface) -> finish())
                         .create().show();
-            } else {
-                file = new File(fileUri.getPath());
             }
         }
 
