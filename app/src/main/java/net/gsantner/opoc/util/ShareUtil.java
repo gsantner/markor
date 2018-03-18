@@ -12,6 +12,7 @@
 
 package net.gsantner.opoc.util;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -29,6 +31,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.pm.ShortcutInfoCompat;
+import android.support.v4.content.pm.ShortcutManagerCompat;
+import android.support.v4.graphics.drawable.IconCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +41,7 @@ import android.webkit.WebView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
 public class ShareUtil {
@@ -93,18 +99,47 @@ public class ShareUtil {
      * <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
      * <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
      *
-     * @param shortcutIntent  The intent to be invoked on tap
-     * @param shortcutIconRes Icon resource for the item
-     * @param shortcutTitle   Title of the item
+     * @param intent  The intent to be invoked on tap
+     * @param iconRes Icon resource for the item
+     * @param title   Title of the item
      */
-    public void createLauncherDesktopShortcut(Intent shortcutIntent, @DrawableRes int shortcutIconRes, String shortcutTitle) {
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    public void createLauncherDesktopShortcut(Intent intent, @DrawableRes int iconRes, String title) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if (intent.getAction() == null) {
+            intent.setAction(Intent.ACTION_VIEW);
+        }
+
+        ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(_context, Long.toString(new Random().nextLong()))
+                .setIntent(intent)
+                .setIcon(IconCompat.createWithResource(_context, iconRes))
+                .setShortLabel(title)
+                .setLongLabel(title)
+                .build();
+        ShortcutManagerCompat.requestPinShortcut(_context, shortcut, null);
+    }
+
+    /**
+     * Try to create a new desktop shortcut on the launcher. This will not work on Api > 25. Add permissions:
+     * <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+     * <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+     *
+     * @param intent  The intent to be invoked on tap
+     * @param iconRes Icon resource for the item
+     * @param title   Title of the item
+     */
+    public void createLauncherDesktopShortcutLegacy(Intent intent, @DrawableRes int iconRes, String title) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if (intent.getAction() == null) {
+            intent.setAction(Intent.ACTION_VIEW);
+        }
 
         Intent creationIntent = new Intent();
-        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutTitle);
-        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(_context, shortcutIconRes));
+        creationIntent.putExtra("duplicate", true);
+        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
+        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(_context, iconRes));
         creationIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         _context.sendBroadcast(creationIntent);
     }
@@ -314,5 +349,73 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_EMAIL, to);
         }
         showChooser(intent, null);
+    }
+
+    /**
+     * Try to force extract a absolute filepath from an intent
+     *
+     * @param receivingIntent The intent from {@link Activity#getIntent()}
+     * @return A file or null if extraction did not succeed
+     */
+    public File extractFileFromIntent(Intent receivingIntent) {
+        String action = receivingIntent.getAction();
+        String type = receivingIntent.getType();
+        File tmpf;
+        String tmps;
+        String fileStr;
+
+        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action))) {
+            // Simple Mobile Tools - FileManager
+            if (receivingIntent.hasExtra((tmps = "real_file_path_2"))) {
+                return new File(receivingIntent.getStringExtra(tmps));
+            }
+
+            // Analyze data/Uri
+            Uri fileUri = receivingIntent.getData();
+            if (fileUri != null && (fileStr = fileUri.toString()) != null) {
+                // Uri contains file
+                if (fileStr.startsWith("file://")) {
+                    return new File(fileUri.getPath());
+                }
+                if (fileStr.startsWith((tmps = "content://"))) {
+                    fileStr = fileStr.substring(tmps.length());
+                    String fileProvider = fileStr.substring(0, fileStr.indexOf("/"));
+                    fileStr = fileStr.substring(fileProvider.length() + 1);
+
+                    // Some file managers dont add leading slash
+                    if (fileStr.startsWith("storage/")) {
+                        fileStr = "/" + fileStr;
+                    }
+                    // Some do add some custom prefix
+                    for (String prefix : new String[]{"file", "document", "root_files"}) {
+                        if (fileStr.startsWith(prefix)) {
+                            fileStr = fileStr.substring(prefix.length());
+                        }
+                    }
+                    // Next/OwnCloud Fileprovider
+                    for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
+                        if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
+                            return new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
+                        }
+                    }
+                    // AOSP File Manager/Documents
+                    if (fileProvider.equals("com.android.externalstorage.documents") && fileStr.startsWith(tmps = "/primary%3A")) {
+                        return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                    }
+                    // Mi File Explorer
+                    if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
+                        return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
+                    }
+                    // URI Encoded paths with full path after content://package/
+                    if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
+                        tmpf = new File(Uri.decode(fileStr));
+                        if (tmpf.exists()) {
+                            return tmpf;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

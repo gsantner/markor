@@ -35,7 +35,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         if (document != null && document.getFile() != null && !TextUtils.isEmpty(document.getTitle())) {
             Intent shortcutIntent = new Intent(_context, DocumentActivity.class);
             shortcutIntent.putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, document.getFile().getAbsolutePath());
-            shortcutIntent.setType("text/markdown"); // setData(Uri) -> Uri always gets null on receive
+            shortcutIntent.setType("text/plain"); // setData(Uri) -> Uri always gets null on receive
             super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
             Toast.makeText(_context, R.string.add_shortcut_to_launcher_homescreen_notice, Toast.LENGTH_LONG).show();
         }
