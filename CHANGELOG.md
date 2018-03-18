@@ -1,3 +1,12 @@
+### v0.3.3
+- Allow to set document folder outside of internal storage
+- Fix import dialog orientation crash
+- Add option to start editing on bottom
+- Improve project icon
+- Trim share-into text
+- Improved exporting/sharing
+
+
 ### v0.3.2
 - Todotxt: Support delete, archive tasks
 - Todotxt: Try to keep cursor position

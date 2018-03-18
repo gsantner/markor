@@ -324,9 +324,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onFragmentFirstTimeVisible() {
         AppSettings as = new AppSettings(getContext());
-        if (as.isEditorStartOnBotttom() && (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS))) {
-            _hlEditor.requestFocus();
-            _hlEditor.setSelection(_hlEditor.length());
+        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
+            //  TODO
+            if (as.isEditorStartOnBotttom() && _hlEditor.length() > 0) {
+                _hlEditor.requestFocus();
+                _hlEditor.setSelection(_hlEditor.length());
+            }
         }
     }
 

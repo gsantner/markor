@@ -195,7 +195,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
             {R.drawable.format_link, 1}, {R.drawable.format_image, 2},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3}
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3},
+            {R.drawable.ic_keyboard_return_black_24dp, 4},
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -211,6 +212,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             switch (_action) {
                 case 3: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case 4: {
+                    if (_hlEditor.length() > 1) {
+                        int start = _hlEditor.getSelectionStart();
+                        String text = _hlEditor.getText().toString();
+                        int insertPos = text.indexOf('\n', start);
+                        insertPos = insertPos < 1 ? text.length() : insertPos;
+                        _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
+                        _hlEditor.setSelection(insertPos + 3);
+                    }
                     break;
                 }
                 default: {

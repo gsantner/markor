@@ -37,7 +37,7 @@ public class FilesystemDialogCreator {
         opts.searchHint = R.string.search_documents;
         opts.searchButtonImage = R.drawable.ic_action_search;
         opts.homeButtonImage = R.drawable.ic_home_black_24dp;
-        opts.upButtonImage = R.drawable.ic_arrow_back_white_24dp;
+        opts.upButtonImage = R.drawable.ic_arrow_upward_black_24dp;
         opts.selectedItemImage = R.drawable.ic_check_black_24dp;
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
