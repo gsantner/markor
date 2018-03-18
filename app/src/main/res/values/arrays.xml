@@ -32,10 +32,10 @@
     <string-array name="textmoduleactions_press_key__text" translatable="false">
         <item translatable="false">@string/key_page_up</item>
         <item translatable="false">@string/key_page_down</item>
-        <item translatable="false">@string/key_pos_1_document</item>
-        <item translatable="false">@string/key_pos_end_document</item>
         <item translatable="false">@string/key_pos_1</item>
         <item translatable="false">@string/key_pos_end</item>
+        <item translatable="false">@string/key_pos_1_document</item>
+        <item translatable="false">@string/key_pos_end_document</item>
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
     </string-array>
