@@ -86,9 +86,6 @@ public class FilesystemDialog extends DialogFragment
     @BindView(R.id.ui__filesystem_dialog__home)
     ImageView _homeButton;
 
-    @BindView(R.id.ui__filesystem_dialog__dir_up)
-    ImageView _upButton;
-
     @BindView(R.id.ui__filesystem_dialog__search_button)
     ImageView _buttonSearch;
 
@@ -142,10 +139,6 @@ public class FilesystemDialog extends DialogFragment
         _dialogTitle.setText(_dopt.titleText);
         _dialogTitle.setVisibility(_dopt.titleTextEnable ? View.VISIBLE : View.GONE);
 
-        _upButton.setImageResource(_dopt.upButtonImage);
-        _upButton.setVisibility(_dopt.upButtonEnable ? View.VISIBLE : View.GONE);
-        _upButton.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
-
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
         _homeButton.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
@@ -189,11 +182,10 @@ public class FilesystemDialog extends DialogFragment
         }
     }
 
-    @OnClick({R.id.ui__filesystem_dialog__dir_up, R.id.ui__filesystem_dialog__home, R.id.ui__filesystem_dialog__search_button, R.id.ui__filesystem_dialog__button_cancel, R.id.ui__filesystem_dialog__button_ok})
+    @OnClick({R.id.ui__filesystem_dialog__home, R.id.ui__filesystem_dialog__search_button, R.id.ui__filesystem_dialog__button_cancel, R.id.ui__filesystem_dialog__button_ok})
     public void onClicked(View view) {
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:
-            case R.id.ui__filesystem_dialog__dir_up:
             case R.id.ui__filesystem_dialog__home: {
                 _filesystemDialogAdapter.onClick(view);
                 break;
