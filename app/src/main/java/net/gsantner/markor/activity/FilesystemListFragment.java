@@ -83,10 +83,16 @@ public class FilesystemListFragment extends GsFragmentBase {
     private ActionMode _actionMode;
     private File _currentDir;
     private File _rootDir;
-    private Sectionizer<File> _sectionizer = fileObj -> (fileObj == null
-            ? getString(R.string.file)
-            : (getString(fileObj.isDirectory() ? R.string.folders : R.string.files))
-    );
+    private Sectionizer<File> _sectionizer = fileObj -> {
+        try {
+            return (fileObj == null
+                    ? getString(R.string.files)
+                    : (getString(fileObj.isDirectory() ? R.string.folders : R.string.files))
+            );
+        } catch (Exception ex) {
+            return getString(R.string.files);
+        }
+    };
 
     @Override
     protected int getLayoutResId() {

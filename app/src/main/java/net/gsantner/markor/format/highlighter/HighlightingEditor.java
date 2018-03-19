@@ -137,4 +137,28 @@ public class HighlightingEditor extends AppCompatEditText {
     public boolean isDoHighlighting() {
         return _hlEnabled;
     }
+
+    public boolean indexesValid(int... indexes) {
+        int len = length();
+        for (int index : indexes) {
+            if (index < 0 || index > len) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void setSelection(int index) {
+        if (indexesValid(index)) {
+            super.setSelection(index);
+        }
+    }
+
+    @Override
+    public void setSelection(int start, int stop) {
+        if (indexesValid(start, stop)) {
+            super.setSelection(start, stop);
+        }
+    }
 }
