@@ -64,8 +64,12 @@ public class ConfirmDialog extends DialogFragment {
         }
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
-            for (ConfirmDialogCallback cdc : _callbacks) {
-                cdc.onConfirmDialogAnswer(true, _data);
+            if (_callbacks != null) {
+                for (ConfirmDialogCallback cdc : _callbacks) {
+                    if (cdc != null) {
+                        cdc.onConfirmDialogAnswer(true, _data);
+                    }
+                }
             }
         });
 

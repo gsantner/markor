@@ -146,7 +146,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 int selectionEnd = _hlEditor.getSelectionEnd();
 
                 //Check if Selection includes the shortcut characters
-                if (selectionEnd < text.length() && (text.substring(selectionStart, selectionEnd)
+                if (selectionEnd < text.length() && selectionStart >= 0 && (text.substring(selectionStart, selectionEnd)
                         .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
                     text = text.substring(selectionStart + _action.length(),
