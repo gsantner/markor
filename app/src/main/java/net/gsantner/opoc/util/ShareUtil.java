@@ -1,15 +1,13 @@
-/*
- * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
- * with it. If we meet some day, and you think it is worth it, you can buy me a
- * coke in return. Provided as is without any kind of warranty. Do not blame or
- * sue me if something goes wrong. No attribution required.    - Gregor Santner
+/*#######################################################
  *
- * License: Creative Commons Zero (CC0 1.0)
- *  http://creativecommons.org/publicdomain/zero/1.0/
- * ----------------------------------------------------------------------------
- */
-
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
@@ -41,8 +39,14 @@ import android.webkit.WebView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+/**
+ * A utility class to ease sharing information on Android
+ * Also allows to parse/fetch information out of shared information
+ */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
 public class ShareUtil {
     protected Context _context;
@@ -283,10 +287,10 @@ public class ShareUtil {
 
 
     /***
-     * Replace (primary) clipboard contents with given text
+     * Replace (primary) clipboard contents with given {@code text}
      * @param text Text to be set
      */
-    public boolean setClipboard(String text) {
+    public boolean setClipboard(CharSequence text) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
@@ -302,6 +306,31 @@ public class ShareUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Get clipboard contents, very failsafe and compat to older android versions
+     */
+    public List<String> getClipboard() {
+        List<String> clipper = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null && cm.getText() != null) {
+                clipper.add(cm.getText().toString());
+            }
+        } else {
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            if (cm != null && cm.hasPrimaryClip()) {
+                ClipData data = cm.getPrimaryClip();
+                for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
+                    ClipData.Item item = data.getItemAt(i);
+                    if (item != null && item.getText() != null) {
+                        clipper.add(data.getItemAt(i).getText().toString());
+                    }
+                }
+            }
+        }
+        return clipper;
     }
 
     /**
