@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -116,6 +117,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (cursor >= 0 && cursor < _hlEditor.length()) {
             _hlEditor.setSelection(cursor);
         }
+        AppSettings appSettings = new AppSettings(getContext());
+        _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
     }
 
     @Override

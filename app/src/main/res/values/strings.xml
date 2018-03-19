@@ -184,4 +184,16 @@
     <string name="filemanager_doesnot_supply_required_data">Markor only allows to edit local, offline available, documents and support file managers which supply the full filepath including filename. Apparently the app didn\'t supply all required information and can\'t be used with Markor :(.</string>
     <string name="sync_to_local_folder_notice">Notice: If you use a sync app, the files may reside in the known or custom folders, you can open the files by changing Markor\'s document folder to it, or by opening the file via a different file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the apps settings</string>
+    <string name="vertical_alignment">Vertical alignment</string>
+    <string name="horizontal_alignment">Horizontal alignment</string>
+    <string name="align_default">Default</string>
+    <string name="align_left">Left</string>
+    <string name="align_right">Right</string>
+    <string name="align_top">Top</string>
+    <string name="align_bottom">Bottom</string>
+    <string name="align_center">Center</string>
+
+    <string name="center_text">Center text</string>
+    <string name="center_text_desc">Edit text in center of the screen</string>
+
 </resources>

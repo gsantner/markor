@@ -17,13 +17,13 @@
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
 
-
     <string name="url_donate" translatable="false">https://liberapay.com/gsantner/donate</string>
     <string name="url_contribute" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
 
     <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[
     <b>Dropbox:</b> Android/data/com.dropbox.android/files/u123456/scratch/
     \n<b>Own/NextCloud:</b> %s]]></string>
+
 
 
     <!-- About Screen -->
@@ -61,7 +61,6 @@
         <item quantity="other" translatable="false">@string/projects</item>
     </plurals>
 
-
     <!-- Preference keys Markdown -->
     <string name="pref_key__markdown__highlighting_delay" translatable="false">pref_key__markdown__highlighting_delay_v001</string>
     <string name="pref_key__markdown__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
@@ -95,4 +94,5 @@
     <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>
     <string name="pref_key__editor_line_spacing" translatable="false">pref_key__editor_line_spacing</string>
     <string name="pref_key__editor_start_editing_on_bottom" translatable="false">pref_key__editor_start_editing_on_bottom</string>
+    <string name="pref_key__editor_start_editing_in_center" translatable="false">pref_key__editor_start_editing_in_center</string>
 </resources>
