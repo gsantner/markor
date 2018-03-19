@@ -12,24 +12,35 @@
         app:showAsAction="never">
         <menu>
             <item
+                android:icon="@drawable/ic_file_white_24dp"
                 android:id="@+id/action_share_text"
                 android:title="@string/plain_text" />
             <item
+                android:icon="@drawable/ic_picture_as_pdf_black_24dp"
                 android:id="@+id/action_share_pdf"
                 android:title="@string/pdf"
                 android:visible="false" />
             <item
+                android:icon="@drawable/ic_file_white_24dp"
                 android:id="@+id/action_share_file"
                 android:title="@string/file" />
             <item
+                android:icon="@drawable/format_code"
                 android:id="@+id/action_share_html"
                 android:title="@string/share_html__mime_html" />
             <item
+                android:icon="@drawable/format_code"
                 android:id="@+id/action_share_html_source"
                 android:title="@string/share_html__mime_plaintext" />
             <item
                 android:id="@+id/action_share_image"
+                android:icon="@drawable/format_image"
                 android:title="@string/image" />
+            <item
+                android:id="@+id/action_add_shortcut_launcher_home"
+                android:icon="@drawable/ic_widgets_black_24dp"
+                android:title="@string/add_shortcut_to_launcher_homescreen"
+                app:showAsAction="never" />
         </menu>
     </item>
 
@@ -50,13 +61,4 @@
                 android:title="@string/todo_txt" />
         </menu>
     </item>
-
-
-    <item
-        android:id="@+id/action_add_shortcut_launcher_home"
-        android:icon="@drawable/ic_widgets_black_24dp"
-        android:orderInCategory="900"
-        android:title="@string/add_shortcut_to_launcher_homescreen"
-        app:showAsAction="never" />
-
 </menu>
