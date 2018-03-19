@@ -223,10 +223,12 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_format_todotxt:
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {
-                _document.setFormat(item.getItemId());
-                GsFragmentBase frag = getCurrentVisibleFragment();
-                if (frag != null && frag instanceof TextFormat.TextFormatApplier) {
-                    ((TextFormat.TextFormatApplier) frag).applyTextFormat(item.getItemId());
+                if (_document != null) {
+                    _document.setFormat(item.getItemId());
+                    GsFragmentBase frag = getCurrentVisibleFragment();
+                    if (frag != null && frag instanceof TextFormat.TextFormatApplier) {
+                        ((TextFormat.TextFormatApplier) frag).applyTextFormat(item.getItemId());
+                    }
                 }
                 return true;
             }

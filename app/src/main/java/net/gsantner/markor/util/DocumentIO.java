@@ -150,21 +150,23 @@ public class DocumentIO {
 
     public static String normalizeTitleForFilename(Document _document) {
         String name = _document.getTitle();
-        if (name.length() == 0) {
-            if (_document.getContent().length() == 0) {
-                return null;
-            } else {
-                String contentL1 = _document.getContent().split("\n")[0];
-                if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
-                    name = contentL1.substring(0, contentL1.length());
+        try {
+            if (name.length() == 0) {
+                if (_document.getContent().length() == 0) {
+                    return null;
                 } else {
-                    name = contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
+                    String contentL1 = _document.getContent().split("\n")[0];
+                    if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
+                        name = contentL1.substring(0, contentL1.length());
+                    } else {
+                        name = contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
+                    }
                 }
             }
+            name = name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
+        } catch (Exception ignored) {
         }
-        name = name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
-
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             name = "Note " + UUID.randomUUID().toString();
         }
         return name;
