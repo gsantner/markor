@@ -1,3 +1,10 @@
+### v0.3.4
+- Replace commonmark markdown parser with flexmark
+- Various smaller bug fixes
+- Updated translations
+- Settings option: Edit in screen center
+- Add ".." in folder selection to go up
+
 ### v0.3.3
 - Add support for editing files from most file managers
 - Allow to open from Own/NextCloud
