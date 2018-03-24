@@ -75,7 +75,7 @@
     <string name="pref_desc__language">このアプリの言語を変更します。 変更を反映するにはアプリを再起動してください</string>
     <string name="pref_title__language">言語</string>
     <string name="error_storage_permission">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
-    <string name="open_with">開く...</string>
+    <string name="open_with">開く…</string>
     <string name="sort">並べ替え</string>
     <string name="sort_by_date">日付順に並べ替え</string>
     <string name="sort_by_name">名前順に並び替え</string>

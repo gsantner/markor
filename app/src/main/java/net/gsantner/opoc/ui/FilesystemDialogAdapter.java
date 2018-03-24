@@ -11,6 +11,7 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,15 +70,16 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         loadFolder(options.rootFolder);
     }
 
+    @NonNull
     @Override
-    public UiFilesystemDialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UiFilesystemDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.ui__filesystem_item, parent, false);
         _wasInit = true;
         return new UiFilesystemDialogViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(UiFilesystemDialogViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UiFilesystemDialogViewHolder holder, int position) {
         final File file = _adapterDataFiltered.get(position);
         final File fileParent = file.getParentFile() == null ? new File("/") : file.getParentFile();
 
@@ -141,7 +143,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 TagContainer data = (TagContainer) view.getTag();
                 if (areItemsSelected()) {
                     // There are 1 or more items selected yet
-                    if (!toggleSelection(data) && data.file.isDirectory()) {
+                    if (data != null && !toggleSelection(data) && data.file.isDirectory()) {
                         loadFolder(data.file);
                     }
                 } else {

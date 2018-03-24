@@ -60,8 +60,9 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
         return i;
     }
 
+    @NonNull
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, @NonNull ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View row = inflater.inflate(R.layout.ui__file__item, viewGroup, false);
@@ -149,7 +150,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
                     searchResults.values = _data;
                     searchResults.count = _data.size();
                 } else {
-                    ArrayList<File> searchResultsData = new ArrayList<File>();
+                    ArrayList<File> searchResultsData = new ArrayList<>();
 
                     for (File item : _data) {
                         if (item.getName().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase(Locale.getDefault()))) {

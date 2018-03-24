@@ -9,12 +9,12 @@ package net.gsantner.markor.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -33,6 +33,7 @@ public class CreateFolderDialog extends DialogFragment {
     public CreateFolderDialog() {
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -42,7 +43,7 @@ public class CreateFolderDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
 
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        root = inflater.inflate(R.layout.ui__create_folder__dialog, (ViewGroup) null);
+        root = inflater.inflate(R.layout.ui__create_folder__dialog, null);
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 

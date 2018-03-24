@@ -52,14 +52,12 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
         final int N = appWidgetIds.length;
 
         // Perform this loop procedure for each App Widget that belongs to this provider
-        for (int i = 0; i < N; i++) {
-            int appWidgetId = appWidgetIds[i];
-
+        for (int appWidgetId : appWidgetIds) {
             // Get the layout for the App Widget and attach an on-click listener to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
             SharedPreferences sharedPreferences = context.getSharedPreferences(
-                    "" + appWidgetIds[i], Context.MODE_PRIVATE);
+                    "" + appWidgetId, Context.MODE_PRIVATE);
             String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getNotebookDirectoryAsStr());
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
                     .putExtra(DocumentIO.EXTRA_PATH, new File(directory))
@@ -74,7 +72,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
 
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);
-            notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             notesListIntent.putExtra(DocumentIO.EXTRA_PATH, new File(directory));
             notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));

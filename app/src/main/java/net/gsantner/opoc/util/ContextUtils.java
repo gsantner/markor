@@ -369,7 +369,7 @@ public class ContextUtils {
     public double getEstimatedScreenSizeInches() {
         DisplayMetrics dm = _context.getResources().getDisplayMetrics();
 
-        double calc = dm.density * 160;
+        double calc = dm.density * 160d;
         double x = Math.pow(dm.widthPixels / calc, 2);
         double y = Math.pow(dm.heightPixels / calc, 2);
         calc = Math.sqrt(x + y) * 1.16;  // 1.16 = est. Nav/Statusbar

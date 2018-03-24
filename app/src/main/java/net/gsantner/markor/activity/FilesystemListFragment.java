@@ -58,6 +58,7 @@ import butterknife.OnItemClick;
 
 import static android.content.Context.SEARCH_SERVICE;
 
+@SuppressWarnings("all")
 public class FilesystemListFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "FilesystemListFragment";
     public static final int SORT_BY_DATE = 0;
