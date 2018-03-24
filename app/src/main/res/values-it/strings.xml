@@ -5,53 +5,50 @@
     <string name="dark">Scuro</string>
     <string name="delete">Cancella</string>
     <string name="rename">Rinomina</string>
-    <string name="confirm_delete">Conferma la cancellazione</string>
+    <string name="confirm_delete">Confermare la cancellazione</string>
+    <string name="confirm_delete_description">Cancellare veramente questo %s?</string>
+    <string name="confirm_overwrite">Confermare la sovrascrittura</string>
     <string name="confirm_overwrite_description">File già esistente, sovrascrivere?</string>
+    <string name="browse_filesystem">Esplora filesystem</string>
     <string name="title">Titolo</string>
     <string name="empty_directory">Questa cartella è vuota</string>
-    <string name="navigate_up_folder">Vai alla cartella precedente</string>
-    <string name="folder_name_hint">Inserisci il nome della cartella</string>
-    <string name="create_folder">Crea nuova cartella</string>
-    <string name="create_note">Crea nuova nota</string>
+    <string name="folder_name_hint">Inserire il nome della cartella</string>
+    <string name="create_folder">Crea una nuova cartella</string>
+    <string name="create_note">Crea una nuova nota</string>
     <string name="move">Sposta</string>
 
     <string name="import_from_device">Importa dal device</string>
+    <string name="import_">Importa</string>
+    <string name="append_to__arg_document_name">Accoda a %s</string>
     <string name="select_folder">Seleziona cartella</string>
+    <string name="edit">Modifica</string>
 
     <string name="search_documents">Cerca note</string>
     <string name="share_to">Condividi con&#8230;</string>
     <string name="share">Condividi</string>
     <string name="search">Cerca</string>
     <string name="preview">Anteprima</string>
-    <string name="app_settings">Impostazioni App</string>
-    <string name="editor_settings">Impostazioni Editor</string>
+    <string name="editor">Editor</string>
     <string name="folders">Cartelle</string>
-    <string name="files">Files</string>
+    <string name="files">File</string>
+    <string name="document_one">Nota</string>
+    <string name="document_multiple">Note</string>
+    <string name="share_html__mime_plaintext">HTML (come file testuale)</string>
 
     <!-- Preferences -->
-    <string name="remember_last_folder_location_on_startup">Ricorda la posizione dell\'ultima cartella all\'avvio</string>
-    <string name="document_editor_font">Font dell\'Editor delle Note</string>
+    <string name="document_editor_font">Carattere dell'editor delle note</string>
     <string name="theme">Tema</string>
-    <string name="open_preview_when_open_documents">Anteprima all\'apertura della Nota</string>
-    <string name="about">About Markor</string>
-    <string name="plain_text">Testo Puro</string>
+    <string name="open_preview_when_open_documents">Apri l\'anteprima quando si apre una nota</string>
+    <string name="about">Riguardo Markor</string>
+    <string name="plain_text">Testo semplice</string>
     <string name="file">File</string>
     <string name="image">Immagine</string>
-    <string name="pref_title__font_size">Grandezza Font</string>
-    <string name="show_markdown_shortcuts_bar">Mostra barra scorciatoie Markdown</string>
-    <string name="markdown_syntax_highlighting">Highlighting della sintassi dei Markdown</string>
-    <string name="pref_title__highlighting_delay">Ritardo in millisecondi dell\'aggiornamento dell\'highlighting</string>
-    <string name="pref_title__highlighting_delay_summary">Valori più alti impattano meno sulla batteria</string>
-    <string name="pref_title__smart_shortcuts">Scorciatoie per parentesi intelligenti</string>
-    <string name="pref_title__smart_shortcuts_summary">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
-    <string name="render_for_right_to_left_languages">Render per lingue destra-verso-sinistra</string>
-    <string name="error_cannot_create_notebook_dir">Errore: Impossibile creare la directory di salvataggio</string>
+    <string name="pref_title__font_size">Dimensione del carattere</string>
+    <string name="render_for_right_to_left_languages">Visualizza per lingue da destra a sinistra</string>
+    <string name="error_cannot_create_notebook_dir">Error: Cannot create notebook directory</string>
+    <string name="error_cannot_create_notebook_dir">Errore: non è possibile creare una nuova cartella per il taccuino</string>
 
-    <!-- Font Size -->
-
-    <!-- Hard coded string fix -->
     <string name="last_modified">Ultima modifica: %s</string>
-    <string name="number_of_files">Numero di files: %d</string>
     <string name="select_this_folder">Seleziona questa cartella</string>
     <string name="select">Seleziona</string>
     <string name="create">Crea</string>
@@ -59,25 +56,147 @@
     <string name="one_item_selected">Un elemento selezionato</string>
     <string name="more_items_selected">%d elementi selezionati</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Nascondi la statusbar in questa view</string>
-    <string name="pref_title__is_statusbar_hidden">Nascondi statusbar</string>
+    <string name="pref_summary__is_statusbar_hidden">Nascondi la barra di sistema in questa visualizzazione</string>
+    <string name="pref_title__is_statusbar_hidden">Nascondi la barra di sistema</string>
+
+    <string name="name">Nome</string>
+    <string name="url_or_path">URL / Percorso</string>
+    <string name="insert_link">Inserisci collegamento</string>
+    <string name="insert_image">Inserisci immagine</string>
 
     <!-- About screen -->
-    <string name="contributors">Chi ha contribuito</string>
-
-    <string name="select_storage_folder">Seleziona cartella di salvataggio</string>
+    <string name="contributors">Contributori</string>
+    <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
+    <string name="notebook_directory">Cartella del taccuino</string>
     <string name="licenses">Licenze</string>
-    <string name="changelog">Changelog</string>
-    <string name="more_information">Più informazioni</string>
-    <string name="show_app_license">Mostra licenza dell\'app</string>
-    <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
-    <string name="pref_desc__language">Cambia la lingua di questa app. Riavvia l\'applicaizione per rendere effettive le modifiche</string>
-    <string name="pref_title__language">Lingue</string>
-    <string name="error_storage_permission">Necessari i permessi per salavare i documenti</string>
+    <string name="changelog">Cambiamenti</string>
+    <string name="more_information">Informazioni aggiuntive</string>
+    <string name="show_app_license">Mostra la licenza dell\'applicazione</string>
+    <string name="show_third_party_licenses">Mostra le licenze del software di terze parti</string>
+    <string name="pref_desc__language">Cambia la lingua dell\'applicazione. È necessario un riavvio per rendere effettivo il cambio</string>
+    <string name="pref_title__language">Lingua</string>
+    <string name="error_storage_permission">Need permission for storage to save documents</string>
+    <string name="error_storage_permission">Sono necessari i permessi di archiviazione per salvare le note</string>
     <string name="open_with">Apri con</string>
     <string name="sort">Ordina</string>
-    <string name="sort_by_date">Ordina per Data</string>
-    <string name="sort_by_name">Ordina per Nome</string>
-    <string name="sort_by_size">Ordina per Grandezza</string>
+    <string name="sort_by_date">Ordina per data</string>
+    <string name="sort_by_name">Ordina per nome</string>
+    <string name="sort_by_size">Ordina per dimensione</string>
+    <string name="sort_reverse">Ordine invertito</string>
+    <string name="contribute">Contibuire</string>
+    <string name="donate">Donare</string>
+    <string name="project_page">Pagina del progetto</string>
+    <string name="press_again_to_exit">Premere indietro di nuovo per uscire</string>
+    <string name="exit">Esci</string>
+    <string name="undo">Indietro</string>
+    <string name="redo">Avanti</string>
+    <string name="more">Di più</string>
+    <string name="notebook">Taccuino</string>
+    <string name="help">Aiuto</string>
+    <string name="todo_list">Lista deli compiti da fare</string>
+    <string name="task">Compito</string>
+    <string name="category">Categoria</string>
+    <string name="context">Contesto</string>
+    <string name="list">Lista</string>
+    <string name="priority">Priorità</string>
+    <string name="history">Cronologia</string>
+    <string name="sync">Sincronizzazione</string>
+    <string name="browse_somethingsingular_or_add">Add %s or browse existing ones</string>
+    <string name="browse_somethingsingular_or_add">Aggiungi %s o esplora uno già esistente</string>
+    <string name="search_hint__add_or_custom">Cerca / Personalizza</string>
+    <string name="save">Salva</string>
+    <string name="update">Aggiorna</string>
+    <string name="clear">Pulisci</string>
+    <string name="due_date">Scadenza</string>
+    <string name="current_date">Data corrente</string>
+    <string name="archive">Archivia</string>
+    <string name="add_task">Aggiungi compito</string>
+    <string name="add_something">Aggiungi %s</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">La nota da caricare e salvare come "%s"</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Impostazioni nella barra degli strumenti</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Mostra le impostazioni nella barra degli strumenti in alto nella schermata principale</string>
+    <string name="refresh">Ricarica</string>
+    <string name="add_shortcut_to_launcher_homescreen">Crea scorciatoia</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">La scorciatoia per modificare la nota è stata creata. Notare che qualche lanciatore potrebbe non supportare tale funzione.</string>
+    <string name="file_not_in_save_path_do_import">Il file selezionato non si trova nella stessa cartella del taccuino dell\'applicazione. Copiare la cartella attuale? Questa azione sovrascriverà i file esistenti.</string>
+    <string name="files_and_folders">File e cartelle</string>
+    <string name="document_browser">Esploratore delle note</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Crea nota</string>
+    <string name="special_documents" needed="false">Note speciali</string>
+    <string name="navigate_up_folder" needed="false">Ritorna alla cartella precedente</string>
+    <string name="app_settings" needed="false">Impostazioni dell'applicazione</string>
+    <string name="editor_settings" needed="false">Impostazioni dell'editor</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Ricorda l\'ultima cartella visitata all\'avvio</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Mostra la barra delle scorciatoie di Markdown</string>
+    <string name="markdown_syntax_highlighting" needed="false">Evidenziazione della sintassi di Markdown</string>
+    <string name="pref_title__highlighting_delay" needed="false">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Valori più alti sono più leggeri per la batteria</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Scorciatoie per le parentesi intelligenti</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Se il testo è selezionato, {}, [] e () racchiuderanno la selezione</string>
+    <string name="number_of_files" needed="false">Numero di file: %d</string>
+
+    <!-- New strings -->
+    <string name="global">Globale</string>
+    <string name="main_view">Visualizzazione principale</string>
+    <string name="theme_description">Tema complessivo usato nell\'applicazione</string>
+    <string name="load_last_directory_at_startup">Ricorda l\'ultima cartella</string>
+    <string name="syntax_highlighting">Evidenziazione sintassi</string>
+    <string name="text_modules">Moduli per i testi</string>
+    <string name="text_module">Modulo per i testi</string>
+    <string name="highlighting_delay">Ritardo dell'evidenziazione</string>
+    <string name="highlighting_delay_summary">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso farà partire l\'evidenziazione prima, ma consumerà più batteria e diminuirà le prestazioni.</string>
+    <string name="highlighting_enabled_summary">Controlla quando il testo deve essere evidenziato o meno</string>
+    <string name="editor_font_size_summary">Controlla la grandezza del carattere usato nell\'editor</string>
+    <string name="textmodules_bar_summary">Mostra una barra contenete le azioni utili per inserire dei moduli per il testo spesso usati</string>
+    <string name="load_last_directory_at_startup__summary">Apri l\'ultima cartella aperta all\'avvio</string>
+    <string name="format">Formato</string>
+    <string name="contexts">Contesti</string>
+    <string name="project">Progetto</string>
+    <string name="projects">Progetti</string>
+    <string name="categories">Categorie</string>
+    <string name="none">Nessuno</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
+    <string name="hexcolor_underline">Sottolinea i codici dei colori in esadecimale</string>
+    <string name="start_new_tasks_with_todays_date">Inserisci la data corrente quando si inizia un nuovo compito</string>
+    <string name="tasks_with_todays_date">Compiti con la data odierna</string>
+    <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un compito quando si sta usando il giusto modulo di testo</string>
+    <string name="right_to_left_rendering__abbreviated">Visualizzazione da destra a sinistra</string>
+    <string name="highlight_line_ending">Evidenzia la fine della linea</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
+    <string name="use_monospace_for_code">Usa un carattere monospace per il codice</string>
+    <string name="use_different_fonttype_slow_down">Utilizza più tipi di caratteri. Cambiare il carattere dinamicamente consegue un impatto sulle prestazioni dell\'applicazione.</string>
+    <string name="general">Generale</string>
+    <string name="resources">Risorse</string>
+    <string name="line_spacing_in_percent">Spazio fra le linee in percentuale</string>
+    <string name="line_spacing">Spaziatura delle linee</string>
+    <string name="archive_does_move_done_tasks">Muovi i compiti terminati nel file specificato nella stessa cartella</string>
+    <string name="special_key">Tasto speciale</string>
+    <string name="key_page_up">Pagina superiore (Page Up)</string>
+    <string name="key_page_down">Pagina inferiore (Page Down)</string>
+    <string name="key_pos_1">Inizio della linea (Pos Home)</string>
+    <string name="key_pos_end">Fine della linea (Pos End)</string>
+    <string name="key_pos_1_document">Inizio della nota</string>
+    <string name="key_pos_end_document">Fine della nota</string>
+    <string name="key_ctrl_a">Seleziona tutti (Ctrl + A)</string>
+    <string name="key_tab">Tabulatore</string>
+    <string name="start_on_bottom">Inizia in basso</string>
+    <string name="start_on_bottom_summary">Dopo che una nota è stata caricata, posizione il cursore alla fine</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor permette solamente modifiche locali, disponibili offline, delle note e supporta i gestori dei file che forniscono il percorso completo incluso il nome del file. A quanto pare le applicazioni che non forniscono le informazioni richieste non possono essere usate con Markor :(.</string>
+    <string name="sync_to_local_folder_notice">Avvertimento: se usi un'applicazione di sincronizzazione, con i file che risiedono nella cartella conosciuta oppure in altre, puoi aprirli cambiando la cartella di Markor, oppure aprendoli con un gestore di file differente.</string>
+    <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
+    <string name="vertical_alignment">Allineamento verticale</string>
+    <string name="horizontal_alignment">Allineamento orrizontale</string>
+    <string name="align_default">Valore predefinito</string>
+    <string name="align_left">A sinistra</string>
+    <string name="align_right">A destra</string>
+    <string name="align_top">In alto</string>
+    <string name="align_bottom">In basso</string>
+    <string name="align_center">Nel centro</string>
+
+    <string name="center_text">Centra il testo</string>
+    <string name="center_text_desc">Modifica il testo al centro della schermata</string>
 
 </resources>
