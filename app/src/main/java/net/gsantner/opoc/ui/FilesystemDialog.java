@@ -121,7 +121,7 @@ public class FilesystemDialog extends DialogFragment
             }
         }
 
-        if (_dopt == null) {
+        if (_dopt == null || _buttonCancel == null) {
             dismiss();
             return;
         }

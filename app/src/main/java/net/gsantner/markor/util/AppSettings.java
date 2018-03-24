@@ -212,7 +212,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
     }
 
-    public boolean isEditorStartEditingInCenter(){
+    public boolean isEditorStartEditingInCenter() {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
     }
 }

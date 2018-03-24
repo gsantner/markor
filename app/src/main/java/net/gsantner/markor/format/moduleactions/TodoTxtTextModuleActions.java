@@ -80,6 +80,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             _action = action;
         }
 
+        @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
             final SttCommander sttcmd = SttCommander.get();

@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:contentDescription="@string/settings"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
@@ -46,6 +47,7 @@
         android:paddingTop="4dp">
 
         <ImageView
+            android:contentDescription="@string/help"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
@@ -76,6 +78,7 @@
         android:paddingTop="4dp">
 
         <ImageView
+            android:contentDescription="@string/more_information"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
@@ -107,6 +110,7 @@
         android:visibility="gone">
 
         <ImageView
+            android:contentDescription="@string/help"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"

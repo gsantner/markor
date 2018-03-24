@@ -38,7 +38,7 @@ public class MarkdownHeaderSpanCreator implements ParcelableSpanCreator {
 
     public ParcelableSpan create(Matcher m, int iM) {
         final char[] charSequence = extractMatchingRange(m);
-        Float proportion = calculateProportionBasedOnHeaderType(charSequence);
+        float proportion = calculateProportionBasedOnHeaderType(charSequence);
         Float size = calculateAdjustedSize(proportion);
         return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
                 ColorStateList.valueOf(_color), null);
@@ -64,7 +64,7 @@ public class MarkdownHeaderSpanCreator implements ParcelableSpanCreator {
     }
 
     private Float calculateProportionForUnderlineHeader(final char[] charSequence) {
-        Float proportion = STANDARD_PROPORTION_MAX;
+        float proportion = STANDARD_PROPORTION_MAX;
         if (Character.valueOf('=').equals(charSequence[charSequence.length - 1])) {
             proportion -= SIZE_STEP;
         } else if (Character.valueOf('-').equals(charSequence[charSequence.length - 1])) {

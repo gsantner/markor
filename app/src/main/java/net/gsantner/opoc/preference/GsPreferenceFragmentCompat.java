@@ -144,7 +144,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             final Integer color = getIconTintColor();
             if (view != null && color != null) {
                 Runnable r = () -> tintAllPrefIcons(frag, color);
-                for (int delayFactor : new int[]{1, 10, 50, 100, 500}) {
+                for (long delayFactor : new int[]{1, 10, 50, 100, 500}) {
                     view.postDelayed(r, delayFactor * DEFAULT_ICON_TINT_DELAY);
                 }
             }

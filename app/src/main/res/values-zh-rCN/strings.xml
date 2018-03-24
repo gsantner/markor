@@ -23,7 +23,7 @@
     <string name="edit">编辑</string>
 
     <string name="search_documents">搜索文档</string>
-    <string name="share_to">分享到...</string>
+    <string name="share_to">分享到…</string>
     <string name="share">分享</string>
     <string name="search">搜索</string>
     <string name="preview">预览</string>
@@ -68,7 +68,7 @@
     <string name="pref_desc__language">更改语言（下次启动生效）</string>
     <string name="pref_title__language">语言</string>
     <string name="error_storage_permission">需要存储权限</string>
-    <string name="open_with">使用...打开</string>
+    <string name="open_with">使用…打开</string>
     <string name="sort">排序</string>
     <string name="sort_by_date">按最后修改日期排序</string>
     <string name="sort_by_name">按文件名称排序</string>

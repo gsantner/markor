@@ -38,7 +38,7 @@ public abstract class TextModuleActions {
     public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
 
     protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, View.OnClickListener l) {
-        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, (ViewGroup) null);
+        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setOnClickListener(l);
 
