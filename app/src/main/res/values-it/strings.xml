@@ -74,7 +74,6 @@
     <string name="show_third_party_licenses">Mostra le licenze del software di terze parti</string>
     <string name="pref_desc__language">Cambia la lingua dell\'applicazione. È necessario un riavvio per rendere effettivo il cambio</string>
     <string name="pref_title__language">Lingua</string>
-    <string name="error_storage_permission">Need permission for storage to save documents</string>
     <string name="error_storage_permission">Sono necessari i permessi di archiviazione per salvare le note</string>
     <string name="open_with">Apri con</string>
     <string name="sort">Ordina</string>
@@ -100,7 +99,6 @@
     <string name="priority">Priorità</string>
     <string name="history">Cronologia</string>
     <string name="sync">Sincronizzazione</string>
-    <string name="browse_somethingsingular_or_add">Add %s or browse existing ones</string>
     <string name="browse_somethingsingular_or_add">Aggiungi %s o esplora uno già esistente</string>
     <string name="search_hint__add_or_custom">Cerca / Personalizza</string>
     <string name="save">Salva</string>
