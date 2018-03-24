@@ -45,7 +45,6 @@
     <string name="image">Immagine</string>
     <string name="pref_title__font_size">Dimensione del carattere</string>
     <string name="render_for_right_to_left_languages">Visualizza per lingue da destra a sinistra</string>
-    <string name="error_cannot_create_notebook_dir">Error: Cannot create notebook directory</string>
     <string name="error_cannot_create_notebook_dir">Errore: non è possibile creare una nuova cartella per il taccuino</string>
 
     <string name="last_modified">Ultima modifica: %s</string>
