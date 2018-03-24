@@ -12,8 +12,6 @@ buildscript {
     ext.version_library_appcompat = "27.1.0"
     // https://github.com/JakeWharton/butterknife/releases
     ext.version_library_butterknife = "8.8.1"
-    // https://github.com/atlassian/commonmark-java/releases
-    ext.version_library_commonmark = "0.10.0"
     // https://github.com/guardianproject/NetCipher/releases
     ext.version_library_netcipher = "2.0.0-alpha1"
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin#LookAtCentral
