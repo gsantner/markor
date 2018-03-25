@@ -20,7 +20,7 @@ public abstract class TextConverter {
     protected static final String HTML001_HEAD_WITH_STYLE_LIGHT = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}</style>";
     protected static final String HTML001_HEAD_WITH_STYLE_DARK = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}</style>";
     protected static final String HTML002_RIGHT_TO_LEFT = "<style type=\"text/css\">body{text-align:right; direction:rtl;}</style>";
-    protected static final String HTML005_NO_UNDERLINED_BLACK_TEXT = "<style type=\"text/css\">.no_underline_black_text { text-decoration: none; color: black; }</style>";
+    protected static final String HTML005_HEADER_NON_UNDERLINE = "<style type=\"text/css\">.header_no_underline { text-decoration: none; color: black; }</style>";
     protected static final String HTML010_BODY = "</head><body>";
     protected static final String HTML990_BODY_END = "</body></html>";
     protected static final String CONTENT_TYPE_HTML = "text/html";
@@ -67,7 +67,7 @@ public abstract class TextConverter {
         if (as.isRenderRtl()) {
             html += HTML002_RIGHT_TO_LEFT;
         }
-        html += HTML005_NO_UNDERLINED_BLACK_TEXT + HTML010_BODY;
+        html += HTML005_HEADER_NON_UNDERLINE.replace("black", as.isDarkThemeEnabled() ? "white" : "black") + HTML010_BODY;
 
         // Default font is set by css in line 1 of generated html
         html = html.replaceFirst("sans-serif-light", as.getFontFamily());

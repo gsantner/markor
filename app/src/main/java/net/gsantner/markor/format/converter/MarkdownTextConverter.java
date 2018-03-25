@@ -80,7 +80,7 @@ public class MarkdownTextConverter extends TextConverter {
         options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
         options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, true);
         options.set(HtmlRenderer.GENERATE_HEADER_ID, true);
-        options.set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "no_underline_black_text");
+        options.set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
 
         String markupRendered = renderer.withOptions(options).render(parser.parse(markup));
