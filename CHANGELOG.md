@@ -1,3 +1,6 @@
+## v0.3.5 (wip)
+- Keep dates when priority is assigned
+
 ### v0.3.4
 - Replace commonmark markdown parser with flexmark
 - Various smaller bug fixes

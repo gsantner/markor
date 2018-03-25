@@ -14,11 +14,14 @@ import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SttCommanderTests {
     private SttCommander sttcmd = SttCommander.get();
 
+    private String TODAY = SttCommander.DATEF_YYYY_MM_DD.format(new Date());
     private String DEMO_LINE_1 = "2017-11-29 create some fancy unit tests @foss";
     private String DEMO_LINE_MULTIPLE = DEMO_LINE_1 + "\n" + DEMO_LINE_1 + "\n" + DEMO_LINE_1;
 
@@ -82,6 +85,14 @@ public class SttCommanderTests {
         assertThat(task.getTaskLine()).isEqualTo("2 @app 017" + DEMO_LINE_1.substring(4));
 
         assertThat(task.getContexts().contains("app")).isEqualTo(true);
+    }
+
+    @Test()
+    public void checkDates() {
+        SttTaskWithParserInfo task = task("(A) " + DEMO_LINE_1);
+        task.setDone(true);
+        sttcmd.regenerateTaskLine(task);
+        assertThat(task.getTaskLine()).isEqualTo("x " + TODAY + " " + DEMO_LINE_1);
     }
 
     @Test
