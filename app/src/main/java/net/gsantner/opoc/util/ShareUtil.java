@@ -44,11 +44,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A utility class to ease sharing information on Android
+ * A utility class to ease information sharing on Android
  * Also allows to parse/fetch information out of shared information
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
 public class ShareUtil {
+    public final static String EXTRA_FILEPATH = "real_file_path_2";
+
     protected Context _context;
     protected String _fileProviderAuthority;
     protected String _chooserTitle;
@@ -75,7 +77,6 @@ public class ShareUtil {
         _chooserTitle = title;
         return this;
     }
-
 
     /**
      * Convert a {@link File} to an {@link Uri}
@@ -139,12 +140,11 @@ public class ShareUtil {
             intent.setAction(Intent.ACTION_VIEW);
         }
 
-        Intent creationIntent = new Intent();
+        Intent creationIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         creationIntent.putExtra("duplicate", true);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(_context, iconRes));
-        creationIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         _context.sendBroadcast(creationIntent);
     }
 
@@ -155,8 +155,7 @@ public class ShareUtil {
      * @param mimeType MimeType or null (uses text/plain)
      */
     public void shareText(String text, @Nullable String mimeType) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType(mimeType != null ? mimeType : "text/plain");
         showChooser(intent, null);
@@ -170,9 +169,9 @@ public class ShareUtil {
      */
     public void shareStream(File file, String mimeType) {
         Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
         showChooser(intent, null);
     }
@@ -315,7 +314,7 @@ public class ShareUtil {
         List<String> clipper = new ArrayList<>();
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null && cm.getText() != null) {
+            if (cm != null && !TextUtils.isEmpty(cm.getText())) {
                 clipper.add(cm.getText().toString());
             }
         } else {
@@ -324,7 +323,7 @@ public class ShareUtil {
                 ClipData data = cm.getPrimaryClip();
                 for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
                     ClipData.Item item = data.getItemAt(i);
-                    if (item != null && item.getText() != null) {
+                    if (item != null && !TextUtils.isEmpty(item.getText())) {
                         clipper.add(data.getItemAt(i).getText().toString());
                     }
                 }
@@ -394,8 +393,8 @@ public class ShareUtil {
         String fileStr;
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action))) {
-            // Simple Mobile Tools - FileManager
-            if (receivingIntent.hasExtra((tmps = "real_file_path_2"))) {
+            // Markor, S.M.T FileManager
+            if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
                 return new File(receivingIntent.getStringExtra(tmps));
             }
 
