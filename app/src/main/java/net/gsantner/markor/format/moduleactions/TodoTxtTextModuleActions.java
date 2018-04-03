@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -126,10 +126,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
                 case "add_context": {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
-                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
-                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                        if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }
@@ -138,10 +138,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
                 case "add_project": {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
-                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
-                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                        if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }

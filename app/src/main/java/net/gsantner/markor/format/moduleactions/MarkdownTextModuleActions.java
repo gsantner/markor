@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -289,7 +289,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         final FilesystemDialogData.SelectionListener fsListener = new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsSelected(final String request, final File file) {
-                final String saveDir = AppSettings.get().getNotebookDirectoryAsStr();
+                final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
                     text = FileUtils.relativePath(_document.getFile(), file);
@@ -321,7 +321,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                // TODO: Set start/home folder
+                if (_document != null && _document.getFile() != null) {
+                    opt.rootFolder = _document.getFile().getParentFile();
+                }
             }
         };
 
