@@ -1,5 +1,8 @@
-## v0.3.5 (wip)
-- Keep dates when priority is assigned
+### v0.3.5 (wip)
+- Fix: Keep dates when priority is assigned
+- Mod: Disable colored,underlined header text
+- Add: Enable zoom gestures in Preview
+- Mod: md::link/image filesystem selection in working directory
 
 ### v0.3.4
 - Replace commonmark markdown parser with flexmark

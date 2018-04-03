@@ -29,7 +29,7 @@
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017-2018
-        \n**Gregor Santner and Markor contributors**
+        \n**Gregor Santner**
         \n
         \n**Get the official version of Markor:**
         \n[Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)

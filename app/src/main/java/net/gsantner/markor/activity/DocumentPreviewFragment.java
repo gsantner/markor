@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import net.gsantner.markor.R;
@@ -68,6 +69,10 @@ public class DocumentPreviewFragment extends GsFragmentBase implements TextForma
             WebView.enableSlowWholeDocumentDraw();
         }
         _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
+        WebSettings webSettings = _webView.getSettings();
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+
 
         _document = loadDocument();
         applyTextFormat(_document.getFormat()); //showDocument();
