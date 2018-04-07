@@ -80,7 +80,7 @@
     <string name="sort_by_name">Ordina per nome</string>
     <string name="sort_by_size">Ordina per dimensione</string>
     <string name="sort_reverse">Ordine invertito</string>
-    <string name="contribute">Contibuire</string>
+    <string name="contribute">Contribuire</string>
     <string name="donate">Donare</string>
     <string name="project_page">Pagina del progetto</string>
     <string name="press_again_to_exit">Premere indietro di nuovo per uscire</string>
@@ -90,7 +90,7 @@
     <string name="more">Di più</string>
     <string name="notebook">Taccuino</string>
     <string name="help">Aiuto</string>
-    <string name="todo_list">Lista deli compiti da fare</string>
+    <string name="todo_list">Lista dei compiti da fare</string>
     <string name="task">Compito</string>
     <string name="category">Categoria</string>
     <string name="context">Contesto</string>
