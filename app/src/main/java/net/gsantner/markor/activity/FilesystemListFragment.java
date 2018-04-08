@@ -267,6 +267,8 @@ public class FilesystemListFragment extends GsFragmentBase {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        PermissionChecker permc = new PermissionChecker(getActivity());
+
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
                 AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
@@ -290,7 +292,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 return true;
             }
             case R.id.action_import: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                if (permc.mkdirIfStoragePermissionGranted()) {
                     showImportDialog();
                 }
                 return true;

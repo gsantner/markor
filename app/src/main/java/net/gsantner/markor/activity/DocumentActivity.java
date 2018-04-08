@@ -284,7 +284,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
+        new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
     }
 
     @OnClick(R.id.note__activity__text_note_title)

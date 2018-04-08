@@ -39,7 +39,8 @@ public class WidgetConfigure extends AppCompatActivity {
     }
 
     private void showSelectionDialog() {
-        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+        PermissionChecker permc = new PermissionChecker(this);
+        if (permc.mkdirIfStoragePermissionGranted()) {
             FragmentManager fragManager = getSupportFragmentManager();
             FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                 @Override
@@ -64,7 +65,7 @@ public class WidgetConfigure extends AppCompatActivity {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults)) {
+        if (new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
             showSelectionDialog();
         } else {
             finish();

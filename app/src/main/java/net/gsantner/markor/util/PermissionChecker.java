@@ -5,45 +5,32 @@
  */
 package net.gsantner.markor.util;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ActivityUtils;
 
-import java.io.File;
+public class PermissionChecker extends net.gsantner.opoc.util.PermissionChecker {
 
-public class PermissionChecker {
-
-    public static boolean doIfPermissionGranted(final Activity activity) {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 314
-            );
-            return false;
-        }
-        return true;
+    public PermissionChecker(Activity activity) {
+        super(activity);
     }
 
-    public static boolean checkPermissionResult(final Activity activity, int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 314) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            }
-        }
-        new ActivityUtils(activity).showSnackBar(R.string.error_storage_permission, true);
-        return false;
+    @Override
+    public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
+        return super.doIfExtStoragePermissionGranted(_activity.getString(R.string.error_storage_permission));
     }
 
-    public static boolean mkSaveDir(Activity activity) {
-        File saveDir = AppSettings.get().getNotebookDirectory();
-        if (!saveDir.exists() && !saveDir.mkdirs()) {
-            new ActivityUtils(activity).showSnackBar(R.string.error_cannot_create_notebook_dir, false);
-            return false;
+    @Override
+    public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        boolean val = super.checkPermissionResult(requestCode, permissions, grantResults);
+        if (!val) {
+            new ActivityUtils(_activity).showSnackBar(R.string.error_storage_permission, true);
         }
-        return true;
+        return val;
+    }
+
+    public boolean mkdirIfStoragePermissionGranted() {
+        return super.mkdirIfStoragePermissionGranted(AppSettings.get().getNotebookDirectory());
     }
 }

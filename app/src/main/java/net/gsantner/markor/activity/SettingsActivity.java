@@ -183,10 +183,11 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference) {
+            PermissionChecker permc = new PermissionChecker(getActivity());
             if (isAdded() && preference.hasKey()) {
                 if (false) {
                 } else if (eq(preference, R.string.pref_key__notebook_directory)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
@@ -201,12 +202,15 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                 opt.titleText = R.string.select_storage_folder;
+                                if (!permc.mkdirIfStoragePermissionGranted()){
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
+                                }
                             }
                         }, fragManager, getActivity());
                         return true;
                     }
                 } else if (eq(preference, R.string.pref_key__markdown__quicknote_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
@@ -225,7 +229,7 @@ public class SettingsActivity extends AppCompatActivity {
                         return true;
                     }
                 } else if (eq(preference, R.string.pref_key__todotxt_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
