@@ -31,6 +31,7 @@ import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
+import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -447,6 +448,25 @@ public class ContextUtils {
     }
 
     /**
+     * Request the givens paths to be scanned by MediaScanner
+     *
+     * @param files Files and folders to scan
+     */
+    public void mediaScannerScanFile(File... files) {
+        if (android.os.Build.VERSION.SDK_INT > 19) {
+            String[] paths = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                paths[i] = files[i].getAbsolutePath();
+            }
+            MediaScannerConnection.scanFile(_context, paths, null, null);
+        } else {
+            for (File file : files) {
+                _context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+            }
+        }
+    }
+
+    /**
      * Load an image into a {@link ImageView} and apply a color filter
      */
     public static void setDrawableWithColorToImageView(ImageView imageView, @DrawableRes int drawableResId, @ColorRes int colorResId) {
@@ -459,7 +479,10 @@ public class ContextUtils {
      */
     public Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (drawable instanceof VectorDrawable || drawable instanceof VectorDrawableCompat || drawable instanceof AdaptiveIconDrawable)) {
+        if (drawable instanceof VectorDrawableCompat
+                || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && drawable instanceof VectorDrawable)
+                || ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && drawable instanceof AdaptiveIconDrawable))) {
+
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 drawable = (DrawableCompat.wrap(drawable)).mutate();
             }

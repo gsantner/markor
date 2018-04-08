@@ -53,13 +53,20 @@ public class NetworkUtils {
     }
 
     public static boolean downloadFile(final URL url, final File outFile, final Callback.a1<Float> progressCallback) {
+        return downloadFile(url, outFile, null, progressCallback);
+    }
+
+    public static boolean downloadFile(final URL url, final File outFile, HttpURLConnection connection, final Callback.a1<Float> progressCallback) {
         InputStream input = null;
         OutputStream output = null;
-        HttpURLConnection connection = null;
         try {
-            connection = (HttpURLConnection) url.openConnection();
+            if (connection == null) {
+                connection = (HttpURLConnection) url.openConnection();
+            }
             connection.connect();
-            input = connection.getInputStream();
+            input = connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST
+                    ? connection.getInputStream() : connection.getErrorStream();
+
 
             if (!outFile.getParentFile().isDirectory())
                 if (!outFile.getParentFile().mkdirs())
@@ -140,20 +147,28 @@ public class NetworkUtils {
     }
 
     private static String performCall(final URL url, final String method, final String data) {
+        return performCall(url, method, data, null);
+    }
+
+    private static String performCall(final URL url, final String method, final String data, final HttpURLConnection existingConnection) {
         try {
-            final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(method);
-            conn.setDoInput(true);
+            final HttpURLConnection connection = existingConnection != null
+                    ? existingConnection : (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(method);
+            connection.setDoInput(true);
 
             if (data != null && !data.isEmpty()) {
-                conn.setDoOutput(true);
-                final OutputStream output = conn.getOutputStream();
+                connection.setDoOutput(true);
+                final OutputStream output = connection.getOutputStream();
                 output.write(data.getBytes(Charset.forName(UTF8)));
                 output.flush();
                 output.close();
             }
 
-            return FileUtils.readCloseTextStream(conn.getInputStream());
+            InputStream input = connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST
+                    ? connection.getInputStream() : connection.getErrorStream();
+
+            return FileUtils.readCloseTextStream(connection.getInputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }

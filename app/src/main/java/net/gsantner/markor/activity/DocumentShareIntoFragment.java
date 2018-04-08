@@ -93,21 +93,22 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     @OnClick({R.id.document__fragment__share_into__append_to_document, R.id.document__fragment__share_into__create_document, R.id.document__fragment__share_into__append_to_quicknote, R.id.document__fragment__share_into__append_to_todo})
     public void onClick(View view) {
         AppSettings appSettings = new AppSettings(view.getContext());
+        PermissionChecker permc = new PermissionChecker(getActivity());
         switch (view.getId()) {
             case R.id.document__fragment__share_into__create_document: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                if (permc.doIfExtStoragePermissionGranted()) {
                     createNewDocument();
                 }
                 break;
             }
             case R.id.document__fragment__share_into__append_to_document: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                if (permc.doIfExtStoragePermissionGranted()) {
                     showAppendDialog();
                 }
                 break;
             }
             case R.id.document__fragment__share_into__append_to_quicknote: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                if (permc.doIfExtStoragePermissionGranted()) {
                     appendToExistingDocument(AppSettings.get().getQuickNoteFile(), false);
                     if (getActivity() != null) {
                         getActivity().finish();
@@ -116,7 +117,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 break;
             }
             case R.id.document__fragment__share_into__append_to_todo: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity())) {
+                if (permc.doIfExtStoragePermissionGranted()) {
                     if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
                         String today = SttCommander.getToday() + " ";
                         if (!_sharedText.startsWith(today)) {

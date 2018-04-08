@@ -7,7 +7,7 @@ buildscript {
     ext.version_setup_buildTools = "27.0.3" // Specifying optional
 
     // https://developer.android.com/studio/releases/gradle-plugin.html
-    ext.version_gradle_tools = "3.0.1"
+    ext.version_gradle_tools = "3.1.0"
     // https://developer.android.com/topic/libraries/support-library/revisions.html
     ext.version_library_appcompat = "27.1.0"
     // https://github.com/JakeWharton/butterknife/releases
