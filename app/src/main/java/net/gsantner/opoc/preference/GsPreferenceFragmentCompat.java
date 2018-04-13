@@ -63,7 +63,9 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Baseclass to use as preference fragment (with support libraries)
@@ -90,10 +92,6 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     public Boolean onPreferenceClicked(Preference preference) {
         return null;
-    }
-
-    protected void onPreferenceChanged(SharedPreferences prefs, String key) {
-
     }
 
     public String getSharedPreferencesName() {
@@ -124,6 +122,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     //
     //
 
+    private final Set<String> _registeredPrefs = new HashSet<>();
     private final List<PreferenceScreen> _prefScreenBackstack = new ArrayList<>();
     private SharedPreferencesPropertyBackend _asb;
     protected ContextUtils _cu;
@@ -178,18 +177,33 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         updatePreferenceIcons.callback(this);
     }
 
+    private synchronized void updatePreferenceChangedListeners(boolean shouldListen) {
+        String tprefname = getSharedPreferencesName();
+        if (shouldListen && tprefname != null && !_registeredPrefs.contains(tprefname)) {
+            SharedPreferences preferences = _asb.getContext().getSharedPreferences(tprefname, Context.MODE_PRIVATE);
+            _asb.registerPreferenceChangedListener(preferences, this);
+            _registeredPrefs.add(tprefname);
+        } else if (!shouldListen) {
+            for (String prefname : _registeredPrefs) {
+                SharedPreferences preferences = _asb.getContext().getSharedPreferences(tprefname, Context.MODE_PRIVATE);
+                _asb.unregisterPreferenceChangedListener(preferences, this);
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        _asb.registerPreferenceChangedListener(this);
-        updateSummaries();
+        updatePreferenceChangedListeners(true);
+        updateSummaries(); // Invoked later
+        onPreferenceScreenChangedPriv(this, getPreferenceScreen());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        _asb.unregisterPreferenceChangedListener(this);
+        updatePreferenceChangedListeners(false);
     }
 
     @Override
@@ -197,9 +211,20 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (isAdded()) {
             onPreferenceChanged(sharedPreferences, key);
+            updateSummaries();
         }
     }
 
+    protected void onPreferenceChanged(SharedPreferences prefs, String key) {
+        // Wait some ms to be sure the pref objects have changed it's internal values
+        // and the new values are ready to be read ;)
+        Runnable r = this::updateSummaries;
+        if (getView() != null) {
+            getView().postDelayed(r, 350);
+        } else {
+            r.run();
+        }
+    }
 
     @Override
     @Deprecated
@@ -231,7 +256,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         _prefScreenBackstack.add(getPreferenceScreen());
         preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
         updatePreferenceIcons.callback(this);
-        onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+        onPreferenceScreenChangedPriv(preferenceFragmentCompat, preferenceScreen);
         return true;
     }
 
@@ -269,7 +294,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             PreferenceScreen screen = _prefScreenBackstack.remove(_prefScreenBackstack.size() - 1);
             if (screen != null) {
                 setPreferenceScreen(screen);
-                onPreferenceScreenChanged(this, screen);
+                onPreferenceScreenChangedPriv(this, screen);
             }
         }
     }
@@ -289,6 +314,11 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             }
         }
         return null;
+    }
+
+    private void onPreferenceScreenChangedPriv(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+        onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+        updatePreferenceChangedListeners(true);
     }
 
     /**
@@ -332,5 +362,25 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             activity.overridePendingTransition(0, 0);
             startActivity(intent);
         }
+    }
+
+    /**
+     * Append a pref to given {@code target}. If target is null, the current screen is taken
+     * The pref icon is tint according to color
+     *
+     * @param pref   Preference to add
+     * @param target The target to add the pref to, or null for current screen
+     * @return true if successfully added
+     */
+    protected boolean appendPreference(Preference pref, @Nullable PreferenceGroup target) {
+        if (target == null) {
+            if ((target = getPreferenceScreen()) == null) {
+                return false;
+            }
+        }
+        if (getIconTintColor() != null && pref.getIcon() != null) {
+            pref.setIcon(_cu.tintDrawable(pref.getIcon(), getIconTintColor()));
+        }
+        return target.addPreference(pref);
     }
 }
