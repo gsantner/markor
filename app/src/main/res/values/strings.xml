@@ -195,5 +195,6 @@
 
     <string name="center_text">Center text</string>
     <string name="center_text_desc">Edit text in center of the screen</string>
+    <string name="clipboard">Clipboard</string>
 
 </resources>

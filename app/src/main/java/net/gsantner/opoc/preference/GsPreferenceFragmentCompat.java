@@ -102,7 +102,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     }
 
-    public void updateSummaries() {
+    public void doUpdatePreferences() {
 
     }
 
@@ -196,7 +196,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     public void onResume() {
         super.onResume();
         updatePreferenceChangedListeners(true);
-        updateSummaries(); // Invoked later
+        doUpdatePreferences(); // Invoked later
         onPreferenceScreenChangedPriv(this, getPreferenceScreen());
     }
 
@@ -211,14 +211,14 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (isAdded()) {
             onPreferenceChanged(sharedPreferences, key);
-            updateSummaries();
+            doUpdatePreferences();
         }
     }
 
     protected void onPreferenceChanged(SharedPreferences prefs, String key) {
         // Wait some ms to be sure the pref objects have changed it's internal values
         // and the new values are ready to be read ;)
-        Runnable r = this::updateSummaries;
+        Runnable r = this::doUpdatePreferences;
         if (getView() != null) {
             getView().postDelayed(r, 350);
         } else {
@@ -261,17 +261,28 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     }
 
     protected void updateSummary(@StringRes int keyResId, String summary) {
-        updateSummary(keyResId, 0, summary);
+        updatePreference(keyResId, 0, null, summary, null);
     }
 
-    protected void updateSummary(@StringRes int keyResId, @DrawableRes int iconRes, String summary) {
+    @Nullable
+    @SuppressWarnings("SameParameterValue")
+    protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, String title, String summary, Boolean visible) {
         Preference pref = findPreference(getString(keyResId));
         if (pref != null) {
-            pref.setSummary(summary);
-            if (iconRes != 0) {
+            if (summary != null) {
+                pref.setSummary(summary);
+            }
+            if (title != null) {
+                pref.setTitle(title);
+            }
+            if (iconRes != null && iconRes != 0) {
                 pref.setIcon(_cu.tintDrawable(iconRes, getIconTintColor()));
             }
+            if (visible != null) {
+                pref.setVisible(visible);
+            }
         }
+        return pref;
     }
 
     protected void removePreference(@Nullable Preference preference) {
