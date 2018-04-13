@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<net.gsantner.opoc.ui.LinearSplitLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
     android:padding="16dp"
+    android:weightSum="100"
     tools:background="@color/primary"
     tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
 
@@ -15,18 +15,14 @@
         android:id="@+id/document__fragment__share_into__webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/anchorbottom1"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-    </WebView>
-
+        android:layout_weight="45"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:id="@+id/anchorbottom1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_weight="55"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -145,4 +141,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</net.gsantner.opoc.ui.LinearSplitLayout>
