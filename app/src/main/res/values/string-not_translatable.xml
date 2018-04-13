@@ -25,7 +25,6 @@
     \n<b>Own/NextCloud:</b> %s]]></string>
 
 
-
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017-2018
@@ -95,4 +94,9 @@
     <string name="pref_key__editor_line_spacing" translatable="false">pref_key__editor_line_spacing</string>
     <string name="pref_key__editor_start_editing_on_bottom" translatable="false">pref_key__editor_start_editing_on_bottom</string>
     <string name="pref_key__editor_start_editing_in_center" translatable="false">pref_key__editor_start_editing_in_center</string>
+    <string name="pref_key__share_into__quicknote" translatable="false">pref_key__share_into__quicknote</string>
+    <string name="pref_key__share_into__todo" translatable="false">pref_key__share_into__todo</string>
+    <string name="pref_key__share_into__clipboard" translatable="false">pref_key__share_into__clipboard</string>
+    <string name="pref_key__share_into__existing_document" translatable="false">pref_key__share_into__existing_document</string>
+    <string name="pref_key__share_into__create_document" translatable="false">pref_key__share_into__create_document</string>
 </resources>

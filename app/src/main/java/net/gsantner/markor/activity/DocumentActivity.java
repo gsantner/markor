@@ -84,6 +84,7 @@ public class DocumentActivity extends AppCompatActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         setContentView(R.layout.document__activity);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
         ButterKnife.bind(this);

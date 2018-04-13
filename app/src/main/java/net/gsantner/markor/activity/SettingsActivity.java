@@ -151,15 +151,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         @Override
-        public void updateSummaries() {
-            updateSummary(R.string.pref_key__notebook_directory, R.drawable.ic_save_black_24dp,
+        public void doUpdatePreferences() {
+            updateSummary(R.string.pref_key__notebook_directory,
                     getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr()
             );
-            updateSummary(R.string.pref_key__markdown__quicknote_filepath, R.drawable.ic_lightning_white_24dp,
+            updateSummary(R.string.pref_key__markdown__quicknote_filepath,
                     getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
                             + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath()
             );
-            updateSummary(R.string.pref_key__todotxt_filepath, R.drawable.ic_assignment_turned_in_black_24dp,
+            updateSummary(R.string.pref_key__todotxt_filepath,
                     getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
                             + "\n" + AppSettings.get().getTodoFile().getAbsolutePath()
             );
@@ -196,7 +196,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
                                 as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
-                                updateSummaries();
+                                doUpdatePreferences();
                             }
 
                             @Override
