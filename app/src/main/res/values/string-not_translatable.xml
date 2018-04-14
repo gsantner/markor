@@ -99,4 +99,5 @@
     <string name="pref_key__share_into__clipboard" translatable="false">pref_key__share_into__clipboard</string>
     <string name="pref_key__share_into__existing_document" translatable="false">pref_key__share_into__existing_document</string>
     <string name="pref_key__share_into__create_document" translatable="false">pref_key__share_into__create_document</string>
+    <string name="pref_key__share_into__reshare" translatable="false">pref_key__share_into__reshare</string>
 </resources>

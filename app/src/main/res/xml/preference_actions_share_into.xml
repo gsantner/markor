@@ -15,6 +15,10 @@
         android:key="@string/pref_key__share_into__todo"
         android:title="@string/todo" />
     <Preference
+        android:icon="@drawable/ic_share_white_24dp"
+        android:key="@string/pref_key__share_into__reshare"
+        android:title="@string/share" />
+    <Preference
         android:icon="@drawable/ic_content_copy_black_24dp"
         android:key="@string/pref_key__share_into__clipboard"
         android:title="@string/clipboard" />
