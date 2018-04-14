@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:padding="16dp"
     android:weightSum="100"
     tools:background="@color/primary"
     tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
@@ -15,7 +14,7 @@
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="45"
+        android:layout_weight="35"
         android:fillViewport="true">
 
         <net.gsantner.markor.format.highlighter.HighlightingEditor
@@ -41,6 +40,6 @@
         android:id="@+id/something"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="55" />
+        android:layout_weight="65" />
 
 </net.gsantner.opoc.ui.LinearSplitLayout>

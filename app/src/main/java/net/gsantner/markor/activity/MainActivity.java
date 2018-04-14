@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Send Test intent
-        /*Intent i = new Intent(this,DocumentActivity.class);
+        /*Intent i = new Intent(this, DocumentActivity.class);
         i.setAction(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
@@ -287,12 +287,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 _viewPager.setCurrentItem(0);
                 return true;
             }
-            case R.id.nav_quicknote: {
+
+            case R.id.nav_todo: {
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 _viewPager.setCurrentItem(1);
                 return true;
             }
-            case R.id.nav_todo: {
+            case R.id.nav_quicknote: {
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 _viewPager.setCurrentItem(2);
                 return true;

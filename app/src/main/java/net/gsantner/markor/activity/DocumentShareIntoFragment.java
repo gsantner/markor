@@ -35,6 +35,7 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.OnTextChanged;
 
 public class DocumentShareIntoFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
@@ -51,6 +52,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     @BindView(R.id.document__fragment__share_into__highlighting_editor)
     HighlightingEditor _hlEditor;
 
+    private ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
+
     public DocumentShareIntoFragment() {
     }
 
@@ -64,20 +67,29 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         AppSettings as = new AppSettings(view.getContext());
         ContextUtils cu = new ContextUtils(view.getContext());
         cu.setAppLanguage(as.getLanguage());
-        String _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
-        _sharedText = _sharedText.trim();
+        String sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
+        sharedText = sharedText.trim();
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
-            t.replace(R.id.something, ShareIntoImportOptionsFragment.newInstance(_sharedText), ShareIntoImportOptionsFragment.TAG).commit();
+            _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
+            t.replace(R.id.something, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
+        } else {
+            _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
-        _hlEditor.setText(_sharedText);
+        _hlEditor.setText(sharedText);
         _hlEditor.setBackgroundColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
         _hlEditor.setTextColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
+    }
 
+    @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    public void onTextChanged(CharSequence text) {
+        if (_shareIntoImportOptionsFragment != null) {
+            _shareIntoImportOptionsFragment.setText(text.toString());
+        }
     }
 
     @Override
@@ -144,6 +156,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         public Integer getIconTintColor() {
             boolean dark = ((AppSettings) getAppSettings(getContext())).isDarkThemeEnabled();
             return _cu.rcolor(dark ? R.color.dark__primary_text : R.color.light__primary_text);
+        }
+
+        public void setText(String text) {
+            _sharedText = text;
         }
 
         private void appendToExistingDocument(File file, boolean showEditor) {
@@ -252,6 +268,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             Preference pref;
             if ((pref = findPreference(R.string.pref_key__share_into__todo)) != null) {
                 pref.setEnabled(!_sharedText.contains("\n"));
+            }
+            if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
+                if (pref.getTitle().toString().equals(getString(R.string.share))) {
+                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plain_text)));
+                }
             }
         }
     }
