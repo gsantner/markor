@@ -6,16 +6,19 @@
 package net.gsantner.markor.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
-import android.webkit.WebView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
@@ -45,10 +48,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         return f;
     }
 
-    @BindView(R.id.document__fragment__share_into__webview)
-    WebView _webView;
-
-    private String _sharedText;
+    @BindView(R.id.document__fragment__share_into__highlighting_editor)
+    HighlightingEditor _hlEditor;
 
     public DocumentShareIntoFragment() {
     }
@@ -63,15 +64,20 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         AppSettings as = new AppSettings(view.getContext());
         ContextUtils cu = new ContextUtils(view.getContext());
         cu.setAppLanguage(as.getLanguage());
-        _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
+        String _sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
         _sharedText = _sharedText.trim();
 
-        FragmentTransaction t = getChildFragmentManager().beginTransaction();
-        t.replace(R.id.something, new ShareIntoImportOptions(), "lol").commit();
+        view.setBackgroundColor(as.getBackgroundColor());
+        if (_savedInstanceState == null) {
+            FragmentTransaction t = getChildFragmentManager().beginTransaction();
+            t.replace(R.id.something, ShareIntoImportOptionsFragment.newInstance(_sharedText), ShareIntoImportOptionsFragment.TAG).commit();
+        }
+        _hlEditor.setText(_sharedText);
+        _hlEditor.setBackgroundColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
+        _hlEditor.setTextColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
+        _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        Document document = new Document();
-        document.setContent(_sharedText);
-        new MarkdownTextConverter().convertMarkupShowInWebView(document, _webView);
     }
 
     @Override
@@ -85,10 +91,20 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
 
-    public static class ShareIntoImportOptions extends GsPreferenceFragmentCompat {
-        public static final String TAG = "ShareIntoImportOptions";
+    public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat {
+        public static final String TAG = "ShareIntoImportOptionsFragment";
+        private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
 
-        private String _sharedText = "hello";
+        public static ShareIntoImportOptionsFragment newInstance(String sharedText) {
+            ShareIntoImportOptionsFragment f = new ShareIntoImportOptionsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(EXTRA_TEXT, sharedText);
+            f.setArguments(bundle);
+            return f;
+        }
+
+
+        private String _sharedText = "";
 
         @Override
         public int getPreferenceResourceForInflation() {
@@ -103,6 +119,25 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         protected SharedPreferencesPropertyBackend getAppSettings(Context context) {
             return new AppSettings(context);
+        }
+
+        @Override
+        protected void afterOnCreate(Bundle savedInstances, Context context) {
+            super.afterOnCreate(savedInstances, context);
+            if (getArguments() != null) {
+                _sharedText = getArguments().getString(EXTRA_TEXT, "");
+
+            }
+            if (savedInstances != null) {
+                _sharedText = savedInstances.getString(EXTRA_TEXT, _sharedText);
+            }
+            doUpdatePreferences();
+        }
+
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+            outState.putString(EXTRA_TEXT, _sharedText);
         }
 
         @Override
@@ -209,6 +244,15 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
             }
             return null;
+        }
+
+        @Override
+        public void doUpdatePreferences() {
+            super.doUpdatePreferences();
+            Preference pref;
+            if ((pref = findPreference(R.string.pref_key__share_into__todo)) != null) {
+                pref.setEnabled(!_sharedText.contains("\n"));
+            }
         }
     }
 }

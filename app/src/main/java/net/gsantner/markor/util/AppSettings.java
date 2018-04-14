@@ -37,7 +37,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getBackgroundColor() {
-        return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
+        return isDarkThemeEnabled() ? rcolor(R.color.dark__background) : rcolor(R.color.light__background);
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
