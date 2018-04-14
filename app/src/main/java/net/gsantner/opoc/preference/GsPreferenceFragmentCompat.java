@@ -264,6 +264,17 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         updatePreference(keyResId, 0, null, summary, null);
     }
 
+    /**
+     * Finds a {@link Preference} based on its key res id.
+     *
+     * @param key The key of the preference to retrieve.
+     * @return The {@link Preference} with the key, or null.
+     * @see android.support.v7.preference.PreferenceGroup#findPreference(CharSequence)
+     */
+    public Preference findPreference(@StringRes int key) {
+        return findPreference(getString(key));
+    }
+
     @Nullable
     @SuppressWarnings("SameParameterValue")
     protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, String title, String summary, Boolean visible) {

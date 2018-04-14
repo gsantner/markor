@@ -115,6 +115,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
+
+        // Send Test intent
+        /*Intent i = new Intent(this,DocumentActivity.class);
+        i.setAction(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
+        startActivity(i);*/
     }
 
     private void optShowRate() {
@@ -180,7 +187,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             startActivity(intent);
         }
 
-        setupAppearancePreferences();
+
+        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
+                ? R.color.dark__background : R.color.light__background);
+        _viewPager.getRootView().setBackgroundColor(color);
+
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
     }
@@ -245,12 +256,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
-    }
-
-    private void setupAppearancePreferences() {
-        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
-                ? R.color.dark__background : R.color.light__background);
-        _viewPager.getRootView().setBackgroundColor(color);
     }
 
     @Override

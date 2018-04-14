@@ -202,7 +202,7 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                 opt.titleText = R.string.select_storage_folder;
-                                if (!permc.mkdirIfStoragePermissionGranted()){
+                                if (!permc.mkdirIfStoragePermissionGranted()) {
                                     opt.rootFolder = Environment.getExternalStorageDirectory();
                                 }
                             }
