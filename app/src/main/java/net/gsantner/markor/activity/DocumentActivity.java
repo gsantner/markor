@@ -92,21 +92,22 @@ public class DocumentActivity extends AppCompatActivity {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
+        Intent receivingIntent = getIntent();
+        String intentAction = receivingIntent.getAction();
+        String type = receivingIntent.getType();
+        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
-            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(!Intent.ACTION_SEND.equals(intentAction));
             ab.setDisplayShowTitleEnabled(false);
         }
 
         _fragManager = getSupportFragmentManager();
 
 
-        Intent receivingIntent = getIntent();
-        String intentAction = receivingIntent.getAction();
-        String type = receivingIntent.getType();
-        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
         boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {

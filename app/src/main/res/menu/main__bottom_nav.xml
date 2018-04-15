@@ -14,11 +14,11 @@
 
     <item
         android:id="@+id/nav_quicknote"
-        android:icon="@drawable/ic_lightning_white_24dp"
+        android:icon="@drawable/ic_lightning_black_24dp"
         android:title="@string/quicknote" />
 
     <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/ic_favorite_white_24dp"
+        android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/more" />
 </menu>

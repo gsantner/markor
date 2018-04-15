@@ -51,14 +51,14 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] STT_INSERT_ACTIONS_ICONS = {
-            {R.drawable.ic_close_white_24dp, 0},
-            {R.drawable.ic_email_at_sign_24dp, 1},
-            {R.drawable.ic_local_offer_white_24dp, 2},
+            {R.drawable.ic_close_black_24dp, 0},
+            {R.drawable.gs_email_sign_black_24dp, 1},
+            {R.drawable.ic_local_offer_black_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
-            {R.drawable.ic_date_range_white_24dp, 4},
+            {R.drawable.ic_date_range_black_24dp, 4},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
             //{R.drawable.ic_add_white_24dp, 5},
-            {R.drawable.ic_delete_white_24dp, 6},
+            {R.drawable.ic_delete_black_24dp, 6},
             {R.drawable.ic_archive_black_24dp, 7},
     };
     private static final String[] STT_INSERT_ACTIONS = {

@@ -166,12 +166,43 @@ public class ContextUtils {
     public String getAppVersionName() {
         try {
             PackageManager manager = _context.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(_context.getPackageName(), 0);
+            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return "?";
         }
+    }
+
+    public String getAppInstallationSource() {
+        String src = null;
+        try {
+            src = _context.getPackageManager().getInstallerPackageName(getPackageName());
+        } catch (Exception ignored) {
+        }
+        if (TextUtils.isEmpty(src)) {
+            src = "Sideloaded";
+        }
+        switch (src) {
+            case "com.android.vending":
+            case "com.google.android.feedback": {
+                return "Google Play Store";
+            }
+            case "org.fdroid.fdroid.privileged":
+            case "org.fdroid.fdroid": {
+                return "F-Droid";
+            }
+            case "com.github.yeriomin.yalpstore": {
+                return "Yalp Store";
+            }
+            case "cm.aptoide.pt": {
+                return "Aptoide";
+            }
+        }
+        if (src.toLowerCase().contains(".amazon.")) {
+            return "Amazon Appstore";
+        }
+        return src;
     }
 
     /**
@@ -190,6 +221,14 @@ public class ContextUtils {
     }
 
     /**
+     * Get this apps package name. The builtin method may fail when used with flavors
+     */
+    public String getPackageName() {
+        String pkg = rstr("manifest_package_id");
+        return pkg != null ? pkg : _context.getPackageName();
+    }
+
+    /**
      * Get field from ${applicationId}.BuildConfig
      * May be helpful in libraries, where a access to
      * BuildConfig would only get values of the library
@@ -198,8 +237,7 @@ public class ContextUtils {
      * Falls back to applicationId of the app which may differ from manifest.
      */
     public Object getBuildConfigValue(String fieldName) {
-        String pkg = rstr("manifest_package_id");
-        pkg = (pkg != null ? pkg : _context.getPackageName()) + ".BuildConfig";
+        String pkg = getPackageName() + ".BuildConfig";
         try {
             Class<?> c = Class.forName(pkg);
             return c.getField(fieldName).get(null);
@@ -227,6 +265,17 @@ public class ContextUtils {
         Object field = getBuildConfigValue(fieldName);
         if (field != null && field instanceof String) {
             return (String) field;
+        }
+        return defaultValue;
+    }
+
+    /**
+     * Get a BuildConfig string value
+     */
+    public Integer bcint(String fieldName, int defaultValue) {
+        Object field = getBuildConfigValue(fieldName);
+        if (field != null && field instanceof Integer) {
+            return (Integer) field;
         }
         return defaultValue;
     }

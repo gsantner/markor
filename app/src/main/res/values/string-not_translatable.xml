@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Markor</string>
-    <string name="plus" translatable="false">+</string>
+    <string name="app_license_name" translatable="false">MIT</string>
+    <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
+    <string name="app_translate_url" translatable="false"><![CDATA[https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&mail=gro.xobliam@@rentnasg&name=Markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor]]></string>
+    <string name="app_web_url" translatable="false">https://gsantner.net/?project=markor</string>
+    <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
+    <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/supportme/?project=markor&source=inapp_supdon]]></string>
+    <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
 
-    <string name="default_font_family" translatable="false">sans-serif-regular</string>
+
+    <string name="plus" translatable="false">+</string>
     <string name="share_html__mime_html" translatable="false">HTML</string>
-    <string name="team" translatable="false">Maintainer</string>
     <string name="pdf" translatable="false">PDF</string>
-    <string name="quicknote" translatable="false">QuickNote</string>
     <string name="markdown" translatable="false">Markdown</string>
-    <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
+
+    <string name="community" translatable="false">Community</string>
+    <string name="default_font_family" translatable="false">sans-serif-regular</string>
+    <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
+    <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo_default_filename" translatable="false">todo.txt</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
 
-    <string name="url_donate" translatable="false">https://liberapay.com/gsantner/donate</string>
-    <string name="url_contribute" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
 
     <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[
     <b>Dropbox:</b> Android/data/com.dropbox.android/files/u123456/scratch/
@@ -37,7 +45,7 @@
         \n
         \nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
         \n
-        \n Markor is based on the halted MIT licensed project writeily. Thanks to all contributors! Note that there is not really much left of writeily in Markor.
+        \n Markor is based on the discontinued MIT licensed project writeily. Thanks to all contributors! Note that there is not really much left of writeily in Markor.
     ]]></string>
 
     <plurals name="item_selected" translatable="false">
@@ -60,18 +68,18 @@
         <item quantity="other" translatable="false">@string/projects</item>
     </plurals>
 
-    <!-- Preference keys Markdown -->
+    <!--
+        Preference keys
+     -->
     <string name="pref_key__markdown__highlighting_delay" translatable="false">pref_key__markdown__highlighting_delay_v001</string>
     <string name="pref_key__markdown__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
     <string name="pref_key__markdown__monospace_some_parts" translatable="false">pref_key__markdown__monospace_some_parts</string>
-    <!-- Preference keys To-Do -->
     <string name="pref_key__todotxt__highlighting_delay" translatable="false">pref_key__todotxt__highlighting_delay_v001</string>
     <string name="pref_key__todotxt_filepath" translatable="false">pref_key__todo_filepath</string>
     <string name="pref_key__todotxt__start_new_tasks_with_todays_date" translatable="false">pref_key__todotxt__start_new_tasks_with_todays_date</string>
     <string name="pref_key__todotxt__append_contexts_and_projects_on_end_of_task" translatable="false">pref_key__todotxt__append_contexts_and_projects_on_end_of_task</string>
     <string name="pref_key__todotxt__last_used_archive_filename" translatable="false">pref_key__todotxt__last_used_archive_filename</string>
-    <!-- Preference keys General -->
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
@@ -100,4 +108,21 @@
     <string name="pref_key__share_into__existing_document" translatable="false">pref_key__share_into__existing_document</string>
     <string name="pref_key__share_into__create_document" translatable="false">pref_key__share_into__create_document</string>
     <string name="pref_key__share_into__reshare" translatable="false">pref_key__share_into__reshare</string>
+    <string name="pref_key__more_info__settings" translatable="false">pref_key__more_info__settings</string>
+    <string name="pref_key__more_info__source_code" translatable="false">pref_key__more_info__source_code</string>
+    <string name="pref_key__more_info__project_license" translatable="false">pref_key__more_info__project_license</string>
+    <string name="pref_key__more_info__open_source_licenses" translatable="false">pref_key__more_info__open_source_licenses</string>
+    <string name="pref_key__more_info__bug_reports" translatable="false">pref_key__more_info__bug_reports</string>
+    <string name="pref_key__more_info__help" translatable="false">pref_key__more_info__help</string>
+    <string name="pref_key__more_info__rate_app" translatable="false">pref_key__more_info__rate_app</string>
+    <string name="pref_key__more_info__translate" translatable="false">pref_key__more_info__translate</string>
+    <string name="pref_key__more_info__join_community" translatable="false">pref_key__more_info__join_community</string>
+    <string name="pref_key__more_info__android_contribution_guide" translatable="false">pref_key__more_info__android_contribution_guide</string>
+    <string name="pref_key__more_info__app" translatable="false">pref_key__more_info__app</string>
+    <string name="pref_key__more_info__donate" translatable="false">pref_key__more_info__donate</string>
+    <string name="pref_key__more_info__project_contribution_info" translatable="false">pref_key__more_info__project_contribution_info</string>
+    <string name="pref_key__more_info__project_community" translatable="false">pref_key__more_info__project_community</string>
+    <string name="pref_key__more_info__project_team" translatable="false">pref_key__more_info__project_team</string>
+    <string name="pref_key__more_info__contributors_public_info" translatable="false">pref_key__more_info__contributors_public_info</string>
+    <string name="pref_key__more_info__copy_build_information" translatable="false">pref_key__more_info__copy_build_information</string>
 </resources>

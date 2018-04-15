@@ -10,30 +10,30 @@
         android:id="@+id/ui__select_path_dialog__name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/name"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="16dp"
+        android:hint="@string/name"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/ui__select_path_dialog__url"
         android:layout_width="match_parent"
-        android:hint="@string/url_or_path"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="4dp"
+        android:hint="@string/url_or_path"
         android:inputType="textUri" />
 
     <Button
         android:id="@+id/ui__select_path_dialog__browse_filesystem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/browse_filesystem"
         android:drawableLeft="@drawable/ic_file_gray_24dp"
+        android:text="@string/browse_filesystem"
         tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

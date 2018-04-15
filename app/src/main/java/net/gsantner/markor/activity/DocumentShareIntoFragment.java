@@ -64,6 +64,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         AppSettings as = new AppSettings(view.getContext());
         ContextUtils cu = new ContextUtils(view.getContext());
         cu.setAppLanguage(as.getLanguage());
@@ -74,7 +75,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
             _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
-            t.replace(R.id.something, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
+            t.replace(R.id.document__share_into__fragment__placeholder_fragment, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
@@ -120,7 +121,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         public int getPreferenceResourceForInflation() {
-            return R.xml.preference_actions_share_into;
+            return R.xml.prefactions_share_into;
         }
 
         @Override

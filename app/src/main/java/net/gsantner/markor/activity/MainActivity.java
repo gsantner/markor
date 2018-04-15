@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (!_appSettings.isLoadLastDirectoryAtStartup()) {
             _appSettings.setLastOpenedDirectory(null);
         }
+        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
