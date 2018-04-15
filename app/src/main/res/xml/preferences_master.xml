@@ -17,7 +17,7 @@
                 android:key="@string/pref_key__notebook_directory"
                 android:title="@string/notebook" />
             <Preference
-                android:icon="@drawable/ic_lightning_white_24dp"
+                android:icon="@drawable/ic_lightning_black_24dp"
                 android:key="@string/pref_key__markdown__quicknote_filepath"
                 android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
                 android:title="@string/quicknote" />
@@ -39,7 +39,7 @@
 
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_preview_light"
+                android:icon="@drawable/ic_visibility_black_24dp"
                 android:key="@string/pref_key__is_preview_first"
                 android:title="@string/open_preview_when_open_documents" />
 
@@ -55,7 +55,7 @@
 
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_settings_white_24dp"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:key="@string/pref_key__show_settings_option_in_main_toolbar"
                 android:summary="@string/pref_show_settings_option_in_main_toolbar"
                 android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
@@ -64,7 +64,7 @@
 
     <!-- Editor screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_edit_light"
+        android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/editor">
         <CheckBoxPreference
             android:defaultValue="false"
@@ -181,7 +181,7 @@
         <PreferenceCategory android:title="@string/text_modules">
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_date_range_white_24dp"
+                android:icon="@drawable/ic_date_range_black_24dp"
                 android:key="@string/pref_key__todotxt__start_new_tasks_with_todays_date"
                 android:summary="@string/start_new_tasks_with_todays_date"
                 android:title="@string/tasks_with_todays_date" />

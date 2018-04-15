@@ -7,34 +7,34 @@
 
     <item
         android:id="@+id/submenu_share"
-        android:icon="@drawable/ic_share_white_24dp"
+        android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"
         app:showAsAction="never">
         <menu>
             <item
-                android:icon="@drawable/ic_file_white_24dp"
                 android:id="@+id/action_share_text"
+                android:icon="@drawable/ic_file_white_24dp"
                 android:title="@string/plain_text" />
             <item
-                android:icon="@drawable/ic_picture_as_pdf_black_24dp"
                 android:id="@+id/action_share_pdf"
+                android:icon="@drawable/ic_picture_as_pdf_black_24dp"
                 android:title="@string/pdf"
                 android:visible="false" />
             <item
-                android:icon="@drawable/ic_file_white_24dp"
                 android:id="@+id/action_share_file"
+                android:icon="@drawable/ic_file_white_24dp"
                 android:title="@string/file" />
             <item
-                android:icon="@drawable/format_code"
                 android:id="@+id/action_share_html"
+                android:icon="@drawable/ic_code_black_24dp"
                 android:title="@string/share_html__mime_html" />
             <item
-                android:icon="@drawable/format_code"
                 android:id="@+id/action_share_html_source"
+                android:icon="@drawable/ic_code_black_24dp"
                 android:title="@string/share_html__mime_plaintext" />
             <item
                 android:id="@+id/action_share_image"
-                android:icon="@drawable/format_image"
+                android:icon="@drawable/ic_image_black_24dp"
                 android:title="@string/image" />
             <item
                 android:id="@+id/action_add_shortcut_launcher_home"
