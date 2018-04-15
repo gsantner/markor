@@ -60,7 +60,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
         if (isAdded() && preference.hasKey()) {
             switch (keyToStringResId(preference)) {
                 case R.string.pref_key__more_info__app: {
-                    //_cu.openWebpageInExternalBrowser(getString(R.string.app_web_url));
+                    _cu.openWebpageInExternalBrowser(getString(R.string.app_web_url));
                     return true;
                 }
                 case R.string.pref_key__more_info__settings: {
@@ -138,6 +138,13 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
                     new ShareUtil(getContext()).setClipboard(preference.getSummary());
+                    SimpleMarkdownParser smp = new SimpleMarkdownParser();
+                    try {
+                        String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW, SimpleMarkdownParser.FILTER_CHANGELOG).getHtml();
+                        au.showDialogWithHtmlTextView(R.string.changelog, html);
+                    } catch (Exception ex) {
+
+                    }
                     return true;
                 }
             }

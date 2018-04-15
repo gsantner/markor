@@ -1,8 +1,17 @@
-### v0.3.5 (wip)
+### v0.3.5
+- All new More section
+- All new "Share into" handling
 - Fix: Keep dates when priority is assigned
 - Mod: Disable colored,underlined header text
 - Add: Enable zoom gestures in Preview
 - Mod: md::link/image filesystem selection in working directory
+- Remove MoreFragment and AboutActivity
+- Share into:: Editable text
+- Share into:: Re-Share option
+- Share into:: Copy to clipboard option
+- Share into:: Landscape support
+- Update settings
+- Improve permission checking
 
 ### v0.3.4
 - Replace commonmark markdown parser with flexmark
