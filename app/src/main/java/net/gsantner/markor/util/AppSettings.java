@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -37,7 +37,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getBackgroundColor() {
-        return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
+        return isDarkThemeEnabled() ? rcolor(R.color.dark__background) : rcolor(R.color.light__background);
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
@@ -212,7 +212,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
     }
 
-    public boolean isEditorStartEditingInCenter(){
+    public boolean isEditorStartEditingInCenter() {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
     }
 }

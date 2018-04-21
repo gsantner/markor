@@ -1,3 +1,25 @@
+### v0.3.5
+- All new More section
+- All new "Share into" handling
+- Fix: Keep dates when priority is assigned
+- Mod: Disable colored,underlined header text
+- Add: Enable zoom gestures in Preview
+- Mod: md::link/image filesystem selection in working directory
+- Remove MoreFragment and AboutActivity
+- Share into:: Editable text
+- Share into:: Re-Share option
+- Share into:: Copy to clipboard option
+- Share into:: Landscape support
+- Update settings
+- Improve permission checking
+
+### v0.3.4
+- Replace commonmark markdown parser with flexmark
+- Various smaller bug fixes
+- Updated translations
+- Settings option: Edit in screen center
+- Add ".." in folder selection to go up
+
 ### v0.3.3
 - Add support for editing files from most file managers
 - Allow to open from Own/NextCloud

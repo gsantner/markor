@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013-2017 Joseph Johnson https://stackoverflow.com/a/19494006
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
+@SuppressWarnings("all")
 public class AndroidBug5497Workaround {
 
     // For more information, see https://code.google.com/p/android/issues/detail?id=5497

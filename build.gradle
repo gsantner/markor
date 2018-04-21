@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -7,13 +9,11 @@ buildscript {
     ext.version_setup_buildTools = "27.0.3" // Specifying optional
 
     // https://developer.android.com/studio/releases/gradle-plugin.html
-    ext.version_gradle_tools = "3.0.1"
+    ext.version_gradle_tools = "3.1.0"
     // https://developer.android.com/topic/libraries/support-library/revisions.html
     ext.version_library_appcompat = "27.1.0"
     // https://github.com/JakeWharton/butterknife/releases
     ext.version_library_butterknife = "8.8.1"
-    // https://github.com/atlassian/commonmark-java/releases
-    ext.version_library_commonmark = "0.10.0"
     // https://github.com/guardianproject/NetCipher/releases
     ext.version_library_netcipher = "2.0.0-alpha1"
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin#LookAtCentral
@@ -89,4 +89,11 @@ ext.getGitHash = { ->
     } catch (Exception ignored) {
         return 'unknown'
     }
+}
+@SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
+// Returns the build date in a RFC3339 compatible format. TZ is always converted to UTC
+static String getBuildDate() {
+    final SimpleDateFormat RFC3339_LIKE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
+    RFC3339_LIKE.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return RFC3339_LIKE.format(new Date())
 }

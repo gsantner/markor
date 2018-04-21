@@ -8,17 +8,17 @@
         android:title="@string/notebook" />
 
     <item
-        android:id="@+id/nav_quicknote"
-        android:icon="@drawable/ic_lightning_white_24dp"
-        android:title="@string/quicknote" />
-
-    <item
         android:id="@+id/nav_todo"
         android:icon="@drawable/ic_assignment_turned_in_black_24dp"
         android:title="@string/todo" />
 
     <item
+        android:id="@+id/nav_quicknote"
+        android:icon="@drawable/ic_lightning_black_24dp"
+        android:title="@string/quicknote" />
+
+    <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/ic_favorite_white_24dp"
+        android:icon="@drawable/ic_favorite_black_24dp"
         android:title="@string/more" />
 </menu>

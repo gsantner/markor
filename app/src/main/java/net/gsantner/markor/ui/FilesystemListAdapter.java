@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -60,8 +60,9 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
         return i;
     }
 
+    @NonNull
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, @NonNull ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View row = inflater.inflate(R.layout.ui__file__item, viewGroup, false);
@@ -149,7 +150,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
                     searchResults.values = _data;
                     searchResults.count = _data.size();
                 } else {
-                    ArrayList<File> searchResultsData = new ArrayList<File>();
+                    ArrayList<File> searchResultsData = new ArrayList<>();
 
                     for (File item : _data) {
                         if (item.getName().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase(Locale.getDefault()))) {

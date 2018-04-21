@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -46,23 +46,20 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    private AppSettings _appSettings;
-    private ContextUtils _contextUtils;
-
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         super.onCreate(b);
-        _appSettings = new AppSettings(this);
-        _contextUtils = new ContextUtils(this);
-        _contextUtils.setAppLanguage(_appSettings.getLanguage());
-        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        AppSettings appSettings = new AppSettings(this);
+        ContextUtils contextUtils = new ContextUtils(this);
+        contextUtils.setAppLanguage(appSettings.getLanguage());
+        setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
         // Load UI
         setContentView(R.layout.settings__activity);
         ButterKnife.bind(this);
 
         // Custom code
-        iconColor = _contextUtils.rcolor(_appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        iconColor = contextUtils.rcolor(appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -154,15 +151,15 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         @Override
-        public void updateSummaries() {
-            updateSummary(R.string.pref_key__notebook_directory, R.drawable.ic_save_black_24dp,
+        public void doUpdatePreferences() {
+            updateSummary(R.string.pref_key__notebook_directory,
                     getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr()
             );
-            updateSummary(R.string.pref_key__markdown__quicknote_filepath, R.drawable.ic_lightning_white_24dp,
+            updateSummary(R.string.pref_key__markdown__quicknote_filepath,
                     getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
                             + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath()
             );
-            updateSummary(R.string.pref_key__todotxt_filepath, R.drawable.ic_assignment_turned_in_black_24dp,
+            updateSummary(R.string.pref_key__todotxt_filepath,
                     getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
                             + "\n" + AppSettings.get().getTodoFile().getAbsolutePath()
             );
@@ -186,11 +183,12 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference) {
+            PermissionChecker permc = new PermissionChecker(getActivity());
             if (isAdded() && preference.hasKey()) {
                 if (false) {
                 } else if (eq(preference, R.string.pref_key__notebook_directory)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
                             public void onFsSelected(String request, File file) {
@@ -198,19 +196,22 @@ public class SettingsActivity extends AppCompatActivity {
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
                                 as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
-                                updateSummaries();
+                                doUpdatePreferences();
                             }
 
                             @Override
                             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                 opt.titleText = R.string.select_storage_folder;
+                                if (!permc.mkdirIfStoragePermissionGranted()) {
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
+                                }
                             }
                         }, fragManager, getActivity());
                         return true;
                     }
                 } else if (eq(preference, R.string.pref_key__markdown__quicknote_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
                             public void onFsSelected(String request, File file) {
@@ -228,8 +229,8 @@ public class SettingsActivity extends AppCompatActivity {
                         return true;
                     }
                 } else if (eq(preference, R.string.pref_key__todotxt_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
-                        FragmentManager fragManager = ((AppCompatActivity) getActivity()).getSupportFragmentManager();
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
                             public void onFsSelected(String request, File file) {

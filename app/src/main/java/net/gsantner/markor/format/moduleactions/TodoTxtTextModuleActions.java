@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -51,14 +51,14 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] STT_INSERT_ACTIONS_ICONS = {
-            {R.drawable.ic_close_white_24dp, 0},
-            {R.drawable.ic_email_at_sign_24dp, 1},
-            {R.drawable.ic_local_offer_white_24dp, 2},
+            {R.drawable.ic_close_black_24dp, 0},
+            {R.drawable.gs_email_sign_black_24dp, 1},
+            {R.drawable.ic_local_offer_black_24dp, 2},
             {R.drawable.ic_star_border_black_24dp, 3},
-            {R.drawable.ic_date_range_white_24dp, 4},
+            {R.drawable.ic_date_range_black_24dp, 4},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
             //{R.drawable.ic_add_white_24dp, 5},
-            {R.drawable.ic_delete_white_24dp, 6},
+            {R.drawable.ic_delete_black_24dp, 6},
             {R.drawable.ic_archive_black_24dp, 7},
     };
     private static final String[] STT_INSERT_ACTIONS = {
@@ -80,6 +80,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             _action = action;
         }
 
+        @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
             final SttCommander sttcmd = SttCommander.get();
@@ -125,10 +126,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
                 case "add_context": {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
-                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
-                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                        if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }
@@ -137,10 +138,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
                 case "add_project": {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
-                        int offsetInLine = _as.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
+                        int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
                         cbUpdateOrigTask.callback(origTask);
-                        if (_as.isTodoAppendProConOnEndEnabled()) {
+                        if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                         }

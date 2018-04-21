@@ -39,16 +39,23 @@ import android.webkit.WebView;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
- * A utility class to ease sharing information on Android
+ * A utility class to ease information sharing on Android
  * Also allows to parse/fetch information out of shared information
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
 public class ShareUtil {
+    public final static String EXTRA_FILEPATH = "real_file_path_2";
+    public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
+    public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmm", Locale.getDefault());
+
+
     protected Context _context;
     protected String _fileProviderAuthority;
     protected String _chooserTitle;
@@ -75,7 +82,6 @@ public class ShareUtil {
         _chooserTitle = title;
         return this;
     }
-
 
     /**
      * Convert a {@link File} to an {@link Uri}
@@ -139,12 +145,11 @@ public class ShareUtil {
             intent.setAction(Intent.ACTION_VIEW);
         }
 
-        Intent creationIntent = new Intent();
+        Intent creationIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         creationIntent.putExtra("duplicate", true);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(_context, iconRes));
-        creationIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         _context.sendBroadcast(creationIntent);
     }
 
@@ -155,8 +160,7 @@ public class ShareUtil {
      * @param mimeType MimeType or null (uses text/plain)
      */
     public void shareText(String text, @Nullable String mimeType) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType(mimeType != null ? mimeType : "text/plain");
         showChooser(intent, null);
@@ -170,9 +174,9 @@ public class ShareUtil {
      */
     public void shareStream(File file, String mimeType) {
         Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
         showChooser(intent, null);
     }
@@ -188,7 +192,6 @@ public class ShareUtil {
         return shareImage(bitmap, format, 95, "SharedImage");
     }
 
-
     /**
      * Share the given bitmap with given format
      *
@@ -202,7 +205,7 @@ public class ShareUtil {
         try {
             String ext = format.name().toLowerCase();
             File file = File.createTempFile(imageName, "." + ext.replace("jpeg", "jpg"), _context.getExternalCacheDir());
-            if (bitmap != null && new net.gsantner.opoc.util.ContextUtils(_context).writeImageToFile(file, bitmap, format, quality)) {
+            if (bitmap != null && new ContextUtils(_context).writeImageToFile(file, bitmap, format, quality)) {
                 shareStream(file, "image/" + ext);
                 return true;
             }
@@ -291,7 +294,7 @@ public class ShareUtil {
      * @param text Text to be set
      */
     public boolean setClipboard(CharSequence text) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
                 cm.setText(text);
@@ -313,9 +316,9 @@ public class ShareUtil {
      */
     public List<String> getClipboard() {
         List<String> clipper = new ArrayList<>();
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null && cm.getText() != null) {
+            if (cm != null && !TextUtils.isEmpty(cm.getText())) {
                 clipper.add(cm.getText().toString());
             }
         } else {
@@ -324,7 +327,7 @@ public class ShareUtil {
                 ClipData data = cm.getPrimaryClip();
                 for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
                     ClipData.Item item = data.getItemAt(i);
-                    if (item != null && item.getText() != null) {
+                    if (item != null && !TextUtils.isEmpty(item.getText())) {
                         clipper.add(data.getItemAt(i).getText().toString());
                     }
                 }
@@ -394,8 +397,8 @@ public class ShareUtil {
         String fileStr;
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action))) {
-            // Simple Mobile Tools - FileManager
-            if (receivingIntent.hasExtra((tmps = "real_file_path_2"))) {
+            // Markor, S.M.T FileManager
+            if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
                 return new File(receivingIntent.getStringExtra(tmps));
             }
 

@@ -36,16 +36,6 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
-        <activity
-            android:name=".activity.AboutActivity"
-            android:label="@string/about"
-            android:parentActivityName=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Light">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.gsantner.markor.activity.MainActivity" />
-        </activity>
         <activity android:name=".widget.WidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

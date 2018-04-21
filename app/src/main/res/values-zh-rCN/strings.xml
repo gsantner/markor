@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">设置</string>
     <string name="light">亮色主题</string>
@@ -47,7 +48,7 @@
     <string name="select_this_folder">选择这个目录</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
-    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
+    <string name="more_items_selected">已选择 %d 个项目</string>
 
     <string name="pref_summary__is_statusbar_hidden">隐藏状态栏</string>
     <string name="pref_title__is_statusbar_hidden">隐藏状态栏</string>
@@ -76,7 +77,9 @@
     <string name="sort_reverse">逆序</string>
     <string name="contribute">贡献</string>
     <string name="donate">捐赠</string>
+
     <string name="project_page">项目主页</string>
+
     <string name="press_again_to_exit">再按一次退出</string>
     <string name="exit">退出</string>
     <string name="undo">撤销</string>
@@ -87,7 +90,9 @@
     <string name="todo_list">TODO列表</string>
     <string name="task">工作</string>
     <string name="list">列表</string>
+
     <string name="priority">优先级</string>
+
     <string name="history">历史</string>
     <string name="sync">同步</string>
     <string name="save">保存</string>
@@ -136,7 +141,7 @@
     <string name="key_pos_end">行末（Pos End）</string>
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
-    <string name="key_ctrl_a">全选（Ctrl + A）</string>
+    <string name="key_ctrl_a">全选（8Ctrl + A）</string>
     <string name="key_tab">Tab</string>
     <string name="configure_in_the_apps_settings">在应用设置中设置</string>
 
@@ -149,4 +154,5 @@
     <string name="help_translating_this_app">翻译本应用</string>
     <string name="source_code">源代码</string>
     <string name="project_license">项目许可证</string>
+
 </resources>

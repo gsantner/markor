@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (!_appSettings.isLoadLastDirectoryAtStartup()) {
             _appSettings.setLastOpenedDirectory(null);
         }
+        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
@@ -115,6 +116,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
+
+        // Send Test intent
+        /*Intent i = new Intent(this, DocumentActivity.class);
+        i.setAction(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
+        startActivity(i);*/
     }
 
     private void optShowRate() {
@@ -127,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
+        PermissionChecker permc = new PermissionChecker(this);
+        permc.checkPermissionResult(requestCode, permissions, grantResults);
     }
 
 
@@ -179,7 +188,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             startActivity(intent);
         }
 
-        setupAppearancePreferences();
+
+        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
+                ? R.color.dark__background : R.color.light__background);
+        _viewPager.getRootView().setBackgroundColor(color);
+
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
     }
@@ -227,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @OnClick({R.id.fab_add_new_item})
     public void onClickFab(View view) {
-        if (PermissionChecker.doIfPermissionGranted(this) && PermissionChecker.mkSaveDir(this)) {
+        PermissionChecker permc = new PermissionChecker(this);
+        if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
                     Intent intent = new Intent(this, DocumentActivity.class);
@@ -243,12 +257,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         }
-    }
-
-    private void setupAppearancePreferences() {
-        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
-                ? R.color.dark__background : R.color.light__background);
-        _viewPager.getRootView().setBackgroundColor(color);
     }
 
     @Override
@@ -273,19 +281,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        PermissionChecker permc = new PermissionChecker(this);
         _fab.setVisibility(item.getItemId() == R.id.nav_notebook ? View.VISIBLE : View.INVISIBLE);
         switch (item.getItemId()) {
             case R.id.nav_notebook: {
                 _viewPager.setCurrentItem(0);
                 return true;
             }
-            case R.id.nav_quicknote: {
-                PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+
+            case R.id.nav_todo: {
+                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 _viewPager.setCurrentItem(1);
                 return true;
             }
-            case R.id.nav_todo: {
-                PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+            case R.id.nav_quicknote: {
+                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 _viewPager.setCurrentItem(2);
                 return true;
             }
@@ -300,12 +310,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onViewPagerPageSelected(int pos) {
         Menu menu = _bottomNav.getMenu();
+        PermissionChecker permc = new PermissionChecker(this);
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         _fab.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
 
         if (pos == 1 || pos == 2) {
-            PermissionChecker.doIfPermissionGranted(this); // cannot prevent bottom tab selection
+            permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -61,9 +61,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
-            {R.drawable.format_blockquote, 0}, {R.drawable.format_header_1, 1},
+            {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
             {R.drawable.format_header_2, 2}, {R.drawable.format_header_3, 3},
-            {R.drawable.format_list_bulleted, 4}, {R.drawable.format_list_numbers, 5}
+            {R.drawable.ic_list_black_24dp, 4}, {R.drawable.ic_format_list_numbered_black_24dp, 5}
     };
     private static final String[] KEYBOARD_REGULAR_ACTIONS = {"> ", "# ", "## ", "### ", "- ", "1. "};
 
@@ -125,9 +125,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_SMART_ACTIONS_ICON = {
-            {R.drawable.format_bold, 0}, {R.drawable.format_italic, 1},
-            {R.drawable.format_strikethrough, 2}, {R.drawable.format_code, 3},
-            {R.drawable.format_horizontal_line, 4}
+            {R.drawable.ic_format_bold_black_24dp, 0}, {R.drawable.ic_format_italic_black_24dp, 1},
+            {R.drawable.ic_format_strikethrough_black_24dp, 2}, {R.drawable.ic_code_black_24dp, 3},
+            {R.drawable.ic_more_horiz_black_24dp, 4}
     };
     private static final String[] KEYBOARD_SMART_ACTIONS = {"**", "_", "~~", "`", "----\n"};
 
@@ -194,7 +194,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
-            {R.drawable.format_link, 1}, {R.drawable.format_image, 2},
+            {R.drawable.ic_link_black_24dp, 1}, {R.drawable.ic_image_black_24dp, 2},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3},
             {R.drawable.ic_keyboard_return_black_24dp, 4},
     };
@@ -289,7 +289,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         final FilesystemDialogData.SelectionListener fsListener = new FilesystemDialogData.SelectionListenerAdapter() {
             @Override
             public void onFsSelected(final String request, final File file) {
-                final String saveDir = AppSettings.get().getNotebookDirectoryAsStr();
+                final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
                     text = FileUtils.relativePath(_document.getFile(), file);
@@ -321,7 +321,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
             @Override
             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                // TODO: Set start/home folder
+                if (_document != null && _document.getFile() != null) {
+                    opt.rootFolder = _document.getFile().getParentFile();
+                }
             }
         };
 

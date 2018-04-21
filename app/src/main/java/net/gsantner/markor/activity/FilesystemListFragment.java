@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2018 Gregor Santner and Markor contributors
+ * Copyright (c) 2017-2018 Gregor Santner
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
@@ -58,6 +58,7 @@ import butterknife.OnItemClick;
 
 import static android.content.Context.SEARCH_SERVICE;
 
+@SuppressWarnings("all")
 public class FilesystemListFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "FilesystemListFragment";
     public static final int SORT_BY_DATE = 0;
@@ -266,6 +267,8 @@ public class FilesystemListFragment extends GsFragmentBase {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        PermissionChecker permc = new PermissionChecker(getActivity());
+
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
                 AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
@@ -289,7 +292,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 return true;
             }
             case R.id.action_import: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                if (permc.mkdirIfStoragePermissionGranted()) {
                     showImportDialog();
                 }
                 return true;
