@@ -141,7 +141,7 @@
     <string name="key_pos_end">行末（Pos End）</string>
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
-    <string name="key_ctrl_a">全选（8Ctrl + A）</string>
+    <string name="key_ctrl_a">全选（Ctrl + A）</string>
     <string name="key_tab">Tab</string>
     <string name="configure_in_the_apps_settings">在应用设置中设置</string>
 
