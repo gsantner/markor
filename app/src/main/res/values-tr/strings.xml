@@ -179,10 +179,10 @@
     <string name="key_pos_end_document">Belge Sonu</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
     <string name="key_tab">Tab</string>
-	<string name="start_on_bottom">Alttan başla</string>
+    <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_summary">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="filemanager_doesnot_supply_required_data">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenlemeye izin verir ve dosya adı dahil olmak üzere tam dosya yolunu sağlayan dosya yöneticilerini destekler. Görünüşe göre uygulama gerekli tüm bilgileri sağlayamadı ve bu yüzden Markor ile kullanılamaz :(.</string>
-    <string name="sync_to_local_folder_notice">Uyarı: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
+    <string name="sync_to_local_folder_notice">Uyarı: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="configure_in_the_apps_settings">Uygulama ayarlarından yapılandır</string>
     <string name="vertical_alignment">Dikey hizalama</string>
     <string name="horizontal_alignment">Yatay hizalama</string>
