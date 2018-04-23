@@ -298,7 +298,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         return true;
     }
 
-    protected void updateSummary(@StringRes int keyResId, String summary) {
+    protected void updateSummary(@StringRes int keyResId, CharSequence summary) {
         updatePreference(keyResId, null, null, summary, null);
     }
 
@@ -315,7 +315,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
 
     @Nullable
     @SuppressWarnings("SameParameterValue")
-    protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, String title, String summary, Boolean visible) {
+    protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, CharSequence title, CharSequence summary, Boolean visible) {
         Preference pref = findPreference(getString(keyResId));
         if (pref != null) {
             if (summary != null) {

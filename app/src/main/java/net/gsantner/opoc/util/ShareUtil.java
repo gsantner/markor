@@ -54,6 +54,7 @@ public class ShareUtil {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
     public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmm", Locale.getDefault());
+    public final static String MIME_TEXT_PLAIN = "text/plain";
 
 
     protected Context _context;
@@ -162,7 +163,7 @@ public class ShareUtil {
     public void shareText(String text, @Nullable String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, text);
-        intent.setType(mimeType != null ? mimeType : "text/plain");
+        intent.setType(mimeType != null ? mimeType : MIME_TEXT_PLAIN);
         showChooser(intent, null);
     }
 

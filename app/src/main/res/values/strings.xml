@@ -109,7 +109,7 @@
     <string name="archive">Archive</string>
     <string name="add_task">Add task</string>
     <string name="add_something">Add %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">The document to be loaded and saved as "%s"</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Document to be loaded and saved as "%s"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Settings in toolbar</string>
     <string name="pref_show_settings_option_in_main_toolbar">Show settings option in top toolbar on main screen</string>
     <string name="refresh">Refresh</string>

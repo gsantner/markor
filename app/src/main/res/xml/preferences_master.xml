@@ -9,26 +9,8 @@
 
     <!-- Main View screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_file_white_24dp"
+        android:icon="@drawable/ic_format_align_justify_black_24dp"
         android:title="@string/main_view">
-        <PreferenceCategory android:title="@string/files_and_folders">
-            <Preference
-                android:icon="@drawable/ic_save_black_24dp"
-                android:key="@string/pref_key__notebook_directory"
-                android:title="@string/notebook" />
-            <Preference
-                android:icon="@drawable/ic_lightning_black_24dp"
-                android:key="@string/pref_key__markdown__quicknote_filepath"
-                android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
-                android:title="@string/quicknote" />
-            <Preference
-                android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                android:key="@string/pref_key__todotxt_filepath"
-                android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
-                android:title="@string/todo" />
-
-        </PreferenceCategory>
-
         <PreferenceCategory android:title="@string/document_browser">
             <CheckBoxPreference
                 android:defaultValue="false"
@@ -60,6 +42,32 @@
                 android:summary="@string/pref_show_settings_option_in_main_toolbar"
                 android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
         </PreferenceCategory>
+    </PreferenceScreen>
+
+
+    <!-- Main View screen -->
+    <PreferenceScreen
+        android:icon="@drawable/ic_file_white_24dp"
+        android:title="@string/files_and_folders">
+        <Preference
+            android:icon="@drawable/ic_save_black_24dp"
+            android:key="@string/pref_key__notebook_directory"
+            android:title="@string/notebook" />
+        <Preference
+            android:icon="@drawable/ic_lightning_black_24dp"
+            android:key="@string/pref_key__markdown__quicknote_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/quicknote" />
+        <Preference
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+            android:key="@string/pref_key__todotxt_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/todo" />
+        <Preference
+            android:icon="@drawable/ic_bookmark_black_24dp"
+            android:key="@string/pref_key__linkbox_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/linkbox" />
     </PreferenceScreen>
 
     <!-- Editor screen -->
