@@ -21,8 +21,10 @@
     <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
+    <string name="linkbox" translatable="false">LinkBox</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
     <string name="todo_default_filename" translatable="false">todo.txt</string>
+    <string name="linkbox_default_filename" translatable="false">linkbox.txt</string>
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
@@ -80,6 +82,7 @@
     <string name="pref_key__todotxt__start_new_tasks_with_todays_date" translatable="false">pref_key__todotxt__start_new_tasks_with_todays_date</string>
     <string name="pref_key__todotxt__append_contexts_and_projects_on_end_of_task" translatable="false">pref_key__todotxt__append_contexts_and_projects_on_end_of_task</string>
     <string name="pref_key__todotxt__last_used_archive_filename" translatable="false">pref_key__todotxt__last_used_archive_filename</string>
+    <string name="pref_key__linkbox_filepath" translatable="false">pref_key__linkbox_filepath</string>
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_show_textmodules_bar" translatable="false">pref_key__is_show_textmodules_bar</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
@@ -104,6 +107,7 @@
     <string name="pref_key__editor_start_editing_in_center" translatable="false">pref_key__editor_start_editing_in_center</string>
     <string name="pref_key__share_into__quicknote" translatable="false">pref_key__share_into__quicknote</string>
     <string name="pref_key__share_into__todo" translatable="false">pref_key__share_into__todo</string>
+    <string name="pref_key__share_into__linkbox" translatable="false">pref_key__share_into__linkbox</string>
     <string name="pref_key__share_into__clipboard" translatable="false">pref_key__share_into__clipboard</string>
     <string name="pref_key__share_into__existing_document" translatable="false">pref_key__share_into__existing_document</string>
     <string name="pref_key__share_into__create_document" translatable="false">pref_key__share_into__create_document</string>

@@ -86,6 +86,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todotxt_filepath, file.getAbsolutePath());
     }
 
+    public File getLinkBoxFile() {
+        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.linkbox_default_filename)).getAbsolutePath();
+        return new File(getString(R.string.pref_key__linkbox_filepath, defaultValue));
+    }
+
+    public void setLinkBoxFile(File file) {
+        setString(R.string.pref_key__linkbox_filepath, file.getAbsolutePath());
+    }
+
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
