@@ -194,9 +194,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
-            {R.drawable.ic_link_black_24dp, 1}, {R.drawable.ic_image_black_24dp, 2},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3},
-            {R.drawable.ic_keyboard_return_black_24dp, 4},
+            {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
+            {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
+            {R.drawable.ic_keyboard_return_black_24dp, 5},
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -210,11 +211,15 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         @Override
         public void onClick(View view) {
             switch (_action) {
-                case 3: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                case 1: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
                     break;
                 }
                 case 4: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case 5: {
                     if (_hlEditor.length() > 1) {
                         int start = _hlEditor.getSelectionStart();
                         String text = _hlEditor.getText().toString();
