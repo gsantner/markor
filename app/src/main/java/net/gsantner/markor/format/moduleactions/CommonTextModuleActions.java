@@ -13,10 +13,15 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.opoc.format.plaintext.PlainTextStuff;
+import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextModuleActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "special_key";
+
+    public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
+    public static final String ACTION_OPEN_LINK_BROWSER = "open_in_browser";
 
     private final Activity _activity;
     private final Document _document;
@@ -58,6 +63,14 @@ public class CommonTextModuleActions {
                         _hlEditor.insertOrReplaceTextOnCursor("\u0009");
                     }
                 });
+                return true;
+            }
+            case ACTION_OPEN_LINK_BROWSER: {
+                String url;
+                if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+                    new ContextUtils(_activity).openWebpageInExternalBrowser(url);
+                }
+
                 return true;
             }
         }
