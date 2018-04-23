@@ -535,6 +535,7 @@ public class FilesystemListFragment extends GsFragmentBase {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.filesystem__context_menu, menu);
+            _cu.tintMenuItems(menu, true, Color.WHITE);
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }
