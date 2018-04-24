@@ -21,7 +21,7 @@ public class PlainTextStuff {
      * @return Extracted URL or {@code null} if none found
      */
     public static String tryExtractUrlAroundPos(String text, int pos) {
-        pos = Math.min(Math.max(0, pos), text.length()-1);
+        pos = Math.min(Math.max(0, pos), text.length() - 1);
         if (pos >= 0 && pos < text.length()) {
             int begin = Math.max(text.lastIndexOf("https://", pos), text.lastIndexOf("http://", pos));
             if (begin >= 0) {
@@ -37,5 +37,41 @@ public class PlainTextStuff {
             }
         }
         return null;
+    }
+
+    public static int[] getNeighbourLineEndings(String text, int pos, int posEnd) {
+        final int len = text.length();
+        pos = Math.min(Math.max(0, pos), len - 1);
+        posEnd = Math.min(Math.max(0, posEnd), len - 1);
+        if (pos == len) {
+            pos--;
+        }
+        if (pos < 0 || pos > len) {
+            return null;
+        }
+        pos = Math.max(0, text.lastIndexOf("\n", pos));
+        posEnd = text.indexOf("\n", posEnd);
+        if (posEnd < 0 || posEnd >= len - 1) {
+            posEnd = len;
+        }
+        if (pos == 0 && pos == posEnd && posEnd + 1 <= len) {
+            posEnd++;
+        }
+        if (pos <= len && posEnd <= len && pos <= posEnd) {
+            return new int[]{pos, posEnd};
+        }
+        return null;
+    }
+
+
+    public static String removeLinesOfTextAround(String text, int pos, int posEnd) {
+        int[] endings = getNeighbourLineEndings(text, pos, posEnd);
+        if (endings != null) {
+            StringBuffer sb = new StringBuffer();
+            sb.append(text.substring(0, pos));
+            sb.append(text.substring(posEnd, text.length()));
+            return sb.toString();
+        }
+        return text;
     }
 }
