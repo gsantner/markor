@@ -55,12 +55,12 @@
             android:title="@string/notebook" />
         <Preference
             android:icon="@drawable/ic_lightning_black_24dp"
-            android:key="@string/pref_key__markdown__quicknote_filepath"
+            android:key="@string/pref_key__quicknote_filepath"
             android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
             android:title="@string/quicknote" />
         <Preference
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-            android:key="@string/pref_key__todotxt_filepath"
+            android:key="@string/pref_key__todo_filepath"
             android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
             android:title="@string/todo" />
         <Preference
@@ -106,7 +106,7 @@
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="18"
             android:icon="@drawable/ic_format_size_black_24dp"
-            android:key="@string/pref_key__font_size"
+            android:key="@string/pref_key__editor_font_size"
             android:max="36"
             android:summary="@string/editor_font_size_summary"
             android:title="@string/pref_title__font_size"
@@ -169,7 +169,7 @@
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="270"
                 android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__markdown__highlighting_delay"
+                android:key="@string/pref_key__markdown__hl_delay"
                 android:max="3000"
                 android:summary="@string/highlighting_delay_summary"
                 android:title="@string/highlighting_delay"
@@ -213,7 +213,7 @@
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="870"
                 android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__todotxt__highlighting_delay"
+                android:key="@string/pref_key__todotxt__hl_delay"
                 android:max="5000"
                 android:summary="@string/highlighting_delay_summary"
                 android:title="@string/highlighting_delay"

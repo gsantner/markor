@@ -181,7 +181,9 @@ public class ContextUtils {
         } catch (Exception ignored) {
         }
         if (TextUtils.isEmpty(src)) {
-            src = "Sideloaded";
+            return "Sideloaded";
+        } else if (src.toLowerCase().contains(".amazon.")) {
+            return "Amazon Appstore";
         }
         switch (src) {
             case "com.android.vending":
@@ -198,9 +200,9 @@ public class ContextUtils {
             case "cm.aptoide.pt": {
                 return "Aptoide";
             }
-        }
-        if (src.toLowerCase().contains(".amazon.")) {
-            return "Amazon Appstore";
+            case "com.android.packageinstaller": {
+                return "Package Installer";
+            }
         }
         return src;
     }
