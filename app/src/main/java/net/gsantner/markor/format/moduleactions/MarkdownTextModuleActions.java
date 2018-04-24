@@ -194,6 +194,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
+            {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 0},
             {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
             {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
@@ -211,6 +212,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         @Override
         public void onClick(View view) {
             switch (_action) {
+                case 0: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_DELETE_LINES);
+                    break;
+                }
                 case 1: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
                     break;
