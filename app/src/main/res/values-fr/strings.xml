@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Paramètres</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
@@ -53,7 +53,7 @@
     <string name="create">Créer</string>
     <string name="select_elements">Sélectionnez une ou plusieurs entrées</string>
     <string name="one_item_selected">Une entrée sélectionnée</string>
-    <string name="more_items_selected">%d entrées sélectionnées</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">L\'application s\'exécute en mode plein écran</string>
     <string name="pref_title__is_statusbar_hidden">Cacher la barre de statut</string>
@@ -119,6 +119,21 @@
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
 
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Nouvelle note</string>
+    <string name="special_documents" needed="false">Documents spéciaux</string>
+    <string name="navigate_up_folder" needed="false">Dossier précédant</string>
+    <string name="app_settings" needed="false">Réglages</string>
+    <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Retenir le dernier dossier au redémarrage</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Afficher la barre de raccourcis Markdown</string>
+    <string name="markdown_syntax_highlighting" needed="false">Coloration syntaxique Markdown</string>
+    <string name="pref_title__highlighting_delay" needed="false">Délais en millisecondes pour le rafraîchissement de la coloration syntaxique</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Les valeurs élevées sollicitent moins la batterie</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Raccourci pour crochets intelligents</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Si le texte est sélectionné, {}, [] et () encadreront la selection</string>
+    <string name="number_of_files" needed="false">Nombre de fichiers : %d</string>
+
     <!-- New strings -->
     <string name="global">Général</string>
     <string name="main_view">Vue principale</string>
@@ -152,4 +167,52 @@
     <string name="use_different_fonttype_slow_down">Utiliser une police de type différent. Changer dynamiquement de police de caractères a des conséquences sur les performances de l\'application.</string>
     <string name="general">Général</string>
     <string name="resources">Ressources</string>
+    <string name="line_spacing_in_percent">Espacement de lignes (%)</string>
+    <string name="line_spacing">Espacement de lignes</string>
+    <string name="archive_does_move_done_tasks">Déplacer vers un fichier du dossier</string>
+    <string name="special_key">Touches spéciales</string>
+    <string name="key_page_up">Page précédente</string>
+    <string name="key_page_down">Page suivante</string>
+    <string name="key_pos_1">Début de ligne</string>
+    <string name="key_pos_end">Fin de ligne</string>
+    <string name="key_pos_1_document">Début de document</string>
+    <string name="key_pos_end_document">Fin de document</string>
+    <string name="key_ctrl_a">Tout sélectionner (Ctrl + A)</string>
+    <string name="key_tab">Tabulation</string>
+    <string name="start_on_bottom">Commencer en haut</string>
+    <string name="start_on_bottom_summary">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor ne peut éditer que les fichier locaux, hors-ligne et les documents dont l\'adresse et le nom de fichier sont disponibles. Cette application ne fournit visiblement pas toutes les informations et ne peut pas être utilisée avec Markor :(.</string>
+    <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
+    <string name="vertical_alignment">Alignement vertical</string>
+    <string name="horizontal_alignment">Alignement horizontal</string>
+    <string name="align_default">Par défaut</string>
+    <string name="align_left">Gauche</string>
+    <string name="align_right">Droite</string>
+    <string name="align_top">En haut</string>
+    <string name="align_bottom">En bas</string>
+    <string name="align_center">Centré</string>
+    <string name="horizontal_spacing_of_actions">Espacement horizontal des actions</string>
+
+    <string name="center_text">Centrer le texte</string>
+    <string name="center_text_desc">Éditer le texte au centre de l\'écran</string>
+    <string name="clipboard">Presse-papier</string>
+    <string name="existing_document">Sélectionner un document existant</string>
+    <string name="open_source_licenses">Licence Open Source</string>
+    <string name="rate_the_app">Évaluer cette application</string>
+    <string name="translate">Traduire</string>
+    <string name="help_this_app">Plus d\'informations et d\'aide sur cette application</string>
+    <string name="bug_reports">Déclarer un bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Plus d\'informations sur les dons ou l\'aide à ce projet</string>
+    <string name="android_contribution_guide">Guide de contribution Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur la contribution à un projet Open Source, Surtout les applications Android</string>
+    <string name="join_community">Rejoindre la communauté</string>
+    <string name="bug_reports_suggest_improvements">Commentaires et suggestions</string>
+    <string name="help_translating_this_app">Traduire cette application</string>
+    <string name="source_code">Code source</string>
+    <string name="project_license">Licence du projet</string>
+    <string name="project_contribution_info">Informations sur la contribution au projet</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Plus d\'informations sur les façons de contribuer à ce projet</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
+    <string name="project_team">Équipe</string>
+    <string name="contributors_public_info">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
 </resources>
