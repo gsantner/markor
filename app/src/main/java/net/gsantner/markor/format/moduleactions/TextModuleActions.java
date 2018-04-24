@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
@@ -27,12 +28,14 @@ public abstract class TextModuleActions {
     protected Activity _activity;
     protected Context _context;
     protected AppSettings _appSettings;
+    private int _textModuleSidePadding;
 
     public TextModuleActions(Activity activity, Document document) {
         _document = document;
         _activity = activity;
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
+        _textModuleSidePadding = (int) (_appSettings.getEditorTextmoduleBarItemPadding() * _context.getResources().getDisplayMetrics().density);
     }
 
     public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
@@ -41,6 +44,7 @@ public abstract class TextModuleActions {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setOnClickListener(l);
+        btn.setPadding(_textModuleSidePadding, btn.getPaddingTop(), _textModuleSidePadding, btn.getPaddingBottom());
 
         boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
         btn.setColorFilter(ContextCompat.getColor(_context,

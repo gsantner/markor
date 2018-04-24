@@ -4,7 +4,7 @@
     <string name="app_license_name" translatable="false">MIT</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
-    <string name="app_translate_url" translatable="false"><![CDATA[https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&mail=gro.xobliam@@rentnasg&name=Markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor]]></string>
+    <string name="app_translate_url" translatable="false"><![CDATA[https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&mail=gro.xobliam@@rentnasg&project=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor]]></string>
     <string name="app_web_url" translatable="false">https://gsantner.net/?project=markor</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/supportme/?project=markor&source=inapp_supdon]]></string>
@@ -129,4 +129,5 @@
     <string name="pref_key__more_info__project_team" translatable="false">pref_key__more_info__project_team</string>
     <string name="pref_key__more_info__contributors_public_info" translatable="false">pref_key__more_info__contributors_public_info</string>
     <string name="pref_key__more_info__copy_build_information" translatable="false">pref_key__more_info__copy_build_information</string>
+    <string name="pref_key__editor_textmodule_bar_item_padding" translatable="false">pref_key__editor_textmodule_bar_item_padding</string>
 </resources>

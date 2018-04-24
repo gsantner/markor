@@ -113,18 +113,22 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
     }
 
     private String generateExtraForFile(int i) {
-        File item = getItem(i);
-        int documentAmount = (item == null ? 0
-                : item.listFiles(file -> ContextUtils.get().isMaybeMarkdownFile(file)).length);
-        int filesAmount = (item == null ? 0 : item.listFiles().length);
-        StringBuilder sb = new StringBuilder();
-        sb.append(_context.getResources().getQuantityString(R.plurals.documents, documentAmount));
-        sb.append(": ");
-        sb.append(Integer.toString(documentAmount));
-        if (filesAmount != documentAmount) {
-            sb.append(String.format(Locale.ROOT, " / %s: %d", _context.getString(R.string.files), filesAmount));
+        try {
+            File item = getItem(i);
+            int documentAmount = (item == null ? 0
+                    : item.listFiles(file -> ContextUtils.get().isMaybeMarkdownFile(file)).length);
+            int filesAmount = (item == null ? 0 : item.listFiles().length);
+            StringBuilder sb = new StringBuilder();
+            sb.append(_context.getResources().getQuantityString(R.plurals.documents, documentAmount));
+            sb.append(": ");
+            sb.append(Integer.toString(documentAmount));
+            if (filesAmount != documentAmount) {
+                sb.append(String.format(Locale.ROOT, " / %s: %d", _context.getString(R.string.files), filesAmount));
+            }
+            return sb.toString();
+        } catch (Exception ex) {
+            return "";
         }
-        return sb.toString();
     }
 
     private String generateExtraForDirectory(int i) {

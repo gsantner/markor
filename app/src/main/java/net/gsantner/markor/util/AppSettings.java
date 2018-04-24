@@ -224,4 +224,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isEditorStartEditingInCenter() {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
     }
+
+    public int getEditorTextmoduleBarItemPadding() {
+        return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
+    }
 }

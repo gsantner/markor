@@ -192,6 +192,8 @@
     <string name="align_top">Top</string>
     <string name="align_bottom">Bottom</string>
     <string name="align_center">Center</string>
+    <string name="textmodule_bar_spacing">Text module spacing</string>
+    <string name="horizontal_spacing_of_actions">Horizontal spacing of actions</string>
 
     <string name="center_text">Center text</string>
     <string name="center_text_desc">Edit text in center of the screen</string>

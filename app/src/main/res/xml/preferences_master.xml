@@ -120,6 +120,14 @@
             android:summary="@string/line_spacing_in_percent"
             android:title="@string/line_spacing"
             app:min="50" />
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="8"
+            android:icon="@drawable/ic_space_bar_black_24dp"
+            android:key="@string/pref_key__editor_textmodule_bar_item_padding"
+            android:max="32"
+            android:summary="@string/horizontal_spacing_of_actions"
+            android:title="@string/textmodule_bar_spacing"
+            app:min="0" />
 
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
