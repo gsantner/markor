@@ -213,4 +213,6 @@
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_info">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
+    <string name="textmodule_bar_spacing">Text Modul Abstand</string>
+    <string name="horizontal_spacing_of_actions">Horizontaler Abstand zwischen Aktionen</string>
 </resources>
