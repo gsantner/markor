@@ -1,3 +1,11 @@
+### v0.3.6
+- Decrease padding of textmoduleactions for more fitting elements
+- Add delete action for all formats
+- Add open link in browser moduleaction
+- Fix actionmode icon color
+- Share into:: Add LinkBox option
+- Share into:: Fix re-sharing of text
+
 ### v0.3.5
 - All new More section
 - All new "Share into" handling
