@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Impostazioni</string>
     <string name="light">Chiaro</string>
     <string name="dark">Scuro</string>
@@ -14,6 +14,7 @@
     <string name="empty_directory">Questa cartella è vuota</string>
     <string name="folder_name_hint">Inserire il nome della cartella</string>
     <string name="create_folder">Crea una nuova cartella</string>
+    <string name="create_new_document">Crea nuovo documento</string>
     <string name="move">Sposta</string>
 
     <string name="import_from_device">Importa dal device</string>
@@ -23,7 +24,7 @@
     <string name="edit">Modifica</string>
 
     <string name="search_documents">Cerca note</string>
-    <string name="share_to">Condividi con&#8230;</string>
+    <string name="share_to">Condividi con…</string>
     <string name="share">Condividi</string>
     <string name="search">Cerca</string>
     <string name="preview">Anteprima</string>
@@ -52,7 +53,7 @@
     <string name="create">Crea</string>
     <string name="select_elements">Seleziona elementi</string>
     <string name="one_item_selected">Un elemento selezionato</string>
-    <string name="more_items_selected">%d elementi selezionati</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">Nascondi la barra di sistema in questa visualizzazione</string>
     <string name="pref_title__is_statusbar_hidden">Nascondi la barra di sistema</string>
@@ -80,7 +81,7 @@
     <string name="sort_by_name">Ordina per nome</string>
     <string name="sort_by_size">Ordina per dimensione</string>
     <string name="sort_reverse">Ordine invertito</string>
-    <string name="contribute">Contibuire</string>
+    <string name="contribute">Contribuire</string>
     <string name="donate">Donare</string>
     <string name="project_page">Pagina del progetto</string>
     <string name="press_again_to_exit">Premere indietro di nuovo per uscire</string>
@@ -90,7 +91,7 @@
     <string name="more">Di più</string>
     <string name="notebook">Taccuino</string>
     <string name="help">Aiuto</string>
-    <string name="todo_list">Lista deli compiti da fare</string>
+    <string name="todo_list">Lista dei compiti da fare</string>
     <string name="task">Compito</string>
     <string name="category">Categoria</string>
     <string name="context">Contesto</string>
@@ -108,7 +109,7 @@
     <string name="archive">Archivia</string>
     <string name="add_task">Aggiungi compito</string>
     <string name="add_something">Aggiungi %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">La nota da caricare e salvare come "%s"</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">La nota da caricare e salvare come \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Impostazioni nella barra degli strumenti</string>
     <string name="pref_show_settings_option_in_main_toolbar">Mostra le impostazioni nella barra degli strumenti in alto nella schermata principale</string>
     <string name="refresh">Ricarica</string>
@@ -191,8 +192,30 @@
     <string name="align_top">In alto</string>
     <string name="align_bottom">In basso</string>
     <string name="align_center">Nel centro</string>
+    <string name="textmodule_bar_spacing">Spazio tra i moduli del testo</string>
+    <string name="horizontal_spacing_of_actions">Spazio orizzontale tra le azioni</string>
 
     <string name="center_text">Centra il testo</string>
     <string name="center_text_desc">Modifica il testo al centro della schermata</string>
-
+    <string name="clipboard">Appunti</string>
+    <string name="existing_document">Seleziona documento esistente</string>
+    <string name="open_source_licenses">Licenze Open Source</string>
+    <string name="rate_the_app">Valuta l\'app</string>
+    <string name="translate">Traduci</string>
+    <string name="help_this_app">Più informazioni e aiuto sull\'app</string>
+    <string name="bug_reports">Segnala bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Più informazioni su come donare o su come supportare questo progetto</string>
+    <string name="android_contribution_guide">Guida alla contribuzione Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Più informazioni su come contribuire a progetti Open Source, soprattutto App Android</string>
+    <string name="join_community">Unisciti alla Community</string>
+    <string name="bug_reports_suggest_improvements">Dai feedback, segnala bug o suggerisci miglioramenti</string>
+    <string name="help_translating_this_app">Traduci l\'app in altre lingue</string>
+    <string name="source_code">Codice sorgente</string>
+    <string name="project_license">Licenza del progetto</string>
+    <string name="project_contribution_info">Informazioni contribuzione al progetto</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Più informazioni su come contribuire a questo progetto</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Contribuisci al codice del progetto. Tutti sono invitati a farlo, anche i nuovi arrivati</string>
+    <string name="project_team">Team del progetto</string>
+    <string name="contributors_public_info">Mostra informazioni sui contributori. \n
+ I contributori possono fornire informazioni per essere mostrati qui (opt-in) dopo aver contribuito</string>
 </resources>
