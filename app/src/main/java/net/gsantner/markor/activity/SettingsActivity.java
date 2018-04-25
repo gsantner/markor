@@ -151,17 +151,22 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         @Override
-        public void updateSummaries() {
-            updateSummary(R.string.pref_key__notebook_directory, R.drawable.ic_save_black_24dp,
-                    getString(R.string.select_storage_folder) + "\n" + AppSettings.get().getNotebookDirectoryAsStr()
+        public void doUpdatePreferences() {
+            updateSummary(R.string.pref_key__notebook_directory,
+                    _cu.htmlToSpanned(getString(R.string.select_storage_folder)
+                            + "<br/><small><small>" + AppSettings.get().getNotebookDirectoryAsStr() + "</small></small>")
             );
-            updateSummary(R.string.pref_key__markdown__quicknote_filepath, R.drawable.ic_lightning_white_24dp,
-                    getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
-                            + "\n" + AppSettings.get().getQuickNoteFile().getAbsolutePath()
+            updateSummary(R.string.pref_key__quicknote_filepath,
+                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
+                            + "<br/><small><small>" + _as.getQuickNoteFile().getAbsolutePath() + "</small></small>")
             );
-            updateSummary(R.string.pref_key__todotxt_filepath, R.drawable.ic_assignment_turned_in_black_24dp,
-                    getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
-                            + "\n" + AppSettings.get().getTodoFile().getAbsolutePath()
+            updateSummary(R.string.pref_key__todo_filepath,
+                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
+                            + "<br/><small><small>" + _as.getTodoFile().getAbsolutePath() + "</small></small>")
+            );
+            updateSummary(R.string.pref_key__linkbox_filepath,
+                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.linkbox))
+                            + "<br/><small><small>" + _as.getLinkBoxFile().getAbsolutePath() + "</small></small>")
             );
         }
 
@@ -183,10 +188,11 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference) {
+            PermissionChecker permc = new PermissionChecker(getActivity());
             if (isAdded() && preference.hasKey()) {
                 if (false) {
                 } else if (eq(preference, R.string.pref_key__notebook_directory)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
@@ -195,18 +201,21 @@ public class SettingsActivity extends AppCompatActivity {
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
                                 as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
-                                updateSummaries();
+                                doUpdatePreferences();
                             }
 
                             @Override
                             public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                 opt.titleText = R.string.select_storage_folder;
+                                if (!permc.mkdirIfStoragePermissionGranted()) {
+                                    opt.rootFolder = Environment.getExternalStorageDirectory();
+                                }
                             }
                         }, fragManager, getActivity());
-                        return true;
                     }
-                } else if (eq(preference, R.string.pref_key__markdown__quicknote_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    return true;
+                } else if (eq(preference, R.string.pref_key__quicknote_filepath)) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
@@ -222,10 +231,10 @@ public class SettingsActivity extends AppCompatActivity {
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
                         }, fragManager, getActivity());
-                        return true;
                     }
-                } else if (eq(preference, R.string.pref_key__todotxt_filepath)) {
-                    if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                    return true;
+                } else if (eq(preference, R.string.pref_key__todo_filepath)) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
                             @Override
@@ -241,8 +250,27 @@ public class SettingsActivity extends AppCompatActivity {
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
                         }, fragManager, getActivity());
-                        return true;
                     }
+                    return true;
+                } else if (eq(preference, R.string.pref_key__linkbox_filepath)) {
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
+                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                            @Override
+                            public void onFsSelected(String request, File file) {
+                                AppSettings as = AppSettings.get();
+                                as.setLinkBoxFile(file);
+                                as.setRecreateMainRequired(true);
+                            }
+
+                            @Override
+                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                opt.titleText = R.string.linkbox;
+                                opt.rootFolder = Environment.getExternalStorageDirectory();
+                            }
+                        }, fragManager, getActivity());
+                    }
+                    return true;
                 }
             }
             return null;

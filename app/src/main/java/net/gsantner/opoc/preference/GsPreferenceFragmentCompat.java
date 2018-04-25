@@ -44,6 +44,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -63,13 +65,15 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Baseclass to use as preference fragment (with support libraries)
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompat
+public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPropertyBackend> extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
     private static final int DEFAULT_ICON_TINT_DELAY = 200;
 
@@ -82,7 +86,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     public abstract String getFragmentTag();
 
-    protected abstract SharedPreferencesPropertyBackend getAppSettings(Context context);
+    protected abstract AS getAppSettings(Context context);
 
     //
     // Virtual
@@ -90,10 +94,6 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     public Boolean onPreferenceClicked(Preference preference) {
         return null;
-    }
-
-    protected void onPreferenceChanged(SharedPreferences prefs, String key) {
-
     }
 
     public String getSharedPreferencesName() {
@@ -104,7 +104,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
 
     }
 
-    public void updateSummaries() {
+    public synchronized void doUpdatePreferences() {
 
     }
 
@@ -113,7 +113,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     }
 
     public Integer getIconTintColor() {
-        return null;
+        return _defaultIconTintColor;
     }
 
     public String getTitle() {
@@ -124,18 +124,30 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     //
     //
 
+    private final Set<String> _registeredPrefs = new HashSet<>();
     private final List<PreferenceScreen> _prefScreenBackstack = new ArrayList<>();
-    private SharedPreferencesPropertyBackend _asb;
+    protected AS _appSettings;
+    protected int _defaultIconTintColor;
     protected ContextUtils _cu;
 
     @Override
     @Deprecated
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        _asb = getAppSettings(getActivity());
-        _cu = new ContextUtils(getActivity());
+        Activity activity = getActivity();
+        _appSettings = getAppSettings(activity);
+        _cu = new ContextUtils(activity);
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
-        afterOnCreate(savedInstanceState, getActivity());
+
+
+        if (activity != null && activity.getTheme() != null) {
+            TypedArray array = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
+            int bgcolor = array.getColor(0, 0xFFFFFFFF);
+            _defaultIconTintColor = _cu.shouldColorOnTopBeLight(bgcolor) ? Color.WHITE : Color.BLACK;
+        }
+
+        // on bottom
+        afterOnCreate(savedInstanceState, activity);
     }
 
     public final Callback.a1<PreferenceFragmentCompat> updatePreferenceIcons = (frag) -> {
@@ -157,18 +169,43 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     }
 
     private void tintPrefIconsRecursive(PreferenceGroup prefGroup, @ColorInt int iconColor) {
-        if (prefGroup != null) {
+        if (prefGroup != null && isAdded()) {
             int prefCount = prefGroup.getPreferenceCount();
             for (int i = 0; i < prefCount; i++) {
                 Preference pref = prefGroup.getPreference(i);
                 if (pref != null) {
-                    pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
+                    if (isAllowedToTint(pref)) {
+                        pref.setIcon(_cu.tintDrawable(pref.getIcon(), iconColor));
+                    }
                     if (pref instanceof PreferenceGroup) {
                         tintPrefIconsRecursive((PreferenceGroup) pref, iconColor);
                     }
                 }
             }
         }
+    }
+
+    protected boolean isAllowedToTint(Preference pref) {
+        return true;
+    }
+
+    /**
+     * Try to fetch string resource id from key
+     * This only works if the key is only defined once and value=key
+     */
+    protected int keyToStringResId(Preference preference) {
+        if (preference != null && !TextUtils.isEmpty(preference.getKey())) {
+            return _cu.getResId(ContextUtils.ResType.STRING, preference.getKey());
+        }
+        return 0;
+    }
+
+    /**
+     * Try to fetch string resource id from key
+     * This only works if the key is only defined once and value=key
+     */
+    protected int keyToStringResId(String keyAsString) {
+        return _cu.getResId(ContextUtils.ResType.STRING, keyAsString);
     }
 
 
@@ -178,18 +215,33 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         updatePreferenceIcons.callback(this);
     }
 
+    private synchronized void updatePreferenceChangedListeners(boolean shouldListen) {
+        String tprefname = getSharedPreferencesName();
+        if (shouldListen && tprefname != null && !_registeredPrefs.contains(tprefname)) {
+            SharedPreferences preferences = _appSettings.getContext().getSharedPreferences(tprefname, Context.MODE_PRIVATE);
+            _appSettings.registerPreferenceChangedListener(preferences, this);
+            _registeredPrefs.add(tprefname);
+        } else if (!shouldListen) {
+            for (String prefname : _registeredPrefs) {
+                SharedPreferences preferences = _appSettings.getContext().getSharedPreferences(tprefname, Context.MODE_PRIVATE);
+                _appSettings.unregisterPreferenceChangedListener(preferences, this);
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        _asb.registerPreferenceChangedListener(this);
-        updateSummaries();
+        updatePreferenceChangedListeners(true);
+        doUpdatePreferences(); // Invoked later
+        onPreferenceScreenChangedPriv(this, getPreferenceScreen());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        _asb.unregisterPreferenceChangedListener(this);
+        updatePreferenceChangedListeners(false);
     }
 
     @Override
@@ -197,9 +249,20 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (isAdded()) {
             onPreferenceChanged(sharedPreferences, key);
+            doUpdatePreferences();
         }
     }
 
+    protected void onPreferenceChanged(SharedPreferences prefs, String key) {
+        // Wait some ms to be sure the pref objects have changed it's internal values
+        // and the new values are ready to be read ;)
+        Runnable r = this::doUpdatePreferences;
+        if (getView() != null) {
+            getView().postDelayed(r, 350);
+        } else {
+            r.run();
+        }
+    }
 
     @Override
     @Deprecated
@@ -231,22 +294,48 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
         _prefScreenBackstack.add(getPreferenceScreen());
         preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
         updatePreferenceIcons.callback(this);
-        onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+        onPreferenceScreenChangedPriv(preferenceFragmentCompat, preferenceScreen);
         return true;
     }
 
-    protected void updateSummary(@StringRes int keyResId, String summary) {
-        updateSummary(keyResId, 0, summary);
+    protected void updateSummary(@StringRes int keyResId, CharSequence summary) {
+        updatePreference(keyResId, null, null, summary, null);
     }
 
-    protected void updateSummary(@StringRes int keyResId, @DrawableRes int iconRes, String summary) {
+    /**
+     * Finds a {@link Preference} based on its key res id.
+     *
+     * @param key The key of the preference to retrieve.
+     * @return The {@link Preference} with the key, or null.
+     * @see android.support.v7.preference.PreferenceGroup#findPreference(CharSequence)
+     */
+    public Preference findPreference(@StringRes int key) {
+        return findPreference(getString(key));
+    }
+
+    @Nullable
+    @SuppressWarnings("SameParameterValue")
+    protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, CharSequence title, CharSequence summary, Boolean visible) {
         Preference pref = findPreference(getString(keyResId));
         if (pref != null) {
-            pref.setSummary(summary);
-            if (iconRes != 0) {
-                pref.setIcon(_cu.tintDrawable(iconRes, getIconTintColor()));
+            if (summary != null) {
+                pref.setSummary(summary);
+            }
+            if (title != null) {
+                pref.setTitle(title);
+            }
+            if (iconRes != null && iconRes != 0) {
+                if (isAllowedToTint(pref)) {
+                    pref.setIcon(_cu.tintDrawable(iconRes, getIconTintColor()));
+                } else {
+                    pref.setIcon(iconRes);
+                }
+            }
+            if (visible != null) {
+                pref.setVisible(visible);
             }
         }
+        return pref;
     }
 
     protected void removePreference(@Nullable Preference preference) {
@@ -269,7 +358,7 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             PreferenceScreen screen = _prefScreenBackstack.remove(_prefScreenBackstack.size() - 1);
             if (screen != null) {
                 setPreferenceScreen(screen);
-                onPreferenceScreenChanged(this, screen);
+                onPreferenceScreenChangedPriv(this, screen);
             }
         }
     }
@@ -289,6 +378,11 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             }
         }
         return null;
+    }
+
+    private void onPreferenceScreenChangedPriv(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+        onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
+        updatePreferenceChangedListeners(true);
     }
 
     /**
@@ -332,5 +426,25 @@ public abstract class GsPreferenceFragmentCompat extends PreferenceFragmentCompa
             activity.overridePendingTransition(0, 0);
             startActivity(intent);
         }
+    }
+
+    /**
+     * Append a pref to given {@code target}. If target is null, the current screen is taken
+     * The pref icon is tint according to color
+     *
+     * @param pref   Preference to add
+     * @param target The target to add the pref to, or null for current screen
+     * @return true if successfully added
+     */
+    protected boolean appendPreference(Preference pref, @Nullable PreferenceGroup target) {
+        if (target == null) {
+            if ((target = getPreferenceScreen()) == null) {
+                return false;
+            }
+        }
+        if (getIconTintColor() != null && pref.getIcon() != null && isAllowedToTint(pref)) {
+            pref.setIcon(_cu.tintDrawable(pref.getIcon(), getIconTintColor()));
+        }
+        return target.addPreference(pref);
     }
 }

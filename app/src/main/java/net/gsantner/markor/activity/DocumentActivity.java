@@ -84,6 +84,7 @@ public class DocumentActivity extends AppCompatActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         setContentView(R.layout.document__activity);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
         ButterKnife.bind(this);
@@ -91,21 +92,22 @@ public class DocumentActivity extends AppCompatActivity {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
+        Intent receivingIntent = getIntent();
+        String intentAction = receivingIntent.getAction();
+        String type = receivingIntent.getType();
+        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
-            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(!Intent.ACTION_SEND.equals(intentAction));
             ab.setDisplayShowTitleEnabled(false);
         }
 
         _fragManager = getSupportFragmentManager();
 
 
-        Intent receivingIntent = getIntent();
-        String intentAction = receivingIntent.getAction();
-        String type = receivingIntent.getType();
-        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
         boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
 
         if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
@@ -284,7 +286,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionChecker.checkPermissionResult(this, requestCode, permissions, grantResults);
+        new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
     }
 
     @OnClick(R.id.note__activity__text_note_title)

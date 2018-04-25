@@ -267,6 +267,8 @@ public class FilesystemListFragment extends GsFragmentBase {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        PermissionChecker permc = new PermissionChecker(getActivity());
+
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
                 AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
@@ -290,7 +292,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 return true;
             }
             case R.id.action_import: {
-                if (PermissionChecker.doIfPermissionGranted(getActivity()) && PermissionChecker.mkSaveDir(getActivity())) {
+                if (permc.mkdirIfStoragePermissionGranted()) {
                     showImportDialog();
                 }
                 return true;
@@ -533,6 +535,7 @@ public class FilesystemListFragment extends GsFragmentBase {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.filesystem__context_menu, menu);
+            _cu.tintMenuItems(menu, true, Color.WHITE);
             mode.setTitle(getResources().getString(R.string.select_elements));
             return true;
         }

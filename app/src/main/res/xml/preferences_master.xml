@@ -9,26 +9,8 @@
 
     <!-- Main View screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_file_white_24dp"
+        android:icon="@drawable/ic_format_align_justify_black_24dp"
         android:title="@string/main_view">
-        <PreferenceCategory android:title="@string/files_and_folders">
-            <Preference
-                android:icon="@drawable/ic_save_black_24dp"
-                android:key="@string/pref_key__notebook_directory"
-                android:title="@string/notebook" />
-            <Preference
-                android:icon="@drawable/ic_lightning_white_24dp"
-                android:key="@string/pref_key__markdown__quicknote_filepath"
-                android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
-                android:title="@string/quicknote" />
-            <Preference
-                android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                android:key="@string/pref_key__todotxt_filepath"
-                android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
-                android:title="@string/todo" />
-
-        </PreferenceCategory>
-
         <PreferenceCategory android:title="@string/document_browser">
             <CheckBoxPreference
                 android:defaultValue="false"
@@ -39,7 +21,7 @@
 
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_preview_light"
+                android:icon="@drawable/ic_visibility_black_24dp"
                 android:key="@string/pref_key__is_preview_first"
                 android:title="@string/open_preview_when_open_documents" />
 
@@ -55,16 +37,42 @@
 
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_settings_white_24dp"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:key="@string/pref_key__show_settings_option_in_main_toolbar"
                 android:summary="@string/pref_show_settings_option_in_main_toolbar"
                 android:title="@string/pref_title__show_settings_option_in_main_toolbar" />
         </PreferenceCategory>
     </PreferenceScreen>
 
+
+    <!-- Main View screen -->
+    <PreferenceScreen
+        android:icon="@drawable/ic_file_white_24dp"
+        android:title="@string/files_and_folders">
+        <Preference
+            android:icon="@drawable/ic_save_black_24dp"
+            android:key="@string/pref_key__notebook_directory"
+            android:title="@string/notebook" />
+        <Preference
+            android:icon="@drawable/ic_lightning_black_24dp"
+            android:key="@string/pref_key__quicknote_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/quicknote" />
+        <Preference
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+            android:key="@string/pref_key__todo_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/todo" />
+        <Preference
+            android:icon="@drawable/ic_bookmark_black_24dp"
+            android:key="@string/pref_key__linkbox_filepath"
+            android:summary="@string/pref_summary__loaded_and_saved_as__plus_name"
+            android:title="@string/linkbox" />
+    </PreferenceScreen>
+
     <!-- Editor screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_edit_light"
+        android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/editor">
         <CheckBoxPreference
             android:defaultValue="false"
@@ -98,7 +106,7 @@
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="18"
             android:icon="@drawable/ic_format_size_black_24dp"
-            android:key="@string/pref_key__font_size"
+            android:key="@string/pref_key__editor_font_size"
             android:max="36"
             android:summary="@string/editor_font_size_summary"
             android:title="@string/pref_title__font_size"
@@ -112,6 +120,14 @@
             android:summary="@string/line_spacing_in_percent"
             android:title="@string/line_spacing"
             app:min="50" />
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="8"
+            android:icon="@drawable/ic_space_bar_black_24dp"
+            android:key="@string/pref_key__editor_textmodule_bar_item_padding"
+            android:max="32"
+            android:summary="@string/horizontal_spacing_of_actions"
+            android:title="@string/textmodule_bar_spacing"
+            app:min="0" />
 
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
@@ -153,7 +169,7 @@
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="270"
                 android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__markdown__highlighting_delay"
+                android:key="@string/pref_key__markdown__hl_delay"
                 android:max="3000"
                 android:summary="@string/highlighting_delay_summary"
                 android:title="@string/highlighting_delay"
@@ -181,7 +197,7 @@
         <PreferenceCategory android:title="@string/text_modules">
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_date_range_white_24dp"
+                android:icon="@drawable/ic_date_range_black_24dp"
                 android:key="@string/pref_key__todotxt__start_new_tasks_with_todays_date"
                 android:summary="@string/start_new_tasks_with_todays_date"
                 android:title="@string/tasks_with_todays_date" />
@@ -197,7 +213,7 @@
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="870"
                 android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__todotxt__highlighting_delay"
+                android:key="@string/pref_key__todotxt__hl_delay"
                 android:max="5000"
                 android:summary="@string/highlighting_delay_summary"
                 android:title="@string/highlighting_delay"

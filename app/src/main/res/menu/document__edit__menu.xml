@@ -7,19 +7,19 @@
 
     <item
         android:id="@+id/action_preview"
-        android:icon="@drawable/ic_preview_light"
+        android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/preview"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_undo"
-        android:icon="@drawable/ic_undo_white_24dp"
+        android:icon="@drawable/ic_undo_black_24dp"
         android:title="@string/undo"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_redo"
-        android:icon="@drawable/ic_redo_white_24dp"
+        android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/redo"
         app:showAsAction="ifRoom" />
 

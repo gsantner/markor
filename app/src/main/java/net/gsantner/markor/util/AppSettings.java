@@ -37,7 +37,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getBackgroundColor() {
-        return isDarkThemeEnabled() ? rcolor(R.color.dark__background_2) : rcolor(R.color.light__background_2);
+        return isDarkThemeEnabled() ? rcolor(R.color.dark__background) : rcolor(R.color.light__background);
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
@@ -70,20 +70,29 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public File getQuickNoteFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
-        return new File(getString(R.string.pref_key__markdown__quicknote_filepath, defaultValue));
+        return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
     }
 
     public void setQuickNoteFile(File file) {
-        setString(R.string.pref_key__markdown__quicknote_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
     public File getTodoFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
-        return new File(getString(R.string.pref_key__todotxt_filepath, defaultValue));
+        return new File(getString(R.string.pref_key__todo_filepath, defaultValue));
     }
 
     public void setTodoFile(File file) {
-        setString(R.string.pref_key__todotxt_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
+    }
+
+    public File getLinkBoxFile() {
+        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.linkbox_default_filename)).getAbsolutePath();
+        return new File(getString(R.string.pref_key__linkbox_filepath, defaultValue));
+    }
+
+    public void setLinkBoxFile(File file) {
+        setString(R.string.pref_key__linkbox_filepath, file.getAbsolutePath());
     }
 
     public String getFontFamily() {
@@ -91,7 +100,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getFontSize() {
-        return getInt(R.string.pref_key__font_size, 18);
+        return getInt(R.string.pref_key__editor_font_size, 18);
     }
 
     public boolean isEditor_ShowTextmoduleBar() {
@@ -103,7 +112,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getMarkdownHighlightingDelay() {
-        return getInt(R.string.pref_key__markdown__highlighting_delay, 270);
+        return getInt(R.string.pref_key__markdown__hl_delay, 270);
     }
 
 
@@ -117,7 +126,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getHighlightingDelayTodoTxt() {
-        return getInt(R.string.pref_key__todotxt__highlighting_delay, 870);
+        return getInt(R.string.pref_key__todotxt__hl_delay, 870);
     }
 
     public String getLastOpenedDirectory() {
@@ -214,5 +223,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isEditorStartEditingInCenter() {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
+    }
+
+    public int getEditorTextmoduleBarItemPadding() {
+        return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
     }
 }

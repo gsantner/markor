@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">设置</string>
     <string name="light">亮色主题</string>
     <string name="dark">暗色</string>
@@ -76,6 +77,9 @@
     <string name="sort_reverse">逆序</string>
     <string name="contribute">贡献</string>
     <string name="donate">捐赠</string>
+
+    <string name="project_page">项目主页</string>
+
     <string name="press_again_to_exit">再按一次退出</string>
     <string name="exit">退出</string>
     <string name="undo">撤销</string>
@@ -86,6 +90,9 @@
     <string name="todo_list">TODO列表</string>
     <string name="task">工作</string>
     <string name="list">列表</string>
+
+    <string name="priority">优先级</string>
+
     <string name="history">历史</string>
     <string name="sync">同步</string>
     <string name="save">保存</string>
@@ -135,7 +142,17 @@
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
     <string name="key_ctrl_a">全选（Ctrl + A）</string>
+    <string name="key_tab">Tab</string>
     <string name="configure_in_the_apps_settings">在应用设置中设置</string>
 
+    <string name="clipboard">剪切板</string>
+    <string name="open_source_licenses">开源协议</string>
+    <string name="rate_the_app">评价此 APP</string>
+    <string name="translate">翻译</string>
+    <string name="bug_reports">报告 bug</string>
+    <string name="bug_reports_suggest_improvements">反馈</string>
+    <string name="help_translating_this_app">翻译本应用</string>
+    <string name="source_code">源代码</string>
+    <string name="project_license">项目许可证</string>
 
 </resources>

@@ -21,12 +21,13 @@ android {
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
+        buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
         resValue "string", "manifest_package_id", "net.gsantner.markor"
 
         applicationId "net.gsantner.markor"
-        versionName "0.3.4"
-        versionCode 18
+        versionName "0.3.6"
+        versionCode 20
     }
 
     productFlavors {

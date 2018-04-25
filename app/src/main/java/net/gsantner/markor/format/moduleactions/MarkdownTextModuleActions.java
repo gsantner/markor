@@ -61,9 +61,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
-            {R.drawable.format_blockquote, 0}, {R.drawable.format_header_1, 1},
+            {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
             {R.drawable.format_header_2, 2}, {R.drawable.format_header_3, 3},
-            {R.drawable.format_list_bulleted, 4}, {R.drawable.format_list_numbers, 5}
+            {R.drawable.ic_list_black_24dp, 4}, {R.drawable.ic_format_list_numbered_black_24dp, 5}
     };
     private static final String[] KEYBOARD_REGULAR_ACTIONS = {"> ", "# ", "## ", "### ", "- ", "1. "};
 
@@ -125,9 +125,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_SMART_ACTIONS_ICON = {
-            {R.drawable.format_bold, 0}, {R.drawable.format_italic, 1},
-            {R.drawable.format_strikethrough, 2}, {R.drawable.format_code, 3},
-            {R.drawable.format_horizontal_line, 4}
+            {R.drawable.ic_format_bold_black_24dp, 0}, {R.drawable.ic_format_italic_black_24dp, 1},
+            {R.drawable.ic_format_strikethrough_black_24dp, 2}, {R.drawable.ic_code_black_24dp, 3},
+            {R.drawable.ic_more_horiz_black_24dp, 4}
     };
     private static final String[] KEYBOARD_SMART_ACTIONS = {"**", "_", "~~", "`", "----\n"};
 
@@ -194,9 +194,11 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
-            {R.drawable.format_link, 1}, {R.drawable.format_image, 2},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 3},
-            {R.drawable.ic_keyboard_return_black_24dp, 4},
+            {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 0},
+            {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
+            {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
+            {R.drawable.ic_keyboard_return_black_24dp, 5},
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -210,11 +212,19 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         @Override
         public void onClick(View view) {
             switch (_action) {
-                case 3: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                case 0: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_DELETE_LINES);
+                    break;
+                }
+                case 1: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
                     break;
                 }
                 case 4: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case 5: {
                     if (_hlEditor.length() > 1) {
                         int start = _hlEditor.getSelectionStart();
                         String text = _hlEditor.getText().toString();

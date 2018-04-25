@@ -9,7 +9,7 @@
  *
 #########################################################*/
 
- /*
+/*
  * Parses most common markdown tags. Only inline tags are supported, multiline/block syntax
  * is not supported (citation, multiline code, ..). This is intended to stay as easy as possible.
  *
