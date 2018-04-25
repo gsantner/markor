@@ -38,7 +38,7 @@
     <!-- Preferences -->
     <string name="document_editor_font">Police de l\'éditeur</string>
     <string name="theme">Thème</string>
-    <string name="open_preview_when_open_documents">Ouvrir les notes sur l\'aperçu</string>
+    <string name="open_preview_when_open_documents">Ouvrir l\'aperçu lors de l\'ouverture des documents</string>
     <string name="about">À propos de Markor</string>
     <string name="plain_text">Texte brut</string>
     <string name="file">Fichier</string>
@@ -122,7 +122,7 @@
     <!-- Not in use currently -->
     <string name="create_note" needed="false">Nouvelle note</string>
     <string name="special_documents" needed="false">Documents spéciaux</string>
-    <string name="navigate_up_folder" needed="false">Dossier précédant</string>
+    <string name="navigate_up_folder" needed="false">Dossier précédent</string>
     <string name="app_settings" needed="false">Réglages</string>
     <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Retenir le dernier dossier au redémarrage</string>
@@ -138,7 +138,7 @@
     <string name="global">Général</string>
     <string name="main_view">Vue principale</string>
     <string name="theme_description">Le thème principal utilisé par l\'application</string>
-    <string name="load_last_directory_at_startup">Se souvenir du dossier courrant</string>
+    <string name="load_last_directory_at_startup">Se souvenir du dossier courant</string>
     <string name="syntax_highlighting">Coloration syntaxique</string>
     <string name="text_modules">Outils de mise en forme</string>
     <string name="text_module">Mise en forme du texte</string>
@@ -182,6 +182,7 @@
     <string name="start_on_bottom">Commencer en haut</string>
     <string name="start_on_bottom_summary">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
     <string name="filemanager_doesnot_supply_required_data">Markor ne peut éditer que les fichier locaux, hors-ligne et les documents dont l\'adresse et le nom de fichier sont disponibles. Cette application ne fournit visiblement pas toutes les informations et ne peut pas être utilisée avec Markor :(.</string>
+    <string name="sync_to_local_folder_notice">Notez bien: si vous utiliser une application de synchronisation, versions fichiers peuvent résider dans les dossiers connus ou spécifique à l\'application. Vous pouvez ouvrir les fichiers en changeant le dossier document de Markor pour ce dossier, ou en ouvrant le fichier via un a different explorateur de fichiers.</string>
     <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
@@ -191,6 +192,7 @@
     <string name="align_top">En haut</string>
     <string name="align_bottom">En bas</string>
     <string name="align_center">Centré</string>
+    <string name="textmodule_bar_spacing">Espacement du module de texte</string>
     <string name="horizontal_spacing_of_actions">Espacement horizontal des actions</string>
 
     <string name="center_text">Centrer le texte</string>
@@ -201,7 +203,7 @@
     <string name="rate_the_app">Évaluer cette application</string>
     <string name="translate">Traduire</string>
     <string name="help_this_app">Plus d\'informations et d\'aide sur cette application</string>
-    <string name="bug_reports">Déclarer un bug</string>
+    <string name="bug_reports">Rapporter un bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Plus d\'informations sur les dons ou l\'aide à ce projet</string>
     <string name="android_contribution_guide">Guide de contribution Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur la contribution à un projet Open Source, Surtout les applications Android</string>
