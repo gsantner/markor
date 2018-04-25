@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">設定</string>
-    <string name="light">輕量</string>
-    <string name="dark">暗</string>
+    <string name="light">明亮</string>
+    <string name="dark">暗黑</string>
     <string name="delete">刪除</string>
     <string name="rename">重新命名</string>
     <string name="confirm_delete">確定刪除</string>
@@ -44,7 +44,7 @@
     <string name="file">檔案</string>
     <string name="image">圖像</string>
     <string name="pref_title__font_size">字型大小</string>
-    <string name="render_for_right_to_left_languages">由右至左語言顯現</string>
+    <string name="render_for_right_to_left_languages">顯現由右至左的語言</string>
     <string name="error_cannot_create_notebook_dir">錯誤：不能建立筆記本目錄</string>
 
     <string name="last_modified">最近修改： %s</string>
@@ -53,7 +53,7 @@
     <string name="create">建立</string>
     <string name="select_elements">選擇 輸入文字</string>
     <string name="one_item_selected">已經選擇一個項目</string>
-    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d 項目已選擇</string>
 
     <string name="pref_summary__is_statusbar_hidden">在這個視角隱藏狀態列</string>
     <string name="pref_title__is_statusbar_hidden">隱藏狀態列</string>
@@ -136,14 +136,14 @@
 
     <!-- New strings -->
     <string name="global">全域</string>
-    <string name="main_view">主視覺</string>
+    <string name="main_view">主頁</string>
     <string name="theme_description">使用於程式整體的主題</string>
     <string name="load_last_directory_at_startup">記住最近使用的目錄</string>
     <string name="syntax_highlighting">同步標記</string>
     <string name="text_modules">文字模組</string>
     <string name="text_module">文字模組</string>
     <string name="highlighting_delay">標記延期</string>
-    <string name="highlighting_delay_summary">延遲的標記時間以毫秒更新，較低值會提早開始標記，但會降低效能與耗電。</string>
+    <string name="highlighting_delay_summary">延遲的閃現時間以毫秒計時更新，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_summary">不管輸入的文字是否已標記都要調整</string>
     <string name="editor_font_size_summary">調整在編輯器中使用的字型</string>
     <string name="textmodules_bar_summary">用實用的活動顯示一個條列以插入使用中的文字模組</string>
@@ -154,10 +154,10 @@
     <string name="projects">專案</string>
     <string name="categories">分類項目</string>
     <string name="none">全無</string>
-    <string name="pref_summary__is_highlighting_for_hexcolor_activated">依顏色在Hex顏色碼上加底線</string>
-    <string name="hexcolor_underline">加底線於 Hex 顏色碼</string>
-    <string name="start_new_tasks_with_todays_date">當開始一項新工作時插入當今日期</string>
-    <string name="tasks_with_todays_date">有今天日期的工作</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">依顏色凸顯Hex顏色碼</string>
+    <string name="hexcolor_underline">凸顯Hex顏色碼</string>
+    <string name="start_new_tasks_with_todays_date">開始一項新工作時插入當今日期</string>
+    <string name="tasks_with_todays_date">含有今天日期的工作</string>
     <string name="append_contexts_and_projects">增補內文與專案等</string>
     <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
     <string name="right_to_left_rendering__abbreviated">RTL 顯現</string>
