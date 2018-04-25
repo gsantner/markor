@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">设置</string>
     <string name="light">亮色主题</string>
@@ -38,21 +37,27 @@
     <!-- Preferences -->
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
+    <string name="open_preview_when_open_documents">当打开文件时启动预览</string>
     <string name="about">关于 Markor</string>
     <string name="plain_text">纯文本</string>
     <string name="file">文件</string>
     <string name="image">图片</string>
     <string name="pref_title__font_size">字号</string>
+    <string name="render_for_right_to_left_languages">为从右向左的语言渲染</string>
+    <string name="error_cannot_create_notebook_dir">错误：无法建立笔记本目录</string>
 
     <string name="last_modified">上次编辑：%s</string>
     <string name="select_this_folder">选择这个目录</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
-    <string name="more_items_selected">已选择 %d 个项目</string>
+    <string name="select_elements">选择 输入文字</string>
+    <string name="one_item_selected">已选择一项</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">隐藏状态栏</string>
     <string name="pref_title__is_statusbar_hidden">隐藏状态栏</string>
 
+    <string name="name">名称</string>
     <string name="url_or_path">URL / 路径</string>
     <string name="insert_link">插入链接</string>
     <string name="insert_image">插入图片</string>
@@ -77,9 +82,7 @@
     <string name="sort_reverse">逆序</string>
     <string name="contribute">贡献</string>
     <string name="donate">捐赠</string>
-
     <string name="project_page">项目主页</string>
-
     <string name="press_again_to_exit">再按一次退出</string>
     <string name="exit">退出</string>
     <string name="undo">撤销</string>
@@ -89,52 +92,77 @@
     <string name="help">帮助</string>
     <string name="todo_list">TODO列表</string>
     <string name="task">工作</string>
+    <string name="category">分类</string>
+    <string name="context">文本</string>
     <string name="list">列表</string>
-
     <string name="priority">优先级</string>
-
     <string name="history">历史</string>
     <string name="sync">同步</string>
+    <string name="search_hint__add_or_custom">搜索 / 自定义</string>
     <string name="save">保存</string>
     <string name="update">更新</string>
     <string name="clear">清空</string>
+    <string name="due_date">截止日期</string>
     <string name="current_date">当前日期</string>
     <string name="archive">归档</string>
     <string name="add_task">添加任务</string>
     <string name="add_something">添加了 %s</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">该文件将被保存为 \"%s\"</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">工具栏中的设置</string>
+    <string name="pref_show_settings_option_in_main_toolbar">在主屏幕的顶端工具栏中显示设置按钮</string>
     <string name="refresh">刷新</string>
     <string name="add_shortcut_to_launcher_homescreen">创建主屏幕图标</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">正在尝试向主屏幕添加编辑此文件的图标（部分机型不受支持）</string>
+    <string name="file_not_in_save_path_do_import">所选的文件不在 Markor 的笔记本目录中，你打算将该文件复制过来吗？这将覆盖现有的文件</string>
     <string name="files_and_folders">文件和文件夹</string>
     <string name="document_browser">文档浏览器</string>
 
     <!-- Not in use currently -->
     <string name="create_note" needed="false">新建笔记</string>
+    <string name="special_documents" needed="false">指定文件</string>
     <string name="navigate_up_folder" needed="false">上一级</string>
     <string name="app_settings" needed="false">软件设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
     <string name="remember_last_folder_location_on_startup" needed="false">记住上次退出的位置</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">显示 Markdown 快捷键</string>
     <string name="markdown_syntax_highlighting" needed="false">Markdown 语法高亮</string>
+    <string name="pref_title__highlighting_delay" needed="false">高亮刷新延迟时间（毫秒）</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">越高越省电</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">{}, [], () 将会自动加到所选文字上</string>
     <string name="number_of_files" needed="false">文件数量：%d</string>
 
     <!-- New strings -->
     <string name="global">全局</string>
     <string name="main_view">主界面</string>
     <string name="theme_description">Markor 使用的主题</string>
+    <string name="load_last_directory_at_startup">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
     <string name="text_modules">Markdown 文字模块</string>
+    <string name="text_module">文件模块</string>
     <string name="highlighting_delay">语法高亮延时</string>
     <string name="highlighting_delay_summary">Markdown 语法渲染刷新时间（单位：毫秒）较低的刷新时间可以让渲染更新频率加快，但电量使用会增加，软件运行速度也会减慢。</string>
+    <string name="editor_font_size_summary">调整在编辑器中使用的字号</string>
     <string name="load_last_directory_at_startup__summary">运行 Maekor 时载入上次打开的目录</string>
     <string name="format">生成</string>
+    <string name="contexts">全文</string>
     <string name="project">项目</string>
     <string name="projects">项目</string>
+    <string name="categories">分类</string>
     <string name="none">无</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">根据颜色在十六进制颜色码加下划线</string>
+    <string name="hexcolor_underline">为十六进制颜色码加下划线</string>
+    <string name="start_new_tasks_with_todays_date">在开始一项新工作时自动插入当前日期</string>
     <string name="tasks_with_todays_date">今日工作</string>
     <string name="right_to_left_rendering__abbreviated">RTL 渲染</string>
+    <string name="highlight_line_ending">标记行末</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">标记结尾有两个或多个空格的行</string>
+    <string name="use_monospace_for_code">为代码使用 Monospace</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
+    <string name="line_spacing_in_percent">以百分比表示行距</string>
     <string name="line_spacing">行距</string>
+    <string name="archive_does_move_done_tasks">将完成的工作移动到同文件夹的指定文件</string>
+    <string name="special_key">特殊键</string>
     <string name="key_page_up">上一页（Page Up）</string>
     <string name="key_page_down">下一页（Page Down）</string>
     <string name="key_pos_1">行首（Pos Home）</string>
@@ -143,16 +171,30 @@
     <string name="key_pos_end_document">文末</string>
     <string name="key_ctrl_a">全选（Ctrl + A）</string>
     <string name="key_tab">Tab</string>
+    <string name="start_on_bottom">从底端开始</string>
+    <string name="start_on_bottom_summary">载入文件时将光标置于文件末</string>
     <string name="configure_in_the_apps_settings">在应用设置中设置</string>
+    <string name="vertical_alignment">垂直偏移</string>
+    <string name="horizontal_alignment">水平偏移</string>
+    <string name="align_default">默认</string>
+    <string name="align_left">左端</string>
+    <string name="align_right">右端</string>
+    <string name="align_top">顶端</string>
+    <string name="align_bottom">底端</string>
+    <string name="align_center">中央</string>
 
+    <string name="center_text_desc">在屏幕中央开始编辑文件</string>
     <string name="clipboard">剪切板</string>
     <string name="open_source_licenses">开源协议</string>
     <string name="rate_the_app">评价此 APP</string>
     <string name="translate">翻译</string>
+    <string name="help_this_app">更多关于本应用的信息与帮助</string>
     <string name="bug_reports">报告 bug</string>
+    <string name="join_community">加入社区</string>
     <string name="bug_reports_suggest_improvements">反馈</string>
     <string name="help_translating_this_app">翻译本应用</string>
     <string name="source_code">源代码</string>
     <string name="project_license">项目许可证</string>
-
+    <string name="project_contribution_info">项目贡献信息</string>
+    <string name="project_team">项目组</string>
 </resources>
