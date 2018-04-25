@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Ajustes</string>
     <string name="light">Claro</string>
     <string name="dark">Oscuro</string>
@@ -24,7 +24,7 @@
     <string name="edit">Editar</string>
 
     <string name="search_documents">Buscar notas</string>
-    <string name="share_to">Compartir con…</string>
+    <string name="share_to">Compartir con...</string>
     <string name="share">Compartir</string>
     <string name="search">Buscar</string>
     <string name="preview">Previsualización</string>
@@ -53,7 +53,7 @@
     <string name="create">Crear</string>
     <string name="select_elements">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
-    <string name="more_items_selected">%d elementos seleccionados</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">Ocultar la barra de estado en esta vista</string>
     <string name="pref_title__is_statusbar_hidden">Ocultar la barra de estado</string>
@@ -109,7 +109,7 @@
     <string name="archive">Archivar</string>
     <string name="add_task">Agregar tarea</string>
     <string name="add_something">Añadir %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">El documento que se cargará y guardará como \"%s"</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">El documento que se cargará y guardará como \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Ajustes en la barra de herramientas</string>
     <string name="pref_show_settings_option_in_main_toolbar">Mostrar la opción de ajustes en la barra de herramientas superior de la pantalla principal</string>
     <string name="refresh">Actualizar</string>
@@ -179,4 +179,42 @@
     <string name="key_pos_end_document">Fin de documento</string>
     <string name="key_ctrl_a">Seleccionar todo (Ctrl + A)</string>
     <string name="key_tab">Tabulador</string>
+    <string name="start_on_bottom">Iniciar desde abajo</string>
+    <string name="start_on_bottom_summary">Al abrir un documento, posicionar el cursor al final del documento</string>
+    <string name="filemanager_doesnot_supply_required_data">La aplicación no proporcionó información esencial para trabajar con Markor :( Solo es posible editar documentos locales y que están offline, y soporta administradores de archivos que proporcionan rutas completas, incluyendo el nombre de archivo.</string>
+    <string name="sync_to_local_folder_notice">Importante: si usas una aplicación de sincronización en línea, y conoces la ubicación del directorio en donde guarda información, puedes cambiar el directorio de documentos que está por defecto al sincronizado o usar un administrador de archivos para abrir los documentos que deseas editar.</string>
+    <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
+    <string name="vertical_alignment">Alineación vertical</string>
+    <string name="horizontal_alignment">Alineación horizontal</string>
+    <string name="align_default">Por defecto</string>
+    <string name="align_left">Izquierda</string>
+    <string name="align_right">Derecha</string>
+    <string name="align_top">Superior</string>
+    <string name="align_bottom">Inferior</string>
+    <string name="align_center">Centro</string>
+    <string name="textmodule_bar_spacing">Espaciado de módulo de texto</string>
+    <string name="horizontal_spacing_of_actions">Espaciado horizontal de acciones</string>
+
+    <string name="center_text">Centrar texto</string>
+    <string name="center_text_desc">Editar texto en el centro de la pantalla</string>
+    <string name="clipboard">Portapapeles</string>
+    <string name="existing_document">Seleccionar documento existente</string>
+    <string name="open_source_licenses">Licencias de código abierto</string>
+    <string name="rate_the_app">Califica esta aplicación</string>
+    <string name="translate">Traducir</string>
+    <string name="help_this_app">Ayuda y más información sobre esta aplicación</string>
+    <string name="bug_reports">Reportar errores</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Más sobre donaciones u otras formas de apoyar a este proyecto</string>
+    <string name="android_contribution_guide">Guía de colaboración Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Más sobre la colaboración en proyectos de código abierto, especialmente aplicaciones de Android</string>
+    <string name="join_community">Únete a la comunidad</string>
+    <string name="bug_reports_suggest_improvements">Da tu opinión, reporta errores o sugiere mejoras</string>
+    <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
+    <string name="source_code">Código fuente</string>
+    <string name="project_license">Licencia del proyecto</string>
+    <string name="project_contribution_info">Información de colaboraciones al proyecto</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Más sobre cómo participar en este proyecto</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Colabora con el proyecto. Cualquiera puede hacerlo, incluso los que usan la aplicación desde hace poco</string>
+    <string name="project_team">El equipo tras el proyecto</string>
+    <string name="contributors_public_info">Muestra información pública sobre los colaboradores. Estos pueden decidir si su información debe ser incluida con sus colaboraciones</string>
 </resources>
