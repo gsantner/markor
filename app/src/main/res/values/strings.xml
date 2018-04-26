@@ -135,7 +135,7 @@
     <string name="number_of_files" needed="false">Number of files: %d</string>
 
     <!-- New strings -->
-    <string name="global">Program-wide</string>
+    <string name="global">App-wide</string>
     <string name="main_view">Main View</string>
     <string name="theme_description">The overall theme used in the app</string>
     <string name="load_last_directory_at_startup">Remember last directory</string>
@@ -199,7 +199,7 @@
     <string name="center_text_desc">Edit text in center of the screen</string>
     <string name="clipboard">Clipboard</string>
     <string name="existing_document">Select existing document</string>
-    <string name="open_source_licenses">Libre Software Licenses</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
     <string name="rate_the_app">Rate this app</string>
     <string name="translate">Translate</string>
     <string name="help_this_app">More info and help</string>
