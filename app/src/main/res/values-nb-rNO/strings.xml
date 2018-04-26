@@ -183,7 +183,7 @@
     <string name="start_on_bottom_summary">Etter at et dokument lastes, posisjoner pekeren ved dets slutt</string>
     <string name="filemanager_doesnot_supply_required_data">Markor tillater kun redigering av lokal data, frakoblet tilgjengelig, dokumenter og støtte for filnavn og filbehadlere som tilbyr full filsti, inkludert filnavn. Det later til at programmet ikke tilbudte all påkrevd info og ikke kan brukes med Markor :(.</string>
     <string name="sync_to_local_folder_notice">Merk: Hvis du bruker et synkroniseringsprogram, kan filene finnes i kjente eller egendefinerte mapper, du kan åpne filer ved å endre Markors dokumentmappe til det, eller åpne filen i en annen filbehandler.</string>
-    <string name="configure_in_the_apps_settings"Sett opp i programinnstillingene</string>
+    <string name="configure_in_the_apps_settings">Sett opp i programinnstillingene</string>
     <string name="vertical_alignment">Loddrett justering</string>
     <string name="horizontal_alignment">Vannrett justering</string>
     <string name="align_default">Forvalg</string>
