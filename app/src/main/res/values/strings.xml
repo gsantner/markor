@@ -143,7 +143,7 @@
     <string name="text_modules">Text modules</string>
     <string name="text_module">Text module</string>
     <string name="highlighting_delay">Highlighting delay</string>
-    <string name="highlighting_delay_summary">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and improve performance.</string>
+    <string name="highlighting_delay_summary">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and make a heavy load.</string>
     <string name="highlighting_enabled_summary">Control whether entered text should be highlighted or not</string>
     <string name="editor_font_size_summary">Control the font size used in the editor</string>
     <string name="textmodules_bar_summary">Show a bar with useful actions to insert commonly used text modules</string>
@@ -181,7 +181,7 @@
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_summary">Upon loading a document, position cursor at its end</string>
-    <string name="filemanager_doesnot_supply_required_data">The app didn\'t supply full filepath info including filename.</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor only allows to edit local, offline available, documents and support file managers which supply the full filepath including filename. Apparently the app didn\'t supply all required information and can\'t be used with Markor :(.</string>
     <string name="sync_to_local_folder_notice">Notice: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the app settings</string>
     <string name="vertical_alignment">Vertical alignment</string>
@@ -206,7 +206,7 @@
     <string name="bug_reports">Report bugs</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">More info on donating or supporting this project</string>
     <string name="android_contribution_guide">Android contribution guide</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to libre software projects, especially Android apps</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to Open Source projects, especially Android apps</string>
     <string name="join_community">Join the Community</string>
     <string name="bug_reports_suggest_improvements">Give feedback, report bugs or suggest improvements</string>
     <string name="help_translating_this_app">Translate this app into other languages</string>
