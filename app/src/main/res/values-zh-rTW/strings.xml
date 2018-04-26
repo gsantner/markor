@@ -1,201 +1,207 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">設定</string>
-    <string name="light">輕量</string>
-    <string name="dark">暗</string>
-    <string name="delete">刪除</string>
-    <string name="rename">重新命名</string>
-    <string name="confirm_delete">確定刪除</string>
-    <string name="confirm_delete_description">您真的要刪除這個 %s 嗎？</string>
-    <string name="confirm_overwrite">確認覆寫</string>
-    <string name="confirm_overwrite_description">檔案已經存在，要覆寫嗎？</string>
-    <string name="browse_filesystem">瀏覽檔案系統</string>
-    <string name="title">標題</string>
-    <string name="empty_directory">空白資料夾</string>
-    <string name="folder_name_hint">輸入資料夾名稱</string>
-    <string name="create_folder">建立資料夾</string>
-    <string name="create_new_document">建立新的文件</string>
-    <string name="move">移動</string>
-
-    <string name="import_from_device">從裝置匯入</string>
-    <string name="import_">匯入</string>
-    <string name="append_to__arg_document_name">增補到 %s</string>
-    <string name="select_folder">選擇資料夾</string>
-    <string name="edit">編輯</string>
-
-    <string name="search_documents">搜尋文件</string>
-    <string name="share_to">分享到…</string>
-    <string name="share">分享</string>
-    <string name="search">搜尋</string>
-    <string name="preview">預覽</string>
-    <string name="editor">編輯器</string>
-    <string name="folders">資料夾</string>
-    <string name="files">檔案</string>
-    <string name="document_one">文件</string>
-    <string name="document_multiple">文件集</string>
-    <string name="share_html__mime_plaintext">HTML (純文字)</string>
-
-    <!-- Preferences -->
-    <string name="document_editor_font">文件編輯字型</string>
-    <string name="theme">主題</string>
-    <string name="open_preview_when_open_documents">當開啟文件時啟用預覽</string>
-    <string name="about">關於 Markor</string>
-    <string name="plain_text">純文字文件</string>
-    <string name="file">檔案</string>
-    <string name="image">圖像</string>
-    <string name="pref_title__font_size">字型大小</string>
-    <string name="render_for_right_to_left_languages">由右至左語言顯現</string>
-    <string name="error_cannot_create_notebook_dir">錯誤：不能建立筆記本目錄</string>
-
-    <string name="last_modified">最近修改： %s</string>
-    <string name="select_this_folder">選擇當前資料夾</string>
-    <string name="select">選擇</string>
-    <string name="create">建立</string>
-    <string name="select_elements">選擇 輸入文字</string>
-    <string name="one_item_selected">已經選擇一個項目</string>
-    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
-
-    <string name="pref_summary__is_statusbar_hidden">在這個視角隱藏狀態列</string>
-    <string name="pref_title__is_statusbar_hidden">隱藏狀態列</string>
-
-    <string name="name">名稱</string>
-    <string name="url_or_path">網址 / 路徑</string>
-    <string name="insert_link">插入連結</string>
-    <string name="insert_image">插入圖像</string>
-
-    <!-- About screen -->
-    <string name="contributors">貢獻者</string>
-    <string name="select_storage_folder">選擇儲存資料夾</string>
-    <string name="notebook_directory">筆記本目錄</string>
-    <string name="licenses">許可證</string>
-    <string name="changelog">更新紀錄</string>
-    <string name="more_information">更多資訊</string>
-    <string name="show_app_license">顯示程式的許可證</string>
-    <string name="show_third_party_licenses">顯示第三方許可證</string>
-    <string name="pref_desc__language">變更界面語言請重新啟動使生效</string>
-    <string name="pref_title__language">語言</string>
-    <string name="error_storage_permission">擁有權限才能儲存文件</string>
-    <string name="open_with">開啟用</string>
-    <string name="sort">排列</string>
-    <string name="sort_by_date">依日期排列</string>
-    <string name="sort_by_name">依名稱排列</string>
-    <string name="sort_by_size">依大小排列</string>
-    <string name="sort_reverse">反轉順序</string>
-    <string name="contribute">貢獻</string>
-    <string name="donate">贊助</string>
-    <string name="project_page">專案頁</string>
-    <string name="press_again_to_exit">再按一次返回鍵以離開程式</string>
-    <string name="exit">離開</string>
-    <string name="undo">恢復</string>
-    <string name="redo">重做</string>
-    <string name="more">更多</string>
-    <string name="notebook">筆記本</string>
-    <string name="help">幫助</string>
-    <string name="todo_list">待辦清單</string>
-    <string name="task">工作</string>
-    <string name="category">類別</string>
-    <string name="context">內文</string>
-    <string name="list">清單</string>
-    <string name="priority">優先</string>
-    <string name="history">歷史</string>
-    <string name="sync">同步</string>
-    <string name="browse_somethingsingular_or_add">新增 %s 或瀏覽現存檔案。</string>
-    <string name="search_hint__add_or_custom">搜尋/自訂</string>
-    <string name="save">儲存</string>
-    <string name="update">升級</string>
-    <string name="clear">清除</string>
-    <string name="due_date">到期日</string>
-    <string name="current_date">現在日期</string>
-    <string name="archive">歸檔</string>
-    <string name="add_task">新增工作</string>
-    <string name="add_something">新增 %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">這個文件將被輸出並儲存為\n‘%s’’</string>
-    <string name="pref_title__show_settings_option_in_main_toolbar">工具列上設定</string>
-    <string name="pref_show_settings_option_in_main_toolbar">在主螢幕的頂端工具列顯示設定鈕</string>
-    <string name="refresh">更新</string>
-    <string name="add_shortcut_to_launcher_homescreen">建立捷徑</string>
-    <string name="add_shortcut_to_launcher_homescreen_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
-    <string name="file_not_in_save_path_do_import">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有檔案。</string>
-    <string name="files_and_folders">檔案和資料夾</string>
-    <string name="document_browser">文件瀏覽器</string>
-
-    <!-- Not in use currently -->
-    <string name="create_note" needed="false">建立筆記</string>
-    <string name="special_documents" needed="false">指定文件</string>
-    <string name="navigate_up_folder" needed="false">回到上個資料夾</string>
-    <string name="app_settings" needed="false">程式設定</string>
-    <string name="editor_settings" needed="false">編輯器設定</string>
-    <string name="remember_last_folder_location_on_startup" needed="false">啟動時記住最近使用的資料夾位置</string>
-    <string name="show_markdown_shortcuts_bar" needed="false">顯示 Markdown 的快捷列</string>
-    <string name="markdown_syntax_highlighting" needed="false">Markdown 語法標記</string>
-    <string name="pref_title__highlighting_delay" needed="false">延遲標記更新毫秒數</string>
-    <string name="pref_title__highlighting_delay_summary" needed="false">較高值較省電</string>
-    <string name="pref_title__smart_shortcuts" needed="false">聰明型捷徑</string>
-    <string name="pref_title__smart_shortcuts_summary" needed="false">{}，[] 和()自動加在所選文字上</string>
-    <string name="number_of_files" needed="false">檔案數：%d</string>
-
-    <!-- New strings -->
-    <string name="global">全域</string>
-    <string name="main_view">主視覺</string>
-    <string name="theme_description">使用於程式整體的主題</string>
-    <string name="load_last_directory_at_startup">記住最近使用的目錄</string>
-    <string name="syntax_highlighting">同步標記</string>
-    <string name="text_modules">文字模組</string>
-    <string name="text_module">文字模組</string>
-    <string name="highlighting_delay">標記延期</string>
-    <string name="highlighting_delay_summary">延遲的標記時間以毫秒更新，較低值會提早開始標記，但會降低效能與耗電。</string>
+<resources>
     <string name="highlighting_enabled_summary">不管輸入的文字是否已標記都要調整</string>
-    <string name="editor_font_size_summary">調整在編輯器中使用的字型</string>
-    <string name="textmodules_bar_summary">用實用的活動顯示一個條列以插入使用中的文字模組</string>
-    <string name="load_last_directory_at_startup__summary">啟動時開啟最後使用的資料夾</string>
-    <string name="format">格式</string>
-    <string name="contexts">全文</string>
-    <string name="project">專案</string>
-    <string name="projects">專案</string>
-    <string name="categories">分類項目</string>
-    <string name="none">全無</string>
-    <string name="pref_summary__is_highlighting_for_hexcolor_activated">依顏色在Hex顏色碼上加底線</string>
-    <string name="hexcolor_underline">加底線於 Hex 顏色碼</string>
-    <string name="start_new_tasks_with_todays_date">當開始一項新工作時插入當今日期</string>
-    <string name="tasks_with_todays_date">有今天日期的工作</string>
-    <string name="append_contexts_and_projects">增補內文與專案等</string>
-    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
-    <string name="right_to_left_rendering__abbreviated">RTL 顯現</string>
-    <string name="highlight_line_ending">標記行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
+    <string name="show_app_license" modified="true">顯示這個App的許可證</string>
+    <string name="projects">專案</string>
+    <string name="textmodule_bar_spacing" modified="true">文字模組間距</string>
+    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
+    <string name="pref_title__language">語言</string>
+    <string name="about">關於 Markor</string>
+    <string name="project_page">專案頁</string>
+    <string name="open_source_licenses" modified="true">開源許可</string>
+    <string name="insert_link">插入連結</string>
+    <string name="create_new_document">建立新的文件</string>
     <string name="use_monospace_for_code">程式碼使用 Monospace</string>
-    <string name="use_different_fonttype_slow_down">動態地變更字型將影響程式效能</string>
-    <string name="general">一般</string>
-    <string name="resources">來源</string>
-    <string name="line_spacing_in_percent">行距以百分比表示</string>
-    <string name="line_spacing">行距</string>
-    <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
-    <string name="special_key">特殊鍵</string>
-    <string name="key_page_up">往上頁 (Page Up)</string>
-    <string name="key_page_down">往下頁 (Page Down)</string>
-    <string name="key_pos_1">起始行 (Pos Home)</string>
-    <string name="key_pos_end">行末 (Pos End)</string>
-    <string name="key_pos_1_document">文件起頭</string>
-    <string name="key_pos_end_document">文件結尾</string>
-    <string name="key_ctrl_a">全選 (Ctrl + A)</string>
-    <string name="key_tab">表格</string>
-    <string name="start_on_bottom">從底端開始</string>
-    <string name="start_on_bottom_summary">當載入文件後，遊標位於末尾</string>
-    <string name="filemanager_doesnot_supply_required_data">Markor 僅可以編輯在地或可離線的文件，與支援提供檔案全名和目錄全域的文件管理員。\n
- 顯然這個程式無法提供Markor所要求的資訊而不能使用 :(.。</string>
-    <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
-    <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
-    <string name="vertical_alignment">垂直偏移</string>
-    <string name="horizontal_alignment">水平偏移</string>
-    <string name="align_default">預設</string>
-    <string name="align_left">左邊</string>
-    <string name="align_right">右邊</string>
+    <string name="last_modified">最近修改： %s</string>
+    <string name="editor_font_size_summary">調整在編輯器中使用的字型</string>
+    <string name="edit">編輯</string>
+    <string name="highlighting_delay_summary" modified="true">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
+    <string name="share_html__mime_plaintext">HTML (純文字)</string>
+    <string name="add_task">新增工作</string>
+    <string name="pref_title__smart_shortcuts">聰明型捷徑</string>
+    <string name="notebook_directory">筆記本目錄</string>
+    <string name="select_storage_folder">選擇儲存資料夾</string>
+    <string name="url_or_path">網址 / 路徑</string>
     <string name="align_top">頂端</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated" modified="true">依顏色突顯Hex顏色碼</string>
+    <string name="global">全域</string>
+    <string name="contributors_public_info" modified="true">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
+    <string name="highlighting_delay" modified="true">標記延遲</string>
+    <string name="confirm_delete">確定刪除</string>
+    <string name="search">搜尋</string>
+    <string name="show_markdown_shortcuts_bar">顯示 Markdown 的快捷列</string>
+    <string name="select_this_folder">選擇當前資料夾</string>
+    <string name="pref_title__highlighting_delay">延遲標記更新毫秒數</string>
+    <string name="project_license" modified="true">專案許可證</string>
+    <string name="main_view" modified="true">主頁</string>
+    <string name="plain_text">純文字文件</string>
+    <string name="press_again_to_exit">再按一次返回鍵以離開程式</string>
+    <string name="refresh">更新</string>
+    <string name="licenses">許可證</string>
+    <string name="contribute_code_to_this_project_anybody_welcome" modified="true">歡迎每個人都來提供程式碼</string>
+    <string name="project_contribution_info" modified="true">專案貢獻資訊</string>
+    <string name="folders">資料夾</string>
+    <string name="bug_reports" modified="true">回報臭蟲</string>
+    <string name="horizontal_alignment">水平偏移</string>
+    <string name="project">專案</string>
+    <string name="sort_reverse">反轉順序</string>
+    <string name="contexts">全文</string>
+    <string name="start_new_tasks_with_todays_date">當開始一項新工作時插入當今日期</string>
+    <string name="key_pos_end">行末 (Pos End)</string>
     <string name="align_bottom">底端</string>
-    <string name="align_center">中央</string>
-
-    <string name="center_text">文件中央</string>
+    <string name="insert_image">插入圖像</string>
+    <string name="donate">贊助</string>
+    <string name="key_pos_1">起始行 (Pos Home)</string>
+    <string name="todo_list">待辦清單</string>
+    <string name="pref_title__smart_shortcuts_summary">{}，[] 和()自動加在所選文字上</string>
+    <string name="image">圖像</string>
+    <string name="select_folder">選擇資料夾</string>
+    <string name="key_pos_1_document">文件起頭</string>
+    <string name="highlight_line_ending">標記行末</string>
+    <string name="hexcolor_underline" modified="true">突顯 Hex 顏色碼</string>
+    <string name="list">清單</string>
+    <string name="sync">同步</string>
+    <string name="align_right">右邊</string>
+    <string name="bug_reports_suggest_improvements" modified="true">提供回饋，回報臭蟲或改善建議</string>
+    <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
+    <string name="show_third_party_licenses">顯示第三方許可證</string>
+    <string name="more_information">更多資訊</string>
+    <string name="sort_by_date">依日期排列</string>
+    <string name="name">名稱</string>
+    <string name="preview">預覽</string>
+    <string name="more_items_selected" modified="true">已選擇 %d 項目</string>
+    <string name="document_browser">文件瀏覽器</string>
+    <string name="pref_summary__is_statusbar_hidden">在這個視角隱藏狀態列</string>
+    <string name="update">升級</string>
+    <string name="title">標題</string>
+    <string name="android_contribution_guide" modified="true">Android 貢獻指南</string>
+    <string name="browse_filesystem">瀏覽檔案系統</string>
+    <string name="special_documents">指定文件</string>
+    <string name="undo">恢復</string>
+    <string name="align_left">左邊</string>
+    <string name="rate_the_app" modified="true">評價這個App</string>
+    <string name="join_community" modified="true">加入社團</string>
+    <string name="append_to__arg_document_name">增補到 %s</string>
+    <string name="key_tab">表格</string>
+    <string name="vertical_alignment">垂直偏移</string>
+    <string name="start_on_bottom_summary" modified="true">當載入文件後，游標位於末尾</string>
+    <string name="contributors">貢獻者</string>
+    <string name="align_default">預設</string>
+    <string name="pref_show_settings_option_in_main_toolbar">在主螢幕的頂端工具列顯示設定鈕</string>
+    <string name="sort_by_size">依大小排列</string>
+    <string name="select">選擇</string>
+    <string name="browse_somethingsingular_or_add">新增 %s 或瀏覽現存檔案。</string>
+    <string name="none">全無</string>
     <string name="center_text_desc">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
-
+    <string name="line_spacing_in_percent">行距以百分比表示</string>
+    <string name="line_spacing">行距</string>
+    <string name="context">內文</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
+    <string name="pref_title__highlighting_delay_summary">較高值較省電</string>
+    <string name="changelog">更新紀錄</string>
+    <string name="priority">優先</string>
+    <string name="document_multiple">文件集</string>
+    <string name="empty_directory" modified="true">空白的資料夾</string>
+    <string name="exit">離開</string>
+    <string name="current_date">現在日期</string>
+    <string name="syntax_highlighting">同步標記</string>
+    <string name="light" modified="true">明亮</string>
+    <string name="file_not_in_save_path_do_import">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有檔案。</string>
+    <string name="key_pos_end_document">文件結尾</string>
+    <string name="pref_desc__language">變更界面語言請重新啟動使生效</string>
+    <string name="markdown_syntax_highlighting">Markdown 語法標記</string>
+    <string name="save">儲存</string>
+    <string name="number_of_files">檔案數：%d</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" modified="true">更多贊助或其它支援這個專案的訊息</string>
+    <string name="file">檔案</string>
+    <string name="render_for_right_to_left_languages" modified="true">顯現由右至左的語言</string>
+    <string name="right_to_left_rendering__abbreviated">RTL 顯現</string>
+    <string name="dark" modified="true">暗黑</string>
+    <string name="share">分享</string>
+    <string name="theme">主題</string>
+    <string name="categories">分類項目</string>
+    <string name="load_last_directory_at_startup">記住最近使用的目錄</string>
+    <string name="editor">編輯器</string>
+    <string name="more">更多</string>
+    <string name="horizontal_spacing_of_actions" modified="true">活動的水平距離</string>
+    <string name="append_contexts_and_projects">增補內文與專案等</string>
+    <string name="create_folder">建立資料夾</string>
+    <string name="confirm_overwrite">確認覆寫</string>
+    <string name="search_hint__add_or_custom">搜尋/自訂</string>
+    <string name="tasks_with_todays_date">有今天日期的工作</string>
+    <string name="share_to">分享到…</string>
+    <string name="help">幫助</string>
+    <string name="search_documents">搜尋文件</string>
+    <string name="one_item_selected">已經選擇一個項目</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects" modified="true">更多貢獻於開源專案的訊息，特別是Android App的</string>
+    <string name="rename">重新命名</string>
+    <string name="key_ctrl_a">全選 (Ctrl + A)</string>
+    <string name="document_one">文件</string>
+    <string name="source_code" modified="true">原始碼</string>
+    <string name="center_text">文件中央</string>
+    <string name="confirm_overwrite_description">檔案已經存在，要覆寫嗎？</string>
+    <string name="editor_settings">編輯器設定</string>
+    <string name="error_storage_permission">擁有權限才能儲存文件</string>
+    <string name="use_different_fonttype_slow_down">動態地變更字型將影響程式效能</string>
+    <string name="document_editor_font">文件編輯字型</string>
+    <string name="theme_description">使用於程式整體的主題</string>
+    <string name="add_shortcut_to_launcher_homescreen">建立捷徑</string>
+    <string name="translate" modified="true">翻譯</string>
+    <string name="text_modules">文字模組</string>
+    <string name="import_from_device">從裝置匯入</string>
+    <string name="import_">匯入</string>
+    <string name="align_center">中央</string>
+    <string name="create">建立</string>
+    <string name="sort_by_name">依名稱排列</string>
+    <string name="existing_document" modified="true">選擇現有的文件</string>
+    <string name="folder_name_hint">輸入資料夾名稱</string>
+    <string name="notebook">筆記本</string>
+    <string name="settings">設定</string>
+    <string name="remember_last_folder_location_on_startup">啟動時記住最近使用的資料夾位置</string>
+    <string name="format">格式</string>
+    <string name="add_something">新增 %s</string>
+    <string name="key_page_down">往下頁 (Page Down)</string>
+    <string name="archive">歸檔</string>
+    <string name="pref_title__is_statusbar_hidden">隱藏狀態列</string>
+    <string name="sort">排列</string>
+    <string name="history">歷史</string>
+    <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
+    <string name="help_this_app" modified="true">更多關於這個App的資訊和幫助</string>
+    <string name="task">工作</string>
+    <string name="confirm_delete_description">您真的要刪除這個 %s 嗎？</string>
+    <string name="files_and_folders">檔案和資料夾</string>
+    <string name="open_with">開啟用</string>
+    <string name="files">檔案</string>
+    <string name="open_preview_when_open_documents">當開啟文件時啟用預覽</string>
+    <string name="project_team" modified="true">專案團隊</string>
+    <string name="create_note">建立筆記</string>
+    <string name="contribute">貢獻</string>
+    <string name="help_translating_this_app" modified="true">翻譯這個Apo的語文界面</string>
+    <string name="redo">重做</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar" modified="true">工具列上的設定</string>
+    <string name="text_module">文字模組</string>
+    <string name="delete">刪除</string>
+    <string name="general">一般</string>
+    <string name="select_elements">選擇 輸入文字</string>
+    <string name="more_info_on_how_to_contribute_to_this_project" modified="true">更多如何貢獻給這個專案的訊息</string>
+    <string name="special_key">特殊鍵</string>
+    <string name="move">移動</string>
+    <string name="load_last_directory_at_startup__summary">啟動時開啟最後使用的資料夾</string>
+    <string name="app_settings">程式設定</string>
+    <string name="clear">清除</string>
+    <string name="due_date">到期日</string>
+    <string name="resources">來源</string>
+    <string name="textmodules_bar_summary">用實用的活動顯示一個條列以插入使用中的文字模組</string>
+    <string name="error_cannot_create_notebook_dir">錯誤：不能建立筆記本目錄</string>
+    <string name="start_on_bottom">從底端開始</string>
+    <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
+    <string name="key_page_up">往上頁 (Page Up)</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor 僅可以編輯在地或可離線的文件，與支援提供檔案全名和目錄全域的文件管理員。\n
+    顯然這個程式無法提供Markor所要求的資訊而不能使用 :(.。</string>
+    <string name="category">類別</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">這個文件將被輸出並儲存為\n
+  ‘%s’’</string>
+    <string name="pref_title__font_size">字型大小</string>
+    <string name="navigate_up_folder">回到上個資料夾</string>
 </resources>
