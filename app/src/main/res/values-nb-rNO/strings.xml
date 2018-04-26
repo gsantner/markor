@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Innstillinger</string>
+    <string name="light">Lys</string>
+    <string name="dark">Mørk</string>
+    <string name="delete">Slett</string>
+    <string name="rename">Gi nytt navn</string>
+    <string name="confirm_delete">Bekreft sletting</string>
+    <string name="confirm_delete_description">Ønsker du virkelig å slette denne %s?</string>
+    <string name="confirm_overwrite">Bekreft overskriving</string>
+    <string name="confirm_overwrite_description">Filen finnes allerede, overskriv?</string>
+    <string name="browse_filesystem">Utforsk filsystem</string>
+    <string name="title">Tittel</string>
+    <string name="empty_directory">Denne mappen er tom</string>
+    <string name="folder_name_hint">Skriv inn mappenavn</string>
+    <string name="create_folder">Opprett mappe</string>
+    <string name="create_new_document">Opprett nytt dokument</string>
+    <string name="move">Flytt</string>
+
+    <string name="import_from_device">Importer fra enhet</string>
+    <string name="import_">Importer</string>
+    <string name="append_to__arg_document_name">Tilføy %s</string>
+    <string name="select_folder">Velg mappe</string>
+    <string name="edit">Rediger</string>
+
+    <string name="search_documents">Søk i dokumenter</string>
+    <string name="share_to">Del til&#8230;</string>
+    <string name="share">Del</string>
+    <string name="search">Søk</string>
+    <string name="preview">Forhåndsvis</string>
+    <string name="editor">Skriveprogram</string>
+    <string name="folders">Mapper</string>
+    <string name="files">Filer</string>
+    <string name="document_one">Dokument</string>
+    <string name="document_multiple">Dokumenter</string>
+    <string name="share_html__mime_plaintext">HTML (i klartekst)</string>
+
+    <!-- Preferences -->
+    <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
+    <string name="theme">Drakt</string>
+    <string name="open_preview_when_open_documents">Forhåndsvis dokumenter ved åpning</string>
+    <string name="about">Om Markor</string>
+    <string name="plain_text">Klartekst</string>
+    <string name="file">Fil</string>
+    <string name="image">Bilde</string>
+    <string name="pref_title__font_size">Skriftstørrelse</string>
+    <string name="render_for_right_to_left_languages">Gjengivelse for høyre-til-venstre -språk</string>
+    <string name="error_cannot_create_notebook_dir">Feil: Kan ikke opprette notatblokkmappe</string>
+
+    <string name="last_modified">Sist endret: %s</string>
+    <string name="select_this_folder">Velg denne mappen</string>
+    <string name="select">Velg</string>
+    <string name="create">Opprett</string>
+    <string name="select_elements">Velg oppføringer</string>
+    <string name="one_item_selected">Ett element valgt</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d elementer valgt</string>
+
+    <string name="pref_summary__is_statusbar_hidden">Skjul statusfelt i denne visningen</string>
+    <string name="pref_title__is_statusbar_hidden">Skjul statusfelt</string>
+
+    <string name="name">Navn</string>
+    <string name="url_or_path">Nettadresse / sti</string>
+    <string name="insert_link">Sett inn lenke</string>
+    <string name="insert_image">Sett inn bilde</string>
+
+    <!-- About screen -->
+    <string name="contributors">Bidragsytere</string>
+    <string name="select_storage_folder">Velg lagringsmappe</string>
+    <string name="notebook_directory">Notatblokkmappe</string>
+    <string name="licenses">Lisenser</string>
+    <string name="changelog">Endringslogg</string>
+    <string name="more_information">Mer info</string>
+    <string name="show_app_license">Vis programmets lisens</string>
+    <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
+    <string name="pref_desc__language">Endre programmets språk. Omstart kreves før endringer trer i effekt</string>
+    <string name="pref_title__language">Språk</string>
+    <string name="error_storage_permission">Lagringstilgang behøves for lagring av dokumenter</string>
+    <string name="open_with">Åpne med</string>
+    <string name="sort">Sorter</string>
+    <string name="sort_by_date">Etter dato</string>
+    <string name="sort_by_name">Etter name</string>
+    <string name="sort_by_size">Etter størrelse</string>
+    <string name="sort_reverse">Motsatt rekkefølge</string>
+    <string name="contribute">Bidra</string>
+    <string name="donate">Doner</string>
+    <string name="project_page">Prosjektside</string>
+    <string name="press_again_to_exit">Trykk \'Tilbake\' igjen for å avslutte</string>
+    <string name="exit">Avslutt</string>
+    <string name="undo">Angre</string>
+    <string name="redo">Gjenta</string>
+    <string name="more">Mor</string>
+    <string name="notebook">Notatblokk</string>
+    <string name="help">Hjelp</string>
+    <string name="todo_list">Gjøremålsliste</string>
+    <string name="task">Gjøremål</string>
+    <string name="category">Kategori</string>
+    <string name="context">Kontekst</string>
+    <string name="list">Liste</string>
+    <string name="priority">Prioritet</string>
+    <string name="history">Historikk</string>
+    <string name="sync">Synkroniser</string>
+    <string name="browse_somethingsingular_or_add">Legg til %s eller utforsk eksisterende</string>
+    <string name="search_hint__add_or_custom">Søk / egendefinert</string>
+    <string name="save">Lagre</string>
+    <string name="update">Oppdater</string>
+    <string name="clear">Tøm</string>
+    <string name="due_date">Tidsfrist</string>
+    <string name="current_date">Nåværende dato</string>
+    <string name="archive">Arkiv</string>
+    <string name="add_task">Legg til gjøremål</string>
+    <string name="add_something">Legg til %s</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Dokumentet vil bli lastet og lagret som "%s"</string>
+    <string name="pref_title__show_settings_option_in_main_toolbar">Innstillinger i verktøyslinje</string>
+    <string name="pref_show_settings_option_in_main_toolbar">Vis innstillinger i øverste verktøyslinje på hovedskjermen</string>
+    <string name="refresh">Gjenoppfrisk</string>
+    <string name="add_shortcut_to_launcher_homescreen">Lag snarvei</string>
+    <string name="add_shortcut_to_launcher_homescreen_notice">Prøvde å legge til snarvei på hjemmeskjermen din for redigering av dette dokumentet. Merk at noen oppstartere ikke støtter dette.</string>
+    <string name="file_not_in_save_path_do_import">Valgt fil er ikke å finne i programmets notatblokkmappe. Ønsker du å kopiere den til gjeldende mappe? Dette vil overskrive eksisterende filer.</string>
+    <string name="files_and_folders">Filer og mapper</string>
+    <string name="document_browser">Dokumentutforsker</string>
+
+    <!-- Not in use currently -->
+    <string name="create_note" needed="false">Opprett notat</string>
+    <string name="special_documents" needed="false">Spesialdokumenter</string>
+    <string name="navigate_up_folder" needed="false">Tilbake til forrige mappe</string>
+    <string name="app_settings" needed="false">Programinnstillinger</string>
+    <string name="editor_settings" needed="false">Tekstbehandlerinnstillinger</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Husk siste mappeposisjon ved oppstart</string>
+    <string name="show_markdown_shortcuts_bar" needed="false">Vis felt for Markdown-snarveier</string>
+    <string name="markdown_syntax_highlighting" needed="false">Markdown-syntaksframheving</string>
+    <string name="pref_title__highlighting_delay" needed="false">Forsinkelse i millisekunder for framhevingsgjenoppfrisking</string>
+    <string name="pref_title__highlighting_delay_summary" needed="false">Høyere verdier bruker mindre batteri</string>
+    <string name="pref_title__smart_shortcuts" needed="false">Smarte parentessnarveier</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Hvis tekst er valgt, vil utvalget markeres i {}, [] og ()</string>
+    <string name="number_of_files" needed="false">Antall filer: %d</string>
+
+    <!-- New strings -->
+    <string name="global">I hele programmet</string>
+    <string name="main_view">Hovedvisning</string>
+    <string name="theme_description">Hverdagsdrakt brukt i programmet</string>
+    <string name="load_last_directory_at_startup">Husk siste mapper</string>
+    <string name="syntax_highlighting">Syntaksframheving</string>
+    <string name="text_modules">Tekstmoduler</string>
+    <string name="text_module">Tekstmodul</string>
+    <string name="highlighting_delay">Framhevingsforsinkelse</string>
+    <string name="highlighting_delay_summary">Forsinkelse i millisekunder for framhevelsesforsinkelse. Lavere verdi starter framheving tidligere, men tømmer batteriet fortere, og senker ytelsen.</string>
+    <string name="highlighting_enabled_summary">Kontroller hvorvidt innskrevet tekst skal framheves eller ei</string>
+    <string name="editor_font_size_summary">Kontroller skriftstørrelsen brukt i tekstbehandleren</string>
+    <string name="textmodules_bar_summary">Vis et felt med nyttige handlinger for å sette inn ofte brukt tekst i tekstmoduler</string>
+    <string name="load_last_directory_at_startup__summary">Last sist åpnet mappe ved oppstart</string>
+    <string name="format">Format</string>
+    <string name="contexts">Kontekster</string>
+    <string name="project">Prosjekt</string>
+    <string name="projects">Prosjekter</string>
+    <string name="categories">Kategorier</string>
+    <string name="none">Ingen</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Hvorvidt heksadesimale fargekoder skal understrekes i henhold til farge</string>
+    <string name="hexcolor_underline">Understrek heksadesimale fargekoder</string>
+    <string name="start_new_tasks_with_todays_date">Sett inn nåværende dato når nytt gjøremål startes</string>
+    <string name="tasks_with_todays_date">Gjøremål med dagens dato</string>
+    <string name="append_contexts_and_projects">Tilføy kontekster og prosjekter</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Tilføy kontekster og prosjekter på slutten av et gjøremål, ved bruk av dertil egnet tekstmodulhandling</string>
+    <string name="right_to_left_rendering__abbreviated">HTV-opptegning</string>
+    <string name="highlight_line_ending">Framhev linjeendelser</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Framhev mellomrom ved linjeslutt for linjer som inneholder to eller flere mellomrom</string>
+    <string name="use_monospace_for_code">Bruk fastbreddeskrift for kode</string>
+    <string name="use_different_fonttype_slow_down">Bruk annen skrifttype. Endring har dynamisk innvirkning på programytelse.</string>
+    <string name="general">Hovedinnstillinger</string>
+    <string name="resources">Ressurser</string>
+    <string name="line_spacing_in_percent">Mellomrom mellom linjer i prosent</string>
+    <string name="line_spacing">Linjeavstand</string>
+    <string name="archive_does_move_done_tasks">Flytt fullførte gjøremål til angitt fil i samme mappe</string>
+    <string name="special_key">Spesialtast</string>
+    <string name="key_page_up">Page Up (Page Up)</string>
+    <string name="key_page_down">Page Down (Page Down)</string>
+    <string name="key_pos_1">Linjestart (Pos Home)</string>
+    <string name="key_pos_end">Linjeslutt (Pos End)</string>
+    <string name="key_pos_1_document">Dokumentbegynnelse</string>
+    <string name="key_pos_end_document">Dokumentslutt</string>
+    <string name="key_ctrl_a">Velg alt (Ctrl+A)</string>
+    <string name="key_tab">Tabulator</string>
+    <string name="start_on_bottom">Start på bunnen</string>
+    <string name="start_on_bottom_summary">Etter at et dokument lastes, posisjoner pekeren ved dets slutt</string>
+    <string name="filemanager_doesnot_supply_required_data">Markor tillater kun redigering av lokal data, frakoblet tilgjengelig, dokumenter og støtte for filnavn og filbehadlere som tilbyr full filsti, inkludert filnavn. Det later til at programmet ikke tilbudte all påkrevd info og ikke kan brukes med Markor :(.</string>
+    <string name="sync_to_local_folder_notice">Merk: Hvis du bruker et synkroniseringsprogram, kan filene finnes i kjente eller egendefinerte mapper, du kan åpne filer ved å endre Markors dokumentmappe til det, eller åpne filen i en annen filbehandler.</string>
+    <string name="configure_in_the_apps_settings">Sett opp i programinnstillingene</string>
+    <string name="vertical_alignment">Loddrett justering</string>
+    <string name="horizontal_alignment">Vannrett justering</string>
+    <string name="align_default">Forvalg</string>
+    <string name="align_left">Venstre</string>
+    <string name="align_right">Høyre</string>
+    <string name="align_top">Top</string>
+    <string name="align_bottom">Bunn</string>
+    <string name="align_center">Midten</string>
+    <string name="textmodule_bar_spacing">Tekstmodulavstand</string>
+    <string name="horizontal_spacing_of_actions">Vannrett avstand for handlinger</string>
+
+    <string name="center_text">Sentrer tekst</string>
+    <string name="center_text_desc">Rediger tekst i midten av skjermen</string>
+    <string name="clipboard">Utklippstavle</string>
+    <string name="existing_document">Velg eksisterende dokument</string>
+    <string name="open_source_licenses">Friprog-lisenser</string>
+    <string name="rate_the_app">Vurder dette programmet</string>
+    <string name="translate">Oversett</string>
+    <string name="help_this_app">Mer informasjon om dette programmet</string>
+    <string name="bug_reports">Rapporter feil</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Mer info om donering eller annen støtte av prosjektet</string>
+    <string name="android_contribution_guide">Android-bidragsyterguide</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mer info om bidragsytelser til friprog-prosjekter, spesielt Android-programmer</string>
+    <string name="join_community">Ta del i gemenskapen</string>
+    <string name="bug_reports_suggest_improvements">Gi tilbakemelding, rapporter feil eller foreslå forbedringer</string>
+    <string name="help_translating_this_app">Oversett dette programmet til andre språk</string>
+    <string name="source_code">Kildekode</string>
+    <string name="project_license">Prosjektlisens</string>
+    <string name="project_contribution_info">Prosjektbidragsinfo</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Mer info om hvordan du kan bidra til dette prosjektet</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Bidra med kode til prosjektet. Alle kan ta del i dugnaden, inkludert nybegynnere</string>
+    <string name="project_team">Prosjektlag</string>
+    <string name="contributors_public_info">Vis info om bidragsytere. De kan valgfritt bidra med info til visning her etter bidrag.</string>
+</resources>
