@@ -181,8 +181,8 @@
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_summary">Upon loading a document, position cursor at its end</string>
-    <string name="filemanager_doesnot_supply_required_data">Markor can only edit local, offline, documents and file managers supplying full filepath, including filename. The app didn\'t supply all required info and can\'t be used with Markor :(.</string>
-    <string name="sync_to_local_folder_notice">Notice: If you use a sync app, files may reside in custom folders, open them by changing Markor\'s document folder accordingly, or by opening the file in another file manager.</string>
+    <string name="filemanager_doesnot_supply_required_data">The app didn\'t supply full filepath info including filename.</string>
+    <string name="sync_to_local_folder_notice">Notice: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the app settings</string>
     <string name="vertical_alignment">Vertical alignment</string>
     <string name="horizontal_alignment">Horizontal alignment</string>
