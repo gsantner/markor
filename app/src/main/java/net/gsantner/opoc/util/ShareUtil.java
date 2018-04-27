@@ -420,7 +420,7 @@ public class ShareUtil {
                         fileStr = "/" + fileStr;
                     }
                     // Some do add some custom prefix
-                    for (String prefix : new String[]{"file", "document", "root_files"}) {
+                    for (String prefix : new String[]{"file", "document", "root_files", "name"}) {
                         if (fileStr.startsWith(prefix)) {
                             fileStr = fileStr.substring(prefix.length());
                         }
@@ -443,6 +443,9 @@ public class ShareUtil {
                     if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
                         tmpf = new File(Uri.decode(fileStr));
                         if (tmpf.exists()) {
+                            return tmpf;
+                        }
+                        else if ((tmpf=new File(fileStr)).exists()) {
                             return tmpf;
                         }
                     }
