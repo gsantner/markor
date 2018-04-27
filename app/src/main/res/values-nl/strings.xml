@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Instellingen</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
@@ -18,6 +18,7 @@
     <string name="move">Verplaatsen</string>
 
     <string name="import_from_device">Importeer van apparaat</string>
+    <string name="import_">Importeren</string>
     <string name="append_to__arg_document_name">Toevoegen aan %s</string>
     <string name="select_folder">Selecteer mappen</string>
     <string name="edit">Bewerken</string>
@@ -32,6 +33,7 @@
     <string name="files">Bestanden</string>
     <string name="document_one">Document</string>
     <string name="document_multiple">Documenten</string>
+    <string name="share_html__mime_plaintext">HTML (als platte tekst)</string>
 
     <!-- Preferences -->
     <string name="document_editor_font">Notitie Bewerker Lettertype</string>
@@ -51,7 +53,7 @@
     <string name="create">Aanmaken</string>
     <string name="select_elements">Selecteer invoeren</string>
     <string name="one_item_selected">1 item geselecteerd</string>
-    <string name="more_items_selected">%d items geselecteerd</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">Verberg de statusbalk in deze weergave</string>
     <string name="pref_title__is_statusbar_hidden">Verberg statusbalk</string>
@@ -80,22 +82,34 @@
     <string name="sort_reverse">Keer volgorde om</string>
     <string name="contribute">Bijdragen</string>
     <string name="donate">Doneer</string>
+    <string name="project_page">Project pagina</string>
     <string name="exit">Afsluiten</string>
+    <string name="redo">Ongedaan maken</string>
+    <string name="more">Meer</string>
+    <string name="notebook">Notities</string>
     <string name="help">Help</string>
     <string name="category">Categorie</string>
     <string name="context">Content</string>
+    <string name="list">Lijst</string>
+    <string name="priority">Prioriteit</string>
+    <string name="history">Geschiedenis</string>
+    <string name="save">Opslaan</string>
     <string name="clear">Wissen</string>
     <string name="due_date">Vervaldatum</string>
     <string name="current_date">Huidige datum</string>
     <string name="archive">Archief</string>
     <string name="add_task">Taak toevoegen</string>
+    <string name="add_something">Toevoegen %s</string>
+    <string name="refresh">Verversen</string>
     <string name="add_shortcut_to_launcher_homescreen">Maak snelkoppeling</string>
     <string name="add_shortcut_to_launcher_homescreen_notice">Poging om snelkoppeling toe te voegen aan je beginscherm. Niet alle launchers ondersteunen dit.</string>
     <string name="file_not_in_save_path_do_import">Het geselecteerde bestand is niet opgeslagen in de app\'s notitie map. Wil je het kopiëren naar de huidige map? Dit overschrijft bestaande bestanden.</string>
     <string name="files_and_folders">Bestanden en mappen</string>
+    <string name="document_browser">Document verkenner</string>
 
     <!-- Not in use currently -->
     <string name="create_note" needed="false">Maak notitie</string>
+    <string name="special_documents" needed="false">Speciale documenten</string>
     <string name="navigate_up_folder" needed="false">Terug naar vorige map</string>
     <string name="app_settings" needed="false">App Instellingen</string>
     <string name="editor_settings" needed="false">Bewerker instellingen</string>
@@ -110,6 +124,51 @@
 
     <!-- New strings -->
     <string name="global">Algemeen</string>
+    <string name="main_view">Hoofdweergave</string>
+    <string name="load_last_directory_at_startup">Herinner laatste folder</string>
     <string name="highlighting_delay">Gemarkeerde vertraging</string>
     <string name="editor_font_size_summary">Stel de lettergrootte in die gebruikt wordt in de bewerker</string>
+    <string name="load_last_directory_at_startup__summary">Laad de laatst geopende folder tijdens het opstarten</string>
+    <string name="format">Formaat</string>
+    <string name="project">Project</string>
+    <string name="projects">Projecten</string>
+    <string name="categories">Categorieën</string>
+    <string name="none">Geen</string>
+    <string name="hexcolor_underline">Onderstreep Hex Kleurcodes</string>
+    <string name="right_to_left_rendering__abbreviated">Rechts-naar-links</string>
+    <string name="highlight_line_ending">Markeer einde van de regel</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Markeer spaties aan het einde van de regel met meer dan twee spaties</string>
+    <string name="general">Algemeen</string>
+    <string name="resources">Bronnen</string>
+    <string name="line_spacing_in_percent">Ruimte tussen regels in procenten</string>
+    <string name="line_spacing">Regelafstand</string>
+    <string name="special_key">Speciale toets</string>
+    <string name="key_page_up">Vorige pagina</string>
+    <string name="key_page_down">Volgende pagina</string>
+    <string name="key_ctrl_a">Alles selecteren (Ctrl+A)</string>
+    <string name="key_tab">Documenteinde</string>
+    <string name="horizontal_alignment">Horizontale uitleining</string>
+    <string name="align_default">Standaard</string>
+    <string name="align_left">Links</string>
+    <string name="align_right">Rechts</string>
+    <string name="align_top">Bovenkant</string>
+    <string name="align_bottom">Onderkant</string>
+    <string name="align_center">Midden</string>
+
+    <string name="center_text">Centreren</string>
+    <string name="center_text_desc">Bewerk tekst in het midden van het scherm</string>
+    <string name="clipboard">Plakbord</string>
+    <string name="existing_document">Selecteer bestaand document</string>
+    <string name="open_source_licenses">Open Source Licenties</string>
+    <string name="rate_the_app">Beoordeel deze app</string>
+    <string name="help_this_app">Meer informatie en ondersteuning</string>
+    <string name="bug_reports">Meld defecten</string>
+    <string name="android_contribution_guide">Android bijdragers handleiding</string>
+    <string name="join_community">Neem deel aan de gemeenschap</string>
+    <string name="bug_reports_suggest_improvements">Geef commentaar, meld defecten of ideeën voor verbeteringen</string>
+    <string name="help_translating_this_app">Vertaal deze app in andere talen</string>
+    <string name="source_code">Broncode</string>
+    <string name="project_license">Project Licentie</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
+    <string name="project_team">Project Team</string>
 </resources>
