@@ -444,8 +444,7 @@ public class ShareUtil {
                         tmpf = new File(Uri.decode(fileStr));
                         if (tmpf.exists()) {
                             return tmpf;
-                        }
-                        else if ((tmpf=new File(fileStr)).exists()) {
+                        } else if ((tmpf = new File(fileStr)).exists()) {
                             return tmpf;
                         }
                     }
