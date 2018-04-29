@@ -287,11 +287,11 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
         }
 
-        final String formatTemplate = action == 1 ? "[%s](%s)" : "![%s](%s)";
+        final String formatTemplate = action == 2 ? "[%s](%s)" : "![%s](%s)";
         int actionTitle = R.string.select;
-        if (action == 1) {
+        if (action == 2) {
             actionTitle = R.string.insert_link;
-        } else if (action == 2) {
+        } else if (action == 3) {
             actionTitle = R.string.insert_image;
         }
 
