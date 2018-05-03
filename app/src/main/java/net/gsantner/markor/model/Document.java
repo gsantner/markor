@@ -104,7 +104,7 @@ public class Document implements Serializable {
             while (_historyPosition != _history.size() && _history.size() != 0) {
                 _history.remove(_history.size() - 1);
             }
-            if (_history.size() >= MAX_HISTORY_SIZE){
+            if (_history.size() >= MAX_HISTORY_SIZE) {
                 _history.remove(2);
                 _historyPosition--;
             }

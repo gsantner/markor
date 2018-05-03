@@ -24,7 +24,11 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.ListPreference;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 
 /**
@@ -38,7 +42,7 @@ import android.util.AttributeSet;
 public class FontPreferenceCompat extends ListPreference {
     private String _defaultValue;
     private String[] _fontNames = {
-            "★Roboto Regular★", "Roboto Light", "Roboto Bold", "Roboto Medium",
+            "Roboto Regular", "Roboto Light", "Roboto Bold", "Roboto Medium",
             "Monospace", "Noto Serif", "Cutive Mono", "Roboto Condensed", "Roboto Thin",
             "Roboto Black", "Coming Soon", "Carrois Gothic", "Dancing Script"
     };
@@ -91,8 +95,16 @@ public class FontPreferenceCompat extends ListPreference {
                 }
             }
         }
+
+        Spannable[] fontText = new Spannable[_fontNames.length];
+        for (int i = 0; i < _fontNames.length; i++) {
+            fontText[i] = new SpannableString(_fontNames[i] + "\n" + _fontValues[i]);
+            fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
+            fontText[i].setSpan(new RelativeSizeSpan(0.7f), _fontNames[i].length() + 1, fontText[i].length(), 0);
+
+        }
         setDefaultValue(_defaultValue);
-        setEntries(_fontNames);
+        setEntries(fontText);
         setEntryValues(_fontValues);
     }
 
@@ -103,7 +115,7 @@ public class FontPreferenceCompat extends ListPreference {
         String fontText = TextUtils.isEmpty(getValue()) ? _defaultValue : getValue();
         for (int i = 0; i < _fontValues.length; i++) {
             if (_fontValues[i].equals(fontText)) {
-                fontText = _fontNames[i];
+                fontText = _fontNames[i] + " (" + fontText + ")";
                 break;
             }
         }
