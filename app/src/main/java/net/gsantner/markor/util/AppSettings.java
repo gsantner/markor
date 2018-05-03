@@ -228,4 +228,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public int getEditorTextmoduleBarItemPadding() {
         return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
     }
+
+    public boolean isDisableSpellingRedUnderline(){
+        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
+    }
 }

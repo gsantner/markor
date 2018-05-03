@@ -98,6 +98,12 @@
             android:key="@string/pref_key__editor_start_editing_on_bottom"
             android:summary="@string/start_on_bottom_summary"
             android:title="@string/start_on_bottom" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_format_color_fill_black_24dp"
+            android:key="@string/pref_key__editor_disable_spelling_red_underline"
+            android:summary="@string/not_affects_suggestions"
+            android:title="@string/disable_red_underline" />
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
