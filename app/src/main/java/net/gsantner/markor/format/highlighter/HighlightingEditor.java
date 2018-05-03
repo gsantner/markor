@@ -145,7 +145,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public boolean isSuggestionsEnabled() {
-        return !_isSpellingRedUnderline && super.isSuggestionsEnabled();
+        return _isSpellingRedUnderline && super.isSuggestionsEnabled();
     }
 
     @Override

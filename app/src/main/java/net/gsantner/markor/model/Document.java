@@ -19,6 +19,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private final static int MIN_HISTORY_DELAY = 2000; // [ms]
+    private final static int MAX_HISTORY_SIZE = 6;
 
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private ArrayList<Document> _history = new ArrayList<>();
@@ -102,6 +103,10 @@ public class Document implements Serializable {
         if (_doHistory && (((_lastChanged + MIN_HISTORY_DELAY) < System.currentTimeMillis()))) {
             while (_historyPosition != _history.size() && _history.size() != 0) {
                 _history.remove(_history.size() - 1);
+            }
+            if (_history.size() >= MAX_HISTORY_SIZE){
+                _history.remove(2);
+                _historyPosition--;
             }
             if (_history.isEmpty() || (!_history.isEmpty() && !_history.get(_history.size() - 1).equals(this))) {
                 _history.add(cloneDocument());
