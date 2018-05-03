@@ -216,7 +216,7 @@
     <string name="more_info_on_how_to_contribute_to_this_project">More info on how to contribute to this project</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribute code to the project. Everybody is welcome to do so, including newcomers</string>
     <string name="project_team">Project Team</string>
-    <string name="contributors_public_info">Show contributer info. Provide it to be shown here on an opt-in basis after contributing</string>
-    <string name="disable_red_underline">Disable red underline</string>
-    <string name="not_affects_suggestions">Keyboard suggestions will still work, but the red underline gets invisible</string>
+    <string name="contributors_public_info">Show contributor info. Provide it to be shown here on an opt-in basis after contributing</string>
+    <string name="disable_spelling_underline">Disable spelling underline</string>
+    <string name="not_affects_suggestions">Keyboard suggestions stay, red underline vanishes</string>
 </resources>

@@ -149,7 +149,7 @@
                 android:icon="@drawable/ic_format_color_fill_black_24dp"
                 android:key="@string/pref_key__editor_disable_spelling_red_underline"
                 android:summary="@string/not_affects_suggestions"
-                android:title="@string/disable_red_underline" />
+                android:title="@string/disable_spelling_underline" />
         </PreferenceCategory>
     </PreferenceScreen>
 

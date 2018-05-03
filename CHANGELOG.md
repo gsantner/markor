@@ -1,3 +1,9 @@
+### v0.3.7
+- Option to disable spellchecking-underline
+- More file managers and sync clients supported (notably: seafile)
+- Improve default settings
+- Limit history size to improve performance
+
 ### v0.3.6
 - Decrease padding of textmoduleactions for more fitting elements
 - Add delete action for all formats
