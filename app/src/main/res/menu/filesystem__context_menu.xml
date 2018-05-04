@@ -20,4 +20,9 @@
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/delete"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/context_menu_info"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/info"
+        app:showAsAction="always" />
 </menu>
