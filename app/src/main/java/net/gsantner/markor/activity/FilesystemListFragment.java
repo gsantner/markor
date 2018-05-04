@@ -562,9 +562,21 @@ public class FilesystemListFragment extends GsFragmentBase {
                     promptForNewName(_selectedItems.get(0));
                     finishActionMode();
                     return true;
+                case R.id.context_menu_info:
+                    showFileInfoDialog(_selectedItems.get(0));
+                    finishActionMode();
+                    return true;
                 default:
                     return false;
             }
+        }
+
+        /**
+         * Show file information dialog.
+         * @param file
+         */
+        private void showFileInfoDialog(File file) {
+
         }
 
         private void promptForNewName(File file) {
