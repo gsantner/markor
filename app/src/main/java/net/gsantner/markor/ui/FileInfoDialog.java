@@ -1,15 +1,18 @@
 package net.gsantner.markor.ui;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
@@ -20,16 +23,23 @@ import java.io.File;
 
 public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
-    public static final String FRAGMENT_TAG = "RenameDialog";
+    public static final String FRAGMENT_TAG = "fileInfoDialog";
 
-    public static RenameDialog newInstance(File sourceFile) {
-        RenameDialog dialog = new RenameDialog();
+    private Context activityContext;
+
+    public static FileInfoDialog newInstance(File sourceFile) {
+        FileInfoDialog dialog = new FileInfoDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
         dialog.setArguments(args);
         return dialog;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.activityContext = context;
+    }
 
     private EditText _newNameField;
 
@@ -53,24 +63,26 @@ public class FileInfoDialog extends DialogFragment {
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
-        root = inflater.inflate(R.layout.ui__rename__dialog, null);
+        root = inflater.inflate(R.layout.ui__file_info_dialog, null);
 
-        dialogBuilder.setTitle(getResources().getString(R.string.rename));
+        dialogBuilder.setTitle(getResources().getString(R.string.info));
         dialogBuilder.setView(root);
 
-        EditText editText = root.findViewById(R.id.new_name);
-        editText.setText(file.getName());
-        editText.setTextColor(ContextCompat.getColor(root.getContext(),
-                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+        TextView textView = root.findViewById(R.id.ui__filesystem_item__description);
+        textView.setText(file.getName());
 
+        TextView locationView = root.findViewById(R.id.ui__filesystem_item__location_description);
+        locationView.setText(file.getAbsolutePath());
 
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
-            if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
-                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
-            }
+        TextView sizeView = root.findViewById(R.id.ui__filesystem_item__size_description);
+        long totalSizeBytes = file.getTotalSpace();
+        String humanReadableSize = android.text.format.Formatter.formatShortFileSize(activityContext, totalSizeBytes);
+        sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
+
+        dialogBuilder.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
+            dialogInterface.dismiss();
+
         });
-
-        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.dismiss());
 
         return dialogBuilder;
     }
