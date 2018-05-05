@@ -35,6 +35,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.MarkorSingleton;
 import net.gsantner.markor.ui.ConfirmDialog;
 import net.gsantner.markor.ui.CreateFolderDialog;
+import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.FilesystemListAdapter;
 import net.gsantner.markor.ui.RenameDialog;
@@ -576,7 +577,8 @@ public class FilesystemListFragment extends GsFragmentBase {
          * @param file
          */
         private void showFileInfoDialog(File file) {
-
+            FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(file);
+            fileInfoDialog.show(getFragmentManager(), RenameDialog.FRAGMENT_TAG);
         }
 
         private void promptForNewName(File file) {
