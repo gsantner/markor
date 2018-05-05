@@ -17,8 +17,8 @@ public abstract class TextConverter {
     //## HTML
     //########################
     protected static final String UTF_CHARSET = "utf-8";
-    protected static final String HTML001_HEAD_WITH_STYLE_LIGHT = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}</style>";
-    protected static final String HTML001_HEAD_WITH_STYLE_DARK = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}</style>";
+    protected static final String HTML001_HEAD_WITH_STYLE_LIGHT = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}blockquote{padding:0px 8px;color:#777777;border-left:4px solid #dddddd;margin:4px 0}</style>";
+    protected static final String HTML001_HEAD_WITH_STYLE_DARK = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}blockquote{padding:0px 8px;color:#cccccc;border-left:4px solid #dddddd;margin:4px 0}</style>";
     protected static final String HTML002_RIGHT_TO_LEFT = "<style type=\"text/css\">body{text-align:right; direction:rtl;}</style>";
     protected static final String HTML005_HEADER_NON_UNDERLINE = "<style type=\"text/css\">.header_no_underline { text-decoration: none; color: black; }</style>";
     protected static final String HTML010_BODY = "</head><body>";
