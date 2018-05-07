@@ -65,8 +65,8 @@ public abstract class TextConverter {
         AppSettings as = new AppSettings(context);
         String html = as.isDarkThemeEnabled() ? HTML001_HEAD_WITH_STYLE_DARK : HTML001_HEAD_WITH_STYLE_LIGHT;
         if (as.isRenderRtl()) {
-            html += HTML002_RIGHT_TO_LEFT;
             html = html.replace("border-left", "border-right");
+            html += HTML002_RIGHT_TO_LEFT;
         }
         html += HTML005_HEADER_NON_UNDERLINE.replace("black", as.isDarkThemeEnabled() ? "white" : "black") + HTML010_BODY;
 
