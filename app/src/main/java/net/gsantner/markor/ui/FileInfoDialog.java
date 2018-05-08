@@ -25,20 +25,12 @@ public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
     public static final String FRAGMENT_TAG = "fileInfoDialog";
 
-    private Context activityContext;
-
     public static FileInfoDialog newInstance(File sourceFile) {
         FileInfoDialog dialog = new FileInfoDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
         dialog.setArguments(args);
         return dialog;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.activityContext = context;
     }
 
     private EditText _newNameField;
@@ -76,7 +68,7 @@ public class FileInfoDialog extends DialogFragment {
 
         TextView sizeView = root.findViewById(R.id.ui__filesystem_item__size_description);
         long totalSizeBytes = file.getTotalSpace();
-        String humanReadableSize = android.text.format.Formatter.formatShortFileSize(activityContext, totalSizeBytes);
+        String humanReadableSize = android.text.format.Formatter.formatShortFileSize(root.getContext(), totalSizeBytes);
         sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
 
         dialogBuilder.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
