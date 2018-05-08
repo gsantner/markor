@@ -564,21 +564,12 @@ public class FilesystemListFragment extends GsFragmentBase {
                     finishActionMode();
                     return true;
                 case R.id.context_menu_info:
-                    showFileInfoDialog(_selectedItems.get(0));
-                    finishActionMode();
+                    FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(_selectedItems.get(0));
+                    fileInfoDialog.show(getFragmentManager(), FileInfoDialog.FRAGMENT_TAG);
                     return true;
                 default:
                     return false;
             }
-        }
-
-        /**
-         * Show file information dialog.
-         * @param file
-         */
-        private void showFileInfoDialog(File file) {
-            FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(file);
-            fileInfoDialog.show(getFragmentManager(), RenameDialog.FRAGMENT_TAG);
         }
 
         private void promptForNewName(File file) {
