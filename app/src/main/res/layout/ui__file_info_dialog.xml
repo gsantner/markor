@@ -90,7 +90,7 @@
             android:lines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="19sp"
-            android:text="@string/size" />
+            android:text="@string/sort_by_size" />
 
         <TextView
             android:id="@+id/ui__filesystem_item__size_description"

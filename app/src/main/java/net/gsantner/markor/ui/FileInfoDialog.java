@@ -66,7 +66,7 @@ public class FileInfoDialog extends DialogFragment {
         String humanReadableSize = android.text.format.Formatter.formatShortFileSize(root.getContext(), totalSizeBytes);
         sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
 
-        dialogBuilder.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
             dialogInterface.dismiss();
 
         });

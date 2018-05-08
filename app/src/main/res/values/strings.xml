@@ -221,7 +221,5 @@
 
     <!-- File Info Dialog -->
     <string name="location">Location</string>
-    <string name="size">Size</string>
-    <string name="date">Date</string>
-    <string name="ok">OK</string>
+
 </resources>
