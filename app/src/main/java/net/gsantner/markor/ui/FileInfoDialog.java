@@ -1,13 +1,10 @@
 package net.gsantner.markor.ui;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,9 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
