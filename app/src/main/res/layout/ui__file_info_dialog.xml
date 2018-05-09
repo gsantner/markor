@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ui__filesystem_item__root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ui_filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp"
+            tools:text="@string/name"
+            android:text="@string/name"/>
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp"
+            tools:text="/sdcard/Documents/somewhere" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ui_fileLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/ui_filename">
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp"
+            android:text="@string/location" />
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__location_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp"
+            tools:text="/sdcard/Documents/somewhere" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ui_fileSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/ui_fileLocation">
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp"
+            android:text="@string/sort_by_size" />
+
+        <TextView
+            android:id="@+id/ui__filesystem_item__size_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp"
+            tools:text="/sdcard/Documents/somewhere" />
+    </LinearLayout>
+
+</RelativeLayout>

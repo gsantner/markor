@@ -16,6 +16,7 @@
     <string name="create_folder">Create Folder</string>
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
+    <string name="info">Info</string>
 
     <string name="import_from_device">Import from device</string>
     <string name="import_">Import</string>
@@ -219,4 +220,5 @@
     <string name="contributors_public_info">Show contributor info. Provide it to be shown here on an opt-in basis after contributing</string>
     <string name="disable_spelling_underline">Disable spelling underline</string>
     <string name="not_affects_suggestions">Keyboard suggestions stay, red underline vanishes</string>
+    <string name="location">Location</string>
 </resources>
