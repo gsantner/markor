@@ -15,6 +15,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 
 import java.io.File;
+import java.net.URLDecoder;
 
 public class MarkorWebViewClient extends WebViewClient {
 
@@ -28,8 +29,7 @@ public class MarkorWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (url.startsWith("file://")) {
             ShareUtil su = new ShareUtil(view.getContext());
-            url = url.replace("%20", " "); // Workaround for parser - cannot deal with spaces and have other entities problems
-            File file = new File(url.replace("file://", ""));
+            File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;
             if (ContextUtils.get().isMaybeMarkdownFile(file)) {
                 Intent newPreview = new Intent(_activity, DocumentActivity.class);

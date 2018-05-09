@@ -24,6 +24,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private boolean _modified = true;
     private boolean _hlEnabled = false;
+    private boolean _isSpellingRedUnderline;
     private Highlighter _hl;
     private int _hlDelay;
 
@@ -47,6 +48,7 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
+        _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         _hlDelay = as.getMarkdownHighlightingDelay();
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,17 +128,10 @@ public class HighlightingEditor extends AppCompatEditText {
         setFilters(new InputFilter[]{newAutoFormatter});
     }
 
-    private void removeAutoFormat() {
-        setFilters(new InputFilter[]{});
-    }
-
     public void setHighlightingEnabled(boolean enable) {
         _hlEnabled = enable;
     }
 
-    public boolean isDoHighlighting() {
-        return _hlEnabled;
-    }
 
     public boolean indexesValid(int... indexes) {
         int len = length();
@@ -146,6 +141,11 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean isSuggestionsEnabled() {
+        return _isSpellingRedUnderline && super.isSuggestionsEnabled();
     }
 
     @Override
