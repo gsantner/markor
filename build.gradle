@@ -26,7 +26,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$version_gradle_tools"
-	classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+	    classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         if (project.enable_plugin_kotlin) {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_plugin_kotlin"
         }

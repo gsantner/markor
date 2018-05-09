@@ -28,8 +28,6 @@ public class FileInfoDialog extends DialogFragment {
         return dialog;
     }
 
-    private EditText _newNameField;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class FileInfoDialog extends DialogFragment {
         AlertDialog dialog = dialogBuilder.show();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        _newNameField = dialog.findViewById(R.id.new_name);
         return dialog;
     }
 
