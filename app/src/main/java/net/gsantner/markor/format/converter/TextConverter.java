@@ -17,14 +17,24 @@ public abstract class TextConverter {
     //## HTML
     //########################
     protected static final String UTF_CHARSET = "utf-8";
-    protected static final String HTML001_HEAD_WITH_STYLE_LIGHT = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}</style>";
-    protected static final String HTML001_HEAD_WITH_STYLE_DARK = "<html><head><style type=\"text/css\">html,body{padding:4px 8px 4px 8px;font-family:'sans-serif-light';color:#ffffff;background-color:#303030;}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}a:visited{color:#dddddd;}img{height:auto;width:325px;margin:auto;}</style>";
-    protected static final String HTML002_RIGHT_TO_LEFT = "<style type=\"text/css\">body{text-align:right; direction:rtl;}</style>";
-    protected static final String HTML005_HEADER_NON_UNDERLINE = "<style type=\"text/css\">.header_no_underline { text-decoration: none; color: black; }</style>";
-    protected static final String HTML010_BODY = "</head><body>";
-    protected static final String HTML990_BODY_END = "</body></html>";
     protected static final String CONTENT_TYPE_HTML = "text/html";
     protected static final String CONTENT_TYPE_PLAIN = "text/plain";
+
+    protected static final String CSS_S = "<style type=\"text/css\">";
+    protected static final String CSS_E = "</style>";
+
+    protected static final String TOKEN_TEXT_DIRECTION = "{% app.TEXT_DIRECTION %}";
+    protected static final String TOKEN_FONT = "{% app.TEXT_FONT %}";
+    protected static final String TOKEN_BW_INVERSE_OF_THEME = "{% app.TOKEN_BW_INVERSE_OF_THEME %}";
+
+    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
+    protected static final String HTML002_HEAD_WITH_STYLE_LIGHT = CSS_S + "html,body{color:#303030;}blockquote{color:#73747d;}" + CSS_E;
+    protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
+    protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
+    protected static final String HTML100_HEADER_WITHOUT_UNDERLINE = CSS_S + ".header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
+    protected static final String HTML101_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
+    protected static final String HTML500_BODY = "</head><body>\n\n\n";
+    protected static final String HTML990_BODY_END = "</body></html>";
 
     //########################
     //## Methods
@@ -63,17 +73,26 @@ public abstract class TextConverter {
 
     protected String putContentIntoTemplate(Context context, String content) {
         AppSettings as = new AppSettings(context);
-        String html = as.isDarkThemeEnabled() ? HTML001_HEAD_WITH_STYLE_DARK : HTML001_HEAD_WITH_STYLE_LIGHT;
+        String html = HTML001_HEAD_WITH_BASESTYLE + (as.isDarkThemeEnabled() ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (as.isRenderRtl()) {
-            html += HTML002_RIGHT_TO_LEFT;
+            html += HTML003_RIGHT_TO_LEFT;
         }
-        html += HTML005_HEADER_NON_UNDERLINE.replace("black", as.isDarkThemeEnabled() ? "white" : "black") + HTML010_BODY;
+        html += HTML100_HEADER_WITHOUT_UNDERLINE + HTML101_BLOCKQUOTE_VERTICAL_LINE;
 
-        // Default font is set by css in line 1 of generated html
-        html = html.replaceFirst("sans-serif-light", as.getFontFamily());
+        // Remove duplicate style blocks
+        html = html.replace(CSS_E + CSS_S, "");
 
+        // Load content
+        html += HTML500_BODY;
         html += content;
         html += HTML990_BODY_END;
+
+        // Replace tokens
+        html = html
+                .replace(TOKEN_BW_INVERSE_OF_THEME, as.isDarkThemeEnabled() ? "white" : "black")
+                .replace(TOKEN_TEXT_DIRECTION, as.isRenderRtl() ? "right" : "left")
+                .replace(TOKEN_FONT, as.getFontFamily())
+        ;
 
         return html;
     }

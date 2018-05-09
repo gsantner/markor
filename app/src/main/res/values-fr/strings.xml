@@ -217,4 +217,6 @@
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
     <string name="project_team">Équipe</string>
     <string name="contributors_public_info">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
+    <string name="disable_spelling_underline">Désactiver le soulignement des fautes</string>
+    <string name="not_affects_suggestions">Les suggestions du clavier restent, les soulignements rouges disparaissent</string>
 </resources>

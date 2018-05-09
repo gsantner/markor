@@ -215,4 +215,6 @@
     <string name="contributors_public_info">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
     <string name="textmodule_bar_spacing">Text Modul Abstand</string>
     <string name="horizontal_spacing_of_actions">Horizontaler Abstand zwischen Aktionen</string>
+    <string name="disable_spelling_underline">Rechtschreibungs-Linie deaktivieren</string>
+    <string name="not_affects_suggestions">Tastatur-Vorschläge bleiben, die rote Untertreichung verschwindet</string>
 </resources>

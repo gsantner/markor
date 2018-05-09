@@ -113,10 +113,10 @@
             app:min="1" />
 
         <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="100"
+            android:defaultValue="90"
             android:icon="@drawable/ic_format_line_spacing_black_24dp"
             android:key="@string/pref_key__editor_line_spacing"
-            android:max="300"
+            android:max="250"
             android:summary="@string/line_spacing_in_percent"
             android:title="@string/line_spacing"
             app:min="50" />
@@ -144,6 +144,12 @@
                 android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
                 android:summary="@string/pref_summary__is_highlighting_for_hexcolor_activated"
                 android:title="@string/hexcolor_underline" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_format_color_fill_black_24dp"
+                android:key="@string/pref_key__editor_disable_spelling_red_underline"
+                android:summary="@string/not_affects_suggestions"
+                android:title="@string/disable_spelling_underline" />
         </PreferenceCategory>
     </PreferenceScreen>
 

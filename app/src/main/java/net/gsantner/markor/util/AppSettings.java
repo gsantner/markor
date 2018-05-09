@@ -206,7 +206,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public float getEditorLineSpacing() {
-        return getInt(R.string.pref_key__editor_line_spacing, 100) / 100f;
+        return getInt(R.string.pref_key__editor_line_spacing, 90) / 100f;
     }
 
     public void setLastTodoUsedArchiveFilename(String value) {
@@ -227,5 +227,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public int getEditorTextmoduleBarItemPadding() {
         return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
+    }
+
+    public boolean isDisableSpellingRedUnderline() {
+        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
     }
 }
