@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.MutableInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,8 +14,11 @@ import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileInfoDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
@@ -63,6 +67,19 @@ public class FileInfoDialog extends DialogFragment {
         String humanReadableSize = android.text.format.Formatter.formatShortFileSize(root.getContext(), totalSizeBytes);
         sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
 
+        // Number of lines and character count only apply for files.
+        if(file.isFile()) {
+            TextView textNumLinesView = root.findViewById(R.id.ui__filesystem_item__numberlines_description);
+
+            AtomicInteger linesCount = new AtomicInteger(0);
+            AtomicInteger charactersCount = new AtomicInteger(0);
+            FileUtils.getNumberOfLinesAndCharactersForFile(charactersCount, linesCount, file);
+
+            textNumLinesView.setText((linesCount.toString()));
+
+            TextView textNumCharactersView = root.findViewById(R.id.ui__filesystem_item__numbercharacters_description);
+            textNumCharactersView.setText(charactersCount.toString());
+        }
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
             dialogInterface.dismiss();
 
