@@ -68,7 +68,7 @@ public class FileInfoDialog extends DialogFragment {
         sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
 
         // Number of lines and character count only apply for files.
-        if(file.isFile()) {
+        if (file.isFile()) {
             TextView textNumLinesView = root.findViewById(R.id.ui__filesystem_item__numberlines_description);
 
             AtomicInteger linesCount = new AtomicInteger(0);

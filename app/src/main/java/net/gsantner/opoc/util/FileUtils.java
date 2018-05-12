@@ -341,26 +341,27 @@ public class FileUtils {
             return null;
         }
     }
+
     /**
      * Function to get number of lines and characters.
      */
     public static void getNumberOfLinesAndCharactersForFile(AtomicInteger numCharacters, AtomicInteger numLines, File file) {
         try {
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        try {
-            String line = br.readLine();
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            try {
+                String line = br.readLine();
 
-            while (line != null) {
-                line = br.readLine();
-                if(line != null) {
-                    numLines.getAndIncrement();
-                    numCharacters.getAndSet(numCharacters.get() + line.length());
+                while (line != null) {
+                    line = br.readLine();
+                    if (line != null) {
+                        numLines.getAndIncrement();
+                        numCharacters.getAndSet(numCharacters.get() + line.length());
+                    }
                 }
+            } finally {
+                br.close();
             }
-        } finally {
-            br.close();
-        }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
