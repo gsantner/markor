@@ -11,8 +11,6 @@
 package net.gsantner.opoc.util;
 
 
-import android.util.MutableInt;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

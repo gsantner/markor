@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.MutableInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -17,7 +15,6 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileInfoDialog extends DialogFragment {
