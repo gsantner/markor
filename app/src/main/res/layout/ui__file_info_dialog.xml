@@ -105,7 +105,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ui_fileNumberLines"
+        android:id="@+id/ui_filenumberlines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
@@ -136,12 +136,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ui_fileNumberCharacters"
+        android:id="@+id/ui_filenumbercharacters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:orientation="vertical"
-        android:layout_below="@+id/ui_fileNumberLines">
+        android:layout_below="@+id/ui_filenumberlines">
 
         <TextView
             android:id="@+id/ui__filesystem_item__numbercharacters"
