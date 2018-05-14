@@ -27,4 +27,4 @@ Where:
 * **[kRkk](https://github.com/kRkk)**<br/>~° Polish translation
 * **[Dugite Code](https://github.com/dugite-code)**<br/>~° Artwork
 * **[billchenchina](https://github.com/billchenchina)**<br/>~° Simplified Chinese translation
-
+* **[Kanthi Subramanian](https://github.com/subkanthi)**<br/>~° File Info Dialog

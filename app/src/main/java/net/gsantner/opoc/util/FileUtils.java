@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
@@ -335,6 +337,30 @@ public class FileUtils {
             return sb.toString();
         } catch (IOException | NullPointerException exception) {
             return null;
+        }
+    }
+
+    /**
+     * Function to get number of lines and characters.
+     */
+    public static void getNumberOfLinesAndCharactersForFile(AtomicInteger numCharacters, AtomicInteger numLines, File file) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            try {
+                String line = br.readLine();
+
+                while (line != null) {
+                    line = br.readLine();
+                    if (line != null) {
+                        numLines.getAndIncrement();
+                        numCharacters.getAndSet(numCharacters.get() + line.length());
+                    }
+                }
+            } finally {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
