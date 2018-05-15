@@ -587,17 +587,17 @@ public class FilesystemListFragment extends GsFragmentBase {
             switch (_filesListView.getCheckedItemCount()) {
                 case 0:
                     actionMode.setSubtitle(null);
-                    setRenameButtonVisibility(actionMode, false);
+                    setMultiActionButtonVisibility(actionMode, false);
                     break;
                 case 1:
                     actionMode.setSubtitle(getResources().getString(R.string.one_item_selected));
                     manageClickedVIew(i, checked);
-                    setRenameButtonVisibility(actionMode, true);
+                    setMultiActionButtonVisibility(actionMode, true);
                     break;
                 default:
                     manageClickedVIew(i, checked);
                     actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), _filesListView.getCheckedItemCount()));
-                    setRenameButtonVisibility(actionMode, false);
+                    setMultiActionButtonVisibility(actionMode, false);
                     break;
             }
         }
@@ -611,10 +611,10 @@ public class FilesystemListFragment extends GsFragmentBase {
             }
         }
 
-        private void setRenameButtonVisibility(ActionMode actionMode, boolean visible) {
+        private void setMultiActionButtonVisibility(ActionMode actionMode, boolean visible) {
             Menu menu = actionMode.getMenu();
-            MenuItem item = menu.findItem(R.id.context_menu_rename);
-            item.setVisible(visible);
+            menu.findItem(R.id.context_menu_rename).setVisible(visible);
+            menu.findItem(R.id.context_menu_info).setVisible(visible);
         }
     } // End: Action Mode callback
 

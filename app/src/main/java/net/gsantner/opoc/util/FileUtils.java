@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -341,26 +343,92 @@ public class FileUtils {
     }
 
     /**
-     * Function to get number of lines and characters.
+     * Try to detect MimeType by backwards compatible methods
      */
-    public static void getNumberOfLinesAndCharactersForFile(AtomicInteger numCharacters, AtomicInteger numLines, File file) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+    public static String getMimeType(File file) {
+        String guess = null;
+        if (file != null && file.exists() && file.isFile()) {
+            InputStream is = null;
             try {
-                String line = br.readLine();
-
-                while (line != null) {
-                    line = br.readLine();
-                    if (line != null) {
-                        numLines.getAndIncrement();
-                        numCharacters.getAndSet(numCharacters.get() + line.length());
+                is = new BufferedInputStream(new FileInputStream(file));
+                guess = URLConnection.guessContentTypeFromStream(is);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException ignored) {
                     }
                 }
-            } finally {
-                br.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            if (guess == null || guess.isEmpty()) {
+                guess = "*/*";
+                int dot = file.getName().lastIndexOf(".") + 1;
+                if (dot > 0 && dot < file.getName().length()) {
+                    switch (file.getName().substring(dot)) {
+                        case "md":
+                        case "markdown":
+                        case "mkd":
+                        case "mdown":
+                        case "mkdn":
+                        case "mdwn":
+                        case "rmd":
+                            guess = "text/markdown";
+                            break;
+                        case "txt":
+                            guess = "text/plain";
+                            break;
+                    }
+                }
+            }
         }
+        return guess;
+    }
+
+    public static boolean isTextFile(File file) {
+        return getMimeType(file).startsWith("text/");
+    }
+
+    /**
+     * Analyze given textfile and retrieve multiple information from it
+     * Information is written back to the {@link AtomicInteger} parameters
+     */
+    public static void retrieveTextFileSummary(File file, AtomicInteger numCharacters, AtomicInteger numLines) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                numLines.getAndIncrement();
+                numCharacters.getAndSet(numCharacters.get() + line.length());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            numCharacters.set(-1);
+            numLines.set(-1);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
+
+    /**
+     * Format filesize to human readable format
+     * Get size in bytes e.g. from {@link File} using {@code File#length()}
+     */
+    public static String getReadableFileSize(long size, boolean abbreviation) {
+        if (size <= 0) {
+            return "0B";
+        }
+        String[] units = abbreviation ? new String[]{"B", "kB", "MB", "GB", "TB"} : new String[]{"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
+        int unit = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, unit))
+                + " " + units[unit];
     }
 }

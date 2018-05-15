@@ -1,169 +1,116 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ui__filesystem_item__root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:paddingLeft="20dp"
-    android:paddingTop="20dp"
-    android:clickable="true"
-    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="horizontal">
+    android:padding="@dimen/activity_horizontal_margin">
 
     <LinearLayout
-        android:id="@+id/ui_filename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/ui__filesystem_item__title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@string/name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
-            tools:text="@string/name"
-            android:text="@string/name"/>
+            android:textSize="19sp" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__description"
+            android:id="@+id/ui__fileinfodialog__description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
             android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp"
+            tools:text="cool document.md" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/ui__fileinfodialog__location_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
             tools:text="/sdcard/Documents/somewhere" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ui_fileLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/ui_filename">
 
         <TextView
-            android:id="@+id/ui__filesystem_item__location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@string/sort_by_size"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
-            android:text="@string/location" />
+            android:textSize="19sp" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__location_description"
+            android:id="@+id/ui__fileinfodialog__size_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:ellipsize="middle"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
-            tools:text="/sdcard/Documents/somewhere" />
-    </LinearLayout>
+            tools:text="859KB (81234 Bytes)" />
 
-    <LinearLayout
-        android:id="@+id/ui_fileSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/ui_fileLocation">
 
         <TextView
-            android:id="@+id/ui__filesystem_item__size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@string/text_lines"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
-            android:text="@string/sort_by_size" />
+            android:textSize="19sp" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__size_description"
+            android:id="@+id/ui__fileinfodialog__numberlines_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:ellipsize="middle"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
-            tools:text="/sdcard/Documents/somewhere" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ui_filenumberlines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/ui_fileSize">
+            tools:text="5" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__numberlines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@string/text_characters"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
-            android:text="@string/text_lines" />
+            android:textSize="19sp" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__numberlines_description"
+            android:id="@+id/ui__fileinfodialog__numbercharacters_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:ellipsize="middle"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
-            tools:text="@string/directory" />
+            tools:text="25" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ui_filenumbercharacters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/ui_filenumberlines">
-
-        <TextView
-            android:id="@+id/ui__filesystem_item__numbercharacters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp"
-            android:text="@string/text_characters" />
-
-        <TextView
-            android:id="@+id/ui__filesystem_item__numbercharacters_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp"
-            tools:text="@string/directory" />
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

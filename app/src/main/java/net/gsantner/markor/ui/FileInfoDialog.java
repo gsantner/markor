@@ -1,6 +1,8 @@
 package net.gsantner.markor.ui;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -53,28 +56,26 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setTitle(getResources().getString(R.string.info));
         dialogBuilder.setView(root);
 
-        TextView textView = root.findViewById(R.id.ui__filesystem_item__description);
+        TextView textView = root.findViewById(R.id.ui__fileinfodialog__description);
         textView.setText(file.getName());
 
-        TextView locationView = root.findViewById(R.id.ui__filesystem_item__location_description);
-        locationView.setText(file.getAbsolutePath());
+        TextView locationView = root.findViewById(R.id.ui__fileinfodialog__location_description);
+        locationView.setText(file.getParentFile().getAbsolutePath());
 
-        TextView sizeView = root.findViewById(R.id.ui__filesystem_item__size_description);
-        long totalSizeBytes = file.getTotalSpace();
-        String humanReadableSize = android.text.format.Formatter.formatShortFileSize(root.getContext(), totalSizeBytes);
-        sizeView.setText(humanReadableSize + "(" + Long.toString(file.getTotalSpace()) + ")");
+        TextView sizeView = root.findViewById(R.id.ui__fileinfodialog__size_description);
+        sizeView.setText(FileUtils.getReadableFileSize(file.length(), false));
 
         // Number of lines and character count only apply for files.
-        if (file.isFile()) {
-            TextView textNumLinesView = root.findViewById(R.id.ui__filesystem_item__numberlines_description);
+        if (FileUtils.isTextFile(file)) {
+            TextView textNumLinesView = root.findViewById(R.id.ui__fileinfodialog__numberlines_description);
 
             AtomicInteger linesCount = new AtomicInteger(0);
             AtomicInteger charactersCount = new AtomicInteger(0);
-            FileUtils.getNumberOfLinesAndCharactersForFile(charactersCount, linesCount, file);
+            FileUtils.retrieveTextFileSummary(file, charactersCount, linesCount);
 
             textNumLinesView.setText((linesCount.toString()));
 
-            TextView textNumCharactersView = root.findViewById(R.id.ui__filesystem_item__numbercharacters_description);
+            TextView textNumCharactersView = root.findViewById(R.id.ui__fileinfodialog__numbercharacters_description);
             textNumCharactersView.setText(charactersCount.toString());
         }
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
@@ -85,4 +86,17 @@ public class FileInfoDialog extends DialogFragment {
         return dialogBuilder;
     }
 
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getContext().getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
+    }
 }
