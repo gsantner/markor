@@ -20,15 +20,22 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +46,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 
@@ -48,7 +56,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class FilesystemDialog extends DialogFragment
-        implements FilesystemDialogData.SelectionListener {
+        implements FilesystemDialogData.SelectionListener, Toolbar.OnMenuItemClickListener {
     //########################
     //## Static
     //########################
@@ -100,7 +108,8 @@ public class FilesystemDialog extends DialogFragment
     //## Methods
     //########################
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        inflater = LayoutInflater.from(new ContextThemeWrapper(inflater.getContext(), R.style.AppTheme_Dark));
         View root = inflater.inflate(R.layout.ui__filesystem_dialog, container, false);
         ButterKnife.bind(this, root);
 
@@ -111,8 +120,10 @@ public class FilesystemDialog extends DialogFragment
     }
 
     @Override
-    public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+
+
         Context context = getContext();
         if (_buttonCancel == null) {
             ButterKnife.bind(this, root);
@@ -125,6 +136,18 @@ public class FilesystemDialog extends DialogFragment
             dismiss();
             return;
         }
+
+        ContextUtils cu = new ContextUtils(context);
+
+        Toolbar toolbar = root.findViewById(R.id.opoc_fsview_toolbar);
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, _dopt.primaryColor));
+        toolbar.setTitleTextColor(cu.shouldColorOnTopBeLight(ContextCompat.getColor(context, _dopt.primaryColor)) ? Color.WHITE : Color.BLACK);
+
+        toolbar.setTitle("cool");
+        toolbar.inflateMenu(R.menu.filesystem__menu);
+        toolbar.setOnMenuItemClickListener(this);
+        cu.setSubMenuIconsVisiblity(toolbar.getMenu(), true);
+        cu.tintMenuItems(toolbar.getMenu(), true, cu.shouldColorOnTopBeLight(ContextCompat.getColor(context, _dopt.primaryColor)) ? Color.WHITE : Color.BLACK);
 
         _buttonCancel.setVisibility(_dopt.cancelButtonEnable ? View.VISIBLE : View.GONE);
         _buttonCancel.setTextColor(rcolor(_dopt.accentColor));
@@ -180,6 +203,11 @@ public class FilesystemDialog extends DialogFragment
         if (_filesystemDialogAdapter != null) {
             _filesystemDialogAdapter.getFilter().filter(s.toString());
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
     }
 
     @OnClick({R.id.ui__filesystem_dialog__home, R.id.ui__filesystem_dialog__search_button, R.id.ui__filesystem_dialog__button_cancel, R.id.ui__filesystem_dialog__button_ok})
