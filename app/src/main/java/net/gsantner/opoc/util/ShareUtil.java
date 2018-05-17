@@ -397,7 +397,7 @@ public class ShareUtil {
         String tmps;
         String fileStr;
 
-        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action))) {
+        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
             // Markor, S.M.T FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
                 return new File(receivingIntent.getStringExtra(tmps));
@@ -449,6 +449,10 @@ public class ShareUtil {
                         }
                     }
                 }
+            }
+            fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+            if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/") && (tmpf = new File(tmps)).exists()) {
+                return tmpf;
             }
         }
         return null;

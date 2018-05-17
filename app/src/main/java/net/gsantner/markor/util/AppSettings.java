@@ -237,7 +237,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void addRecentDocument(File file) {
         ArrayList<String> recent = getRecentDocuments();
-        recent.add(file.getAbsolutePath());
+        recent.add(0, file.getAbsolutePath());
         recent.remove(getTodoFile().getAbsolutePath());
         recent.remove(getQuickNoteFile().getAbsolutePath());
         recent.remove(getLinkBoxFile().getAbsolutePath());

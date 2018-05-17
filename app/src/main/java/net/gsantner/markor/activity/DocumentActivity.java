@@ -8,7 +8,6 @@ package net.gsantner.markor.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -109,27 +108,23 @@ public class DocumentActivity extends AppCompatActivity {
 
 
         boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-
-        if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
-            if (type.equals("text/plain")) {
+        if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) || Intent.ACTION_SEND.equals(intentAction)) {
+            if (Intent.ACTION_SEND.equals(intentAction) && receivingIntent.hasExtra(Intent.EXTRA_TEXT)) {
                 showShareInto(receivingIntent.getStringExtra(Intent.EXTRA_TEXT));
             } else {
-                Uri fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-                file = new File(fileUri.getPath());
-            }
-        } else if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction))) {
-            file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
-            if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
-                String msg = getString(R.string.filemanager_doesnot_supply_required_data) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
+                file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
+                if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
+                    String msg = getString(R.string.filemanager_doesnot_supply_required_data) + "\n\n"
+                            + getString(R.string.sync_to_local_folder_notice) + "\n\n"
+                            + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
 
-                new AlertDialog.Builder(this)
-                        .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
-                        .setNegativeButton(R.string.more_information, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
-                        .setPositiveButton(android.R.string.ok, null)
-                        .setOnDismissListener((dialogInterface) -> finish())
-                        .create().show();
+                    new AlertDialog.Builder(this)
+                            .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
+                            .setNegativeButton(R.string.more_information, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
+                            .setPositiveButton(android.R.string.ok, null)
+                            .setOnDismissListener((dialogInterface) -> finish())
+                            .create().show();
+                }
             }
         }
 
