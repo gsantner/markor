@@ -224,4 +224,5 @@
     <string name="text_lines">Text Lines</string>
     <string name="text_characters">Text Characters</string>
     <string name="directory">Directory</string>
+    <string name="recently_viewed_documents">Recently viewed documents</string>
 </resources>

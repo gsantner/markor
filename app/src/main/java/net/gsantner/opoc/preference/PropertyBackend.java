@@ -45,5 +45,4 @@ public interface PropertyBackend<TKEY, TTHIS> {
     TTHIS setIntList(TKEY key, List<Integer> value);
 
     TTHIS setStringList(TKEY key, List<String> value);
-
 }

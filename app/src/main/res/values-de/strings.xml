@@ -224,4 +224,5 @@
     <string name="text_lines">Text Zeile</string>
     <string name="text_characters">Text Zeichen</string>
     <string name="directory">Verzeichnis</string>
+    <string name="recently_viewed_documents">Zuletzt betrachtete Dokumente</string>
 </resources>

@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -176,6 +177,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if (showEditor) {
                 showInDocumentActivity(document);
             }
+
+            if (file != null) {
+                ((AppSettings) _appSettings).addRecentDocument(file);
+            }
         }
 
         private void showAppendDialog() {
@@ -288,6 +293,13 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
             }
 
+            if (preference.getKey().startsWith("/")) {
+                if (permc.doIfExtStoragePermissionGranted()) {
+                    appendToExistingDocument(new File(preference.getKey()), true);
+                    close = false;
+                }
+            }
+
             if (close) {
                 if (getActivity() != null) {
                     getActivity().finish();
@@ -310,6 +322,20 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
                 if (pref.getTitle().toString().equals(getString(R.string.share))) {
                     pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plain_text)));
+                }
+            }
+
+            if ((pref = findPreference(R.string.pref_key__recent_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
+                for (String doc_s : new AppSettings(pref.getContext()).getRecentDocuments()) {
+                    File file = new File(doc_s);
+                    if (!file.exists()) {
+                        continue;
+                    }
+                    Preference prefd = new Preference(pref.getContext());
+                    prefd.setTitle(file.getName());
+                    prefd.setSummary(file.getParent());
+                    prefd.setKey(file.getAbsolutePath());
+                    appendPreference(prefd, (PreferenceGroup) pref);
                 }
             }
         }

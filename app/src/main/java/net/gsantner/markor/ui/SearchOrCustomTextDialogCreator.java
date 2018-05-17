@@ -6,8 +6,14 @@
 package net.gsantner.markor.ui;
 
 import android.app.Activity;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -33,6 +39,31 @@ public class SearchOrCustomTextDialogCreator {
 
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.special_key;
+        dopt.isSearchEnabled = false;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+
+        final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+        final RelativeSizeSpan sizeSpan = new RelativeSizeSpan(0.75f);
+        ArrayList<Spannable> spannables = new ArrayList<>();
+
+        String extstorage = Environment.getExternalStorageDirectory().getAbsolutePath();
+        for (String document : new AppSettings(activity.getApplicationContext()).getRecentDocuments()) {
+            final SpannableStringBuilder sb = new SpannableStringBuilder(document);
+            sb.setSpan(boldSpan, document.lastIndexOf("/"), document.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            if (document.startsWith(extstorage)) {
+                sb.setSpan(sizeSpan, 0, extstorage.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            }
+            spannables.add(sb);
+        }
+        dopt.data = spannables;
+
+        dopt.titleText = R.string.recently_viewed_documents;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

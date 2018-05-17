@@ -136,6 +136,22 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
         return (pref != null && pref.length > 0 ? pref[0] : _prefApp);
     }
 
+
+    public static void limitListTo(final List<?> list, int maxSize, boolean removeDuplicates) {
+        Object o;
+        int pos;
+
+        for (int i = 0; removeDuplicates && i < list.size(); i++) {
+            o = list.get(i);
+            while ((pos = list.lastIndexOf(o)) != i && pos >= 0) {
+                list.remove(pos);
+            }
+        }
+        while ((pos = list.size()) > maxSize && pos > 0) {
+            list.remove(list.size() - 1);
+        }
+    }
+
     //
     // Getter for resources
     //

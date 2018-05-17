@@ -35,5 +35,8 @@
         android:key="@string/pref_key__share_into__create_document"
         android:title="@string/create_new_document" />
 
+    <PreferenceCategory
+        android:key="@string/pref_key__recent_documents"
+        android:title="@string/recently_viewed_documents" />
 
 </PreferenceScreen> <!-- Screen -->

@@ -35,6 +35,7 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -42,6 +43,7 @@ import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -157,6 +159,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
             case R.id.action_settings: {
                 new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
+                return true;
+            }
+            case R.id.action_history: {
+                SearchOrCustomTextDialogCreator.showRecentDocumentsDialog(this, new Callback.a1<String>() {
+                    @Override
+                    public void callback(String selectedFile) {
+                        Intent intent = new Intent(MainActivity.this, DocumentActivity.class);
+                        intent.putExtra(DocumentIO.EXTRA_PATH, new File(selectedFile));
+                        intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                        startActivity(intent);
+                    }
+                });
                 return true;
             }
         }

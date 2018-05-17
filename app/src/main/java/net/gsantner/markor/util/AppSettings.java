@@ -15,6 +15,8 @@ import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @SuppressWarnings("SameParameterValue")
@@ -230,6 +232,26 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isDisableSpellingRedUnderline() {
-        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
+        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, false);
+    }
+
+    public void addRecentDocument(File file) {
+        ArrayList<String> recent = getRecentDocuments();
+        recent.add(file.getAbsolutePath());
+        recent.remove(getTodoFile().getAbsolutePath());
+        recent.remove(getQuickNoteFile().getAbsolutePath());
+        recent.remove(getLinkBoxFile().getAbsolutePath());
+        recent.remove("");
+        recent.remove(null);
+        setRecentDocuments(recent);
+    }
+
+    public void setRecentDocuments(List<String> v) {
+        limitListTo(v, 10, true);
+        setStringList(R.string.pref_key__recent_documents, v, _prefApp);
+    }
+
+    public ArrayList<String> getRecentDocuments() {
+        return getStringList(R.string.pref_key__recent_documents);
     }
 }
