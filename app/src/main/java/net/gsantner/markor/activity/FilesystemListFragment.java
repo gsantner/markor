@@ -124,8 +124,13 @@ public class FilesystemListFragment extends GsFragmentBase {
             _rootDir = possiblyNewRootDir;
             _currentDir = possiblyNewRootDir;
         }
+        final int scroll_pos = _filesListView.getFirstVisiblePosition();
+        final int scroll_pad = _filesListView.getTop() - _filesListView.getPaddingTop();
         retrieveCurrentFolder();
         listFilesInDirectory(getCurrentDir());
+        if (scroll_pos < _filesListView.getAdapter().getCount()) {
+            _filesListView.postDelayed(() -> _filesListView.setSelectionFromTop(scroll_pos, scroll_pad), 200);
+        }
 
         Context c = getContext();
         if (c != null) {
