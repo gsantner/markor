@@ -183,6 +183,22 @@ public class ShareUtil {
     }
 
     /**
+     * Open a View intent for given file
+     *
+     * @param file The file to share
+     */
+    public void viewFileInOtherApp(File file, @Nullable String type) {
+        Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        intent.setData(fileUri);
+        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(fileUri, type);
+        showChooser(intent, null);
+    }
+
+    /**
      * Share the given bitmap with given format
      *
      * @param bitmap Image
