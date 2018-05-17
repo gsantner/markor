@@ -278,7 +278,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveDocument();
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        if ((_hlEditor.length() * _document.getHistory().size()) < 9000) {
+            outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        }
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }

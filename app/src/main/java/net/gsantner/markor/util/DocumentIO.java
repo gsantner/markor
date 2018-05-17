@@ -89,7 +89,7 @@ public class DocumentIO {
 
             // Extract content and title
             document.setTitle(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
-            document.setContent(FileUtils.readTextFile(filePath));
+            document.setContent(FileUtils.readTextFileFast(filePath));
         }
 
         document.setFile(filePath);

@@ -40,6 +40,15 @@ public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
+    public static String readTextFileFast(final File file) {
+        try {
+            return new String(readCloseBinaryStream(new FileInputStream(file)));
+        } catch (FileNotFoundException e) {
+            System.err.println("readTextFileFast: File " + file + " not found.");
+        }
+        return "";
+    }
+
     public static String readTextFile(final File file) {
         try {
             return readCloseTextStream(new FileInputStream(file));

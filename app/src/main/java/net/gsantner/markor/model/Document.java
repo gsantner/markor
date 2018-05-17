@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private final static int MIN_HISTORY_DELAY = 2000; // [ms]
-    private final static int MAX_HISTORY_SIZE = 6;
+    private final static int MAX_HISTORY_SIZE = 5;
 
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private ArrayList<Document> _history = new ArrayList<>();

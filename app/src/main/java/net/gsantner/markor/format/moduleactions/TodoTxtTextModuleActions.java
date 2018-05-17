@@ -201,7 +201,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                                 File doneFile = new File(todoFile.getParentFile(), callbackPayload);
                                 String doneFileContents = "";
                                 if (doneFile.exists() && doneFile.canRead()) {
-                                    doneFileContents = FileUtils.readTextFile(doneFile).trim();
+                                    doneFileContents = FileUtils.readTextFileFast(doneFile).trim();
                                 }
                                 doneFileContents += TextUtils.join("\n", move);
                                 if (FileUtils.writeFile(doneFile, doneFileContents)) {
