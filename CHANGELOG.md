@@ -9,8 +9,8 @@
   - Openable at main views toolbar when one item is selected
 
 **Improved:***  
-- Overall Better pefrormance 
-  - Faster loading of documents
+- Overall better performance 
+  - Faster document loading
   - Decreased memory usage
 - Reduce edit history size (undo/redo) to 5 for lower memory usage
 - Preview/Rendering (All):
