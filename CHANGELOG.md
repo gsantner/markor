@@ -1,3 +1,29 @@
+### v0.3.8
+**New features:**  
+- Recently viewed documents
+  - Start editing of recent documents, button in the toolbar of main view
+  - Allow sharing into recend documents
+  - Queue containing the 10 last viewed files
+- Keep scroll position when reloading document list (Notebook)
+- Document/File Info: Dialog showing information about selected file
+  - Openable at main views toolbar when one item is selected
+
+**Improved:***  
+- Overall Better pefrormance 
+  - Faster loading of documents
+  - Decreased memory usage
+- Reduce edit history size (undo/redo) to 5 for lower memory usage
+- Preview/Rendering (All):
+  - Rework of theme, font-size and font injection
+- Preview/Rendering (Markdown):
+  - Blockquote theme based styling
+  - Blockquote RTL compatibility
+
+**Fixed:**  
+- Crash when Markor put to background and huge file is loaded
+  - Document contents are not stored into resume cache anymore if they are too big
+  - Make no major differences for huge files, just undo/redo history is cleared when switchting away
+
 ### v0.3.7
 - Option to disable spellchecking-underline
 - More file managers and sync clients supported (notably: seafile)
