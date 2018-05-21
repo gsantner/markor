@@ -5,7 +5,7 @@
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
     <string name="app_translate_url" translatable="false"><![CDATA[https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&mail=gro.xobliam@@rentnasg&project=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor]]></string>
-    <string name="app_web_url" translatable="false">https://gsantner.net/?project=markor</string>
+    <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/supportme/?project=markor&source=inapp_supdon]]></string>
     <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>

@@ -7,8 +7,8 @@
 
 # Markor
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
-<b>Markdown & Todo.txt Editor for Android</b>. Simple and lightweight.
-<br/> Write down your notes and ideas!<br/><br/>
+<b>Notes, ToDo & Bookmarks - Text Editor for Android</b>. Simple and lightweight.
+<br/>Write down notes and ideas!<br/><br/>
 
 <div style="display:flex;" >
 <a href="https://f-droid.org/repository/browse/?fdid=net.gsantner.markor">
@@ -21,19 +21,30 @@
 
 
 ## Description
-<b>Markdown & Todo.txt Editor for Android</b>. Simple and lightweight.
-<br/>📝 Write down notes and ideas
-<br/>🖍 Edit text documents with simple markup formats
-<br/>🖍 Supports markdown and todo.txt
-<br/>🖍 Highlighting and modular text actions
-<br/>📚 Notebook in Documents or custom folder
-<br/>📖 Notebook with subfolder support
-<br/>📄 Edit documents from other apps
-<br/>👀 Preview rendered markup
-<br/>↪️ Share into QuickNote - Read-it-Later alternative
-<br/>↪️ Share into To-Do - Wunderlist alternative
+<b>Notes, ToDo & Bookmarks - Text Editor for Android</b>. Simple and lightweight.
+<br/>📝 Write down documents in plaintext and simple markup formats
+<br/>🖍 Highlighting and format related text actions
+<br/>📄 Open and edit documents of other apps and shared texts
+<br/>👀 Convert, preview and share documents as HTML and PDF
+<br/>📚 Notebook: All documents are stored on a common filesystem folder
+<br/>📓 QuickNote: Quickly share into a fast accessible Markdown document
+<br/>☑️ To-Do: Quickly share into your fast accessible ToDo list
+<br/>🔖 LinkBox: Share pages to read later into your bookmark list
+<br/>🖍 Markup formats: Markdown and todo.txt
+<br/>📋 Copy to clipboard: Copy any text, text shared into Markor can be directly copied too
+<br/>💡 LinkBox, QuickNote and ToDo are textfiles with chooseable location on filesystem
+<br/>📚 Notebook is the root folder for your documents and can be choosen too
+<br/>
 <br/>🔲 Dark and Light theme
-<br/>📜 Allows to set language other than system setting
+<br/>💾 Auto-Save including undo/redo
+<br/>👌 Zero ads or unnecessary permissions
+<br/>🌎 Allows to set language other than system configured language
+<br/>🔃 Sync: Markor works with sync apps, but they have to do syncing respectively
+<br/>
+<br/>
+<br/>Supported sync clients: Dropbox, FolderSync, OwnCloud, NextCloud, Seafile
+<br/>
+<br/>Apps you can replace by Markor: Read-It-Later, Pocket, Wunderlist, Google Keep, OneNote, EverNote, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks
 
 ### Privacy<a name="privacy"></a>
 The app doesn't use your internet connection unless external resources (e.g. pictures) are referenced in the user created markdown (text) document files. Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared. The created markdown documents can be shared to other apps (text only) from inside the app by pressing the share button. Document will be stored locally in the device public documents folder or a custom folder.

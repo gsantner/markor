@@ -13,6 +13,14 @@
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.type.pc"
+        android:required="false" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -79,6 +87,9 @@
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.google.android.gm.action.AUTO_SEND" />
+                <category android:name="com.google.android.voicesearch.SELF_NOTE" />
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
