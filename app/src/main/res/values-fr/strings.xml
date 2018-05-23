@@ -16,6 +16,7 @@
     <string name="create_folder">Nouveau dossier</string>
     <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
+    <string name="info">Info</string>
 
     <string name="import_from_device">Importer depuis cet appareil</string>
     <string name="import_">Importer</string>
@@ -219,4 +220,9 @@
     <string name="contributors_public_info">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
     <string name="disable_spelling_underline">Désactiver le soulignement des fautes</string>
     <string name="not_affects_suggestions">Les suggestions du clavier restent, les soulignements rouges disparaissent</string>
+    <string name="location">Stocké dans</string>
+    <string name="text_lines">Nombre de lignes</string>
+    <string name="text_characters">Nombre de caractères</string>
+    <string name="directory">Dossier</string>
+    <string name="recently_viewed_documents">Documents récemment ouverts</string>
 </resources>
