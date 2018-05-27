@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Ustawienia</string>
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
@@ -16,6 +16,7 @@
     <string name="create_folder">Utwórz folder</string>
     <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="move">Przenieś</string>
+    <string name="info">Info</string>
 
     <string name="import_from_device">Importuj z urządzenia</string>
     <string name="import_">Importuj</string>
@@ -53,7 +54,7 @@
     <string name="create">Stwórz</string>
     <string name="select_elements">Wybierz wpisy</string>
     <string name="one_item_selected">Zaznaczono jedną rzecz</string>
-    <string name="more_items_selected">Zaznaczono %d rzeczy</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">Zaznaczono %d rzeczy</string>
 
     <string name="pref_summary__is_statusbar_hidden">Ukryj pasek stanu w tym widoku</string>
     <string name="pref_title__is_statusbar_hidden">Ukryj pasek stanu</string>
@@ -75,7 +76,7 @@
     <string name="pref_desc__language">Zmień język aplikacji. Zrestartuj aplikację, żeby zobaczyć efekt</string>
     <string name="pref_title__language">Język</string>
     <string name="error_storage_permission">Potrzebuję zezwolenia do pamięci, żeby zapisywać dokumenty</string>
-    <string name="open_with">Otwórz za pomocą&#8230;</string>
+    <string name="open_with">Otwórz za pomocą</string>
     <string name="sort">Sortuj</string>
     <string name="sort_by_date">Sortuj według daty</string>
     <string name="sort_by_name">Sortuj według nazwy</string>
@@ -140,6 +141,8 @@
     <string name="theme_description">Ogólny motyw używany w aplikacji</string>
     <string name="load_last_directory_at_startup">Zapamiętaj ostatnią lokalizację katalogu</string>
     <string name="syntax_highlighting">Podświetlanie składni</string>
+    <string name="text_modules">Moduły tekstu</string>
+    <string name="text_module">Moduł tekstu</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
     <string name="highlighting_delay_summary">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
     <string name="highlighting_enabled_summary">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
@@ -157,6 +160,8 @@
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="right_to_left_rendering__abbreviated">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
+    <string name="use_monospace_for_code">Użyj czionki monospace dla kodu</string>
     <string name="use_different_fonttype_slow_down">Użyj innego rodzaju czcionki. Dynamiczne zmienianie rodzaju czcionki ma wpływ na wydajność aplikacji.</string>
     <string name="general">Ogólne</string>
     <string name="resources">Zasoby</string>
@@ -172,4 +177,42 @@
     <string name="key_pos_end_document">Początek Dokumentu</string>
     <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="start_on_bottom">Zacznij od dołu</string>
+    <string name="start_on_bottom_summary">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
+    <string name="vertical_alignment">Wyrównanie w pionie</string>
+    <string name="horizontal_alignment">Wyrównanie w poziomie</string>
+    <string name="align_default">Domyślnie</string>
+    <string name="align_left">Lewo</string>
+    <string name="align_right">Prawo</string>
+    <string name="align_top">Góra</string>
+    <string name="align_bottom">Dół</string>
+    <string name="align_center">Wyśrodkuj</string>
+    <string name="horizontal_spacing_of_actions">Poziomy odstęp akcji</string>
+
+    <string name="center_text">Wyśrodkuj tekst</string>
+    <string name="center_text_desc">Edytuj tekst na środku ekranu</string>
+    <string name="clipboard">Schowek</string>
+    <string name="existing_document">Wybierz istniejący dokument</string>
+    <string name="open_source_licenses">Otwarto Źródłowo Bibloteki</string>
+    <string name="rate_the_app">Oceń tą aplikację</string>
+    <string name="translate">Tłumacz</string>
+    <string name="help_this_app">Więcej informacji i pomoc</string>
+    <string name="bug_reports">Zgłoś błędy</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Więcej informacji na temat dotacjach lub pomaganiu tego projektu</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu Otwarto Zródłowych projektów, szczególnie aplikacji Androida</string>
+    <string name="join_community">Dołącz do Społeczności</string>
+    <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
+    <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
+    <string name="source_code">Kod Źródłowy</string>
+    <string name="project_license">Licencja Projektu</string>
+    <string name="project_contribution_info">Informacje o współtworzeniu projektu</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Więcej informacji o tym, jak współtworzyć ten projekt</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
+    <string name="project_team">Zespół Projektu</string>
+    <string name="disable_spelling_underline">Wyłącz podkreślanie pisowni</string>
+    <string name="location">Lokalizacja</string>
+    <string name="text_lines">Linie tekstu</string>
+    <string name="text_characters">Znaki tekstu</string>
+    <string name="directory">Katalog</string>
+    <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
 </resources>
