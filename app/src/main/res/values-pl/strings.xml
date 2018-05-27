@@ -142,7 +142,7 @@
     <string name="load_last_directory_at_startup">Zapamiętaj ostatnią lokalizację katalogu</string>
     <string name="syntax_highlighting">Podświetlanie składni</string>
     <string name="text_modules">Moduły tekstu</string>
-    <string name="text_module">Modół tekstu</string>
+    <string name="text_module">Moduł tekstu</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
     <string name="highlighting_delay_summary">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
     <string name="highlighting_enabled_summary">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
