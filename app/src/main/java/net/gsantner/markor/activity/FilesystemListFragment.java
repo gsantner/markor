@@ -92,7 +92,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                     : (getString(fileObj.isDirectory() ? R.string.folders : R.string.files))
             );
         } catch (Exception ex) {
-            return getString(R.string.files);
+            return "Files";
         }
     };
 
@@ -127,7 +127,7 @@ public class FilesystemListFragment extends GsFragmentBase {
         final int scroll_pos = _filesListView.getFirstVisiblePosition();
         final int scroll_pad = _filesListView.getTop() - _filesListView.getPaddingTop();
         retrieveCurrentFolder();
-        listFilesInDirectory(getCurrentDir());
+        listFilesInDirectory(getCurrentDir(), true);
         if (scroll_pos < _filesListView.getAdapter().getCount()) {
             _filesListView.postDelayed(() -> _filesListView.setSelectionFromTop(scroll_pos, scroll_pad), 200);
         }
@@ -159,7 +159,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 case AppCast.CREATE_FOLDER.ACTION: {
                     File file = new File(intent.getStringExtra(AppCast.CREATE_FOLDER.EXTRA_PATH));
                     if (!file.exists() && file.mkdirs()) {
-                        listFilesInDirectory(getCurrentDir());
+                        listFilesInDirectory(getCurrentDir(), true);
                     }
                     return;
                 }
@@ -167,7 +167,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 case AppCast.VIEW_FOLDER_CHANGED.ACTION: {
                     File currentDir = new File(intent.getStringExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_PATH));
                     if (intent.getBooleanExtra(AppCast.VIEW_FOLDER_CHANGED.EXTRA_FORCE_RELOAD, false)) {
-                        listFilesInDirectory(currentDir);
+                        listFilesInDirectory(currentDir, false);
                     }
                     return;
                 }
@@ -192,7 +192,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                     public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
                         if (confirmed) {
                             MarkorSingleton.getInstance().deleteSelectedItems(itemsToDelete);
-                            listFilesInDirectory(getCurrentDir());
+                            listFilesInDirectory(getCurrentDir(), true);
                             finishActionMode();
                         }
                     }
@@ -207,7 +207,7 @@ public class FilesystemListFragment extends GsFragmentBase {
             public void onFsSelected(String request, File file) {
                 super.onFsSelected(request, file);
                 MarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
-                listFilesInDirectory(getCurrentDir());
+                listFilesInDirectory(getCurrentDir(), true);
                 finishActionMode();
             }
 
@@ -308,25 +308,24 @@ public class FilesystemListFragment extends GsFragmentBase {
                 return true;
             }
             case R.id.action_refresh: {
-                listFilesInDirectory(getCurrentDir());
+                listFilesInDirectory(getCurrentDir(), true);
                 return true;
             }
         }
         return false;
     }
 
-    public void listFilesInDirectory(File directory) {
+    public void listFilesInDirectory(File directory, boolean sendBroadcast) {
         _selectedItems.clear();
         reloadFiles(directory);
-        broadcastDirectoryChange(directory);
         showEmptyDirHintIfEmpty();
         sortAdapter();
+        clearSearchFilter();
+        if (sendBroadcast) {
+            AppCast.VIEW_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), true);
+        }
     }
 
-    private void broadcastDirectoryChange(File directory) {
-        AppCast.VIEW_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), false);
-        clearSearchFilter();
-    }
 
     private void reloadFiles(File directory) {
 
@@ -356,7 +355,7 @@ public class FilesystemListFragment extends GsFragmentBase {
             _currentDir = _currentDir.getParentFile();
         }
 
-        listFilesInDirectory(getCurrentDir());
+        listFilesInDirectory(getCurrentDir(), true);
     }
 
     private void showEmptyDirHintIfEmpty() {
@@ -412,7 +411,7 @@ public class FilesystemListFragment extends GsFragmentBase {
             @Override
             public void onFsSelected(String request, File file) {
                 importFile(file);
-                listFilesInDirectory(getCurrentDir());
+                listFilesInDirectory(getCurrentDir(), true);
             }
 
             @Override
@@ -420,7 +419,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                 for (File file : files) {
                     importFile(file);
                 }
-                listFilesInDirectory(getCurrentDir());
+                listFilesInDirectory(getCurrentDir(),true);
             }
 
             @Override
@@ -631,7 +630,7 @@ public class FilesystemListFragment extends GsFragmentBase {
         // Refresh list if directory, else import
         if (clickedFile.isDirectory()) {
             _currentDir = clickedFile;
-            listFilesInDirectory(clickedFile);
+            listFilesInDirectory(clickedFile, true);
         } else {
             saveCurrentFolder();
             Intent intent = new Intent(context, DocumentActivity.class);
