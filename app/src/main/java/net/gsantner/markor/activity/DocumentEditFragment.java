@@ -283,6 +283,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         if (getArguments() != null && _document.getFile() != null) {
             getArguments().putSerializable(DocumentIO.EXTRA_PATH, _document.getFile());
+            getArguments().putSerializable(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
         }
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
