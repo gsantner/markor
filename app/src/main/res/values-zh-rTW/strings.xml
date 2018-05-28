@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Markor by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to MemeTastic.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
 <resources>
     <string name="highlighting_enabled_summary">不管輸入的文字是否已標記都要調整</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
