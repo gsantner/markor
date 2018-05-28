@@ -44,7 +44,7 @@
 <br/>
 <br/>Supported sync clients: Dropbox, FolderSync, OwnCloud, NextCloud, Seafile
 <br/>
-<br/>Apps you can replace by Markor: Read-It-Later, Pocket, Wunderlist, Google Keep, OneNote, EverNote, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks
+<br/>Apps you can replace by Markor: Read-It-Later, Pocket, Wunderlist, Google Keep, OneNote, EverNote, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
 
 ### Privacy<a name="privacy"></a>
 The app doesn't use your internet connection unless external resources (e.g. pictures) are referenced in the user created markdown (text) document files. Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared. The created markdown documents can be shared to other apps (text only) from inside the app by pressing the share button. Document will be stored locally in the device public documents folder or a custom folder.

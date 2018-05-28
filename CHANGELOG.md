@@ -1,3 +1,13 @@
+### v0.3.9
+**Improved:**  
+- Translation updated
+- Updated project description
+- Slightly modified adaptive icon
+
+**Fixed:**  
+- Editor-Rotation: Creates new file again when editing before
+- Create folder: Screen rotation
+
 ### v0.3.8
 **New features:**  
 - Recently viewed documents
@@ -8,7 +18,7 @@
 - Document/File Info: Dialog showing information about selected file
   - Openable at main views toolbar when one item is selected
 
-**Improved:***  
+**Improved:**  
 - Overall better performance 
   - Faster document loading
   - Decreased memory usage
