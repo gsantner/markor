@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Ayarlar</string>
     <string name="light">Açık</string>
     <string name="dark">Koyu</string>
@@ -16,6 +16,7 @@
     <string name="create_folder">Klasör Oluştur</string>
     <string name="create_new_document">Yeni belge oluştur</string>
     <string name="move">Taşı</string>
+    <string name="info">Bilgi</string>
 
     <string name="import_from_device">Cihazdan içe aktar</string>
     <string name="import_">İçe Aktar</string>
@@ -24,7 +25,7 @@
     <string name="edit">Düzenle</string>
 
     <string name="search_documents">Belgelerde ara</string>
-    <string name="share_to">Şununla paylaş&#8230;</string>
+    <string name="share_to">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
     <string name="preview">Önizleme</string>
@@ -53,7 +54,7 @@
     <string name="create">Oluştur</string>
     <string name="select_elements">Öğeleri seç</string>
     <string name="one_item_selected">Bir öğe seçildi</string>
-    <string name="more_items_selected">%d öğe seçildi</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
     <string name="pref_summary__is_statusbar_hidden">Bu görünümde durum çubuğunu gizle</string>
     <string name="pref_title__is_statusbar_hidden">Durum çubuğunu gizle</string>
@@ -140,7 +141,7 @@
     <string name="theme_description">Uygulamada kullanılan genel tema</string>
     <string name="load_last_directory_at_startup">Son dizini hatırla</string>
     <string name="syntax_highlighting">Sözdizimini vurgula</string>
-    <string name="text_modules">Metin modülü</string>
+    <string name="text_modules">Metin modülleri</string>
     <string name="text_module">Metin modülü</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
     <string name="highlighting_delay_summary">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
@@ -163,7 +164,7 @@
     <string name="right_to_left_rendering__abbreviated">Sağdan sola metin yönü</string>
     <string name="highlight_line_ending">Satır sonunu vurgula</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>
-    <string name="use_monospace_for_code">Kod için Monospace kullan</string>
+    <string name="use_monospace_for_code">Kod için monospace kullan</string>
     <string name="use_different_fonttype_slow_down">Farklı bir yazı tipi türünü kullan. Yazı tipi türünü dinamik olarak değiştirmek, uygulamanın performansını etkiler.</string>
     <string name="general">Genel</string>
     <string name="resources">Kaynaklar</string>
@@ -217,4 +218,11 @@
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
     <string name="contributors_public_info">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
+    <string name="disable_spelling_underline">Yazım denetimini kapat</string>
+    <string name="not_affects_suggestions">Klavye önerileri kalır, kırmızı altçizgi gider</string>
+    <string name="location">Konum</string>
+    <string name="text_lines">Yazı Satırları</string>
+    <string name="text_characters">Yazı Karakterleri</string>
+    <string name="directory">Dizin</string>
+    <string name="recently_viewed_documents">Son görülen dökümanlar</string>
 </resources>
