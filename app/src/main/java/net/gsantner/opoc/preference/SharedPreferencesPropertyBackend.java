@@ -209,7 +209,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
         String value = pref
                 .getString(key, ARRAY_SEPARATOR)
                 .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
-        if (value.equals(ARRAY_SEPARATOR)) {
+        if (value.equals(ARRAY_SEPARATOR) || TextUtils.isEmpty(value)) {
             return ret;
         }
         ret.addAll(Arrays.asList(value.split(ARRAY_SEPARATOR)));
