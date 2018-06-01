@@ -310,7 +310,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
      * @see android.support.v7.preference.PreferenceGroup#findPreference(CharSequence)
      */
     public Preference findPreference(@StringRes int key) {
-        return findPreference(getString(key));
+        return isAdded() ? findPreference(getString(key)) : null;
     }
 
     @Nullable
