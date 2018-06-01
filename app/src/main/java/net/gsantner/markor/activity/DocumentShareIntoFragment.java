@@ -24,9 +24,9 @@ import android.util.TypedValue;
 import android.view.View;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;

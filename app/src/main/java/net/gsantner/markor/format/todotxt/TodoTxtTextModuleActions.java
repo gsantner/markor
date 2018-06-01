@@ -17,10 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;

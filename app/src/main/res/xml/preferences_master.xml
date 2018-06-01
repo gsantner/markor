@@ -167,6 +167,12 @@
     <PreferenceScreen
         android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/preview">
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="@string/inject_to_head_default"
+            android:icon="@drawable/ic_add_white_24dp"
+            android:key="@string/pref_key__inject_to_head"
+            android:summary="@string/js_css"
+            android:title="@string/inject_to_head" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"

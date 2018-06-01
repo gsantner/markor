@@ -14,8 +14,8 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 
 public class PlainTextModuleActions extends TextModuleActions {

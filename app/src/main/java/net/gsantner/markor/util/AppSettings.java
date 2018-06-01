@@ -16,13 +16,14 @@ import android.os.Environment;
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import other.writeily.activity.FilesystemListFragment;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import other.writeily.activity.FilesystemListFragment;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -258,5 +259,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public ArrayList<String> getRecentDocuments() {
         return getStringList(R.string.pref_key__recent_documents);
+    }
+
+    public String getInjectedHeader() {
+        return getString(R.string.pref_key__inject_to_head, rstr(R.string.inject_to_head_default));
     }
 }

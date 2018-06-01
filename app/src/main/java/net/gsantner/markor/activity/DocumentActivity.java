@@ -41,7 +41,6 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
-import other.so.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
@@ -55,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import other.so.AndroidBug5497Workaround;
 
 @SuppressWarnings("unused")
 public class DocumentActivity extends AppCompatActivity {

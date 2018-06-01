@@ -55,6 +55,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
         \n[Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
     ]]></string>
 
+    <string name="inject_to_head" translatable="false">Inject -> head</string>
+    <string name="js_css" translatable="false"><![CDATA[html: <head>CSS, JavaScript</head>]]></string>
+    <string name="inject_to_head_default" translatable="false"><![CDATA[
+    <style>
+    \nhtml,body {
+    \n  /*font-family: sans-serif-condensed;*/
+    \n  /*font-size: 80%;*/
+    \n}
+    \n</style>
+    \n
+    \n
+    \n<script type=\"text/javascript\">
+    \nfunction onPageLoaded(){
+    \n
+    \n/*if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
+    \n  window.scrollTo(0,document.body.scrollHeight);
+    \n}*/
+    \n
+    \n}
+    \n</script>
+    ]]></string>
+
+
     <plurals name="item_selected" translatable="false">
         <item quantity="one" translatable="false">@string/one_item_selected</item>
         <item quantity="other" translatable="false">@string/more_items_selected</item>
@@ -138,4 +161,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_disable_spelling_red_underline" translatable="false">pref_key__editor_disable_spelling_red_underline</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
+    <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
 </resources>

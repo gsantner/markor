@@ -15,9 +15,9 @@ import android.support.annotation.StringRes;
 import android.view.KeyEvent;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.ContextUtils;
 

@@ -15,10 +15,10 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
 
-import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;
+import net.gsantner.markor.ui.hleditor.Highlighter;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
 public class TodoTxtHighlighter extends Highlighter {

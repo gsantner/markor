@@ -22,9 +22,9 @@ import android.widget.EditText;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;

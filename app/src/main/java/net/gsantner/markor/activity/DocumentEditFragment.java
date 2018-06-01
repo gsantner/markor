@@ -31,12 +31,11 @@ import android.view.ViewGroup;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
-import other.writeily.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;
 
@@ -44,6 +43,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
+import other.writeily.widget.MarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {

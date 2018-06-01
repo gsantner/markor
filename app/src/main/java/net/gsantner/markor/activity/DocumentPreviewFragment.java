@@ -81,7 +81,7 @@ public class DocumentPreviewFragment extends GsFragmentBase implements TextForma
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-        webSettings.setTextZoom((int)(appSettings.getFontSize() / 17f * 100f));
+        webSettings.setTextZoom((int) (appSettings.getFontSize() / 17f * 100f));
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setGeolocationEnabled(false);

@@ -15,9 +15,9 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
 
+import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
-import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.util.AppSettings;
 
 import other.writeily.format.markdown.MarkdownHeaderSpanCreator;

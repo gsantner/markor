@@ -26,7 +26,6 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.IOException;
