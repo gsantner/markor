@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+    /*#######################################################
+    *
+    *   Maintained by Gregor Santner, 2017-
+    *   https://gsantner.net/
+    *
+    *   License: Apache 2.0 / Commercial
+    *  https://github.com/gsantner/opoc/#licensing
+    *  https://www.apache.org/licenses/LICENSE-2.0
+    *
+    #########################################################*/
+-->
 <paths>
     <external-path
         name="external_files"

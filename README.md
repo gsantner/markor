@@ -44,7 +44,7 @@
 <br/>
 <br/>Supported sync clients: BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing
 <br/>
-<br/>Maybe on of those apps are in your interest, if you like Markor - check them out: Read-It-Later, Pocket, Wunderlist, Google Keep, OneNote, EverNote, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
+<br/>Maybe one of these apps are in your interest if you like Markor - give them a try: Read-It-Later, Pocket, Wunderlist, Google Keep, OneNote, EverNote, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
 
 ### Privacy<a name="privacy"></a>
 The app doesn't use your internet connection unless external resources (e.g. pictures) are referenced in the user created markdown (text) document files. Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared. The created markdown documents can be shared to other apps (text only) from inside the app by pressing the share button. Document will be stored locally in the device public documents folder or a custom folder.
@@ -62,7 +62,7 @@ Translations can be contributed on GitHub or via [E-Mail](https://gsantner.net/#
 * App on Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Crash60](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
 
 ## Licensing
-The code of the app is licensed MIT (See [LICENSE](/LICENSE.txt) for details).  
+The code of the app is licensed Apache 2.0 (See [LICENSE](/LICENSE.txt) for details).  
 Localization files and resources (string\*.xml) are licensed CC0 1.0.  
 Project is based on unmaintained projects writeily and writeily-pro.
 

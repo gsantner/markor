@@ -1,9 +1,9 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2016-
+ *   Maintained by Gregor Santner, 2018-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -121,6 +121,12 @@ public class SimpleMarkdownParser {
                     .replace("Modified:", "<font color='#555555'>Modified:</font>")
                     .replace("Mod:", "<font color='#555555'>Mod:</font>")
             ;
+            return text;
+        }
+    };
+    public final static SmpFilter FILTER_NONE = new SmpFilter() {
+        @Override
+        public String filter(String text) {
             return text;
         }
     };

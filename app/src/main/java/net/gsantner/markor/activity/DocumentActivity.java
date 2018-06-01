@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.activity;
 
 import android.content.Intent;
@@ -33,10 +38,10 @@ import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AndroidBug5497Workaround;
+import other.so.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;

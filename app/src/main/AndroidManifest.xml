@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Do not run ATextFormatrmat on this file.
-     If you do, regenerate file extension-lines with script, else this will get really huge
- -->
+<?xml version="1.0" encoding="utf-8"?><!--
+    /*#######################################################
+    *
+    *   Maintained by Gregor Santner, 2017-
+    *   https://gsantner.net/
+    *
+    *   License: Apache 2.0 / Commercial
+    *  https://github.com/gsantner/opoc/#licensing
+    *  https://www.apache.org/licenses/LICENSE-2.0
+    *
+    #########################################################*/
+-->
+
+<!-- Do NOT run auto format on this file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="net.gsantner.markor"
@@ -43,13 +53,13 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
-        <activity android:name=".widget.WidgetConfigure">
+        <activity android:name="other.writeily.widget.WidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".widget.MarkorWidgetProvider">
+        <receiver android:name="other.writeily.widget.MarkorWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -60,7 +70,7 @@
         </receiver>
 
         <service
-            android:name=".widget.FilesWidgetService"
+            android:name="other.writeily.widget.FilesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <provider

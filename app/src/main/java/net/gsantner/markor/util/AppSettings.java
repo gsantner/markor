@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.util;
 
 import android.content.Context;
@@ -11,7 +16,7 @@ import android.os.Environment;
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.FilesystemListFragment;
+import other.writeily.activity.FilesystemListFragment;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;

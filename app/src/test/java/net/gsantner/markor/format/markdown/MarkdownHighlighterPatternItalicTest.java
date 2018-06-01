@@ -1,11 +1,14 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.format.markdown;
-
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighterPattern;
 
 import org.junit.Before;
 import org.junit.Test;

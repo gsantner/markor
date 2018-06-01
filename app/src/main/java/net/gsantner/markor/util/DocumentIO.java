@@ -1,9 +1,9 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2016-
+ *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,7 +20,7 @@ import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.FileUtils;

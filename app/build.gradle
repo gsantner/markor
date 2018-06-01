@@ -1,3 +1,13 @@
+/*#######################################################
+*
+*   Maintained by Gregor Santner, 2017-
+*   https://gsantner.net/
+*
+*   License: Apache 2.0 / Commercial
+*  https://github.com/gsantner/opoc/#licensing
+*  https://www.apache.org/licenses/LICENSE-2.0
+*
+#########################################################*/
 apply plugin: 'com.android.application'
 if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-android'
@@ -48,6 +58,8 @@ android {
         if (enable_plugin_kotlin) {
             main.java.srcDirs += 'src/main/kotlin'
         }
+        main.java.srcDirs +=  'thirdparty/java'
+        main.res.srcDirs +=  'thirdparty/res'
     }
 
     compileOptions {

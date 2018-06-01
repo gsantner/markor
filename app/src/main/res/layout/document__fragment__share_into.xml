@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+    /*#######################################################
+    *
+    *   Maintained by Gregor Santner, 2017-
+    *   https://gsantner.net/
+    *
+    *   License: Apache 2.0 / Commercial
+    *  https://github.com/gsantner/opoc/#licensing
+    *  https://www.apache.org/licenses/LICENSE-2.0
+    *
+    #########################################################*/
+-->
 <net.gsantner.opoc.ui.LinearSplitLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +28,7 @@
         android:layout_weight="35"
         android:fillViewport="true">
 
-        <net.gsantner.markor.format.highlighter.HighlightingEditor
+        <net.gsantner.markor.ui.hleditor.HighlightingEditor
             android:id="@+id/document__fragment__share_into__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
