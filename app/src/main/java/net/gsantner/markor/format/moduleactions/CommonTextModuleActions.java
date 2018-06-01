@@ -75,7 +75,6 @@ public class CommonTextModuleActions {
                 if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
                     new ContextUtils(_activity).openWebpageInExternalBrowser(url);
                 }
-
                 return true;
             }
             case ACTION_DELETE_LINES: {

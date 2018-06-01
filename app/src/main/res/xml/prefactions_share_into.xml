@@ -27,6 +27,10 @@
         android:key="@string/pref_key__share_into__clipboard"
         android:title="@string/clipboard" />
     <Preference
+        android:icon="@drawable/ic_open_in_browser_black_24dp"
+        android:key="@string/pref_key__share_into__open_in_browser"
+        android:title="@string/web_browser" />
+    <Preference
         android:icon="@drawable/ic_keyboard_return_black_24dp"
         android:key="@string/pref_key__share_into__existing_document"
         android:title="@string/existing_document" />

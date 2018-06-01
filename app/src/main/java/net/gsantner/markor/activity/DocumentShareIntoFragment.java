@@ -20,6 +20,7 @@ import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.highlighter.HighlightingEditor;
+import net.gsantner.markor.format.moduleactions.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
@@ -28,6 +29,7 @@ import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
@@ -286,6 +288,13 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     }
                     break;
                 }
+                case R.string.pref_key__share_into__open_in_browser: {
+                    String url;
+                    if ((url = PlainTextStuff.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
+                        new ContextUtils(getActivity()).openWebpageInExternalBrowser(url);
+                    }
+                    break;
+                }
                 case R.string.pref_key__share_into__reshare: {
                     shu.shareText(_sharedText, null);
                     close = true;
@@ -312,12 +321,17 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         public void doUpdatePreferences() {
             super.doUpdatePreferences();
+            boolean maybeHasWebUrl = _sharedText.contains("http://") || _sharedText.contains("https://");
             Preference pref;
             if ((pref = findPreference(R.string.pref_key__share_into__todo)) != null) {
                 pref.setVisible(!_sharedText.contains("\n"));
             }
             if ((pref = findPreference(R.string.pref_key__share_into__linkbox)) != null) {
-                pref.setVisible(_sharedText.contains("http://") || _sharedText.contains("https://"));
+                pref.setVisible(maybeHasWebUrl);
+            }
+
+            if ((pref = findPreference(R.string.pref_key__share_into__open_in_browser)) != null) {
+                pref.setVisible(maybeHasWebUrl);
             }
             if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
                 if (pref.getTitle().toString().equals(getString(R.string.share))) {
