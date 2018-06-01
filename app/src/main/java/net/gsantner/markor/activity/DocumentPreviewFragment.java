@@ -5,6 +5,7 @@
  */
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.webkit.WebView;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.MarkorWebViewClient;
@@ -63,16 +65,22 @@ public class DocumentPreviewFragment extends GsFragmentBase implements TextForma
         return R.layout.document__fragment__preview;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WebView.enableSlowWholeDocumentDraw();
         }
+        AppSettings appSettings = new AppSettings(view.getContext());
         _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-
+        webSettings.setTextZoom((int)(appSettings.getFontSize() / 17f * 100f));
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setGeolocationEnabled(false);
+        webSettings.setJavaScriptEnabled(true);
 
         _document = loadDocument();
         applyTextFormat(_document.getFormat()); //showDocument();
