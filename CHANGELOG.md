@@ -1,3 +1,20 @@
+### v0.3.10
+**New features:**  
+- ShareInto
+  - Show "open in browser" option if text contains link
+  - Prepend seperator to all existing documents
+- Settings / Preview
+  - User customizeable CSS/JS injection option (for preview)
+  - Configureable in settings
+  - Contains some (uncommented) modification lines for important elements
+  - like font size, font type, script to load when page loaded etc.
+
+**Improved:**  
+- Inherit font size from global font preference
+
+**Fixed:**  
+- Recents working without having opened anything yet
+
 ### v0.3.9
 **Improved:**  
 - Translation updated
@@ -190,3 +207,13 @@
 - Fork of writeily-pro
 - Different branding
 - New initial features
+
+### v
+**New features:**  
+-
+
+**Improved:**  
+-
+
+**Fixed:**  
+-
