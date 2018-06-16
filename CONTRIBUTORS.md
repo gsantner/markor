@@ -28,3 +28,4 @@ Where:
 * **[Dugite Code](https://github.com/dugite-code)**<br/>~° Artwork
 * **[billchenchina](https://github.com/billchenchina)**<br/>~° Simplified Chinese translation
 * **[Kanthi Subramanian](https://github.com/subkanthi)**<br/>~° File Info Dialog
+* **[Emanuele Petriglia](https://github.com/ema-pe)**<br>~° Italian translation
