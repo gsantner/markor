@@ -272,18 +272,19 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__linkbox: {
                     if (permc.doIfExtStoragePermissionGranted()) {
+                        String sep = "";
                         _sharedText = _sharedText
                                 .replace("http://", "\nhttp://").replace("https://", "\nhttps://")
                                 .replaceAll("(\\s*)?-(\\s*)?\\n", "\n")
                                 .trim();
-                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), SEP_RULER, false);
+                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), sep, false);
                         close = true;
                     }
                     break;
                 }
                 case R.string.pref_key__share_into__todo: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        String sep = "\n";
+                        String sep = "";
                         if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
                             tmps = SttCommander.getToday() + " ";
                             if (!_sharedText.startsWith(tmps)) {
