@@ -187,15 +187,29 @@ public class ShareUtil {
      *
      * @param file The file to share
      */
-    public void viewFileInOtherApp(File file, @Nullable String type) {
-        Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
-        intent.setData(fileUri);
-        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setDataAndType(fileUri, type);
-        showChooser(intent, null);
+    public boolean viewFileInOtherApp(File file, @Nullable String type) {
+        // On some specific devices the first won't work
+        Uri fileUri = null;
+        try {
+            fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+        } catch (Exception ignored) {
+            try {
+                fileUri = Uri.fromFile(file);
+            } catch (Exception ignored2) {
+            }
+        }
+
+        if (fileUri != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            intent.setData(fileUri);
+            intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(fileUri, type);
+            showChooser(intent, null);
+            return true;
+        }
+        return false;
     }
 
     /**
