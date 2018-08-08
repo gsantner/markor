@@ -80,7 +80,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
-            Intent openNoteIntent = new Intent(context, DocumentActivity.class).setAction(Intent.ACTION_EDIT);
+            Intent openNoteIntent = new Intent(context, DocumentActivity.class);
             PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, 0,
                     openNoteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);

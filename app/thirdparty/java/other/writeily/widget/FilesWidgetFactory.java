@@ -65,7 +65,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
         rowView.setTextViewText(R.id.widget_note_title, "???");
         if (position < _widgetFilesList.length) {
             File file = _widgetFilesList[position];
-            Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file);
+            Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file).putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, file.isDirectory());
             rowView.setTextViewText(R.id.widget_note_title, MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         }
