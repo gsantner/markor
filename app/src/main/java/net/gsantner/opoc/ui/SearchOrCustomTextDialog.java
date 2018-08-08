@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0 / Commercial
+ *   License: Apache 2.0
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +140,11 @@ public class SearchOrCustomTextDialog {
         listView.setAdapter(listAdapter);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         if (dopt.isSearchEnabled) {
-            linearLayout.addView(searchEditText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ContextUtils cu = new net.gsantner.opoc.util.ContextUtils(listView.getContext());
+            int px = (int) (new net.gsantner.opoc.util.ContextUtils(listView.getContext()).convertDpToPx(8));
+            lp.setMargins(px, px / 2, px, px / 2);
+            linearLayout.addView(searchEditText, lp);
         }
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;

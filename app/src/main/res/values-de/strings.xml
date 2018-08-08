@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_characters">Text Zeichen</string>
     <string name="directory">Verzeichnis</string>
     <string name="recently_viewed_documents">Zuletzt betrachtete Dokumente</string>
+    <string name="details">Details</string>
 </resources>

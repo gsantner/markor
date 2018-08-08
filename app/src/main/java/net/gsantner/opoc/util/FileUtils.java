@@ -397,7 +397,8 @@ public class FileUtils {
     }
 
     public static boolean isTextFile(File file) {
-        return getMimeType(file).startsWith("text/");
+        String mime = getMimeType(file);
+        return mime != null && mime.startsWith("text/");
     }
 
     /**

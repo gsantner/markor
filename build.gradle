@@ -31,8 +31,8 @@ buildscript {
     ext.enable_plugin_kotlin = false
 
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$version_gradle_tools"
@@ -48,8 +48,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
     }

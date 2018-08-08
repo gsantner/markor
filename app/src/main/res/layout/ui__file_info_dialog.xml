@@ -64,65 +64,71 @@
             android:textSize="15sp"
             tools:text="/sdcard/Documents/somewhere" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/sort_by_size"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+        <LinearLayout
+            android:id="@+id/ui__fileinfodialog__textinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/ui__fileinfodialog__size_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp"
-            tools:text="859KB (81234 Bytes)" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/sort_by_size"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/ui__fileinfodialog__size_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:text="859KB (81234 Bytes)" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/text_lines"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/text_lines"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="19sp" />
 
-        <TextView
-            android:id="@+id/ui__fileinfodialog__numberlines_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp"
-            tools:text="5" />
+            <TextView
+                android:id="@+id/ui__fileinfodialog__numberlines_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:text="5" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/text_characters"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/text_characters"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="19sp" />
 
-        <TextView
-            android:id="@+id/ui__fileinfodialog__numbercharacters_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textSize="15sp"
-            tools:text="25" />
+            <TextView
+                android:id="@+id/ui__fileinfodialog__numbercharacters_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:text="25" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

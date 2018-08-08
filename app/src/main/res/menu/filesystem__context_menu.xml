@@ -35,6 +35,6 @@
     <item
         android:id="@+id/context_menu_info"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="@string/info"
+        android:title="@string/details"
         app:showAsAction="always" />
 </menu>

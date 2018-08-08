@@ -59,11 +59,11 @@ public class FileInfoDialog extends DialogFragment {
         View root;
         AlertDialog.Builder dialogBuilder;
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
         root = inflater.inflate(R.layout.ui__file_info_dialog, null);
 
-        dialogBuilder.setTitle(getResources().getString(R.string.info));
+        dialogBuilder.setTitle(getResources().getString(R.string.details));
         dialogBuilder.setView(root);
 
         TextView textView = root.findViewById(R.id.ui__fileinfodialog__description);
@@ -87,6 +87,8 @@ public class FileInfoDialog extends DialogFragment {
 
             TextView textNumCharactersView = root.findViewById(R.id.ui__fileinfodialog__numbercharacters_description);
             textNumCharactersView.setText(charactersCount.toString());
+        } else {
+            root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
         }
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
             dialogInterface.dismiss();
@@ -94,19 +96,5 @@ public class FileInfoDialog extends DialogFragment {
         });
 
         return dialogBuilder;
-    }
-
-    public String getMimeType(Uri uri) {
-        String mimeType = null;
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            ContentResolver cr = getContext().getContentResolver();
-            mimeType = cr.getType(uri);
-        } else {
-            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
-                    .toString());
-            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                    fileExtension.toLowerCase());
-        }
-        return mimeType;
     }
 }
