@@ -59,21 +59,41 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
             SharedPreferences sharedPreferences = context.getSharedPreferences(
                     "" + appWidgetId, Context.MODE_PRIVATE);
             String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getNotebookDirectoryAsStr());
+
+            File directoryF = new File(directory);
+            views.setTextViewText(R.id.widget_header_title, directoryF.getName());
+
+            // Create new File
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
-                    .putExtra(DocumentIO.EXTRA_PATH, new File(directory))
+                    .setAction(Intent.ACTION_RUN)
+                    .putExtra(DocumentIO.EXTRA_PATH, directoryF)
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
+            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, 0, newDocumentIntent, 0));
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newDocumentIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget_new_note, pendingIntent);
-
+            // Open Markor
             Intent goToMain = new Intent(context, MainActivity.class);
-            PendingIntent goToMainPendingIntent = PendingIntent.getActivity(context, 0, goToMain, 0);
-            views.setOnClickPendingIntent(R.id.widget_header, goToMainPendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, 0, goToMain, 0));
+
+
+            // Open To-do
+            AppSettings appSettings = new AppSettings(context);
+            Intent openTodo = new Intent(context, DocumentActivity.class)
+                    .setAction(Intent.ACTION_ASSIST)
+                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
+                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, 0, openTodo, 0));
+
+            // Open QuickNote
+            Intent openQuickNote = new Intent(context, DocumentActivity.class)
+                    .setAction(Intent.ACTION_ANSWER)
+                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
+                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, 0, openQuickNote, 0));
 
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            notesListIntent.putExtra(DocumentIO.EXTRA_PATH, new File(directory));
+            notesListIntent.putExtra(DocumentIO.EXTRA_PATH, directoryF);
             notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 

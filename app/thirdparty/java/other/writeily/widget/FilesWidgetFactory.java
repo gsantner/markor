@@ -19,6 +19,10 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import other.writeily.activity.FilesystemListFragment;
 
 public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -47,6 +51,9 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
         _widgetFilesList = _dir == null ? new File[0] : _dir.listFiles(file ->
                 !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
         );
+        ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList));
+        FilesystemListFragment.sortFolder(files);
+        _widgetFilesList = files.toArray(new File[files.size()]);
     }
 
     @Override

@@ -461,13 +461,13 @@ public class FilesystemListFragment extends GsFragmentBase {
         reloadAdapter();
     }
 
-    public void sortAdapter() {
+    public static void sortFolder(ArrayList<File> filesCurrentlyShown){
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
-        int count = _filesCurrentlyShown.size();
+        int count = filesCurrentlyShown.size();
         int lastFolderIndex = 0;
         for (int i = 0; i < count; i++) {
-            if (_filesCurrentlyShown.get(i).isDirectory()) {
+            if (filesCurrentlyShown.get(i).isDirectory()) {
                 lastFolderIndex++;
             }
         }
@@ -497,9 +497,13 @@ public class FilesystemListFragment extends GsFragmentBase {
             }
         };
 
-        Collections.sort(_filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
-        Collections.sort(_filesCurrentlyShown.subList(lastFolderIndex, count), comparator);
+        Collections.sort(filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
+        Collections.sort(filesCurrentlyShown.subList(lastFolderIndex, count), comparator);
 
+    }
+
+    public  void sortAdapter() {
+        sortFolder(_filesCurrentlyShown);
         reloadAdapter();
     }
 

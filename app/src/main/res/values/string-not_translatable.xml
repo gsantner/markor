@@ -20,6 +20,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
 
 
+    <string name="checkmark_symbol" translatable="false">\u2301</string>
+    <string name="lightning_symbol" translatable="false">\u2714</string>
     <string name="plus" translatable="false">+</string>
     <string name="share_html__mime_html" translatable="false">HTML</string>
     <string name="pdf" translatable="false">PDF</string>
