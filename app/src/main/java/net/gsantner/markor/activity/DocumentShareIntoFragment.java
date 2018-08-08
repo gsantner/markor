@@ -265,7 +265,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(AppSettings.get().getQuickNoteFile(), SEP_RULER, false);
+                        appendToExistingDocument(AppSettings.get().getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
                         close = true;
                     }
                     break;
@@ -276,7 +276,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                                 .replace("http://", "\nhttp://").replace("https://", "\nhttps://")
                                 .replaceAll("(\\s*)?-(\\s*)?\\n", "\n")
                                 .trim();
-                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), SEP_RULER, false);
+                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), "\n", false);
                         close = true;
                     }
                     break;
