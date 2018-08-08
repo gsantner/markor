@@ -25,6 +25,7 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
+import android.provider.CalendarContract;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -180,6 +181,32 @@ public class ShareUtil {
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
         showChooser(intent, null);
+    }
+
+    /**
+     * Start calendar application to add new event, with given details prefilled
+     */
+    public void createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
+        Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
+        if (title != null) {
+            intent.putExtra(CalendarContract.Events.TITLE, title);
+        }
+        if (description != null) {
+            description = description.length() > 800 ? description.substring(0, 800) : description;
+            intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
+        }
+        if (location != null) {
+            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
+        }
+        if (startAndEndTime != null) {
+            if (startAndEndTime.length > 0 && startAndEndTime[0] > 0) {
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startAndEndTime[0]);
+            }
+            if (startAndEndTime.length > 1 && startAndEndTime[1] > 0) {
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, startAndEndTime[1]);
+            }
+        }
+        _context.startActivity(intent);
     }
 
     /**

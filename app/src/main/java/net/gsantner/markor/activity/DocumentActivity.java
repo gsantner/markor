@@ -209,6 +209,12 @@ public class DocumentActivity extends AppCompatActivity {
                 }
                 return true;
             }
+            case R.id.action_share_calendar_event: {
+                if (saveDocument()) {
+                   shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null);
+                }
+                return true;
+            }
             case R.id.action_share_image: {
                 if (saveDocument() && getPreviewWebview() != null) {
                     shu.shareImage(ShareUtil.getBitmapFromWebView(getPreviewWebview()), Bitmap.CompressFormat.JPEG);
@@ -220,6 +226,7 @@ public class DocumentActivity extends AppCompatActivity {
                     shu.printOrCreatePdfFromWebview(getPreviewWebview(), _document);
                 }
                 return true;
+
             }
 
             case R.id.action_format_todotxt:

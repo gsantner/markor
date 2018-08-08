@@ -9,8 +9,7 @@
     *  https://www.apache.org/licenses/LICENSE-2.0
     *
     #########################################################*/
--->
-<!--suppress AndroidElementNotAllowed -->
+--><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,6 +39,10 @@
         android:icon="@drawable/ic_open_in_browser_black_24dp"
         android:key="@string/pref_key__share_into__open_in_browser"
         android:title="@string/web_browser" />
+    <Preference
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:key="@string/pref_key__share_into__calendar_event"
+        android:title="@string/calendar" />
     <Preference
         android:icon="@drawable/ic_keyboard_return_black_24dp"
         android:key="@string/pref_key__share_into__existing_document"

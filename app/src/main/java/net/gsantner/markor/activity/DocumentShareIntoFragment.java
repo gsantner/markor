@@ -307,6 +307,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     close = true;
                     break;
                 }
+                case R.string.pref_key__share_into__calendar_event: {
+                    shu.createCalendarAppointment(null, _sharedText, null);
+                    close = true;
+                    break;
+                }
             }
 
             if (preference.getKey().startsWith("/")) {
