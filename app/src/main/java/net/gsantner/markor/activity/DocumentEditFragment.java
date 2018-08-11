@@ -27,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
@@ -77,6 +78,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
     ViewGroup _textModuleActionsBar;
+
+    @BindView(R.id.document__fragment__edit__content_editor__permission_warning)
+    TextView _textSdWarning;
 
     private Document _document;
     private TextFormat _textFormat;
@@ -158,6 +162,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         applyTextFormat(_document.getFormat());
         _textFormat.getTextModuleActions().setDocument(_document);
+
+        if (_document != null && _document.getFile() != null) {
+            boolean permok = _document.getFile().canWrite();
+            if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
+                permok = true;
+            }
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+        }
     }
 
     @Override

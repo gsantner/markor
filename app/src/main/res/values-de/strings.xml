@@ -236,4 +236,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Zuletzt betrachtete Dokumente</string>
     <string name="details">Details</string>
     <string name="calendar">Kalender</string>
+    <string name="warning_disallowed_sd_access">Achtung! Die App ist nicht berechtigt die Datei zu schreiben, jegliche Änderung wird verworfen. Es gibt keine Möglichkeit das Problem zu beheben oder etwas zu bestätigen, Android verbietet jeglichen Zugriff hier.</string>
 </resources>

@@ -20,6 +20,17 @@
     tools:context="net.gsantner.markor.activity.DocumentEditFragment"
     tools:showIn="@layout/document__activity">
 
+    <TextView
+        android:id="@+id/document__fragment__edit__content_editor__permission_warning"
+        android:background="#F8D507"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:visibility="gone"
+        android:text="@string/warning_disallowed_sd_access"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
