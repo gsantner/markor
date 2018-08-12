@@ -213,7 +213,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Oversett</string>
     <string name="help_this_app">Mer informasjon om dette programmet</string>
     <string name="bug_reports">Rapporter feil</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Mer info om donering eller annen støtte av prosjektet</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer info om donering eller annen støtte av prosjektet</string>
     <string name="android_contribution_guide">Android-bidragsyterguide</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mer info om bidragsytelser til friprog-prosjekter, spesielt Android-programmer</string>
     <string name="join_community">Ta del i gemenskapen</string>

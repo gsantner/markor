@@ -123,7 +123,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="markdown_syntax_highlighting">Markdown 語法標記</string>
     <string name="save">儲存</string>
     <string name="number_of_files">檔案數：%d</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" modified="true">更多贊助或其它支援這個專案的訊息</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text" modified="true">更多贊助或其它支援這個專案的訊息</string>
     <string name="file">檔案</string>
     <string name="render_for_right_to_left_languages" modified="true">顯現由右至左的語言</string>
     <string name="right_to_left_rendering__abbreviated">RTL 顯現</string>

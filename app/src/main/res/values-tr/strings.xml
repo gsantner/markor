@@ -214,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Çeviri yap</string>
     <string name="help_this_app">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="bug_reports">Hataları bildir</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Bu projeye bağış yapma veya destekleme hakkında daha fazla bilgi alın</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Bu projeye bağış yapma veya destekleme hakkında daha fazla bilgi alın</string>
     <string name="android_contribution_guide">Android katkıda bulunma rehberi</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Özellikle Android Uygulamaları olmak üzere Açık Kaynaklı projelere katkıda bulunma hakkında daha fazla bilgi alın</string>
     <string name="join_community">Topluluğa katıl</string>

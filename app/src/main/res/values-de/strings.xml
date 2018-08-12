@@ -214,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Übersetzen</string>
     <string name="help_this_app">Mehr Infos und Hilfe zu dieser App</string>
     <string name="bug_reports">Fehler melden</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Weitere Informationen zum Spenden oder zur anderweitigen Unterstützung dieses Projekts</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Weitere Informationen zum Spenden oder zur anderweitigen Unterstützung dieses Projekts</string>
     <string name="android_contribution_guide">Unterstützungs Guide für Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Weitere Informationen zum Beitrag zu Open Source-Projekten, insbesondere zu Android Apps</string>
     <string name="join_community">Community beitreten</string>

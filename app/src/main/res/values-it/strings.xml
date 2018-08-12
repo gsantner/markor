@@ -208,7 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduci</string>
     <string name="help_this_app">Più informazioni e aiuto</string>
     <string name="bug_reports">Segnala bug</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project">Più informazioni su come donare o su come supportare questo progetto</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su come donare o su come supportare questo progetto</string>
     <string name="android_contribution_guide">Guida alla contribuzione Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Più informazioni su come contribuire a progetti Open Source, soprattutto applicazioni Android</string>
     <string name="join_community">Unisciti alla comunità</string>
