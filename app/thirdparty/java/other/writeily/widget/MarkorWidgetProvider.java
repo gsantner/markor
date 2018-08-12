@@ -78,7 +78,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
             // Open To-do
             AppSettings appSettings = new AppSettings(context);
             Intent openTodo = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_ASSIST)
+                    .setAction(Intent.ACTION_CALL_BUTTON)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, 0, openTodo, 0));
@@ -89,6 +89,14 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, 0, openQuickNote, 0));
+
+            // Open LinkBox
+            Intent openLinkBox = new Intent(context, DocumentActivity.class)
+                    .setAction(Intent.ACTION_NEW_OUTGOING_CALL)
+                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getLinkBoxFile())
+                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+            views.setOnClickPendingIntent(R.id.widget_linkbox, PendingIntent.getActivity(context, 0, openLinkBox, 0));
+
 
             // ListView
             Intent notesListIntent = new Intent(context, FilesWidgetService.class);

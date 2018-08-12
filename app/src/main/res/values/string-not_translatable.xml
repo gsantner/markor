@@ -21,6 +21,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>
+    <string name="bookmark_symbol" translatable="false">\u2605</string>
     <string name="lightning_symbol" translatable="false">\u2714</string>
     <string name="plus" translatable="false">+</string>
     <string name="share_html__mime_html" translatable="false">HTML</string>

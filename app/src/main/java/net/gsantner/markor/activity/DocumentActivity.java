@@ -211,7 +211,7 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument()) {
-                   shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null);
+                    shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null);
                 }
                 return true;
             }
