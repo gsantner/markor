@@ -1,3 +1,28 @@
+### v1.0.0
+**New features:**  
+- ShareInto
+  - Added export: calendar appointment
+
+**Improved:**
+- Widget
+  - Added shortcuts to ToDo, QuickNote and LinkBox
+- SD Card handling and permission errors
+  - Show warning when opening a file on not writeable path
+  - Add shortcuts to writeable SD card folders
+  - Mark unwriteable files red in selection dialog
+- ShareInto
+  - Better seperator placment
+
+**Fixed:**
+- Widget
+  - Open selected file
+- Editor
+  - Markdown header highlighting padding
+- Share to app
+  - Fix view intent not starting on some devices
+- Filesystem view
+  - Allow to view Details for folder too
+
 ### v0.3.10
 **New features:**  
 - ShareInto
