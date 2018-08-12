@@ -46,17 +46,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
             // Smart Actions
             for (int[] actions : KEYBOARD_SMART_ACTIONS_ICON) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]), null);
             }
 
             // Extra actions
             for (int[] actions : KEYBOARD_EXTRA_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]), null);
             }
 
             // Regular actions
             for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]), null);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);

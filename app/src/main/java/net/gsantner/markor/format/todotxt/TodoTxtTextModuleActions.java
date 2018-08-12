@@ -46,7 +46,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
 
             // Regular actions
             for (int[] actions : STT_INSERT_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(STT_INSERT_ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(STT_INSERT_ACTIONS[actions[1]]), null);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);

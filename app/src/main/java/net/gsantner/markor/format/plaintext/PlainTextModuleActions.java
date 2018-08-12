@@ -32,7 +32,7 @@ public class PlainTextModuleActions extends TextModuleActions {
 
             // Regular actions
             for (int[] actions : ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(ACTIONS[actions[1]]));
+                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(ACTIONS[actions[1]]), null);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);

@@ -14,10 +14,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.TableRow;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
@@ -43,10 +46,38 @@ public abstract class TextModuleActions {
 
     public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
 
-    protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, View.OnClickListener l) {
+    public View.OnLongClickListener getLongListenerShowingToastWithText(final String text) {
+        return v -> {
+            try {
+                if (!TextUtils.isEmpty(text)) {
+                    Toast.makeText(_activity, text, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception ignored) {
+            }
+            return true;
+        };
+    }
+
+    protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
         btn.setImageResource(iconRes);
-        btn.setOnClickListener(l);
+        btn.setOnClickListener(v -> {
+            try {
+                listener.onClick(v);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        if (longClickListener != null) {
+            btn.setOnLongClickListener(v -> {
+                try {
+                    listener.onClick(v);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                return true;
+            });
+        }
         btn.setPadding(_textModuleSidePadding, btn.getPaddingTop(), _textModuleSidePadding, btn.getPaddingBottom());
 
         boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
