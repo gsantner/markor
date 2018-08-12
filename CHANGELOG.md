@@ -3,7 +3,7 @@
 - ShareInto
   - Added export: calendar appointment
 
-**Improved:**
+**Improved:**  
 - Widget
   - Added shortcuts to ToDo, QuickNote and LinkBox
 - SD Card handling and permission errors
@@ -13,7 +13,7 @@
 - ShareInto
   - Better seperator placment
 
-**Fixed:**
+**Fixed:**  
 - Widget
   - Open selected file
 - Editor
