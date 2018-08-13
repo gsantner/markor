@@ -30,10 +30,10 @@ public class MarkdownHighlighter extends Highlighter {
     private final boolean _highlightCodeChangeFont;
 
     private static final int MD_COLOR_HEADER = 0xffef6D00;
-    private static  final int MD_COLOR_LINK = 0xff1ea3fe;
-    private static  final int MD_COLOR_LIST = 0xffdaa521;
-    private static  final int MD_COLOR_QUOTE = 0xff88b04c;
-    private static  final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
+    private static final int MD_COLOR_LINK = 0xff1ea3fe;
+    private static final int MD_COLOR_LIST = 0xffdaa521;
+    private static final int MD_COLOR_QUOTE = 0xff88b04c;
+    private static final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
 
     public MarkdownHighlighter() {
         AppSettings as = AppSettings.get();
@@ -79,7 +79,7 @@ public class MarkdownHighlighter extends Highlighter {
                 //_profiler.restart("Code - Font [MonoSpace]");
                 createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.CODE.pattern);
             }
-            //_profiler.restart("Code - bgolor");
+            //_profiler.restart("Code - bgcolor");
             createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
             if (_highlightHexcolorEnabled) {
                 //_profiler.restart("RGB Color underline");
