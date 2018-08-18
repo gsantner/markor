@@ -19,13 +19,17 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
+import java.io.File;
+import java.util.List;
+
 public class FilesystemDialogCreator {
     private static FilesystemDialogData.Options prepareFsDialogOpts
             (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
+        AppSettings appSettings = new AppSettings(context);
         boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(opts.primaryColor));
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
+        boolean darkTheme = appSettings.isDarkThemeEnabled();
 
         if (listener != null) {
             opts.listener = listener;
@@ -48,9 +52,19 @@ public class FilesystemDialogCreator {
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 
+        opts.recentFiles = strlistToArray(appSettings.getRecentDocuments());
+
         opts.titleText = R.string.select;
 
         return opts;
+    }
+
+    public static File[] strlistToArray(List<String> strlist){
+        File[] files = new File[strlist.size()];
+        for (int i=0; i < files.length; i++){
+            files[i] = new File(strlist.get(i));
+        }
+        return files;
     }
 
     private static void showDialog(FragmentManager fm, FilesystemDialogData.Options opts) {

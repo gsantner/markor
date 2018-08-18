@@ -15,8 +15,12 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.opoc.ui.FilesystemDialog;
+import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,9 +52,13 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void updateFiles() {
-        _widgetFilesList = _dir == null ? new File[0] : _dir.listFiles(file ->
+        _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file ->
                 !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
         );
+        if (_dir!= null && _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS)){
+            _widgetFilesList = FilesystemDialogCreator.strlistToArray(AppSettings.get().getRecentDocuments());
+        }
+
         ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList));
         FilesystemListFragment.sortFolder(files);
         _widgetFilesList = files.toArray(new File[files.size()]);

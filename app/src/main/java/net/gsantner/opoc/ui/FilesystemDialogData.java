@@ -18,6 +18,7 @@ import android.support.annotation.StringRes;
 import net.gsantner.markor.R;
 
 import java.io.File;
+import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {
@@ -86,6 +87,8 @@ public class FilesystemDialogData {
         public int secondaryTextColor = R.color.secondary_text;
         @ColorRes
         public int titleTextColor = primaryTextColor;
+
+        public File[] recentFiles, popularFiles = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener {

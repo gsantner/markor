@@ -19,7 +19,7 @@
 </a>
 </div></br>
 
-Markor is a TextEditor for Android. Ver&#8203;sat&#8203;ility, inter&#8203;optab&#8203;ility, and light&#8203;weight&#8203;ness are the main properties of the project. Markor utilizes simple markup formats like Markdown and todo.txt for keeping notes and managing todo lists. Due its big versatility at working with text it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Markor and its created files are interoptable with any other plaintext software on any platform. Markor is not only using open formats, it's also free software, is openly developed and accepts community contribtuions.
+Markor is a TextEditor for Android. Ver&#8203;sat&#8203;ility, inter&#8203;optab&#8203;ility, and light&#8203;weight&#8203;ness are the main properties of the project. Markor utilizes simple markup formats like Markdown and todo.txt for keeping notes and managing todo lists. Due its big versatility at working with text it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Markor and its created files are interoptable with any other plaintext software on any platform. Markor is not only using open formats, it's also free software, is openly developed and accepts community contributions.
 
 
 ## Features

@@ -46,6 +46,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //########################
     //## Static
     //########################
+    public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
+    public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
 
     //########################
     //## Members
@@ -171,6 +173,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                             loadFolder(file);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsSelected(_dopt.requestId, file);
+                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS)) {
+                            loadFolder(file);
                         }
                     }
                 }
@@ -185,7 +189,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
-                } else if (_dopt.doSelectFolder && _currentFolder.exists()) {
+                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR))) {
                     _dopt.listener.onFsSelected(_dopt.requestId, _currentFolder);
                 }
                 return;
@@ -245,13 +249,22 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         _currentFolder = folder;
         _adapterData.clear();
         _virtualMapping.clear();
-        File[] files = _currentFolder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                file = new File(file, s);
-                return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
-            }
-        });
+        File file;
+        File[] files = null;
+
+        if (_currentFolder.isDirectory()) {
+            files = _currentFolder.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File file, String s) {
+                    file = new File(file, s);
+                    return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
+                }
+            });
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)){
+            files = _dopt.recentFiles;
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)){
+            files = _dopt.popularFiles;
+        }
         files = (files == null ? new File[0] : files);
 
         Collections.addAll(_adapterData, files);
@@ -265,8 +278,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
 
         if (folder.getAbsolutePath().equals("/storage")) {
+            // Scan for /storage/emulated/{0,1,2,..}
             for (int i = 0; i < 10; i++) {
-                File file = new File("/storage/emulated/" + i);
+                file = new File("/storage/emulated/" + i);
                 if (file.canWrite()) {
                     File remap = new File(folder, "emulated-" + i);
                     _virtualMapping.put(remap, file);
@@ -275,11 +289,20 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     break;
                 }
             }
+
+            if (_dopt.recentFiles != null) {
+                _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
+                _adapterData.add(VIRTUAL_STORAGE_RECENTS);
+            }
+            if (_dopt.popularFiles != null) {
+                _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
+                _adapterData.add(VIRTUAL_STORAGE_POPULAR);
+            }
         }
 
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
             for (int i = 0; i < _adapterData.size(); i++) {
-                File file = _adapterData.get(i);
+                file = _adapterData.get(i);
                 if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                     int c = 0;
                     for (char ch : file.getAbsolutePath().toCharArray()) {
