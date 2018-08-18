@@ -53,6 +53,7 @@ public class FilesystemDialogCreator {
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 
         opts.recentFiles = strlistToArray(appSettings.getRecentDocuments());
+        opts.popularFiles = strlistToArray(appSettings.getPopularDocuments());
 
         opts.titleText = R.string.select;
 

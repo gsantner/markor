@@ -11,6 +11,7 @@
 package net.gsantner.markor.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 import net.gsantner.markor.App;
@@ -20,13 +21,18 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
 
 import other.writeily.activity.FilesystemListFragment;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
+    private final SharedPreferences _prefCache;
+
     private final String _themeDarkResStr;
     private final String _themeLightResStr;
 
@@ -34,6 +40,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _themeDarkResStr = rstr(R.string.app_theme_dark);
         _themeLightResStr = rstr(R.string.app_theme_light);
+        _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
     }
 
     public static AppSettings get() {
@@ -242,23 +249,55 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void addRecentDocument(File file) {
-        ArrayList<String> recent = getRecentDocuments();
-        recent.add(0, file.getAbsolutePath());
-        recent.remove(getTodoFile().getAbsolutePath());
-        recent.remove(getQuickNoteFile().getAbsolutePath());
-        recent.remove(getLinkBoxFile().getAbsolutePath());
-        recent.remove("");
-        recent.remove(null);
-        setRecentDocuments(recent);
+        if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
+            ArrayList<String> recent = getRecentDocuments();
+            recent.add(0, file.getAbsolutePath());
+            recent.remove(getTodoFile().getAbsolutePath());
+            recent.remove(getQuickNoteFile().getAbsolutePath());
+            recent.remove(getLinkBoxFile().getAbsolutePath());
+            recent.remove("");
+            recent.remove(null);
+
+            setInt(file.getAbsolutePath(), getInt(file.getAbsolutePath(), 0, _prefCache) + 1, _prefCache);
+            setRecentDocuments(recent);
+        }
+    }
+
+    private List<String> getPopularDocumentsSorted() {
+        List<String> popular = getRecentDocuments();
+        Collections.sort(popular, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache));
+            }
+        });
+        return popular;
+    }
+
+    public List<String> getPopularDocuments() {
+        return getStringList(R.string.pref_key__popular_documents);
+    }
+
+    public void setPopularDocuments(List<String> v) {
+        limitListTo(v, 20, true);
+        setStringList(R.string.pref_key__popular_documents, v, _prefApp);
     }
 
     public void setRecentDocuments(List<String> v) {
-        limitListTo(v, 10, true);
+        limitListTo(v, 20, true);
         setStringList(R.string.pref_key__recent_documents, v, _prefApp);
+        setPopularDocuments(getPopularDocumentsSorted());
     }
 
     public ArrayList<String> getRecentDocuments() {
-        return getStringList(R.string.pref_key__recent_documents);
+        ArrayList<String> list =  getStringList(R.string.pref_key__recent_documents);
+        for(int i=0; i<list.size(); i++){
+            if (! new File(list.get(i)).isFile()){
+                list.remove(i);
+                i--;
+            }
+        }
+        return list;
     }
 
     public String getInjectedHeader() {

@@ -1,3 +1,18 @@
+### v1.X
+**New features:**  
+* Add popular files (most used files by access count)
+* Add popular & recent files as virtual folder under /storage/
+  * Selectable e.g. for widgets
+
+**Improved:**  
+- Text-Module-Actions
+  - More safety checks at execution
+- Highlighting
+  - MD: Better code readability
+  - MD: Better unordered list readability
+**Fixed:**  
+- 
+
 ### v1.0.0
 **New features:**  
 - ShareInto

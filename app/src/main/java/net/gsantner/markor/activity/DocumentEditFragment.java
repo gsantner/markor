@@ -313,7 +313,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onPause();
         saveDocument();
         if (_document != null && _document.getFile() != null) {
-            new AppSettings(getContext()).addRecentDocument(_document.getFile());
+            AppSettings appSettings = new AppSettings(getContext());
+            appSettings.addRecentDocument(_document.getFile());
         }
     }
 
