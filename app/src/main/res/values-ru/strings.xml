@@ -8,10 +8,10 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Настройки</string>
     <string name="light">Светлая</string>
-    <string name="dark">Темная</string>
+    <string name="dark">Тёмная</string>
     <string name="delete">Удалить</string>
     <string name="rename">Переименовать</string>
     <string name="confirm_delete">Подтвердить удаление</string>
@@ -21,24 +21,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_filesystem">Просмотр файлов</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Эта директория пуста</string>
-    <string name="folder_name_hint">Введите имя директории</string>
-    <string name="create_folder">Создать директорию</string>
+    <string name="folder_name_hint">Введите имя вашей папки</string>
+    <string name="create_folder">Создать Папку</string>
     <string name="create_new_document">Создать новый документ</string>
     <string name="move">Переместить</string>
+    <string name="info">Информация</string>
 
     <string name="import_from_device">Импортировать с устройства</string>
     <string name="import_">Импортировать</string>
     <string name="append_to__arg_document_name">Добавить к %s</string>
-    <string name="select_folder">Выбрать директорию</string>
+    <string name="select_folder">Выбрать папку</string>
     <string name="edit">Редактировать</string>
 
     <string name="search_documents">Поиск документов</string>
-    <string name="share_to">Поделиться с&#8230;</string>
+    <string name="share_to">Поделиться с…</string>
     <string name="share">Поделиться</string>
     <string name="search">Поиск</string>
     <string name="preview">Предпросмотр</string>
     <string name="editor">Редактор</string>
-    <string name="folders">Директории</string>
+    <string name="folders">Папки</string>
     <string name="files">Файлы</string>
     <string name="document_one">Документ</string>
     <string name="document_multiple">Документы</string>
@@ -47,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- Preferences -->
     <string name="document_editor_font">Шрифт редактора заметок</string>
     <string name="theme">Тема</string>
-    <string name="open_preview_when_open_documents">Показать предпросмотр при открытии документов</string>
+    <string name="open_preview_when_open_documents">Открыть предварительный просмотр при открытии документов</string>
     <string name="about">О программе Markor</string>
     <string name="plain_text">Простой текст</string>
     <string name="file">Файл</string>
@@ -56,16 +57,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_for_right_to_left_languages">Работать с языками \"справа-налево\"</string>
     <string name="error_cannot_create_notebook_dir">Ошибка: невозможно сохранить директорию</string>
 
-    <string name="last_modified">Дата изменения: %s</string>
-    <string name="select_this_folder">Выбрать текущую директорию</string>
+    <string name="last_modified">Последнее изменение: %s</string>
+    <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
     <string name="create">Создать</string>
     <string name="select_elements">Выбрать элементы</string>
     <string name="one_item_selected">Выбран один элемент</string>
-    <string name="more_items_selected">%d элементов выбрано</string>
+    <string name="more_items_selected" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Скрыть строку статуса</string>
-    <string name="pref_title__is_statusbar_hidden">Скрыть строку статуса</string>
+    <string name="pref_summary__is_statusbar_hidden">Скрыть статусную строку во время просмотра</string>
+    <string name="pref_title__is_statusbar_hidden">Скрыть статусную строку</string>
 
     <string name="name">Имя</string>
     <string name="url_or_path">URL / Путь</string>
@@ -73,8 +74,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Вставить изображение</string>
 
     <!-- About screen -->
-    <string name="contributors">Разработчики</string>
-    <string name="select_storage_folder">Выбрать рабочую директорию</string>
+    <string name="contributors">Участники</string>
+    <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="notebook_directory">Директория с записями</string>
     <string name="licenses">Лицензии</string>
     <string name="changelog">Список изменений</string>
@@ -83,7 +84,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Показать лицензии сторонних компонентов</string>
     <string name="pref_desc__language">Сменить язык приложения. Перезагрузите для сохранения изменений.</string>
     <string name="pref_title__language">Язык</string>
-    <string name="error_storage_permission">Нужно разрешение на запись, чтобы сохранить</string>
+    <string name="error_storage_permission">Нужно разрешение на запись, чтобы сохранить документы</string>
     <string name="open_with">Открыть с помощью</string>
     <string name="sort">Сортировка</string>
     <string name="sort_by_date">Сортировка по дате</string>
@@ -93,14 +94,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute">Внести свой вклад</string>
     <string name="donate">Пожертвовать</string>
     <string name="project_page">Страница проекта</string>
-    <string name="press_again_to_exit">Нажмите \"назад\" ещё раз для выхода</string>
+    <string name="press_again_to_exit">Нажмите \"назад\" снова для выхода</string>
     <string name="exit">Выйти</string>
     <string name="undo">Отменить</string>
     <string name="redo">Вернуть</string>
     <string name="more">Больше</string>
     <string name="notebook">Блокнот</string>
     <string name="help">Помощь</string>
-    <string name="todo_list">To-Do список</string>
+    <string name="todo_list">Список дел</string>
     <string name="task">Задача</string>
     <string name="category">Категория</string>
     <string name="context">Контекст</string>
@@ -118,7 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">Архивировать</string>
     <string name="add_task">Добавить задачу</string>
     <string name="add_something">Добавить %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">Документ будет загружен и сохранен как "%s"</string>
+    <string name="pref_summary__loaded_and_saved_as__plus_name">Документ будет загружен и сохранён как \"%s\"</string>
     <string name="pref_title__show_settings_option_in_main_toolbar">Настройки в панели инструментов</string>
     <string name="pref_show_settings_option_in_main_toolbar">Показать значок настроек в верхней панели инструментов на главном экране</string>
     <string name="refresh">Обновить</string>
@@ -131,16 +132,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- Not in use currently -->
     <string name="create_note" needed="false">Создать заметку</string>
     <string name="special_documents" needed="false">Особые документы</string>
-    <string name="navigate_up_folder" needed="false">В предыдущую директорию</string>
-    <string name="app_settings">Настройки приложения</string>
-    <string name="editor_settings">Настройки редактора</string>
-    <string name="remember_last_folder_location_on_startup" needed="false">Помнить последнюю открытую директорию</string>
+    <string name="navigate_up_folder" needed="false">В предыдущую папку</string>
+    <string name="app_settings" needed="false">Настройки</string>
+    <string name="editor_settings" needed="false">Настройки редактора</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Запоминать последнюю открытую папку</string>
     <string name="show_markdown_shortcuts_bar" needed="false">Показывать сокращения markdown</string>
     <string name="markdown_syntax_highlighting" needed="false">Подсветка синтаксиса markdown</string>
     <string name="pref_title__highlighting_delay" needed="false">Задержка обновления подсветки синтаксиса в миллисекундах</string>
     <string name="pref_title__highlighting_delay_summary" needed="false">Большие значения меньше расходуют батарею</string>
     <string name="pref_title__smart_shortcuts" needed="false">Умные скобки</string>
-    <string name="pref_title__smart_shortcuts_summary" needed="false">{}, [] и () будут окружать выделенный текст</string>
+    <string name="pref_title__smart_shortcuts_summary" needed="false">Если текст выбран, {}, [] и () будут окружать выделенный текст</string>
     <string name="number_of_files" needed="false">Количество файлов: %d</string>
 
     <!-- New strings -->
@@ -156,14 +157,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_enabled_summary">Должен ли введённый текст быть подсвечен</string>
     <string name="editor_font_size_summary">Выбрать размер шрифта, используемый в редакторе</string>
     <string name="textmodules_bar_summary">Показать панель с полезными действиями для вставки текстовых модулей</string>
-    <string name="load_last_directory_at_startup__summary">Загружать последнюю открытую директорию при запуске</string>
+    <string name="load_last_directory_at_startup__summary">Загружать последнюю открытую папку при запуске</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексты</string>
     <string name="project">Проект</string>
     <string name="projects">Проекты</string>
     <string name="categories">Категории</string>
     <string name="none">Нет</string>
-    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Подчеркивать ли цветовые HEX коды в соответствии с цветом</string>
+    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="hexcolor_underline">Подчеркивать цветовые HEX коды</string>
     <string name="start_new_tasks_with_todays_date">Вставлять текущую дату при создании новой задачи</string>
     <string name="tasks_with_todays_date">Задачи с сегодняшней датой</string>
@@ -171,8 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_contexts_and_projects_on_end_of_task">Добавлять контексты и проекты в конец задачи при использовании соответствующих текстовых модулей</string>
     <string name="right_to_left_rendering__abbreviated">Отрисовка \"справа-налево\"</string>
     <string name="highlight_line_ending">Подсвечивать конец строки</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк, содержащих два или более пробела</string>
-    <string name="use_monospace_for_code">Использовать Monospace для кода</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк, содержащие два или более пробела</string>
+    <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
     <string name="general">Основное</string>
     <string name="resources">Ресурсы</string>
@@ -180,12 +181,60 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_spacing">Междустрочный интервал</string>
     <string name="archive_does_move_done_tasks">Перемещать выполненные задачи в указанный файл в той же папке</string>
     <string name="special_key">Специальная клавиша</string>
-    <string name="key_page_up">Page Up (Page Up)</string>
-    <string name="key_page_down">Page Down (Page Down)</string>
-    <string name="key_pos_1">Начало строки (Pos Home)</string>
-    <string name="key_pos_end">Конец строки (Pos End)</string>
+    <string name="key_page_up">Листать вверх</string>
+    <string name="key_page_down">Листать вниз</string>
+    <string name="key_pos_1">Начало строки (Домашняя позиция)</string>
+    <string name="key_pos_end">Конец строки (Конечная позиция)</string>
     <string name="key_pos_1_document">Начало документа</string>
     <string name="key_pos_end_document">Конец документа</string>
     <string name="key_ctrl_a">Выбрать всё (Ctrl + A)</string>
-    <string name="key_tab">Табуляция</string>
+    <string name="key_tab">Табуляция (Установка позиции по горизонтали)</string>
+    <string name="start_on_bottom">Начать снизу</string>
+    <string name="start_on_bottom_summary">После загрузки документа курсор ставить в конец</string>
+    <string name="filemanager_doesnot_supply_required_data">Маркер позволяет редактировать локальные документы, документы доступные офлайн и поддерживать файловые менеджеры, которые предоставляют полный путь к файлу, включая имя файла. Очевидно, это приложение не предоставило всю необходимую информацию и не может использоваться с Markor :(.</string>
+    <string name="sync_to_local_folder_notice">Примечание. Приложения использующие синхронизацию могут размещать файлы в пользовательских папках, открывать их, изменяя папку документа Markor соответствующим образом или в другом диспетчере файлов.</string>
+    <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
+    <string name="vertical_alignment">Выравнивание по вертикали</string>
+    <string name="horizontal_alignment">Выравнивание по горизонтали</string>
+    <string name="align_default">По умолчанию</string>
+    <string name="align_left">Выровнить по левому краю</string>
+    <string name="align_right">Выровнить по правому краю</string>
+    <string name="align_top">Выровнить по верхнему краю</string>
+    <string name="align_bottom">Подвал</string>
+    <string name="align_center">Центр</string>
+    <string name="textmodule_bar_spacing">Расстояние между текстовыми модулями</string>
+    <string name="horizontal_spacing_of_actions">Горизонтальное активное пространсто</string>
+
+    <string name="center_text">Текст по центру</string>
+    <string name="center_text_desc">Редактирование текста в центре экрана</string>
+    <string name="clipboard">Буфер обмена</string>
+    <string name="existing_document">Выберите существующий документ</string>
+    <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
+    <string name="rate_the_app">Оценить приложение</string>
+    <string name="translate">Перевод</string>
+    <string name="help_this_app">Дополнительная информация и помощь</string>
+    <string name="bug_reports">Сообщить об ошибках</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Дополнительная информация о пожертвовании и поддержке данного проекта</string>
+    <string name="android_contribution_guide">Руководство по вкладкам Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Дополнительная информация о вкладах в проекты с открытым исходным кодом, в частности о приложениях для Android</string>
+    <string name="join_community">Присоединиться к сообществу</string>
+    <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
+    <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
+    <string name="source_code">Исходный код</string>
+    <string name="project_license">Лицензия проекта</string>
+    <string name="project_contribution_info">Информация о вкладе в проект</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Подробнее о том, как внести свой вклад в данный проект</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
+    <string name="project_team">Команда проекта</string>
+    <string name="contributors_public_info">Показ информации об участниках. Позволить показать здесь список учасников успевших внести свой вклад.</string>
+    <string name="disable_spelling_underline">Отключить проверку орфографии</string>
+    <string name="not_affects_suggestions">Предложения клавиатуры остаются, красная подсветка исчезает</string>
+    <string name="location">Место нахождения</string>
+    <string name="text_lines">Текстовые линии</string>
+    <string name="text_characters">Параметры текста</string>
+    <string name="directory">Директория</string>
+    <string name="recently_viewed_documents">Недавно открытые документы</string>
+    <string name="details">Детали</string>
+    <string name="calendar">Календарь</string>
+    <string name="warning_disallowed_sd_access">Предупреждение! Приложение не имеет разрешения на сохранение этого файла, все изменения сделаные здесь будут потеряны. Нет возможности разрешить проблему или что либо подтвердить. Android запрещает здесь любые действия.</string>
 </resources>
