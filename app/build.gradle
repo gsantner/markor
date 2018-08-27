@@ -36,7 +36,7 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
 
         applicationId "net.gsantner.markor"
-        versionName "1.0.0"
+        versionName "1.0.1"
         versionCode 27
     }
 

@@ -1,8 +1,8 @@
-### v1.X
+### v1.0.1  
 **New features:**  
-* Add popular files (most used files by access count)
-* Add popular & recent files as virtual folder under /storage/
-  * Selectable e.g. for widgets
+- Add popular files (most used files by access count)
+- Add popular & recent files as virtual folder under /storage/
+  - Selectable e.g. for widgets
 
 **Improved:**  
 - Text-Module-Actions
@@ -10,8 +10,6 @@
 - Highlighting
   - MD: Better code readability
   - MD: Better unordered list readability
-**Fixed:**  
-- 
 
 ### v1.0.0
 **New features:**  
