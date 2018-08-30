@@ -234,4 +234,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_characters">Nombre de caractères</string>
     <string name="directory">Dossier</string>
     <string name="recently_viewed_documents">Documents récemment ouverts</string>
+    <string name="details">Détails</string>
+    <string name="calendar">Calendrier</string>
+    <string name="warning_disallowed_sd_access">Attention ! L\'application ne possède pas les droits pour enregistrer ce fichier. Tous ses changements seront perdus. Il n\'y a pas moyen de résoudre le problème ou confirmer quoi que ce soit : Android empêche tout accès.</string>
 </resources>
