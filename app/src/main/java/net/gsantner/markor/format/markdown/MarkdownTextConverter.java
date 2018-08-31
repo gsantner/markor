@@ -82,6 +82,8 @@ public class MarkdownTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context) {
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, MARKDOWN_ENABLED_EXTENSIONS);
+        // allow links like [this](some filename with spaces.md)
+        options.set(Parser.SPACE_IN_LINK_URLS, true);
 
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY);
         options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
