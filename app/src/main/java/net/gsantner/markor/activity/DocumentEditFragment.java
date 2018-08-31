@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -147,6 +150,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         enable = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         drawable = menu.findItem(R.id.action_save).setEnabled(enable).getIcon();
         drawable.mutate().setAlpha(enable ? 255 : 40);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (_textFormat != null &&
+                _textFormat.getTextModuleActions() instanceof MarkdownTextModuleActions) {
+            ((MarkdownTextModuleActions) _textFormat.getTextModuleActions())
+                    .onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     public void loadDocumentIntoUi() {

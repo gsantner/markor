@@ -13,8 +13,15 @@ package net.gsantner.markor.format.markdown;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,18 +32,25 @@ import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
+import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownTextModuleActions extends TextModuleActions {
+    public static final int REQUEST_TAKE_CAMERA_PICTURE = 101;
+    private String _cameraPictureFilepath;
+    private ActivityUtils _au;
 
     public MarkdownTextModuleActions(Activity activity, Document document) {
         super(activity, document);
+        _au = new ActivityUtils(activity);
     }
 
     @Override
@@ -66,6 +80,16 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
     //
     //
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_CAMERA_PICTURE) {
+            if (resultCode == Activity.RESULT_OK) {
+                onPictureTaken(_cameraPictureFilepath);
+            } else {
+                _au.showSnackBar(R.string.main__error_no_picture_selected, false);
+            }
+        }
+    }
 
     private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
             {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
@@ -204,13 +228,15 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 0},
             {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
             {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
-            {R.drawable.ic_keyboard_return_black_24dp, 5},
+            {R.drawable.ic_add_a_photo_black_24dp, 4},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
+            {R.drawable.ic_keyboard_return_black_24dp, 6},
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
     private class KeyboardExtraActionsListener implements View.OnClickListener {
         int _action;
+        PermissionChecker permc = new PermissionChecker(getActivity());
 
         KeyboardExtraActionsListener(int action) {
             _action = action;
@@ -228,10 +254,16 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
                 case 4: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        showCameraDialog();
+                    }
                     break;
                 }
                 case 5: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case 6: {
                     if (_hlEditor.length() > 1) {
                         int start = _hlEditor.getSelectionStart();
                         String text = _hlEditor.getText().toString();
@@ -380,5 +412,59 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 });
 
         builder.show();
+    }
+
+    /**
+     * Show the camera picker via intent
+     * Source: http://developer.android.com/training/camera/photobasics.html
+     */
+    private void showCameraDialog() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(_activity.getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                // Create an image file name
+                String imageFileName = _activity.getString(R.string.app_name) + "_" + System.currentTimeMillis();
+                File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DCIM), "Camera");
+                photoFile = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+                // Save a file: path for use with ACTION_VIEW intents
+                _cameraPictureFilepath = photoFile.getAbsolutePath();
+
+            } catch (IOException ex) {
+                _au.showSnackBar(R.string.main__error_camera_cannot_start, false);
+            }
+
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    Log.d("Markdown", _cameraPictureFilepath);
+//                    Log.d("Markdown", _activity.getString(R.string.app_fileprovider));
+                    Uri uri = FileProvider.getUriForFile(_activity,
+                            _activity.getString(R.string.app_fileprovider), photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                } else {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                }
+                _au.animateToActivity(takePictureIntent, false, REQUEST_TAKE_CAMERA_PICTURE);
+            }
+        }
+    }
+
+    private void onPictureTaken(String imagePath) {
+        String url = imagePath.replace(")", "\\)")
+                .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+
+        String formatTemplate = "![%s](%s)";
+        if (_hlEditor.hasSelection()) {
+            _hlEditor.getText().replace(_hlEditor.getSelectionStart(),
+                    _hlEditor.getSelectionEnd(),
+                    String.format(formatTemplate, "", url));
+            _hlEditor.setSelection(_hlEditor.getSelectionStart());
+        } else {
+            _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
+                    String.format(formatTemplate, "", url));
+        }
     }
 }
