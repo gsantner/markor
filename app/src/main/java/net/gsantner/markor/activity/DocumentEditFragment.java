@@ -140,7 +140,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
         if (_requestCode != -1) {
-            ((MarkdownTextModuleActions) _textFormat.getTextModuleActions())
+            _textFormat.getTextModuleActions()
                     .onActivityResult(_requestCode, _resultCode, _data);
             _requestCode = -1; _data = null;
         }
@@ -168,8 +168,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (_textFormat != null &&
-                _textFormat.getTextModuleActions() instanceof MarkdownTextModuleActions) {
+        if (_textFormat != null) {
             _requestCode = requestCode;
             _resultCode = resultCode;
             _data = data;
