@@ -48,13 +48,19 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     private String _cameraPictureFilepath;
     private ActivityUtils _au;
 
+    private String TAG = getClass().getSimpleName();
+//    private int c1, c2, c3;
+
     public MarkdownTextModuleActions(Activity activity, Document document) {
         super(activity, document);
+//        c1 += 1;
         _au = new ActivityUtils(activity);
     }
 
     @Override
     public void appendTextModuleActionsToBar(ViewGroup barLayout) {
+//        c2 += 1;
+//        Log.d(TAG, String.format("c1: %d c2: %d", c1, c2));
         if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
@@ -82,6 +88,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        c3 += 1;
+//        Log.d(TAG, String.format("c1: %d c2: %d c3: %d", c1, c2, c3));
         if (requestCode == REQUEST_TAKE_CAMERA_PICTURE) {
             if (resultCode == Activity.RESULT_OK) {
                 onPictureTaken(_cameraPictureFilepath);
@@ -447,7 +455,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 } else {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                _au.animateToActivity(takePictureIntent, false, REQUEST_TAKE_CAMERA_PICTURE);
+//                _au.animateToActivity(takePictureIntent, false, REQUEST_TAKE_CAMERA_PICTURE);
+                _activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_CAMERA_PICTURE);
             }
         }
     }
@@ -462,9 +471,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     _hlEditor.getSelectionEnd(),
                     String.format(formatTemplate, "", url));
             _hlEditor.setSelection(_hlEditor.getSelectionStart());
+
         } else {
+//            _hlEditor.insertOrReplaceTextOnCursor(String.format(formatTemplate, "", url));
             _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
                     String.format(formatTemplate, "", url));
+//            _hlEditor.setText(String.format("%s %s", _hlEditor.getText(), String.format(formatTemplate, "", url)));
         }
     }
 }
