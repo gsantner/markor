@@ -240,4 +240,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="main__error_no_picture_selected">No picture was selected.</string>
     <string name="main__error_camera_cannot_start">Camera cannot start</string>
+    <string name="main__error_unable_to_create_file">Unable to create file</string>
 </resources>

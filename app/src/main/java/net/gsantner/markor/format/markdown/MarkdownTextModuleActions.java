@@ -36,6 +36,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,10 +44,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownTextModuleActions extends TextModuleActions {
-    public static final int REQUEST_TAKE_CAMERA_PICTURE = 101;
-    private String _cameraPictureFilepath;
-    private ActivityUtils _au;
-
     private String TAG = getClass().getSimpleName();
 
     public MarkdownTextModuleActions(Activity activity, Document document) {
@@ -82,15 +79,6 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
     //
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_CAMERA_PICTURE) {
-            if (resultCode == Activity.RESULT_OK) {
-                onPictureTaken(_cameraPictureFilepath);
-            } else {
-                _au.showSnackBar(R.string.main__error_no_picture_selected, false);
-            }
-        }
-    }
 
     private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
             {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
@@ -229,9 +217,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 0},
             {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
             {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
-            {R.drawable.ic_add_a_photo_black_24dp, 4},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 5},
-            {R.drawable.ic_keyboard_return_black_24dp, 6},
+            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
+            {R.drawable.ic_keyboard_return_black_24dp, 5},
+            {R.drawable.ic_add_a_photo_black_24dp, 6}
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -255,16 +243,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
                 case 4: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        showCameraDialog();
-                    }
-                    break;
-                }
-                case 5: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
                     break;
                 }
-                case 6: {
+                case 5: {
                     if (_hlEditor.length() > 1) {
                         int start = _hlEditor.getSelectionStart();
                         String text = _hlEditor.getText().toString();
@@ -272,6 +254,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                         insertPos = insertPos < 1 ? text.length() : insertPos;
                         _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
                         _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
+                    }
+                    break;
+                }
+                case 6: {
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        _cameraPictureFilepath = ShareUtil.showCameraDialog(_activity, _au);
                     }
                     break;
                 }
@@ -415,43 +403,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         builder.show();
     }
 
-    /**
-     * Show the camera picker via intent
-     * Source: http://developer.android.com/training/camera/photobasics.html
-     */
-    private void showCameraDialog() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(_activity.getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                // Create an image file name
-                String imageFileName = _activity.getString(R.string.app_name) + "_" + System.currentTimeMillis();
-                File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DCIM), "Camera");
-                photoFile = File.createTempFile(imageFileName, ".jpg", storageDir);
 
-                // Save a file: path for use with ACTION_VIEW intents
-                _cameraPictureFilepath = photoFile.getAbsolutePath();
 
-            } catch (IOException ex) {
-                _au.showSnackBar(R.string.main__error_camera_cannot_start, false);
-            }
-
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Uri uri = FileProvider.getUriForFile(_activity,
-                            _activity.getString(R.string.app_fileprovider), photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                } else {
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                }
-                _activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_CAMERA_PICTURE);
-            }
-        }
-    }
-
-    private void onPictureTaken(String imagePath) {
+     protected void onPictureTaken(String imagePath) {
         String url = imagePath.replace(")", "\\)")
                 .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
 

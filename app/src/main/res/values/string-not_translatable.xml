@@ -10,7 +10,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
     <string name="app_name" translatable="false">Markor</string>
-    <string name="app_fileprovider" translatable="false">net.gsantner.markor.provider</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
