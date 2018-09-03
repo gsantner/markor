@@ -57,24 +57,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     public static boolean showPreviewOnBack = false;
 
-//    private int[] c = new int[5];
     private String TAG = getClass().getSimpleName();
 
     int _requestCode = -1;
     int _resultCode;
     Intent _data;
 
-//    String getCVals() {
-//        StringBuilder sb = new StringBuilder();
-//        for (int i=1; i<5; i++) {
-//            sb.append(String.format("c%d: %d ", i, c[i]));
-//        }
-//        return sb.toString();
-//    }
-//
-//    void logD() {
-//        Log.d(TAG, getCVals());
-//    }
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -108,7 +96,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private TextFormat _textFormat;
 
     public DocumentEditFragment() {
-//        c[1]++;
     }
 
     @Override
@@ -118,9 +105,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-//        c[2]++;
         super.onViewCreated(view, savedInstanceState);
-//        logD();
         //applyTextFormat(TextFormat.FORMAT_PLAIN);
         setupAppearancePreferences(view);
 
@@ -145,8 +130,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onResume() {
         super.onResume();
-//        c[3]++;
-//        logD();
         checkReloadDisk();
         int cursor = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
@@ -186,8 +169,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        c[4]++;
-//        logD();
         if (_textFormat != null &&
                 _textFormat.getTextModuleActions() instanceof MarkdownTextModuleActions) {
             _requestCode = requestCode;
