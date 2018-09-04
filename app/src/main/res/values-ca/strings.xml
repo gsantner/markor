@@ -10,6 +10,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Aparença</string>
-</resources>
 
+    <string name="settings">Configuració</string>
+    <string name="appearance">Aparença</string>
+    <string name="editor">Editor</string>
+    <string name="about">Quant a</string>
+    <string name="create">Crea</string>
+    <string name="hide_statusbar_at_this_view">"Amaga la barra d\'estat en aquesta vista"</string>
+    <string name="hide_statusbar">"Amaga la barra d\'estat"</string>
+    <string name="contributors">Col·laboradors</string>
+    <string name="licenses">Llicències</string>
+    <string name="changelog">Novetats</string>
+    <string name="show_third_party_licenses">Mostra les llicències de tercers</string>
+    <string name="language_change_restart_description">"Canvia l\'idioma d\'aquesta aplicació. Reinicia l\'aplicació perquè els canvis tinguin efecte"</string>
+    <string name="language">Idioma</string>
+    <string name="size">Mida</string>
+    <string name="donate">Fes un donatiu</string>
+    <string name="exit">Surt</string>
+    <string name="error_picture_selection">"No s\'ha seleccionat cap imatge"</string>
+</resources>

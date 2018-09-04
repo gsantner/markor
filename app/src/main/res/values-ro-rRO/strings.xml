@@ -10,6 +10,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Görünüş</string>
-</resources>
 
+    <string name="settings">Setări</string>
+    <string name="search">Căutare</string>
+    <string name="about">Despre</string>
+    <string name="changelog">Jurnalul modificărilor</string>
+    <string name="more">Extra</string>
+</resources>

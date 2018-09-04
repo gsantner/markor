@@ -10,6 +10,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Вигляд</string>
-</resources>
 
+    <string name="settings">Indstillinger</string>
+    <string name="search">Søg</string>
+    <string name="about">Om</string>
+    <string name="changelog">Ændringslog</string>
+    <string name="report_bugs">Rapporter fejl</string>
+</resources>

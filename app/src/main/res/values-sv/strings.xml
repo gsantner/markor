@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="settings">Inställningar</string>
     <string name="light">Ljust</string>
     <string name="dark">Mörkt</string>
     <string name="delete">Radera</string>
@@ -35,7 +34,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Sök dokument</string>
     <string name="share_to_arrow">Dela till&#8230;</string>
     <string name="share">Dela</string>
-    <string name="search">Sök</string>
     <string name="preview">Förhandsgranska</string>
     <string name="editor">Redigerare</string>
     <string name="folders">Mappar</string>
@@ -48,11 +46,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
     <string name="open_preview_when_opening_documents">Öppna dokument i granskningsläge</string>
-    <string name="about">Om Markor</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Fil</string>
     <string name="image">Bild</string>
-    <string name="font_size">Typsnittsstorlek</string>
     <string name="render_rtl_language">Visa för höger till vänster-språk</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fel: Kan inte skapa sparningsmapp</string>
 
@@ -73,16 +69,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Infoga bild</string>
 
     <!-- About screen -->
-    <string name="contributors">Bidragande personer</string>
     <string name="select_storage_folder">Välj lagringsmapp</string>
     <string name="notebook_directory">Mapp för anteckningar</string>
     <string name="licenses">Licenser</string>
-    <string name="changelog">Apphistorik</string>
     <string name="more_info">Mer information</string>
     <string name="show_license_of_the_app">Visa licens för appen</string>
-    <string name="show_third_party_licenses">Visa tredjepartslicenser</string>
-    <string name="language_change_restart_description">Byt språk. Du behöver starta om appen för att ändringen ska träda i kraft</string>
-    <string name="language">Språk</string>
     <string name="error_need_storage_permission_to_save_documents">Behöver åtkomst till lagringsmedia för att spara dokument</string>
     <string name="open_with">Öppna med</string>
     <string name="sort">Sortera</string>
@@ -97,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Avsluta</string>
     <string name="undo">Ångra</string>
     <string name="redo">Gör om</string>
-    <string name="more">Mer</string>
     <string name="notebook">Anteckningar</string>
     <string name="help">Hjälp</string>
     <string name="todo_list">Att göra-lista</string>
@@ -174,7 +164,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
     <string name="use_monospace_for_code">Monospace för kod</string>
     <string name="use_different_fonttype_slow_down">Använd typsnitt med fast bredd för kod. Att ändra typsnitt dynamiskt påverkar appens prestanda.</string>
-    <string name="general">Generella</string>
     <string name="resources">Resurser</string>
+    <string name="settings">Inställningar</string>
     <string name="appearance">Utseende</string>
+    <string name="search">Söc</string>
+    <string name="about">Om</string>
+    <string name="font_size">Teckenstorlek</string>
+    <string name="contributors">Bidragsgivare</string>
+    <string name="changelog">Ändringar</string>
+    <string name="show_third_party_licenses">Tredjepartsbibliotek</string>
+    <string name="language_change_restart_description">Byt språk för appen. Starta om för att fastställa ändringar</string>
+    <string name="language">Språk</string>
+    <string name="more">Mer</string>
+    <string name="general">Generella</string>
+    <string name="default_">Förvald</string>
+    <string name="report_bugs">Rapportera buggar</string>
 </resources>

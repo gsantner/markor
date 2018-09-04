@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_characters">Yazı Karakterleri</string>
     <string name="directory">Dizin</string>
     <string name="recently_viewed_documents">Son görülen dökümanlar</string>
+    <string name="appearance">Görünüş</string>
 </resources>

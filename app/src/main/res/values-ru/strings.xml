@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Настройки</string>
     <string name="light">Светлая</string>
     <string name="dark">Тёмная</string>
     <string name="delete">Удалить</string>
@@ -36,9 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Поиск документов</string>
     <string name="share_to_arrow">Поделиться с…</string>
     <string name="share">Поделиться</string>
-    <string name="search">Поиск</string>
     <string name="preview">Предпросмотр</string>
-    <string name="editor">Редактор</string>
     <string name="folders">Папки</string>
     <string name="files">Файлы</string>
     <string name="document">Документ</string>
@@ -49,24 +46,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Шрифт редактора заметок</string>
     <string name="theme">Тема</string>
     <string name="open_preview_when_opening_documents">Открыть предварительный просмотр при открытии документов</string>
-    <string name="about">О программе Markor</string>
     <string name="plaintext">Простой текст</string>
     <string name="file">Файл</string>
     <string name="image">Изображение</string>
-    <string name="font_size">Размер шрифта</string>
     <string name="render_rtl_language">Работать с языками \"справа-налево\"</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Ошибка: невозможно сохранить директорию</string>
 
     <string name="last_modified_witharg">Последнее изменение: %s</string>
     <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
-    <string name="create">Создать</string>
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Выбран один элемент</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="hide_statusbar_at_this_view">Скрыть статусную строку во время просмотра</string>
-    <string name="hide_statusbar">Скрыть статусную строку</string>
 
     <string name="name">Имя</string>
     <string name="url_or_path">URL / Путь</string>
@@ -74,31 +66,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Вставить изображение</string>
 
     <!-- About screen -->
-    <string name="contributors">Участники</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="notebook_directory">Директория с записями</string>
-    <string name="licenses">Лицензии</string>
-    <string name="changelog">Список изменений</string>
     <string name="more_info">Больше информации</string>
     <string name="show_license_of_the_app">Показать лицензию приложения</string>
-    <string name="show_third_party_licenses">Показать лицензии сторонних компонентов</string>
-    <string name="language_change_restart_description">Сменить язык приложения. Перезагрузите для сохранения изменений.</string>
-    <string name="language">Язык</string>
     <string name="error_need_storage_permission_to_save_documents">Нужно разрешение на запись, чтобы сохранить документы</string>
     <string name="open_with">Открыть с помощью</string>
     <string name="sort">Сортировка</string>
     <string name="date">Сортировка по дате</string>
     <string name="deleteme____1">Сортировка по имени</string>
-    <string name="size">Сортировка по размеру</string>
     <string name="reverse_order">В обратном порядке</string>
     <string name="contribute">Внести свой вклад</string>
-    <string name="donate">Пожертвовать</string>
     <string name="project_page">Страница проекта</string>
     <string name="press_back_again_to_exit">Нажмите \"назад\" снова для выхода</string>
-    <string name="exit">Выйти</string>
     <string name="undo">Отменить</string>
     <string name="redo">Вернуть</string>
-    <string name="more">Больше</string>
     <string name="notebook">Блокнот</string>
     <string name="help">Помощь</string>
     <string name="todo_list">Список дел</string>
@@ -175,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк, содержащие два или более пробела</string>
     <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
-    <string name="general">Основное</string>
     <string name="resources">Ресурсы</string>
     <string name="space_between_lines_in_percent">Междустрочный интервал в процентах</string>
     <string name="line_spacing">Междустрочный интервал</string>
@@ -196,7 +177,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
-    <string name="default_">По умолчанию</string>
     <string name="left">Выровнить по левому краю</string>
     <string name="right">Выровнить по правому краю</string>
     <string name="top">Выровнить по верхнему краю</string>
@@ -213,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">Оценить приложение</string>
     <string name="translate">Перевод</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
-    <string name="report_bugs">Сообщить об ошибках</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Дополнительная информация о пожертвовании и поддержке данного проекта</string>
     <string name="android_contribution_guide">Руководство по вкладкам Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Дополнительная информация о вкладах в проекты с открытым исходным кодом, в частности о приложениях для Android</string>
@@ -238,5 +217,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="calendar">Календарь</string>
     <string name="warning_disallowed_sd_access">Предупреждение! Приложение не имеет разрешения на сохранение этого файла, все изменения сделаные здесь будут потеряны. Нет возможности разрешить проблему или что либо подтвердить. Android запрещает здесь любые действия.</string>
 
+    <string name="search">Поиск</string>
+    <string name="font_size">Размер шрифта</string>
+    <string name="more">Дополнительно</string>
+    <string name="general">Общие</string>
+    <string name="default_">По умолчанию</string>
+    <string name="report_bugs">Сообщить об ошибках</string>
+    <string name="settings">Настройки</string>
     <string name="appearance">Внешний вид</string>
+    <string name="editor">Редактор</string>
+    <string name="about">О программе</string>
+    <string name="create">Создать</string>
+    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом режиме</string>
+    <string name="hide_statusbar">Скрыть строку состояния</string>
+    <string name="contributors">Поддержавшие проект</string>
+    <string name="licenses">Лицензии</string>
+    <string name="changelog">Список изменений</string>
+    <string name="show_third_party_licenses">Показать сторонние лицензии</string>
+    <string name="language_change_restart_description">Изменить язык приложения. (Необходим перезапуск)</string>
+    <string name="language">Язык</string>
+    <string name="size">Размер</string>
+    <string name="donate">Поддержать проект</string>
+    <string name="exit">Выход</string>
+    <string name="error_picture_selection">Изображение не выбранно.</string>
 </resources>

@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Ajustes</string>
     <string name="light">Claro</string>
     <string name="dark">Oscuro</string>
     <string name="delete">Borrar</string>
@@ -36,9 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Buscar notas</string>
     <string name="share_to_arrow">Compartir con...</string>
     <string name="share">Compartir</string>
-    <string name="search">Buscar</string>
     <string name="preview">Previsualización</string>
-    <string name="editor">Editor</string>
     <string name="folders">Carpetas</string>
     <string name="files">Archivos</string>
     <string name="document">Documento</string>
@@ -49,24 +46,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Tipo de letra del editor de notas</string>
     <string name="theme">Tema</string>
     <string name="open_preview_when_opening_documents">Previsualizar primero al abrir las notas</string>
-    <string name="about">Acerca de Markor</string>
     <string name="plaintext">Texto sencillo</string>
     <string name="file">Archivo</string>
     <string name="image">Imagen</string>
-    <string name="font_size">Tamaño de letra</string>
     <string name="render_rtl_language">Renderizar para idiomas de derecha a izquierda</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: no se puede crear el directorio de guardado</string>
 
     <string name="last_modified_witharg">Última modificación: %s</string>
     <string name="select_this_folder">Seleccionar esta carpeta</string>
     <string name="select">Seleccionar</string>
-    <string name="create">Crear</string>
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
-    <string name="hide_statusbar">Ocultar la barra de estado</string>
 
     <string name="name">Nombre</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -74,31 +66,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Insertar imagen</string>
 
     <!-- About screen -->
-    <string name="contributors">Contribuidores</string>
     <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
     <string name="notebook_directory">Carpeta de bloc de notas</string>
-    <string name="licenses">Licencias</string>
-    <string name="changelog">Registro de cambios</string>
     <string name="more_info">Más información</string>
     <string name="show_license_of_the_app">Mostrar licencia de la aplicación</string>
-    <string name="show_third_party_licenses">Mostrar licencias de terceros</string>
-    <string name="language_change_restart_description">Cambiar el idioma para esta aplicación. Reinicia la aplicación para hacer efectivos los cambios</string>
-    <string name="language">Idioma</string>
     <string name="error_need_storage_permission_to_save_documents">Se necesita permiso de almacenamiento para guardar documentos</string>
     <string name="open_with">Abrir con</string>
     <string name="sort">Ordenar por</string>
     <string name="date">Fecha</string>
     <string name="deleteme____1">Ordenar por nombre</string>
-    <string name="size">Tamaño</string>
     <string name="reverse_order">Invertir orden</string>
     <string name="contribute">Contribuir</string>
-    <string name="donate">Donar</string>
     <string name="project_page">Página del proyecto</string>
     <string name="press_back_again_to_exit">Pulsa de nuevo atrás para salir</string>
-    <string name="exit">Salir</string>
     <string name="undo">Deshacer</string>
     <string name="redo">Rehacer</string>
-    <string name="more">Más</string>
     <string name="notebook">Bloc de notas</string>
     <string name="help">Ayuda</string>
     <string name="todo_list">Lista «pendientes»</string>
@@ -175,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Colorear los espacios al final de las líneas si estas terminan en dos o más espacios</string>
     <string name="use_monospace_for_code">Usar Monospace para código</string>
     <string name="use_different_fonttype_slow_down">Usa una fuente diferente. Cambiar la fuente dinámicamente afecta el desempeño de la app.</string>
-    <string name="general">General</string>
     <string name="resources">Recursos</string>
     <string name="space_between_lines_in_percent">Porcentaje de espaciado entre líneas</string>
     <string name="line_spacing">Espaciado entre líneas</string>
@@ -196,7 +177,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
-    <string name="default_">Por defecto</string>
     <string name="left">Izquierda</string>
     <string name="right">Derecha</string>
     <string name="top">Superior</string>
@@ -213,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">Califica esta aplicación</string>
     <string name="translate">Traducir</string>
     <string name="more_info_and_help">Ayuda y más información sobre esta aplicación</string>
-    <string name="report_bugs">Reportar errores</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Más sobre donaciones u otras formas de apoyar a este proyecto</string>
     <string name="android_contribution_guide">Guía de colaboración Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Más sobre la colaboración en proyectos de código abierto, especialmente aplicaciones de Android</string>
@@ -235,5 +214,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="directory">Directorio</string>
     <string name="recently_viewed_documents">Documentos vistos recientemente</string>
 
+    <string name="search">Búsqueda</string>
+    <string name="font_size">Tamaño de letra</string>
+    <string name="more">Más</string>
+    <string name="general">General</string>
+    <string name="default_">Predeterminado</string>
+    <string name="report_bugs">Reporte de errores</string>
+    <string name="settings">Ajustes</string>
     <string name="appearance">Apariencia</string>
+    <string name="editor">Editor</string>
+    <string name="about">Acerca de</string>
+    <string name="create">Crear</string>
+    <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
+    <string name="hide_statusbar">Ocultar la barra de estado</string>
+    <string name="contributors">Contribuidores</string>
+    <string name="licenses">Licencias</string>
+    <string name="changelog">Historial de cambios</string>
+    <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
+    <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reiniciar la aplicación para que se apliquen los cambios</string>
+    <string name="language">Idioma</string>
+    <string name="size">Tamaño</string>
+    <string name="donate">Donar</string>
+    <string name="exit">Salir</string>
+    <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
 </resources>

@@ -15,8 +15,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="projects">專案</string>
     <string name="textmodule_spacing" modified="true">文字模組間距</string>
     <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
-    <string name="language">語言</string>
-    <string name="about">關於 Markor</string>
     <string name="project_page">專案頁</string>
     <string name="open_source_licenses" modified="true">開源許可</string>
     <string name="insert_link">插入連結</string>
@@ -38,7 +36,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description" modified="true">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
     <string name="highlighting_delay" modified="true">標記延遲</string>
     <string name="confirm_delete">確定刪除</string>
-    <string name="search">搜尋</string>
     <string name="show_markdown_shortcuts_bar__appspecific">顯示 Markdown 的快捷列</string>
     <string name="select_this_folder">選擇當前資料夾</string>
     <string name="delay_in_milliseconds_for_highlighting_refresh">延遲標記更新毫秒數</string>
@@ -51,7 +48,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome" modified="true">歡迎每個人都來提供程式碼</string>
     <string name="project_contribution_info" modified="true">專案貢獻資訊</string>
     <string name="folders">資料夾</string>
-    <string name="report_bugs" modified="true">回報臭蟲</string>
     <string name="horizontal_alignment">水平偏移</string>
     <string name="project">專案</string>
     <string name="reverse_order">反轉順序</string>
@@ -74,7 +70,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="right">右邊</string>
     <string name="bug_reports_suggest_improvements" modified="true">提供回饋，回報臭蟲或改善建議</string>
     <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
-    <string name="show_third_party_licenses">顯示第三方許可證</string>
     <string name="more_info">更多資訊</string>
     <string name="date">依日期排列</string>
     <string name="name">名稱</string>
@@ -95,8 +90,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">表格</string>
     <string name="vertical_alignment">垂直偏移</string>
     <string name="start_on_bottom_when_loading_document" modified="true">當載入文件後，游標位於末尾</string>
-    <string name="contributors">貢獻者</string>
-    <string name="default_">預設</string>
     <string name="show_settings_option_in_main_view">在主螢幕的頂端工具列顯示設定鈕</string>
     <string name="size">依大小排列</string>
     <string name="select">選擇</string>
@@ -109,7 +102,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="context">內文</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
     <string name="higher_values_are_easier_on_battery">較高值較省電</string>
-    <string name="changelog">更新紀錄</string>
     <string name="priority">優先</string>
     <string name="documents">文件集</string>
     <string name="empty_directory" modified="true">空白的資料夾</string>
@@ -119,7 +111,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light" modified="true">明亮</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有檔案。</string>
     <string name="key_pos_end_document">文件結尾</string>
-    <string name="language_change_restart_description">變更界面語言請重新啟動使生效</string>
     <string name="markdown_syntax_highlighting__appspecific">Markdown 語法標記</string>
     <string name="save">儲存</string>
     <string name="number_of_files_witharg">檔案數：%d</string>
@@ -133,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">分類項目</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
     <string name="editor">編輯器</string>
-    <string name="more">更多</string>
     <string name="horizontal_spacing_of_actions" modified="true">活動的水平距離</string>
     <string name="append_contexts_and_projects">增補內文與專案等</string>
     <string name="create_folder">建立資料夾</string>
@@ -167,13 +157,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_existing_document" modified="true">選擇現有的文件</string>
     <string name="enter_name_of_folder">輸入資料夾名稱</string>
     <string name="notebook">筆記本</string>
-    <string name="settings">設定</string>
     <string name="remember_last_folder_location_on_startup">啟動時記住最近使用的資料夾位置</string>
     <string name="format">格式</string>
     <string name="add_x_witharg">新增 %s</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
     <string name="archive">歸檔</string>
-    <string name="hide_statusbar">隱藏狀態列</string>
     <string name="sort">排列</string>
     <string name="history">歷史</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
@@ -192,7 +180,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="settings_in_toolbar" modified="true">工具列上的設定</string>
     <string name="text_module">文字模組</string>
     <string name="delete">刪除</string>
-    <string name="general">一般</string>
     <string name="select_entries">選擇 輸入文字</string>
     <string name="more_info_on_how_to_contribute_to_this_project" modified="true">更多如何貢獻給這個專案的訊息</string>
     <string name="special_key">特殊鍵</string>
@@ -207,12 +194,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">從底端開始</string>
     <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅可以編輯在地或可離線的文件，與支援提供檔案全名和目錄全域的文件管理員。\n
-    顯然這個程式無法提供Markor所要求的資訊而不能使用 :(.。</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅可以編輯在地或可離線的文件，與支援提供檔案全名和目錄全域的文件管理員。\n顯然這個程式無法提供Markor所要求的資訊而不能使用 :(.。</string>
     <string name="category">類別</string>
-    <string name="document_to_be_loaded_and_saved_as_witharg">這個文件將被輸出並儲存為\n
-  ‘%s’’</string>
-    <string name="font_size">字型大小</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">這個文件將被輸出並儲存為 \'%s\'</string>
     <string name="back_to_previous_folder">回到上個資料夾</string>
+    <string name="settings">設定</string>
     <string name="appearance">外觀</string>
+    <string name="search">搜尋</string>
+    <string name="about">說明</string>
+    <string name="font_size">字型大小</string>
+    <string name="hide_statusbar">隱藏狀態列</string>
+    <string name="contributors">貢獻人</string>
+    <string name="changelog">更新紀錄</string>
+    <string name="show_third_party_licenses">第三方程式庫</string>
+    <string name="language_change_restart_description">更改應用程式使用的語言。要重新開啟應用程式才會生效</string>
+    <string name="language">語言</string>
+    <string name="more">再來</string>
+    <string name="general">平常</string>
+    <string name="default_">系統預設</string>
+    <string name="report_bugs">回報臭蟲</string>
 </resources>

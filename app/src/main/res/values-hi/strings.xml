@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="settings">सेटिंग्स</string>
     <string name="light">हलका</string>
     <string name="dark">गहरा</string>
     <string name="delete">हटाना</string>
@@ -51,7 +50,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">नोट संपादक फ़ॉन्ट</string>
     <string name="theme">बनावट</string>
     <string name="open_preview_when_opening_documents">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
-    <string name="about">जानकारी</string>
     <string name="plaintext">सादा टेक्स्ट</string>
     <string name="file">फ़ाइल</string>
     <string name="image">छवि</string>
@@ -69,13 +67,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg">फ़ाइलों की संख्या: %d</string>
     <string name="select_this_folder">इस फ़ोल्डर का चयन करें</string>
     <string name="select">चयन करें</string>
-    <string name="create">बनाये</string>
     <string name="select_entries">प्रविष्टियों का चयन करें</string>
     <string name="one_item_selected">एक आइटम चयनित</string>
     <string name="items_selected_witharg">%d आइटम चयनित</string>
 
-    <string name="hide_statusbar_at_this_view">इस दृश्य पर स्टेटस बार छुपाएं</string>
-    <string name="hide_statusbar">स्थिति पट्टी छुपाएँ</string>
 
     <string name="name">नाम</string>
     <string name="url_or_path">URL / पथ</string>
@@ -83,27 +78,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">चित्र डालें</string>
 
     <!-- About screen -->
-    <string name="contributors">योगदानकर्ता</string>
     <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
-    <string name="licenses">लाइसेंस</string>
-    <string name="changelog">परिवर्तन खाता</string>
     <string name="more_info">अधिक जानकारी</string>
     <string name="show_license_of_the_app">एप का लाइसेंस दिखाएं</string>
-    <string name="show_third_party_licenses">तीसरे पक्ष के लाइसेंस दिखाएं</string>
-    <string name="language_change_restart_description">इस ऐप की भाषा बदलें| परिवर्तन प्रभावी होने के लिए ऐप को पुन: प्रारंभ करें</string>
-    <string name="language">भाषा</string>
     <string name="error_need_storage_permission_to_save_documents">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>
     <string name="open_with">के साथ खोलें</string>
     <string name="sort">छाटना</string>
     <string name="date">दिनांक के हिसाब से छाटना</string>
     <string name="deleteme____1">नाम के हिसाब से छाटना</string>
-    <string name="size">आकार के हिसाब से छाटना</string>
     <string name="reverse_order">उल्टे क्रम</string>
     <string name="contribute">योगदान</string>
-    <string name="donate">दान करें</string>
     <string name="project_page">प्रोजेक्ट पेज</string>
     <string name="press_back_again_to_exit">बाहर निकलने के लिए वापस फिर से दबाएं</string>
-    <string name="exit">बाहर जाएं</string>
     <string name="undo">पूर्ववत करें</string>
     <string name="redo">फिर से करें</string>
     <string name="more">अधिक</string>
@@ -127,5 +113,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">कार्य जोड़ें</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">दस्तावेज़ को \"%s\" के रूप में लोड और सहेजा जाना चाहिए</string>
 
+    <string name="settings">सेटिंग्स</string>
     <string name="appearance">दिखावट</string>
+    <string name="editor">संपादक</string>
+    <string name="about">जानकारी</string>
+    <string name="create">बनाये</string>
+    <string name="hide_statusbar_at_this_view">इस दृश्य पर स्टेटस बार छुपाएं</string>
+    <string name="hide_statusbar">स्थिति पट्टी छुपाएँ</string>
+    <string name="contributors">योगदानकर्ता</string>
+    <string name="licenses">लाइसेंस</string>
+    <string name="changelog">परिवर्तन खाता</string>
+    <string name="show_third_party_licenses">तीसरे पक्ष के लाइसेंस दिखाएं</string>
+    <string name="language_change_restart_description">इस ऐप की भाषा बदलें परिवर्तन प्रभावी होने के लिए ऐप को पुन: प्रारंभ करें</string>
+    <string name="language">भाषा</string>
+    <string name="size">आकार</string>
+    <string name="donate">दान करें</string>
+    <string name="exit">बाहर जाएं</string>
+    <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
 </resources>

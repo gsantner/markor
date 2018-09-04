@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="settings">Configurações</string>
     <string name="light">Luz</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>
@@ -35,9 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Procurar notas</string>
     <string name="share_to_arrow">Compartilhar com…</string>
     <string name="share">Compartilhar</string>
-    <string name="search">Procurar</string>
     <string name="preview">Pré-visualização</string>
-    <string name="editor">Editor</string>
     <string name="folders">Pastas</string>
     <string name="files">Arquivos</string>
     <string name="document">Documento</string>
@@ -48,24 +45,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Fonte das notas</string>
     <string name="theme">Tema</string>
     <string name="open_preview_when_opening_documents">Pré-visualização ao abrir notas</string>
-    <string name="about">Sobre o Markor</string>
     <string name="plaintext">Texto puro</string>
     <string name="file">Arquivo</string>
     <string name="image">Imagem</string>
-    <string name="font_size">Tamanho da fonte</string>
     <string name="render_rtl_language">Renderizar para línguas de escrita da direita à esquerda</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erro: Impossível criar pasta de becape</string>
 
     <string name="last_modified_witharg">Últimas modificações: %s</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
-    <string name="create">Criar</string>
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg">%d itens selecionados</string>
 
-    <string name="hide_statusbar_at_this_view">Esconder barra de tarefas nesta visualização</string>
-    <string name="hide_statusbar">Esconder barra de status</string>
 
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
@@ -73,31 +65,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserir Imagem</string>
 
     <!-- About screen -->
-    <string name="contributors">Colaboradores</string>
     <string name="select_storage_folder">Escolher pasta de armazenamento</string>
     <string name="notebook_directory">Pasta de notas</string>
-    <string name="licenses">Licenças</string>
-    <string name="changelog">Histórico de atualizações</string>
     <string name="more_info">Mais informações</string>
     <string name="show_license_of_the_app">Exibir licença</string>
-    <string name="show_third_party_licenses">Exibir licenças de 3os</string>
-    <string name="language_change_restart_description">Mudar língua do aplicativo. Reiniciar para aplicar</string>
-    <string name="language">Língua</string>
     <string name="error_need_storage_permission_to_save_documents">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
     <string name="open_with">Abrir com</string>
     <string name="sort">Ordenar</string>
     <string name="date">Ordenar por Data</string>
     <string name="deleteme____1">Ordenar por Nome</string>
-    <string name="size">Ordenar por Tamanho</string>
     <string name="reverse_order">Inverter ordem</string>
     <string name="contribute">Contribuir</string>
-    <string name="donate">Doar</string>
     <string name="project_page">Página do projeto</string>
     <string name="press_back_again_to_exit">Pressione \"volta\" novamente para sair</string>
-    <string name="exit">Sair</string>
     <string name="undo">Desfazer</string>
     <string name="redo">Refazer</string>
-    <string name="more">Mais</string>
     <string name="notebook">Caderno</string>
     <string name="help">Ajuda</string>
     <string name="todo_list">Lista de Tarefas</string>
@@ -174,7 +156,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
     <string name="use_monospace_for_code">Usar Monospace em código</string>
     <string name="use_different_fonttype_slow_down">Faça o uso de um tipo de fonte diferente. Alterar o tipo de fonte dinamicamente faz um impacto sobre o desempenho do aplicativo.</string>
-    <string name="general">Geral</string>
     <string name="resources">Recursos</string>
     <string name="space_between_lines_in_percent">Espaço entre linhas em porcentagem</string>
     <string name="line_spacing">Espaçamento de linha</string>
@@ -195,7 +176,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="configure_in_the_apps_settings">Configure nas configurações do aplicativos</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
-    <string name="default_">Padrão</string>
     <string name="left">Esqueda</string>Esquerda superior direito centro inferior
     <string name="right">Direita</string>
     <string name="top">Superior</string>
@@ -227,5 +207,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">Equipe do Projeto</string>
     <string name="contributors_public_add_yourself_description">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
 
+    <string name="search">Pesquisar</string>
+    <string name="font_size">Tamanho da fonte</string>
+    <string name="more">Mais</string>
+    <string name="general">Geral</string>
+    <string name="default_">Padrão</string>
+    <string name="settings">Configurações</string>
     <string name="appearance">Aparência</string>
+    <string name="editor">Editor</string>
+    <string name="about">Sobre</string>
+    <string name="create">Criar</string>
+    <string name="hide_statusbar_at_this_view">Esconder barra de status nesta visualização</string>
+    <string name="hide_statusbar">Esconder barra de status</string>
+    <string name="contributors">Colaboradores</string>
+    <string name="licenses">Licenças</string>
+    <string name="changelog">Histórico de atualizações</string>
+    <string name="show_third_party_licenses">Ver licenças de terceiros</string>
+    <string name="language_change_restart_description">Muda o idioma do aplicativo. Reinicie o aplicativo para que as alterações entrem em vigor</string>
+    <string name="language">Idioma</string>
+    <string name="size">Tamanho</string>
+    <string name="donate">Doar</string>
+    <string name="exit">Sair</string>
+    <string name="error_picture_selection">Nenhuma imagem selecionada.</string>
 </resources>

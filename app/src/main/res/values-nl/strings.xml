@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Instellingen</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
     <string name="delete">Verwijderen</string>
@@ -35,7 +34,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Zoek notities</string>
     <string name="share_to_arrow">Delen met…</string>
     <string name="share">Delen</string>
-    <string name="search">Zoeken</string>
     <string name="preview">Voorbeeld</string>
     <string name="editor">Bewerker</string>
     <string name="folders">Mappen</string>
@@ -48,11 +46,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Notitie Bewerker Lettertype</string>
     <string name="theme">Thema</string>
     <string name="open_preview_when_opening_documents">Voorbeeld tijdens openen notities</string>
-    <string name="about">Over Markor</string>
     <string name="plaintext">Platte tekst</string>
     <string name="file">Bestand</string>
     <string name="image">Afbeelding</string>
-    <string name="font_size">Lettergrootte</string>
     <string name="render_rtl_language">Opbouw voor rechts-naar-links talen</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fout: Kan geen opslagfolder maken</string>
 
@@ -73,15 +69,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Voeg afbeelding toe</string>
 
     <!-- About screen -->
-    <string name="contributors">Bijdragers</string>
     <string name="select_storage_folder">Kies opslagmap</string>
     <string name="licenses">Licenties</string>
-    <string name="changelog">Wijzigingen</string>
     <string name="more_info">Meer informatie</string>
     <string name="show_license_of_the_app">Bekijk licentie van de app</string>
-    <string name="show_third_party_licenses">Bekijk licenties van derden</string>
-    <string name="language_change_restart_description">Wijzig de taal van de app. Herstart de app om de wijzigingen door te voeren</string>
-    <string name="language">Taal</string>
     <string name="error_need_storage_permission_to_save_documents">Er is toestemming nodig voor het opslaan van de documenten</string>
     <string name="open_with">Open met</string>
     <string name="sort">Sorteren</string>
@@ -94,7 +85,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_page">Project pagina</string>
     <string name="exit">Afsluiten</string>
     <string name="redo">Ongedaan maken</string>
-    <string name="more">Meer</string>
     <string name="notebook">Notities</string>
     <string name="help">Help</string>
     <string name="category">Categorie</string>
@@ -147,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rtl_rendering">Rechts-naar-links</string>
     <string name="highlight_line_ending">Markeer einde van de regel</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markeer spaties aan het einde van de regel met meer dan twee spaties</string>
-    <string name="general">Algemeen</string>
     <string name="resources">Bronnen</string>
     <string name="space_between_lines_in_percent">Ruimte tussen regels in procenten</string>
     <string name="line_spacing">Regelafstand</string>
@@ -157,7 +146,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Alles selecteren (Ctrl+A)</string>
     <string name="key_tab">Documenteinde</string>
     <string name="horizontal_alignment">Horizontale uitleining</string>
-    <string name="default_">Standaard</string>
     <string name="left">Links</string>
     <string name="right">Rechts</string>
     <string name="top">Bovenkant</string>
@@ -171,7 +159,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_source_licenses">Open Source Licenties</string>
     <string name="rate_this_app">Beoordeel deze app</string>
     <string name="more_info_and_help">Meer informatie en ondersteuning</string>
-    <string name="report_bugs">Meld defecten</string>
     <string name="android_contribution_guide">Android bijdragers handleiding</string>
     <string name="join_community">Neem deel aan de gemeenschap</string>
     <string name="bug_reports_suggest_improvements">Geef commentaar, meld defecten of ideeën voor verbeteringen</string>
@@ -180,5 +167,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Project Licentie</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
     <string name="project_team">Project Team</string>
+    <string name="settings">Instellingen</string>
     <string name="appearance">Vormgeving</string>
+    <string name="search">Zoeken</string>
+    <string name="about">Over</string>
+    <string name="font_size">Lettergrootte</string>
+    <string name="contributors">Bijdragers</string>
+    <string name="changelog">Logboekwijzigingen</string>
+    <string name="show_third_party_licenses">3rd Party Bibliotheken</string>
+    <string name="language_change_restart_description">Taal wijzigen van deze app. Opnieuw opstarten om wijzigingen te activeren</string>
+    <string name="language">Taal</string>
+    <string name="more">Meer</string>
+    <string name="general">Algemeen</string>
+    <string name="default_">Standaard</string>
+    <string name="report_bugs">Bugs melden</string>
 </resources>

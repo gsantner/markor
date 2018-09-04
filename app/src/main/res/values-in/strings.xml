@@ -10,6 +10,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Tampilan</string>
-</resources>
 
+    <string name="settings">Preferensi</string>
+    <string name="appearance">Tampilan</string>
+    <string name="editor">Laman Pengubahan</string>
+    <string name="about">Tentang Kami</string>
+    <string name="create">Buat Baru</string>
+    <string name="hide_statusbar_at_this_view">Sembunyikan kolom status pada tampilan ini</string>
+    <string name="hide_statusbar">Sembunyikan kolom status</string>
+    <string name="contributors">Kontributor</string>
+    <string name="licenses">Lisensi</string>
+    <string name="changelog">Catatan Perubahan</string>
+    <string name="show_third_party_licenses">Tampilkan lisensi pihak ketiga</string>
+    <string name="language_change_restart_description">Mengubah bahasa aplikasi. Buka ulang aplikasi setelah mengubah preferensi bahasa</string>
+    <string name="language">Bahasa</string>
+    <string name="size">Ukuran</string>
+    <string name="donate">Donasi</string>
+    <string name="exit">Keluar</string>
+    <string name="error_picture_selection">Tidak ada gambar yang dipilih.</string>
+</resources>

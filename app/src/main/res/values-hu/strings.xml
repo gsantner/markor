@@ -10,6 +10,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Megjelenés</string>
-</resources>
 
+    <string name="settings">Beállítások</string>
+    <string name="appearance">Megjelenés</string>
+    <string name="search">Keresés</string>
+    <string name="about">Névjegy</string>
+    <string name="font_size">Betűméret</string>
+    <string name="contributors">Hozzájárulók</string>
+    <string name="changelog">Újdonságok</string>
+    <string name="show_third_party_licenses">3. személytől származó könyvtárak</string>
+    <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
+    <string name="language">Nyelv</string>
+    <string name="more">Egyebek</string>
+    <string name="general">Általános</string>
+    <string name="default_">Alapértelmezett</string>
+    <string name="report_bugs">Hibajelentés</string>
+</resources>

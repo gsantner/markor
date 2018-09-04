@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="settings">Iɣewwaṛen</string>
     <string name="light">Aceɛlal</string>
     <string name="dark">Ubrik</string>
     <string name="delete">Kkes</string>
@@ -36,7 +35,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Nadi di tizmilin</string>
     <string name="share_to_arrow">Bḍu s…</string>
     <string name="share">Bḍu</string>
-    <string name="search">Nadi</string>
     <string name="preview">Taskant</string>
     <string name="app_settings">Iɣewwaṛen n usnas</string>
     <string name="editor_settings">Iɣewwaṛen n umaẓrag</string>
@@ -51,11 +49,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Tasefsit n umaẓrag</string>
     <string name="theme">Asentel</string>
     <string name="open_preview_when_opening_documents">Ldi tizmilin di teskant</string>
-    <string name="about">Ɣef Markor</string>
     <string name="plaintext">Aḍris arewway</string>
     <string name="file">Afaylu</string>
     <string name="image">Tugna</string>
-    <string name="font_size">Teɣzi n tsefsit</string>
     <string name="show_markdown_shortcuts_bar__appspecific">Sken afeggag n teẓrigt Markdown</string>
     <string name="markdown_syntax_highlighting__appspecific">Rmed tiɣmi n tseddast Markdown</string>
     <string name="delay_in_milliseconds_for_highlighting_refresh">Tanzagt n usmiren n useɣmu n tseddats s ms</string>
@@ -69,13 +65,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg">Amḍan n ifuyla : %d</string>
     <string name="select_this_folder">Fren akaram</string>
     <string name="select">Fren</string>
-    <string name="create">Rnu</string>
     <string name="select_entries">Fren yiwen neɣ ugar n inekcamen</string>
     <string name="one_item_selected">Anekcam</string>
     <string name="items_selected_witharg">%d n inekcamen ttwafernen</string>
 
-    <string name="hide_statusbar_at_this_view">Asnas yettwaselkam deg ugdil aččuran</string>
-    <string name="hide_statusbar">Ffer afeggag n waddad</string>
 
     <string name="name">Isem</string>
     <string name="url_or_path">URL / Abrid</string>
@@ -83,30 +76,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Ger tugna</string>
 
     <!-- About screen -->
-    <string name="contributors">Imttekkiyen</string>
     <string name="select_storage_folder">Fren akaram ara tesqedceḍ i usekles</string>
-    <string name="licenses">Iselkinen</string>
-    <string name="changelog">Amaynut ɣef usnas</string>
     <string name="more_info">Ugar n telɣut</string>
     <string name="show_license_of_the_app">Sken aselkin n uḍris</string>
-    <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
-    <string name="language_change_restart_description">Beddel isem n tutlayt n ugrudem. Yessefk ad talseḍ tanekra n usnas akken teddu tutlaut tamaynut</string>
-    <string name="language">Tutlayt</string>
     <string name="error_need_storage_permission_to_save_documents">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
     <string name="open_with">Ldi s</string>
     <string name="sort">Smizzwer</string>
     <string name="date">Smizzwer s wazemz</string>
     <string name="deleteme____1">Smizzwer s yisem</string>
-    <string name="size">Smizzwer s teɣzi</string>
     <string name="reverse_order">Tti asmizzwer</string>
     <string name="contribute">Ttekki</string>
-    <string name="donate">Tawsa</string>
     <string name="project_page">Asebter n usenfaṛ</string>
     <string name="press_back_again_to_exit">Senned daɣen ɣef tuɣalin akken ad teffɣeḍ</string>
-    <string name="exit">Ffeɣ</string>
     <string name="undo">Sefsex</string>
     <string name="redo">Err-d</string>
-    <string name="more">Ugar</string>
     <string name="notebook">Imedlis n tizmilin</string>
     <string name="help">Aide</string>
     <string name="special_documents">Arraten uzzigen</string>
@@ -127,5 +110,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">Rnu tawuri</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Arrat ara d-yalin neɣ ara yettwaskelsen am \"%s\"</string>
 
+    <string name="search">Nadi</string>
+    <string name="font_size">Teɣzi n tsefsit</string>
+    <string name="more">Ugar</string>
+    <string name="general">Amatu</string>
+    <string name="default_">Amezwer</string>
+    <string name="report_bugs">Azen ibugen</string>
+    <string name="settings">Ismenyifen</string>
     <string name="appearance">Udem</string>
+    <string name="editor">Amaẓrag</string>
+    <string name="about">Ɣef</string>
+    <string name="create">Rnu</string>
+    <string name="hide_statusbar_at_this_view">Asnas yettwaselkam deg ugdil aččuran</string>
+    <string name="hide_statusbar">Ffer afeggag n waddad</string>
+    <string name="contributors">Imttekkiyen</string>
+    <string name="licenses">Iselkinen</string>
+    <string name="changelog">Amaynut n usnas</string>
+    <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
+    <string name="language_change_restart_description">Beddel isem n tutlayt n ugrudem. Yessefk ad talseḍ tanekra n usnas akken teddu tutlaut tamaynut</string>
+    <string name="language">Tutlayt</string>
+    <string name="size">Teɣzi</string>
+    <string name="donate">Mudd</string>
+    <string name="exit">Ffeɣ</string>
+    <string name="error_picture_selection">Ula d yiwet n tugna ur tettwafren.</string>
 </resources>

@@ -9,7 +9,6 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Einstellungen</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
     <string name="delete">Löschen</string>
@@ -36,9 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Notizen suchen</string>
     <string name="share_to_arrow">Teilen zu…</string>
     <string name="share">Teilen</string>
-    <string name="search">Suchen</string>
     <string name="preview">Vorschau</string>
-    <string name="editor">Editor</string>
     <string name="folders">Ordner</string>
     <string name="files">Dateien</string>
     <string name="document">Dokument</string>
@@ -49,24 +46,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Schriftart</string>
     <string name="theme">Thema</string>
     <string name="open_preview_when_opening_documents">Dokumente in Vorschauansicht öffnen</string>
-    <string name="about">Über Markor</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Datei</string>
     <string name="image">Bild</string>
-    <string name="font_size">Schriftgröße</string>
     <string name="render_rtl_language">Rendern von rechts-zu-links Sprachen</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fehler: Konnte Speicher-Verzeichnis nicht erstellen</string>
 
     <string name="last_modified_witharg">Zuletzt bearbeitet: %s</string>
     <string name="select_this_folder">Ordner auswählen</string>
     <string name="select">Auswählen</string>
-    <string name="create">Erstellen</string>
     <string name="select_entries">Einträge auswählen</string>
     <string name="one_item_selected">Eine Datei ausgewählt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="hide_statusbar_at_this_view">Die Statusleiste in dieser Ansicht verstecken</string>
-    <string name="hide_statusbar">Statusleiste verstecken</string>
 
     <string name="name">Name</string>
     <string name="url_or_path">URL / Pfad</string>
@@ -74,31 +66,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Bild einfügen</string>
 
     <!-- About screen -->
-    <string name="contributors">Mitwirkende</string>
     <string name="select_storage_folder">Speicherort</string>
     <string name="notebook_directory">Pfad zum Notizbuch</string>
-    <string name="licenses">Lizenzen</string>
-    <string name="changelog">Änderungen</string>
     <string name="more_info">Mehr Informationen</string>
     <string name="show_license_of_the_app">Lizenzen der App anzeigen</string>
-    <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
-    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
-    <string name="language">Sprache</string>
     <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystem Berechtigung um in Dokumenten zu speichern</string>
     <string name="open_with">Öffnen mit</string>
     <string name="sort">Sortieren</string>
     <string name="date">Sortieren nach Datum</string>
     <string name="deleteme____1">Sortieren nach Name</string>
-    <string name="size">Sortieren nach Größe</string>
     <string name="reverse_order">Ordnung umdrehen</string>
     <string name="contribute">Beitragen</string>
-    <string name="donate">Spenden</string>
     <string name="project_page">Projektseite</string>
     <string name="press_back_again_to_exit">Nochmal zurück drücken um zu beenden</string>
-    <string name="exit">Beenden</string>
     <string name="undo">Rückgängig</string>
     <string name="redo">Wiederherstellen</string>
-    <string name="more">Mehr</string>
     <string name="notebook">Notizbuch</string>
     <string name="help">Hilfe</string>
     <string name="todo_list">To-Do Liste</string>
@@ -175,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
     <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
     <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
-    <string name="general">Allgemein</string>
     <string name="resources">Ressourcen</string>
     <string name="space_between_lines_in_percent">Abstand zwischen Zeilen in Prozent</string>
     <string name="line_spacing">Zeilenabstand</string>
@@ -196,7 +177,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
     <string name="vertical_alignment">Vertikale Anordnung</string>
     <string name="horizontal_alignment">Horizontale Anordnung</string>
-    <string name="default_">Standard</string>
     <string name="left">Links</string>
     <string name="right">Rechts</string>
     <string name="top">Oben</string>
@@ -213,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">App bewerten</string>
     <string name="translate">Übersetzen</string>
     <string name="more_info_and_help">Mehr Infos und Hilfe zu dieser App</string>
-    <string name="report_bugs">Fehler melden</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Weitere Informationen zum Spenden oder zur anderweitigen Unterstützung dieses Projekts</string>
     <string name="android_contribution_guide">Unterstützungs Guide für Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Weitere Informationen zum Beitrag zu Open Source-Projekten, insbesondere zu Android Apps</string>
@@ -237,9 +216,30 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Details</string>
     <string name="calendar">Kalender</string>
     <string name="warning_disallowed_sd_access">Achtung! Die App ist nicht berechtigt die Datei zu schreiben, jegliche Änderung wird verworfen. Es gibt keine Möglichkeit das Problem zu beheben oder etwas zu bestätigen, Android verbietet jeglichen Zugriff hier.</string>
-    <string name="error_picture_selection">Kein Bild ausgewählt, erstellt oder gespeichert.</string>
     <string name="gallery_picture">Galerie Bild</string>
     <string name="camera_picture">Kamera Bild</string>
 
+    <string name="search">Suchen</string>
+    <string name="font_size">Schriftgröße</string>
+    <string name="more">Mehr</string>
+    <string name="general">Allgemeines</string>
+    <string name="default_">Standard</string>
+    <string name="report_bugs">Fehler melden</string>
+    <string name="settings">Einstellungen</string>
     <string name="appearance">Erscheinungsbild</string>
+    <string name="editor">Editor</string>
+    <string name="about">Über</string>
+    <string name="create">Erstellen</string>
+    <string name="hide_statusbar_at_this_view">Die Statusleiste in dieser Ansicht verstecken</string>
+    <string name="hide_statusbar">Statusleiste verstecken</string>
+    <string name="contributors">Beitragende</string>
+    <string name="licenses">Lizenzen</string>
+    <string name="changelog">Änderungen</string>
+    <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
+    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
+    <string name="language">Sprache</string>
+    <string name="size">Größe</string>
+    <string name="donate">Spenden</string>
+    <string name="exit">Beenden</string>
+    <string name="error_picture_selection">Kein Bild ausgewählt.</string>
 </resources>

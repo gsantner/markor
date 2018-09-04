@@ -10,6 +10,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
 
-    <string name="appearance">Aparencia</string>
-</resources>
 
+    <string name="settings">Axustes</string>
+    <string name="appearance">Aparencia</string>
+    <string name="search">Buscar</string>
+    <string name="about">Sobre</string>
+    <string name="font_size">Tamaño do texto</string>
+    <string name="hide_statusbar">Agochar barra de estado</string>
+    <string name="contributors">Contribúen</string>
+    <string name="changelog">Rexistro de cambios</string>
+    <string name="show_third_party_licenses">Código de terceiras partes</string>
+    <string name="language_change_restart_description">Cambiar o idioma de esta aplicación. Reinicie para que se aplique o troco</string>
+    <string name="language">Idioma</string>
+    <string name="more">Máis</string>
+    <string name="general">Xeral</string>
+    <string name="default_">Por omisión</string>
+    <string name="report_bugs">Reporte erros</string>
+</resources>
