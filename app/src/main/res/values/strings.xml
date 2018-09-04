@@ -237,7 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Details</string>
     <string name="calendar">Calendar</string>
     <string name="warning_disallowed_sd_access">Warning! The app doesn\'t have the permission to save this file, all changes here will be lost. There is no possibility to resolve the problem or to confirm something, Android denies any access here.</string>
-    <string name="error_picture_selection">No picture taken, selected or not successfully saved.</string>
+    <string name="error_picture_selection">No picture selected, taken or saved.</string>
     <string name="gallery_picture">Gallery picture</string>
     <string name="camera_picture">Camera picture</string>
 </resources>
