@@ -65,20 +65,15 @@ public class MarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCrea
     }
 
     private Float calculateProportionForUnderlineHeader(final char[] charSequence) {
-        float proportion = STANDARD_PROPORTION_MAX;
-        if (Character.valueOf('=').equals(charSequence[charSequence.length - 1])) {
-            proportion -= SIZE_STEP;
-        } else if (Character.valueOf('-').equals(charSequence[charSequence.length - 1])) {
-            proportion -= (SIZE_STEP * 2);
-        }
-        return proportion;
+        return Character.valueOf('=').equals(charSequence[charSequence.length - 1])
+                ? 1.6f : 1.0f;
     }
 
     private Float calculateProportionForHashesHeader(final char[] charSequence) {
         float proportion = STANDARD_PROPORTION_MAX;
         int i = 0;
         // Reduce by SIZE_STEP for each #
-        while (POUND_SIGN.equals(charSequence[i])) {
+        while (POUND_SIGN.equals(charSequence[i]) && proportion >= 1.0) {
             proportion -= SIZE_STEP;
             i++;
         }
