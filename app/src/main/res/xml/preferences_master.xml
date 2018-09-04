@@ -97,7 +97,7 @@
             app:min="1" />
 
         <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="90"
+            android:defaultValue="100"
             android:icon="@drawable/ic_format_line_spacing_black_24dp"
             android:key="@string/pref_key__editor_line_spacing"
             android:max="250"
