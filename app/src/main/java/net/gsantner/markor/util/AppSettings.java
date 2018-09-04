@@ -220,7 +220,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public float getEditorLineSpacing() {
-        return getInt(R.string.pref_key__editor_line_spacing, 90) / 100f;
+        return getInt(R.string.pref_key__editor_line_sacing, 100) / 100f;
     }
 
     public void setLastTodoUsedArchiveFilename(String value) {
