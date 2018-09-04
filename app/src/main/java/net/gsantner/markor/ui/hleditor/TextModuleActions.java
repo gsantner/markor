@@ -20,15 +20,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ShareUtil;
 
-import static net.gsantner.opoc.util.ShareUtil.REQUEST_TAKE_CAMERA_PICTURE;
+import static net.gsantner.opoc.util.ShareUtil.REQUEST_CAMERA_PICTURE;
+import static net.gsantner.opoc.util.ShareUtil.REQUEST_PICK_PICTURE;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -101,15 +102,17 @@ public abstract class TextModuleActions {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_CAMERA_PICTURE) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (_cameraPictureFilepath != null) {
-                    onPictureTaken(_cameraPictureFilepath);
-                } else {
-                    _au.showSnackBar(R.string.main__error_unable_to_create_file, false);
-                }
-            } else {
-                _au.showSnackBar(R.string.main__error_no_picture_selected, false);
+        ShareUtil shu = new ShareUtil(_activity);
+        Object result = shu.extractResultFromActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CAMERA_PICTURE: {
+                _onPictureSelected((String) result);
+                break;
+            }
+            case REQUEST_PICK_PICTURE: {
+                _onPictureSelected((String) result);
+                break;
             }
         }
     }
@@ -127,7 +130,16 @@ public abstract class TextModuleActions {
         return this;
     }
 
-    protected void onPictureTaken(String url) {
+
+    private void _onPictureSelected(String url) {
+        if (TextUtils.isEmpty(url)) {
+            _au.showSnackBar(R.string.error_picture_selection, false);
+        } else {
+            onPictureSelected(url);
+        }
+    }
+
+    protected void onPictureSelected(String url) {
 
     }
 

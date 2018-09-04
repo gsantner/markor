@@ -250,7 +250,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 case 6: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         ShareUtil shu = new ShareUtil(_activity);
-                        _cameraPictureFilepath = shu.showCameraDialog();
+                        _cameraPictureFilepath = shu.requestCameraPicture();
                     }
                     break;
                 }
@@ -395,7 +395,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     }
 
 
-    protected void onPictureTaken(String imagePath) {
+    protected void onPictureSelected(String imagePath) {
         String url = imagePath.replace(")", "\\)")
                 .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
 

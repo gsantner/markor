@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -21,6 +22,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.ParcelFileDescriptor;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
@@ -39,9 +41,9 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
-import net.gsantner.markor.R;
-
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,9 +51,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
- * A utility class to ease information sharing on Android
- * Also allows to parse/fetch information out of shared information
+ * A utility class to ease information sharing on Android.
+ * Also allows to parse/fetch information out of shared information.
+ * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
 public class ShareUtil {
@@ -59,7 +64,11 @@ public class ShareUtil {
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
     public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmm", Locale.getDefault());
     public final static String MIME_TEXT_PLAIN = "text/plain";
-    public final static int REQUEST_TAKE_CAMERA_PICTURE = 50001;
+
+    public final static int REQUEST_CAMERA_PICTURE = 50001;
+    public final static int REQUEST_PICK_PICTURE = 50002;
+
+    protected static String _lastCameraPictureFilepath;
 
     protected Context _context;
     protected String _fileProviderAuthority;
@@ -519,12 +528,30 @@ public class ShareUtil {
     }
 
     /**
-     * Show the camera picker via intent
-     * Source: http://developer.android.com/training/camera/photobasics.html
+     * Request a picture from gallery
+     * Result will be available from {@link Activity#onActivityResult(int, int, Intent)}.
+     * It will return the path to the image if locally stored. If retrieved from e.g. a cloud
+     * service, the image will get copied to app-cache folder and it's path returned.
      */
-    public String showCameraDialog() {
+    public void requestGalleryPicture() {
         if (!(_context instanceof Activity)) {
-            throw new RuntimeException("Error: ShareUtil.showCameraDialog needs an Activity Context.");
+            throw new RuntimeException("Error: ShareUtil.requestGalleryPicture needs an Activity Context.");
+        }
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        ((Activity) _context).startActivityForResult(intent, REQUEST_PICK_PICTURE);
+    }
+
+    /**
+     * Request a picture from camera-like apps
+     * Result ({@link String}) will be available from {@link Activity#onActivityResult(int, int, Intent)}.
+     * It has set resultCode to {@link Activity#RESULT_OK} with same requestCode, if successfully
+     * The requested image savepath has to be stored at caller side (not contained in intent),
+     * it can be retrieved using {@link #extractResultFromActivityResult(int, int, Intent)},
+     * returns null if an error happened.
+     */
+    public String requestCameraPicture() {
+        if (!(_context instanceof Activity)) {
+            throw new RuntimeException("Error: ShareUtil.requestCameraPicture needs an Activity Context.");
         }
         String cameraPictureFilepath = null;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -532,14 +559,12 @@ public class ShareUtil {
             File photoFile;
             try {
                 // Create an image file name
-                String imageFileName = _context.getString(R.string.app_name) + "_" + System.currentTimeMillis();
-                File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DCIM), "Camera");
+                String imageFileName = (new ContextUtils(_context).rstr("app_name")) + "_" + System.currentTimeMillis();
+                File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
                 photoFile = File.createTempFile(imageFileName, ".jpg", storageDir);
 
                 // Save a file: path for use with ACTION_VIEW intents
                 cameraPictureFilepath = photoFile.getAbsolutePath();
-
             } catch (IOException ex) {
                 return null;
             }
@@ -552,9 +577,68 @@ public class ShareUtil {
                 } else {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                ((Activity) _context).startActivityForResult(takePictureIntent, REQUEST_TAKE_CAMERA_PICTURE);
+                ((Activity) _context).startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
             }
         }
+        _lastCameraPictureFilepath = cameraPictureFilepath;
         return cameraPictureFilepath;
     }
+
+    /**
+     * Extract result data from {@link Activity#onActivityResult(int, int, Intent)}.
+     * Forward all arguments from activity. Only requestCodes from {@link ShareUtil} get analyzed.
+     */
+    public Object extractResultFromActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CAMERA_PICTURE: {
+                return (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+            }
+            case REQUEST_PICK_PICTURE: {
+                if (resultCode == RESULT_OK && data != null) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    String picturePath = null;
+
+                    Cursor cursor = _context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        for (String column : filePathColumn) {
+                            int curColIndex = cursor.getColumnIndex(column);
+                            if (curColIndex == -1) {
+                                continue;
+                            }
+                            picturePath = cursor.getString(curColIndex);
+                            if (!TextUtils.isEmpty(picturePath)) {
+                                break;
+                            }
+                        }
+                        cursor.close();
+                    }
+
+                    // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
+                    if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        try {
+                            ParcelFileDescriptor parcelFileDescriptor = _context.getContentResolver().openFileDescriptor(selectedImage, "r");
+                            if (parcelFileDescriptor != null) {
+                                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                                FileInputStream input = new FileInputStream(fileDescriptor);
+
+                                // Create temporary file in cache directory
+                                picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
+                                FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input));
+                            }
+                        } catch (IOException ignored) {
+                            // nothing we can do here, null value will be handled below
+                        }
+                    }
+
+                    // Return path to picture on success, else null
+                    return picturePath;
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
+
 }
