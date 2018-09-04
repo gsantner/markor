@@ -221,7 +221,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
     private Document loadDocument() {
+        AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
         Document document = DocumentIO.loadDocument(getActivity(), getArguments(), _document);
+        if (document != null){
+            document.setDoHistory(appSettings.isEditorHistoryEnabled());
+        }
         if (document.getHistory().isEmpty()) {
             document.forceAddNextChangeToHistory();
             document.addToHistory();

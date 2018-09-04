@@ -302,4 +302,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public String getInjectedHeader() {
         return getString(R.string.pref_key__inject_to_head, rstr(R.string.inject_to_head_default));
     }
+
+    public boolean isEditorHistoryEnabled() {
+        return getBool(R.string.pref_key__editor_history_enabled, false);
+    }
 }

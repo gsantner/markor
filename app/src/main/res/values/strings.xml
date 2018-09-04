@@ -13,6 +13,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="delete">Delete</string>
+    <string name="appearance">Appearance</string>
     <string name="rename">Rename</string>
     <string name="confirm_delete">Confirm Delete</string>
     <string name="confirm_delete_description">Do you really want to delete this %s?</string>
