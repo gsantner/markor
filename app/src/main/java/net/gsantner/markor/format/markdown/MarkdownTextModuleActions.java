@@ -27,9 +27,9 @@ import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -249,7 +249,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
                 case 6: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        _cameraPictureFilepath = ShareUtil.showCameraDialog(_activity);
+                        ShareUtil shu = new ShareUtil(_activity);
+                        _cameraPictureFilepath = shu.showCameraDialog();
                     }
                     break;
                 }
@@ -394,8 +395,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     }
 
 
-
-     protected void onPictureTaken(String imagePath) {
+    protected void onPictureTaken(String imagePath) {
         String url = imagePath.replace(")", "\\)")
                 .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
 

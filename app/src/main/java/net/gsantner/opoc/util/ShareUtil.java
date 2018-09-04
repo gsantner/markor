@@ -39,7 +39,6 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 
 import java.io.File;
@@ -60,8 +59,7 @@ public class ShareUtil {
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
     public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmm", Locale.getDefault());
     public final static String MIME_TEXT_PLAIN = "text/plain";
-    public final static int REQUEST_TAKE_CAMERA_PICTURE = 101;
-    public final static String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
+    public final static int REQUEST_TAKE_CAMERA_PICTURE = 50001;
 
     protected Context _context;
     protected String _fileProviderAuthority;
@@ -524,15 +522,17 @@ public class ShareUtil {
      * Show the camera picker via intent
      * Source: http://developer.android.com/training/camera/photobasics.html
      */
-    public static String showCameraDialog(Activity activity) {
+    public String showCameraDialog() {
+        if (!(_context instanceof Activity)) {
+            throw new RuntimeException("Error: ShareUtil.showCameraDialog needs an Activity Context.");
+        }
         String cameraPictureFilepath = null;
-        ActivityUtils au = new ActivityUtils(activity);
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            File photoFile = null;
+        if (takePictureIntent.resolveActivity(_context.getPackageManager()) != null) {
+            File photoFile;
             try {
                 // Create an image file name
-                String imageFileName = activity.getString(R.string.app_name) + "_" + System.currentTimeMillis();
+                String imageFileName = _context.getString(R.string.app_name) + "_" + System.currentTimeMillis();
                 File storageDir = new File(Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_DCIM), "Camera");
                 photoFile = File.createTempFile(imageFileName, ".jpg", storageDir);
@@ -541,19 +541,18 @@ public class ShareUtil {
                 cameraPictureFilepath = photoFile.getAbsolutePath();
 
             } catch (IOException ex) {
-                au.showSnackBar(R.string.main__error_camera_cannot_start, false);
+                return null;
             }
 
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Uri uri = FileProvider.getUriForFile(activity,
-                            FILE_PROVIDER_AUTHORITY, photoFile);
+                    Uri uri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 } else {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_CAMERA_PICTURE);
+                ((Activity) _context).startActivityForResult(takePictureIntent, REQUEST_TAKE_CAMERA_PICTURE);
             }
         }
         return cameraPictureFilepath;
