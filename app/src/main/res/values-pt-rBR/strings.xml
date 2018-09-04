@@ -15,57 +15,57 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Apagar</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
-    <string name="confirm_delete_description">Você realmente deseja excluir essa %s?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Você realmente deseja excluir essa %s?</string>
     <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
-    <string name="confirm_overwrite_description">O arquivo já existe. Sobrescrever?</string>
+    <string name="file_already_exists_overwerite">O arquivo já existe. Sobrescrever?</string>
     <string name="browse_filesystem">Navegar no SD</string>
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
-    <string name="folder_name_hint">Nomear pasta</string>
+    <string name="enter_name_of_folder">Nomear pasta</string>
     <string name="create_folder">Criar pasta</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
 
     <string name="import_from_device">Importar do dispositivo</string>
     <string name="import_">Importar</string>
-    <string name="append_to__arg_document_name">Acrescentar para %s</string>
+    <string name="append_to_witharg">Acrescentar para %s</string>
     <string name="select_folder">Selecionar pastas</string>
     <string name="edit">Editar</string>
 
     <string name="search_documents">Procurar notas</string>
-    <string name="share_to">Compartilhar com…</string>
+    <string name="share_to_arrow">Compartilhar com…</string>
     <string name="share">Compartilhar</string>
     <string name="search">Procurar</string>
     <string name="preview">Pré-visualização</string>
     <string name="editor">Editor</string>
     <string name="folders">Pastas</string>
     <string name="files">Arquivos</string>
-    <string name="document_one">Documento</string>
-    <string name="document_multiple">Documentos</string>
-    <string name="share_html__mime_plaintext">HTML (como texto simples)</string>
+    <string name="document">Documento</string>
+    <string name="documents">Documentos</string>
+    <string name="html_as_plaintext">HTML (como texto simples)</string>
 
     <!-- Preferences -->
     <string name="document_editor_font">Fonte das notas</string>
     <string name="theme">Tema</string>
-    <string name="open_preview_when_open_documents">Pré-visualização ao abrir notas</string>
+    <string name="open_preview_when_opening_documents">Pré-visualização ao abrir notas</string>
     <string name="about">Sobre o Markor</string>
-    <string name="plain_text">Texto puro</string>
+    <string name="plaintext">Texto puro</string>
     <string name="file">Arquivo</string>
     <string name="image">Imagem</string>
-    <string name="pref_title__font_size">Tamanho da fonte</string>
-    <string name="render_for_right_to_left_languages">Renderizar para línguas de escrita da direita à esquerda</string>
-    <string name="error_cannot_create_notebook_dir">Erro: Impossível criar pasta de becape</string>
+    <string name="font_size">Tamanho da fonte</string>
+    <string name="render_rtl_language">Renderizar para línguas de escrita da direita à esquerda</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Erro: Impossível criar pasta de becape</string>
 
-    <string name="last_modified">Últimas modificações: %s</string>
+    <string name="last_modified_witharg">Últimas modificações: %s</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
     <string name="create">Criar</string>
-    <string name="select_elements">Selecionar entradas</string>
+    <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
-    <string name="more_items_selected">%d itens selecionados</string>
+    <string name="items_selected_witharg">%d itens selecionados</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Esconder barra de tarefas nesta visualização</string>
-    <string name="pref_title__is_statusbar_hidden">Esconder barra de status</string>
+    <string name="hide_statusbar_at_this_view">Esconder barra de tarefas nesta visualização</string>
+    <string name="hide_statusbar">Esconder barra de status</string>
 
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
@@ -78,22 +78,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_directory">Pasta de notas</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de atualizações</string>
-    <string name="more_information">Mais informações</string>
-    <string name="show_app_license">Exibir licença</string>
+    <string name="more_info">Mais informações</string>
+    <string name="show_license_of_the_app">Exibir licença</string>
     <string name="show_third_party_licenses">Exibir licenças de 3os</string>
-    <string name="pref_desc__language">Mudar língua do aplicativo. Reiniciar para aplicar</string>
-    <string name="pref_title__language">Língua</string>
-    <string name="error_storage_permission">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
+    <string name="language_change_restart_description">Mudar língua do aplicativo. Reiniciar para aplicar</string>
+    <string name="language">Língua</string>
+    <string name="error_need_storage_permission_to_save_documents">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
     <string name="open_with">Abrir com</string>
     <string name="sort">Ordenar</string>
-    <string name="sort_by_date">Ordenar por Data</string>
-    <string name="sort_by_name">Ordenar por Nome</string>
-    <string name="sort_by_size">Ordenar por Tamanho</string>
-    <string name="sort_reverse">Inverter ordem</string>
+    <string name="date">Ordenar por Data</string>
+    <string name="deleteme____1">Ordenar por Nome</string>
+    <string name="size">Ordenar por Tamanho</string>
+    <string name="reverse_order">Inverter ordem</string>
     <string name="contribute">Contribuir</string>
     <string name="donate">Doar</string>
     <string name="project_page">Página do projeto</string>
-    <string name="press_again_to_exit">Pressione \"volta\" novamente para sair</string>
+    <string name="press_back_again_to_exit">Pressione \"volta\" novamente para sair</string>
     <string name="exit">Sair</string>
     <string name="undo">Desfazer</string>
     <string name="redo">Refazer</string>
@@ -108,8 +108,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioridade</string>
     <string name="history">História</string>
     <string name="sync">Sincronização</string>
-    <string name="browse_somethingsingular_or_add">Adicionar %s ou escolher as já existente</string>
-    <string name="search_hint__add_or_custom">Persquisa / Personalizado</string>
+    <string name="add_x_or_browse_existing_ones_witharg">Adicionar %s ou escolher as já existente</string>
+    <string name="serach_or_custom">Persquisa / Personalizado</string>
     <string name="save">Salvar</string>
     <string name="update">Atualização</string>
     <string name="clear">Limpar</string>
@@ -117,66 +117,66 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current_date">Data atual</string>
     <string name="archive">Arquivo</string>
     <string name="add_task">Adicionar tarefa</string>
-    <string name="add_something">Adicionar %s</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">O documento a ser carregado e guardado como "%s</string>
-    <string name="pref_title__show_settings_option_in_main_toolbar">Configurações na barra de ferramentas</string>
-    <string name="pref_show_settings_option_in_main_toolbar">Exibir opções de edição no topo da tela principal</string>
+    <string name="add_x_witharg">Adicionar %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">O documento a ser carregado e guardado como "%s</string>
+    <string name="settings_in_toolbar">Configurações na barra de ferramentas</string>
+    <string name="show_settings_option_in_main_view">Exibir opções de edição no topo da tela principal</string>
     <string name="refresh">Atualizar</string>
-    <string name="add_shortcut_to_launcher_homescreen">Criar atalho</string>
-    <string name="add_shortcut_to_launcher_homescreen_notice">Tentou adicionar um atalho em sua tela inicial para editar este documento. Observe que alguns lançadores podem não suportar isso.</string>
-    <string name="file_not_in_save_path_do_import">O arquivo não está no diretório de notas. Quer copiá-lo para lá? Esta ação sobrescreverá os arquivos existentes.</string>
+    <string name="create_shortcut">Criar atalho</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Tentou adicionar um atalho em sua tela inicial para editar este documento. Observe que alguns lançadores podem não suportar isso.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">O arquivo não está no diretório de notas. Quer copiá-lo para lá? Esta ação sobrescreverá os arquivos existentes.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
 
     <!-- Not in use currently -->
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
-    <string name="navigate_up_folder" needed="false">Retornar à pasta anterior</string>
+    <string name="back_to_previous_folder" needed="false">Retornar à pasta anterior</string>
     <string name="app_settings" needed="false">Configurações do aplicativo</string>
     <string name="editor_settings" needed="false">Configurações do editor</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Lembrar última pasta ao iniciar</string>
-    <string name="show_markdown_shortcuts_bar" needed="false">Mostrar atalhos de Markdown</string>
-    <string name="markdown_syntax_highlighting" needed="false">Realce de sintaxe Markdown</string>
-    <string name="pref_title__highlighting_delay" needed="false">Atraso de milissegundos para atualização de realce</string>
-    <string name="pref_title__highlighting_delay_summary" needed="false">Valores mais altos aliviam a bateria</string>
-    <string name="pref_title__smart_shortcuts" needed="false">Atalhos inteligentes de parêntesis</string>
-    <string name="pref_title__smart_shortcuts_summary" needed="false">Se selecionado, (), {} e [] circundarão as seleções</string>
-    <string name="number_of_files" needed="false">Número de arquivos: %d</string>
+    <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Mostrar atalhos de Markdown</string>
+    <string name="markdown_syntax_highlighting__appspecific" needed="false">Realce de sintaxe Markdown</string>
+    <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Atraso de milissegundos para atualização de realce</string>
+    <string name="higher_values_are_easier_on_battery" needed="false">Valores mais altos aliviam a bateria</string>
+    <string name="smart_brackets_shortcuts__appspecific" needed="false">Atalhos inteligentes de parêntesis</string>
+    <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Se selecionado, (), {} e [] circundarão as seleções</string>
+    <string name="number_of_files_witharg" needed="false">Número de arquivos: %d</string>
 
     <!-- New strings -->
-    <string name="global">Global</string>
+    <string name="app_wide">Global</string>
     <string name="main_view">Tela principal</string>
-    <string name="theme_description">Tema geral usando no aplicativo</string>
-    <string name="load_last_directory_at_startup">Lembrar da última pasta</string>
+    <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
+    <string name="remember_last_directory">Lembrar da última pasta</string>
     <string name="syntax_highlighting">Syntax highlighting</string>
     <string name="text_modules">Módulos de texto</string>
     <string name="text_module">Módulo de texto</string>
     <string name="highlighting_delay">Realçar delongas</string>
-    <string name="highlighting_delay_summary">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
-    <string name="highlighting_enabled_summary">Controlar se o texto inserido será realçado ou não</string>
-    <string name="editor_font_size_summary">Controlar o tamanho da fonte do editor</string>
-    <string name="textmodules_bar_summary">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
-    <string name="load_last_directory_at_startup__summary">Abrir última pasta usada ao iniciar</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
+    <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
+    <string name="textmodules_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
+    <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
     <string name="format">Formatar</string>
     <string name="contexts">Contextos</string>
     <string name="project">Projeto</string>
     <string name="projects">Projetos</string>
     <string name="categories">Categorias</string>
     <string name="none">Nenhum</string>
-    <string name="pref_summary__is_highlighting_for_hexcolor_activated">Sublinhar ou não respectivos códigos de cores HEX</string>
-    <string name="hexcolor_underline">Sublinhar códigos HEX de cor</string>
-    <string name="start_new_tasks_with_todays_date">Inserir a data atual ao iniciar uma nova tarefa</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
+    <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
+    <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
     <string name="tasks_with_todays_date">Tarefas para hoje</string>
     <string name="append_contexts_and_projects">Inserir contextos e projetos</string>
     <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa quando usado uma ação de módulo de texto apropriado</string>
-    <string name="right_to_left_rendering__abbreviated">Renderização de RTL</string>
+    <string name="rtl_rendering">Renderização de RTL</string>
     <string name="highlight_line_ending">Realçar o fim da linha</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
     <string name="use_monospace_for_code">Usar Monospace em código</string>
     <string name="use_different_fonttype_slow_down">Faça o uso de um tipo de fonte diferente. Alterar o tipo de fonte dinamicamente faz um impacto sobre o desempenho do aplicativo.</string>
     <string name="general">Geral</string>
     <string name="resources">Recursos</string>
-    <string name="line_spacing_in_percent">Espaço entre linhas em porcentagem</string>
+    <string name="space_between_lines_in_percent">Espaço entre linhas em porcentagem</string>
     <string name="line_spacing">Espaçamento de linha</string>
     <string name="archive_does_move_done_tasks">Mover tarefas feitas para o arquivo especificado na mesma pasta</string>
     <string name="special_key">Tecla Especial</string>
@@ -189,30 +189,30 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Selecionar tudo (Ctrl + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
-    <string name="start_on_bottom_summary">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
-    <string name="filemanager_doesnot_supply_required_data">O aplicativo não forneceu informações necessárias para trabalhar com o Markor :( Você só pode editar documentos locais que estão offline e que os gerenciadores de arquivos forneça suporte a caminhos completos, incluindo o nome do arquivo.</string>
+    <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">O aplicativo não forneceu informações necessárias para trabalhar com o Markor :( Você só pode editar documentos locais que estão offline e que os gerenciadores de arquivos forneça suporte a caminhos completos, incluindo o nome do arquivo.</string>
     <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
     <string name="configure_in_the_apps_settings">Configure nas configurações do aplicativos</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
-    <string name="align_default">Padrão</string>
-    <string name="align_left">Esqueda</string>Esquerda superior direito centro inferior
-    <string name="align_right">Direita</string>
-    <string name="align_top">Superior</string>
-    <string name="align_bottom">inferior</string>
-    <string name="align_center">Centro</string>
-    <string name="textmodule_bar_spacing">Espaçamento do módulo de texto</string>
+    <string name="default_">Padrão</string>
+    <string name="left">Esqueda</string>Esquerda superior direito centro inferior
+    <string name="right">Direita</string>
+    <string name="top">Superior</string>
+    <string name="bottom">inferior</string>
+    <string name="center">Centro</string>
+    <string name="textmodule_spacing">Espaçamento do módulo de texto</string>
     <string name="horizontal_spacing_of_actions">Espaçamento horizontal de ações</string>
 
     <string name="center_text">Texto no centro</string>
-    <string name="center_text_desc">Editar o texto do centro da tela</string>
+    <string name="edit_text_in_center_of_screen">Editar o texto do centro da tela</string>
     <string name="clipboard">Área de transferência</string>
-    <string name="existing_document">Selecionar um documento existente</string>
+    <string name="select_existing_document">Selecionar um documento existente</string>
     <string name="open_source_licenses">Licenças Open Source</string>
-    <string name="rate_the_app">Avalie este aplicativo</string>
+    <string name="rate_this_app">Avalie este aplicativo</string>
     <string name="translate">Traduzir</string>
-    <string name="help_this_app">Mais informações e ajuda sobre este aplicativo</string>
-    <string name="bug_reports">Relatar bugs</string>
+    <string name="more_info_and_help">Mais informações e ajuda sobre este aplicativo</string>
+    <string name="report_bugs">Relatar bugs</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mais informações sobre a doação ou outra forma apoiar este projeto</string>
     <string name="android_contribution_guide">Guia de contribuição do Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mais informações sobre como fazer contribuições em projetos Open Source, especialmente aplicativos Android</string>
@@ -225,5 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como contribuir para este projeto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua programando para o projeto. Todos são bem-vindos, incluindo os novatos.</string>
     <string name="project_team">Equipe do Projeto</string>
-    <string name="contributors_public_info">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
+    <string name="contributors_public_add_yourself_description">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
+
+    <string name="appearance">Aparência</string>
 </resources>

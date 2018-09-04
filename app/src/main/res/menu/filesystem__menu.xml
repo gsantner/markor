@@ -35,23 +35,23 @@
             <item
                 android:id="@+id/action_sort_by_name"
                 android:icon="@drawable/ic_sort_by_alpha_black_24dp"
-                android:title="@string/sort_by_name"
+                android:title="@string/deleteme____1"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_by_date"
                 android:icon="@drawable/ic_date_range_black_24dp"
-                android:title="@string/sort_by_date"
+                android:title="@string/date"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_by_filesize"
                 android:icon="@drawable/ic_sort_black_24dp"
-                android:title="@string/sort_by_size"
+                android:title="@string/size"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_reverse"
                 android:checkable="true"
                 android:icon="@drawable/ic_rotate_left_black_24dp"
-                android:title="@string/sort_reverse"
+                android:title="@string/reverse_order"
                 app:showAsAction="never" />
         </menu>
 

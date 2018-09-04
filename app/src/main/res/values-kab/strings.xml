@@ -15,13 +15,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Kkes</string>
     <string name="rename">Beddel isem</string>
     <string name="confirm_delete">Sentem tukksa</string>
-    <string name="confirm_delete_description">Tebɣiḍ ad tekkseḍ aya %s?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Tebɣiḍ ad tekkseḍ aya %s?</string>
     <string name="confirm_overwrite">Sentem asfeɛj</string>
-    <string name="confirm_overwrite_description">Afaylu s yisem-agi yella yakan : tebɣiḍ ad tesfeɛjeḍ-t ?</string>
+    <string name="file_already_exists_overwerite">Afaylu s yisem-agi yella yakan : tebɣiḍ ad tesfeɛjeḍ-t ?</string>
     <string name="title">Azwel</string>
     <string name="empty_directory">Akaram-agi d ilem</string>
-    <string name="navigate_up_folder">Uɣal ar ukaram yezrin</string>
-    <string name="folder_name_hint">Isem n ukaram</string>
+    <string name="back_to_previous_folder">Uɣal ar ukaram yezrin</string>
+    <string name="enter_name_of_folder">Isem n ukaram</string>
     <string name="create_folder">Akaram amaynut</string>
     <string name="create_note">Tazmilt tamaynut</string>
     <string name="create_new_document">Rnu arrat amaynut</string>
@@ -29,12 +29,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="import_from_device">Kter seg ibenk-agi</string>
     <string name="import_">Kter</string>
-    <string name="append_to__arg_document_name">Rnu ar %s</string>
+    <string name="append_to_witharg">Rnu ar %s</string>
     <string name="select_folder">Fren akaram</string>
     <string name="edit">Ẓreg</string>
 
     <string name="search_documents">Nadi di tizmilin</string>
-    <string name="share_to">Bḍu s…</string>
+    <string name="share_to_arrow">Bḍu s…</string>
     <string name="share">Bḍu</string>
     <string name="search">Nadi</string>
     <string name="preview">Taskant</string>
@@ -42,40 +42,40 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings">Iɣewwaṛen n umaẓrag</string>
     <string name="folders">Ikaramen</string>
     <string name="files">Ifuyla</string>
-    <string name="document_one">Arrat</string>
-    <string name="document_multiple">Arraten</string>
-    <string name="share_html__mime_plaintext">HTML (aḍris arewway)</string>
+    <string name="document">Arrat</string>
+    <string name="documents">Arraten</string>
+    <string name="html_as_plaintext">HTML (aḍris arewway)</string>
 
     <!-- Preferences -->
     <string name="remember_last_folder_location_on_startup">Cfu ɣef ukaram amiran i tnekra d-iteddun</string>
     <string name="document_editor_font">Tasefsit n umaẓrag</string>
     <string name="theme">Asentel</string>
-    <string name="open_preview_when_open_documents">Ldi tizmilin di teskant</string>
+    <string name="open_preview_when_opening_documents">Ldi tizmilin di teskant</string>
     <string name="about">Ɣef Markor</string>
-    <string name="plain_text">Aḍris arewway</string>
+    <string name="plaintext">Aḍris arewway</string>
     <string name="file">Afaylu</string>
     <string name="image">Tugna</string>
-    <string name="pref_title__font_size">Teɣzi n tsefsit</string>
-    <string name="show_markdown_shortcuts_bar">Sken afeggag n teẓrigt Markdown</string>
-    <string name="markdown_syntax_highlighting">Rmed tiɣmi n tseddast Markdown</string>
-    <string name="pref_title__highlighting_delay">Tanzagt n usmiren n useɣmu n tseddats s ms</string>
-    <string name="pref_title__highlighting_delay_summary">Tanzagt meqqren ad tseqdec drus seg uẓru-ik</string>
-    <string name="pref_title__smart_shortcuts">Rmed tuccar tuḥricin</string>
-    <string name="pref_title__smart_shortcuts_summary">Ma yella yettwafren uḍris, asenned ɣef {}, [] neɣ () ad isers izamulen imen taḍen si sin n idisan n wayen tferneḍ</string>
-    <string name="render_for_right_to_left_languages">Rmed asefrek n tutlayin yettwarun seg uyeffus s azelmaḍ</string>
-    <string name="error_cannot_create_notebook_dir">Tuccḍa : ur izmir ara ad yernu asekles</string>
+    <string name="font_size">Teɣzi n tsefsit</string>
+    <string name="show_markdown_shortcuts_bar__appspecific">Sken afeggag n teẓrigt Markdown</string>
+    <string name="markdown_syntax_highlighting__appspecific">Rmed tiɣmi n tseddast Markdown</string>
+    <string name="delay_in_milliseconds_for_highlighting_refresh">Tanzagt n usmiren n useɣmu n tseddats s ms</string>
+    <string name="higher_values_are_easier_on_battery">Tanzagt meqqren ad tseqdec drus seg uẓru-ik</string>
+    <string name="smart_brackets_shortcuts__appspecific">Rmed tuccar tuḥricin</string>
+    <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific">Ma yella yettwafren uḍris, asenned ɣef {}, [] neɣ () ad isers izamulen imen taḍen si sin n idisan n wayen tferneḍ</string>
+    <string name="render_rtl_language">Rmed asefrek n tutlayin yettwarun seg uyeffus s azelmaḍ</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Tuccḍa : ur izmir ara ad yernu asekles</string>
 
-    <string name="last_modified">Asnifel aneggaru : %s</string>
-    <string name="number_of_files">Amḍan n ifuyla : %d</string>
+    <string name="last_modified_witharg">Asnifel aneggaru : %s</string>
+    <string name="number_of_files_witharg">Amḍan n ifuyla : %d</string>
     <string name="select_this_folder">Fren akaram</string>
     <string name="select">Fren</string>
     <string name="create">Rnu</string>
-    <string name="select_elements">Fren yiwen neɣ ugar n inekcamen</string>
+    <string name="select_entries">Fren yiwen neɣ ugar n inekcamen</string>
     <string name="one_item_selected">Anekcam</string>
-    <string name="more_items_selected">%d n inekcamen ttwafernen</string>
+    <string name="items_selected_witharg">%d n inekcamen ttwafernen</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Asnas yettwaselkam deg ugdil aččuran</string>
-    <string name="pref_title__is_statusbar_hidden">Ffer afeggag n waddad</string>
+    <string name="hide_statusbar_at_this_view">Asnas yettwaselkam deg ugdil aččuran</string>
+    <string name="hide_statusbar">Ffer afeggag n waddad</string>
 
     <string name="name">Isem</string>
     <string name="url_or_path">URL / Abrid</string>
@@ -87,22 +87,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_storage_folder">Fren akaram ara tesqedceḍ i usekles</string>
     <string name="licenses">Iselkinen</string>
     <string name="changelog">Amaynut ɣef usnas</string>
-    <string name="more_information">Ugar n telɣut</string>
-    <string name="show_app_license">Sken aselkin n uḍris</string>
+    <string name="more_info">Ugar n telɣut</string>
+    <string name="show_license_of_the_app">Sken aselkin n uḍris</string>
     <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
-    <string name="pref_desc__language">Beddel isem n tutlayt n ugrudem. Yessefk ad talseḍ tanekra n usnas akken teddu tutlaut tamaynut</string>
-    <string name="pref_title__language">Tutlayt</string>
-    <string name="error_storage_permission">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
+    <string name="language_change_restart_description">Beddel isem n tutlayt n ugrudem. Yessefk ad talseḍ tanekra n usnas akken teddu tutlaut tamaynut</string>
+    <string name="language">Tutlayt</string>
+    <string name="error_need_storage_permission_to_save_documents">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
     <string name="open_with">Ldi s</string>
     <string name="sort">Smizzwer</string>
-    <string name="sort_by_date">Smizzwer s wazemz</string>
-    <string name="sort_by_name">Smizzwer s yisem</string>
-    <string name="sort_by_size">Smizzwer s teɣzi</string>
-    <string name="sort_reverse">Tti asmizzwer</string>
+    <string name="date">Smizzwer s wazemz</string>
+    <string name="deleteme____1">Smizzwer s yisem</string>
+    <string name="size">Smizzwer s teɣzi</string>
+    <string name="reverse_order">Tti asmizzwer</string>
     <string name="contribute">Ttekki</string>
     <string name="donate">Tawsa</string>
     <string name="project_page">Asebter n usenfaṛ</string>
-    <string name="press_again_to_exit">Senned daɣen ɣef tuɣalin akken ad teffɣeḍ</string>
+    <string name="press_back_again_to_exit">Senned daɣen ɣef tuɣalin akken ad teffɣeḍ</string>
     <string name="exit">Ffeɣ</string>
     <string name="undo">Sefsex</string>
     <string name="redo">Err-d</string>
@@ -125,5 +125,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current_date">Azemz amiran</string>
     <string name="archive">Aɣbaṛ</string>
     <string name="add_task">Rnu tawuri</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">Arrat ara d-yalin neɣ ara yettwaskelsen am \"%s\"</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Arrat ara d-yalin neɣ ara yettwaskelsen am \"%s\"</string>
+
+    <string name="appearance">Udem</string>
 </resources>

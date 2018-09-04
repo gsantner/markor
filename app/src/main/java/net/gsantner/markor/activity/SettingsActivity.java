@@ -162,15 +162,15 @@ public class SettingsActivity extends AppCompatActivity {
                             + "<br/><small><small>" + AppSettings.get().getNotebookDirectoryAsStr() + "</small></small>")
             );
             updateSummary(R.string.pref_key__quicknote_filepath,
-                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.quicknote))
+                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.quicknote))
                             + "<br/><small><small>" + _as.getQuickNoteFile().getAbsolutePath() + "</small></small>")
             );
             updateSummary(R.string.pref_key__todo_filepath,
-                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.todo))
+                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.todo))
                             + "<br/><small><small>" + _as.getTodoFile().getAbsolutePath() + "</small></small>")
             );
             updateSummary(R.string.pref_key__linkbox_filepath,
-                    _cu.htmlToSpanned(getString(R.string.pref_summary__loaded_and_saved_as__plus_name, getString(R.string.linkbox))
+                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.linkbox))
                             + "<br/><small><small>" + _as.getLinkBoxFile().getAbsolutePath() + "</small></small>")
             );
         }

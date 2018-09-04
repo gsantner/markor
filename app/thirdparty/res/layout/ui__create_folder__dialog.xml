@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="30dp"
-        android:hint="@string/folder_name_hint"
+        android:hint="@string/enter_name_of_folder"
         android:inputType="textCapWords"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"

@@ -185,7 +185,7 @@ public class FilesystemListFragment extends GsFragmentBase {
 
     private void confirmDelete() {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_selectedItems);
-        String message = String.format(getString(R.string.confirm_delete_description), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size()));
+        String message = String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size()));
         ConfirmDialog confirmDialog = ConfirmDialog.newInstance(
                 getString(R.string.confirm_delete), message, itemsToDelete,
                 new ConfirmDialog.ConfirmDialogCallback() {
@@ -385,7 +385,7 @@ public class FilesystemListFragment extends GsFragmentBase {
 
     private void importFile(final File file) {
         if (new File(getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
-            String message = getString(R.string.confirm_overwrite_description) + "\n[" + file.getName() + "]";
+            String message = getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
             ConfirmDialog d = ConfirmDialog.newInstance(
                     getString(R.string.confirm_overwrite), message, file, (ConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
@@ -546,7 +546,7 @@ public class FilesystemListFragment extends GsFragmentBase {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.filesystem__context_menu, menu);
             _cu.tintMenuItems(menu, true, Color.WHITE);
-            mode.setTitle(getResources().getString(R.string.select_elements));
+            mode.setTitle(getResources().getString(R.string.select_entries));
             return true;
         }
 
@@ -605,7 +605,7 @@ public class FilesystemListFragment extends GsFragmentBase {
                     break;
                 default:
                     manageClickedVIew(i, checked);
-                    actionMode.setSubtitle(String.format(getResources().getString(R.string.more_items_selected), _filesListView.getCheckedItemCount()));
+                    actionMode.setSubtitle(String.format(getResources().getString(R.string.items_selected_witharg), _filesListView.getCheckedItemCount()));
                     setMultiActionButtonVisibility(actionMode, false);
                     break;
             }

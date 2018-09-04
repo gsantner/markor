@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Confirm exit with back / snackbar
         _doubleBackToExitPressedOnce = true;
-        new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, view -> finish());
+        new ActivityUtils(this).showSnackBar(R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 

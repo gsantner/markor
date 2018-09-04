@@ -76,7 +76,7 @@
                 android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="@string/sort_by_size"
+                android:text="@string/size"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="19sp" />
 

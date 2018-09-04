@@ -347,7 +347,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
             if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
                 if (pref.getTitle().toString().equals(getString(R.string.share))) {
-                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plain_text)));
+                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plaintext)));
                 }
             }
 

@@ -24,7 +24,7 @@
             <item
                 android:id="@+id/action_share_text"
                 android:icon="@drawable/ic_file_white_24dp"
-                android:title="@string/plain_text" />
+                android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_share_pdf"
                 android:icon="@drawable/ic_picture_as_pdf_black_24dp"
@@ -41,7 +41,7 @@
             <item
                 android:id="@+id/action_share_html_source"
                 android:icon="@drawable/ic_code_black_24dp"
-                android:title="@string/share_html__mime_plaintext" />
+                android:title="@string/html_as_plaintext" />
             <item
                 android:id="@+id/action_share_image"
                 android:icon="@drawable/ic_image_black_24dp"
@@ -53,7 +53,7 @@
             <item
                 android:id="@+id/action_add_shortcut_launcher_home"
                 android:icon="@drawable/ic_widgets_black_24dp"
-                android:title="@string/add_shortcut_to_launcher_homescreen"
+                android:title="@string/create_shortcut"
                 app:showAsAction="never" />
         </menu>
     </item>
@@ -69,7 +69,7 @@
                 android:title="@string/markdown" />
             <item
                 android:id="@+id/action_format_plaintext"
-                android:title="@string/plain_text" />
+                android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_format_todotxt"
                 android:title="@string/todo_txt" />

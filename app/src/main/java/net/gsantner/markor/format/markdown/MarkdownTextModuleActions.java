@@ -323,7 +323,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 } else {
                     new AlertDialog.Builder(_activity)
                             .setTitle(R.string.import_)
-                            .setMessage(R.string.file_not_in_save_path_do_import)
+                            .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
                             .setNegativeButton(android.R.string.no, null)
                             .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
                                         File targetCopy = new File(_document.getFile().getParentFile(), file.getName());

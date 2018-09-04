@@ -85,12 +85,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <plurals name="item_selected" translatable="false">
         <item quantity="one" translatable="false">@string/one_item_selected</item>
-        <item quantity="other" translatable="false">@string/more_items_selected</item>
+        <item quantity="other" translatable="false">@string/items_selected_witharg</item>
     </plurals>
 
     <plurals name="documents" translatable="false">
-        <item quantity="one" translatable="false">@string/document_one</item>
-        <item quantity="other" translatable="false">@string/document_multiple</item>
+        <item quantity="one" translatable="false">@string/document</item>
+        <item quantity="other" translatable="false">@string/documents</item>
     </plurals>
 
     <plurals name="contexts" translatable="false">

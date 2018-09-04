@@ -119,13 +119,13 @@ public class DocumentActivity extends AppCompatActivity {
             } else {
                 file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
                 if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
-                    String msg = getString(R.string.filemanager_doesnot_supply_required_data) + "\n\n"
+                    String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
                             + getString(R.string.sync_to_local_folder_notice) + "\n\n"
                             + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
 
                     new AlertDialog.Builder(this)
                             .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
-                            .setNegativeButton(R.string.more_information, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
+                            .setNegativeButton(R.string.more_info, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
                             .setPositiveButton(android.R.string.ok, null)
                             .setOnDismissListener((dialogInterface) -> finish())
                             .create().show();

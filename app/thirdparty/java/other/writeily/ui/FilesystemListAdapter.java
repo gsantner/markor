@@ -138,7 +138,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
         }
         String formattedDate = DateUtils.formatDateTime(_context, item.lastModified(),
                 (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
-        return String.format(_context.getString(R.string.last_modified), formattedDate);
+        return String.format(_context.getString(R.string.last_modified_witharg), formattedDate);
     }
 
     @NonNull

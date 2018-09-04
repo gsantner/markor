@@ -76,7 +76,7 @@ public class DocumentIO {
         if (extraPathIsFolder) {
             extraPath.mkdirs();
             while (filePath.exists()) {
-                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
+                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract existing extension

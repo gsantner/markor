@@ -13,7 +13,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:title="@string/share_to">
+    android:title="@string/share_to_arrow">
 
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
@@ -46,7 +46,7 @@
     <Preference
         android:icon="@drawable/ic_keyboard_return_black_24dp"
         android:key="@string/pref_key__share_into__existing_document"
-        android:title="@string/existing_document" />
+        android:title="@string/select_existing_document" />
     <Preference
         android:icon="@drawable/ic_add_white_24dp"
         android:key="@string/pref_key__share_into__create_document"

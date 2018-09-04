@@ -98,7 +98,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.archive;
-        dopt.searchHintText = R.string.search_hint__add_or_custom;
+        dopt.searchHintText = R.string.serach_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -110,8 +110,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.context;
-        dopt.searchHintText = R.string.search_hint__add_or_custom;
-        dopt.messageText = activity.getString(R.string.browse_somethingsingular_or_add, activity.getString(R.string.context));
+        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -122,8 +122,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.project;
-        dopt.searchHintText = R.string.search_hint__add_or_custom;
-        dopt.messageText = activity.getString(R.string.browse_somethingsingular_or_add, activity.getString(R.string.project));
+        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -147,7 +147,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.priority;
-        dopt.searchHintText = R.string.search_hint__add_or_custom;
+        dopt.searchHintText = R.string.serach_or_custom;
         dopt.messageText = "";
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
