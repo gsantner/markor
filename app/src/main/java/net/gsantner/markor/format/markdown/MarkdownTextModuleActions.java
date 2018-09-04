@@ -13,12 +13,6 @@ package net.gsantner.markor.format.markdown;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
@@ -31,7 +25,6 @@ import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
-import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -39,16 +32,13 @@ import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownTextModuleActions extends TextModuleActions {
-    private String TAG = getClass().getSimpleName();
 
     public MarkdownTextModuleActions(Activity activity, Document document) {
         super(activity, document);
-        _au = new ActivityUtils(activity);
     }
 
     @Override
@@ -259,7 +249,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
                 case 6: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        _cameraPictureFilepath = ShareUtil.showCameraDialog(_activity, _au);
+                        _cameraPictureFilepath = ShareUtil.showCameraDialog(_activity);
                     }
                     break;
                 }

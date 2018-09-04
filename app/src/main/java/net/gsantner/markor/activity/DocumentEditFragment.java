@@ -33,7 +33,6 @@ import android.widget.TextView;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.markdown.MarkdownTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -56,7 +55,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     public static boolean showPreviewOnBack = false;
 
-    private String TAG = getClass().getSimpleName();
 
     int _requestCode = -1;
     int _resultCode;

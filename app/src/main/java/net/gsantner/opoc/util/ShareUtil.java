@@ -524,8 +524,9 @@ public class ShareUtil {
      * Show the camera picker via intent
      * Source: http://developer.android.com/training/camera/photobasics.html
      */
-    public static String showCameraDialog(Activity activity, ActivityUtils au) {
+    public static String showCameraDialog(Activity activity) {
         String cameraPictureFilepath = null;
+        ActivityUtils au = new ActivityUtils(activity);
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
             File photoFile = null;
