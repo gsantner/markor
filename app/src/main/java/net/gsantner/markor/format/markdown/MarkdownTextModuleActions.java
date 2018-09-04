@@ -12,7 +12,9 @@ package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
@@ -208,8 +210,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
             {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
-            {R.drawable.ic_keyboard_return_black_24dp, 5},
-            {R.drawable.ic_add_a_photo_black_24dp, 6}
+            {R.drawable.ic_keyboard_return_black_24dp, 5}
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
@@ -247,13 +248,6 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     }
                     break;
                 }
-                case 6: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        ShareUtil shu = new ShareUtil(_activity);
-                        _cameraPictureFilepath = shu.requestCameraPicture();
-                    }
-                    break;
-                }
                 default: {
                     getAlertDialog(_action);
                     break;
@@ -264,11 +258,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
     @SuppressWarnings("RedundantCast")
     private void getAlertDialog(int action) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
         final View view = _activity.getLayoutInflater().inflate(R.layout.ui__select_path_dialog, (ViewGroup) null);
         final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
+        final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
+        final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
 
         int startCursorPos = _hlEditor.getSelectionStart();
         if (_hlEditor.hasSelection()) {
@@ -310,6 +306,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         int actionTitle = R.string.select;
         if (action == 2) {
             actionTitle = R.string.insert_link;
+            buttonPictureCamera.setVisibility(View.GONE);
+            buttonPictureGallery.setVisibility(View.GONE);
         } else if (action == 3) {
             actionTitle = R.string.insert_image;
         }
@@ -356,6 +354,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
         };
 
+        ShareUtil shu = new ShareUtil(_activity);
+        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
+            editPathUrl.setText(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH));
+        }, false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
+        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture());
+        buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
+
         buttonBrowseFs.setOnClickListener(button -> {
             if (getActivity() instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) getActivity();
@@ -365,6 +370,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         builder.setView(view)
                 .setTitle(actionTitle)
+                .setOnDismissListener(dialog -> {
+                    LocalBroadcastManager.getInstance(_context).unregisterReceiver(lbr);
+                })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -390,25 +398,6 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                         }
                     }
                 });
-
         builder.show();
-    }
-
-
-    protected void onPictureSelected(String imagePath) {
-        String url = imagePath.replace(")", "\\)")
-                .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
-
-        String formatTemplate = "![%s](%s)";
-        if (_hlEditor.hasSelection()) {
-            _hlEditor.getText().replace(_hlEditor.getSelectionStart(),
-                    _hlEditor.getSelectionEnd(),
-                    String.format(formatTemplate, "", url));
-            _hlEditor.setSelection(_hlEditor.getSelectionStart());
-
-        } else {
-            _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
-                    String.format(formatTemplate, "", url));
-        }
     }
 }

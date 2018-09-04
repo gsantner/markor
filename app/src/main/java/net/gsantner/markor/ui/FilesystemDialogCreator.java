@@ -60,9 +60,9 @@ public class FilesystemDialogCreator {
         return opts;
     }
 
-    public static File[] strlistToArray(List<String> strlist){
+    public static File[] strlistToArray(List<String> strlist) {
         File[] files = new File[strlist.size()];
-        for (int i=0; i < files.length; i++){
+        for (int i = 0; i < files.length; i++) {
             files[i] = new File(strlist.get(i));
         }
         return files;

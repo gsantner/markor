@@ -260,9 +260,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
                 }
             });
-        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)){
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
             files = _dopt.recentFiles;
-        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)){
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
             files = _dopt.popularFiles;
         }
         files = (files == null ? new File[0] : files);

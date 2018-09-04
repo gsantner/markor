@@ -18,7 +18,6 @@ import android.support.annotation.StringRes;
 import net.gsantner.markor.R;
 
 import java.io.File;
-import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {

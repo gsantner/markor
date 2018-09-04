@@ -49,6 +49,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -243,6 +244,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Determine some results and forward using Local Broadcast
+        ShareUtil shu = new ShareUtil(this.getApplicationContext());
+        shu.extractResultFromActivityResult(requestCode, resultCode, data);
+    }
 
     @OnLongClick({R.id.fab_add_new_item})
     public boolean onLongClickedFab(View view) {

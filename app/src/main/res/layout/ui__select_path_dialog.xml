@@ -43,8 +43,24 @@
         android:id="@+id/ui__select_path_dialog__browse_filesystem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_file_gray_24dp"
+        android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
         android:text="@string/browse_filesystem"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/ui__select_path_dialog__camera_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_image_black_24dp"
+        android:text="@string/camera_picture"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/ui__select_path_dialog__gallery_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_image_black_24dp"
+        android:text="@string/gallery_picture"
         tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

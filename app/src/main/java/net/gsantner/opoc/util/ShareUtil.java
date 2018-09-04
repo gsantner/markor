@@ -11,9 +11,11 @@
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -33,6 +35,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.support.v4.graphics.drawable.IconCompat;
@@ -587,11 +590,16 @@ public class ShareUtil {
     /**
      * Extract result data from {@link Activity#onActivityResult(int, int, Intent)}.
      * Forward all arguments from activity. Only requestCodes from {@link ShareUtil} get analyzed.
+     * Also may forward results via local broadcast
      */
     public Object extractResultFromActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
-                return (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+                String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+                if (picturePath != null) {
+                    localBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                }
+                return picturePath;
             }
             case REQUEST_PICK_PICTURE: {
                 if (resultCode == RESULT_OK && data != null) {
@@ -632,6 +640,9 @@ public class ShareUtil {
                     }
 
                     // Return path to picture on success, else null
+                    if (picturePath != null) {
+                        localBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                    }
                     return picturePath;
                 }
                 break;
@@ -640,5 +651,35 @@ public class ShareUtil {
         return null;
     }
 
+    public void localBroadcastWithStringExtra(String action, String extra, String value) {
+        Intent intent = new Intent(action);
+        intent.putExtra(extra, value);
+        LocalBroadcastManager.getInstance(_context).sendBroadcast(intent);
+    }
 
+    /**
+     * Receive broadcast results via callback
+     */
+    public BroadcastReceiver receiveResultFromLocalBroadcast(final Callback.a2<Intent, BroadcastReceiver> callback, boolean autoUnregister, String... filterActions) {
+        IntentFilter intentFilter = new IntentFilter();
+        for (String filterAction : filterActions) {
+            intentFilter.addAction(filterAction);
+        }
+        final BroadcastReceiver br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent != null) {
+                    if (autoUnregister) {
+                        LocalBroadcastManager.getInstance(_context).unregisterReceiver(this);
+                    }
+                    try {
+                        callback.callback(intent, this);
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        };
+        LocalBroadcastManager.getInstance(_context).registerReceiver(br, intentFilter);
+        return br;
+    }
 }

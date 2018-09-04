@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Predicate;
 
 import other.writeily.activity.FilesystemListFragment;
 
@@ -290,9 +289,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public ArrayList<String> getRecentDocuments() {
-        ArrayList<String> list =  getStringList(R.string.pref_key__recent_documents);
-        for(int i=0; i<list.size(); i++){
-            if (! new File(list.get(i)).isFile()){
+        ArrayList<String> list = getStringList(R.string.pref_key__recent_documents);
+        for (int i = 0; i < list.size(); i++) {
+            if (!new File(list.get(i)).isFile()) {
                 list.remove(i);
                 i--;
             }

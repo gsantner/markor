@@ -109,7 +109,7 @@ public class FilesystemDialog extends DialogFragment
         }
         return root;
     }
-    
+
     @Override
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);

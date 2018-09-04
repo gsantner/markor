@@ -12,7 +12,6 @@ package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -26,10 +25,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
-
-import static net.gsantner.opoc.util.ShareUtil.REQUEST_CAMERA_PICTURE;
-import static net.gsantner.opoc.util.ShareUtil.REQUEST_PICK_PICTURE;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -41,7 +36,6 @@ public abstract class TextModuleActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textModuleSidePadding;
-    protected String _cameraPictureFilepath;
 
     public TextModuleActions(Activity activity, Document document) {
         _document = document;
@@ -101,22 +95,6 @@ public abstract class TextModuleActions {
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ShareUtil shu = new ShareUtil(_activity);
-        Object result = shu.extractResultFromActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQUEST_CAMERA_PICTURE: {
-                _onPictureSelected((String) result);
-                break;
-            }
-            case REQUEST_PICK_PICTURE: {
-                _onPictureSelected((String) result);
-                break;
-            }
-        }
-    }
-
     //
     //
     //
@@ -128,19 +106,6 @@ public abstract class TextModuleActions {
     public TextModuleActions setHighlightingEditor(HighlightingEditor hlEditor) {
         _hlEditor = hlEditor;
         return this;
-    }
-
-
-    private void _onPictureSelected(String url) {
-        if (TextUtils.isEmpty(url)) {
-            _au.showSnackBar(R.string.error_picture_selection, false);
-        } else {
-            onPictureSelected(url);
-        }
-    }
-
-    protected void onPictureSelected(String url) {
-
     }
 
     public Document getDocument() {
