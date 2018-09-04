@@ -229,4 +229,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Doar</string>
     <string name="exit">Sair</string>
     <string name="error_picture_selection">Nenhuma imagem selecionada.</string>
+    <string name="other">Outros</string>
 </resources>

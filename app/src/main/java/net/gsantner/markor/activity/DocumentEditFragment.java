@@ -139,6 +139,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
 
+        AppSettings appSettings = new AppSettings(getActivity());
+        menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
+
         boolean enable;
         Drawable drawable;
         drawable = menu.findItem(R.id.action_undo).setEnabled(_document.canGoToEarlierVersion()).getIcon();

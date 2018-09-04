@@ -237,4 +237,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Donar</string>
     <string name="exit">Salir</string>
     <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
+    <string name="other">Otros</string>
 </resources>

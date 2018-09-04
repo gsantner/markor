@@ -130,4 +130,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">दान करें</string>
     <string name="exit">बाहर जाएं</string>
     <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
+    <string name="other">अन्य</string>
 </resources>

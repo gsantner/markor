@@ -240,4 +240,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Donner</string>
     <string name="exit">Quitter</string>
     <string name="error_picture_selection">Aucune image n\'a été sélectionnée.</string>
+    <string name="other">Autre</string>
 </resources>

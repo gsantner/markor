@@ -28,4 +28,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Doniraj</string>
     <string name="exit">Izadji</string>
     <string name="error_picture_selection">Nijedna slika nije oznacena.</string>
+    <string name="other">Drugo</string>
 </resources>

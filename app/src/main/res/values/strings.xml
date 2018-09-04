@@ -165,6 +165,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="projects">Projects</string>
     <string name="categories">Categories</string>
     <string name="none">None</string>
+    <string name="other">Other</string>
 
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>
@@ -244,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">No picture selected, taken or saved.</string>
     <string name="gallery_picture">Gallery picture</string>
     <string name="camera_picture">Camera picture</string>
+    <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
 </resources>

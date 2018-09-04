@@ -44,6 +44,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
+    <string name="markup_formats_supported_list" translatable="false">Markdown, ToDo.Txt, Plaintext</string>
 
 
     <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[

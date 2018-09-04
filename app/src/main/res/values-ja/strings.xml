@@ -160,4 +160,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">寄付</string>
     <string name="exit">終了</string>
     <string name="error_picture_selection">画像が選択されていません。</string>
+    <string name="other">その他</string>
 </resources>

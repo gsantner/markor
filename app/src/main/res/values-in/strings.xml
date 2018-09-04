@@ -28,4 +28,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Donasi</string>
     <string name="exit">Keluar</string>
     <string name="error_picture_selection">Tidak ada gambar yang dipilih.</string>
+    <string name="other">Lainnya</string>
 </resources>
