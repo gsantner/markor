@@ -26,8 +26,10 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -66,6 +68,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
     //
     //
+
 
     private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
             {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
@@ -206,11 +209,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
             {R.drawable.ic_keyboard_return_black_24dp, 5},
+            {R.drawable.ic_add_a_photo_black_24dp, 6}
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 
     private class KeyboardExtraActionsListener implements View.OnClickListener {
         int _action;
+        PermissionChecker permc = new PermissionChecker(getActivity());
 
         KeyboardExtraActionsListener(int action) {
             _action = action;
@@ -239,6 +244,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                         insertPos = insertPos < 1 ? text.length() : insertPos;
                         _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
                         _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
+                    }
+                    break;
+                }
+                case 6: {
+                    if (permc.doIfExtStoragePermissionGranted()) {
+                        _cameraPictureFilepath = ShareUtil.showCameraDialog(_activity);
                     }
                     break;
                 }
@@ -380,5 +391,24 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 });
 
         builder.show();
+    }
+
+
+
+     protected void onPictureTaken(String imagePath) {
+        String url = imagePath.replace(")", "\\)")
+                .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+
+        String formatTemplate = "![%s](%s)";
+        if (_hlEditor.hasSelection()) {
+            _hlEditor.getText().replace(_hlEditor.getSelectionStart(),
+                    _hlEditor.getSelectionEnd(),
+                    String.format(formatTemplate, "", url));
+            _hlEditor.setSelection(_hlEditor.getSelectionStart());
+
+        } else {
+            _hlEditor.getText().insert(_hlEditor.getSelectionStart(),
+                    String.format(formatTemplate, "", url));
+        }
     }
 }

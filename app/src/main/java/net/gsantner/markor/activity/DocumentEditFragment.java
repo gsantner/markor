@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -53,6 +54,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     public static boolean showPreviewOnBack = false;
+
+
+    int _requestCode = -1;
+    int _resultCode;
+    Intent _data;
+
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -123,11 +130,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         checkReloadDisk();
         int cursor = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
-        if (cursor >= 0 && cursor < _hlEditor.length()) {
-            _hlEditor.setSelection(cursor);
-        }
+        cursor = Math.max(0, cursor);
+        cursor = Math.min(_hlEditor.length(), cursor);
+        _hlEditor.setSelection(cursor);
+
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+
+        if (_requestCode != -1) {
+            _textFormat.getTextModuleActions()
+                    .onActivityResult(_requestCode, _resultCode, _data);
+            _requestCode = -1; _data = null;
+        }
     }
 
     @Override
@@ -147,6 +161,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         enable = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         drawable = menu.findItem(R.id.action_save).setEnabled(enable).getIcon();
         drawable.mutate().setAlpha(enable ? 255 : 40);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (_textFormat != null) {
+            _requestCode = requestCode;
+            _resultCode = resultCode;
+            _data = data;
+        }
     }
 
     public void loadDocumentIntoUi() {

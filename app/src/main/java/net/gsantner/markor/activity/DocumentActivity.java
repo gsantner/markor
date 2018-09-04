@@ -246,6 +246,21 @@ public class DocumentActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        // Don't need the above call as fragment's on activity result is being called manually
+        // see: https://stackoverflow.com/questions/6147884/onactivityresult-is-not-being-called-in-fragment
+
+        GsFragmentBase frag = getCurrentVisibleFragment();
+        // if in the future the current activity needs to call getActivityForResult, don't call fragment's
+        // onActivityResult for such results
+        if (frag != null && frag instanceof DocumentEditFragment) {
+            frag.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
     public void setDocumentTitle(final String title) {
         _toolbarTitleEdit.setText(title);
         _toolbarTitleText.setText(title);
