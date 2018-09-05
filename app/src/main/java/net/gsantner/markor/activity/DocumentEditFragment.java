@@ -129,6 +129,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+        if (_document != null && _document.getFile() != null) {
+            boolean permok = _document.getFile().canWrite();
+            if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
+                permok = true;
+            }
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+        }
     }
 
     @Override
@@ -167,14 +174,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         applyTextFormat(_document.getFormat());
         _textFormat.getTextModuleActions().setDocument(_document);
-
-        if (_document != null && _document.getFile() != null) {
-            boolean permok = _document.getFile().canWrite();
-            if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
-                permok = true;
-            }
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
-        }
     }
 
     @Override
