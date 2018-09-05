@@ -354,11 +354,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
         };
 
+        // Request camera / gallery picture button handling
         ShareUtil shu = new ShareUtil(_activity);
         final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
             editPathUrl.setText(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH));
         }, false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
-        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture());
+        File targetFolder  = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
+        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
         buttonBrowseFs.setOnClickListener(button -> {

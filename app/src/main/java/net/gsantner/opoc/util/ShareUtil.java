@@ -50,6 +50,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -551,8 +552,10 @@ public class ShareUtil {
      * The requested image savepath has to be stored at caller side (not contained in intent),
      * it can be retrieved using {@link #extractResultFromActivityResult(int, int, Intent)},
      * returns null if an error happened.
+     *
+     * @param target Path to file to write to, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
      */
-    public String requestCameraPicture() {
+    public String requestCameraPicture(File target) {
         if (!(_context instanceof Activity)) {
             throw new RuntimeException("Error: ShareUtil.requestCameraPicture needs an Activity Context.");
         }
@@ -562,9 +565,20 @@ public class ShareUtil {
             File photoFile;
             try {
                 // Create an image file name
-                String imageFileName = (new ContextUtils(_context).rstr("app_name")) + "_" + System.currentTimeMillis();
-                File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
-                photoFile = File.createTempFile(imageFileName, ".jpg", storageDir);
+                if (target != null && !target.isDirectory()) {
+                    photoFile = target;
+                } else {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
+                    File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+                    String imageFileName = ((new ContextUtils(_context).rstr("app_name")).replaceAll("[^a-zA-Z0-9\\.\\-]", "_") + "_").replace("__", "_") + sdf.format(new Date());
+                    photoFile = new File(storageDir, imageFileName + ".jpg");
+                    if (!photoFile.getParentFile().exists() && !photoFile.getParentFile().mkdirs()) {
+                        photoFile = File.createTempFile(imageFileName + "_", ".jpg", storageDir);
+                    }
+                }
+
+                //noinspection StatementWithEmptyBody
+                if (!photoFile.getParentFile().exists() && photoFile.getParentFile().mkdirs()) ;
 
                 // Save a file: path for use with ACTION_VIEW intents
                 cameraPictureFilepath = photoFile.getAbsolutePath();
@@ -597,7 +611,7 @@ public class ShareUtil {
             case REQUEST_CAMERA_PICTURE: {
                 String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
                 if (picturePath != null) {
-                    localBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                    sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 }
                 return picturePath;
             }
@@ -641,7 +655,7 @@ public class ShareUtil {
 
                     // Return path to picture on success, else null
                     if (picturePath != null) {
-                        localBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                        sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                     }
                     return picturePath;
                 }
@@ -651,16 +665,25 @@ public class ShareUtil {
         return null;
     }
 
-    public void localBroadcastWithStringExtra(String action, String extra, String value) {
+    /**
+     * Send a local broadcast (to receive within app), with given action and string-extra+value.
+     * This is a convenience method for quickly sending just one thing.
+     */
+    public void sendLocalBroadcastWithStringExtra(String action, String extra, CharSequence value) {
         Intent intent = new Intent(action);
         intent.putExtra(extra, value);
         LocalBroadcastManager.getInstance(_context).sendBroadcast(intent);
     }
 
     /**
-     * Receive broadcast results via callback
+     * Receive broadcast results via a callback method
+     *
+     * @param callback       Function to call with received {@link Intent}
+     * @param autoUnregister wether or not to automatically unregister receiver after first match
+     * @param filterActions  All {@link IntentFilter} actions to filter for
+     * @return The created instance. Has to be unregistered on {@link Activity} lifecycle events.
      */
-    public BroadcastReceiver receiveResultFromLocalBroadcast(final Callback.a2<Intent, BroadcastReceiver> callback, boolean autoUnregister, String... filterActions) {
+    public BroadcastReceiver receiveResultFromLocalBroadcast(Callback.a2<Intent, BroadcastReceiver> callback, boolean autoUnregister, String... filterActions) {
         IntentFilter intentFilter = new IntentFilter();
         for (String filterAction : filterActions) {
             intentFilter.addAction(filterAction);
