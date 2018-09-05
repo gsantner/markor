@@ -10,57 +10,60 @@
     *
     #########################################################*/
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="0dp"
+    android:padding="8dp"
+    android:paddingBottom="0dp"
+    android:paddingTop="0dp">
 
-    <EditText
-        android:id="@+id/ui__select_path_dialog__name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/name"
-        android:inputType="textEmailAddress" />
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:paddingBottom="16dp">
 
-    <EditText
-        android:id="@+id/ui__select_path_dialog__url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:hint="@string/url_or_path"
-        android:inputType="textUri" />
+        <EditText
+            android:id="@+id/ui__select_path_dialog__name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:maxLines="3" />
 
-    <Button
-        android:id="@+id/ui__select_path_dialog__browse_filesystem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
-        android:text="@string/browse_filesystem"
-        tools:ignore="RtlHardcoded" />
+        <EditText
+            android:id="@+id/ui__select_path_dialog__url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/url_or_path"
+            android:inputType="textUri|textMultiLine"
+            android:maxLines="3" />
 
-    <Button
-        android:id="@+id/ui__select_path_dialog__camera_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_image_black_24dp"
-        android:text="@string/camera_picture"
-        tools:ignore="RtlHardcoded" />
+        <Button
+            android:id="@+id/ui__select_path_dialog__browse_filesystem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
+            android:drawableStart="@drawable/ic_insert_drive_file_black_24dp"
+            android:text="@string/browse_filesystem" />
 
-    <Button
-        android:id="@+id/ui__select_path_dialog__gallery_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_image_black_24dp"
-        android:text="@string/gallery_picture"
-        tools:ignore="RtlHardcoded" />
+        <Button
+            android:id="@+id/ui__select_path_dialog__camera_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_photo_camera_black_24dp"
+            android:drawableStart="@drawable/ic_photo_camera_black_24dp"
+            android:text="@string/camera_picture" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/ui__select_path_dialog__gallery_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_image_black_24dp"
+            android:drawableStart="@drawable/ic_image_black_24dp"
+            android:text="@string/gallery_picture" />
+    </LinearLayout>
+
+</ScrollView>
