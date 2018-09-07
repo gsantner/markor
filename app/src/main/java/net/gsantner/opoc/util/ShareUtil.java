@@ -190,13 +190,19 @@ public class ShareUtil {
      * @param file     The file to share
      * @param mimeType The files mime type
      */
-    public void shareStream(File file, String mimeType) {
-        Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+    public boolean shareStream(File file, String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
-        showChooser(intent, null);
+
+        try {
+            Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+            intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            showChooser(intent, null);
+            return true;
+        } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument
+            return false;
+        }
     }
 
     /**
