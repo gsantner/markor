@@ -16,6 +16,8 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -710,5 +712,54 @@ public class ShareUtil {
         };
         LocalBroadcastManager.getInstance(_context).registerReceiver(br, intentFilter);
         return br;
+    }
+
+    /**
+     * Request edit of image (by image editor/viewer - for example to crop image)
+     *
+     * @param file File that should be edited
+     */
+    public void requestPictureEdit(File file) {
+        Uri uri = getUriByFileProviderAuthority(file);
+        int flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setDataAndType(uri, "image/*");
+        intent.addFlags(flags);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
+
+        for (ResolveInfo resolveInfo : _context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            _context.grantUriPermission(packageName, uri, flags);
+        }
+        _context.startActivity(Intent.createChooser(intent, null));
+    }
+
+    /**
+     * Get content://media/ Uri for given file, or null if not indexed
+     *
+     * @param file Target file
+     * @param mode 1 for picture, 2 for video, anything else for other
+     * @return
+     */
+    public Uri getMediaUri(File file, int mode) {
+        Uri uri = MediaStore.Files.getContentUri("external");
+        uri = (mode != 0) ? (mode == 1 ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Video.Media.EXTERNAL_CONTENT_URI) : uri;
+
+        Cursor cursor = null;
+        try {
+            cursor = _context.getContentResolver().query(uri, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[]{file.getAbsolutePath()}, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int mediaid = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
+                return Uri.withAppendedPath(uri, mediaid + "");
+            }
+        } catch (Exception ignored) {
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return null;
     }
 }

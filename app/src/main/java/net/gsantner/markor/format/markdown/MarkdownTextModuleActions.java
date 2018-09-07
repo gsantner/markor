@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -213,6 +214,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.drawable.ic_keyboard_return_black_24dp, 5}
     };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
+    private static final Pattern IMAGE_PATTERN = Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)");
 
     private class KeyboardExtraActionsListener implements View.OnClickListener {
         int _action;
@@ -265,6 +267,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
+        final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
 
         int startCursorPos = _hlEditor.getSelectionStart();
         if (_hlEditor.hasSelection()) {
@@ -292,7 +295,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
 
             String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-            Matcher m = LINK_PATTERN.matcher(line);
+            Matcher m = (action == 2 ? LINK_PATTERN : IMAGE_PATTERN).matcher(line);
             if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                 int stat = lineStartidx + m.start();
                 int en = lineStartidx + m.end();
@@ -308,6 +311,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             actionTitle = R.string.insert_link;
             buttonPictureCamera.setVisibility(View.GONE);
             buttonPictureGallery.setVisibility(View.GONE);
+            buttonPictureEdit.setVisibility(View.GONE);
         } else if (action == 3) {
             actionTitle = R.string.insert_image;
         }
@@ -356,10 +360,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         // Request camera / gallery picture button handling
         ShareUtil shu = new ShareUtil(_activity);
-        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
-            editPathUrl.setText(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH));
-        }, false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
-        File targetFolder  = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
+        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> editPathUrl.setText(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)),
+                false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
+        File targetFolder = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
@@ -367,6 +370,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             if (getActivity() instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) getActivity();
                 FilesystemDialogCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), a);
+            }
+        });
+
+        buttonPictureEdit.setOnClickListener(v -> {
+            File file = new File(editPathUrl.getText().toString().replace("%20", " "));
+            if (file.exists()) {
+                shu.requestPictureEdit(file);
             }
         });
 
