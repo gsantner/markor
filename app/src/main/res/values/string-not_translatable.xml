@@ -171,4 +171,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
     <string name="pref_key__editor_history_enabled" translatable="false">pref_key__editor_history_enabled</string>
+
+
+    <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>
+    <string name="tmaid_markdown_h1" translatable="false">markdown_h1</string>
+    <string name="tmaid_markdown_h2" translatable="false">markdown_h2</string>
+    <string name="tmaid_markdown_h3" translatable="false">markdown_h3</string>
+    <string name="tmaid_markdown_ul" translatable="false">markdown_ul</string>
+    <string name="tmaid_markdown_ol" translatable="false">markdown_ol</string>
+    <string name="tmaid_markdown_bold" translatable="false">tmaid_markdown_bold</string>
+    <string name="tmaid_markdown_italic" translatable="false">tmaid_markdown_italic</string>
+    <string name="tmaid_markdown_strikeout" translatable="false">tmaid_markdown_strikeout</string>
+    <string name="tmaid_markdown_code_inline" translatable="false">tmaid_markdown_code_inline</string>
+    <string name="tmaid_markdown_horizontal_line" translatable="false">tmaid_markdown_horizontal_line</string>
+    <string name="tmaid_general_delete_lines" translatable="false">tmaid_general_delete_lines</string>
+    <string name="tmaid_general_open_link_browser" translatable="false">tmaid_general_open_link_browser</string>
+    <string name="tmaid_markdown_insert_image" translatable="false">tmaid_markdown_insert_image</string>
+    <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
+    <string name="tmaid_general_special_key" translatable="false">tmaid_general_special_key</string>
 </resources>

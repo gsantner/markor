@@ -23,14 +23,18 @@ import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextModuleActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
-    public static final String ACTION_SPECIAL_KEY = "special_key";
+    public static final String ACTION_SPECIAL_KEY = "press_special_key";
 
     public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
-    public static final String ACTION_OPEN_LINK_BROWSER = "open_in_browser";
+    public static final String ACTION_OPEN_LINK_BROWSER = "open_selected_link_in_browser";
 
 
     public static final int ACTION_DELETE_LINES_ICON = R.drawable.ic_delete_black_24dp;
     public static final String ACTION_DELETE_LINES = "delete_lines_between";
+
+
+    public static final int ACTION_END_LINE_WITH_TWO_SPACES_ICON = R.drawable.ic_keyboard_return_black_24dp;
+    public static final String ACTION_END_LINE_WITH_TWO_SPACES = "markdown_end_line_with_two_spaces";
 
 
     private final Activity _activity;
@@ -78,6 +82,9 @@ public class CommonTextModuleActions {
             case ACTION_OPEN_LINK_BROWSER: {
                 String url;
                 if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+                    if (url.endsWith(")")) {
+                        url = url.substring(0, url.length() - 1);
+                    }
                     new ContextUtils(_activity).openWebpageInExternalBrowser(url);
                 }
                 return true;
@@ -86,6 +93,17 @@ public class CommonTextModuleActions {
                 int[] indexes = PlainTextStuff.getNeighbourLineEndings(_hlEditor.getText().toString(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
                 if (indexes != null) {
                     _hlEditor.getText().delete(indexes[0], indexes[1]);
+                }
+                return true;
+            }
+            case ACTION_END_LINE_WITH_TWO_SPACES: {
+                if (_hlEditor.length() > 1) {
+                    int start = _hlEditor.getSelectionStart();
+                    String text = _hlEditor.getText().toString();
+                    int insertPos = text.indexOf('\n', start);
+                    insertPos = insertPos < 1 ? text.length() : insertPos;
+                    _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
+                    _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
                 }
                 return true;
             }

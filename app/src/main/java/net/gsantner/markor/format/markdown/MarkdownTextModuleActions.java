@@ -17,7 +17,6 @@ import android.content.DialogInterface;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,7 +28,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
@@ -48,20 +46,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     public void appendTextModuleActionsToBar(ViewGroup barLayout) {
         if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
-
-            // Smart Actions
-            for (int[] actions : KEYBOARD_SMART_ACTIONS_ICON) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardSmartActionsListener(KEYBOARD_SMART_ACTIONS[actions[1]]), null);
-            }
-
-            // Extra actions
-            for (int[] actions : KEYBOARD_EXTRA_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardExtraActionsListener(actions[1]), null);
-            }
-
-            // Regular actions
-            for (int[] actions : KEYBOARD_REGULAR_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(KEYBOARD_REGULAR_ACTIONS[actions[1]]), null);
+            for (int[] actions : TMA_ACTIONS) {
+                appendTextModuleActionToBar(barLayout, actions[1], new MarkdownTextModuleActionsImpl(actions[0]), null);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
@@ -73,23 +59,104 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     //
 
 
-    private static final int[][] KEYBOARD_REGULAR_ACTIONS_ICONS = {
-            {R.drawable.ic_format_quote_black_24dp, 0}, {R.drawable.format_header_1, 1},
-            {R.drawable.format_header_2, 2}, {R.drawable.format_header_3, 3},
-            {R.drawable.ic_list_black_24dp, 4}, {R.drawable.ic_format_list_numbered_black_24dp, 5}
+    // Mapping from action (string res) to icon (drawable res)
+    private static final int[][] TMA_ACTIONS = {
+            {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp},
+            {R.string.tmaid_general_delete_lines, CommonTextModuleActions.ACTION_DELETE_LINES_ICON},
+
+            {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
+            {R.string.tmaid_markdown_insert_image, R.drawable.ic_image_black_24dp},
+            {R.string.tmaid_markdown_insert_link, R.drawable.ic_link_black_24dp},
+
+            {R.string.tmaid_general_open_link_browser, CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_general_special_key, CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON},
+
+            {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
+            {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp},
+            {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp},
+            {R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp},
+            {R.string.tmaid_markdown_h1, R.drawable.format_header_1},
+            {R.string.tmaid_markdown_h2, R.drawable.format_header_2},
+            {R.string.tmaid_markdown_h3, R.drawable.format_header_3},
+            {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
+            {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
     };
-    private static final String[] KEYBOARD_REGULAR_ACTIONS = {"> ", "# ", "## ", "### ", "- ", "1. "};
 
-    private class KeyboardRegularActionListener implements View.OnClickListener {
-        String _action;
+    private class MarkdownTextModuleActionsImpl implements View.OnClickListener {
+        private int _action;
 
-        KeyboardRegularActionListener(String action) {
+        MarkdownTextModuleActionsImpl(int action) {
             _action = action;
         }
 
         @Override
         public void onClick(View v) {
+            switch (_action) {
+                case R.string.tmaid_markdown_quote: {
+                    runMarkdownRegularPrefixAction("> ");
+                    break;
+                }
+                case R.string.tmaid_markdown_h1: {
+                    runMarkdownRegularPrefixAction("# ");
+                    break;
+                }
+                case R.string.tmaid_markdown_h2: {
+                    runMarkdownRegularPrefixAction("## ");
+                    break;
+                }
+                case R.string.tmaid_markdown_h3: {
+                    runMarkdownRegularPrefixAction("### ");
+                    break;
+                }
+                case R.string.tmaid_markdown_ul: {
+                    runMarkdownRegularPrefixAction("- ");
+                    break;
+                }
+                case R.string.tmaid_markdown_ol: {
+                    runMarkdownRegularPrefixAction("1. ");
+                    break;
+                }
+                case R.string.tmaid_markdown_bold: {
+                    runMarkdownInlineAction("**");
+                    break;
+                }
+                case R.string.tmaid_markdown_italic: {
+                    runMarkdownInlineAction("_");
+                    break;
+                }
+                case R.string.tmaid_markdown_strikeout: {
+                    runMarkdownInlineAction("~~");
+                    break;
+                }
+                case R.string.tmaid_markdown_code_inline: {
+                    runMarkdownInlineAction("`");
+                    break;
+                }
+                case R.string.tmaid_markdown_horizontal_line: {
+                    runMarkdownInlineAction("----\n");
+                    break;
+                }
+                case R.string.tmaid_general_delete_lines: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_DELETE_LINES);
+                    break;
+                }
+                case R.string.tmaid_general_open_link_browser: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
+                    break;
+                }
+                case R.string.tmaid_general_special_key: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case R.string.tmaid_markdown_insert_link:
+                case R.string.tmaid_markdown_insert_image: {
+                    showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3);
+                    break;
+                }
+            }
+        }
 
+        private void runMarkdownRegularPrefixAction(String action) {
             if (_hlEditor.hasSelection()) {
                 String text = _hlEditor.getText().toString();
                 int selectionStart = _hlEditor.getSelectionStart();
@@ -99,23 +166,23 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 if (text.substring(selectionStart, selectionEnd)
                         .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
 
-                    text = text.substring(selectionStart + _action.length(), selectionEnd);
+                    text = text.substring(selectionStart + action.length(), selectionEnd);
                     _hlEditor.getText()
                             .replace(selectionStart, selectionEnd, text);
 
                 }
                 //Check if Selection is Preceded by shortcut characters
-                else if ((selectionStart >= _action.length()) && (text.substring(selectionStart - _action.length(), selectionEnd)
+                else if ((selectionStart >= action.length()) && (text.substring(selectionStart - action.length(), selectionEnd)
                         .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
 
                     text = text.substring(selectionStart, selectionEnd);
                     _hlEditor.getText()
-                            .replace(selectionStart - _action.length(), selectionEnd, text);
+                            .replace(selectionStart - action.length(), selectionEnd, text);
 
                 }
                 //Condition to insert shortcut preceding the selection
                 else {
-                    _hlEditor.getText().insert(selectionStart, _action);
+                    _hlEditor.getText().insert(selectionStart, action);
                 }
             } else {
                 //Condition for Empty Selection. Should insert the action at the start of the line
@@ -128,31 +195,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     }
                 }
 
-                s.insert(i + 1, _action);
+                s.insert(i + 1, action);
             }
         }
-    }
 
-    //
-    //
-    //
 
-    private static final int[][] KEYBOARD_SMART_ACTIONS_ICON = {
-            {R.drawable.ic_format_bold_black_24dp, 0}, {R.drawable.ic_format_italic_black_24dp, 1},
-            {R.drawable.ic_format_strikethrough_black_24dp, 2}, {R.drawable.ic_code_black_24dp, 3},
-            {R.drawable.ic_more_horiz_black_24dp, 4}
-    };
-    private static final String[] KEYBOARD_SMART_ACTIONS = {"**", "_", "~~", "`", "----\n"};
-
-    private class KeyboardSmartActionsListener implements View.OnClickListener {
-        String _action;
-
-        KeyboardSmartActionsListener(String action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View v) {
+        private void runMarkdownInlineAction(String _action) {
             if (_hlEditor.hasSelection()) {
                 String text = _hlEditor.getText().toString();
                 int selectionStart = _hlEditor.getSelectionStart();
@@ -200,66 +248,14 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
             }
         }
+
     }
 
-    //
-    //
-    //
-
-    private static final int[][] KEYBOARD_EXTRA_ACTIONS_ICONS = {
-            {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 0},
-            {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
-            {R.drawable.ic_link_black_24dp, 2}, {R.drawable.ic_image_black_24dp, 3},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 4},
-            {R.drawable.ic_keyboard_return_black_24dp, 5}
-    };
     private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
     private static final Pattern IMAGE_PATTERN = Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)");
 
-    private class KeyboardExtraActionsListener implements View.OnClickListener {
-        int _action;
-        PermissionChecker permc = new PermissionChecker(getActivity());
-
-        KeyboardExtraActionsListener(int action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View view) {
-            switch (_action) {
-                case 0: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_DELETE_LINES);
-                    break;
-                }
-                case 1: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
-                    break;
-                }
-                case 4: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
-                    break;
-                }
-                case 5: {
-                    if (_hlEditor.length() > 1) {
-                        int start = _hlEditor.getSelectionStart();
-                        String text = _hlEditor.getText().toString();
-                        int insertPos = text.indexOf('\n', start);
-                        insertPos = insertPos < 1 ? text.length() : insertPos;
-                        _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
-                        _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
-                    }
-                    break;
-                }
-                default: {
-                    getAlertDialog(_action);
-                    break;
-                }
-            }
-        }
-    }
-
     @SuppressWarnings("RedundantCast")
-    private void getAlertDialog(int action) {
+    private void showInsertImageOrLinkDialog(int action) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
         final View view = _activity.getLayoutInflater().inflate(R.layout.ui__select_path_dialog, (ViewGroup) null);
         final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
@@ -295,7 +291,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
 
             String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-            Matcher m = (action == 2 ? LINK_PATTERN : IMAGE_PATTERN).matcher(line);
+            Matcher m = (action == 3 ? LINK_PATTERN : IMAGE_PATTERN).matcher(line);
             if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                 int stat = lineStartidx + m.start();
                 int en = lineStartidx + m.end();
@@ -305,14 +301,14 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             }
         }
 
-        final String formatTemplate = action == 2 ? "[%s](%s)" : "![%s](%s)";
+        final String formatTemplate = action == 3 ? "[%s](%s)" : "![%s](%s)";
         int actionTitle = R.string.select;
-        if (action == 2) {
+        if (action == 3) {
             actionTitle = R.string.insert_link;
             buttonPictureCamera.setVisibility(View.GONE);
             buttonPictureGallery.setVisibility(View.GONE);
             buttonPictureEdit.setVisibility(View.GONE);
-        } else if (action == 3) {
+        } else if (action == 2) {
             actionTitle = R.string.insert_image;
         }
 
