@@ -241,4 +241,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Quitter</string>
     <string name="error_picture_selection">Aucune image n\'a été sélectionnée.</string>
     <string name="other">Autre</string>
+    <string name="gallery_picture">Photo depuis la galerie</string>
+    <string name="camera_picture">Photo depuis l\'appareil</string>
+    <string name="enable_undo_and_redo_be_patient">Activer les actions d\'annulation et de rétablissement. Réservé à une utilisation avancée,  soyez vigilant pour ne pas supprimer des choses importantes. Fermez et ouvrez l\'éditeur pour effacer l\'historique.</string>
+    <string name="description">Description</string>
 </resources>
