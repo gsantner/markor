@@ -9,9 +9,11 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Préférences</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
     <string name="delete">Supprimer</string>
+    <string name="appearance">Apparence</string>
     <string name="rename">Renommer</string>
     <string name="confirm_delete">Confirmez la suppression</string>
     <string name="do_you_really_want_to_delete_this_witharg">Voulez-vous vraiment supprimer ça %s?</string>
@@ -35,7 +37,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Rechercher des documents</string>
     <string name="share_to_arrow">Partager avec…</string>
     <string name="share">Partager</string>
+    <string name="search">Recherche</string>
     <string name="preview">Aperçu</string>
+    <string name="editor">Éditeur</string>
     <string name="folders">Dossiers</string>
     <string name="files">Fichiers</string>
     <string name="document">Document</string>
@@ -46,19 +50,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Police de l\'éditeur</string>
     <string name="theme">Thème</string>
     <string name="open_preview_when_opening_documents">Ouvrir l\'aperçu lors de l\'ouverture des documents</string>
+    <string name="about">À propos</string>
     <string name="plaintext">Texte brut</string>
     <string name="file">Fichier</string>
     <string name="image">Image</string>
+    <string name="font_size">Taille de la police</string>
     <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
 
     <string name="last_modified_witharg">Dernière modification : %s</string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
+    <string name="create">Créer</string>
     <string name="select_entries">Sélectionnez une ou plusieurs entrées</string>
     <string name="one_item_selected">Une entrée sélectionnée</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
+    <string name="hide_statusbar_at_this_view">L\'application s\'exécute en mode plein écran</string>
+    <string name="hide_statusbar">Cacher la barre de statut</string>
 
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
@@ -66,21 +75,31 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Insérer image</string>
 
     <!-- About screen -->
+    <string name="contributors">Contributeurs</string>
     <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
     <string name="notebook_directory">Dossier du bloc note</string>
+    <string name="licenses">Licences</string>
+    <string name="changelog">Nouveautés de l\'application</string>
     <string name="more_info">Plus d\'informations</string>
     <string name="show_license_of_the_app">Afficher la licence de l\'application</string>
+    <string name="show_third_party_licenses">Montrer les licences tierces</string>
+    <string name="language_change_restart_description">Changer la langue de l\'interface. Vous devrez redémarrer l\'application pour que ce changement soit pris en compte</string>
+    <string name="language">Langue</string>
     <string name="error_need_storage_permission_to_save_documents">Vous devez autoriser l\'application à écrire dans la mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
     <string name="open_with">Ouvrir avec</string>
     <string name="sort">Trier</string>
     <string name="date">Trier par date</string>
     <string name="deleteme____1">Trier par nom</string>
+    <string name="size">Taille</string>
     <string name="reverse_order">Inverser l\'ordre</string>
     <string name="contribute">Contribuer</string>
+    <string name="donate">Donner</string>
     <string name="project_page">Site web du projet</string>
     <string name="press_back_again_to_exit">Appuyez à nouveau sur retour pour quitter</string>
+    <string name="exit">Quitter</string>
     <string name="undo">Annuler</string>
     <string name="redo">Rétablir</string>
+    <string name="more">Plus</string>
     <string name="notebook">Bloc note</string>
     <string name="help">Aide</string>
     <string name="todo_list">À faire</string>
@@ -146,6 +165,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="projects">Projets</string>
     <string name="categories">Catégories</string>
     <string name="none">Aucune</string>
+    <string name="other">Autre</string>
+
+
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Surligne les codes couleurs hexadécimaux de la couleur correspondante</string>
     <string name="underline_hex_color_codes">Surligner les codes couleurs</string>
     <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
@@ -157,6 +179,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Mettre en valeur les espaces en fin de ligne, à partir de deux espaces</string>
     <string name="use_monospace_for_code">Utiliser une police à chasse fixe pour le code</string>
     <string name="use_different_fonttype_slow_down">Utiliser une police de type différent. Changer dynamiquement de police de caractères a des conséquences sur les performances de l\'application.</string>
+    <string name="general">Général</string>
     <string name="resources">Ressources</string>
     <string name="space_between_lines_in_percent">Espacement de lignes (%)</string>
     <string name="line_spacing">Espacement de lignes</string>
@@ -177,6 +200,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
+    <string name="default_">Par défaut</string>
     <string name="left">Gauche</string>
     <string name="right">Droite</string>
     <string name="top">En haut</string>
@@ -193,6 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">Évaluer cette application</string>
     <string name="translate">Traduire</string>
     <string name="more_info_and_help">Plus d\'informations et d\'aide sur cette application</string>
+    <string name="report_bugs">Signaler un bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Plus d\'informations sur les dons ou l\'aide à ce projet</string>
     <string name="android_contribution_guide">Guide de contribution Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur la contribution à un projet Open Source, Surtout les applications Android</string>
@@ -206,6 +231,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
     <string name="project_team">Équipe</string>
     <string name="contributors_public_add_yourself_description">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
+
     <string name="disable_spelling_underline">Désactiver le soulignement des fautes</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Les suggestions du clavier restent, les soulignements rouges disparaissent</string>
     <string name="location">Stocké dans</string>
@@ -216,33 +242,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Détails</string>
     <string name="calendar">Calendrier</string>
     <string name="warning_disallowed_sd_access">Attention ! L\'application ne possède pas les droits pour enregistrer ce fichier. Tous ses changements seront perdus. Il n\'y a pas moyen de résoudre le problème ou confirmer quoi que ce soit : Android empêche tout accès.</string>
-
-    <string name="search">Recherche</string>
-    <string name="font_size">Taille de la police</string>
-    <string name="more">Plus</string>
-    <string name="general">Général</string>
-    <string name="default_">Par défaut</string>
-    <string name="report_bugs">Signaler un bug</string>
-    <string name="settings">Préférences</string>
-    <string name="appearance">Apparence</string>
-    <string name="editor">Éditeur</string>
-    <string name="about">À propos</string>
-    <string name="create">Créer</string>
-    <string name="hide_statusbar_at_this_view">L\'application s\'exécute en mode plein écran</string>
-    <string name="hide_statusbar">Cacher la barre de statut</string>
-    <string name="contributors">Contributeurs</string>
-    <string name="licenses">Licences</string>
-    <string name="changelog">Nouveautés de l\'application</string>
-    <string name="show_third_party_licenses">Montrer les licences tierces</string>
-    <string name="language_change_restart_description">Changer la langue de l\'interface. Vous devrez redémarrer l\'application pour que ce changement soit pris en compte</string>
-    <string name="language">Langue</string>
-    <string name="size">Taille</string>
-    <string name="donate">Donner</string>
-    <string name="exit">Quitter</string>
     <string name="error_picture_selection">Aucune image n\'a été sélectionnée.</string>
-    <string name="other">Autre</string>
     <string name="gallery_picture">Photo depuis la galerie</string>
     <string name="camera_picture">Photo depuis l\'appareil</string>
     <string name="enable_undo_and_redo_be_patient">Activer les actions d\'annulation et de rétablissement. Réservé à une utilisation avancée,  soyez vigilant pour ne pas supprimer des choses importantes. Fermez et ouvrez l\'éditeur pour effacer l\'historique.</string>
     <string name="description">Description</string>
+    <string name="edit_picture">Éditer l\'image</string>
+
 </resources>
