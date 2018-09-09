@@ -99,10 +99,10 @@ public class DocumentIO {
 
             if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
+            } else if (ContextUtils.get().isMaybeMarkdownFile(filePath) && (!fnlower.endsWith(".txt") || fnlower.endsWith(".md.txt"))) {
+                document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else if (fnlower.endsWith(".txt")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
-            } else if (ContextUtils.get().isMaybeMarkdownFile(filePath)) {
-                document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             }
