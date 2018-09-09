@@ -1,3 +1,22 @@
+### v1.1.0
+**New features:**  
+- Text Module Actions
+  - Markdown Picture Dialog
+  - Load picture from gallery
+  - Take picture with camera
+  - Edit picture with graphics app
+
+**Improved:**  
+- Formats
+  - Load Markdown Format for .md.txt files
+
+**Fixed:**  
+- Editor
+  - Change default lineheight back to 100%
+  - Not connects multiple lines anymore
+- Filesystem view
+  - More checks for storage access and the yellow info box
+
 ### v1.0.1  
 **New features:**  
 - Add popular files (most used files by access count)

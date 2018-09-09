@@ -17,7 +17,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 
@@ -52,7 +51,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
 
     private void updateFiles() {
         _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file ->
-                !file.isDirectory() && ContextUtils.get().isMaybeMarkdownFile(file)
+                !file.isDirectory() && MarkdownTextConverter.isTextOrMarkdownFile(file)
         );
         if (_dir != null && _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList = FilesystemDialogCreator.strlistToArray(AppSettings.get().getRecentDocuments());

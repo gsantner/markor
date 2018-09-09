@@ -62,18 +62,16 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
             {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp},
-            {R.string.tmaid_general_delete_lines, CommonTextModuleActions.ACTION_DELETE_LINES_ICON},
-
+            {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
             {R.string.tmaid_markdown_insert_image, R.drawable.ic_image_black_24dp},
-            {R.string.tmaid_markdown_insert_link, R.drawable.ic_link_black_24dp},
-
+            {R.string.tmaid_general_delete_lines, CommonTextModuleActions.ACTION_DELETE_LINES_ICON},
             {R.string.tmaid_general_open_link_browser, CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON},
             {R.string.tmaid_general_special_key, CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON},
+            {R.string.tmaid_markdown_insert_link, R.drawable.ic_link_black_24dp},
 
-            {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
-            {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp},
             {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp},
+            {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp},
             {R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp},
             {R.string.tmaid_markdown_h1, R.drawable.format_header_1},
             {R.string.tmaid_markdown_h2, R.drawable.format_header_2},

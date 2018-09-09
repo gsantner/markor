@@ -30,8 +30,10 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.format.TextConverter;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
@@ -75,7 +77,6 @@ public class MarkdownTextConverter extends TextConverter {
     private static final Parser parser = Parser.builder().extensions(MARKDOWN_ENABLED_EXTENSIONS).build();
     private static final HtmlRenderer renderer = HtmlRenderer.builder().extensions(MARKDOWN_ENABLED_EXTENSIONS).build();
 
-
     //########################
     //## Methods
     //########################
@@ -96,5 +97,23 @@ public class MarkdownTextConverter extends TextConverter {
 
         String markupRendered = renderer.withOptions(options).render(parser.parse(markup));
         return putContentIntoTemplate(context, markupRendered);
+    }
+
+    public static boolean isMarkdownFile(File file) {
+        String fnlower = file.getAbsolutePath().toLowerCase();
+        return MarkdownTextConverter.isTextOrMarkdownFile(file) && (!fnlower.endsWith(".txt") || fnlower.endsWith(".md.txt"));
+    }
+
+    // Either pass file or null and absolutePath
+    public static boolean isTextOrMarkdownFile(File file, String... absolutePath) {
+        String path = (absolutePath != null && absolutePath.length > 0)
+                ? absolutePath[0] : file.getAbsolutePath();
+        path = path.toLowerCase(Locale.ROOT);
+        for (String ext : MD_EXTENSIONS) {
+            if (path.endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

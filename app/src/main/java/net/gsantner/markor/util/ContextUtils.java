@@ -34,16 +34,4 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
         return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
     }
 
-    // Either pass file or null and absolutePath
-    public boolean isMaybeMarkdownFile(File file, String... absolutePath) {
-        String path = (absolutePath != null && absolutePath.length > 0)
-                ? absolutePath[0] : file.getAbsolutePath();
-        path = path.toLowerCase(Locale.ROOT);
-        for (String ext : MarkdownTextConverter.MD_EXTENSIONS) {
-            if (path.endsWith(ext)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

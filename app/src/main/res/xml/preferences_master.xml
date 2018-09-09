@@ -88,7 +88,7 @@
             android:key="@string/pref_key__font_family"
             android:title="@string/document_editor_font" />
         <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="18"
+            android:defaultValue="15"
             android:icon="@drawable/ic_format_size_black_24dp"
             android:key="@string/pref_key__editor_font_size"
             android:max="36"

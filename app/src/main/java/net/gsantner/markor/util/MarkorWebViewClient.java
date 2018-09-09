@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -34,7 +35,7 @@ public class MarkorWebViewClient extends WebViewClient {
             ShareUtil su = new ShareUtil(view.getContext());
             File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;
-            if (ContextUtils.get().isMaybeMarkdownFile(file)) {
+            if (MarkdownTextConverter.isTextOrMarkdownFile(file)) {
                 Intent newPreview = new Intent(_activity, DocumentActivity.class);
                 newPreview.putExtra(DocumentIO.EXTRA_PATH, file);
                 newPreview.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);

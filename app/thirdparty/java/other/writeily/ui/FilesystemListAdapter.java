@@ -23,7 +23,6 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -116,7 +115,7 @@ public class FilesystemListAdapter extends ArrayAdapter<File> implements Filtera
         try {
             File item = getItem(i);
             int documentAmount = (item == null ? 0
-                    : item.listFiles(file -> ContextUtils.get().isMaybeMarkdownFile(file)).length);
+                    : item.listFiles(file -> MarkdownTextConverter.isTextOrMarkdownFile(file)).length);
             int filesAmount = (item == null ? 0 : item.listFiles().length);
             StringBuilder sb = new StringBuilder();
             sb.append(_context.getResources().getQuantityString(R.plurals.documents, documentAmount));

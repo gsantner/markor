@@ -7,7 +7,7 @@
  */
 package net.gsantner.markor.model;
 
-import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
 import org.apache.commons.io.IOUtils;
 
@@ -137,7 +137,7 @@ public class MarkorSingleton {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
-                } else if (ContextUtils.get().isMaybeMarkdownFile(f)) {
+                } else if (MarkdownTextConverter.isTextOrMarkdownFile(f)) {
                     addedFiles.add(f);
                 }
             }

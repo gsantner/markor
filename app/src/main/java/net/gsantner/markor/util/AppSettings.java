@@ -114,7 +114,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getFontSize() {
-        return getInt(R.string.pref_key__editor_font_size, 18);
+        return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
     public boolean isEditor_ShowTextmoduleBar() {
