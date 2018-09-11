@@ -172,6 +172,23 @@
             android:key="@string/pref_key__inject_to_head"
             android:summary="@string/js_css"
             android:title="@string/inject_to_head" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue=""
+            android:icon="@drawable/ic_add_white_24dp"
+            android:key="@string/pref_key__inject_to_body"
+            android:title="@string/inject_to_body" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sigma"
+            android:key="@string/pref_key__render_math"
+            android:summary="@string/render_math"
+            android:title="@string/math_rendering" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_toc_black_24dp"
+            android:key="@string/pref_key__show_toc"
+            android:summary="@string/show_table_of_contents"
+            android:title="@string/show_toc" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
