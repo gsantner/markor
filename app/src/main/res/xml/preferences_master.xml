@@ -225,7 +225,7 @@
         <!-- To-Do Screen -->
         <PreferenceScreen
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-            android:title="@string/todo">
+            android:title="@string/todo_txt">
             <PreferenceCategory android:title="@string/text_modules">
                 <CheckBoxPreference
                     android:defaultValue="true"
