@@ -26,7 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import other.writeily.activity.FilesystemListFragment;
+import other.writeily.activity.WrFilesystemListFragment;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -183,7 +183,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, FilesystemListFragment.SORT_BY_NAME);
+        return getInt(R.string.pref_key__sort_method, WrFilesystemListFragment.SORT_BY_NAME);
     }
 
     public void setSortReverse(boolean value) {

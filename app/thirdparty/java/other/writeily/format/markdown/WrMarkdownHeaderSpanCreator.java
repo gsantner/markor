@@ -21,7 +21,7 @@ import net.gsantner.markor.ui.hleditor.SpanCreator;
 
 import java.util.regex.Matcher;
 
-public class MarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
+public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
     private static final Character POUND_SIGN = '#';
     private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
@@ -31,7 +31,7 @@ public class MarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCrea
     private final Editable _editable;
     private final int _color;
 
-    public MarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color) {
+    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color) {
         _highlighter = highlighter;
         _editable = editable;
         _color = color;

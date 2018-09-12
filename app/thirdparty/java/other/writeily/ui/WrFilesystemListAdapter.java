@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.Locale;
 
 // Note: Selection color is controller by state-list-drawable
-public class FilesystemListAdapter extends ArrayAdapter<File> implements Filterable {
+public class WrFilesystemListAdapter extends ArrayAdapter<File> implements Filterable {
 
     public static final String EMPTY_STRING = "";
     private Context _context;
     private List<File> _data;
     private List<File> _filteredData;
 
-    public FilesystemListAdapter(Context context, int resource, List<File> objects) {
+    public WrFilesystemListAdapter(Context context, int resource, List<File> objects) {
         super(context, resource, objects);
         _context = context;
         _data = objects;

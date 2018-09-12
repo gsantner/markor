@@ -22,7 +22,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 
-public class CreateFolderDialog extends DialogFragment {
+public class WrCreateFolderDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "create_folder_dialog_tag";
     // ----- KEYS -----
     public static final String CURRENT_DIRECTORY_DIALOG_KEY = "current_dir_folder_key";
@@ -30,7 +30,7 @@ public class CreateFolderDialog extends DialogFragment {
     private EditText folderNameEditText;
     private String currentDir;
 
-    public CreateFolderDialog() {
+    public WrCreateFolderDialog() {
     }
 
     @NonNull

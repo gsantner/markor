@@ -2,7 +2,7 @@
 
 <!--android:configure="com.example.android.ExampleAppWidgetConfigure"-->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="other.writeily.widget.WidgetConfigure"
+    android:configure="other.writeily.widget.WrWidgetConfigure"
     android:initialLayout="@layout/widget_layout"
     android:minHeight="80dp"
     android:minResizeHeight="60dp"

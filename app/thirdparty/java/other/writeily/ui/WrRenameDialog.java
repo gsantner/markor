@@ -25,12 +25,12 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
-public class RenameDialog extends DialogFragment {
+public class WrRenameDialog extends DialogFragment {
     public static final String EXTRA_FILEPATH = "EXTRA_FILEPATH";
-    public static final String FRAGMENT_TAG = "RenameDialog";
+    public static final String FRAGMENT_TAG = "WrRenameDialog";
 
-    public static RenameDialog newInstance(File sourceFile) {
-        RenameDialog dialog = new RenameDialog();
+    public static WrRenameDialog newInstance(File sourceFile) {
+        WrRenameDialog dialog = new WrRenameDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
         dialog.setArguments(args);

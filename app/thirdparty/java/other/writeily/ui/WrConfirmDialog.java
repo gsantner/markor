@@ -19,8 +19,8 @@ import net.gsantner.markor.util.AppSettings;
 
 import java.io.Serializable;
 
-public class ConfirmDialog extends DialogFragment {
-    public static final String FRAGMENT_TAG = "ConfirmDialog";
+public class WrConfirmDialog extends DialogFragment {
+    public static final String FRAGMENT_TAG = "WrConfirmDialog";
 
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
     private static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
@@ -30,9 +30,9 @@ public class ConfirmDialog extends DialogFragment {
     private ConfirmDialogCallback[] _callbacks;
     private String _summary;
 
-    public static ConfirmDialog newInstance(String title, String message,
-                                            Serializable data, ConfirmDialogCallback... callbacks) {
-        ConfirmDialog confirmDialog = new ConfirmDialog();
+    public static WrConfirmDialog newInstance(String title, String message,
+                                              Serializable data, ConfirmDialogCallback... callbacks) {
+        WrConfirmDialog confirmDialog = new WrConfirmDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DATA, data);
         args.putString(EXTRA_TITLE, title);
