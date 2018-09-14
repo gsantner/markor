@@ -170,7 +170,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
-    <string name="pref_key__editor_history_enabled" translatable="false">pref_key__editor_history_enabled</string>
+    <string name="pref_key__editor_history_enabled3" translatable="false">pref_key__editor_history_enabled3</string>
 
 
     <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>

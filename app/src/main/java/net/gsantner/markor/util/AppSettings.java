@@ -304,6 +304,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isEditorHistoryEnabled() {
-        return getBool(R.string.pref_key__editor_history_enabled, false);
+        return getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 }
