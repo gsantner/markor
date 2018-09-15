@@ -170,6 +170,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
+    <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
     <string name="pref_key__editor_history_enabled3" translatable="false">pref_key__editor_history_enabled3</string>
 
 
@@ -189,4 +190,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_insert_image" translatable="false">tmaid_markdown_insert_image</string>
     <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
     <string name="tmaid_general_special_key" translatable="false">tmaid_general_special_key</string>
+    <string name="pref_key__render_math">pref_key__render_math</string>
+    <string name="pref_key__show_toc">pref_key__show_toc</string>
 </resources>

@@ -155,6 +155,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_render_rtl, false);
     }
 
+    public boolean renderMath() {
+        return getBool(R.string.pref_key__render_math, false);
+    }
+
+    public boolean showTOC() {
+        return getBool(R.string.pref_key__show_toc, false);
+    }
+
     public boolean isEditorStatusBarHidden() {
         return getBool(R.string.pref_key__is_editor_statusbar_hidden, false);
     }
@@ -301,6 +309,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getInjectedHeader() {
         return getString(R.string.pref_key__inject_to_head, rstr(R.string.inject_to_head_default));
+    }
+
+    public String getInjectedBody() {
+        return getString(R.string.pref_key__inject_to_body, "");
     }
 
     public boolean isEditorHistoryEnabled() {

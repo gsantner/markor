@@ -248,5 +248,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
     <string name="description">Description</string>
     <string name="edit_picture">Edit picture</string>
+    <string name="render_math">Render Math using katex</string>
+    <string name="math_rendering">Math rendering</string>
+    <string name="show_table_of_contents">Show table of contents</string>
+    <string name="show_toc">Show TOC</string>
+    <string name="inject_to_body">Inject -> body</string>
+    <string name="preview_options">Preview Options</string>
 
 </resources>
