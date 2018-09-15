@@ -156,11 +156,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean renderMath() {
-        return getBool(R.string.pref_key__render_math, false);
+        return getBool(R.string.pref_key__markdown_render_math, false);
     }
 
     public boolean showTOC() {
-        return getBool(R.string.pref_key__show_toc, false);
+        return getBool(R.string.pref_key__markdown_show_toc, false);
     }
 
     public boolean isEditorStatusBarHidden() {

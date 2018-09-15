@@ -13,6 +13,7 @@ package net.gsantner.markor.format;
 import android.content.Context;
 import android.webkit.WebView;
 
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
@@ -25,8 +26,8 @@ public abstract class TextConverter {
     protected static final String CONTENT_TYPE_HTML = "text/html";
     protected static final String CONTENT_TYPE_PLAIN = "text/plain";
 
-    protected static final String CSS_S = "<style type=\"text/css\">";
-    protected static final String CSS_E = "</style>";
+    protected static final String CSS_S = "<style type='text/css'>";
+    protected static final String CSS_E = "</style>\n";
 
     protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}";
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
@@ -41,27 +42,17 @@ public abstract class TextConverter {
     protected static final String HTML100_HEADER_WITHOUT_UNDERLINE = CSS_S + ".header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
     protected static final String HTML101_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
-    protected static final String HTML500_BODY = "</head><body onload='onPageLoaded_markor_private();'>\n\n\n";
+    protected static final String HTML500_BODY = "</head>\n<body onload='onPageLoaded_markor_private();'>\n";
     protected static final String HTML990_BODY_END = "</body></html>";
 
-    protected static final String HTML_JQUERY_HEADER = "<script src=\"file:///android_asset/jquery-3.3.1.min.js\"></script>";
-    protected static final String HTML_KATEX_HEADERS = "<link rel=\"stylesheet\" href=\"file:///android_asset/katex/katex.min.css\">\n" +
-            "<script src=\"file:///android_asset/katex/katex.min.js\"></script>\n" +
-            "<script src=\"file:///android_asset/katex/auto-render.min.js\"></script>";
-    protected static final String HTML_TOC_HEADER = "<script src=\"file:///android_asset/toc.min.js\"></script>";
+    protected static final String HTML_JQUERY_INCLUDE = "<script src='file:///android_asset/jquery/jquery-3.3.1.min.js'></script>";
+    protected static final String HTML_TOC_INCLUDE = "<script src='file:///android_asset/toc/toc.min.js'></script>";
 
-    protected static final String HTML_ON_PAGE_LOAD_S = "<script>\n" +
-            "    function onPageLoaded_markor_private() {\n";
-    protected static final String HTML_ON_PAGE_LOAD_E = "onPageLoaded(); }\n" +
-            "</script>";
-    protected static final String HTML_KATEX_JS = "renderMathInElement(document.body, {\n" +
-            "            \"delimiters\": [\n" +
-            "                { left: \"$\", right: \"$\", display: false },\n" +
-            "                { left: \"$$\", right: \"$$\", display: true }\n" +
-            "            ]\n" +
-            "        });";
-    protected static final String HTML_TOC_JS = "$('#toc').toc();";
-    protected static final String HTML_TOC_BODY = "<div id=\"toc\"></div>";
+    protected static final String HTML_ON_PAGE_LOAD_S = "<script> function onPageLoaded_markor_private() {";
+    protected static final String HTML_ON_PAGE_LOAD_E = "onPageLoaded(); }\n</script>";
+    protected static final String HTML_TOC_RUN = "$('#toc').toc();";
+    protected static final String HTML_TOC_BODY = "<div id='toc'></div>";
+
 
     //########################
     //## Methods
@@ -99,26 +90,26 @@ public abstract class TextConverter {
     public abstract String convertMarkup(String markup, Context context);
 
     protected String putContentIntoTemplate(Context context, String content) {
-        AppSettings as = new AppSettings(context);
-        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (as.isDarkThemeEnabled() ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
-        if (as.isRenderRtl()) {
+        AppSettings appSettings = new AppSettings(context);
+        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (appSettings.isDarkThemeEnabled() ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
+        if (appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
         }
-        html += HTML100_HEADER_WITHOUT_UNDERLINE + HTML101_BLOCKQUOTE_VERTICAL_LINE + as.getInjectedHeader();
-        if (as.renderMath()) {
-            html += HTML_KATEX_HEADERS;
+        html += HTML100_HEADER_WITHOUT_UNDERLINE + HTML101_BLOCKQUOTE_VERTICAL_LINE + appSettings.getInjectedHeader();
+        if (appSettings.renderMath()) {
+            html += MarkdownTextConverter.HTML_KATEX_INCLUDE;
         }
-        if (as.showTOC()) {
-            html += HTML_JQUERY_HEADER;
-            html += HTML_TOC_HEADER;
+        if (appSettings.showTOC()) {
+            html += HTML_JQUERY_INCLUDE;
+            html += HTML_TOC_INCLUDE;
         }
 
         html += HTML_ON_PAGE_LOAD_S;
-        if (as.renderMath()) {
-            html += HTML_KATEX_JS;
+        if (appSettings.renderMath()) {
+            html += MarkdownTextConverter.HTML_KATEX_JS;
         }
-        if (as.showTOC()) {
-            html += HTML_TOC_JS;
+        if (appSettings.showTOC()) {
+            html += HTML_TOC_RUN;
         }
         html += HTML_ON_PAGE_LOAD_E;
 
@@ -127,18 +118,18 @@ public abstract class TextConverter {
 
         // Load content
         html += HTML500_BODY;
-        if (as.showTOC()) {
+        if (appSettings.showTOC()) {
             html += HTML_TOC_BODY;
         }
-        html += as.getInjectedBody();
+        html += appSettings.getInjectedBody();
         html += content;
         html += HTML990_BODY_END;
 
         // Replace tokens
         html = html
-                .replace(TOKEN_BW_INVERSE_OF_THEME, as.isDarkThemeEnabled() ? "white" : "black")
-                .replace(TOKEN_TEXT_DIRECTION, as.isRenderRtl() ? "right" : "left")
-                .replace(TOKEN_FONT, as.getFontFamily())
+                .replace(TOKEN_BW_INVERSE_OF_THEME, appSettings.isDarkThemeEnabled() ? "white" : "black")
+                .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
+                .replace(TOKEN_FONT, appSettings.getFontFamily())
                 .replace(TOKEN_TEXT_CONVERTER_NAME, getClass().getSimpleName())
         ;
 

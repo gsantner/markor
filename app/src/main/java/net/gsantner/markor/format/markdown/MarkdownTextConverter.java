@@ -58,6 +58,15 @@ public class MarkdownTextConverter extends TextConverter {
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
             EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT
     };
+    public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
+            "<script src='file:///android_asset/katex/katex.min.js'></script>" +
+            "<script src='file:///android_asset/katex/auto-render.min.js'></script>";
+    public static final String HTML_KATEX_JS = "" +
+            "renderMathInElement(document.body, {" +
+            "   'delimiters': [ " +
+            "       { left: '$', right: '$', display: false }," +
+            "       { left: '$$', right: '$$', display: true }" +
+            "]});\n";
 
     //########################
     //## Converter library

@@ -12,6 +12,7 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -31,7 +32,9 @@ public class MarkorWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (url.startsWith("file://")) {
+        if (url.startsWith("file:///android_asset/")) {
+            return false;
+        } else if (url.startsWith("file://")) {
             ShareUtil su = new ShareUtil(view.getContext());
             File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;

@@ -249,10 +249,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Description</string>
     <string name="edit_picture">Edit picture</string>
     <string name="render_math">Render Math using katex</string>
-    <string name="math_rendering">Math rendering</string>
-    <string name="show_table_of_contents">Show table of contents</string>
-    <string name="show_toc">Show TOC</string>
-    <string name="inject_to_body">Inject -> body</string>
-    <string name="preview_options">Preview Options</string>
-
+    <string name="math">Math</string>
+    <string name="table_of_contents">Table of contents</string>
 </resources>

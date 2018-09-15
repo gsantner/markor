@@ -60,6 +60,7 @@ android {
         }
         main.java.srcDirs +=  'thirdparty/java'
         main.res.srcDirs +=  'thirdparty/res'
+        main.assets.srcDirs +=  'thirdparty/assets'
     }
 
     compileOptions {
