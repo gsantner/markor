@@ -244,4 +244,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">Kein Bild ausgewählt.</string>
     <string name="other">Anderes</string>
     <string name="edit_picture">Bild bearbeiten</string>
+    <string name="description">Beschreibung</string>
+    <string name="math">Mathematik</string>
+    <string name="table_of_contents">Inhaltsverzeichnis</string>
 </resources>

@@ -155,11 +155,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_render_rtl, false);
     }
 
-    public boolean renderMath() {
+    public boolean isMarkdownMathEnabled() {
         return getBool(R.string.pref_key__markdown_render_math, false);
     }
 
-    public boolean showTOC() {
+    public boolean isMarkdownTableOfContentsEnabled() {
         return getBool(R.string.pref_key__markdown_show_toc, false);
     }
 

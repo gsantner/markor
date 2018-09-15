@@ -23,12 +23,17 @@ import com.vladsch.flexmark.ext.ins.InsExtension;
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
 import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.ext.toc.SimTocExtension;
+import com.vladsch.flexmark.ext.toc.TocExtension;
+import com.vladsch.flexmark.ext.toc.internal.TocOptions;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
+import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
 import java.util.Arrays;
@@ -58,10 +63,18 @@ public class MarkdownTextConverter extends TextConverter {
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
             EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT
     };
+
+    //########################
+    //## Injected CSS / JS / HTML
+    //########################
+    public static final String CSS_HEADER_WITHOUT_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
+    public static final String CSS_H1_UNDERLINE = CSS_S + " h1 { border-bottom: 2px solid #eaecef; } " + CSS_E;
+    public static final String CSS_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
+
     public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
             "<script src='file:///android_asset/katex/katex.min.js'></script>" +
             "<script src='file:///android_asset/katex/auto-render.min.js'></script>";
-    public static final String HTML_KATEX_JS = "" +
+    public static final String JS_KATEX = "" +
             "renderMathInElement(document.body, {" +
             "   'delimiters': [ " +
             "       { left: '$', right: '$', display: false }," +
@@ -72,7 +85,7 @@ public class MarkdownTextConverter extends TextConverter {
     //## Converter library
     //########################
     // See https://github.com/vsch/flexmark-java/wiki/Extensions#tables
-    private static final List<Extension> MARKDOWN_ENABLED_EXTENSIONS = Arrays.asList(
+    private static final List<Extension> flexmarkExtensions = Arrays.asList(
             StrikethroughExtension.create(),
             AutolinkExtension.create(),
             InsExtension.create(),
@@ -82,9 +95,11 @@ public class MarkdownTextConverter extends TextConverter {
             TaskListExtension.create(),
             EmojiExtension.create(),
             AnchorLinkExtension.create(),
+            TocExtension.create(),    // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
+            SimTocExtension.create(), // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
             YamlFrontMatterExtension.create());
-    private static final Parser parser = Parser.builder().extensions(MARKDOWN_ENABLED_EXTENSIONS).build();
-    private static final HtmlRenderer renderer = HtmlRenderer.builder().extensions(MARKDOWN_ENABLED_EXTENSIONS).build();
+    private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
+    private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
     //## Methods
@@ -92,20 +107,45 @@ public class MarkdownTextConverter extends TextConverter {
 
     @Override
     public String convertMarkup(String markup, Context context) {
+        AppSettings appSettings = new AppSettings(context);
+        String converted = "", onLoadJs = "", head = "";
+
         MutableDataSet options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, MARKDOWN_ENABLED_EXTENSIONS);
-        // allow links like [this](some filename with spaces.md)
-        options.set(Parser.SPACE_IN_LINK_URLS, true);
+        options.set(Parser.EXTENSIONS, flexmarkExtensions);
+        options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
+        options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
+        options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
 
-        options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY);
-        options.set(HtmlRenderer.SOFT_BREAK, "<br />\n");
-        options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, true);
-        options.set(HtmlRenderer.GENERATE_HEADER_ID, true);
-        options.set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
+        // gfm table parsing
+        options.set(TablesExtension.WITH_CAPTION, false)
+                .set(TablesExtension.COLUMN_SPANS, false)
+                .set(TablesExtension.MIN_HEADER_ROWS, 1)
+                .set(TablesExtension.MAX_HEADER_ROWS, 1)
+                .set(TablesExtension.APPEND_MISSING_COLUMNS, true)
+                .set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
+                .set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true);
 
+        // Add id to headers
+        options.set(HtmlRenderer.GENERATE_HEADER_ID, true)
+                .set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, true)
+                .set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
-        String markupRendered = renderer.withOptions(options).render(parser.parse(markup));
-        return putContentIntoTemplate(context, markupRendered);
+        // Prepare head and javascript calls
+        head += CSS_HEADER_WITHOUT_UNDERLINE + CSS_H1_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE;
+        if (appSettings.isMarkdownTableOfContentsEnabled()) {
+            markup = "[TOC]: # ''\n" + markup;
+            options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3));
+            options.set(TocExtension.TITLE, context.getString(R.string.table_of_contents));
+            options.set(TocExtension.BLANK_LINE_SPACER, false);
+        }
+
+        if (appSettings.isMarkdownMathEnabled()) {
+            head += HTML_KATEX_INCLUDE;
+            onLoadJs += JS_KATEX;
+        }
+
+        converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+        return putContentIntoTemplate(context, converted, onLoadJs, head);
     }
 
     public static boolean isMarkdownFile(File file) {

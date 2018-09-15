@@ -29,11 +29,11 @@ public class TodoTxtTextConverter extends TextConverter {
 
     @Override
     public String convertMarkup(String markup, Context context) {
-        AppSettings as = new AppSettings(context);
-        String html = HTML100_BODY_PRE_BEGIN
+        String converted = "", onLoadJs = "", head = "";
+        converted = HTML100_BODY_PRE_BEGIN
                 + parse(TextUtilsCompat.htmlEncode(markup))
                 + HTML101_BODY_PRE_END;
-        return putContentIntoTemplate(context, html);
+        return putContentIntoTemplate(context, converted, onLoadJs, head);
     }
 
     private String parse(String str) {

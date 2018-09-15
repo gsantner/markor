@@ -27,9 +27,9 @@ public abstract class TextConverter {
     protected static final String CONTENT_TYPE_PLAIN = "text/plain";
 
     protected static final String CSS_S = "<style type='text/css'>";
-    protected static final String CSS_E = "</style>\n";
+    protected static final String CSS_E = "</style>";
 
-    protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}";
+    protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}"; // this is either 'right' or 'left'
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
     protected static final String TOKEN_TEXT_CONVERTER_NAME = "{{ post.text_converter_name }}";
@@ -39,19 +39,15 @@ public abstract class TextConverter {
     protected static final String HTML002_HEAD_WITH_STYLE_LIGHT = CSS_S + "html,body{color:#303030;}blockquote{color:#73747d;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
-    protected static final String HTML100_HEADER_WITHOUT_UNDERLINE = CSS_S + ".header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
-    protected static final String HTML101_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
+
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
     protected static final String HTML500_BODY = "</head>\n<body onload='onPageLoaded_markor_private();'>\n";
-    protected static final String HTML990_BODY_END = "</body></html>";
+    protected static final String HTML990_BODY_END = "\n</body></html>";
 
-    protected static final String HTML_JQUERY_INCLUDE = "<script src='file:///android_asset/jquery/jquery-3.3.1.min.js'></script>";
-    protected static final String HTML_TOC_INCLUDE = "<script src='file:///android_asset/toc/toc.min.js'></script>";
+    protected static final String HTML_ON_PAGE_LOAD_S = "<script> function onPageLoaded_markor_private() {\n";
+    protected static final String HTML_ON_PAGE_LOAD_E = "\nonPageLoaded(); }\n</script>";
 
-    protected static final String HTML_ON_PAGE_LOAD_S = "<script> function onPageLoaded_markor_private() {";
-    protected static final String HTML_ON_PAGE_LOAD_E = "onPageLoaded(); }\n</script>";
-    protected static final String HTML_TOC_RUN = "$('#toc').toc();";
-    protected static final String HTML_TOC_BODY = "<div id='toc'></div>";
+    // protected static final String HTML_JQUERY_INCLUDE = "<script src='file:///android_asset/jquery/jquery-3.3.1.min.js'></script>"; // currently not bundled
 
 
     //########################
@@ -89,38 +85,22 @@ public abstract class TextConverter {
      */
     public abstract String convertMarkup(String markup, Context context);
 
-    protected String putContentIntoTemplate(Context context, String content) {
+    protected String putContentIntoTemplate(Context context, String content, String onLoadJs, String head) {
         AppSettings appSettings = new AppSettings(context);
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (appSettings.isDarkThemeEnabled() ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
         }
-        html += HTML100_HEADER_WITHOUT_UNDERLINE + HTML101_BLOCKQUOTE_VERTICAL_LINE + appSettings.getInjectedHeader();
-        if (appSettings.renderMath()) {
-            html += MarkdownTextConverter.HTML_KATEX_INCLUDE;
-        }
-        if (appSettings.showTOC()) {
-            html += HTML_JQUERY_INCLUDE;
-            html += HTML_TOC_INCLUDE;
-        }
 
-        html += HTML_ON_PAGE_LOAD_S;
-        if (appSettings.renderMath()) {
-            html += MarkdownTextConverter.HTML_KATEX_JS;
-        }
-        if (appSettings.showTOC()) {
-            html += HTML_TOC_RUN;
-        }
-        html += HTML_ON_PAGE_LOAD_E;
+        html += head + appSettings.getInjectedHeader();
+
+        html += HTML_ON_PAGE_LOAD_S + onLoadJs + HTML_ON_PAGE_LOAD_E;
 
         // Remove duplicate style blocks
-        html = html.replace(CSS_E + CSS_S, "");
+        html = html.replace(CSS_E + CSS_S, "").replace(CSS_E + "\n" + CSS_S, "");
 
         // Load content
         html += HTML500_BODY;
-        if (appSettings.showTOC()) {
-            html += HTML_TOC_BODY;
-        }
         html += appSettings.getInjectedBody();
         html += content;
         html += HTML990_BODY_END;
