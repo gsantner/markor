@@ -40,16 +40,18 @@ public abstract class TextConverter {
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
     protected static final String HTML100_HEADER_WITHOUT_UNDERLINE = CSS_S + ".header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
     protected static final String HTML101_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
-    protected static final String HTML500_BODY = "</head><body onload='onPageLoaded1();'>\n\n\n";
+    // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
+    protected static final String HTML500_BODY = "</head><body onload='onPageLoaded_markor_private();'>\n\n\n";
     protected static final String HTML990_BODY_END = "</body></html>";
 
-    protected static final String HTML_KATEX_HEADERS = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css\" integrity=\"sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv\" crossorigin=\"anonymous\">\n" +
-            "<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js\" integrity=\"sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O\" crossorigin=\"anonymous\"></script>\n" +
-            "<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js\" integrity=\"sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF\" crossorigin=\"anonymous\"></script>";
-    protected static final String HTML_TOC_HEADER = "<script src=\"http://projects.jga.me/toc/dist/common.js\"></script>";
+    protected static final String HTML_JQUERY_HEADER = "<script src=\"file:///android_asset/jquery-3.3.1.min.js\"></script>";
+    protected static final String HTML_KATEX_HEADERS = "<link rel=\"stylesheet\" href=\"file:///android_asset/katex/katex.min.css\">\n" +
+            "<script src=\"file:///android_asset/katex/katex.min.js\"></script>\n" +
+            "<script src=\"file:///android_asset/katex/auto-render.min.js\"></script>";
+    protected static final String HTML_TOC_HEADER = "<script src=\"file:///android_asset/toc.min.js\"></script>";
 
     protected static final String HTML_ON_PAGE_LOAD_S = "<script>\n" +
-            "    function onPageLoaded1 () {\n";
+            "    function onPageLoaded_markor_private() {\n";
     protected static final String HTML_ON_PAGE_LOAD_E = "onPageLoaded(); }\n" +
             "</script>";
     protected static final String HTML_KATEX_JS = "renderMathInElement(document.body, {\n" +
@@ -107,6 +109,7 @@ public abstract class TextConverter {
             html += HTML_KATEX_HEADERS;
         }
         if (as.showTOC()) {
+            html += HTML_JQUERY_HEADER;
             html += HTML_TOC_HEADER;
         }
 
