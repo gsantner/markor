@@ -8,7 +8,7 @@ Where:
   * Reference: E-Mail, Webpage
   * Text: Information about / kind of contribution
 
-  
+
 
 ## LIST OF CONTRIBUTORS
 -->
@@ -29,3 +29,4 @@ Where:
 * **[billchenchina](https://github.com/billchenchina)**<br/>~° Simplified Chinese translation
 * **[Kanthi Subramanian](https://github.com/subkanthi)**<br/>~° File Info Dialog
 * **[Emanuele Petriglia](https://github.com/ema-pe)**<br>~° Italian translation
+* **[Tiago Danin](https://tiagodanin.github.io)**<br/>~° Brazilian Portuguese translation

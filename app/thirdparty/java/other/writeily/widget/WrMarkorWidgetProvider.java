@@ -24,7 +24,7 @@ import net.gsantner.markor.util.DocumentIO;
 
 import java.io.File;
 
-public class MarkorWidgetProvider extends AppWidgetProvider {
+public class WrMarkorWidgetProvider extends AppWidgetProvider {
     public static final String WIDGET_PATH = "WIDGET_PATH";
 
     @Override
@@ -99,7 +99,7 @@ public class MarkorWidgetProvider extends AppWidgetProvider {
 
 
             // ListView
-            Intent notesListIntent = new Intent(context, FilesWidgetService.class);
+            Intent notesListIntent = new Intent(context, WrFilesWidgetService.class);
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             notesListIntent.putExtra(DocumentIO.EXTRA_PATH, directoryF);
             notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);

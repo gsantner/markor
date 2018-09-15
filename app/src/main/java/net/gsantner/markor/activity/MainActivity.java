@@ -63,7 +63,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnPageChange;
-import other.writeily.activity.FilesystemListFragment;
+import other.writeily.activity.WrFilesystemListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
@@ -256,8 +256,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onLongClickedFab(View view) {
         switch (view.getId()) {
             case R.id.fab_add_new_item: {
-                if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
-                    ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
+                if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
+                    ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG))
                             .showCreateFolderDialog();
                 }
                 return true;
@@ -273,8 +273,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
                     Intent intent = new Intent(this, DocumentActivity.class);
-                    if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
-                        File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
+                    if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
+                        File path = ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
                         intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
                         intent.putExtra(DocumentIO.EXTRA_PATH, _appSettings.getNotebookDirectory());
@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                 case R.id.nav_notebook: {
                     if (fragment == null) {
-                        fragment = new FilesystemListFragment();
+                        fragment = new WrFilesystemListFragment();
                     }
                     break;
                 }

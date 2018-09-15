@@ -24,16 +24,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import other.writeily.activity.FilesystemListFragment;
+import other.writeily.activity.WrFilesystemListFragment;
 
-public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
+public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context _context;
     private File[] _widgetFilesList = new File[0];
     private int _appWidgetId;
     private File _dir;
 
-    public FilesWidgetFactory(Context context, Intent intent) {
+    public WrFilesWidgetFactory(Context context, Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         _dir = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
@@ -65,7 +65,7 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
         if (_dir != null && (_dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR))) {
             // nothing to do
         } else {
-            FilesystemListFragment.sortFolder(files);
+            WrFilesystemListFragment.sortFolder(files);
         }
         _widgetFilesList = files.toArray(new File[files.size()]);
     }

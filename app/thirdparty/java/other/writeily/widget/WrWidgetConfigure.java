@@ -24,7 +24,7 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 
 import java.io.File;
 
-public class WidgetConfigure extends AppCompatActivity {
+public class WrWidgetConfigure extends AppCompatActivity {
     private int _appWidgetId;
 
     @Override
@@ -83,14 +83,14 @@ public class WidgetConfigure extends AppCompatActivity {
             // Store widget filter
             SharedPreferences preferences = context.getSharedPreferences("" + _appWidgetId, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(MarkorWidgetProvider.WIDGET_PATH, directory);
+            editor.putString(WrMarkorWidgetProvider.WIDGET_PATH, directory);
             editor.apply();
 
-            Intent resultValue = new Intent(context, FilesWidgetService.class);
+            Intent resultValue = new Intent(context, WrFilesWidgetService.class);
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);
             setResult(RESULT_OK, resultValue);
 
-            Intent i = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this, MarkorWidgetProvider.class);
+            Intent i = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this, WrMarkorWidgetProvider.class);
             i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{_appWidgetId});
             sendBroadcast(i);
 

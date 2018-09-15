@@ -33,13 +33,13 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.model.MarkorSingleton;
-import other.writeily.ui.ConfirmDialog;
-import other.writeily.ui.CreateFolderDialog;
+import net.gsantner.markor.model.WrMarkorSingleton;
+import other.writeily.ui.WrConfirmDialog;
+import other.writeily.ui.WrCreateFolderDialog;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
-import other.writeily.ui.FilesystemListAdapter;
-import other.writeily.ui.RenameDialog;
+import other.writeily.ui.WrFilesystemListAdapter;
+import other.writeily.ui.WrRenameDialog;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -61,8 +61,8 @@ import butterknife.OnItemClick;
 import static android.content.Context.SEARCH_SERVICE;
 
 @SuppressWarnings("all")
-public class FilesystemListFragment extends GsFragmentBase {
-    public static final String FRAGMENT_TAG = "FilesystemListFragment";
+public class WrFilesystemListFragment extends GsFragmentBase {
+    public static final String FRAGMENT_TAG = "WrFilesystemListFragment";
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
     public static final int SORT_BY_FILESIZE = 2;
@@ -73,7 +73,7 @@ public class FilesystemListFragment extends GsFragmentBase {
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _backgroundHintText;
 
-    private FilesystemListAdapter _filesAdapter;
+    private WrFilesystemListAdapter _filesAdapter;
 
 
     private SearchView _searchView;
@@ -82,7 +82,7 @@ public class FilesystemListFragment extends GsFragmentBase {
     private ArrayList<File> _filesCurrentlyShown = new ArrayList<>();
     private ArrayList<File> _selectedItems = new ArrayList<>();
     private SimpleSectionAdapter<File> _simpleSectionAdapter;
-    private MarkorSingleton _markorSingleton;
+    private WrMarkorSingleton _markorSingleton;
     private ActionMode _actionMode;
     private File _currentDir;
     private File _rootDir;
@@ -106,7 +106,7 @@ public class FilesystemListFragment extends GsFragmentBase {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context c = getContext();
-        _filesAdapter = new FilesystemListAdapter(c, 0, _filesCurrentlyShown);
+        _filesAdapter = new WrFilesystemListAdapter(c, 0, _filesCurrentlyShown);
         _simpleSectionAdapter = new SimpleSectionAdapter<>(c, _filesAdapter,
                 R.layout.ui__text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
@@ -119,7 +119,7 @@ public class FilesystemListFragment extends GsFragmentBase {
     @Override
     public void onResume() {
         super.onResume();
-        _markorSingleton = MarkorSingleton.getInstance();
+        _markorSingleton = WrMarkorSingleton.getInstance();
         File possiblyNewRootDir = AppSettings.get().getNotebookDirectory();
         if (possiblyNewRootDir != _rootDir) {
             _rootDir = possiblyNewRootDir;
@@ -186,19 +186,19 @@ public class FilesystemListFragment extends GsFragmentBase {
     private void confirmDelete() {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_selectedItems);
         String message = String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size()));
-        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(
+        WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(
                 getString(R.string.confirm_delete), message, itemsToDelete,
-                new ConfirmDialog.ConfirmDialogCallback() {
+                new WrConfirmDialog.ConfirmDialogCallback() {
                     @Override
                     public void onConfirmDialogAnswer(boolean confirmed, Serializable data) {
                         if (confirmed) {
-                            MarkorSingleton.getInstance().deleteSelectedItems(itemsToDelete);
+                            WrMarkorSingleton.getInstance().deleteSelectedItems(itemsToDelete);
                             listFilesInDirectory(getCurrentDir(), true);
                             finishActionMode();
                         }
                     }
                 });
-        confirmDialog.show(getActivity().getSupportFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getActivity().getSupportFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void promptForMoveDirectory() {
@@ -207,7 +207,7 @@ public class FilesystemListFragment extends GsFragmentBase {
             @Override
             public void onFsSelected(String request, File file) {
                 super.onFsSelected(request, file);
-                MarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
+                WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
                 listFilesInDirectory(getCurrentDir(), true);
                 finishActionMode();
             }
@@ -278,17 +278,17 @@ public class FilesystemListFragment extends GsFragmentBase {
 
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_NAME);
+                AppSettings.get().setSortMethod(WrFilesystemListFragment.SORT_BY_NAME);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_date: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_DATE);
+                AppSettings.get().setSortMethod(WrFilesystemListFragment.SORT_BY_DATE);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_filesize: {
-                AppSettings.get().setSortMethod(FilesystemListFragment.SORT_BY_FILESIZE);
+                AppSettings.get().setSortMethod(WrFilesystemListFragment.SORT_BY_FILESIZE);
                 sortAdapter();
                 return true;
             }
@@ -332,7 +332,7 @@ public class FilesystemListFragment extends GsFragmentBase {
 
         try {
             // Load from SD card
-            _filesCurrentlyShown = MarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<>());
+            _filesCurrentlyShown = WrMarkorSingleton.getInstance().addMarkdownFilesFromDirectory(directory, new ArrayList<>());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -341,7 +341,7 @@ public class FilesystemListFragment extends GsFragmentBase {
     private void reloadAdapter() {
         Context c = getContext();
         if (_filesAdapter != null && c != null) {
-            _filesAdapter = new FilesystemListAdapter(c, 0, _filesCurrentlyShown);
+            _filesAdapter = new WrFilesystemListAdapter(c, 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
                     new SimpleSectionAdapter<>(c
                             , _filesAdapter, R.layout.ui__text__item
@@ -387,14 +387,14 @@ public class FilesystemListFragment extends GsFragmentBase {
         if (new File(getCurrentDir().getAbsolutePath(), file.getName()).exists()) {
             String message = getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
-            ConfirmDialog d = ConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file, (ConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
+            WrConfirmDialog d = WrConfirmDialog.newInstance(
+                    getString(R.string.confirm_overwrite), message, file, (WrConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
                         if (confirmed) {
                             importFileToCurrentDirectory(getActivity(), file);
                         }
                     });
             if (getFragmentManager() != null) {
-                d.show(getFragmentManager(), ConfirmDialog.FRAGMENT_TAG);
+                d.show(getFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
             }
         } else {
             // Import
@@ -436,12 +436,12 @@ public class FilesystemListFragment extends GsFragmentBase {
     public void showCreateFolderDialog() {
         FragmentManager supFragManager;
         Bundle args = new Bundle();
-        args.putString(CreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
+        args.putString(WrCreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
 
-        CreateFolderDialog createFolderDialog = new CreateFolderDialog();
+        WrCreateFolderDialog createFolderDialog = new WrCreateFolderDialog();
         createFolderDialog.setArguments(args);
         if ((supFragManager = getFragmentManager()) != null) {
-            createFolderDialog.show(supFragManager, CreateFolderDialog.FRAGMENT_TAG);
+            createFolderDialog.show(supFragManager, WrCreateFolderDialog.FRAGMENT_TAG);
         }
     }
 
@@ -582,8 +582,8 @@ public class FilesystemListFragment extends GsFragmentBase {
         }
 
         private void promptForNewName(File file) {
-            RenameDialog renameDialog = RenameDialog.newInstance(file);
-            renameDialog.show(getFragmentManager(), RenameDialog.FRAGMENT_TAG);
+            WrRenameDialog renameDialog = WrRenameDialog.newInstance(file);
+            renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
         }
 
         @Override

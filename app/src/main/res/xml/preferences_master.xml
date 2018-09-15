@@ -148,9 +148,9 @@
 
         <PreferenceCategory android:title="@string/other">
             <CheckBoxPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:icon="@drawable/ic_history_black_24dp"
-                android:key="@string/pref_key__editor_history_enabled"
+                android:key="@string/pref_key__editor_history_enabled3"
                 android:summary="@string/enable_undo_and_redo_be_patient"
                 android:title="@string/history" />
             <CheckBoxPreference
@@ -244,7 +244,7 @@
         <!-- To-Do Screen -->
         <PreferenceScreen
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-            android:title="@string/todo">
+            android:title="@string/todo_txt">
             <PreferenceCategory android:title="@string/text_modules">
                 <CheckBoxPreference
                     android:defaultValue="true"

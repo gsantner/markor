@@ -20,7 +20,7 @@ import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
-import other.writeily.format.markdown.MarkdownHeaderSpanCreator;
+import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
 public class MarkdownHighlighter extends Highlighter {
     public final String _fontType;
@@ -96,7 +96,7 @@ public class MarkdownHighlighter extends Highlighter {
     }
 
     private void createHeaderSpanForMatches(Editable editable, MarkdownHighlighterPattern pattern, int headerColor) {
-        createSpanForMatches(editable, pattern.pattern, new MarkdownHeaderSpanCreator(this, editable, headerColor));
+        createSpanForMatches(editable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, editable, headerColor));
     }
 
     @Override

@@ -37,5 +37,6 @@
         android:id="@+id/action_save"
         android:icon="@drawable/ic_save_black_24dp"
         android:title="@string/save"
+        android:visible="false"
         app:showAsAction="ifRoom" />
 </menu>

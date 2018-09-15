@@ -21,14 +21,14 @@ import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("all")
-public class MarkorSingleton {
+public class WrMarkorSingleton {
 
-    private static MarkorSingleton markorSingletonInstance = null;
+    private static WrMarkorSingleton markorSingletonInstance = null;
     private static File notesLastDirectory = null;
 
-    public static MarkorSingleton getInstance() {
+    public static WrMarkorSingleton getInstance() {
         if (markorSingletonInstance == null) {
-            markorSingletonInstance = new MarkorSingleton();
+            markorSingletonInstance = new WrMarkorSingleton();
         }
 
         return markorSingletonInstance;
@@ -39,7 +39,7 @@ public class MarkorSingleton {
     }
 
     public void setNotesLastDirectory(File notesLastDirectory) {
-        MarkorSingleton.notesLastDirectory = notesLastDirectory;
+        WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
     public String copyDirectory(File dir, String destinationDir) {

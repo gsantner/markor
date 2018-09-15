@@ -56,13 +56,13 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
-        <activity android:name="other.writeily.widget.WidgetConfigure">
+        <activity android:name="other.writeily.widget.WrWidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
-        <receiver android:name="other.writeily.widget.MarkorWidgetProvider">
+        <receiver android:name="other.writeily.widget.WrMarkorWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -73,7 +73,7 @@
         </receiver>
 
         <service
-            android:name="other.writeily.widget.FilesWidgetService"
+            android:name="other.writeily.widget.WrFilesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <provider
