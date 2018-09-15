@@ -179,18 +179,6 @@
             android:title="@string/inject_to_body" />
         <CheckBoxPreference
             android:defaultValue="false"
-            android:icon="@drawable/ic_sigma"
-            android:key="@string/pref_key__render_math"
-            android:summary="@string/render_math"
-            android:title="@string/math_rendering" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_toc_black_24dp"
-            android:key="@string/pref_key__show_toc"
-            android:summary="@string/show_table_of_contents"
-            android:title="@string/show_toc" />
-        <CheckBoxPreference
-            android:defaultValue="false"
             android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
             android:key="@string/pref_key__is_render_rtl"
             android:summary="@string/render_rtl_language"
@@ -235,6 +223,20 @@
                     android:key="@string/pref_key__markdown__monospace_some_parts"
                     android:summary="@string/use_different_fonttype_slow_down"
                     android:title="@string/use_monospace_for_code" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="@string/preview_options">
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_sigma"
+                    android:key="@string/pref_key__render_math"
+                    android:summary="@string/render_math"
+                    android:title="@string/math_rendering" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_toc_black_24dp"
+                    android:key="@string/pref_key__show_toc"
+                    android:summary="@string/show_table_of_contents"
+                    android:title="@string/show_toc" />
             </PreferenceCategory>
 
         </PreferenceScreen>
