@@ -4,6 +4,9 @@
 ~° Copyright (c) 2015 Pedro Lafuente   
 ~° Markor was initally forked of writeily-pro, but most parts were completly rewritten. Parts that were not modified or not rewitten from scratch are placed in the thirdparty directory and licensed under MIT.
 
+* **KaTex**
+~° Copyright KaTex authors
+
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
