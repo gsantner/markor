@@ -134,9 +134,9 @@ public class MarkdownTextConverter extends TextConverter {
         head += CSS_HEADER_WITHOUT_UNDERLINE + CSS_H1_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE;
         if (appSettings.isMarkdownTableOfContentsEnabled()) {
             markup = "[TOC]: # ''\n" + markup;
-            options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3));
-            options.set(TocExtension.TITLE, context.getString(R.string.table_of_contents));
-            options.set(TocExtension.BLANK_LINE_SPACER, false);
+            options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3))
+                    .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
+                    .set(TocExtension.BLANK_LINE_SPACER, false);
         }
 
         if (appSettings.isMarkdownMathEnabled()) {
