@@ -13,6 +13,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light">Lys</string>
     <string name="dark">Mørk</string>
     <string name="delete">Slett</string>
+    <string name="appearance">Utseende</string>
     <string name="rename">Gi nytt navn</string>
     <string name="confirm_delete">Bekreft sletting</string>
     <string name="do_you_really_want_to_delete_this_witharg">Ønsker du virkelig å slette denne %s?</string>
@@ -25,6 +26,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opprett mappe</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="move">Flytt</string>
+    <string name="info">Info</string>
 
     <string name="import_from_device">Importer fra enhet</string>
     <string name="import_">Importer</string>
@@ -48,7 +50,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
     <string name="theme">Drakt</string>
     <string name="open_preview_when_opening_documents">Forhåndsvis dokumenter ved åpning</string>
-    <string name="about">Om Markor</string>
+    <string name="about">Om</string>
     <string name="plaintext">Klartekst</string>
     <string name="file">Fil</string>
     <string name="image">Bilde</string>
@@ -118,7 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">Arkiv</string>
     <string name="add_task">Legg til gjøremål</string>
     <string name="add_x_witharg">Legg til %s</string>
-    <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet vil bli lastet og lagret som "%s"</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet vil bli lastet og lagret som \"%s\"</string>
     <string name="settings_in_toolbar">Innstillinger i verktøyslinje</string>
     <string name="show_settings_option_in_main_view">Vis innstillinger i øverste verktøyslinje på hovedskjermen</string>
     <string name="refresh">Gjenoppfrisk</string>
@@ -163,6 +165,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="projects">Prosjekter</string>
     <string name="categories">Kategorier</string>
     <string name="none">Ingen</string>
+    <string name="other">Annet</string>
+  
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hvorvidt heksadesimale fargekoder skal understrekes i henhold til farge</string>
     <string name="underline_hex_color_codes">Understrek heksadesimale fargekoder</string>
     <string name="insert_current_date_when_starting_new_task">Sett inn nåværende dato når nytt gjøremål startes</string>
@@ -226,4 +230,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Bidra med kode til prosjektet. Alle kan ta del i dugnaden, inkludert nybegynnere</string>
     <string name="project_team">Prosjektlag</string>
     <string name="contributors_public_add_yourself_description">Vis info om bidragsytere. De kan valgfritt bidra med info til visning her etter bidrag.</string>
+
+    <string name="disable_spelling_underline">Skru av stavingsunderstreking</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag forblir, rød understreking blir borte.</string>
+    <string name="location">Plassering</string>
+    <string name="text_lines">Tekstlinjer</string>
+    <string name="text_characters">Tekstbokstaver</string>
+    <string name="directory">Mappe</string>
+    <string name="recently_viewed_documents">Nylig viste dokumenter</string>
+    <string name="details">Detaljer</string>
+    <string name="calendar">Kalender</string>
+    <string name="warning_disallowed_sd_access">Advarsel! Dette programmet har ikke tilgang til å lagre denne filen, alle endringer vil gå tapt. Det er ingen mulighet til å løse problemet eller å bekrefte noe. Android nekter enhver tilgang her.</string>
+    <string name="error_picture_selection">Inget bilde valgt, tatt, eller lagret.</string>
+    <string name="gallery_picture">Galleribilde</string>
+    <string name="camera_picture">Kamerabilde</string>
+    <string name="enable_undo_and_redo_be_patient">Skru på angre og gjentakelsesfunksjoner. Kun tiltenkt avansert bruk, vær tålmodig slik at du ikke sletter noe viktig. Lukk og åpne tekstbehandler for å tømme historikk.</string>
+    <string name="description">Beskrivelse</string>
+    <string name="edit_picture">Rediger bilde</string>
+    <string name="math">Matte</string>
+    <string name="table_of_contents">Innholdsfortegnelse</string>
 </resources>
