@@ -25,7 +25,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.openeditor.OpenEditorLinkBoxActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -58,6 +62,12 @@ public class SettingsActivity extends AppCompatActivity {
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
         setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+/*
+        ActivityUtils au = new ActivityUtils(this);
+        boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
+        au.setLauncherActivityEnabled(OpenEditorLinkBoxActivity.class, extraLaunchersEnabled);
+        au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
+        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);*/
 
         // Load UI
         setContentView(R.layout.settings__activity);
@@ -173,6 +183,10 @@ public class SettingsActivity extends AppCompatActivity {
             updateSummary(R.string.pref_key__app_theme,
                     getString(_as.isDarkThemeEnabled() ? R.string.dark : R.string.light)
             );
+            updatePreference(R.string.pref_key__is_launcher_for_special_files_enabled, null,
+                    ("Launcher (" + getString(R.string.special_documents) + ")"),
+                    "QuickNote, ToDo, LinkBox", true
+            );
 
         }
 
@@ -188,6 +202,12 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
+            } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
+                boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
+                ActivityUtils au = new ActivityUtils(getActivity());
+                au.setLauncherActivityEnabled(OpenEditorLinkBoxActivity.class, extraLaunchersEnabled);
+                au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
+                au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
             }
         }
 

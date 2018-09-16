@@ -12,8 +12,11 @@ package net.gsantner.opoc.util;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.StringRes;
@@ -173,5 +176,13 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
             _activity.getWindow().setStatusBarColor(color);
         }
+    }
+
+    public void setLauncherActivityEnabled(Class activityClass, boolean enable) {
+        Context context = _context.getApplicationContext();
+        PackageManager pkg = context.getPackageManager();
+        ComponentName component = new ComponentName(context, activityClass);
+        pkg.setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+                , PackageManager.DONT_KILL_APP);
     }
 }
