@@ -1,3 +1,13 @@
+/*#######################################################
+*
+*   Maintained by Gregor Santner, 2017-
+*   https://gsantner.net/
+*
+*   License: Apache 2.0 / Commercial
+*  https://github.com/gsantner/opoc/#licensing
+*  https://www.apache.org/licenses/LICENSE-2.0
+*
+#########################################################*/
 apply plugin: 'com.android.application'
 if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-android'
@@ -26,8 +36,8 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
 
         applicationId "net.gsantner.markor"
-        versionName "0.3.6"
-        versionCode 20
+        versionName "1.1.2"
+        versionCode 32
     }
 
     productFlavors {
@@ -48,6 +58,9 @@ android {
         if (enable_plugin_kotlin) {
             main.java.srcDirs += 'src/main/kotlin'
         }
+        main.java.srcDirs +=  'thirdparty/java'
+        main.res.srcDirs +=  'thirdparty/res'
+        main.assets.srcDirs +=  'thirdparty/assets'
     }
 
     compileOptions {

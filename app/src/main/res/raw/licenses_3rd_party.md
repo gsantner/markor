@@ -1,7 +1,11 @@
 ## The MIT License (MIT)
 * **writeily and writeily-pro**
 ~° Copyright (c) 2014 Jeff Martin  
-~° Copyright (c) 2015 Pedro Lafuente 
+~° Copyright (c) 2015 Pedro Lafuente   
+~° Markor was initally forked of writeily-pro, but most parts were completly rewritten. Parts that were not modified or not rewitten from scratch are placed in the thirdparty directory and licensed under MIT.
+
+* **KaTex**
+~° Copyright KaTex authors
 
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,8 +31,11 @@ SOFTWARE.</small>
 ## Apache License
 Version 2.0, January 2004  
 
-* **CWAC AndDown**
-~° Copyright 2011- commonsguy
+* **Material design icons**
+~° Copyright Google
+
+* **Android support library / appcompat**
+~° Copyright (C) 2011 The Android Open Source Project
 
 * **adapter-kit**
 ~° Copyright 2013 Mobs & Geeks
@@ -58,8 +65,11 @@ limitations under the License.</small>
   
   
 ## BSD 2-clause "Simplified"
-* **commonmark-java**
-~° Copyright (c) 2015-2016, Atlassian Pty Ltd
+<!--* **commonmark-java**
+~° Copyright (c) 2015-2016, Atlassian Pty Ltd-->
+* **flexmark-java**
+~° Copyright (c) 2015-2016 Atlassian and others
+~° Copyright (c) 2016-2018, Vladimir Schneider
 
 `---------------`  
 <small>

@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.util;
 
 import android.content.Context;
@@ -25,7 +30,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public ShareUtil(Context context) {
         super(context);
         setFileProviderAuthority(FILE_PROVIDER_AUTHORITY);
-        setChooserTitle(_context.getString(R.string.share_to));
+        setChooserTitle(_context.getString(R.string.share_to_arrow));
     }
 
     public void createLauncherDesktopShortcut(Document document) {
@@ -37,7 +42,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
             shortcutIntent.putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, document.getFile().getAbsolutePath());
             shortcutIntent.setType("text/plain"); // setData(Uri) -> Uri always gets null on receive
             super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
-            Toast.makeText(_context, R.string.add_shortcut_to_launcher_homescreen_notice, Toast.LENGTH_LONG).show();
+            Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
     }
 

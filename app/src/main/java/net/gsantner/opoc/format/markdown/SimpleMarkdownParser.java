@@ -1,9 +1,9 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2016-
+ *   Maintained by Gregor Santner, 2018-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -93,8 +93,8 @@ public class SimpleMarkdownParser {
                     .replaceAll("!\\[(.*?)\\]\\((.*?)\\)", "<img src=\\'$2\\' alt='$1' />") // img
                     .replaceAll("<(http|https):\\/\\/(.*)>", "<a href='$1://$2'>$1://$2</a>") // a href (DEP: img)
                     .replaceAll("\\[(.*?)\\]\\((.*?)\\)", "<a href=\\'$2\\'>$1</a>") // a href (DEP: img)
-                    .replaceAll("(?m)^([-*] )(.*)$", "<font color='#000001'>&#8226;</font> $2  ") // unordered list + end line
-                    .replaceAll("(?m)^  (-|\\*) ([^<]*)$", "&nbsp;&nbsp;<font color='#000001'>&#8226;</font> $2  ") // unordered list2 + end line
+                    .replaceAll("(?m)^[-*] (.*)$", "<font color='#000001'>&#8226;</font> $1  ") // unordered list + end line
+                    .replaceAll("(?m)^  [-*] (.*)$", "&nbsp;&nbsp;<font color='#000001'>&#8226;</font> $1  ") // unordered list2 + end line
                     .replaceAll("`([^<]*)`", "<code>$1</code>") // code
                     .replace("\\*", "●") // temporary replace escaped star symbol
                     .replaceAll("(?m)\\*\\*(.*)\\*\\*", "<b>$1</b>") // bold (DEP: temp star)
@@ -111,6 +111,7 @@ public class SimpleMarkdownParser {
         public String filter(String text) {
             text = text
                     .replace("New:", "<font color='#276230'>New:</font>")
+                    .replace("New features:", "<font color='#276230'>New:</font>")
                     .replace("Added:", "<font color='#276230'>Added:</font>")
                     .replace("Add:", "<font color='#276230'>Add:</font>")
                     .replace("Fixed:", "<font color='#005688'>Fixed:</font>")
@@ -121,6 +122,12 @@ public class SimpleMarkdownParser {
                     .replace("Modified:", "<font color='#555555'>Modified:</font>")
                     .replace("Mod:", "<font color='#555555'>Mod:</font>")
             ;
+            return text;
+        }
+    };
+    public final static SmpFilter FILTER_NONE = new SmpFilter() {
+        @Override
+        public String filter(String text) {
             return text;
         }
     };

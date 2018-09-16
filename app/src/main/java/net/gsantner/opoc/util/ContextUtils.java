@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2016-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,6 +11,7 @@
 package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
@@ -380,6 +381,9 @@ public class ContextUtils {
         Intent inte = new Intent(_context, classToStart);
         PendingIntent inteP = PendingIntent.getActivity(_context, 555, inte, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+        if (_context instanceof Activity) {
+            ((Activity) _context).finish();
+        }
         if (mgr != null) {
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, inteP);
         } else {

@@ -1,14 +1,13 @@
-/*
- * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
- * with it. If we meet some day, and you think it is worth it, you can buy me a
- * coke in return. Provided as is without any kind of warranty. Do not blame or
- * sue me if something goes wrong. No attribution required.    - Gregor Santner
+/*#######################################################
  *
- * License: Creative Commons Zero (CC0 1.0)
- *  http://creativecommons.org/publicdomain/zero/1.0/
- * ----------------------------------------------------------------------------
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.util;
 
 import android.content.Context;
@@ -21,7 +20,7 @@ import android.text.TextUtils;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.FileUtils;
@@ -77,7 +76,7 @@ public class DocumentIO {
         if (extraPathIsFolder) {
             extraPath.mkdirs();
             while (filePath.exists()) {
-                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document_one), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
+                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract existing extension
@@ -90,7 +89,7 @@ public class DocumentIO {
 
             // Extract content and title
             document.setTitle(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
-            document.setContent(FileUtils.readTextFile(filePath));
+            document.setContent(FileUtils.readTextFileFast(filePath));
         }
 
         document.setFile(filePath);
@@ -100,10 +99,10 @@ public class DocumentIO {
 
             if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
+            } else if (MarkdownTextConverter.isMarkdownFile(filePath)) {
+                document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else if (fnlower.endsWith(".txt")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
-            } else if (ContextUtils.get().isMaybeMarkdownFile(filePath)) {
-                document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             }

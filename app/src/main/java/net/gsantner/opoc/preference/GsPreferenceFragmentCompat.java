@@ -1,9 +1,9 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
+ *   Maintained by Gregor Santner, 2018-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -310,7 +310,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
      * @see android.support.v7.preference.PreferenceGroup#findPreference(CharSequence)
      */
     public Preference findPreference(@StringRes int key) {
-        return findPreference(getString(key));
+        return isAdded() ? findPreference(getString(key)) : null;
     }
 
     @Nullable

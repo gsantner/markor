@@ -1,3 +1,120 @@
+### v1.1.0
+**New features:**  
+- Text Module Actions
+  - Markdown Picture Dialog
+  - Load picture from gallery
+  - Take picture with camera
+  - Edit picture with graphics app
+
+**Improved:**  
+- Formats
+  - Load Markdown Format for .md.txt files
+
+**Fixed:**  
+- Editor
+  - Change default lineheight back to 100%
+  - Not connects multiple lines anymore
+- Filesystem view
+  - More checks for storage access and the yellow info box
+
+### v1.0.1  
+**New features:**  
+- Add popular files (most used files by access count)
+- Add popular & recent files as virtual folder under /storage/
+  - Selectable e.g. for widgets
+
+**Improved:**  
+- Text-Module-Actions
+  - More safety checks at execution
+- Highlighting
+  - MD: Better code readability
+  - MD: Better unordered list readability
+
+### v1.0.0
+**New features:**  
+- ShareInto
+  - Added export: calendar appointment
+
+**Improved:**  
+- Widget
+  - Added shortcuts to ToDo, QuickNote and LinkBox
+- SD Card handling and permission errors
+  - Show warning when opening a file on not writeable path
+  - Add shortcuts to writeable SD card folders
+  - Mark unwriteable files red in selection dialog
+- ShareInto
+  - Better seperator placment
+
+**Fixed:**  
+- Widget
+  - Open selected file
+- Editor
+  - Markdown header highlighting padding
+- Share to app
+  - Fix view intent not starting on some devices
+- Filesystem view
+  - Allow to view Details for folder too
+
+### v0.3.10
+**New features:**  
+- ShareInto
+  - Show "open in browser" option if text contains link
+  - Prepend seperator to all existing documents
+- Settings / Preview
+  - User customizeable CSS/JS injection option (for preview)
+  - Configureable in settings
+  - Contains some (uncommented) modification lines for important elements
+  - like font size, font type, script to load when page loaded etc.
+
+**Improved:**  
+- Inherit font size from global font preference
+
+**Fixed:**  
+- Recents working without having opened anything yet
+
+### v0.3.9
+**Improved:**  
+- Translation updated
+- Updated project description
+- Slightly modified adaptive icon
+
+**Fixed:**  
+- Editor-Rotation: Creates new file again when editing before
+- Create folder: Screen rotation
+
+### v0.3.8
+**New features:**  
+- Recently viewed documents
+  - Start editing of recent documents, button in the toolbar of main view
+  - Allow sharing into recend documents
+  - Queue containing the 10 last viewed files
+- Keep scroll position when reloading document list (Notebook)
+- Document/File Info: Dialog showing information about selected file
+  - Openable at main views toolbar when one item is selected
+
+**Improved:**  
+- Overall better performance 
+  - Faster document loading
+  - Decreased memory usage
+- Reduce edit history size (undo/redo) to 5 for lower memory usage
+- Preview/Rendering (All):
+  - Rework of theme, font-size and font injection
+- Preview/Rendering (Markdown):
+  - Blockquote theme based styling
+  - Blockquote RTL compatibility
+
+**Fixed:**  
+- Crash when Markor put to background and huge file is loaded
+  - Document contents are not stored into resume cache anymore if they are too big
+  - Make no major differences for huge files, just undo/redo history is cleared when switchting away
+
+### v0.3.7
+- Option to disable spellchecking-underline
+- More file managers and sync clients supported (notably: seafile)
+- Improve default settings
+- Limit history size to improve performance
+- Support UTF8 local filename references
+
 ### v0.3.6
 - Decrease padding of textmoduleactions for more fitting elements
 - Add delete action for all formats
@@ -147,3 +264,13 @@
 - Fork of writeily-pro
 - Different branding
 - New initial features
+
+### v
+**New features:**  
+-
+
+**Improved:**  
+-
+
+**Fixed:**  
+-

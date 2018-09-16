@@ -1,5 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?><!--
+    /*#######################################################
+    *
+    *   Maintained by Gregor Santner, 2017-
+    *   https://gsantner.net/
+    *
+    *   License: Apache 2.0 / Commercial
+    *  https://github.com/gsantner/opoc/#licensing
+    *  https://www.apache.org/licenses/LICENSE-2.0
+    *
+    #########################################################*/
+-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +24,7 @@
             <item
                 android:id="@+id/action_share_text"
                 android:icon="@drawable/ic_file_white_24dp"
-                android:title="@string/plain_text" />
+                android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_share_pdf"
                 android:icon="@drawable/ic_picture_as_pdf_black_24dp"
@@ -31,15 +41,19 @@
             <item
                 android:id="@+id/action_share_html_source"
                 android:icon="@drawable/ic_code_black_24dp"
-                android:title="@string/share_html__mime_plaintext" />
+                android:title="@string/html_as_plaintext" />
             <item
                 android:id="@+id/action_share_image"
                 android:icon="@drawable/ic_image_black_24dp"
                 android:title="@string/image" />
             <item
+                android:id="@+id/action_share_calendar_event"
+                android:icon="@drawable/ic_date_range_black_24dp"
+                android:title="@string/calendar" />
+            <item
                 android:id="@+id/action_add_shortcut_launcher_home"
                 android:icon="@drawable/ic_widgets_black_24dp"
-                android:title="@string/add_shortcut_to_launcher_homescreen"
+                android:title="@string/create_shortcut"
                 app:showAsAction="never" />
         </menu>
     </item>
@@ -55,7 +69,7 @@
                 android:title="@string/markdown" />
             <item
                 android:id="@+id/action_format_plaintext"
-                android:title="@string/plain_text" />
+                android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_format_todotxt"
                 android:title="@string/todo_txt" />

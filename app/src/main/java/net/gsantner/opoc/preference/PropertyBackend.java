@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2018-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -45,5 +45,4 @@ public interface PropertyBackend<TKEY, TTHIS> {
     TTHIS setIntList(TKEY key, List<Integer> value);
 
     TTHIS setStringList(TKEY key, List<String> value);
-
 }

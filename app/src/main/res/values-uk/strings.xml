@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+Markor by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
 <resources>
     <string name="settings">Налаштування</string>
     <string name="light">Світла</string>
@@ -6,11 +15,11 @@
     <string name="delete">Видалити</string>
     <string name="rename">Перейменувати</string>
     <string name="confirm_delete">Підтвердіть видалення</string>
-    <string name="confirm_overwrite_description">Файл вже існує, перезаписати?</string>
+    <string name="file_already_exists_overwerite">Файл вже існує, перезаписати?</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Поточна директорія порожня</string>
-    <string name="navigate_up_folder">В попередню директорію</string>
-    <string name="folder_name_hint">Введіть ім’я директорії</string>
+    <string name="back_to_previous_folder">В попередню директорію</string>
+    <string name="enter_name_of_folder">Введіть ім’я директорії</string>
     <string name="create_folder">Створити директорію</string>
     <string name="create_note">Створити нотатку</string>
     <string name="move">Перемістити</string>
@@ -19,7 +28,7 @@
     <string name="select_folder">Обрати директорію</string>
 
     <string name="search_documents">Пошук нотаток</string>
-    <string name="share_to">Надіслати до…</string>
+    <string name="share_to_arrow">Надіслати до…</string>
     <string name="share">Надіслати</string>
     <string name="search">Пошук</string>
     <string name="preview">Попередній перегляд</string>
@@ -32,35 +41,35 @@
     <string name="remember_last_folder_location_on_startup">Запам\'ятовувати останню відкриту директорію</string>
     <string name="document_editor_font">Шрифт редактора нотаток</string>
     <string name="theme">Тема</string>
-    <string name="open_preview_when_open_documents">Показувати попередній перегляд при відкритті нотатки</string>
+    <string name="open_preview_when_opening_documents">Показувати попередній перегляд при відкритті нотатки</string>
     <string name="about">Про Markor</string>
-    <string name="plain_text">Звичайний текст</string>
+    <string name="plaintext">Звичайний текст</string>
     <string name="file">Файл</string>
     <string name="image">Зображення</string>
-    <string name="pref_title__font_size">Розмір шрифту</string>
-    <string name="show_markdown_shortcuts_bar">Показувати панель скорочень markdown</string>
-    <string name="markdown_syntax_highlighting">Підсвітка синтаксису markdown</string>
-    <string name="pref_title__highlighting_delay">Затримка оновлення підсвітки синтаксису в мілісекундах</string>
-    <string name="pref_title__highlighting_delay_summary">Великі значення менше витрачають батарею</string>
-    <string name="pref_title__smart_shortcuts">Розумні дужки</string>
-    <string name="pref_title__smart_shortcuts_summary">{}, [] и () будуть оточувати виділений текст</string>
-    <string name="render_for_right_to_left_languages">Відображати для писемності справа-наліво</string>
-    <string name="error_cannot_create_notebook_dir">Помилка: неможливо створити директорію</string>
+    <string name="font_size">Розмір шрифту</string>
+    <string name="show_markdown_shortcuts_bar__appspecific">Показувати панель скорочень markdown</string>
+    <string name="markdown_syntax_highlighting__appspecific">Підсвітка синтаксису markdown</string>
+    <string name="delay_in_milliseconds_for_highlighting_refresh">Затримка оновлення підсвітки синтаксису в мілісекундах</string>
+    <string name="higher_values_are_easier_on_battery">Великі значення менше витрачають батарею</string>
+    <string name="smart_brackets_shortcuts__appspecific">Розумні дужки</string>
+    <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific">{}, [] и () будуть оточувати виділений текст</string>
+    <string name="render_rtl_language">Відображати для писемності справа-наліво</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Помилка: неможливо створити директорію</string>
 
     <!-- Font Size -->
 
     <!-- Hard coded string fix -->
-    <string name="last_modified">Дата зміни: %s</string>
-    <string name="number_of_files">Кількість файлів: %d</string>
+    <string name="last_modified_witharg">Дата зміни: %s</string>
+    <string name="number_of_files_witharg">Кількість файлів: %d</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
     <string name="create">Створити</string>
-    <string name="select_elements">Обрати елементи</string>
+    <string name="select_entries">Обрати елементи</string>
     <string name="one_item_selected">Один елемент обрано</string>
-    <string name="more_items_selected">%d елементів обрано</string>
+    <string name="items_selected_witharg">%d елементів обрано</string>
 
-    <string name="pref_summary__is_statusbar_hidden">Приховувати рядок статусу</string>
-    <string name="pref_title__is_statusbar_hidden">Сховати рядок статусу</string>
+    <string name="hide_statusbar_at_this_view">Приховувати рядок статусу</string>
+    <string name="hide_statusbar">Сховати рядок статусу</string>
 
     <!-- About screen -->
     <string name="contributors">Автори</string>
@@ -68,37 +77,37 @@
     <string name="select_storage_folder">Обрати робочу директорію</string>
     <string name="licenses">Ліцензії</string>
     <string name="changelog">Перелік змін</string>
-    <string name="more_information">Детальніше</string>
-    <string name="show_app_license">Показати ліцензію додатку</string>
+    <string name="more_info">Детальніше</string>
+    <string name="show_license_of_the_app">Показати ліцензію додатку</string>
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
-    <string name="pref_desc__language">Змінити мову додатку. Перезапустіть додаток для застосування змін.</string>
-    <string name="pref_title__language">Мова</string>
-    <string name="error_storage_permission">Потрібен дозвіл на запис для збереження документів</string>
+    <string name="language_change_restart_description">Змінити мову додатку. Перезапустіть додаток для застосування змін.</string>
+    <string name="language">Мова</string>
+    <string name="error_need_storage_permission_to_save_documents">Потрібен дозвіл на запис для збереження документів</string>
     <string name="open_with">Відкрити в</string>
     <string name="sort">Сортування</string>
-    <string name="sort_by_date">Дата</string>
-    <string name="sort_by_name">Ім\'я</string>
-    <string name="sort_by_size">Розмір</string>
+    <string name="date">Дата</string>
+    <string name="deleteme____1">Ім\'я</string>
+    <string name="size">Розмір</string>
     <string name="insert_link">Вставити посилання</string>
     <string name="insert_image">Вставити зображення</string>
     <string name="url_or_path">URL / Шлях</string>
     <string name="name">Ім\'я</string>
     <string name="undo">Скасувати</string>
-    <string name="sort_reverse">У зворотному порядку</string>
-    <string name="share_html__mime_plaintext">HTML (як звичайний текст)</string>
+    <string name="reverse_order">У зворотному порядку</string>
+    <string name="html_as_plaintext">HTML (як звичайний текст)</string>
     <string name="redo">Повернути</string>
     <string name="project_page">Сторінка проекту</string>
-    <string name="press_again_to_exit">Натисніть Назад ще раз щоб вийти</string>
+    <string name="press_back_again_to_exit">Натисніть Назад ще раз щоб вийти</string>
     <string name="notebook">Записник</string>
     <string name="more">Ще</string>
-    <string name="document_multiple">Документи</string>
-    <string name="document_one">Документ</string>
+    <string name="documents">Документи</string>
+    <string name="document">Документ</string>
     <string name="donate">Пожертвувати</string>
     <string name="edit">Редагувати</string>
     <string name="exit">Вийти</string>
     <string name="contribute">Допомогти вдосконалити</string>
     <string name="confirm_overwrite">Підтвердіть перезапис</string>
-    <string name="confirm_delete_description">Дійсно вилучити %s?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Дійсно вилучити %s?</string>
     <string name="create_new_document">Створити документ</string>
     <string name="import_">Імпортувати</string>
     <string name="help">Допомога</string>
@@ -117,8 +126,11 @@
     <string name="update">Оновити</string>
     <string name="archive">Архів</string>
     <string name="add_task">Додати завдання</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">Документ, що буде використаний як \"%s\"</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Документ, що буде використаний як \"%s\"</string>
     <string name="sync">Синхронізувати</string>
-    <string name="append_to__arg_document_name">Додати до %s</string>
-
+    <string name="append_to_witharg">Додати до %s</string>
+    <string name="appearance">Вигляд</string>
+    <string name="general">Загальне</string>
+    <string name="default_">За замовчуванням</string>
+    <string name="report_bugs">Повідомити про помилку</string>
 </resources>

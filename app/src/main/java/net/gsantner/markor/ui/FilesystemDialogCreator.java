@@ -1,14 +1,13 @@
-/*
- * ------------------------------------------------------------------------------
- * Gregor Santner <gsantner.net> wrote this. You can do whatever you want
- * with it. If we meet some day, and you think it is worth it, you can buy me a
- * coke in return. Provided as is without any kind of warranty. Do not blame or
- * sue me if something goes wrong. No attribution required.    - Gregor Santner
+/*#######################################################
  *
- * License: Creative Commons Zero (CC0 1.0)
- *  http://creativecommons.org/publicdomain/zero/1.0/
- * ----------------------------------------------------------------------------
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.ui;
 
 import android.content.Context;
@@ -20,13 +19,17 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
+import java.io.File;
+import java.util.List;
+
 public class FilesystemDialogCreator {
     private static FilesystemDialogData.Options prepareFsDialogOpts
             (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
+        AppSettings appSettings = new AppSettings(context);
         boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(opts.primaryColor));
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
+        boolean darkTheme = appSettings.isDarkThemeEnabled();
 
         if (listener != null) {
             opts.listener = listener;
@@ -49,9 +52,20 @@ public class FilesystemDialogCreator {
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 
+        opts.recentFiles = strlistToArray(appSettings.getRecentDocuments());
+        opts.popularFiles = strlistToArray(appSettings.getPopularDocuments());
+
         opts.titleText = R.string.select;
 
         return opts;
+    }
+
+    public static File[] strlistToArray(List<String> strlist) {
+        File[] files = new File[strlist.size()];
+        for (int i = 0; i < files.length; i++) {
+            files[i] = new File(strlist.get(i));
+        }
+        return files;
     }
 
     private static void showDialog(FragmentManager fm, FilesystemDialogData.Options opts) {

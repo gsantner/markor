@@ -4,7 +4,7 @@
     *   Maintained by Gregor Santner, 2018-
     *   https://gsantner.net/
     *
-    *   License: Apache 2.0
+    *   License: Apache 2.0 / Commercial
     *  https://github.com/gsantner/opoc/#licensing
     *  https://www.apache.org/licenses/LICENSE-2.0
     *
@@ -28,7 +28,7 @@
     <Preference
         android:icon="@drawable/ic_thumb_up_black_24dp"
         android:key="@string/pref_key__more_info__rate_app"
-        android:title="@string/rate_the_app" />
+        android:title="@string/rate_this_app" />
 
     <Preference
         android:icon="@drawable/ic_settings_black_24dp"
@@ -38,7 +38,7 @@
     <Preference
         android:icon="@drawable/ic_info_black_24dp"
         android:key="@string/pref_key__more_info__help"
-        android:summary="@string/help_this_app"
+        android:summary="@string/more_info_and_help"
         android:title="@string/help" />
 
 
@@ -48,13 +48,13 @@
             android:icon="@drawable/ic_favorite_black_24dp"
             android:key="@string/pref_key__more_info__donate"
             android:summary="@string/more_info_on_how_to_donate_or_otherwise_support_this_project"
-            android:title="@string/donate" />
+            android:title="@string/donate_" />
 
         <Preference
             android:icon="@drawable/ic_bug_report_black_24dp"
             android:key="@string/pref_key__more_info__bug_reports"
             android:summary="@string/bug_reports_suggest_improvements"
-            android:title="@string/bug_reports" />
+            android:title="@string/report_bugs" />
 
         <Preference
             android:icon="@drawable/ic_translate_black_24dp"
@@ -94,7 +94,7 @@
         <Preference
             android:icon="@drawable/ic_info_black_24dp"
             android:key="@string/pref_key__more_info__contributors_public_info"
-            android:summary="@string/contributors_public_info"
+            android:summary="@string/contributors_public_add_yourself_description"
             android:title="@string/contributors" />
 
     </PreferenceCategory>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+Markor by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<resources>
+
+
+    <string name="settings">Nastavení</string>
+    <string name="appearance">Vzhled</string>
+    <string name="editor">Editor</string>
+    <string name="about">Informace</string>
+    <string name="create">Vytvoøit</string>
+    <string name="hide_statusbar_at_this_view">Schovat statusbar</string>
+    <string name="hide_statusbar">Schovat statusbar</string>
+    <string name="contributors">Spolupracovníci</string>
+    <string name="licenses">Licence</string>
+    <string name="changelog">Historie</string>
+    <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
+    <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
+    <string name="language">Jazyk</string>
+    <string name="size">Velikost</string>
+    <string name="donate">Donate</string>
+    <string name="exit">Odejít</string>
+    <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
+</resources>

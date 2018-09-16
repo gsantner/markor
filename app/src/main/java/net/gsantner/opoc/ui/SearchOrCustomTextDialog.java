@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
         public Callback.a1<String> callback;
-        public List<String> data = new ArrayList<>();
-        public List<String> highlightData = new ArrayList<>();
+        public List<? extends CharSequence> data = new ArrayList<>();
+        public List<? extends CharSequence> highlightData = new ArrayList<>();
         public String messageText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
@@ -61,14 +62,14 @@ public class SearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final List<String> allItems = new ArrayList<>(dopt.data);
-        final List<String> filteredItems = new ArrayList<>(allItems);
+        final List<CharSequence> allItems = new ArrayList<>(dopt.data);
+        final List<CharSequence> filteredItems = new ArrayList<>(allItems);
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
 
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, filteredItems) {
+        final ArrayAdapter<CharSequence> listAdapter = new ArrayAdapter<CharSequence>(activity, android.R.layout.simple_list_item_1, filteredItems) {
             @NonNull
             @Override
             public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -96,11 +97,11 @@ public class SearchOrCustomTextDialog {
                     @Override
                     protected FilterResults performFiltering(final CharSequence constraint) {
                         final FilterResults res = new FilterResults();
-                        final ArrayList<String> resList = new ArrayList<>();
+                        final ArrayList<CharSequence> resList = new ArrayList<>();
                         final String fil = constraint.toString();
 
-                        for (final String str : allItems) {
-                            if ("".equals(fil) || str.toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()))) {
+                        for (final CharSequence str : allItems) {
+                            if ("".equals(fil) || str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()))) {
                                 resList.add(str);
                             }
                         }
@@ -139,7 +140,11 @@ public class SearchOrCustomTextDialog {
         listView.setAdapter(listAdapter);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         if (dopt.isSearchEnabled) {
-            linearLayout.addView(searchEditText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ContextUtils cu = new net.gsantner.opoc.util.ContextUtils(listView.getContext());
+            int px = (int) (new net.gsantner.opoc.util.ContextUtils(listView.getContext()).convertDpToPx(8));
+            lp.setMargins(px, px / 2, px, px / 2);
+            linearLayout.addView(searchEditText, lp);
         }
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
@@ -164,7 +169,7 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             dialog.dismiss();
             if (dopt.callback != null) {
-                dopt.callback.callback(filteredItems.get(position));
+                dopt.callback.callback(filteredItems.get(position).toString());
             }
         });
 

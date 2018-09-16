@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.activity;
 
 import android.app.Activity;
@@ -22,16 +27,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
-import net.gsantner.markor.widget.MarkorWidgetProvider;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;
 
@@ -39,6 +44,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
@@ -72,6 +78,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
     ViewGroup _textModuleActionsBar;
+
+    @BindView(R.id.document__fragment__edit__content_editor__permission_warning)
+    TextView _textSdWarning;
 
     private Document _document;
     private TextFormat _textFormat;
@@ -114,11 +123,19 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         checkReloadDisk();
         int cursor = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
-        if (cursor >= 0 && cursor < _hlEditor.length()) {
-            _hlEditor.setSelection(cursor);
-        }
+        cursor = Math.max(0, cursor);
+        cursor = Math.min(_hlEditor.length(), cursor);
+        _hlEditor.setSelection(cursor);
+
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+        if (_document != null && _document.getFile() != null) {
+            boolean permok = _document.getFile().canWrite();
+            if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
+                permok = true;
+            }
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+        }
     }
 
     @Override
@@ -128,6 +145,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         ContextUtils cu = ContextUtils.get();
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
+
+        AppSettings appSettings = new AppSettings(getActivity());
+        menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
 
         boolean enable;
         Drawable drawable;
@@ -203,7 +224,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
     private Document loadDocument() {
+        AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
         Document document = DocumentIO.loadDocument(getActivity(), getArguments(), _document);
+        if (document != null){
+            document.setDoHistory(appSettings.isEditorHistoryEnabled());
+        }
         if (document.getHistory().isEmpty()) {
             document.forceAddNextChangeToHistory();
             document.addToHistory();
@@ -236,7 +261,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _hlEditor.setTextColor(getResources().getColor(android.R.color.white));
             fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
         } else {
-            _hlEditor.setBackgroundColor(getResources().getColor(android.R.color.white));
+            _hlEditor.setBackgroundColor(getResources().getColor(R.color.light__background));
             _hlEditor.setTextColor(getResources().getColor(R.color.dark_grey));
             fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
                     .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
@@ -278,7 +303,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveDocument();
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        if ((_hlEditor.length() * _document.getHistory().size() * 1.05) < 9200) {
+            outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        }
+        if (getArguments() != null && _document.getFile() != null) {
+            getArguments().putSerializable(DocumentIO.EXTRA_PATH, _document.getFile());
+            getArguments().putSerializable(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+        }
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
@@ -289,6 +320,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onPause() {
         super.onPause();
         saveDocument();
+        if (_document != null && _document.getFile() != null) {
+            AppSettings appSettings = new AppSettings(getContext());
+            appSettings.addRecentDocument(_document.getFile());
+        }
     }
 
     @Override
@@ -300,7 +335,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void updateLauncherWidgets() {
         Context c = App.get().getApplicationContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
-        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(c, MarkorWidgetProvider.class));
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(c, WrMarkorWidgetProvider.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 

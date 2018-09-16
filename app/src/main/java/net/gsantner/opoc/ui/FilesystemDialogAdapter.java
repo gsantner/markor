@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,6 +11,7 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +46,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //########################
     //## Static
     //########################
+    public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
+    public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
 
     //########################
     //## Members
@@ -56,6 +60,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     private final Context _context;
     private StringFilter _filter;
     private boolean _wasInit;
+    private final HashMap<File, File> _virtualMapping = new HashMap<>();
 
     //########################
     //## Methods
@@ -78,13 +83,24 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return new UiFilesystemDialogViewHolder(v);
     }
 
+    public boolean isFileWriteable(File file, boolean isGoUp) {
+        return file != null && (file.canWrite() || isGoUp || _virtualMapping.keySet().contains(file));
+    }
+
     @Override
     public void onBindViewHolder(@NonNull UiFilesystemDialogViewHolder holder, int position) {
-        final File file = _adapterDataFiltered.get(position);
+        File file_pre = _adapterDataFiltered.get(position);
+        File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
+        String filename = file_pre.getName();
+        if (_virtualMapping.keySet().contains(file_pre)) {
+            file_pre = _virtualMapping.get(file_pre);
+        }
+        final File file = file_pre;
         final File fileParent = file.getParentFile() == null ? new File("/") : file.getParentFile();
 
-        holder.title.setText(fileParent.equals(_currentFolder) ? file.getName() : "..");
-        holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
+        boolean isGoUp = file.equals(_currentFolder.getParentFile());
+        holder.title.setText(isGoUp ? ".." : filename);
+        holder.title.setTextColor(isFileWriteable(file, isGoUp) ? ContextCompat.getColor(_context, _dopt.primaryTextColor) : Color.RED);
 
         holder.description.setText(fileParent.equals(_currentFolder) ? fileParent.getAbsolutePath() : file.getAbsolutePath());
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
@@ -141,18 +157,24 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             case R.id.ui__filesystem_item__root: {
                 // A own item was clicked
                 TagContainer data = (TagContainer) view.getTag();
-                if (areItemsSelected()) {
-                    // There are 1 or more items selected yet
-                    if (data != null && !toggleSelection(data) && data.file.isDirectory()) {
-                        loadFolder(data.file);
+                if (data != null && data.file != null) {
+                    File file = data.file;
+                    if (_virtualMapping.keySet().contains(file)) {
+                        file = _virtualMapping.get(data.file);
                     }
-                } else {
-                    if (data != null && data.file != null) {
+                    if (areItemsSelected()) {
+                        // There are 1 or more items selected yet
+                        if (!toggleSelection(data) && file.isDirectory()) {
+                            loadFolder(file);
+                        }
+                    } else {
                         // No pre-selection
-                        if (data.file.isDirectory()) {
-                            loadFolder(data.file);
-                        } else if (data.file.isFile()) {
-                            _dopt.listener.onFsSelected(_dopt.requestId, data.file);
+                        if (file.isDirectory()) {
+                            loadFolder(file);
+                        } else if (file.isFile()) {
+                            _dopt.listener.onFsSelected(_dopt.requestId, file);
+                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS)) {
+                            loadFolder(file);
                         }
                     }
                 }
@@ -167,7 +189,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
-                } else if (_dopt.doSelectFolder && _currentFolder.exists()) {
+                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR))) {
                     _dopt.listener.onFsSelected(_dopt.requestId, _currentFolder);
                 }
                 return;
@@ -226,13 +248,23 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public void loadFolder(File folder) {
         _currentFolder = folder;
         _adapterData.clear();
-        File[] files = _currentFolder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                file = new File(file, s);
-                return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
-            }
-        });
+        _virtualMapping.clear();
+        File file;
+        File[] files = null;
+
+        if (_currentFolder.isDirectory()) {
+            files = _currentFolder.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File file, String s) {
+                    file = new File(file, s);
+                    return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
+                }
+            });
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+            files = _dopt.recentFiles;
+        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
+            files = _dopt.popularFiles;
+        }
         files = (files == null ? new File[0] : files);
 
         Collections.addAll(_adapterData, files);
@@ -245,11 +277,55 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             _adapterData.add(new File(folder, "storage"));
         }
 
+        if (folder.getAbsolutePath().equals("/storage")) {
+            // Scan for /storage/emulated/{0,1,2,..}
+            for (int i = 0; i < 10; i++) {
+                file = new File("/storage/emulated/" + i);
+                if (file.canWrite()) {
+                    File remap = new File(folder, "emulated-" + i);
+                    _virtualMapping.put(remap, file);
+                    _adapterData.add(remap);
+                } else {
+                    break;
+                }
+            }
+
+            if (_dopt.recentFiles != null) {
+                _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
+                _adapterData.add(VIRTUAL_STORAGE_RECENTS);
+            }
+            if (_dopt.popularFiles != null) {
+                _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
+                _adapterData.add(VIRTUAL_STORAGE_POPULAR);
+            }
+        }
+
+        for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+            for (int i = 0; i < _adapterData.size(); i++) {
+                file = _adapterData.get(i);
+                if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
+                    int c = 0;
+                    for (char ch : file.getAbsolutePath().toCharArray()) {
+                        if (ch == '/') {
+                            c++;
+                        }
+                    }
+                    if (c < 3) {
+                        File remap = new File(file.getAbsolutePath() + " (app files)");
+                        _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                        _adapterData.add(remap);
+                    }
+                }
+            }
+        }
+
         Collections.sort(_adapterData, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
                 if (o1.isDirectory())
                     return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
+                else if (!o2.canWrite())
+                    return -1;
                 else if (o2.isDirectory())
                     return 1;
 

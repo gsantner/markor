@@ -1,26 +1,30 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2018-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.format;
 
 import android.app.Activity;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
-import net.gsantner.markor.format.converter.PlainTextConverter;
-import net.gsantner.markor.format.converter.TextConverter;
-import net.gsantner.markor.format.converter.TodoTxtTextConverter;
-import net.gsantner.markor.format.highlighter.Highlighter;
-import net.gsantner.markor.format.highlighter.markdown.MarkdownHighlighter;
-import net.gsantner.markor.format.highlighter.plain.PlainHighlighter;
-import net.gsantner.markor.format.highlighter.todotxt.TodoTxtHighlighter;
-import net.gsantner.markor.format.moduleactions.MarkdownTextModuleActions;
-import net.gsantner.markor.format.moduleactions.PlainTextModuleActions;
-import net.gsantner.markor.format.moduleactions.TextModuleActions;
-import net.gsantner.markor.format.moduleactions.TodoTxtTextModuleActions;
+import net.gsantner.markor.format.markdown.MarkdownHighlighter;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextModuleActions;
+import net.gsantner.markor.format.plaintext.PlainHighlighter;
+import net.gsantner.markor.format.plaintext.PlainTextConverter;
+import net.gsantner.markor.format.plaintext.PlainTextModuleActions;
+import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
+import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
+import net.gsantner.markor.format.todotxt.TodoTxtTextModuleActions;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.hleditor.Highlighter;
+import net.gsantner.markor.ui.hleditor.TextModuleActions;
 
 public class TextFormat {
     public static final int FORMAT_UNKNOWN = 0;

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="donate_" translatable="false">@string/contribute</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false"> </string>
+</resources>

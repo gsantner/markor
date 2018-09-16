@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2018-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -107,13 +107,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__project_license: {
-                    try {
-                        au.showDialogWithHtmlTextView(R.string.licenses, new SimpleMarkdownParser().parse(
-                                getResources().openRawResource(R.raw.license),
-                                "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    au.showDialogWithRawFileInWebView("license.txt", R.string.project_license);
                     return true;
                 }
                 case R.string.pref_key__more_info__open_source_licenses: {

@@ -1,24 +1,37 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.FilesystemListFragment;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
+
+import other.writeily.activity.WrFilesystemListFragment;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
+    private final SharedPreferences _prefCache;
+
     private final String _themeDarkResStr;
     private final String _themeLightResStr;
 
@@ -26,6 +39,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _themeDarkResStr = rstr(R.string.app_theme_dark);
         _themeLightResStr = rstr(R.string.app_theme_light);
+        _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
     }
 
     public static AppSettings get() {
@@ -100,7 +114,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getFontSize() {
-        return getInt(R.string.pref_key__editor_font_size, 18);
+        return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
     public boolean isEditor_ShowTextmoduleBar() {
@@ -141,6 +155,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_render_rtl, false);
     }
 
+    public boolean isMarkdownMathEnabled() {
+        return getBool(R.string.pref_key__markdown_render_math, false);
+    }
+
+    public boolean isMarkdownTableOfContentsEnabled() {
+        return getBool(R.string.pref_key__markdown_show_toc, false);
+    }
+
     public boolean isEditorStatusBarHidden() {
         return getBool(R.string.pref_key__is_editor_statusbar_hidden, false);
     }
@@ -169,7 +191,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, FilesystemListFragment.SORT_BY_NAME);
+        return getInt(R.string.pref_key__sort_method, WrFilesystemListFragment.SORT_BY_NAME);
     }
 
     public void setSortReverse(boolean value) {
@@ -227,5 +249,73 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public int getEditorTextmoduleBarItemPadding() {
         return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
+    }
+
+    public boolean isDisableSpellingRedUnderline() {
+        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, false);
+    }
+
+    public void addRecentDocument(File file) {
+        if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
+            ArrayList<String> recent = getRecentDocuments();
+            recent.add(0, file.getAbsolutePath());
+            recent.remove(getTodoFile().getAbsolutePath());
+            recent.remove(getQuickNoteFile().getAbsolutePath());
+            recent.remove(getLinkBoxFile().getAbsolutePath());
+            recent.remove("");
+            recent.remove(null);
+
+            setInt(file.getAbsolutePath(), getInt(file.getAbsolutePath(), 0, _prefCache) + 1, _prefCache);
+            setRecentDocuments(recent);
+        }
+    }
+
+    private List<String> getPopularDocumentsSorted() {
+        List<String> popular = getRecentDocuments();
+        Collections.sort(popular, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache));
+            }
+        });
+        return popular;
+    }
+
+    public List<String> getPopularDocuments() {
+        return getStringList(R.string.pref_key__popular_documents);
+    }
+
+    public void setPopularDocuments(List<String> v) {
+        limitListTo(v, 20, true);
+        setStringList(R.string.pref_key__popular_documents, v, _prefApp);
+    }
+
+    public void setRecentDocuments(List<String> v) {
+        limitListTo(v, 20, true);
+        setStringList(R.string.pref_key__recent_documents, v, _prefApp);
+        setPopularDocuments(getPopularDocumentsSorted());
+    }
+
+    public ArrayList<String> getRecentDocuments() {
+        ArrayList<String> list = getStringList(R.string.pref_key__recent_documents);
+        for (int i = 0; i < list.size(); i++) {
+            if (!new File(list.get(i)).isFile()) {
+                list.remove(i);
+                i--;
+            }
+        }
+        return list;
+    }
+
+    public String getInjectedHeader() {
+        return getString(R.string.pref_key__inject_to_head, rstr(R.string.inject_to_head_default));
+    }
+
+    public String getInjectedBody() {
+        return getString(R.string.pref_key__inject_to_body, "");
+    }
+
+    public boolean isEditorHistoryEnabled() {
+        return getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 }

@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit">Rediger</string>
 
     <string name="search_documents">Søk i dokumenter</string>
-    <string name="share_to_arrow">Del til…</string>
+    <string name="share_to_arrow">Del til&#8230;</string>
     <string name="share">Del</string>
     <string name="search">Søk</string>
     <string name="preview">Forhåndsvis</string>
@@ -64,7 +64,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Opprett</string>
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementer valgt</string>
 
     <string name="hide_statusbar_at_this_view">Skjul statusfelt i denne visningen</string>
     <string name="hide_statusbar">Skjul statusfelt</string>
@@ -166,8 +166,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">Kategorier</string>
     <string name="none">Ingen</string>
     <string name="other">Annet</string>
-
-
+  
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hvorvidt heksadesimale fargekoder skal understrekes i henhold til farge</string>
     <string name="underline_hex_color_codes">Understrek heksadesimale fargekoder</string>
     <string name="insert_current_date_when_starting_new_task">Sett inn nåværende dato når nytt gjøremål startes</string>

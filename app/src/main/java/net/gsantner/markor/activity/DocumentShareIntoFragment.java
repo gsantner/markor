@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2018-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.activity;
 
 import android.content.Context;
@@ -13,20 +18,22 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.highlighter.HighlightingEditor;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
@@ -107,6 +114,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
+        private static final String SEP_RULER = "\n---\n";
 
         public static ShareIntoImportOptionsFragment newInstance(String sharedText) {
             ShareIntoImportOptionsFragment f = new ShareIntoImportOptionsFragment();
@@ -166,15 +174,19 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
         }
 
-        private void appendToExistingDocument(File file, boolean showEditor) {
+        private void appendToExistingDocument(File file, String seperator, boolean showEditor) {
             Bundle args = new Bundle();
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
             String currentContent = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent().trim() + "\n");
-            DocumentIO.saveDocument(document, false, currentContent + _sharedText);
+            DocumentIO.saveDocument(document, false, currentContent + seperator + _sharedText);
             if (showEditor) {
                 showInDocumentActivity(document);
+            }
+
+            if (file != null) {
+                ((AppSettings) _appSettings).addRecentDocument(file);
             }
         }
 
@@ -187,7 +199,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsSelected(String request, File file) {
-                    appendToExistingDocument(file, true);
+                    appendToExistingDocument(file, SEP_RULER, true);
                 }
 
             }, getFragmentManager(), getActivity());
@@ -228,6 +240,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
             PermissionChecker permc = new PermissionChecker(getActivity());
             ShareUtil shu = new ShareUtil(getContext());
+            String tmps;
 
             int keyId = _cu.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, preference.getKey());
             boolean close = false;
@@ -252,7 +265,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(AppSettings.get().getQuickNoteFile(), false);
+                        appendToExistingDocument(AppSettings.get().getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
                         close = true;
                     }
                     break;
@@ -263,20 +276,28 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                                 .replace("http://", "\nhttp://").replace("https://", "\nhttps://")
                                 .replaceAll("(\\s*)?-(\\s*)?\\n", "\n")
                                 .trim();
-                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), false);
+                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), "\n", false);
                         close = true;
                     }
                     break;
                 }
                 case R.string.pref_key__share_into__todo: {
                     if (permc.doIfExtStoragePermissionGranted()) {
+                        String sep = "\n";
                         if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
-                            String today = SttCommander.getToday() + " ";
-                            if (!_sharedText.startsWith(today)) {
-                                _sharedText = today + _sharedText;
+                            tmps = SttCommander.getToday() + " ";
+                            if (!_sharedText.startsWith(tmps)) {
+                                sep = tmps;
                             }
                         }
-                        appendToExistingDocument(AppSettings.get().getTodoFile(), false);
+                        appendToExistingDocument(AppSettings.get().getTodoFile(), sep, false);
+                        close = true;
+                    }
+                    break;
+                }
+                case R.string.pref_key__share_into__open_in_browser: {
+                    if ((tmps = PlainTextStuff.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
+                        new ContextUtils(getActivity()).openWebpageInExternalBrowser(tmps);
                         close = true;
                     }
                     break;
@@ -285,6 +306,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     shu.shareText(_sharedText, null);
                     close = true;
                     break;
+                }
+                case R.string.pref_key__share_into__calendar_event: {
+                    shu.createCalendarAppointment(null, _sharedText, null);
+                    close = true;
+                    break;
+                }
+            }
+
+            if (preference.getKey().startsWith("/")) {
+                if (permc.doIfExtStoragePermissionGranted()) {
+                    appendToExistingDocument(new File(preference.getKey()), SEP_RULER, true);
+                    close = false;
                 }
             }
 
@@ -300,16 +333,35 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         public void doUpdatePreferences() {
             super.doUpdatePreferences();
+            boolean maybeHasWebUrl = _sharedText.contains("http://") || _sharedText.contains("https://");
             Preference pref;
             if ((pref = findPreference(R.string.pref_key__share_into__todo)) != null) {
                 pref.setVisible(!_sharedText.contains("\n"));
             }
             if ((pref = findPreference(R.string.pref_key__share_into__linkbox)) != null) {
-                pref.setVisible(_sharedText.contains("http://") || _sharedText.contains("https://"));
+                pref.setVisible(maybeHasWebUrl);
+            }
+
+            if ((pref = findPreference(R.string.pref_key__share_into__open_in_browser)) != null) {
+                pref.setVisible(maybeHasWebUrl);
             }
             if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
                 if (pref.getTitle().toString().equals(getString(R.string.share))) {
-                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plain_text)));
+                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plaintext)));
+                }
+            }
+
+            if ((pref = findPreference(R.string.pref_key__recent_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
+                for (String doc_s : new AppSettings(pref.getContext()).getRecentDocuments()) {
+                    File file = new File(doc_s);
+                    if (!file.exists()) {
+                        continue;
+                    }
+                    Preference prefd = new Preference(pref.getContext());
+                    prefd.setTitle(file.getName());
+                    prefd.setSummary(file.getParent());
+                    prefd.setKey(file.getAbsolutePath());
+                    appendPreference(prefd, (PreferenceGroup) pref);
                 }
             }
         }

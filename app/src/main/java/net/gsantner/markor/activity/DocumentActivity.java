@@ -1,14 +1,18 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,10 +38,9 @@ import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.converter.MarkdownTextConverter;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AndroidBug5497Workaround;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
@@ -51,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import other.so.AndroidBug5497Workaround;
 
 @SuppressWarnings("unused")
 public class DocumentActivity extends AppCompatActivity {
@@ -109,27 +113,23 @@ public class DocumentActivity extends AppCompatActivity {
 
 
         boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-
-        if (Intent.ACTION_SEND.equals(intentAction) && type != null) {
-            if (type.equals("text/plain")) {
+        if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) || Intent.ACTION_SEND.equals(intentAction)) {
+            if (Intent.ACTION_SEND.equals(intentAction) && receivingIntent.hasExtra(Intent.EXTRA_TEXT)) {
                 showShareInto(receivingIntent.getStringExtra(Intent.EXTRA_TEXT));
             } else {
-                Uri fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-                file = new File(fileUri.getPath());
-            }
-        } else if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction))) {
-            file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
-            if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
-                String msg = getString(R.string.filemanager_doesnot_supply_required_data) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
+                file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
+                if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
+                    String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
+                            + getString(R.string.sync_to_local_folder_notice) + "\n\n"
+                            + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
 
-                new AlertDialog.Builder(this)
-                        .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
-                        .setNegativeButton(R.string.more_information, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
-                        .setPositiveButton(android.R.string.ok, null)
-                        .setOnDismissListener((dialogInterface) -> finish())
-                        .create().show();
+                    new AlertDialog.Builder(this)
+                            .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
+                            .setNegativeButton(R.string.more_info, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
+                            .setPositiveButton(android.R.string.ok, null)
+                            .setOnDismissListener((dialogInterface) -> finish())
+                            .create().show();
+                }
             }
         }
 
@@ -209,6 +209,12 @@ public class DocumentActivity extends AppCompatActivity {
                 }
                 return true;
             }
+            case R.id.action_share_calendar_event: {
+                if (saveDocument()) {
+                    shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null);
+                }
+                return true;
+            }
             case R.id.action_share_image: {
                 if (saveDocument() && getPreviewWebview() != null) {
                     shu.shareImage(ShareUtil.getBitmapFromWebView(getPreviewWebview()), Bitmap.CompressFormat.JPEG);
@@ -220,6 +226,7 @@ public class DocumentActivity extends AppCompatActivity {
                     shu.printOrCreatePdfFromWebview(getPreviewWebview(), _document);
                 }
                 return true;
+
             }
 
             case R.id.action_format_todotxt:
@@ -237,6 +244,13 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Determine some results and forward using Local Broadcast
+        ShareUtil shu = new ShareUtil(this.getApplicationContext());
+        shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 
     public void setDocumentTitle(final String title) {

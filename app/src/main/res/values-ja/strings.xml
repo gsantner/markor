@@ -1,62 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+Markor by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
 <resources>
-    <string name="settings">設定</string>
     <string name="light">ライト</string>
     <string name="dark">ダーク</string>
     <string name="delete">削除</string>
     <string name="rename">名前を変更</string>
     <string name="confirm_delete">削除の確認</string>
-    <string name="confirm_delete_description">この %s を削除してもよろしいですか?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">この %s を削除してもよろしいですか?</string>
     <string name="confirm_overwrite">上書きの確認</string>
-    <string name="confirm_overwrite_description">ファイルはすでに存在します。上書きしますか?</string>
+    <string name="file_already_exists_overwerite">ファイルはすでに存在します。上書きしますか?</string>
     <string name="browse_filesystem">ファイルシステムを参照</string>
     <string name="title">タイトル</string>
     <string name="empty_directory">このディレクトリーは空です</string>
-    <string name="folder_name_hint">フォルダーの名前を入力</string>
+    <string name="enter_name_of_folder">フォルダーの名前を入力</string>
     <string name="create_folder">フォルダーを作成</string>
     <string name="create_new_document">新しいドキュメントを作成</string>
     <string name="move">移動</string>
 
     <string name="import_from_device">デバイスからインポート</string>
     <string name="import_">インポート</string>
-    <string name="append_to__arg_document_name">%s に追記</string>
+    <string name="append_to_witharg">%s に追記</string>
     <string name="select_folder">フォルダーの選択</string>
     <string name="edit">編集</string>
 
     <string name="search_documents">ドキュメントを検索</string>
-    <string name="share_to">共有&#8230;</string>
+    <string name="share_to_arrow">共有&#8230;</string>
     <string name="share">共有</string>
-    <string name="search">検索</string>
     <string name="preview">プレビュー</string>
-    <string name="editor">エディター</string>
     <string name="folders">フォルダー</string>
     <string name="files">ファイル</string>
-    <string name="document_one">ドキュメント</string>
-    <string name="document_multiple">ドキュメント</string>
-    <string name="share_html__mime_plaintext">HTML (プレーンテキストとして)</string>
+    <string name="document">ドキュメント</string>
+    <string name="documents">ドキュメント</string>
+    <string name="html_as_plaintext">HTML (プレーンテキストとして)</string>
 
     <!-- Preferences -->
     <string name="document_editor_font">ドキュメントエディターフォント</string>
     <string name="theme">テーマ</string>
-    <string name="open_preview_when_open_documents">ドキュメントを開いたときにプレビューを開く</string>
-    <string name="about">Markor について</string>
-    <string name="plain_text">プレーンテキスト</string>
+    <string name="open_preview_when_opening_documents">ドキュメントを開いたときにプレビューを開く</string>
+    <string name="plaintext">プレーンテキスト</string>
     <string name="file">ファイル</string>
     <string name="image">画像</string>
-    <string name="pref_title__font_size">フォントサイズ</string>
-    <string name="render_for_right_to_left_languages">右から左に言語を描画</string>
-    <string name="error_cannot_create_notebook_dir">エラー: ノートディレクトリーを作成できません</string>
+    <string name="render_rtl_language">右から左に言語を描画</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">エラー: ノートディレクトリーを作成できません</string>
 
-    <string name="last_modified">最終更新: %s</string>
+    <string name="last_modified_witharg">最終更新: %s</string>
     <string name="select_this_folder">このフォルダーを選択</string>
     <string name="select">選択</string>
-    <string name="create">作成</string>
-    <string name="select_elements">項目を選択</string>
+    <string name="select_entries">項目を選択</string>
     <string name="one_item_selected">1 アイテム選択</string>
-    <string name="more_items_selected">%d アイテム選択</string>
+    <string name="items_selected_witharg">%d アイテム選択</string>
 
-    <string name="pref_summary__is_statusbar_hidden">このビューでステータスバーを非表示にします</string>
-    <string name="pref_title__is_statusbar_hidden">ステータスバーを非表示</string>
 
     <string name="name">名前</string>
     <string name="url_or_path">URL / パス</string>
@@ -64,31 +65,21 @@
     <string name="insert_image">画像を挿入</string>
 
     <!-- About screen -->
-    <string name="contributors">貢献者</string>
     <string name="select_storage_folder">ストレージのフォルダーを選択</string>
     <string name="notebook_directory">ノートディレクトリー</string>
-    <string name="licenses">ライセンス</string>
-    <string name="changelog">変更履歴</string>
-    <string name="more_information">詳細情報</string>
-    <string name="show_app_license">アプリのライセンスを表示</string>
-    <string name="show_third_party_licenses">サードパーティライセンスを表示</string>
-    <string name="pref_desc__language">このアプリの言語を変更します。 変更を反映するにはアプリを再起動してください</string>
-    <string name="pref_title__language">言語</string>
-    <string name="error_storage_permission">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
+    <string name="more_info">詳細情報</string>
+    <string name="show_license_of_the_app">アプリのライセンスを表示</string>
+    <string name="error_need_storage_permission_to_save_documents">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
     <string name="open_with">開く…</string>
     <string name="sort">並べ替え</string>
-    <string name="sort_by_date">日付順に並べ替え</string>
-    <string name="sort_by_name">名前順に並び替え</string>
-    <string name="sort_by_size">サイズ順に並び替え</string>
-    <string name="sort_reverse">逆順</string>
+    <string name="date">日付順に並べ替え</string>
+    <string name="deleteme____1">名前順に並び替え</string>
+    <string name="reverse_order">逆順</string>
     <string name="contribute">貢献する</string>
-    <string name="donate">寄付する</string>
     <string name="project_page">プロジェクトページ</string>
-    <string name="press_again_to_exit">もう一度戻るを押すと終了します</string>
-    <string name="exit">終了</string>
+    <string name="press_back_again_to_exit">もう一度戻るを押すと終了します</string>
     <string name="undo">元に戻す</string>
     <string name="redo">繰り返し</string>
-    <string name="more">さらに</string>
     <string name="notebook">ノート</string>
     <string name="help">ヘルプ</string>
     <string name="todo_list">To-Do リスト</string>
@@ -106,43 +97,68 @@
     <string name="current_date">現在の日付</string>
     <string name="archive">アーカイブ</string>
     <string name="add_task">タスクを追加</string>
-    <string name="pref_summary__loaded_and_saved_as__plus_name">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
-    <string name="pref_title__show_settings_option_in_main_toolbar">ツールバーに設定</string>
-    <string name="pref_show_settings_option_in_main_toolbar">メイン画面のトップバーに設定オプションを表示します</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
+    <string name="settings_in_toolbar">ツールバーに設定</string>
+    <string name="show_settings_option_in_main_view">メイン画面のトップバーに設定オプションを表示します</string>
     <string name="refresh">更新</string>
-    <string name="add_shortcut_to_launcher_homescreen">ショートカットを作成</string>
-    <string name="add_shortcut_to_launcher_homescreen_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
-    <string name="file_not_in_save_path_do_import">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは既存のファイルを上書きします。</string>
+    <string name="create_shortcut">ショートカットを作成</string>
+    <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは既存のファイルを上書きします。</string>
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
 
     <!-- Not in use currently -->
     <string name="create_note" needed="false">ノートを作成</string>
     <string name="special_documents" needed="false">特別なドキュメント</string>
-    <string name="navigate_up_folder" needed="false">前のフォルダーに戻る</string>
+    <string name="back_to_previous_folder" needed="false">前のフォルダーに戻る</string>
     <string name="app_settings" needed="false">アプリ設定</string>
     <string name="editor_settings" needed="false">エディター設定</string>
     <string name="remember_last_folder_location_on_startup" needed="false">起動時に最後に開いたフォルダーの場所に戻す</string>
-    <string name="show_markdown_shortcuts_bar" needed="false">マークダウンショートカットバーを表示</string>
-    <string name="markdown_syntax_highlighting" needed="false">マークダウン書式ハイライト表示</string>
-    <string name="pref_title__highlighting_delay" needed="false">ハイライト表示更新の遅延(ミリ秒)</string>
-    <string name="pref_title__highlighting_delay_summary" needed="false">高い値がバッテリーに優しいです</string>
-    <string name="pref_title__smart_shortcuts" needed="false">スマートブラケットショートカット</string>
-    <string name="pref_title__smart_shortcuts_summary" needed="false">テキストを選択すると、選択を {}、[]、() で囲みます</string>
-    <string name="number_of_files" needed="false">ファイル数: %d</string>
+    <string name="show_markdown_shortcuts_bar__appspecific" needed="false">マークダウンショートカットバーを表示</string>
+    <string name="markdown_syntax_highlighting__appspecific" needed="false">マークダウン書式ハイライト表示</string>
+    <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">ハイライト表示更新の遅延(ミリ秒)</string>
+    <string name="higher_values_are_easier_on_battery" needed="false">高い値がバッテリーに優しいです</string>
+    <string name="smart_brackets_shortcuts__appspecific" needed="false">スマートブラケットショートカット</string>
+    <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">テキストを選択すると、選択を {}、[]、() で囲みます</string>
+    <string name="number_of_files_witharg" needed="false">ファイル数: %d</string>
 
     <!-- New strings -->
-    <string name="global">全般</string>
+    <string name="app_wide">全般</string>
     <string name="main_view">メインビュー</string>
-    <string name="theme_description">アプリで使用される全体のテーマ</string>
-    <string name="load_last_directory_at_startup">最後のディレクトリーを記憶</string>
+    <string name="overall_theme_used_in_app">アプリで使用される全体のテーマ</string>
+    <string name="remember_last_directory">最後のディレクトリーを記憶</string>
     <string name="syntax_highlighting">書式ハイライト表示</string>
     <string name="text_modules">テキストモジュール</string>
     <string name="text_module">テキストモジュール</string>
     <string name="highlighting_delay">ハイライト表示の遅延</string>
-    <string name="highlighting_delay_summary">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
-    <string name="highlighting_enabled_summary">入力したテキストをハイライト表示するかどうかを設定します</string>
-    <string name="editor_font_size_summary">エディターで使用するフォントサイズを設定します</string>
-    <string name="textmodules_bar_summary">便利な操作を含むバーを表示して、一般的に使用するテキストモジュールを挿入します</string>
-    <string name="load_last_directory_at_startup__summary">起動時に最後に開いたフォルダーを読み込みます</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
+    <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
+    <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
+    <string name="textmodules_show_useful_actions_description__appspecific">便利な操作を含むバーを表示して、一般的に使用するテキストモジュールを挿入します</string>
+    <string name="load_last_opened_folder_at_startup">起動時に最後に開いたフォルダーを読み込みます</string>
+
+    <string name="search">検索</string>
+    <string name="font_size">フォントサイズ</string>
+    <string name="more">さらに</string>
+    <string name="general">一般</string>
+    <string name="default_">デフォルト</string>
+    <string name="report_bugs">バグを報告</string>
+    <string name="settings">設定</string>
+    <string name="appearance">外観</string>
+    <string name="editor">エディター</string>
+    <string name="about">情報</string>
+    <string name="create">作成</string>
+    <string name="hide_statusbar_at_this_view">このビューでステータスバーを非表示にします</string>
+    <string name="hide_statusbar">ステータスバーを非表示</string>
+    <string name="contributors">貢献者</string>
+    <string name="licenses">ライセンス</string>
+    <string name="changelog">変更履歴</string>
+    <string name="show_third_party_licenses">サードパーティライセンスを表示</string>
+    <string name="language_change_restart_description">このアプリの言語を変更します。 変更を反映するにはアプリを再起動します</string>
+    <string name="language">言語</string>
+    <string name="size">サイズ</string>
+    <string name="donate">寄付</string>
+    <string name="exit">終了</string>
+    <string name="error_picture_selection">画像が選択されていません。</string>
+    <string name="other">その他</string>
 </resources>

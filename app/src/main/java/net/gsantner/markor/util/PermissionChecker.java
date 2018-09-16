@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.util;
 
 import android.app.Activity;
@@ -18,14 +23,14 @@ public class PermissionChecker extends net.gsantner.opoc.util.PermissionChecker 
 
     @Override
     public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        return super.doIfExtStoragePermissionGranted(_activity.getString(R.string.error_storage_permission));
+        return super.doIfExtStoragePermissionGranted(_activity.getString(R.string.error_need_storage_permission_to_save_documents));
     }
 
     @Override
     public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
         boolean val = super.checkPermissionResult(requestCode, permissions, grantResults);
         if (!val) {
-            new ActivityUtils(_activity).showSnackBar(R.string.error_storage_permission, true);
+            new ActivityUtils(_activity).showSnackBar(R.string.error_need_storage_permission_to_save_documents, true);
         }
         return val;
     }

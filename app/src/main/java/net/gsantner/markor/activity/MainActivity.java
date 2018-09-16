@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2017-2018 Gregor Santner
+/*#######################################################
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
@@ -35,6 +40,7 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -42,6 +48,8 @@ import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +63,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnPageChange;
+import other.writeily.activity.WrFilesystemListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
@@ -159,6 +168,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
                 return true;
             }
+            case R.id.action_history: {
+                SearchOrCustomTextDialogCreator.showRecentDocumentsDialog(this, new Callback.a1<String>() {
+                    @Override
+                    public void callback(String selectedFile) {
+                        Intent intent = new Intent(MainActivity.this, DocumentActivity.class);
+                        intent.putExtra(DocumentIO.EXTRA_PATH, new File(selectedFile));
+                        intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                        startActivity(intent);
+                    }
+                });
+                return true;
+            }
         }
         return false;
 
@@ -224,12 +245,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Determine some results and forward using Local Broadcast
+        ShareUtil shu = new ShareUtil(this.getApplicationContext());
+        shu.extractResultFromActivityResult(requestCode, resultCode, data);
+    }
+
     @OnLongClick({R.id.fab_add_new_item})
     public boolean onLongClickedFab(View view) {
         switch (view.getId()) {
             case R.id.fab_add_new_item: {
-                if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
-                    ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG))
+                if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
+                    ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG))
                             .showCreateFolderDialog();
                 }
                 return true;
@@ -245,8 +273,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
                     Intent intent = new Intent(this, DocumentActivity.class);
-                    if (_viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG) != null) {
-                        File path = ((FilesystemListFragment) _viewPagerAdapter.getFragmentByTag(FilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
+                    if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
+                        File path = ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
                         intent.putExtra(DocumentIO.EXTRA_PATH, path);
                     } else {
                         intent.putExtra(DocumentIO.EXTRA_PATH, _appSettings.getNotebookDirectory());
@@ -275,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Confirm exit with back / snackbar
         _doubleBackToExitPressedOnce = true;
-        new ActivityUtils(this).showSnackBar(R.string.press_again_to_exit, false, R.string.exit, view -> finish());
+        new ActivityUtils(this).showSnackBar(R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 
@@ -357,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                 case R.id.nav_notebook: {
                     if (fragment == null) {
-                        fragment = new FilesystemListFragment();
+                        fragment = new WrFilesystemListFragment();
                     }
                     break;
                 }

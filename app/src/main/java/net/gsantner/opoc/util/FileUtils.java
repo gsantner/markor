@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,21 +20,34 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
 public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
+
+    public static String readTextFileFast(final File file) {
+        try {
+            return new String(readCloseBinaryStream(new FileInputStream(file)));
+        } catch (FileNotFoundException e) {
+            System.err.println("readTextFileFast: File " + file + " not found.");
+        }
+        return "";
+    }
 
     public static String readTextFile(final File file) {
         try {
@@ -336,5 +349,96 @@ public class FileUtils {
         } catch (IOException | NullPointerException exception) {
             return null;
         }
+    }
+
+    /**
+     * Try to detect MimeType by backwards compatible methods
+     */
+    public static String getMimeType(File file) {
+        String guess = null;
+        if (file != null && file.exists() && file.isFile()) {
+            InputStream is = null;
+            try {
+                is = new BufferedInputStream(new FileInputStream(file));
+                guess = URLConnection.guessContentTypeFromStream(is);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException ignored) {
+                    }
+                }
+            }
+
+            if (guess == null || guess.isEmpty()) {
+                guess = "*/*";
+                int dot = file.getName().lastIndexOf(".") + 1;
+                if (dot > 0 && dot < file.getName().length()) {
+                    switch (file.getName().substring(dot)) {
+                        case "md":
+                        case "markdown":
+                        case "mkd":
+                        case "mdown":
+                        case "mkdn":
+                        case "mdwn":
+                        case "rmd":
+                            guess = "text/markdown";
+                            break;
+                        case "txt":
+                            guess = "text/plain";
+                            break;
+                    }
+                }
+            }
+        }
+        return guess;
+    }
+
+    public static boolean isTextFile(File file) {
+        String mime = getMimeType(file);
+        return mime != null && mime.startsWith("text/");
+    }
+
+    /**
+     * Analyze given textfile and retrieve multiple information from it
+     * Information is written back to the {@link AtomicInteger} parameters
+     */
+    public static void retrieveTextFileSummary(File file, AtomicInteger numCharacters, AtomicInteger numLines) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                numLines.getAndIncrement();
+                numCharacters.getAndSet(numCharacters.get() + line.length());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            numCharacters.set(-1);
+            numLines.set(-1);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
+
+    /**
+     * Format filesize to human readable format
+     * Get size in bytes e.g. from {@link File} using {@code File#length()}
+     */
+    public static String getReadableFileSize(long size, boolean abbreviation) {
+        if (size <= 0) {
+            return "0B";
+        }
+        String[] units = abbreviation ? new String[]{"B", "kB", "MB", "GB", "TB"} : new String[]{"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
+        int unit = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, unit))
+                + " " + units[unit];
     }
 }

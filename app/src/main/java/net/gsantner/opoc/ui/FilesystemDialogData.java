@@ -3,7 +3,7 @@
  *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0
+ *   License: Apache 2.0 / Commercial
  *  https://github.com/gsantner/opoc/#licensing
  *  https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -86,6 +86,8 @@ public class FilesystemDialogData {
         public int secondaryTextColor = R.color.secondary_text;
         @ColorRes
         public int titleTextColor = primaryTextColor;
+
+        public File[] recentFiles, popularFiles = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener {
