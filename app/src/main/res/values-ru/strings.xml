@@ -240,4 +240,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Поддержать проект</string>
     <string name="exit">Выход</string>
     <string name="error_picture_selection">Изображение не выбранно.</string>
+    <string name="miscellaneous">Прочее</string>
 </resources>

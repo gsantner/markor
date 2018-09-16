@@ -181,4 +181,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Algemeen</string>
     <string name="default_">Standaard</string>
     <string name="report_bugs">Bugs melden</string>
+    <string name="miscellaneous">Overige</string>
 </resources>

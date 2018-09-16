@@ -12,8 +12,17 @@
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/title"
-    style="?android:attr/listSeparatorTextViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
     android:textAllCaps="false"
-    android:textColor="@color/colorAccent" />
+    android:textColor="@color/colorAccent"
+    android:textSize="14sp"
+    android:textStyle="bold" />
+
+    <!--style="?android:attr/listSeparatorTextViewStyle" -->

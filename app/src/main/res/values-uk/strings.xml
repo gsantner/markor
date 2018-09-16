@@ -133,4 +133,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Загальне</string>
     <string name="default_">За замовчуванням</string>
     <string name="report_bugs">Повідомити про помилку</string>
+    <string name="miscellaneous">Різне</string>
 </resources>

@@ -157,22 +157,23 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public void doUpdatePreferences() {
+            String remove = "/storage/emulated/0/";
             updateSummary(R.string.pref_key__notebook_directory,
-                    _cu.htmlToSpanned(getString(R.string.select_storage_folder)
-                            + "<br/><small><small>" + AppSettings.get().getNotebookDirectoryAsStr() + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + AppSettings.get().getNotebookDirectoryAsStr().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__quicknote_filepath,
-                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.quicknote))
-                            + "<br/><small><small>" + _as.getQuickNoteFile().getAbsolutePath() + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _as.getQuickNoteFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__todo_filepath,
-                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.todo))
-                            + "<br/><small><small>" + _as.getTodoFile().getAbsolutePath() + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _as.getTodoFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__linkbox_filepath,
-                    _cu.htmlToSpanned(getString(R.string.document_to_be_loaded_and_saved_as_witharg, getString(R.string.linkbox))
-                            + "<br/><small><small>" + _as.getLinkBoxFile().getAbsolutePath() + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _as.getLinkBoxFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
+            updateSummary(R.string.pref_key__app_theme,
+                    getString(_as.isDarkThemeEnabled() ? R.string.dark : R.string.light)
+            );
+
         }
 
         @Override

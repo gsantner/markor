@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Esci</string>
     <string name="error_picture_selection">Nessuna immagine selezionata.</string>
     <string name="other">Altro</string>
+    <string name="miscellaneous">Vario</string>
 </resources>

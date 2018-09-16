@@ -213,4 +213,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">平常</string>
     <string name="default_">系統預設</string>
     <string name="report_bugs">回報臭蟲</string>
+    <string name="miscellaneous">其他</string>
 </resources>

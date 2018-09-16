@@ -28,4 +28,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Donate</string>
     <string name="exit">Odejít</string>
     <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
+    <string name="miscellaneous">Ostatní</string>
 </resources>

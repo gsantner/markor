@@ -16,31 +16,33 @@
     android:layout_height="match_parent"
     android:title="@string/settings">
 
-    <!-- Main View screen -->
+    <!-- General screen -->
     <PreferenceScreen
         android:icon="@drawable/ic_file_white_24dp"
         android:summary="@string/files_and_folders"
-        android:title="@string/main_view">
+        android:title="@string/app_wide">
 
-        <Preference
-            android:icon="@drawable/ic_save_black_24dp"
-            android:key="@string/pref_key__notebook_directory"
-            android:title="@string/notebook" />
-        <Preference
-            android:icon="@drawable/ic_lightning_black_24dp"
-            android:key="@string/pref_key__quicknote_filepath"
-            android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
-            android:title="@string/quicknote" />
-        <Preference
-            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-            android:key="@string/pref_key__todo_filepath"
-            android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
-            android:title="@string/todo" />
-        <Preference
-            android:icon="@drawable/ic_bookmark_black_24dp"
-            android:key="@string/pref_key__linkbox_filepath"
-            android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
-            android:title="@string/linkbox" />
+        <PreferenceCategory android:title="@string/save_location">
+            <Preference
+                android:icon="@drawable/ic_save_black_24dp"
+                android:key="@string/pref_key__notebook_directory"
+                android:title="@string/notebook" />
+            <Preference
+                android:icon="@drawable/ic_lightning_black_24dp"
+                android:key="@string/pref_key__quicknote_filepath"
+                android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
+                android:title="@string/quicknote" />
+            <Preference
+                android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+                android:key="@string/pref_key__todo_filepath"
+                android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
+                android:title="@string/todo" />
+            <Preference
+                android:icon="@drawable/ic_bookmark_black_24dp"
+                android:key="@string/pref_key__linkbox_filepath"
+                android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
+                android:title="@string/linkbox" />
+        </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/document_browser">
             <CheckBoxPreference
@@ -56,13 +58,6 @@
                 android:key="@string/pref_key__is_overview_statusbar_hidden"
                 android:summary="@string/hide_statusbar_at_this_view"
                 android:title="@string/hide_statusbar" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_settings_black_24dp"
-                android:key="@string/pref_key__show_settings_option_in_main_toolbar"
-                android:summary="@string/show_settings_option_in_main_view"
-                android:title="@string/settings_in_toolbar" />
         </PreferenceCategory>
     </PreferenceScreen>
 

@@ -29,4 +29,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Surt</string>
     <string name="error_picture_selection">"No s\'ha seleccionat cap imatge"</string>
     <string name="other">Altres</string>
+    <string name="miscellaneous">Divers</string>
 </resources>

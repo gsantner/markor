@@ -29,4 +29,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Izadji</string>
     <string name="error_picture_selection">Nijedna slika nije oznacena.</string>
     <string name="other">Drugo</string>
+    <string name="miscellaneous">Ostalo</string>
 </resources>

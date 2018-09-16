@@ -179,4 +179,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Generella</string>
     <string name="default_">Förvald</string>
     <string name="report_bugs">Rapportera buggar</string>
+    <string name="miscellaneous">Diverse</string>
 </resources>

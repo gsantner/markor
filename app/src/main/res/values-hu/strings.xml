@@ -25,4 +25,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Általános</string>
     <string name="default_">Alapértelmezett</string>
     <string name="report_bugs">Hibajelentés</string>
+    <string name="miscellaneous">Egyéb</string>
 </resources>

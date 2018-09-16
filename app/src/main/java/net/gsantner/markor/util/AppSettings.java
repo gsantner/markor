@@ -203,7 +203,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
-        return getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
+        return true;//getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
     }
 
     public boolean isHighlightingHexColorEnabled() {
