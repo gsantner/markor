@@ -59,7 +59,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         if (_dir != null && _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR)) {
             _widgetFilesList = FilesystemDialogCreator.strlistToArray(AppSettings.get().getPopularDocuments());
         }
-        ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList));
+        ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
 
         //noinspection StatementWithEmptyBody
         if (_dir != null && (_dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR))) {
