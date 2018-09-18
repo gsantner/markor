@@ -1,4 +1,25 @@
-### v1.1.0
+### v1.2.0 [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html)
+**New features:**  
+- General
+  - Launchers to dirctly open LinkBox/ToDo/QuickNote (opt-in)
+- Text Actions
+  - Search/filter lines by input (available in special-keys button menu)  
+  - Todo: context aware search for projects,contexts (longpress project/context button)
+- Preview
+  - Table of contents (opt-in))  
+  - Math using KaTex (opt-in)
+
+**Improved:**  
+- Converter
+  - Markdown: More features enabled, notably GFM like table parsing and underlined h1
+- Settings
+  - More spacing between categories
+
+**Fixed:**  
+- Editor
+  - File saving
+
+### v1.1.0 [Blog post](https://gsantner.net/blog/android/2018/09/09/markor-release-v1.1.html)
 **New features:**  
 - Text Module Actions
   - Markdown Picture Dialog
@@ -17,7 +38,7 @@
 - Filesystem view
   - More checks for storage access and the yellow info box
 
-### v1.0.1  
+### v1.0.1
 **New features:**  
 - Add popular files (most used files by access count)
 - Add popular & recent files as virtual folder under /storage/
