@@ -168,6 +168,25 @@ public class SearchOrCustomTextDialogCreator {
         });
     }
 
+
+    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
+        List<String> empty = new ArrayList<>();
+        /*SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callbackValue -> {*/
+        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt2);
+        dopt2.callback = userCallback;
+        dopt2.data = new ArrayList<>(Arrays.asList(fullText.split("\n")));
+        dopt2.titleText = R.string.search_documents;
+        dopt2.searchHintText = R.string.search;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+        /*};*/
+        /*dopt.titleText = R.string.search_documents;
+        dopt.searchHintText = R.string.search;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);*/
+    }
+
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);

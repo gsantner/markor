@@ -30,5 +30,6 @@
         <item translatable="false">@string/key_pos_end_document</item>
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
+        <item translatable="false">@string/search</item>
     </string-array>
 </resources>

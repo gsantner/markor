@@ -271,6 +271,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     });
                     return true;
                 }
+                case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                    return true;
+                }
             }
 
             CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);

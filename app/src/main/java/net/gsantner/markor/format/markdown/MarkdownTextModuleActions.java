@@ -47,7 +47,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
             for (int[] actions : TMA_ACTIONS) {
-                appendTextModuleActionToBar(barLayout, actions[1], new MarkdownTextModuleActionsImpl(actions[0]), null);
+                MarkdownTextModuleActionsImpl actionCallback = new MarkdownTextModuleActionsImpl(actions[0]);
+                appendTextModuleActionToBar(barLayout, actions[1], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
@@ -80,7 +81,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
     };
 
-    private class MarkdownTextModuleActionsImpl implements View.OnClickListener {
+    private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
         private int _action;
 
         MarkdownTextModuleActionsImpl(int action) {
@@ -152,6 +153,17 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
             }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            switch (_action) {
+                case R.string.tmaid_general_special_key: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void runMarkdownRegularPrefixAction(String action) {

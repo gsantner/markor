@@ -32,7 +32,8 @@ public class PlainTextModuleActions extends TextModuleActions {
 
             // Regular actions
             for (int[] actions : ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(ACTIONS[actions[1]]), null);
+                PlaintextTextActionImpl actionCallback =  new PlaintextTextActionImpl(ACTIONS[actions[1]]);
+                appendTextModuleActionToBar(barLayout, actions[0], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
@@ -54,10 +55,10 @@ public class PlainTextModuleActions extends TextModuleActions {
             CommonTextModuleActions.ACTION_SPECIAL_KEY,
     };
 
-    private class KeyboardRegularActionListener implements View.OnClickListener {
+    private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
         String _action;
 
-        KeyboardRegularActionListener(String action) {
+        PlaintextTextActionImpl(String action) {
             _action = action;
         }
 
@@ -66,6 +67,17 @@ public class PlainTextModuleActions extends TextModuleActions {
         public void onClick(View view) {
             CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);
             commonTextModuleActions.runAction(_action);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            switch (_action){
+                case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

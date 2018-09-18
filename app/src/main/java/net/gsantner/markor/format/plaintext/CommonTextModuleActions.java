@@ -19,6 +19,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextModuleActions {
@@ -35,6 +36,9 @@ public class CommonTextModuleActions {
 
     public static final int ACTION_END_LINE_WITH_TWO_SPACES_ICON = R.drawable.ic_keyboard_return_black_24dp;
     public static final String ACTION_END_LINE_WITH_TWO_SPACES = "markdown_end_line_with_two_spaces";
+
+    public static final int ACTION_SEARCH_ICON = R.drawable.ic_search_black_24dp;
+    public static final String ACTION_SEARCH = "search_in_content";
 
 
     private final Activity _activity;
@@ -53,6 +57,7 @@ public class CommonTextModuleActions {
 
     // Returns true when handled
     public boolean runAction(String action) {
+        final String origText = _hlEditor.getText().toString();
         switch (action) {
             case ACTION_SPECIAL_KEY: {
                 SearchOrCustomTextDialogCreator.showSpecialKeyDialog(_activity, (callbackPayload) -> {
@@ -75,6 +80,8 @@ public class CommonTextModuleActions {
                         _hlEditor.setSelection(0, _hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
                         _hlEditor.insertOrReplaceTextOnCursor("\u0009");
+                    } else if (callbackPayload.equals(rstr(R.string.search))) {
+                        runAction(ACTION_SEARCH);
                     }
                 });
                 return true;
@@ -105,6 +112,13 @@ public class CommonTextModuleActions {
                     _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
                     _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
                 }
+                return true;
+            }
+            case ACTION_SEARCH: {
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, callbackPayload -> {
+                    int cursor = origText.indexOf(callbackPayload);
+                    _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                });
                 return true;
             }
         }
