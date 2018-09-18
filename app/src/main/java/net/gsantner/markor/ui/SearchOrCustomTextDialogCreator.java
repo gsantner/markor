@@ -28,6 +28,7 @@ import net.gsantner.opoc.util.Callback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SearchOrCustomTextDialogCreator {
@@ -105,6 +106,7 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        Collections.sort(availableData);
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
@@ -115,8 +117,33 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showSttContextListDialog(Activity activity, List<String> availableData, List<String> highlightedData, String fullText, Callback.a1<String> userCallback) {
+        showSttContextDialog(activity, availableData, highlightedData, callbackValue -> {
+            SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+            baseConf(activity, dopt);
+            dopt.callback = userCallback;
+            dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
+            dopt.highlightData = highlightedData;
+            dopt.titleText = R.string.context;
+            dopt.searchHintText = R.string.search;
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        });
+    }
+
+    private static List<String> filterContains(List<String> values, String text) {
+        for (int i = 0; i < values.size(); i++) {
+            if (!values.get(i).contains(text)) {
+                values.remove(i);
+                i--;
+            }
+        }
+        return values;
+    }
+
+
     public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        Collections.sort(availableData);
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
@@ -125,6 +152,20 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.serach_or_custom;
         dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+
+    public static void showSttProjectListDialog(Activity activity, List<String> availableData, List<String> highlightedData, String fullText, Callback.a1<String> userCallback) {
+        showSttProjectDialog(activity, availableData, highlightedData, callbackValue -> {
+            SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+            baseConf(activity, dopt);
+            dopt.callback = userCallback;
+            dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
+            dopt.highlightData = highlightedData;
+            dopt.titleText = R.string.project;
+            dopt.searchHintText = R.string.search;
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        });
     }
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {

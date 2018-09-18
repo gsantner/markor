@@ -73,7 +73,7 @@ public abstract class TextModuleActions {
         if (longClickListener != null) {
             btn.setOnLongClickListener(v -> {
                 try {
-                    listener.onClick(v);
+                    longClickListener.onLongClick(v);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

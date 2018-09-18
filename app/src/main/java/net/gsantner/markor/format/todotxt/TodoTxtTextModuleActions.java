@@ -46,7 +46,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
 
             // Regular actions
             for (int[] actions : STT_INSERT_ACTIONS_ICONS) {
-                appendTextModuleActionToBar(barLayout, actions[0], new KeyboardRegularActionListener(STT_INSERT_ACTIONS[actions[1]]), null);
+                TodoTxtTextActionsImpl callback = new TodoTxtTextActionsImpl(STT_INSERT_ACTIONS[actions[1]]);
+                appendTextModuleActionToBar(barLayout, actions[0], callback, callback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
             setBarVisible(barLayout, false);
@@ -82,10 +83,10 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "insert_date",
     };
 
-    private class KeyboardRegularActionListener implements View.OnClickListener {
+    private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
         String _action;
 
-        KeyboardRegularActionListener(String action) {
+        TodoTxtTextActionsImpl(String action) {
             _action = action;
         }
 
@@ -246,6 +247,37 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 Editable s = _hlEditor.getText();
                 s.insert(cursor, _action);
             }*/
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            final SttCommander sttcmd = SttCommander.get();
+            final String origText = _hlEditor.getText().toString();
+            final int origSelectionStart = _hlEditor.getSelectionStart();
+            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
+
+            switch (_action) {
+                case "add_context": {
+                    SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), origText, (callbackPayload) -> {
+                        int cursor = origText.indexOf(callbackPayload);
+                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    });
+                    return true;
+                }
+                case "add_project": {
+                    SearchOrCustomTextDialogCreator.showSttProjectListDialog(_activity, sttcmd.parseProjects(origText), origTask.getContexts(), origText, (callbackPayload) -> {
+                        int cursor = origText.indexOf(callbackPayload);
+                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    });
+                    return true;
+                }
+            }
+
+            CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);
+            commonTextModuleActions.runAction(_action);
+
+
+            return false;
         }
     }
 
