@@ -140,6 +140,17 @@ public class SearchOrCustomTextDialogCreator {
         return values;
     }
 
+    private static List<String> filterEmpty(List<String> data) {
+        for (int i=0; i < data.size(); i++){
+            if (data.get(i).trim().isEmpty()){
+                data.remove(i);
+                i--;
+
+           }
+        }
+        return data;
+    }
+
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
@@ -177,7 +188,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.callback = userCallback;
-        dopt2.data = new ArrayList<>(Arrays.asList(fullText.split("\n")));
+        dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
