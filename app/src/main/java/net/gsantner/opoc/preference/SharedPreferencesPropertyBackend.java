@@ -44,6 +44,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -511,5 +512,16 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     public SharedPreferencesPropertyBackend setStringList(String key, List<String> value) {
         setStringListOne(key, value, _prefApp);
         return this;
+    }
+
+    /**
+     * A method to determine if current hour is between begin and end.
+     * This is especially useful for time-based light/dark mode
+     */
+    public boolean isCurrentHourOfDayBetween(int begin, int end) {
+        begin = (begin >= 23 || begin < 0) ? 0 : begin;
+        end = (end >= 23 || end < 0) ? 0 : end;
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return h >= begin && h <= end;
     }
 }

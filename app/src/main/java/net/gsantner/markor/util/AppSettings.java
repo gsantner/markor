@@ -21,6 +21,7 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -32,13 +33,8 @@ import other.writeily.activity.WrFilesystemListFragment;
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
 
-    private final String _themeDarkResStr;
-    private final String _themeLightResStr;
-
     public AppSettings(Context _context) {
         super(_context);
-        _themeDarkResStr = rstr(R.string.app_theme_dark);
-        _themeLightResStr = rstr(R.string.app_theme_light);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
     }
 
@@ -47,7 +43,18 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isDarkThemeEnabled() {
-        return getString(R.string.pref_key__app_theme, _themeLightResStr).equals(_themeDarkResStr);
+        switch (getString(R.string.pref_key__app_theme, "auto")) {
+            case "light": {
+                return false;
+            }
+            case "dark": {
+                return true;
+            }
+            case "auto":
+            default: {
+                return !isCurrentHourOfDayBetween(9,19);
+            }
+        }
     }
 
     public int getBackgroundColor() {

@@ -45,6 +45,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
+    <string name="app_theme_auto" translatable="false">auto</string>
+    <string name="auto" translatable="false">Auto</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, ToDo.Txt, Plaintext</string>
 
 

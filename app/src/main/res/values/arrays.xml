@@ -12,11 +12,13 @@
 -->
 <resources>
     <string-array name="pref_arrdisp__app_themes" translatable="false">
+        <item>@string/auto</item>
         <item>@string/light</item>
         <item>@string/dark</item>
     </string-array>
 
     <string-array name="pref_arrkeys__app_themes" translatable="false">
+        <item>@string/app_theme_auto</item>
         <item>@string/app_theme_light</item>
         <item>@string/app_theme_dark</item>
     </string-array>

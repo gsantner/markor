@@ -1,5 +1,7 @@
 ### v1.3.x <!-- [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html) -->
 **New features:**  
+- App-wide
+  - Add 'Auto' theme, switch light/dark theme by current hour
 
 **Improved:**  
 - TextActions
