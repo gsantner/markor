@@ -52,7 +52,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             }
             case "auto":
             default: {
-                return !isCurrentHourOfDayBetween(9,19);
+                return !isCurrentHourOfDayBetween(9,17);
             }
         }
     }
@@ -327,6 +327,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isEditorHistoryEnabled() {
-        return getBool(R.string.pref_key__editor_history_enabled3, true);
+        return true;//getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 }

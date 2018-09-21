@@ -151,6 +151,7 @@
 
         <PreferenceCategory android:title="@string/other">
             <CheckBoxPreference
+                android:visibility="gone"
                 android:defaultValue="true"
                 android:icon="@drawable/ic_history_black_24dp"
                 android:key="@string/pref_key__editor_history_enabled3"
