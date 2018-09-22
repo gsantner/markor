@@ -380,7 +380,11 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         });
 
         buttonPictureEdit.setOnClickListener(v -> {
-            File file = new File(editPathUrl.getText().toString().replace("%20", " "));
+            String filepath = editPathUrl.getText().toString().replace("%20", " ");
+            if (!filepath.startsWith("/")) {
+                filepath = new File(_document.getFile().getParent(), filepath).getAbsolutePath();
+            }
+            File file = new File(filepath);
             if (file.exists()) {
                 shu.requestPictureEdit(file);
             }
