@@ -151,13 +151,6 @@
 
         <PreferenceCategory android:title="@string/other">
             <CheckBoxPreference
-                android:visibility="gone"
-                android:defaultValue="true"
-                android:icon="@drawable/ic_history_black_24dp"
-                android:key="@string/pref_key__editor_history_enabled3"
-                android:summary="@string/enable_undo_and_redo_be_patient"
-                android:title="@string/history" />
-            <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_visibility_off_black_24dp"
                 android:key="@string/pref_key__is_editor_statusbar_hidden"
@@ -279,7 +272,7 @@
     <!-- Most important settings -->
     <PreferenceCategory android:title="@string/general">
         <ListPreference
-            android:defaultValue="@string/app_theme_light"
+            android:defaultValue="@string/app_theme_auto"
             android:dialogTitle="@string/theme"
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"

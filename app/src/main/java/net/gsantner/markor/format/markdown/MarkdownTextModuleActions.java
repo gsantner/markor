@@ -366,7 +366,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         // Request camera / gallery picture button handling
         ShareUtil shu = new ShareUtil(_activity);
-        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> editPathUrl.setText(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)),
+        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
+                    fsListener.onFsSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
+                },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
         File targetFolder = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
@@ -385,7 +387,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 filepath = new File(_document.getFile().getParent(), filepath).getAbsolutePath();
             }
             File file = new File(filepath);
-            if (file.exists()) {
+            if (file.exists() && file.isFile()) {
                 shu.requestPictureEdit(file);
             }
         });

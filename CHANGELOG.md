@@ -6,8 +6,13 @@
 **Improved:**  
 - TextActions
   - Don't list empty lines in simple search
+  - Edit picture supports now relative filepaths too
+  - Show import dialog for selected pictures too (like in file selection)
 
 **Fixed:**  
+- Editor
+  - Disable 'History disable' performance option for data integrity
+   
 
 ### v1.2.0 [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html)
 **New features:**

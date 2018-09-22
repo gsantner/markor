@@ -252,4 +252,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Math</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
+    <string name="text_action">Text action</string>
+    <string name="text_actions">Text actions</string>
 </resources>
