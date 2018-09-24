@@ -158,8 +158,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         @Override
         public boolean onLongClick(View v) {
             switch (_action) {
-                case R.string.tmaid_general_special_key: {
+                case R.string.tmaid_general_open_link_browser: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                    return true;
+                }
+                case R.string.tmaid_general_special_key: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
                 case R.string.tmaid_markdown_insert_image: {

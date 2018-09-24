@@ -272,6 +272,11 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     return true;
                 }
                 case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
+                    return true;
+                }
+
+                case CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
                     return true;
                 }

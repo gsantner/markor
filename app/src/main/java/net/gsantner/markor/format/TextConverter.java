@@ -13,7 +13,6 @@ package net.gsantner.markor.format;
 import android.content.Context;
 import android.webkit.WebView;
 
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 

@@ -6,8 +6,10 @@
   - Start document at the recent cursor position (jump to bottom on new documents and at special files)  
   - Enable link highlighting in plaintext format (especially easier to distinguish title and links in linkbox)  
 - Text Actions  
-  -  Markdown: Long press iamge adds img-src with max-height  
-
+  - Markdown: Long press image adds img-src with max-height  
+  - Long press 'Special key' jumps to top/bottom  
+  - Long press 'Open external' opens content search  
+ 
 **Improved:**  
 - TextActions  
   - Don't list empty lines in simple search  

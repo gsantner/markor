@@ -14,7 +14,6 @@ import android.content.Context;
 import android.support.v4.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverter;
-import net.gsantner.markor.util.AppSettings;
 
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverter {

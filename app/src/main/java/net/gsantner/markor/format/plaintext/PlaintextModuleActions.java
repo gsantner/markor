@@ -32,7 +32,7 @@ public class PlaintextModuleActions extends TextModuleActions {
 
             // Regular actions
             for (int[] actions : ACTIONS_ICONS) {
-                PlaintextTextActionImpl actionCallback =  new PlaintextTextActionImpl(ACTIONS[actions[1]]);
+                PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(ACTIONS[actions[1]]);
                 appendTextModuleActionToBar(barLayout, actions[0], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
@@ -71,8 +71,13 @@ public class PlaintextModuleActions extends TextModuleActions {
 
         @Override
         public boolean onLongClick(View v) {
-            switch (_action){
+            switch (_action) {
                 case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
+                    return true;
+                }
+
+                case CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
                     return true;
                 }

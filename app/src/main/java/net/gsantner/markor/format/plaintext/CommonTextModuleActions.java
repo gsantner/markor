@@ -19,7 +19,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextModuleActions {
@@ -39,6 +38,10 @@ public class CommonTextModuleActions {
 
     public static final int ACTION_SEARCH_ICON = R.drawable.ic_search_black_24dp;
     public static final String ACTION_SEARCH = "search_in_content";
+
+
+    public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.format_header_1;
+    public static final String ACTION_JUMP_BOTTOM_TOP = "jump_bottom_top";
 
 
     private final Activity _activity;
@@ -119,6 +122,12 @@ public class CommonTextModuleActions {
                     int cursor = origText.indexOf(callbackPayload);
                     _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                 });
+                return true;
+            }
+
+            case ACTION_JUMP_BOTTOM_TOP: {
+                int pos = _hlEditor.getSelectionStart();
+                _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
                 return true;
             }
         }
