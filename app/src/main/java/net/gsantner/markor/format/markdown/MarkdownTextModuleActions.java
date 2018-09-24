@@ -162,6 +162,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
                     return true;
                 }
+                case R.string.tmaid_markdown_insert_image: {
+                    int pos = _hlEditor.getSelectionStart();
+                    _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
+                    _hlEditor.setSelection(pos + 48);
+                    return true;
+                }
             }
             return false;
         }

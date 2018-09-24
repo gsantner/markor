@@ -5,7 +5,8 @@
 - Editor
   - Start document at the recent cursor position (jump to bottom on new documents and at special files)  
   - Enable link highlighting in plaintext format (especially easier to distinguish title and links in linkbox)  
-  
+- Text Actions  
+  -  Markdown: Long press iamge adds img-src with max-height  
 
 **Improved:**  
 - TextActions  
