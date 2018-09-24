@@ -3,8 +3,9 @@
 - App-wide  
   - Add 'Auto' theme, switch light/dark theme by current hour  
 - Editor
-  - Start document at the recent cursor position  
-  - Jump to bottom on new documents and at special files  
+  - Start document at the recent cursor position (jump to bottom on new documents and at special files)  
+  - Enable link highlighting in plaintext format (especially easier to distinguish title and links in linkbox)  
+  
 
 **Improved:**  
 - TextActions  

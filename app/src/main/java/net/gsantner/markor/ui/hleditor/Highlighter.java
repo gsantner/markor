@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public abstract class Highlighter {
+
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
@@ -83,6 +84,13 @@ public abstract class Highlighter {
         for (int n = spans.length; n-- > 0; ) {
             editable.removeSpan(spans[n]);
         }
+    }
+
+    private boolean _isFirstHighlighting = true;
+    protected boolean isFirstHighlighting(){
+        boolean f = _isFirstHighlighting;
+        _isFirstHighlighting = false;
+        return f;
     }
 
     //

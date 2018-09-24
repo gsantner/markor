@@ -18,9 +18,9 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 
-public class PlainTextModuleActions extends TextModuleActions {
+public class PlaintextModuleActions extends TextModuleActions {
 
-    public PlainTextModuleActions(Activity activity, Document document) {
+    public PlaintextModuleActions(Activity activity, Document document) {
         super(activity, document);
     }
 

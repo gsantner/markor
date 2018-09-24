@@ -17,7 +17,7 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
 @SuppressWarnings("WeakerAccess")
-public class PlainTextConverter extends TextConverter {
+public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
 

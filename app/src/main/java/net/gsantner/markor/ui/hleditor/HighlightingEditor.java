@@ -77,7 +77,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setHighlighter(Highlighter newHighlighter) {
         _hl = newHighlighter;
-        _hlDelay = _hl.getHighlightingDelay(getContext());
+        _hlDelay = _hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext());
         reloadHighlighter();
 
         // Alpha in animation

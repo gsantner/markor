@@ -16,9 +16,9 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextModuleActions;
-import net.gsantner.markor.format.plaintext.PlainHighlighter;
-import net.gsantner.markor.format.plaintext.PlainTextConverter;
-import net.gsantner.markor.format.plaintext.PlainTextModuleActions;
+import net.gsantner.markor.format.plaintext.PlaintextConverter;
+import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
+import net.gsantner.markor.format.plaintext.PlaintextModuleActions;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextModuleActions;
@@ -40,9 +40,9 @@ public class TextFormat {
         TextFormat format = new TextFormat();
         switch (formatType) {
             case FORMAT_PLAIN: {
-                format.setConverter(new PlainTextConverter());
-                format.setHighlighter(new PlainHighlighter());
-                format.setTextModuleActions(new PlainTextModuleActions(activity, document));
+                format.setConverter(new PlaintextConverter());
+                format.setHighlighter(new PlaintextHighlighter());
+                format.setTextModuleActions(new PlaintextModuleActions(activity, document));
                 break;
             }
             case FORMAT_TODOTXT: {
