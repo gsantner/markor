@@ -1,13 +1,19 @@
 ### v1.2.x <!-- [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html) -->
 **New features:**  
-- App-wide
-  - Add 'Auto' theme, switch light/dark theme by current hour
+- App-wide  
+  - Add 'Auto' theme, switch light/dark theme by current hour  
+- Editor
+  - Start document at the recent cursor position  
+  - Jump to bottom on new documents and at special files  
 
 **Improved:**  
-- TextActions
-  - Don't list empty lines in simple search
-  - Edit picture supports now relative filepaths too
-  - Show import dialog for selected pictures too (like in file selection)
+- TextActions  
+  - Don't list empty lines in simple search  
+  - Edit picture supports now relative filepaths too  
+  - Show import dialog for selected pictures too (like in file selection)  
+- Preview
+  - Performance improvement for TOC & Math - only use when text contains headers/math  
+  - Markdown: Underline h2 too (like h1, more common for two levels)  
 
 **Fixed:**  
 - Editor

@@ -21,7 +21,6 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -52,7 +51,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             }
             case "auto":
             default: {
-                return !isCurrentHourOfDayBetween(9,17);
+                return !isCurrentHourOfDayBetween(9, 17);
             }
         }
     }
@@ -279,6 +278,36 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             setInt(file.getAbsolutePath(), getInt(file.getAbsolutePath(), 0, _prefCache) + 1, _prefCache);
             setRecentDocuments(recent);
         }
+    }
+
+    private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
+    private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
+
+    public void setLastEditPosition(File file, int pos, int scrolloffset) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
+            setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
+            setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
+        }
+    }
+
+    public int getLastEditPositionChar(File file) {
+        if (file == null || !file.exists()) {
+            return -1;
+        }
+        if (file.equals(getTodoFile()) || file.equals(getLinkBoxFile()) || file.equals(getQuickNoteFile())) {
+            return -2;
+        }
+        return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
+    }
+
+    public int getLastEditPositionScroll(File file) {
+        if (file == null || !file.exists()) {
+            return 0;
+        }
+        return getInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), 0, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {
