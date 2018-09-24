@@ -1,4 +1,4 @@
-### v1.3.x <!-- [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html) -->
+### v1.2.x <!-- [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html) -->
 **New features:**  
 - App-wide
   - Add 'Auto' theme, switch light/dark theme by current hour
@@ -12,7 +12,8 @@
 **Fixed:**  
 - Editor
   - Disable 'History disable' performance option for data integrity
-   
+- App-wide
+  - Special files: When app launcher was used, create file if not exists   
 
 ### v1.2.0 [Blog post](https://gsantner.net/blog/android/2018/09/18/markor-release-v1.2.html)
 **New features:**

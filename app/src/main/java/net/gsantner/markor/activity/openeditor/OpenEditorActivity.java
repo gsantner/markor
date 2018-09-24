@@ -8,6 +8,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.PermissionChecker;
 
 import java.io.File;
@@ -17,6 +18,9 @@ public class OpenEditorActivity extends AppCompatActivity {
         try {
             PermissionChecker permc = new PermissionChecker(this);
             if (permc.doIfExtStoragePermissionGranted(getString(R.string.error_need_storage_permission_to_save_documents))) {
+                if (!file.exists()){
+                    FileUtils.writeFile(file, "");
+                }
                 Context c = getApplicationContext();
                 ActivityUtils au = new ActivityUtils(this);
                 Intent openIntent = new Intent(c, DocumentActivity.class)
