@@ -40,6 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="todo_default_filename" translatable="false">todo.txt</string>
     <string name="linkbox_default_filename" translatable="false">linkbox.txt</string>
     <string name="web_browser" translatable="false">Web browser</string>
+    <string name="app_drawer_launcher_special_files_description" translatable="false">App drawer launchers: LinkBox, ToDo, QuickNote</string>
 
 
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>

@@ -67,8 +67,8 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
     //## Injected CSS / JS / HTML
     //########################
-    public static final String CSS_HEADER_WITHOUT_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
-    public static final String CSS_H1_UNDERLINE = CSS_S + " h1 { border-bottom: 2px solid #eaecef; } " + CSS_E;
+    public static final String CSS_HEADER_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
+    public static final String CSS_H1_H2_UNDERLINE = CSS_S + " h1,h2 { border-bottom: 2px solid #eaecef; } " + CSS_E;
     public static final String CSS_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
 
     public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
@@ -131,15 +131,15 @@ public class MarkdownTextConverter extends TextConverter {
                 .set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
         // Prepare head and javascript calls
-        head += CSS_HEADER_WITHOUT_UNDERLINE + CSS_H1_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE;
-        if (appSettings.isMarkdownTableOfContentsEnabled()) {
-            markup = "[TOC]: # ''\n" + markup;
+        head += CSS_HEADER_UNDERLINE + CSS_H1_H2_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE;
+        if (appSettings.isMarkdownTableOfContentsEnabled() && (markup.contains("#") || markup.contains("<h"))) {
+            markup = "[TOC]: # ''\n  \n" + markup;
             options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
 
-        if (appSettings.isMarkdownMathEnabled()) {
+        if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
         }

@@ -185,7 +185,7 @@ public class SettingsActivity extends AppCompatActivity {
             );
             updatePreference(R.string.pref_key__is_launcher_for_special_files_enabled, null,
                     ("Launcher (" + getString(R.string.special_documents) + ")"),
-                    "QuickNote, ToDo, LinkBox", true
+                   getString(R.string.app_drawer_launcher_special_files_description), true
             );
 
         }

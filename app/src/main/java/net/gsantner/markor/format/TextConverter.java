@@ -41,8 +41,8 @@ public abstract class TextConverter {
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
-    protected static final String HTML500_BODY = "</head>\n<body onload='onPageLoaded_markor_private();'>\n";
-    protected static final String HTML990_BODY_END = "\n</body></html>";
+    protected static final String HTML500_BODY = "</head>\n<body onload='onPageLoaded_markor_private();'>\n\n<!-- USER CONTENT -->\n\n\n";
+    protected static final String HTML990_BODY_END = "\n\n<!-- USER CONTENT END -->\n</body></html>";
 
     protected static final String HTML_ON_PAGE_LOAD_S = "<script> function onPageLoaded_markor_private() {\n";
     protected static final String HTML_ON_PAGE_LOAD_E = "\nonPageLoaded(); }\n</script>";
