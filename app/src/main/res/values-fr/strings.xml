@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
     <string name="control_font_size_in_editor">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
     <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
     <string name="format">Format</string>
     <string name="contexts">Contextes</string>
@@ -206,7 +206,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">En haut</string>
     <string name="bottom">En bas</string>
     <string name="center">Centré</string>
-    <string name="textmodule_spacing">Espacement du module de texte</string>
+    <string name="text_action_spacing">Espacement du module de texte</string>
     <string name="horizontal_spacing_of_actions">Espacement horizontal des actions</string>
 
     <string name="center_text">Centrer le texte</string>

@@ -156,7 +156,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
     <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
     <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">Sık kullanılan metin modüllerini eklemek için yararlı eylemler içeren bir çubuk göster</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">Sık kullanılan metin modüllerini eklemek için yararlı eylemler içeren bir çubuk göster</string>
     <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
     <string name="format">Biçim</string>
     <string name="contexts">Bağlamlar</string>
@@ -202,7 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Üst</string>
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
-    <string name="textmodule_spacing">Metin modülleri arasındaki boşluk</string>
+    <string name="text_action_spacing">Metin modülleri arasındaki boşluk</string>
     <string name="horizontal_spacing_of_actions">Eylemlerin yatay aralığı</string>
 
     <string name="center_text">Metni ortala</string>

@@ -155,7 +155,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Markdown 语法高亮自动刷新渲染时的时间间隔。较低的刷新间隔可以让渲染的更新频率加快，但也会使用更多电量，并可能影响应用性能。（单位：毫秒）</string>
     <string name="highlighting_enabled_or_not__appspecific">控制输入的文本是否应显示语法高亮</string>
     <string name="control_font_size_in_editor">调整编辑器中文字的字号</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">显示一条带有快捷文本操作功能与插入常用语法功能的工具栏</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">显示一条带有快捷文本操作功能与插入常用语法功能的工具栏</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
     <string name="format">生成</string>
     <string name="contexts">全文</string>
@@ -200,7 +200,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">顶端</string>
     <string name="bottom">底端</string>
     <string name="center">中央</string>
-    <string name="textmodule_spacing">文本工具按钮宽度</string>
+    <string name="text_action_spacing">文本工具按钮宽度</string>
     <string name="horizontal_spacing_of_actions">操作按钮的横向宽度</string>
 
     <string name="center_text">居中文字</string>

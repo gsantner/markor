@@ -158,7 +158,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and make a heavy load.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
     <string name="control_font_size_in_editor">Control the font size used in the editor</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">Show a bar with useful actions to insert commonly used text modules</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These text actions modify the text or run an action based on the text.</string>
     <string name="load_last_opened_folder_at_startup">Load the last opened folder at startup</string>
     <string name="format">Format</string>
     <string name="contexts">Contexts</string>
@@ -174,7 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insert the current date when starting a new task</string>
     <string name="tasks_with_todays_date">Tasks with today\'s date</string>
     <string name="append_contexts_and_projects">Append contexts and projects</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate text module action</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate text action</string>
     <string name="rtl_rendering">RTL rendering</string>
     <string name="highlight_line_ending">Highlight line ending</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Highlight spaces at the end of lines containing two or more spaces</string>
@@ -207,7 +207,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bottom</string>
     <string name="center">Center</string>
-    <string name="textmodule_spacing">Text module spacing</string>
+    <string name="text_action_spacing">Text action spacing</string>
     <string name="horizontal_spacing_of_actions">Horizontal spacing of actions</string>
 
     <string name="center_text">Center text</string>

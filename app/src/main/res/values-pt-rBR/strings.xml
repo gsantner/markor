@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
     <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
     <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
     <string name="format">Formatar</string>
     <string name="contexts">Contextos</string>
@@ -206,7 +206,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">inferior</string>
     <string name="center">Centro</string>
-    <string name="textmodule_spacing">Espaçamento do módulo de texto</string>
+    <string name="text_action_spacing">Espaçamento do módulo de texto</string>
     <string name="horizontal_spacing_of_actions">Espaçamento horizontal de ações</string>
 
     <string name="center_text">Texto no centro</string>

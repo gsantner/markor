@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para el refrescado del coloreado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser coloreado o no</string>
     <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>
-    <string name="textmodules_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
+    <string name="text_actions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
     <string name="load_last_opened_folder_at_startup">Cargar la última carpeta abierta al iniciar</string>
     <string name="format">Formato</string>
     <string name="contexts">Contextos</string>
@@ -182,7 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">Inferior</string>
     <string name="center">Centro</string>
-    <string name="textmodule_spacing">Espaciado de módulo de texto</string>
+    <string name="text_action_spacing">Espaciado de módulo de texto</string>
     <string name="horizontal_spacing_of_actions">Espaciado horizontal de acciones</string>
 
     <string name="center_text">Centrar texto</string>
