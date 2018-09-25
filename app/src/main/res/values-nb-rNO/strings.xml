@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="edit_picture">Rediger bilde</string>
   <string name="math">Matte</string>
   <string name="table_of_contents">Innholdsfortegnelse</string>
+  <string name="miscellaneous">Ymse</string>
 </resources>
