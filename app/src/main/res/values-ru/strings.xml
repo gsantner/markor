@@ -62,7 +62,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create">Создать</string>
   <string name="select_entries">Выбрать элементы</string>
   <string name="one_item_selected">Выбран один элемент</string>
-  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
   <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом режиме</string>
   <string name="hide_statusbar">Скрыть строку состояния</string>
   <string name="name">Имя</string>
@@ -71,7 +70,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Вставить изображение</string>
   <!-- About screen -->
   <string name="contributors">Поддержавшие проект</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">Выбрать папку для хранения</string>
   <string name="notebook_directory">Директория с записями</string>
   <string name="licenses">Лицензии</string>
@@ -159,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="projects">Проекты</string>
   <string name="categories">Категории</string>
   <string name="none">Нет</string>
-  <string name="other">Other</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
   <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
   <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
@@ -233,14 +230,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="calendar">Календарь</string>
   <string name="warning_disallowed_sd_access">Предупреждение! Приложение не имеет разрешения на сохранение этого файла, все изменения сделаные здесь будут потеряны. Нет возможности разрешить проблему или что либо подтвердить. Android запрещает здесь любые действия.</string>
   <string name="error_picture_selection">Изображение не выбранно.</string>
-  <string name="gallery_picture">Gallery picture</string>
-  <string name="camera_picture">Camera picture</string>
-  <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
-  <string name="description">Description</string>
-  <string name="edit_picture">Edit picture</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
   <string name="miscellaneous">Прочее</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
