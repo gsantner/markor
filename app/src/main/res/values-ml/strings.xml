@@ -13,6 +13,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="settings">ക്രമീകരണങ്ങൾ</string>
   <string name="appearance">രൂപം</string>
+  <string name="share">പങ്കുവയ്ക്കുക</string>
   <string name="search">തിരയുക</string>
   <!-- Preferences -->
   <string name="about">കുറിച്ച്</string>
