@@ -62,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="one_item_selected">Eine Datei ausgewählt</string>
   <string name="hide_statusbar_at_this_view">Die Statusleiste in dieser Ansicht verstecken</string>
   <string name="hide_statusbar">Statusleiste verstecken</string>
+  <string name="name">Sortieren nach Name</string>
   <string name="url_or_path">URL / Pfad</string>
   <string name="insert_link">Link einfügen</string>
   <string name="insert_image">Bild einfügen</string>
