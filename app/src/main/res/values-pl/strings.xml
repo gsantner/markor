@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Utwórz folder</string>
   <string name="create_new_document">Utwórz nowy dokument</string>
   <string name="move">Przenieś</string>
-  <string name="info">Info</string>
   <string name="import_from_device">Importuj z urządzenia</string>
   <string name="import_">Importuj</string>
   <string name="append_to_witharg">Dołącz do %s</string>
@@ -71,7 +70,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Wstaw obrazek</string>
   <!-- About screen -->
   <string name="contributors">Współautorzy</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">Wybierz folder zapisu</string>
   <string name="notebook_directory">Katalog notatek</string>
   <string name="licenses">Licencje</string>
@@ -153,8 +151,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
   <string name="textmodules_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
   <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
-  <string name="format">Format</string>
-  <string name="contexts">Contexts</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekty</string>
   <string name="categories">Kategorie</string>
@@ -164,8 +160,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="underline_hex_color_codes">Podkreślaj kolory w układzie szesnastkowym (Hex)</string>
   <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
   <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
-  <string name="append_contexts_and_projects">Append contexts and projects</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate text module action</string>
   <string name="rtl_rendering">Renderowanie RTL</string>
   <string name="highlight_line_ending">Podświetl zakończenie linii</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -184,12 +178,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_pos_1_document">Koniec Dokumentu</string>
   <string name="key_pos_end_document">Początek Dokumentu</string>
   <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
-  <string name="key_tab">Tabulator</string>
   <string name="start_on_bottom">Zacznij od dołu</string>
   <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
-  <string name="filemanager_doesnot_supply_required_data__appspecific">Markor only allows to edit local, offline available, documents and support file managers which supply the full filepath including filename. Apparently the app didn\'t supply all required information and can\'t be used with Markor :(.</string>
-  <string name="sync_to_local_folder_notice">Notice: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
-  <string name="configure_in_the_apps_settings">Configure in the app settings</string>
   <string name="vertical_alignment">Wyrównanie w pionie</string>
   <string name="horizontal_alignment">Wyrównanie w poziomie</string>
   <string name="default_">Domyślna</string>
@@ -198,7 +188,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Góra</string>
   <string name="bottom">Dół</string>
   <string name="center">Wyśrodkuj</string>
-  <string name="textmodule_spacing">Text module spacing</string>
   <string name="horizontal_spacing_of_actions">Poziomy odstęp akcji</string>
   <string name="center_text">Wyśrodkuj tekst</string>
   <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
@@ -210,7 +199,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info_and_help">Więcej informacji i pomoc</string>
   <string name="report_bugs">Zgłoś błąd</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Więcej informacji na temat dotacjach lub pomaganiu tego projektu</string>
-  <string name="android_contribution_guide">Android contribution guide</string>
   <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu Otwarto Zródłowych projektów, szczególnie aplikacji Androida</string>
   <string name="join_community">Dołącz do Społeczności</string>
   <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
@@ -221,26 +209,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info_on_how_to_contribute_to_this_project">Więcej informacji o tym, jak współtworzyć ten projekt</string>
   <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
   <string name="project_team">Zespół Projektu</string>
-  <string name="contributors_public_add_yourself_description">Show contributor info. Provide it to be shown here on an opt-in basis after contributing</string>
   <string name="disable_spelling_underline">Wyłącz podkreślanie pisowni</string>
-  <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Keyboard suggestions stay, red underline vanishes</string>
   <string name="location">Lokalizacja</string>
   <string name="text_lines">Linie tekstu</string>
   <string name="text_characters">Znaki tekstu</string>
   <string name="directory">Katalog</string>
   <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
-  <string name="details">Details</string>
-  <string name="calendar">Calendar</string>
-  <string name="warning_disallowed_sd_access">Warning! The app doesn\'t have the permission to save this file, all changes here will be lost. There is no possibility to resolve the problem or to confirm something, Android denies any access here.</string>
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
-  <string name="gallery_picture">Gallery picture</string>
-  <string name="camera_picture">Camera picture</string>
-  <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
-  <string name="description">Description</string>
-  <string name="edit_picture">Edit picture</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
   <string name="miscellaneous">Różne</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
