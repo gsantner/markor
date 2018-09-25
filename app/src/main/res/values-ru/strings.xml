@@ -230,5 +230,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="calendar">Календарь</string>
   <string name="warning_disallowed_sd_access">Предупреждение! Приложение не имеет разрешения на сохранение этого файла, все изменения сделаные здесь будут потеряны. Нет возможности разрешить проблему или что либо подтвердить. Android запрещает здесь любые действия.</string>
   <string name="error_picture_selection">Изображение не выбранно.</string>
+  <string name="description">Описание</string>
+  <string name="edit_picture">Изменить изображение</string>
+  <string name="math">Математика</string>
+  <string name="table_of_contents">Оглавление</string>
   <string name="miscellaneous">Прочее</string>
 </resources>
