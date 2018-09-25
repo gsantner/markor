@@ -1,0 +1,37 @@
+files:
+  - source: /app/src/main/res/values/strings*.xml
+    translation: /app/src/main/res/values-%android_code%/%original_file_name%
+    languages_mapping:
+      android_code:
+        kn: kn 		# Kannada (Asian)
+        gl: gl  	# Galician
+        sc: sc  	# Sardinian
+        kab: kab        # Kabyle
+        hi: hi 		# Indian, Hindi
+        ml-IN: ml 	# Indian, Malayalam
+        fa: fa		# Persian
+        nb: nb-rNO 	# Norwegian, Bokmal
+        sv-SE: sv 	# Swedish
+        es-ES: es 	# Espanol
+        de: de 		# German
+        ru: ru 		# Russian
+        pl: pl 		# Polish
+        ja: ja 		# Japanese
+        it: it 		# Italian
+        fr: fr 		# French
+        da: da 		# Danish
+        nl: nl 		# Dutch
+        hu: hu 		# Hungarian
+        cs: cs 		# Czech
+        ko: ko 		# Korean
+        zh-CN: zh-rCN   # Chinese (Simplified on Android)
+        zh-TW: zh-rTW   # Chinese (Traditional on Android)
+        el: el 		# Greek
+        "no": 'no' 	# Norwegian
+        tr: tr 		# Turkish
+        ca: ca 		# Catalan
+        pt-PT: pt 	# Portugese
+        pt-BR: pt-rBR	# Portugese, Brazilian
+        uk: uk		# Ukrainian
+        ar: ar		# Arabic
+    translate_attributes: 0
