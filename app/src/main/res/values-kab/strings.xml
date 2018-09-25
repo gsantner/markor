@@ -125,10 +125,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Ma yella yettwafren uḍris, asenned ɣef {}, [] neɣ () ad isers izamulen imen taḍen si sin n idisan n wayen tferneḍ</string>
   <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
   <!-- New strings -->
+  <string name="none">Ula yiwen</string>
   <string name="other">Wayeḍ</string>
   <string name="general">Amatu</string>
   <string name="default_">Amezwer</string>
+  <string name="translate">Asuqel</string>
   <string name="report_bugs">Azen ibugen</string>
+  <string name="location">Asun</string>
   <string name="error_picture_selection">Ula d yiwet n tugna ur tettwafren.</string>
+  <string name="description">Aglam</string>
   <string name="miscellaneous">Ayen nniḍen</string>
 </resources>
