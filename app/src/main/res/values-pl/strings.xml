@@ -150,7 +150,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
   <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
   <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
-  <string name="textmodules_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
   <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekty</string>
