@@ -62,7 +62,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create">Oluştur</string>
   <string name="select_entries">Öğeleri seç</string>
   <string name="one_item_selected">Bir öğe seçildi</string>
-  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
   <string name="hide_statusbar_at_this_view">Bu görünümde durum çubuğunu gizle</string>
   <string name="hide_statusbar">Durum çubuğunu gizle</string>
   <string name="name">Adı</string>
@@ -71,7 +70,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Görüntü Ekle</string>
   <!-- About screen -->
   <string name="contributors">Katkıda Bulunanlar</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">Depolama klasörünü seç</string>
   <string name="notebook_directory">Not defteri dizini</string>
   <string name="licenses">Lisanslar</string>
@@ -159,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="projects">Projeler</string>
   <string name="categories">Kategoriler</string>
   <string name="none">Yok</string>
-  <string name="other">Other</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hex Renk Kodlarının renklerine göre altını çiz</string>
   <string name="underline_hex_color_codes">Hex Renk Kodlarının Altını Çiz</string>
   <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
@@ -235,12 +232,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">Hiçbir resim seçilmedi, çekilmedi veya kaydedilmedi.</string>
   <string name="gallery_picture">Galeri resmi</string>
   <string name="camera_picture">Kamera resmi</string>
-  <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
-  <string name="description">Description</string>
-  <string name="edit_picture">Edit picture</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
-  <string name="miscellaneous">Miscellaneous</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
