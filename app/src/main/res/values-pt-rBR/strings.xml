@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Compartilhar</string>
   <string name="search">Pesquisar</string>
   <string name="preview">Pré-visualização</string>
+  <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Arquivos</string>
   <string name="document">Documento</string>
@@ -70,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Inserir Imagem</string>
   <!-- About screen -->
   <string name="contributors">Colaboradores</string>
+  <string name="save_location">Salvar localização</string>
   <string name="select_storage_folder">Escolher pasta de armazenamento</string>
   <string name="notebook_directory">Pasta de notas</string>
   <string name="licenses">Licenças</string>
@@ -142,6 +144,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="main_view">Tela principal</string>
   <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
   <string name="remember_last_directory">Lembrar da última pasta</string>
+  <string name="syntax_highlighting">Destaque de sintaxe</string>
   <string name="text_modules">Módulos de texto</string>
   <string name="text_module">Módulo de texto</string>
   <string name="highlighting_delay">Realçar delongas</string>
@@ -181,6 +184,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_pos_1_document">Início do documento</string>
   <string name="key_pos_end_document">Fim do documento</string>
   <string name="key_ctrl_a">Selecionar tudo (Ctrl + A)</string>
+  <string name="key_tab">Tabulação</string>
   <string name="start_on_bottom">Começar na parte inferior</string>
   <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
   <string name="filemanager_doesnot_supply_required_data__appspecific">O aplicativo não forneceu informações necessárias para trabalhar com o Markor :( Você só pode editar documentos locais que estão offline e que os gerenciadores de arquivos forneça suporte a caminhos completos, incluindo o nome do arquivo.</string>
@@ -234,6 +238,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="enable_undo_and_redo_be_patient">Habilitar desfazer e refazer ações. Apenas adequado para uso avançado, você dever ser paciente para não apagar algo importante. Fechar e abrir o editor limpar o histórico.</string>
   <string name="description">Descrição</string>
   <string name="edit_picture">Editar imagem</string>
+  <string name="math">Matemática</string>
+  <string name="table_of_contents">Tabela de conteúdos</string>
   <string name="miscellaneous">Diversos</string>
   <string name="text_action">Ações de texto</string>
   <string name="text_actions">Ações de texto</string>
