@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Nouveau dossier</string>
   <string name="create_new_document">Créer un nouveau document</string>
   <string name="move">Déplacer</string>
-  <string name="info">Info</string>
   <string name="import_from_device">Importer depuis cet appareil</string>
   <string name="import_">Importer</string>
   <string name="append_to_witharg">Ajouter à %s</string>
@@ -42,8 +41,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor">Éditeur</string>
   <string name="folders">Dossiers</string>
   <string name="files">Fichiers</string>
-  <string name="document">Document</string>
-  <string name="documents">Documents</string>
   <string name="html_as_plaintext">HTML (en texte brut)</string>
   <!-- Preferences -->
   <string name="document_editor_font">Police de l\'éditeur</string>
@@ -52,7 +49,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="about">À propos</string>
   <string name="plaintext">Texte brut</string>
   <string name="file">Fichier</string>
-  <string name="image">Image</string>
   <string name="font_size">Taille de la police</string>
   <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
   <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
@@ -62,7 +58,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create">Créer</string>
   <string name="select_entries">Sélectionnez une ou plusieurs entrées</string>
   <string name="one_item_selected">Une entrée sélectionnée</string>
-  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
   <string name="hide_statusbar_at_this_view">L\'application s\'exécute en mode plein écran</string>
   <string name="hide_statusbar">Cacher la barre de statut</string>
   <string name="name">Nom</string>
@@ -71,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Insérer image</string>
   <!-- About screen -->
   <string name="contributors">Contributeurs</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
   <string name="notebook_directory">Dossier du bloc note</string>
   <string name="licenses">Licences</string>
@@ -113,7 +107,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="clear">Effacer</string>
   <string name="due_date">Échéance</string>
   <string name="current_date">Date courante</string>
-  <string name="archive">Archive</string>
   <string name="add_task">Ajouter une tâche</string>
   <string name="add_x_witharg">Ajouter %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Le document à charger et à enregistrer comme \"%s\"</string>
@@ -153,7 +146,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="control_font_size_in_editor">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
   <string name="textmodules_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
   <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
-  <string name="format">Format</string>
   <string name="contexts">Contextes</string>
   <string name="project">Projet</string>
   <string name="projects">Projets</string>
@@ -236,11 +228,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="gallery_picture">Photo depuis la galerie</string>
   <string name="camera_picture">Photo depuis l\'appareil</string>
   <string name="enable_undo_and_redo_be_patient">Activer les actions d\'annulation et de rétablissement. Réservé à une utilisation avancée,  soyez vigilant pour ne pas supprimer des choses importantes. Fermez et ouvrez l\'éditeur pour effacer l\'historique.</string>
-  <string name="description">Description</string>
   <string name="edit_picture">Éditer l\'image</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
   <string name="miscellaneous">Divers</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
