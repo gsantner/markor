@@ -151,7 +151,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и снижает производительность.</string>
   <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
   <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
-  <string name="textmodules_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
   <string name="load_last_opened_folder_at_startup">Загружать последнюю открытую папку при запуске</string>
   <string name="format">Формат</string>
   <string name="contexts">Контексты</string>
@@ -165,7 +164,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
   <string name="tasks_with_todays_date">Задачи с сегодняшней датой</string>
   <string name="append_contexts_and_projects">Добавить контексты и проекты</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Добавлять контексты и проекты в конец задачи при использовании соответствующих текстовых модулей</string>
   <string name="rtl_rendering">Отрисовка \"справа-налево\"</string>
   <string name="highlight_line_ending">Подсвечивать конец строки</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк, содержащие два или более пробела</string>
@@ -198,7 +196,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Выровнить по верхнему краю</string>
   <string name="bottom">Подвал</string>
   <string name="center">Центр</string>
-  <string name="textmodule_spacing">Расстояние между текстовыми модулями</string>
   <string name="horizontal_spacing_of_actions">Горизонтальное активное пространсто</string>
   <string name="center_text">Текст по центру</string>
   <string name="edit_text_in_center_of_screen">Редактирование текста в центре экрана</string>
