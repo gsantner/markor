@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Compartir</string>
   <string name="search">Búsqueda</string>
   <string name="preview">Previsualización</string>
+  <string name="editor">Editor</string>
   <string name="folders">Carpetas</string>
   <string name="files">Archivos</string>
   <string name="document">Documento</string>
@@ -168,6 +169,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlight_line_ending_if_two_or_more_spaces">Colorear los espacios al final de las líneas si estas terminan en dos o más espacios</string>
   <string name="use_monospace_for_code">Usar Monospace para código</string>
   <string name="use_different_fonttype_slow_down">Usa una fuente diferente. Cambiar la fuente dinámicamente afecta el desempeño de la app.</string>
+  <string name="general">General</string>
   <string name="resources">Recursos</string>
   <string name="space_between_lines_in_percent">Porcentaje de espaciado entre líneas</string>
   <string name="line_spacing">Espaciado entre líneas</string>
@@ -226,5 +228,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="directory">Directorio</string>
   <string name="recently_viewed_documents">Documentos vistos recientemente</string>
   <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
+  <string name="description">Descripción</string>
   <string name="miscellaneous">Diverso</string>
 </resources>
