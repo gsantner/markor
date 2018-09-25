@@ -13,6 +13,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="settings">Nastavení</string>
   <string name="appearance">Vzhled</string>
+  <string name="share">Sdílet</string>
+  <string name="search">Hledat</string>
   <!-- Preferences -->
   <string name="about">Informace</string>
   <string name="create">Vytvoøit</string>
@@ -22,13 +24,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Spolupracovníci</string>
   <string name="licenses">Licence</string>
   <string name="changelog">Historie</string>
+  <string name="show_license_of_the_app">Zobrazit GNU GPLv3 licenci</string>
   <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
   <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
   <string name="language">Jazyk</string>
   <string name="size">Velikost</string>
   <string name="exit">Odejít</string>
+  <string name="more">Více</string>
   <!-- Not in use currently -->
   <!-- New strings -->
+  <string name="general">Obecné</string>
+  <string name="default_">Standardní</string>
+  <string name="translate">Přeložit</string>
   <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
   <string name="miscellaneous">Ostatní</string>
 </resources>
