@@ -124,8 +124,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">{}, [] и () будуть оточувати виділений текст</string>
   <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
   <!-- New strings -->
+  <string name="none">Немає</string>
   <string name="general">Загальне</string>
   <string name="default_">За замовчуванням</string>
+  <string name="translate">Перекласти</string>
   <string name="report_bugs">Повідомити про помилку</string>
+  <string name="location">Розташування</string>
+  <string name="description">Опис</string>
   <string name="miscellaneous">Різне</string>
 </resources>
