@@ -70,6 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Wstaw obrazek</string>
   <!-- About screen -->
   <string name="contributors">Współautorzy</string>
+  <string name="save_location">Zapisz lokalizację</string>
   <string name="select_storage_folder">Wybierz folder zapisu</string>
   <string name="notebook_directory">Katalog notatek</string>
   <string name="licenses">Licencje</string>
@@ -178,6 +179,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_pos_1_document">Koniec Dokumentu</string>
   <string name="key_pos_end_document">Początek Dokumentu</string>
   <string name="key_ctrl_a">Zaznacz wszystko (Ctrl + A)</string>
+  <string name="key_tab">Tabulator</string>
   <string name="start_on_bottom">Zacznij od dołu</string>
   <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
   <string name="vertical_alignment">Wyrównanie w pionie</string>
@@ -215,6 +217,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_characters">Znaki tekstu</string>
   <string name="directory">Katalog</string>
   <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
+  <string name="details">Szczegóły</string>
+  <string name="calendar">Kalendarz</string>
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
+  <string name="description">Opis</string>
   <string name="miscellaneous">Różne</string>
 </resources>
