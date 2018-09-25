@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">建立資料夾</string>
   <string name="create_new_document">建立新的文件</string>
   <string name="move">移動</string>
-  <string name="info">Info</string>
   <string name="import_from_device">從裝置匯入</string>
   <string name="import_">匯入</string>
   <string name="append_to_witharg">增補到 %s</string>
@@ -71,7 +70,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">插入圖像</string>
   <!-- About screen -->
   <string name="contributors">貢獻人</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">選擇儲存資料夾</string>
   <string name="notebook_directory">筆記本目錄</string>
   <string name="licenses">許可證</string>
@@ -159,7 +157,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="projects">專案</string>
   <string name="categories">分類項目</string>
   <string name="none">全無</string>
-  <string name="other">Other</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
   <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
   <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
@@ -222,25 +219,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contribute_code_to_this_project_anybody_welcome">歡迎每個人都來提供程式碼</string>
   <string name="project_team">專案團隊</string>
   <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
-  <string name="disable_spelling_underline">Disable spelling underline</string>
-  <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Keyboard suggestions stay, red underline vanishes</string>
-  <string name="location">Location</string>
-  <string name="text_lines">Text Lines</string>
-  <string name="text_characters">Text Characters</string>
-  <string name="directory">Directory</string>
-  <string name="recently_viewed_documents">Recently viewed documents</string>
-  <string name="details">Details</string>
-  <string name="calendar">Calendar</string>
-  <string name="warning_disallowed_sd_access">Warning! The app doesn\'t have the permission to save this file, all changes here will be lost. There is no possibility to resolve the problem or to confirm something, Android denies any access here.</string>
-  <string name="error_picture_selection">No picture selected, taken or saved.</string>
-  <string name="gallery_picture">Gallery picture</string>
-  <string name="camera_picture">Camera picture</string>
-  <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
-  <string name="description">Description</string>
-  <string name="edit_picture">Edit picture</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
   <string name="miscellaneous">其他</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
