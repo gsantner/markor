@@ -125,7 +125,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">अगर पाठ का चयन किया जाता है, तो {}, [] और () चयन को घेरेगा</string>
   <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
   <!-- New strings -->
+  <string name="none">कुछ नहीं</string>
   <string name="other">अन्य</string>
+  <string name="translate">अनुवाद करें</string>
+  <string name="location">स्थान</string>
   <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
+  <string name="description">विवरण</string>
   <string name="miscellaneous">कई तरह का</string>
 </resources>
