@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">フォルダーを作成</string>
   <string name="create_new_document">新しいドキュメントを作成</string>
   <string name="move">移動</string>
+  <string name="info">情報</string>
   <string name="import_from_device">デバイスからインポート</string>
   <string name="import_">インポート</string>
   <string name="append_to_witharg">%s に追記</string>
@@ -70,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">画像を挿入</string>
   <!-- About screen -->
   <string name="contributors">貢献者</string>
+  <string name="save_location">場所を保存</string>
   <string name="select_storage_folder">ストレージのフォルダーを選択</string>
   <string name="notebook_directory">ノートディレクトリー</string>
   <string name="licenses">ライセンス</string>
@@ -104,6 +106,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">優先度</string>
   <string name="history">履歴</string>
   <string name="sync">同期</string>
+  <string name="add_x_or_browse_existing_ones_witharg">%s を追加または既存のものを参照</string>
+  <string name="serach_or_custom">検索 / カスタム</string>
   <string name="save">保存</string>
   <string name="update">更新</string>
   <string name="clear">クリア</string>
@@ -111,6 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="current_date">現在の日付</string>
   <string name="archive">アーカイブ</string>
   <string name="add_task">タスクを追加</string>
+  <string name="add_x_witharg">%s を追加</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
   <string name="settings_in_toolbar">ツールバーに設定</string>
   <string name="show_settings_option_in_main_view">メイン画面のトップバーに設定オプションを表示します</string>
@@ -146,7 +151,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
   <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
   <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
+  <string name="text_actions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
   <string name="load_last_opened_folder_at_startup">起動時に最後に開いたフォルダーを読み込みます</string>
+  <string name="format">書式</string>
+  <string name="contexts">コンテキスト</string>
+  <string name="project">プロジェクト</string>
+  <string name="projects">プロジェクト</string>
+  <string name="categories">カテゴリー</string>
   <string name="none">なし</string>
   <string name="other">その他</string>
   <string name="general">一般</string>
