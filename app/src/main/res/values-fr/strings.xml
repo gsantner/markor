@@ -49,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="about">À propos</string>
   <string name="plaintext">Texte brut</string>
   <string name="file">Fichier</string>
+  <string name="image">Image</string>
   <string name="font_size">Taille de la police</string>
   <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
   <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
@@ -228,6 +229,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="gallery_picture">Photo depuis la galerie</string>
   <string name="camera_picture">Photo depuis l\'appareil</string>
   <string name="enable_undo_and_redo_be_patient">Activer les actions d\'annulation et de rétablissement. Réservé à une utilisation avancée,  soyez vigilant pour ne pas supprimer des choses importantes. Fermez et ouvrez l\'éditeur pour effacer l\'historique.</string>
+  <string name="description">Description</string>
   <string name="edit_picture">Éditer l\'image</string>
   <string name="miscellaneous">Divers</string>
 </resources>
