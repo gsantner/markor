@@ -171,5 +171,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="resources">Resurser</string>
   <string name="default_">Förvald</string>
   <string name="report_bugs">Rapportera buggar</string>
+  <string name="location">Plats</string>
+  <string name="description">Beskrivning</string>
   <string name="miscellaneous">Diverse</string>
 </resources>
