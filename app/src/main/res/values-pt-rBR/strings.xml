@@ -235,4 +235,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="description">Descrição</string>
   <string name="edit_picture">Editar imagem</string>
   <string name="miscellaneous">Diversos</string>
+  <string name="text_action">Ações de texto</string>
+  <string name="text_actions">Ações de texto</string>
 </resources>
