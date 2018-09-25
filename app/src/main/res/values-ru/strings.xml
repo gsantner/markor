@@ -23,7 +23,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_already_exists_overwerite">Файл уже существует, перезаписать?</string>
   <string name="browse_filesystem">Просмотр файлов</string>
   <string name="title">Заголовок</string>
-  <string name="empty_directory">Эта директория пуста</string>
+  <string name="empty_directory">Пустой каталог</string>
   <string name="enter_name_of_folder">Введите имя вашей папки</string>
   <string name="create_folder">Создать Папку</string>
   <string name="create_new_document">Создать новый документ</string>
@@ -128,16 +128,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Not in use currently -->
   <string name="create_note" needed="false">Создать заметку</string>
   <string name="special_documents" needed="false">Особые документы</string>
-  <string name="back_to_previous_folder" needed="false">В предыдущую папку</string>
-  <string name="app_settings" needed="false">Настройки</string>
+  <string name="back_to_previous_folder" needed="false">Вернуться в предыдущую папку</string>
+  <string name="app_settings" needed="false">Настройки приложения</string>
   <string name="editor_settings" needed="false">Настройки редактора</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Запоминать последнюю открытую папку</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Показывать сокращения markdown</string>
+  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Показывать сокращения Markdown</string>
   <string name="markdown_syntax_highlighting__appspecific" needed="false">Подсветка синтаксиса markdown</string>
   <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Задержка обновления подсветки синтаксиса в миллисекундах</string>
   <string name="higher_values_are_easier_on_battery" needed="false">Большие значения меньше расходуют батарею</string>
   <string name="smart_brackets_shortcuts__appspecific" needed="false">Умные скобки</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Если текст выбран, {}, [] и () будут окружать выделенный текст</string>
+  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Если текст выбран, {}, [] и () то они будут окружать выделенное</string>
   <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
   <!-- New strings -->
   <string name="app_wide">Общее</string>
@@ -206,7 +206,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="select_existing_document">Выберите существующий документ</string>
   <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
   <string name="rate_this_app">Оценить приложение</string>
-  <string name="translate">Перевод</string>
+  <string name="translate">Перевести</string>
   <string name="more_info_and_help">Дополнительная информация и помощь</string>
   <string name="report_bugs">Сообщить об ошибках</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Дополнительная информация о пожертвовании и поддержке данного проекта</string>
@@ -224,7 +224,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors_public_add_yourself_description">Показ информации об участниках. Позволить показать здесь список учасников успевших внести свой вклад.</string>
   <string name="disable_spelling_underline">Отключить проверку орфографии</string>
   <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Предложения клавиатуры остаются, красная подсветка исчезает</string>
-  <string name="location">Место нахождения</string>
+  <string name="location">Местоположение</string>
   <string name="text_lines">Текстовые линии</string>
   <string name="text_characters">Параметры текста</string>
   <string name="directory">Директория</string>
