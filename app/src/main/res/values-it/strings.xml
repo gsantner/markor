@@ -39,7 +39,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Condividi</string>
   <string name="search">Cerca</string>
   <string name="preview">Anteprima</string>
-  <string name="editor">Editor</string>
   <string name="folders">Cartelle</string>
   <string name="files">File</string>
   <string name="document">Documento</string>
@@ -51,7 +50,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="open_preview_when_opening_documents">Apri l\'anteprima quando si aprono i documenti</string>
   <string name="about">Informazioni</string>
   <string name="plaintext">Testo semplice</string>
-  <string name="file">File</string>
   <string name="image">Immagine</string>
   <string name="font_size">Dimensione font</string>
   <string name="render_rtl_language">Renderizza per lingue da destra a sinistra</string>
@@ -71,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Inserisci immagine</string>
   <!-- About screen -->
   <string name="contributors">Collaboratori</string>
-  <string name="save_location">Save location</string>
   <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
   <string name="notebook_directory">Cartella del blocco dei documenti</string>
   <string name="licenses">Licenze</string>
@@ -231,18 +228,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_characters">Caratteri del testo</string>
   <string name="directory">Cartella</string>
   <string name="recently_viewed_documents">Documenti visti recentemente</string>
-  <string name="details">Details</string>
-  <string name="calendar">Calendar</string>
-  <string name="warning_disallowed_sd_access">Warning! The app doesn\'t have the permission to save this file, all changes here will be lost. There is no possibility to resolve the problem or to confirm something, Android denies any access here.</string>
   <string name="error_picture_selection">Nessuna immagine selezionata.</string>
-  <string name="gallery_picture">Gallery picture</string>
-  <string name="camera_picture">Camera picture</string>
-  <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
-  <string name="description">Description</string>
-  <string name="edit_picture">Edit picture</string>
-  <string name="math">Math</string>
-  <string name="table_of_contents">Table of contents</string>
   <string name="miscellaneous">Vario</string>
-  <string name="text_action">Text action</string>
-  <string name="text_actions">Text actions</string>
 </resources>
