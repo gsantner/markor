@@ -149,7 +149,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
   <string name="highlighting_enabled_or_not__appspecific">Ska inskriven text vara syntaxfärgad?</string>
   <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
-  <string name="textmodules_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
   <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
   <string name="contexts">Kontexter</string>
   <string name="project">Projekt</string>
@@ -161,7 +160,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
   <string name="tasks_with_todays_date">Uppgifter med dagens datum</string>
   <string name="append_contexts_and_projects">Bifoga kontexter och projekt</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Bifoga kontexter och projekt i slutet av en uppgift om rätt textmodulskommando används</string>
   <string name="rtl_rendering">VTH-visning</string>
   <string name="highlight_line_ending">Markera radslut</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
