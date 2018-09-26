@@ -66,21 +66,69 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="hide_statusbar">Ocultar a barra de estado</string>
   <string name="name">Nome</string>
   <string name="url_or_path">URL/Caminho</string>
+  <string name="insert_link">Inserir ligação</string>
+  <string name="insert_image">Inserir imagem</string>
   <!-- About screen -->
   <string name="contributors">Colaboradores</string>
+  <string name="save_location">Localização para guardar</string>
+  <string name="select_storage_folder">Selecionar pasta do armazenamento</string>
   <string name="licenses">Licenças</string>
   <string name="changelog">Alterações</string>
+  <string name="more_info">Mais informações</string>
   <string name="show_license_of_the_app">Mostrar licença da aplicação</string>
   <string name="show_third_party_licenses">Licenças de terceiros</string>
   <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
   <string name="language">Idioma</string>
+  <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar docuemntos</string>
+  <string name="open_with">Abrir com</string>
+  <string name="sort">Ordenar por</string>
+  <string name="date">Data</string>
+  <string name="deleteme____1">Nome</string>
   <string name="size">Tamanho</string>
+  <string name="reverse_order">Ordem inversa</string>
+  <string name="contribute">Contribuir</string>
   <string name="donate">Donativos</string>
+  <string name="project_page">Página do projeto</string>
   <string name="exit">Sair</string>
+  <string name="undo">Desfazer</string>
+  <string name="redo">Refazer</string>
+  <string name="more">Mais</string>
+  <string name="notebook">Bloco de notas</string>
+  <string name="help">Ajuda</string>
+  <string name="todo_list">Lista de afazeres</string>
+  <string name="task">Tarefa</string>
+  <string name="category">Categoria</string>
+  <string name="context">Contexto</string>
+  <string name="list">Lista</string>
+  <string name="priority">Prioridade</string>
+  <string name="history">Histórico</string>
+  <string name="sync">Sincronizar</string>
+  <string name="save">Guardar</string>
+  <string name="update">Atualizar</string>
+  <string name="clear">Limpar</string>
+  <string name="current_date">Data atual</string>
+  <string name="archive">Arquivo</string>
+  <string name="add_task">Adicionar tarefa</string>
+  <string name="add_x_witharg">Adicionar %s</string>
+  <string name="settings_in_toolbar">Definições na barra de ferramentas</string>
+  <string name="refresh">Recarregar</string>
+  <string name="create_shortcut">Criar atalho</string>
+  <string name="files_and_folders">Ficheiros e pastas</string>
+  <string name="document_browser">Explorador de ficheiros</string>
   <!-- Not in use currently -->
+  <string name="create_note" needed="false">Criar nota</string>
+  <string name="special_documents" needed="false">Documentos especiais</string>
   <string name="app_settings" needed="false">Definições</string>
   <string name="editor_settings" needed="false">Definições do editor</string>
+  <string name="number_of_files_witharg" needed="false">Número de ficheiros: %d</string>
   <!-- New strings -->
+  <string name="app_wide">Global</string>
+  <string name="main_view">Vista principal</string>
+  <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
+  <string name="remember_last_directory">Memorizar último diretório</string>
+  <string name="syntax_highlighting">Destaque de sintaxe</string>
+  <string name="text_modules">Módulos de texto</string>
+  <string name="text_module">Módulo de texto</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
@@ -89,6 +137,39 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="other">Outro</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
+  <string name="line_spacing">Espaçamento entre linhas</string>
+  <string name="key_ctrl_a">Selecionar tudo (Ctrl+A)</string>
+  <string name="key_tab">Tabulação</string>
+  <string name="vertical_alignment">Alinhamento vertical</string>
+  <string name="horizontal_alignment">Alinhamento horizontal</string>
+  <string name="default_">Padrão</string>
+  <string name="left">Esquerda</string>
+  <string name="right">Direita</string>
+  <string name="top">Cima</string>
+  <string name="bottom">Baixo</string>
+  <string name="center">Centro</string>
+  <string name="clipboard">Área de transferência</string>
+  <string name="select_existing_document">Selecionar documento</string>
+  <string name="open_source_licenses">Licenças Open Source</string>
+  <string name="rate_this_app">Avaliar</string>
+  <string name="translate">Traduzir</string>
+  <string name="more_info_and_help">Mais informações/ajuda</string>
+  <string name="report_bugs">Reportar erros</string>
+  <string name="join_community">Participe na comunidade</string>
+  <string name="source_code">Código fonte</string>
+  <string name="project_license">Licença</string>
+  <string name="project_team">Equipa do projeto</string>
+  <string name="location">Localização</string>
+  <string name="text_lines">Linhas de texto</string>
+  <string name="text_characters">Caracteres de texto</string>
+  <string name="directory">Diretório</string>
+  <string name="recently_viewed_documents">Documentos recentes</string>
+  <string name="details">Detalhes</string>
+  <string name="calendar">Calendário</string>
   <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
+  <string name="description">Descrição</string>
+  <string name="edit_picture">Editar imagem</string>
+  <string name="math">Matemática</string>
+  <string name="table_of_contents">Índice</string>
   <string name="miscellaneous">Diversos</string>
 </resources>
