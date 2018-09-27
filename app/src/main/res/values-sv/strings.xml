@@ -193,7 +193,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info_and_help">Mer info och hjälp</string>
   <string name="report_bugs">Rapportera buggar</string>
   <string name="source_code">Källkod</string>
+  <string name="project_license">Projektets licens</string>
   <string name="location">Plats</string>
+  <string name="calendar">Kalender</string>
   <string name="description">Beskrivning</string>
+  <string name="math">Matematik</string>
+  <string name="table_of_contents">Innehållsförteckning</string>
   <string name="miscellaneous">Diverse</string>
 </resources>
