@@ -34,4 +34,9 @@ files:
         pt-BR: pt-rBR	# Portugese, Brazilian
         uk: uk		# Ukrainian
         ar: ar		# Arabic
+        fi: fi		# Finnish
+        af: af		# Afrikaans
+        iw: iw		# Hebrew
+        ro: ro		# Romanian
+        vi: vi		# Vietnamese
     translate_attributes: 0
