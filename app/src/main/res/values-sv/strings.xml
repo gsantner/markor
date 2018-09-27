@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Skapa mapp</string>
   <string name="create_new_document">Skapa nytt dokument</string>
   <string name="move">Flytta</string>
+  <string name="info">Info</string>
   <string name="import_from_device">Importera från enhet</string>
   <string name="import_">Importera</string>
   <string name="append_to_witharg">Lägg till %s</string>
@@ -70,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Infoga bild</string>
   <!-- About screen -->
   <string name="contributors">Bidragsgivare</string>
+  <string name="save_location">Spara plats</string>
   <string name="select_storage_folder">Välj lagringsmapp</string>
   <string name="notebook_directory">Mapp för anteckningar</string>
   <string name="licenses">Licenser</string>
@@ -151,6 +153,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
   <string name="text_actions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
   <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
+  <string name="format">Format</string>
   <string name="contexts">Kontexter</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekt</string>
@@ -169,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="use_different_fonttype_slow_down">Använd typsnitt med fast bredd för kod. Att ändra typsnitt dynamiskt påverkar appens prestanda.</string>
   <string name="general">Generella</string>
   <string name="resources">Resurser</string>
+  <string name="key_pos_1_document">Dokumentets början</string>
+  <string name="key_pos_end_document">Dokumentets slut</string>
   <string name="default_">Förvald</string>
   <string name="report_bugs">Rapportera buggar</string>
   <string name="location">Plats</string>
