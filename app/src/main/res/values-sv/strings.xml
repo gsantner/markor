@@ -195,7 +195,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="source_code">Källkod</string>
   <string name="project_license">Projektets licens</string>
   <string name="location">Plats</string>
+  <string name="text_lines">Textrader</string>
+  <string name="directory">Katalog</string>
+  <string name="details">Detaljer</string>
   <string name="calendar">Kalender</string>
+  <string name="gallery_picture">Galleribild</string>
+  <string name="camera_picture">Kamerabild</string>
   <string name="description">Beskrivning</string>
   <string name="math">Matematik</string>
   <string name="table_of_contents">Innehållsförteckning</string>
