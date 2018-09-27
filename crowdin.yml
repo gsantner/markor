@@ -36,7 +36,7 @@ files:
         ar: ar		# Arabic
         fi: fi		# Finnish
         af: af		# Afrikaans
-        iw: iw		# Hebrew
+        he: iw		# Hebrew
         ro: ro		# Romanian
         vi: vi		# Vietnamese
     translate_attributes: 0
