@@ -235,6 +235,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
   <string name="gallery_picture">Imagen de la galería</string>
   <string name="camera_picture">Imagen de la cámara</string>
+  <string name="enable_undo_and_redo_be_patient">Habilitar deshacer y rehacer acciones. Sólo adecuado para uso avanzado, sea paciente para no borrar algo importante. Cierre y abra el editor para borrar historial.</string>
   <string name="description">Descripción</string>
+  <string name="edit_picture">Editar imagen</string>
+  <string name="math">Matemáticas</string>
+  <string name="table_of_contents">Tabla de contenidos</string>
   <string name="miscellaneous">Diverso</string>
+  <string name="text_action">Acción de texto</string>
+  <string name="text_actions">Acciones de texto</string>
 </resources>
