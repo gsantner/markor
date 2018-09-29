@@ -48,6 +48,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //########################
     public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
     public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
+    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
 
     //########################
     //## Members
@@ -173,7 +174,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                             loadFolder(file);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsSelected(_dopt.requestId, file);
-                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS)) {
+                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
                             loadFolder(file);
                         }
                     }
@@ -189,7 +190,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
-                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR))) {
+                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR) || _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE))) {
                     _dopt.listener.onFsSelected(_dopt.requestId, _currentFolder);
                 }
                 return;
@@ -298,6 +299,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
                 _adapterData.add(VIRTUAL_STORAGE_POPULAR);
             }
+            File appDataFolder = _context.getFilesDir();
+            if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
+                _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
+                _adapterData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
+            }
         }
 
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
@@ -311,7 +317,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         }
                     }
                     if (c < 3) {
-                        File remap = new File(file.getAbsolutePath() + " (app files)");
+                        File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
                         _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
                         _adapterData.add(remap);
                     }
