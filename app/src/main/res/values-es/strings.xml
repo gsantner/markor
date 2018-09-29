@@ -62,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create">Crear</string>
   <string name="select_entries">Seleccionar entradas</string>
   <string name="one_item_selected">Un elemento seleccionado</string>
+  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
   <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
   <string name="hide_statusbar">Ocultar la barra de estado</string>
   <string name="name">Nombre</string>
@@ -70,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Insertar imagen</string>
   <!-- About screen -->
   <string name="contributors">Contribuidores</string>
+  <string name="save_location">Guardar ubicación</string>
   <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
   <string name="notebook_directory">Carpeta de bloc de notas</string>
   <string name="licenses">Licencias</string>
@@ -227,7 +229,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_characters">Caracteres</string>
   <string name="directory">Directorio</string>
   <string name="recently_viewed_documents">Documentos vistos recientemente</string>
+  <string name="details">Detalles</string>
+  <string name="calendar">Calendario</string>
+  <string name="warning_disallowed_sd_access">¡Advertencia! La aplicación no tiene permiso para guardar este archivo, se perderán todos los cambios. No hay posibilidad de resolver el problema o de confirmar algo, Android niega cualquier acceso aquí.</string>
   <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
+  <string name="gallery_picture">Imagen de la galería</string>
+  <string name="camera_picture">Imagen de la cámara</string>
+  <string name="enable_undo_and_redo_be_patient">Habilitar deshacer y rehacer acciones. Sólo adecuado para uso avanzado, sea paciente para no borrar algo importante. Cierre y abra el editor para borrar historial.</string>
   <string name="description">Descripción</string>
+  <string name="edit_picture">Editar imagen</string>
+  <string name="math">Matemáticas</string>
+  <string name="table_of_contents">Tabla de contenidos</string>
   <string name="miscellaneous">Diverso</string>
+  <string name="text_action">Acción de texto</string>
+  <string name="text_actions">Acciones de texto</string>
 </resources>
