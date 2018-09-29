@@ -134,6 +134,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">{}, [] и () будуть оточувати виділений текст</string>
   <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
   <!-- New strings -->
+  <string name="app_wide">Загальні</string>
+  <string name="main_view">Головний екран</string>
+  <string name="remember_last_directory">Пам\'ятати останню директорію</string>
+  <string name="syntax_highlighting">Підсвічування синтаксису</string>
+  <string name="text_modules">Текстові модулі</string>
+  <string name="text_module">Текстовий модуль</string>
+  <string name="highlighting_delay">Затримка підсвічування</string>
+  <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та завантаженість системи.</string>
+  <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
+  <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
   <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту папку після запуску</string>
   <string name="format">Форматування</string>
   <string name="contexts">Контексти</string>
@@ -144,6 +154,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="other">Інше</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
   <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
+  <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
+  <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
   <string name="general">Загальне</string>
   <string name="line_spacing">Міжрядковий інтервал</string>
   <string name="default_">За замовчуванням</string>
