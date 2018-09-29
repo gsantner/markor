@@ -158,6 +158,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="other">Інше</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
   <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
+  <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
+  <string name="append_contexts_and_projects">Додати контексти та проекти</string>
+  <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проекти в кінець задачі з використанням відповідної команди тексту</string>
+  <string name="rtl_rendering">Відображення зправа-наліво</string>
   <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
   <string name="use_monospace_for_code">Використовувати моноширинний шрифт для коду</string>
@@ -178,6 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_tab">Табуляція</string>
   <string name="start_on_bottom">Починати внизу</string>
   <string name="start_on_bottom_when_loading_document">Після завандаження документа встановити курсор в кінець</string>
+  <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
   <string name="vertical_alignment">Вертикальне вирівнювання</string>
   <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
   <string name="default_">За замовчуванням</string>
@@ -196,6 +201,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">Перекласти</string>
   <string name="more_info_and_help">Додаткова інформація та допомога</string>
   <string name="report_bugs">Повідомити про помилку</string>
+  <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проекту. Запрошуются всі охочі, разом із новачками</string>
   <string name="project_team">Команда проекту</string>
   <string name="disable_spelling_underline">Вимкнути перевірку орфографії</string>
   <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Пропозиції клавіатури залишаться, червоне підкреслення зникне</string>
