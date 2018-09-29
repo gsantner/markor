@@ -224,6 +224,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="recently_viewed_documents">Нещодавні документи</string>
   <string name="details">Деталі</string>
   <string name="calendar">Календар</string>
+  <string name="warning_disallowed_sd_access">Увага! Додаток не має дозволу зберегти цей файл, всі зміни будуть втрачені. Вирішити цю проблему або підтвердити будь-що неможливо, Android скасовує доступ повністю.</string>
   <string name="error_picture_selection">Зображення не вибрано.</string>
   <string name="gallery_picture">Зображення з галереї</string>
   <string name="camera_picture">Зображення з камери</string>
