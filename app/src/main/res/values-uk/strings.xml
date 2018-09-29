@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Створити директорію</string>
   <string name="create_new_document">Створити документ</string>
   <string name="move">Перемістити</string>
+  <string name="info">Інформація</string>
   <string name="import_from_device">Імпортувати з пристрою</string>
   <string name="import_">Імпортувати</string>
   <string name="append_to_witharg">Додати до %s</string>
@@ -37,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Надіслати</string>
   <string name="search">Пошук</string>
   <string name="preview">Попередній перегляд</string>
+  <string name="editor">Редактор</string>
   <string name="folders">Директорії</string>
   <string name="files">Файли</string>
   <string name="document">Документ</string>
