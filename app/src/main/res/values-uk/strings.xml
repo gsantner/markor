@@ -21,6 +21,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="do_you_really_want_to_delete_this_witharg">Дійсно вилучити %s?</string>
   <string name="confirm_overwrite">Підтвердіть перезапис</string>
   <string name="file_already_exists_overwerite">Файл вже існує, перезаписати?</string>
+  <string name="browse_filesystem">Перегляд файлів</string>
   <string name="title">Заголовок</string>
   <string name="empty_directory">Поточна директорія порожня</string>
   <string name="enter_name_of_folder">Введіть ім’я директорії</string>
@@ -119,6 +120,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="settings_in_toolbar">Налаштування на панелі інструментів</string>
   <string name="show_settings_option_in_main_view">Показувати пункт налаштувань на верхній панелі інструментів на головному екрані</string>
   <string name="refresh">Оновити</string>
+  <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл не знаходиться в директорії Записника. Бажаєте копіювати файл в поточну директорію? Ця дія перезапише існуючі файли.</string>
+  <string name="files_and_folders">Файли та директорії</string>
+  <string name="document_browser">Перегляд документів</string>
   <!-- Not in use currently -->
   <string name="create_note" needed="false">Створити нотатку</string>
   <string name="special_documents" needed="false">Особливі документи</string>
@@ -182,8 +186,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Вгорі</string>
   <string name="bottom">Знизу</string>
   <string name="center">У центрі</string>
+  <string name="text_action_spacing">Проміжки між командами</string>
+  <string name="horizontal_spacing_of_actions">Горизонтальні проміжки між кнопками команд</string>
+  <string name="center_text">Центрувати текст</string>
+  <string name="clipboard">Буфер обміну</string>
+  <string name="select_existing_document">Обрати наявний документ</string>
+  <string name="open_source_licenses">Ліцензії з відкритим кодом</string>
+  <string name="rate_this_app">Оцініть додаток</string>
   <string name="translate">Перекласти</string>
+  <string name="more_info_and_help">Додаткова інформація та допомога</string>
   <string name="report_bugs">Повідомити про помилку</string>
+  <string name="project_team">Команда проекту</string>
+  <string name="disable_spelling_underline">Вимкнути перевірку орфографії</string>
+  <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Пропозиції клавіатури залишаться, червоне підкреслення зникне</string>
   <string name="location">Розташування</string>
   <string name="description">Опис</string>
   <string name="miscellaneous">Різне</string>
