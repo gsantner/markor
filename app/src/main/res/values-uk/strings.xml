@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Автори</string>
   <string name="save_location">Розташування сховища</string>
   <string name="select_storage_folder">Обрати робочу директорію</string>
+  <string name="notebook_directory">Директорія Записника</string>
   <string name="licenses">Ліцензії</string>
   <string name="changelog">Перелік змін</string>
   <string name="more_info">Детальніше</string>
@@ -104,6 +105,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Пріоритет</string>
   <string name="history">Історія</string>
   <string name="sync">Синхронізувати</string>
+  <string name="add_x_or_browse_existing_ones_witharg">Додати %s чи переглянути наявні</string>
+  <string name="serach_or_custom">Пошук / Розширений</string>
   <string name="save">Зберегти</string>
   <string name="update">Оновити</string>
   <string name="clear">Очистити</string>
@@ -111,7 +114,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="current_date">Поточна дата</string>
   <string name="archive">Архів</string>
   <string name="add_task">Додати завдання</string>
+  <string name="add_x_witharg">Додати %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Документ, що буде використаний як \"%s\"</string>
+  <string name="settings_in_toolbar">Налаштування на панелі інструментів</string>
+  <string name="show_settings_option_in_main_view">Показувати пункт налаштувань на верхній панелі інструментів на головному екрані</string>
+  <string name="refresh">Оновити</string>
   <!-- Not in use currently -->
   <string name="create_note" needed="false">Створити нотатку</string>
   <string name="special_documents" needed="false">Особливі документи</string>
@@ -127,8 +134,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">{}, [] и () будуть оточувати виділений текст</string>
   <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
   <!-- New strings -->
+  <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту папку після запуску</string>
+  <string name="format">Форматування</string>
+  <string name="contexts">Контексти</string>
+  <string name="project">Проект</string>
+  <string name="projects">Проекти</string>
+  <string name="categories">Категорії</string>
   <string name="none">Немає</string>
   <string name="other">Інше</string>
+  <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
+  <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
   <string name="general">Загальне</string>
   <string name="line_spacing">Міжрядковий інтервал</string>
   <string name="default_">За замовчуванням</string>
