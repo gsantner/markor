@@ -70,6 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Вставити зображення</string>
   <!-- About screen -->
   <string name="contributors">Автори</string>
+  <string name="save_location">Розташування сховища</string>
   <string name="select_storage_folder">Обрати робочу директорію</string>
   <string name="licenses">Ліцензії</string>
   <string name="changelog">Перелік змін</string>
@@ -127,7 +128,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
   <!-- New strings -->
   <string name="none">Немає</string>
+  <string name="other">Інше</string>
   <string name="general">Загальне</string>
+  <string name="line_spacing">Міжрядковий інтервал</string>
   <string name="default_">За замовчуванням</string>
   <string name="translate">Перекласти</string>
   <string name="report_bugs">Повідомити про помилку</string>
