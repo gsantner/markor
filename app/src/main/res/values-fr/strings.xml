@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partager avec…</string>
   <string name="share">Partager</string>
   <string name="search">Recherche</string>
+  <string name="representation">Représentation</string>
   <string name="editor">Éditeur</string>
   <string name="folders">Dossiers</string>
   <string name="files">Fichiers</string>
