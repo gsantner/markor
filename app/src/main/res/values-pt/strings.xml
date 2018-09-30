@@ -109,6 +109,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
   <string name="add_x_witharg">Adicionar %s</string>
+  <string name="document_to_be_loaded_and_saved_as_witharg">Documento para ser carregado e guardado como \"%s\"</string>
   <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
@@ -132,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="none">Nenhum</string>
   <string name="other">Outro</string>
   <string name="alternative_naming">Nomes alternativos</string>
+  <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
   <string name="line_spacing">Espaçamento entre linhas</string>
@@ -146,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">Baixo</string>
   <string name="center">Centro</string>
   <string name="center_text">Centrar texto</string>
+  <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
   <string name="clipboard">Área de transferência</string>
   <string name="select_existing_document">Selecionar documento</string>
   <string name="open_source_licenses">Licenças Open Source</string>
@@ -156,6 +159,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="join_community">Participe na comunidade</string>
   <string name="source_code">Código fonte</string>
   <string name="project_license">Licença</string>
+  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
   <string name="project_team">Equipa do projeto</string>
   <string name="location">Localização</string>
   <string name="text_lines">Linhas de texto</string>
@@ -165,6 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="details">Detalhes</string>
   <string name="calendar">Calendário</string>
   <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
+  <string name="gallery_picture">Imagem da galeria</string>
+  <string name="camera_picture">Imagem da câmara</string>
   <string name="description">Descrição</string>
   <string name="edit_picture">Editar imagem</string>
   <string name="math">Matemática</string>
