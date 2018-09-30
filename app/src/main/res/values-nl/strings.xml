@@ -115,7 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">App Instellingen</string>
   <string name="editor_settings" needed="false">Bewerker instellingen</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Herinner laatste map bij opstarten</string>
-    <string name="number_of_files_witharg" needed="false">Aantal bestanden: %d</string>
+  <string name="number_of_files_witharg" needed="false">Aantal bestanden: %d</string>
   <!-- New strings -->
   <string name="app_wide">Algemeen</string>
   <string name="main_view">Hoofdweergave</string>
