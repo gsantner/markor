@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partilhar com&#8230;</string>
   <string name="share">Partilhar</string>
   <string name="search">Pesquisar</string>
+  <string name="representation">Representação</string>
   <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Ficheiros</string>
@@ -130,6 +131,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Categorias</string>
   <string name="none">Nenhum</string>
   <string name="other">Outro</string>
+  <string name="alternative_naming">Nomes alternativos</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
   <string name="line_spacing">Espaçamento entre linhas</string>
@@ -143,6 +145,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Cima</string>
   <string name="bottom">Baixo</string>
   <string name="center">Centro</string>
+  <string name="center_text">Centrar texto</string>
   <string name="clipboard">Área de transferência</string>
   <string name="select_existing_document">Selecionar documento</string>
   <string name="open_source_licenses">Licenças Open Source</string>
