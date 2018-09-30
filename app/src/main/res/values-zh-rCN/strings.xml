@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">贡献者</string>
   <string name="save_location">保存位置</string>
   <string name="select_storage_folder">从系统选择目录</string>
-  <string name="notebook_directory">记事本目录</string>
   <string name="licenses">开源协议</string>
   <string name="changelog">更新日志</string>
   <string name="more_info">更多信息</string>
@@ -117,8 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">添加任务</string>
   <string name="add_x_witharg">添加了 %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">该文件将被保存为 \"%s\"</string>
-  <string name="settings_in_toolbar">工具栏中的设置</string>
-  <string name="show_settings_option_in_main_view">在主屏幕顶端的工具栏中显示设置按钮</string>
   <string name="refresh">刷新</string>
   <string name="create_shortcut">在桌面上创建快捷方式</string>
   <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加编辑此文件的图标。部分启动器可能不支持此操作。</string>
@@ -132,11 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">应用设置</string>
   <string name="editor_settings" needed="false">编辑器设置</string>
   <string name="remember_last_folder_location_on_startup" needed="false">记住上次退出的位置</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">显示 Markdown 快捷键</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Markdown 语法高亮</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">语法高亮自动刷新间隔时间（毫秒）</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">设得越高越省电</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">{}、[]、() 将会自动加到所选文字上</string>
   <string name="number_of_files_witharg" needed="false">文件数量：%d</string>
   <!-- New strings -->
   <string name="app_wide">全局</string>
@@ -144,8 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
   <string name="remember_last_directory">记住上次使用的目录</string>
   <string name="syntax_highlighting">语法高亮</string>
-  <string name="text_modules">文本工具栏</string>
-  <string name="text_module">文本工具</string>
   <string name="highlighting_delay">语法高亮延时</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Markdown 语法高亮自动刷新渲染时的时间间隔。较低的刷新间隔可以让渲染的更新频率加快，但也会使用更多电量，并可能影响应用性能。（单位：毫秒）</string>
   <string name="highlighting_enabled_or_not__appspecific">控制输入的文本是否应显示语法高亮</string>
