@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="one_item_selected">Um item selecionado</string>
   <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
   <string name="hide_statusbar_at_this_view">Ocultar barra de estado nesta vista</string>
-  <string name="hide_statusbar">Ocultar a barra de estado</string>
+  <string name="hide_statusbar">Ocultar barra de estado</string>
   <string name="name">Nome</string>
   <string name="url_or_path">URL/Caminho</string>
   <string name="insert_link">Inserir ligação</string>
@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
   <string name="add_x_witharg">Adicionar %s</string>
-    <string name="refresh">Recarregar</string>
+  <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
@@ -126,7 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
-    <string name="contexts">Contextos</string>
+  <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
   <string name="categories">Categorias</string>
