@@ -36,7 +36,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Bḍu s…</string>
   <string name="share">Bḍu</string>
   <string name="search">Nadi</string>
-  <string name="preview">Taskant</string>
   <string name="editor">Amaẓrag</string>
   <string name="folders">Ikaramen</string>
   <string name="files">Ifuyla</string>
@@ -46,7 +45,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tasefsit n umaẓrag</string>
   <string name="theme">Asentel</string>
-  <string name="open_preview_when_opening_documents">Ldi tizmilin di teskant</string>
   <string name="about">Ɣef</string>
   <string name="plaintext">Aḍris arewway</string>
   <string name="file">Afaylu</string>
