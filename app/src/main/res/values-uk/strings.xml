@@ -137,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та завантаженість системи.</string>
   <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
   <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для команд тексту, що змінюють текст або виконують відповідну йому дію.</string>
   <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту папку після запуску</string>
   <string name="format">Форматування</string>
   <string name="contexts">Контексти</string>
@@ -154,7 +153,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
   <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
   <string name="append_contexts_and_projects">Додати контексти та проекти</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проекти в кінець задачі з використанням відповідної команди тексту</string>
   <string name="rtl_rendering">Відображення зправа-наліво</string>
   <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
@@ -187,8 +185,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Вгорі</string>
   <string name="bottom">Знизу</string>
   <string name="center">У центрі</string>
-  <string name="text_action_spacing">Проміжки між командами</string>
-  <string name="horizontal_spacing_of_actions">Горизонтальні проміжки між кнопками команд</string>
   <string name="center_text">Центрувати текст</string>
   <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
   <string name="clipboard">Буфер обміну</string>
@@ -228,6 +224,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Формули</string>
   <string name="table_of_contents">Зміст</string>
   <string name="miscellaneous">Різне</string>
-  <string name="text_action">Команда тексту</string>
-  <string name="text_actions">Команди тексту</string>
 </resources>
