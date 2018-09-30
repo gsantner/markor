@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Dela till&#8230;</string>
   <string name="share">Dela</string>
   <string name="search">Söc</string>
-  <string name="preview">Förhandsgranska</string>
   <string name="editor">Redigerare</string>
   <string name="folders">Mappar</string>
   <string name="files">Filer</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Redigerartypsnitt</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Öppna dokument i granskningsläge</string>
   <string name="about">Om</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Fil</string>
@@ -105,7 +103,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioritet</string>
   <string name="history">Historik</string>
   <string name="sync">Synka</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Lägg till %s eller bläddra bland befintliga</string>
   <string name="serach_or_custom">Sök / Lägg till</string>
   <string name="save">Spara</string>
   <string name="update">Uppdatera</string>
