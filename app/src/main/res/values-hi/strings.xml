@@ -36,7 +36,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">साझा करें &#8230;</string>
   <string name="share">बांटे</string>
   <string name="search">खोजें</string>
-    <string name="editor">संपादक</string>
+  <string name="editor">संपादक</string>
   <string name="folders">फ़ोल्डर</string>
   <string name="files">फ़ाइलें</string>
   <string name="document">दस्तावेज़</string>
@@ -45,7 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">नोट संपादक फ़ॉन्ट</string>
   <string name="theme">बनावट</string>
-    <string name="about">जानकारी</string>
+  <string name="about">जानकारी</string>
   <string name="plaintext">सादा टेक्स्ट</string>
   <string name="file">फ़ाइल</string>
   <string name="image">छवि</string>
@@ -115,7 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">एप्लिकेशन सेटिंग</string>
   <string name="editor_settings" needed="false">संपादक सेटिंग्स</string>
   <string name="remember_last_folder_location_on_startup" needed="false">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
-    <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
+  <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
   <!-- New strings -->
   <string name="none">कुछ नहीं</string>
   <string name="other">अन्य</string>

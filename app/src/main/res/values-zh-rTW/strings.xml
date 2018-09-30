@@ -37,7 +37,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享到…</string>
   <string name="share">分享</string>
   <string name="search">搜尋</string>
-    <string name="editor">編輯器</string>
+  <string name="editor">編輯器</string>
   <string name="folders">資料夾</string>
   <string name="files">檔案</string>
   <string name="document">文件</string>
@@ -46,7 +46,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">文件編輯字型</string>
   <string name="theme">主題</string>
-    <string name="about">說明</string>
+  <string name="about">說明</string>
   <string name="plaintext">純文字文件</string>
   <string name="file">檔案</string>
   <string name="image">圖像</string>
@@ -69,7 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- About screen -->
   <string name="contributors">貢獻人</string>
   <string name="select_storage_folder">選擇儲存資料夾</string>
-    <string name="licenses">許可證</string>
+  <string name="licenses">許可證</string>
   <string name="changelog">更新紀錄</string>
   <string name="more_info">更多資訊</string>
   <string name="show_license_of_the_app">顯示這個App的許可證</string>
@@ -101,7 +101,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">優先</string>
   <string name="history">歷史</string>
   <string name="sync">同步</string>
-    <string name="serach_or_custom">搜尋/自訂</string>
+  <string name="serach_or_custom">搜尋/自訂</string>
   <string name="save">儲存</string>
   <string name="update">升級</string>
   <string name="clear">清除</string>
@@ -111,7 +111,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">新增工作</string>
   <string name="add_x_witharg">新增 %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">這個文件將被輸出並儲存為 \'%s\'</string>
-    <string name="refresh">更新</string>
+  <string name="refresh">更新</string>
   <string name="create_shortcut">建立捷徑</string>
   <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有檔案。</string>
@@ -124,14 +124,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">程式設定</string>
   <string name="editor_settings" needed="false">編輯器設定</string>
   <string name="remember_last_folder_location_on_startup" needed="false">啟動時記住最近使用的資料夾位置</string>
-    <string name="number_of_files_witharg" needed="false">檔案數：%d</string>
+  <string name="number_of_files_witharg" needed="false">檔案數：%d</string>
   <!-- New strings -->
   <string name="app_wide">全域</string>
   <string name="main_view">主頁</string>
   <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
   <string name="remember_last_directory">記住最近使用的目錄</string>
   <string name="syntax_highlighting">同步標記</string>
-    <string name="highlighting_delay">標記延遲</string>
+  <string name="highlighting_delay">標記延遲</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
   <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
   <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>

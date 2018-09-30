@@ -38,7 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partilhar com&#8230;</string>
   <string name="share">Partilhar</string>
   <string name="search">Pesquisar</string>
-    <string name="editor">Editor</string>
+  <string name="representation">Representação</string>
+  <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Ficheiros</string>
   <string name="document">Documento</string>
@@ -47,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra do editor</string>
   <string name="theme">Tema</string>
-    <string name="about">Acerca</string>
+  <string name="about">Acerca</string>
   <string name="plaintext">Texto simples</string>
   <string name="file">Ficheiro</string>
   <string name="image">Imagem</string>
@@ -61,7 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="one_item_selected">Um item selecionado</string>
   <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
   <string name="hide_statusbar_at_this_view">Ocultar barra de estado nesta vista</string>
-  <string name="hide_statusbar">Ocultar a barra de estado</string>
+  <string name="hide_statusbar">Ocultar barra de estado</string>
   <string name="name">Nome</string>
   <string name="url_or_path">URL/Caminho</string>
   <string name="insert_link">Inserir ligação</string>
@@ -108,7 +109,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
   <string name="add_x_witharg">Adicionar %s</string>
-    <string name="refresh">Recarregar</string>
+  <string name="document_to_be_loaded_and_saved_as_witharg">Documento para ser carregado e guardado como \"%s\"</string>
+  <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
@@ -124,12 +126,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
-    <string name="contexts">Contextos</string>
+  <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
   <string name="categories">Categorias</string>
   <string name="none">Nenhum</string>
   <string name="other">Outro</string>
+  <string name="alternative_naming">Nomes alternativos</string>
+  <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
   <string name="line_spacing">Espaçamento entre linhas</string>
@@ -143,6 +147,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Cima</string>
   <string name="bottom">Baixo</string>
   <string name="center">Centro</string>
+  <string name="center_text">Centrar texto</string>
+  <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
   <string name="clipboard">Área de transferência</string>
   <string name="select_existing_document">Selecionar documento</string>
   <string name="open_source_licenses">Licenças Open Source</string>
@@ -153,6 +159,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="join_community">Participe na comunidade</string>
   <string name="source_code">Código fonte</string>
   <string name="project_license">Licença</string>
+  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
   <string name="project_team">Equipa do projeto</string>
   <string name="location">Localização</string>
   <string name="text_lines">Linhas de texto</string>
@@ -162,6 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="details">Detalhes</string>
   <string name="calendar">Calendário</string>
   <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
+  <string name="gallery_picture">Imagem da galeria</string>
+  <string name="camera_picture">Imagem da câmara</string>
   <string name="description">Descrição</string>
   <string name="edit_picture">Editar imagem</string>
   <string name="math">Matemática</string>

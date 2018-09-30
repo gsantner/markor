@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Condividi con…</string>
   <string name="share">Condividi</string>
   <string name="search">Cerca</string>
-    <string name="editor">Modifica</string>
+  <string name="editor">Modifica</string>
   <string name="folders">Cartelle</string>
   <string name="files">File</string>
   <string name="document">Documento</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo di carattere per l\'editor dei documenti</string>
   <string name="theme">Tema</string>
-    <string name="about">Informazioni</string>
+  <string name="about">Informazioni</string>
   <string name="plaintext">Testo semplice</string>
   <string name="file">File</string>
   <string name="image">Immagine</string>
@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Collaboratori</string>
   <string name="save_location">Salva posizione</string>
   <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
-    <string name="licenses">Licenze</string>
+  <string name="licenses">Licenze</string>
   <string name="changelog">Log delle modifiche</string>
   <string name="more_info">Informazioni aggiuntive</string>
   <string name="show_license_of_the_app">Mostra la licenza dell\'applicazione</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorità</string>
   <string name="history">Cronologia</string>
   <string name="sync">Sincronizzazione</string>
-    <string name="serach_or_custom">Cerca / Personalizza</string>
+  <string name="serach_or_custom">Cerca / Personalizza</string>
   <string name="save">Salva</string>
   <string name="update">Aggiorna</string>
   <string name="clear">Pulisci</string>
@@ -113,7 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Aggiungi avvità</string>
   <string name="add_x_witharg">Aggiungi %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Documento da caricare e salvare come \"%s\"</string>
-    <string name="refresh">Ricarica</string>
+  <string name="refresh">Ricarica</string>
   <string name="create_shortcut">Crea scorciatoia</string>
   <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del blocco dei documenti. Copiare tale file nella cartella attuale? Tale azione sovrascriverà eventuali file esistenti.</string>
@@ -126,14 +126,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Impostazioni dell\'applicazione</string>
   <string name="editor_settings" needed="false">Impostazioni dell\'editor</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Ricorda l\'ultima cartella visitata all\'avvio</string>
-    <string name="number_of_files_witharg" needed="false">Numero di file: %d</string>
+  <string name="number_of_files_witharg" needed="false">Numero di file: %d</string>
   <!-- New strings -->
   <string name="app_wide">Globale</string>
   <string name="main_view">Visualizzazione principale</string>
   <string name="overall_theme_used_in_app">Tema complessivo usato nell\'applicazione</string>
   <string name="remember_last_directory">Ricorda l\'ultima cartella</string>
   <string name="syntax_highlighting">Evidenziazione sintassi</string>
-    <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
+  <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzionerà prima, ma consumerà più batteria e diminuirà le prestazioni.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
   <string name="control_font_size_in_editor">Controlla la grandezza del tipo di carattere usato nell\'editor</string>
@@ -146,6 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Categorie</string>
   <string name="none">Nessuno</string>
   <string name="other">Altro</string>
+  <string name="alternative_naming">Nomi alternativi</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
   <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esadecimale</string>
   <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>

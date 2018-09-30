@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">共有&#8230;</string>
   <string name="share">共有</string>
   <string name="search">検索</string>
-    <string name="editor">エディター</string>
+  <string name="editor">エディター</string>
   <string name="folders">フォルダー</string>
   <string name="files">ファイル</string>
   <string name="document">ドキュメント</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">ドキュメントエディターフォント</string>
   <string name="theme">テーマ</string>
-    <string name="about">情報</string>
+  <string name="about">情報</string>
   <string name="plaintext">プレーンテキスト</string>
   <string name="file">ファイル</string>
   <string name="image">画像</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">優先度</string>
   <string name="history">履歴</string>
   <string name="sync">同期</string>
-    <string name="serach_or_custom">検索 / カスタム</string>
+  <string name="serach_or_custom">検索 / カスタム</string>
   <string name="save">保存</string>
   <string name="update">更新</string>
   <string name="clear">クリア</string>

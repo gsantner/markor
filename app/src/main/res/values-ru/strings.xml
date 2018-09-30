@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Поделиться с…</string>
   <string name="share">Поделиться</string>
   <string name="search">Поиск</string>
-    <string name="editor">Редактор</string>
+  <string name="editor">Редактор</string>
   <string name="folders">Папки</string>
   <string name="files">Файлы</string>
   <string name="document">Документ</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Шрифт редактора заметок</string>
   <string name="theme">Тема</string>
-    <string name="about">О программе</string>
+  <string name="about">О программе</string>
   <string name="plaintext">Простой текст</string>
   <string name="file">Файл</string>
   <string name="image">Изображение</string>
@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Поддержавшие проект</string>
   <string name="save_location">Сохранить местоположение</string>
   <string name="select_storage_folder">Выбрать папку для хранения</string>
-    <string name="licenses">Лицензии</string>
+  <string name="licenses">Лицензии</string>
   <string name="changelog">Список изменений</string>
   <string name="more_info">Больше информации</string>
   <string name="show_license_of_the_app">Показать лицензию приложения</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Приоритет</string>
   <string name="history">История</string>
   <string name="sync">Синхронизация</string>
-    <string name="serach_or_custom">Поиск / Настраиваемый</string>
+  <string name="serach_or_custom">Поиск / Настраиваемый</string>
   <string name="save">Сохранить</string>
   <string name="update">Обновить</string>
   <string name="clear">Очистить</string>
@@ -113,7 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Добавить задачу</string>
   <string name="add_x_witharg">Добавить %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Документ будет загружен и сохранён как \"%s\"</string>
-    <string name="refresh">Обновить</string>
+  <string name="refresh">Обновить</string>
   <string name="create_shortcut">Создать ярлык</string>
   <string name="tried_to_create_shortcut_for_this_notice">Попытались добавить ярлык на домашний экран для редактирования этого документа. Примечание: некоторые лаунчеры могут не поддерживать это.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл не находится в директории приложения. Хотите скопировать его в текущую папку? Это перезапишет существующие файлы.</string>
@@ -126,14 +126,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Настройки приложения</string>
   <string name="editor_settings" needed="false">Настройки редактора</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Запоминать последнюю открытую папку</string>
-    <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
+  <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
   <!-- New strings -->
   <string name="app_wide">Общее</string>
   <string name="main_view">Главный экран</string>
   <string name="overall_theme_used_in_app">Тема, используемая в приложении</string>
   <string name="remember_last_directory">Запомнить последнюю директорию</string>
   <string name="syntax_highlighting">Подсветка синтаксиса</string>
-    <string name="highlighting_delay">Задержка подсветки</string>
+  <string name="highlighting_delay">Задержка подсветки</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и снижает производительность.</string>
   <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
   <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
@@ -146,6 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Категории</string>
   <string name="none">Нет</string>
   <string name="other">Другое</string>
+  <string name="alternative_naming">Альтернативное именование</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
   <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
   <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
