@@ -147,8 +147,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Projet</string>
   <string name="projects">Projets</string>
   <string name="categories">Catégories</string>
+  <string name="tags">Mots clés</string>
   <string name="none">Aucune</string>
   <string name="other">Autre</string>
+  <string name="alternative_naming">Noms alternatifs</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Surligne les codes couleurs hexadécimaux de la couleur correspondante</string>
   <string name="underline_hex_color_codes">Surligner les codes couleurs</string>
   <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
