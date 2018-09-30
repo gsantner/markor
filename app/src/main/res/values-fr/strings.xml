@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Contributeurs</string>
   <string name="save_location">Sauvegarde du lieu</string>
   <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
-  <string name="notebook_directory">Dossier du bloc note</string>
   <string name="licenses">Licences</string>
   <string name="changelog">Nouveautés de l\'application</string>
   <string name="more_info">Plus d\'informations</string>
@@ -117,8 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Ajouter une tâche</string>
   <string name="add_x_witharg">Ajouter %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Le document à charger et à enregistrer comme \"%s\"</string>
-  <string name="settings_in_toolbar">Afficher les paramètres dans la barre d\'outils</string>
-  <string name="show_settings_option_in_main_view">Montrer les options de paramétrage dans la barre d\'outils en haut de l\'écran principal</string>
   <string name="refresh">Rafraîchir</string>
   <string name="create_shortcut">Créer un raccourci</string>
   <string name="tried_to_create_shortcut_for_this_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
@@ -132,12 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Réglages</string>
   <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Retenir le dernier dossier au redémarrage</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Afficher la barre de raccourcis Markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Coloration syntaxique Markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Délais en millisecondes pour le rafraîchissement de la coloration syntaxique</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Les valeurs élevées sollicitent moins la batterie</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Raccourci pour crochets intelligents</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Si le texte est sélectionné, {}, [] et () encadreront la selection</string>
   <string name="number_of_files_witharg" needed="false">Nombre de fichiers : %d</string>
   <!-- New strings -->
   <string name="app_wide">Général</string>
@@ -145,8 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">Le thème principal utilisé par l\'application</string>
   <string name="remember_last_directory">Se souvenir du dossier courant</string>
   <string name="syntax_highlighting">Coloration syntaxique</string>
-  <string name="text_modules">Outils de mise en forme</string>
-  <string name="text_module">Mise en forme du texte</string>
   <string name="highlighting_delay">Délai de rafraîchissement</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
   <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
