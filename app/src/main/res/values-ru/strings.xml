@@ -143,8 +143,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Проект</string>
   <string name="projects">Проекты</string>
   <string name="categories">Категории</string>
-  <string name="tag">Метка</string>
-  <string name="tags">Метки</string>
   <string name="none">Нет</string>
   <string name="other">Другое</string>
   <string name="alternative_naming">Альтернативное именование</string>
