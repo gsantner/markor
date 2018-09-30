@@ -70,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Beitragende</string>
   <string name="save_location">Speicherort</string>
   <string name="select_storage_folder">Speicherort auswählen</string>
-    <string name="licenses">Lizenzen</string>
+  <string name="licenses">Lizenzen</string>
   <string name="changelog">Änderungen</string>
   <string name="more_info">Mehr Informationen</string>
   <string name="show_license_of_the_app">Lizenzen der App anzeigen</string>
@@ -113,7 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Aufgabe hinzufügen</string>
   <string name="add_x_witharg">%s hinzufügen</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Jenes Dokument, welches als \"%s\" geladen und gespeichert wird</string>
-    <string name="refresh">Aktualisieren</string>
+  <string name="refresh">Aktualisieren</string>
   <string name="create_shortcut">Verknüpfung erstellen</string>
   <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
@@ -126,14 +126,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">App Einstellungen</string>
   <string name="editor_settings" needed="false">Editor Einstellungen</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Letzten Ordner merken</string>
-    <string name="number_of_files_witharg" needed="false">Anzahl der Dateien: %d</string>
+  <string name="number_of_files_witharg" needed="false">Anzahl der Dateien: %d</string>
   <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Hauptansicht</string>
   <string name="overall_theme_used_in_app">Das global in dieser App verwendete Thema ändern</string>
   <string name="remember_last_directory">Letzten Ordner merken</string>
   <string name="syntax_highlighting">Syntax Highlighting</string>
-    <string name="highlighting_delay">Highlighting Verzögerung</string>
+  <string name="highlighting_delay">Highlighting Verzögerung</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
   <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
   <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
