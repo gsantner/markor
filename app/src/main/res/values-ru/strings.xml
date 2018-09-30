@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Поддержавшие проект</string>
   <string name="save_location">Сохранить местоположение</string>
   <string name="select_storage_folder">Выбрать папку для хранения</string>
-  <string name="notebook_directory">Директория с записями</string>
   <string name="licenses">Лицензии</string>
   <string name="changelog">Список изменений</string>
   <string name="more_info">Больше информации</string>
@@ -117,8 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Добавить задачу</string>
   <string name="add_x_witharg">Добавить %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Документ будет загружен и сохранён как \"%s\"</string>
-  <string name="settings_in_toolbar">Настройки в панели инструментов</string>
-  <string name="show_settings_option_in_main_view">Показать значок настроек в верхней панели инструментов на главном экране</string>
   <string name="refresh">Обновить</string>
   <string name="create_shortcut">Создать ярлык</string>
   <string name="tried_to_create_shortcut_for_this_notice">Попытались добавить ярлык на домашний экран для редактирования этого документа. Примечание: некоторые лаунчеры могут не поддерживать это.</string>
@@ -132,12 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Настройки приложения</string>
   <string name="editor_settings" needed="false">Настройки редактора</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Запоминать последнюю открытую папку</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Показывать сокращения Markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Подсветка синтаксиса markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Задержка обновления подсветки синтаксиса в миллисекундах</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Большие значения меньше расходуют батарею</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Умные скобки</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Если текст выбран, {}, [] и () то они будут окружать выделенное</string>
   <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
   <!-- New strings -->
   <string name="app_wide">Общее</string>
@@ -145,8 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">Тема, используемая в приложении</string>
   <string name="remember_last_directory">Запомнить последнюю директорию</string>
   <string name="syntax_highlighting">Подсветка синтаксиса</string>
-  <string name="text_modules">Текстовые модули</string>
-  <string name="text_module">Текстовый модуль</string>
   <string name="highlighting_delay">Задержка подсветки</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и снижает производительность.</string>
   <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
