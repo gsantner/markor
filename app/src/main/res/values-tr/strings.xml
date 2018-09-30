@@ -137,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
   <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
   <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
   <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
   <string name="format">Biçim</string>
   <string name="contexts">Bağlamlar</string>
@@ -154,7 +153,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
   <string name="tasks_with_todays_date">Bugünün tarihi ile görevler</string>
   <string name="append_contexts_and_projects">Bağlamları ve projeleri ekle</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Uygun metin eylemini kullanırken, bir görevin sonuna bağlamları ve projeleri ekle</string>
   <string name="rtl_rendering">Sağdan sola metin yönü</string>
   <string name="highlight_line_ending">Satır sonunu vurgula</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>
@@ -187,8 +185,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Üst</string>
   <string name="bottom">Alt</string>
   <string name="center">Merkez</string>
-  <string name="text_action_spacing">Metin eylemleri arasındaki boşluk</string>
-  <string name="horizontal_spacing_of_actions">Eylemlerin yatay aralığı</string>
   <string name="center_text">Metni ortala</string>
   <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
   <string name="clipboard">Pano</string>
@@ -230,6 +226,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matematik</string>
   <string name="table_of_contents">İçindekiler</string>
   <string name="miscellaneous">Çeşitli</string>
-  <string name="text_action">Metin eylemi</string>
-  <string name="text_actions">Metin eylemleri</string>
 </resources>
