@@ -37,7 +37,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Del til&#8230;</string>
   <string name="share">Del</string>
   <string name="search">Søk</string>
-  <string name="preview">Forhåndsvis</string>
   <string name="editor">Skriveprogram</string>
   <string name="folders">Mapper</string>
   <string name="files">Filer</string>
@@ -47,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
   <string name="theme">Drakt</string>
-  <string name="open_preview_when_opening_documents">Forhåndsvis dokumenter ved åpning</string>
   <string name="about">Om</string>
   <string name="plaintext">Klartekst</string>
   <string name="file">Fil</string>
@@ -103,7 +101,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioritet</string>
   <string name="history">Historikk</string>
   <string name="sync">Synkroniser</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Legg til %s eller utforsk eksisterende</string>
   <string name="serach_or_custom">Søk / egendefinert</string>
   <string name="save">Lagre</string>
   <string name="update">Oppdater</string>
