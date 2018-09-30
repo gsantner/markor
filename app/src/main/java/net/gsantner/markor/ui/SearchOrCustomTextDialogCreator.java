@@ -11,6 +11,7 @@
 package net.gsantner.markor.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
@@ -29,9 +30,15 @@ import net.gsantner.opoc.util.Callback;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SearchOrCustomTextDialogCreator {
+    private static boolean isTodoTxtAlternativeNaming(Context context) {
+        return new AppSettings(context).isTodoTxtAlternativeNaming();
+    }
+
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -84,10 +91,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.callback = callback;
         List<String> highlightedData = new ArrayList<>();
         List<String> availableData = new ArrayList<>();
+        availableData.add("todo.archive.txt");
+        availableData.add("todo.done.txt");
         availableData.add("archive.txt");
         availableData.add("done.txt");
-        availableData.add("todo.done.txt");
-        availableData.add("todo.archive.txt");
+        availableData.add(".todo.archive.txt");
         String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
         if (!TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
@@ -106,14 +114,14 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        Collections.sort(availableData);
+        sortUniqNonEmpty(availableData, "home", "shop");
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
-        dopt.titleText = R.string.context;
+        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.serach_or_custom;
-        dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
+        //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -124,7 +132,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.callback = userCallback;
             dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
             dopt.highlightData = highlightedData;
-            dopt.titleText = R.string.context;
+            dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
             dopt.searchHintText = R.string.search;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         });
@@ -141,12 +149,12 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     private static List<String> filterEmpty(List<String> data) {
-        for (int i=0; i < data.size(); i++){
-            if (data.get(i).trim().isEmpty()){
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).trim().isEmpty()) {
                 data.remove(i);
                 i--;
 
-           }
+            }
         }
         return data;
     }
@@ -154,14 +162,14 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        Collections.sort(availableData);
+        sortUniqNonEmpty(availableData, "music", "video", "download");
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
-        dopt.titleText = R.string.project;
+        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.serach_or_custom;
-        dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
+        //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -173,7 +181,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.callback = userCallback;
             dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
             dopt.highlightData = highlightedData;
-            dopt.titleText = R.string.project;
+            dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
             dopt.searchHintText = R.string.search;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         });
@@ -224,10 +232,27 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {
+        Set<String> uniq = new HashSet<>(data);
+        if (plus != null) {
+            uniq.addAll(Arrays.asList(plus));
+        }
+        data.clear();
+        data.addAll(uniq);
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).trim().isEmpty()) {
+                data.remove(i);
+                i--;
+            }
+        }
+        Collections.sort(data);
+        return data;
+    }
+
     private static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
         AppSettings as = new AppSettings(activity);
         dopt.isDarkDialog = as.isDarkThemeEnabled();
         dopt.textColor = ContextCompat.getColor(activity, dopt.isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);
-        dopt.highlightColor = 0xffF57900;
+        dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);//0xffF57900;//0xffF57900;
     }
 }

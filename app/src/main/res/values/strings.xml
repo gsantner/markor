@@ -154,8 +154,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project">Project</string>
     <string name="projects">Projects</string>
     <string name="categories">Categories</string>
+    <string name="tag">Tag</string>
+    <string name="tags">Tags</string>
     <string name="none">None</string>
     <string name="other">Other</string>
+    <string name="alternative_naming">Alternative naming</string>
 
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>

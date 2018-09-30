@@ -11,6 +11,7 @@
 package net.gsantner.opoc.ui;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -77,10 +78,10 @@ public class SearchOrCustomTextDialog {
                 TextView textView = (TextView) super.getView(pos, convertView, parent);
                 String text = textView.getText().toString();
 
-                textView.setTextColor(dopt.textColor);
-                if (dopt.highlightData.contains(text)) {
-                    textView.setTextColor(dopt.highlightColor);
-                }
+                boolean hl = dopt.highlightData.contains(text);
+                textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);
+                textView.setTypeface(null, hl ? Typeface.BOLD : Typeface.NORMAL);
+
                 return textView;
             }
 

@@ -187,6 +187,8 @@ public class SettingsActivity extends AppCompatActivity {
                     ("Launcher (" + getString(R.string.special_documents) + ")"),
                    getString(R.string.app_drawer_launcher_special_files_description), true
             );
+            updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
+                    getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
 
         }
 

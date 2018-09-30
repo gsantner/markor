@@ -34,12 +34,8 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.WrMarkorSingleton;
-import other.writeily.ui.WrConfirmDialog;
-import other.writeily.ui.WrCreateFolderDialog;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
-import other.writeily.ui.WrFilesystemListAdapter;
-import other.writeily.ui.WrRenameDialog;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -57,6 +53,10 @@ import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.OnItemClick;
+import other.writeily.ui.WrConfirmDialog;
+import other.writeily.ui.WrCreateFolderDialog;
+import other.writeily.ui.WrFilesystemListAdapter;
+import other.writeily.ui.WrRenameDialog;
 
 import static android.content.Context.SEARCH_SERVICE;
 
@@ -420,7 +420,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 for (File file : files) {
                     importFile(file);
                 }
-                listFilesInDirectory(getCurrentDir(),true);
+                listFilesInDirectory(getCurrentDir(), true);
             }
 
             @Override
@@ -461,7 +461,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         reloadAdapter();
     }
 
-    public static void sortFolder(ArrayList<File> filesCurrentlyShown){
+    public static void sortFolder(ArrayList<File> filesCurrentlyShown) {
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
         int count = filesCurrentlyShown.size();
@@ -502,7 +502,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
 
     }
 
-    public  void sortAdapter() {
+    public void sortAdapter() {
         sortFolder(_filesCurrentlyShown);
         reloadAdapter();
     }
