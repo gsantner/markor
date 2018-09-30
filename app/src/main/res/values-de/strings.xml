@@ -220,4 +220,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Mathematik</string>
   <string name="table_of_contents">Inhaltsverzeichnis</string>
   <string name="miscellaneous">Verschiedenes</string>
+  <string name="text_action">Text Aktion</string>
+  <string name="text_actions">Text Aktionen</string>
 </resources>
