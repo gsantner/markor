@@ -38,7 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partager avec…</string>
   <string name="share">Partager</string>
   <string name="search">Recherche</string>
-    <string name="editor">Éditeur</string>
+  <string name="representation">Représentation</string>
+  <string name="editor">Éditeur</string>
   <string name="folders">Dossiers</string>
   <string name="files">Fichiers</string>
   <string name="document">Document</string>
@@ -47,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Police de l\'éditeur</string>
   <string name="theme">Thème</string>
-    <string name="about">À propos</string>
+  <string name="about">À propos</string>
   <string name="plaintext">Texte brut</string>
   <string name="file">Fichier</string>
   <string name="image">Image</string>
@@ -71,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Contributeurs</string>
   <string name="save_location">Sauvegarde du lieu</string>
   <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
-    <string name="licenses">Licences</string>
+  <string name="licenses">Licences</string>
   <string name="changelog">Nouveautés de l\'application</string>
   <string name="more_info">Plus d\'informations</string>
   <string name="show_license_of_the_app">Afficher la licence de l\'application</string>
@@ -103,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorité</string>
   <string name="history">Historique</string>
   <string name="sync">Synchro</string>
-    <string name="serach_or_custom">Chercher / Personnaliser</string>
+  <string name="serach_or_custom">Chercher / Personnaliser</string>
   <string name="save">Enregistrer</string>
   <string name="update">Mise à jour</string>
   <string name="clear">Effacer</string>
@@ -113,7 +114,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Ajouter une tâche</string>
   <string name="add_x_witharg">Ajouter %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Le document à charger et à enregistrer comme \"%s\"</string>
-    <string name="refresh">Rafraîchir</string>
+  <string name="refresh">Rafraîchir</string>
   <string name="create_shortcut">Créer un raccourci</string>
   <string name="tried_to_create_shortcut_for_this_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans ce dossier ? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
@@ -126,14 +127,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Réglages</string>
   <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Retenir le dernier dossier au redémarrage</string>
-    <string name="number_of_files_witharg" needed="false">Nombre de fichiers : %d</string>
+  <string name="number_of_files_witharg" needed="false">Nombre de fichiers : %d</string>
   <!-- New strings -->
   <string name="app_wide">Général</string>
   <string name="main_view">Vue principale</string>
   <string name="overall_theme_used_in_app">Le thème principal utilisé par l\'application</string>
   <string name="remember_last_directory">Se souvenir du dossier courant</string>
   <string name="syntax_highlighting">Coloration syntaxique</string>
-    <string name="highlighting_delay">Délai de rafraîchissement</string>
+  <string name="highlighting_delay">Délai de rafraîchissement</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
   <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
   <string name="control_font_size_in_editor">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
@@ -146,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Catégories</string>
   <string name="none">Aucune</string>
   <string name="other">Autre</string>
+  <string name="alternative_naming">Noms alternatifs</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Surligne les codes couleurs hexadécimaux de la couleur correspondante</string>
   <string name="underline_hex_color_codes">Surligner les codes couleurs</string>
   <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
