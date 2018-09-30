@@ -147,8 +147,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Proje</string>
   <string name="projects">Projeler</string>
   <string name="categories">Kategoriler</string>
+  <string name="tag">Etiket</string>
+  <string name="tags">Etiketler</string>
   <string name="none">Yok</string>
   <string name="other">Diğer</string>
+  <string name="alternative_naming">Alternatif adlandırma</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hex Renk Kodlarının renklerine göre altını çiz</string>
   <string name="underline_hex_color_codes">Hex Renk Kodlarının Altını Çiz</string>
   <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
