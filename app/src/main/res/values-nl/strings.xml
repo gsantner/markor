@@ -115,12 +115,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">App Instellingen</string>
   <string name="editor_settings" needed="false">Bewerker instellingen</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Herinner laatste map bij opstarten</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Laat Markdown codebalk zien</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Markdown code markeren</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Vertraging in milliseconden voor markering ververst</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Hogere waarden zijn beter voor de accu.</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Slimme haakcodes</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Als tekst is geselecteerd, {}, [] and () omsluiten de selectie</string>
   <string name="number_of_files_witharg" needed="false">Aantal bestanden: %d</string>
   <!-- New strings -->
   <string name="app_wide">Algemeen</string>
