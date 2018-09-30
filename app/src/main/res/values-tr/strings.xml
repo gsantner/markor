@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Şununla paylaş…</string>
   <string name="share">Paylaş</string>
   <string name="search">Ara</string>
-    <string name="editor">Düzenleyici</string>
+  <string name="editor">Düzenleyici</string>
   <string name="folders">Klasörler</string>
   <string name="files">Dosyalar</string>
   <string name="document">Belge</string>
@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
   <string name="theme">Tema</string>
-    <string name="about">Markor Hakkında</string>
+  <string name="about">Markor Hakkında</string>
   <string name="plaintext">Düz Metin</string>
   <string name="file">Dosya</string>
   <string name="image">Görüntü</string>
@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Katkıda Bulunanlar</string>
   <string name="save_location">Kayıt konumu</string>
   <string name="select_storage_folder">Depolama klasörünü seç</string>
-    <string name="licenses">Lisanslar</string>
+  <string name="licenses">Lisanslar</string>
   <string name="changelog">Değişiklik Günlüğü</string>
   <string name="more_info">Daha fazla bilgi</string>
   <string name="show_license_of_the_app">Uygulamanın lisansını göster</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Öncelik</string>
   <string name="history">Geçmiş</string>
   <string name="sync">Eşitle</string>
-    <string name="serach_or_custom">Ara / Özel</string>
+  <string name="serach_or_custom">Ara / Özel</string>
   <string name="save">Kaydet</string>
   <string name="update">Güncelle</string>
   <string name="clear">Temizle</string>
@@ -113,7 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Görev ekle</string>
   <string name="add_x_witharg">%s Ekle</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">\"%s\" olarak yüklenip kaydedilecek belgeyi seç</string>
-    <string name="refresh">Yenile</string>
+  <string name="refresh">Yenile</string>
   <string name="create_shortcut">Kısayol oluştur</string>
   <string name="tried_to_create_shortcut_for_this_notice">Bu belgeyi düzenlemek için ana ekranınıza bir kısayol eklemeye çalışır. Bazı başlatıcıların bunu desteklemeyebileceğini unutmayın.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, mevcut dosyaların üzerine yazacaktır.</string>
@@ -126,14 +126,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Uygulama Ayarları</string>
   <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Başlangıçta son klasör konumunu hatırla</string>
-    <string name="number_of_files_witharg" needed="false">Dosya sayısı: %d</string>
+  <string name="number_of_files_witharg" needed="false">Dosya sayısı: %d</string>
   <!-- New strings -->
   <string name="app_wide">Genel</string>
   <string name="main_view">Ana Görünüm</string>
   <string name="overall_theme_used_in_app">Uygulamada kullanılan genel tema</string>
   <string name="remember_last_directory">Son dizini hatırla</string>
   <string name="syntax_highlighting">Sözdizimini vurgula</string>
-    <string name="highlighting_delay">Vurgulama gecikmesi</string>
+  <string name="highlighting_delay">Vurgulama gecikmesi</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
   <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
   <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
@@ -146,6 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Kategoriler</string>
   <string name="none">Yok</string>
   <string name="other">Diğer</string>
+  <string name="alternative_naming">Alternatif adlandırma</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hex Renk Kodlarının renklerine göre altını çiz</string>
   <string name="underline_hex_color_codes">Hex Renk Kodlarının Altını Çiz</string>
   <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
