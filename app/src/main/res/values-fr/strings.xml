@@ -147,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Projet</string>
   <string name="projects">Projets</string>
   <string name="categories">Catégories</string>
+  <string name="tag">Mot clé</string>
   <string name="tags">Mots clés</string>
   <string name="none">Aucune</string>
   <string name="other">Autre</string>
