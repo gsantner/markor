@@ -147,8 +147,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Projekt</string>
   <string name="projects">Projekte</string>
   <string name="categories">Kategorien</string>
-  <string name="tag">Tag</string>
-  <string name="tags">Tags</string>
   <string name="none">Nichts</string>
   <string name="other">Anderes</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
