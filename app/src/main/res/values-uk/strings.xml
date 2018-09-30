@@ -117,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_x_witharg">Додати %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Документ, що буде використаний як \"%s\"</string>
   <string name="refresh">Оновити</string>
+  <string name="create_shortcut">Створити піктограму</string>
   <string name="tried_to_create_shortcut_for_this_notice">Спробували додати піктограму для документу на домашній екран. Примітка: деякі програми робочого стола не підтримують це.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл не знаходиться в директорії Записника. Бажаєте копіювати файл в поточну директорію? Ця дія перезапише існуючі файли.</string>
   <string name="files_and_folders">Файли та директорії</string>
@@ -178,6 +179,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_tab">Табуляція</string>
   <string name="start_on_bottom">Починати внизу</string>
   <string name="start_on_bottom_when_loading_document">Після завандаження документа встановити курсор в кінець</string>
+  <string name="filemanager_doesnot_supply_required_data__appspecific">Markor дозволяє редагувати лише локальні, автономно доступні, документи і підтримує файлові менеджери, що надають повний шлях до файлу разом з його іменем. Напевно, додаток не надав всю необхідну інформацію і тому не може використовуватися з Markor :(.</string>
+  <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
   <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
   <string name="vertical_alignment">Вертикальне вирівнювання</string>
   <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
@@ -190,6 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_action_spacing">Проміжки між командами</string>
   <string name="horizontal_spacing_of_actions">Горизонтальні проміжки між кнопками команд</string>
   <string name="center_text">Центрувати текст</string>
+  <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
   <string name="clipboard">Буфер обміну</string>
   <string name="select_existing_document">Обрати наявний документ</string>
   <string name="open_source_licenses">Ліцензії з відкритим кодом</string>
@@ -197,6 +201,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">Перекласти</string>
   <string name="more_info_and_help">Додаткова інформація та допомога</string>
   <string name="report_bugs">Повідомити про помилку</string>
+  <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Детальніше про пожертви або підтримку проекту</string>
   <string name="join_community">Приєднатися до спільноти</string>
   <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
   <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
