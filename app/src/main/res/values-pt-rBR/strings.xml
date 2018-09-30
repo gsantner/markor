@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Colaboradores</string>
   <string name="save_location">Salvar localização</string>
   <string name="select_storage_folder">Escolher pasta de armazenamento</string>
-  <string name="notebook_directory">Pasta de notas</string>
   <string name="licenses">Licenças</string>
   <string name="changelog">Histórico de atualizações</string>
   <string name="more_info">Mais informações</string>
@@ -117,8 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Adicionar tarefa</string>
   <string name="add_x_witharg">Adicionar %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">O documento a ser carregado e guardado como \"%s\"</string>
-  <string name="settings_in_toolbar">Configurações na barra de ferramentas</string>
-  <string name="show_settings_option_in_main_view">Exibir opções de edição no topo da tela principal</string>
   <string name="refresh">Atualizar</string>
   <string name="create_shortcut">Criar atalho</string>
   <string name="tried_to_create_shortcut_for_this_notice">Tentou adicionar um atalho em sua tela inicial para editar este documento. Observe que alguns lançadores podem não suportar isso.</string>
@@ -132,12 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Configurações do aplicativo</string>
   <string name="editor_settings" needed="false">Configurações do editor</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Lembrar última pasta ao iniciar</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Mostrar atalhos de Markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Realce de sintaxe Markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Atraso de milissegundos para atualização de realce</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Valores mais altos aliviam a bateria</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Atalhos inteligentes de parêntesis</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Se selecionado, (), {} e [] circundarão as seleções</string>
   <string name="number_of_files_witharg" needed="false">Número de arquivos: %d</string>
   <!-- New strings -->
   <string name="app_wide">Global</string>
@@ -145,8 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
   <string name="remember_last_directory">Lembrar da última pasta</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
-  <string name="text_modules">Módulos de texto</string>
-  <string name="text_module">Módulo de texto</string>
   <string name="highlighting_delay">Realçar delongas</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
