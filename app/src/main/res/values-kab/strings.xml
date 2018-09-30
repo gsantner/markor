@@ -117,7 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Iɣewwaṛen n usnas</string>
   <string name="editor_settings" needed="false">Iɣewwaṛen n umaẓrag</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Cfu ɣef ukaram amiran i tnekra d-iteddun</string>
-    <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
+  <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
   <!-- New strings -->
   <string name="none">Ula yiwen</string>
   <string name="other">Wayeḍ</string>
