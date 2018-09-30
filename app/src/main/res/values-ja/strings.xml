@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">貢献者</string>
   <string name="save_location">場所を保存</string>
   <string name="select_storage_folder">ストレージのフォルダーを選択</string>
-  <string name="notebook_directory">ノートディレクトリー</string>
   <string name="licenses">ライセンス</string>
   <string name="changelog">変更履歴</string>
   <string name="more_info">詳細情報</string>
@@ -117,8 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">タスクを追加</string>
   <string name="add_x_witharg">%s を追加</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
-  <string name="settings_in_toolbar">ツールバーに設定</string>
-  <string name="show_settings_option_in_main_view">メイン画面のトップバーに設定オプションを表示します</string>
   <string name="refresh">更新</string>
   <string name="create_shortcut">ショートカットを作成</string>
   <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
@@ -132,12 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">アプリ設定</string>
   <string name="editor_settings" needed="false">エディター設定</string>
   <string name="remember_last_folder_location_on_startup" needed="false">起動時に最後に開いたフォルダーの場所に戻す</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">マークダウンショートカットバーを表示</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">マークダウン書式ハイライト表示</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">ハイライト表示更新の遅延(ミリ秒)</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">高い値がバッテリーに優しいです</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">スマートブラケットショートカット</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">テキストを選択すると、選択を {}、[]、() で囲みます</string>
   <string name="number_of_files_witharg" needed="false">ファイル数: %d</string>
   <!-- New strings -->
   <string name="app_wide">全般</string>
@@ -145,8 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">アプリで使用される全体のテーマ</string>
   <string name="remember_last_directory">最後のディレクトリーを記憶</string>
   <string name="syntax_highlighting">書式ハイライト表示</string>
-  <string name="text_modules">テキストモジュール</string>
-  <string name="text_module">テキストモジュール</string>
   <string name="highlighting_delay">ハイライト表示の遅延</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
   <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>

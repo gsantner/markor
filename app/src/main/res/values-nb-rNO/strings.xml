@@ -71,8 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- About screen -->
   <string name="contributors">Bidragsytere</string>
   <string name="select_storage_folder">Velg lagringsmappe</string>
-  <string name="notebook_directory">Notatblokkmappe</string>
-  <string name="licenses">Lisenser</string>
+    <string name="licenses">Lisenser</string>
   <string name="changelog">Endringslogg</string>
   <string name="more_info">Mer info</string>
   <string name="show_license_of_the_app">Vis programmets lisens</string>
@@ -115,9 +114,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Legg til gjøremål</string>
   <string name="add_x_witharg">Legg til %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet vil bli lastet og lagret som \"%s\"</string>
-  <string name="settings_in_toolbar">Innstillinger i verktøyslinje</string>
-  <string name="show_settings_option_in_main_view">Vis innstillinger i øverste verktøyslinje på hovedskjermen</string>
-  <string name="refresh">Gjenoppfrisk</string>
+    <string name="refresh">Gjenoppfrisk</string>
   <string name="create_shortcut">Lag snarvei</string>
   <string name="tried_to_create_shortcut_for_this_notice">Prøvde å legge til snarvei på hjemmeskjermen din for redigering av dette dokumentet. Merk at noen oppstartere ikke støtter dette.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Valgt fil er ikke å finne i programmets notatblokkmappe. Ønsker du å kopiere den til gjeldende mappe? Dette vil overskrive eksisterende filer.</string>
@@ -130,22 +127,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Programinnstillinger</string>
   <string name="editor_settings" needed="false">Tekstbehandlerinnstillinger</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Husk siste mappeposisjon ved oppstart</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Vis felt for Markdown-snarveier</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Markdown-syntaksframheving</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Forsinkelse i millisekunder for framhevingsgjenoppfrisking</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Høyere verdier bruker mindre batteri</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Smarte parentessnarveier</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Hvis tekst er valgt, vil utvalget markeres i {}, [] og ()</string>
-  <string name="number_of_files_witharg" needed="false">Antall filer: %d</string>
+    <string name="number_of_files_witharg" needed="false">Antall filer: %d</string>
   <!-- New strings -->
   <string name="app_wide">I hele programmet</string>
   <string name="main_view">Hovedvisning</string>
   <string name="overall_theme_used_in_app">Hverdagsdrakt brukt i programmet</string>
   <string name="remember_last_directory">Husk siste mapper</string>
   <string name="syntax_highlighting">Syntaksframheving</string>
-  <string name="text_modules">Tekstmoduler</string>
-  <string name="text_module">Tekstmodul</string>
-  <string name="highlighting_delay">Framhevingsforsinkelse</string>
+    <string name="highlighting_delay">Framhevingsforsinkelse</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Forsinkelse i millisekunder for framhevelsesforsinkelse. Lavere verdi starter framheving tidligere, men tømmer batteriet fortere, og senker ytelsen.</string>
   <string name="highlighting_enabled_or_not__appspecific">Kontroller hvorvidt innskrevet tekst skal framheves eller ei</string>
   <string name="control_font_size_in_editor">Kontroller skriftstørrelsen brukt i tekstbehandleren</string>

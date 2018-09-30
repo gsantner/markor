@@ -65,7 +65,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- About screen -->
   <string name="contributors">همکاران</string>
   <string name="select_storage_folder">انتخاب پوشه محل ذخیره</string>
-  <string name="notebook_directory">پوشه‌ی دفترچه</string>
   <string name="licenses">مجوزها</string>
   <string name="changelog">لاگ تغییرات</string>
   <string name="more_info">اطلاعات بیشتر</string>
@@ -102,8 +101,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">افزودن کار</string>
   <string name="add_x_witharg">افزودن %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">این پرونده بارگزاری و ذخیره شد با نام \"%s\"</string>
-  <string name="settings_in_toolbar">تنظیمات در نوار ابزار</string>
-  <string name="show_settings_option_in_main_view">نمایش گزینه تنظیمات در نوارابزار بالای صفحه‌ی اصلی</string>
   <string name="refresh">تازه کردن</string>
   <string name="create_shortcut">ایجاد میانبر</string>
   <string name="tried_to_create_shortcut_for_this_notice">ما میانبری به این پرونده در صفحه اصلی تلفن شما ایجاد کردیم؛ اما ممکن است بعضی لانچرها از این قابلیت پشتیبانی نکنند.</string>
@@ -116,16 +113,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">تنظیمات برنامه</string>
   <string name="editor_settings" needed="false">تنظیمات ویرایشگر</string>
   <string name="remember_last_folder_location_on_startup" needed="false">به‌خاطر آوردن مکان آخرین پوشه هنگام راه‌اندازی</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">فاصله‌ی زمانی تازه کردن رنگی‌سازی به هزارم ثانیه</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">عدد بیشتر برای باتری مناسب‌تر است</string>
   <string name="number_of_files_witharg" needed="false">تعداد فایل‌ها: %d</string>
   <!-- New strings -->
   <string name="app_wide">جهانی</string>
   <string name="main_view">نمای اصلی</string>
   <string name="overall_theme_used_in_app">پوسته‌ای که در تمام برنامه استفاده خواهد شد</string>
   <string name="remember_last_directory">به خاطر سپردن آخرین پوشه</string>
-  <string name="text_modules">ماژول‌های متنی</string>
-  <string name="text_module">ماژول متنی</string>
   <string name="highlighting_delay">زمان‌بندی رنگی کردن</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">فاصله زمانی چک کردن فاصله‌های برای رنگی کردن را تعیین کنید. عدد پایان تر، رنگی کردن را سریع‌تر انجام می‌دهد؛ ولی باتری بیشتری مصرف خواهد کرد و شاید سرعت را کاهش دهد.</string>
   <string name="control_font_size_in_editor">کنترل اندازه قلم ویرایشگر</string>

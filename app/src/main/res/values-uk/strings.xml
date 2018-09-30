@@ -73,8 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Автори</string>
   <string name="save_location">Розташування сховища</string>
   <string name="select_storage_folder">Обрати робочу директорію</string>
-  <string name="notebook_directory">Директорія Записника</string>
-  <string name="licenses">Ліцензії</string>
+    <string name="licenses">Ліцензії</string>
   <string name="changelog">Перелік змін</string>
   <string name="more_info">Детальніше</string>
   <string name="show_license_of_the_app">Показати ліцензію додатку</string>
@@ -117,9 +116,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Додати завдання</string>
   <string name="add_x_witharg">Додати %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Документ, що буде використаний як \"%s\"</string>
-  <string name="settings_in_toolbar">Налаштування на панелі інструментів</string>
-  <string name="show_settings_option_in_main_view">Показувати пункт налаштувань на верхній панелі інструментів на головному екрані</string>
-  <string name="refresh">Оновити</string>
+    <string name="refresh">Оновити</string>
   <string name="tried_to_create_shortcut_for_this_notice">Спробували додати піктограму для документу на домашній екран. Примітка: деякі програми робочого стола не підтримують це.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл не знаходиться в директорії Записника. Бажаєте копіювати файл в поточну директорію? Ця дія перезапише існуючі файли.</string>
   <string name="files_and_folders">Файли та директорії</string>
@@ -131,22 +128,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Налаштування додатку</string>
   <string name="editor_settings" needed="false">Налаштування редактора</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Запам\'ятовувати останню відкриту директорію</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Показувати панель скорочень markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Підсвітка синтаксису markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Затримка оновлення підсвітки синтаксису в мілісекундах</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Великі значення менше витрачають батарею</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Розумні дужки</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">{}, [] и () будуть оточувати виділений текст</string>
-  <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
+    <string name="number_of_files_witharg" needed="false">Кількість файлів: %d</string>
   <!-- New strings -->
   <string name="app_wide">Загальні</string>
   <string name="main_view">Головний екран</string>
   <string name="overall_theme_used_in_app">Загальна тема додатку</string>
   <string name="remember_last_directory">Пам\'ятати останню директорію</string>
   <string name="syntax_highlighting">Підсвічування синтаксису</string>
-  <string name="text_modules">Текстові модулі</string>
-  <string name="text_module">Текстовий модуль</string>
-  <string name="highlighting_delay">Затримка підсвічування</string>
+    <string name="highlighting_delay">Затримка підсвічування</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та завантаженість системи.</string>
   <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
   <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>

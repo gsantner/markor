@@ -73,8 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Contribuidores</string>
   <string name="save_location">Guardar ubicación</string>
   <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
-  <string name="notebook_directory">Carpeta de bloc de notas</string>
-  <string name="licenses">Licencias</string>
+    <string name="licenses">Licencias</string>
   <string name="changelog">Historial de cambios</string>
   <string name="more_info">Más información</string>
   <string name="show_license_of_the_app">Mostrar licencia de la aplicación</string>
@@ -117,9 +116,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Agregar tarea</string>
   <string name="add_x_witharg">Añadir %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">El documento que se cargará y guardará como \"%s\"</string>
-  <string name="settings_in_toolbar">Ajustes en la barra de herramientas</string>
-  <string name="show_settings_option_in_main_view">Mostrar la opción de ajustes en la barra de herramientas superior de la pantalla principal</string>
-  <string name="refresh">Actualizar</string>
+    <string name="refresh">Actualizar</string>
   <string name="create_shortcut">Crear acceso directo</string>
   <string name="tried_to_create_shortcut_for_this_notice">Se intentó añadir un acceso en tu pantalla principal para que puedas editar este documento. Ten presente que algunos launchers no permiten esto.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">El archivo seleccionado no se encuentra en la carpeta del bloc de notas. ¿Deseas copiarlo? Si el archivo ya existe, será sobrescrito.</string>
@@ -132,22 +129,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Ajustes de aplicación</string>
   <string name="editor_settings" needed="false">Ajustes del editor</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Recordar la última localización de carpeta al iniciarse</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Mostrar la barra de atajos Markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Resaltado de sintaxis Markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Retraso en milisegundos para actualizar el resaltado</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Valores más altos economizan batería</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Atajos para paréntesis inteligentes</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Si hay texto seleccionado, {}, [] y () rodearán la selección</string>
-  <string name="number_of_files_witharg" needed="false">Número de archivos: %d</string>
+    <string name="number_of_files_witharg" needed="false">Número de archivos: %d</string>
   <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">El tema principal usado en la app</string>
   <string name="remember_last_directory">Recordar última carpeta</string>
   <string name="syntax_highlighting">Coloreo de sintaxis</string>
-  <string name="text_modules">Módulos de texto</string>
-  <string name="text_module">Módulo de texto</string>
-  <string name="highlighting_delay">Retraso para colorear</string>
+    <string name="highlighting_delay">Retraso para colorear</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para el refrescado del coloreado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser coloreado o no</string>
   <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>

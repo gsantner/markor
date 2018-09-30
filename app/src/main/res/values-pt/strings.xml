@@ -110,8 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
   <string name="add_x_witharg">Adicionar %s</string>
-  <string name="settings_in_toolbar">Definições na barra de ferramentas</string>
-  <string name="refresh">Recarregar</string>
+    <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
@@ -127,9 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
-  <string name="text_modules">Módulos de texto</string>
-  <string name="text_module">Módulo de texto</string>
-  <string name="contexts">Contextos</string>
+    <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
   <string name="categories">Categorias</string>

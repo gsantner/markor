@@ -117,13 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Iɣewwaṛen n usnas</string>
   <string name="editor_settings" needed="false">Iɣewwaṛen n umaẓrag</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Cfu ɣef ukaram amiran i tnekra d-iteddun</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Sken afeggag n teẓrigt Markdown</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Rmed tiɣmi n tseddast Markdown</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Tanzagt n usmiren n useɣmu n tseddats s ms</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Tanzagt meqqren ad tseqdec drus seg uẓru-ik</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Rmed tuccar tuḥricin</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Ma yella yettwafren uḍris, asenned ɣef {}, [] neɣ () ad isers izamulen imen taḍen si sin n idisan n wayen tferneḍ</string>
-  <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
+    <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
   <!-- New strings -->
   <string name="none">Ula yiwen</string>
   <string name="other">Wayeḍ</string>

@@ -72,8 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors">Współautorzy</string>
   <string name="save_location">Zapisz lokalizację</string>
   <string name="select_storage_folder">Wybierz folder zapisu</string>
-  <string name="notebook_directory">Katalog notatek</string>
-  <string name="licenses">Licencje</string>
+    <string name="licenses">Licencje</string>
   <string name="changelog">Lista zmian</string>
   <string name="more_info">Więcej informacji</string>
   <string name="show_license_of_the_app">Pokaż licencje aplikacji</string>
@@ -116,9 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Dodaj zadanie</string>
   <string name="add_x_witharg">Dodaj %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">Dokument zostanie załadowany i zapisany jako \"%s\"</string>
-  <string name="settings_in_toolbar">Ustawienia na pasku narzędzi</string>
-  <string name="show_settings_option_in_main_view">Pokaż opcje ustawienia na górze paska narzędzi na głównym ekranie</string>
-  <string name="refresh">Odśwież</string>
+    <string name="refresh">Odśwież</string>
   <string name="create_shortcut">Utwórz skrót</string>
   <string name="tried_to_create_shortcut_for_this_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
   <string name="file_not_in_save_path_do_import_notice__appspecific">Wybrany plik nie znajduje się w katalogu notatnika. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejących plików.</string>
@@ -131,22 +128,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Ustawienia aplikacji</string>
   <string name="editor_settings" needed="false">Ustawienia edytora</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Pokaż pasek skrótów Markdowna</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">Podświetlanie składni Markdowna</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Opóźnienie odświeżania podświetlenia w milisekundach</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">Wyższe wartości oszczędzają baterie</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">Sprytna klamra skrótów</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">Jeżeli tekst jest zaznaczony {}, [] i () otacza wybór</string>
-  <string name="number_of_files_witharg" needed="false">Liczba plików: %d</string>
+    <string name="number_of_files_witharg" needed="false">Liczba plików: %d</string>
   <!-- New strings -->
   <string name="app_wide">Ogólne</string>
   <string name="main_view">Główny Widok</string>
   <string name="overall_theme_used_in_app">Ogólny motyw używany w aplikacji</string>
   <string name="remember_last_directory">Zapamiętaj ostatnią lokalizację katalogu</string>
   <string name="syntax_highlighting">Podświetlanie składni</string>
-  <string name="text_modules">Moduły tekstu</string>
-  <string name="text_module">Moduł tekstu</string>
-  <string name="highlighting_delay">Opóźnienie podświetlania</string>
+    <string name="highlighting_delay">Opóźnienie podświetlania</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
   <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
   <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>

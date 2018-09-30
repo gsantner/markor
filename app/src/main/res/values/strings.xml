@@ -78,7 +78,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors">Contributors</string>
     <string name="save_location">Save location</string>
     <string name="select_storage_folder">Select storage folder</string>
-    <string name="notebook_directory">Notebook directory</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
     <string name="more_info">More info</string>
@@ -122,8 +121,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_task">Add task</string>
     <string name="add_x_witharg">Add %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Document to be loaded and saved as "%s"</string>
-    <string name="settings_in_toolbar">Settings in toolbar</string>
-    <string name="show_settings_option_in_main_view">Show settings option in top toolbar on main screen</string>
     <string name="refresh">Refresh</string>
     <string name="create_shortcut">Create shortcut</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tried to create a shortcut to your home screen. Note that some launchers may not support this.</string>
@@ -138,12 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_settings" needed="false">App Settings</string>
     <string name="editor_settings" needed="false">Editor Settings</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Remember last folder location on startup</string>
-    <string name="show_markdown_shortcuts_bar__appspecific" needed="false">Show Markdown shortcuts bar</string>
-    <string name="markdown_syntax_highlighting__appspecific" needed="false">Markdown syntax highlighting</string>
-    <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">Delay in milliseconds for highlighting refresh</string>
-    <string name="higher_values_are_easier_on_battery" needed="false">Higher values are easier on the battery</string>
-    <string name="smart_brackets_shortcuts__appspecific" needed="false">Smart brackets shortcuts</string>
-    <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">If text is selected, {}, [] and () will surround the selection</string>
     <string name="number_of_files_witharg" needed="false">Number of files: %d</string>
 
     <!-- New strings -->
@@ -152,8 +143,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">The overall theme used in the app</string>
     <string name="remember_last_directory">Remember last directory</string>
     <string name="syntax_highlighting">Syntax highlighting</string>
-    <string name="text_modules">Text modules</string>
-    <string name="text_module">Text module</string>
     <string name="highlighting_delay">Highlighting delay</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and make a heavy load.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
