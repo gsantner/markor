@@ -137,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
   <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
   <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
   <string name="load_last_opened_folder_at_startup">起動時に最後に開いたフォルダーを読み込みます</string>
   <string name="format">書式</string>
   <string name="contexts">コンテキスト</string>
@@ -151,7 +150,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">新しいタスクを開始するとき、現在の日付を挿入します</string>
   <string name="tasks_with_todays_date">今日の日付のタスク</string>
   <string name="append_contexts_and_projects">コンテキストとプロジェクトを追加</string>
-  <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了後にコンテキストとプロジェクトを追加します</string>
   <string name="rtl_rendering">RTL レンダリング</string>
   <string name="highlight_line_ending">行の終わりを強調表示</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
@@ -184,8 +182,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">上部</string>
   <string name="bottom">下部</string>
   <string name="center">中央</string>
-  <string name="text_action_spacing">テキスト操作の間隔</string>
-  <string name="horizontal_spacing_of_actions">操作の横の間隔</string>
   <string name="center_text">テキストの中央揃え</string>
   <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
   <string name="clipboard">クリップボード</string>
@@ -227,6 +223,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">計算</string>
   <string name="table_of_contents">目次</string>
   <string name="miscellaneous">その他</string>
-  <string name="text_action">テキスト操作</string>
-  <string name="text_actions">テキスト操作</string>
 </resources>
