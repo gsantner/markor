@@ -315,7 +315,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
             for (int i = 0; i < _adapterData.size(); i++) {
                 file = _adapterData.get(i);
-                if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
+                if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                     int c = 0;
                     for (char ch : file.getAbsolutePath().toCharArray()) {
                         if (ch == '/') {

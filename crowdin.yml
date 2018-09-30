@@ -39,4 +39,6 @@ files:
         he: iw		# Hebrew
         ro: ro		# Romanian
         vi: vi		# Vietnamese
+        sr: sr		# Serbian, Cyrillic
+        sr-CS: sr-rRS	# Serbian, Latin
     translate_attributes: 0

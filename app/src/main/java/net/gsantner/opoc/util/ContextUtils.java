@@ -167,7 +167,7 @@ public class ContextUtils {
     public String getAppVersionName() {
         try {
             PackageManager manager = _context.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+            PackageInfo info = manager.getPackageInfo(getPackageIdManifest(), 0);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -178,7 +178,7 @@ public class ContextUtils {
     public String getAppInstallationSource() {
         String src = null;
         try {
-            src = _context.getPackageManager().getInstallerPackageName(getPackageName());
+            src = _context.getPackageManager().getInstallerPackageName(getPackageIdManifest());
         } catch (Exception ignored) {
         }
         if (TextUtils.isEmpty(src)) {
@@ -224,11 +224,18 @@ public class ContextUtils {
     }
 
     /**
-     * Get this apps package name. The builtin method may fail when used with flavors
+     * Get the apps base packagename, which is equal with all build flavors and variants
      */
-    public String getPackageName() {
+    public String getPackageIdManifest() {
         String pkg = rstr("manifest_package_id");
         return pkg != null ? pkg : _context.getPackageName();
+    }
+
+    /**
+     * Get this apps package name, returns the flavor specific package name.
+     */
+    public String getPackageIdReal() {
+        return  _context.getPackageName();
     }
 
     /**
@@ -240,7 +247,7 @@ public class ContextUtils {
      * Falls back to applicationId of the app which may differ from manifest.
      */
     public Object getBuildConfigValue(String fieldName) {
-        String pkg = getPackageName() + ".BuildConfig";
+        String pkg = getPackageIdManifest() + ".BuildConfig";
         try {
             Class<?> c = Class.forName(pkg);
             return c.getField(fieldName).get(null);

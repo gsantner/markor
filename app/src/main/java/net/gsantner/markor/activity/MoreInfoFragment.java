@@ -166,12 +166,12 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
         // Basic app info
         if ((pref = findPreference(R.string.pref_key__more_info__app)) != null && pref.getSummary() == null) {
             pref.setIcon(R.drawable.ic_launcher);
-            pref.setSummary(String.format(locale, "%s\nVersion v%s (%d)", _cu.getPackageName(), _cu.getAppVersionName(), _cu.bcint("VERSION_CODE", 0)));
+            pref.setSummary(String.format(locale, "%s\nVersion v%s (%d)", _cu.getPackageIdReal(), _cu.getAppVersionName(), _cu.bcint("VERSION_CODE", 0)));
         }
 
         // Extract some build information and publish in summary
         if ((pref = findPreference(R.string.pref_key__more_info__copy_build_information)) != null && pref.getSummary() == null) {
-            String summary = String.format(locale, "\n<b>Package:</b> %s\n<b>Version:</b> v%s (%d)", _cu.getPackageName(), _cu.getAppVersionName(), _cu.bcint("VERSION_CODE", 0));
+            String summary = String.format(locale, "\n<b>Package:</b> %s\n<b>Version:</b> v%s (%d)", _cu.getPackageIdReal(), _cu.getAppVersionName(), _cu.bcint("VERSION_CODE", 0));
             summary += (tmp = _cu.bcstr("FLAVOR", "")).isEmpty() ? "" : ("\n<b>Flavor:</b> " + tmp.replace("flavor", ""));
             summary += (tmp = _cu.bcstr("BUILD_TYPE", "")).isEmpty() ? "" : (" (" + tmp + ")");
             summary += (tmp = _cu.bcstr("BUILD_DATE", "")).isEmpty() ? "" : ("\n<b>Build date:</b> " + tmp);
