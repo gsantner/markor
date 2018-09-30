@@ -135,7 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
   <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
   <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">用實用的活動顯示一個條列以插入使用中的文字模組</string>
   <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
   <string name="format">格式</string>
   <string name="contexts">全文</string>
@@ -148,7 +147,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
   <string name="tasks_with_todays_date">有今天日期的工作</string>
   <string name="append_contexts_and_projects">增補內文與專案等</string>
-  <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
   <string name="rtl_rendering">RTL 顯現</string>
   <string name="highlight_line_ending">標記行末</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
@@ -181,8 +179,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">頂端</string>
   <string name="bottom">底端</string>
   <string name="center">中央</string>
-  <string name="text_action_spacing">文字模組間距</string>
-  <string name="horizontal_spacing_of_actions">活動的水平距離</string>
   <string name="center_text">文件中央</string>
   <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
   <string name="clipboard">剪貼簿</string>
