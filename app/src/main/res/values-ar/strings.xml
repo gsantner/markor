@@ -11,8 +11,15 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="settings">إعدادات</string>
   <!-- Preferences -->
+  <string name="image">صورة</string>
   <!-- About screen -->
+  <string name="more">المزيد</string>
   <!-- Not in use currently -->
   <!-- New strings -->
+  <string name="none">بدون</string>
+  <string name="translate">ترجمة</string>
+  <string name="location">موقع</string>
+  <string name="description">وصف</string>
 </resources>
