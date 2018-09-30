@@ -198,7 +198,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Överst</string>
   <string name="bottom">Längst ner</string>
   <string name="center">Mitten</string>
+  <string name="text_action_spacing">Textmodulsavstånd</string>
+  <string name="horizontal_spacing_of_actions">Horisontellt avstånd för händelser</string>
   <string name="center_text">Centrera text</string>
+  <string name="edit_text_in_center_of_screen">Ändra text i mitten av skärmen</string>
   <string name="clipboard">Klippbord</string>
   <string name="select_existing_document">Välj existerande dokument</string>
   <string name="open_source_licenses">Licenser för Öppen Källkod</string>
@@ -206,6 +209,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">Översätt</string>
   <string name="more_info_and_help">Mer info och hjälp</string>
   <string name="report_bugs">Rapportera buggar</string>
+  <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer information om donationer eller annat stöd för projektet</string>
+  <string name="android_contribution_guide">Android-bidragsguide</string>
+  <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mer information om hur du bidrar till öppna projekt, särskilt Android-appar</string>
+  <string name="join_community">Delta i gemenskapen</string>
   <string name="source_code">Källkod</string>
   <string name="project_license">Projektets licens</string>
   <string name="location">Plats</string>
