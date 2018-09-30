@@ -143,8 +143,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Projekt</string>
   <string name="projects">Projekt</string>
   <string name="categories">Kategorier</string>
-  <string name="tag">Etikett</string>
-  <string name="tags">Taggar</string>
   <string name="none">Ingen</string>
   <string name="other">Andra</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ge färger skrivna som hexkod ett understreck i aktuell färg</string>
