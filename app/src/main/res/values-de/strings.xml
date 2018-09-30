@@ -37,7 +37,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Teilen zu…</string>
   <string name="share">Teilen</string>
   <string name="search">Suchen</string>
-  <string name="preview">Vorschau</string>
   <string name="folders">Ordner</string>
   <string name="files">Dateien</string>
   <string name="document">Dokument</string>
@@ -46,7 +45,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Schriftart</string>
   <string name="theme">Thema</string>
-  <string name="open_preview_when_opening_documents">Dokumente in Vorschauansicht öffnen</string>
   <string name="about">Über</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Datei</string>
@@ -102,7 +100,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorität</string>
   <string name="history">Verlauf</string>
   <string name="sync">Synchronisieren</string>
-  <string name="add_x_or_browse_existing_ones_witharg">%s hinzufügen oder aus Bestehenden auswählen</string>
   <string name="serach_or_custom">Suchen / Benutzerdefiniert</string>
   <string name="save">Speichern</string>
   <string name="update">Aktualisieren</string>
