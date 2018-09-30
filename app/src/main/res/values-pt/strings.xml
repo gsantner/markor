@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="one_item_selected">Um item selecionado</string>
   <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
   <string name="hide_statusbar_at_this_view">Ocultar barra de estado nesta vista</string>
-  <string name="hide_statusbar">Ocultar a barra de estado</string>
+  <string name="hide_statusbar">Ocultar barra de estado</string>
   <string name="name">Nome</string>
   <string name="url_or_path">URL/Caminho</string>
   <string name="insert_link">Inserir ligação</string>
