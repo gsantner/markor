@@ -117,12 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">एप्लिकेशन सेटिंग</string>
   <string name="editor_settings" needed="false">संपादक सेटिंग्स</string>
   <string name="remember_last_folder_location_on_startup" needed="false">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
-  <string name="show_markdown_shortcuts_bar__appspecific" needed="false">मार्कडाउन शॉर्टकट बार दिखाएं</string>
-  <string name="markdown_syntax_highlighting__appspecific" needed="false">मार्कडाउन सिंटैक्स हाइलाइटिंग</string>
-  <string name="delay_in_milliseconds_for_highlighting_refresh" needed="false">रीफ़्रेश को उजागर करने के लिए मिलीसेकेंड में देरी</string>
-  <string name="higher_values_are_easier_on_battery" needed="false">उच्च मूल्य बैटरी पर आसान है</string>
-  <string name="smart_brackets_shortcuts__appspecific" needed="false">स्मार्ट कोष्ठक शॉर्टकट</string>
-  <string name="smart_brackets_shortcuts_if_text_selected_description__appspecific" needed="false">अगर पाठ का चयन किया जाता है, तो {}, [] और () चयन को घेरेगा</string>
   <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
   <!-- New strings -->
   <string name="none">कुछ नहीं</string>
