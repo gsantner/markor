@@ -143,8 +143,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Progetto</string>
   <string name="projects">Progetti</string>
   <string name="categories">Categorie</string>
-  <string name="tag">Etichetta</string>
-  <string name="tags">Etichette</string>
   <string name="none">Nessuno</string>
   <string name="other">Altro</string>
   <string name="alternative_naming">Nomi alternativi</string>
