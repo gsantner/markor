@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Ordner erstellen</string>
   <string name="create_new_document">Neues Dokument erstellen</string>
   <string name="move">Verschieben</string>
+  <string name="info">Info</string>
   <string name="import_from_device">Von Gerät importieren</string>
   <string name="import_">Importieren</string>
   <string name="append_to_witharg">Anhängen an %s</string>
@@ -37,6 +38,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Teilen zu…</string>
   <string name="share">Teilen</string>
   <string name="search">Suchen</string>
+  <string name="representation">Repräsentation</string>
+  <string name="display_converted_markup">Konvertiertes Markup anzeigen</string>
+  <string name="editor">Editor</string>
   <string name="folders">Ordner</string>
   <string name="files">Dateien</string>
   <string name="document">Dokument</string>
@@ -45,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Schriftart</string>
   <string name="theme">Thema</string>
+  <string name="show_representation_of_markup_by_default">Existierende Dokumente im Repräsentations-Modus anzeigen</string>
   <string name="about">Über</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Datei</string>
@@ -58,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create">Erstellen</string>
   <string name="select_entries">Einträge auswählen</string>
   <string name="one_item_selected">Eine Datei ausgewählt</string>
+  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d Elemente ausgewählt</string>
   <string name="hide_statusbar_at_this_view">Die Statusleiste in dieser Ansicht verstecken</string>
   <string name="hide_statusbar">Statusleiste verstecken</string>
   <string name="name">Sortieren nach Name</string>
@@ -134,11 +140,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
   <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
   <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit hilfreichen Buttons unten anzeigen. Diese Textaktionen modifizieren den Text oder führen eine Aktion basierend auf dem Text aus.</string>
   <string name="load_last_opened_folder_at_startup">Lade den zuletzt geöffneten Ordner beim Starten</string>
+  <string name="format">Format</string>
   <string name="contexts">Kontexte</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekte</string>
   <string name="categories">Kategorien</string>
+  <string name="tag">Tag</string>
+  <string name="tags">Tags</string>
   <string name="none">Nichts</string>
   <string name="other">Anderes</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
