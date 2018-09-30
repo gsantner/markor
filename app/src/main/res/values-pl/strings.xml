@@ -37,7 +37,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Udostępnij do&#8230;</string>
   <string name="share">Udostępnij</string>
   <string name="search">Szukaj</string>
-  <string name="preview">Podgląd</string>
   <string name="editor">Edytor</string>
   <string name="folders">Foldery</string>
   <string name="files">Pliki</string>
@@ -47,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Czcionka edytora</string>
   <string name="theme">Motyw</string>
-  <string name="open_preview_when_opening_documents">Najpierw podgląd podczas otwierania notatek</string>
   <string name="about">Informacje</string>
   <string name="plaintext">Zwykły tekst</string>
   <string name="file">Plik</string>
@@ -104,7 +102,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorytet</string>
   <string name="history">Historia</string>
   <string name="sync">Synchronizuj</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Dodaj %s lub przeglądaj istniejący</string>
   <string name="serach_or_custom">Szukaj / Niestandardowe</string>
   <string name="save">Zapisz</string>
   <string name="update">Aktualizuj</string>
