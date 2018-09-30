@@ -188,6 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="start_on_bottom">Börja vid botten</string>
   <string name="start_on_bottom_when_loading_document">När dokument laddat, placera markören vid slutet av raden</string>
   <string name="filemanager_doesnot_supply_required_data__appspecific">Markor tillåter bara lokala ändringar, tillgängliga offline, dokument och supportfiler med hela sökvägen inklusive filnamnet. Det tycks som att appen inte tillhandahöll komplett information och kan därför inte användas med Markor :(.</string>
+  <string name="sync_to_local_folder_notice">Märkväl: Synkroniseringsappar kan placera filer i egna mappar och öppna dem genom att ändra Markors dokumentmapp på så vis, eller in en annan filhanterare.</string>
   <string name="configure_in_the_apps_settings">Ställ in i appens inställningar</string>
   <string name="vertical_alignment">Vertikal justering</string>
   <string name="horizontal_alignment">Horisontell justering</string>
