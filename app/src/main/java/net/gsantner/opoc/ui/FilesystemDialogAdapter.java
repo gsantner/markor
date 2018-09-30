@@ -11,10 +11,12 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
     public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
+    private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
 
     //########################
     //## Members
@@ -100,8 +103,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         final File fileParent = file.getParentFile() == null ? new File("/") : file.getParentFile();
 
         boolean isGoUp = file.equals(_currentFolder.getParentFile());
-        holder.title.setText(isGoUp ? ".." : filename);
-        holder.title.setTextColor(isFileWriteable(file, isGoUp) ? ContextCompat.getColor(_context, _dopt.primaryTextColor) : Color.RED);
+        holder.title.setText(isGoUp ? ".." : filename, TextView.BufferType.SPANNABLE);
+        holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
+        if (!isFileWriteable(file, isGoUp) && holder.title.length() > 0) {
+            ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
 
         holder.description.setText(fileParent.equals(_currentFolder) ? fileParent.getAbsolutePath() : file.getAbsolutePath());
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));

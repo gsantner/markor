@@ -13,7 +13,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
-    <string name="app_translate_url" translatable="false"><![CDATA[https://lonamiwebs.github.io/stringlate/translate?git=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor.git&mail=gro.xobliam@@rentnasg&project=markor&web=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor]]></string>
+    <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/supportme/?project=markor&source=inapp_supdon]]></string>

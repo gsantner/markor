@@ -262,7 +262,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isDisableSpellingRedUnderline() {
-        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, false);
+        return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
     }
 
     public void addRecentDocument(File file) {
