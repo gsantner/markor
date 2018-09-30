@@ -146,8 +146,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project">Проект</string>
   <string name="projects">Проекти</string>
   <string name="categories">Категорії</string>
+  <string name="tag">Мітка</string>
+  <string name="tags">Мітки</string>
   <string name="none">Немає</string>
   <string name="other">Інше</string>
+  <string name="alternative_naming">Альтернативне іменування</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
   <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
   <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
