@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Skapa mapp</string>
   <string name="create_new_document">Skapa nytt dokument</string>
   <string name="move">Flytta</string>
-  <string name="info">Info</string>
+  <string name="info">Information</string>
   <string name="import_from_device">Importera från enhet</string>
   <string name="import_">Importera</string>
   <string name="append_to_witharg">Lägg till %s</string>
@@ -235,8 +235,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">Ingen bild vald, tagen eller sparad.</string>
   <string name="gallery_picture">Galleribild</string>
   <string name="camera_picture">Kamerabild</string>
+  <string name="enable_undo_and_redo_be_patient">Sätt på ångra- och gör-om-funktioner. Endast lämpad för avancerad användning. Ha tålamod och ta inte bort något viktigt. Stäng och öppna redigeraren för att rensa historik.</string>
   <string name="description">Beskrivning</string>
+  <string name="edit_picture">Ändra bild</string>
   <string name="math">Matematik</string>
   <string name="table_of_contents">Innehållsförteckning</string>
   <string name="miscellaneous">Diverse</string>
+  <string name="text_action">Texthändelse</string>
+  <string name="text_actions">Texthändelser</string>
 </resources>
