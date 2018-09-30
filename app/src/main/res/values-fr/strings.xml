@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partager avec…</string>
   <string name="share">Partager</string>
   <string name="search">Recherche</string>
-  <string name="preview">Aperçu</string>
-  <string name="editor">Éditeur</string>
+    <string name="editor">Éditeur</string>
   <string name="folders">Dossiers</string>
   <string name="files">Fichiers</string>
   <string name="document">Document</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Police de l\'éditeur</string>
   <string name="theme">Thème</string>
-  <string name="open_preview_when_opening_documents">Ouvrir l\'aperçu lors de l\'ouverture des documents</string>
-  <string name="about">À propos</string>
+    <string name="about">À propos</string>
   <string name="plaintext">Texte brut</string>
   <string name="file">Fichier</string>
   <string name="image">Image</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorité</string>
   <string name="history">Historique</string>
   <string name="sync">Synchro</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Ajouter %s ou naviguer parmi les existants</string>
-  <string name="serach_or_custom">Chercher / Personnaliser</string>
+    <string name="serach_or_custom">Chercher / Personnaliser</string>
   <string name="save">Enregistrer</string>
   <string name="update">Mise à jour</string>
   <string name="clear">Effacer</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
   <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
   <string name="control_font_size_in_editor">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
   <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
   <string name="format">Format</string>
   <string name="contexts">Contextes</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">En haut</string>
   <string name="bottom">En bas</string>
   <string name="center">Centré</string>
-  <string name="text_action_spacing">Espacement du module de texte</string>
-  <string name="horizontal_spacing_of_actions">Espacement horizontal des actions</string>
+  <string name="textaction_spacing">Espacement du module de texte</string>
+  <string name="horizontal_space_between_textactions">Espacement horizontal des actions</string>
   <string name="center_text">Centrer le texte</string>
   <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
   <string name="clipboard">Presse-papier</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Math</string>
   <string name="table_of_contents">Table des matières</string>
   <string name="miscellaneous">Divers</string>
-  <string name="text_action">Action texte</string>
-  <string name="text_actions">Actions texte</string>
+  <string name="textaction">Action texte</string>
+  <string name="textactions">Actions texte</string>
 </resources>

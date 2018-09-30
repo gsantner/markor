@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Şununla paylaş…</string>
   <string name="share">Paylaş</string>
   <string name="search">Ara</string>
-  <string name="preview">Önizleme</string>
-  <string name="editor">Düzenleyici</string>
+    <string name="editor">Düzenleyici</string>
   <string name="folders">Klasörler</string>
   <string name="files">Dosyalar</string>
   <string name="document">Belge</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Belgeleri açarken önizlemede aç</string>
-  <string name="about">Markor Hakkında</string>
+    <string name="about">Markor Hakkında</string>
   <string name="plaintext">Düz Metin</string>
   <string name="file">Dosya</string>
   <string name="image">Görüntü</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Öncelik</string>
   <string name="history">Geçmiş</string>
   <string name="sync">Eşitle</string>
-  <string name="add_x_or_browse_existing_ones_witharg">%s ekleyin veya mevcut belgelere göz at</string>
-  <string name="serach_or_custom">Ara / Özel</string>
+    <string name="serach_or_custom">Ara / Özel</string>
   <string name="save">Kaydet</string>
   <string name="update">Güncelle</string>
   <string name="clear">Temizle</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak daha fazla pil tüketip performansı düşürür.</string>
   <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
   <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
   <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
   <string name="format">Biçim</string>
   <string name="contexts">Bağlamlar</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Üst</string>
   <string name="bottom">Alt</string>
   <string name="center">Merkez</string>
-  <string name="text_action_spacing">Metin eylemleri arasındaki boşluk</string>
-  <string name="horizontal_spacing_of_actions">Eylemlerin yatay aralığı</string>
+  <string name="textaction_spacing">Metin eylemleri arasındaki boşluk</string>
+  <string name="horizontal_space_between_textactions">Eylemlerin yatay aralığı</string>
   <string name="center_text">Metni ortala</string>
   <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
   <string name="clipboard">Pano</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matematik</string>
   <string name="table_of_contents">İçindekiler</string>
   <string name="miscellaneous">Çeşitli</string>
-  <string name="text_action">Metin eylemi</string>
-  <string name="text_actions">Metin eylemleri</string>
+  <string name="textaction">Metin eylemi</string>
+  <string name="textactions">Metin eylemleri</string>
 </resources>

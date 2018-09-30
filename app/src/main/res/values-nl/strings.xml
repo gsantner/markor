@@ -37,8 +37,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Delen met…</string>
   <string name="share">Delen</string>
   <string name="search">Zoeken</string>
-  <string name="preview">Voorbeeld</string>
-  <string name="editor">Bewerker</string>
+    <string name="editor">Bewerker</string>
   <string name="folders">Mappen</string>
   <string name="files">Bestanden</string>
   <string name="documents">Documenten</string>
@@ -46,8 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Notitie Bewerker Lettertype</string>
   <string name="theme">Thema</string>
-  <string name="open_preview_when_opening_documents">Voorbeeld tijdens openen notities</string>
-  <string name="about">Over</string>
+    <string name="about">Over</string>
   <string name="plaintext">Platte tekst</string>
   <string name="file">Bestand</string>
   <string name="image">Afbeelding</string>

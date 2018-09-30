@@ -37,8 +37,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享到…</string>
   <string name="share">分享</string>
   <string name="search">搜尋</string>
-  <string name="preview">預覽</string>
-  <string name="editor">編輯器</string>
+    <string name="editor">編輯器</string>
   <string name="folders">資料夾</string>
   <string name="files">檔案</string>
   <string name="document">文件</string>
@@ -47,8 +46,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">文件編輯字型</string>
   <string name="theme">主題</string>
-  <string name="open_preview_when_opening_documents">當開啟文件時啟用預覽</string>
-  <string name="about">說明</string>
+    <string name="about">說明</string>
   <string name="plaintext">純文字文件</string>
   <string name="file">檔案</string>
   <string name="image">圖像</string>
@@ -103,8 +101,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">優先</string>
   <string name="history">歷史</string>
   <string name="sync">同步</string>
-  <string name="add_x_or_browse_existing_ones_witharg">新增 %s 或瀏覽現存檔案。</string>
-  <string name="serach_or_custom">搜尋/自訂</string>
+    <string name="serach_or_custom">搜尋/自訂</string>
   <string name="save">儲存</string>
   <string name="update">升級</string>
   <string name="clear">清除</string>
@@ -138,7 +135,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
   <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
   <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">用實用的活動顯示一個條列以插入使用中的文字模組</string>
+  <string name="textactions_show_useful_actions_description__appspecific">用實用的活動顯示一個條列以插入使用中的文字模組</string>
   <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
   <string name="format">格式</string>
   <string name="contexts">全文</string>
@@ -184,8 +181,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">頂端</string>
   <string name="bottom">底端</string>
   <string name="center">中央</string>
-  <string name="text_action_spacing">文字模組間距</string>
-  <string name="horizontal_spacing_of_actions">活動的水平距離</string>
+  <string name="textaction_spacing">文字模組間距</string>
+  <string name="horizontal_space_between_textactions">活動的水平距離</string>
   <string name="center_text">文件中央</string>
   <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
   <string name="clipboard">剪貼簿</string>

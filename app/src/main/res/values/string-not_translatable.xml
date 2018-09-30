@@ -99,16 +99,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
         <item quantity="one" translatable="false">@string/document</item>
         <item quantity="other" translatable="false">@string/documents</item>
     </plurals>
-
-    <plurals name="contexts" translatable="false">
-        <item quantity="one" translatable="false">@string/context</item>
-        <item quantity="other" translatable="false">@string/contexts</item>
-    </plurals>
-
-    <plurals name="projects" translatable="false">
-        <item quantity="one" translatable="false">@string/project</item>
-        <item quantity="other" translatable="false">@string/projects</item>
-    </plurals>
+    <string name="tag" translatable="false">Tag</string>
+    <string name="tags" translatable="false">Tags</string>
 
     <!--
         Preference keys
@@ -140,7 +132,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
-    <string name="pref_key__show_settings_option_in_main_toolbar" translatable="false">pref_key__show_settings_option_in_main_toolbar</string>
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
     <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>
     <string name="pref_key__editor_line_spacing" translatable="false">pref_key__editor_line_spacing</string>
@@ -178,7 +169,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__share_into__open_in_browser" translatable="false">pref_key__share_into__open_in_browser</string>
     <string name="pref_key__inject_to_head" translatable="false">pref_key__inject_to_head</string>
     <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
-    <string name="pref_key__editor_history_enabled3" translatable="false">pref_key__editor_history_enabled3</string>
     <string name="pref_key__markdown_render_math" translatable="false">pref_key__markdown_render_math</string>
     <string name="pref_key__markdown_show_toc" translatable="false">pref_key__markdown_show_toc</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>

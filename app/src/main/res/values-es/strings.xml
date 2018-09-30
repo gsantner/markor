@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Compartir con...</string>
   <string name="share">Compartir</string>
   <string name="search">Búsqueda</string>
-  <string name="preview">Previsualización</string>
   <string name="editor">Editor</string>
   <string name="folders">Carpetas</string>
   <string name="files">Archivos</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra del editor de notas</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Previsualizar primero al abrir las notas</string>
   <string name="about">Acerca de</string>
   <string name="plaintext">Texto sencillo</string>
   <string name="file">Archivo</string>
@@ -105,7 +103,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioridad</string>
   <string name="history">Historial</string>
   <string name="sync">Sincronizar</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Añadir %s o navegar existentes</string>
   <string name="serach_or_custom">Buscar / Personalizar</string>
   <string name="save">Guardar</string>
   <string name="update">Actualizar</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para el refrescado del coloreado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser coloreado o no</string>
   <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
   <string name="load_last_opened_folder_at_startup">Cargar la última carpeta abierta al iniciar</string>
   <string name="format">Formato</string>
   <string name="contexts">Contextos</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Superior</string>
   <string name="bottom">Inferior</string>
   <string name="center">Centro</string>
-  <string name="text_action_spacing">Espaciado de módulo de texto</string>
-  <string name="horizontal_spacing_of_actions">Espaciado horizontal de acciones</string>
+  <string name="textaction_spacing">Espaciado de módulo de texto</string>
+  <string name="horizontal_space_between_textactions">Espaciado horizontal de acciones</string>
   <string name="center_text">Centrar texto</string>
   <string name="edit_text_in_center_of_screen">Editar texto en el centro de la pantalla</string>
   <string name="clipboard">Portapapeles</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matemáticas</string>
   <string name="table_of_contents">Tabla de contenidos</string>
   <string name="miscellaneous">Diverso</string>
-  <string name="text_action">Acción de texto</string>
-  <string name="text_actions">Acciones de texto</string>
+  <string name="textaction">Acción de texto</string>
+  <string name="textactions">Acciones de texto</string>
 </resources>

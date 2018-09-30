@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Надіслати до…</string>
   <string name="share">Надіслати</string>
   <string name="search">Пошук</string>
-  <string name="preview">Попередній перегляд</string>
-  <string name="editor">Редактор</string>
+    <string name="editor">Редактор</string>
   <string name="folders">Директорії</string>
   <string name="files">Файли</string>
   <string name="document">Документ</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Шрифт редактора нотаток</string>
   <string name="theme">Тема</string>
-  <string name="open_preview_when_opening_documents">Показувати попередній перегляд при відкритті нотатки</string>
-  <string name="about">Про Markor</string>
+    <string name="about">Про Markor</string>
   <string name="plaintext">Звичайний текст</string>
   <string name="file">Файл</string>
   <string name="image">Зображення</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Пріоритет</string>
   <string name="history">Історія</string>
   <string name="sync">Синхронізувати</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Додати %s чи переглянути наявні</string>
-  <string name="serach_or_custom">Пошук / Розширений</string>
+    <string name="serach_or_custom">Пошук / Розширений</string>
   <string name="save">Зберегти</string>
   <string name="update">Оновити</string>
   <string name="clear">Очистити</string>
@@ -139,7 +136,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та завантаженість системи.</string>
   <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
   <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для команд тексту, що змінюють текст або виконують відповідну йому дію.</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для команд тексту, що змінюють текст або виконують відповідну йому дію.</string>
   <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту папку після запуску</string>
   <string name="format">Форматування</string>
   <string name="contexts">Контексти</string>
@@ -184,8 +181,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Вгорі</string>
   <string name="bottom">Знизу</string>
   <string name="center">У центрі</string>
-  <string name="text_action_spacing">Проміжки між командами</string>
-  <string name="horizontal_spacing_of_actions">Горизонтальні проміжки між кнопками команд</string>
+  <string name="textaction_spacing">Проміжки між командами</string>
+  <string name="horizontal_space_between_textactions">Горизонтальні проміжки між кнопками команд</string>
   <string name="center_text">Центрувати текст</string>
   <string name="clipboard">Буфер обміну</string>
   <string name="select_existing_document">Обрати наявний документ</string>
@@ -223,6 +220,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Формули</string>
   <string name="table_of_contents">Зміст</string>
   <string name="miscellaneous">Різне</string>
-  <string name="text_action">Команда тексту</string>
-  <string name="text_actions">Команди тексту</string>
+  <string name="textaction">Команда тексту</string>
+  <string name="textactions">Команди тексту</string>
 </resources>

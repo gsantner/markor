@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Поделиться с…</string>
   <string name="share">Поделиться</string>
   <string name="search">Поиск</string>
-  <string name="preview">Предпросмотр</string>
-  <string name="editor">Редактор</string>
+    <string name="editor">Редактор</string>
   <string name="folders">Папки</string>
   <string name="files">Файлы</string>
   <string name="document">Документ</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Шрифт редактора заметок</string>
   <string name="theme">Тема</string>
-  <string name="open_preview_when_opening_documents">Открыть предварительный просмотр при открытии документов</string>
-  <string name="about">О программе</string>
+    <string name="about">О программе</string>
   <string name="plaintext">Простой текст</string>
   <string name="file">Файл</string>
   <string name="image">Изображение</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Приоритет</string>
   <string name="history">История</string>
   <string name="sync">Синхронизация</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Добавить %s или просмотреть существующие</string>
-  <string name="serach_or_custom">Поиск / Настраиваемый</string>
+    <string name="serach_or_custom">Поиск / Настраиваемый</string>
   <string name="save">Сохранить</string>
   <string name="update">Обновить</string>
   <string name="clear">Очистить</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и снижает производительность.</string>
   <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
   <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
   <string name="load_last_opened_folder_at_startup">Загружать последнюю открытую папку при запуске</string>
   <string name="format">Формат</string>
   <string name="contexts">Контексты</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Выровнить по верхнему краю</string>
   <string name="bottom">Подвал</string>
   <string name="center">Центр</string>
-  <string name="text_action_spacing">Расстояние между текстовыми модулями</string>
-  <string name="horizontal_spacing_of_actions">Горизонтальное активное пространсто</string>
+  <string name="textaction_spacing">Расстояние между текстовыми модулями</string>
+  <string name="horizontal_space_between_textactions">Горизонтальное активное пространсто</string>
   <string name="center_text">Текст по центру</string>
   <string name="edit_text_in_center_of_screen">Редактирование текста в центре экрана</string>
   <string name="clipboard">Буфер обмена</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Математика</string>
   <string name="table_of_contents">Оглавление</string>
   <string name="miscellaneous">Прочее</string>
-  <string name="text_action">Операция с текстом</string>
-  <string name="text_actions">Операции с текстом</string>
+  <string name="textaction">Операция с текстом</string>
+  <string name="textactions">Операции с текстом</string>
 </resources>

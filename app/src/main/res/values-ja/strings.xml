@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">共有&#8230;</string>
   <string name="share">共有</string>
   <string name="search">検索</string>
-  <string name="preview">プレビュー</string>
-  <string name="editor">エディター</string>
+    <string name="editor">エディター</string>
   <string name="folders">フォルダー</string>
   <string name="files">ファイル</string>
   <string name="document">ドキュメント</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">ドキュメントエディターフォント</string>
   <string name="theme">テーマ</string>
-  <string name="open_preview_when_opening_documents">ドキュメントを開いたときにプレビューを開く</string>
-  <string name="about">情報</string>
+    <string name="about">情報</string>
   <string name="plaintext">プレーンテキスト</string>
   <string name="file">ファイル</string>
   <string name="image">画像</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">優先度</string>
   <string name="history">履歴</string>
   <string name="sync">同期</string>
-  <string name="add_x_or_browse_existing_ones_witharg">%s を追加または既存のものを参照</string>
-  <string name="serach_or_custom">検索 / カスタム</string>
+    <string name="serach_or_custom">検索 / カスタム</string>
   <string name="save">保存</string>
   <string name="update">更新</string>
   <string name="clear">クリア</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。</string>
   <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
   <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
+  <string name="textactions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
   <string name="load_last_opened_folder_at_startup">起動時に最後に開いたフォルダーを読み込みます</string>
   <string name="format">書式</string>
   <string name="contexts">コンテキスト</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">上部</string>
   <string name="bottom">下部</string>
   <string name="center">中央</string>
-  <string name="text_action_spacing">テキスト操作の間隔</string>
-  <string name="horizontal_spacing_of_actions">操作の横の間隔</string>
+  <string name="textaction_spacing">テキスト操作の間隔</string>
+  <string name="horizontal_space_between_textactions">操作の横の間隔</string>
   <string name="center_text">テキストの中央揃え</string>
   <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
   <string name="clipboard">クリップボード</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">計算</string>
   <string name="table_of_contents">目次</string>
   <string name="miscellaneous">その他</string>
-  <string name="text_action">テキスト操作</string>
-  <string name="text_actions">テキスト操作</string>
+  <string name="textaction">テキスト操作</string>
+  <string name="textactions">テキスト操作</string>
 </resources>

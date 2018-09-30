@@ -132,20 +132,20 @@
         </PreferenceCategory>
 
 
-        <PreferenceCategory android:title="@string/text_actions">
+        <PreferenceCategory android:title="@string/textactions">
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_extension_black_24dp"
                 android:key="@string/pref_key__is_show_textmodules_bar"
-                android:summary="@string/text_actions_show_useful_actions_description__appspecific"
-                android:title="@string/text_actions" />
+                android:summary="@string/textactions_show_useful_actions_description__appspecific"
+                android:title="@string/textactions" />
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="8"
                 android:icon="@drawable/ic_space_bar_black_24dp"
                 android:key="@string/pref_key__editor_textmodule_bar_item_padding"
                 android:max="32"
-                android:summary="@string/horizontal_spacing_of_actions"
-                android:title="@string/text_action_spacing"
+                android:summary="@string/horizontal_space_between_textactions"
+                android:title="@string/textaction_spacing"
                 app:min="0" />
         </PreferenceCategory>
 
@@ -162,7 +162,8 @@
     <!-- Preview screen -->
     <PreferenceScreen
         android:icon="@drawable/ic_visibility_black_24dp"
-        android:title="@string/preview">
+        android:summary="@string/display_converted_markup"
+        android:title="@string/representation">
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="@string/inject_to_head_default"
             android:icon="@drawable/ic_add_white_24dp"
@@ -184,7 +185,8 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_visibility_black_24dp"
             android:key="@string/pref_key__is_preview_first"
-            android:title="@string/open_preview_when_opening_documents" />
+            android:title="@string/prefer_representation"
+            android:summary="@string/show_representation_of_markup_by_default" />
     </PreferenceScreen>
 
 
@@ -221,7 +223,7 @@
                     android:summary="@string/use_different_fonttype_slow_down"
                     android:title="@string/use_monospace_for_code" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/preview">
+            <PreferenceCategory android:title="@string/representation">
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_looks_5_black_24dp"
@@ -241,7 +243,7 @@
         <PreferenceScreen
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="@string/todo_txt">
-            <PreferenceCategory android:title="@string/text_actions">
+            <PreferenceCategory android:title="@string/textactions">
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"

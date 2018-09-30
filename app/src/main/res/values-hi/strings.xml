@@ -36,8 +36,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">साझा करें &#8230;</string>
   <string name="share">बांटे</string>
   <string name="search">खोजें</string>
-  <string name="preview">पूर्व दर्शन</string>
-  <string name="editor">संपादक</string>
+    <string name="editor">संपादक</string>
   <string name="folders">फ़ोल्डर</string>
   <string name="files">फ़ाइलें</string>
   <string name="document">दस्तावेज़</string>
@@ -46,8 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">नोट संपादक फ़ॉन्ट</string>
   <string name="theme">बनावट</string>
-  <string name="open_preview_when_opening_documents">नोट्स खोलते समय पहले पूर्वावलोकन करें</string>
-  <string name="about">जानकारी</string>
+    <string name="about">जानकारी</string>
   <string name="plaintext">सादा टेक्स्ट</string>
   <string name="file">फ़ाइल</string>
   <string name="image">छवि</string>

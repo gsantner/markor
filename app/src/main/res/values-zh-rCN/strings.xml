@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享至…</string>
   <string name="share">分享</string>
   <string name="search">搜索</string>
-  <string name="preview">预览</string>
   <string name="editor">编辑器</string>
   <string name="folders">文件夹</string>
   <string name="files">文件</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">文档编辑器字体</string>
   <string name="theme">主题</string>
-  <string name="open_preview_when_opening_documents">当打开文件时启动预览</string>
   <string name="about">关于</string>
   <string name="plaintext">文本</string>
   <string name="file">文件</string>
@@ -105,7 +103,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">优先级</string>
   <string name="history">历史</string>
   <string name="sync">同步</string>
-  <string name="add_x_or_browse_existing_ones_witharg">添加 %s 或浏览已有文件</string>
   <string name="serach_or_custom">搜索 / 自定义</string>
   <string name="save">保存</string>
   <string name="update">更新</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Markdown 语法高亮自动刷新渲染时的时间间隔。较低的刷新间隔可以让渲染的更新频率加快，但也会使用更多电量，并可能影响应用性能。（单位：毫秒）</string>
   <string name="highlighting_enabled_or_not__appspecific">控制输入的文本是否应显示语法高亮</string>
   <string name="control_font_size_in_editor">调整编辑器中文字的字号</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">显示一条带有快捷文本操作功能与插入常用语法功能的工具栏</string>
+  <string name="textactions_show_useful_actions_description__appspecific">显示一条带有快捷文本操作功能与插入常用语法功能的工具栏</string>
   <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
   <string name="format">生成</string>
   <string name="contexts">全文</string>
@@ -186,8 +183,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">顶端</string>
   <string name="bottom">底端</string>
   <string name="center">中央</string>
-  <string name="text_action_spacing">文本工具按钮宽度</string>
-  <string name="horizontal_spacing_of_actions">操作按钮的横向宽度</string>
+  <string name="textaction_spacing">文本工具按钮宽度</string>
+  <string name="horizontal_space_between_textactions">操作按钮的横向宽度</string>
   <string name="center_text">居中文字</string>
   <string name="edit_text_in_center_of_screen">将文字置于屏幕中央处，不止是左右居中</string>
   <string name="clipboard">剪切板</string>
@@ -228,6 +225,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">启用数学公式渲染</string>
   <string name="table_of_contents">目录</string>
   <string name="miscellaneous">杂项设置</string>
-  <string name="text_action">文本操作</string>
-  <string name="text_actions">文本操作</string>
+  <string name="textaction">文本操作</string>
+  <string name="textactions">文本操作</string>
 </resources>

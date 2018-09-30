@@ -37,7 +37,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Udostępnij do&#8230;</string>
   <string name="share">Udostępnij</string>
   <string name="search">Szukaj</string>
-  <string name="preview">Podgląd</string>
   <string name="editor">Edytor</string>
   <string name="folders">Foldery</string>
   <string name="files">Pliki</string>
@@ -47,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Czcionka edytora</string>
   <string name="theme">Motyw</string>
-  <string name="open_preview_when_opening_documents">Najpierw podgląd podczas otwierania notatek</string>
   <string name="about">Informacje</string>
   <string name="plaintext">Zwykły tekst</string>
   <string name="file">Plik</string>
@@ -104,7 +102,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorytet</string>
   <string name="history">Historia</string>
   <string name="sync">Synchronizuj</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Dodaj %s lub przeglądaj istniejący</string>
   <string name="serach_or_custom">Szukaj / Niestandardowe</string>
   <string name="save">Zapisz</string>
   <string name="update">Aktualizuj</string>
@@ -139,7 +136,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
   <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
   <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
   <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekty</string>
@@ -179,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Góra</string>
   <string name="bottom">Dół</string>
   <string name="center">Wyśrodkuj</string>
-  <string name="horizontal_spacing_of_actions">Poziomy odstęp akcji</string>
+  <string name="horizontal_space_between_textactions">Poziomy odstęp akcji</string>
   <string name="center_text">Wyśrodkuj tekst</string>
   <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
   <string name="clipboard">Schowek</string>

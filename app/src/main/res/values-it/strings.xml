@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Condividi con…</string>
   <string name="share">Condividi</string>
   <string name="search">Cerca</string>
-  <string name="preview">Anteprima</string>
-  <string name="editor">Modifica</string>
+    <string name="editor">Modifica</string>
   <string name="folders">Cartelle</string>
   <string name="files">File</string>
   <string name="document">Documento</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo di carattere per l\'editor dei documenti</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Apri l\'anteprima quando si aprono i documenti</string>
-  <string name="about">Informazioni</string>
+    <string name="about">Informazioni</string>
   <string name="plaintext">Testo semplice</string>
   <string name="file">File</string>
   <string name="image">Immagine</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Priorità</string>
   <string name="history">Cronologia</string>
   <string name="sync">Sincronizzazione</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Aggiungi %s o esplora uno già esistente</string>
-  <string name="serach_or_custom">Cerca / Personalizza</string>
+    <string name="serach_or_custom">Cerca / Personalizza</string>
   <string name="save">Salva</string>
   <string name="update">Aggiorna</string>
   <string name="clear">Pulisci</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzionerà prima, ma consumerà più batteria e diminuirà le prestazioni.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
   <string name="control_font_size_in_editor">Controlla la grandezza del tipo di carattere usato nell\'editor</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Mostra una barra contenete le azioni utili per inserire dei moduli per il testo spesso utilizzati</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Mostra una barra contenete le azioni utili per inserire dei moduli per il testo spesso utilizzati</string>
   <string name="load_last_opened_folder_at_startup">Apri l\'ultima cartella aperta all\'avvio</string>
   <string name="format">Formato</string>
   <string name="contexts">Contesti</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">In alto</string>
   <string name="bottom">In basso</string>
   <string name="center">Al centro</string>
-  <string name="text_action_spacing">Spazio tra i moduli del testo</string>
-  <string name="horizontal_spacing_of_actions">Spazio orizzontale tra le azioni</string>
+  <string name="textaction_spacing">Spazio tra i moduli del testo</string>
+  <string name="horizontal_space_between_textactions">Spazio orizzontale tra le azioni</string>
   <string name="center_text">Centra il testo</string>
   <string name="edit_text_in_center_of_screen">Modifica il testo al centro della schermata</string>
   <string name="clipboard">Appunti</string>
@@ -232,6 +229,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matematica</string>
   <string name="table_of_contents">Indice</string>
   <string name="miscellaneous">Vario</string>
-  <string name="text_action">Azione sul testo</string>
-  <string name="text_actions">Azioni sul testo</string>
+  <string name="textaction">Azione sul testo</string>
+  <string name="textactions">Azioni sul testo</string>
 </resources>

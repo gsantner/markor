@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Compartilhar com…</string>
   <string name="share">Compartilhar</string>
   <string name="search">Pesquisar</string>
-  <string name="preview">Pré-visualização</string>
-  <string name="editor">Editor</string>
+    <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Arquivos</string>
   <string name="document">Documento</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Fonte das notas</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Pré-visualização ao abrir notas</string>
-  <string name="about">Sobre</string>
+    <string name="about">Sobre</string>
   <string name="plaintext">Texto puro</string>
   <string name="file">Arquivo</string>
   <string name="image">Imagem</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioridade</string>
   <string name="history">História</string>
   <string name="sync">Sincronização</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Adicionar %s ou escolher as já existente</string>
-  <string name="serach_or_custom">Persquisa / Personalizado</string>
+    <string name="serach_or_custom">Persquisa / Personalizado</string>
   <string name="save">Salvar</string>
   <string name="update">Atualização</string>
   <string name="clear">Limpar</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso de milissegundos para atualizar realces. Um valor baixo atualizará mais rápido, mas consumirá mais bateria e diminuirá a performance.</string>
   <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
   <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
   <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
   <string name="format">Formatar</string>
   <string name="contexts">Contextos</string>
@@ -187,8 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Superior</string>
   <string name="bottom">inferior</string>
   <string name="center">Centro</string>
-  <string name="text_action_spacing">Espaçamento do módulo de texto</string>
-  <string name="horizontal_spacing_of_actions">Espaçamento horizontal de ações</string>
+  <string name="textaction_spacing">Espaçamento do módulo de texto</string>
+  <string name="horizontal_space_between_textactions">Espaçamento horizontal de ações</string>
   <string name="center_text">Texto no centro</string>
   <string name="edit_text_in_center_of_screen">Editar o texto do centro da tela</string>
   <string name="clipboard">Área de transferência</string>
@@ -230,6 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matemática</string>
   <string name="table_of_contents">Tabela de conteúdos</string>
   <string name="miscellaneous">Diversos</string>
-  <string name="text_action">Ações de texto</string>
-  <string name="text_actions">Ações de texto</string>
+  <string name="textaction">Ações de texto</string>
+  <string name="textactions">Ações de texto</string>
 </resources>

@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
-        android:title="@string/preview"
+        android:title="@string/representation"
         app:showAsAction="always" />
 
     <item

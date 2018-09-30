@@ -38,7 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
-    <string name="preview">Preview</string>
+    <string name="representation">Representation</string>
+    <string name="display_converted_markup">Display converted markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Folders</string>
     <string name="files">Files</string>
@@ -49,7 +50,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- Preferences -->
     <string name="document_editor_font">Document Editor Font</string>
     <string name="theme">Theme</string>
-    <string name="open_preview_when_opening_documents">Open preview when opening documents</string>
+    <string name="show_representation_of_markup_by_default">Show existing documents in representation mode by default</string>
     <string name="about">About</string>
     <string name="plaintext">Plain Text</string>
     <string name="file">File</string>
@@ -110,7 +111,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Priority</string>
     <string name="history">History</string>
     <string name="sync">Sync</string>
-    <string name="add_x_or_browse_existing_ones_witharg">Add %s or browse existing ones</string>
     <string name="serach_or_custom">Search / Custom</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
@@ -147,15 +147,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and make a heavy load.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
     <string name="control_font_size_in_editor">Control the font size used in the editor</string>
-    <string name="text_actions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These text actions modify the text or run an action based on the text.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These textactions modify the text or run an action based on the text.</string>
     <string name="load_last_opened_folder_at_startup">Load the last opened folder at startup</string>
     <string name="format">Format</string>
     <string name="contexts">Contexts</string>
     <string name="project">Project</string>
     <string name="projects">Projects</string>
     <string name="categories">Categories</string>
-    <string name="tag">Tag</string>
-    <string name="tags">Tags</string>
     <string name="none">None</string>
     <string name="other">Other</string>
     <string name="alternative_naming">Alternative naming</string>
@@ -166,7 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insert the current date when starting a new task</string>
     <string name="tasks_with_todays_date">Tasks with today\'s date</string>
     <string name="append_contexts_and_projects">Append contexts and projects</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate text action</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at then end of a task when using the appropriate textaction</string>
     <string name="rtl_rendering">RTL rendering</string>
     <string name="highlight_line_ending">Highlight line ending</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Highlight spaces at the end of lines containing two or more spaces</string>
@@ -199,8 +197,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bottom</string>
     <string name="center">Center</string>
-    <string name="text_action_spacing">Text action spacing</string>
-    <string name="horizontal_spacing_of_actions">Horizontal spacing of actions</string>
+    <string name="textaction_spacing">Textaction spacing</string>
+    <string name="horizontal_space_between_textactions">Horizontal space between textaction buttons</string>
 
     <string name="center_text">Center text</string>
     <string name="edit_text_in_center_of_screen">Edit text in center of the screen</string>
@@ -244,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Math</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
-    <string name="text_action">Text action</string>
-    <string name="text_actions">Text actions</string>
+    <string name="textaction">Textaction</string>
+    <string name="textactions">Textactions</string>
+    <string name="prefer_representation">Prefer representation</string>
 </resources>

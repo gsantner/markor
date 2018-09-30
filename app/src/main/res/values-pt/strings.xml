@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Partilhar com&#8230;</string>
   <string name="share">Partilhar</string>
   <string name="search">Pesquisar</string>
-  <string name="preview">Previsão</string>
-  <string name="editor">Editor</string>
+    <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Ficheiros</string>
   <string name="document">Documento</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra do editor</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Pré-visualizar ao abrir os documentos</string>
-  <string name="about">Acerca</string>
+    <string name="about">Acerca</string>
   <string name="plaintext">Texto simples</string>
   <string name="file">Ficheiro</string>
   <string name="image">Imagem</string>

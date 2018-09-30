@@ -38,8 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Dela till&#8230;</string>
   <string name="share">Dela</string>
   <string name="search">Söc</string>
-  <string name="preview">Förhandsgranska</string>
-  <string name="editor">Redigerare</string>
+    <string name="editor">Redigerare</string>
   <string name="folders">Mappar</string>
   <string name="files">Filer</string>
   <string name="document">Dokument</string>
@@ -48,8 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Redigerartypsnitt</string>
   <string name="theme">Tema</string>
-  <string name="open_preview_when_opening_documents">Öppna dokument i granskningsläge</string>
-  <string name="about">Om</string>
+    <string name="about">Om</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Fil</string>
   <string name="image">Bild</string>
@@ -105,8 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioritet</string>
   <string name="history">Historik</string>
   <string name="sync">Synka</string>
-  <string name="add_x_or_browse_existing_ones_witharg">Lägg till %s eller bläddra bland befintliga</string>
-  <string name="serach_or_custom">Sök / Lägg till</string>
+    <string name="serach_or_custom">Sök / Lägg till</string>
   <string name="save">Spara</string>
   <string name="update">Uppdatera</string>
   <string name="clear">Rensa</string>
@@ -140,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
   <string name="highlighting_enabled_or_not__appspecific">Ska inskriven text vara syntaxfärgad?</string>
   <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
   <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
   <string name="format">Format</string>
   <string name="contexts">Kontexter</string>

@@ -35,7 +35,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">به اشتراک‌گذاری با...</string>
   <string name="share">به اشتراک‌گذاری</string>
   <string name="search">جستجو</string>
-  <string name="preview">پیش‌نمایش</string>
   <string name="editor">ویرایش‌گر</string>
   <string name="folders">پوشه‌ها</string>
   <string name="files">فایل‌ها</string>
@@ -44,7 +43,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">قلم ویرایشگر پرونده</string>
   <string name="theme">پوسته</string>
-  <string name="open_preview_when_opening_documents">نمایش پیش‌نمایش هنگامی که پرونده‌ها را باز می‌کنید</string>
   <string name="about">درباره مارکور</string>
   <string name="plaintext">متن ساده</string>
   <string name="file">فایل</string>
@@ -92,7 +90,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="list">لیست</string>
   <string name="priority">اولویت</string>
   <string name="history">تاریخچه</string>
-  <string name="add_x_or_browse_existing_ones_witharg">%s را بیفزایید یا از موارد موجود استفاده کنید</string>
   <string name="save">ذخیره</string>
   <string name="update">بروزرسانی</string>
   <string name="clear">پاکسازی</string>
@@ -122,7 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay">زمان‌بندی رنگی کردن</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">فاصله زمانی چک کردن فاصله‌های برای رنگی کردن را تعیین کنید. عدد پایان تر، رنگی کردن را سریع‌تر انجام می‌دهد؛ ولی باتری بیشتری مصرف خواهد کرد و شاید سرعت را کاهش دهد.</string>
   <string name="control_font_size_in_editor">کنترل اندازه قلم ویرایشگر</string>
-  <string name="text_actions_show_useful_actions_description__appspecific">نمایش یک نوار با عملکردهای کاربردی برای افزودن ماژول‌های متنی متداول</string>
+  <string name="textactions_show_useful_actions_description__appspecific">نمایش یک نوار با عملکردهای کاربردی برای افزودن ماژول‌های متنی متداول</string>
   <string name="load_last_opened_folder_at_startup">بارگزاری آخرین پوشه باز شده هنگام راه‌اندازی</string>
   <string name="format">فرمت</string>
   <string name="project">پروژه</string>
