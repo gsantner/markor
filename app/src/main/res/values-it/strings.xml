@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Condividi con…</string>
   <string name="share">Condividi</string>
   <string name="search">Cerca</string>
+  <string name="representation">Rappresentazione</string>
   <string name="editor">Modifica</string>
   <string name="folders">Cartelle</string>
   <string name="files">File</string>
@@ -152,7 +153,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
   <string name="tasks_with_todays_date">Attività con la data di oggi</string>
   <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di una avvitià quando si sta usando il giusto modulo di testo</string>
+  <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un\'attività quando si sta usando la giusta azione sul testo</string>
   <string name="rtl_rendering">Render da destra a sinistra</string>
   <string name="highlight_line_ending">Evidenzia la fine della linea</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
@@ -186,7 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">In basso</string>
   <string name="center">Al centro</string>
   <string name="textaction_spacing">Spazio tra i moduli del testo</string>
-  <string name="horizontal_space_between_textactions">Spazio orizzontale tra le azioni</string>
+  <string name="horizontal_space_between_textactions">Spazio orizzontale tra i tasti di azione sul testo</string>
   <string name="center_text">Centra il testo</string>
   <string name="edit_text_in_center_of_screen">Modifica il testo al centro della schermata</string>
   <string name="clipboard">Appunti</string>
