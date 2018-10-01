@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Condividi</string>
   <string name="search">Cerca</string>
   <string name="representation">Rappresentazione</string>
+  <string name="display_converted_markup">Mostra conversione markup</string>
   <string name="editor">Modifica</string>
   <string name="folders">Cartelle</string>
   <string name="files">File</string>
@@ -48,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo di carattere per l\'editor dei documenti</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Visualizza i documenti esistenti in modalità di rappresentazione di default</string>
   <string name="about">Informazioni</string>
   <string name="plaintext">Testo semplice</string>
   <string name="file">File</string>
@@ -233,4 +235,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Vario</string>
   <string name="textaction">Azione sul testo</string>
   <string name="textactions">Azioni sul testo</string>
+  <string name="prefer_representation">Rappresentazione preferita</string>
 </resources>
