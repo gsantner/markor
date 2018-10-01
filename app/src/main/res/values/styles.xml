@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
+-->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
@@ -45,7 +55,7 @@
     </style>
 
     <style name="AppTheme.PreferenceTheme.CategoryStyle" parent="Preference.Category">
-        <item name="android:layout">@layout/pref_category_text</item>
+        <item name="android:layout">@layout/opoc_pref_category_text</item>
     </style>
 
 

@@ -1,11 +1,10 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
+ *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
@@ -61,7 +60,7 @@ public abstract class TextModuleActions {
     }
 
     protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
-        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.ui__quick_keyboard_button, null);
+        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setOnClickListener(v -> {
             try {

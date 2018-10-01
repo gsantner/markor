@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-    /*#######################################################
-    *
-    *   Maintained by Gregor Santner, 2017-
-    *   https://gsantner.net/
-    *
-    *   License: Apache 2.0 / Commercial
-    *  https://github.com/gsantner/opoc/#licensing
-    *  https://www.apache.org/licenses/LICENSE-2.0
-    *
-    #########################################################*/
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2017-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,14 +21,14 @@
 
     <TextView
         android:id="@+id/document__fragment__edit__content_editor__permission_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#F8D507"
-        android:textStyle="bold"
         android:padding="12dp"
-        android:visibility="gone"
         android:text="@string/warning_disallowed_sd_access"
         android:textColor="@color/primary_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"

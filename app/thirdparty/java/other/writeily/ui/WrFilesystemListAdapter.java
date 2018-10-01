@@ -1,10 +1,12 @@
-/*
+/*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
  * Copyright (c) 2017-2018 Gregor Santner
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ * Licensed under the MIT license.
+ * You can get a copy of the license text here:
+ *   https://opensource.org/licenses/MIT
+###########################################################*/
 package other.writeily.ui;
 
 import android.content.Context;
@@ -64,7 +66,7 @@ public class WrFilesystemListAdapter extends ArrayAdapter<File> implements Filte
     public View getView(int i, View view, @NonNull ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View row = inflater.inflate(R.layout.ui__file__item, viewGroup, false);
+        View row = inflater.inflate(R.layout.opoc_file__item, viewGroup, false);
         TextView noteTitle = row.findViewById(R.id.note_title);
         TextView noteExtra = row.findViewById(R.id.note_extra);
         ImageView fileIdentifierImageView = row.findViewById(R.id.file_identifier_icon);

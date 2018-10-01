@@ -1,10 +1,12 @@
-/*
+/*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
  * Copyright (c) 2017-2018 Gregor Santner
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ * Licensed under the MIT license.
+ * You can get a copy of the license text here:
+ *   https://opensource.org/licenses/MIT
+###########################################################*/
 package other.writeily.activity;
 
 import android.app.SearchManager;
@@ -33,7 +35,6 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.model.WrMarkorSingleton;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppCast;
@@ -53,6 +54,7 @@ import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.OnItemClick;
+import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrCreateFolderDialog;
 import other.writeily.ui.WrFilesystemListAdapter;
@@ -108,7 +110,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         Context c = getContext();
         _filesAdapter = new WrFilesystemListAdapter(c, 0, _filesCurrentlyShown);
         _simpleSectionAdapter = new SimpleSectionAdapter<>(c, _filesAdapter,
-                R.layout.ui__text__item,
+                R.layout.text__item,
                 R.id.notes_fragment_section_text, _sectionizer);
 
         _filesListView.setMultiChoiceModeListener(new ActionModeCallback());
@@ -344,7 +346,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
             _filesAdapter = new WrFilesystemListAdapter(c, 0, _filesCurrentlyShown);
             _simpleSectionAdapter =
                     new SimpleSectionAdapter<>(c
-                            , _filesAdapter, R.layout.ui__text__item
+                            , _filesAdapter, R.layout.text__item
                             , R.id.notes_fragment_section_text, _sectionizer);
             _filesListView.setAdapter(_simpleSectionAdapter);
             _simpleSectionAdapter.notifyDataSetChanged();

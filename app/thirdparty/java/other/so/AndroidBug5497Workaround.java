@@ -1,9 +1,11 @@
-/*
+/*#######################################################
  * Copyright (c) 2013-2017 Joseph Johnson https://stackoverflow.com/a/19494006
  * Copyright (c) 2017-2018 Gregor Santner
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ * Licensed under the MIT license.
+ * You can get a copy of the license text here:
+ *   https://opensource.org/licenses/MIT
+###########################################################*/
 package other.so;
 
 import android.app.Activity;

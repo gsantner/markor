@@ -82,7 +82,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     @NonNull
     @Override
     public UiFilesystemDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.ui__filesystem_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.opoc_filesystem_item, parent, false);
         _wasInit = true;
         return new UiFilesystemDialogViewHolder(v);
     }

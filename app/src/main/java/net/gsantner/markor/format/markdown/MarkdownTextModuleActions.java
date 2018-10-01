@@ -3,9 +3,8 @@
  *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
 package net.gsantner.markor.format.markdown;
@@ -277,7 +276,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     @SuppressWarnings("RedundantCast")
     private void showInsertImageOrLinkDialog(int action) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
-        final View view = _activity.getLayoutInflater().inflate(R.layout.ui__select_path_dialog, (ViewGroup) null);
+        final View view = _activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
         final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);

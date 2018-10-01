@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
+<?xml version="1.0" encoding="utf-8"?><!--
+/*#######################################################
+ * Copyright (c) 2014 Jeff Martin
+ * Copyright (c) 2015 Pedro Lafuente
+ * Copyright (c) 2017-2018 Gregor Santner
+ *
+ * Licensed under the MIT license.
+ * You can get a copy of the license text here:
+ *   https://opensource.org/licenses/MIT
+###########################################################*/
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"

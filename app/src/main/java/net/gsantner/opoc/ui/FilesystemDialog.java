@@ -101,7 +101,7 @@ public class FilesystemDialog extends DialogFragment
     //########################
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.ui__filesystem_dialog, container, false);
+        View root = inflater.inflate(R.layout.opoc_filesystem_dialog, container, false);
         ButterKnife.bind(this, root);
 
         if (getDialog() != null && getDialog().getWindow() != null) {

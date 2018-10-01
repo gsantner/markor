@@ -23,7 +23,7 @@
       <item name="preferenceCategoryStyle">@style/AppTheme.PreferenceTheme.CategoryStyle</item>
     </style>
     <style name="AppTheme.PreferenceTheme.CategoryStyle" parent="Preference.Category">
-        <item name="android:layout">@layout/pref_category_text</item>
+        <item name="android:layout">@layout/opoc_pref_category_text</item>
     </style>
 
  * Layout file:

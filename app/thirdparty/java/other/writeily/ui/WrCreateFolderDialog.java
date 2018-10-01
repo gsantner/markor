@@ -1,10 +1,12 @@
-/*
+/*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
  * Copyright (c) 2017-2018 Gregor Santner
  *
- * Licensed under the MIT license. See LICENSE file in the project root for details.
- */
+ * Licensed under the MIT license.
+ * You can get a copy of the license text here:
+ *   https://opensource.org/licenses/MIT
+###########################################################*/
 package other.writeily.ui;
 
 import android.app.Dialog;
@@ -43,7 +45,7 @@ public class WrCreateFolderDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder;
 
         boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        root = inflater.inflate(R.layout.ui__create_folder__dialog, null);
+        root = inflater.inflate(R.layout.create_folder__dialog, null);
         dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 

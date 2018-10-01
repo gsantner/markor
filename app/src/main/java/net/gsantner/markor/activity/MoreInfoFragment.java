@@ -1,18 +1,14 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
+ *   Maintained by Gregor Santner, 2017-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *     https://github.com/gsantner/opoc/#licensing
  *
 #########################################################*/
-/*
- * This class is not intended to be used directly.
- * Copy this file from opoc to your app and modify
- * packageId, resources and arguments to needs and availability
- */
+
 package net.gsantner.markor.activity;
 
 import android.content.Context;
