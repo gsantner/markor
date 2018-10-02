@@ -387,7 +387,6 @@ public class DocumentActivity extends AppCompatActivity {
     public void setDocument(Document document) {
         _document = document;
         _toolbarTitleText.setText(_document.getTitle());
-        _toolbarTitleText.setText(_document.getTitle());
 
         if (!TextUtils.isEmpty(_document.getTitle()) && _toolbarSwitcher.getNextView() == _toolbarTitleText) {
             _toolbarSwitcher.showNext();
