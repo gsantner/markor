@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Compartir con...</string>
   <string name="share">Compartir</string>
   <string name="search">Búsqueda</string>
+  <string name="representation">Representación</string>
   <string name="editor">Editor</string>
   <string name="folders">Carpetas</string>
   <string name="files">Archivos</string>
@@ -146,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Categorías</string>
   <string name="none">Ninguno</string>
   <string name="other">Otros</string>
+  <string name="alternative_naming">Nombres alternativos</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Especifica si subrayar los códigos de color hexadecimal de acuerdo a su color o no</string>
   <string name="underline_hex_color_codes">Subrayar códigos de color hexadecimal</string>
   <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
@@ -185,7 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">Inferior</string>
   <string name="center">Centro</string>
   <string name="textaction_spacing">Espaciado de módulo de texto</string>
-  <string name="horizontal_space_between_textactions">Espaciado horizontal de acciones</string>
+  <string name="horizontal_space_between_textactions">Espacio horizontal entre botones de acción de texto</string>
   <string name="center_text">Centrar texto</string>
   <string name="edit_text_in_center_of_screen">Editar texto en el centro de la pantalla</string>
   <string name="clipboard">Portapapeles</string>
@@ -229,4 +231,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverso</string>
   <string name="textaction">Acción de texto</string>
   <string name="textactions">Acciones de texto</string>
+  <string name="prefer_representation">Representación preferida</string>
 </resources>
