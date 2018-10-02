@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Compartilhar com…</string>
   <string name="share">Compartilhar</string>
   <string name="search">Pesquisar</string>
+  <string name="representation">Representação</string>
+  <string name="display_converted_markup">Mostrar \"markup\" convertido</string>
   <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Arquivos</string>
@@ -47,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Fonte das notas</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Por padrão, mostrar os documentos no modo de representação</string>
   <string name="about">Sobre</string>
   <string name="plaintext">Texto puro</string>
   <string name="file">Arquivo</string>
@@ -146,6 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Categorias</string>
   <string name="none">Nenhum</string>
   <string name="other">Outros</string>
+  <string name="alternative_naming">Nomes alternativos</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
   <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
   <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
@@ -229,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diversos</string>
   <string name="textaction">Ações de texto</string>
   <string name="textactions">Ações de texto</string>
+  <string name="prefer_representation">Preferir representação</string>
 </resources>
