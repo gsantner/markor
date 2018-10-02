@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Divers</string>
   <string name="textaction">Action texte</string>
   <string name="textactions">Actions texte</string>
+  <string name="prefer_representation">Représentation préférée</string>
 </resources>
