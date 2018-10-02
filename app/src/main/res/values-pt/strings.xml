@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">Baixo</string>
   <string name="center">Centro</string>
   <string name="textaction_spacing">Espaçamento entre ações de texto</string>
+  <string name="horizontal_space_between_textactions">Espaço horizontal entre os botões das ações de texto</string>
   <string name="center_text">Centrar texto</string>
   <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
   <string name="clipboard">Área de transferência</string>
@@ -181,4 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matemática</string>
   <string name="table_of_contents">Índice</string>
   <string name="miscellaneous">Diversos</string>
+  <string name="textaction">Ação de texto</string>
+  <string name="textactions">Ações de texto</string>
+  <string name="prefer_representation">Preferir representação</string>
 </resources>
