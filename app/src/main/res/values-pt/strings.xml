@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Partilhar</string>
   <string name="search">Pesquisar</string>
   <string name="representation">Representação</string>
+  <string name="display_converted_markup">Mostrar \'markup\' convertida</string>
   <string name="editor">Editor</string>
   <string name="folders">Pastas</string>
   <string name="files">Ficheiros</string>
@@ -48,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra do editor</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Por definição, mostrar os documentos no modo de representação</string>
   <string name="about">Acerca</string>
   <string name="plaintext">Texto simples</string>
   <string name="file">Ficheiro</string>
@@ -126,6 +128,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Mostrar barra com ações na base do ecrã. Extas ações modificam o texto ou executam uma ação tendo por base texto.</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
@@ -134,6 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="other">Outro</string>
   <string name="alternative_naming">Nomes alternativos</string>
   <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
+  <string name="append_contexts_and_projects_on_end_of_task">Anexar contextos e projetos no fim de uma tarefa, se utilizada a ação de texto apropriada</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
   <string name="line_spacing">Espaçamento entre linhas</string>
@@ -147,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Cima</string>
   <string name="bottom">Baixo</string>
   <string name="center">Centro</string>
+  <string name="textaction_spacing">Espaçamento entre ações de texto</string>
   <string name="center_text">Centrar texto</string>
   <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
   <string name="clipboard">Área de transferência</string>
