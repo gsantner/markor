@@ -31,4 +31,4 @@ Where:
 * **[Emanuele Petriglia](https://github.com/ema-pe)**<br>~° Italian translation
 * **[Tiago Danin](https://tiagodanin.github.io)**<br/>~° Brazilian Portuguese translation
 * **[Jesica Chu](https://github.com/jesicachu)**<br/>~° Spanish and Traiditonal Chinese translation
-* **[Ankush S Shetkar](https://github.com/lifeLessCpder)**<br/>~° Added Chrome custom tabs for urls
+* **[Ankush S Shetkar](https://github.com/lifeLessCoder)**<br/>~° Added Chrome custom tabs for urls
