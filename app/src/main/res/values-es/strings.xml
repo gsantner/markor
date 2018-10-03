@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Compartir</string>
   <string name="search">Búsqueda</string>
   <string name="representation">Representación</string>
+  <string name="display_converted_markup">Mostrar anotaciones convertidas</string>
   <string name="editor">Editor</string>
   <string name="folders">Carpetas</string>
   <string name="files">Archivos</string>
@@ -48,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra del editor de notas</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Mostrar documentos existentes en modo de representación por defecto</string>
   <string name="about">Acerca de</string>
   <string name="plaintext">Texto sencillo</string>
   <string name="file">Archivo</string>
