@@ -337,14 +337,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onViewPagerPageSelected(int pos) {
         Menu menu = _bottomNav.getMenu();
-        PermissionChecker permc = new PermissionChecker(this);
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         _fab.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
-
-        if (pos == 1 || pos == 2) {
-            permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
-        }
     }
 
     @SuppressLint("RestrictedApi")
