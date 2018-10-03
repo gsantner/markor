@@ -14,13 +14,13 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-ext.version_setup_minSdk = 14
+ext.version_setup_minSdk = 15
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"
 
 android {
-    buildToolsVersion version_setup_buildTools
+    buildToolsVersion '28.0.2'
     compileSdkVersion version_setup_compileSdk
     flavorDimensions "default"
 
@@ -137,6 +137,9 @@ dependencies {
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$version_plugin_kotlin"
     }
+
+    // Chrome custom tabs
+    implementation 'com.android.support:customtabs:23.3.0'
 
     // Processors
     def anpros = ["com.jakewharton:butterknife-compiler:${version_library_butterknife}"]

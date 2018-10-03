@@ -11,10 +11,13 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
@@ -48,7 +51,17 @@ public class MarkorWebViewClient extends WebViewClient {
                 su.viewFileInOtherApp(file, null);
             }
         } else {
-            ContextUtils.get().openWebpageInExternalBrowser(url);
+            try {
+                // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+                // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+                // and launch the desired Url with CustomTabsIntent.launchUrl()
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(_activity, R.color.primary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(_activity, Uri.parse(url));
+            } catch (Exception e) {
+                ContextUtils.get().openWebpageInExternalBrowser(url);
+            }
         }
         return true;
     }
