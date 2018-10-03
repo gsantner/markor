@@ -38,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Dela till&#8230;</string>
   <string name="share">Dela</string>
   <string name="search">Söc</string>
+  <string name="representation">Representation</string>
   <string name="editor">Redigerare</string>
   <string name="folders">Mappar</string>
   <string name="files">Filer</string>
@@ -146,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">Kategorier</string>
   <string name="none">Ingen</string>
   <string name="other">Andra</string>
+  <string name="alternative_naming">Alternativ namngivning</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ge färger skrivna som hexkod ett understreck i aktuell färg</string>
   <string name="underline_hex_color_codes">Färgmarkera hexkoder</string>
   <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
@@ -225,4 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matematik</string>
   <string name="table_of_contents">Innehållsförteckning</string>
   <string name="miscellaneous">Diverse</string>
+  <string name="textaction">Textåtgärd</string>
+  <string name="textactions">Textåtgärder</string>
 </resources>
