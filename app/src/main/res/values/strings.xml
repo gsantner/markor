@@ -65,7 +65,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Create</string>
     <string name="select_entries">Select entries</string>
     <string name="one_item_selected">One item selected</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%s items selected</string>
 
     <string name="hide_statusbar_at_this_view">Hide the statusbar at this view</string>
     <string name="hide_statusbar">Hide statusbar</string>
@@ -135,7 +135,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_settings" needed="false">App Settings</string>
     <string name="editor_settings" needed="false">Editor Settings</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Remember last folder location on startup</string>
-    <string name="number_of_files_witharg" needed="false">Number of files: %d</string>
+    <string name="number_of_files_witharg" needed="false">Number of files: %s</string>
 
     <!-- New strings -->
     <string name="app_wide">App-wide</string>
