@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Police de l\'éditeur</string>
   <string name="theme">Thème</string>
-  <string name="show_representation_of_markup_by_default">Afficher les documents existants en mode de représentation par défaut</string>
+  <string name="show_representation_of_markup_by_default">Afficher les documents existant en mode de représentation par défaut</string>
   <string name="about">À propos</string>
   <string name="plaintext">Texte brut</string>
   <string name="file">Fichier</string>
@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="show_third_party_licenses">Montrer les licences tierces</string>
   <string name="language_change_restart_description">Changer la langue de l\'interface. Vous devrez redémarrer l\'application pour que ce changement soit pris en compte</string>
   <string name="language">Langue</string>
-  <string name="error_need_storage_permission_to_save_documents">Vous devez autoriser l\'application à écrire dans la mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
+  <string name="error_need_storage_permission_to_save_documents">Vous devez autoriser l\'application à écrire dans le mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
   <string name="open_with">Ouvrir avec</string>
   <string name="sort">Trier</string>
   <string name="date">Trier par date</string>
@@ -119,7 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="refresh">Rafraîchir</string>
   <string name="create_shortcut">Créer un raccourci</string>
   <string name="tried_to_create_shortcut_for_this_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
-  <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans ce dossier ? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
+  <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans ce dossier? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
   <string name="files_and_folders">Fichiers et dossiers</string>
   <string name="document_browser">Explorateur de documents</string>
   <!-- Not in use currently -->
@@ -139,7 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay">Délai de rafraîchissement</string>
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
   <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
-  <string name="control_font_size_in_editor">Fixe la taille de la police police de caractères utilisée dans l\'éditeur</string>
+  <string name="control_font_size_in_editor">Fixe la taille de la police de caractères utilisée dans l\'éditeur</string>
   <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
   <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
   <string name="format">Format</string>
@@ -155,12 +155,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
   <string name="tasks_with_todays_date">Tâches d\'aujourd\'hui</string>
   <string name="append_contexts_and_projects">Ajout des contextes et projets</string>
-  <string name="append_contexts_and_projects_on_end_of_task">Ajouter les contextes et projets à la fin d\'une tâche à l\'aide de l\'outil de text approprié</string>
+  <string name="append_contexts_and_projects_on_end_of_task">Ajouter les contextes et projets à la fin d\'une tâche à l\'aide de l\'outil de texte approprié</string>
   <string name="rtl_rendering">Écriture de droite à gauche</string>
   <string name="highlight_line_ending">Afficher les fins de ligne</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Mettre en valeur les espaces en fin de ligne, à partir de deux espaces</string>
   <string name="use_monospace_for_code">Utiliser une police à chasse fixe pour le code</string>
-  <string name="use_different_fonttype_slow_down">Utiliser une police de type différent. Changer dynamiquement de police de caractères a des conséquences sur les performances de l\'application.</string>
+  <string name="use_different_fonttype_slow_down">Utiliser une police du type différent. Changer dynamiquement de police de caractères a des conséquences sur les performances de l\'application.</string>
   <string name="general">Général</string>
   <string name="resources">Ressources</string>
   <string name="space_between_lines_in_percent">Espacement de lignes (%)</string>
@@ -177,8 +177,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_tab">Tabulation</string>
   <string name="start_on_bottom">Commencer en haut</string>
   <string name="start_on_bottom_when_loading_document">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
-  <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que les fichier locaux, hors-ligne et les documents dont l\'adresse et le nom de fichier sont disponibles. Cette application ne fournit visiblement pas toutes les informations et ne peut pas être utilisée avec Markor :(.</string>
-  <string name="sync_to_local_folder_notice">Notez bien: si vous utiliser une application de synchronisation, versions fichiers peuvent résider dans les dossiers connus ou spécifique à l\'application. Vous pouvez ouvrir les fichiers en changeant le dossier document de Markor pour ce dossier, ou en ouvrant le fichier via un a different explorateur de fichiers.</string>
+  <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que les fichiers locaux, hors-ligne et les documents dont l\'adresse et le nom de fichier sont disponibles. Cette application ne fournit visiblement pas toutes les informations et ne peut pas être utilisée avec Markor :(.</string>
+  <string name="sync_to_local_folder_notice">Notez bien: si vous utilisez une application de synchronisation, versions fichiers peuvent résider dans les dossiers connus ou spécifiques à l\'application. Vous pouvez ouvrir les fichiers en changeant le dossier document de Markor pour ce dossier, ou en ouvrant le fichier via un a different explorateur de fichiers.</string>
   <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
   <string name="vertical_alignment">Alignement vertical</string>
   <string name="horizontal_alignment">Alignement horizontal</string>
@@ -201,7 +201,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="report_bugs">Signaler un bug</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Plus d\'informations sur les dons ou l\'aide à ce projet</string>
   <string name="android_contribution_guide">Guide de contribution Android</string>
-  <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur la contribution à un projet Open Source, Surtout les applications Android</string>
+  <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur la contribution à un projet Open Source, surtout les applications Android</string>
   <string name="join_community">Rejoindre la communauté</string>
   <string name="bug_reports_suggest_improvements">Commentaires et suggestions</string>
   <string name="help_translating_this_app">Traduire cette application</string>
