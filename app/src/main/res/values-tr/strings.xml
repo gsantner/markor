@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">Alt</string>
   <string name="center">Merkez</string>
   <string name="textaction_spacing">Metin eylemleri arasındaki boşluk</string>
-  <string name="horizontal_space_between_textactions">Eylemlerin yatay aralığı</string>
+  <string name="horizontal_space_between_textactions">Metin eylem düğmeleri arasındaki yatay boşluk</string>
   <string name="center_text">Metni ortala</string>
   <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
   <string name="clipboard">Pano</string>
