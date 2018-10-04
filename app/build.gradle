@@ -14,7 +14,7 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-ext.version_setup_minSdk = 14
+ext.version_setup_minSdk = 15
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"
@@ -111,6 +111,7 @@ dependencies {
     implementation "com.android.support:palette-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v14:${version_library_appcompat}"
+    implementation "com.android.support:customtabs:${version_library_appcompat}"
 
     // Markdown convertor (Flexmark)
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
