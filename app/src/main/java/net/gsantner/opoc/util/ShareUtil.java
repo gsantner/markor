@@ -11,6 +11,7 @@
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
@@ -45,6 +46,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
+
+import net.gsantner.markor.R;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -230,7 +234,12 @@ public class ShareUtil {
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, startAndEndTime[1]);
             }
         }
-        _context.startActivity(intent);
+
+        try {
+            _context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(_context, R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

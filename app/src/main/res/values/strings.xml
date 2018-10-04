@@ -245,4 +245,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Textaction</string>
     <string name="textactions">Textactions</string>
     <string name="prefer_representation">Prefer representation</string>
+
+    <!--Exception handling-->
+    <string name="exception_no_calendar_app">Unable to find a calendar app on your device</string>
 </resources>
