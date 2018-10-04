@@ -86,7 +86,8 @@ public abstract class Highlighter {
     }
 
     private boolean _isFirstHighlighting = true;
-    protected boolean isFirstHighlighting(){
+
+    protected boolean isFirstHighlighting() {
         boolean f = _isFirstHighlighting;
         _isFirstHighlighting = false;
         return f;

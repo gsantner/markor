@@ -13,10 +13,6 @@ import android.content.Context;
 import android.webkit.MimeTypeMap;
 
 import net.gsantner.markor.App;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-
-import java.io.File;
-import java.util.Locale;
 
 public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     public ContextUtils(Context context) {

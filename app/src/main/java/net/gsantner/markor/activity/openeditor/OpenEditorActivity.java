@@ -27,7 +27,7 @@ public class OpenEditorActivity extends AppCompatActivity {
         try {
             PermissionChecker permc = new PermissionChecker(this);
             if (permc.doIfExtStoragePermissionGranted(getString(R.string.error_need_storage_permission_to_save_documents))) {
-                if (!file.exists()){
+                if (!file.exists()) {
                     FileUtils.writeFile(file, "");
                 }
                 Context c = getApplicationContext();

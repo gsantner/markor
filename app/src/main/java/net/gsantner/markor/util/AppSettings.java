@@ -358,7 +358,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return true;//getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 
-    public boolean isTodoTxtAlternativeNaming(){
+    public boolean isTodoTxtAlternativeNaming() {
         return getBool(R.string.pref_key__todotxt__alternative_naming_context_project, true);
     }
 }

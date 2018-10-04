@@ -225,7 +225,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private Document loadDocument() {
         AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
         Document document = DocumentIO.loadDocument(getActivity(), getArguments(), _document);
-        if (document != null){
+        if (document != null) {
             document.setDoHistory(appSettings.isEditorHistoryEnabled());
         }
         if (document.getHistory().isEmpty()) {
@@ -296,7 +296,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ret = DocumentIO.saveDocument(_document, argAllowRename, _hlEditor.getText().toString());
             updateLauncherWidgets();
 
-            if (_document != null && _document.getFile() != null){
+            if (_document != null && _document.getFile() != null) {
                 new AppSettings(getContext()).setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
             }
         }
@@ -369,12 +369,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             //  TODO
             if (_hlEditor.length() > 0) {
                 int lastPos;
-                if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()){
+                if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
                     _hlEditor.requestFocus();
                     _hlEditor.setSelection(lastPos);
                     _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
-                }
-                else if (as.isEditorStartOnBotttom()) {
+                } else if (as.isEditorStartOnBotttom()) {
                     _hlEditor.requestFocus();
                     _hlEditor.setSelection(_hlEditor.length());
                 }

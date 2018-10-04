@@ -762,4 +762,57 @@ public class ShareUtil {
         }
         return null;
     }
+
+    /**
+     * By default Chrome Custom Tabs only uses Chrome Stable to open links
+     * There are also other packages (like Chrome Beta, Chromium, Firefox, ..)
+     * which implement the Chrome Custom Tab interface. This method changes
+     * the customtab intent to use an available compatible browser, if available.
+     */
+    public void enableChromeCustomTabsForOtherBrowsers(Intent customTabIntent) {
+        String[] checkpkgs = new String[]{
+                "com.android.chrome", "com.chrome.beta", "com.chrome.dev", "com.google.android.apps.chrome", "org.chromium.chrome",
+                "org.mozilla.fennec_fdroid", "org.mozilla.firefox", "org.mozilla.firefox_beta", "org.mozilla.fennec_aurora",
+                "org.mozilla.klar", "org.mozilla.focus",
+        };
+
+        // Get all intent handlers for web links
+        PackageManager pm = _context.getPackageManager();
+        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.example.com"));
+        List<String> browsers = new ArrayList<>();
+        for (ResolveInfo ri : pm.queryIntentActivities(urlIntent, 0)) {
+            Intent i = new Intent("android.support.customtabs.action.CustomTabsService");
+            i.setPackage(ri.activityInfo.packageName);
+            if (pm.resolveService(i, 0) != null) {
+                browsers.add(ri.activityInfo.packageName);
+            }
+        }
+
+        // Check if the user has a "default browser" selected
+        ResolveInfo ri = pm.resolveActivity(urlIntent, 0);
+        String userDefaultBrowser = (ri == null) ? null : ri.activityInfo.packageName;
+
+        // Select which browser to use out of all installed customtab supporting browsers
+        String pkg = null;
+        if (browsers.isEmpty()) {
+            pkg = null;
+        } else if (browsers.size() == 1) {
+            pkg = browsers.get(0);
+        } else if (!TextUtils.isEmpty(userDefaultBrowser) && browsers.contains(userDefaultBrowser)) {
+            pkg = userDefaultBrowser;
+        } else {
+            for (String checkpkg : checkpkgs) {
+                if (browsers.contains(checkpkg)) {
+                    pkg = checkpkg;
+                    break;
+                }
+            }
+            if (pkg == null && !browsers.isEmpty()) {
+                pkg = browsers.get(0);
+            }
+        }
+        if (pkg != null && customTabIntent != null) {
+            customTabIntent.setPackage(pkg);
+        }
+    }
 }

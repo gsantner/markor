@@ -235,7 +235,7 @@ public class ContextUtils {
      * Get this apps package name, returns the flavor specific package name.
      */
     public String getPackageIdReal() {
-        return  _context.getPackageName();
+        return _context.getPackageName();
     }
 
     /**
