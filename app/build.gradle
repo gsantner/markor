@@ -20,7 +20,7 @@ ext.version_setup_minSdk = 15
 ext.version_library_flexmark = "0.32.18"
 
 android {
-    buildToolsVersion '28.0.2'
+    buildToolsVersion version_setup_buildTools
     compileSdkVersion version_setup_compileSdk
     flavorDimensions "default"
 
@@ -111,6 +111,7 @@ dependencies {
     implementation "com.android.support:palette-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v14:${version_library_appcompat}"
+    implementation 'com.android.support:customtabs:${version_library_appcompat}'
 
     // Markdown convertor (Flexmark)
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
@@ -137,9 +138,6 @@ dependencies {
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$version_plugin_kotlin"
     }
-
-    // Chrome custom tabs
-    implementation 'com.android.support:customtabs:23.3.0'
 
     // Processors
     def anpros = ["com.jakewharton:butterknife-compiler:${version_library_butterknife}"]
