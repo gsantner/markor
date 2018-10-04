@@ -111,7 +111,7 @@ dependencies {
     implementation "com.android.support:palette-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v7:${version_library_appcompat}"
     implementation "com.android.support:preference-v14:${version_library_appcompat}"
-    implementation 'com.android.support:customtabs:${version_library_appcompat}'
+    implementation "com.android.support:customtabs:${version_library_appcompat}"
 
     // Markdown convertor (Flexmark)
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
