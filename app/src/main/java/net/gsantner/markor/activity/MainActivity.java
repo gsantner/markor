@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         // Setup viewpager
-        removeShiftMode(_bottomNav);
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
@@ -308,8 +307,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        updateFabVisibility(item.getItemId() == R.id.nav_notebook);
         PermissionChecker permc = new PermissionChecker(this);
-        _fab.setVisibility(item.getItemId() == R.id.nav_notebook ? View.VISIBLE : View.INVISIBLE);
         switch (item.getItemId()) {
             case R.id.nav_notebook: {
                 _viewPager.setCurrentItem(0);
@@ -334,41 +333,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    public void updateFabVisibility(boolean visible){
+        if (visible){
+            _fab.show();
+        } else {
+            _fab.hide();
+        }
+    }
+
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onViewPagerPageSelected(int pos) {
         Menu menu = _bottomNav.getMenu();
         PermissionChecker permc = new PermissionChecker(this);
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
-        _fab.setVisibility(pos == 0 ? View.VISIBLE : View.INVISIBLE);
+        updateFabVisibility(pos == 0);
 
         if (pos == 1 || pos == 2) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
         }
     }
-
-    @SuppressLint("RestrictedApi")
-    public static void removeShiftMode(BottomNavigationView view) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                item.setShiftingMode(false);
-                // set once again checked value, so view will be updated
-                item.setChecked(item.getItemData().isChecked());
-            }
-
-        } catch (NoSuchFieldException e) {
-            Log.e("ERROR NO SUCH FIELD", "Unable to get shift mode field");
-        } catch (IllegalAccessException e) {
-            Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
-        }
-    }
-
 
     class SectionsPagerAdapter extends FragmentPagerAdapter {
         private HashMap<Integer, GsFragmentBase> _fragCache = new LinkedHashMap<>();

@@ -14,7 +14,7 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-ext.version_setup_minSdk = 15
+ext.version_setup_minSdk = 16
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"

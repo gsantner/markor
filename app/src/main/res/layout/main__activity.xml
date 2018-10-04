@@ -71,6 +71,7 @@
             app:itemBackground="@color/primary"
             app:itemIconTint="@drawable/bottomnav_color_selector"
             app:itemTextColor="@drawable/bottomnav_color_selector"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/main__bottom_nav"
             tools:elevation="2dp" />
 
