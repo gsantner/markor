@@ -43,7 +43,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Dokument</string>
   <string name="documents">Dokumenter</string>
   <string name="html_as_plaintext">HTML (i klartekst)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
   <string name="theme">Drakt</string>
   <string name="about">Om</string>
@@ -66,7 +65,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">Nettadresse / sti</string>
   <string name="insert_link">Sett inn lenke</string>
   <string name="insert_image">Sett inn bilde</string>
-  <!-- About screen -->
   <string name="contributors">Bidragsytere</string>
   <string name="select_storage_folder">Velg lagringsmappe</string>
   <string name="licenses">Lisenser</string>
@@ -117,7 +115,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Valgt fil er ikke å finne i programmets notatblokkmappe. Ønsker du å kopiere den til gjeldende mappe? Dette vil overskrive eksisterende filer.</string>
   <string name="files_and_folders">Filer og mapper</string>
   <string name="document_browser">Dokumentutforsker</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Opprett notat</string>
   <string name="special_documents" needed="false">Spesialdokumenter</string>
   <string name="back_to_previous_folder" needed="false">Tilbake til forrige mappe</string>
@@ -125,7 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Tekstbehandlerinnstillinger</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Husk siste mappeposisjon ved oppstart</string>
   <string name="number_of_files_witharg" needed="false">Antall filer: %d</string>
-  <!-- New strings -->
   <string name="app_wide">I hele programmet</string>
   <string name="main_view">Hovedvisning</string>
   <string name="overall_theme_used_in_app">Hverdagsdrakt brukt i programmet</string>
@@ -220,5 +216,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matte</string>
   <string name="table_of_contents">Innholdsfortegnelse</string>
   <string name="miscellaneous">Ymse</string>
-  <!--Exception handling-->
 </resources>
