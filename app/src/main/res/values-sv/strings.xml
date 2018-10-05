@@ -45,7 +45,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Dokument</string>
   <string name="documents">Dokument</string>
   <string name="html_as_plaintext">HTML (som klartext)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Redigerartypsnitt</string>
   <string name="theme">Tema</string>
   <string name="about">Om</string>
@@ -68,8 +67,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / sökväg</string>
   <string name="insert_link">Infoga länk</string>
   <string name="insert_image">Infoga bild</string>
-  <!-- About screen -->
-  <string name="contributors">Bidragsgivare</string>
+  <string name="contributors">Medhjälpare</string>
   <string name="save_location">Spara plats</string>
   <string name="select_storage_folder">Välj lagringsmapp</string>
   <string name="licenses">Licenser</string>
@@ -120,7 +118,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Filen du har valt ligger inte i appens anteckningsmapp. Vill du kopiera den till aktuell mapp? Om filen existerar skrivs den över.</string>
   <string name="files_and_folders">Filar och mappar</string>
   <string name="document_browser">Dokumentbläddrare</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Skapa anteckning</string>
   <string name="special_documents" needed="false">Specialdokument</string>
   <string name="back_to_previous_folder" needed="false">Tillbaka till föregående mapp</string>
@@ -128,7 +125,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Redigerarinställningar</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Kom ihåg sista mappens plats vid start</string>
   <string name="number_of_files_witharg" needed="false">Antal filer: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Huvudvy</string>
   <string name="overall_theme_used_in_app">Appens övergripande tema</string>
@@ -229,5 +225,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverse</string>
   <string name="textaction">Textåtgärd</string>
   <string name="textactions">Textåtgärder</string>
-  <!--Exception handling-->
 </resources>
