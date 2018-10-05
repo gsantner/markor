@@ -311,7 +311,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     if (shu.createCalendarAppointment(null, _sharedText, null)) {
                         close = true;
                     } else {
-                        Toast.makeText(getContext(), R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                     break;
                 }

@@ -47,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="documents">Documents</string>
     <string name="html_as_plaintext">HTML (as plain text)</string>
 
-    <!-- Preferences -->
     <string name="document_editor_font">Document Editor Font</string>
     <string name="theme">Theme</string>
     <string name="show_representation_of_markup_by_default">Show existing documents in representation mode by default</string>
@@ -75,7 +74,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Insert Link</string>
     <string name="insert_image">Insert Image</string>
 
-    <!-- About screen -->
     <string name="contributors">Contributors</string>
     <string name="save_location">Save location</string>
     <string name="select_storage_folder">Select storage folder</string>
@@ -128,7 +126,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Files and folders</string>
     <string name="document_browser">Document browser</string>
 
-    <!-- Not in use currently -->
     <string name="create_note" needed="false">Create Note</string>
     <string name="special_documents" needed="false">Special documents</string>
     <string name="back_to_previous_folder" needed="false">Back to previous folder</string>
@@ -137,7 +134,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_folder_location_on_startup" needed="false">Remember last folder location on startup</string>
     <string name="number_of_files_witharg" needed="false">Number of files: %d</string>
 
-    <!-- New strings -->
     <string name="app_wide">App-wide</string>
     <string name="main_view">Main View</string>
     <string name="overall_theme_used_in_app">The overall theme used in the app</string>
@@ -245,7 +241,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Textaction</string>
     <string name="textactions">Textactions</string>
     <string name="prefer_representation">Prefer representation</string>
-
-    <!--Exception handling-->
-    <string name="exception_no_calendar_app">Unable to find a calendar app on your device</string>
+    <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
 </resources>

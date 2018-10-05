@@ -185,4 +185,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Ação de texto</string>
   <string name="textactions">Ações de texto</string>
   <string name="prefer_representation">Preferir representação</string>
+  <!--Exception handling-->
 </resources>

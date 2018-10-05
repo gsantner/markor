@@ -161,4 +161,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project_license">Project Licentie</string>
   <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
   <string name="miscellaneous">Overige</string>
+  <!--Exception handling-->
 </resources>

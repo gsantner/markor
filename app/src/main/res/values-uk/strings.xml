@@ -228,4 +228,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Різне</string>
   <string name="textaction">Команда тексту</string>
   <string name="textactions">Команди тексту</string>
+  <!--Exception handling-->
 </resources>
