@@ -67,7 +67,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_link">Вставить ссылку</string>
   <string name="insert_image">Вставить изображение</string>
   <string name="contributors">Разработчики</string>
-  <string name="save_location">Сохранить местоположение</string>
+  <string name="save_location">Размещение хранилища</string>
   <string name="select_storage_folder">Выбрать папку для хранения</string>
   <string name="licenses">Лицензии</string>
   <string name="changelog">Список изменений</string>
