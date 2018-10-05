@@ -44,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">文件</string>
   <string name="documents">文件集</string>
   <string name="html_as_plaintext">HTML (純文字)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">文件編輯字型</string>
   <string name="theme">主題</string>
   <string name="about">說明</string>
@@ -67,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">網址 / 路徑</string>
   <string name="insert_link">插入連結</string>
   <string name="insert_image">插入圖像</string>
-  <!-- About screen -->
   <string name="contributors">貢獻人</string>
   <string name="save_location">保存位置</string>
   <string name="select_storage_folder">選擇儲存資料夾</string>
@@ -119,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有檔案。</string>
   <string name="files_and_folders">檔案和資料夾</string>
   <string name="document_browser">文件瀏覽器</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">建立筆記</string>
   <string name="special_documents" needed="false">指定文件</string>
   <string name="back_to_previous_folder" needed="false">回到上個資料夾</string>
@@ -127,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">編輯器設定</string>
   <string name="remember_last_folder_location_on_startup" needed="false">啟動時記住最近使用的資料夾位置</string>
   <string name="number_of_files_witharg" needed="false">檔案數：%d</string>
-  <!-- New strings -->
   <string name="app_wide">全域</string>
   <string name="main_view">主頁</string>
   <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
@@ -212,5 +208,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="details">細節</string>
   <string name="calendar">日曆</string>
   <string name="miscellaneous">其他</string>
-  <!--Exception handling-->
 </resources>
