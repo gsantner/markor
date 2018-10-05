@@ -308,13 +308,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
                 case R.string.pref_key__share_into__calendar_event: {
-                    boolean willCreateCalendarAppointment =
-                            shu.createCalendarAppointment(null, _sharedText, null);
-
-                    if (!willCreateCalendarAppointment) {
+                    if (shu.createCalendarAppointment(null, _sharedText, null)) {
+                        close = true;
+                    } else {
                         Toast.makeText(getContext(), R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
                     }
-                    close = true;
                     break;
                 }
             }
