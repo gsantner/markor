@@ -43,7 +43,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Dokument</string>
   <string name="documents">Dokumenty</string>
   <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Czcionka edytora</string>
   <string name="theme">Motyw</string>
   <string name="about">Informacje</string>
@@ -66,7 +65,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Ścieżka</string>
   <string name="insert_link">Wstaw link</string>
   <string name="insert_image">Wstaw obrazek</string>
-  <!-- About screen -->
   <string name="contributors">Współautorzy</string>
   <string name="save_location">Zapisz lokalizację</string>
   <string name="select_storage_folder">Wybierz folder zapisu</string>
@@ -118,7 +116,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Wybrany plik nie znajduje się w katalogu notatnika. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejących plików.</string>
   <string name="files_and_folders">Pliki i foldery</string>
   <string name="document_browser">Przeglądarka dokumentów</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Utwórz notatkę</string>
   <string name="special_documents" needed="false">Specjalne dokumenty</string>
   <string name="back_to_previous_folder" needed="false">Wróć do poprzedniego folderu</string>
@@ -126,7 +123,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Ustawienia edytora</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Zapamiętaj ostatnią lokalizację katalogu podczas uruchamiania</string>
   <string name="number_of_files_witharg" needed="false">Liczba plików: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Ogólne</string>
   <string name="main_view">Główny Widok</string>
   <string name="overall_theme_used_in_app">Ogólny motyw używany w aplikacji</string>
@@ -208,5 +204,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
   <string name="description">Opis</string>
   <string name="miscellaneous">Różne</string>
-  <!--Exception handling-->
 </resources>
