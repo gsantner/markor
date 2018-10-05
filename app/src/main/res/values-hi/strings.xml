@@ -42,7 +42,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">दस्तावेज़</string>
   <string name="documents">दस्तावेज़</string>
   <string name="html_as_plaintext">HTML (सादा पाठ के रूप में)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">नोट संपादक फ़ॉन्ट</string>
   <string name="theme">बनावट</string>
   <string name="about">जानकारी</string>
@@ -65,7 +64,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / पथ</string>
   <string name="insert_link">लिंक सम्मिलित करें</string>
   <string name="insert_image">चित्र डालें</string>
-  <!-- About screen -->
   <string name="contributors">योगदानकर्ता</string>
   <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
   <string name="licenses">लाइसेंस</string>
@@ -108,7 +106,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">संग्रह</string>
   <string name="add_task">कार्य जोड़ें</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">दस्तावेज़ को \"%s\" के रूप में लोड और सहेजा जाना चाहिए</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">नोट बनाएं</string>
   <string name="special_documents" needed="false">विशेष दस्तावेज</string>
   <string name="back_to_previous_folder" needed="false">पिछले फ़ोल्डर पर वापस जाएं</string>
@@ -116,7 +113,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">संपादक सेटिंग्स</string>
   <string name="remember_last_folder_location_on_startup" needed="false">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
   <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
-  <!-- New strings -->
   <string name="none">कुछ नहीं</string>
   <string name="other">अन्य</string>
   <string name="translate">अनुवाद करें</string>
@@ -124,5 +120,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
   <string name="description">विवरण</string>
   <string name="miscellaneous">कई तरह का</string>
-  <!--Exception handling-->
 </resources>
