@@ -15,12 +15,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="appearance">Aparèntzia</string>
   <string name="share">Cumpartzi</string>
   <string name="search">Chirca</string>
-  <!-- Preferences -->
   <string name="about">Informatziones</string>
   <string name="image">Immàgine</string>
   <string name="font_size">Mannària de su testu</string>
   <string name="hide_statusbar">Istichi sa barra de s\'istadu</string>
-  <!-- About screen -->
   <string name="contributors">Contribuidores</string>
   <string name="changelog">Registru de sas modìficas</string>
   <string name="show_license_of_the_app">Litzèntzia GNU GPLv3+</string>
@@ -28,8 +26,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="language_change_restart_description">Càmbia sa limba de custa aplicatzione. Torra·la a allùghere pro fàghere tènnere efetu a su cambiamentu</string>
   <string name="language">Limba</string>
   <string name="more">Àteru</string>
-  <!-- Not in use currently -->
-  <!-- New strings -->
   <string name="none">Peruna</string>
   <string name="general">Generales</string>
   <string name="default_">Predefinidu</string>
@@ -38,5 +34,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Positzione</string>
   <string name="description">Descritzione</string>
   <string name="miscellaneous">Vàriu</string>
-  <!--Exception handling-->
 </resources>
