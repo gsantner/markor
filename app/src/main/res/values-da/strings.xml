@@ -44,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Dokument</string>
   <string name="documents">Dokumenter</string>
   <string name="html_as_plaintext">HTML (som ren tekst)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Editor skrifttype</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Vis eksisterende dokumenter i repræsentationstilstand som standard</string>
@@ -67,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Sti</string>
   <string name="insert_link">Indsæt link</string>
   <string name="insert_image">Indsæt billede</string>
-  <!-- About screen -->
   <string name="contributors">Bidragsydere</string>
   <string name="save_location">Gem lokation</string>
   <string name="select_storage_folder">Vælg lagermappe</string>
@@ -119,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Den valgte fil er ikke i programmets notesbogmappe. Vil du kopiere den til den nuværende mappe? Dette vil overskrive eksisterende filer.</string>
   <string name="files_and_folders">Filer og mapper</string>
   <string name="document_browser">Gennemse dokumenter</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Opret note</string>
   <string name="special_documents" needed="false">Specielle dokumenter</string>
   <string name="back_to_previous_folder" needed="false">Tilbage til tidligere mappe</string>
@@ -127,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Editorindstillinger</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Husk sidste mappelokation ved opstart</string>
   <string name="number_of_files_witharg" needed="false">Antal af filer: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Hele programmet</string>
   <string name="main_view">Hovedskærm</string>
   <string name="overall_theme_used_in_app">Det generelle tema brugt i programmet</string>
@@ -227,6 +223,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Teksthandling</string>
   <string name="textactions">Teksthandlinger</string>
   <string name="prefer_representation">Foretræk repræsentation</string>
-  <!--Exception handling-->
-  <string name="exception_no_calendar_app">Kan ikke finde et kalenderprogram på din enhed</string>
 </resources>
