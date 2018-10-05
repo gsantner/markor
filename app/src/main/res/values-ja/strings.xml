@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">テキスト操作</string>
   <string name="textactions">テキスト操作</string>
   <string name="prefer_representation">リプレゼンテーション優先</string>
+  <!--Exception handling-->
 </resources>
