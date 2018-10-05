@@ -27,4 +27,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- New strings -->
   <string name="general">പൊതു</string>
   <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
+  <!--Exception handling-->
 </resources>
