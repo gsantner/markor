@@ -10,10 +10,4 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
-  <!-- Preferences -->
-  <!-- About screen -->
-  <!-- Not in use currently -->
-  <!-- New strings -->
-  <!--Exception handling-->
-</resources>
+<resources xmlns:tools="http://schemas.android.com/tools"></resources>
