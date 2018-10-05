@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Documento</string>
   <string name="documents">Documentos</string>
   <string name="html_as_plaintext">HTML (texto simples)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra do editor</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Por definição, mostrar os documentos no modo de representação</string>
@@ -69,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL/Caminho</string>
   <string name="insert_link">Inserir ligação</string>
   <string name="insert_image">Inserir imagem</string>
-  <!-- About screen -->
   <string name="contributors">Colaboradores</string>
   <string name="save_location">Localização para guardar</string>
   <string name="select_storage_folder">Selecionar pasta do armazenamento</string>
@@ -116,13 +114,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_shortcut">Criar atalho</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Criar nota</string>
   <string name="special_documents" needed="false">Documentos especiais</string>
   <string name="app_settings" needed="false">Definições</string>
   <string name="editor_settings" needed="false">Definições do editor</string>
   <string name="number_of_files_witharg" needed="false">Número de ficheiros: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
@@ -185,5 +181,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Ação de texto</string>
   <string name="textactions">Ações de texto</string>
   <string name="prefer_representation">Preferir representação</string>
-  <!--Exception handling-->
 </resources>
