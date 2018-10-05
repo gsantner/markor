@@ -33,4 +33,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="default_">Por omisión</string>
   <string name="report_bugs">Reporte erros</string>
   <string name="miscellaneous">Varios</string>
+  <!--Exception handling-->
 </resources>
