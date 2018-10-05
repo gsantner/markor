@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Belge</string>
   <string name="documents">Belge</string>
   <string name="html_as_plaintext">HTML (düz metin olarak)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Mevcut belgeleri varsayılan olarak önizleme modunda göster</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Yol</string>
   <string name="insert_link">Bağlantı Ekle</string>
   <string name="insert_image">Görüntü Ekle</string>
-  <!-- About screen -->
   <string name="contributors">Katkıda Bulunanlar</string>
   <string name="save_location">Kayıt konumu</string>
   <string name="select_storage_folder">Depolama klasörünü seç</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, mevcut dosyaların üzerine yazacaktır.</string>
   <string name="files_and_folders">Dosyalar ve klasörler</string>
   <string name="document_browser">Belge görüntüleyici</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Not Oluştur</string>
   <string name="special_documents" needed="false">Özel belgeler</string>
   <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Başlangıçta son klasör konumunu hatırla</string>
   <string name="number_of_files_witharg" needed="false">Dosya sayısı: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Genel</string>
   <string name="main_view">Ana Görünüm</string>
   <string name="overall_theme_used_in_app">Uygulamada kullanılan genel tema</string>
@@ -234,6 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Metin eylemi</string>
   <string name="textactions">Metin eylemleri</string>
   <string name="prefer_representation">Önizleme modunu kullan</string>
-  <!--Exception handling-->
-  <string name="exception_no_calendar_app">Cihazınızda takvim uygulaması bulunamadı</string>
 </resources>
