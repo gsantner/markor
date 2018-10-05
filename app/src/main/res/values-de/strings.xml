@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Textaktion</string>
   <string name="textactions">Textaktionen</string>
   <string name="prefer_representation">Repräsentation bevorzugen</string>
+  <!--Exception handling-->
 </resources>
