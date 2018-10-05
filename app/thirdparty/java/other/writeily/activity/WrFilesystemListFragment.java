@@ -571,12 +571,16 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                     finishActionMode();
                     return true;
                 case R.id.context_menu_rename:
-                    promptForNewName(_selectedItems.get(0));
+                    if (!_selectedItems.isEmpty()) {
+                        promptForNewName(_selectedItems.get(0));
+                    }
                     finishActionMode();
-                    return true;
+                    return true;`
                 case R.id.context_menu_info:
-                    FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(_selectedItems.get(0));
-                    fileInfoDialog.show(getFragmentManager(), FileInfoDialog.FRAGMENT_TAG);
+                    if (!_selectedItems.isEmpty()) {
+                        FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(_selectedItems.get(0));
+                        fileInfoDialog.show(getFragmentManager(), FileInfoDialog.FRAGMENT_TAG);
+                    }
                     return true;
                 default:
                     return false;
