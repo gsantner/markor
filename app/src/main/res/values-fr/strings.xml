@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Document</string>
   <string name="documents">Documents</string>
   <string name="html_as_plaintext">HTML (en texte brut)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Police de l\'éditeur</string>
   <string name="theme">Thème</string>
   <string name="show_representation_of_markup_by_default">Afficher les documents existant en mode de représentation par défaut</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Chemin</string>
   <string name="insert_link">Insérer lien</string>
   <string name="insert_image">Insérer image</string>
-  <!-- About screen -->
   <string name="contributors">Contributeurs</string>
   <string name="save_location">Sauvegarde du lieu</string>
   <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier de bloc note de l\'application. Souhaitez-vous le copier dans ce dossier? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
   <string name="files_and_folders">Fichiers et dossiers</string>
   <string name="document_browser">Explorateur de documents</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Nouvelle note</string>
   <string name="special_documents" needed="false">Documents spéciaux</string>
   <string name="back_to_previous_folder" needed="false">Dossier précédent</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Retenir le dernier dossier au redémarrage</string>
   <string name="number_of_files_witharg" needed="false">Nombre de fichiers : %d</string>
-  <!-- New strings -->
   <string name="app_wide">Général</string>
   <string name="main_view">Vue principale</string>
   <string name="overall_theme_used_in_app">Le thème principal utilisé par l\'application</string>
@@ -234,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Action texte</string>
   <string name="textactions">Actions texte</string>
   <string name="prefer_representation">Représentation préférée</string>
-  <!--Exception handling-->
 </resources>
