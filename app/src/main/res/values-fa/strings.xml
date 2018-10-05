@@ -153,4 +153,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="center">وسط</string>
   <string name="center_text">متن وسط باشد</string>
   <string name="edit_text_in_center_of_screen">متن را در وسط صفحه‌نمایش ویرایش کنید</string>
+  <!--Exception handling-->
 </resources>
