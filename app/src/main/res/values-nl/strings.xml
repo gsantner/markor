@@ -42,7 +42,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="files">Bestanden</string>
   <string name="documents">Documenten</string>
   <string name="html_as_plaintext">HTML (als platte tekst)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Notitie Bewerker Lettertype</string>
   <string name="theme">Thema</string>
   <string name="about">Over</string>
@@ -64,7 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Pad</string>
   <string name="insert_link">Voeg koppeling toe</string>
   <string name="insert_image">Voeg afbeelding toe</string>
-  <!-- About screen -->
   <string name="contributors">Bijdragers</string>
   <string name="select_storage_folder">Kies opslagmap</string>
   <string name="licenses">Licenties</string>
@@ -106,7 +104,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Het geselecteerde bestand is niet opgeslagen in de app\'s notitie map. Wil je het kopiëren naar de huidige map? Dit overschrijft bestaande bestanden.</string>
   <string name="files_and_folders">Bestanden en mappen</string>
   <string name="document_browser">Document verkenner</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Maak notitie</string>
   <string name="special_documents" needed="false">Speciale documenten</string>
   <string name="back_to_previous_folder" needed="false">Terug naar vorige map</string>
@@ -114,7 +111,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Bewerker instellingen</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Herinner laatste map bij opstarten</string>
   <string name="number_of_files_witharg" needed="false">Aantal bestanden: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Algemeen</string>
   <string name="main_view">Hoofdweergave</string>
   <string name="remember_last_directory">Herinner laatste folder</string>
@@ -161,5 +157,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="project_license">Project Licentie</string>
   <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
   <string name="miscellaneous">Overige</string>
-  <!--Exception handling-->
 </resources>
