@@ -38,15 +38,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Şununla paylaş…</string>
   <string name="share">Paylaş</string>
   <string name="search">Ara</string>
+  <string name="representation">Önizleme modu</string>
+  <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
   <string name="editor">Düzenleyici</string>
   <string name="folders">Klasörler</string>
   <string name="files">Dosyalar</string>
   <string name="document">Belge</string>
   <string name="documents">Belge</string>
   <string name="html_as_plaintext">HTML (düz metin olarak)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Mevcut belgeleri varsayılan olarak önizleme modunda göster</string>
   <string name="about">Markor Hakkında</string>
   <string name="plaintext">Düz Metin</string>
   <string name="file">Dosya</string>
@@ -67,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Yol</string>
   <string name="insert_link">Bağlantı Ekle</string>
   <string name="insert_image">Görüntü Ekle</string>
-  <!-- About screen -->
   <string name="contributors">Katkıda Bulunanlar</string>
   <string name="save_location">Kayıt konumu</string>
   <string name="select_storage_folder">Depolama klasörünü seç</string>
@@ -119,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, mevcut dosyaların üzerine yazacaktır.</string>
   <string name="files_and_folders">Dosyalar ve klasörler</string>
   <string name="document_browser">Belge görüntüleyici</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Not Oluştur</string>
   <string name="special_documents" needed="false">Özel belgeler</string>
   <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
@@ -127,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Başlangıçta son klasör konumunu hatırla</string>
   <string name="number_of_files_witharg" needed="false">Dosya sayısı: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Genel</string>
   <string name="main_view">Ana Görünüm</string>
   <string name="overall_theme_used_in_app">Uygulamada kullanılan genel tema</string>
@@ -215,10 +214,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_lines">Yazı Satırları</string>
   <string name="text_characters">Yazı Karakterleri</string>
   <string name="directory">Dizin</string>
-  <string name="recently_viewed_documents">Son görüntülenen dökümanlar</string>
+  <string name="recently_viewed_documents">Son görüntülenen belgeler</string>
   <string name="details">Ayrıntılar</string>
   <string name="calendar">Takvim</string>
-  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yok, burada yapılan tüm değişiklikler kaybolacaktır. Bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
+  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yoktur, burada yapılan tüm değişiklikler kaybolacaktır. Bu uygulamanın bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
   <string name="error_picture_selection">Hiçbir resim seçilmedi, çekilmedi veya kaydedilmedi.</string>
   <string name="gallery_picture">Galeri resmi</string>
   <string name="camera_picture">Kamera resmi</string>
@@ -230,4 +229,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Çeşitli</string>
   <string name="textaction">Metin eylemi</string>
   <string name="textactions">Metin eylemleri</string>
+  <string name="prefer_representation">Önizleme modunu kullan</string>
 </resources>

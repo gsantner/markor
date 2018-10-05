@@ -212,7 +212,7 @@ public class DocumentActivity extends AppCompatActivity {
             case R.id.action_share_calendar_event: {
                 if (saveDocument()) {
                     if (!shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null)) {
-                        Toast.makeText(this, R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
                 return true;

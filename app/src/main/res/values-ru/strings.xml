@@ -44,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Документ</string>
   <string name="documents">Документы</string>
   <string name="html_as_plaintext">HTML (простой текст)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Шрифт редактора заметок</string>
   <string name="theme">Тема</string>
   <string name="about">О программе</string>
@@ -67,9 +66,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Путь</string>
   <string name="insert_link">Вставить ссылку</string>
   <string name="insert_image">Вставить изображение</string>
-  <!-- About screen -->
-  <string name="contributors">Поддержавшие проект</string>
-  <string name="save_location">Сохранить местоположение</string>
+  <string name="contributors">Разработчики</string>
+  <string name="save_location">Размещение хранилища</string>
   <string name="select_storage_folder">Выбрать папку для хранения</string>
   <string name="licenses">Лицензии</string>
   <string name="changelog">Список изменений</string>
@@ -119,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл не находится в директории приложения. Хотите скопировать его в текущую папку? Это перезапишет существующие файлы.</string>
   <string name="files_and_folders">Файлы и папки</string>
   <string name="document_browser">Просмотр документов</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Создать заметку</string>
   <string name="special_documents" needed="false">Особые документы</string>
   <string name="back_to_previous_folder" needed="false">Вернуться в предыдущую папку</string>
@@ -127,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Настройки редактора</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Запоминать последнюю открытую папку</string>
   <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Общее</string>
   <string name="main_view">Главный экран</string>
   <string name="overall_theme_used_in_app">Тема, используемая в приложении</string>
