@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Documento</string>
   <string name="documents">Documentos</string>
   <string name="html_as_plaintext">HTML (como texto sencillo)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Tipo de letra del editor de notas</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Mostrar documentos existentes en modo de representación por defecto</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Ruta</string>
   <string name="insert_link">Insertar enlace</string>
   <string name="insert_image">Insertar imagen</string>
-  <!-- About screen -->
   <string name="contributors">Contribuidores</string>
   <string name="save_location">Guardar ubicación</string>
   <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">El archivo seleccionado no se encuentra en la carpeta del bloc de notas. ¿Deseas copiarlo? Si el archivo ya existe, será sobrescrito.</string>
   <string name="files_and_folders">Archivos y carpetas</string>
   <string name="document_browser">Navegador de documentos</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Crear nota</string>
   <string name="special_documents" needed="false">Documentos especiales</string>
   <string name="back_to_previous_folder" needed="false">Atrás a la carpeta anterior</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Ajustes del editor</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Recordar la última localización de carpeta al iniciarse</string>
   <string name="number_of_files_witharg" needed="false">Número de archivos: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">El tema principal usado en la app</string>
@@ -234,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Acción de texto</string>
   <string name="textactions">Acciones de texto</string>
   <string name="prefer_representation">Representación preferida</string>
-  <!--Exception handling-->
 </resources>
