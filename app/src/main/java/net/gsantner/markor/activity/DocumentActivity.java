@@ -33,6 +33,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
@@ -210,7 +211,9 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument()) {
-                    shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null);
+                    if (!shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null)) {
+                        Toast.makeText(this, R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return true;
             }

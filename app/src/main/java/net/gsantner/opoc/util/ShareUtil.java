@@ -11,6 +11,7 @@
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
@@ -210,7 +211,7 @@ public class ShareUtil {
     /**
      * Start calendar application to add new event, with given details prefilled
      */
-    public void createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
+    public boolean createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
         Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
         if (title != null) {
             intent.putExtra(CalendarContract.Events.TITLE, title);
@@ -230,7 +231,13 @@ public class ShareUtil {
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, startAndEndTime[1]);
             }
         }
-        _context.startActivity(intent);
+
+        try {
+            _context.startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            return false;
+        }
     }
 
     /**
