@@ -212,4 +212,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="details">細節</string>
   <string name="calendar">日曆</string>
   <string name="miscellaneous">其他</string>
+  <!--Exception handling-->
 </resources>
