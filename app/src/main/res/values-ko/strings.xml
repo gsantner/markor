@@ -28,4 +28,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="general">기본 설정</string>
   <string name="default_">기본값</string>
   <string name="miscellaneous">기타</string>
+  <!--Exception handling-->
 </resources>
