@@ -37,4 +37,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Hely</string>
   <string name="description">Leírás</string>
   <string name="miscellaneous">Egyéb</string>
+  <!--Exception handling-->
 </resources>

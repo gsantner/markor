@@ -229,4 +229,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverse</string>
   <string name="textaction">Textåtgärd</string>
   <string name="textactions">Textåtgärder</string>
+  <!--Exception handling-->
 </resources>

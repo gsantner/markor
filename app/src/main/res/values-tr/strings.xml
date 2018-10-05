@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Şununla paylaş…</string>
   <string name="share">Paylaş</string>
   <string name="search">Ara</string>
+  <string name="representation">Önizleme modu</string>
+  <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
   <string name="editor">Düzenleyici</string>
   <string name="folders">Klasörler</string>
   <string name="files">Dosyalar</string>
@@ -47,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <!-- Preferences -->
   <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Mevcut belgeleri varsayılan olarak önizleme modunda göster</string>
   <string name="about">Markor Hakkında</string>
   <string name="plaintext">Düz Metin</string>
   <string name="file">Dosya</string>
@@ -215,10 +218,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="text_lines">Yazı Satırları</string>
   <string name="text_characters">Yazı Karakterleri</string>
   <string name="directory">Dizin</string>
-  <string name="recently_viewed_documents">Son görüntülenen dökümanlar</string>
+  <string name="recently_viewed_documents">Son görüntülenen belgeler</string>
   <string name="details">Ayrıntılar</string>
   <string name="calendar">Takvim</string>
-  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yok, burada yapılan tüm değişiklikler kaybolacaktır. Bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
+  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yoktur, burada yapılan tüm değişiklikler kaybolacaktır. Bu uygulamanın bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
   <string name="error_picture_selection">Hiçbir resim seçilmedi, çekilmedi veya kaydedilmedi.</string>
   <string name="gallery_picture">Galeri resmi</string>
   <string name="camera_picture">Kamera resmi</string>
@@ -230,4 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Çeşitli</string>
   <string name="textaction">Metin eylemi</string>
   <string name="textactions">Metin eylemleri</string>
+  <string name="prefer_representation">Önizleme modunu kullan</string>
+  <!--Exception handling-->
+  <string name="exception_no_calendar_app">Cihazınızda takvim uygulaması bulunamadı</string>
 </resources>

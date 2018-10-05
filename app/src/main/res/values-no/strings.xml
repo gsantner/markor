@@ -33,4 +33,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Posisjon</string>
   <string name="description">Beskrivelse</string>
   <string name="miscellaneous">Forskjellig</string>
+  <!--Exception handling-->
 </resources>

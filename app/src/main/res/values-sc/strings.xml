@@ -38,4 +38,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Positzione</string>
   <string name="description">Descritzione</string>
   <string name="miscellaneous">Vàriu</string>
+  <!--Exception handling-->
 </resources>
