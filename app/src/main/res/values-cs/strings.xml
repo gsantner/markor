@@ -15,12 +15,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="appearance">Vzhled</string>
   <string name="share">Sdílet</string>
   <string name="search">Hledat</string>
-  <!-- Preferences -->
   <string name="about">Informace</string>
   <string name="create">Vytvoøit</string>
   <string name="hide_statusbar_at_this_view">Schovat statusbar</string>
   <string name="hide_statusbar">Schovat statusbar</string>
-  <!-- About screen -->
   <string name="contributors">Spolupracovníci</string>
   <string name="licenses">Licence</string>
   <string name="changelog">Historie</string>
@@ -31,12 +29,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="size">Velikost</string>
   <string name="exit">Odejít</string>
   <string name="more">Více</string>
-  <!-- Not in use currently -->
-  <!-- New strings -->
   <string name="general">Obecné</string>
   <string name="default_">Standardní</string>
   <string name="translate">Přeložit</string>
   <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
   <string name="miscellaneous">Ostatní</string>
-  <!--Exception handling-->
 </resources>
