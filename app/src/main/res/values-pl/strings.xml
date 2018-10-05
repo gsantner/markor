@@ -208,4 +208,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
   <string name="description">Opis</string>
   <string name="miscellaneous">Różne</string>
+  <!--Exception handling-->
 </resources>
