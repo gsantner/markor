@@ -231,4 +231,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Операция с текстом</string>
   <string name="textactions">Операции с текстом</string>
   <string name="prefer_representation">Предпочесть изображение</string>
+  <!--Exception handling-->
 </resources>
