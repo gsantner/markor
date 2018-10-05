@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">ドキュメント</string>
   <string name="documents">ドキュメント</string>
   <string name="html_as_plaintext">HTML (プレーンテキストとして)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">ドキュメントエディターフォント</string>
   <string name="theme">テーマ</string>
   <string name="show_representation_of_markup_by_default">デフォルトで既存のドキュメントをリプレゼンテーションモードで表示します</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / パス</string>
   <string name="insert_link">リンクを挿入</string>
   <string name="insert_image">画像を挿入</string>
-  <!-- About screen -->
   <string name="contributors">貢献者</string>
   <string name="save_location">場所を保存</string>
   <string name="select_storage_folder">ストレージのフォルダーを選択</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは既存のファイルを上書きします。</string>
   <string name="files_and_folders">ファイルとフォルダー</string>
   <string name="document_browser">ドキュメントブラウザー</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">ノートを作成</string>
   <string name="special_documents" needed="false">特別なドキュメント</string>
   <string name="back_to_previous_folder" needed="false">前のフォルダーに戻る</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">エディター設定</string>
   <string name="remember_last_folder_location_on_startup" needed="false">起動時に最後に開いたフォルダーの場所に戻す</string>
   <string name="number_of_files_witharg" needed="false">ファイル数: %d</string>
-  <!-- New strings -->
   <string name="app_wide">全般</string>
   <string name="main_view">メインビュー</string>
   <string name="overall_theme_used_in_app">アプリで使用される全体のテーマ</string>
@@ -234,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">テキスト操作</string>
   <string name="textactions">テキスト操作</string>
   <string name="prefer_representation">リプレゼンテーション優先</string>
-  <!--Exception handling-->
 </resources>
