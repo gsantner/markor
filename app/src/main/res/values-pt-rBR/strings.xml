@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Documento</string>
   <string name="documents">Documentos</string>
   <string name="html_as_plaintext">HTML (como texto simples)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Fonte das notas</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Por padrão, mostrar os documentos no modo de representação</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Caminho</string>
   <string name="insert_link">Inserir Link</string>
   <string name="insert_image">Inserir Imagem</string>
-  <!-- About screen -->
   <string name="contributors">Colaboradores</string>
   <string name="save_location">Salvar localização</string>
   <string name="select_storage_folder">Escolher pasta de armazenamento</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">O arquivo não está no diretório de notas. Quer copiá-lo para lá? Esta ação sobrescreverá os arquivos existentes.</string>
   <string name="files_and_folders">Arquivos e pastas</string>
   <string name="document_browser">Navegador de documentos</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Criar nota</string>
   <string name="special_documents" needed="false">Documentos especiais</string>
   <string name="back_to_previous_folder" needed="false">Retornar à pasta anterior</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Configurações do editor</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Lembrar última pasta ao iniciar</string>
   <string name="number_of_files_witharg" needed="false">Número de arquivos: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Tela principal</string>
   <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
@@ -234,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Ações de texto</string>
   <string name="textactions">Ações de texto</string>
   <string name="prefer_representation">Preferir representação</string>
-  <!--Exception handling-->
 </resources>
