@@ -15,11 +15,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="appearance">Megjelenés</string>
   <string name="share">Megosztás</string>
   <string name="search">Keresés</string>
-  <!-- Preferences -->
   <string name="about">Névjegy</string>
   <string name="image">Kép</string>
   <string name="font_size">Betűméret</string>
-  <!-- About screen -->
   <string name="contributors">Hozzájárulók</string>
   <string name="changelog">Újdonságok</string>
   <string name="show_license_of_the_app">GNU GPLv3+ Licenc</string>
@@ -27,8 +25,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
   <string name="language">Nyelv</string>
   <string name="more">Egyebek</string>
-  <!-- Not in use currently -->
-  <!-- New strings -->
   <string name="none">Semmi</string>
   <string name="general">Általános</string>
   <string name="default_">Alapértelmezett</string>
@@ -37,5 +33,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Hely</string>
   <string name="description">Leírás</string>
   <string name="miscellaneous">Egyéb</string>
-  <!--Exception handling-->
 </resources>
