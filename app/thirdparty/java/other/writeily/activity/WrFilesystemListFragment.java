@@ -575,7 +575,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                         promptForNewName(_selectedItems.get(0));
                     }
                     finishActionMode();
-                    return true;`
+                    return true;
                 case R.id.context_menu_info:
                     if (!_selectedItems.isEmpty()) {
                         FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(_selectedItems.get(0));
