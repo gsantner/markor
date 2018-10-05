@@ -15,17 +15,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="appearance">രൂപം</string>
   <string name="share">പങ്കുവയ്ക്കുക</string>
   <string name="search">തിരയുക</string>
-  <!-- Preferences -->
   <string name="about">കുറിച്ച്</string>
   <string name="font_size">അക്ഷരങ്ങളുടെ വലിപ്പം</string>
-  <!-- About screen -->
   <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
   <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
   <string name="language">ഭാഷ</string>
   <string name="more">കൂടുതൽ</string>
-  <!-- Not in use currently -->
-  <!-- New strings -->
   <string name="general">പൊതു</string>
   <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
-  <!--Exception handling-->
 </resources>
