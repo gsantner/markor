@@ -46,9 +46,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Toast;
-
-import net.gsantner.markor.R;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -214,7 +211,7 @@ public class ShareUtil {
     /**
      * Start calendar application to add new event, with given details prefilled
      */
-    public void createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
+    public boolean createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
         Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
         if (title != null) {
             intent.putExtra(CalendarContract.Events.TITLE, title);
@@ -237,8 +234,9 @@ public class ShareUtil {
 
         try {
             _context.startActivity(intent);
+            return true;
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(_context, R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 

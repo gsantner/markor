@@ -21,6 +21,7 @@ import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
@@ -307,7 +308,12 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
                 case R.string.pref_key__share_into__calendar_event: {
-                    shu.createCalendarAppointment(null, _sharedText, null);
+                    boolean willCreateCalendarAppointment =
+                            shu.createCalendarAppointment(null, _sharedText, null);
+
+                    if (!willCreateCalendarAppointment) {
+                        Toast.makeText(getContext(), R.string.exception_no_calendar_app, Toast.LENGTH_SHORT).show();
+                    }
                     close = true;
                     break;
                 }
