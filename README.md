@@ -19,44 +19,47 @@
 </a>
 </div></br>
 
-Markor is a TextEditor for Android. Ver&#8203;sat&#8203;ility, inter&#8203;optab&#8203;ility, and light&#8203;weight&#8203;ness are the main properties of the project. Markor utilizes simple markup formats like Markdown and todo.txt for keeping notes and managing todo lists. Due its big versatility at working with text it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Markor and its created files are interoptable with any other plaintext software on any platform. Markor is not only using open formats, it's also free software, is openly developed and accepts community contributions.
+
+Markor is a TextEditor for Android. This project aims to make an editor that is versatile, flexible, and lightweight. Markor utilizes simple markup formats like Mardown and todo.txt for note-taking and list management. Its other functions include keeping bookmarks, copying to clipboard, and opening text links. The files that Markor creates can be opened in any plaintext software. Markor is a free, community developed service.
 
 
 ## Features
-📝 Create notes and manage your todo list by using simple markup formats
-<br/>🌲 Works completly offline, always ready when and whereever needed
-<br/>👌 Interoptable with any other plaintext software on any platform - edit with notepad or vim, filter with grep, convert to PDF, create zip archive
+📝 Create notes and manage your to-do list using simple markup formats
+<br/>🌲 Work completely offline--whenever, wherever.
+<br/>👌 Compatible with any plaintext software on any platform--edit with notepad or vim, filter with grep, convert to PDF, or create a zip archive
 <br/>
-<br/>🖍 Syntax Highlighting and format related actions like insert picture and list
-<br/>📄 Open and edit documents of other apps and shared texts
-<br/>👀 Convert, preview and share documents as HTML and PDF
+<br/>🖍 Highlight syntax and format
+<br/>🖼 Insert pictures or lists
+<br/>📄 Open and edit shared texts and documents from other apps
+<br/>👀 Convert, preview, and share documents as HTML and PDF
 <br/>
-<br/>📚 Notebook: All documents are stored on a common filesystem folder
-<br/>📓 QuickNote: Quickly share into a fast accessible Markdown document
-<br/>☑️ To-Do: Quickly share into your fast accessible ToDo list
-<br/>🔖 LinkBox: Share pages to read later into your bookmark list
+<br/>📚 Notebook: Store all documents on a common filesystem folder
+<br/>📓 QuickNote: Quickly share a fast, accessible Markdown document
+<br/>☑️ To-Do: Lightweight, navigable to-do lists
+<br/>🔖 LinkBox: Export pages to read later into bookmark list
 <br/>🖍 Markup formats: Markdown and todo.txt
-<br/>📋 Copy to clipboard: Copy any text, text shared into Markor can be directly copied too
-<br/>💡 Notebook is the root folder of documents and can be changed to any location on filesystem. LinkBox, QuickNote and ToDo are textfiles
+<br/>📋 Copy to clipboard: Copy any text, including text imported directly into Markor
+<br/>💡 Root folder: Notebook (can be changed to any location in filesystem)
+<br/>💡 Text-files: LinkBox, QuickNote, ToDo 
 <br/>
-<br/>🎨 Highly customizeable, most components can be fully customized to needs. Dark/night and light theme available
+<br/>🎨 Highly customizeable, including dark/light theme options
 <br/>💾 Auto-Save with options for undo/redo
-<br/>👌 Zero ads or unnecessary permissions
-<br/>🌎 Language selection - use other language than overall on the system
-<br/>🔲 Launcher widget available - open documents fast, create new ones, or quickly open QuickNote/ToDo/LinkBox
+<br/>👌 No ads or unnecessary permissions
+<br/>🌎 Language selection--options for multiple languages
+<br/>🔲 Launcher widget--open and create documents or quickly launch QuickNote/ToDo/LinkBox
 <br/>
-<br/>💡 Note that Markor unlike office suites (like LibreOffice) or todo apps (like Wunderlist) doesn't have any other layouts or modes than editing and viewing text and will never have. Markor shows how powerful and expressive simple text can be. All that can be seen and done in the app is editing, viewing, manipulating and converting plaintext!
+<br/>💡 Unlike other office suites (like LibreOffice) or to-do apps (Wunderlist), Markor has one streamlined text view. Markor shows how powerful and expressive simple text can be. Edit, view, manipulate and convert plaintext!
 <br/>
-<br/>🔃 Markor works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli
+<br/>🔃 Markor works with sync apps. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli. Note: apps must sync respectively
 <br/>
-<br/>👀 These apps may also be in your interest if you like Markor: OneNote, EverNote, Google Keep, Wunderlist, Read-It-Later, Pocket, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
+<br/>👀 If you like Markor: OneNote, EverNote, Google Keep, Wunderlist, Read-It-Later, Pocket, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
 
 
 ### Privacy<a name="privacy"></a>
-The app doesn't use the internet connection unless external resources are referenced in user created documents on purpose.
-Otherwise it's working completly offline. No personal data, like calendar or contacts information are requested or shared.
-Documents can be shared to other apps from inside the app by pressing the share button.
-Document will be stored locally in the device public documents folder or in a custom folder.
+No internet connection required! Note: you must connect to the internet to access external resources if referenced in user created documents.
+No personal data requested or shared (i.e. calendar or contacts).
+Share documents to other apps using the built-in share button.
+Store documents locally in the public documents folder or a custom folder.
 
 ## Contributions
 The project is always open for contributions and welcomes pull requests. Take a look at our [issue tracker](https://github.com/gsantner/markor/issues) for open issues, especially those tagged with [good first issue](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) and [help wanted](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
