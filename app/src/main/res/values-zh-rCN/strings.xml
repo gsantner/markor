@@ -44,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">文档</string>
   <string name="documents">文档</string>
   <string name="html_as_plaintext">HTML</string>
-  <!-- Preferences -->
   <string name="document_editor_font">文档编辑器字体</string>
   <string name="theme">主题</string>
   <string name="about">关于</string>
@@ -67,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / 路径</string>
   <string name="insert_link">插入链接</string>
   <string name="insert_image">插入图片</string>
-  <!-- About screen -->
   <string name="contributors">贡献者</string>
   <string name="save_location">保存位置</string>
   <string name="select_storage_folder">从系统选择目录</string>
@@ -119,7 +117,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">所选的文件不在 Markor 的笔记本目录中，您想将该文件复制过来吗？这将会覆盖已有的同名文件。</string>
   <string name="files_and_folders">文件与文件夹</string>
   <string name="document_browser">文档浏览器</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">新建笔记</string>
   <string name="special_documents" needed="false">指定文档</string>
   <string name="back_to_previous_folder" needed="false">上一级</string>
@@ -127,7 +124,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">编辑器设置</string>
   <string name="remember_last_folder_location_on_startup" needed="false">记住上次退出的位置</string>
   <string name="number_of_files_witharg" needed="false">文件数量：%d</string>
-  <!-- New strings -->
   <string name="app_wide">全局</string>
   <string name="main_view">主界面</string>
   <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
@@ -227,5 +223,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">杂项设置</string>
   <string name="textaction">文本操作</string>
   <string name="textactions">文本操作</string>
-  <!--Exception handling-->
 </resources>
