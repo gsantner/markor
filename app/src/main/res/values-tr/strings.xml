@@ -230,4 +230,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Çeşitli</string>
   <string name="textaction">Metin eylemi</string>
   <string name="textactions">Metin eylemleri</string>
+  <!--Exception handling-->
 </resources>
