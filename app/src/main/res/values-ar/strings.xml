@@ -22,4 +22,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">ترجمة</string>
   <string name="location">موقع</string>
   <string name="description">وصف</string>
+  <!--Exception handling-->
 </resources>
