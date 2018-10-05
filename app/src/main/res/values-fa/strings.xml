@@ -40,7 +40,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="files">فایل‌ها</string>
   <string name="document">پرونده</string>
   <string name="documents">پرونده‌ها</string>
-  <!-- Preferences -->
   <string name="document_editor_font">قلم ویرایشگر پرونده</string>
   <string name="theme">پوسته</string>
   <string name="about">درباره مارکور</string>
@@ -60,7 +59,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="name">نام</string>
   <string name="insert_link">وارد کردن لینک</string>
   <string name="insert_image">وارد کردن تصویر</string>
-  <!-- About screen -->
   <string name="contributors">همکاران</string>
   <string name="select_storage_folder">انتخاب پوشه محل ذخیره</string>
   <string name="licenses">مجوزها</string>
@@ -104,14 +102,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">فایل انتخاب شده در پوشه‌ی دفترچه‌ی برنامه نیست. آیا می‌خواهید آن را به پوشه کنونی کپی کنید؟ این موجب رونویسی روی فایل‌های موجود خواهد شد.</string>
   <string name="files_and_folders">فایل‌ها و پوشه‌ها</string>
   <string name="document_browser">مرورگر پرونده</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">ایجاد یادداشت</string>
   <string name="back_to_previous_folder" needed="false">بازگشت به پوشه قبلی</string>
   <string name="app_settings" needed="false">تنظیمات برنامه</string>
   <string name="editor_settings" needed="false">تنظیمات ویرایشگر</string>
   <string name="remember_last_folder_location_on_startup" needed="false">به‌خاطر آوردن مکان آخرین پوشه هنگام راه‌اندازی</string>
   <string name="number_of_files_witharg" needed="false">تعداد فایل‌ها: %d</string>
-  <!-- New strings -->
   <string name="app_wide">جهانی</string>
   <string name="main_view">نمای اصلی</string>
   <string name="overall_theme_used_in_app">پوسته‌ای که در تمام برنامه استفاده خواهد شد</string>
@@ -153,5 +149,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="center">وسط</string>
   <string name="center_text">متن وسط باشد</string>
   <string name="edit_text_in_center_of_screen">متن را در وسط صفحه‌نمایش ویرایش کنید</string>
-  <!--Exception handling-->
 </resources>
