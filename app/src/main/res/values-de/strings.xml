@@ -46,7 +46,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document">Dokument</string>
   <string name="documents">Dokumente</string>
   <string name="html_as_plaintext">HTML (als Klartext)</string>
-  <!-- Preferences -->
   <string name="document_editor_font">Schriftart</string>
   <string name="theme">Thema</string>
   <string name="show_representation_of_markup_by_default">Existierende Dokumente im Repräsentations-Modus anzeigen</string>
@@ -70,7 +69,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Pfad</string>
   <string name="insert_link">Link einfügen</string>
   <string name="insert_image">Bild einfügen</string>
-  <!-- About screen -->
   <string name="contributors">Beitragende</string>
   <string name="save_location">Speicherort</string>
   <string name="select_storage_folder">Speicherort auswählen</string>
@@ -122,7 +120,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
   <string name="files_and_folders">Dateien und Ordner</string>
   <string name="document_browser">Dokumenten-Browser</string>
-  <!-- Not in use currently -->
   <string name="create_note" needed="false">Notiz erstellen</string>
   <string name="special_documents" needed="false">Spezielle Dokumente</string>
   <string name="back_to_previous_folder" needed="false">Zurück zum vorherigen Ordner</string>
@@ -130,7 +127,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Editor Einstellungen</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Letzten Ordner merken</string>
   <string name="number_of_files_witharg" needed="false">Anzahl der Dateien: %d</string>
-  <!-- New strings -->
   <string name="app_wide">Global</string>
   <string name="main_view">Hauptansicht</string>
   <string name="overall_theme_used_in_app">Das global in dieser App verwendete Thema ändern</string>
@@ -234,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Textaktion</string>
   <string name="textactions">Textaktionen</string>
   <string name="prefer_representation">Repräsentation bevorzugen</string>
-  <!--Exception handling-->
 </resources>
