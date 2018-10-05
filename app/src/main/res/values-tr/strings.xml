@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="recently_viewed_documents">Son görüntülenen belgeler</string>
   <string name="details">Ayrıntılar</string>
   <string name="calendar">Takvim</string>
-  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yok, burada yapılan tüm değişiklikler kaybolacaktır. Bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
+  <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yoktur, burada yapılan tüm değişiklikler kaybolacaktır. Bu uygulamanın bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
   <string name="error_picture_selection">Hiçbir resim seçilmedi, çekilmedi veya kaydedilmedi.</string>
   <string name="gallery_picture">Galeri resmi</string>
   <string name="camera_picture">Kamera resmi</string>
