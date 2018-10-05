@@ -30,7 +30,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="files">Fitxers</string>
   <string name="document">Document</string>
   <string name="documents">Documents</string>
-  <!-- Preferences -->
   <string name="theme">Tema</string>
   <string name="about">Quant a</string>
   <string name="plaintext">Text simple</string>
@@ -45,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="url_or_path">URL / Ruta</string>
   <string name="insert_link">Insereix enllaç</string>
   <string name="insert_image">Insereix imatge</string>
-  <!-- About screen -->
   <string name="contributors">Col·laboradors</string>
   <string name="save_location">Desa la ubicació</string>
   <string name="licenses">Llicències</string>
@@ -85,12 +83,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="add_task">Afegeix tasca</string>
   <string name="add_x_witharg">Afegeix %s</string>
   <string name="refresh">Refresca</string>
-  <!-- Not in use currently -->
   <string name="special_documents" needed="false">Documents especials</string>
   <string name="app_settings" needed="false">Configuració de l\'aplicació</string>
   <string name="editor_settings" needed="false">Configuració de l\'editor</string>
   <string name="number_of_files_witharg" needed="false">Número de fitxers: %d</string>
-  <!-- New strings -->
   <string name="main_view">Vista principal</string>
   <string name="format">Format</string>
   <string name="project">Projecte</string>
@@ -137,5 +133,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matemàtiques</string>
   <string name="table_of_contents">Taula de continguts</string>
   <string name="miscellaneous">Divers</string>
-  <!--Exception handling-->
 </resources>
