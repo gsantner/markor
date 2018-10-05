@@ -32,4 +32,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Placering</string>
   <string name="description">Beskrivelse</string>
   <string name="miscellaneous">Diverse</string>
+  <!--Exception handling-->
 </resources>
