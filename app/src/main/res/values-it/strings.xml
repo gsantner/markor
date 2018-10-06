@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textactions">Azioni sul testo</string>
   <string name="prefer_representation">Rappresentazione preferita</string>
   <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
+  <string name="popular_documents">Documenti popolari</string>
 </resources>
