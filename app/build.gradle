@@ -35,8 +35,8 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
 
         applicationId "net.gsantner.markor"
-        versionName "1.2.2"
-        versionCode 38
+        versionName "1.3.0"
+        versionCode 39
     }
 
     productFlavors {
