@@ -33,3 +33,4 @@ Where:
 * **[Jesica Chu](https://github.com/jesicachu)**<br/>~° Spanish and Traiditonal Chinese translation
 * **[Ankush S Shetkar](https://www.linkedin.com/in/livelycoder/)**<br/>~° Added Chrome custom tabs for urls
 * **[Lars Pontoppidan](https://github.com/larpon)**<br/>~° Danish translation
+* **[Amaya Lim](https://github.com/nightrainlily)**<br/>~° Improve project description
