@@ -231,4 +231,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textactions">Metin eylemleri</string>
   <string name="prefer_representation">Önizleme modunu kullan</string>
   <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
+  <string name="popular_documents">Popüler belgeler</string>
 </resources>
