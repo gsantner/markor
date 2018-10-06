@@ -35,20 +35,20 @@ import java.io.File;
 
 import butterknife.BindView;
 
-public class DocumentPreviewFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
+public class DocumentRepresentationFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static boolean showEditOnBack = false;
-    public static final String FRAGMENT_TAG = "DocumentPreviewFragment";
+    public static final String FRAGMENT_TAG = "DocumentRepresentationFragment";
 
-    public static DocumentPreviewFragment newInstance(Document document) {
-        DocumentPreviewFragment f = new DocumentPreviewFragment();
+    public static DocumentRepresentationFragment newInstance(Document document) {
+        DocumentRepresentationFragment f = new DocumentRepresentationFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_DOCUMENT, document);
         f.setArguments(args);
         return f;
     }
 
-    public static DocumentPreviewFragment newInstance(File path) {
-        DocumentPreviewFragment f = new DocumentPreviewFragment();
+    public static DocumentRepresentationFragment newInstance(File path) {
+        DocumentRepresentationFragment f = new DocumentRepresentationFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         f.setArguments(args);
@@ -61,12 +61,12 @@ public class DocumentPreviewFragment extends GsFragmentBase implements TextForma
     private Document _document;
     private TextFormat _textFormat;
 
-    public DocumentPreviewFragment() {
+    public DocumentRepresentationFragment() {
     }
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.document__fragment__preview;
+        return R.layout.document__fragment__representation;
     }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -55,4 +55,8 @@
         android:key="@string/pref_key__recent_documents"
         android:title="@string/recently_viewed_documents" />
 
+    <PreferenceCategory
+        android:key="@string/pref_key__popular_documents"
+        android:title="@string/popular_documents" />
+
 </PreferenceScreen> <!-- Screen -->

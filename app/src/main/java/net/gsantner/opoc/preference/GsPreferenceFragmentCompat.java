@@ -313,6 +313,21 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         return isAdded() ? findPreference(getString(key)) : null;
     }
 
+    /**
+     * Finds a {@link Preference} based on its key res id.
+     *
+     * @param key The key of the preference to retrieve.
+     * @return The {@link Preference} with the key, or null.
+     * @see android.support.v7.preference.PreferenceGroup#findPreference(CharSequence)
+     */
+    public Preference setPreferenceVisible(@StringRes int key, boolean visible) {
+        Preference pref;
+        if ((pref = findPreference(key)) != null) {
+            pref.setVisible(visible);
+        }
+        return pref;
+    }
+
     @Nullable
     @SuppressWarnings("SameParameterValue")
     protected Preference updatePreference(@StringRes int keyResId, @DrawableRes Integer iconRes, CharSequence title, CharSequence summary, Boolean visible) {

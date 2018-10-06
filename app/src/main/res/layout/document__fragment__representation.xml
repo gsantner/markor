@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="net.gsantner.markor.activity.DocumentPreviewFragment"
+    tools:context="net.gsantner.markor.activity.DocumentRepresentationFragment"
     tools:showIn="@layout/document__activity">
 
     <WebView

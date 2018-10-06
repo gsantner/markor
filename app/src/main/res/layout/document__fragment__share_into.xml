@@ -24,7 +24,7 @@
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="35"
+        android:layout_weight="40"
         android:fillViewport="true">
 
         <net.gsantner.markor.ui.hleditor.HighlightingEditor
@@ -50,6 +50,6 @@
         android:id="@+id/document__share_into__fragment__placeholder_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="65" />
+        android:layout_weight="60" />
 
 </net.gsantner.opoc.ui.LinearSplitLayout>

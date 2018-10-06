@@ -150,9 +150,9 @@ public class DocumentActivity extends AppCompatActivity {
         String frag = getCurrentVisibleFragment() != null ? getCurrentVisibleFragment().getFragmentTag() : null;
         frag = frag == null ? "" : frag;
 
-        menu.findItem(R.id.action_share_pdf).setVisible(frag.equals(DocumentPreviewFragment.FRAGMENT_TAG)
+        menu.findItem(R.id.action_share_pdf).setVisible(frag.equals(DocumentRepresentationFragment.FRAGMENT_TAG)
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-        menu.findItem(R.id.action_share_image).setVisible(frag.equals(DocumentPreviewFragment.FRAGMENT_TAG));
+        menu.findItem(R.id.action_share_image).setVisible(frag.equals(DocumentRepresentationFragment.FRAGMENT_TAG));
 
         _contextUtils.tintMenuItems(menu, true, Color.WHITE);
         _contextUtils.setSubMenuIconsVisiblity(menu, true);
@@ -174,7 +174,7 @@ public class DocumentActivity extends AppCompatActivity {
             }
             case R.id.action_preview: {
                 if (saveDocument()) {
-                    DocumentPreviewFragment.showEditOnBack = true;
+                    DocumentRepresentationFragment.showEditOnBack = true;
                     showPreview(_document, null);
                 }
                 return true;
@@ -286,9 +286,9 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         if (document != null) {
-            showFragment(DocumentPreviewFragment.newInstance(document));
+            showFragment(DocumentRepresentationFragment.newInstance(document));
         } else {
-            showFragment(DocumentPreviewFragment.newInstance(file));
+            showFragment(DocumentRepresentationFragment.newInstance(file));
         }
     }
 
@@ -402,15 +402,15 @@ public class DocumentActivity extends AppCompatActivity {
             DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
             ret = def.saveDocument();
             setDocument(def.getDocument()); // Apply title again. Document is modified in edit activity
-        } else if (getExistingFragment(DocumentPreviewFragment.FRAGMENT_TAG) != null) {
+        } else if (getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG) != null) {
             ret = _document != null;
         }
         return ret;
     }
 
     private WebView getPreviewWebview() {
-        if (getExistingFragment(DocumentPreviewFragment.FRAGMENT_TAG) != null) {
-            return ((DocumentPreviewFragment) getExistingFragment(DocumentPreviewFragment.FRAGMENT_TAG))
+        if (getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG) != null) {
+            return ((DocumentRepresentationFragment) getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG))
                     .getWebview();
         }
         return null;

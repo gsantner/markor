@@ -338,34 +338,32 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             super.doUpdatePreferences();
             boolean maybeHasWebUrl = _sharedText.contains("http://") || _sharedText.contains("https://");
             Preference pref;
-            if ((pref = findPreference(R.string.pref_key__share_into__todo)) != null) {
-                pref.setVisible(!_sharedText.contains("\n"));
-            }
-            if ((pref = findPreference(R.string.pref_key__share_into__linkbox)) != null) {
-                pref.setVisible(maybeHasWebUrl);
-            }
 
-            if ((pref = findPreference(R.string.pref_key__share_into__open_in_browser)) != null) {
-                pref.setVisible(maybeHasWebUrl);
-            }
-            if ((pref = findPreference(R.string.pref_key__share_into__reshare)) != null) {
-                if (pref.getTitle().toString().equals(getString(R.string.share))) {
-                    pref.setTitle(String.format("%s (%s)", pref.getTitle(), getString(R.string.plaintext)));
-                }
-            }
+            setPreferenceVisible(R.string.pref_key__share_into__todo, !_sharedText.trim().contains("\n") && _sharedText.length() < 300);
+            setPreferenceVisible(R.string.pref_key__share_into__linkbox, maybeHasWebUrl && _sharedText.length() < 1200);
+            setPreferenceVisible(R.string.pref_key__share_into__quicknote, maybeHasWebUrl && _sharedText.length() < 10000);
+            setPreferenceVisible(R.string.pref_key__share_into__open_in_browser, maybeHasWebUrl);
 
             if ((pref = findPreference(R.string.pref_key__recent_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
-                for (String doc_s : new AppSettings(pref.getContext()).getRecentDocuments()) {
-                    File file = new File(doc_s);
-                    if (!file.exists()) {
-                        continue;
-                    }
-                    Preference prefd = new Preference(pref.getContext());
-                    prefd.setTitle(file.getName());
-                    prefd.setSummary(file.getParent());
-                    prefd.setKey(file.getAbsolutePath());
-                    appendPreference(prefd, (PreferenceGroup) pref);
+                for (String filepath : new AppSettings(pref.getContext()).getRecentDocuments()) {
+                    addDocumentToPrefgroup(filepath, (PreferenceGroup) pref);
                 }
+            }
+            if ((pref = findPreference(R.string.pref_key__popular_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
+                for (String filepath : new AppSettings(pref.getContext()).getPopularDocuments()) {
+                    addDocumentToPrefgroup(filepath, (PreferenceGroup) pref);
+                }
+            }
+        }
+
+        private void addDocumentToPrefgroup(String filepath, final PreferenceGroup prefGroup) {
+            File file = new File(filepath);
+            if (file.exists()) {
+                Preference prefd = new Preference(prefGroup.getContext());
+                prefd.setTitle(file.getName());
+                prefd.setSummary(file.getParent());
+                prefd.setKey(file.getAbsolutePath());
+                appendPreference(prefd, prefGroup);
             }
         }
     }
