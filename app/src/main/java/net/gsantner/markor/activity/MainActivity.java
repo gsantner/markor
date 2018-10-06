@@ -318,15 +318,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.nav_todo: {
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
+                restoreDefaultToolbar();
                 _viewPager.setCurrentItem(1);
                 return true;
             }
             case R.id.nav_quicknote: {
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
+                restoreDefaultToolbar();
                 _viewPager.setCurrentItem(2);
                 return true;
             }
             case R.id.nav_more: {
+                restoreDefaultToolbar();
                 _viewPager.setCurrentItem(3);
                 return true;
             }
@@ -434,6 +437,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         public HashMap<Integer, GsFragmentBase> getCachedFragments() {
             return _fragCache;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        restoreDefaultToolbar();
+    }
+
+    /**
+     * Restores the default toolbar. Used when changing the tab or moving to another activity
+     * while {@link WrFilesystemListFragment} action mode is active (e.g. when renaming a file)
+     */
+    private void restoreDefaultToolbar() {
+        WrFilesystemListFragment wrFragment = (WrFilesystemListFragment)
+                _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
+
+        if (wrFragment != null) {
+            wrFragment.finishActionMode();
         }
     }
 }

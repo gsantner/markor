@@ -381,8 +381,10 @@ public class WrFilesystemListFragment extends GsFragmentBase {
     }
 
     public void finishActionMode() {
-        _actionMode.finish();
-        _selectedItems.clear();
+        if (_actionMode != null && _selectedItems != null) {
+            _actionMode.finish();
+            _selectedItems.clear();
+        }
     }
 
     private void importFile(final File file) {
@@ -548,10 +550,10 @@ public class WrFilesystemListFragment extends GsFragmentBase {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.filesystem__context_menu, menu);
             _cu.tintMenuItems(menu, true, Color.WHITE);
-            mode.setTitle(getResources().getString(R.string.select_entries));
+            _actionMode = mode;
+            _actionMode.setTitle(getResources().getString(R.string.select_entries));
             return true;
         }
-
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -560,7 +562,6 @@ public class WrFilesystemListFragment extends GsFragmentBase {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            _actionMode = mode;
             switch (item.getItemId()) {
                 case R.id.context_menu_delete:
                     confirmDelete();
