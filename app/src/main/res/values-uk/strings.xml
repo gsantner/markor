@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Надіслати до…</string>
   <string name="share">Надіслати</string>
   <string name="search">Пошук</string>
-  <string name="representation">Подання</string>
+  <string name="representation">Форматування</string>
   <string name="display_converted_markup">Відображення перетвореного Markup</string>
   <string name="editor">Редактор</string>
   <string name="folders">Директорії</string>
@@ -227,6 +227,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Різне</string>
   <string name="textaction">Команда тексту</string>
   <string name="textactions">Команди тексту</string>
+  <string name="prefer_representation">Показати форматування</string>
   <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
   <string name="popular_documents">Популярні документи</string>
 </resources>
