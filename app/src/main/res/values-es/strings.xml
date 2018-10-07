@@ -230,4 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Acción de texto</string>
   <string name="textactions">Acciones de texto</string>
   <string name="prefer_representation">Representación preferida</string>
+  <string name="no_calendar_app_is_installed">¡No hay una aplicación de calendario instalada!</string>
+  <string name="popular_documents">Documentos populares</string>
 </resources>
