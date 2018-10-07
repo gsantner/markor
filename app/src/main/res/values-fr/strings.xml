@@ -185,7 +185,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">En bas</string>
   <string name="center">Centré</string>
   <string name="textaction_spacing">Espacement du module de texte</string>
-  <string name="horizontal_space_between_textactions">Espacement horizontal des actions</string>
+  <string name="horizontal_space_between_textactions">Espacement horizontal entre les boutons d\'action sur le texte</string>
   <string name="center_text">Centrer le texte</string>
   <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
   <string name="clipboard">Presse-papier</string>
