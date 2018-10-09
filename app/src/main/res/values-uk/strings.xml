@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Надіслати до…</string>
   <string name="share">Надіслати</string>
   <string name="search">Пошук</string>
+  <string name="representation">Форматування</string>
+  <string name="display_converted_markup">Відображення перетвореного Markup</string>
   <string name="editor">Редактор</string>
   <string name="folders">Директорії</string>
   <string name="files">Файли</string>
@@ -46,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML (як звичайний текст)</string>
   <string name="document_editor_font">Шрифт редактора нотаток</string>
   <string name="theme">Тема</string>
+  <string name="show_representation_of_markup_by_default">Показувати існуючі документи в режимі подання за замовчуванням</string>
   <string name="about">Про Markor</string>
   <string name="plaintext">Звичайний текст</string>
   <string name="file">Файл</string>
@@ -193,6 +196,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info_and_help">Додаткова інформація та допомога</string>
   <string name="report_bugs">Повідомити про помилку</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Детальніше про пожертви або підтримку проекту</string>
+  <string name="android_contribution_guide">Порадник із участі у проектах для Android</string>
+  <string name="more_info_on_how_to_contribute_to_foss_android_projects">Більше інформації про участь у проектах з відкритим кодом, особливо для Android</string>
   <string name="join_community">Приєднатися до спільноти</string>
   <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
   <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
@@ -224,4 +229,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Різне</string>
   <string name="textaction">Команда тексту</string>
   <string name="textactions">Команди тексту</string>
+  <string name="prefer_representation">Показати форматування</string>
+  <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
+  <string name="popular_documents">Популярні документи</string>
 </resources>

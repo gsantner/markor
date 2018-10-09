@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Поделиться с…</string>
   <string name="share">Поделиться</string>
   <string name="search">Поиск</string>
+  <string name="representation">Отображение</string>
+  <string name="display_converted_markup">Отображение преобразованного Markup</string>
   <string name="editor">Редактор</string>
   <string name="folders">Папки</string>
   <string name="files">Файлы</string>
@@ -46,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML (простой текст)</string>
   <string name="document_editor_font">Шрифт редактора заметок</string>
   <string name="theme">Тема</string>
+  <string name="show_representation_of_markup_by_default">Показывать существующие документы в режиме представления по умолчанию</string>
   <string name="about">О программе</string>
   <string name="plaintext">Простой текст</string>
   <string name="file">Файл</string>
@@ -227,4 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Операция с текстом</string>
   <string name="textactions">Операции с текстом</string>
   <string name="prefer_representation">Предпочесть изображение</string>
+  <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
+  <string name="popular_documents">Популярные документы</string>
 </resources>

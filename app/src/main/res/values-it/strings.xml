@@ -23,7 +23,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file_already_exists_overwerite">File già esistente, sovrascrivere?</string>
   <string name="browse_filesystem">Esplora i file</string>
   <string name="title">Titolo</string>
-  <string name="empty_directory">Questa cartella è vuota</string>
+  <string name="empty_directory">Cartella vuota</string>
   <string name="enter_name_of_folder">Inserire il nome della cartella</string>
   <string name="create_folder">Crea una nuova cartella</string>
   <string name="create_new_document">Crea un nuovo documento</string>
@@ -232,4 +232,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Azione sul testo</string>
   <string name="textactions">Azioni sul testo</string>
   <string name="prefer_representation">Rappresentazione preferita</string>
+  <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
+  <string name="popular_documents">Documenti popolari</string>
 </resources>

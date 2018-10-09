@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Nouveau dossier</string>
   <string name="create_new_document">Créer un nouveau document</string>
   <string name="move">Déplacer</string>
-  <string name="info">Information</string>
+  <string name="info">Info</string>
   <string name="import_from_device">Importer depuis cet appareil</string>
   <string name="import_">Importer</string>
   <string name="append_to_witharg">Ajouter à %s</string>
@@ -70,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_link">Insérer lien</string>
   <string name="insert_image">Insérer image</string>
   <string name="contributors">Contributeurs</string>
-  <string name="save_location">Sauvegarde du lieu</string>
+  <string name="save_location">Enregistrer la localisation</string>
   <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
   <string name="licenses">Licences</string>
   <string name="changelog">Nouveautés de l\'application</string>
@@ -136,7 +136,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
   <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
   <string name="control_font_size_in_editor">Fixe la taille de la police de caractères utilisée dans l\'éditeur</string>
-  <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
+  <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés. Ces actions sur le texte vont le modifier ou lancer une action à partir de celui-ci.</string>
   <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
   <string name="format">Format</string>
   <string name="contexts">Contextes</string>
@@ -185,7 +185,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="bottom">En bas</string>
   <string name="center">Centré</string>
   <string name="textaction_spacing">Espacement du module de texte</string>
-  <string name="horizontal_space_between_textactions">Espacement horizontal des actions</string>
+  <string name="horizontal_space_between_textactions">Espacement horizontal entre les boutons d\'action sur le texte</string>
   <string name="center_text">Centrer le texte</string>
   <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
   <string name="clipboard">Presse-papier</string>
@@ -230,4 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Action texte</string>
   <string name="textactions">Actions texte</string>
   <string name="prefer_representation">Représentation préférée</string>
+  <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
+  <string name="popular_documents">Documents populaires</string>
 </resources>
