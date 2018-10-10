@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file">Ficheiro</string>
   <string name="image">Imagem</string>
   <string name="font_size">Tamanho do tipo de letra</string>
+  <string name="render_rtl_language">Processamento para idiomas RTL</string>
   <string name="error_cannot_create_notebook_dir__appspecific">Erro: não foi possível criar o diretório</string>
   <string name="last_modified_witharg">Última modificação: %s</string>
   <string name="select_this_folder">Selecionar esta pasta</string>
@@ -76,9 +77,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info">Mais informações</string>
   <string name="show_license_of_the_app">Mostrar licença da aplicação</string>
   <string name="show_third_party_licenses">Licenças de terceiros</string>
-  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
+  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar para aplicar as alterações.</string>
   <string name="language">Idioma</string>
-  <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar docuemntos</string>
+  <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar documentos</string>
   <string name="open_with">Abrir com</string>
   <string name="sort">Ordenar por</string>
   <string name="date">Data</string>
@@ -88,6 +89,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contribute">Contribuir</string>
   <string name="donate">Donativos</string>
   <string name="project_page">Página do projeto</string>
+  <string name="press_back_again_to_exit">Prima \'Back\' novamente para sair</string>
   <string name="exit">Sair</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
@@ -102,9 +104,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioridade</string>
   <string name="history">Histórico</string>
   <string name="sync">Sincronizar</string>
+  <string name="serach_or_custom">Pesquisa/Personalizado</string>
   <string name="save">Guardar</string>
   <string name="update">Atualizar</string>
   <string name="clear">Limpar</string>
+  <string name="due_date">Data limite</string>
   <string name="current_date">Data atual</string>
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
@@ -112,10 +116,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document_to_be_loaded_and_saved_as_witharg">Documento para ser carregado e guardado como \"%s\"</string>
   <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
+  <string name="tried_to_create_shortcut_for_this_notice">Tentar criar um ataho no ecrã inicial. Alguns \'launchers\' não permitem esta operação.</string>
+  <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos.</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
   <string name="create_note" needed="false">Criar nota</string>
   <string name="special_documents" needed="false">Documentos especiais</string>
+  <string name="back_to_previous_folder" needed="false">Recuar para a pasta anterior</string>
   <string name="app_settings" needed="false">Definições</string>
   <string name="editor_settings" needed="false">Definições do editor</string>
   <string name="number_of_files_witharg" needed="false">Número de ficheiros: %d</string>
