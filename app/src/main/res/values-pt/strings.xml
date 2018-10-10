@@ -125,13 +125,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="back_to_previous_folder" needed="false">Recuar para a pasta anterior</string>
   <string name="app_settings" needed="false">Definições</string>
   <string name="editor_settings" needed="false">Definições do editor</string>
+  <string name="remember_last_folder_location_on_startup" needed="false">Ao iniciar, abrir a última pasta usada</string>
   <string name="number_of_files_witharg" needed="false">Número de ficheiros: %d</string>
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
+  <string name="highlighting_delay">Atraso de destaque</string>
+  <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso (em milissegundos) para atualizar o destaque. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria.</string>
+  <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto digitado deve ser destacado</string>
+  <string name="control_font_size_in_editor">Controlar o tamanho do tipo de letra do editor</string>
   <string name="textactions_show_useful_actions_description__appspecific">Mostrar barra com ações na base do ecrã. Extas ações modificam o texto ou executam uma ação tendo por base texto.</string>
+  <string name="load_last_opened_folder_at_startup">Ao iniciar, abrir a última pasta utilizada</string>
+  <string name="format">Formato</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
@@ -139,11 +146,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="none">Nenhum</string>
   <string name="other">Outro</string>
   <string name="alternative_naming">Nomes alternativos</string>
+  <string name="underline_hex_color_wether_or_not_to_description__appspecific">Controlar o sublinhado de acordo com o código de cores HEX</string>
+  <string name="underline_hex_color_codes">Sublinhar códigos de cores HEX</string>
+  <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma tarefa</string>
   <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
+  <string name="append_contexts_and_projects">Juntar contextos e projetos</string>
   <string name="append_contexts_and_projects_on_end_of_task">Anexar contextos e projetos no fim de uma tarefa, se utilizada a ação de texto apropriada</string>
+  <string name="rtl_rendering">Processamento de RTL</string>
+  <string name="highlight_line_ending">Destacar fim de linhas</string>
+  <string name="highlight_line_ending_if_two_or_more_spaces">Destacar espaços no final das linhas que possuem dois ou mais espaços</string>
+  <string name="use_monospace_for_code">Utilizar letra monoespaçada para código</string>
+  <string name="use_different_fonttype_slow_down">Utiliza um tipo de letra diferente. A alteração desta opção pode degradar o desempenho.</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
-  <string name="line_spacing">Espaçamento entre linhas</string>
+  <string name="space_between_lines_in_percent">Espaço entre linhas (em percentagem)</string>
+  <string name="line_spacing">Espaço entre linhas</string>
   <string name="key_ctrl_a">Selecionar tudo (Ctrl+A)</string>
   <string name="key_tab">Tabulação</string>
   <string name="vertical_alignment">Alinhamento vertical</string>
