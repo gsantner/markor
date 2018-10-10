@@ -201,8 +201,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="help_translating_this_app">Traduzir esta aplicação</string>
   <string name="source_code">Código fonte</string>
   <string name="project_license">Licença</string>
-  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
+  <string name="project_contribution_info">Informações sobre o projeto</string>
+  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar neste projeto</string>
+  <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
   <string name="project_team">Equipa do projeto</string>
+  <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
+  <string name="disable_spelling_underline">Desativar sublinhado de ortografia</string>
+  <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">As sugestões surgem mas o sublinhado desaparece</string>
   <string name="location">Localização</string>
   <string name="text_lines">Linhas de texto</string>
   <string name="text_characters">Caracteres de texto</string>
@@ -221,4 +226,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Ação de texto</string>
   <string name="textactions">Ações de texto</string>
   <string name="prefer_representation">Preferir representação</string>
+  <string name="no_calendar_app_is_installed">Não tem uma aplicação de calendário!</string>
+  <string name="popular_documents">Documentos populares</string>
 </resources>
