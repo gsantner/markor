@@ -12,6 +12,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="settings">إعدادات</string>
+  <string name="light">مضيئ</string>
+  <string name="dark">مظلم</string>
+  <string name="delete">حذف</string>
+  <string name="appearance">المظهر</string>
+  <string name="rename">إعادة تسمية</string>
+  <string name="confirm_delete">تأكيد الحذف</string>
   <string name="image">صورة</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
