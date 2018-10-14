@@ -21,7 +21,7 @@ ext.version_library_flexmark = "0.32.18"
 
 android {
     buildToolsVersion version_setup_buildTools
-    compileSdkVersion version_setup_compileSdk
+    compileSdkVersion 28
     flavorDimensions "default"
 
     defaultConfig {
@@ -99,6 +99,7 @@ android {
 }
 
 dependencies {
+
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.8.0'
