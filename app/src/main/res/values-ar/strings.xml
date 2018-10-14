@@ -18,6 +18,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="appearance">المظهر</string>
   <string name="rename">إعادة تسمية</string>
   <string name="confirm_delete">تأكيد الحذف</string>
+  <string name="do_you_really_want_to_delete_this_witharg">هل تريد حذف %s حقا ؟</string>
+  <string name="confirm_overwrite">تأكيد التعديل</string>
+  <string name="file_already_exists_overwerite">الملف موجود بالفعل، استبدال ؟</string>
+  <string name="browse_filesystem">تصفح الملفات</string>
+  <string name="title">العنوان</string>
+  <string name="empty_directory">مجلد فارغ</string>
+  <string name="enter_name_of_folder">ادخل اسم المجلد</string>
+  <string name="create_folder">إنشاء مجلد</string>
+  <string name="create_new_document">إنشاء ملف جديد</string>
+  <string name="move">نقل</string>
+  <string name="info">معلومات</string>
   <string name="image">صورة</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
