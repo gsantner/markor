@@ -77,6 +77,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info">مزيد من المعلومات</string>
   <string name="show_license_of_the_app">إظهار رخصة التطبيق</string>
   <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
+  <string name="language_change_restart_description">تغيير لغة التطبيق. اعد فتح التطبيق لتفعيل التغيير</string>
+  <string name="language">اللغة</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
   <string name="translate">ترجمة</string>
