@@ -45,6 +45,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="files">ملفات</string>
   <string name="document">مستند</string>
   <string name="documents">مستندات</string>
+  <string name="html_as_plaintext">HTML - اتش تي ام ال (نص عادي)</string>
+  <string name="document_editor_font">خط محرر المستندات</string>
+  <string name="theme">المظهر</string>
   <string name="image">صورة</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
