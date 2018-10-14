@@ -29,6 +29,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_new_document">إنشاء ملف جديد</string>
   <string name="move">نقل</string>
   <string name="info">معلومات</string>
+  <string name="import_from_device">استيراد من الجهاز</string>
+  <string name="import_">استيراد</string>
+  <string name="append_to_witharg">إضافة إلي %s</string>
+  <string name="select_folder">اختر مجلد</string>
+  <string name="edit">تعديل</string>
+  <string name="search_documents">بحث في المستندات</string>
   <string name="image">صورة</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
