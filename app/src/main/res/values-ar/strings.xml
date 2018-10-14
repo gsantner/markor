@@ -48,7 +48,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML - اتش تي ام ال (نص عادي)</string>
   <string name="document_editor_font">خط محرر المستندات</string>
   <string name="theme">المظهر</string>
+  <string name="show_representation_of_markup_by_default">عرض المستندات منسَّقة افتراضيا</string>
+  <string name="about">حول التطبيق</string>
+  <string name="plaintext">نصّ عادي</string>
+  <string name="file">ملف</string>
   <string name="image">صورة</string>
+  <string name="font_size">حجم الخط</string>
+  <string name="render_rtl_language">عرض من اليمين إلي اليسار</string>
+  <string name="error_cannot_create_notebook_dir__appspecific">خطأ: لا يمكن إنشاء مجلد دفتر الملاحظات</string>
+  <string name="last_modified_witharg">آخر تعديل: %s</string>
+  <string name="select_this_folder">اختر هذا المجلد</string>
+  <string name="select">اختيار</string>
+  <string name="create">إنشاء</string>
+  <string name="select_entries">تحديد الإدخال</string>
+  <string name="one_item_selected">تم اختيار عنصر واحد</string>
+  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">تم اختيار %d عناصر</string>
+  <string name="hide_statusbar_at_this_view">إخفاء شريط الإشعارات</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
   <string name="translate">ترجمة</string>
