@@ -63,7 +63,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="select_entries">تحديد الإدخال</string>
   <string name="one_item_selected">تم اختيار عنصر واحد</string>
   <string name="items_selected_witharg" tools:ignore="PluralsCandidate">تم اختيار %d عناصر</string>
-  <string name="hide_statusbar_at_this_view">إخفاء شريط الإشعارات</string>
+  <string name="hide_statusbar_at_this_view">إخفاء شريط الإشعارات لهذا التطبيق</string>
+  <string name="hide_statusbar">اخفاء شريط الاشعارات</string>
+  <string name="name">الإسم</string>
+  <string name="url_or_path">الرابط \ المسار</string>
+  <string name="insert_link">إضافة رابط</string>
+  <string name="insert_image">إضافة صورة</string>
+  <string name="contributors">المساهمون</string>
+  <string name="save_location">حفظ المسار</string>
+  <string name="select_storage_folder">اختر مجلد حفظ</string>
+  <string name="licenses">التراخيص</string>
+  <string name="changelog">سِجل التغييرات</string>
+  <string name="more_info">مزيد من المعلومات</string>
+  <string name="show_license_of_the_app">إظهار رخصة التطبيق</string>
+  <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
   <string name="translate">ترجمة</string>
