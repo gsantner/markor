@@ -10,6 +10,8 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.KeyEvent;
 
@@ -27,6 +29,9 @@ public class CommonTextModuleActions {
     public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
     public static final String ACTION_OPEN_LINK_BROWSER = "open_selected_link_in_browser";
 
+
+    public static final int ACTION_COLOR_PICKER_ICON = R.drawable.ic_format_color_fill_black_24dp;
+    public static final String ACTION_COLOR_PICKER = "open_color_picker";
 
     public static final int ACTION_DELETE_LINES_ICON = R.drawable.ic_delete_black_24dp;
     public static final String ACTION_DELETE_LINES = "delete_lines_between";
@@ -129,7 +134,41 @@ public class CommonTextModuleActions {
                 _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
                 return true;
             }
+            case ACTION_COLOR_PICKER: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(_hlEditor.getContext());
+                builder.setTitle("Pick Color")
+                        .setItems(R.array.color_picker, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                                if (which == 0) {
+                                    _hlEditor.setTextColor(0xfff70000);
+                                } else if (which == 1) {
+                                    _hlEditor.setTextColor(0xff18f700);
+
+                                } else if (which == 2) {
+                                    _hlEditor.setTextColor(0xff001cf7);
+
+                                } else if (which == 3) {
+                                    _hlEditor.setTextColor(0xfff7f700);
+
+                                } else if (which == 4) {
+                                    _hlEditor.setTextColor(0xfff7bd00);
+
+                                }else if (which == 5) {
+                                    _hlEditor.setTextColor(0xff919385);
+
+                                }
+                            }
+
+                        });
+                builder.create();
+                builder.show();
+                return true;
+            }
         }
         return false;
     }
+
+
 }

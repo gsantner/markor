@@ -62,6 +62,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
             {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp},
+            {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
             {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
             {R.string.tmaid_markdown_insert_image, R.drawable.ic_image_black_24dp},
@@ -144,6 +145,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
                 case R.string.tmaid_general_special_key: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case R.string.tmaid_color_picker:{
+                    new CommonTextModuleActions(_activity,_document,_hlEditor).runAction(CommonTextModuleActions.ACTION_COLOR_PICKER);
                     break;
                 }
                 case R.string.tmaid_markdown_insert_link:

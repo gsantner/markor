@@ -182,9 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_ol" translatable="false">markdown_ol</string>
     <string name="tmaid_markdown_bold" translatable="false">tmaid_markdown_bold</string>
     <string name="tmaid_markdown_italic" translatable="false">tmaid_markdown_italic</string>
+    <string name="tmaid_color_picker" translatable="false">tmaid_color_picker</string>
     <string name="tmaid_markdown_strikeout" translatable="false">tmaid_markdown_strikeout</string>
     <string name="tmaid_markdown_code_inline" translatable="false">tmaid_markdown_code_inline</string>
     <string name="tmaid_markdown_horizontal_line" translatable="false">tmaid_markdown_horizontal_line</string>
+
     <string name="tmaid_general_delete_lines" translatable="false">tmaid_general_delete_lines</string>
     <string name="tmaid_general_open_link_browser" translatable="false">tmaid_general_open_link_browser</string>
     <string name="tmaid_markdown_insert_image" translatable="false">tmaid_markdown_insert_image</string>
