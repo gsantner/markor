@@ -116,6 +116,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document_to_be_loaded_and_saved_as_witharg">تحميل وحفظ المستند كـ \"%s\"</string>
   <string name="refresh">تحديث</string>
   <string name="create_shortcut">إنشاء اختصار</string>
+  <string name="files_and_folders">الملفات والمجلدات</string>
+  <string name="document_browser">متصفح المستندات</string>
+  <string name="create_note" needed="false">إنشاء ملاحظة</string>
   <string name="none">بدون</string>
   <string name="translate">ترجمة</string>
   <string name="location">موقع</string>
