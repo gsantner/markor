@@ -133,7 +133,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="none">بدون</string>
   <string name="other">أخرى</string>
   <string name="alternative_naming">التسمية البديلة</string>
+  <string name="default_">افتراضي</string>
+  <string name="left">يسار</string>
+  <string name="right">يمين</string>
+  <string name="top">أعلى</string>
+  <string name="bottom">أسفل</string>
+  <string name="clipboard">الحافظة</string>
+  <string name="select_existing_document">اختيار مستند موجود</string>
+  <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
+  <string name="rate_this_app">قيّم هذا التطبيق</string>
   <string name="translate">ترجمة</string>
+  <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
+  <string name="report_bugs">أبلغ عن الأخطاء</string>
+  <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">مزيد من المعلومات عن التبرع أو دعم هذا المشروع</string>
   <string name="location">موقع</string>
   <string name="description">وصف</string>
 </resources>
