@@ -79,6 +79,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
   <string name="language_change_restart_description">تغيير لغة التطبيق. اعد فتح التطبيق لتفعيل التغيير</string>
   <string name="language">اللغة</string>
+  <string name="error_need_storage_permission_to_save_documents">يجب اعطاء البرنامج صلاحية استخدام التخزين لحفظ المستندات</string>
+  <string name="open_with">فتح بواسطة</string>
+  <string name="sort">فرز حسب</string>
+  <string name="date">التاريخ</string>
+  <string name="deleteme____1">الإسم</string>
+  <string name="size">الحجم</string>
+  <string name="reverse_order">عكس الترتيب</string>
+  <string name="contribute">ساهم</string>
+  <string name="donate">تبرع</string>
+  <string name="project_page">صفحة مشروع</string>
   <string name="more">المزيد</string>
   <string name="none">بدون</string>
   <string name="translate">ترجمة</string>
