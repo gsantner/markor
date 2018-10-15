@@ -125,7 +125,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">إعدادات المحرر</string>
   <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند بدء التطبيق</string>
   <string name="number_of_files_witharg" needed="false">عدد الملفات: %d</string>
+  <string name="format">الصيغة</string>
+  <string name="contexts">السياقات</string>
+  <string name="project">مشروع</string>
+  <string name="projects">مشاريع</string>
+  <string name="categories">فئات</string>
   <string name="none">بدون</string>
+  <string name="other">أخرى</string>
+  <string name="alternative_naming">التسمية البديلة</string>
   <string name="translate">ترجمة</string>
   <string name="location">موقع</string>
   <string name="description">وصف</string>
