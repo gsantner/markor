@@ -82,6 +82,8 @@ public class CommonTextModuleActions {
                         _hlEditor.setSelection(0, _hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
                         _hlEditor.insertOrReplaceTextOnCursor("\u0009");
+                    } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
+                            _hlEditor.insertOrReplaceTextOnCursor("\u200B");
                     } else if (callbackPayload.equals(rstr(R.string.search))) {
                         runAction(ACTION_SEARCH);
                     }

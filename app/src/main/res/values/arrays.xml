@@ -32,5 +32,6 @@
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
         <item translatable="false">@string/search</item>
+        <item translatable="false">@string/zero_width_space</item>
     </string-array>
 </resources>
