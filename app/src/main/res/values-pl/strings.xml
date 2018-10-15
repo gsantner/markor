@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="create_folder">Utwórz folder</string>
   <string name="create_new_document">Utwórz nowy dokument</string>
   <string name="move">Przenieś</string>
+  <string name="info">Informacje</string>
   <string name="import_from_device">Importuj z urządzenia</string>
   <string name="import_">Importuj</string>
   <string name="append_to_witharg">Dołącz do %s</string>
@@ -37,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">Udostępnij do&#8230;</string>
   <string name="share">Udostępnij</string>
   <string name="search">Szukaj</string>
+  <string name="representation">Reprezentacja</string>
   <string name="editor">Edytor</string>
   <string name="folders">Foldery</string>
   <string name="files">Pliki</string>
@@ -134,6 +136,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
   <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
   <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
+  <string name="format">Format</string>
+  <string name="contexts">Konteksty</string>
   <string name="project">Projekt</string>
   <string name="projects">Projekty</string>
   <string name="categories">Kategorie</string>
@@ -202,6 +206,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="details">Szczegóły</string>
   <string name="calendar">Kalendarz</string>
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
+  <string name="gallery_picture">Galeria zdjęć</string>
   <string name="description">Opis</string>
+  <string name="edit_picture">Edytuj obrazek</string>
+  <string name="math">Matematyka</string>
+  <string name="table_of_contents">Spis treści</string>
   <string name="miscellaneous">Różne</string>
+  <string name="popular_documents">Popularne dokumenty</string>
 </resources>

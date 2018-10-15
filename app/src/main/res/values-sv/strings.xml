@@ -225,4 +225,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverse</string>
   <string name="textaction">Textåtgärd</string>
   <string name="textactions">Textåtgärder</string>
+  <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
+  <string name="popular_documents">Populära dokument</string>
 </resources>
