@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info">Mais informações</string>
   <string name="show_license_of_the_app">Mostrar licença da aplicação</string>
   <string name="show_third_party_licenses">Licenças de terceiros</string>
-  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar para aplicar as alterações.</string>
+  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
   <string name="language">Idioma</string>
   <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar documentos</string>
   <string name="open_with">Abrir com</string>
@@ -202,7 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="source_code">Código fonte</string>
   <string name="project_license">Licença</string>
   <string name="project_contribution_info">Informações sobre o projeto</string>
-  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar neste projeto</string>
+  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
   <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
   <string name="project_team">Equipa do projeto</string>
   <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
