@@ -113,6 +113,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="editor_settings" needed="false">Iɣewwaṛen n umaẓrag</string>
   <string name="remember_last_folder_location_on_startup" needed="false">Cfu ɣef ukaram amiran i tnekra d-iteddun</string>
   <string name="number_of_files_witharg" needed="false">Amḍan n ifuyla : %d</string>
+  <string name="main_view">Iẓri agejdan</string>
   <string name="none">Ula yiwen</string>
   <string name="other">Wayeḍ</string>
   <string name="general">Amatu</string>
@@ -122,5 +123,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="location">Asun</string>
   <string name="error_picture_selection">Ula d yiwet n tugna ur tettwafren.</string>
   <string name="description">Aglam</string>
+  <string name="edit_picture">Ẓreg tugna </string>
   <string name="miscellaneous">Ayen nniḍen</string>
 </resources>
