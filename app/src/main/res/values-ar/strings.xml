@@ -146,6 +146,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
   <string name="report_bugs">أبلغ عن الأخطاء</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">مزيد من المعلومات عن التبرع أو دعم هذا المشروع</string>
+  <string name="android_contribution_guide">دليل الاندرويد للمساهمة</string>
   <string name="location">موقع</string>
   <string name="description">وصف</string>
+  <string name="edit_picture">تعديل الصورة</string>
+  <string name="math">رياضيات</string>
 </resources>
