@@ -9,9 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import net.gsantner.markor.util.DocumentIO;
+
 import org.junit.Test;
 
-import static net.gsantner.markor.util.DocumentIO.normalizeTitleForFilename;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DocumentTest {
@@ -44,6 +45,10 @@ public class DocumentTest {
         document.goToNewerVersion();
         assertThat(document.getTitle()).isEqualTo("Hello World Again");
         assertThat(document.canGoToNewerVersion()).isEqualTo(false);
+    }
+
+    public String normalizeTitleForFilename(Document document) {
+        return DocumentIO.normalizeTitleForFilename(document, document.getContent().toString());
     }
 
     @Test
