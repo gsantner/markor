@@ -134,11 +134,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="other">أخرى</string>
   <string name="alternative_naming">التسمية البديلة</string>
   <string name="vertical_alignment">محاذاة رأسية</string>
+  <string name="horizontal_alignment">محاذاة أفقية</string>
   <string name="default_">افتراضي</string>
   <string name="left">يسار</string>
   <string name="right">يمين</string>
   <string name="top">أعلى</string>
   <string name="bottom">أسفل</string>
+  <string name="center">توسيط</string>
   <string name="clipboard">الحافظة</string>
   <string name="select_existing_document">اختيار مستند موجود</string>
   <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
