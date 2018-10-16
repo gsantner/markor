@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Dela</string>
   <string name="search">Söc</string>
   <string name="representation">Representation</string>
+  <string name="display_converted_markup">Visa konverterad märkspråk</string>
   <string name="editor">Redigerare</string>
   <string name="folders">Mappar</string>
   <string name="files">Filer</string>
@@ -183,6 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Överst</string>
   <string name="bottom">Längst ner</string>
   <string name="center">Mitten</string>
+  <string name="textaction_spacing">Textmodulsavstånd</string>
+  <string name="horizontal_space_between_textactions">Vågräta utrymmet mellan textmodulsknappar</string>
   <string name="center_text">Centrera text</string>
   <string name="edit_text_in_center_of_screen">Ändra text i mitten av skärmen</string>
   <string name="clipboard">Klippbord</string>
@@ -226,6 +229,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverse</string>
   <string name="textaction">Textåtgärd</string>
   <string name="textactions">Textåtgärder</string>
+  <string name="prefer_representation">Föredra representation</string>
   <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
   <string name="popular_documents">Populära dokument</string>
 </resources>
