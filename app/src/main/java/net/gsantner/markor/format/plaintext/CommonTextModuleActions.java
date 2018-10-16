@@ -14,6 +14,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.KeyEvent;
+import android.widget.Toast;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
@@ -135,35 +141,30 @@ public class CommonTextModuleActions {
                 return true;
             }
             case ACTION_COLOR_PICKER: {
-                AlertDialog.Builder builder = new AlertDialog.Builder(_hlEditor.getContext());
-                builder.setTitle("Pick Color")
-                        .setItems(R.array.color_picker, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // The 'which' argument contains the index position
-                                // of the selected item
-                                if (which == 0) {
-                                    _hlEditor.setTextColor(0xfff70000);
-                                } else if (which == 1) {
-                                    _hlEditor.setTextColor(0xff18f700);
-
-                                } else if (which == 2) {
-                                    _hlEditor.setTextColor(0xff001cf7);
-
-                                } else if (which == 3) {
-                                    _hlEditor.setTextColor(0xfff7f700);
-
-                                } else if (which == 4) {
-                                    _hlEditor.setTextColor(0xfff7bd00);
-
-                                }else if (which == 5) {
-                                    _hlEditor.setTextColor(0xff919385);
-
-                                }
+                ColorPickerDialogBuilder
+                        .with(_hlEditor.getContext())
+                        .setTitle("Choose color")
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setOnColorSelectedListener(new OnColorSelectedListener() {
+                            @Override
+                            public void onColorSelected(int selectedColor) {
+//                                Toast.makeText(_hlEditor.getContext(),"onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
                             }
-
-                        });
-                builder.create();
-                builder.show();
+                        })
+                        .setPositiveButton("ok", new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                _hlEditor.setTextColor(selectedColor);
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .build()
+                        .show();
                 return true;
             }
         }

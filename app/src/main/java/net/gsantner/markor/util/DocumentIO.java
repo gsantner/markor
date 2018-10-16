@@ -155,7 +155,7 @@ public class DocumentIO {
                 } else {
                     String contentL1 = _document.getContent().split("\n")[0];
                     if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
-                        name = contentL1.substring(0, contentL1.length());
+                        name = contentL1;
                     } else {
                         name = contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
                     }
