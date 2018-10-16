@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML (som klartext)</string>
   <string name="document_editor_font">Redigerartypsnitt</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Visa befintliga dokument i representationsläge som standard</string>
   <string name="about">Om</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Fil</string>
