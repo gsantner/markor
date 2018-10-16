@@ -232,4 +232,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Föredra representation</string>
   <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
   <string name="popular_documents">Populära dokument</string>
+  <string name="zero_width_space">Nollbreddsutrymme</string>
 </resources>
