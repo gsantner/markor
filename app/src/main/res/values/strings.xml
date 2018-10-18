@@ -243,4 +243,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="prefer_representation">Prefer representation</string>
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
+
+
+    <string name="color_picker_title">Choose color</string>
+    <string name="color_picker_ok">ok</string>
+    <string name="color_picker_cancel">cancel</string>
 </resources>

@@ -143,7 +143,7 @@ public class CommonTextModuleActions {
             case ACTION_COLOR_PICKER: {
                 ColorPickerDialogBuilder
                         .with(_hlEditor.getContext())
-                        .setTitle("Choose color")
+                        .setTitle(R.string.color_picker_title)
                         .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                         .density(12)
                         .setOnColorSelectedListener(new OnColorSelectedListener() {
@@ -152,13 +152,13 @@ public class CommonTextModuleActions {
 //                                Toast.makeText(_hlEditor.getContext(),"onColorSelected: 0x" + Integer.toHexString(selectedColor), Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setPositiveButton("ok", new ColorPickerClickListener() {
+                        .setPositiveButton(R.string.color_picker_ok, new ColorPickerClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                 _hlEditor.setTextColor(selectedColor);
                             }
                         })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.color_picker_cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
