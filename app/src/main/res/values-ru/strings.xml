@@ -232,4 +232,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Предпочесть изображение</string>
   <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
   <string name="popular_documents">Популярные документы</string>
+  <string name="zero_width_space">Пробел нулевой ширины</string>
 </resources>
