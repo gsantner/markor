@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享至…</string>
   <string name="share">分享</string>
   <string name="search">搜索</string>
+  <string name="representation">表示</string>
+  <string name="display_converted_markup">显示已转换的标记</string>
   <string name="editor">编辑器</string>
   <string name="folders">文件夹</string>
   <string name="files">文件</string>
