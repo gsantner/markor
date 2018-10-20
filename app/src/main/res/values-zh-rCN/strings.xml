@@ -229,7 +229,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">杂项设置</string>
   <string name="textaction">文本操作</string>
   <string name="textactions">文本操作</string>
-  <string name="prefer_representation">首选视图</string>
+  <string name="prefer_representation">首选预览</string>
   <string name="no_calendar_app_is_installed">没有安装日历应用！</string>
   <string name="popular_documents">常用文档</string>
   <string name="zero_width_space">零宽度空格</string>
