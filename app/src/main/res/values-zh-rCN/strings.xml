@@ -38,8 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享至…</string>
   <string name="share">分享</string>
   <string name="search">搜索</string>
-  <string name="representation">表示</string>
-  <string name="display_converted_markup">显示转换后的标记</string>
+  <string name="representation">预览</string>
+  <string name="display_converted_markup">显示转换后的 markup</string>
   <string name="editor">编辑器</string>
   <string name="folders">文件夹</string>
   <string name="files">文件</string>
@@ -233,4 +233,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">没有安装日历应用！</string>
   <string name="popular_documents">常用文档</string>
   <string name="zero_width_space">零宽度空格</string>
+  <string name="basic_color_theme">基本颜色主题</string>
+  <string name="background_and_textcolor_in_editor_works_dark_light">编辑器背景颜色和（普通）文本颜色。编辑器基本颜色主题会自动调整为应用主题，因此可在浅色和深色外观中使用。</string>
 </resources>
