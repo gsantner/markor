@@ -193,7 +193,7 @@ public class SimpleMarkdownParser {
         return this;
     }
 
-    public SimpleMarkdownParser parse(String markdown, String lineMdPrefix, SmpFilter... smpFilters) {
+    public SimpleMarkdownParser parse(String markdown, String lineMdPrefix, SmpFilter... smpFilters) throws IOException {
         _html = markdown;
         if (smpFilters.length == 0) {
             smpFilters = new SmpFilter[]{_defaultSmpFilter};
