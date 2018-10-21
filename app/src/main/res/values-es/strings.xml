@@ -155,7 +155,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="rtl_rendering">Representación RTL</string>
   <string name="highlight_line_ending">Colorear el final de la línea</string>
   <string name="highlight_line_ending_if_two_or_more_spaces">Resaltar los espacios al final de las líneas si estas terminan en dos o más espacios</string>
-  <string name="use_monospace_for_code">Usar Monospace para código</string>
+  <string name="use_monospace_for_code">Usar espaciado sencillo para código</string>
   <string name="use_different_fonttype_slow_down">Usa una fuente diferente. Cambiar la fuente dinámicamente afecta el desempeño de la app.</string>
   <string name="general">General</string>
   <string name="resources">Recursos</string>
@@ -234,5 +234,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Documentos populares</string>
   <string name="zero_width_space">Espacio de ancho cero</string>
   <string name="basic_color_scheme">Esquema básico de color</string>
-  <string name="background_foreground_color_in_editor_works_dark_light">Cambia el color del fondo y el primer plano en el editor de texto, pero no afecta el color del texto resaltado. Se ajusta automáticamente al tema de la aplicación, así está disponible en el tema luminoso y oscuro.</string>
 </resources>
