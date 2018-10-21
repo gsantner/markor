@@ -123,13 +123,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="back_to_previous_folder" needed="false">العودة إلى المجلد السابق</string>
   <string name="app_settings" needed="false">إعدادات التطبيق</string>
   <string name="editor_settings" needed="false">إعدادات المحرر</string>
-  <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند بدء التطبيق</string>
+  <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند إطلاق التطبيق</string>
   <string name="number_of_files_witharg" needed="false">عدد الملفات: %d</string>
   <string name="format">الصيغة</string>
   <string name="contexts">السياقات</string>
-  <string name="project">مشروع</string>
-  <string name="projects">مشاريع</string>
-  <string name="categories">فئات</string>
+  <string name="project">المشروع</string>
+  <string name="projects">المشاريع</string>
+  <string name="categories">الفئات</string>
   <string name="none">بدون</string>
   <string name="other">أخرى</string>
   <string name="alternative_naming">التسمية البديلة</string>
@@ -148,17 +148,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="select_existing_document">اختيار مستند موجود</string>
   <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
   <string name="rate_this_app">قيّم هذا التطبيق</string>
-  <string name="translate">ترجمة</string>
+  <string name="translate">الترجمة</string>
   <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
   <string name="report_bugs">إبلاغ عن علة</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">مزيد من المعلومات عن التبرع أو دعم هذا المشروع</string>
-  <string name="android_contribution_guide">دليل الاندرويد للمساهمة</string>
+  <string name="android_contribution_guide">دليل الأندرويد للمساهمة</string>
   <string name="join_community">إنضم إلى المجتمع</string>
   <string name="help_translating_this_app">ساهم في ترجمة هذا التطبيق إلى لغات أخرى</string>
   <string name="source_code">الشفرة المصدرية</string>
   <string name="project_license">رخصة المشروع</string>
   <string name="project_team">فريق المشروع</string>
-  <string name="location">موقع</string>
+  <string name="location">الموقع</string>
   <string name="details">التفاصيل</string>
   <string name="calendar">التقويم</string>
   <string name="gallery_picture">معرض الصور</string>
