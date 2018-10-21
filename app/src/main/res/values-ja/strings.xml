@@ -233,4 +233,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
   <string name="popular_documents">人気のあるドキュメント</string>
   <string name="zero_width_space">ゼロ幅スペース</string>
+  <string name="basic_color_theme">基本的な色のテーマ</string>
+  <string name="background_and_textcolor_in_editor_works_dark_light">エディターの背景色と、(通常の) テキストの色。アプリのテーマを自動的にエディターの基本的な色のテーマに調整します。ライトとダークの外観で利用できます。</string>
 </resources>
