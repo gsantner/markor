@@ -64,18 +64,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="one_item_selected">Un elemento seleccionado</string>
   <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
   <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
-  <string name="hide_statusbar">Ocultar la barra de estado</string>
-  <string name="name">Nombre</string>
+  <string name="hide_statusbar">Ocultar barra de estado</string>
+  <string name="name">Ordenar por nombre</string>
   <string name="url_or_path">URL / Ruta</string>
   <string name="insert_link">Insertar enlace</string>
   <string name="insert_image">Insertar imagen</string>
-  <string name="contributors">Contribuidores</string>
+  <string name="contributors">Colaboradores</string>
   <string name="save_location">Guardar ubicación</string>
   <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
   <string name="licenses">Licencias</string>
-  <string name="changelog">Historial de cambios</string>
+  <string name="changelog">Registro de cambios</string>
   <string name="more_info">Más información</string>
-  <string name="show_license_of_the_app">Mostrar licencia de la aplicación</string>
+  <string name="show_license_of_the_app">Licencia GNU GPLv3 +</string>
   <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
   <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reiniciar la aplicación para que se apliquen los cambios</string>
   <string name="language">Idioma</string>
@@ -83,7 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="open_with">Abrir con</string>
   <string name="sort">Ordenar por</string>
   <string name="date">Fecha</string>
-  <string name="deleteme____1">Ordenar por nombre</string>
+  <string name="deleteme____1">Nombre</string>
   <string name="size">Tamaño</string>
   <string name="reverse_order">Invertir orden</string>
   <string name="contribute">Contribuir</string>
