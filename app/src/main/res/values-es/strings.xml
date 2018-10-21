@@ -34,23 +34,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="append_to_witharg">Agregar a %s</string>
   <string name="select_folder">Seleccionar carpeta</string>
   <string name="edit">Editar</string>
-  <string name="search_documents">Buscar notas</string>
+  <string name="search_documents">Buscar documentos</string>
   <string name="share_to_arrow">Compartir con...</string>
   <string name="share">Compartir</string>
   <string name="search">Búsqueda</string>
   <string name="representation">Representación</string>
-  <string name="display_converted_markup">Mostrar anotaciones convertidas</string>
+  <string name="display_converted_markup">Mostrar markup transformada</string>
   <string name="editor">Editor</string>
   <string name="folders">Carpetas</string>
   <string name="files">Archivos</string>
   <string name="document">Documento</string>
   <string name="documents">Documentos</string>
-  <string name="html_as_plaintext">HTML (como texto sencillo)</string>
+  <string name="html_as_plaintext">HTML (como texto plano)</string>
   <string name="document_editor_font">Tipo de letra del editor de notas</string>
   <string name="theme">Tema</string>
   <string name="show_representation_of_markup_by_default">Mostrar documentos existentes en modo de representación por defecto</string>
   <string name="about">Acerca de</string>
-  <string name="plaintext">Texto sencillo</string>
+  <string name="plaintext">Texto plano</string>
   <string name="file">Archivo</string>
   <string name="image">Imagen</string>
   <string name="font_size">Tamaño de letra</string>
@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Documentos populares</string>
   <string name="zero_width_space">Espacio de ancho cero</string>
   <string name="basic_color_scheme">Esquema básico de color</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Cambia el color del fondo y el primer plano en el editor de texto, pero no afecta el color del texto resaltado. Se ajusta automáticamente al tema de la aplicación, así está disponible en el tema luminoso y oscuro.</string>
 </resources>
