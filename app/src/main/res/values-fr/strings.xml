@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Documents populaires</string>
   <string name="zero_width_space">Espace de largeur nulle</string>
   <string name="basic_color_theme">Thème de couleur de base</string>
+  <string name="background_and_textcolor_in_editor_works_dark_light">Couleur de l’arrière-plan de l’éditeur et couleur du texte (normal). Les thèmes de couleur de base de l’éditeur s’ajustent automatiquement au thème de l\'appli, ils sont disponibles en apparence claire et foncée.</string>
 </resources>
