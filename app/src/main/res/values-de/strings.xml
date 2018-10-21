@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Es ist keine Kalender App installiert!</string>
   <string name="popular_documents">Beliebte Dokumente</string>
   <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
+  <string name="basic_color_scheme">Grund-Farbschema</string>
 </resources>
