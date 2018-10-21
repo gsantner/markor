@@ -33,13 +33,4 @@
         <item translatable="false">@string/key_tab</item>
         <item translatable="false">@string/search</item>
     </string-array>
-
-    <string-array name="color_picker" translatable="false">
-        <item translatable="false">Red</item>
-        <item translatable="false">Green</item>
-        <item translatable="false">Blue</item>
-        <item translatable="false">Yellow</item>
-        <item translatable="false">Orange</item>
-        <item translatable="false">Gray</item>
-    </string-array>
 </resources>
