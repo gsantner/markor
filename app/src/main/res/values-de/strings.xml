@@ -233,6 +233,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Es ist keine Kalender App installiert!</string>
   <string name="popular_documents">Beliebte Dokumente</string>
   <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
-  <string name="basic_color_theme">Grund-Farbschema</string>
-  <string name="background_and_textcolor_in_editor_works_dark_light">Editor Hintergrundfarbe und (normale) Textfarbe. Editor Grundfarbe Themen passen sich automatisch an das App Thema an, also verfügbar in heller und dunkler Ansicht.</string>
 </resources>
