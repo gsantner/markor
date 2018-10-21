@@ -104,8 +104,7 @@ public class DocumentActivity extends AppCompatActivity {
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24dp));
-            ab.setDisplayHomeAsUpEnabled(!Intent.ACTION_SEND.equals(intentAction));
+            ab.setDisplayHomeAsUpEnabled(false);
             ab.setDisplayShowTitleEnabled(false);
         }
 
@@ -165,13 +164,6 @@ public class DocumentActivity extends AppCompatActivity {
         net.gsantner.markor.util.ShareUtil shu = new net.gsantner.markor.util.ShareUtil(this);
 
         switch (item.getItemId()) {
-            case android.R.id.home: {
-                if (isTaskRoot()) {
-                    startActivity(new Intent(this, MainActivity.class));
-                }
-                super.onBackPressed();
-                return true;
-            }
             case R.id.action_preview: {
                 if (saveDocument()) {
                     DocumentRepresentationFragment.showEditOnBack = true;

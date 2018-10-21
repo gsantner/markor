@@ -155,6 +155,23 @@
                 android:key="@string/pref_key__is_editor_statusbar_hidden"
                 android:summary="@string/hide_statusbar_at_this_view"
                 android:title="@string/hide_statusbar" />
+
+
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/basic_color_scheme"
+                android:entries="@array/pref_arrdisp__editor_basic_color_schemes"
+                android:entryValues="@array/pref_arrkeys__zero_to_two"
+                android:icon="@drawable/ic_palette_black_24dp"
+                android:key="@string/pref_key__editor_basic_color_scheme"
+                android:summary="@string/background_foreground_color_in_editor_works_dark_light"
+                android:title="@string/basic_color_scheme" />
+
+            <!--<PreferenceScreen
+                android:icon="@drawable/ic_palette_black_24dp"
+                android:summary="@string/background_foreground_color_in_editor_works_dark_light"
+                android:title="@string/basic_color_scheme">
+            </PreferenceScreen> -->
         </PreferenceCategory>
     </PreferenceScreen>
 

@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="file">Ficheiro</string>
   <string name="image">Imagem</string>
   <string name="font_size">Tamanho do tipo de letra</string>
+  <string name="render_rtl_language">Processamento para idiomas RTL</string>
   <string name="error_cannot_create_notebook_dir__appspecific">Erro: não foi possível criar o diretório</string>
   <string name="last_modified_witharg">Última modificação: %s</string>
   <string name="select_this_folder">Selecionar esta pasta</string>
@@ -76,9 +77,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info">Mais informações</string>
   <string name="show_license_of_the_app">Mostrar licença da aplicação</string>
   <string name="show_third_party_licenses">Licenças de terceiros</string>
-  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
+  <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar para aplicar as alterações.</string>
   <string name="language">Idioma</string>
-  <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar docuemntos</string>
+  <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar documentos</string>
   <string name="open_with">Abrir com</string>
   <string name="sort">Ordenar por</string>
   <string name="date">Data</string>
@@ -88,6 +89,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contribute">Contribuir</string>
   <string name="donate">Donativos</string>
   <string name="project_page">Página do projeto</string>
+  <string name="press_back_again_to_exit">Prima \'Back\' novamente para sair</string>
   <string name="exit">Sair</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
@@ -102,9 +104,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioridade</string>
   <string name="history">Histórico</string>
   <string name="sync">Sincronizar</string>
+  <string name="serach_or_custom">Pesquisa/Personalizado</string>
   <string name="save">Guardar</string>
   <string name="update">Atualizar</string>
   <string name="clear">Limpar</string>
+  <string name="due_date">Data limite</string>
   <string name="current_date">Data atual</string>
   <string name="archive">Arquivo</string>
   <string name="add_task">Adicionar tarefa</string>
@@ -112,19 +116,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document_to_be_loaded_and_saved_as_witharg">Documento para ser carregado e guardado como \"%s\"</string>
   <string name="refresh">Recarregar</string>
   <string name="create_shortcut">Criar atalho</string>
+  <string name="tried_to_create_shortcut_for_this_notice">Tentar criar um ataho no ecrã inicial. Alguns \'launchers\' não permitem esta operação.</string>
+  <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos.</string>
   <string name="files_and_folders">Ficheiros e pastas</string>
   <string name="document_browser">Explorador de ficheiros</string>
   <string name="create_note" needed="false">Criar nota</string>
   <string name="special_documents" needed="false">Documentos especiais</string>
+  <string name="back_to_previous_folder" needed="false">Recuar para a pasta anterior</string>
   <string name="app_settings" needed="false">Definições</string>
   <string name="editor_settings" needed="false">Definições do editor</string>
+  <string name="remember_last_folder_location_on_startup" needed="false">Ao iniciar, abrir a última pasta usada</string>
   <string name="number_of_files_witharg" needed="false">Número de ficheiros: %d</string>
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">O tema utilizado na aplicação</string>
   <string name="remember_last_directory">Memorizar último diretório</string>
   <string name="syntax_highlighting">Destaque de sintaxe</string>
+  <string name="highlighting_delay">Atraso de destaque</string>
+  <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso (em milissegundos) para atualizar o destaque. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria.</string>
+  <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto digitado deve ser destacado</string>
+  <string name="control_font_size_in_editor">Controlar o tamanho do tipo de letra do editor</string>
   <string name="textactions_show_useful_actions_description__appspecific">Mostrar barra com ações na base do ecrã. Extas ações modificam o texto ou executam uma ação tendo por base texto.</string>
+  <string name="load_last_opened_folder_at_startup">Ao iniciar, abrir a última pasta utilizada</string>
+  <string name="format">Formato</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projeto</string>
   <string name="projects">Projetos</string>
@@ -132,13 +146,34 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="none">Nenhum</string>
   <string name="other">Outro</string>
   <string name="alternative_naming">Nomes alternativos</string>
+  <string name="underline_hex_color_wether_or_not_to_description__appspecific">Controlar o sublinhado de acordo com o código de cores HEX</string>
+  <string name="underline_hex_color_codes">Sublinhar códigos de cores HEX</string>
+  <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma tarefa</string>
   <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
+  <string name="append_contexts_and_projects">Juntar contextos e projetos</string>
   <string name="append_contexts_and_projects_on_end_of_task">Anexar contextos e projetos no fim de uma tarefa, se utilizada a ação de texto apropriada</string>
+  <string name="rtl_rendering">Processamento de RTL</string>
+  <string name="highlight_line_ending">Destacar fim de linhas</string>
+  <string name="highlight_line_ending_if_two_or_more_spaces">Destacar espaços no final das linhas que possuem dois ou mais espaços</string>
+  <string name="use_monospace_for_code">Utilizar letra monoespaçada para código</string>
+  <string name="use_different_fonttype_slow_down">Utiliza um tipo de letra diferente. A alteração desta opção pode degradar o desempenho.</string>
   <string name="general">Geral</string>
   <string name="resources">Recursos</string>
-  <string name="line_spacing">Espaçamento entre linhas</string>
+  <string name="space_between_lines_in_percent">Espaço entre linhas (em percentagem)</string>
+  <string name="line_spacing">Espaço entre linhas</string>
+  <string name="archive_does_move_done_tasks">Mover tarefas terminadas para um ficheiro específico da pasta</string>
+  <string name="special_key">Tecla especial</string>
+  <string name="key_page_up">Página acima (Page Up)</string>
+  <string name="key_page_down">Página abaixo (Page Down)</string>
+  <string name="key_pos_1">Início de linha (Home)</string>
+  <string name="key_pos_end">Fim de linha (End)</string>
+  <string name="key_pos_1_document">Início do documento</string>
+  <string name="key_pos_end_document">Fim do documento</string>
   <string name="key_ctrl_a">Selecionar tudo (Ctrl+A)</string>
   <string name="key_tab">Tabulação</string>
+  <string name="start_on_bottom">Iniciar no fim</string>
+  <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
+  <string name="configure_in_the_apps_settings">Configurar a aplicação</string>
   <string name="vertical_alignment">Alinhamento vertical</string>
   <string name="horizontal_alignment">Alinhamento horizontal</string>
   <string name="default_">Padrão</string>
@@ -158,11 +193,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">Traduzir</string>
   <string name="more_info_and_help">Mais informações/ajuda</string>
   <string name="report_bugs">Reportar erros</string>
+  <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mais informações sobre como participar neste projeto</string>
+  <string name="android_contribution_guide">Guia de contribuição Android</string>
+  <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mais informações sobre como participar em projetos Open Source, com foco em aplicações para Android</string>
   <string name="join_community">Participe na comunidade</string>
+  <string name="bug_reports_suggest_improvements">Comentários, reporte de erros e sugestões</string>
+  <string name="help_translating_this_app">Traduzir esta aplicação</string>
   <string name="source_code">Código fonte</string>
   <string name="project_license">Licença</string>
-  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
+  <string name="project_contribution_info">Informações sobre o projeto</string>
+  <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar neste projeto</string>
+  <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
   <string name="project_team">Equipa do projeto</string>
+  <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
+  <string name="disable_spelling_underline">Desativar sublinhado de ortografia</string>
+  <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">As sugestões surgem mas o sublinhado desaparece</string>
   <string name="location">Localização</string>
   <string name="text_lines">Linhas de texto</string>
   <string name="text_characters">Caracteres de texto</string>
@@ -181,4 +226,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="textaction">Ação de texto</string>
   <string name="textactions">Ações de texto</string>
   <string name="prefer_representation">Preferir representação</string>
+  <string name="no_calendar_app_is_installed">Não tem uma aplicação de calendário!</string>
+  <string name="popular_documents">Documentos populares</string>
 </resources>
