@@ -173,7 +173,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown_show_toc" translatable="false">pref_key__markdown_show_toc</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
 
-
     <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">markdown_h1</string>
     <string name="tmaid_markdown_h2" translatable="false">markdown_h2</string>
@@ -186,7 +185,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_strikeout" translatable="false">tmaid_markdown_strikeout</string>
     <string name="tmaid_markdown_code_inline" translatable="false">tmaid_markdown_code_inline</string>
     <string name="tmaid_markdown_horizontal_line" translatable="false">tmaid_markdown_horizontal_line</string>
-
     <string name="tmaid_general_delete_lines" translatable="false">tmaid_general_delete_lines</string>
     <string name="tmaid_general_open_link_browser" translatable="false">tmaid_general_open_link_browser</string>
     <string name="tmaid_markdown_insert_image" translatable="false">tmaid_markdown_insert_image</string>
