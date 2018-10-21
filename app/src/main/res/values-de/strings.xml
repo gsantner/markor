@@ -234,4 +234,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Beliebte Dokumente</string>
   <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
   <string name="basic_color_scheme">Grund-Farbschema</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Ändert die Hintergrund- und Vordergrund-Farbe des Text Editors. Passt sich an das App Thema an, also verfügbar im hellen und dunklen Erscheinungsbild. Syntaxhervorhebungs-Farben bleiben gleich.</string>
 </resources>
