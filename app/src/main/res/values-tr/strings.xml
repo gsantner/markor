@@ -233,6 +233,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
   <string name="popular_documents">Popüler belgeler</string>
   <string name="zero_width_space">Genişliksiz boşluk</string>
-  <string name="basic_color_theme">Temel renk teması</string>
-  <string name="background_and_textcolor_in_editor_works_dark_light">Düzenleyici arka plan rengi ve (normal) metin rengi. Düzenleyici temel renk temaları otomatik olarak uygulama temasına göre ayarlanır, bu yüzden açık ve koyu görünümlerinde kullanılabilir.</string>
 </resources>
