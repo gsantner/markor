@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
   <string name="popular_documents">Documenti popolari</string>
   <string name="zero_width_space">Spazio a larghezza zero</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Cambia il colore di sfondo e di primo piano dell\'editor di testo. Si adegua al tema dell\'applicazione, al tema chiaro o scuro. I colori dell\'evidenziazione della sintassi rimangono gli stessi.</string>
 </resources>
