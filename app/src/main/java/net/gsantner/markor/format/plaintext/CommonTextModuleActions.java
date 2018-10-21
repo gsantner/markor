@@ -10,8 +10,17 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.KeyEvent;
+import android.widget.Toast;
+
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.Utils;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
@@ -27,6 +36,9 @@ public class CommonTextModuleActions {
     public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
     public static final String ACTION_OPEN_LINK_BROWSER = "open_selected_link_in_browser";
 
+
+    public static final int ACTION_COLOR_PICKER_ICON = R.drawable.ic_format_color_fill_black_24dp;
+    public static final String ACTION_COLOR_PICKER = "open_color_picker";
 
     public static final int ACTION_DELETE_LINES_ICON = R.drawable.ic_delete_black_24dp;
     public static final String ACTION_DELETE_LINES = "delete_lines_between";
@@ -131,7 +143,26 @@ public class CommonTextModuleActions {
                 _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
                 return true;
             }
+            case ACTION_COLOR_PICKER: {
+                ColorPickerDialogBuilder
+                        .with(_hlEditor.getContext())
+                        .setTitle(R.string.color)
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setPositiveButton(android.R.string.ok, new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), Utils.getHexString(selectedColor, false));
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .build()
+                        .show();
+                return true;
+            }
         }
         return false;
     }
+
+
 }

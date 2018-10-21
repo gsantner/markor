@@ -164,7 +164,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
             _activity.startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
             _activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/" + pkgId)));
+                    Uri.parse("https://play.google.com/store/apps/" + pkgId)));
         }
     }
 

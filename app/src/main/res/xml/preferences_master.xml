@@ -155,6 +155,46 @@
                 android:key="@string/pref_key__is_editor_statusbar_hidden"
                 android:summary="@string/hide_statusbar_at_this_view"
                 android:title="@string/hide_statusbar" />
+
+            <PreferenceScreen
+                android:icon="@drawable/ic_palette_black_24dp"
+                android:summary="@string/background_foreground_color_in_editor_works_dark_light"
+                android:title="@string/basic_color_scheme">
+
+                <other.com.flask.colorpicker.ColorPickerPreference
+                    android:defaultValue="@color/light__background"
+                    android:icon="@drawable/ic_border_outer_black_24dp"
+                    android:key="@string/pref_key__editor_basic_color_scheme__bg_light"
+                    android:title="BG Light" />
+
+                <other.com.flask.colorpicker.ColorPickerPreference
+                    android:defaultValue="@color/dark_grey"
+                    android:icon="@drawable/ic_text_fields_black_24dp"
+                    android:key="@string/pref_key__editor_basic_color_scheme__fg_light"
+                    android:title="FG Light" />
+
+                <other.com.flask.colorpicker.ColorPickerPreference
+                    android:defaultValue="@color/dark_grey"
+                    android:icon="@drawable/ic_border_outer_black_24dp"
+                    android:key="@string/pref_key__editor_basic_color_scheme__bg_dark"
+                    android:title="BG Dark" />
+
+
+                <other.com.flask.colorpicker.ColorPickerPreference
+                    android:defaultValue="@color/white"
+                    android:icon="@drawable/ic_text_fields_black_24dp"
+                    android:key="@string/pref_key__editor_basic_color_scheme__fg_dark"
+                    android:title="FG Dark" />
+
+                <PreferenceCategory android:title="@string/preset">
+                    <Preference android:title="@string/editor_basic_color_scheme_markor" android:key="@string/pref_key__editor_basic_color_scheme_markor" />
+                    <Preference android:title="@string/editor_basic_color_scheme_black_or_white" android:key="@string/pref_key__editor_basic_color_scheme_blackorwhite" />
+                    <Preference android:title="@string/editor_basic_color_scheme_solarized" android:key="@string/pref_key__editor_basic_color_scheme_solarized" />
+                    <Preference android:title="@string/editor_basic_color_scheme_gruvbox" android:key="@string/pref_key__editor_basic_color_scheme_gruvbox" />
+
+                </PreferenceCategory>
+
+            </PreferenceScreen>
         </PreferenceCategory>
     </PreferenceScreen>
 
@@ -184,8 +224,8 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_visibility_black_24dp"
             android:key="@string/pref_key__is_preview_first"
-            android:title="@string/prefer_representation"
-            android:summary="@string/show_representation_of_markup_by_default" />
+            android:summary="@string/show_representation_of_markup_by_default"
+            android:title="@string/prefer_representation" />
     </PreferenceScreen>
 
 

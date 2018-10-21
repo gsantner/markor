@@ -48,6 +48,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
     <string name="app_theme_auto" translatable="false">auto</string>
+    <string name="editor_basic_color_scheme_markor" translatable="false">Markor</string>
+    <string name="editor_basic_color_scheme_black_or_white" translatable="false">Black or White</string>
+    <string name="editor_basic_color_scheme_solarized" translatable="false">Solarized</string>
+    <string name="editor_basic_color_scheme_gruvbox" translatable="false">gruvbox</string>
     <string name="auto" translatable="false">Auto</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, ToDo.Txt, Plaintext</string>
 
@@ -172,6 +176,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown_render_math" translatable="false">pref_key__markdown_render_math</string>
     <string name="pref_key__markdown_show_toc" translatable="false">pref_key__markdown_show_toc</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
+    <string name="pref_key__editor_basic_color_scheme__bg_light" translatable="false">pref_key__editor_basic_color_scheme__bg_light</string>
+    <string name="pref_key__editor_basic_color_scheme__fg_light" translatable="false">pref_key__editor_basic_color_scheme__fg_light</string>
+    <string name="pref_key__editor_basic_color_scheme__bg_dark" translatable="false">pref_key__editor_basic_color_scheme__bg_dark</string>
+    <string name="pref_key__editor_basic_color_scheme__fg_dark" translatable="false">pref_key__editor_basic_color_scheme__fg_dark</string>
+    <string name="pref_key__editor_basic_color_scheme_solarized" translatable="false">pref_key__editor_basic_color_scheme_solarized</string>
+    <string name="pref_key__editor_basic_color_scheme_blackorwhite" translatable="false">pref_key__editor_basic_color_scheme_blackorwhite</string>
+    <string name="pref_key__editor_basic_color_scheme_markor" translatable="false">pref_key__editor_basic_color_scheme_markor</string>
+    <string name="pref_key__editor_basic_color_scheme_gruvbox" translatable="false">pref_key__editor_basic_color_scheme_gruvbox</string>
 
 
     <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>
@@ -182,6 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_ol" translatable="false">markdown_ol</string>
     <string name="tmaid_markdown_bold" translatable="false">tmaid_markdown_bold</string>
     <string name="tmaid_markdown_italic" translatable="false">tmaid_markdown_italic</string>
+    <string name="tmaid_color_picker" translatable="false">tmaid_color_picker</string>
     <string name="tmaid_markdown_strikeout" translatable="false">tmaid_markdown_strikeout</string>
     <string name="tmaid_markdown_code_inline" translatable="false">tmaid_markdown_code_inline</string>
     <string name="tmaid_markdown_horizontal_line" translatable="false">tmaid_markdown_horizontal_line</string>

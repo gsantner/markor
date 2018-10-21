@@ -19,6 +19,12 @@ ext.version_setup_minSdk = 16
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
 android {
     buildToolsVersion version_setup_buildTools
     compileSdkVersion version_setup_compileSdk
@@ -99,6 +105,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.8.0'
