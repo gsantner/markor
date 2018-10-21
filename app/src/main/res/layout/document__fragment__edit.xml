@@ -9,7 +9,6 @@
  *
 #########################################################*/
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +18,6 @@
     android:orientation="vertical"
     tools:context="net.gsantner.markor.activity.DocumentEditFragment"
     tools:showIn="@layout/document__activity">
-
 
     <TextView
         android:id="@+id/document__fragment__edit__content_editor__permission_warning"
