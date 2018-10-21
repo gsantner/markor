@@ -233,6 +233,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
   <string name="popular_documents">Documenti popolari</string>
   <string name="zero_width_space">Spazio a larghezza zero</string>
-  <string name="basic_color_theme">Tema di colore di base</string>
-  <string name="background_and_textcolor_in_editor_works_dark_light">Editor dei colori di background e di testo (normale). I colori del tema di base si adattano automaticamente al tema dell\'app, e perciò sono disponibili in versione chiara e scura.</string>
 </resources>
