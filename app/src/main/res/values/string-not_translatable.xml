@@ -173,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown_show_toc" translatable="false">pref_key__markdown_show_toc</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
 
+    
     <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">markdown_h1</string>
     <string name="tmaid_markdown_h2" translatable="false">markdown_h2</string>
