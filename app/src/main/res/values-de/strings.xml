@@ -239,4 +239,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="preset">Voreinstellung</string>
   <string name="foreground">Vordergrund</string>
   <string name="background">Hintergrund</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">Setze Vordergrund- oder Hintergrund-Farbe des Textes? Hinzufügen des Hex Color Codes ist ebenfalls möglich.</string>
 </resources>
