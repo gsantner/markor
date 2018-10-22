@@ -234,5 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Documents populaires</string>
   <string name="zero_width_space">Espace de largeur nulle</string>
   <string name="basic_color_scheme">Thème de couleurs de base</string>
+  <string name="preset">Préréglages</string>
   <string name="background">Fond</string>
 </resources>
