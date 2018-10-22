@@ -53,6 +53,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_solarized" translatable="false">Solarized</string>
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">gruvbox</string>
     <string name="auto" translatable="false">Auto</string>
+    <string name="hexcode" translatable="false">Hexcode</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, ToDo.Txt, Plaintext</string>
 
 

@@ -10,14 +10,11 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.Utils;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
@@ -27,6 +24,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextModuleActions {
@@ -95,7 +93,7 @@ public class CommonTextModuleActions {
                     } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
                         _hlEditor.insertOrReplaceTextOnCursor("\u0009");
                     } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
-                            _hlEditor.insertOrReplaceTextOnCursor("\u200B");
+                        _hlEditor.insertOrReplaceTextOnCursor("\u200B");
                     } else if (callbackPayload.equals(rstr(R.string.search))) {
                         runAction(ACTION_SEARCH);
                     }
@@ -144,20 +142,43 @@ public class CommonTextModuleActions {
                 return true;
             }
             case ACTION_COLOR_PICKER: {
-                ColorPickerDialogBuilder
-                        .with(_hlEditor.getContext())
-                        .setTitle(R.string.color)
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                        .density(12)
-                        .setPositiveButton(android.R.string.ok, new ColorPickerClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), Utils.getHexString(selectedColor, false));
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .build()
-                        .show();
+                SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(_activity, new Callback.a1<Integer>() {
+                    @Override
+                    public void callback(Integer colorInsertType) {
+                        ColorPickerDialogBuilder
+                                .with(_hlEditor.getContext())
+                                .setTitle(R.string.color)
+                                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                                .density(12)
+                                .setPositiveButton(android.R.string.ok, new ColorPickerClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                        String hex = Utils.getHexString(selectedColor, false).toLowerCase();
+                                        int pos = _hlEditor.getSelectionStart();
+                                        switch (colorInsertType) {
+                                            case R.string.hexcode: {
+                                                _hlEditor.getText().insert(pos, hex);
+                                                break;
+                                            }
+                                            case R.string.foreground: {
+                                                _hlEditor.getText().insert(pos, "<span style='color:" + hex + ";'></span>");
+                                                _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
+                                                break;
+                                            }
+                                            case R.string.background: {
+                                                _hlEditor.getText().insert(pos, "<span style='background-color:" + hex + ";'></span>");
+                                                _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
+                                                break;
+                                            }
+                                        }
+
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .build()
+                                .show();
+                    }
+                });
                 return true;
             }
         }

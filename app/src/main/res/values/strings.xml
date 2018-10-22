@@ -248,5 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="basic_color_scheme">Basic color scheme</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
     <string name="preset">Preset</string>
-                    android:initialColor="0"
+    <string name="foreground">Foreground</string>
+    <string name="background">Background</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
 </resources>
