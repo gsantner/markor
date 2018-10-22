@@ -133,4 +133,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matemàtiques</string>
   <string name="table_of_contents">Taula de continguts</string>
   <string name="miscellaneous">Divers</string>
+  <string name="background">Fons</string>
 </resources>
