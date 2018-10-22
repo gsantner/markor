@@ -237,4 +237,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="basic_color_scheme">Temel renk düzeni</string>
   <string name="background_foreground_color_in_editor_works_dark_light">Metin düzenleyicinin arka plan ve ön plan rengini değiştirir. Açık ve koyu uygulama temalarında kullanılabilir. Sözdizimi vurgulama renkleri aynı kalır.</string>
   <string name="preset">Hazır ayar</string>
+  <string name="background">Arka plan</string>
 </resources>
