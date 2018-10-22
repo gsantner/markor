@@ -120,4 +120,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
   <string name="description">विवरण</string>
   <string name="miscellaneous">कई तरह का</string>
+  <string name="background">पृष्ठभूमि</string>
 </resources>

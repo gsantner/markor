@@ -34,4 +34,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="translate">Přeložit</string>
   <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
   <string name="miscellaneous">Ostatní</string>
+  <string name="background">Pozadí</string>
 </resources>

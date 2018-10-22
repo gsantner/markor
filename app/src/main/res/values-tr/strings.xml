@@ -232,4 +232,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Önizleme modunu kullan</string>
   <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
   <string name="popular_documents">Popüler belgeler</string>
+  <string name="color">Renk</string>
+  <string name="zero_width_space">Genişliksiz boşluk</string>
+  <string name="basic_color_scheme">Temel renk düzeni</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Metin düzenleyicinin arka plan ve ön plan rengini değiştirir. Açık ve koyu uygulama temalarında kullanılabilir. Sözdizimi vurgulama renkleri aynı kalır.</string>
+  <string name="preset">Hazır ayar</string>
+  <string name="background">Arka plan</string>
 </resources>

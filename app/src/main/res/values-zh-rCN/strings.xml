@@ -38,6 +38,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share_to_arrow">分享至…</string>
   <string name="share">分享</string>
   <string name="search">搜索</string>
+  <string name="representation">预览</string>
+  <string name="display_converted_markup">显示转换后的 markup</string>
   <string name="editor">编辑器</string>
   <string name="folders">文件夹</string>
   <string name="files">文件</string>
@@ -46,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML</string>
   <string name="document_editor_font">文档编辑器字体</string>
   <string name="theme">主题</string>
+  <string name="show_representation_of_markup_by_default">默认情况下以预览模式显示已有文档</string>
   <string name="about">关于</string>
   <string name="plaintext">文本</string>
   <string name="file">文件</string>
@@ -142,6 +145,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="categories">分类</string>
   <string name="none">无</string>
   <string name="other">其它</string>
+  <string name="alternative_naming">别名</string>
   <string name="underline_hex_color_wether_or_not_to_description__appspecific">在十六进制颜色代码下按照颜色添加下划线</string>
   <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
   <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
@@ -170,6 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="start_on_bottom">从文末开始</string>
   <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
   <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 仅允许编辑本地的、离线可用的文档，只支持会给出包含文件名的完整文件路径的文件管理器等等的调用。很可惜此应用不符合上述条件，也就与 Markor 不兼容。:(</string>
+  <string name="sync_to_local_folder_notice">注意: 同步应用可能会将文件放置在自定义文件夹中, 相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
   <string name="configure_in_the_apps_settings">在应用设置中设定</string>
   <string name="vertical_alignment">纵向偏移</string>
   <string name="horizontal_alignment">水平偏移</string>
@@ -216,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">没有选取照片</string>
   <string name="gallery_picture">从相册选取</string>
   <string name="camera_picture">相机</string>
+  <string name="enable_undo_and_redo_be_patient">启用撤消和重做操作。只适合高级使用, 保持耐心不要删除重要的东西。关闭并打开编辑器以清除历史记录。</string>
   <string name="description">描述</string>
   <string name="edit_picture">编辑图片</string>
   <string name="math">启用数学公式渲染</string>
@@ -223,4 +229,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">杂项设置</string>
   <string name="textaction">文本操作</string>
   <string name="textactions">文本操作</string>
+  <string name="prefer_representation">首选预览</string>
+  <string name="no_calendar_app_is_installed">没有安装日历应用！</string>
+  <string name="popular_documents">常用文档</string>
+  <string name="color">颜色</string>
+  <string name="zero_width_space">零宽度空格</string>
+  <string name="basic_color_scheme">基本颜色方案</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">改变文本编辑器的背景色和前景色。随应用主题调整因此在明亮和黑暗主题中可用。语法高亮颜色保持不变。</string>
+  <string name="preset">预设值</string>
+  <string name="background">背景</string>
 </resources>

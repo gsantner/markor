@@ -213,4 +213,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="table_of_contents">Spis treści</string>
   <string name="miscellaneous">Różne</string>
   <string name="popular_documents">Popularne dokumenty</string>
+  <string name="background">Tło</string>
 </resources>

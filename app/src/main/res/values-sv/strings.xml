@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="share">Dela</string>
   <string name="search">Söc</string>
   <string name="representation">Representation</string>
+  <string name="display_converted_markup">Visa konverterad märkspråk</string>
   <string name="editor">Redigerare</string>
   <string name="folders">Mappar</string>
   <string name="files">Filer</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="html_as_plaintext">HTML (som klartext)</string>
   <string name="document_editor_font">Redigerartypsnitt</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Visa befintliga dokument i representationsläge som standard</string>
   <string name="about">Om</string>
   <string name="plaintext">Klartext</string>
   <string name="file">Fil</string>
@@ -182,6 +184,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="top">Överst</string>
   <string name="bottom">Längst ner</string>
   <string name="center">Mitten</string>
+  <string name="textaction_spacing">Textmodulsavstånd</string>
+  <string name="horizontal_space_between_textactions">Vågräta utrymmet mellan textmodulsknappar</string>
   <string name="center_text">Centrera text</string>
   <string name="edit_text_in_center_of_screen">Ändra text i mitten av skärmen</string>
   <string name="clipboard">Klippbord</string>
@@ -225,6 +229,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="miscellaneous">Diverse</string>
   <string name="textaction">Textåtgärd</string>
   <string name="textactions">Textåtgärder</string>
+  <string name="prefer_representation">Föredra representation</string>
   <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
   <string name="popular_documents">Populära dokument</string>
+  <string name="color">Färg</string>
+  <string name="zero_width_space">Nollbreddsutrymme</string>
+  <string name="basic_color_scheme">Grundläggande färgschema</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Ändrar bakgrunden och textredigerarens förgrundsfärg. Anpassar sig till appens tema som finns tillgängligt i ljust och ett mörkt tema. De syntax-framhävande färgerna förblir desamma.</string>
+  <string name="preset">Förinställning</string>
+  <string name="background">Bakgrund</string>
 </resources>
