@@ -234,7 +234,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="popular_documents">Documenti popolari</string>
   <string name="color">Colore</string>
   <string name="zero_width_space">Spazio a larghezza zero</string>
-  <string name="basic_color_scheme">Schema di colori di base</string>
+  <string name="basic_color_scheme">Schema dei colori di base</string>
   <string name="background_foreground_color_in_editor_works_dark_light">Cambia il colore di sfondo e di primo piano dell\'editor di testo. Si adegua al tema dell\'applicazione, al tema chiaro o scuro. I colori dell\'evidenziazione della sintassi rimangono gli stessi.</string>
   <string name="preset">Predefinito</string>
 </resources>
