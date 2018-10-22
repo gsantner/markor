@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="more_info">Больше информации</string>
   <string name="show_license_of_the_app">Показать лицензию приложения</string>
   <string name="show_third_party_licenses">Показать сторонние лицензии</string>
-  <string name="language_change_restart_description">Изменить язык приложения. (Необходим перезапуск)</string>
+  <string name="language_change_restart_description">Изменить язык этого приложения. Перезапустите приложение, чтобы изменения вступили в силу</string>
   <string name="language">Язык</string>
   <string name="error_need_storage_permission_to_save_documents">Нужно разрешение на запись, чтобы сохранить документы</string>
   <string name="open_with">Открыть с помощью</string>
@@ -233,4 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
   <string name="popular_documents">Популярные документы</string>
   <string name="zero_width_space">Пробел нулевой ширины</string>
+  <string name="background">Фон</string>
 </resources>
