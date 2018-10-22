@@ -52,4 +52,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="contributors_public_add_yourself_description">기여자 정보를 표시합니다. 기여 후에 옵트-인 방식으로 이 곳에 표시됩니다.</string>
   <string name="error_picture_selection">사진이 선택/저장되지 않았습니다.</string>
   <string name="miscellaneous">기타</string>
+  <string name="background">배경</string>
 </resources>
