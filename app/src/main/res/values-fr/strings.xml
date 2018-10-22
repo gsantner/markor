@@ -232,8 +232,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Représentation préférée</string>
   <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
   <string name="popular_documents">Documents populaires</string>
+  <string name="color">Couleur</string>
   <string name="zero_width_space">Espace de largeur nulle</string>
   <string name="basic_color_scheme">Thème de couleurs de base</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Changer les couleurs de fond ou du texte dans l\'éditeur de texte. Des ajustements au thème de l\'application sont disponible en thèmes clairs et sombres. Les couleurs qui marque la mise en évidence de la syntaxe reste la même.</string>
   <string name="preset">Préréglages</string>
+  <string name="foreground">Avant-plan</string>
   <string name="background">Fond</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">Définir la couleur d’avant-plan ou arrière-plan du texte? Il est également possible d’utiliser du code de couleur hexadécimal.</string>
 </resources>
