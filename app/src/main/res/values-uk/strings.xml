@@ -235,4 +235,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="color">Колір</string>
   <string name="zero_width_space">Пробіл нульової ширини</string>
   <string name="basic_color_scheme">Основна кольорова тема</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Змінює тло і колір тексту в редакторі. Допасовується до кольорів програми, тож є у світлій і темній темах. Колір підсвітки синтаксису лишається тим самим.</string>
+  <string name="preset">Попередньо встановлене</string>
 </resources>
