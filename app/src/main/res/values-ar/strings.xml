@@ -11,28 +11,28 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="settings">إعدادات</string>
-  <string name="light">مضيئ</string>
-  <string name="dark">مظلم</string>
+  <string name="settings">الإعدادات</string>
+  <string name="light">فاتح</string>
+  <string name="dark">داكن</string>
   <string name="delete">حذف</string>
   <string name="appearance">المظهر</string>
-  <string name="rename">إعادة تسمية</string>
+  <string name="rename">إعادة التسمية</string>
   <string name="confirm_delete">تأكيد الحذف</string>
-  <string name="do_you_really_want_to_delete_this_witharg">هل تريد حذف %s حقا ؟</string>
+  <string name="do_you_really_want_to_delete_this_witharg">هل تريد حقا حذف %s؟</string>
   <string name="confirm_overwrite">تأكيد التعديل</string>
   <string name="file_already_exists_overwerite">الملف موجود بالفعل، استبدال ؟</string>
   <string name="browse_filesystem">تصفح الملفات</string>
   <string name="title">العنوان</string>
   <string name="empty_directory">مجلد فارغ</string>
-  <string name="enter_name_of_folder">ادخل اسم المجلد</string>
+  <string name="enter_name_of_folder">ادخل اسم مجلدك</string>
   <string name="create_folder">إنشاء مجلد</string>
   <string name="create_new_document">إنشاء ملف جديد</string>
   <string name="move">نقل</string>
   <string name="info">معلومات</string>
   <string name="import_from_device">استيراد من الجهاز</string>
   <string name="import_">استيراد</string>
-  <string name="append_to_witharg">إضافة إلي %s</string>
-  <string name="select_folder">اختر مجلد</string>
+  <string name="append_to_witharg">إضافة إلى %s</string>
+  <string name="select_folder">اختر مجلدا</string>
   <string name="edit">تعديل</string>
   <string name="search_documents">بحث في المستندات</string>
   <string name="share_to_arrow">مشاركة لـ&#8230;</string>
@@ -49,12 +49,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document_editor_font">خط محرر المستندات</string>
   <string name="theme">المظهر</string>
   <string name="show_representation_of_markup_by_default">عرض المستندات منسَّقة افتراضيا</string>
-  <string name="about">حول التطبيق</string>
+  <string name="about">عن التطبيق</string>
   <string name="plaintext">نصّ عادي</string>
   <string name="file">ملف</string>
   <string name="image">صورة</string>
   <string name="font_size">حجم الخط</string>
-  <string name="render_rtl_language">عرض من اليمين إلي اليسار</string>
+  <string name="render_rtl_language">عرض للغات المكتوبة مِن اليمين إلى اليسار</string>
   <string name="error_cannot_create_notebook_dir__appspecific">خطأ: لا يمكن إنشاء مجلد دفتر الملاحظات</string>
   <string name="last_modified_witharg">آخر تعديل: %s</string>
   <string name="select_this_folder">اختر هذا المجلد</string>
@@ -78,7 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="show_license_of_the_app">إظهار رخصة التطبيق</string>
   <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
   <string name="language_change_restart_description">تغيير لغة التطبيق. اعد فتح التطبيق لتفعيل التغيير</string>
-  <string name="language">اللغة</string>
+  <string name="language">اللّغة</string>
   <string name="error_need_storage_permission_to_save_documents">يجب اعطاء البرنامج صلاحية استخدام التخزين لحفظ المستندات</string>
   <string name="open_with">فتح بواسطة</string>
   <string name="sort">فرز حسب</string>
@@ -86,33 +86,33 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="deleteme____1">الإسم</string>
   <string name="size">الحجم</string>
   <string name="reverse_order">عكس الترتيب</string>
-  <string name="contribute">ساهم</string>
+  <string name="contribute">المساهمة</string>
   <string name="donate">تبرع</string>
-  <string name="project_page">صفحة مشروع</string>
-  <string name="press_back_again_to_exit">اضغط زر \'رجوع\' مرة أخري للخروج</string>
+  <string name="project_page">صفحة المشروع</string>
+  <string name="press_back_again_to_exit">اضغط على زر \'العودة\' مرة أخرى للخروج</string>
   <string name="exit">خروج</string>
   <string name="undo">تراجع</string>
   <string name="redo">إعادة التنفيذ</string>
   <string name="more">المزيد</string>
   <string name="notebook">مفكرة</string>
-  <string name="help">مساعدة</string>
+  <string name="help">المساعدة</string>
   <string name="todo_list">قائمة المهام</string>
-  <string name="task">مُـهـمَّة</string>
-  <string name="category">مصنف</string>
+  <string name="task">مُهمَّة</string>
+  <string name="category">الفئة</string>
   <string name="context">السياق</string>
-  <string name="list">قائمة</string>
-  <string name="priority">أولوية</string>
+  <string name="list">القائمة</string>
+  <string name="priority">الأولوية</string>
   <string name="history">السجل</string>
   <string name="sync">مزامنة</string>
   <string name="serach_or_custom">بحث \ تخصيص</string>
   <string name="save">حفظ</string>
   <string name="update">تحديث</string>
-  <string name="clear">حذف</string>
+  <string name="clear">مسح</string>
   <string name="due_date">تاريخ الاستحقاق</string>
   <string name="current_date">التاريخ الحالي</string>
   <string name="archive">أرشفة</string>
   <string name="add_task">إضافة مهمة</string>
-  <string name="add_x_witharg">اضافة %s</string>
+  <string name="add_x_witharg">إضافة %s</string>
   <string name="document_to_be_loaded_and_saved_as_witharg">تحميل وحفظ المستند كـ \"%s\"</string>
   <string name="refresh">تحديث</string>
   <string name="create_shortcut">إنشاء اختصار</string>
@@ -120,19 +120,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="document_browser">متصفح المستندات</string>
   <string name="create_note" needed="false">إنشاء ملاحظة</string>
   <string name="special_documents" needed="false">مستندات خاصة</string>
-  <string name="back_to_previous_folder" needed="false">عودة للمجلد السابق</string>
+  <string name="back_to_previous_folder" needed="false">العودة إلى المجلد السابق</string>
   <string name="app_settings" needed="false">إعدادات التطبيق</string>
   <string name="editor_settings" needed="false">إعدادات المحرر</string>
-  <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند بدء التطبيق</string>
+  <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند إطلاق التطبيق</string>
   <string name="number_of_files_witharg" needed="false">عدد الملفات: %d</string>
   <string name="format">الصيغة</string>
   <string name="contexts">السياقات</string>
-  <string name="project">مشروع</string>
-  <string name="projects">مشاريع</string>
-  <string name="categories">فئات</string>
+  <string name="project">المشروع</string>
+  <string name="projects">المشاريع</string>
+  <string name="categories">الفئات</string>
   <string name="none">بدون</string>
   <string name="other">أخرى</string>
   <string name="alternative_naming">التسمية البديلة</string>
+  <string name="resources">الموارد</string>
+  <string name="space_between_lines_in_percent">المسافة بين الأسطر بالمئة</string>
+  <string name="line_spacing">تباعد الأسطر</string>
   <string name="vertical_alignment">محاذاة رأسية</string>
   <string name="horizontal_alignment">محاذاة أفقية</string>
   <string name="default_">افتراضي</string>
@@ -145,13 +148,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="select_existing_document">اختيار مستند موجود</string>
   <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
   <string name="rate_this_app">قيّم هذا التطبيق</string>
-  <string name="translate">ترجمة</string>
+  <string name="translate">الترجمة</string>
   <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
-  <string name="report_bugs">أبلغ عن الأخطاء</string>
+  <string name="report_bugs">إبلاغ عن علة</string>
   <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">مزيد من المعلومات عن التبرع أو دعم هذا المشروع</string>
-  <string name="android_contribution_guide">دليل الاندرويد للمساهمة</string>
-  <string name="location">موقع</string>
+  <string name="android_contribution_guide">دليل الأندرويد للمساهمة</string>
+  <string name="join_community">إنضم إلى المجتمع</string>
+  <string name="help_translating_this_app">ساهم في ترجمة هذا التطبيق إلى لغات أخرى</string>
+  <string name="source_code">الشفرة المصدرية</string>
+  <string name="project_license">رخصة المشروع</string>
+  <string name="project_team">فريق المشروع</string>
+  <string name="location">الموقع</string>
+  <string name="details">التفاصيل</string>
+  <string name="calendar">التقويم</string>
+  <string name="gallery_picture">معرض الصور</string>
   <string name="description">وصف</string>
   <string name="edit_picture">تعديل الصورة</string>
   <string name="math">رياضيات</string>
+  <string name="table_of_contents">الفهرس</string>
+  <string name="miscellaneous">أخرى</string>
 </resources>
