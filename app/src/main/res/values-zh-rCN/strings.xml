@@ -235,4 +235,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="color">颜色</string>
   <string name="zero_width_space">零宽度空格</string>
   <string name="basic_color_scheme">基本颜色方案</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">改变文本编辑器的背景色和前景色。随应用主题调整因此在明亮和黑暗主题中可用。语法高亮颜色保持不变。</string>
+  <string name="preset">预设值</string>
 </resources>
