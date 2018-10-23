@@ -237,5 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="basic_color_scheme">基本颜色方案</string>
   <string name="background_foreground_color_in_editor_works_dark_light">改变文本编辑器的背景色和前景色。随应用主题调整因此在明亮和黑暗主题中可用。语法高亮颜色保持不变。</string>
   <string name="preset">预设值</string>
+  <string name="foreground">前景色</string>
   <string name="background">背景</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">设置文本的前景色和背景色吗？插入十六进制颜色代码也可以。</string>
 </resources>
