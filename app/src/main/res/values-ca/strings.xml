@@ -17,6 +17,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="delete">Elimina</string>
   <string name="appearance">Aparença</string>
   <string name="rename">Canvia el nom</string>
+  <string name="confirm_delete">Confirma la supressió</string>
+  <string name="do_you_really_want_to_delete_this_witharg">Segur que voleu suprimir aquest %s?</string>
   <string name="title">Títol</string>
   <string name="move">Mou</string>
   <string name="info">Informació</string>
