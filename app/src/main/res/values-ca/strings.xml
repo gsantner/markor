@@ -133,6 +133,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="remember_last_directory">Recorda el darrer directori</string>
   <string name="syntax_highlighting">Destacament de la sintaxi</string>
   <string name="highlighting_delay">Retard del destacament</string>
+  <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor més baix començarà a ressaltar abans, però esgotarà més aviat la bateria.</string>
+  <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
   <string name="format">Format</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projecte</string>
