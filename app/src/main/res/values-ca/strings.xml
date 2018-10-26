@@ -19,27 +19,50 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="rename">Canvia el nom</string>
   <string name="confirm_delete">Confirma la supressió</string>
   <string name="do_you_really_want_to_delete_this_witharg">Segur que voleu suprimir aquest %s?</string>
+  <string name="confirm_overwrite">Confirma la sobreescriptura</string>
+  <string name="file_already_exists_overwerite">El fitxer ja existeix, voleu sobreescriure\'l?</string>
+  <string name="browse_filesystem">Navega pel sistema de fitxers</string>
   <string name="title">Títol</string>
+  <string name="empty_directory">Directori buit</string>
+  <string name="enter_name_of_folder">Introduïu el nom de la vostra carpeta</string>
+  <string name="create_folder">Crea una carpeta</string>
+  <string name="create_new_document">Crea un nou document</string>
   <string name="move">Mou</string>
   <string name="info">Informació</string>
+  <string name="import_from_device">Importa des d\'un dispositiu</string>
   <string name="import_">Importa</string>
   <string name="append_to_witharg">Afegeixi a %s</string>
+  <string name="select_folder">Seleccioneu una carpeta</string>
   <string name="edit">Edita</string>
+  <string name="search_documents">Cerca documents</string>
+  <string name="share_to_arrow">Comparteix amb&#8230;</string>
   <string name="share">Comparteix</string>
   <string name="search">Cerca</string>
+  <string name="representation">Representació</string>
+  <string name="display_converted_markup">Mostra el «markup» convertit</string>
   <string name="editor">Editor</string>
   <string name="folders">Carpetes</string>
   <string name="files">Fitxers</string>
   <string name="document">Document</string>
   <string name="documents">Documents</string>
+  <string name="html_as_plaintext">HTML (com a text pla)</string>
+  <string name="document_editor_font">Font de l\'editor de notes</string>
   <string name="theme">Tema</string>
+  <string name="show_representation_of_markup_by_default">Mostra els documents existents en mode de representació per defecte</string>
   <string name="about">Quant a</string>
   <string name="plaintext">Text simple</string>
   <string name="file">Fitxer</string>
   <string name="image">Imatge</string>
   <string name="font_size">Mida de la lletra</string>
+  <string name="render_rtl_language">Activa el suport per a idiomes escrits de dreta a esquerra</string>
+  <string name="error_cannot_create_notebook_dir__appspecific">Error: no es pot crear el directori del quadern</string>
+  <string name="last_modified_witharg">Última modificació: %s</string>
+  <string name="select_this_folder">Selecciona aquesta carpeta</string>
   <string name="select">Selecciona</string>
   <string name="create">Crea</string>
+  <string name="select_entries">Selecciona les entrades</string>
+  <string name="one_item_selected">Un element seleccionat</string>
+  <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elements seleccionats</string>
   <string name="hide_statusbar_at_this_view">Amaga la barra d\'estat en aquesta vista</string>
   <string name="hide_statusbar">Amaga la barra d\'estat</string>
   <string name="name">Nom</string>
@@ -48,6 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="insert_image">Insereix imatge</string>
   <string name="contributors">Col·laboradors</string>
   <string name="save_location">Desa la ubicació</string>
+  <string name="select_storage_folder">Seleccioneu la carpeta d\'emmagatzematge</string>
   <string name="licenses">Llicències</string>
   <string name="changelog">Novetats</string>
   <string name="more_info">Més informació</string>
@@ -55,20 +79,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="show_third_party_licenses">Mostra les llicències de tercers</string>
   <string name="language_change_restart_description">Canvia l\'idioma d\'aquesta aplicació. Reinicia l\'aplicació perquè els canvis tinguin efecte</string>
   <string name="language">Idioma</string>
+  <string name="error_need_storage_permission_to_save_documents">Necessitem permís d\'emmagatzematge per desar documents</string>
   <string name="open_with">Obre amb</string>
   <string name="sort">Ordenar per</string>
   <string name="date">Data</string>
   <string name="deleteme____1">Nom</string>
   <string name="size">Mida</string>
+  <string name="reverse_order">Ordre invers</string>
   <string name="contribute">Contribueix</string>
   <string name="donate">Fes un donatiu</string>
   <string name="project_page">Pàgina del projecte</string>
+  <string name="press_back_again_to_exit">Premeu «Enrere» novament per sortir</string>
   <string name="exit">Surt</string>
   <string name="undo">Desfés</string>
   <string name="redo">Refés</string>
   <string name="more">Més</string>
   <string name="notebook">Quadern</string>
   <string name="help">Ajuda</string>
+  <string name="todo_list">Llista de tasques pendents</string>
   <string name="task">Tasca</string>
   <string name="category">Categoria</string>
   <string name="context">Context</string>
@@ -76,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="priority">Prioritat</string>
   <string name="history">Historial</string>
   <string name="sync">Sincronitza</string>
+  <string name="serach_or_custom">Cerca / Personalitza</string>
   <string name="save">Desa</string>
   <string name="update">Actualitza</string>
   <string name="clear">Esborra</string>
@@ -84,8 +113,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="archive">Arxivar</string>
   <string name="add_task">Afegeix tasca</string>
   <string name="add_x_witharg">Afegeix %s</string>
+  <string name="document_to_be_loaded_and_saved_as_witharg">El document es carregarà i guardarà com «%s»</string>
   <string name="refresh">Refresca</string>
+  <string name="create_shortcut">Crea una drecera</string>
+  <string name="tried_to_create_shortcut_for_this_notice">S\'ha intentat afegir una drecera a la pantalla principal. Recordeu que alguns llançadors no permeten això.</string>
+  <string name="file_not_in_save_path_do_import_notice__appspecific">El fitxer seleccionat no es troba al directori del quadern de l\'aplicació. Voleu copiar-lo a la carpeta actual? Això sobreescriurà els fitxers existents.</string>
+  <string name="files_and_folders">Fitxers i carpetes</string>
+  <string name="document_browser">Navegador de documents</string>
+  <string name="create_note" needed="false">Crea una nota</string>
   <string name="special_documents" needed="false">Documents especials</string>
+  <string name="back_to_previous_folder" needed="false">Torna a la carpeta anterior</string>
   <string name="app_settings" needed="false">Configuració de l\'aplicació</string>
   <string name="editor_settings" needed="false">Configuració de l\'editor</string>
   <string name="number_of_files_witharg" needed="false">Número de fitxers: %d</string>
