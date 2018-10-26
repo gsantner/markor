@@ -126,15 +126,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="app_settings" needed="false">Configuració de l\'aplicació</string>
   <string name="editor_settings" needed="false">Configuració de l\'editor</string>
   <string name="number_of_files_witharg" needed="false">Número de fitxers: %d</string>
+  <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
+  <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
+  <string name="remember_last_directory">Recorda el darrer directori</string>
   <string name="format">Format</string>
+  <string name="contexts">Contextos</string>
   <string name="project">Projecte</string>
   <string name="projects">Projectes</string>
   <string name="categories">Categories</string>
   <string name="none">Cap</string>
   <string name="other">Altres</string>
+  <string name="tasks_with_todays_date">Tasques amb data d\'avui</string>
   <string name="general">General</string>
   <string name="resources">Recursos</string>
+  <string name="line_spacing">Espai entre línies</string>
   <string name="special_key">Tecla especial</string>
   <string name="key_tab">Tabulador</string>
   <string name="default_">Per defecte</string>
