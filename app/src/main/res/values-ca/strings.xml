@@ -163,6 +163,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="line_spacing">Espai entre línies</string>
   <string name="archive_does_move_done_tasks">Mou les tasques realitzades a un fitxer especificat de la mateixa carpeta</string>
   <string name="special_key">Tecla especial</string>
+  <string name="key_page_up">Pàgina anterior (Page Up)</string>
+  <string name="key_page_down">Pàgina següent (Page Down)</string>
+  <string name="key_pos_1">Inici de línia (Pos Home)</string>
+  <string name="key_pos_end">Final de línia (Pos End)</string>
   <string name="key_pos_1_document">Inici del documento</string>
   <string name="key_pos_end_document">Final del document</string>
   <string name="key_ctrl_a">Selecciona-ho tot (Ctrl+A)</string>
@@ -170,7 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="start_on_bottom">Comença a la part inferior</string>
   <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
   <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només permet canvis locals, disponibles sense connexió, de documents i admet administradors de fitxers que proporcionen la ruta completa, inclòs el nom del fitxer. Pel que sembla, les aplicacions que no proporcionen la informació sol·licitada no es poden fer servir amb Markor :(.</string>
-  <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades, obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
+  <string name="sync_to_local_folder_notice">Avís: Les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades, obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
   <string name="configure_in_the_apps_settings">Configureu-ho a la configuració de l\'aplicació</string>
   <string name="vertical_alignment">Alineació vertical</string>
   <string name="horizontal_alignment">Alineació horitzontal</string>
@@ -213,11 +217,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="recently_viewed_documents">Documents vistos recentment</string>
   <string name="details">Detalls</string>
   <string name="calendar">Calendari</string>
+  <string name="warning_disallowed_sd_access">Alerta! L\'aplicació no té permís per desar aquest fitxer, es perdran tots els canvis. No hi ha cap possibilitat de resoldre el problema ni confirmar alguna cosa, Android nega qualsevol accés aquí.</string>
   <string name="error_picture_selection">No s\'ha seleccionat cap imatge</string>
+  <string name="gallery_picture">Imatge de la galeria</string>
+  <string name="camera_picture">Imatge de la càmera</string>
   <string name="description">Descripció</string>
   <string name="edit_picture">Edita la imatge</string>
   <string name="math">Matemàtiques</string>
   <string name="table_of_contents">Taula de continguts</string>
   <string name="miscellaneous">Divers</string>
+  <string name="textaction">Acció de text</string>
+  <string name="textactions">Accions de text</string>
+  <string name="prefer_representation">Preferència de representació</string>
+  <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>
+  <string name="popular_documents">Documents populars</string>
+  <string name="color">Color</string>
+  <string name="zero_width_space">Espai d\'ample zero</string>
+  <string name="basic_color_scheme">Esquema de color bàsic</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Canvia el color secundari i primari de l\'editor de text. S\'ajusta al tema de l\'aplicació, així que està disponible el tema clar i fosc. Els colors de destacament de sintaxi segueixen sent els mateixos.</string>
+  <string name="preset">Predefinit</string>
+  <string name="foreground">Primer pla</string>
   <string name="background">Fons</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">Voleu establir el color secundari o primari del text? També és possible introduir el codi hexadecimal del color.</string>
 </resources>
