@@ -125,11 +125,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="back_to_previous_folder" needed="false">Torna a la carpeta anterior</string>
   <string name="app_settings" needed="false">Configuració de l\'aplicació</string>
   <string name="editor_settings" needed="false">Configuració de l\'editor</string>
+  <string name="remember_last_folder_location_on_startup" needed="false">Recorda la ubicació de la darrera carpeta a l\'inici</string>
   <string name="number_of_files_witharg" needed="false">Número de fitxers: %d</string>
   <string name="app_wide">Global</string>
   <string name="main_view">Vista principal</string>
   <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
   <string name="remember_last_directory">Recorda el darrer directori</string>
+  <string name="syntax_highlighting">Destacament de la sintaxi</string>
+  <string name="highlighting_delay">Retard del destacament</string>
   <string name="format">Format</string>
   <string name="contexts">Contextos</string>
   <string name="project">Projecte</string>
