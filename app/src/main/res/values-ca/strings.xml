@@ -221,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="error_picture_selection">No s\'ha seleccionat cap imatge</string>
   <string name="gallery_picture">Imatge de la galeria</string>
   <string name="camera_picture">Imatge de la càmera</string>
+  <string name="enable_undo_and_redo_be_patient">Activa desfer i refer accions. Només adequat per a ús avançat, sigueu pacient per no esborrar alguna cosa important. Tanqueu i obriu l\'editor per esborrar l\'historial.</string>
   <string name="description">Descripció</string>
   <string name="edit_picture">Edita la imatge</string>
   <string name="math">Matemàtiques</string>
