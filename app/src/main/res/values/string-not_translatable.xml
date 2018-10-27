@@ -54,7 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">gruvbox</string>
     <string name="auto" translatable="false">Auto</string>
     <string name="hexcode" translatable="false">Hexcode</string>
-    <string name="markup_formats_supported_list" translatable="false">Markdown, ToDo.Txt, Plaintext</string>
+    <string name="markup_formats_supported_list" translatable="false">Markdown, todo.txt, Plaintext</string>
 
 
     <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[
@@ -82,14 +82,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     \n}
     \n</style>
     \n
-    \n
     \n<script type=\"text/javascript\">
-    \nfunction onPageLoaded(){
-    \n
-    \n/*if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
-    \n  window.scrollTo(0,document.body.scrollHeight);
-    \n}*/
-    \n
+    \nfunction onPageLoaded() {
+    \n/ *if (\'{{ post.text_converter_name }}\' == \'MarkdownTextConverter\') {
+    \n      window.scrollTo(0,document.body.scrollHeight);
+    \n} */
     \n}
     \n</script>
     ]]></string>
