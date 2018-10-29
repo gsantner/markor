@@ -11,16 +11,23 @@ package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
@@ -38,6 +45,7 @@ import butterknife.BindView;
 public class DocumentRepresentationFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static boolean showEditOnBack = false;
     public static final String FRAGMENT_TAG = "DocumentRepresentationFragment";
+    PopupWindow popup;
 
     public static DocumentRepresentationFragment newInstance(Document document) {
         DocumentRepresentationFragment f = new DocumentRepresentationFragment();
@@ -76,7 +84,7 @@ public class DocumentRepresentationFragment extends GsFragmentBase implements Te
             WebView.enableSlowWholeDocumentDraw();
         }
         AppSettings appSettings = new AppSettings(view.getContext());
-        _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
+        _webView.setWebViewClient(new MarkorWebViewClient(getActivity(),_webView));
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
@@ -92,6 +100,7 @@ public class DocumentRepresentationFragment extends GsFragmentBase implements Te
 
     private void showDocument() {
         Activity activity = getActivity();
+        System.out.println("WEB VIEW SHOW DOCUMENT");
         if (activity != null && activity instanceof DocumentActivity) {
             DocumentActivity da = ((DocumentActivity) activity);
             da.setDocumentTitle(_document.getTitle());
@@ -163,4 +172,5 @@ public class DocumentRepresentationFragment extends GsFragmentBase implements Te
     public WebView getWebview() {
         return _webView;
     }
+
 }

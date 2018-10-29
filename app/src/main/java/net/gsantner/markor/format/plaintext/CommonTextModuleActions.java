@@ -101,6 +101,18 @@ public class CommonTextModuleActions {
                 return true;
             }
             case ACTION_OPEN_LINK_BROWSER: {
+<<<<<<< HEAD
+=======
+                //Default Methods
+//                String url;
+//                if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+//                    if (url.endsWith(")")) {
+//                        url = url.substring(0, url.length() - 1);
+//                    }
+//                    new ContextUtils(_activity).openWebpageInExternalBrowser(url);
+//                }
+//                return true;
+>>>>>>> db8da316d2e3f71c8cb2f3f68f19ac041477de81
 
                 //NEW METHODS
                 String url;
@@ -108,6 +120,7 @@ public class CommonTextModuleActions {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
+<<<<<<< HEAD
                     if(url.contains(".jpg")|| url.contains(".png")|| url.contains(".jpeg")) {
                         // inflate the layout of the popup window
                         LayoutInflater inflater = (LayoutInflater) _activity.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -138,6 +151,34 @@ public class CommonTextModuleActions {
                     else {
                         Toast.makeText(_activity.getBaseContext(), "This link does not contain any image to show", Toast.LENGTH_LONG).show();
                         return true;
+=======
+                    // inflate the layout of the popup window
+                    LayoutInflater inflater = (LayoutInflater) _activity.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.popup_window, (ViewGroup) ((ViewGroup) this._activity.findViewById(android.R.id.content)).getChildAt(0), false);
+
+                    // create the popup window
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // lets taps outside the popup also dismiss it
+                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                    // show the popup window
+                    // which view you pass in doesn't matter, it is only used for the window tolken
+                    popupWindow.showAtLocation(((ViewGroup) this._activity.findViewById(android.R.id.content)).getChildAt(0), Gravity.CENTER, 0, 0);
+                    // dismiss the popup window when touched
+                    popupView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            popupWindow.dismiss();
+                            return true;
+                        }
+                    });
+                    ImageView imageview = popupView.findViewById(R.id.imageview_url);
+                    if (imageview != null) {
+                        new DownloadImageTask((ImageView) imageview).execute(url);
+                    } else {
+                        Toast.makeText(this._activity.getBaseContext(),"Link doesn't contains any image to show.",Toast.LENGTH_LONG).show();
+>>>>>>> db8da316d2e3f71c8cb2f3f68f19ac041477de81
                     }
                 }
                 return true;
