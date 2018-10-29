@@ -237,5 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="basic_color_scheme">Grundläggande färgschema</string>
   <string name="background_foreground_color_in_editor_works_dark_light">Ändrar bakgrunden och textredigerarens förgrundsfärg. Anpassar sig till appens tema som finns tillgängligt i ljust och ett mörkt tema. De syntax-framhävande färgerna förblir desamma.</string>
   <string name="preset">Förinställning</string>
+  <string name="foreground">Förgrund</string>
   <string name="background">Bakgrund</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">Ställ in textens förgrund eller bakgrundsfärg? Det är också möjligt att klistra in färgkod i hex-format.</string>
 </resources>

@@ -173,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="key_tab">Tabulação</string>
   <string name="start_on_bottom">Iniciar no fim</string>
   <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
+  <string name="sync_to_local_folder_notice">Aviso: as aplicações de sincronização colocam os ficheiros em pastas personalizadas. Pode alterar a pasta de documentos do Markor ou através de um gestor de ficheiros.</string>
   <string name="configure_in_the_apps_settings">Configurar a aplicação</string>
   <string name="vertical_alignment">Alinhamento vertical</string>
   <string name="horizontal_alignment">Alinhamento horizontal</string>
@@ -215,9 +216,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="recently_viewed_documents">Documentos recentes</string>
   <string name="details">Detalhes</string>
   <string name="calendar">Calendário</string>
+  <string name="warning_disallowed_sd_access">Aviso! A aplicação não tem permissão para guardar as alterações e estas serão perdidas. Não existe qualquer forma para resolver este problema porque o sistema não permite qualquer acesso a esta localização.</string>
   <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
   <string name="gallery_picture">Imagem da galeria</string>
   <string name="camera_picture">Imagem da câmara</string>
+  <string name="enable_undo_and_redo_be_patient">Ativa as opções Desfazer e Refazer. Opção apenas adequada para utilizadores avançados pois pode provocar danos irreversíveis. Feche e reabra o editor para limpar o histórico.</string>
   <string name="description">Descrição</string>
   <string name="edit_picture">Editar imagem</string>
   <string name="math">Matemática</string>
@@ -228,5 +231,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Preferir representação</string>
   <string name="no_calendar_app_is_installed">Não tem uma aplicação de calendário!</string>
   <string name="popular_documents">Documentos populares</string>
+  <string name="color">Cor</string>
+  <string name="zero_width_space">Espaço Zero-width</string>
+  <string name="basic_color_scheme">Esquema de cores</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">Altera a cor secundária e a cor principal do editor de texto. Apenas estão disponíveis os temas escuro e claro. As cores de destaque da sintaxe não são alteradas.</string>
+  <string name="preset">Predefinição</string>
+  <string name="foreground">Principal</string>
   <string name="background">Fundo</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">Definir cor principal e secundária? Também pode utilizar os códigos de cor HEX.</string>
 </resources>
