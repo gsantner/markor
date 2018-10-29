@@ -232,4 +232,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">Preferir representação</string>
   <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
   <string name="popular_documents">Documentos populares</string>
+  <string name="background">Fundo</string>
 </resources>

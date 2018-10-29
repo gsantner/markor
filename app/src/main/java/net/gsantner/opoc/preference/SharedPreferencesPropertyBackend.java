@@ -164,6 +164,14 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
         return ContextCompat.getColor(_context, resColorId);
     }
 
+    public String[] rstrs(int... keyResourceIds) {
+        String[] ret = new String[keyResourceIds.length];
+        for (int i=0;  i < keyResourceIds.length; i++){
+            ret[i] = rstr(keyResourceIds[i]);
+        }
+        return ret;
+    }
+
 
     //
     // Getter & Setter for String
@@ -243,6 +251,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
         List<String> list = getStringListOne(key, gp(pref));
         return list.toArray(new String[list.size()]);
     }
+
 
     public ArrayList<String> getStringList(@StringRes int keyResourceId, final SharedPreferences... pref) {
         return getStringListOne(rstr(keyResourceId), gp(pref));

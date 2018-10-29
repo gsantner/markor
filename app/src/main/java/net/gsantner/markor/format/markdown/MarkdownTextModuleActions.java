@@ -78,6 +78,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_h3, R.drawable.format_header_3},
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
     };
 
     private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -144,6 +145,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
                 case R.string.tmaid_general_special_key: {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    break;
+                }
+                case R.string.tmaid_color_picker:{
+                    new CommonTextModuleActions(_activity,_document,_hlEditor).runAction(CommonTextModuleActions.ACTION_COLOR_PICKER);
                     break;
                 }
                 case R.string.tmaid_markdown_insert_link:

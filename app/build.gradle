@@ -19,9 +19,15 @@ ext.version_setup_minSdk = 16
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
 android {
     buildToolsVersion version_setup_buildTools
-    compileSdkVersion 28
+    compileSdkVersion version_setup_compileSdk
     flavorDimensions "default"
 
     defaultConfig {
@@ -99,7 +105,6 @@ android {
 }
 
 dependencies {
-
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.8.0'
@@ -132,6 +137,7 @@ dependencies {
     // UI libs
     implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
     implementation 'com.pixplicity.generate:library:1.1.8'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"

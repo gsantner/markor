@@ -38,11 +38,19 @@
     <color name="dark__secondary_text">#9e9e9e</color>
 
     <color name="ic_launcher_background">#636363</color>
-    <color name="solarized_dark">#002B36</color>
     <color name="white">#ffffffff</color>
     <color name="black">#000000</color>
     <color name="grey">#ff505050</color>
     <color name="dark_grey">#ff212121</color>
     <color name="light_grey">#ffC0C0C0</color>
     <color name="lighter_grey">#ffE0E0E0</color>
+
+
+    <color name="solarized_bg_dark">#002B36</color>
+    <color name="solarized_bg_light">#FCF5E4</color>
+    <color name="solarized_fg">#657b83</color>
+    <color name="gruvbox_bg_dark">#282828</color>
+    <color name="gruvbox_fg_dark">#EBDBB2</color>
+    <color name="gruvbox_bg_light">#FBF1C7</color>
+    <color name="gruvbox_fg_light">#3C3836</color>
 </resources>

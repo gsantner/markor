@@ -299,6 +299,28 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     return true;
                 }
+
+                else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_markor)) {
+                    _as.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
+                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+                }
+                else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_blackorwhite)) {
+                    _as.setEditorBasicColor(true, R.color.white, R.color.black);
+                    _as.setEditorBasicColor(false, R.color.black, R.color.white);
+                }
+                else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_solarized)) {
+                    _as.setEditorBasicColor(true, R.color.solarized_fg, R.color.solarized_bg_dark);
+                    _as.setEditorBasicColor(false, R.color.solarized_fg, R.color.solarized_bg_light);
+                }
+                else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_gruvbox)) {
+                    _as.setEditorBasicColor(true, R.color.gruvbox_fg_dark, R.color.gruvbox_bg_dark);
+                    _as.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
+                }
+
+                if (preference.getKey().startsWith("pref_key__editor_basic_color_scheme")){
+                    _as.setRecreateMainRequired(true);
+                    restartActivity();
+                }
             }
             return null;
         }

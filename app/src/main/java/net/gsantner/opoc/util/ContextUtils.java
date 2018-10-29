@@ -694,9 +694,13 @@ public class ContextUtils {
     public void tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
-            tintDrawable(item.getIcon(), iconColor);
-            if (item.hasSubMenu() && recurse) {
-                tintMenuItems(item.getSubMenu(), recurse, iconColor);
+            try {
+                tintDrawable(item.getIcon(), iconColor);
+                if (item.hasSubMenu() && recurse) {
+                    tintMenuItems(item.getSubMenu(), recurse, iconColor);
+                }
+            } catch (Exception ignored) {
+                // This should not happen at all, but may in bad menu.xml configuration
             }
         }
     }

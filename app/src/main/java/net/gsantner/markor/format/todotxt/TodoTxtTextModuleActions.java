@@ -80,6 +80,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             //"add_task",
             "archive_done_tasks",
             "insert_date",
+            CommonTextModuleActions.ACTION_COLOR_PICKER,
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
