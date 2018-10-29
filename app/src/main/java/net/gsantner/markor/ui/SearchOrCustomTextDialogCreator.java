@@ -158,6 +158,33 @@ public class SearchOrCustomTextDialogCreator {
         return data;
     }
 
+    /**
+     * Allow to choose between Hexcolor / foreground / background color, pass back stringid
+     */
+    public static void showColorSelectionModeDialog(Activity activity, Callback.a1<Integer> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+
+        final String hexcode = activity.getString(R.string.hexcode);
+        final String fg = activity.getString(R.string.foreground);
+        final String bg = activity.getString(R.string.background);
+
+        baseConf(activity, dopt);
+        dopt.callback = arg1 -> {
+            int id = R.string.hexcode;
+            if (fg.equals(arg1)) {
+                id = R.string.foreground;
+            } else if (bg.equals(arg1)) {
+                id = R.string.background;
+            }
+            callback.callback(id);
+        };
+
+        dopt.data = new ArrayList<>(Arrays.asList(hexcode, fg, bg));
+        dopt.titleText = R.string.color;
+        dopt.isSearchEnabled = false;
+        dopt.messageText = activity.getString(R.string.set_foreground_or_background_color_hexcolor_also_possible);
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();

@@ -47,11 +47,13 @@ public class PlaintextModuleActions extends TextModuleActions {
             {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 0},
             {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 1},
             {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 2},
+            {CommonTextModuleActions.ACTION_COLOR_PICKER_ICON, 3},
     };
     private static final String[] ACTIONS = {
             CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER,
             CommonTextModuleActions.ACTION_DELETE_LINES,
             CommonTextModuleActions.ACTION_SPECIAL_KEY,
+            CommonTextModuleActions.ACTION_COLOR_PICKER,
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {

@@ -40,8 +40,8 @@ public class SttCommander {
             " )?" + // End of prefix
             "((a|.)*)" // Take whats left
     );
-    public static final Pattern PATTERN_PROJECTS = Pattern.compile("\\B(?:\\+)(\\w+)");
-    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(?:\\@)(\\w+)");
+    public static final Pattern PATTERN_PROJECTS = Pattern.compile("\\B(?:\\++)(\\w+)");
+    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(?:\\@+)(\\w+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");

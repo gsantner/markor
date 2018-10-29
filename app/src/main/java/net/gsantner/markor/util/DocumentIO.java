@@ -113,7 +113,7 @@ public class DocumentIO {
 
     public static synchronized boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
         boolean ret;
-        String filename = DocumentIO.normalizeTitleForFilename(document) + document.getFileExtension();
+        String filename = DocumentIO.normalizeTitleForFilename(document, currentText) + document.getFileExtension();
         document.setDoHistory(true);
         document.setFile(new File(document.getFile().getParentFile(), filename));
 
@@ -146,16 +146,16 @@ public class DocumentIO {
         return ret;
     }
 
-    public static String normalizeTitleForFilename(Document _document) {
+    public static String normalizeTitleForFilename(Document _document, String currentContent) {
         String name = _document.getTitle();
         try {
             if (name.length() == 0) {
-                if (_document.getContent().length() == 0) {
+                if (currentContent.length() == 0) {
                     return null;
                 } else {
-                    String contentL1 = _document.getContent().split("\n")[0];
+                    String contentL1 = currentContent.split("\n")[0];
                     if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
-                        name = contentL1.substring(0, contentL1.length());
+                        name = contentL1;
                     } else {
                         name = contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
                     }

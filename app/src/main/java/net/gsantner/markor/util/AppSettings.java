@@ -12,6 +12,7 @@ package net.gsantner.markor.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.annotation.ColorRes;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -360,5 +361,59 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isTodoTxtAlternativeNaming() {
         return getBool(R.string.pref_key__todotxt__alternative_naming_context_project, true);
+    }
+
+    public int getEditorBasicColorSchemeId() {
+        return 0;
+    }
+
+
+    public int getEditorForegroundColor() {
+        /*switch (getEditorBasicColorSchemeId()) {
+            default:
+            case 0:
+                return rcolor(darkMode ? R.color.white : R.color.dark_grey);
+            case 1:
+                return rcolor(darkMode ? R.color.white : R.color.black);
+            case 2:
+                return rcolor(R.color.solarized_fg);
+            case 3:
+                return rcolor(R.color.solarized_fg);
+        }*/
+
+
+        boolean darkMode = isDarkThemeEnabled();
+        int defval = rcolor(darkMode ? R.color.white : R.color.dark_grey);
+        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light, defval);
+    }
+
+    public int getEditorBackgroundColor() {
+        /*switch (getEditorBasicColorSchemeId()) {
+            default:
+            case 0:
+                return rcolor(darkMode ? R.color.dark_grey : R.color.light__background);
+            case 1:
+                return rcolor(darkMode ? R.color.black : R.color.white);
+            case 2:
+                return rcolor(darkMode ? R.color.solarized_bg_dark : R.color.solarized_bg_light);
+            case 3:
+                return rcolor(darkMode ? R.color.solarized_bg_dark : R.color.solarized_bg_light);
+        }*/
+
+        boolean darkMode = isDarkThemeEnabled();
+        int defval = rcolor(darkMode ? R.color.dark_grey : R.color.light__background);
+        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, defval);
+
+    }
+
+    public int getEditorTextactionBarColor() {
+        return rcolor(isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.lighter_grey);
+    }
+
+    public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
+        int resIdFg = forDarkMode ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light;
+        int resIdBg = forDarkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light;
+        setInt(resIdFg, rcolor(fgColor));
+        setInt(resIdBg, rcolor(bgColor));
     }
 }

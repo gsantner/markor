@@ -18,6 +18,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -255,16 +256,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        if (as.isDarkThemeEnabled()) {
-            _hlEditor.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-            _hlEditor.setTextColor(getResources().getColor(android.R.color.white));
-            fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(getResources().getColor(R.color.dark_grey));
-        } else {
-            _hlEditor.setBackgroundColor(getResources().getColor(R.color.light__background));
-            _hlEditor.setTextColor(getResources().getColor(R.color.dark_grey));
-            fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent)
-                    .setBackgroundColor(getResources().getColor(R.color.lighter_grey));
-        }
+        _hlEditor.setBackgroundColor(as.getEditorBackgroundColor());
+        _hlEditor.setTextColor(as.getEditorForegroundColor());
+        fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(as.getEditorTextactionBarColor());
     }
 
     @Override
