@@ -207,6 +207,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="calendar">Kalendarz</string>
   <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
   <string name="gallery_picture">Galeria zdjęć</string>
+  <string name="camera_picture">Zdjęcie z aparatu</string>
   <string name="description">Opis</string>
   <string name="edit_picture">Edytuj obrazek</string>
   <string name="math">Matematyka</string>
