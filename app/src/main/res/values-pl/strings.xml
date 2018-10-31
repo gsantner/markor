@@ -213,6 +213,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="math">Matematyka</string>
   <string name="table_of_contents">Spis treści</string>
   <string name="miscellaneous">Różne</string>
+  <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
   <string name="popular_documents">Popularne dokumenty</string>
+  <string name="color">Kolor</string>
+  <string name="zero_width_space">Spacja o zerowej szerokości</string>
+  <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
   <string name="background">Tło</string>
 </resources>
