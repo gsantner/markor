@@ -232,6 +232,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
   <string name="prefer_representation">リプレゼンテーション優先</string>
   <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
   <string name="popular_documents">人気のあるドキュメント</string>
+  <string name="color">色</string>
   <string name="zero_width_space">ゼロ幅スペース</string>
+  <string name="basic_color_scheme">基本的な配色</string>
+  <string name="background_foreground_color_in_editor_works_dark_light">テキストエディターの背景と前景の色を変更します。アプリのテーマをライトとダークテーマで利用できるように調整します。構文の強調表示の色は変わりません。</string>
+  <string name="preset">プリセット</string>
+  <string name="foreground">前景</string>
   <string name="background">背景</string>
+  <string name="set_foreground_or_background_color_hexcolor_also_possible">テキストの前景色または背景色を設定します。色を 16 進コードで入力することも可能です。</string>
 </resources>
