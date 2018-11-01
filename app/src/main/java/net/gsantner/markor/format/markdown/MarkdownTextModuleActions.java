@@ -180,16 +180,41 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             return false;
         }
 
-        private void insertText(int startIndex, String text)
-        {
-            Editable s = _hlEditor.getText();
-            s.insert(startIndex, text);
-        }
+        class TextSelection {
 
-        private void removeText(int startIndex, String text)
-        {
-            Editable s = _hlEditor.getText();
-            s.delete(startIndex, startIndex+text.length());
+            private int selectionStart;
+            private int selectionEnd;
+            private Editable editable;
+
+
+            TextSelection(int start, int end, Editable editable)
+            {
+                this.selectionStart = start;
+                this.selectionEnd = end;
+                this.editable = editable;
+            }
+
+            void insertText(int location, String text)
+            {
+                editable.insert(location, text);
+                this.selectionEnd += text.length();
+            }
+
+            void removeText(int location, String text)
+            {
+                editable.delete(location, location + text.length());
+                this.selectionEnd -= text.length();
+            }
+
+            int getSelectionStart()
+            {
+                return selectionStart;
+            }
+
+            int getSelectionEnd()
+            {
+                return selectionEnd;
+            }
         }
 
         private int findLineStart(int cursor, String text)
@@ -221,28 +246,25 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         private void runMarkdownRegularPrefixAction(String action)
         {
-            int selectionStart = _hlEditor.getSelectionStart();
-            int selectionEnd = _hlEditor.getSelectionEnd();
             String text = _hlEditor.getText().toString();
+            TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
-            int lineStart = findLineStart(selectionStart, text);
+            int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
                 while(lineStart != -1)
                 {
-                    if(text.substring(lineStart, selectionEnd).startsWith(action))
+                    if(text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action))
                     {
-                        removeText(lineStart, action);
-                        selectionEnd -= action.length();
-                        text = _hlEditor.getText().toString();
+                        textSelection.removeText(lineStart, action);
                     }
                     else {
-                        insertText(lineStart, action);
-                        selectionEnd += action.length();
-                        text = _hlEditor.getText().toString();
+                        textSelection.insertText(lineStart, action);
 
                     }
 
-                    lineStart = findNextLine(lineStart, selectionEnd, text);
+                    text = _hlEditor.getText().toString();
+
+                    lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
                 }
         }
 
