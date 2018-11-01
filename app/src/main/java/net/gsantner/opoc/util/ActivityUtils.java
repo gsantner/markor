@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.widget.ScrollView;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
@@ -115,18 +116,18 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     public void showDialogWithHtmlTextView(@StringRes int resTitleId, String text, boolean isHtml, DialogInterface.OnDismissListener dismissedListener) {
+        ScrollView scroll = new ScrollView(_context);
         AppCompatTextView textView = new AppCompatTextView(_context);
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16,
-                _context.getResources().getDisplayMetrics());
-        textView.setMovementMethod(new LinkMovementMethod());
-        textView.setPadding(padding, 0, padding, 0);
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, _context.getResources().getDisplayMetrics());
 
+        scroll.setPadding(padding, 0, padding, 0);
+        scroll.addView(textView);
+        textView.setMovementMethod(new LinkMovementMethod());
         textView.setText(isHtml ? new SpannableString(Html.fromHtml(text)) : text);
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
-                .setPositiveButton(android.R.string.ok, null)
-                .setOnDismissListener(dismissedListener)
-                .setTitle(resTitleId)
-                .setView(textView);
+                .setPositiveButton(android.R.string.ok, null).setOnDismissListener(dismissedListener)
+                .setTitle(resTitleId).setView(scroll);
         dialog.show();
     }
 
