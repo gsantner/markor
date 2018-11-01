@@ -180,49 +180,71 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             return false;
         }
 
-        private void runMarkdownRegularPrefixAction(String action) {
-            if (_hlEditor.hasSelection()) {
-                String text = _hlEditor.getText().toString();
-                int selectionStart = _hlEditor.getSelectionStart();
-                int selectionEnd = _hlEditor.getSelectionEnd();
-
-                //Check if Selection includes the shortcut characters
-                if (text.substring(selectionStart, selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*")) {
-
-                    text = text.substring(selectionStart + action.length(), selectionEnd);
-                    _hlEditor.getText()
-                            .replace(selectionStart, selectionEnd, text);
-
-                }
-                //Check if Selection is Preceded by shortcut characters
-                else if ((selectionStart >= action.length()) && (text.substring(selectionStart - action.length(), selectionEnd)
-                        .matches("(>|#{1,3}|-|[1-9]\\.)(\\s)?[a-zA-Z0-9\\s]*"))) {
-
-                    text = text.substring(selectionStart, selectionEnd);
-                    _hlEditor.getText()
-                            .replace(selectionStart - action.length(), selectionEnd, text);
-
-                }
-                //Condition to insert shortcut preceding the selection
-                else {
-                    _hlEditor.getText().insert(selectionStart, action);
-                }
-            } else {
-                //Condition for Empty Selection. Should insert the action at the start of the line
-                int cursor = _hlEditor.getSelectionStart();
-                int i = cursor - 1;
-                Editable s = _hlEditor.getText();
-                for (; i >= 0; i--) {
-                    if (s.charAt(i) == '\n') {
-                        break;
-                    }
-                }
-
-                s.insert(i + 1, action);
-            }
+        private void insertText(int startIndex, String text)
+        {
+            Editable s = _hlEditor.getText();
+            s.insert(startIndex, text);
         }
 
+        private void removeText(int startIndex, String text)
+        {
+            Editable s = _hlEditor.getText();
+            s.delete(startIndex, startIndex+text.length());
+        }
+
+        private int findLineStart(int cursor, String text)
+        {
+            int i = cursor - 1;
+            for (; i >= 0; i--) {
+                if (text.charAt(i) == '\n') {
+                    break;
+                }
+            }
+
+            return i+1;
+        }
+
+        private int findNextLine(int startIndex, int endIndex, String text)
+        {
+            int index = -1;
+            for(int i = startIndex; i < endIndex; i++)
+            {
+                if(text.charAt(i) == '\n')
+                {
+                    index = i + 1;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        private void runMarkdownRegularPrefixAction(String action)
+        {
+            int selectionStart = _hlEditor.getSelectionStart();
+            int selectionEnd = _hlEditor.getSelectionEnd();
+            String text = _hlEditor.getText().toString();
+
+            int lineStart = findLineStart(selectionStart, text);
+
+                while(lineStart != -1)
+                {
+                    if(text.substring(lineStart, selectionEnd).startsWith(action))
+                    {
+                        removeText(lineStart, action);
+                        selectionEnd -= action.length();
+                        text = _hlEditor.getText().toString();
+                    }
+                    else {
+                        insertText(lineStart, action);
+                        selectionEnd += action.length();
+                        text = _hlEditor.getText().toString();
+
+                    }
+
+                    lineStart = findNextLine(lineStart, selectionEnd, text);
+                }
+        }
 
         private void runMarkdownInlineAction(String _action) {
             if (_hlEditor.hasSelection()) {
