@@ -147,8 +147,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
                     break;
                 }
-                case R.string.tmaid_color_picker:{
-                    new CommonTextModuleActions(_activity,_document,_hlEditor).runAction(CommonTextModuleActions.ACTION_COLOR_PICKER);
+                case R.string.tmaid_color_picker: {
+                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_COLOR_PICKER);
                     break;
                 }
                 case R.string.tmaid_markdown_insert_link:
@@ -182,43 +182,37 @@ public class MarkdownTextModuleActions extends TextModuleActions {
 
         class TextSelection {
 
-            private int selectionStart;
-            private int selectionEnd;
-            private Editable editable;
+            private int _selectionStart;
+            private int _selectionEnd;
+            private Editable _editable;
 
 
-            TextSelection(int start, int end, Editable editable)
-            {
-                this.selectionStart = start;
-                this.selectionEnd = end;
-                this.editable = editable;
+            TextSelection(int start, int end, Editable editable) {
+                _selectionStart = start;
+                _selectionEnd = end;
+                _editable = editable;
             }
 
-            void insertText(int location, String text)
-            {
-                editable.insert(location, text);
-                this.selectionEnd += text.length();
+            void insertText(int location, String text) {
+                _editable.insert(location, text);
+                _selectionEnd += text.length();
             }
 
-            void removeText(int location, String text)
-            {
-                editable.delete(location, location + text.length());
-                this.selectionEnd -= text.length();
+            void removeText(int location, String text) {
+                _editable.delete(location, location + text.length());
+                _selectionEnd -= text.length();
             }
 
-            int getSelectionStart()
-            {
-                return selectionStart;
+            int getSelectionStart() {
+                return _selectionStart;
             }
 
-            int getSelectionEnd()
-            {
-                return selectionEnd;
+            int getSelectionEnd() {
+                return _selectionEnd;
             }
         }
 
-        private int findLineStart(int cursor, String text)
-        {
+        private int findLineStart(int cursor, String text) {
             int i = cursor - 1;
             for (; i >= 0; i--) {
                 if (text.charAt(i) == '\n') {
@@ -226,16 +220,13 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
             }
 
-            return i+1;
+            return i + 1;
         }
 
-        private int findNextLine(int startIndex, int endIndex, String text)
-        {
+        private int findNextLine(int startIndex, int endIndex, String text) {
             int index = -1;
-            for(int i = startIndex; i < endIndex; i++)
-            {
-                if(text.charAt(i) == '\n')
-                {
+            for (int i = startIndex; i < endIndex; i++) {
+                if (text.charAt(i) == '\n') {
                     index = i + 1;
                     break;
                 }
@@ -244,28 +235,24 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             return index;
         }
 
-        private void runMarkdownRegularPrefixAction(String action)
-        {
+        private void runMarkdownRegularPrefixAction(String action) {
             String text = _hlEditor.getText().toString();
             TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
             int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
-                while(lineStart != -1)
-                {
-                    if(text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action))
-                    {
-                        textSelection.removeText(lineStart, action);
-                    }
-                    else {
-                        textSelection.insertText(lineStart, action);
+            while (lineStart != -1) {
+                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                    textSelection.removeText(lineStart, action);
+                } else {
+                    textSelection.insertText(lineStart, action);
 
-                    }
-
-                    text = _hlEditor.getText().toString();
-
-                    lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
                 }
+
+                text = _hlEditor.getText().toString();
+
+                lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
+            }
         }
 
         private void runMarkdownInlineAction(String _action) {
