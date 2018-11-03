@@ -46,6 +46,7 @@ public class MarkdownTextConverter extends TextConverter {
     //## Extensions
     //########################
     public static final String EXT_MARKDOWN__TXT = ".txt";
+    public static final String EXT_MARKDOWN__HTML = ".html";
     public static final String EXT_MARKDOWN__MD_TXT = ".md.txt";
     public static final String EXT_MARKDOWN__MD = ".md";
     public static final String EXT_MARKDOWN__MARKDOWN = ".markdown";
@@ -56,11 +57,11 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String EXT_MARKDOWN__TEXT = ".text";
     public static final String EXT_MARKDOWN__RMD = ".rmd";
 
-    public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd))$)");
+    public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd)|(html))$)");
     public static final String[] MD_EXTENSIONS = new String[]{
             EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
-            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT
+            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT,EXT_MARKDOWN__HTML
     };
 
     //########################
