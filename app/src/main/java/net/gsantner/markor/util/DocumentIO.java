@@ -104,12 +104,18 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             } else {
                 String oldTitle = document.getTitle();
-                int lastIndexOfDot = oldTitle.lastIndexOf(".");
+                if(oldTitle.contains(".")){
+                    int lastIndexOfDot = oldTitle.lastIndexOf(".");
 
-                //divide oldTitle to document title and file extension
-                document.setFileExtension(oldTitle.substring(lastIndexOfDot));
-                document.setTitle(oldTitle.substring(0,lastIndexOfDot));
+                    //divide oldTitle to document title and file extension
+                    document.setFileExtension(oldTitle.substring(lastIndexOfDot));
+                    document.setTitle(oldTitle.substring(0,lastIndexOfDot));
+                }else{
+                    document.setFileExtension("");
+                    document.setTitle(oldTitle);
+                }
                 document.setFormat(TextFormat.FORMAT_PLAIN);
+
             }
         }
 
