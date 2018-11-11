@@ -215,7 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="camera_picture">Kamerabild</string>
     <string name="enable_undo_and_redo_be_patient">Sätt på ångra- och gör-om-funktioner. Endast lämpad för avancerad användning. Ha tålamod och ta inte bort något viktigt. Stäng och öppna redigeraren för att rensa historik.</string>
     <string name="description">Beskrivning</string>
-    <string name="edit_picture">Ändra bild</string>
+    <string name="edit_picture">Redigera bild</string>
     <string name="math">Matematik</string>
     <string name="table_of_contents">Innehållsförteckning</string>
     <string name="miscellaneous">Diverse</string>
