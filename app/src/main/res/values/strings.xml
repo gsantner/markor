@@ -182,7 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available, documents, and does not support file managers that do not provide the full file path to Markor. This is not an issue with Markor.</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available documents and does not support file managers that do not provide the full file path.</string>
     <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the app settings</string>
     <string name="vertical_alignment">Vertical alignment</string>
@@ -205,7 +205,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Translate</string>
     <string name="more_info_and_help">More info and help</string>
     <string name="report_bugs">Report bugs</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project on GitHub.</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project.</string>
     <string name="android_contribution_guide">Android contribution guide</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to open source projects, especially Android apps</string>
     <string name="join_community">Join the Community</string>
