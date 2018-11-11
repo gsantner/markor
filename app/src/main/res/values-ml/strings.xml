@@ -11,16 +11,16 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="settings">ക്രമീകരണങ്ങൾ</string>
-  <string name="appearance">രൂപം</string>
-  <string name="share">പങ്കുവയ്ക്കുക</string>
-  <string name="search">തിരയുക</string>
-  <string name="about">കുറിച്ച്</string>
-  <string name="font_size">അക്ഷരങ്ങളുടെ വലിപ്പം</string>
-  <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
-  <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
-  <string name="language">ഭാഷ</string>
-  <string name="more">കൂടുതൽ</string>
-  <string name="general">പൊതു</string>
-  <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
+    <string name="settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="appearance">രൂപം</string>
+    <string name="share">പങ്കുവയ്ക്കുക</string>
+    <string name="search">തിരയുക</string>
+    <string name="about">കുറിച്ച്</string>
+    <string name="font_size">അക്ഷരങ്ങളുടെ വലിപ്പം</string>
+    <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
+    <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
+    <string name="language">ഭാഷ</string>
+    <string name="more">കൂടുതൽ</string>
+    <string name="general">പൊതു</string>
+    <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
 </resources>

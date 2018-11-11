@@ -11,22 +11,22 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="settings">Innstillinger</string>
-  <string name="appearance">Utseende</string>
-  <string name="share">Del</string>
-  <string name="search">Søk</string>
-  <string name="about">Om</string>
-  <string name="image">Bilde</string>
-  <string name="contributors">Medvirkende</string>
-  <string name="changelog">Endringslogg</string>
-  <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
-  <string name="language_change_restart_description">Bytt språket for denne appen og omstart slik at endringen kan ta sted</string>
-  <string name="language">Språk</string>
-  <string name="more">Mer</string>
-  <string name="none">Ingen</string>
-  <string name="general">Generelt</string>
-  <string name="translate">Oversett</string>
-  <string name="location">Posisjon</string>
-  <string name="description">Beskrivelse</string>
-  <string name="miscellaneous">Forskjellig</string>
+    <string name="settings">Innstillinger</string>
+    <string name="appearance">Utseende</string>
+    <string name="share">Del</string>
+    <string name="search">Søk</string>
+    <string name="about">Om</string>
+    <string name="image">Bilde</string>
+    <string name="contributors">Medvirkende</string>
+    <string name="changelog">Endringslogg</string>
+    <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
+    <string name="language_change_restart_description">Bytt språket for denne appen og omstart slik at endringen kan ta sted</string>
+    <string name="language">Språk</string>
+    <string name="more">Mer</string>
+    <string name="none">Ingen</string>
+    <string name="general">Generelt</string>
+    <string name="translate">Oversett</string>
+    <string name="location">Posisjon</string>
+    <string name="description">Beskrivelse</string>
+    <string name="miscellaneous">Forskjellig</string>
 </resources>

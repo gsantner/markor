@@ -11,7 +11,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
-  <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
-  <string name="search">ಹುಡುಕಿ</string>
+    <string name="settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="search">ಹುಡುಕಿ</string>
 </resources>
