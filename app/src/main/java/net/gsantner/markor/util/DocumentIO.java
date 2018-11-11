@@ -75,7 +75,7 @@ public class DocumentIO {
         if (extraPathIsFolder) {
             extraPath.mkdirs();
             while (filePath.exists()) {
-                filePath = new File(extraPath, String.format("%s-%s.%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
+                filePath = new File(extraPath, String.format("%s-%s%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract existing extension
@@ -103,7 +103,19 @@ public class DocumentIO {
             } else if (fnlower.endsWith(".txt")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             } else {
+                String oldTitle = document.getTitle();
+                if(oldTitle.contains(".")){
+                    int lastIndexOfDot = oldTitle.lastIndexOf(".");
+
+                    //divide oldTitle to document title and file extension
+                    document.setFileExtension(oldTitle.substring(lastIndexOfDot));
+                    document.setTitle(oldTitle.substring(0,lastIndexOfDot));
+                }else{
+                    document.setFileExtension("");
+                    document.setTitle(oldTitle);
+                }
                 document.setFormat(TextFormat.FORMAT_PLAIN);
+
             }
         }
 
