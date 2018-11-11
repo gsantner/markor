@@ -651,4 +651,10 @@ public class WrFilesystemListFragment extends GsFragmentBase {
             startActivity(intent);
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        finishActionMode();
+    }
 }
