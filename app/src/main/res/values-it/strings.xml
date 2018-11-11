@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Seleziona elementi</string>
     <string name="one_item_selected">Un elemento selezionato</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementi selezionati</string>
+    <string name="hide_statusbar_at_this_view">Nascondi la barra di stato in questa vista</string>
     <string name="hide_statusbar">Nascondi la barra di stato</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Percorso</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Ricarica</string>
     <string name="create_shortcut">Crea scorciatoia</string>
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Esploratore dei documenti</string>
     <string name="create_note" needed="false">Crea nota</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Ricorda l\'ultima cartella</string>
     <string name="syntax_highlighting">Evidenziazione della sintassi</string>
     <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei modelli più vecchi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
     <string name="control_font_size_in_editor">Controlla la dimensione del carattere usato nell\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visualizza una barra con comodi pulsanti sulla parte inferiore, per modificare il testo o eseguire un\'azione basata sul testo.</string>
