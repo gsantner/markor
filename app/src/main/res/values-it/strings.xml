@@ -174,6 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Inizia in basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può solo modificare solo documenti disponibili in locale oppure offline e non supporta file manager che non forniscono il percorso completo del file.</string>
+    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro file manager.</string>
     <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orrizontale</string>
