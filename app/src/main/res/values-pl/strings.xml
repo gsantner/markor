@@ -61,7 +61,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Wybierz wpisy</string>
     <string name="one_item_selected">Zaznaczono jedną rzecz</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Zaznaczono %d rzeczy</string>
-    <string name="hide_statusbar_at_this_view">Ukryj pasek stanu</string>
     <string name="hide_statusbar">Ukryj pasek stanu</string>
     <string name="name">Nazwa</string>
     <string name="url_or_path">URL / Ścieżka</string>
@@ -115,7 +114,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Odśwież</string>
     <string name="create_shortcut">Utwórz skrót</string>
     <string name="tried_to_create_shortcut_for_this_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Wybrany plik nie znajduje się w katalogu notatnika. Czy chcesz skopiować go do bieżącego folderu? Spowoduje to nadpisanie istniejących plików.</string>
     <string name="files_and_folders">Pliki i foldery</string>
     <string name="document_browser">Przeglądarka dokumentów</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
@@ -131,7 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Zapamiętaj ostatnią lokalizację katalogu</string>
     <string name="syntax_highlighting">Podświetlanie składni</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale rozładuje więcej baterii i zmniejszy wydajność.</string>
     <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
     <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
@@ -178,7 +175,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center">Wyśrodkuj</string>
     <string name="horizontal_space_between_textactions">Poziomy odstęp akcji</string>
     <string name="center_text">Wyśrodkuj tekst</string>
-    <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
     <string name="clipboard">Schowek</string>
     <string name="select_existing_document">Wybierz istniejący dokument</string>
     <string name="open_source_licenses">Otwarto Źródłowo Bibloteki</string>
@@ -186,8 +182,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Więcej informacji na temat dotacjach lub pomaganiu tego projektu</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu Otwarto Zródłowych projektów, szczególnie aplikacji Androida</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
