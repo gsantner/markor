@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecciona les entrades</string>
     <string name="one_item_selected">Un element seleccionat</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elements seleccionats</string>
+    <string name="hide_statusbar_at_this_view">Amaga la barra d\'estat en aquesta vista</string>
     <string name="hide_statusbar">Amaga la barra d\'estat</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Refresca</string>
     <string name="create_shortcut">Crea una drecera</string>
     <string name="tried_to_create_shortcut_for_this_notice">S\'ha intentat afegir una drecera a la pantalla principal. Recordeu que alguns llançadors no permeten això.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">El fitxer seleccionat no es troba al directori del quadern de l\'aplicació. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer existent amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
     <string name="create_note" needed="false">Crea una nota</string>
