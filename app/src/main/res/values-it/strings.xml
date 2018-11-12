@@ -187,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Spazio tra i moduli del testo</string>
     <string name="horizontal_space_between_textactions">Spazio orizzontale tra i tasti di azione sul testo</string>
     <string name="center_text">Centra il testo</string>
+    <string name="edit_text_in_center_of_screen">Modifica il testo al centro della schermata</string>
     <string name="clipboard">Appunti</string>
     <string name="select_existing_document">Seleziona documento esistente</string>
     <string name="open_source_licenses">Licenze Open Source</string>
@@ -194,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduci</string>
     <string name="more_info_and_help">Più informazioni e aiuto</string>
     <string name="report_bugs">Segnala un bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su donazioni allo sviluppatore, o contribuire a questo progetto.</string>
     <string name="android_contribution_guide">Guida alla contribuzione Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Più informazioni su come contribuire a progetti open source, soprattutto app Android</string>
     <string name="join_community">Unisciti alla comunità</string>
     <string name="bug_reports_suggest_improvements">Dai un riscontro, segnala bug o suggerisci miglioramenti</string>
     <string name="help_translating_this_app">Traduci l\'applicazoine in altre lingue</string>
