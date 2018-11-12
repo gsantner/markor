@@ -133,7 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Ricorda l\'ultima cartella</string>
     <string name="syntax_highlighting">Evidenziazione della sintassi</string>
     <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei modelli più vecchi.</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei dispositivi più vecchi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
     <string name="control_font_size_in_editor">Controlla la dimensione del carattere usato nell\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visualizza una barra con comodi pulsanti sulla parte inferiore, per modificare il testo o eseguire un\'azione basata sul testo.</string>
@@ -173,8 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulatore</string>
     <string name="start_on_bottom">Inizia in basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può solo modificare solo documenti disponibili in locale oppure offline e non supporta file manager che non forniscono il percorso completo del file.</string>
-    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro file manager.</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
+    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro gestore dei file.</string>
     <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orrizontale</string>
@@ -195,7 +195,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduci</string>
     <string name="more_info_and_help">Più informazioni e aiuto</string>
     <string name="report_bugs">Segnala un bug</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su donazioni allo sviluppatore, o contribuire a questo progetto.</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su come donare allo sviluppatore, o su come contribuire a questo progetto.</string>
     <string name="android_contribution_guide">Guida alla contribuzione Android</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Più informazioni su come contribuire a progetti open source, soprattutto app Android</string>
     <string name="join_community">Unisciti alla comunità</string>
