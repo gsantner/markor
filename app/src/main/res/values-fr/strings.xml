@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Sélectionnez une ou plusieurs entrées</string>
     <string name="one_item_selected">Une entrée sélectionnée</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items choisis</string>
+    <string name="hide_statusbar_at_this_view">L\'application s\'exécute en mode plein écran</string>
     <string name="hide_statusbar">Cacher la barre de statut</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Rafraîchir</string>
     <string name="create_shortcut">Créer un raccourci</string>
     <string name="tried_to_create_shortcut_for_this_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier du bloc note de l\'application. Souhaitez-vous le copier dans ce dossier? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
     <string name="create_note" needed="false">Nouvelle note</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Se souvenir du dossier courant</string>
     <string name="syntax_highlighting">Coloration syntaxique</string>
     <string name="highlighting_delay">Délai de rafraîchissement</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
     <string name="control_font_size_in_editor">Fixe la taille de la police de caractères utilisée dans l\'éditeur</string>
     <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés. Ces actions sur le texte vont le modifier ou lancer une action à partir de celui-ci.</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulation</string>
     <string name="start_on_bottom">Commencer en haut</string>
     <string name="start_on_bottom_when_loading_document">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que des fichiers locaux, disponibles hors connexion, et ne supporte pas les gestionnaires de fichiers qui ne fournissent pas le chemin d’accès complet du fichier.</string>
+    <string name="sync_to_local_folder_notice">Note : les applications de synchronisation peuvent placer les fichiers dans des dossiers personnalisés. Vous pouvez les ouvrir en changeant le dossier des documents de Markor pour ce dossier personnalisé, ou en ouvrant le fichier via un autre explorateur de fichiers.</string>
     <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Espacement du module de texte</string>
     <string name="horizontal_space_between_textactions">Espacement horizontal entre les boutons d\'action sur le texte</string>
     <string name="center_text">Centrer le texte</string>
+    <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
     <string name="clipboard">Presse-papier</string>
     <string name="select_existing_document">Sélectionner un document existant</string>
     <string name="open_source_licenses">Licence Open Source</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduire</string>
     <string name="more_info_and_help">Plus d\'informations et d\'aide sur cette application</string>
     <string name="report_bugs">Signaler un bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Plus d’infos sur les possibilités de faire un don au développeur et de contribuer à ce projet.</string>
     <string name="android_contribution_guide">Guide de contribution Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur les possibilités de contribuer à un projet Open Source, notamment à des applications Android</string>
     <string name="join_community">Rejoindre la communauté</string>
     <string name="bug_reports_suggest_improvements">Commentaires et suggestions</string>
     <string name="help_translating_this_app">Traduire cette application</string>
