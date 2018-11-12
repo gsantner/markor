@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">項目を選択</string>
     <string name="one_item_selected">1 アイテム選択</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d アイテム選択</string>
+    <string name="hide_statusbar_at_this_view">このビューでステータスバーを非表示にします</string>
     <string name="hide_statusbar">ステータスバーを非表示</string>
     <string name="name">名前</string>
     <string name="url_or_path">URL / パス</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">更新</string>
     <string name="create_shortcut">ショートカットを作成</string>
     <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは同じ名前の既存のファイルを上書きします。</string>
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
     <string name="create_note" needed="false">ノートを作成</string>
