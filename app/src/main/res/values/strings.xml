@@ -66,7 +66,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="one_item_selected">One item selected</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="hide_statusbar_at_this_view">Hide the statusbar at this view</string>
+    <string name="hide_statusbar_at_this_view">Hide the statusbar in this view</string>
     <string name="hide_statusbar">Hide statusbar</string>
 
     <string name="name">Name</string>
@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Refresh</string>
     <string name="create_shortcut">Create shortcut</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tried to create a shortcut to your home screen. Note that some launchers may not support this.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">The selected file is not located in the app\'s notebook directory. Do you want to copy it to the current folder? This will overwrite existing files.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">The selected file is not located in the app\'s notebook directory. Do you want to copy it to the current folder? This will overwrite any existing file with the same name.</string>
     <string name="files_and_folders">Files and folders</string>
     <string name="document_browser">Document browser</string>
 
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Remember last directory</string>
     <string name="syntax_highlighting">Syntax highlighting</string>
     <string name="highlighting_delay">Highlighting delay</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but will drain more battery and make a heavy load.</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but it will drain your battery and may slow down the app on older devices.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
     <string name="control_font_size_in_editor">Control the font size used in the editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These textactions modify the text or run an action based on the text.</string>
@@ -182,8 +182,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor only allows to edit local, offline available, documents and support file managers which supply the full filepath including filename. Apparently the app didn\'t supply all required information and can\'t be used with Markor :(.</string>
-    <string name="sync_to_local_folder_notice">Notice: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available documents and does not support file managers that do not provide the full file path.</string>
+    <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders, open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the app settings</string>
     <string name="vertical_alignment">Vertical alignment</string>
     <string name="horizontal_alignment">Horizontal alignment</string>
@@ -197,7 +197,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="horizontal_space_between_textactions">Horizontal space between textaction buttons</string>
 
     <string name="center_text">Center text</string>
-    <string name="edit_text_in_center_of_screen">Edit text in center of the screen</string>
+    <string name="edit_text_in_center_of_screen">Edit text in the center of the screen</string>
     <string name="clipboard">Clipboard</string>
     <string name="select_existing_document">Select existing document</string>
     <string name="open_source_licenses">Open Source Licenses</string>
@@ -205,9 +205,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Translate</string>
     <string name="more_info_and_help">More info and help</string>
     <string name="report_bugs">Report bugs</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating or supporting this project</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project.</string>
     <string name="android_contribution_guide">Android contribution guide</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to Open Source projects, especially Android apps</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to open source projects, especially Android apps</string>
     <string name="join_community">Join the Community</string>
     <string name="bug_reports_suggest_improvements">Give feedback, report bugs or suggest improvements</string>
     <string name="help_translating_this_app">Translate this app into other languages</string>
