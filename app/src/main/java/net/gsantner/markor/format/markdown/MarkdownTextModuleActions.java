@@ -117,7 +117,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
                 case R.string.tmaid_checkbox: {
-                    runMarkdownRegularPrefixAction("- [ ] ");
+                    runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
                     break;
                 }
                 case R.string.tmaid_markdown_bold: {
@@ -241,17 +241,32 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         }
 
         private void runMarkdownRegularPrefixAction(String action) {
+            runMarkdownRegularPrefixAction(action, null);
+        }
+
+        private void runMarkdownRegularPrefixAction(String action, String replaceString) {
             String text = _hlEditor.getText().toString();
             TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
             int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
             while (lineStart != -1) {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
-                    textSelection.removeText(lineStart, action);
+                if (replaceString == null) {
+                    if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                        textSelection.removeText(lineStart, action);
+                    } else {
+                        textSelection.insertText(lineStart, action);
+                    }
                 } else {
-                    textSelection.insertText(lineStart, action);
-
+                    if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                        textSelection.removeText(lineStart, action);
+                        textSelection.insertText(lineStart, replaceString);
+                    } else if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(replaceString)) {
+                        textSelection.removeText(lineStart, replaceString);
+                        textSelection.insertText(lineStart, action);
+                    } else {
+                        textSelection.insertText(lineStart, action);
+                    }
                 }
 
                 text = _hlEditor.getText().toString();
