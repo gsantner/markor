@@ -79,7 +79,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
             {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
-            {R.string.tmaid_checkbox, R.drawable.checkbox},
+            {R.string.tmaid_checkbox, R.drawable.ic_check_box_black_24dp},
     };
 
     private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
