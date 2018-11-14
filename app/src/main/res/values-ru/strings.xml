@@ -133,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Запомнить последнюю директорию</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и может снизить производительность на старых устройствах.</string>
     <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
@@ -172,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляция (Установка позиции по горизонтали)</string>
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки документа курсор ставить в конец</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
