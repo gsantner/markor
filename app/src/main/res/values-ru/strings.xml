@@ -186,6 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Расстояние между текстовыми модулями</string>
     <string name="horizontal_space_between_textactions">Горизонтальное активное пространсто</string>
     <string name="center_text">Текст по центру</string>
+    <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
     <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
@@ -193,7 +194,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перевести</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Более подробная информация о том как отблагодарить разработчика, или внести вклад в этот проект.</string>
     <string name="android_contribution_guide">Руководство по вкладкам Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Дополнительная информация о том как внести вклад в проекты с открытым исходным кодом, в частности в приложения для Android</string>
     <string name="join_community">Присоединиться к сообществу</string>
     <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
     <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
@@ -228,6 +231,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="prefer_representation">Предпочесть изображение</string>
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Популярные документы</string>
+    <string name="color">Цвет</string>
     <string name="zero_width_space">Пробел нулевой ширины</string>
+    <string name="basic_color_scheme">Палитра приложения</string>
     <string name="background">Фон</string>
 </resources>
