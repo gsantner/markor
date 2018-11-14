@@ -234,5 +234,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Цвет</string>
     <string name="zero_width_space">Пробел нулевой ширины</string>
     <string name="basic_color_scheme">Палитра приложения</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Изменяет фоновый и основной цвет текстового редактора. Приспосабливается к темной и светлой теме приложения. Цвет выделения текста остаётся таким же.</string>
+    <string name="preset">Шаблон</string>
+    <string name="foreground">Передний план</string>
     <string name="background">Фон</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Установить цвет фона или переднего плана текста? Также возможна вставка hex кода.</string>
 </resources>
