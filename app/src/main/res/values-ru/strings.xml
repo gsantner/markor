@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Выбран один элемент</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элементов выбрано</string>
+    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом приложении</string>
     <string name="hide_statusbar">Скрыть строку состояния</string>
     <string name="name">Имя</string>
     <string name="url_or_path">URL / Путь</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Обновить</string>
     <string name="create_shortcut">Создать ярлык</string>
     <string name="tried_to_create_shortcut_for_this_notice">Попытались добавить ярлык на домашний экран для редактирования этого документа. Примечание: некоторые лаунчеры могут не поддерживать это.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл отсутствует в каталоге приложения. Хотите скопировать данный файл в текущий каталог? Это перезапишет любые существующие файлы с таким же именем.</string>
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Просмотр документов</string>
     <string name="create_note" needed="false">Создать заметку</string>
