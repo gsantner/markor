@@ -45,7 +45,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Dokument</string>
     <string name="documents">Dokumenty</string>
     <string name="html_as_plaintext">HTML (jako prostý text)</string>
+    <string name="theme">Motiv</string>
     <string name="about">Informace</string>
+    <string name="plaintext">Prostý text</string>
+    <string name="file">Soubor</string>
+    <string name="image">Obrázek</string>
+    <string name="font_size">Velikost písma</string>
     <string name="create">Vytvoøit</string>
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="contributors">Spolupracovníci</string>
