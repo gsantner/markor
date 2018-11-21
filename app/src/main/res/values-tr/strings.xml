@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Öğeleri seç</string>
     <string name="one_item_selected">Bir öğe seçildi</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d öğe seçildi</string>
+    <string name="hide_statusbar_at_this_view">Bu görünümde durum çubuğunu gizle</string>
     <string name="hide_statusbar">Durum çubuğunu gizle</string>
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Yenile</string>
     <string name="create_shortcut">Kısayol oluştur</string>
     <string name="tried_to_create_shortcut_for_this_notice">Bu belgeyi düzenlemek için ana ekranınıza bir kısayol eklemeye çalışır. Bazı başlatıcıların bunu desteklemeyebileceğini unutmayın.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, aynı adla var olan herhangi bir dosyanın üzerine yazacaktır.</string>
     <string name="files_and_folders">Dosyalar ve klasörler</string>
     <string name="document_browser">Belge görüntüleyici</string>
     <string name="create_note" needed="false">Not Oluştur</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Son dizini hatırla</string>
     <string name="syntax_highlighting">Sözdizimini vurgula</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak pilinizi tüketir ve eski cihazlarda uygulamayı yavaşlatabilir.</string>
     <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
     <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
     <string name="textactions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tab</string>
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
+    <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="configure_in_the_apps_settings">Uygulama ayarlarından yapılandır</string>
     <string name="vertical_alignment">Dikey hizalama</string>
     <string name="horizontal_alignment">Yatay hizalama</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Metin eylemleri arasındaki boşluk</string>
     <string name="horizontal_space_between_textactions">Metin eylem düğmeleri arasındaki yatay boşluk</string>
     <string name="center_text">Metni ortala</string>
+    <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
     <string name="select_existing_document">Mevcut belegeyi seç</string>
     <string name="open_source_licenses">Açık Kaynak Lisansları</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Çeviri yap</string>
     <string name="more_info_and_help">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="report_bugs">Hataları bildir</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Geliştiriciye bağış yapma veya bu projeye katkıda bulunma hakkında daha fazla bilgi alın.</string>
     <string name="android_contribution_guide">Android katkıda bulunma rehberi</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Açık kaynaklı projelere, özellikle Android uygulamalara katkıda bulunma hakkında daha fazla bilgi alın</string>
     <string name="join_community">Topluluğa katıl</string>
     <string name="bug_reports_suggest_improvements">Geri bildirim verin, hataları bildirin veya iyileştirmeler önerin</string>
     <string name="help_translating_this_app">Bu uygulamayı diğer dillere çevirin</string>

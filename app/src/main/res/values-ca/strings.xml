@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecciona les entrades</string>
     <string name="one_item_selected">Un element seleccionat</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elements seleccionats</string>
+    <string name="hide_statusbar_at_this_view">Amaga la barra d\'estat en aquesta vista</string>
     <string name="hide_statusbar">Amaga la barra d\'estat</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Refresca</string>
     <string name="create_shortcut">Crea una drecera</string>
     <string name="tried_to_create_shortcut_for_this_notice">S\'ha intentat afegir una drecera a la pantalla principal. Recordeu que alguns llançadors no permeten això.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">El fitxer seleccionat no es troba al directori del quadern de l\'aplicació. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer existent amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
     <string name="create_note" needed="false">Crea una nota</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Recorda el darrer directori</string>
     <string name="syntax_highlighting">Destacament de la sintaxi</string>
     <string name="highlighting_delay">Retard del destacament</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
     <string name="control_font_size_in_editor">Controla la mida de la font utilitzada a l\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Mostra una barra amb botons útils a la part inferior. Aquestes accions de text modifiquen el text o executen una acció basada en el text.</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulador</string>
     <string name="start_on_bottom">Comença a la part inferior</string>
     <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només pot editar documents locals disponibles sense connexió i no admet administradors d\'arxius que no proporcionin la ruta completa del fitxer.</string>
+    <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades, obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
     <string name="configure_in_the_apps_settings">Configureu-ho a la configuració de l\'aplicació</string>
     <string name="vertical_alignment">Alineació vertical</string>
     <string name="horizontal_alignment">Alineació horitzontal</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Espaiat d\'acció del text</string>
     <string name="horizontal_space_between_textactions">Espai horitzontal entre botons d\'acció de text</string>
     <string name="center_text">Centra el text</string>
+    <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
     <string name="select_existing_document">Seleccioneu el document existent</string>
     <string name="open_source_licenses">Llicències de codi obert</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tradueix</string>
     <string name="more_info_and_help">Més informació i ajuda</string>
     <string name="report_bugs">Informeu d\'errors</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Més informació sobre la donació al desenvolupador, o com contribuir a aquest projecte.</string>
     <string name="android_contribution_guide">Guia de contribució d\'Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Més informació sobre la contribució als projectes de codi obert, especialment a les aplicacions d\'Android</string>
     <string name="join_community">Uniu-vos a la comunitat</string>
     <string name="bug_reports_suggest_improvements">Feu comentaris, informeu d\'errors o suggeriu millores</string>
     <string name="help_translating_this_app">Traduïu aquesta aplicació a altres idiomes</string>
