@@ -32,7 +32,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_from_device">Importar do dispositivo</string>
     <string name="import_">Importar</string>
     <string name="append_to_witharg">Juntar a %s</string>
-    <string name="select_folder">Selecionar pasta</string>
+    <string name="select_folder">Seleccionar pasta</string>
     <string name="edit">Editar</string>
     <string name="search_documents">Pesquisar documentos</string>
     <string name="share_to_arrow">Partilhar com&#8230;</string>
@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Tipo de letra do editor</string>
     <string name="theme">Tema</string>
     <string name="show_representation_of_markup_by_default">Por definição, mostrar os documentos no modo de representação</string>
-    <string name="about">Acerca</string>
+    <string name="about">Sobre</string>
     <string name="plaintext">Texto simples</string>
     <string name="file">Ficheiro</string>
     <string name="image">Imagem</string>
