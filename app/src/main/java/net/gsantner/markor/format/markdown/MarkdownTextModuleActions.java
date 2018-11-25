@@ -78,8 +78,8 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_h3, R.drawable.format_header_3},
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
             {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
-            {R.string.tmaid_checkbox, R.drawable.ic_check_box_black_24dp},
     };
 
     private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -116,7 +116,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     runMarkdownRegularPrefixAction("1. ");
                     break;
                 }
-                case R.string.tmaid_checkbox: {
+                case R.string.tmaid_markdown_checkbox: {
                     runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
                     break;
                 }
