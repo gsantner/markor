@@ -56,4 +56,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font_size">Cỡ chữ</string>
     <string name="render_rtl_language">Hiển thị ngôn ngữ từ phải sang trái</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Lỗi: Không thể tạo thư mục sổ ghi chép</string>
+    <string name="last_modified_witharg">Sửa đổi lần cuối: %s</string>
+    <string name="select_this_folder">Chọn thư mục này</string>
+    <string name="select">Chọn</string>
+    <string name="create">Tạo ra</string>
+    <string name="select_entries">Chọn mục</string>
+    <string name="one_item_selected">Một khoản mục được chọn</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d khoản mục được chọn</string>
+    <string name="hide_statusbar_at_this_view">Ẩn thanh trạng thái trong dạng xem này</string>
+    <string name="hide_statusbar">Ẩn thanh trạng thái</string>
+    <string name="add_task">Thêm tác vụ</string>
+    <string name="add_x_witharg">Thêm %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Tài liệu được tải và lưu dưới dạng \"%s\"</string>
+    <string name="refresh">Làm mới</string>
+    <string name="create_shortcut">Tạo lối tắt</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Cố gắng để tạo một shortcut để màn hình của bạn. Lưu ý rằng một số bệ phóng có thể hỗ trợ điều này.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Tệp đã chọn không nằm trong thư mục máy tính xách tay các ứng dụng. Bạn có muốn sao chép nó vào thư mục hiện tại? Điều này sẽ ghi đè lên bất kỳ tập tin hiện có cùng tên.</string>
+    <string name="files_and_folders">Tệp và cặp</string>
+    <string name="document_browser">Trình duyệt tài liệu</string>
+    <string name="create_note" needed="false">Tạo ghi chú</string>
+    <string name="special_documents" needed="false">Tài liệu đặc biệt</string>
+    <string name="back_to_previous_folder" needed="false">Quay lại mục trước</string>
+    <string name="app_settings" needed="false">Cài đặt App</string>
+    <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
+    <string name="line_spacing">Line Spacing</string>
+    <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
 </resources>
