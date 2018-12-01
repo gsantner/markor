@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
+    <string name="hide_statusbar_at_this_view">Ocultar barra de status nesta visualização</string>
     <string name="hide_statusbar">Esconder barra de status</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Atualizar</string>
     <string name="create_shortcut">Criar atalho</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tentou adicionar um atalho em sua tela inicial para editar este documento. Observe que alguns lançadores podem não suportar isso.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
     <string name="create_note" needed="false">Criar nota</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Lembrar da última pasta</string>
     <string name="syntax_highlighting">Destaque de sintaxe</string>
     <string name="highlighting_delay">Realçar delongas</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso em milissegundos para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
     <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulação</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
     <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais e off-line, não há suporte para gerenciadores de arquivos que não disponibilizem o caminho completo do arquivo.</string>
+    <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
     <string name="configure_in_the_apps_settings">Configure nas configurações do aplicativos</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Espaçamento do módulo de texto</string>
     <string name="horizontal_space_between_textactions">Espaçamento horizontal de ações</string>
     <string name="center_text">Texto no centro</string>
+    <string name="edit_text_in_center_of_screen">Editar texto no centro da tela</string>
     <string name="clipboard">Área de transferência</string>
     <string name="select_existing_document">Selecionar um documento existente</string>
     <string name="open_source_licenses">Licenças Open Source</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduzir</string>
     <string name="more_info_and_help">Mais informações e ajuda sobre este aplicativo</string>
     <string name="report_bugs">Relatar bugs</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mais informação sobre doação para o desenvolvedor, ou contribuir para este projeto.</string>
     <string name="android_contribution_guide">Guia de contribuição do Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mais informações sobre como fazer contribuições em projetos open source, especialmente aplicativos para Android</string>
     <string name="join_community">Participe da Comunidade</string>
     <string name="bug_reports_suggest_improvements">Dar feedback, relatar bugs ou sugerir melhorias</string>
     <string name="help_translating_this_app">Traduzir este aplicativo para outros idiomas</string>

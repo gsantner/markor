@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Выбран один элемент</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элементов выбрано</string>
+    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом приложении</string>
     <string name="hide_statusbar">Скрыть строку состояния</string>
     <string name="name">Имя</string>
     <string name="url_or_path">URL / Путь</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Обновить</string>
     <string name="create_shortcut">Создать ярлык</string>
     <string name="tried_to_create_shortcut_for_this_notice">Попытались добавить ярлык на домашний экран для редактирования этого документа. Примечание: некоторые лаунчеры могут не поддерживать это.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл отсутствует в каталоге приложения. Хотите скопировать данный файл в текущий каталог? Это перезапишет любые существующие файлы с таким же именем.</string>
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Просмотр документов</string>
     <string name="create_note" needed="false">Создать заметку</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Запомнить последнюю директорию</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и может снизить производительность на старых устройствах.</string>
     <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляция (Установка позиции по горизонтали)</string>
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки документа курсор ставить в конец</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
+    <string name="sync_to_local_folder_notice">Примечание: Приложения использующие синхронизацию могут размещать файлы в пользовательских папках, откройте их, изменив папку документа Markor соответствующим образом, или в другом диспетчере файлов.</string>
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Расстояние между текстовыми модулями</string>
     <string name="horizontal_space_between_textactions">Горизонтальное активное пространсто</string>
     <string name="center_text">Текст по центру</string>
+    <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
     <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перевести</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Более подробная информация о том как отблагодарить разработчика, или внести вклад в этот проект.</string>
     <string name="android_contribution_guide">Руководство по вкладкам Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Дополнительная информация о том как внести вклад в проекты с открытым исходным кодом, в частности в приложения для Android</string>
     <string name="join_community">Присоединиться к сообществу</string>
     <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
     <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
@@ -224,6 +232,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="prefer_representation">Предпочесть изображение</string>
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Популярные документы</string>
+    <string name="color">Цвет</string>
     <string name="zero_width_space">Пробел нулевой ширины</string>
+    <string name="basic_color_scheme">Палитра приложения</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Изменяет фоновый и основной цвет текстового редактора. Приспосабливается к темной и светлой теме приложения. Цвет выделения текста остаётся таким же.</string>
+    <string name="preset">Шаблон</string>
+    <string name="foreground">Передний план</string>
     <string name="background">Фон</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Установить цвет фона или переднего плана текста? Также возможна вставка hex кода.</string>
 </resources>

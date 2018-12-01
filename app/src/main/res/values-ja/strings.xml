@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">項目を選択</string>
     <string name="one_item_selected">1 アイテム選択</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d アイテム選択</string>
+    <string name="hide_statusbar_at_this_view">このビューでステータスバーを非表示にします</string>
     <string name="hide_statusbar">ステータスバーを非表示</string>
     <string name="name">名前</string>
     <string name="url_or_path">URL / パス</string>
@@ -116,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">更新</string>
     <string name="create_shortcut">ショートカットを作成</string>
     <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは同じ名前の既存のファイルを上書きします。</string>
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
     <string name="create_note" needed="false">ノートを作成</string>
@@ -131,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">最後のディレクトリーを記憶</string>
     <string name="syntax_highlighting">書式ハイライト表示</string>
     <string name="highlighting_delay">ハイライト表示の遅延</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。値を小さくすると早く強調表示が開始されますが、バッテリーを消費し、古いデバイスではアプリが遅くなることがあります。</string>
     <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
     <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
     <string name="textactions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
@@ -170,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">タブ</string>
     <string name="start_on_bottom">下部で開始</string>
     <string name="start_on_bottom_when_loading_document">ドキュメントの読み込み時に、カーソル位置は最後になります</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markorはローカルのオフライン利用可能なドキュメントのみ編集できます。ファイルをフルパスで提供しないファイルマネージャーはサポートしていません。</string>
+    <string name="sync_to_local_folder_notice">注意: 同期アプリがカスタムフォルダーにファイルを配置することがあります。Markor のドキュメントフォルダーを変更するか、別のファイルマネージャーでそれを開くことができます。</string>
     <string name="configure_in_the_apps_settings">アプリ設定を構成します</string>
     <string name="vertical_alignment">縦に揃える</string>
     <string name="horizontal_alignment">横に揃える</string>
@@ -182,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">テキスト操作の間隔</string>
     <string name="horizontal_space_between_textactions">操作の横の間隔</string>
     <string name="center_text">テキストの中央揃え</string>
+    <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
     <string name="clipboard">クリップボード</string>
     <string name="select_existing_document">既存のドキュメントを選択</string>
     <string name="open_source_licenses">オープンソースライセンス</string>
@@ -189,7 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻訳</string>
     <string name="more_info_and_help">詳細情報とヘルプ</string>
     <string name="report_bugs">バグを報告</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">開発者への寄付や、このプロジェクトに対する貢献の詳細情報。</string>
     <string name="android_contribution_guide">Android 貢献者向けガイド</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">オープンソースプロジェクト、特に Android アプリの貢献者向け詳細情報</string>
     <string name="join_community">コミュニティに参加する</string>
     <string name="bug_reports_suggest_improvements">フィードバック、バグ報告、改善を提案してください</string>
     <string name="help_translating_this_app">このアプリを他の言語に翻訳してください</string>

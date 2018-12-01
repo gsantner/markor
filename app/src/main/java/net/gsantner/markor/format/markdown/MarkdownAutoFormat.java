@@ -67,7 +67,7 @@ public class MarkdownAutoFormat implements InputFilter {
                 // This is for any line that is not the first line in a file
                 Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
                 if (listMatcher.find()) {
-                    return dest.subSequence(istart, iend) + Character.toString(dest.charAt(iend)) + " ";
+                    return dest.toString().substring(istart, iend) + listMatcher.group() + " ";
                 } else {
                     Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
                     if (m.find()) {
