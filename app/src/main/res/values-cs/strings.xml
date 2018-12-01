@@ -31,6 +31,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="info">Informace</string>
     <string name="import_from_device">Import ze zařízení</string>
     <string name="import_">Import</string>
+    <string name="append_to_witharg">Přidat do %s</string>
     <string name="select_folder">Vybrat složku</string>
     <string name="edit">Upravit</string>
     <string name="search_documents">Hledat v dokumentech</string>
@@ -51,7 +52,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Soubor</string>
     <string name="image">Obrázek</string>
     <string name="font_size">Velikost písma</string>
+    <string name="last_modified_witharg">Naposledy změněno: %s</string>
     <string name="create">Vytvoøit</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="contributors">Spolupracovníci</string>
     <string name="licenses">Licence</string>
@@ -63,6 +66,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Velikost</string>
     <string name="exit">Odejít</string>
     <string name="more">Více</string>
+    <string name="add_task">Přidat úkol</string>
+    <string name="add_x_witharg">Přidat %s</string>
+    <string name="app_settings" needed="false">Nastavení aplikace</string>
+    <string name="alternative_naming">Alternativní pojmenování</string>
     <string name="general">Obecné</string>
     <string name="default_">Standardní</string>
     <string name="translate">Přeložit</string>

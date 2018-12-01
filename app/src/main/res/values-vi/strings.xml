@@ -10,4 +10,83 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Cài đặt</string>
+    <string name="light">Ánh sáng</string>
+    <string name="dark">Tối</string>
+    <string name="delete">Xóa bỏ</string>
+    <string name="appearance">Xuất hiện</string>
+    <string name="rename">Đổi tên</string>
+    <string name="confirm_delete">Xác nhận xóa bỏ</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Bạn có thực sự muốn xoá này %s?</string>
+    <string name="confirm_overwrite">Xác nhận ghi đè</string>
+    <string name="file_already_exists_overwerite">Tệp đã tồn tại, ghi đè lên?</string>
+    <string name="browse_filesystem">Trình duyệt hệ thống tập tin</string>
+    <string name="title">Tiêu đề</string>
+    <string name="empty_directory">Thư mục rỗng</string>
+    <string name="enter_name_of_folder">Nhập tên của thư mục của bạn</string>
+    <string name="create_folder">Tạo thư mục</string>
+    <string name="create_new_document">Tạo tài liệu mới</string>
+    <string name="move">Di chuyển</string>
+    <string name="info">Xem thông tin</string>
+    <string name="import_from_device">Nhập từ thiết bị</string>
+    <string name="import_">Nhập khẩu</string>
+    <string name="append_to_witharg">Gắn tiếp vào %s</string>
+    <string name="select_folder">Chọn thư mục</string>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="search_documents">Tìm kiếm tài liệu</string>
+    <string name="share_to_arrow">Chia sẻ về&#8230;</string>
+    <string name="share">Chia sẻ</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="representation">Đại diện</string>
+    <string name="display_converted_markup">Màn hình hiển thị chuyển đổi đánh dấu</string>
+    <string name="editor">Biên tập viên</string>
+    <string name="folders">Thư mục</string>
+    <string name="files">Tập tin</string>
+    <string name="document">Tài liệu</string>
+    <string name="documents">Tài liệu</string>
+    <string name="html_as_plaintext">HTML (như văn bản thuần)</string>
+    <string name="document_editor_font">Phông chữ soạn thảo tài liệu</string>
+    <string name="theme">Chủ đề</string>
+    <string name="show_representation_of_markup_by_default">Hiển thị tài liệu hiện có ở chế độ đại diện bởi mặc định</string>
+    <string name="about">Trong khoảng</string>
+    <string name="plaintext">Văn bản đơn thuần</string>
+    <string name="file">Tệp tin</string>
+    <string name="image">Hình ảnh</string>
+    <string name="font_size">Cỡ chữ</string>
+    <string name="render_rtl_language">Hiển thị ngôn ngữ từ phải sang trái</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Lỗi: Không thể tạo thư mục sổ ghi chép</string>
+    <string name="last_modified_witharg">Sửa đổi lần cuối: %s</string>
+    <string name="select_this_folder">Chọn thư mục này</string>
+    <string name="select">Chọn</string>
+    <string name="create">Tạo ra</string>
+    <string name="select_entries">Chọn mục</string>
+    <string name="one_item_selected">Một khoản mục được chọn</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d khoản mục được chọn</string>
+    <string name="hide_statusbar_at_this_view">Ẩn thanh trạng thái trong dạng xem này</string>
+    <string name="hide_statusbar">Ẩn thanh trạng thái</string>
+    <string name="name">Tên</string>
+    <string name="url_or_path">URL / đường dẫn</string>
+    <string name="insert_link">Chèn liên kết</string>
+    <string name="insert_image">Chèn hình ảnh</string>
+    <string name="contributors">Những người đóng góp</string>
+    <string name="save_location">Lưu vị trí</string>
+    <string name="select_storage_folder">Chọn thư mục lưu trữ</string>
+    <string name="licenses">Giấy phép</string>
+    <string name="add_task">Thêm tác vụ</string>
+    <string name="add_x_witharg">Thêm %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Tài liệu được tải và lưu dưới dạng \"%s\"</string>
+    <string name="refresh">Làm mới</string>
+    <string name="create_shortcut">Tạo lối tắt</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Cố gắng để tạo một shortcut để màn hình của bạn. Lưu ý rằng một số bệ phóng có thể hỗ trợ điều này.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Tệp đã chọn không nằm trong thư mục máy tính xách tay các ứng dụng. Bạn có muốn sao chép nó vào thư mục hiện tại? Điều này sẽ ghi đè lên bất kỳ tập tin hiện có cùng tên.</string>
+    <string name="files_and_folders">Tệp và cặp</string>
+    <string name="document_browser">Trình duyệt tài liệu</string>
+    <string name="create_note" needed="false">Tạo ghi chú</string>
+    <string name="special_documents" needed="false">Tài liệu đặc biệt</string>
+    <string name="back_to_previous_folder" needed="false">Quay lại mục trước</string>
+    <string name="app_settings" needed="false">Cài đặt App</string>
+    <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
+    <string name="line_spacing">Line Spacing</string>
+    <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
+</resources>
