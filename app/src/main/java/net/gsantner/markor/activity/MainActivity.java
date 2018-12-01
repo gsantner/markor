@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
 
+    private String _currentTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     } else {
                         _toolbar.setTitle("> " + currentDir.getName());
                     }
+                    _currentTitle = _toolbar.getTitle().toString();
                     return;
                 }
             }
@@ -307,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.nav_notebook: {
                 _viewPager.setCurrentItem(0);
+                _toolbar.setTitle(_currentTitle);
                 return true;
             }
 
@@ -314,17 +318,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 restoreDefaultToolbar();
                 _viewPager.setCurrentItem(1);
+                _toolbar.setTitle(R.string.todo);
                 return true;
             }
             case R.id.nav_quicknote: {
                 permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 restoreDefaultToolbar();
                 _viewPager.setCurrentItem(2);
+                _toolbar.setTitle(R.string.quicknote);
                 return true;
             }
             case R.id.nav_more: {
                 restoreDefaultToolbar();
                 _viewPager.setCurrentItem(3);
+                _toolbar.setTitle(R.string.more);
                 return true;
             }
         }

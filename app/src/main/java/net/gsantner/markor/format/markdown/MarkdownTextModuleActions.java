@@ -78,6 +78,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_h3, R.drawable.format_header_3},
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
             {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
     };
 
@@ -113,6 +114,10 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 }
                 case R.string.tmaid_markdown_ol: {
                     runMarkdownRegularPrefixAction("1. ");
+                    break;
+                }
+                case R.string.tmaid_markdown_checkbox: {
+                    runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
                     break;
                 }
                 case R.string.tmaid_markdown_bold: {
@@ -236,17 +241,32 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         }
 
         private void runMarkdownRegularPrefixAction(String action) {
+            runMarkdownRegularPrefixAction(action, null);
+        }
+
+        private void runMarkdownRegularPrefixAction(String action, String replaceString) {
             String text = _hlEditor.getText().toString();
             TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
             int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
             while (lineStart != -1) {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
-                    textSelection.removeText(lineStart, action);
+                if (replaceString == null) {
+                    if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                        textSelection.removeText(lineStart, action);
+                    } else {
+                        textSelection.insertText(lineStart, action);
+                    }
                 } else {
-                    textSelection.insertText(lineStart, action);
-
+                    if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                        textSelection.removeText(lineStart, action);
+                        textSelection.insertText(lineStart, replaceString);
+                    } else if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(replaceString)) {
+                        textSelection.removeText(lineStart, replaceString);
+                        textSelection.insertText(lineStart, action);
+                    } else {
+                        textSelection.insertText(lineStart, action);
+                    }
                 }
 
                 text = _hlEditor.getText().toString();

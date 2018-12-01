@@ -1,4 +1,30 @@
-### v1.3.0 [Blog post](https://gsantner.net/blog/2018/10/06/markor-release-v1.3.html)
+### v1.4.0 [Blog post](https://gsantner.net/blog/2018/11/12/markor-release-v1.4.html)
+**New features:**  
+- App-wide  
+  - Add popular documents to 'share into'  
+- Editor  
+  - Settings options for editor background and foreground color  
+  - todo.txt: Highlight multiple levels of context/projects (@@/++)  
+- Text Actions  
+  - Add zero-width space character to 'special characters'  
+  - Add color picker  
+
+**Improved:**  
+- TextActions  
+  - Markdown: Multiline textaction for header/quote/list  
+- Editor  
+  - More space for document title  
+  - Harden automatic file naming and moving  
+- Representation  
+  - Enable block rendering for KaTex (math)  
+- App-wide  
+  - Natural scrolling in dialogs  
+
+**Fixed:**  
+- Filesystem  
+  - Discard selection when leaving filesystem view  
+
+### v1.3.0
 **New features:**  
 - App-wide  
   - Add 'Auto' theme, switch light/dark theme by current hour  
