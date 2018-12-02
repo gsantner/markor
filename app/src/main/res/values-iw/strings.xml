@@ -56,4 +56,30 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font_size">גודל גופן</string>
     <string name="render_rtl_language">תייצג עבור שפות ימין-לשמאל</string>
     <string name="error_cannot_create_notebook_dir__appspecific">שגיאה: לא ניתן ליצור תיקיה</string>
+    <string name="last_modified_witharg">עדכון אחרון: %s</string>
+    <string name="select_this_folder">בחר תיקיה זו</string>
+    <string name="select">בחר</string>
+    <string name="create">צור</string>
+    <string name="select_entries">בחר רשומות</string>
+    <string name="add_task">הוסף מטלה</string>
+    <string name="add_x_witharg">הוסף %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">המסמך יטען יישמר כ- \"%s\"</string>
+    <string name="refresh">רענן</string>
+    <string name="create_shortcut">צור קיצור דרך</string>
+    <string name="tried_to_create_shortcut_for_this_notice">ניסיתי ליצור קיצור דרך למסך הבית. שים לב כי קיימים לאנצ\'רים שלא תומכים בזה.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">הקובץ הנבחר לא נמצא בתיקיית המחברות של האפליקציה. האם תרצה להעתיק אותו לתיקיה הנוכחית? זה יקרוס כל קובץ קיים עם שם זהה.</string>
+    <string name="files_and_folders">קבצים ותיקיות</string>
+    <string name="document_browser">דפדפן מסמכים</string>
+    <string name="create_note" needed="false">צור פתק</string>
+    <string name="special_documents" needed="false">מסמכים מיוחדים</string>
+    <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
+    <string name="back_to_previous_folder" needed="false">חזרה לתיקיה הקודמת</string>
+    <string name="app_settings" needed="false">הגדרות אפליקציה</string>
+    <string name="editor_settings" needed="false">הגדרות העורך</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">זכור מיקום תיקיה אחרון בעת אתחול</string>
+    <string name="number_of_files_witharg" needed="false">מספר הקובץ: %d</string>
+    <string name="app_wide">כלל- אפליקציה</string>
+    <string name="main_view">תצוגה ראשית</string>
+    <string name="overall_theme_used_in_app">ערכת הנושא הכללית לשימוש על ידי האפליקציה</string>
+    <string name="remember_last_directory">זכור מיקום אחרון</string>
 </resources>
