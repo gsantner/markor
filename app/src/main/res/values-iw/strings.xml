@@ -82,4 +82,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">תצוגה ראשית</string>
     <string name="overall_theme_used_in_app">ערכת הנושא הכללית לשימוש על ידי האפליקציה</string>
     <string name="remember_last_directory">זכור מיקום אחרון</string>
+    <string name="syntax_highlighting">הדגשת תחביר</string>
+    <string name="highlighting_delay">השהיית הדגשה</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
+    <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
+    <string name="control_font_size_in_editor">שלוט בגודל הגופן בו משתמש העורך</string>
+    <string name="textactions_show_useful_actions_description__appspecific">הצג שורה עם כפתורים שימושיים בתחתית. פעולות הטקסט האלו משנות את הטקסט או מבצעות פעולה התלויה בטקסט.</string>
+    <string name="load_last_opened_folder_at_startup">טען את התיקיה באחרונה בעת אתחול</string>
+    <string name="format">פורמט</string>
+    <string name="contexts">הקשרים</string>
+    <string name="project">פרוייקט</string>
+    <string name="projects">פרוייקטים</string>
+    <string name="categories">קטגוריות</string>
+    <string name="none">אף אחד</string>
+    <string name="other">אחר</string>
+    <string name="alternative_naming">שם חלופי</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
+    <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
+    <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
+    <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
+    <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
 </resources>
