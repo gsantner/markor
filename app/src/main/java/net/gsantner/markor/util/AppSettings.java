@@ -177,6 +177,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_launcher_for_special_files_enabled, false);
     }
 
+    public boolean isKeepScreenOn() {
+        return getBool(R.string.pref_key__is_keep_screen_on, false);
+    }
+
     public boolean isOverviewStatusBarHidden() {
         return getBool(R.string.pref_key__is_overview_statusbar_hidden, false);
     }

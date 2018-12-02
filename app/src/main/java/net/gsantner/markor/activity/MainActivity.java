@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        if(_appSettings.isKeepScreenOn()){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
         if (!_appSettings.isLoadLastDirectoryAtStartup()) {
             _appSettings.setLastOpenedDirectory(null);
         }

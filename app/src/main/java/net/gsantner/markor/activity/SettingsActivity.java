@@ -22,6 +22,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenEditorLinkBoxActivity;
@@ -184,6 +185,10 @@ public class SettingsActivity extends AppCompatActivity {
             );
             updatePreference(R.string.pref_key__is_launcher_for_special_files_enabled, null,
                     ("Launcher (" + getString(R.string.special_documents) + ")"),
+                    getString(R.string.app_drawer_launcher_special_files_description), true
+            );
+            updatePreference(R.string.pref_key__is_keep_screen_on, null,
+                    getString(R.string.keep_screen_on),
                     getString(R.string.app_drawer_launcher_special_files_description), true
             );
             updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
