@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 This file contains references to people who contributed to the app.
 
 Schema:  **[Name](Reference)**<br/>~° Text
@@ -34,3 +34,4 @@ Where:
 * **[Ankush S Shetkar](https://www.linkedin.com/in/livelycoder/)**<br/>~° Added Chrome custom tabs for urls
 * **[Lars Pontoppidan](https://github.com/larpon)**<br/>~° Danish translation
 * **[Amaya Lim](https://github.com/nightrainlily)**<br/>~° Improve project description
+* **[Jawkwon Im](https://github.com/jakeoneijk)**<br/>~° Add keep screen on
