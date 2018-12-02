@@ -42,7 +42,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="web_browser" translatable="false">Web browser</string>
     <string name="app_drawer_launcher_special_files_description" translatable="false">App drawer launchers: LinkBox, ToDo, QuickNote</string>
 
-
     <string name="category_to_context_project_to_tag" translatable="false">%1$s -> %2$s, %3$s -> %4$s</string>
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>
     <string name="app_theme_light" translatable="false">light</string>
@@ -185,7 +184,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_basic_color_scheme_blackorwhite" translatable="false">pref_key__editor_basic_color_scheme_blackorwhite</string>
     <string name="pref_key__editor_basic_color_scheme_markor" translatable="false">pref_key__editor_basic_color_scheme_markor</string>
     <string name="pref_key__editor_basic_color_scheme_gruvbox" translatable="false">pref_key__editor_basic_color_scheme_gruvbox</string>
-
+    <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
 
     <string name="tmaid_markdown_quote" translatable="false">markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">markdown_h1</string>

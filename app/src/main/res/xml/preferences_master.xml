@@ -45,10 +45,17 @@
 
         <PreferenceCategory android:title="@string/miscellaneous">
             <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_widgets_black_24dp"
+            android:key="@string/pref_key__is_launcher_for_special_files_enabled"
+            android:title="@string/special_documents" />
+
+            <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_widgets_black_24dp"
-                android:key="@string/pref_key__is_launcher_for_special_files_enabled"
-                android:title="@string/special_documents" />
+                android:icon="@drawable/ic_screen_lock_portrait_black_24dp"
+                android:key="@string/pref_key__is_keep_screen_on"
+                android:title="@string/keep_screen_on" />
+
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/document_browser">
