@@ -189,7 +189,7 @@ public class SettingsActivity extends AppCompatActivity {
             );
             updatePreference(R.string.pref_key__is_keep_screen_on, null,
                     getString(R.string.keep_screen_on),
-                    getString(R.string.app_drawer_launcher_special_files_description), true
+                    getString(R.string.keep_screen_on_description), true
             );
             updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));

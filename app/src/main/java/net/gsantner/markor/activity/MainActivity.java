@@ -26,6 +26,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,9 +92,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        if(_appSettings.isKeepScreenOn()){
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
+
         if (!_appSettings.isLoadLastDirectoryAtStartup()) {
             _appSettings.setLastOpenedDirectory(null);
         }
@@ -131,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
         startActivity(i);*/
     }
+
+
 
     private void optShowRate() {
         new Rate.Builder(this)
@@ -214,6 +215,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
+
+        if(_appSettings.isKeepScreenOn()){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     @Override
