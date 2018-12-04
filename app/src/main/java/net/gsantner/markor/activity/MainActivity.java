@@ -35,6 +35,8 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.ui.FileInfoDialog;
+import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
@@ -212,9 +214,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
         lbm.registerReceiver(_localBroadcastReceiver, AppCast.getLocalBroadcastFilter());
 
-        if(_appSettings.isKeepScreenOn()){
+        if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }else{
+        } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
@@ -274,15 +276,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
-                    Intent intent = new Intent(this, DocumentActivity.class);
-                    if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
-                        File path = ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG)).getCurrentDir();
-                        intent.putExtra(DocumentIO.EXTRA_PATH, path);
-                    } else {
-                        intent.putExtra(DocumentIO.EXTRA_PATH, _appSettings.getNotebookDirectory());
-                    }
-                    intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
-                    startActivity(intent);
+
+                    NewFileDialog fileInfoDialog = NewFileDialog.newInstance(AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+                        if (ok) {
+                            if (f.isFile()) {
+                                Intent intent = new Intent(this, DocumentActivity.class);
+                                intent.putExtra(DocumentIO.EXTRA_PATH, f);
+                                intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                                startActivity(intent);
+                            } else if (f.isDirectory()) {
+
+                                WrFilesystemListFragment wrFragment = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
+                                if (wrFragment != null) {
+                                    wrFragment.listFilesInDirectory(wrFragment.getCurrentDir(), true);
+                                }
+                            }
+                        }
+                    });
+                    fileInfoDialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
                     break;
                 }
             }

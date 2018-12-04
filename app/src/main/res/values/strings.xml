@@ -252,4 +252,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Foreground</string>
     <string name="background">Background</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
+    <string name="type">Type</string>
+    <string name="folder">Folder</string>
 </resources>

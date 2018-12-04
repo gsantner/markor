@@ -47,4 +47,12 @@
         <item translatable="false">@string/search</item>
         <item translatable="false">@string/zero_width_space</item>
     </string-array>
+
+    <string-array name="new_file_types" translatable="false">
+        <item translatable="false">@string/markdown</item>
+        <item translatable="false">@string/plaintext</item>
+        <item translatable="false">@string/todo_txt</item>
+        <item translatable="false">@string/none</item>
+        <item translatable="false">@string/jekyll</item>
+    </string-array>
 </resources>

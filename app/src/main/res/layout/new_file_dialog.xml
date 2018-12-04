@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    /*#######################################################
+    *
+    *   Maintained by Gregor Santner, 2018-
+    *   https://gsantner.net/
+    *
+    *   License: Apache 2.0 / Commercial
+    *  https://github.com/gsantner/opoc/#licensing
+    *  https://www.apache.org/licenses/LICENSE-2.0
+    *
+    #########################################################*/
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_file_dialog__root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <EditText
+                android:id="@+id/new_file_dialog__name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="80"
+                android:hint="@string/my_note"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp" />
+
+
+            <EditText
+                android:id="@+id/new_file_dialog__ext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_weight="30"
+                android:gravity="end"
+                android:inputType="text"
+                android:lines="1"
+                android:text=".md"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="19sp" />
+
+        <Spinner
+            android:id="@+id/new_file_dialog__type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/new_file_types" />
+
+    </LinearLayout>
+</ScrollView>
