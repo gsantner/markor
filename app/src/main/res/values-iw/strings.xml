@@ -240,4 +240,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">קדמה</string>
     <string name="background">רקע</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">להגדיר צבע קדמה או רקע של הטקסט? הכנסת קוד צבע האקסהדצימלי גם אפשרי.</string>
+    <string name="type">סוג</string>
+    <string name="folder">תיקייה</string>
 </resources>
