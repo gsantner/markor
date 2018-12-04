@@ -241,4 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Ön plan</string>
     <string name="background">Arka plan</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Metnin ön plan veya arka plan rengi ayarlansın mı? Hex renk kodu eklemek de mümkündür.</string>
+    <string name="type">Tür</string>
+    <string name="folder">Klasör</string>
 </resources>
