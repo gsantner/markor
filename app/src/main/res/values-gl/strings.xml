@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Código de terceiras partes</string>
     <string name="language_change_restart_description">Cambiar o idioma de esta aplicación. Reinicie para que se aplique o troco</string>
     <string name="language">Idioma</string>
+    <string name="deleteme____1">Nome</string>
     <string name="more">Máis</string>
     <string name="general">Xeral</string>
     <string name="default_">Por omisión</string>
