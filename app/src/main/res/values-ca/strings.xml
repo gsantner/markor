@@ -241,4 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Primer pla</string>
     <string name="background">Fons</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Voleu establir el color secundari o primari del text? També és possible introduir el codi hexadecimal del color.</string>
+    <string name="type">Tipus</string>
+    <string name="folder">Carpeta</string>
 </resources>
