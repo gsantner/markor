@@ -241,4 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">前景</string>
     <string name="background">背景</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">テキストの前景色または背景色を設定します。色を 16 進コードで入力することも可能です。</string>
+    <string name="type">形式</string>
+    <string name="folder">フォルダー</string>
 </resources>
