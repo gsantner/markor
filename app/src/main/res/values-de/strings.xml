@@ -117,10 +117,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Aktualisieren</string>
     <string name="create_shortcut">Verknüpfung erstellen</string>
     <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
     <string name="files_and_folders">Dateien und Ordner</string>
     <string name="document_browser">Dokumenten-Browser</string>
     <string name="create_note" needed="false">Notiz erstellen</string>
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
+    <string name="keep_screen_on" needed="false">Bildschirm nicht ausschalten</string>
     <string name="back_to_previous_folder" needed="false">Zurück zum vorherigen Ordner</string>
     <string name="app_settings" needed="false">App Einstellungen</string>
     <string name="editor_settings" needed="false">Editor Einstellungen</string>
@@ -132,6 +134,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Letzten Ordner merken</string>
     <string name="syntax_highlighting">Syntax Highlighting</string>
     <string name="highlighting_delay">Highlighting Verzögerung</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit hilfreichen Buttons unten anzeigen. Diese Textaktionen modifizieren den Text oder führen eine Aktion basierend auf dem Text aus.</string>
@@ -171,6 +174,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbaren Dokumente bearbeiten. Datei-Manager die nicht den vollständigen Dateipfad angeben sind nicht unterstützt.</string>
+    <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
     <string name="vertical_alignment">Vertikale Anordnung</string>
     <string name="horizontal_alignment">Horizontale Anordnung</string>
@@ -183,6 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Textaktionen Abstand</string>
     <string name="horizontal_space_between_textactions">Horizontaler Abstand zwischen Textaktion Buttons</string>
     <string name="center_text">Text mittig</string>
+    <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
     <string name="select_existing_document">Bestehendes Dokument auswählen</string>
     <string name="open_source_licenses">Open Source Lizenzen</string>
@@ -190,7 +196,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Übersetzen</string>
     <string name="more_info_and_help">Mehr Infos und Hilfe zu dieser App</string>
     <string name="report_bugs">Fehler melden</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Weitere Informationen über eine Spende an den Entwickler oder einen Beitrag zu diesem Projekt.</string>
     <string name="android_contribution_guide">Unterstützungs Guide für Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Weitere Informationen zum Beitrag zu Open Source-Projekten, insbesondere zu Android Apps</string>
     <string name="join_community">Community beitreten</string>
     <string name="bug_reports_suggest_improvements">Feedback geben, Fehler melden, Verbesserungen vorschlagen</string>
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
@@ -233,4 +241,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Vordergrund</string>
     <string name="background">Hintergrund</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Setze Vordergrund- oder Hintergrund-Farbe des Textes? Hinzufügen des Hex Color Codes ist ebenfalls möglich.</string>
+    <string name="type">Typ</string>
+    <string name="folder">Ordner</string>
+    <string name="folder_is_created_without_extension">- Ordner wird ohne Dateiendung erstellt</string>
+    <string name="keep_existing_file">- Dateien und Ordner werden nicht überschrieben</string>
 </resources>
