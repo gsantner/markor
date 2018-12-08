@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
+    <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
     <string name="hide_statusbar">Ocultar barra de estado</string>
     <string name="name">Ordenar por nombre</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -116,10 +117,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Actualizar</string>
     <string name="create_shortcut">Crear acceso directo</string>
     <string name="tried_to_create_shortcut_for_this_notice">Se intentó añadir un acceso en tu pantalla principal. Ten presente que algunos lanzadores no permiten esto.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">El archivo seleccionado no se encuentra en la carpeta del bloc de notas de la aplicación. ¿Desea copiarlo? Si existe un archivo con el mismo nombre será sobre escrito.</string>
     <string name="files_and_folders">Archivos y carpetas</string>
     <string name="document_browser">Navegador de documentos</string>
     <string name="create_note" needed="false">Crear nota</string>
     <string name="special_documents" needed="false">Documentos especiales</string>
+    <string name="keep_screen_on" needed="false">Mantener pantalla encendida</string>
     <string name="back_to_previous_folder" needed="false">Atrás a la carpeta anterior</string>
     <string name="app_settings" needed="false">Ajustes de aplicación</string>
     <string name="editor_settings" needed="false">Ajustes del editor</string>
@@ -131,6 +134,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Recordar última carpeta</string>
     <string name="syntax_highlighting">Resaltado de sintaxis</string>
     <string name="highlighting_delay">Retraso para resaltar</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para refrescar el resaltado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño en equipos antiguos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser resaltado o no</string>
     <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles en la parte inferior que modifican el texto o realizan acciones en función de este.</string>
@@ -170,6 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulador</string>
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
