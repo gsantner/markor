@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
+    <string name="show_representation_of_markup_by_default">Pokaż domyślnie istniejące dokumenty w tybie reprezentacji</string>
     <string name="about">Informacje</string>
     <string name="plaintext">Zwykły tekst</string>
     <string name="file">Plik</string>
@@ -149,6 +150,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="append_contexts_and_projects">Dodaj konteksty i projekty</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dodaj konteksty i projekty na końcu zadania, gdy używasz odpowiedniej akcji tekstu</string>
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -170,6 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Zacznij od dołu</string>
     <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
+    <string name="configure_in_the_apps_settings">Konfiguruj w ustawieniach aplikacji</string>
     <string name="vertical_alignment">Wyrównanie w pionie</string>
     <string name="horizontal_alignment">Wyrównanie w poziomie</string>
     <string name="default_">Domyślna</string>
@@ -178,6 +181,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Góra</string>
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
+    <string name="textaction_spacing">Odstępy Tekstu akcji</string>
     <string name="horizontal_space_between_textactions">Poziomy odstęp akcji</string>
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
@@ -215,6 +219,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematyka</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
+    <string name="prefer_representation">Preferuj reprezentację</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
     <string name="color">Kolor</string>
