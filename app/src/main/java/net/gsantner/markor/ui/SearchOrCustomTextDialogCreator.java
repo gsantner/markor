@@ -111,6 +111,25 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showSttSortDialogue(Activity activity, Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+        List<String> availableData = new ArrayList<>();
+        availableData.add(activity.getString(R.string.priority_descending));
+        availableData.add(activity.getString(R.string.priority_ascending));
+        availableData.add(activity.getString(R.string.context_descending));
+        availableData.add(activity.getString(R.string.context_ascending));
+        availableData.add(activity.getString(R.string.project_descending));
+        availableData.add(activity.getString(R.string.project_ascending));
+        dopt.data = availableData;
+        dopt.titleText = R.string.sort;
+        dopt.messageText = activity.getString(R.string.sort_sorts_by_selection);
+        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.isSearchEnabled = false;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         sortUniqNonEmpty(availableData, "home", "shop");
