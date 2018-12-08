@@ -119,6 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Przeglądarka dokumentów</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
     <string name="special_documents" needed="false">Specjalne dokumenty</string>
+    <string name="keep_screen_on" needed="false">Pozostaw ekran włączony</string>
     <string name="back_to_previous_folder" needed="false">Wróć do poprzedniego folderu</string>
     <string name="app_settings" needed="false">Ustawienia aplikacji</string>
     <string name="editor_settings" needed="false">Ustawienia edytora</string>
@@ -185,6 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu otwarto źródłowych projektów, szczególnie aplikacji Androida</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
@@ -202,6 +204,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
     <string name="details">Szczegóły</string>
     <string name="calendar">Kalendarz</string>
+    <string name="warning_disallowed_sd_access">Uwaga! Aplikacja nie ma uprawnień, aby zapisać ten plik, wszystkie zmiany zostaną utracone. Nie ma możliwości, aby rozwiązać problem lub coś potwierdzić, Android odrzuca wszelki dostęp tutaj.</string>
     <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
     <string name="gallery_picture">Galeria zdjęć</string>
     <string name="camera_picture">Zdjęcie z aparatu</string>
@@ -216,4 +219,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
     <string name="background">Tło</string>
+    <string name="type">Typ</string>
+    <string name="folder">Katalog</string>
+    <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia</string>
+    <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
 </resources>
