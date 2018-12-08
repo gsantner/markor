@@ -263,7 +263,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
 
-                    NewFileDialog fileInfoDialog = NewFileDialog.newInstance(AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+                    WrFilesystemListFragment frag = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
+
+                    NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentDir() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
                                 Intent intent = new Intent(this, DocumentActivity.class);
@@ -279,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             }
                         }
                     });
-                    fileInfoDialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                    dialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
                     break;
                 }
             }
