@@ -241,4 +241,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">前景</string>
     <string name="background">背景</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">设置文本的前景色和背景色吗？插入十六进制颜色代码也可以。</string>
+    <string name="type">文件类型</string>
+    <string name="folder">文件夹</string>
+    <string name="folder_is_created_without_extension">- 创建文件夹时没有文件扩展名</string>
+    <string name="keep_existing_file">- 文件和文件夹不会被覆盖</string>
 </resources>
