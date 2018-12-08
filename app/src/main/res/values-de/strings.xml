@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Einträge auswählen</string>
     <string name="one_item_selected">Eine Datei ausgewählt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d Elemente ausgewählt</string>
+    <string name="hide_statusbar_at_this_view">Statusleiste in dieser Ansicht verstecken</string>
     <string name="hide_statusbar">Statusleiste verstecken</string>
     <string name="name">Sortieren nach Name</string>
     <string name="url_or_path">URL / Pfad</string>
