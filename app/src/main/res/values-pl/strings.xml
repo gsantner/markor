@@ -226,8 +226,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
     <string name="background">Tło</string>
-    <string name="type">Typ</string>
+    <string name="type">Rodzaj</string>
     <string name="folder">Katalog</string>
-    <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia</string>
+    <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia pliku</string>
     <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
 </resources>
