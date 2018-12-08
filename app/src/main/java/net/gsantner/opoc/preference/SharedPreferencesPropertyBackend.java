@@ -166,7 +166,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     public String[] rstrs(int... keyResourceIds) {
         String[] ret = new String[keyResourceIds.length];
-        for (int i=0;  i < keyResourceIds.length; i++){
+        for (int i = 0; i < keyResourceIds.length; i++) {
             ret[i] = rstr(keyResourceIds[i]);
         }
         return ret;
