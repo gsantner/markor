@@ -254,4 +254,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
     <string name="type">Type</string>
     <string name="folder">Folder</string>
+    <string name="folder_is_created_without_extension">- Folder is created without file extension</string>
+    <string name="keep_existing_file">- Files and folders are not overwritten</string>
 </resources>

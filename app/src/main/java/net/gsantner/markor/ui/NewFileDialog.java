@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +29,7 @@ import android.widget.Spinner;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -75,32 +77,19 @@ public class NewFileDialog extends DialogFragment {
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
+        final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+
+        fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
+        fileExtEdit.setFilters(fileNameEdit.getFilters());
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String prefix = null;
-                String ext = null;
+                String ext = i < typeSpinnerToExtension.length ? typeSpinnerToExtension[i] : "";
                 switch (i) {
-                    case 0: {
-                        ext = ".md";
-                        break;
-                    }
-                    case 1: {
-                        ext = ".txt";
-                        break;
-                    }
-                    case 2: {
-                        ext = ".todo.txt";
-                        break;
-                    }
-                    case 3: {
-                        ext = "";
-                        break;
-                    }
                     case 4: {
-                        ext = ".md";
                         prefix = new SimpleDateFormat("YYYY-MM-dd-").format(new Date());
                         break;
                     }

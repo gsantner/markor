@@ -154,6 +154,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="text/plain" />
+                <data android:mimeType="text/plain+md" />
+                <data android:mimeType="text/markdown" />
+                <data android:mimeType="text/x-markdown" />
                 <data android:mimeType="text/htm" />
                 <data android:mimeType="text/html" />
             </intent-filter>
@@ -173,6 +176,7 @@
                 <data android:scheme="content" />
                 <data android:scheme="file" />
                 <data android:mimeType="text/plain" />
+                <data android:mimeType="text/plain+md" />
                 <data android:mimeType="text/markdown" />
                 <data android:mimeType="text/x-markdown" />
                 <data android:mimeType="application/octet-stream" />
@@ -473,6 +477,38 @@
                 <data
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.txt" />
+
+                <!-- Handling of file extension ".zim" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.zim" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.zim" />
             </intent-filter>
         </activity>
     </application>

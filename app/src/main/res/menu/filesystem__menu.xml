@@ -57,13 +57,6 @@
     </item>
 
     <item
-        android:id="@+id/action_create_folder"
-        android:icon="@drawable/ic_folder_white_24dp"
-        android:title="@string/create_folder"
-        app:showAsAction="ifRoom" />
-
-
-    <item
         android:id="@+id/action_import"
         android:icon="@drawable/ic_file_white_24dp"
         android:title="@string/import_from_device"

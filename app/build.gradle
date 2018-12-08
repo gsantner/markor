@@ -42,7 +42,7 @@ android {
 
         applicationId "net.gsantner.markor"
         versionName "1.4.0"
-        versionCode 40
+        versionCode 41
     }
 
     productFlavors {

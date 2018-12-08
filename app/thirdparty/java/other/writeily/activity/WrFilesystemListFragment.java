@@ -17,7 +17,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
@@ -56,7 +55,6 @@ import butterknife.BindView;
 import butterknife.OnItemClick;
 import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
-import other.writeily.ui.WrCreateFolderDialog;
 import other.writeily.ui.WrFilesystemListAdapter;
 import other.writeily.ui.WrRenameDialog;
 
@@ -306,10 +304,6 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 }
                 return true;
             }
-            case R.id.action_create_folder: {
-                showCreateFolderDialog();
-                return true;
-            }
             case R.id.action_refresh: {
                 listFilesInDirectory(getCurrentDir(), true);
                 return true;
@@ -435,18 +429,6 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 opt.doSelectFolder = true;
             }
         }, getFragmentManager(), getActivity());
-    }
-
-    public void showCreateFolderDialog() {
-        FragmentManager supFragManager;
-        Bundle args = new Bundle();
-        args.putString(WrCreateFolderDialog.CURRENT_DIRECTORY_DIALOG_KEY, getCurrentDir().getAbsolutePath());
-
-        WrCreateFolderDialog createFolderDialog = new WrCreateFolderDialog();
-        createFolderDialog.setArguments(args);
-        if ((supFragManager = getFragmentManager()) != null) {
-            createFolderDialog.show(supFragManager, WrCreateFolderDialog.FRAGMENT_TAG);
-        }
     }
 
     /**

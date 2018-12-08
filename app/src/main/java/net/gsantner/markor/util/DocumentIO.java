@@ -100,7 +100,7 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
             } else if (MarkdownTextConverter.isMarkdownFile(filePath)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
-            } else if (fnlower.endsWith(".txt")) {
+            } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             } else {
                 String oldTitle = document.getTitle();

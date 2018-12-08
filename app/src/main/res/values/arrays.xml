@@ -48,11 +48,23 @@
         <item translatable="false">@string/zero_width_space</item>
     </string-array>
 
+
     <string-array name="new_file_types" translatable="false">
         <item translatable="false">@string/markdown</item>
         <item translatable="false">@string/plaintext</item>
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/none</item>
-        <item translatable="false">@string/jekyll</item>
+        <item translatable="false">@string/jekyll_post</item>
+        <item translatable="false">@string/zim_wiki</item>
+    </string-array>
+
+    <string-array name="new_file_types__file_extension" translatable="false">
+        <item translatable="false">.md</item>
+        <item translatable="false">.txt</item>
+        <item translatable="false">.todo.txt</item>
+        <!--suppress CheckTagEmptyBody -->
+        <item translatable="false"></item>
+        <item translatable="false">.md</item>
+        <item translatable="false">.zim</item>
     </string-array>
 </resources>

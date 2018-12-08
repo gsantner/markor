@@ -256,20 +256,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 
-    @OnLongClick({R.id.fab_add_new_item})
-    public boolean onLongClickedFab(View view) {
-        switch (view.getId()) {
-            case R.id.fab_add_new_item: {
-                if (_viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG) != null) {
-                    ((WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG))
-                            .showCreateFolderDialog();
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
     @OnClick({R.id.fab_add_new_item})
     public void onClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);

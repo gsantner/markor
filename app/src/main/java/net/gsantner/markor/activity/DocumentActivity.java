@@ -141,6 +141,7 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         _toolbarTitleEdit.setFilters(new InputFilter[]{DocumentIO.INPUT_FILTER_FILESYSTEM_FILENAME});
+        _toolbarTitleEdit.setEnabled(false);
     }
 
     @Override

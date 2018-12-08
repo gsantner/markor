@@ -47,6 +47,7 @@ import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -738,4 +739,18 @@ public class ContextUtils {
             }
         }
     }
+
+    /**
+     * A {@link InputFilter} for filenames
+     */
+    @SuppressWarnings("Convert2Lambda")
+    public static final InputFilter INPUTFILTER_FILENAME = new InputFilter() {
+        public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
+            if (src.length() < 1) return null;
+            char last = src.charAt(src.length() - 1);
+            String illegal = "|\\?*<\":>+[]/'";
+            if (illegal.indexOf(last) > -1) return src.subSequence(0, src.length() - 1);
+            return null;
+        }
+    };
 }

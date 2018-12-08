@@ -11,12 +11,17 @@
     #########################################################*/
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/new_file_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="0dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:paddingBottom="0dp"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,8 +35,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,16 +70,16 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/type"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <Spinner
             android:id="@+id/new_file_dialog__type"
@@ -83,6 +87,18 @@
             android:layout_height="wrap_content"
             android:drawSelectorOnTop="true"
             android:entries="@array/new_file_types" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/folder_is_created_without_extension" />
+        <TextView
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/keep_existing_file" />
 
     </LinearLayout>
 </ScrollView>
