@@ -230,4 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background_foreground_color_in_editor_works_dark_light">Cambia el color de fondo y el primer plano del editor de texto. Se ajusta al tema de la aplicación y está disponible para el tema claro y oscuro. Los colores de resaltado de la sintaxis permanecen iguales.</string>
     <string name="preset">Preajuste</string>
     <string name="background">Fondo</string>
+    <string name="type">Tipo</string>
+    <string name="folder">Carpeta</string>
 </resources>
