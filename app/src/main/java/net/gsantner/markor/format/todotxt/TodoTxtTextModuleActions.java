@@ -70,6 +70,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             //{R.drawable.ic_add_white_24dp, 5},
             {R.drawable.ic_archive_black_24dp, 7},
             {R.drawable.ic_date_range_black_24dp, 8},
+            {R.drawable.ic_sort_by_alpha_black_24dp, 9},
     };
     private static final String[] STT_INSERT_ACTIONS = {
             "toggle_done",
@@ -82,6 +83,7 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             //"add_task",
             "archive_done_tasks",
             "insert_date",
+            "sort_todo",
             CommonTextModuleActions.ACTION_COLOR_PICKER,
     };
 
