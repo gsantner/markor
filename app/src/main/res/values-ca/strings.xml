@@ -243,4 +243,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Voleu establir el color secundari o primari del text? També és possible introduir el codi hexadecimal del color.</string>
     <string name="type">Tipus</string>
     <string name="folder">Carpeta</string>
+    <string name="folder_is_created_without_extension">- La carpeta es crea sense extensió de fitxer</string>
+    <string name="keep_existing_file">- Els fitxers i carpetes no es sobreescriuen</string>
 </resources>
