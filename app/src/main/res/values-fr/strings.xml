@@ -122,6 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Explorateur de documents</string>
     <string name="create_note" needed="false">Nouvelle note</string>
     <string name="special_documents" needed="false">Documents spéciaux</string>
+    <string name="keep_screen_on" needed="false">Garder l\'écran allumé</string>
     <string name="back_to_previous_folder" needed="false">Dossier précédent</string>
     <string name="app_settings" needed="false">Réglages</string>
     <string name="editor_settings" needed="false">Réglages de l\'éditeur</string>
@@ -240,4 +241,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Avant-plan</string>
     <string name="background">Fond</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Définir la couleur d’avant-plan ou arrière-plan du texte? Il est également possible d’utiliser du code de couleur hexadécimal.</string>
+    <string name="type">Type</string>
+    <string name="folder">Dossier</string>
+    <string name="folder_is_created_without_extension">- Le dossier est créé sans extension de fichier</string>
+    <string name="keep_existing_file">- Les fichiers et dossiers ne seront pas écrasés ou remplacés</string>
 </resources>
