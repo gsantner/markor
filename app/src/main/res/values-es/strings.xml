@@ -175,6 +175,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
+    <string name="sync_to_local_folder_notice">Importante: las aplicaciones sincronizadas pueden poner archivos en directorios personalizados, abrirlas cambiando los directorios de archivos de Markor o usando otro gestor de archivos.</string>
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
@@ -187,6 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Espaciado de módulo de texto</string>
     <string name="horizontal_space_between_textactions">Espacio horizontal entre botones de acción de texto</string>
     <string name="center_text">Centrar texto</string>
+    <string name="edit_text_in_center_of_screen">Editar texto en el centro de la pantalla</string>
     <string name="clipboard">Portapapeles</string>
     <string name="select_existing_document">Seleccionar documento existente</string>
     <string name="open_source_licenses">Licencias de código abierto</string>
@@ -194,7 +196,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traducir</string>
     <string name="more_info_and_help">Ayuda y más información sobre esta aplicación</string>
     <string name="report_bugs">Informar de fallos</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Más información sobre donar al desarrollador, o contribuir a este proyecto.</string>
     <string name="android_contribution_guide">Guía de colaboración Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Más información sobre la colaboración con proyectos de código abierto, especialmente aplicaciones de Android</string>
     <string name="join_community">Únete a la comunidad</string>
     <string name="bug_reports_suggest_improvements">Da tu opinión, reporta errores o sugiere mejoras</string>
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
@@ -234,7 +238,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="basic_color_scheme">Esquema básico de color</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Cambia el color de fondo y el primer plano del editor de texto. Se ajusta al tema de la aplicación y está disponible para el tema claro y oscuro. Los colores de resaltado de la sintaxis permanecen iguales.</string>
     <string name="preset">Preajuste</string>
+    <string name="foreground">Primer plano</string>
     <string name="background">Fondo</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">¿Configurar color frontal o de fondo del texto? También es posible insertar código de color hexadecimal.</string>
     <string name="type">Tipo</string>
     <string name="folder">Carpeta</string>
+    <string name="folder_is_created_without_extension">El directorio se ha creado sin extensión de archivo</string>
+    <string name="keep_existing_file">Archivos y directorios no se sobrescriben</string>
 </resources>
