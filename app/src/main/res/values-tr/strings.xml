@@ -243,4 +243,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Metnin ön plan veya arka plan rengi ayarlansın mı? Hex renk kodu eklemek de mümkündür.</string>
     <string name="type">Tür</string>
     <string name="folder">Klasör</string>
+    <string name="folder_is_created_without_extension">- Klasör, dosya uzantısı olmadan oluşturulur</string>
+    <string name="keep_existing_file">- Dosya ve klasörlerin üzerine yazılmaz</string>
 </resources>
