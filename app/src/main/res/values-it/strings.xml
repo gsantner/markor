@@ -243,4 +243,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Impostare il colore di primo piano o di sfondo del testo? È anche possibile inserire il codice esadecimale del colore.</string>
     <string name="type">Tipo</string>
     <string name="folder">Cartella</string>
+    <string name="folder_is_created_without_extension">La cartella è creata senza estensione</string>
+    <string name="keep_existing_file">File e cartelle non saranno sovrascritti</string>
 </resources>
