@@ -35,3 +35,4 @@ Where:
 * **[Lars Pontoppidan](https://github.com/larpon)**<br/>~° Danish translation
 * **[Amaya Lim](https://github.com/nightrainlily)**<br/>~° Improve project description
 * **[Jawkwon Im](https://github.com/jakeoneijk)**<br/>~° Add keep screen on
+* **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
