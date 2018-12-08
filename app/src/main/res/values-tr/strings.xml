@@ -122,6 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Belge görüntüleyici</string>
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
+    <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -240,4 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Ön plan</string>
     <string name="background">Arka plan</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Metnin ön plan veya arka plan rengi ayarlansın mı? Hex renk kodu eklemek de mümkündür.</string>
+    <string name="type">Tür</string>
+    <string name="folder">Klasör</string>
 </resources>

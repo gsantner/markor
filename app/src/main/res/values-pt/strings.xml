@@ -122,6 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Explorador de ficheiros</string>
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
+    <string name="keep_screen_on" needed="false">Manter ecrã ligado</string>
     <string name="back_to_previous_folder" needed="false">Recuar para a pasta anterior</string>
     <string name="app_settings" needed="false">Definições</string>
     <string name="editor_settings" needed="false">Definições do editor</string>
@@ -240,4 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Principal</string>
     <string name="background">Fundo</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Definir cor principal e secundária? Também pode utilizar os códigos de cor HEX.</string>
+    <string name="type">Tipo</string>
+    <string name="folder">Pasta</string>
 </resources>

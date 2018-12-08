@@ -122,6 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">文档浏览器</string>
     <string name="create_note" needed="false">新建笔记</string>
     <string name="special_documents" needed="false">指定文档</string>
+    <string name="keep_screen_on" needed="false">保持屏幕开启</string>
     <string name="back_to_previous_folder" needed="false">上一级</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
