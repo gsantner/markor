@@ -23,12 +23,14 @@ import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
+import net.gsantner.opoc.format.todotxt.extension.SttTaskComparator;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //TODO
@@ -227,6 +229,24 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                         }
                     });
                     return;
+                }
+                case "sort_todo": {
+                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (callbackPayload) -> {
+                        ArrayList<SttTaskWithParserInfo> tasks = new ArrayList<>();
+                        for (String task : origText.split("\n")) tasks.add(sttcmd.parseTask(task));
+                        SttTaskComparator comparator = new SttTaskComparator();
+                        String[] split = callbackPayload.split(", ");
+                        comparator.setSortBy(split[0]);
+                        comparator.setAscending(split[1].endsWith("ascending"));
+
+                        Collections.sort(tasks, comparator);
+
+                        ArrayList<String> tasksStrings = new ArrayList<>();
+                        for (SttTaskWithParserInfo task : tasks) {
+                            tasksStrings.add(task.getTaskLine());
+                        }
+                        _hlEditor.setText(TextUtils.join("\n", tasksStrings));
+                    });
                 }
             }
 
