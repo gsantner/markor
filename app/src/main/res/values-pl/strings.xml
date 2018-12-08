@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
+    <string name="show_representation_of_markup_by_default">Pokaż domyślnie istniejące dokumenty w tybie reprezentacji</string>
     <string name="about">Informacje</string>
     <string name="plaintext">Zwykły tekst</string>
     <string name="file">Plik</string>
@@ -119,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Przeglądarka dokumentów</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
     <string name="special_documents" needed="false">Specjalne dokumenty</string>
+    <string name="keep_screen_on" needed="false">Pozostaw ekran włączony</string>
     <string name="back_to_previous_folder" needed="false">Wróć do poprzedniego folderu</string>
     <string name="app_settings" needed="false">Ustawienia aplikacji</string>
     <string name="editor_settings" needed="false">Ustawienia edytora</string>
@@ -130,6 +132,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Zapamiętaj ostatnią lokalizację katalogu</string>
     <string name="syntax_highlighting">Podświetlanie składni</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale to będzie rozładowywać baterię i aplikacja może działać wolniej na starszych urzączeniach.</string>
     <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
     <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
@@ -146,6 +149,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline_hex_color_codes">Podkreślaj kolory w układzie szesnastkowym (Hex)</string>
     <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
+    <string name="append_contexts_and_projects">Dodaj konteksty i projekty</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dodaj konteksty i projekty na końcu zadania, gdy używasz odpowiedniej akcji tekstu</string>
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -167,6 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Zacznij od dołu</string>
     <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
+    <string name="configure_in_the_apps_settings">Konfiguruj w ustawieniach aplikacji</string>
     <string name="vertical_alignment">Wyrównanie w pionie</string>
     <string name="horizontal_alignment">Wyrównanie w poziomie</string>
     <string name="default_">Domyślna</string>
@@ -175,6 +181,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Góra</string>
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
+    <string name="textaction_spacing">Odstępy Tekstu akcji</string>
     <string name="horizontal_space_between_textactions">Poziomy odstęp akcji</string>
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
@@ -185,6 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu otwarto źródłowych projektów, szczególnie aplikacji Androida</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
@@ -202,6 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
     <string name="details">Szczegóły</string>
     <string name="calendar">Kalendarz</string>
+    <string name="warning_disallowed_sd_access">Uwaga! Aplikacja nie ma uprawnień, aby zapisać ten plik, wszystkie zmiany zostaną utracone. Nie ma możliwości, aby rozwiązać problem lub coś potwierdzić, Android odrzuca wszelki dostęp tutaj.</string>
     <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
     <string name="gallery_picture">Galeria zdjęć</string>
     <string name="camera_picture">Zdjęcie z aparatu</string>
@@ -210,10 +219,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematyka</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
+    <string name="prefer_representation">Preferuj reprezentację</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
     <string name="color">Kolor</string>
     <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
     <string name="background">Tło</string>
+    <string name="type">Rodzaj</string>
+    <string name="folder">Katalog</string>
+    <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia pliku</string>
+    <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
 </resources>

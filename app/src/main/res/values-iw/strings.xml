@@ -242,4 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">להגדיר צבע קדמה או רקע של הטקסט? הכנסת קוד צבע האקסהדצימלי גם אפשרי.</string>
     <string name="type">סוג</string>
     <string name="folder">תיקייה</string>
+    <string name="folder_is_created_without_extension">- תיקיה נוצרת ללא סיומת</string>
+    <string name="keep_existing_file">- תיקיות וקבצים לא נדרסים</string>
 </resources>

@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Välj poster</string>
     <string name="one_item_selected">Ett objekt valt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d objekt valda</string>
+    <string name="hide_statusbar_at_this_view">Göm statusfältet i den här vyn</string>
     <string name="hide_statusbar">Dölj statusfältet</string>
     <string name="name">Namn</string>
     <string name="url_or_path">URL / sökväg</string>
@@ -233,4 +234,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">Förgrund</string>
     <string name="background">Bakgrund</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Ställ in textens förgrund eller bakgrundsfärg? Det är också möjligt att klistra in färgkod i hex-format.</string>
+    <string name="type">Typ</string>
+    <string name="folder">Mapp</string>
+    <string name="folder_is_created_without_extension">- Mappen skapades utan filändelsen</string>
 </resources>
