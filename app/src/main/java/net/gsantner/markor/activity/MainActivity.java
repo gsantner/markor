@@ -9,10 +9,12 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -40,7 +42,6 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
@@ -150,13 +151,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         AppSettings as = new AppSettings(this);
         switch (item.getItemId()) {
             case R.id.action_preview: {
-                Intent intent = new Intent(this, DocumentActivity.class);
-                intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
-                intent.putExtra(DocumentIO.EXTRA_PATH,
-                        _bottomNav.getSelectedItemId() == R.id.nav_quicknote
-                                ? as.getQuickNoteFile() : as.getTodoFile()
-                );
-                startActivity(intent);
+                File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
+                DocumentActivity.launch(MainActivity.this, f, false, true, null);
                 return true;
             }
             case R.id.action_settings: {
@@ -167,10 +163,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 SearchOrCustomTextDialogCreator.showRecentDocumentsDialog(this, new Callback.a1<String>() {
                     @Override
                     public void callback(String selectedFile) {
-                        Intent intent = new Intent(MainActivity.this, DocumentActivity.class);
-                        intent.putExtra(DocumentIO.EXTRA_PATH, new File(selectedFile));
-                        intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-                        startActivity(intent);
+                        DocumentActivity.launch(MainActivity.this, new File(selectedFile), false, false, null);
                     }
                 });
                 return true;
@@ -204,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             startActivity(intent);
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
+            setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        }
 
         int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
                 ? R.color.dark__background : R.color.light__background);
@@ -266,12 +262,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentDir() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
-                                Intent intent = new Intent(this, DocumentActivity.class);
-                                intent.putExtra(DocumentIO.EXTRA_PATH, f);
-                                intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-                                startActivity(intent);
+                                DocumentActivity.launch(MainActivity.this, f, false, false, null);
                             } else if (f.isDirectory()) {
-
                                 WrFilesystemListFragment wrFragment = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
                                 if (wrFragment != null) {
                                     wrFragment.listFilesInDirectory(wrFragment.getCurrentDir(), true);

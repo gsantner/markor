@@ -119,7 +119,7 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
                     File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
-                    callback(FileUtils.touch(f), f);
+                    callback(FileUtils.touch(f) || f.exists(), f);
                     dialogInterface.dismiss();
                 })
                 .setNeutralButton(R.string.folder, (dialogInterface, i) -> {

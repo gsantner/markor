@@ -34,6 +34,7 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppCast;
@@ -627,10 +628,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
             listFilesInDirectory(clickedFile, true);
         } else {
             saveCurrentFolder();
-            Intent intent = new Intent(context, DocumentActivity.class);
-            intent.putExtra(DocumentIO.EXTRA_PATH, clickedFile);
-            intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            startActivity(intent);
+            DocumentActivity.launch(getActivity(), clickedFile, false, null, null);
         }
     }
 

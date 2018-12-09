@@ -56,6 +56,13 @@
                 android:key="@string/pref_key__is_keep_screen_on"
                 android:title="@string/keep_screen_on" />
 
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:summary="@string/open_new_documents_always_in_new_window"
+                android:icon="@drawable/ic_border_outer_black_24dp"
+                android:key="@string/pref_key__is_multi_window_enabled"
+                android:title="@string/multiple_windows" />
+
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/document_browser">

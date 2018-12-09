@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -77,6 +79,25 @@ public class DocumentActivity extends AppCompatActivity {
 
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
+
+    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
+        if (intent == null) {
+            intent = new Intent(activity, DocumentActivity.class);
+        }
+        if (path != null) {
+            intent.putExtra(DocumentIO.EXTRA_PATH, path);
+        }
+        if (isFolder != null) {
+            intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, isFolder);
+        }
+        if (doPreview != null) {
+            intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new AppSettings(activity.getApplicationContext()).isMultiWindowEnabled()) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        }
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,6 +271,9 @@ public class DocumentActivity extends AppCompatActivity {
     public void setDocumentTitle(final String title) {
         _toolbarTitleEdit.setText(title);
         _toolbarTitleText.setText(title);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
+            setTaskDescription(new ActivityManager.TaskDescription(title));
+        }
     }
 
     public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
@@ -307,6 +331,16 @@ public class DocumentActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (_appSettings.isKeepScreenOn()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
     @OnTextChanged(value = R.id.note__activity__edit_note_title, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onToolbarTitleEditValueChanged(CharSequence title) {
         // Do not recurse
@@ -346,7 +380,11 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         // Handle in this activity
-        finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAndRemoveTask();
+        } else {
+            finish();
+        }
     }
 
 
