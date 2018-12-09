@@ -209,6 +209,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
+    <string name="descending">absteigend</string>
+    <string name="ascending">aufsteigend</string>
     <string name="disable_spelling_underline">Rechtschreibungs-Linie deaktivieren</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastatur-Vorschläge bleiben, die rote Untertreichung verschwindet</string>
     <string name="location">Ort</string>
