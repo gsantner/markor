@@ -246,4 +246,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_is_created_without_extension">- Le dossier est créé sans extension de fichier</string>
     <string name="keep_existing_file">- Les fichiers et dossiers ne seront pas écrasés ou remplacés</string>
     <string name="font">Police</string>
+    <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la clé des fenêtres récentes de votre appareil.</string>
 </resources>
