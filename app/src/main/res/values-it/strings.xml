@@ -163,7 +163,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
     <string name="line_spacing">Spaziatura delle linee</string>
     <string name="archive_does_move_done_tasks">Muovi le attività terminate nel file specificato nella stessa cartella</string>
-    <string name="sort_sorts_by_selection">Ordina le attività nell\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
