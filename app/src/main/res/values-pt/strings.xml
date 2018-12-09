@@ -243,4 +243,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Definir cor principal e secundária? Também pode utilizar os códigos de cor HEX.</string>
     <string name="type">Tipo</string>
     <string name="folder">Pasta</string>
+    <string name="font">Tipo de letra</string>
 </resources>
