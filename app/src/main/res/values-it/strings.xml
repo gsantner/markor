@@ -249,6 +249,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_is_created_without_extension">La cartella è creata senza estensione</string>
     <string name="keep_existing_file">File e cartelle non saranno sovrascritti</string>
     <string name="multiple_windows">Finestre multiple</string>
-    <string name="font">Carattere</string>
+    <string name="font">Font</string>
     <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
 </resources>
