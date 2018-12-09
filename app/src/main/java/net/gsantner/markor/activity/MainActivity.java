@@ -35,7 +35,6 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
@@ -57,7 +56,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import butterknife.OnPageChange;
 import other.writeily.activity.WrFilesystemListFragment;
 

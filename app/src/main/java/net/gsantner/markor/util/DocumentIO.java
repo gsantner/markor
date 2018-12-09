@@ -104,13 +104,13 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             } else {
                 String oldTitle = document.getTitle();
-                if(oldTitle.contains(".")){
+                if (oldTitle.contains(".")) {
                     int lastIndexOfDot = oldTitle.lastIndexOf(".");
 
                     //divide oldTitle to document title and file extension
                     document.setFileExtension(oldTitle.substring(lastIndexOfDot));
-                    document.setTitle(oldTitle.substring(0,lastIndexOfDot));
-                }else{
+                    document.setTitle(oldTitle.substring(0, lastIndexOfDot));
+                } else {
                     document.setFileExtension("");
                     document.setTitle(oldTitle);
                 }
