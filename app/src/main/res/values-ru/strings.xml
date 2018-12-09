@@ -163,7 +163,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Междустрочный интервал в процентах</string>
     <string name="line_spacing">Междустрочный интервал</string>
     <string name="archive_does_move_done_tasks">Перемещать выполненные задачи в указанный файл в той же папке</string>
-    <string name="sort_sorts_by_selection">Сортируйте ваш чек-лист в выбранном порядке</string>
     <string name="special_key">Специальная клавиша</string>
     <string name="key_page_up">Листать вверх</string>
     <string name="key_page_down">Листать вниз</string>
