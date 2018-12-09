@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Espacement de lignes (%)</string>
     <string name="line_spacing">Espacement de lignes</string>
     <string name="archive_does_move_done_tasks">Déplacer vers un fichier du dossier</string>
+    <string name="sort_tasks_by_selected_order">Sélectionner l\'ordre des tâches</string>
     <string name="special_key">Touches spéciales</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
     <string name="project_team">Équipe</string>
     <string name="contributors_public_add_yourself_description">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
+    <string name="descending">décroissant</string>
+    <string name="ascending">croissant</string>
     <string name="disable_spelling_underline">Désactiver le soulignement des fautes</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Les suggestions du clavier restent, les soulignements rouges disparaissent</string>
     <string name="location">Stocké dans</string>
@@ -245,6 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Dossier</string>
     <string name="folder_is_created_without_extension">- Le dossier est créé sans extension de fichier</string>
     <string name="keep_existing_file">- Les fichiers et dossiers ne seront pas écrasés ou remplacés</string>
+    <string name="multiple_windows">Fenêtres multiples</string>
     <string name="font">Police</string>
     <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la clé des fenêtres récentes de votre appareil.</string>
 </resources>
