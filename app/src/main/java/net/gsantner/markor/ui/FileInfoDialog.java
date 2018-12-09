@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -62,11 +63,20 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setTitle(getResources().getString(R.string.details));
         dialogBuilder.setView(root);
 
-        TextView textView = root.findViewById(R.id.ui__fileinfodialog__description);
-        textView.setText(file.getName());
+        ((TextView)root.findViewById(R.id.ui__fileinfodialog__name))
+                .setText(file.getParentFile().getName());
 
-        TextView locationView = root.findViewById(R.id.ui__fileinfodialog__location_description);
-        locationView.setText(file.getParentFile().getAbsolutePath());
+
+        ((TextView)root.findViewById(R.id.ui__fileinfodialog__location))
+                .setText(file.getParentFile().getAbsolutePath());
+
+        ((TextView)root.findViewById(R.id.ui__fileinfodialog__last_modified))
+                .setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+
+        ((TextView)root.findViewById(R.id.ui__fileinfodialog__last_modified_caption))
+                .setText(getString(R.string.last_modified_witharg, "").replace(":","").trim());
+
+
 
         TextView sizeView = root.findViewById(R.id.ui__fileinfodialog__size_description);
         sizeView.setText(FileUtils.getReadableFileSize(file.length(), false));
