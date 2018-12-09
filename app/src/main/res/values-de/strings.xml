@@ -248,4 +248,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Ordner</string>
     <string name="folder_is_created_without_extension">- Ordner wird ohne Dateiendung erstellt</string>
     <string name="keep_existing_file">- Dateien und Ordner werden nicht überschrieben</string>
+    <string name="font">Schriftart</string>
 </resources>
