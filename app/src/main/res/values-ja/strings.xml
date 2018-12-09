@@ -245,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">フォルダー</string>
     <string name="folder_is_created_without_extension">- ファイル拡張子なしのフォルダーが作成されます</string>
     <string name="keep_existing_file">- ファイルとフォルダーは上書きされません</string>
+    <string name="font">フォント</string>
 </resources>
