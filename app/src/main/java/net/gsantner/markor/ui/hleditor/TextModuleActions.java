@@ -133,4 +133,11 @@ public abstract class TextModuleActions {
         _context = context;
         return this;
     }
+
+    /**
+     * Callable from background thread!
+     */
+    public void setEditorTextAsync(final String text) {
+        _activity.runOnUiThread(() -> _hlEditor.setText(text));
+    }
 }

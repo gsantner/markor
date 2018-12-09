@@ -23,7 +23,6 @@ import net.gsantner.markor.ui.hleditor.TextModuleActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
-import net.gsantner.opoc.format.todotxt.extension.SttTaskComparator;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
@@ -233,22 +232,22 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     return;
                 }
                 case "sort_todo": {
-                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (callbackPayload) -> {
-                        ArrayList<SttTaskWithParserInfo> tasks = new ArrayList<>();
-                        for (String task : origText.split("\n")) tasks.add(sttcmd.parseTask(task));
-                        SttTaskComparator comparator = new SttTaskComparator();
-                        String[] split = callbackPayload.split(", ");
-                        comparator.setSortBy(split[0]);
-                        comparator.setAscending(split[1].endsWith("ascending"));
-
-                        Collections.sort(tasks, comparator);
-
-                        ArrayList<String> tasksStrings = new ArrayList<>();
-                        for (SttTaskWithParserInfo task : tasks) {
-                            tasksStrings.add(task.getTaskLine());
+                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            ArrayList<SttTaskWithParserInfo> tasks = new ArrayList<>();
+                            for (String task : origText.split("\n")) {
+                                tasks.add(sttcmd.parseTask(task));
+                            }
+                            Collections.sort(tasks, new SttCommander.SttTaskSimpleComparator(orderBy, descending));
+                            ArrayList<String> tasksStrings = new ArrayList<>();
+                            for (SttTaskWithParserInfo task : tasks) {
+                                tasksStrings.add(task.getTaskLine());
+                            }
+                            setEditorTextAsync(TextUtils.join("\n", tasksStrings));
                         }
-                        _hlEditor.setText(TextUtils.join("\n", tasksStrings));
-                    });
+                    }.start());
                 }
             }
 

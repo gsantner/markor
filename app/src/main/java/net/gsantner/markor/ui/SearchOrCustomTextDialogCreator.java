@@ -111,20 +111,37 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttSortDialogue(Activity activity, Callback.a1<String> callback) {
+    public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.callback = callback;
         List<String> availableData = new ArrayList<>();
-        availableData.add(activity.getString(R.string.priority_descending));
-        availableData.add(activity.getString(R.string.priority_ascending));
-        availableData.add(activity.getString(R.string.context_descending));
-        availableData.add(activity.getString(R.string.context_ascending));
-        availableData.add(activity.getString(R.string.project_descending));
-        availableData.add(activity.getString(R.string.project_ascending));
+
+        AppSettings appSettings = new AppSettings(activity.getApplicationContext());
+        String ocontext = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
+        String oproject = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.tag : R.string.project);
+        String oprio = activity.getString(R.string.priority);
+        String oasc = " (" + activity.getString(R.string.ascending) + ")";
+        String odesc = " (" + activity.getString(R.string.descending) + ")";
+        String optLastSelected = "showSttSortDialogue.last_selected";
+
+        dopt.callback = arg1 -> {
+            appSettings.setString(optLastSelected, arg1);
+            String[] values = arg1.replace(ocontext, "context").replace(oproject, "project").replace(oprio, "priority").split(" ");
+            callback.callback(values[0], values[1].contains(odesc.replace(" ", "")));
+        };
+
+        availableData.add(oprio + oasc);
+        availableData.add(oprio + odesc);
+        availableData.add(oproject + oasc);
+        availableData.add(oproject + odesc);
+        availableData.add(ocontext + oasc);
+        availableData.add(ocontext + odesc);
+
         dopt.data = availableData;
+        dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, ocontext + odesc));
+
         dopt.titleText = R.string.sort;
-        dopt.messageText = activity.getString(R.string.sort_sorts_by_selection);
+        dopt.messageText = activity.getString(R.string.sort_tasks_by_selected_order);
         dopt.searchHintText = R.string.serach_or_custom;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
