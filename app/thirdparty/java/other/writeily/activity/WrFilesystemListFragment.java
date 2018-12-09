@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -72,6 +73,9 @@ public class WrFilesystemListFragment extends GsFragmentBase {
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _backgroundHintText;
 
+    @BindView(R.id.filesystemlist__fragment__pull_to_refresh)
+    public SwipeRefreshLayout swipe;
+
     private WrFilesystemListAdapter _filesAdapter;
 
 
@@ -113,6 +117,11 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         _filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         _filesListView.setAdapter(_simpleSectionAdapter);
         _rootDir = AppSettings.get().getNotebookDirectory();
+
+        swipe.setOnRefreshListener(() -> {
+            listFilesInDirectory(getCurrentDir(), true);
+            swipe.setRefreshing(false);
+        });
     }
 
     @Override
@@ -301,10 +310,6 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 if (permc.mkdirIfStoragePermissionGranted()) {
                     showImportDialog();
                 }
-                return true;
-            }
-            case R.id.action_refresh: {
-                listFilesInDirectory(getCurrentDir(), true);
                 return true;
             }
         }
