@@ -166,4 +166,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
     <string name="background">الخلفية</string>
+    <string name="font">الخط</string>
 </resources>
