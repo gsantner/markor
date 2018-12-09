@@ -77,7 +77,7 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String JS_KATEX = "" +
             "renderMathInElement(document.body, {" +
             "   'delimiters': [ " +
-            "       {left: '$$', right: '$$', display: true},   {left: '\\(', right: '\\)', display: false},   {left: '\\[', right: '\\]', display: true}, { left: '$', right: '$', display: true }," +
+            "       {left: '$$', right: '$$', display: true},   {left: '\\(', right: '\\)', display: true},   {left: '\\[', right: '\\]', display: true}, { left: '$', right: '$', display: false }," +
             "]});\n";
 
     //########################
