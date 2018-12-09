@@ -230,4 +230,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Katalog</string>
     <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia pliku</string>
     <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
+    <string name="font">Czcionka</string>
 </resources>
