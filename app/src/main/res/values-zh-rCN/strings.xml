@@ -248,4 +248,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">文件夹</string>
     <string name="folder_is_created_without_extension">- 创建文件夹时不会含有文件扩展名</string>
     <string name="keep_existing_file">- 文件和文件夹不会被覆盖</string>
+    <string name="font">字体</string>
 </resources>
