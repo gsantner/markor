@@ -1,4 +1,26 @@
-### v1.4.0 [Blog post](https://gsantner.net/blog/2018/11/12/markor-release-v1.4.html)
+### v1.5.0 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html)
+**New features:**  
+- App-wide  
+  - Settings option: Keep screen on
+- Editor  
+  - Open multiple Windows  
+- Document browser  
+  - Completly new 'New file' dialog  
+- Text Actions  
+  - Sort todo.txt files  
+  - Tasks support in Markdown  
+
+**Improved:**  
+- Document browser  
+  - Replace 'Reload button' with pull down to refresh  
+  - Added 'Last modified' to File information dialog  
+- Editor  
+  - Added greenscale basic editor colors  
+- Representation  
+  - Set inital background color before loading document  
+  - Math/KaTex: Show inline when single dollar is used
+
+### v1.4.0
 **New features:**  
 - App-wide  
   - Add popular documents to 'share into'  
