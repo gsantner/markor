@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Satırlar arasındaki boşlukların yüzdesi</string>
     <string name="line_spacing">Satır aralığı</string>
     <string name="archive_does_move_done_tasks">Bitirilen görevleri aynı klasöre belirtilen dosyaya taşı</string>
+    <string name="sort_tasks_by_selected_order">Görevleri seçilen düzene göre sırala</string>
     <string name="special_key">Özel Tuş</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
     <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
+    <string name="descending">azalan</string>
+    <string name="ascending">artan</string>
     <string name="disable_spelling_underline">Yazım denetimini kapat</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Klavye önerileri kalır, kırmızı altçizgi gider</string>
     <string name="location">Konum</string>
