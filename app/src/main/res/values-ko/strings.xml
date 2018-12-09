@@ -51,4 +51,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">사진이 선택/저장되지 않았습니다.</string>
     <string name="miscellaneous">기타</string>
     <string name="background">배경</string>
+    <string name="font">글꼴</string>
 </resources>

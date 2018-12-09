@@ -117,10 +117,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Оновити</string>
     <string name="create_shortcut">Створити піктограму</string>
     <string name="tried_to_create_shortcut_for_this_notice">Спробували додати піктограму для документу на домашній екран. Примітка: деякі програми робочого стола не підтримують це.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл знаходиться не в директорії Записника. Бажаєте копіювати файл до поточної директорії? Це призведе до перезапису наявного файлу з тим же іменем.</string>
     <string name="files_and_folders">Файли та директорії</string>
     <string name="document_browser">Перегляд документів</string>
     <string name="create_note" needed="false">Створити нотатку</string>
     <string name="special_documents" needed="false">Особливі документи</string>
+    <string name="keep_screen_on" needed="false">Не вимикати екран</string>
     <string name="back_to_previous_folder" needed="false">В попередню директорію</string>
     <string name="app_settings" needed="false">Налаштування додатку</string>
     <string name="editor_settings" needed="false">Налаштування редактора</string>
@@ -132,6 +134,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Пам\'ятати останню директорію</string>
     <string name="syntax_highlighting">Підсвічування синтаксису</string>
     <string name="highlighting_delay">Затримка підсвічування</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки синтаксису у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та можуть сповільнити роботу додатку на старіших пристроях.</string>
     <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
     <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для команд тексту, що змінюють текст або виконують відповідну йому дію.</string>
@@ -171,6 +174,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляція</string>
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завандаження документа встановити курсор в кінець</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
+    <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
     <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
     <string name="vertical_alignment">Вертикальне вирівнювання</string>
     <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
@@ -183,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Проміжки між командами</string>
     <string name="horizontal_space_between_textactions">Горизонтальні проміжки між кнопками команд</string>
     <string name="center_text">Центрувати текст</string>
-    <string name="edit_text_in_center_of_screen">Редагування тексту по центру екрана</string>
+    <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
     <string name="clipboard">Буфер обміну</string>
     <string name="select_existing_document">Обрати наявний документ</string>
     <string name="open_source_licenses">Ліцензії з відкритим кодом</string>
@@ -191,9 +196,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перекласти</string>
     <string name="more_info_and_help">Додаткова інформація та допомога</string>
     <string name="report_bugs">Повідомити про помилку</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Детальніше про допомогу розробнику чи участь у проекті.</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Детальніше про фінансову підтримку розробника або участь у проекті.</string>
     <string name="android_contribution_guide">Порадник із участі у проектах для Android</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Більше інформації про участь у проектах з відкритим кодом, особливо для Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Детальніше про участь у проектах з відкритим кодом, зокрема – додатках для Android</string>
     <string name="join_community">Приєднатися до спільноти</string>
     <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
     <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
@@ -231,10 +236,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Колір</string>
     <string name="zero_width_space">Пробіл нульової ширини</string>
     <string name="basic_color_scheme">Кольорова тема</string>
-    <string name="background_foreground_color_in_editor_works_dark_light">Змінює тло і колір тексту в редакторі. Допасовується до кольорів програми, тож є у світлій і темній темах. Колір підсвітки синтаксису лишається тим самим.</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Змінює тло і колір тексту в редакторі. Допасовується до кольорів програми, тож є у світлій і темній темах. Колір підсвітки синтаксису не змінюється.</string>
     <string name="preset">Попередньо встановлене</string>
     <string name="foreground">Колір тексту</string>
     <string name="background">Тло</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Встановити колір тексту чи тла? Можна користуватися hex-кодами кольорів.</string>
-    <string name="folder">Папка</string>
+    <string name="type">Тип</string>
+    <string name="folder">Тека</string>
+    <string name="folder_is_created_without_extension">- Назва створеної теки не буде містити розширення файлу</string>
+    <string name="keep_existing_file">- Файли та теки не перезаписуються</string>
+    <string name="font">Шрифт</string>
 </resources>

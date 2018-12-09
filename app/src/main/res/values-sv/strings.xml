@@ -237,4 +237,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="type">Typ</string>
     <string name="folder">Mapp</string>
     <string name="folder_is_created_without_extension">- Mappen skapades utan filändelsen</string>
+    <string name="font">Teckensnitt</string>
 </resources>
