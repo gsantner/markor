@@ -248,4 +248,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Klasör</string>
     <string name="folder_is_created_without_extension">- Klasör, dosya uzantısı olmadan oluşturulur</string>
     <string name="keep_existing_file">- Dosya ve klasörlerin üzerine yazılmaz</string>
+    <string name="font">Yazı Tipi</string>
 </resources>
