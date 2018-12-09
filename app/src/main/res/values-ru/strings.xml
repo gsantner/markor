@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Междустрочный интервал в процентах</string>
     <string name="line_spacing">Междустрочный интервал</string>
     <string name="archive_does_move_done_tasks">Перемещать выполненные задачи в указанный файл в той же папке</string>
+    <string name="sort_sorts_by_selection">Сортируйте ваш чек-лист в выбранном порядке</string>
     <string name="special_key">Специальная клавиша</string>
     <string name="key_page_up">Листать вверх</string>
     <string name="key_page_down">Листать вниз</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
     <string name="contributors_public_add_yourself_description">Показ информации об участниках. Позволить показать здесь список учасников успевших внести свой вклад.</string>
+    <string name="priority_descending">Упорядочить по убыванию</string>
+    <string name="priority_ascending">Упорядочить по возрастанию</string>
     <string name="disable_spelling_underline">Отключить проверку орфографии</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Предложения клавиатуры остаются, красная подсветка исчезает</string>
     <string name="location">Местоположение</string>
