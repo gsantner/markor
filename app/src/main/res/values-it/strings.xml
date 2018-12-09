@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
     <string name="line_spacing">Spaziatura delle linee</string>
     <string name="archive_does_move_done_tasks">Muovi le attività terminate nel file specificato nella stessa cartella</string>
+    <string name="sort_sorts_by_selection">Ordina le attività nell\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
@@ -209,6 +210,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuisci al codice del progetto. Tutti sono invitati a farlo, anche i nuovi arrivati</string>
     <string name="project_team">Team del progetto</string>
     <string name="contributors_public_add_yourself_description">Mostra le informazioni sui collaboratori. Essi possono essere aggiunti in questa lista per loro scelta dopo aver collaborato</string>
+    <string name="priority_ascending">per proprità, ascendente</string>
+    <string name="context_descending">per contesto, descrescente</string>
+    <string name="context_ascending">per contesto, crescente</string>
+    <string name="project_descending">per progetto, descrescente</string>
+    <string name="project_ascending">per progetto, crescente</string>
     <string name="disable_spelling_underline">Disabilita la sottolineatura dell\'ortografia</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">I suggerimenti della tastiera rimangono, mentre le sottolineature rosse scompaiono</string>
     <string name="location">Posizione</string>
