@@ -245,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Тека</string>
     <string name="folder_is_created_without_extension">- Назва створеної теки не буде містити розширення файлу</string>
     <string name="keep_existing_file">- Файли та теки не перезаписуються</string>
+    <string name="font">Шрифт</string>
 </resources>
