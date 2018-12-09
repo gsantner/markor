@@ -245,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Carpeta</string>
     <string name="folder_is_created_without_extension">El directorio se ha creado sin extensión de archivo</string>
     <string name="keep_existing_file">Archivos y directorios no se sobrescriben</string>
+    <string name="font">Tipo de letra</string>
 </resources>
