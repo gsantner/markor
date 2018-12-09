@@ -433,9 +433,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
      * while {@link WrFilesystemListFragment} action mode is active (e.g. when renaming a file)
      */
     private void restoreDefaultToolbar() {
-        WrFilesystemListFragment wrFragment = (WrFilesystemListFragment)
-                _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
-
+        WrFilesystemListFragment wrFragment = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
         if (wrFragment != null) {
             wrFragment.finishActionMode();
         }

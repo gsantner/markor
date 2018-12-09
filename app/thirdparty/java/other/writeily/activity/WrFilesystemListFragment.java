@@ -34,13 +34,11 @@ import com.mobsandgeeks.adapters.SimpleSectionAdapter;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -322,6 +320,8 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         if (sendBroadcast) {
             AppCast.VIEW_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), true);
         }
+        _currentDir = directory;
+        saveCurrentFolder();
     }
 
 
@@ -624,10 +624,8 @@ public class WrFilesystemListFragment extends GsFragmentBase {
 
         // Refresh list if directory, else import
         if (clickedFile.isDirectory()) {
-            _currentDir = clickedFile;
             listFilesInDirectory(clickedFile, true);
         } else {
-            saveCurrentFolder();
             DocumentActivity.launch(getActivity(), clickedFile, false, null, null);
         }
     }
