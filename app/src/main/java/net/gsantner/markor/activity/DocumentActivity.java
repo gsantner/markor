@@ -394,8 +394,8 @@ public class DocumentActivity extends AppCompatActivity {
         if (currentTop == null || !currentTop.getFragmentTag().equals(fragment.getFragmentTag())) {
             _fragManager.beginTransaction()
                     //.addToBackStack(null)
-                    .replace(R.id.document__placeholder_fragment
-                            , fragment, fragment.getFragmentTag()).commit();
+                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
+                    .commit();
         } else {
             fragment = currentTop;
         }

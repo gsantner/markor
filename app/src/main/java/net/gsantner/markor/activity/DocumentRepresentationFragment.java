@@ -15,10 +15,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -76,6 +78,7 @@ public class DocumentRepresentationFragment extends GsFragmentBase implements Te
             WebView.enableSlowWholeDocumentDraw();
         }
         AppSettings appSettings = new AppSettings(view.getContext());
+        _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
         _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
