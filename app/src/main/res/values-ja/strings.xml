@@ -243,4 +243,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">テキストの前景色または背景色を設定します。色を 16 進コードで入力することも可能です。</string>
     <string name="type">形式</string>
     <string name="folder">フォルダー</string>
+    <string name="folder_is_created_without_extension">- ファイル拡張子なしのフォルダーが作成されます</string>
+    <string name="keep_existing_file">- ファイルとフォルダーは上書きされません</string>
 </resources>
