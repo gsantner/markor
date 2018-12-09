@@ -19,7 +19,7 @@
     <PreferenceScreen
         android:icon="@drawable/ic_file_white_24dp"
         android:summary="@string/files_and_folders"
-        android:title="@string/app_wide">
+        android:title="@string/general">
 
         <PreferenceCategory android:title="@string/save_location">
             <Preference
@@ -65,21 +65,27 @@
 
         </PreferenceCategory>
 
-        <PreferenceCategory android:title="@string/document_browser">
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_folder_white_24dp"
-                android:key="@string/pref_key__load_last_directory_at_startup"
-                android:summary="@string/load_last_opened_folder_at_startup"
-                android:title="@string/remember_last_directory" />
+    </PreferenceScreen>
 
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_visibility_off_black_24dp"
-                android:key="@string/pref_key__is_overview_statusbar_hidden"
-                android:summary="@string/hide_statusbar_at_this_view"
-                android:title="@string/hide_statusbar" />
-        </PreferenceCategory>
+    <!-- Document browser screen -->
+    <PreferenceScreen
+        android:icon="@drawable/ic_folder_white_24dp"
+        android:summary="@string/files_and_folders"
+        android:title="@string/document_browser">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_folder_white_24dp"
+            android:key="@string/pref_key__load_last_directory_at_startup"
+            android:summary="@string/load_last_opened_folder_at_startup"
+            android:title="@string/remember_last_directory" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_visibility_off_black_24dp"
+            android:key="@string/pref_key__is_overview_statusbar_hidden"
+            android:summary="@string/hide_statusbar_at_this_view"
+            android:title="@string/hide_statusbar" />
     </PreferenceScreen>
 
     <!-- Editor screen -->
