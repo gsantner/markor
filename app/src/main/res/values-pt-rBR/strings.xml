@@ -245,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Pasta</string>
     <string name="folder_is_created_without_extension">- Pasta é criada sem extensão</string>
     <string name="keep_existing_file">- Arquivos e pastas não serão sobrescritas</string>
+    <string name="font">Fonte</string>
 </resources>
