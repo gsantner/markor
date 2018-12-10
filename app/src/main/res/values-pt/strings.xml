@@ -250,4 +250,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Pastas e ficheiros não são substituídos</string>
     <string name="multiple_windows">Várias janelas</string>
     <string name="font">Tipo de letra</string>
+    <string name="open_new_documents_always_in_new_window">Abrir documentos em janelas distintas. Pode trocar entre documentos com a tecla \'recentes\' do seu dispositivo.</string>
 </resources>
