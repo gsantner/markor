@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Espai entre línies (%)</string>
     <string name="line_spacing">Espai entre línies</string>
     <string name="archive_does_move_done_tasks">Mou les tasques realitzades a un fitxer especificat de la mateixa carpeta</string>
+    <string name="sort_tasks_by_selected_order">Ordena les tasques per l\'ordre seleccionat</string>
     <string name="special_key">Tecla especial</string>
     <string name="key_page_up">Pàgina anterior (Page Up)</string>
     <string name="key_page_down">Pàgina següent (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Col·laboreu amb el projecte. Qualsevol pot fer-ho, fins i tot els que fan servir l\'aplicació des de fa poc</string>
     <string name="project_team">L\'equip de projecte</string>
     <string name="contributors_public_add_yourself_description">Mostra informació sobre els col·laboradors. Aquests poden decidir si la seva informació ha de ser inclosa amb les seves col·laboracions</string>
+    <string name="descending">descendent</string>
+    <string name="ascending">ascendent</string>
     <string name="disable_spelling_underline">Desactiva el subratllat dels errors ortogràfics</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Els suggeriments del teclat es mantenen, el subratllat vermell desapareix</string>
     <string name="location">Ubicació</string>
@@ -245,5 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Carpeta</string>
     <string name="folder_is_created_without_extension">- La carpeta es crea sense extensió de fitxer</string>
     <string name="keep_existing_file">- Els fitxers i carpetes no es sobreescriuen</string>
+    <string name="multiple_windows">Finestres múltiples</string>
     <string name="font">Tipus de lletra</string>
+    <string name="open_new_documents_always_in_new_window">Obre sempre els documents en finestres separades. Canvieu de document utilitzant la tecla «recents» del dispositiu.</string>
 </resources>
