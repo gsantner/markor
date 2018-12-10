@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:paddingBottom="0dp">
+
+        <!-- I'm not sure, but for me 24dp icon looked little bit blur -->
+        <EditText
+            android:id="@+id/time_date_format_input"
+            android:inputType="textFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableRight="@drawable/ic_arrow_selectable_down_48dp"
+            android:hint="Pass custom time format or" />
+
+        <TextView
+            android:id="@+id/format_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Example of selected time format will be visible here." />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp" >
+            <LinearLayout
+                android:id="@+id/time_format_button_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                <Button
+                    android:id="@+id/date_format_picker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:text="Pick date" />
+
+                <Button
+                    android:id="@+id/time_format_picker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:text="Pick time"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- In case we want to center checkbox, but it doesn't look good i think. -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp" >
+            <CheckBox
+                android:id="@+id/inser_format_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:text="Insert format instead datetime" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
