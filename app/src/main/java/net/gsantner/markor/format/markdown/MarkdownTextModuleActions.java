@@ -11,28 +11,18 @@ package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListPopupWindow;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -43,10 +33,6 @@ import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -178,7 +164,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
                 case R.string.tmaid_general_time: {
-                    addDateTime();
+                    DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+
+
                     break;
                 }
             }
@@ -509,190 +497,5 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 });
         builder.show();
     }
-
-    /**
-     * method 'll add text output to current index in editor
-     * as default will be added datetime based on given DT format
-     * optionally 'll be added DT format
-     *
-     */
-    @SuppressWarnings("RedundantCast")
-    private void addDateTime() {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
-        final View view = _activity.getLayoutInflater().inflate(R.layout.time_format_dialog, (ViewGroup) null);
-
-        Calendar datetime = Calendar.getInstance();
-        datetime.set(Calendar.MILLISECOND, 0);
-        datetime.set(Calendar.SECOND, 0);
-
-        boolean isFormatSelected = false;
-
-        String[] defaultDateTimeFormats;
-
-        final ListPopupWindow popupWindow = new ListPopupWindow(getActivity());;
-        final EditText timeFormatEditText = view.findViewById(R.id.time_date_format_input);
-        final TextView datetimeTextView = view.findViewById(R.id.format_example);
-        final Button datePickButton = view.findViewById(R.id.date_format_picker);
-        final Button timePickButton = view.findViewById(R.id.time_format_picker);
-       // final Button submitButton = view.findViewById(R.id.time_format_submit_button);
-        final CheckBox selectFormatCheckBox = view.findViewById(R.id.inser_format_check_box);
-        selectFormatCheckBox.setChecked(false);
-
-        // combo box for format ->> we can write our own format or select one of default formats
-        defaultDateTimeFormats = _activity.getBaseContext().getResources().getStringArray(R.array.time_date_formats_array);
-        timeFormatEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT= 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getX() >= (v.getWidth() - ((EditText) v)
-                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        popupWindow.show();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-        popupWindow.setAdapter(new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, defaultDateTimeFormats));
-        popupWindow.setAnchorView(timeFormatEditText);
-        popupWindow.setModal(true);
-        popupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                timeFormatEditText.setText(defaultDateTimeFormats[position]);
-                popupWindow.dismiss();
-                datetimeTextView.setText(parseDateTimeToCustomFromat(
-                        timeFormatEditText.getText().toString(), datetime.getTimeInMillis()));
-            }
-        });
-
-        // check for changes in combo box every 2 sec(delay)
-        timeFormatEditText.addTextChangedListener(new TextWatcher() {
-            boolean isTyping = false;
-            private final int DELAY = 2000;
-            private long editTime = System.currentTimeMillis();
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                editTime = System.currentTimeMillis();
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editTime = System.currentTimeMillis();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!isTyping) {
-                    isTyping = true;
-                } else {
-                    if(editTime + DELAY > System.currentTimeMillis()) {
-                        isTyping = false;
-                        datetimeTextView.setText(parseDateTimeToCustomFromat(
-                                timeFormatEditText.getText().toString(), datetime.getTimeInMillis()));
-                    }
-                }
-            }
-        });
-
-        // implement date picker
-        datePickButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int day) {
-                                datetime.set(Calendar.YEAR, year);
-                                datetime.set(Calendar.MONTH, month);
-                                datetime.set(Calendar.DAY_OF_MONTH, day);
-                                datetimeTextView.setText(parseDateTimeToCustomFromat(
-                                        timeFormatEditText.getText().toString(), datetime.getTimeInMillis()));
-                            }
-                        }, datetime.get(Calendar.YEAR), datetime.get(Calendar.MONTH),
-                                datetime.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        // implement time picker
-        timePickButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new TimePickerDialog(getActivity(),
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                                datetime.set(Calendar.HOUR_OF_DAY, hour);
-                                datetime.set(Calendar.MINUTE, min);
-                                datetimeTextView.setText(parseDateTimeToCustomFromat(
-                                        timeFormatEditText.getText().toString(), datetime.getTimeInMillis()));
-                            }
-                        }, datetime.get(Calendar.HOUR_OF_DAY), datetime.get(Calendar.MINUTE),
-                            true).show();
-            }
-        });
-
-        // set builder and implement buttons to discard and submit
-        builder.setView(view)
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        _hlEditor.insertOrReplaceTextOnCursor(getOutput(
-                                selectFormatCheckBox.isChecked(),
-                                datetimeTextView.getText().toString(),
-                                timeFormatEditText.getText().toString()));
-                    }
-                });
-
-        builder.show();
-    }
-
-
-    /**
-     *
-     * @param timeFormat
-     *          {@link String} text which 'll be used as format for {@link SimpleDateFormat}
-     * @param datetime
-     *          {@link Long} selected datetime in milisecond
-     * @return
-     *          formated datetime
-     */
-    private String parseDateTimeToCustomFromat(String timeFormat, Long datetime) {
-        try {
-            DateFormat formatter = new SimpleDateFormat(timeFormat);
-            return formatter.format(datetime);
-        } catch (Exception e) {
-            // maybe we can add there some exception handler
-            return null;
-        }
-    }
-
-    /**
-     *
-     * @param isDatetimeSelected
-     *          {@link Boolean} information if we want datetime or format
-     * @param datetime
-     *          selected datetime as {@link String} based on given format
-     * @param format
-     *          {@link String} pattern used to convert datetime into text output
-     * @return
-     *          @datetime or @format, based on @isDatetimeSelected
-     */
-    private String getOutput(Boolean isDatetimeSelected, String datetime, String format) {
-        if(isDatetimeSelected != null && !isDatetimeSelected)
-            return datetime;
-        else
-            return format;
-    }
-
 
 }

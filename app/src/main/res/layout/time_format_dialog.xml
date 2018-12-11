@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:drawableRight="@drawable/ic_arrow_selectable_down_48dp"
-            android:hint="Pass custom time format or" />
+            android:drawableRight="@drawable/ic_arrow_selectable_down_24dp"
+            android:hint="@string/time_date_format_input_hint" />
 
         <TextView
             android:id="@+id/format_example"
@@ -33,7 +33,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="30dp"
-            android:hint="Example of selected time format will be visible here." />
+            android:hint="@string/format_example_hint" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAllCaps="false"
-                    android:text="Pick date" />
+                    android:text="@string/pick_date" />
 
                 <Button
                     android:id="@+id/time_format_picker"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAllCaps="false"
-                    android:text="Pick time"/>
+                    android:text="@string/pick_time"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -72,7 +72,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="false"
-                android:text="Insert format instead datetime" />
+                android:text="@string/insert_format_instead_datetime" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp" >
+            <CheckBox
+                android:id="@+id/use_actual_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:text="@string/use_actual_time" />
         </RelativeLayout>
 
     </LinearLayout>
