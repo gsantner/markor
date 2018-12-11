@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Espaço entre linhas em porcentagem</string>
     <string name="line_spacing">Espaçamento de linha</string>
     <string name="archive_does_move_done_tasks">Mover tarefas feitas para o arquivo especificado na mesma pasta</string>
+    <string name="sort_tasks_by_selected_order">Organizar tarefas pela ordem selecionada</string>
     <string name="special_key">Tecla Especial</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Página seguinte (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua programando para o projeto. Todos são bem-vindos, incluindo os novatos.</string>
     <string name="project_team">Equipe do Projeto</string>
     <string name="contributors_public_add_yourself_description">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
+    <string name="descending">decrescente</string>
+    <string name="ascending">crescente</string>
     <string name="disable_spelling_underline">Desativar a sublimação do correto ortográfico</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Sugestões do teclado permanecem, sublinhados vermelhos desaparecem</string>
     <string name="location">Localização</string>
@@ -245,5 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Pasta</string>
     <string name="folder_is_created_without_extension">- Pasta é criada sem extensão</string>
     <string name="keep_existing_file">- Arquivos e pastas não serão sobrescritas</string>
+    <string name="multiple_windows">Várias janelas</string>
     <string name="font">Fonte</string>
+    <string name="open_new_documents_always_in_new_window">Abrir documentos em janelas separadas. Você pode trocar entre os documentos com a tecla \'recentes\' do seu dispositivo.</string>
 </resources>
