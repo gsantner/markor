@@ -90,7 +90,7 @@ public class NewFileDialog extends DialogFragment {
                 String ext = i < typeSpinnerToExtension.length ? typeSpinnerToExtension[i] : "";
                 switch (i) {
                     case 4: {
-                        prefix = new SimpleDateFormat("YYYY-MM-dd-").format(new Date());
+                        prefix = new SimpleDateFormat("yyyy-MM-dd-").format(new Date());
                         break;
                     }
                 }
