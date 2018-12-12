@@ -36,6 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class DatetimeFormatDialog {
 
@@ -147,9 +148,6 @@ public class DatetimeFormatDialog {
                                 _datetime.set(Calendar.YEAR, year);
                                 _datetime.set(Calendar.MONTH, month);
                                 _datetime.set(Calendar.DAY_OF_MONTH, day);
-                                if(useActualTimeCheckBox.isChecked()) {
-                                    setDatetimeActualTime();
-                                }
                                 datetimeTextView.setText(parseDateTimeToCustomFromat(
                                         timeFormatEditText.getText().toString(), _datetime.getTimeInMillis()));
                             }
@@ -167,14 +165,39 @@ public class DatetimeFormatDialog {
                             public void onTimeSet(TimePicker timePicker, int hour, int min) {
                                 _datetime.set(Calendar.HOUR_OF_DAY, hour);
                                 _datetime.set(Calendar.MINUTE, min);
-                                if(useActualTimeCheckBox.isChecked()) {
-                                    setDatetimeActualTime();
-                                }
                                 datetimeTextView.setText(parseDateTimeToCustomFromat(
                                         timeFormatEditText.getText().toString(), _datetime.getTimeInMillis()));
                             }
                         }, _datetime.get(Calendar.HOUR_OF_DAY), _datetime.get(Calendar.MINUTE),
                         true).show();
+            }
+        });
+
+        // hide buttons when both check box are checked
+        selectFormatCheckBox.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(isButtonVisible(selectFormatCheckBox.isChecked(), useActualTimeCheckBox.isChecked())) {
+                    timePickButton.setVisibility(View.GONE);
+                    datePickButton.setVisibility(View.GONE);
+                } else {
+                    timePickButton.setVisibility(View.VISIBLE);
+                    datePickButton.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+        // hide buttons when both check box are checked
+        useActualTimeCheckBox.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(isButtonVisible(selectFormatCheckBox.isChecked(), useActualTimeCheckBox.isChecked())) {
+                    timePickButton.setVisibility(View.GONE);
+                    datePickButton.setVisibility(View.GONE);
+                } else {
+                    timePickButton.setVisibility(View.VISIBLE);
+                    datePickButton.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -264,17 +287,30 @@ public class DatetimeFormatDialog {
         for (int i = 0; i < defaultFormatsWithExample.length; i++) {
             Map<String, String> pair = new HashMap<>(2);
             pair.put("format", defaultFormatsWithExample[i++]);
-            pair.put("_datetime", "preview: " + defaultFormatsWithExample[i]);
+            pair.put("_datetime", defaultFormatsWithExample[i]);
             formatAndDatetimeExample.add(pair);
         }
         return formatAndDatetimeExample;
     }
 
     /**
-     * method 'll update _datetime to actual time
+     * set _datetime to current time
      */
     private static void setDatetimeActualTime() {
         _datetime = Calendar.getInstance();
+    }
+
+    /**
+     *
+     * @param insertFormat
+     *      {@link Boolean} pass information if selectFormatCheckBox is checked
+     * @param useActualTime
+     *      {@link Boolean} pass information if useActualTimeCheckBox is checked
+     * @return
+     *      TRUE when both checkbox are checked otherwise return FALSE
+     */
+    private static boolean isButtonVisible(boolean insertFormat, boolean useActualTime) {
+        return insertFormat && useActualTime;
     }
 
 }
