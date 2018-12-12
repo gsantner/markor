@@ -131,6 +131,9 @@ public class DatetimeFormatDialog {
                 } else {
                     if(editTime + DELAY > System.currentTimeMillis()) {
                         isTyping = false;
+                        if(useActualTimeCheckBox.isChecked()) {
+                            setDatetimeActualTime();
+                        }
                         datetimeTextView.setText(parseDateTimeToCustomFromat(
                                 timeFormatEditText.getText().toString(), _datetime.getTimeInMillis()));
                     }
