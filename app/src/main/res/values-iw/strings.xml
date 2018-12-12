@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">המרווח בין שורות באחוזים</string>
     <string name="line_spacing">מרווח בין שורות</string>
     <string name="archive_does_move_done_tasks">הזז מטלות שבוצעו לקובץ שצויין באותה תיקיה</string>
+    <string name="sort_tasks_by_selected_order">מיין את המטלות לפי הסדר שנבחר</string>
     <string name="special_key">כפתור מיוחד</string>
     <string name="key_page_up">דף מעלה (דף מעלה)</string>
     <string name="key_page_down">דף מטה (דף מטה)</string>
@@ -208,6 +209,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">לתרום קוד לפרוייקט. כולם מוזמנים לעשות כן, לרבות מתחילים</string>
     <string name="project_team">צוות הפרויקט</string>
     <string name="contributors_public_add_yourself_description">הצג פרטי המתנדב. הבא זאת להצגה כאן על בסיס הסכמה מראש לאחר תרומה</string>
+    <string name="descending">בסדר יורד</string>
+    <string name="ascending">בסדר עולה</string>
     <string name="disable_spelling_underline">בטל קו תחתון הקשור לאילת שגוי</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">הצעות מקלדת ישארו, קו אדום תחתון יעלם</string>
     <string name="location">מיקום</string>
@@ -244,4 +247,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">תיקייה</string>
     <string name="folder_is_created_without_extension">- תיקיה נוצרת ללא סיומת</string>
     <string name="keep_existing_file">- תיקיות וקבצים לא נדרסים</string>
+    <string name="multiple_windows">חלונות מרובים</string>
+    <string name="font">גופן</string>
+    <string name="open_new_documents_always_in_new_window">פתח מסמכים תמיד בחלונות נפרדים. החלף בעזרת כפתור ה\"אחרונים\" של מכשירן.</string>
 </resources>
