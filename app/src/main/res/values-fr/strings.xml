@@ -251,7 +251,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Fenêtres multiples</string>
     <string name="font">Police</string>
     <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la clé des fenêtres récentes de votre appareil.</string>
-    <string name="enter_format_or_choose">Choisissez le format ou entrez le manuellement</string>
     <string name="pick_date">Choisissez une date</string>
     <string name="pick_time">Choisissez l\'heure</string>
     <string name="get_format_instead_date_or_time">Obtenez le format plutôt que date ou heure</string>
