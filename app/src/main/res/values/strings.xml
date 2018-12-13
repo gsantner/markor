@@ -263,4 +263,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Multiple windows</string>
     <string name="font">Font</string>
     <string name="open_new_documents_always_in_new_window">Open documents always in separate windows. Switch using the \'recents\' key of your device.</string>
+    <string name="time_date_format_input_hint">Add format or choose one</string>
+    <string name="format_example_hint">Example will be shown here</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="insert_format_instead_datetime">Insert format instead datetime</string>
+    <string name="use_actual_time">Load current time after changing format</string>
 </resources>

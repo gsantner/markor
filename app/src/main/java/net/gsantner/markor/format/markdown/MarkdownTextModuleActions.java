@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
@@ -80,6 +81,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
             {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
             {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
+            {R.string.tmaid_general_time, R.drawable.ic_access_time_black_24dp},
     };
 
     private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -159,6 +161,12 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 case R.string.tmaid_markdown_insert_link:
                 case R.string.tmaid_markdown_insert_image: {
                     showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3);
+                    break;
+                }
+                case R.string.tmaid_general_time: {
+                    DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+
+
                     break;
                 }
             }
@@ -489,4 +497,5 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                 });
         builder.show();
     }
+
 }
