@@ -68,6 +68,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -738,6 +739,19 @@ public class ContextUtils {
                 Log.d(getClass().getName(), "Error: 'setSubMenuIconsVisiblity' not supported on this device");
             }
         }
+    }
+
+
+    public String getLocalizedDateFormat() {
+        return ((SimpleDateFormat) android.text.format.DateFormat.getDateFormat(_context)).toPattern();
+    }
+
+    public String getLocalizedTimeFormat() {
+        return ((SimpleDateFormat) android.text.format.DateFormat.getTimeFormat(_context)).toPattern();
+    }
+
+    public String getLocalizedDateTimeFormat() {
+        return getLocalizedDateFormat() + " " + getLocalizedTimeFormat();
     }
 
     /**
