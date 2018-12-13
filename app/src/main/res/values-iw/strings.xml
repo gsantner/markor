@@ -250,4 +250,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">חלונות מרובים</string>
     <string name="font">גופן</string>
     <string name="open_new_documents_always_in_new_window">פתח מסמכים תמיד בחלונות נפרדים. החלף בעזרת כפתור ה\"אחרונים\" של מכשירן.</string>
+    <string name="time_date_format_input_hint">הוספת פורמט או בחירת פורמט</string>
+    <string name="format_example_hint">דוגמה תוצג כאן</string>
+    <string name="pick_date">בחר תאריך</string>
+    <string name="pick_time">בחר שעה</string>
 </resources>
