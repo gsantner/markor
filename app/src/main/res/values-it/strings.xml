@@ -251,10 +251,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Finestre multiple</string>
     <string name="font">Font</string>
     <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
-    <string name="time_date_format_input_hint">Aggiungi un formato o scegline uno</string>
-    <string name="format_example_hint">Un esempio sarà mostrato qui</string>
     <string name="pick_date">Scegli la data</string>
     <string name="pick_time">Scegli l\'ora</string>
-    <string name="insert_format_instead_datetime">Inserisci il formato anziché datetime</string>
-    <string name="use_actual_time">Carica l\'ora attuale dopo aver cambiato il formato</string>
 </resources>
