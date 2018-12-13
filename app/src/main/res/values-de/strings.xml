@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Abstand zwischen Zeilen in Prozent</string>
     <string name="line_spacing">Zeilenabstand</string>
     <string name="archive_does_move_done_tasks">Erledigte Aufgaben in angegebene Datei im selben Ordner verschieben</string>
+    <string name="sort_tasks_by_selected_order">Aufgaben nach ausgewählter Ordnung sortieren</string>
     <string name="special_key">Spezielle Tasten</string>
     <string name="key_page_up">Vorherige Seite (Bild↑)</string>
     <string name="key_page_down">Nächste Seite (Bild↓)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
+    <string name="descending">absteigend</string>
+    <string name="ascending">aufsteigend</string>
     <string name="disable_spelling_underline">Rechtschreibungs-Linie deaktivieren</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastatur-Vorschläge bleiben, die rote Untertreichung verschwindet</string>
     <string name="location">Ort</string>
@@ -245,4 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Ordner</string>
     <string name="folder_is_created_without_extension">- Ordner wird ohne Dateiendung erstellt</string>
     <string name="keep_existing_file">- Dateien und Ordner werden nicht überschrieben</string>
+    <string name="multiple_windows">Mehrere Fenster</string>
+    <string name="font">Schriftart</string>
+    <string name="open_new_documents_always_in_new_window">Dokumente immer in einem separaten Fenster öffnen. Wechsel mit dem \'Verlaufs\'-Button deines Geräts.</string>
 </resources>

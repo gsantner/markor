@@ -245,4 +245,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Папка</string>
     <string name="folder_is_created_without_extension">-Папка создаётся без расширения</string>
     <string name="keep_existing_file">-Файлы и папки не перезаписываются</string>
+    <string name="font">Шрифт</string>
 </resources>

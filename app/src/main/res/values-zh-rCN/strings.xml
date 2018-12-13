@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">单位为百分比</string>
     <string name="line_spacing">行距</string>
     <string name="archive_does_move_done_tasks">将完成的工作移动至同目录下的指定文件</string>
+    <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
     <string name="project_team">项目团队</string>
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
+    <string name="descending">降序排序</string>
+    <string name="ascending">升序排序</string>
     <string name="disable_spelling_underline">禁用语法检查</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">保留输入法建议的同时，移除自动纠错的下划线</string>
     <string name="location">位置</string>
@@ -243,6 +246,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">设置文本的前景色和背景色吗？插入十六进制颜色代码也可以。</string>
     <string name="type">文件类型</string>
     <string name="folder">文件夹</string>
-    <string name="folder_is_created_without_extension">- 创建文件夹时没有文件扩展名</string>
+    <string name="folder_is_created_without_extension">- 创建文件夹时不会含有文件扩展名</string>
     <string name="keep_existing_file">- 文件和文件夹不会被覆盖</string>
+    <string name="font">字体</string>
 </resources>

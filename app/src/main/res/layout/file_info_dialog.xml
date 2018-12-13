@@ -30,11 +30,10 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <TextView
-            android:id="@+id/ui__fileinfodialog__description"
+            android:id="@+id/ui__fileinfodialog__name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -45,18 +44,17 @@
             tools:text="cool document.md" />
 
         <TextView
+            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/location"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="19sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <TextView
-            android:id="@+id/ui__fileinfodialog__location_description"
+            android:id="@+id/ui__fileinfodialog__location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -64,21 +62,42 @@
             android:textSize="15sp"
             tools:text="/sdcard/Documents/somewhere" />
 
+
+        <TextView
+            android:id="@+id/ui__fileinfodialog__last_modified_caption"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            tools:text="@string/last_modified_witharg"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        <TextView
+            android:id="@+id/ui__fileinfodialog__last_modified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="15sp"
+            tools:text="today" />
+
         <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/ui__fileinfodialog__textinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/size"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="19sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             <TextView
                 android:id="@+id/ui__fileinfodialog__size_description"
@@ -91,15 +110,14 @@
 
 
             <TextView
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/text_lines"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="19sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             <TextView
                 android:id="@+id/ui__fileinfodialog__numberlines_description"
@@ -110,16 +128,16 @@
                 android:textSize="15sp"
                 tools:text="5" />
 
+
             <TextView
+                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/text_characters"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="19sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             <TextView
                 android:id="@+id/ui__fileinfodialog__numbercharacters_description"

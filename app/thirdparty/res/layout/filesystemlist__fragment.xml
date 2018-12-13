@@ -24,11 +24,17 @@
         android:textColor="@color/light_grey"
         android:textSize="24sp" />
 
-    <ListView
-        android:id="@+id/filesystemlist__fragment__listview"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:choiceMode="multipleChoiceModal"
-        android:drawSelectorOnTop="true" />
+        android:id="@+id/filesystemlist__fragment__pull_to_refresh"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/filesystemlist__fragment__listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:choiceMode="multipleChoiceModal"
+            android:drawSelectorOnTop="true" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

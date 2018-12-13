@@ -53,4 +53,6 @@
     <color name="gruvbox_fg_dark">#EBDBB2</color>
     <color name="gruvbox_bg_light">#FBF1C7</color>
     <color name="gruvbox_fg_light">#3C3836</color>
+    <color name="green_dark">#00ff00</color>
+    <color name="green_light">#00bb00</color>
 </resources>

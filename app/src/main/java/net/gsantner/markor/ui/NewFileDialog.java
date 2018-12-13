@@ -90,7 +90,7 @@ public class NewFileDialog extends DialogFragment {
                 String ext = i < typeSpinnerToExtension.length ? typeSpinnerToExtension[i] : "";
                 switch (i) {
                     case 4: {
-                        prefix = new SimpleDateFormat("YYYY-MM-dd-").format(new Date());
+                        prefix = new SimpleDateFormat("yyyy-MM-dd-").format(new Date());
                         break;
                     }
                 }
@@ -119,7 +119,7 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
                     File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
-                    callback(FileUtils.touch(f), f);
+                    callback(FileUtils.touch(f) || f.exists(), f);
                     dialogInterface.dismiss();
                 })
                 .setNeutralButton(R.string.folder, (dialogInterface, i) -> {

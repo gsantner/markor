@@ -12,6 +12,7 @@ package net.gsantner.markor.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
@@ -189,6 +190,7 @@ public class SettingsActivity extends AppCompatActivity {
             updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
 
+            setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
         }
 
         @Override
@@ -310,6 +312,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_gruvbox)) {
                     _as.setEditorBasicColor(true, R.color.gruvbox_fg_dark, R.color.gruvbox_bg_dark);
                     _as.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
+                } else if (eq(preference, R.string.pref_key__editor_basic_color_scheme_greenscale)) {
+                    _as.setEditorBasicColor(true, R.color.green_dark, R.color.black);
+                    _as.setEditorBasicColor(false, R.color.green_light, R.color.white);
                 }
 
                 if (preference.getKey().startsWith("pref_key__editor_basic_color_scheme")) {

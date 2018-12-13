@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
     <string name="line_spacing">Spaziatura delle linee</string>
     <string name="archive_does_move_done_tasks">Muovi le attività terminate nel file specificato nella stessa cartella</string>
+    <string name="sort_tasks_by_selected_order">Ordina i task secondo l\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuisci al codice del progetto. Tutti sono invitati a farlo, anche i nuovi arrivati</string>
     <string name="project_team">Team del progetto</string>
     <string name="contributors_public_add_yourself_description">Mostra le informazioni sui collaboratori. Essi possono essere aggiunti in questa lista per loro scelta dopo aver collaborato</string>
+    <string name="descending">discendente</string>
+    <string name="ascending">ascendente</string>
     <string name="disable_spelling_underline">Disabilita la sottolineatura dell\'ortografia</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">I suggerimenti della tastiera rimangono, mentre le sottolineature rosse scompaiono</string>
     <string name="location">Posizione</string>
@@ -245,4 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Cartella</string>
     <string name="folder_is_created_without_extension">La cartella è creata senza estensione</string>
     <string name="keep_existing_file">File e cartelle non saranno sovrascritti</string>
+    <string name="multiple_windows">Finestre multiple</string>
+    <string name="font">Font</string>
+    <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
 </resources>

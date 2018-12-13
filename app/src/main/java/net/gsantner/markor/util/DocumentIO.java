@@ -151,6 +151,12 @@ public class DocumentIO {
         if (!currentText.equals(documentInitial.getContent())) {
             document.forceAddNextChangeToHistory();
             document.setContent(currentText);
+
+            // Create parent (=folder of file) if not exists
+            if (!document.getFile().getParentFile().exists()) {
+                //noinspection ResultOfMethodCallIgnored
+                document.getFile().getParentFile().mkdirs();
+            }
             ret = FileUtils.writeFile(document.getFile(), document.getContent());
         } else {
             ret = true;

@@ -260,10 +260,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Folder</string>
     <string name="folder_is_created_without_extension">- Folder is created without file extension</string>
     <string name="keep_existing_file">- Files and folders are not overwritten</string>
+    <string name="multiple_windows">Multiple windows</string>
+    <string name="font">Font</string>
+    <string name="open_new_documents_always_in_new_window">Open documents always in separate windows. Switch using the \'recents\' key of your device.</string>
     <string name="time_date_format_input_hint">Add format or choose one</string>
-    <string name="format_example_hint">Example of selected time format will be visible here.</string>
+    <string name="format_example_hint">Example will be shown here</string>
     <string name="pick_date">Pick date</string>
     <string name="pick_time">Pick time</string>
     <string name="insert_format_instead_datetime">Insert format instead datetime</string>
-    <string name="use_actual_time">Get actual time after selecting format</string>
+    <string name="use_actual_time">Load current time after changing format</string>
 </resources>

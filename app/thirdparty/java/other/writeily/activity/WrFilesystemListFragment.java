@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -39,7 +40,6 @@ import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -72,6 +72,9 @@ public class WrFilesystemListFragment extends GsFragmentBase {
 
     @BindView(R.id.filesystemlist__fragment__background_hint_text)
     public TextView _backgroundHintText;
+
+    @BindView(R.id.filesystemlist__fragment__pull_to_refresh)
+    public SwipeRefreshLayout swipe;
 
     private WrFilesystemListAdapter _filesAdapter;
 
@@ -114,6 +117,11 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         _filesListView.setMultiChoiceModeListener(new ActionModeCallback());
         _filesListView.setAdapter(_simpleSectionAdapter);
         _rootDir = AppSettings.get().getNotebookDirectory();
+
+        swipe.setOnRefreshListener(() -> {
+            listFilesInDirectory(getCurrentDir(), true);
+            swipe.setRefreshing(false);
+        });
     }
 
     @Override
@@ -304,10 +312,6 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 }
                 return true;
             }
-            case R.id.action_refresh: {
-                listFilesInDirectory(getCurrentDir(), true);
-                return true;
-            }
         }
         return false;
     }
@@ -321,6 +325,8 @@ public class WrFilesystemListFragment extends GsFragmentBase {
         if (sendBroadcast) {
             AppCast.VIEW_FOLDER_CHANGED.send(getActivity(), directory.getAbsolutePath(), true);
         }
+        _currentDir = directory;
+        saveCurrentFolder();
     }
 
 
@@ -623,14 +629,9 @@ public class WrFilesystemListFragment extends GsFragmentBase {
 
         // Refresh list if directory, else import
         if (clickedFile.isDirectory()) {
-            _currentDir = clickedFile;
             listFilesInDirectory(clickedFile, true);
         } else {
-            saveCurrentFolder();
-            Intent intent = new Intent(context, DocumentActivity.class);
-            intent.putExtra(DocumentIO.EXTRA_PATH, clickedFile);
-            intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            startActivity(intent);
+            DocumentActivity.launch(getActivity(), clickedFile, false, null, null);
         }
     }
 

@@ -11,6 +11,7 @@ package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
 
@@ -419,5 +420,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         int resIdBg = forDarkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light;
         setInt(resIdFg, rcolor(fgColor));
         setInt(resIdBg, rcolor(bgColor));
+    }
+
+    public boolean isMultiWindowEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return getBool(R.string.pref_key__is_multi_window_enabled, true);
+        } else {
+            return false;
+        }
     }
 }
