@@ -129,6 +129,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         if (_document != null && _document.getFile() != null) {
+            if (!_document.getFile().getParentFile().exists()) {
+                //noinspection ResultOfMethodCallIgnored
+                _document.getFile().getParentFile().mkdirs();
+            }
             boolean permok = _document.getFile().canWrite();
             if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
                 permok = true;
