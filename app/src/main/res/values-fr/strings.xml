@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Espacement de lignes (%)</string>
     <string name="line_spacing">Espacement de lignes</string>
     <string name="archive_does_move_done_tasks">Déplacer vers un fichier du dossier</string>
-    <string name="sort_tasks_by_selected_order">Sélectionner l\'ordre des tâches</string>
+    <string name="sort_tasks_by_selected_order">Ordonnez les tâches selon l\'ordre sélectionné</string>
     <string name="special_key">Touches spéciales</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
@@ -255,4 +255,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Choisissez une date</string>
     <string name="pick_time">Choisissez l\'heure</string>
     <string name="get_format_instead_date_or_time">Obtenez le format plutôt que date ou heure</string>
+    <string name="always_use_current_date_and_time">Toujours utiliser la date et l\'heure courante</string>
+    <string name="result">Résultats</string>
 </resources>
