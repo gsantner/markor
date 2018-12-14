@@ -251,4 +251,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Çoklu pencere</string>
     <string name="font">Yazı Tipi</string>
     <string name="open_new_documents_always_in_new_window">Belgeleri her zaman ayrı pencerelerde açın. Belgeleri, cihazınızın \'son kullanılan uygulamalar\' tuşunu kullanarak değiştirin.</string>
+    <string name="pick_date">Tarih Seç</string>
 </resources>
