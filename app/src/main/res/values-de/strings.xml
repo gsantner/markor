@@ -251,5 +251,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Mehrere Fenster</string>
     <string name="font">Schriftart</string>
     <string name="open_new_documents_always_in_new_window">Dokumente immer in einem separaten Fenster öffnen. Wechsel mit dem \'Verlaufs\'-Button deines Geräts.</string>
-    <string name="last_used">L\'ultimo usato</string>
+    <string name="enter_or_select_format">Format eingeben oder auswählen</string>
+    <string name="pick_date">Datum auswählen</string>
+    <string name="pick_time">Zeit auswählen</string>
+    <string name="get_format_instead_date_or_time">Format statt Datum und Zeit</string>
+    <string name="always_use_current_date_and_time">Immer das aktuelle Datum &amp; Zeit verwenden</string>
+    <string name="result">Ergebnis</string>
+    <string name="just_time">Nur Zeit</string>
+    <string name="just_date">Nur Datum</string>
+    <string name="last_used">Zuletzt benutzt</string>
 </resources>
