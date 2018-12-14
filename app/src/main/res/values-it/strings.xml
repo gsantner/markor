@@ -148,7 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Altro</string>
     <string name="alternative_naming">Nomi alternativi</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
-    <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esadecimale</string>
+    <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esa</string>
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
     <string name="tasks_with_todays_date">Attività con la data di oggi</string>
     <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
     <string name="use_monospace_for_code">Usa un carattere monospace per il codice</string>
-    <string name="use_different_fonttype_slow_down">Utilizza più tipi di caratteri. Cambiare il carattere dinamicamente consegue un impatto sulle prestazioni dell\'applicazione.</string>
+    <string name="use_different_fonttype_slow_down">Utilizza più tipi di caratteri per il codice. Tale opzione può conseguire un impatto sulle prestazioni dell\'applicazione.</string>
     <string name="general">Generali</string>
     <string name="resources">Risorse</string>
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In alto</string>
     <string name="bottom">In basso</string>
     <string name="center">Al centro</string>
-    <string name="textaction_spacing">Spazio tra i moduli del testo</string>
+    <string name="textaction_spacing">Spazio tra le azioni sul testo</string>
     <string name="horizontal_space_between_textactions">Spazio orizzontale tra i tasti di azione sul testo</string>
     <string name="center_text">Centra il testo</string>
     <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
@@ -233,7 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Varie</string>
     <string name="textaction">Azione sul testo</string>
     <string name="textactions">Azioni sul testo</string>
-    <string name="prefer_representation">Rappresentazione preferita</string>
+    <string name="prefer_representation">Preferisci rappresentazione</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
     <string name="color">Colore</string>
@@ -254,6 +254,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_or_select_format">Inserisci o seleziona il formato</string>
     <string name="pick_date">Scegli la data</string>
     <string name="pick_time">Scegli l\'ora</string>
+    <string name="get_format_instead_date_or_time">Ottieni il formato invece della data o dell\'ora</string>
     <string name="always_use_current_date_and_time">Usa sempre la date e ora attuale</string>
     <string name="result">Risultato</string>
     <string name="just_time">Solo l\'ora</string>
