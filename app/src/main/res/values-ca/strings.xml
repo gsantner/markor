@@ -251,4 +251,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Finestres múltiples</string>
     <string name="font">Tipus de lletra</string>
     <string name="open_new_documents_always_in_new_window">Obre sempre els documents en finestres separades. Canvieu de document utilitzant la tecla «recents» del dispositiu.</string>
+    <string name="enter_or_select_format">Introduïu o seleccioneu el format</string>
+    <string name="pick_date">Trieu la data</string>
+    <string name="pick_time">Trieu l\'hora</string>
+    <string name="get_format_instead_date_or_time">Obtén el format en lloc de la data o l\'hora</string>
+    <string name="always_use_current_date_and_time">Utilitza sempre la data i l\'hora actual</string>
+    <string name="result">Resultat</string>
+    <string name="just_time">Només l\'hora</string>
+    <string name="just_date">Només la data</string>
+    <string name="last_used">Últim usat</string>
 </resources>
