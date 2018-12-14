@@ -40,7 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search">Cerca</string>
     <string name="representation">Rappresentazione</string>
     <string name="display_converted_markup">Mostra il markup convertito</string>
-    <string name="editor">Modifica</string>
+    <string name="editor">Editor</string>
     <string name="folders">Cartelle</string>
     <string name="files">File</string>
     <string name="document">Documento</string>
@@ -70,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Inserisci collegamento</string>
     <string name="insert_image">Inserisci immagine</string>
     <string name="contributors">Collaboratori</string>
-    <string name="save_location">Salva posizione</string>
+    <string name="save_location">Percorso di salvataggio</string>
     <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
     <string name="licenses">Licenze</string>
     <string name="changelog">Changelog</string>
@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Lingua</string>
     <string name="error_need_storage_permission_to_save_documents">Sono necessari i permessi di archiviazione per salvare i documenti</string>
     <string name="open_with">Apri con</string>
-    <string name="sort">Ordina</string>
+    <string name="sort">Ordina per</string>
     <string name="date">Ordina per data</string>
     <string name="deleteme____1">Ordina per nome</string>
     <string name="size">Dimensione</string>
@@ -119,7 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
     <string name="files_and_folders">File e cartelle</string>
-    <string name="document_browser">Esploratore dei documenti</string>
+    <string name="document_browser">Navigatore dei documenti</string>
     <string name="create_note" needed="false">Crea nota</string>
     <string name="special_documents" needed="false">Documenti speciali</string>
     <string name="keep_screen_on" needed="false">Mantieni lo schermo acceso</string>
@@ -173,7 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end_document">Fine del documento</string>
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="key_tab">Tabulatore</string>
-    <string name="start_on_bottom">Inizia in basso</string>
+    <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro gestore dei file.</string>
@@ -189,7 +189,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Spazio tra i moduli del testo</string>
     <string name="horizontal_space_between_textactions">Spazio orizzontale tra i tasti di azione sul testo</string>
     <string name="center_text">Centra il testo</string>
-    <string name="edit_text_in_center_of_screen">Modifica il testo al centro della schermata</string>
+    <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
     <string name="select_existing_document">Seleziona documento esistente</string>
     <string name="open_source_licenses">Licenze Open Source</string>
@@ -246,8 +246,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Impostare il colore di primo piano o di sfondo del testo? È anche possibile inserire il codice esadecimale del colore.</string>
     <string name="type">Tipo</string>
     <string name="folder">Cartella</string>
-    <string name="folder_is_created_without_extension">La cartella è creata senza estensione</string>
-    <string name="keep_existing_file">File e cartelle non saranno sovrascritti</string>
+    <string name="folder_is_created_without_extension">- La cartella è creata senza estensione</string>
+    <string name="keep_existing_file">- File e cartelle non saranno sovrascritti</string>
     <string name="multiple_windows">Finestre multiple</string>
     <string name="font">Font</string>
     <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
