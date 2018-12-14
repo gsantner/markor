@@ -251,4 +251,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Mehrere Fenster</string>
     <string name="font">Schriftart</string>
     <string name="open_new_documents_always_in_new_window">Dokumente immer in einem separaten Fenster öffnen. Wechsel mit dem \'Verlaufs\'-Button deines Geräts.</string>
+    <string name="last_used">L\'ultimo usato</string>
 </resources>
