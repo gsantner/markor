@@ -254,6 +254,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_or_select_format">Inserisci o seleziona il formato</string>
     <string name="pick_date">Scegli la data</string>
     <string name="pick_time">Scegli l\'ora</string>
+    <string name="always_use_current_date_and_time">Usa sempre la date e ora attuale</string>
+    <string name="result">Risultato</string>
     <string name="just_time">Solo l\'ora</string>
     <string name="just_date">Solo la data</string>
     <string name="last_used">Ultimo formato usato</string>
