@@ -13,7 +13,9 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
@@ -49,12 +51,14 @@ public class PlaintextTextActions extends TextActions {
             {CommonTextActions.ACTION_DELETE_LINES_ICON, 1},
             {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 2},
             {CommonTextActions.ACTION_COLOR_PICKER_ICON, 3},
+            {R.drawable.ic_access_time_black_24dp, 4},
     };
     private static final String[] ACTIONS = {
             CommonTextActions.ACTION_OPEN_LINK_BROWSER,
             CommonTextActions.ACTION_DELETE_LINES,
             CommonTextActions.ACTION_SPECIAL_KEY,
             CommonTextActions.ACTION_COLOR_PICKER,
+            "pick_datetime",
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -68,7 +72,17 @@ public class PlaintextTextActions extends TextActions {
         @Override
         public void onClick(View view) {
             CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
-            commonTextActions.runAction(_action);
+            switch (_action) {
+                case "pick_datetime": {
+                    DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+                    break;
+                }
+                default: {
+                    commonTextActions.runAction(_action);
+                    break;
+                }
+            }
+
         }
 
         @Override

@@ -165,8 +165,6 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_general_time: {
                     DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
-
-
                     break;
                 }
             }
