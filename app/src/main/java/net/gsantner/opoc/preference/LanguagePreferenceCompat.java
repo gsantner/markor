@@ -47,8 +47,10 @@ package net.gsantner.opoc.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v7.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -132,7 +134,7 @@ public class LanguagePreferenceCompat extends ListPreference {
             entryval[i + 2] = languages.get(i).split(";")[1];
         }
         entryval[0] = SYSTEM_LANGUAGE_CODE;
-        entries[0] = _systemLanguageName + " » " + summarizeLocale(context.getResources().getConfiguration().locale, "");
+        entries[0] = _systemLanguageName + " » " + summarizeLocale(ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0), "");
         entryval[1] = _defaultLanguageCode;
         entries[1] = summarizeLocale(contextUtils.getLocaleByAndroidCode(_defaultLanguageCode), _defaultLanguageCode);
 
