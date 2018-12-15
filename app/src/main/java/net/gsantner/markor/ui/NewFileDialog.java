@@ -11,8 +11,8 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -61,7 +60,6 @@ public class NewFileDialog extends DialogFragment {
         Window w;
         if ((w = dialog.getWindow()) != null) {
             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         return dialog;
     }
@@ -78,6 +76,9 @@ public class NewFileDialog extends DialogFragment {
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+
+        fileNameEdit.requestFocus();
+        new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
 
         fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
@@ -111,7 +112,6 @@ public class NewFileDialog extends DialogFragment {
 
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
-        setKb();
 
         dialogBuilder
                 .setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
@@ -145,16 +145,6 @@ public class NewFileDialog extends DialogFragment {
         try {
             callback.callback(ok, file);
         } catch (Exception ignored) {
-        }
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private void setKb() {
-        try {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        } catch (Exception ignored) {
-
         }
     }
 }

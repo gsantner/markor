@@ -37,6 +37,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -56,6 +57,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -767,4 +770,26 @@ public class ContextUtils {
             return null;
         }
     };
+
+    /**
+     * A simple {@link Runnable} which does a touch event on a view.
+     * This pops up e.g. the keyboard on a {@link android.widget.EditText}
+     * <p>
+     * Example: new Handler().postDelayed(new DoTouchView(editView), 200);
+     */
+    public static class DoTouchView implements Runnable {
+        View _view;
+
+        public DoTouchView(View view) {
+            _view = view;
+        }
+
+        @Override
+        public void run() {
+            _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0, 0, 0));
+            _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0, 0, 0));
+        }
+    }
 }
+
+
