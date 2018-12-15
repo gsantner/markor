@@ -260,4 +260,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Heure seulement</string>
     <string name="just_date">Date seulement</string>
     <string name="last_used">Utilisé récemment</string>
+    <string name="my_note">ma_note</string>
 </resources>
