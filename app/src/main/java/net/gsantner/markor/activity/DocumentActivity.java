@@ -24,18 +24,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.InputFilter;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
@@ -52,8 +47,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import other.so.AndroidBug5497Workaround;
 
@@ -66,10 +59,6 @@ public class DocumentActivity extends AppCompatActivity {
     FrameLayout _fragPlaceholder;
     @BindView(R.id.toolbar)
     Toolbar _toolbar;
-    @BindView(R.id.note__activity__header_view_switcher)
-    ViewSwitcher _toolbarSwitcher;
-    @BindView(R.id.note__activity__edit_note_title)
-    EditText _toolbarTitleEdit;
     @BindView(R.id.note__activity__text_note_title)
     TextView _toolbarTitleText;
 
@@ -124,7 +113,7 @@ public class DocumentActivity extends AppCompatActivity {
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(false);
+            ab.setDisplayHomeAsUpEnabled(true);
             ab.setDisplayShowTitleEnabled(false);
         }
 
@@ -159,9 +148,6 @@ public class DocumentActivity extends AppCompatActivity {
                 showTextEditor(null, file, fileIsFolder);
             }
         }
-
-        _toolbarTitleEdit.setFilters(new InputFilter[]{DocumentIO.INPUT_FILTER_FILESYSTEM_FILENAME});
-        _toolbarTitleEdit.setEnabled(false);
     }
 
     @Override
@@ -181,7 +167,6 @@ public class DocumentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        _toolbarTitleEdit.clearFocus();
         net.gsantner.markor.util.ShareUtil shu = new net.gsantner.markor.util.ShareUtil(this);
 
         switch (item.getItemId()) {
@@ -269,7 +254,6 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
     public void setDocumentTitle(final String title) {
-        _toolbarTitleEdit.setText(title);
         _toolbarTitleText.setText(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
@@ -288,19 +272,12 @@ public class DocumentActivity extends AppCompatActivity {
 
     public void showShareInto(String text) {
         // Disable edittext when going to shareinto
-        if (_toolbarSwitcher.getNextView() == _toolbarTitleText) {
-            _toolbarSwitcher.showNext();
-        }
         _toolbarTitleText.setText(R.string.import_);
         showFragment(DocumentShareIntoFragment.newInstance(text));
     }
 
     public void showPreview(@Nullable Document document, @Nullable File file) {
         // Disable edittext when going to preview
-        if (_toolbarSwitcher.getNextView() == _toolbarTitleText) {
-            _toolbarSwitcher.showNext();
-        }
-
         if (document != null) {
             showFragment(DocumentRepresentationFragment.newInstance(document));
         } else {
@@ -308,27 +285,9 @@ public class DocumentActivity extends AppCompatActivity {
         }
     }
 
-    @OnFocusChange(R.id.note__activity__edit_note_title)
-    public void onToolbarEditTitleFocusChanged(View view, boolean hasFocus) {
-        if (!hasFocus) {
-            setDocumentTitle(_toolbarTitleEdit.getText().toString());
-            _toolbarSwitcher.showNext();
-        }
-    }
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
-    }
-
-    @OnClick(R.id.note__activity__text_note_title)
-    public void onToolbarTitleTapped(View view) {
-        if (getCurrentVisibleFragment() == getExistingFragment(DocumentEditFragment.FRAGMENT_TAG)) {
-            if (!getIntent().getBooleanExtra(EXTRA_DO_PREVIEW, false)) {
-                _toolbarSwitcher.showPrevious();
-                _toolbarTitleEdit.requestFocus();
-            }
-        }
     }
 
     @Override
@@ -338,19 +297,6 @@ public class DocumentActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-    }
-
-    @OnTextChanged(value = R.id.note__activity__edit_note_title, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    public void onToolbarTitleEditValueChanged(CharSequence title) {
-        // Do not recurse
-        if (title.equals(_toolbarTitleText.getText())) {
-            return;
-        }
-
-        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
-            ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG))
-                    .getDocument().setTitle(title.toString());
         }
     }
 
@@ -372,11 +318,6 @@ public class DocumentActivity extends AppCompatActivity {
                 // Was handled by child fragment
                 return;
             }
-        }
-
-        if (_toolbarTitleEdit.hasFocus()) {
-            _toolbarTitleEdit.clearFocus();
-            return;
         }
 
         // Handle in this activity
@@ -420,10 +361,6 @@ public class DocumentActivity extends AppCompatActivity {
     public void setDocument(Document document) {
         _document = document;
         _toolbarTitleText.setText(_document.getTitle());
-
-        if (!TextUtils.isEmpty(_document.getTitle()) && _toolbarSwitcher.getNextView() == _toolbarTitleText) {
-            _toolbarSwitcher.showNext();
-        }
     }
 
     private boolean saveDocument() {

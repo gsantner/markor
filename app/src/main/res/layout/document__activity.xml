@@ -28,41 +28,17 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay">
 
-            <ViewSwitcher
-                android:id="@+id/note__activity__header_view_switcher"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <EditText
-                    android:id="@+id/note__activity__edit_note_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="sans-serif"
-                    android:hint="@string/title"
-                    android:imeOptions="flagNavigateNext"
-                    android:inputType="text|textCapWords"
-                    android:nextFocusDown="@+id/document__placeholder_fragment"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:singleLine="true"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:textSize="19sp"
-                    tools:ignore="UnusedAttribute" />
-
-                <TextView
-                    android:id="@+id/note__activity__text_note_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="sans-serif-medium"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    tools:ignore="UnusedAttribute" />
-            </ViewSwitcher>
+            <TextView
+                android:id="@+id/note__activity__text_note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif-medium"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:ignore="UnusedAttribute" />
 
         </android.support.v7.widget.Toolbar>
 
