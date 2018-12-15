@@ -202,6 +202,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Więcej informacji o tym, jak współtworzyć ten projekt</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
+    <string name="descending">malejąco</string>
+    <string name="ascending">rosnąco</string>
     <string name="disable_spelling_underline">Wyłącz podkreślanie pisowni</string>
     <string name="location">Lokalizacja</string>
     <string name="text_lines">Linie tekstu</string>
@@ -225,10 +227,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Kolor</string>
     <string name="zero_width_space">Spacja o zerowej szerokości</string>
     <string name="basic_color_scheme">Podstawowy schemat kolorów</string>
+    <string name="preset">Gotowe ustawienia</string>
+    <string name="foreground">Pierwszy plan</string>
     <string name="background">Tło</string>
     <string name="type">Rodzaj</string>
     <string name="folder">Katalog</string>
     <string name="folder_is_created_without_extension">- Katalog jest tworzony bez rozszerzenia pliku</string>
     <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
+    <string name="multiple_windows">Wiele okien</string>
     <string name="font">Czcionka</string>
 </resources>

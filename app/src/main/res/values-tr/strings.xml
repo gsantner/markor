@@ -248,5 +248,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Klasör</string>
     <string name="folder_is_created_without_extension">- Klasör, dosya uzantısı olmadan oluşturulur</string>
     <string name="keep_existing_file">- Dosya ve klasörlerin üzerine yazılmaz</string>
+    <string name="multiple_windows">Çoklu pencere</string>
     <string name="font">Yazı Tipi</string>
+    <string name="open_new_documents_always_in_new_window">Belgeleri her zaman ayrı pencerelerde açın. Belgeleri, cihazınızın \'son kullanılan uygulamalar\' tuşunu kullanarak değiştirin.</string>
+    <string name="enter_or_select_format">Biçim girin veya seçin</string>
+    <string name="pick_date">Tarih Seç</string>
+    <string name="pick_time">Saat seç</string>
+    <string name="get_format_instead_date_or_time">Tarih veya saat yerine biçimi al</string>
+    <string name="always_use_current_date_and_time">Her zaman geçerli tarih ve saati kullan</string>
+    <string name="result">Sonuç</string>
+    <string name="just_time">Sadece saat</string>
+    <string name="just_date">Sadece tarih</string>
+    <string name="last_used">Son kullanılan</string>
 </resources>

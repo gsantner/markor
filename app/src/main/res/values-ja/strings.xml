@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">行間のスペース (%)</string>
     <string name="line_spacing">行間</string>
     <string name="archive_does_move_done_tasks">完了したタスクを同じフォルダーの指定したファイルに移動します</string>
+    <string name="sort_tasks_by_selected_order">選択した順序でタスクをソートします</string>
     <string name="special_key">特殊キー</string>
     <string name="key_page_up">ページ上移動 (Page Up)</string>
     <string name="key_page_down">ページ下移動 (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">プロジェクトにコードを貢献してください。新規参画者を含めて誰でも歓迎します</string>
     <string name="project_team">プロジェクトチーム</string>
     <string name="contributors_public_add_yourself_description">貢献者の情報を表示します。貢献後にオプトインした方法でここに表示されます</string>
+    <string name="descending">降順</string>
+    <string name="ascending">昇順</string>
     <string name="disable_spelling_underline">スペルチェックの下線を無効にする</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">キーボードの提案は残り、赤の下線が消えます</string>
     <string name="location">場所</string>
@@ -245,5 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">フォルダー</string>
     <string name="folder_is_created_without_extension">- ファイル拡張子なしのフォルダーが作成されます</string>
     <string name="keep_existing_file">- ファイルとフォルダーは上書きされません</string>
+    <string name="multiple_windows">複数ウィンドウ</string>
     <string name="font">フォント</string>
+    <string name="open_new_documents_always_in_new_window">常に別のウィンドウにドキュメントを開きます。お使いのデバイスの \'履歴\' キーを使用して切り替えます。</string>
 </resources>

@@ -40,20 +40,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search">Cerca</string>
     <string name="representation">Rappresentazione</string>
     <string name="display_converted_markup">Mostra il markup convertito</string>
-    <string name="editor">Modifica</string>
+    <string name="editor">Editor</string>
     <string name="folders">Cartelle</string>
     <string name="files">File</string>
     <string name="document">Documento</string>
     <string name="documents">Documenti</string>
     <string name="html_as_plaintext">HTML (come file di testo)</string>
-    <string name="document_editor_font">Carattere per l\'editor dei documenti</string>
+    <string name="document_editor_font">Font per l\'editor dei documenti</string>
     <string name="theme">Tema</string>
     <string name="show_representation_of_markup_by_default">Mostra in maniera predefinita i documenti esistenti in modalità rappresentazione</string>
     <string name="about">Informazioni</string>
     <string name="plaintext">Testo semplice</string>
     <string name="file">File</string>
     <string name="image">Immagine</string>
-    <string name="font_size">Dimensione carattere</string>
+    <string name="font_size">Dimensione del font</string>
     <string name="render_rtl_language">Renderizza per lingue da destra a sinistra</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Errore: impossibile creare una nuova cartella per i documenti</string>
     <string name="last_modified_witharg">Ultima modifica: %s</string>
@@ -70,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Inserisci collegamento</string>
     <string name="insert_image">Inserisci immagine</string>
     <string name="contributors">Collaboratori</string>
-    <string name="save_location">Salva posizione</string>
+    <string name="save_location">Percorso di salvataggio</string>
     <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
     <string name="licenses">Licenze</string>
     <string name="changelog">Changelog</string>
@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Lingua</string>
     <string name="error_need_storage_permission_to_save_documents">Sono necessari i permessi di archiviazione per salvare i documenti</string>
     <string name="open_with">Apri con</string>
-    <string name="sort">Ordina</string>
+    <string name="sort">Ordina per</string>
     <string name="date">Ordina per data</string>
     <string name="deleteme____1">Ordina per nome</string>
     <string name="size">Dimensione</string>
@@ -119,7 +119,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
     <string name="files_and_folders">File e cartelle</string>
-    <string name="document_browser">Esploratore dei documenti</string>
+    <string name="document_browser">Navigatore dei documenti</string>
     <string name="create_note" needed="false">Crea nota</string>
     <string name="special_documents" needed="false">Documenti speciali</string>
     <string name="keep_screen_on" needed="false">Mantieni lo schermo acceso</string>
@@ -136,7 +136,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Ritardo dell\'evidenziazione</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardo in millisecondi per l\'aggiornamento dell\'evidenziazione. Un valore basso evidenzierà prima, ma consumerà più batteria e potrà diminuire le prestazioni nei dispositivi più vecchi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla quando il testo deve essere evidenziato o meno</string>
-    <string name="control_font_size_in_editor">Controlla la dimensione del carattere usato nell\'editor</string>
+    <string name="control_font_size_in_editor">Controlla la dimensione del font usato nell\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visualizza una barra con comodi pulsanti sulla parte inferiore, per modificare il testo o eseguire un\'azione basata sul testo.</string>
     <string name="load_last_opened_folder_at_startup">Apri l\'ultima cartella aperta all\'avvio</string>
     <string name="format">Formato</string>
@@ -148,7 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Altro</string>
     <string name="alternative_naming">Nomi alternativi</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
-    <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esadecimale</string>
+    <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esa</string>
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
     <string name="tasks_with_todays_date">Attività con la data di oggi</string>
     <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
@@ -156,8 +156,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rtl_rendering">Render da destra a sinistra</string>
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
-    <string name="use_monospace_for_code">Usa un carattere monospace per il codice</string>
-    <string name="use_different_fonttype_slow_down">Utilizza più tipi di caratteri. Cambiare il carattere dinamicamente consegue un impatto sulle prestazioni dell\'applicazione.</string>
+    <string name="use_monospace_for_code">Usa un font monospace per il codice</string>
+    <string name="use_different_fonttype_slow_down">Utilizza più tipi di font per il codice. Tale opzione può conseguire un impatto sulle prestazioni dell\'applicazione.</string>
     <string name="general">Generali</string>
     <string name="resources">Risorse</string>
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
@@ -173,7 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end_document">Fine del documento</string>
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="key_tab">Tabulatore</string>
-    <string name="start_on_bottom">Inizia in basso</string>
+    <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro gestore dei file.</string>
@@ -186,10 +186,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In alto</string>
     <string name="bottom">In basso</string>
     <string name="center">Al centro</string>
-    <string name="textaction_spacing">Spazio tra i moduli del testo</string>
+    <string name="textaction_spacing">Spazio tra le azioni sul testo</string>
     <string name="horizontal_space_between_textactions">Spazio orizzontale tra i tasti di azione sul testo</string>
     <string name="center_text">Centra il testo</string>
-    <string name="edit_text_in_center_of_screen">Modifica il testo al centro della schermata</string>
+    <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
     <string name="select_existing_document">Seleziona documento esistente</string>
     <string name="open_source_licenses">Licenze Open Source</string>
@@ -233,7 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Varie</string>
     <string name="textaction">Azione sul testo</string>
     <string name="textactions">Azioni sul testo</string>
-    <string name="prefer_representation">Rappresentazione preferita</string>
+    <string name="prefer_representation">Preferisci rappresentazione</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
     <string name="color">Colore</string>
@@ -246,9 +246,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Impostare il colore di primo piano o di sfondo del testo? È anche possibile inserire il codice esadecimale del colore.</string>
     <string name="type">Tipo</string>
     <string name="folder">Cartella</string>
-    <string name="folder_is_created_without_extension">La cartella è creata senza estensione</string>
-    <string name="keep_existing_file">File e cartelle non saranno sovrascritti</string>
+    <string name="folder_is_created_without_extension">- La cartella è creata senza estensione</string>
+    <string name="keep_existing_file">- File e cartelle non saranno sovrascritti</string>
     <string name="multiple_windows">Finestre multiple</string>
     <string name="font">Font</string>
     <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
+    <string name="enter_or_select_format">Inserisci o seleziona il formato</string>
+    <string name="pick_date">Scegli la data</string>
+    <string name="pick_time">Scegli l\'ora</string>
+    <string name="get_format_instead_date_or_time">Ottieni il formato invece della data o dell\'ora</string>
+    <string name="always_use_current_date_and_time">Usa sempre la date e ora attuale</string>
+    <string name="result">Risultato</string>
+    <string name="just_time">Solo l\'ora</string>
+    <string name="just_date">Solo la data</string>
+    <string name="last_used">L\'ultimo usato</string>
+    <string name="my_note">mie note</string>
 </resources>

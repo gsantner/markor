@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Espaço entre linhas (em percentagem)</string>
     <string name="line_spacing">Espaço entre linhas</string>
     <string name="archive_does_move_done_tasks">Mover tarefas terminadas para um ficheiro específico da pasta</string>
+    <string name="sort_tasks_by_selected_order">Organizar tarefas pela ordem escolhida</string>
     <string name="special_key">Tecla especial</string>
     <string name="key_page_up">Página acima (Page Up)</string>
     <string name="key_page_down">Página abaixo (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
     <string name="project_team">Equipa do projeto</string>
     <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
+    <string name="descending">descendente</string>
+    <string name="ascending">ascendente</string>
     <string name="disable_spelling_underline">Desativar sublinhado de ortografia</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">As sugestões surgem mas o sublinhado desaparece</string>
     <string name="location">Localização</string>
@@ -243,5 +246,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Definir cor principal e secundária? Também pode utilizar os códigos de cor HEX.</string>
     <string name="type">Tipo</string>
     <string name="folder">Pasta</string>
+    <string name="folder_is_created_without_extension">- Pasta criada sem a extensão do ficheiro</string>
+    <string name="keep_existing_file">- Pastas e ficheiros não são substituídos</string>
+    <string name="multiple_windows">Várias janelas</string>
     <string name="font">Tipo de letra</string>
+    <string name="open_new_documents_always_in_new_window">Abrir documentos em janelas distintas. Pode trocar entre documentos com a tecla \'recentes\' do seu dispositivo.</string>
+    <string name="enter_or_select_format">Introduza ou selecione o formato</string>
+    <string name="pick_date">Escolher data</string>
+    <string name="pick_time">Escolher hora</string>
+    <string name="get_format_instead_date_or_time">Obter formato em vez de data e hora</string>
+    <string name="always_use_current_date_and_time">Utilizar sempre a data e hora atuais</string>
+    <string name="result">Resultado</string>
+    <string name="just_time">Apenas hora</string>
+    <string name="just_date">Apenas data</string>
+    <string name="last_used">Última opção utilizada</string>
 </resources>
