@@ -272,4 +272,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Time only</string>
     <string name="just_date">Date only</string>
     <string name="last_used">Last used</string>
+    <string name="my_note">my_note</string>
 </resources>

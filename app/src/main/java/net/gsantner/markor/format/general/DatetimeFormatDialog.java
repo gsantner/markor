@@ -85,7 +85,7 @@ public class DatetimeFormatDialog {
             formatEdit.setText(defaultDatetimeFormats[position]);
             popupWindow.dismiss();
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            previewView.setText(parseDateTimeToCustomFromat(formatEdit.getText().toString(), cal.getTimeInMillis()));
+            previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
         });
 
         // check for changes in combo box every 2 sec(delay)
@@ -109,7 +109,7 @@ public class DatetimeFormatDialog {
                 if (editTime + DELAY > System.currentTimeMillis()) {
                     isTyping = false;
                     setToNow(cal, alwaysNowCheckBox.isChecked());
-                    previewView.setText(parseDateTimeToCustomFromat(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }
             }
         });
@@ -123,7 +123,7 @@ public class DatetimeFormatDialog {
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
-                    previewView.setText(parseDateTimeToCustomFromat(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         );
 
@@ -131,7 +131,7 @@ public class DatetimeFormatDialog {
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
-                    previewView.setText(parseDateTimeToCustomFromat(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         );
 
@@ -158,7 +158,7 @@ public class DatetimeFormatDialog {
                     public void onClick(DialogInterface dialog, int id) {
                         as.setString(LAST_USED_PREF, formatEdit.getText().toString());
                         setToNow(cal, alwaysNowCheckBox.isChecked());
-                        String text = parseDateTimeToCustomFromat(formatEdit.getText().toString(), cal.getTimeInMillis());
+                        String text = parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis());
                         previewView.setText(text);
                         hlEditor.insertOrReplaceTextOnCursor(getOutput(
                                 formatInsteadCheckbox.isChecked(), text, formatEdit.getText().toString())
@@ -174,7 +174,7 @@ public class DatetimeFormatDialog {
      * @param datetime   {@link Long} selected _datetime in milisecond
      * @return formatted _datetime
      */
-    private static String parseDateTimeToCustomFromat(String timeFormat, Long datetime) {
+    private static String parseDatetimeFormatToString(String timeFormat, Long datetime) {
         try {
             DateFormat formatter = new SimpleDateFormat(timeFormat, CLOCALE);
             return formatter.format(datetime);
@@ -198,31 +198,30 @@ public class DatetimeFormatDialog {
      * @param defaultDatetimeFormats {@link String...} contains all default _datetime formats
      * @return extends {@link String...} with preview of given formats
      */
-    private static String[] getFormatsAndDatetimeExamples(String[] defaultDatetimeFormats) {
+    private static String[] expandFormatsWithValues(String[] defaultDatetimeFormats) {
         String[] result = new String[defaultDatetimeFormats.length * 2];
         for (int i = 0; i < defaultDatetimeFormats.length; i++) {
             result[i * 2] = defaultDatetimeFormats[i];
-            result[(i * 2) + 1] = parseDateTimeToCustomFromat(
-                    defaultDatetimeFormats[i], System.currentTimeMillis());
+            result[(i * 2) + 1] = parseDatetimeFormatToString(defaultDatetimeFormats[i], System.currentTimeMillis());
         }
         return result;
     }
 
     /**
-     * @param defaultDatetimeFormatsWithExample {@link String...} contains all default _datetime formats with preview
+     * @param formats {@link String...} contains all default _datetime formats with preview
      * @return {@link List} of mapped pairs ->> format + preview
      */
-    private static List<Map<String, String>> createAdapterData(String[] defaultDatetimeFormatsWithExample) {
-        List<Map<String, String>> formatAndDatetimeExample = new ArrayList<>();
-        String[] defaultFormatsWithExample = getFormatsAndDatetimeExamples(defaultDatetimeFormatsWithExample);
+    private static List<Map<String, String>> createAdapterData(String[] formats) {
+        List<Map<String, String>> pairs = new ArrayList<>();
+        String[] formatAndParsed = expandFormatsWithValues(formats);
 
-        for (int i = 0; i < defaultFormatsWithExample.length; i++) {
+        for (int i = 0; i < formatAndParsed.length; i++) {
             Map<String, String> pair = new HashMap<>(2);
-            pair.put("format", defaultFormatsWithExample[i++]);
-            pair.put("date", defaultFormatsWithExample[i]);
-            formatAndDatetimeExample.add(pair);
+            pair.put("format", formatAndParsed[i++]);
+            pair.put("date", formatAndParsed[i]);
+            pairs.add(pair);
         }
-        return formatAndDatetimeExample;
+        return pairs;
     }
 
     /**
