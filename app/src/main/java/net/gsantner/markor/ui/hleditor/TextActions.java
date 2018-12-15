@@ -27,25 +27,25 @@ import net.gsantner.markor.util.AppSettings;
 
 
 @SuppressWarnings("WeakerAccess")
-public abstract class TextModuleActions {
+public abstract class TextActions {
     protected HighlightingEditor _hlEditor;
     protected Document _document;
     protected Activity _activity;
     protected Context _context;
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
-    private int _textModuleSidePadding;
+    private int _textActionSidePadding;
 
-    public TextModuleActions(Activity activity, Document document) {
+    public TextActions(Activity activity, Document document) {
         _document = document;
         _activity = activity;
         _au = new ActivityUtils(activity);
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
-        _textModuleSidePadding = (int) (_appSettings.getEditorTextmoduleBarItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
     }
 
-    public abstract void appendTextModuleActionsToBar(ViewGroup viewGroup);
+    public abstract void appendTextActionsToBar(ViewGroup viewGroup);
 
     public View.OnLongClickListener getLongListenerShowingToastWithText(final String text) {
         return v -> {
@@ -59,7 +59,7 @@ public abstract class TextModuleActions {
         };
     }
 
-    protected void appendTextModuleActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
+    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setOnClickListener(v -> {
@@ -79,7 +79,7 @@ public abstract class TextModuleActions {
                 return true;
             });
         }
-        btn.setPadding(_textModuleSidePadding, btn.getPaddingTop(), _textModuleSidePadding, btn.getPaddingBottom());
+        btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
 
         boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
         btn.setColorFilter(ContextCompat.getColor(_context,
@@ -88,7 +88,7 @@ public abstract class TextModuleActions {
     }
 
     protected void setBarVisible(ViewGroup barLayout, boolean visible) {
-        if (barLayout.getId() == R.id.document__fragment__edit__textmodule_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
+        if (barLayout.getId() == R.id.document__fragment__edit__text_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
             ((HorizontalScrollView) barLayout.getParent())
                     .setVisibility(visible ? View.VISIBLE : View.GONE);
         }
@@ -102,7 +102,7 @@ public abstract class TextModuleActions {
         return _hlEditor;
     }
 
-    public TextModuleActions setHighlightingEditor(HighlightingEditor hlEditor) {
+    public TextActions setHighlightingEditor(HighlightingEditor hlEditor) {
         _hlEditor = hlEditor;
         return this;
     }
@@ -111,7 +111,7 @@ public abstract class TextModuleActions {
         return _document;
     }
 
-    public TextModuleActions setDocument(Document document) {
+    public TextActions setDocument(Document document) {
         _document = document;
         return this;
     }
@@ -120,7 +120,7 @@ public abstract class TextModuleActions {
         return _activity;
     }
 
-    public TextModuleActions setActivity(Activity activity) {
+    public TextActions setActivity(Activity activity) {
         _activity = activity;
         return this;
     }
@@ -129,7 +129,7 @@ public abstract class TextModuleActions {
         return _context;
     }
 
-    public TextModuleActions setContext(Context context) {
+    public TextActions setContext(Context context) {
         _context = context;
         return this;
     }

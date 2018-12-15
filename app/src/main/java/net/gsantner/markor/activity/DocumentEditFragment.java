@@ -75,8 +75,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
 
-    @BindView(R.id.document__fragment__edit__textmodule_actions_bar)
-    ViewGroup _textModuleActionsBar;
+    @BindView(R.id.document__fragment__edit__text_actions_bar)
+    ViewGroup _textActionsBar;
 
     @BindView(R.id.document__fragment__edit__content_editor__permission_warning)
     TextView _textSdWarning;
@@ -176,7 +176,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             da.setDocument(_document);
         }
         applyTextFormat(_document.getFormat());
-        _textFormat.getTextModuleActions().setDocument(_document);
+        _textFormat.getTextActions().setDocument(_document);
     }
 
     @Override
@@ -241,16 +241,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void applyTextFormat(int textFormatId) {
-        _textModuleActionsBar.removeAllViews();
+        _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
-        _textFormat.getTextModuleActions()
+        _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
-                .appendTextModuleActionsToBar(_textModuleActionsBar);
-        if (_textModuleActionsBar.getChildCount() == 0) {
-            _textModuleActionsBar.setVisibility(View.GONE);
+                .appendTextActionsToBar(_textActionsBar);
+        if (_textActionsBar.getChildCount() == 0) {
+            _textActionsBar.setVisibility(View.GONE);
         } else {
-            _textModuleActionsBar.setVisibility(View.VISIBLE);
+            _textActionsBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -261,7 +261,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         _hlEditor.setBackgroundColor(as.getEditorBackgroundColor());
         _hlEditor.setTextColor(as.getEditorForegroundColor());
-        fragmentView.findViewById(R.id.document__fragment__edit__textmodule_actions_bar__scrolling_parent).setBackgroundColor(as.getEditorTextactionBarColor());
+        fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(as.getEditorTextactionBarColor());
     }
 
     @Override

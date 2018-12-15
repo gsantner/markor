@@ -7,7 +7,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.format.plaintext;
+package net.gsantner.markor.format.general;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -27,7 +27,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
-public class CommonTextModuleActions {
+public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "press_special_key";
 
@@ -57,7 +57,7 @@ public class CommonTextModuleActions {
     private final Document _document;
     private final HighlightingEditor _hlEditor;
 
-    public CommonTextModuleActions(Activity activity, Document document, HighlightingEditor hlEditor) {
+    public CommonTextActions(Activity activity, Document document, HighlightingEditor hlEditor) {
         _activity = activity;
         _document = document;
         _hlEditor = hlEditor;

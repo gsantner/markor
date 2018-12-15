@@ -13,28 +13,29 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 
-public class PlaintextModuleActions extends TextModuleActions {
+public class PlaintextTextActions extends TextActions {
 
-    public PlaintextModuleActions(Activity activity, Document document) {
+    public PlaintextTextActions(Activity activity, Document document) {
         super(activity, document);
     }
 
 
     @Override
-    public void appendTextModuleActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
+    public void appendTextActionsToBar(ViewGroup barLayout) {
+        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Regular actions
             for (int[] actions : ACTIONS_ICONS) {
                 PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(ACTIONS[actions[1]]);
-                appendTextModuleActionToBar(barLayout, actions[0], actionCallback, actionCallback);
+                appendTextActionToBar(barLayout, actions[0], actionCallback, actionCallback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
+        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
         }
     }
@@ -44,16 +45,16 @@ public class PlaintextModuleActions extends TextModuleActions {
     //
 
     private static final int[][] ACTIONS_ICONS = {
-            {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 0},
-            {CommonTextModuleActions.ACTION_DELETE_LINES_ICON, 1},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 2},
-            {CommonTextModuleActions.ACTION_COLOR_PICKER_ICON, 3},
+            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 0},
+            {CommonTextActions.ACTION_DELETE_LINES_ICON, 1},
+            {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 2},
+            {CommonTextActions.ACTION_COLOR_PICKER_ICON, 3},
     };
     private static final String[] ACTIONS = {
-            CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER,
-            CommonTextModuleActions.ACTION_DELETE_LINES,
-            CommonTextModuleActions.ACTION_SPECIAL_KEY,
-            CommonTextModuleActions.ACTION_COLOR_PICKER,
+            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
+            CommonTextActions.ACTION_DELETE_LINES,
+            CommonTextActions.ACTION_SPECIAL_KEY,
+            CommonTextActions.ACTION_COLOR_PICKER,
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -66,20 +67,20 @@ public class PlaintextModuleActions extends TextModuleActions {
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
-            CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);
-            commonTextModuleActions.runAction(_action);
+            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
+            commonTextActions.runAction(_action);
         }
 
         @Override
         public boolean onLongClick(View v) {
             switch (_action) {
-                case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
+                case CommonTextActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
 
-                case CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
             }

@@ -14,16 +14,16 @@ import android.app.Activity;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.format.markdown.MarkdownTextModuleActions;
+import net.gsantner.markor.format.markdown.MarkdownTextActions;
 import net.gsantner.markor.format.plaintext.PlaintextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
-import net.gsantner.markor.format.plaintext.PlaintextModuleActions;
+import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
-import net.gsantner.markor.format.todotxt.TodoTxtTextModuleActions;
+import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
+import net.gsantner.markor.ui.hleditor.TextActions;
 
 public class TextFormat {
     public static final int FORMAT_UNKNOWN = 0;
@@ -41,20 +41,20 @@ public class TextFormat {
             case FORMAT_PLAIN: {
                 format.setConverter(new PlaintextConverter());
                 format.setHighlighter(new PlaintextHighlighter());
-                format.setTextModuleActions(new PlaintextModuleActions(activity, document));
+                format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
             case FORMAT_TODOTXT: {
                 format.setConverter(new TodoTxtTextConverter());
                 format.setHighlighter(new TodoTxtHighlighter());
-                format.setTextModuleActions(new TodoTxtTextModuleActions(activity, document));
+                format.setTextActions(new TodoTxtTextActions(activity, document));
                 break;
             }
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(new MarkdownTextConverter());
                 format.setHighlighter(new MarkdownHighlighter());
-                format.setTextModuleActions(new MarkdownTextModuleActions(activity, document));
+                format.setTextActions(new MarkdownTextActions(activity, document));
                 break;
             }
         }
@@ -64,15 +64,15 @@ public class TextFormat {
     //
     //
     //
-    private TextModuleActions _textModuleActions;
+    private TextActions _textActions;
     private Highlighter _highlighter;
     private TextConverter _converter;
 
     public TextFormat() {
     }
 
-    public TextFormat(TextModuleActions textModuleActions, Highlighter highlighter, MarkdownTextConverter converter) {
-        _textModuleActions = textModuleActions;
+    public TextFormat(TextActions textActions, Highlighter highlighter, MarkdownTextConverter converter) {
+        _textActions = textActions;
         _highlighter = highlighter;
         _converter = converter;
     }
@@ -82,12 +82,12 @@ public class TextFormat {
     //
     //
 
-    public TextModuleActions getTextModuleActions() {
-        return _textModuleActions;
+    public TextActions getTextActions() {
+        return _textActions;
     }
 
-    public void setTextModuleActions(TextModuleActions textModuleActions) {
-        _textModuleActions = textModuleActions;
+    public void setTextActions(TextActions textActions) {
+        _textActions = textActions;
     }
 
     public Highlighter getHighlighter() {

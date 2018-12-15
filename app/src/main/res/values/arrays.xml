@@ -35,7 +35,7 @@
         <item translatable="false">2</item>
     </string-array>
 
-    <string-array name="textmoduleactions_press_key__text" translatable="false">
+    <string-array name="textactions_press_key__text" translatable="false">
         <item translatable="false">@string/key_page_up</item>
         <item translatable="false">@string/key_page_down</item>
         <item translatable="false">@string/key_pos_1</item>

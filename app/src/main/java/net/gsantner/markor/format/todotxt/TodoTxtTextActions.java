@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
+import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
@@ -33,23 +33,23 @@ import java.util.Collections;
 import java.util.List;
 
 //TODO
-public class TodoTxtTextModuleActions extends TextModuleActions {
+public class TodoTxtTextActions extends TextActions {
 
-    public TodoTxtTextModuleActions(Activity activity, Document document) {
+    public TodoTxtTextActions(Activity activity, Document document) {
         super(activity, document);
     }
 
     @Override
-    public void appendTextModuleActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
+    public void appendTextActionsToBar(ViewGroup barLayout) {
+        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Regular actions
             for (int[] actions : STT_INSERT_ACTIONS_ICONS) {
                 TodoTxtTextActionsImpl callback = new TodoTxtTextActionsImpl(STT_INSERT_ACTIONS[actions[1]]);
-                appendTextModuleActionToBar(barLayout, actions[0], callback, callback);
+                appendTextActionToBar(barLayout, actions[0], callback, callback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
+        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
         }
     }
@@ -64,8 +64,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             {R.drawable.gs_email_sign_black_24dp, 2},
             {R.drawable.ic_local_offer_black_24dp, 3},
             {R.drawable.ic_star_border_black_24dp, 4},
-            {CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON, 5},
-            {CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON, 6},
+            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 5},
+            {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 6},
             //{R.drawable.ic_add_white_24dp, 5},
             {R.drawable.ic_archive_black_24dp, 7},
             {R.drawable.ic_date_range_black_24dp, 8},
@@ -77,13 +77,13 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
             "add_context",
             "add_project",
             "set_priority",
-            CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER,
-            CommonTextModuleActions.ACTION_SPECIAL_KEY,
+            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
+            CommonTextActions.ACTION_SPECIAL_KEY,
             //"add_task",
             "archive_done_tasks",
             "insert_date",
             "sort_todo",
-            CommonTextModuleActions.ACTION_COLOR_PICKER,
+            CommonTextActions.ACTION_COLOR_PICKER,
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -251,8 +251,8 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                 }
             }
 
-            CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);
-            commonTextModuleActions.runAction(_action);
+            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
+            commonTextActions.runAction(_action);
 
             /*
             if (_hlEditor.hasSelection()) {
@@ -292,19 +292,19 @@ public class TodoTxtTextModuleActions extends TextModuleActions {
                     });
                     return true;
                 }
-                case CommonTextModuleActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
+                case CommonTextActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
 
-                case CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
             }
 
-            CommonTextModuleActions commonTextModuleActions = new CommonTextModuleActions(_activity, _document, _hlEditor);
-            commonTextModuleActions.runAction(_action);
+            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
+            commonTextActions.runAction(_action);
 
 
             return false;

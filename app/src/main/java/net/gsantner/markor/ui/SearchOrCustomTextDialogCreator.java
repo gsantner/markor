@@ -42,7 +42,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
-        String[] actions = activity.getResources().getStringArray(R.array.textmoduleactions_press_key__text);
+        String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
         dopt.data = new ArrayList<>(Arrays.asList(actions));
 
         List<String> highlightedData = new ArrayList<>();

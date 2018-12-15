@@ -23,10 +23,10 @@ import android.widget.EditText;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
-import net.gsantner.markor.format.plaintext.CommonTextModuleActions;
+import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
-import net.gsantner.markor.ui.hleditor.TextModuleActions;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -36,21 +36,21 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MarkdownTextModuleActions extends TextModuleActions {
+public class MarkdownTextActions extends TextActions {
 
-    public MarkdownTextModuleActions(Activity activity, Document document) {
+    public MarkdownTextActions(Activity activity, Document document) {
         super(activity, document);
     }
 
     @Override
-    public void appendTextModuleActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextmoduleBar() && barLayout.getChildCount() == 0) {
+    public void appendTextActionsToBar(ViewGroup barLayout) {
+        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
             for (int[] actions : TMA_ACTIONS) {
-                MarkdownTextModuleActionsImpl actionCallback = new MarkdownTextModuleActionsImpl(actions[0]);
-                appendTextModuleActionToBar(barLayout, actions[1], actionCallback, actionCallback);
+                MarkdownTextActionsImpl actionCallback = new MarkdownTextActionsImpl(actions[0]);
+                appendTextActionToBar(barLayout, actions[1], actionCallback, actionCallback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextmoduleBar()) {
+        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
         }
     }
@@ -66,9 +66,9 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
             {R.string.tmaid_markdown_insert_image, R.drawable.ic_image_black_24dp},
-            {R.string.tmaid_general_delete_lines, CommonTextModuleActions.ACTION_DELETE_LINES_ICON},
-            {R.string.tmaid_general_open_link_browser, CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER__ICON},
-            {R.string.tmaid_general_special_key, CommonTextModuleActions.ACTION_SPECIAL_KEY__ICON},
+            {R.string.tmaid_general_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
+            {R.string.tmaid_general_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_general_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_markdown_insert_link, R.drawable.ic_link_black_24dp},
 
             {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp},
@@ -80,14 +80,14 @@ public class MarkdownTextModuleActions extends TextModuleActions {
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
             {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
-            {R.string.tmaid_color_picker, CommonTextModuleActions.ACTION_COLOR_PICKER_ICON},
+            {R.string.tmaid_color_picker, CommonTextActions.ACTION_COLOR_PICKER_ICON},
             {R.string.tmaid_general_time, R.drawable.ic_access_time_black_24dp},
     };
 
-    private class MarkdownTextModuleActionsImpl implements View.OnClickListener, View.OnLongClickListener {
+    private class MarkdownTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
         private int _action;
 
-        MarkdownTextModuleActionsImpl(int action) {
+        MarkdownTextActionsImpl(int action) {
             _action = action;
         }
 
@@ -143,19 +143,19 @@ public class MarkdownTextModuleActions extends TextModuleActions {
                     break;
                 }
                 case R.string.tmaid_general_delete_lines: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_DELETE_LINES);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_DELETE_LINES);
                     break;
                 }
                 case R.string.tmaid_general_open_link_browser: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_LINK_BROWSER);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
                     break;
                 }
                 case R.string.tmaid_general_special_key: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SPECIAL_KEY);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
                 case R.string.tmaid_color_picker: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_COLOR_PICKER);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
                     break;
                 }
                 case R.string.tmaid_markdown_insert_link:
@@ -176,11 +176,11 @@ public class MarkdownTextModuleActions extends TextModuleActions {
         public boolean onLongClick(View v) {
             switch (_action) {
                 case R.string.tmaid_general_open_link_browser: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_SEARCH);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
                 case R.string.tmaid_general_special_key: {
-                    new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_JUMP_BOTTOM_TOP);
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
                 case R.string.tmaid_markdown_insert_image: {

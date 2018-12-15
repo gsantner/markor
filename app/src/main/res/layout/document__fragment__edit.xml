@@ -58,13 +58,13 @@
     </ScrollView>
 
     <HorizontalScrollView
-        android:id="@+id/document__fragment__edit__textmodule_actions_bar__scrolling_parent"
+        android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:paddingTop="4dp">
 
         <LinearLayout
-            android:id="@+id/document__fragment__edit__textmodule_actions_bar"
+            android:id="@+id/document__fragment__edit__text_actions_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal" />

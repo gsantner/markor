@@ -124,8 +124,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
-    public boolean isEditor_ShowTextmoduleBar() {
-        return getBool(R.string.pref_key__is_show_textmodules_bar, true);
+    public boolean isEditor_ShowTextActionsBar() {
+        return getBool(R.string.pref_key__is_show_textactions_bar, true);
     }
 
     public boolean isHighlightingEnabled() {
@@ -262,8 +262,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
     }
 
-    public int getEditorTextmoduleBarItemPadding() {
-        return getInt(R.string.pref_key__editor_textmodule_bar_item_padding, 8);
+    public int getEditorTextActionItemPadding() {
+        return getInt(R.string.pref_key__editor_textaction_bar_item_padding, 8);
     }
 
     public boolean isDisableSpellingRedUnderline() {

@@ -156,13 +156,13 @@
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_extension_black_24dp"
-                android:key="@string/pref_key__is_show_textmodules_bar"
+                android:key="@string/pref_key__is_show_textactions_bar"
                 android:summary="@string/textactions_show_useful_actions_description__appspecific"
                 android:title="@string/textactions" />
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="8"
                 android:icon="@drawable/ic_space_bar_black_24dp"
-                android:key="@string/pref_key__editor_textmodule_bar_item_padding"
+                android:key="@string/pref_key__editor_textaction_bar_item_padding"
                 android:max="32"
                 android:summary="@string/horizontal_space_between_textactions"
                 android:title="@string/textaction_spacing"
