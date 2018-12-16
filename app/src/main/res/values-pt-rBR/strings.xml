@@ -251,4 +251,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">Várias janelas</string>
     <string name="font">Fonte</string>
     <string name="open_new_documents_always_in_new_window">Abrir documentos em janelas separadas. Você pode trocar entre os documentos com a tecla \'recentes\' do seu dispositivo.</string>
+    <string name="enter_or_select_format">Digite ou selecione um formato</string>
+    <string name="pick_date">Selecionar data</string>
+    <string name="pick_time">Selecionar tempo</string>
+    <string name="result">Resultado</string>
+    <string name="just_time">Apenas tempo</string>
+    <string name="just_date">Apenas data</string>
+    <string name="last_used">Usado anteriormente</string>
 </resources>
