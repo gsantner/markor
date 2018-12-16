@@ -138,10 +138,14 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
 
+        // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
         }
+
+        // Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
+        markup = markup.replace("{{ site.baseurl }}", "..");
 
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
         return putContentIntoTemplate(context, converted, onLoadJs, head);
