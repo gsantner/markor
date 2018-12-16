@@ -36,3 +36,4 @@ Where:
 * **[Amaya Lim](https://github.com/nightrainlily)**<br/>~° Improve project description
 * **[Jawkwon Im](https://github.com/jakeoneijk)**<br/>~° Add keep screen on
 * **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
+* **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
