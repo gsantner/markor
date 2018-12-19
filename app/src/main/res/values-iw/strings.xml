@@ -250,6 +250,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">חלונות מרובים</string>
     <string name="font">גופן</string>
     <string name="open_new_documents_always_in_new_window">פתח מסמכים תמיד בחלונות נפרדים. החלף בעזרת כפתור ה\"אחרונים\" של מכשירן.</string>
+    <string name="enter_or_select_format">הזן או בחר תצורה</string>
     <string name="pick_date">בחר תאריך</string>
     <string name="pick_time">בחר שעה</string>
+    <string name="get_format_instead_date_or_time">קבל תצורה במקום תאריך או שעה</string>
+    <string name="always_use_current_date_and_time">השתמש תמיד בתאריך והשעה הנוכחית</string>
+    <string name="result">תוצאה</string>
+    <string name="just_time">זמן בלבד</string>
+    <string name="just_date">תאריך בלבד</string>
+    <string name="last_used">שימוש אחרון</string>
+    <string name="my_note">הערה_שלי</string>
 </resources>
