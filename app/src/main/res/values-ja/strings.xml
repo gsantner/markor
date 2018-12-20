@@ -251,4 +251,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="multiple_windows">複数ウィンドウ</string>
     <string name="font">フォント</string>
     <string name="open_new_documents_always_in_new_window">常に別のウィンドウにドキュメントを開きます。お使いのデバイスの \'履歴\' キーを使用して切り替えます。</string>
+    <string name="enter_or_select_format">形式を入力または選択してください</string>
+    <string name="pick_date">日付を選択</string>
+    <string name="pick_time">時間を選択</string>
+    <string name="get_format_instead_date_or_time">日付や時間の代わりに形式を取得</string>
+    <string name="always_use_current_date_and_time">常に現在の日付と時間を使用する</string>
+    <string name="result">結果</string>
+    <string name="just_time">時間のみ</string>
+    <string name="just_date">日付のみ</string>
+    <string name="last_used">前回使用</string>
+    <string name="my_note">マイノート</string>
 </resources>
