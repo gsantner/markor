@@ -248,7 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">フォルダー</string>
     <string name="folder_is_created_without_extension">- ファイル拡張子なしのフォルダーが作成されます</string>
     <string name="keep_existing_file">- ファイルとフォルダーは上書きされません</string>
-    <string name="multiple_windows">複数ウィンドウ</string>
+    <string name="multiple_windows">マルチウィンドウ</string>
     <string name="font">フォント</string>
     <string name="open_new_documents_always_in_new_window">常に別のウィンドウにドキュメントを開きます。お使いのデバイスの \'履歴\' キーを使用して切り替えます。</string>
     <string name="enter_or_select_format">形式を入力または選択してください</string>
