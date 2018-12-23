@@ -123,7 +123,7 @@ public class DocumentActivity extends AppCompatActivity {
         boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
         if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) || Intent.ACTION_SEND.equals(intentAction)) {
             if (Intent.ACTION_SEND.equals(intentAction) && receivingIntent.hasExtra(Intent.EXTRA_TEXT)) {
-                showShareInto(receivingIntent.getStringExtra(Intent.EXTRA_TEXT));
+                showShareInto(receivingIntent);
             } else {
                 file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
                 if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
@@ -270,10 +270,10 @@ public class DocumentActivity extends AppCompatActivity {
         return frag;
     }
 
-    public void showShareInto(String text) {
+    public void showShareInto(Intent intent) {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.import_);
-        showFragment(DocumentShareIntoFragment.newInstance(text));
+        showFragment(DocumentShareIntoFragment.newInstance(intent));
     }
 
     public void showPreview(@Nullable Document document, @Nullable File file) {
