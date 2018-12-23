@@ -253,5 +253,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_new_documents_always_in_new_window">Abrir documentos siempre en ventanas separadas. Intercambiar usando la tecla \"recientes\" de su dispositivo.</string>
     <string name="enter_or_select_format">Introduzca o seleccione formato</string>
     <string name="pick_date">Elegir fecha</string>
-    <string name="pick_time">Elegir tiempo</string>
+    <string name="pick_time">Elegir hora</string>
+    <string name="get_format_instead_date_or_time">Cambiar formato de fecha y hora</string>
+    <string name="always_use_current_date_and_time">Utilizar siempre la fecha actual &amp; hora</string>
+    <string name="result">Resultado</string>
+    <string name="just_time">Sólo hora</string>
+    <string name="just_date">Sólo fecha</string>
+    <string name="last_used">Usado por última vez</string>
+    <string name="my_note">mi_nota</string>
 </resources>
