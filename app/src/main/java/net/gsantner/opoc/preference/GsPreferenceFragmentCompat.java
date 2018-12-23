@@ -46,6 +46,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -60,6 +61,7 @@ import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -213,6 +215,12 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         updatePreferenceIcons.callback(this);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) view.getLayoutParams();
+            lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+            view.setLayoutParams(lp);
+        }
     }
 
     private synchronized void updatePreferenceChangedListeners(boolean shouldListen) {
