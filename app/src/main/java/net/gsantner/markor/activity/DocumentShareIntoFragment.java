@@ -236,7 +236,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
-        public Boolean onPreferenceClicked(Preference preference) {
+        public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
             AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
             PermissionChecker permc = new PermissionChecker(getActivity());
             ShareUtil shu = new ShareUtil(getContext());

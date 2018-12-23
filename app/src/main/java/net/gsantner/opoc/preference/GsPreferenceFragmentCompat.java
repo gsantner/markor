@@ -94,7 +94,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     // Virtual
     //
 
-    public Boolean onPreferenceClicked(Preference preference) {
+    public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         return null;
     }
 
@@ -275,8 +275,10 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     @Override
     @Deprecated
     public boolean onPreferenceTreeClick(Preference preference) {
-        if (isAdded() && preference.hasKey()) {
-            Boolean ret = onPreferenceClicked(preference);
+        if (isAdded()) {
+            String key = preference.hasKey() ? preference.getKey() : "";
+            int keyResId = keyToStringResId(preference);
+            Boolean ret = onPreferenceClicked(preference, key, keyResId);
             if (ret != null) {
                 return ret;
             }

@@ -51,7 +51,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
 
     @Override
     @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
-    public Boolean onPreferenceClicked(Preference preference) {
+    public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         ActivityUtils au = new ActivityUtils(getActivity());
         if (isAdded() && preference.hasKey()) {
             switch (keyToStringResId(preference)) {
