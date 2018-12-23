@@ -348,6 +348,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         updateFabVisibility(pos == 0);
+        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.more)}[pos]);
 
         if (pos == 1 || pos == 2) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
