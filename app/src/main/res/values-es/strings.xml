@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Porcentaje de espaciado entre líneas</string>
     <string name="line_spacing">Espaciado entre líneas</string>
     <string name="archive_does_move_done_tasks">Mueve las tareas completadas al archivo especificado en la misma carpeta</string>
+    <string name="sort_tasks_by_selected_order">Ordenar tareas por orden seleccionado</string>
     <string name="special_key">Tecla especial</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Siguiente página (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Colabora con el proyecto. Cualquiera puede hacerlo, incluso los que usan la aplicación desde hace poco</string>
     <string name="project_team">El equipo tras el proyecto</string>
     <string name="contributors_public_add_yourself_description">Muestra información pública sobre los colaboradores. Estos pueden decidir si su información debe ser incluida con sus colaboraciones</string>
+    <string name="descending">descendente</string>
+    <string name="ascending">ascendente</string>
     <string name="disable_spelling_underline">Deshabilitar subrayado de errores de ortografía</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Mantener sugerencias, elimina subrayado rojo</string>
     <string name="location">Ubicación</string>
@@ -245,5 +248,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Carpeta</string>
     <string name="folder_is_created_without_extension">El directorio se ha creado sin extensión de archivo</string>
     <string name="keep_existing_file">Archivos y directorios no se sobrescriben</string>
+    <string name="multiple_windows">Múltiples ventanas</string>
     <string name="font">Tipo de letra</string>
+    <string name="open_new_documents_always_in_new_window">Abrir documentos siempre en ventanas separadas. Intercambiar usando la tecla \"recientes\" de su dispositivo.</string>
+    <string name="enter_or_select_format">Introduzca o seleccione formato</string>
+    <string name="pick_date">Elegir fecha</string>
+    <string name="pick_time">Elegir tiempo</string>
 </resources>
