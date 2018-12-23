@@ -26,6 +26,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -192,7 +193,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
-            String currentContent = TextUtils.isEmpty(document.getContent()) ? "" : (document.getContent().trim() + "\n");
+            String currentContent = TextUtils.isEmpty(document.getContent().trim()) ? "" : (document.getContent().trim() + "\n");
             DocumentIO.saveDocument(document, false, currentContent + seperator + _sharedText);
             if (showEditor) {
                 showInDocumentActivity(document);
@@ -220,19 +221,12 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            // Create a new document
-            Bundle args = new Bundle();
-            args.putSerializable(DocumentIO.EXTRA_PATH, AppSettings.get().getNotebookDirectory());
-            args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
-            Document document = DocumentIO.loadDocument(getContext(), args, null);
-            DocumentIO.saveDocument(document, false, _sharedText);
-
-            // Load document as file
-            args.putSerializable(DocumentIO.EXTRA_PATH, document.getFile());
-            args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            document = DocumentIO.loadDocument(getContext(), args, null);
-            document.setTitle("");
-            showInDocumentActivity(document);
+            NewFileDialog dialog = NewFileDialog.newInstance(AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+                if (ok && f.isFile()) {
+                    appendToExistingDocument(f, "", true);
+                }
+            });
+            dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
         }
 
         private void showInDocumentActivity(Document document) {
