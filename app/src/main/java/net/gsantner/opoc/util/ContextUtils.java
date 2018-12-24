@@ -517,6 +517,17 @@ public class ContextUtils {
     }
 
     /**
+     * Get the private directory for the current package (usually /data/data/package.name/)
+     */
+    public String getAppDataDir() {
+        try {
+            return _context.getPackageManager().getPackageInfo(getPackageIdReal(), 0).applicationInfo.dataDir;
+        } catch (PackageManager.NameNotFoundException e) {
+            return _context.getFilesDir().getParent();
+        }
+    }
+
+    /**
      * Request the givens paths to be scanned by MediaScanner
      *
      * @param files Files and folders to scan

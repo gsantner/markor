@@ -117,7 +117,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getFontFamily() {
-        return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
+        String ret = getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
+        if (ret.startsWith("/") && !(new File(ret).exists())) {
+            ret = rstr(R.string.default_font_family);
+        }
+        return ret;
     }
 
     public int getFontSize() {

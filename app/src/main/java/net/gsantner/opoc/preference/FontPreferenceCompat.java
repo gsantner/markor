@@ -31,6 +31,11 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * A {@link ListPreference} that displays a list of fonts to select from
  * This list contains fonts that are bundled with android
@@ -51,7 +56,6 @@ public class FontPreferenceCompat extends ListPreference {
             "monospace", "serif", "serif-monospace", "sans-serif-condensed", "sans-serif-thin",
             "sans-serif-black", "casual", "sans-serif-smallcaps", "cursive"
     };
-
 
     public FontPreferenceCompat(Context context) {
         super(context);
@@ -96,10 +100,17 @@ public class FontPreferenceCompat extends ListPreference {
             }
         }
 
+        /*for (File f : getCustomFonts()) {
+            _fontNames = appendToArray(_fontNames, f.getName());
+            _fontValues = appendToArray(_fontValues, f.getAbsolutePath());
+        }*/
+
         Spannable[] fontText = new Spannable[_fontNames.length];
         for (int i = 0; i < _fontNames.length; i++) {
             fontText[i] = new SpannableString(_fontNames[i] + "\n" + _fontValues[i]);
-            fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
+            if (!_fontValues[i].startsWith("/")) {
+                fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
+            }
             fontText[i].setSpan(new RelativeSizeSpan(0.7f), _fontNames[i].length() + 1, fontText[i].length(), 0);
 
         }
@@ -137,5 +148,21 @@ public class FontPreferenceCompat extends ListPreference {
 
     public void setFontValues(String[] fontValues) {
         _fontValues = fontValues;
+    }
+
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public File[] getCustomFonts() {
+        File dir = new File(getContext().getFilesDir().getParentFile(), ".local/share/fonts");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir.exists() ? dir.listFiles() : new File[0];
+    }
+
+    private static String[] appendToArray(String[] arr, String append) {
+        List<String> arro = new ArrayList<>(Arrays.asList(arr));
+        arro.add(append);
+        return arro.toArray(new String[arr.length + 1]);
     }
 }
