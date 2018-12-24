@@ -82,7 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_need_storage_permission_to_save_documents">需要存储权限以便保存文件</string>
     <string name="open_with">使用…打开</string>
     <string name="sort">排序方式</string>
-    <string name="date">按修改日期排序</string>
+    <string name="date">日期</string>
     <string name="deleteme____1">按文件名称排序</string>
     <string name="size">按文件大小排序</string>
     <string name="reverse_order">逆向排序</string>
@@ -254,8 +254,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_or_select_format">输入或选择格式</string>
     <string name="pick_date">选择日期</string>
     <string name="pick_time">选择时间</string>
+    <string name="get_format_instead_date_or_time">仅生成格式, 而不是日期或时间</string>
     <string name="always_use_current_date_and_time">始终使用当前日期 &amp; 时间</string>
     <string name="result">结果</string>
     <string name="just_time">仅时间</string>
     <string name="just_date">仅日期</string>
+    <string name="last_used">上次使用</string>
+    <string name="my_note">我的笔记</string>
 </resources>
