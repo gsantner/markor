@@ -11,6 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.core.util.Function;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.support.v4.content.LocalBroadcastManager;
@@ -22,8 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -448,7 +449,8 @@ public class MarkdownTextActions extends TextActions {
         buttonBrowseFs.setOnClickListener(button -> {
             if (getActivity() instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) getActivity();
-                FilesystemDialogCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), a);
+                Function<File, Boolean> f = action == 3 ? null : FilesystemDialogCreator.IsMimeImage;
+                FilesystemDialogCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), _context, f);
             }
         });
 

@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
+import android.arch.core.util.Function;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -18,6 +19,7 @@ import android.support.annotation.StringRes;
 import net.gsantner.markor.R;
 
 import java.io.File;
+import java.util.Comparator;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {
@@ -55,6 +57,9 @@ public class FilesystemDialogData {
                 homeButtonEnable = true,
                 cancelButtonEnable = true,
                 okButtonEnable = true;
+
+        public Comparator<File> fileComparable = null;
+        public Function<File, Boolean> fileOverallFilter = input -> true;
 
         @StringRes
         public int cancelButtonText = android.R.string.cancel;

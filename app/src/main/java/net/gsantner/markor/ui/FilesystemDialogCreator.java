@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
+import android.arch.core.util.Function;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
@@ -17,13 +18,16 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.List;
 
 public class FilesystemDialogCreator {
-    private static FilesystemDialogData.Options prepareFsDialogOpts
-            (Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
+    public static Function<File, Boolean> IsMimeText = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("text/");
+    public static Function<File, Boolean> IsMimeImage = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("image/");
+
+    private static FilesystemDialogData.Options prepareFsDialogOpts(Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
         AppSettings appSettings = new AppSettings(context);
@@ -43,6 +47,19 @@ public class FilesystemDialogCreator {
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
         opts.mustStartWithRootFolder = false;
+
+        opts.fileComparable = (o1, o2) -> {
+            String m1 = ContextUtils.get().getMimeType(o1);
+            String m2 = ContextUtils.get().getMimeType(o2);
+            if (m1.startsWith("text/") || m2.startsWith("text")) {
+                if (m1.startsWith("text/") && !m2.startsWith("text/")) {
+                    return -1;
+                } else if (m2.startsWith("text/") && !m1.startsWith("text/")) {
+                    return 1;
+                }
+            }
+            return 0;
+        };
 
         opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
         opts.secondaryTextColor = darkTheme ? R.color.dark__secondary_text : R.color.light__secondary_text;
@@ -72,8 +89,9 @@ public class FilesystemDialogCreator {
         filesystemDialog.show(fm, FilesystemDialog.FRAGMENT_TAG);
     }
 
-    public static void showFileDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context) {
+    public static void showFileDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context, Function<File, Boolean> fileOverallFilter) {
         final FilesystemDialogData.Options opts = prepareFsDialogOpts(context, false, listener);
+        opts.fileOverallFilter = fileOverallFilter;
         showDialog(fm, opts);
     }
 

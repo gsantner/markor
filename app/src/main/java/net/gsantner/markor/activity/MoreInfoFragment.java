@@ -54,7 +54,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         ActivityUtils au = new ActivityUtils(getActivity());
         if (isAdded() && preference.hasKey()) {
-            switch (keyToStringResId(preference)) {
+            switch (keyResId) {
                 case R.string.pref_key__more_info__app: {
                     _cu.openWebpageInExternalBrowser(getString(R.string.app_web_url));
                     return true;

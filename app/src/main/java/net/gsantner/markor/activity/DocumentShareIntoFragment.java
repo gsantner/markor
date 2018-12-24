@@ -216,7 +216,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     appendToExistingDocument(file, SEP_RULER, true);
                 }
 
-            }, getFragmentManager(), getActivity());
+            }, getFragmentManager(), getActivity(), FilesystemDialogCreator.IsMimeText);
         }
 
 
@@ -243,15 +243,13 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
-        public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
+        public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
             PermissionChecker permc = new PermissionChecker(getActivity());
             ShareUtil shu = new ShareUtil(getContext());
             String tmps;
 
-            int keyId = _cu.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, preference.getKey());
             boolean close = false;
-
             switch (keyId) {
                 case R.string.pref_key__share_into__clipboard: {
                     shu.setClipboard(_sharedText);

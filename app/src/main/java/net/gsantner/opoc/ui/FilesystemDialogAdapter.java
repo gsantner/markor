@@ -264,7 +264,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 @Override
                 public boolean accept(File file, String s) {
                     file = new File(file, s);
-                    return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile);
+                    Boolean yes = _dopt.fileOverallFilter == null ? null : _dopt.fileOverallFilter.apply(file);
+                    yes = yes == null || yes;
+                    return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile && yes);
                 }
             });
         } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
@@ -340,6 +342,12 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     return -1;
                 else if (o2.isDirectory())
                     return 1;
+                else if (_dopt.fileComparable != null) {
+                    int v = _dopt.fileComparable.compare(o1, o2);
+                    if (v != 0) {
+                        return v;
+                    }
+                }
 
                 return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
             }
@@ -389,6 +397,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     }
                 }
             }
+
             _lastFilter = constraint;
             results.values = _filteredList;
             results.count = _filteredList.size();

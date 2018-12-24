@@ -261,7 +261,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 opt.titleText = R.string.quicknote;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity());
+                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
                     }
                     return true;
                 }
@@ -282,7 +282,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 opt.titleText = R.string.todo;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity());
+                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
                     }
                     return true;
                 }
@@ -303,7 +303,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 opt.titleText = R.string.linkbox;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity());
+                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
                     }
                     return true;
                 }

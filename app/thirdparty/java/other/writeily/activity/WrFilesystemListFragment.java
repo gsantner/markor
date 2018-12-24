@@ -434,7 +434,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
                 opt.doSelectFile = true;
                 opt.doSelectFolder = true;
             }
-        }, getFragmentManager(), getActivity());
+        }, getFragmentManager(), getActivity(), null);
     }
 
     /**

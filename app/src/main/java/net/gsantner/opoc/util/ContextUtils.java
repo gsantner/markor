@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -59,6 +60,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -789,6 +791,57 @@ public class ContextUtils {
             _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0, 0, 0));
             _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0, 0, 0));
         }
+    }
+
+
+    public String getMimeType(File file) {
+        return getMimeType(Uri.fromFile(file));
+    }
+
+    /**
+     * Detect MimeType of given file
+     * Android/Java's own MimeType map is very very small and detection barely works at all
+     * Hence use custom map for some file extensions
+     */
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) {
+            ContentResolver cr = _context.getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String ext = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
+
+            // Try to guess if the recommended methods fail
+            if (TextUtils.isEmpty(mimeType)) {
+                switch (ext) {
+                    case "md":
+                    case "markdown":
+                    case "mkd":
+                    case "mdown":
+                    case "mkdn":
+                    case "mdwn":
+                    case "rmd":
+                        mimeType = "text/markdown";
+                        break;
+                    case "yaml":
+                    case "yml":
+                        mimeType = "text/yaml";
+                        break;
+                    case "json":
+                        mimeType = "text/json";
+                        break;
+                    case "txt":
+                        mimeType = "text/plain";
+                        break;
+                }
+            }
+        }
+
+        if (TextUtils.isEmpty(mimeType)) {
+            mimeType = "*/*";
+        }
+        return mimeType;
     }
 }
 
