@@ -45,9 +45,9 @@ public class TodoTxtTextActions extends TextActions {
             setBarVisible(barLayout, true);
 
             // Regular actions
-            for (int[] actions : STT_INSERT_ACTIONS_ICONS) {
-                TodoTxtTextActionsImpl callback = new TodoTxtTextActionsImpl(STT_INSERT_ACTIONS[actions[1]]);
-                appendTextActionToBar(barLayout, actions[0], callback, callback);
+            for (int[] actions : TMA_ACTIONS) {
+                TodoTxtTextActionsImpl actionCallback = new TodoTxtTextActionsImpl(actions[0]);
+                appendTextActionToBar(barLayout, actions[1], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
@@ -58,38 +58,25 @@ public class TodoTxtTextActions extends TextActions {
     //
     //
 
-    private static final int[][] STT_INSERT_ACTIONS_ICONS = {
-            {R.drawable.ic_close_black_24dp, 0},
-            {R.drawable.ic_delete_black_24dp, 1},
-            {R.drawable.gs_email_sign_black_24dp, 2},
-            {R.drawable.ic_local_offer_black_24dp, 3},
-            {R.drawable.ic_star_border_black_24dp, 4},
-            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 5},
-            {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 6},
-            //{R.drawable.ic_add_white_24dp, 5},
-            {R.drawable.ic_archive_black_24dp, 7},
-            {R.drawable.ic_date_range_black_24dp, 8},
-            {R.drawable.ic_sort_by_alpha_black_24dp, 9},
-    };
-    private static final String[] STT_INSERT_ACTIONS = {
-            "toggle_done",
-            "delete_task",
-            "add_context",
-            "add_project",
-            "set_priority",
-            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
-            CommonTextActions.ACTION_SPECIAL_KEY,
-            //"add_task",
-            "archive_done_tasks",
-            "insert_date",
-            "sort_todo",
-            CommonTextActions.ACTION_COLOR_PICKER,
+
+    // Mapping from action (string res) to icon (drawable res)
+    private static final int[][] TMA_ACTIONS = {
+            {R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp},
+            {R.string.tmaid_general_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
+            {R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp},
+            {R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp},
+            {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp},
+            {R.string.tmaid_general_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_general_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
+            {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp},
+            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
+            {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp},
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
-        String _action;
+        int _action;
 
-        TodoTxtTextActionsImpl(String action) {
+        TodoTxtTextActionsImpl(int action) {
             _action = action;
         }
 
@@ -100,6 +87,7 @@ public class TodoTxtTextActions extends TextActions {
             final String origText = _hlEditor.getText().toString();
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
+            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
 
             final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
                 if (updatedTask != null) {
@@ -131,13 +119,13 @@ public class TodoTxtTextActions extends TextActions {
 
 
             switch (_action) {
-                case "toggle_done": {
+                case R.string.tmaid_todotxt_toggle_done: {
                     origTask.setDone(!origTask.isDone());
                     origTask.setCompletionDate(SttCommander.getToday());
                     cbUpdateOrigTask.callback(origTask);
                     return;
                 }
-                case "add_context": {
+                case R.string.tmaid_todotxt_add_context: {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
@@ -149,7 +137,7 @@ public class TodoTxtTextActions extends TextActions {
                     });
                     return;
                 }
-                case "add_project": {
+                case R.string.tmaid_todotxt_add_project: {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
@@ -162,25 +150,22 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
 
-                case "set_priority": {
+                case R.string.tmaid_todotxt_priority: {
                     SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, origTask.getPriority(), (callbackPayload) -> {
                         origTask.setPriority((callbackPayload.length() == 1) ? callbackPayload.charAt(0) : SttTask.PRIORITY_NONE);
                         cbUpdateOrigTask.callback(origTask);
                     });
                     return;
                 }
-                case "insert_date": {
+                case R.string.tmaid_todotxt_current_date: {
                     _hlEditor.getText().insert(origSelectionStart, SttCommander.getToday());
                     return;
                 }
-                case "add_task": {
-                    return;
-                }
-                case "delete_task": {
+                case R.string.tmaid_general_delete_lines: {
                     removeTasksBetweenIndexes(_hlEditor.getText(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
                     return;
                 }
-                case "archive_done_tasks": {
+                case R.string.tmaid_todotxt_archive_done_tasks: {
                     SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
                         // Don't do parse tasks in this case, performance wise
                         ArrayList<String> keep = new ArrayList<>();
@@ -231,7 +216,7 @@ public class TodoTxtTextActions extends TextActions {
                     });
                     return;
                 }
-                case "sort_todo": {
+                case R.string.tmaid_todotxt_sort_todo: {
                     SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
                         @Override
                         public void run() {
@@ -248,11 +233,17 @@ public class TodoTxtTextActions extends TextActions {
                             setEditorTextAsync(TextUtils.join("\n", tasksStrings));
                         }
                     }.start());
+                    break;
+                }
+                case R.string.tmaid_general_open_link_browser: {
+                    commonTextActions.runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
+                    break;
+                }
+                case R.string.tmaid_general_special_key: {
+                    commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
+                    break;
                 }
             }
-
-            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
-            commonTextActions.runAction(_action);
 
             /*
             if (_hlEditor.hasSelection()) {
@@ -276,37 +267,33 @@ public class TodoTxtTextActions extends TextActions {
             final String origText = _hlEditor.getText().toString();
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
+            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
 
             switch (_action) {
-                case "add_context": {
+                case R.string.tmaid_todotxt_add_context: {
                     SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), origText, (callbackPayload) -> {
                         int cursor = origText.indexOf(callbackPayload);
                         _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                     });
                     return true;
                 }
-                case "add_project": {
+                case R.string.tmaid_todotxt_add_project: {
                     SearchOrCustomTextDialogCreator.showSttProjectListDialog(_activity, sttcmd.parseProjects(origText), origTask.getContexts(), origText, (callbackPayload) -> {
                         int cursor = origText.indexOf(callbackPayload);
                         _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                     });
                     return true;
                 }
-                case CommonTextActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                case R.string.tmaid_general_special_key: {
+                    commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
 
-                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
+                case R.string.tmaid_general_open_link_browser: {
+                    commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
             }
-
-            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
-            commonTextActions.runAction(_action);
-
-
             return false;
         }
     }

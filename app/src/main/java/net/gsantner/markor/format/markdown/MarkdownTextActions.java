@@ -81,7 +81,7 @@ public class MarkdownTextActions extends TextActions {
             {R.string.tmaid_markdown_ul, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
             {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
-            {R.string.tmaid_color_picker, CommonTextActions.ACTION_COLOR_PICKER_ICON},
+            {R.string.tmaid_general_color_picker, CommonTextActions.ACTION_COLOR_PICKER_ICON},
             {R.string.tmaid_general_time, R.drawable.ic_access_time_black_24dp},
     };
 
@@ -155,7 +155,7 @@ public class MarkdownTextActions extends TextActions {
                     new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
-                case R.string.tmaid_color_picker: {
+                case R.string.tmaid_general_color_picker: {
                     new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
                     break;
                 }
