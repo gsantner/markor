@@ -44,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDialogAdapter.UiFilesystemDialogViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener {
+public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDialogAdapter.UiFilesystemDialogViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
     //########################
     //## Static
     //########################
@@ -122,12 +122,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
         //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
-        holder.image.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(_context, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
+        holder.image.setOnLongClickListener(view -> {
+            Toast.makeText(_context, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            return true;
         });
         holder.itemRoot.setTag(new TagContainer(file, position));
         holder.itemRoot.setOnClickListener(this);
@@ -260,15 +257,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         File[] files = null;
 
         if (_currentFolder.isDirectory()) {
-            files = _currentFolder.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File file, String s) {
-                    file = new File(file, s);
-                    Boolean yes = _dopt.fileOverallFilter == null ? null : _dopt.fileOverallFilter.apply(file);
-                    yes = yes == null || yes;
-                    return file.isDirectory() || (!file.isDirectory() && _dopt.doSelectFile && yes);
-                }
-            });
+            files = _currentFolder.listFiles(this);
         } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
             files = _dopt.recentFiles;
         } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
@@ -333,25 +322,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             }
         }
 
-        Collections.sort(_adapterData, new Comparator<File>() {
-            @Override
-            public int compare(File o1, File o2) {
-                if (o1.isDirectory())
-                    return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
-                else if (!o2.canWrite())
-                    return -1;
-                else if (o2.isDirectory())
-                    return 1;
-                else if (_dopt.fileComparable != null) {
-                    int v = _dopt.fileComparable.compare(o1, o2);
-                    if (v != 0) {
-                        return v;
-                    }
-                }
-
-                return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
-            }
-        });
+        Collections.sort(_adapterData, this);
 
         if (canGoUp(_currentFolder)) {
             _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
@@ -363,6 +334,32 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
     }
 
+    // listFiles(FilenameFilter)
+    @Override
+    public boolean accept(File dir, String filename) {
+        File f = new File(dir, filename);
+        Boolean yes = _dopt.fileOverallFilter == null ? null : _dopt.fileOverallFilter.apply(f);
+        yes = yes == null || yes;
+        return f.isDirectory() || (!f.isDirectory() && _dopt.doSelectFile && yes);
+    }
+
+    // Sort adapterData
+    @Override
+    public int compare(File o1, File o2) {
+        if (o1.isDirectory())
+            return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
+        else if (!o2.canWrite())
+            return -1;
+        else if (o2.isDirectory())
+            return 1;
+        else if (_dopt.fileComparable != null) {
+            int v = _dopt.fileComparable.compare(o1, o2);
+            if (v != 0) {
+                return v;
+            }
+        }
+        return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
+    }
 
     //########################
 //##
