@@ -273,11 +273,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Date only</string>
     <string name="last_used">Last used</string>
     <string name="my_note">my_note</string>
-    <string name="tmaid_todotxt_toggle_done">tmaid_todotxt_toggle_done</string>
-    <string name="tmaid_todotxt_add_context">tmaid_todotxt_add_context</string>
-    <string name="tmaid_todotxt_add_project">tmaid_todotxt_add_project</string>
-    <string name="tmaid_todotxt_priority">tmaid_todotxt_priority</string>
-    <string name="tmaid_todotxt_archive_done_tasks">tmaid_todotxt_archive_done_tasks</string>
-    <string name="tmaid_todotxt_current_date">tmaid_todotxt_current_date</string>
-    <string name="tmaid_todotxt_sort_todo">tmaid_todotxt_sort_todo</string>
 </resources>

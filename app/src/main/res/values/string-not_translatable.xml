@@ -211,4 +211,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jekyll_post" translatable="false">Jekyll Post</string>
     <string name="zim_wiki" translatable="false">Zim Wiki</string>
     <string name="pref_key__is_multi_window_enabled" translatable="false">pref_key__is_multi_window_enabled</string>
+    <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
+    <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
+    <string name="tmaid_todotxt_add_project" translatable="false">tmaid_todotxt_add_project</string>
+    <string name="tmaid_todotxt_priority" translatable="false">tmaid_todotxt_priority</string>
+    <string name="tmaid_todotxt_archive_done_tasks" translatable="false">tmaid_todotxt_archive_done_tasks</string>
+    <string name="tmaid_todotxt_current_date" translatable="false">tmaid_todotxt_current_date</string>
+    <string name="tmaid_todotxt_sort_todo" translatable="false">tmaid_todotxt_sort_todo</string>
 </resources>
