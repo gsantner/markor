@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Odstęp między wierszami w procentach</string>
     <string name="line_spacing">Odstępy między wierszami</string>
     <string name="archive_does_move_done_tasks">Przenieś wykonane zadania do określonego pliku w tym samym folderze</string>
+    <string name="sort_tasks_by_selected_order">Sortuj zadania według wybranej kolejności</string>
     <string name="special_key">Specialne Klawisze</string>
     <string name="key_page_up">Strona w górę (Page Up)</string>
     <string name="key_page_down">Strona w dół (Page Down)</string>
@@ -236,4 +237,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
     <string name="multiple_windows">Wiele okien</string>
     <string name="font">Czcionka</string>
+    <string name="pick_date">Wybierz datę</string>
+    <string name="pick_time">Wybierz godzinę</string>
+    <string name="always_use_current_date_and_time">Zawsze używaj bieżącej daty i godziny</string>
+    <string name="result">Wynik</string>
+    <string name="just_time">Tylko godzina</string>
+    <string name="just_date">Tylko data</string>
 </resources>

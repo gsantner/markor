@@ -165,6 +165,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">رياضيات</string>
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
+    <string name="color">اللون</string>
     <string name="background">الخلفية</string>
+    <string name="folder">مجلد</string>
     <string name="font">الخط</string>
+    <string name="pick_date">اختر تاريخاً</string>
+    <string name="pick_time">اختر الوقت</string>
+    <string name="result">النتيجة</string>
+    <string name="just_time">الوقت فقط</string>
+    <string name="just_date">التاريخ فقط</string>
+    <string name="last_used">آخر استخدام</string>
 </resources>
