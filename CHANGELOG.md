@@ -1,3 +1,23 @@
+### v1.6.0 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html)
+**New features:**  
+- TextAction: Insert date/time  
+- Add website title when sharing into Markor, if browser supports it  
+  - Website title + URL formatted in Markdown format if possible
+
+**Improved:**  
+- Automatically create ToDo/linkbox/QuickNote and parent folders when using respective launcher  
+- KaTex/Math: Improve inline math  
+- Close virtual keyboard after creating new file  
+- Language selection: Load system's most important language as system hint  
+- Markdown + Jekyll: Replace {{ site.baseurl }} with .. in representation  
+- More padding at settings on older devices  
+- Use the new file dialog for sharing into new documents
+- Filesystem dialog now shows images / textfiles only at respective file selection  
+
+**Fixed:**  
+- New file dialog: Jekyll option on older devices  
+- Title not updated when swiping  
+
 ### v1.5.0 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html)
 **New features:**  
 - App-wide  

@@ -69,8 +69,8 @@
             <Button
                 android:id="@+id/time_format_last_used"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
                 android:focusable="true"
                 android:text="@string/last_used"
                 android:textAllCaps="false" />
@@ -78,8 +78,8 @@
             <Button
                 android:id="@+id/time_format_just_date"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:layout_weight="32"
                 android:focusable="true"
                 android:text="@string/just_date"
                 android:textAllCaps="false" />
@@ -88,8 +88,8 @@
             <Button
                 android:id="@+id/time_format_just_time"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
                 android:focusable="true"
                 android:text="@string/just_time"
                 android:textAllCaps="false" />
