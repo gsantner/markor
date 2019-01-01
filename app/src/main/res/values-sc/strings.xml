@@ -14,9 +14,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="settings">Impostatziones</string>
     <string name="delete">Iscantzella</string>
     <string name="appearance">Aparèntzia</string>
-    <string name="confirm_delete">Cheres iscantzellare su documentu \'%1$s\'?</string>
+    <string name="confirm_delete">Cunfirma s\'iscantzellamentu</string>
     <string name="title">Tìtulu</string>
-    <string name="move">Moe</string>
+    <string name="move">Move</string>
     <string name="info">Informatziones</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>
