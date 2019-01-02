@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">تحديد الإدخال</string>
     <string name="one_item_selected">تم اختيار عنصر واحد</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">تم اختيار %d عناصر</string>
+    <string name="hide_statusbar_at_this_view">إخفاء شريط الإشعارات لهذا التطبيق</string>
     <string name="hide_statusbar">اخفاء شريط الاشعارات</string>
     <string name="name">الإسم</string>
     <string name="url_or_path">الرابط \ المسار</string>
