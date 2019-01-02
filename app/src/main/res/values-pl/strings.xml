@@ -237,10 +237,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Pliki i katalogi nie są nadpisywane</string>
     <string name="multiple_windows">Wiele okien</string>
     <string name="font">Czcionka</string>
+    <string name="enter_or_select_format">Wprowadź lub wybierz poniżej</string>
     <string name="pick_date">Wybierz datę</string>
     <string name="pick_time">Wybierz godzinę</string>
     <string name="always_use_current_date_and_time">Zawsze używaj bieżącej daty i godziny</string>
     <string name="result">Wynik</string>
     <string name="just_time">Tylko godzina</string>
     <string name="just_date">Tylko data</string>
+    <string name="last_used">Ostatnio używane</string>
+    <string name="my_note">notatki</string>
 </resources>
