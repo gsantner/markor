@@ -134,6 +134,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">تذكر آخر مجلد</string>
     <string name="syntax_highlighting">تظليل بناء الجملة</string>
     <string name="highlighting_delay">تأخر التظليل</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">تأخر التظليل بالمللي ثانية. القيمة الأقل ستفعل التظليل أسرع، ولكن قد تستهلك البطارية أكثر أو تبطئ التطبيق في الهواتف القديمة.</string>
+    <string name="highlighting_enabled_or_not__appspecific">اختيار تظليل النص من عدمه</string>
+    <string name="control_font_size_in_editor">اختيار حجم الخط المستخدم في المحرر</string>
     <string name="format">الصيغة</string>
     <string name="contexts">السياقات</string>
     <string name="project">المشروع</string>
