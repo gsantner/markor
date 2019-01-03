@@ -149,6 +149,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">التسمية البديلة</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">وضع خط تحت رموز الألوان ام لا</string>
     <string name="underline_hex_color_codes">وضع خط تحت رموز الألوان</string>
+    <string name="insert_current_date_when_starting_new_task">كتابة التاريخ عند كتابة مهمة جديدة</string>
+    <string name="tasks_with_todays_date">المهام بتاريخ اليوم</string>
     <string name="resources">الموارد</string>
     <string name="space_between_lines_in_percent">المسافة بين الأسطر بالمئة</string>
     <string name="line_spacing">تباعد الأسطر</string>
