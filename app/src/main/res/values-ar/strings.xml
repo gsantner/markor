@@ -128,6 +128,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">إعدادات المحرر</string>
     <string name="remember_last_folder_location_on_startup" needed="false">تذكر المجلد الأخير عند إطلاق التطبيق</string>
     <string name="number_of_files_witharg" needed="false">عدد الملفات: %d</string>
+    <string name="app_wide">إعدادات عامة</string>
+    <string name="main_view">العرض العام</string>
+    <string name="overall_theme_used_in_app">الشكل العام للتطبيق</string>
+    <string name="remember_last_directory">تذكر آخر مجلد</string>
+    <string name="syntax_highlighting">تظليل بناء الجملة</string>
+    <string name="highlighting_delay">تأخر التظليل</string>
     <string name="format">الصيغة</string>
     <string name="contexts">السياقات</string>
     <string name="project">المشروع</string>
