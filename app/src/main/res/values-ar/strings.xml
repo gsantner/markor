@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline_hex_color_codes">وضع خط تحت رموز الألوان</string>
     <string name="insert_current_date_when_starting_new_task">كتابة التاريخ عند كتابة مهمة جديدة</string>
     <string name="tasks_with_todays_date">المهام بتاريخ اليوم</string>
+    <string name="rtl_rendering">عرض من اليمين لليسار</string>
     <string name="highlight_line_ending">تظليل نهاية السطر</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">تظليل مسافاتين او اكثر في نهاية السطر</string>
     <string name="use_monospace_for_code">استخدام خط أحادي المسافة للشفرات البرمجية</string>
@@ -164,6 +165,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">مفتاح خاص</string>
     <string name="key_page_up">صفحة لأعلى</string>
     <string name="key_page_down">صفحة لأسفل</string>
+    <string name="key_pos_1">بداية السطر</string>
+    <string name="key_pos_end">نهاية السطر</string>
     <string name="vertical_alignment">محاذاة رأسية</string>
     <string name="horizontal_alignment">محاذاة أفقية</string>
     <string name="default_">افتراضي</string>
