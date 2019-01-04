@@ -171,6 +171,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end_document">نهاية المستند</string>
     <string name="key_ctrl_a">اختيار الكل (Ctrl + A)</string>
     <string name="start_on_bottom">البدء في نهاية الوثيقة</string>
+    <string name="start_on_bottom_when_loading_document">عند فتح وثيقة، يتم توجيه مؤشر الكتابة عند نهاية النص</string>
     <string name="vertical_alignment">محاذاة رأسية</string>
     <string name="horizontal_alignment">محاذاة أفقية</string>
     <string name="default_">افتراضي</string>
