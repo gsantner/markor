@@ -209,6 +209,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">الوثائق التي تم عرضها مؤخرا</string>
     <string name="details">التفاصيل</string>
     <string name="calendar">التقويم</string>
+    <string name="error_picture_selection">لم يتم اختيار صورة، ملتقطة أو محفوظة.</string>
     <string name="gallery_picture">معرض الصور</string>
     <string name="description">وصف</string>
     <string name="edit_picture">تعديل الصورة</string>
@@ -216,7 +217,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
     <string name="color">اللون</string>
+    <string name="preset">اعدادات جاهزة</string>
+    <string name="foreground">لون الخط</string>
     <string name="background">الخلفية</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">ضبط لون الخط أو لون الخلفية؟ يمكنك ادخال الرمز الست عشري للون.</string>
     <string name="folder">مجلد</string>
     <string name="font">الخط</string>
     <string name="pick_date">اختر تاريخاً</string>
