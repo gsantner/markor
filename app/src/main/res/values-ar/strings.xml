@@ -198,6 +198,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">رخصة المشروع</string>
     <string name="project_contribution_info">معلومات عن المساهمة في المشروع</string>
     <string name="more_info_on_how_to_contribute_to_this_project">مزيد من المعلومات حول كيفية المساهمة في هذا المشروع</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">ساهم في برمجة المشروع. الجميع مرحب به، وحتى المبتدأين</string>
     <string name="project_team">فريق المشروع</string>
     <string name="location">الموقع</string>
     <string name="details">التفاصيل</string>
