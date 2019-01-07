@@ -37,6 +37,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.util.ActivityUtils;
 
 import java.io.File;
@@ -257,7 +258,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void setupAppearancePreferences(View fragmentView) {
         AppSettings as = AppSettings.get();
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
-        _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), as.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(as.getEditorBackgroundColor());
         _hlEditor.setTextColor(as.getEditorForegroundColor());

@@ -1,3 +1,7 @@
+### v1.7.0 (in progress)
+- Improved primary color theme for better readability
+- Added: Load custom fonts from folder: 'Notebook/.app/fonts/'
+
 ### v1.6.0 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html)
 **New features:**  
 - TextAction: Insert date/time  

@@ -33,6 +33,7 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemDialogData;
@@ -74,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Custom code
+        FontPreferenceCompat.additionalyCheckedFolder = new File(appSettings.getNotebookDirectory(), ".app/fonts");
         iconColor = contextUtils.rcolor(appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);

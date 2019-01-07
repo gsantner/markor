@@ -47,7 +47,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnTextChanged;
 import other.so.AndroidBug5497Workaround;
 
 @SuppressWarnings("unused")

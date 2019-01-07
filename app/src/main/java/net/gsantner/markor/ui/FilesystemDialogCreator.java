@@ -18,7 +18,6 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
-import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.List;

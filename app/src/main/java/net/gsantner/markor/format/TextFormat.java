@@ -13,14 +13,14 @@ import android.app.Activity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextActions;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
 import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
-import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
+import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.TextActions;

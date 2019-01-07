@@ -63,19 +63,18 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setTitle(getResources().getString(R.string.details));
         dialogBuilder.setView(root);
 
-        ((TextView)root.findViewById(R.id.ui__fileinfodialog__name))
+        ((TextView) root.findViewById(R.id.ui__fileinfodialog__name))
                 .setText(file.getParentFile().getName());
 
 
-        ((TextView)root.findViewById(R.id.ui__fileinfodialog__location))
+        ((TextView) root.findViewById(R.id.ui__fileinfodialog__location))
                 .setText(file.getParentFile().getAbsolutePath());
 
-        ((TextView)root.findViewById(R.id.ui__fileinfodialog__last_modified))
+        ((TextView) root.findViewById(R.id.ui__fileinfodialog__last_modified))
                 .setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
 
-        ((TextView)root.findViewById(R.id.ui__fileinfodialog__last_modified_caption))
-                .setText(getString(R.string.last_modified_witharg, "").replace(":","").trim());
-
+        ((TextView) root.findViewById(R.id.ui__fileinfodialog__last_modified_caption))
+                .setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
 
 
         TextView sizeView = root.findViewById(R.id.ui__fileinfodialog__size_description);

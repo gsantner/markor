@@ -94,6 +94,13 @@ public abstract class TextConverter {
 
         html += HTML_ON_PAGE_LOAD_S + onLoadJs + HTML_ON_PAGE_LOAD_E;
 
+        // Add custom font css if font is a filepath, swap path with new font-family
+        String font = appSettings.getFontFamily();
+        if (font.startsWith("/")) {
+            html += CSS_S + "@font-face { font-family: customfont; src: url('file://" + font + "'); }" + CSS_E;
+            font = "customfont";
+        }
+
         // Remove duplicate style blocks
         html = html.replace(CSS_E + CSS_S, "").replace(CSS_E + "\n" + CSS_S, "");
 
@@ -107,7 +114,7 @@ public abstract class TextConverter {
         html = html
                 .replace(TOKEN_BW_INVERSE_OF_THEME, appSettings.isDarkThemeEnabled() ? "white" : "black")
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
-                .replace(TOKEN_FONT, appSettings.getFontFamily())
+                .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_NAME, getClass().getSimpleName())
         ;
 

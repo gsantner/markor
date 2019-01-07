@@ -21,6 +21,7 @@ package net.gsantner.opoc.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.ListPreference;
@@ -32,6 +33,8 @@ import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 
 import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +48,9 @@ import java.util.List;
  */
 @SuppressWarnings({"unused", "SpellCheckingInspection", "WeakerAccess"})
 public class FontPreferenceCompat extends ListPreference {
+    public static File additionalyCheckedFolder = null;
+    public static final FilenameFilter FONT_FILENAME_FILTER = (file, s) -> s.toLowerCase().endsWith(".ttf") || s.toLowerCase().endsWith(".otf");
+    private final static String android_asset = "/android_asset/";
     private String _defaultValue;
     private String[] _fontNames = {
             "Roboto Regular", "Roboto Light", "Roboto Bold", "Roboto Medium",
@@ -100,16 +106,20 @@ public class FontPreferenceCompat extends ListPreference {
             }
         }
 
-        /*for (File f : getCustomFonts()) {
-            _fontNames = appendToArray(_fontNames, f.getName());
-            _fontValues = appendToArray(_fontValues, f.getAbsolutePath());
-        }*/
+        for (File file : getCustomFonts()) {
+            _fontNames = appendToArray(_fontNames, file.getName().replace(".ttf", "").replace(".TTF", ""));
+            _fontValues = appendToArray(_fontValues, file.getAbsolutePath());
+        }
 
         Spannable[] fontText = new Spannable[_fontNames.length];
         for (int i = 0; i < _fontNames.length; i++) {
             fontText[i] = new SpannableString(_fontNames[i] + "\n" + _fontValues[i]);
             if (!_fontValues[i].startsWith("/")) {
-                fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
+                if (Build.VERSION.SDK_INT >= 28) {
+                    fontText[i].setSpan(new TypefaceSpan(typeface(getContext(), _fontValues[i], null)), 0, _fontNames[i].length(), 0);
+                } else {
+                    fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
+                }
             }
             fontText[i].setSpan(new RelativeSizeSpan(0.7f), _fontNames[i].length() + 1, fontText[i].length(), 0);
 
@@ -117,6 +127,26 @@ public class FontPreferenceCompat extends ListPreference {
         setDefaultValue(_defaultValue);
         setEntries(fontText);
         setEntryValues(_fontValues);
+    }
+
+    public static Typeface typeface(Context context, String familyOrFilepath, Integer typefaceStyle) {
+        if (typefaceStyle == null) {
+            typefaceStyle = Typeface.NORMAL;
+        }
+        if (!familyOrFilepath.startsWith("/")) {
+            return Typeface.create(familyOrFilepath, typefaceStyle);
+        } else {
+            try {
+                if (familyOrFilepath.startsWith(android_asset)) {
+                    return Typeface.createFromAsset(context.getAssets(), familyOrFilepath.substring(android_asset.length()));
+
+                } else {
+                    return Typeface.createFromFile(familyOrFilepath);
+                }
+            } catch (RuntimeException exception) {
+                return typeface(context, "sans-serif-regular", typefaceStyle);
+            }
+        }
     }
 
     @Override
@@ -152,12 +182,27 @@ public class FontPreferenceCompat extends ListPreference {
 
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public File[] getCustomFonts() {
-        File dir = new File(getContext().getFilesDir().getParentFile(), ".local/share/fonts");
+    public List<File> getCustomFonts() {
+        final ArrayList<File> files = new ArrayList<>();
+        File dir = new File(getContext().getFilesDir(), ".app/fonts");
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        return dir.exists() ? dir.listFiles() : new File[0];
+        if (dir.exists()) {
+            files.addAll(Arrays.asList(dir.listFiles(FONT_FILENAME_FILTER)));
+        }
+        if (additionalyCheckedFolder != null && additionalyCheckedFolder.exists()) {
+            files.addAll(Arrays.asList(additionalyCheckedFolder.listFiles(FONT_FILENAME_FILTER)));
+        }
+
+        try {
+            for (String filename : getContext().getAssets().list("fonts/")) {
+                files.add(new File(android_asset + "fonts", filename));
+            }
+        } catch (IOException ignored) {
+        }
+
+        return files;
     }
 
     private static String[] appendToArray(String[] arr, String append) {
