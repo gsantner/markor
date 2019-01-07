@@ -15,10 +15,10 @@
     <color name="colorAccent">@color/accent</color>
 
     <!-- Colors from Palette -->
-    <color name="primary">#1E2135</color>
-    <color name="primary_dark">#161828</color>
+    <color name="primary">#343434</color>
+    <color name="primary_dark">#282828</color>
     <color name="primary_light">#CED9DD</color>
-    <color name="accent">#F2033B</color>
+    <color name="accent">#F04B4B</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
