@@ -12,7 +12,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Impostatziones</string>
+    <string name="delete">Iscantzella</string>
     <string name="appearance">Aparèntzia</string>
+    <string name="confirm_delete">Cunfirma s\'iscantzellamentu</string>
+    <string name="title">Tìtulu</string>
+    <string name="move">Move</string>
+    <string name="info">Informatziones</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>
     <string name="about">Informatziones</string>
@@ -26,12 +31,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language_change_restart_description">Càmbia sa limba de custa aplicatzione. Torra·la a allùghere pro fàghere tènnere efetu a su cambiamentu</string>
     <string name="language">Limba</string>
     <string name="more">Àteru</string>
+    <string name="history">Cronologia</string>
+    <string name="save">Sarva</string>
+    <string name="refresh">Agiorna</string>
     <string name="none">Peruna</string>
+    <string name="other">Àteru</string>
     <string name="general">Generales</string>
     <string name="default_">Predefinidu</string>
     <string name="translate">Tradui</string>
     <string name="report_bugs">Sinnala errores</string>
     <string name="location">Positzione</string>
+    <string name="directory">Cartella</string>
     <string name="description">Descritzione</string>
     <string name="miscellaneous">Vàriu</string>
 </resources>

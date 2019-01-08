@@ -260,4 +260,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Sadece saat</string>
     <string name="just_date">Sadece tarih</string>
     <string name="last_used">Son kullanılan</string>
+    <string name="my_note">notum</string>
 </resources>
