@@ -226,7 +226,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">مجلد</string>
     <string name="folder_is_created_without_extension">يتم انشاء مجلد عند عدم تحديد نوع الملف</string>
     <string name="keep_existing_file">لا يتم التعديل على المجلدات والملفات الموجودة</string>
+    <string name="multiple_windows">نوافذ متعددة</string>
     <string name="font">الخط</string>
+    <string name="open_new_documents_always_in_new_window">فتح المستندات في نوافذ منفصلة. يمكنك التنقل بالضغط علي زر التطبيقات المفتوحة.</string>
     <string name="enter_or_select_format">أدخل أو اختر صيغة</string>
     <string name="pick_date">اختر تاريخاً</string>
     <string name="pick_time">اختر الوقت</string>
