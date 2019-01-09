@@ -40,6 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search">Traži</string>
     <string name="representation">Prezentacija</string>
     <string name="display_converted_markup">Prikaži konvertovani markup</string>
+    <string name="editor">Uređivač</string>
     <string name="folders">Direktoriji</string>
     <string name="files">Datoteke</string>
     <string name="document">Dokument</string>
@@ -61,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Kreiraj</string>
     <string name="select_entries">Označi stavke</string>
     <string name="one_item_selected">Označena jedna stavka</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Označeno stavki: %d</string>
     <string name="hide_statusbar_at_this_view">Sakrij statusnu traku u ovom prikazu</string>
     <string name="hide_statusbar">Sakrij statusnu traku</string>
     <string name="name">Ime</string>
@@ -137,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="control_font_size_in_editor">Odredi veličinu slova u editoru</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnim dugmadima. Ove tekstualne akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
+    <string name="format">Oblik</string>
     <string name="contexts">Konteksti</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekti</string>
@@ -169,6 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_1_document">Početak dokumenta</string>
     <string name="key_pos_end_document">Kraj dokumenta</string>
     <string name="key_ctrl_a">Označi sve (Ctrl+A)</string>
+    <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Počni na dnu</string>
     <string name="start_on_bottom_when_loading_document">Nakon otvaranja dokumenta, kursor pozicioniraj na kraj</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor može uređivati samo lokalne dokumente kojima ima pristup i ne podržava programe za upravljanje datotekama koji ne prikazuju cijelu putanju.</string>
@@ -245,6 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_is_created_without_extension">- Direktorij je kreiran bez ekstenzije</string>
     <string name="keep_existing_file">- Datoteke i direktoriji nisu prepisani</string>
     <string name="multiple_windows">Više prozora</string>
+    <string name="font">Pismo</string>
     <string name="open_new_documents_always_in_new_window">Uvijek otvori dokument u zasebnom prozoru. Za navigaciju koristite \"Recents (Zadnji otvoreni)\" tipku na Vašem uređaju.</string>
     <string name="enter_or_select_format">Unesite ili odaberite format</string>
     <string name="pick_date">Izaberi datum</string>
