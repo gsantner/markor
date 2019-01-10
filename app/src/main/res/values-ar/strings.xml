@@ -211,6 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="calendar">التقويم</string>
     <string name="error_picture_selection">لم يتم اختيار صورة، ملتقطة أو محفوظة.</string>
     <string name="gallery_picture">معرض الصور</string>
+    <string name="camera_picture">التقاط صورة</string>
     <string name="description">وصف</string>
     <string name="edit_picture">تعديل الصورة</string>
     <string name="math">رياضيات</string>
