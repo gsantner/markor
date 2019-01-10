@@ -21,15 +21,17 @@ package net.gsantner.opoc.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.ListPreference;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.style.MetricAffectingSpan;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 
 import java.io.File;
@@ -50,7 +52,7 @@ import java.util.List;
 public class FontPreferenceCompat extends ListPreference {
     public static File additionalyCheckedFolder = null;
     public static final FilenameFilter FONT_FILENAME_FILTER = (file, s) -> s.toLowerCase().endsWith(".ttf") || s.toLowerCase().endsWith(".otf");
-    private final static String android_asset = "/android_asset/";
+    private final static String ANDROID_ASSET_DIR = "/android_asset/";
     private String _defaultValue;
     private String[] _fontNames = {
             "Roboto Regular", "Roboto Light", "Roboto Bold", "Roboto Medium",
@@ -114,13 +116,7 @@ public class FontPreferenceCompat extends ListPreference {
         Spannable[] fontText = new Spannable[_fontNames.length];
         for (int i = 0; i < _fontNames.length; i++) {
             fontText[i] = new SpannableString(_fontNames[i] + "\n" + _fontValues[i]);
-            if (!_fontValues[i].startsWith("/")) {
-                if (Build.VERSION.SDK_INT >= 28) {
-                    fontText[i].setSpan(new TypefaceSpan(typeface(getContext(), _fontValues[i], null)), 0, _fontNames[i].length(), 0);
-                } else {
-                    fontText[i].setSpan(new TypefaceSpan(_fontValues[i]), 0, _fontNames[i].length(), 0);
-                }
-            }
+            fontText[i].setSpan(new TypefaceObjectSpan(typeface(getContext(), _fontValues[i], null)), 0, _fontNames[i].length(), 0);
             fontText[i].setSpan(new RelativeSizeSpan(0.7f), _fontNames[i].length() + 1, fontText[i].length(), 0);
 
         }
@@ -137,8 +133,8 @@ public class FontPreferenceCompat extends ListPreference {
             return Typeface.create(familyOrFilepath, typefaceStyle);
         } else {
             try {
-                if (familyOrFilepath.startsWith(android_asset)) {
-                    return Typeface.createFromAsset(context.getAssets(), familyOrFilepath.substring(android_asset.length()));
+                if (familyOrFilepath.startsWith(ANDROID_ASSET_DIR)) {
+                    return Typeface.createFromAsset(context.getAssets(), familyOrFilepath.substring(ANDROID_ASSET_DIR.length()));
 
                 } else {
                     return Typeface.createFromFile(familyOrFilepath);
@@ -196,8 +192,8 @@ public class FontPreferenceCompat extends ListPreference {
         }
 
         try {
-            for (String filename : getContext().getAssets().list("fonts/")) {
-                files.add(new File(android_asset + "fonts", filename));
+            for (String filename : getContext().getAssets().list("fonts")) {
+                files.add(new File(ANDROID_ASSET_DIR + "fonts", filename));
             }
         } catch (IOException ignored) {
         }
@@ -209,5 +205,40 @@ public class FontPreferenceCompat extends ListPreference {
         List<String> arro = new ArrayList<>(Arrays.asList(arr));
         arro.add(append);
         return arro.toArray(new String[arr.length + 1]);
+    }
+
+
+    public class TypefaceObjectSpan extends MetricAffectingSpan {
+        private final Typeface _typeface;
+
+        public TypefaceObjectSpan(final Typeface typeface) {
+            _typeface = typeface;
+        }
+
+        @Override
+        public void updateDrawState(final TextPaint drawState) {
+            apply(drawState);
+        }
+
+        @Override
+        public void updateMeasureState(final TextPaint paint) {
+            apply(paint);
+        }
+
+        private void apply(final Paint paint) {
+            final Typeface oldTypeface = paint.getTypeface();
+            final int oldStyle = oldTypeface != null ? oldTypeface.getStyle() : 0;
+            final int fakeStyle = oldStyle & ~_typeface.getStyle();
+
+            if ((fakeStyle & Typeface.BOLD) != 0) {
+                paint.setFakeBoldText(true);
+            }
+
+            if ((fakeStyle & Typeface.ITALIC) != 0) {
+                paint.setTextSkewX(-0.25f);
+            }
+
+            paint.setTypeface(_typeface);
+        }
     }
 }
