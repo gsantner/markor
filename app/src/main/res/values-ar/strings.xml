@@ -220,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">لا يوجد تطبيق تقويم!</string>
     <string name="color">اللون</string>
     <string name="basic_color_scheme">نظام الألوان الأساسي</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">تغيير لون الخط والخلفية للمحرر. يتم ضبطه بالنسبة لألوان التطبيق وهو متاح في المظهر المظلم والمضئ. تبقى الوان تظليل النصوص كما هي.</string>
     <string name="preset">اعدادات جاهزة</string>
     <string name="foreground">لون الخط</string>
     <string name="background">الخلفية</string>
