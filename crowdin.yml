@@ -1,3 +1,4 @@
+# vim:
 files:
   - source: /app/src/main/res/values/strings.xml
     translation: /app/src/main/res/values-%android_code%/%original_file_name%
@@ -32,6 +33,7 @@ files:
         ca: ca 		# Catalan
         pt-PT: pt 	# Portugese
         pt-BR: pt-rBR	# Portugese, Brazilian
+        fil: fil	# Filipino
         uk: uk		# Ukrainian
         ar: ar		# Arabic
         fi: fi		# Finnish
