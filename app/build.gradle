@@ -14,37 +14,31 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-ext.version_setup_minSdk = 16
+rootProject.ext.version_minSdk = 16
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.32.18"
 
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
-
 android {
-    buildToolsVersion version_setup_buildTools
-    compileSdkVersion version_setup_compileSdk
-    flavorDimensions "default"
+    buildToolsVersion rootProject.ext.version_buildTools
+    compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {
-        minSdkVersion version_setup_minSdk
-        targetSdkVersion version_setup_targetSdk
+        minSdkVersion rootProject.ext.version_minSdk
+        targetSdkVersion rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
-        resValue "string", "manifest_package_id", "net.gsantner.markor"
 
+        resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
         versionName "1.6.1"
         versionCode 46
     }
 
+    flavorDimensions "default"
     productFlavors {
         flavorDefault {
         }
@@ -60,17 +54,13 @@ android {
     }
 
     sourceSets {
+        main { assets.srcDirs = ['src/main/assets'] }
         if (enable_plugin_kotlin) {
             main.java.srcDirs += 'src/main/kotlin'
         }
         main.java.srcDirs +=  'thirdparty/java'
         main.res.srcDirs +=  'thirdparty/res'
         main.assets.srcDirs +=  'thirdparty/assets'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -85,7 +75,7 @@ android {
             eachDependency { details ->
                 if (details.requested.group == 'com.android.support') {
                     if (details.requested.name != 'multidex' && details.requested.name != 'multidex-instrumentation') {
-                        details.useVersion "${version_library_appcompat}"
+                        details.useVersion "${rootProject.ext.version_library_appcompat}"
                     }
                 }
             }
@@ -98,9 +88,16 @@ android {
         exclude 'META-INF/LICENSE-W3C-TEST'
     }
 
+    compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         disable 'MissingTranslation'
         disable 'InvalidPackage'
+        abortOnError false
     }
 }
 
@@ -143,7 +140,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
     implementation 'commons-io:commons-io:2.5'
     if (enable_plugin_kotlin) {
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$version_plugin_kotlin"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
 
     // Processors
