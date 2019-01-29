@@ -15,8 +15,8 @@
     <color name="colorAccent">@color/accent</color>
 
     <!-- Colors from Palette -->
-    <color name="primary">#343434</color>
-    <color name="primary_dark">#282828</color>
+    <color name="primary">#1E2135</color>
+    <color name="primary_dark">#161828</color>
     <color name="primary_light">#CED9DD</color>
     <color name="accent">#F04B4B</color>
     <color name="primary_text">#212121</color>
@@ -24,6 +24,8 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <!-- End colors from Palette -->
+    <color name="primary__greyish">#343434</color>
+    <color name="primary_dark__greyish">#282828</color>
 
     <color name="accent_light">#FF9800</color>
 
