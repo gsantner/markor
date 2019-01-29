@@ -10,4 +10,13 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Mga Tanawin</string>
+    <string name="light">Liwanag</string>
+    <string name="dark">Madilim</string>
+    <string name="delete">Alisin</string>
+    <string name="appearance">Ayos</string>
+    <string name="confirm_delete">Tiyakin Alisin</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Tunay na nais mo bang alisin ito %s?</string>
+    <string name="confirm_overwrite">Tiyakin</string>
+</resources>
