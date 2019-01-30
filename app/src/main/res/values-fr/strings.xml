@@ -261,4 +261,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Date seulement</string>
     <string name="last_used">Utilisé récemment</string>
     <string name="my_note">ma_note</string>
+    <string name="close">Fermer</string>
 </resources>
