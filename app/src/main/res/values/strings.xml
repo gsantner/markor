@@ -273,4 +273,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Date only</string>
     <string name="last_used">Last used</string>
     <string name="my_note">my_note</string>
+    <string name="close">Close</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Do you like this project? Do you want that it gets improved and problems fixed?\n\nDeveloping apps and writing related blog posts costs a lot of time! If you want to help so that the project can go on, please consider a small donation!\n\nThis project is developed in leisure time, completely for free and without any advertisements!</string>
 </resources>

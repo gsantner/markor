@@ -40,6 +40,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
+import net.gsantner.markor.util.AndroidSupportMeWrapper;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onResume() {
+        new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
