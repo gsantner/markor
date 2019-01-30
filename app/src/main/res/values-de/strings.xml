@@ -261,4 +261,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Nur Datum</string>
     <string name="last_used">Zuletzt benutzt</string>
     <string name="my_note">meine_notiz</string>
+    <string name="close">Schließen</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gefällt dir dieses Projekt? Möchtest du, dass es verbessert wird und Probleme behoben werden?\n\nDie Entwicklung von Apps und das schreiben von relevanten Blog-Einträgen kostet viel Zeit! Wenn du helfen möchtest, so dass das Projekt weitergehen kann, ziehe bitte eine kleine Spende in Betracht!\n\nDieses Projekt wird in der Freizeit, völlig kostenlos und ohne jegliche Werbeeinblendungen entwickelt &amp; angeboten!</string>
 </resources>
