@@ -21,6 +21,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors">Pomo\'nici</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Lista promena</string>
+    <string name="show_license_of_the_app">Prikazi GNU GPLv3 licence</string>
     <string name="show_third_party_licenses">Prikaz licence trecih lica</string>
     <string name="language_change_restart_description">Promijeni jezik ove aplikacije. Restartuj apikaciju da bi podešavanja dobila efekat.</string>
     <string name="language">Jezik</string>
