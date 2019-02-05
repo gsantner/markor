@@ -30,4 +30,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">Ilipat</string>
     <string name="info">Impormasyon</string>
     <string name="import_from_device">Mag-import mula sa kagamitan</string>
+    <string name="import_">Mag-angkat</string>
+    <string name="append_to_witharg">Idagdag sa %s</string>
+    <string name="select_folder">Pumili ng Folder</string>
+    <string name="edit">Baguhin</string>
+    <string name="search_documents">Maghanap sa mga dokumento</string>
+    <string name="share_to_arrow">Ibahagi sa&#8230;</string>
+    <string name="share">Ibahagi</string>
+    <string name="search">Hanapin</string>
+    <string name="representation">Representasyon</string>
+    <string name="editor">Editor</string>
+    <string name="folders">Mga Folder</string>
+    <string name="files">Mga File</string>
 </resources>
