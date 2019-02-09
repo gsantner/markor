@@ -12,7 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
-    <string name="light">തെളിഞ്ഞത്</string>
+    <string name="light">തെളിമയുള്ളത്</string>
     <string name="dark">ഇരുണ്ടത്</string>
     <string name="delete">നീക്കം ചെയ്യുക</string>
     <string name="appearance">രൂപം</string>
@@ -44,8 +44,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="documents">ഡോക്യൂമെന്റസ്</string>
     <string name="html_as_plaintext">ഹ്ത്മ്ൽ (വെറും ടെക്സ്റ്റ്‌ ആയിട്ട് തന്നെ)</string>
     <string name="document_editor_font">ഡോക്യുമെന്റ് എഡിറ്ററിന്റെ അക്ഷരങ്ങളുടെ രൂപം</string>
+    <string name="show_representation_of_markup_by_default">സാധാരണയായി നിലവിലുള്ള ഡോക്യൂമെന്റസ് പ്രതിപാദന മട്ടിൽ കാണിക്കുക</string>
     <string name="about">കുറിച്ച്</string>
+    <string name="plaintext">വെറും ടെക്സ്റ്റ്‌</string>
+    <string name="file">ഫയൽ</string>
+    <string name="image">ചിത്രം</string>
     <string name="font_size">അക്ഷരങ്ങളുടെ വലിപ്പം</string>
+    <string name="render_rtl_language">ഇടത്തു നിന്നും വലത്തേക്ക് എഴുതുന്ന ഭാഷകൾക്ക് വേണ്ടി അവതരിപ്പിക്കുക</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">വ്യതിക്രമം: നോട്ട്ബുക്ക് ഡയറക്ടറി ഉണ്ടാക്കാൻ കഴിഞ്ഞില്ല</string>
+    <string name="last_modified_witharg">അവസാനമായി പരിഷ്കരിച്ചത്: %s</string>
+    <string name="select_this_folder">ഈ ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
+    <string name="select">തിരഞ്ഞെടുക്കുക</string>
+    <string name="create">പുതിയത് ഉണ്ടാക്കുക</string>
     <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
     <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
     <string name="language">ഭാഷ</string>
