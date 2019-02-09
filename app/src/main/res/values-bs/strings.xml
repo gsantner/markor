@@ -261,4 +261,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Samo datum</string>
     <string name="last_used">Korišteno zadnji put</string>
     <string name="my_note">moja_biljeska</string>
+    <string name="close">Zatvori</string>
 </resources>
