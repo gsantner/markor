@@ -12,7 +12,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="light">തെളിഞ്ഞത്</string>
+    <string name="dark">ഇരുണ്ടത്</string>
+    <string name="delete">നീക്കം ചെയ്യുക</string>
     <string name="appearance">രൂപം</string>
+    <string name="rename">പേര് തിരുത്തുക</string>
+    <string name="confirm_delete">നീക്കം ചെയ്യുന്നത് ഉറപ്പുവരുത്തുക</string>
     <string name="share">പങ്കുവയ്ക്കുക</string>
     <string name="search">തിരയുക</string>
     <string name="about">കുറിച്ച്</string>
