@@ -46,7 +46,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Dokument</string>
     <string name="documents">Dokumenti</string>
     <string name="html_as_plaintext">HTML (kao obični tekst)</string>
-    <string name="document_editor_font">Font za editor dokumenata</string>
+    <string name="document_editor_font">Font u uređivaču dokumenata</string>
     <string name="theme">Tema</string>
     <string name="show_representation_of_markup_by_default">Za osnovni prikaz postojećih dokumenata koristi prezentaciju</string>
     <string name="about">O programu</string>
@@ -89,7 +89,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute">Sudjeluj</string>
     <string name="donate">Doniraj</string>
     <string name="project_page">Stranica projekta</string>
-    <string name="press_back_again_to_exit">Pritisnite tipku \"Back (Nazad)\" još jednom da izađete</string>
+    <string name="press_back_again_to_exit">Pritisnite \"Nazad\" još jednom da izađete</string>
     <string name="exit">Izlaz</string>
     <string name="undo">Poništi</string>
     <string name="redo">Ponovi</string>
@@ -125,7 +125,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_screen_on" needed="false">Održavaj upaljen ekran</string>
     <string name="back_to_previous_folder" needed="false">Nazad do prethodnog direktorija</string>
     <string name="app_settings" needed="false">Podešavanja programa</string>
-    <string name="editor_settings" needed="false">Podešavanja editora</string>
+    <string name="editor_settings" needed="false">Podešavanja uređivača</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Zapamti lokaciju zadnjeg direktorija prilikom pokretanja</string>
     <string name="number_of_files_witharg" needed="false">Broj datoteka: %d</string>
     <string name="app_wide">Kroz čitav program</string>
@@ -136,7 +136,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Odgoda markiranja</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje markiranja. Niža vrijednost omogućava da markiranje počne ranije, ali će se to odraziti na Vašu bateriju i može usporiti program na starijim uređajima.</string>
     <string name="highlighting_enabled_or_not__appspecific">Odredi hoće li uneseni tekst biti markiran ili ne</string>
-    <string name="control_font_size_in_editor">Odredi veličinu slova u editoru</string>
+    <string name="control_font_size_in_editor">Odredi veličinu slova u uređivaču</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnim dugmadima. Ove tekstualne akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
     <string name="format">Oblik</string>
@@ -225,7 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">Nijedna slika nije označena, uslikana niti pohranjena.</string>
     <string name="gallery_picture">Slika iz galerije</string>
     <string name="camera_picture">Uslikaj sliku</string>
-    <string name="enable_undo_and_redo_be_patient">Aktiviraj mogućnost poništavanja i ponavljanja akcija. Predviđeno samo za napredno korištenje. Budite strpljivi i pazite da ne obrišete nešto što je važno. Zatvorite i ponovo otvorite editor da počistite historiju.</string>
+    <string name="enable_undo_and_redo_be_patient">Aktiviraj mogućnost poništavanja i ponavljanja akcija. Predviđeno samo za napredno korištenje. Budite strpljivi i pazite da ne obrišete nešto što je važno. Zatvorite i ponovo otvorite uređivač da počistite historiju.</string>
     <string name="description">Opis</string>
     <string name="edit_picture">Obradi sliku</string>
     <string name="math">Matematika</string>
@@ -239,7 +239,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Boja</string>
     <string name="zero_width_space">Bjelina nulte širine</string>
     <string name="basic_color_scheme">Boje</string>
-    <string name="background_foreground_color_in_editor_works_dark_light">Mijenja boju pozadine i teksta u tekstnom editoru. Prilagođava se bojama programa kako bi odgovaralo svijetloj i tamnoj temi. Boje kojima se obilježava sintaksa ostaju nepromijenjene.</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Mijenja boju pozadine i teksta u tekstnom uređivaču. Prilagođava se bojama programa kako bi odgovaralo svijetloj i tamnoj temi. Boje kojima se obilježava sintaksa ostaju nepromijenjene.</string>
     <string name="preset">Šablon</string>
     <string name="foreground">Tekst</string>
     <string name="background">Pozadina</string>
