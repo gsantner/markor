@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_">Unesi</string>
     <string name="append_to_witharg">Dodaj %s</string>
     <string name="select_folder">Označi direktorij</string>
-    <string name="edit">Obradi</string>
+    <string name="edit">Uredi</string>
     <string name="search_documents">Traži dokumente</string>
     <string name="share_to_arrow">Podijeli sa ...</string>
     <string name="share">Podijeli</string>
@@ -144,7 +144,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project">Projekt</string>
     <string name="projects">Projekti</string>
     <string name="categories">Kategorije</string>
-    <string name="none">Nijedno</string>
+    <string name="none">Nema</string>
     <string name="other">Ostalo</string>
     <string name="alternative_naming">Alternativni nazivi</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Da li podvući hex kōdove boje prema boji</string>
