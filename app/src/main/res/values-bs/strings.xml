@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Jezik</string>
     <string name="error_need_storage_permission_to_save_documents">Neophodna dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
-    <string name="sort">Sortiraj po</string>
+    <string name="sort">Sortiraj</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Ime</string>
     <string name="size">Veličina</string>
