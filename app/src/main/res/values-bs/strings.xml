@@ -139,7 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="control_font_size_in_editor">Odredi veličinu slova u uređivaču</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnim dugmadima. Ove tekstualne akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
-    <string name="format">Oblik</string>
+    <string name="format">Format</string>
     <string name="contexts">Konteksti</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekti</string>
