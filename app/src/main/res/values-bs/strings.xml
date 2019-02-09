@@ -197,7 +197,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Prevedi</string>
     <string name="more_info_and_help">Više informacija i pomoć</string>
     <string name="report_bugs">Prijavite greške i propuste</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Više informacija o doniranju programeru ili sudjelovanju u ovom projektu</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Više informacija o doniranju programera ili sudjelovanju u ovom projektu</string>
     <string name="android_contribution_guide">Android uputstvo za sudjelovanje</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Više informacija o sudjelovanju u razvoju softvera otvorenog kōda, naročito za Android</string>
     <string name="join_community">Postanite član zajednice</string>
@@ -209,7 +209,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Više informacija o sudjelovanju u ovom projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Doprinesite projektu vlastitim kōdom. Svačiji je doprinos dobrodošao.</string>
     <string name="project_team">Tim</string>
-    <string name="contributors_public_add_yourself_description">Prikaži informacije o saradniku. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
+    <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
     <string name="descending">inverzno</string>
     <string name="ascending">redom</string>
     <string name="disable_spelling_underline">Isključi podvlačenje pravopisnih grešaka</string>
