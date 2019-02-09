@@ -18,6 +18,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">രൂപം</string>
     <string name="rename">പേര് തിരുത്തുക</string>
     <string name="confirm_delete">നീക്കം ചെയ്യുന്നത് ഉറപ്പുവരുത്തുക</string>
+    <string name="browse_filesystem">ഫയൽ സിസ്റ്റത്തിൽ തിരയുക</string>
     <string name="share">പങ്കുവയ്ക്കുക</string>
     <string name="search">തിരയുക</string>
     <string name="about">കുറിച്ച്</string>
