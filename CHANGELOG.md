@@ -168,7 +168,7 @@
   - Add shortcuts to writeable SD card folders
   - Mark unwriteable files red in selection dialog
 - ShareInto
-  - Better seperator placment
+  - Better separator placment
 
 **Fixed:**  
 - Widget
@@ -184,7 +184,7 @@
 **New features:**  
 - ShareInto
   - Show "open in browser" option if text contains link
-  - Prepend seperator to all existing documents
+  - Prepend separator to all existing documents
 - Settings / Preview
   - User customizeable CSS/JS injection option (for preview)
   - Configureable in settings
@@ -333,7 +333,7 @@
 - Rework of core functionalities of the app
 - Added QuickNote
 - Redo/Undo editing
-- Seperate Preview/Edit by fragments, unify functions
+- Separate Preview/Edit by fragments, unify functions
 - Rewrite storage/handling of documents
 - Improved sharing into the app, allow appending
 - Added bottom navigation
