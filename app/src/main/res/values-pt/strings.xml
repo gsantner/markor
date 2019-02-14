@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">Desfazer</string>
     <string name="redo">Refazer</string>
     <string name="more">Mais</string>
-    <string name="notebook">Bloco de notas</string>
+    <string name="notebook">Caderno</string>
     <string name="help">Ajuda</string>
     <string name="todo_list">Lista de afazeres</string>
     <string name="task">Tarefa</string>
