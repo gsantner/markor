@@ -262,5 +262,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Utilisé récemment</string>
     <string name="my_note">ma_note</string>
     <string name="close">Fermer</string>
+    <string name="cancel">Annuler</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Vous aimez ce projet? Vous voulez participer à son amélioration et corriger ses problèmes?\n\nDévelopper des applications et écrire les posts de blog correspondants demande beaucoup de temps ! Si vous voulez aider à la poursuite du projet, merci de considérer une petite donation.\n\nCe projet est développé sur du temps libre, complètement gratuitement et sans publicités !</string>
 </resources>
