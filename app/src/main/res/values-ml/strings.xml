@@ -62,4 +62,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">കൂടുതൽ</string>
     <string name="general">പൊതു</string>
     <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
+    <string name="cancel">റദ്ദാക്കുക</string>
 </resources>
