@@ -26,7 +26,7 @@ public class PlainTextStuff {
             int begin = Math.max(text.lastIndexOf("https://", pos), text.lastIndexOf("http://", pos));
             if (begin >= 0) {
                 int end = text.length();
-                for (String check : new String[]{"\n", " ", "\t", "\r"}) {
+                for (String check : new String[]{"\n", " ", "\t", "\r", ")"}) {
                     if ((pos = text.indexOf(check, begin)) > begin && pos < end) {
                         end = pos;
                     }
