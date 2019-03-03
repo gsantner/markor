@@ -14,6 +14,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -67,6 +69,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
+    private Menu _menu;
 
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
         if (intent == null) {
@@ -151,6 +154,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        _menu = menu;
         getMenuInflater().inflate(R.menu.document__menu, menu);
         String frag = getCurrentVisibleFragment() != null ? getCurrentVisibleFragment().getFragmentTag() : null;
         frag = frag == null ? "" : frag;
@@ -162,6 +166,30 @@ public class DocumentActivity extends AppCompatActivity {
         _contextUtils.tintMenuItems(menu, true, Color.WHITE);
         _contextUtils.setSubMenuIconsVisiblity(menu, true);
         return true;
+    }
+
+
+    private final RectF point = new RectF(0, 0, 0, 0);
+    private static final int SWIPE_MIN_DX = 150;
+    private static final int SWIPE_MAX_DY = 90;
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        float bottom = (getWindow() != null && getWindow().getDecorView() != null ? getWindow().getDecorView().getBottom() : 100000) * 0.8f;
+        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getY() * 2.2) & event.getY() < bottom) {
+            point.set(event.getX(), event.getY(), 0, 0);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            point.set(point.left, point.top, event.getX(), event.getY());
+            if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
+                MenuItem edit = _menu.findItem(R.id.action_edit);
+                if (edit == null || !edit.isVisible()) {
+                    onOptionsItemSelected(_menu.findItem(R.id.action_preview));
+                } else {
+                    onOptionsItemSelected(edit);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
