@@ -174,7 +174,7 @@ public class CommonTextActions {
 
                                     }
                                 })
-                                .setNegativeButton(android.R.string.cancel, null)
+                                .setNegativeButton(R.string.cancel, null)
                                 .build()
                                 .show();
                     }

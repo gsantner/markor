@@ -72,7 +72,7 @@ public class ColorPickerPreference extends Preference {
 
             pickerButtonCancel = typedArray.getString(R.styleable.ColorPickerPreference_pickerButtonCancel);
             if (pickerButtonCancel == null)
-                pickerButtonCancel = context.getString(android.R.string.cancel);
+                pickerButtonCancel = context.getString(R.string.cancel);
 
             pickerButtonOk = typedArray.getString(R.styleable.ColorPickerPreference_pickerButtonOk);
             if (pickerButtonOk == null)

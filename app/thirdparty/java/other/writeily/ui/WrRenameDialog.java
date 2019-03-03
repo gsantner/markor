@@ -79,7 +79,7 @@ public class WrRenameDialog extends DialogFragment {
             }
         });
 
-        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.dismiss());
+        dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
 
         return dialogBuilder;
     }

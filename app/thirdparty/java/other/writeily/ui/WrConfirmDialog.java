@@ -75,7 +75,7 @@ public class WrConfirmDialog extends DialogFragment {
             }
         });
 
-        dialogBuilder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> {
+        dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
             dialog.dismiss();
             for (ConfirmDialogCallback cdc : _callbacks) {
                 cdc.onConfirmDialogAnswer(false, _data);

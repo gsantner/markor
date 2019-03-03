@@ -470,7 +470,7 @@ public class MarkdownTextActions extends TextActions {
                 .setOnDismissListener(dialog -> {
                     LocalBroadcastManager.getInstance(_context).unregisterReceiver(lbr);
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (_hlEditor.hasSelection()) {

@@ -130,7 +130,7 @@ public class NewFileDialog extends DialogFragment {
                     callback(f.mkdirs() || f.exists(), f);
                     dialogInterface.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                 });
 

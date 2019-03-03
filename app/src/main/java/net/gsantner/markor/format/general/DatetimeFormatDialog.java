@@ -152,7 +152,7 @@ public class DatetimeFormatDialog {
         // set builder and implement buttons to discard and submit
         builder.setView(viewRoot)
                 .setNeutralButton(R.string.help, (dialog, which) -> cu.openWebpageInExternalBrowser("https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns"))
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
