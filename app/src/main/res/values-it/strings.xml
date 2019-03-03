@@ -17,11 +17,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Elimina</string>
     <string name="appearance">Aspetto</string>
     <string name="rename">Rinomina</string>
-    <string name="confirm_delete">Conferma l\'eliminazione</string>
+    <string name="confirm_delete">Conferma eliminazione</string>
     <string name="do_you_really_want_to_delete_this_witharg">Eliminare veramente questo %s?</string>
-    <string name="confirm_overwrite">Conferma la sovrascrittura</string>
+    <string name="confirm_overwrite">Conferma sovrascrittura</string>
     <string name="file_already_exists_overwerite">File già esistente, sovrascrivere?</string>
-    <string name="browse_filesystem">Sfoglia i file</string>
+    <string name="browse_filesystem">Esplora i file</string>
     <string name="title">Titolo</string>
     <string name="empty_directory">Cartella vuota</string>
     <string name="enter_name_of_folder">Inserire il nome della cartella</string>
@@ -261,4 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Solo la data</string>
     <string name="last_used">L\'ultimo usato</string>
     <string name="my_note">mia_nota</string>
+    <string name="close">Chiudi</string>
+    <string name="cancel">Annulla</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vederlo ancora migliore e con i problemi risolti?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
 </resources>

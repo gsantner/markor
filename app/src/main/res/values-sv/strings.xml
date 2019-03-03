@@ -117,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Uppdatera</string>
     <string name="create_shortcut">Skapa genväg</string>
     <string name="tried_to_create_shortcut_for_this_notice">Försökte lägga till en genväg till startskärmen för att redigera det här dokumentet. Notera att detta inte stöds av alla hemskärmsappar.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Filen du har valt ligger inte i appens anteckningsmapp. Vill du kopiera den till aktuell mapp? Om filen existerar skrivs den över.</string>
     <string name="files_and_folders">Filar och mappar</string>
     <string name="document_browser">Dokumentbläddrare</string>
     <string name="create_note" needed="false">Skapa anteckning</string>
@@ -133,6 +134,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Ladda </string>
     <string name="syntax_highlighting">Syntaxfärgning</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_or_not__appspecific">Ska inskriven text vara syntaxfärgad?</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
@@ -161,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Avståndet mellan raderna i procent</string>
     <string name="line_spacing">Radavstånd</string>
     <string name="archive_does_move_done_tasks">Flytta klara uppgifter till angiven fil i samma mapp</string>
+    <string name="sort_tasks_by_selected_order">Sortera uppgifter efter vald ordning</string>
     <string name="special_key">Specialnyckel</string>
     <string name="key_page_up">Sida upp (Page up)</string>
     <string name="key_page_down">Sida ned (Page down)</string>
@@ -172,6 +175,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Börja vid botten</string>
     <string name="start_on_bottom_when_loading_document">När dokument laddat, placera markören vid slutet av raden</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
+    <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
     <string name="configure_in_the_apps_settings">Ställ in i appens inställningar</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontell justering</string>
@@ -184,6 +189,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Textmodulsavstånd</string>
     <string name="horizontal_space_between_textactions">Vågräta utrymmet mellan textmodulsknappar</string>
     <string name="center_text">Centrera text</string>
+    <string name="edit_text_in_center_of_screen">Editera text i mitten av skärmen</string>
     <string name="clipboard">Klippbord</string>
     <string name="select_existing_document">Välj existerande dokument</string>
     <string name="open_source_licenses">Licenser för Öppen Källkod</string>
@@ -191,7 +197,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Översätt</string>
     <string name="more_info_and_help">Mer info och hjälp</string>
     <string name="report_bugs">Rapportera buggar</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer information om att donera till utvecklaren eller bidra till detta projekt.</string>
     <string name="android_contribution_guide">Android-bidragsguide</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mer information om hur du kan bidra till öppna projekt (open source), särskilt Android-appar</string>
     <string name="join_community">Delta i gemenskapen</string>
     <string name="bug_reports_suggest_improvements">Återkoppla, rapportera buggar eller kom med förbättringsförslag</string>
     <string name="help_translating_this_app">Översätt appen till fler språk</string>
@@ -202,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag med kod till projektet. Alla är välkommna, även nybörjare</string>
     <string name="project_team">Projektlag</string>
     <string name="contributors_public_add_yourself_description">Visa bidragsinformation. Lämna information för att synas här, om du vill, efter bidragande</string>
+    <string name="descending">fallande ordning</string>
+    <string name="ascending">Stigande ordning</string>
     <string name="disable_spelling_underline">Stäng av stavningsunderstrykning</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tangentbordsförslag förblir, röda understrykningar försvinner</string>
     <string name="location">Plats</string>
@@ -237,5 +247,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="type">Typ</string>
     <string name="folder">Mapp</string>
     <string name="folder_is_created_without_extension">- Mappen skapades utan filändelsen</string>
+    <string name="keep_existing_file">- Filer och mappar skrivs inte över</string>
+    <string name="multiple_windows">Flera fönster</string>
     <string name="font">Teckensnitt</string>
+    <string name="open_new_documents_always_in_new_window">Öppna alltid dokument i separata fönster. Byt med enhetens \'senast\'-knapp.</string>
+    <string name="enter_or_select_format">Ange eller Välj format</string>
+    <string name="pick_date">Välj datum</string>
+    <string name="pick_time">Välj tid</string>
+    <string name="get_format_instead_date_or_time">Hämta format i stället för datum eller tid</string>
+    <string name="always_use_current_date_and_time">Använd alltid aktuellt datum &amp; tid</string>
+    <string name="result">Resultat</string>
+    <string name="just_time">Endast tid</string>
+    <string name="just_date">Endast datum</string>
+    <string name="last_used">Senast använda</string>
+    <string name="my_note">mina anteckningar</string>
+    <string name="close">Avsluta</string>
+    <string name="cancel">Avbryt</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
 </resources>

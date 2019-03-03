@@ -261,4 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Només la data</string>
     <string name="last_used">Últim usat</string>
     <string name="my_note">la meva nota</string>
+    <string name="close">Tanca</string>
+    <string name="cancel">Cancel·la</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Us agrada aquest projecte? Voleu que encara sigui millor i es solucionin els problemes?\n\nDesenvolupar aplicacions i escriure publicacions relacionades als blogs costa molt de temps! Si voleu ajudar perquè el projecte pugui continuar, considereu aportar una petita donació!\n\nAquest projecte es desenvolupa durant el temps lliure, completament gratis i sense publicitat!</string>
 </resources>
