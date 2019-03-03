@@ -114,6 +114,7 @@ public class DatetimeFormatDialog {
             }
         });
 
+        formatEdit.setText(as.getString(LAST_USED_PREF, ""));
         viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> formatEdit.setText(as.getString(LAST_USED_PREF, "")));
         viewRoot.findViewById(R.id.time_format_just_date).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedDateFormat()));
         viewRoot.findViewById(R.id.time_format_just_time).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedTimeFormat()));
