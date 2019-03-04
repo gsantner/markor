@@ -184,11 +184,11 @@ public class DocumentActivity extends AppCompatActivity {
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             point.set(point.left, point.top, event.getX(), event.getY());
             if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
-                MenuItem edit = _menu.findItem(R.id.action_edit);
-                if (edit == null || !edit.isVisible()) {
+                GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
+                if (currentTop instanceof DocumentEditFragment) {
                     onOptionsItemSelected(_menu.findItem(R.id.action_preview));
-                } else {
-                    onOptionsItemSelected(edit);
+                } else if (currentTop instanceof DocumentRepresentationFragment) {
+                    onOptionsItemSelected(_menu.findItem(R.id.action_edit));
                 }
             }
         }
