@@ -14,6 +14,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -175,8 +176,10 @@ public class DocumentActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        float bottom = (getWindow() != null && getWindow().getDecorView() != null ? getWindow().getDecorView().getBottom() : 100000) * 0.8f;
-        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getY() * 2.2) & event.getY() < bottom) {
+        Rect activityVisibleSize = new Rect();
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _contextUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _contextUtils.convertDpToPx(52))) {
             point.set(event.getX(), event.getY(), 0, 0);
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             point.set(point.left, point.top, event.getX(), event.getY());
