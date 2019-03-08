@@ -1,4 +1,14 @@
-package net.gsantner.markor.util;
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2018-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *     https://github.com/gsantner/opoc/#licensing
+ *
+#########################################################*/
+package net.gsantner.opoc.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.ActivityUtils;
 
 public class AndroidSupportMeWrapper extends ActivityUtils {
     private LocalSettingsImpl _localSettingsImpl;
@@ -58,6 +67,5 @@ public class AndroidSupportMeWrapper extends ActivityUtils {
         public boolean all14dRequest() {
             return afterDaysTrue("all14dRequest", 14, 3);
         }
-
     }
 }

@@ -40,12 +40,12 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AndroidSupportMeWrapper;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.util.AndroidSupportMeWrapper;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 

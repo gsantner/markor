@@ -176,21 +176,25 @@ public class DocumentActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Rect activityVisibleSize = new Rect();
-        getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
+        try {
+            Rect activityVisibleSize = new Rect();
+            getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _contextUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _contextUtils.convertDpToPx(52))) {
-            point.set(event.getX(), event.getY(), 0, 0);
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            point.set(point.left, point.top, event.getX(), event.getY());
-            if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
-                GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
-                if (currentTop instanceof DocumentEditFragment) {
-                    onOptionsItemSelected(_menu.findItem(R.id.action_preview));
-                } else if (currentTop instanceof DocumentRepresentationFragment) {
-                    onOptionsItemSelected(_menu.findItem(R.id.action_edit));
+            if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _contextUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _contextUtils.convertDpToPx(52))) {
+                point.set(event.getX(), event.getY(), 0, 0);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                point.set(point.left, point.top, event.getX(), event.getY());
+                if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
+                    GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
+                    if (currentTop instanceof DocumentEditFragment) {
+                        onOptionsItemSelected(_menu.findItem(R.id.action_preview));
+                    } else if (currentTop instanceof DocumentRepresentationFragment) {
+                        onOptionsItemSelected(_menu.findItem(R.id.action_edit));
+                    }
                 }
             }
+        } catch (Exception ignored) {
+            // No fancy exception handling :P. Nothing to see here.
         }
         return super.dispatchTouchEvent(event);
     }
