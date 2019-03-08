@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Междустрочный интервал в процентах</string>
     <string name="line_spacing">Междустрочный интервал</string>
     <string name="archive_does_move_done_tasks">Перемещать выполненные задачи в указанный файл в той же папке</string>
+    <string name="sort_tasks_by_selected_order">Сортировать задачи по выбранному заказу</string>
     <string name="special_key">Специальная клавиша</string>
     <string name="key_page_up">Листать вверх</string>
     <string name="key_page_down">Листать вниз</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
     <string name="contributors_public_add_yourself_description">Показ информации об участниках. Позволить показать здесь список учасников успевших внести свой вклад.</string>
+    <string name="descending">по убыванию</string>
+    <string name="ascending">по возрастанию</string>
     <string name="disable_spelling_underline">Отключить проверку орфографии</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Предложения клавиатуры остаются, красная подсветка исчезает</string>
     <string name="location">Местоположение</string>
@@ -245,5 +248,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Папка</string>
     <string name="folder_is_created_without_extension">-Папка создаётся без расширения</string>
     <string name="keep_existing_file">-Файлы и папки не перезаписываются</string>
+    <string name="multiple_windows">Несколько окон</string>
     <string name="font">Шрифт</string>
+    <string name="open_new_documents_always_in_new_window">Открывать документы всегда в отдельных окнах. Переключитесь, используя клавишу \'Недавние\' вашего устройства.</string>
+    <string name="enter_or_select_format">Введите или выберите формат</string>
+    <string name="pick_date">Выбрать дату</string>
+    <string name="pick_time">Выбор времени</string>
+    <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
+    <string name="always_use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
+    <string name="result">Результат</string>
+    <string name="just_time">Только время</string>
+    <string name="just_date">Только дата</string>
+    <string name="last_used">Последний использованный</string>
+    <string name="my_note">моя заметка</string>
+    <string name="close">Закрыть</string>
+    <string name="cancel">Отмена</string>
 </resources>
