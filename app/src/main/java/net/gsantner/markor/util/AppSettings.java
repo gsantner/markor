@@ -283,6 +283,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             setInt(file.getAbsolutePath(), getInt(file.getAbsolutePath(), 0, _prefCache) + 1, _prefCache);
             setRecentDocuments(recent);
         }
+        ShortcutUtils.setShortcuts(_context);
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
