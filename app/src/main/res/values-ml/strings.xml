@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">ഫോൾഡർ ഉണ്ടാക്കുക</string>
     <string name="create_new_document">പുതിയ ഡോക്യുമെന്റ് ഉണ്ടാക്കുക</string>
     <string name="move">മറ്റൊരിടത്തേക്ക് മാറ്റുക</string>
+    <string name="info">വിവരം</string>
     <string name="import_from_device">ഡിവൈസിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുക</string>
     <string name="import_">ഇമ്പോർട്ട്‌</string>
     <string name="append_to_witharg">%s-ഓട് കൂട്ടിച്ചേർക്കുക</string>
