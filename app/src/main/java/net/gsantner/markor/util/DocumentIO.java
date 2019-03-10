@@ -119,6 +119,10 @@ public class DocumentIO {
             }
         }
 
+        if (document.getFormat() == TextFormat.FORMAT_TODOTXT && !TextUtils.isEmpty(document.getContent())) {
+            document.setContent(document.getContent().trim());
+        }
+
         document.setDoHistory(true);
         return document;
     }
