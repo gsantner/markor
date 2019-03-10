@@ -263,4 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">моя заметка</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите, чтобы он был улучшен и исправлен?\n\nРазвивающиеся приложения и написание связанных блогов много времени! Если вы хотите помочь, чтобы проект мог продолжить, пожалуйста, рассмотрите небольшое пожертвование!\n\nЭтот проект разработан в свободное время, полностью для бесплатных и без рекламы!</string>
+    <string name="app_start_tab">Вкладка запуска приложения</string>
+    <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
 </resources>
