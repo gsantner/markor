@@ -1,8 +1,22 @@
-### v1.7.0 (in progress)
-- Improved primary color theme for better readability
-- Added: Load custom fonts from folder: 'Notebook/.app/fonts/'
+### v1.7.0 [Blog post](https://gsantner.net/blog/2019/03/11/markor-release-v1.7-custom-fonts-linkbox-markdown.html?source=inapp_changelog&project=markor)  
+- Improved app color theme for better readability  
+- Load custom fonts from file  
+  - Markor bundles 5 additional open fonts  
+  - Copy custom fonts to folder: 'Notebook/.app/fonts/'  
+- Links shared from e.g. browsers are automatically converted to Markdown syntax if possible  
+- LinkBox is now listed on the main view bottom bar  
+- LinkBox defaults on new installations to LinkBox.md as filename  
+- Default to last used date/time format at dialog  
+- Apply todo.txt format only for .txt files  
+- L/R Swipe in edit/representation mode to change mode  
+- Open link textaction: Don't include trailing ')' in parsed URL, which is common for markdown  
+- Added App Shortcuts, requires Android 7.1+  
+- Markdown: Enable WikiLink style to reference [[file]] relative  
+- Strip #ref from URL in representation to determine if another file should be opened on click  
+- Option to set app start tab (Notebook / ToDo / QuickNote / LinkBox / More)  
 
-### v1.6.0 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html)
+
+### v1.6.0 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html?source=inapp_changelog&project=markor)
 **New features:**  
 - TextAction: Insert date/time  
 - Add website title when sharing into Markor, if browser supports it  
@@ -22,7 +36,7 @@
 - New file dialog: Jekyll option on older devices  
 - Title not updated when swiping  
 
-### v1.5.0 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html)
+### v1.5.0 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html?source=inapp_changelog&project=markor)
 **New features:**  
 - App-wide  
   - Settings option: Keep screen on
@@ -102,7 +116,7 @@
 - App-wide
   - Special files: When app launcher was used, create file if not exists   
 
-### v1.2.0 [Blog post](https://gsantner.net/blog/2018/09/18/markor-release-v1.2.html)
+### v1.2.0 [Blog post](https://gsantner.net/blog/2018/09/18/markor-release-v1.2.html?source=inapp_changelog&project=markor)
 **New features:**
 - General
   - Launchers to directly open LinkBox/ToDo/QuickNote (opt-in)
@@ -123,7 +137,7 @@
 - Editor
   - File saving
 
-### v1.1.0 [Blog post](https://gsantner.net/blog/2018/09/09/markor-release-v1.1.html)
+### v1.1.0 [Blog post](https://gsantner.net/blog/2018/09/09/markor-release-v1.1.html?source=inapp_changelog&project=markor)
 **New features:**  
 - Text Module Actions
   - Markdown Picture Dialog
@@ -168,7 +182,7 @@
   - Add shortcuts to writeable SD card folders
   - Mark unwriteable files red in selection dialog
 - ShareInto
-  - Better separator placment
+  - Better separator placement
 
 **Fixed:**  
 - Widget
