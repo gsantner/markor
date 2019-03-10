@@ -28,15 +28,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">ഫോൾഡർ ഉണ്ടാക്കുക</string>
     <string name="create_new_document">പുതിയ ഡോക്യുമെന്റ് ഉണ്ടാക്കുക</string>
     <string name="move">മറ്റൊരിടത്തേക്ക് മാറ്റുക</string>
+    <string name="info">വിവരം</string>
     <string name="import_from_device">ഡിവൈസിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുക</string>
     <string name="import_">ഇമ്പോർട്ട്‌</string>
     <string name="append_to_witharg">%s-ഓട് കൂട്ടിച്ചേർക്കുക</string>
     <string name="select_folder">ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
     <string name="edit">എഡിറ്റ്‌</string>
     <string name="search_documents">ഡോക്യൂമെന്റസ് പരതുക</string>
+    <string name="share_to_arrow">&#8230; ലേക്ക് പങ്കുവെക്കുക</string>
     <string name="share">പങ്കുവയ്ക്കുക</string>
     <string name="search">തിരയുക</string>
     <string name="representation">പ്രതിപാദനം</string>
+    <string name="display_converted_markup">മാർക്ക് അപ് പരിവർത്തനം വന്നത് കാണിക്കുക</string>
     <string name="editor">എഡിറ്റർ</string>
     <string name="folders">ഫോൾഡറുകൾ</string>
     <string name="files">ഫയലുകൾ</string>
@@ -44,8 +47,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="documents">ഡോക്യൂമെന്റസ്</string>
     <string name="html_as_plaintext">ഹ്ത്മ്ൽ (വെറും ടെക്സ്റ്റ്‌ ആയിട്ട് തന്നെ)</string>
     <string name="document_editor_font">ഡോക്യുമെന്റ് എഡിറ്ററിന്റെ അക്ഷരങ്ങളുടെ രൂപം</string>
+    <string name="theme">പ്രതീതി</string>
     <string name="show_representation_of_markup_by_default">സാധാരണയായി നിലവിലുള്ള ഡോക്യൂമെന്റസ് പ്രതിപാദന മട്ടിൽ കാണിക്കുക</string>
-    <string name="about">കുറിച്ച്</string>
+    <string name="about">സംബന്ധ വിവരങ്ങൾ</string>
     <string name="plaintext">വെറും ടെക്സ്റ്റ്‌</string>
     <string name="file">ഫയൽ</string>
     <string name="image">ചിത്രം</string>
@@ -56,11 +60,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">ഈ ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
     <string name="select">തിരഞ്ഞെടുക്കുക</string>
     <string name="create">പുതിയത് ഉണ്ടാക്കുക</string>
+    <string name="select_entries">ഘടകങ്ങൾ തിരഞ്ഞെടുക്കുക</string>
+    <string name="one_item_selected">ഒരെണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d എണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
+    <string name="hide_statusbar_at_this_view">ഈ കാഴ്ച്ചയിൽ സ്റ്റേറ്റ്സ്ബാർ മറക്കുക</string>
+    <string name="hide_statusbar">സ്റ്റാറ്റസ് ബാർ മറയ്ക്കുക</string>
     <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
     <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
     <string name="language">ഭാഷ</string>
     <string name="more">കൂടുതൽ</string>
-    <string name="general">പൊതു</string>
+    <string name="general">പൊതുവായിട്ടുള്ളത്</string>
     <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
     <string name="cancel">റദ്ദാക്കുക</string>
 </resources>

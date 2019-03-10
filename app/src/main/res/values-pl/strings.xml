@@ -246,4 +246,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Tylko data</string>
     <string name="last_used">Ostatnio używane</string>
     <string name="my_note">notatki</string>
+    <string name="close">Zamknij</string>
 </resources>

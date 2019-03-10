@@ -263,4 +263,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">Moje poznámka</string>
     <string name="close">Konec</string>
     <string name="cancel">Rakovina</string>
+    <string name="app_start_tab">App start tab</string>
+    <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
 </resources>

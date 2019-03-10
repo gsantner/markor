@@ -64,10 +64,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language_change_restart_description">Cambiar o idioma de esta aplicación. Reinicie para que se aplique o troco</string>
     <string name="language">Idioma</string>
     <string name="deleteme____1">Nome</string>
+    <string name="donate">Doar</string>
     <string name="more">Máis</string>
     <string name="general">Xeral</string>
     <string name="default_">Por omisión</string>
     <string name="report_bugs">Reporte erros</string>
     <string name="miscellaneous">Varios</string>
     <string name="folder">Cartafol</string>
+    <string name="close">Pechar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gústache este proxecto? Queres que siga mellorando e resolvendo os problemas?\n\nDesenvolver aplicacións e escribir a documentación leva moito tempo! Se queres apoiar ao proxecto para que continúe, por favor, considera facer unha pequena doazón!\n\nEste proxecto desenvólvese no tempo libre, ofrécese libre e gratuitamente e sen publicidade!</string>
 </resources>

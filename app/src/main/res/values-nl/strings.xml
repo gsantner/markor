@@ -263,4 +263,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mijn_notitie</string>
     <string name="close">Sluit</string>
     <string name="cancel">Annuleren</string>
+    <string name="app_start_tab">App starttabblad</string>
+    <string name="tab_to_select_at_start">Tab om te selecteren bij het starten van de app</string>
 </resources>
