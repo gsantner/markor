@@ -218,4 +218,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_todotxt_archive_done_tasks" translatable="false">tmaid_todotxt_archive_done_tasks</string>
     <string name="tmaid_todotxt_current_date" translatable="false">tmaid_todotxt_current_date</string>
     <string name="tmaid_todotxt_sort_todo" translatable="false">tmaid_todotxt_sort_todo</string>
+    <string name="pref_key__app_start_tab" translatable="false">pref_key__app_start_tab</string>
 </resources>

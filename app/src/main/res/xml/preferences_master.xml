@@ -86,6 +86,16 @@
             android:key="@string/pref_key__is_overview_statusbar_hidden"
             android:summary="@string/hide_statusbar_at_this_view"
             android:title="@string/hide_statusbar" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/app_start_tab"
+            android:entries="@array/pref_arrdisp__bottomnav"
+            android:entryValues="@array/pref_arrkeys__zero_to_four"
+            android:icon="@drawable/ic_file_gray_24dp"
+            android:key="@string/pref_key__app_start_tab"
+            android:summary="@string/tab_to_select_at_start"
+            android:title="@string/app_start_tab" />
     </PreferenceScreen>
 
     <!-- Editor screen -->

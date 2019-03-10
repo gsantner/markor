@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
+import android.support.annotation.IdRes;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -433,5 +434,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         } else {
             return false;
         }
+    }
+
+    public @IdRes
+    int getAppStartupTab() {
+        int i = getIntOfStringPref(R.string.pref_key__app_start_tab, R.id.nav_notebook);
+        switch (i) {
+            case 1:
+                return R.id.nav_todo;
+            case 2:
+                return R.id.nav_quicknote;
+            case 3:
+                return R.id.nav_linkbox;
+            case 4:
+                return R.id.nav_more;
+        }
+        return R.id.nav_notebook;
     }
 }

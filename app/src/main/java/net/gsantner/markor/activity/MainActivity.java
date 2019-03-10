@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Setup viewpager
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
-        _viewPager.setOffscreenPageLimit(4);
+        _viewPager.setOffscreenPageLimit(5);
         _bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Send Test intent
@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
         startActivity(i);*/
+
+        _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab()), 1);
     }
 
     private void optShowRate() {

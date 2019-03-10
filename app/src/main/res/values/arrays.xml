@@ -28,11 +28,27 @@
         <item translatable="false">@string/editor_basic_color_scheme_solarized</item>
     </string-array>
 
+    <string-array name="pref_arrdisp__bottomnav" translatable="false">
+        <item translatable="false">@string/notebook</item>
+        <item translatable="false">@string/todo</item>
+        <item translatable="false">@string/quicknote</item>
+        <item translatable="false">@string/linkbox</item>
+        <item translatable="false">@string/more</item>
+    </string-array>
+
 
     <string-array name="pref_arrkeys__zero_to_two" translatable="false">
         <item translatable="false">0</item>
         <item translatable="false">1</item>
         <item translatable="false">2</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__zero_to_four" translatable="false">
+        <item translatable="false">0</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+        <item translatable="false">4</item>
     </string-array>
 
     <string-array name="textactions_press_key__text" translatable="false">
