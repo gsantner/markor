@@ -25,6 +25,7 @@ import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.toc.SimTocExtension;
 import com.vladsch.flexmark.ext.toc.TocExtension;
 import com.vladsch.flexmark.ext.toc.internal.TocOptions;
+import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
@@ -55,13 +56,12 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String EXT_MARKDOWN__MDWN = ".mdwn";
     public static final String EXT_MARKDOWN__TEXT = ".text";
     public static final String EXT_MARKDOWN__RMD = ".rmd";
-    public static final String EXT_ZIM = ".zim";
 
     public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd)|(zim))$)");
     public static final String[] MD_EXTENSIONS = new String[]{
             EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
-            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT, EXT_ZIM
+            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT
     };
 
     //########################
@@ -94,8 +94,9 @@ public class MarkdownTextConverter extends TextConverter {
             TaskListExtension.create(),
             EmojiExtension.create(),
             AnchorLinkExtension.create(),
-            TocExtension.create(),    // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
-            SimTocExtension.create(), // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
+            TocExtension.create(),                // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
+            SimTocExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
+            WikiLinkExtension.create(),           // https://github.com/vsch/flexmark-java/wiki/Extensions#wikilinks
             YamlFrontMatterExtension.create());
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
