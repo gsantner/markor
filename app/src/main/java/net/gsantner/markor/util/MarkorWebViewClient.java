@@ -40,7 +40,7 @@ public class MarkorWebViewClient extends WebViewClient {
             ShareUtil su = new ShareUtil(view.getContext());
             File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;
-            for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
+            for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
                 if (MarkdownTextConverter.isTextOrMarkdownFile(new File(str))) {
                     file = new File(str);
                     break;
