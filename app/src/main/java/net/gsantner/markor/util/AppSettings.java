@@ -109,6 +109,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public File getLinkBoxFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.linkbox_default_filename)).getAbsolutePath();
+        String defaultValueTxt = new File(getNotebookDirectoryAsStr(), "linkbox.txt").getAbsolutePath();
+        if (new File(defaultValueTxt).exists()) {
+            defaultValue = defaultValueTxt;
+        }
         return new File(getString(R.string.pref_key__linkbox_filepath, defaultValue));
     }
 

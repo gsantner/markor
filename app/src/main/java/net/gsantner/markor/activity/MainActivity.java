@@ -325,9 +325,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 _toolbar.setTitle(R.string.quicknote);
                 return true;
             }
-            case R.id.nav_more: {
+            case R.id.nav_linkbox: {
+                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
                 restoreDefaultToolbar();
                 _viewPager.setCurrentItem(3);
+                _toolbar.setTitle(R.string.linkbox);
+                return true;
+            }
+            case R.id.nav_more: {
+                restoreDefaultToolbar();
+                _viewPager.setCurrentItem(4);
                 _toolbar.setTitle(R.string.more);
                 return true;
             }
@@ -350,9 +357,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         updateFabVisibility(pos == 0);
-        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.more)}[pos]);
+        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox),getString(R.string.more)}[pos]);
 
-        if (pos == 1 || pos == 2) {
+        if (pos > 0 && pos < 4) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
         }
     }
@@ -384,6 +391,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.nav_todo: {
                     if (fragment == null) {
                         fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
+                    }
+                    break;
+                }
+                case R.id.nav_linkbox: {
+                    if (fragment == null) {
+                        fragment = DocumentEditFragment.newInstance(_appSettings.getLinkBoxFile(), false, false);
                     }
                     break;
                 }
