@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documenti visti recentemente</string>
     <string name="details">Dettagli</string>
     <string name="calendar">Calendario</string>
-    <string name="warning_disallowed_sd_access">Attenzione! L\'app non ha il permesso di salvare questo file, tutte le modifiche andranno perse. Non c\'è possibilità di risolvere il problema o di confermare qualcosa, Android nega qualsiasi accesso qui.</string>
+    <string name="warning_disallowed_sd_access">Attenzione! L\'app non ha il permesso di salvare il file: tutte le modifiche andranno perse. Non c\'è possibilità di risolvere il problema o di dare conferma: Android nega l\'accesso in questa locazione.</string>
     <string name="error_picture_selection">Nessuna immagine selezionata.</string>
     <string name="gallery_picture">Immagini dalla galleria</string>
     <string name="camera_picture">Immagini dalla fotocamera</string>
@@ -263,7 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mia_nota</string>
     <string name="close">Chiudi</string>
     <string name="cancel">Annulla</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vederlo ancora migliore e con i problemi risolti?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vedere altre migliorie e correzione di bachi?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
     <string name="app_start_tab">Scheda avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
 </resources>
