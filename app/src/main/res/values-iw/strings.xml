@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
     <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
     <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
+    <string name="append_contexts_and_projects_on_end_of_task">הוסף הקשרים ופרויקטים לסוף מטלה בעת שימוש בפעולת הטקסט המתאימה</string>
     <string name="rtl_rendering">תצוגת ימין-לשמאל</string>
     <string name="highlight_line_ending">הדגש סיום שורה</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">הדגש רווחים בסוף שורות המכילות שניים או יותר רווחים</string>
@@ -174,6 +175,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">התחל בתחתית</string>
     <string name="start_on_bottom_when_loading_document">בעת טעינת קובץ, מקם את הסמן בסופו</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor יכול לערוך קבצים מקומיים, המנותקים מהרשת בלבד ואינו תומך בסיירי קבצים שאינם מביאים נתיב מלא אל הקובץ.</string>
+    <string name="sync_to_local_folder_notice">הערה: אפליקציות סנכרון יכולות לשים קבצים בתיקיות שרירותיות, לפתוח אותם באמצעות שינוי תיקיית המסמכים של Markor בהתאם, או במנהל קבצים אחר.</string>
     <string name="configure_in_the_apps_settings">הגדר בהגדרות האפליקציה</string>
     <string name="vertical_alignment">יישור אנכי</string>
     <string name="horizontal_alignment">יישור אופקי</string>
@@ -218,6 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">מסמכים שנצפו לאחרונה</string>
     <string name="details">פרטים</string>
     <string name="calendar">לוח שנה</string>
+    <string name="warning_disallowed_sd_access">אזהרה! לאפליקציה אין רשות לשמור קובץ זה, כל השינויים כאן יאבדו. אין אפשרות לפתור את הבעיה או לוודא משהו, אנדרואיד מונעת כל גישה כאן.</string>
     <string name="error_picture_selection">אף תמונה לא נבחרה, נלקחה או נשמרה.</string>
     <string name="gallery_picture">גלריית התמונות</string>
     <string name="camera_picture">תמונת מצלמה</string>
@@ -257,4 +260,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">תאריך בלבד</string>
     <string name="last_used">שימוש אחרון</string>
     <string name="my_note">הערה_שלי</string>
+    <string name="close">סגירה</string>
+    <string name="cancel">ביטול</string>
 </resources>
