@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documentos recentes</string>
     <string name="details">Detalhes</string>
     <string name="calendar">Calendário</string>
-    <string name="warning_disallowed_sd_access">Aviso! O aplicativo não tem permissão para salvar este arquivo, todas as alterações serão perdidas. Não há nenhuma possibilidade de resolver o problema ou confirmar algo, o Android nega qualquer acesso aqui.</string>
+    <string name="warning_disallowed_sd_access">Aviso! A aplicação não tem permissão para guardar este ficheiro e todas as alterações serão perdidas. Não existe qualquer forma para resolver este problema porque o sistema não permite qualquer acesso a esta localização.</string>
     <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
     <string name="gallery_picture">Imagem da galeria</string>
     <string name="camera_picture">Imagem da câmara</string>
