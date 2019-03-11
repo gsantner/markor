@@ -263,6 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mijn_notitie</string>
     <string name="close">Sluit</string>
     <string name="cancel">Annuleren</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Houdt u van dit project? Wilt u verdere verbeteringen en bug fixes ondersteunen?\n\nOntwikkelende apps en het schrijven van gerelateerde blogposts duren veel tijd! Als u het project wilt helpen door te gaan, gelieve een kleine donatie te overwegen!\n\nDit project is op reservetijd ontwikkeld, volledig gratis en zonder advertenties!</string>
     <string name="app_start_tab">App starttabblad</string>
     <string name="tab_to_select_at_start">Tab om te selecteren bij het starten van de app</string>
 </resources>
