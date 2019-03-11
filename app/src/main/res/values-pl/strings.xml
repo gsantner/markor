@@ -150,7 +150,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="append_contexts_and_projects">Dodaj konteksty i projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Dodaj konteksty i projekty na końcu zadania, gdy używasz odpowiedniej akcji tekstu</string>
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -213,7 +212,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
     <string name="details">Szczegóły</string>
     <string name="calendar">Kalendarz</string>
-    <string name="warning_disallowed_sd_access">Uwaga! Aplikacja nie ma uprawnień, aby zapisać ten plik, wszystkie zmiany zostaną utracone. Nie ma możliwości, aby rozwiązać problem lub coś potwierdzić, Android odrzuca wszelki dostęp tutaj.</string>
     <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
     <string name="gallery_picture">Galeria zdjęć</string>
     <string name="camera_picture">Zdjęcie z aparatu</string>
