@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
     <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
     <string name="append_contexts_and_projects">Додати контексти та проекти</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проекти в кінець задачі з використанням відповідної команди тексту</string>
     <string name="rtl_rendering">Відображення зправа-наліво</string>
     <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
@@ -174,6 +175,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завандаження документа встановити курсор в кінець</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
+    <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
     <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
     <string name="vertical_alignment">Вертикальне вирівнювання</string>
     <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
@@ -216,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Нещодавні документи</string>
     <string name="details">Деталі</string>
     <string name="calendar">Календар</string>
+    <string name="warning_disallowed_sd_access">Увага! Додаток не має дозволу зберегти цей файл, всі зміни будуть втрачені. Вирішити цю проблему або підтвердити будь-що неможливо, Android скасовує доступ повністю.</string>
     <string name="error_picture_selection">Зображення не вибрано.</string>
     <string name="gallery_picture">Зображення з галереї</string>
     <string name="camera_picture">Зображення з камери</string>
