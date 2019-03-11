@@ -144,7 +144,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Indsæt aktuelle dato når en ny opgave startes</string>
     <string name="tasks_with_todays_date">Opgaver med dato i dag</string>
     <string name="append_contexts_and_projects">Tilføj kontekster og projekter</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Tilføj kontekster og projekter når en opgave fuldføres når der bruges passende teksthandling</string>
     <string name="rtl_rendering">Højre-mod-venstre visning</string>
     <string name="highlight_line_ending">Fremhæv linie slutningen</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Fremhæv mellemrum ved linieendelser der har mere end to mellemrum</string>
@@ -202,7 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Senest sete dokumenter</string>
     <string name="details">Detaljer</string>
     <string name="calendar">Kalender</string>
-    <string name="warning_disallowed_sd_access">Advarsel! Programmet har ikke adgang til at gemme denne fil, alle ændringer vil gå tabt. Der er ingen mulighed for at løse problemet eller for at acceptere noget. Android nægter alt adgang her.</string>
     <string name="error_picture_selection">Intet billede valgt, taget eller gemt.</string>
     <string name="gallery_picture">Billede fra galleri</string>
     <string name="camera_picture">Kamerabillede</string>
