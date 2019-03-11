@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
     <string name="tasks_with_todays_date">Bugünün tarihi ile görevler</string>
     <string name="append_contexts_and_projects">Bağlamları ve projeleri ekle</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Uygun metin eylemini kullanırken, bir görevin sonuna bağlamları ve projeleri ekle</string>
     <string name="rtl_rendering">Sağdan sola metin yönü</string>
     <string name="highlight_line_ending">Satır sonunu vurgula</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
+    <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="configure_in_the_apps_settings">Uygulama ayarlarından yapılandır</string>
     <string name="vertical_alignment">Dikey hizalama</string>
     <string name="horizontal_alignment">Yatay hizalama</string>
@@ -219,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Son görüntülenen belgeler</string>
     <string name="details">Ayrıntılar</string>
     <string name="calendar">Takvim</string>
+    <string name="warning_disallowed_sd_access">Uyarı! Uygulamanın bu dosyayı kaydetme izni yoktur, burada yapılan tüm değişiklikler kaybolacaktır. Bu uygulamanın bu sorunu çözme veya bir şeyi onaylama olasılığı yoktur, Android buradaki erişimi engellemiştir.</string>
     <string name="error_picture_selection">Hiçbir resim seçilmedi, çekilmedi veya kaydedilmedi.</string>
     <string name="gallery_picture">Galeri resmi</string>
     <string name="camera_picture">Kamera resmi</string>
@@ -260,4 +263,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">notum</string>
     <string name="close">Kapat</string>
     <string name="cancel">İptal</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Bu projeyi beğendiniz mi? Projenin iyileştirilmesini ve sorunların çözülmesini istiyor musunuz?\n\nUygulama geliştirmek ve onunla ilgili blog gönderileri yazmak çok zaman alıyor! Projenin devam edebilmesi için yardım etmek istiyorsanız, lütfen küçük bir bağış yapmayı düşünün!\n\nBu proje boş zamanlarımda, tamamen ücretsiz ve reklamsız olarak geliştirilmiştir!</string>
 </resources>
