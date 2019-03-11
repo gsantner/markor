@@ -152,7 +152,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>
     <string name="tasks_with_todays_date">Taken met de datum van vandaag</string>
     <string name="append_contexts_and_projects">Context en projecten toevoegen</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Voeg contexten en projecten aan het eind van een taak toe bij het gebruik van de juiste textactie</string>
     <string name="rtl_rendering">Rechts-naar-links</string>
     <string name="highlight_line_ending">Markeer einde van de regel</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markeer spaties aan het einde van de regel met meer dan twee spaties</string>
@@ -176,7 +175,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Start onderaan</string>
     <string name="start_on_bottom_when_loading_document">Bij het laden van een document, plaats cursor aan het einde</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan alleen lokale, offline beschikbare documenten bewerken en ondersteunt geen bestandsbeheerders die niet het volledige bestandspad aangeven.</string>
-    <string name="sync_to_local_folder_notice">Opmerking: Sync apps kunnen bestanden plaatsen in aangepaste mappen, deze openen door de document map van Markor dienovereenkomstig te wijzigen, of in een andere bestandsbeheerder.</string>
     <string name="configure_in_the_apps_settings">Configureren in de app instellingen</string>
     <string name="vertical_alignment">Verticale uitlijning</string>
     <string name="horizontal_alignment">Horizontale uitleining</string>
@@ -221,7 +219,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Onlangs bekeken documenten</string>
     <string name="details">Details</string>
     <string name="calendar">Kalender</string>
-    <string name="warning_disallowed_sd_access">Waarschuwing! De app heeft geen toestemming om dit bestand op te slaan, alle wijzigingen hier zullen verloren gaan. Er is geen mogelijkheid om het probleem op te lossen of iets te bevestigen, Android weigert hier toegang tot.</string>
     <string name="error_picture_selection">Geen afbeelding geselecteerd, genomen of opgeslagen.</string>
     <string name="gallery_picture">Galerij foto</string>
     <string name="camera_picture">Camera foto</string>
