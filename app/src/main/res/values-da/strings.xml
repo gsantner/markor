@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opret mappe</string>
     <string name="create_new_document">Opret nyt dokument</string>
     <string name="move">Flyt</string>
+    <string name="info">Info</string>
     <string name="import_from_device">Importér fra enhed</string>
     <string name="import_">Importér</string>
     <string name="append_to_witharg">Tilføj til %s</string>
@@ -39,6 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search">Søg</string>
     <string name="representation">Repræsentation</string>
     <string name="display_converted_markup">Vis konverteret markup</string>
+    <string name="editor">Editor</string>
     <string name="folders">Mapper</string>
     <string name="files">Filer</string>
     <string name="document">Dokument</string>
@@ -60,6 +62,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Opret</string>
     <string name="select_entries">Vælg elementer</string>
     <string name="one_item_selected">Et element valgt</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d objekt valgt</string>
+    <string name="hide_statusbar_at_this_view">Gem statusbar på dette skærmbillede</string>
     <string name="hide_statusbar">Gem statusbar</string>
     <string name="name">Navn</string>
     <string name="url_or_path">URL / Sti</string>
@@ -113,10 +117,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Genopfrisk</string>
     <string name="create_shortcut">Opret genvej</string>
     <string name="tried_to_create_shortcut_for_this_notice">Prøvede at oprette en genvej på din hjemmeskærm. Bemærk at ikke alle hjemmeskærme understøtter dette.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Den valgte fil er ikke i programmets notesbogmappe. Vil du kopiere den til den nuværende mappe? Dette vil overskrive eksisterende filer.</string>
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Gennemse dokumenter</string>
     <string name="create_note" needed="false">Opret note</string>
     <string name="special_documents" needed="false">Specielle dokumenter</string>
+    <string name="keep_screen_on" needed="false">Hold skærmen tændt</string>
     <string name="back_to_previous_folder" needed="false">Tilbage til tidligere mappe</string>
     <string name="app_settings" needed="false">Programindstillinger</string>
     <string name="editor_settings" needed="false">Editorindstillinger</string>
@@ -128,10 +134,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Husk sidste mappe</string>
     <string name="syntax_highlighting">Fremhævelse af syntakst</string>
     <string name="highlighting_delay">Udskyd fremhævelse</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antal millisekunder der ventes før fremhævelsen er genopfrisket. En lavere værdi vil starte fremhævelsen tidligere, men vil sluge mere batteri og presse maskineriet.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollér om angivne tekst skal være fremhævet eller ej</string>
     <string name="control_font_size_in_editor">Kontrollér størrelsen af skrifttypen der bliver brugt i editoren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Vis en bjælke med nyttige knapper i bunden. Disse teksthandlinger modificerer teksten eller kører en handling baseret på tekstens indhold.</string>
     <string name="load_last_opened_folder_at_startup">Hent den sidst åbnede mappe ved programstart</string>
+    <string name="format">Format</string>
     <string name="contexts">Kontekster</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekter</string>
@@ -144,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Indsæt aktuelle dato når en ny opgave startes</string>
     <string name="tasks_with_todays_date">Opgaver med dato i dag</string>
     <string name="append_contexts_and_projects">Tilføj kontekster og projekter</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Tilføj kontekster og projekter når en opgave fuldføres når der bruges passende teksthandling</string>
     <string name="rtl_rendering">Højre-mod-venstre visning</string>
     <string name="highlight_line_ending">Fremhæv linie slutningen</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Fremhæv mellemrum ved linieendelser der har mere end to mellemrum</string>
@@ -164,16 +173,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Vælg alle (Ctrl+A)</string>
     <string name="start_on_bottom">Start på bunden</string>
     <string name="start_on_bottom_when_loading_document">Når dokumentet er hentet, positionér cursoren ved enden</string>
+    <string name="sync_to_local_folder_notice">Notits: Synkroniserende programmer vil måske placere filer i brugerdefinerede mapper. Disse kan åbnes ved at ændre Makors dokumentmappe eller i et andet filhåndteringsprogram</string>
     <string name="configure_in_the_apps_settings">Konfigurér i programindstillinger</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontalt justering</string>
     <string name="default_">Standard</string>
     <string name="left">Venstre</string>
     <string name="right">Højre</string>
+    <string name="top">Øverste</string>
     <string name="bottom">Bund</string>
+    <string name="center">Centrer</string>
     <string name="textaction_spacing">Teksthandlings mellemrum</string>
     <string name="horizontal_space_between_textactions">Mellemrum mellem horisontale teksthandlingsknapper</string>
     <string name="center_text">Centrér tekst</string>
+    <string name="edit_text_in_center_of_screen">Redigér tekst i centrum af skærmen</string>
     <string name="clipboard">Udklipsholder</string>
     <string name="select_existing_document">Vælg eksisterende dokument</string>
     <string name="open_source_licenses">Open source licenser</string>
@@ -182,6 +195,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Mere info og hjælp</string>
     <string name="report_bugs">Rapporter fejl</string>
     <string name="android_contribution_guide">Android bidragsguide</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Mere info vedrørende bidrag til open source projekter - specielt programmer til Android</string>
     <string name="join_community">Bliv en del af fællesskabet</string>
     <string name="bug_reports_suggest_improvements">Giv feedback, rapporter fejl og foreslå forbedringer</string>
     <string name="help_translating_this_app">Overset dette program til andre sprog</string>
@@ -192,6 +206,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag kode til projektet. Alle er velkomne, også nybegyndere</string>
     <string name="project_team">Projekthold</string>
     <string name="contributors_public_add_yourself_description">Vis info på folk der bidrager. Opgiv, frivilligt, detaljer for at blive vist her</string>
+    <string name="descending">faldende</string>
+    <string name="ascending">Stigende</string>
     <string name="disable_spelling_underline">Deaktiver linie under stavekontrol</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag bliver, rød linie forsvinder</string>
     <string name="location">Placering</string>
@@ -201,6 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Senest sete dokumenter</string>
     <string name="details">Detaljer</string>
     <string name="calendar">Kalender</string>
+    <string name="warning_disallowed_sd_access">Advarsel! Programmet har ikke adgang til at gemme denne fil, alle ændringer vil gå tabt. Der er ingen mulighed for at løse problemet eller for at acceptere noget. Android nægter alt adgang her.</string>
     <string name="error_picture_selection">Intet billede valgt, taget eller gemt.</string>
     <string name="gallery_picture">Billede fra galleri</string>
     <string name="camera_picture">Kamerabillede</string>
@@ -213,4 +230,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Teksthandling</string>
     <string name="textactions">Teksthandlinger</string>
     <string name="prefer_representation">Foretræk repræsentation</string>
+    <string name="no_calendar_app_is_installed">Ingen kalender-app installeret</string>
+    <string name="color">Farve</string>
+    <string name="preset">Forudindstilling</string>
+    <string name="foreground">Forgrund</string>
+    <string name="background">Baggrund</string>
+    <string name="type">Type</string>
+    <string name="folder">Mappe</string>
+    <string name="font">Skrifttype</string>
+    <string name="pick_date">Vælg dato</string>
+    <string name="pick_time">Vælg tidspunkt</string>
+    <string name="result">Resultat</string>
+    <string name="last_used">Sidst brugt</string>
+    <string name="close">Luk</string>
+    <string name="cancel">Annuller</string>
 </resources>
