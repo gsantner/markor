@@ -152,7 +152,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">新しいタスクを開始するとき、現在の日付を挿入します</string>
     <string name="tasks_with_todays_date">今日の日付のタスク</string>
     <string name="append_contexts_and_projects">コンテキストとプロジェクトを追加</string>
-    <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了後にコンテキストとプロジェクトを追加します</string>
     <string name="rtl_rendering">RTL レンダリング</string>
     <string name="highlight_line_ending">行の終わりを強調表示</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
@@ -176,7 +175,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">下部で開始</string>
     <string name="start_on_bottom_when_loading_document">ドキュメントの読み込み時に、カーソル位置は最後になります</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markorはローカルのオフライン利用可能なドキュメントのみ編集できます。ファイルをフルパスで提供しないファイルマネージャーはサポートしていません。</string>
-    <string name="sync_to_local_folder_notice">注意: 同期アプリがカスタムフォルダーにファイルを配置することがあります。Markor のドキュメントフォルダーを変更するか、別のファイルマネージャーでそれを開くことができます。</string>
     <string name="configure_in_the_apps_settings">アプリ設定を構成します</string>
     <string name="vertical_alignment">縦に揃える</string>
     <string name="horizontal_alignment">横に揃える</string>
@@ -221,7 +219,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">最近表示したドキュメント</string>
     <string name="details">詳細</string>
     <string name="calendar">カレンダー</string>
-    <string name="warning_disallowed_sd_access">警告! アプリは、このファイルを保存するアクセス許可がありません。ここで行われたすべての変更は失われます。問題を解決したり何かを確認できる可能性はありません。Android はここのすべてのアクセスを拒否します。</string>
     <string name="error_picture_selection">画像が選択されていません。</string>
     <string name="gallery_picture">ギャラリー画像</string>
     <string name="camera_picture">カメラ画像</string>
@@ -263,5 +260,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">マイノート</string>
     <string name="close">閉じる</string>
     <string name="cancel">キャンセル</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">このプロジェクトを気に入っていただけましたか? 改善したい、あるいは問題を修正したいですか?\n\nアプリの開発や、関連するブログの記事を書くに多くの時間がかかります! プロジェクトを進めるために、支援をしていただける場合は、少しの寄付をご検討ください!\n\nこのプロジェクトは余暇に開発していて、完全に無料で、広告はありません!</string>
 </resources>
