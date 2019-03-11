@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
     <string name="tasks_with_todays_date">Uppgifter med dagens datum</string>
     <string name="append_contexts_and_projects">Bifoga kontexter och projekt</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Bifoga kontexter och projekt i slutet av en uppgift om rätt textmodulskommando används</string>
     <string name="rtl_rendering">VTH-visning</string>
     <string name="highlight_line_ending">Markera radslut</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Börja vid botten</string>
     <string name="start_on_bottom_when_loading_document">När dokument laddat, placera markören vid slutet av raden</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
+    <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
     <string name="configure_in_the_apps_settings">Ställ in i appens inställningar</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontell justering</string>
@@ -219,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Senaste visade dokument</string>
     <string name="details">Detaljer</string>
     <string name="calendar">Kalender</string>
+    <string name="warning_disallowed_sd_access">Varning! Appen tycks inte ha givits tillåtelse att spara denna fil; alla ändringar går förlorade. Det finns inget sätt att lösa problemet eller bekräfta något. Android ger ingen åtkomst hit.</string>
     <string name="error_picture_selection">Ingen bild vald, tagen eller sparad.</string>
     <string name="gallery_picture">Galleribild</string>
     <string name="camera_picture">Kamerabild</string>
@@ -260,4 +263,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mina anteckningar</string>
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
 </resources>
