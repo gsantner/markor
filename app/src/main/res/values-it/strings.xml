@@ -152,7 +152,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
     <string name="tasks_with_todays_date">Attività con la data di oggi</string>
     <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un\'attività quando si sta usando l\'appropriata azione sul testo</string>
     <string name="rtl_rendering">Render da destra a sinistra</string>
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
@@ -176,7 +175,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
-    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono salvare i file in cartelle personalizzate. Apri quei file cambiando la cartella di Markor, oppure con un altro gestore dei file.</string>
     <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orrizontale</string>
@@ -221,7 +219,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documenti visti recentemente</string>
     <string name="details">Dettagli</string>
     <string name="calendar">Calendario</string>
-    <string name="warning_disallowed_sd_access">Attenzione! L\'app non dispone dell\'autorizzazione per salvare questo file: le modifiche saranno perdute. Non c\'è alcuna possibilità di risolvere il problema o dare una conferma: Android nega qualsiasi accesso.</string>
     <string name="error_picture_selection">Nessuna immagine selezionata.</string>
     <string name="gallery_picture">Immagini dalla galleria</string>
     <string name="camera_picture">Immagini dalla fotocamera</string>
@@ -263,7 +260,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mia_nota</string>
     <string name="close">Chiudi</string>
     <string name="cancel">Annulla</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vederlo ancora migliore e con i problemi risolti?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
     <string name="app_start_tab">Scheda avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
 </resources>
