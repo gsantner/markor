@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserta sa data currente cando incumentzas un\'atividade noa</string>
     <string name="tasks_with_todays_date">Atividades cun data de oe</string>
     <string name="append_contexts_and_projects">Annanghe cuntestos e progetos</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Annanghe cuntestos e progetos a s\'acabu de un\'atividade cando ses impreende s\'atzione pro su testu apropriada</string>
     <string name="rtl_rendering">Renderizatzione dae destra a manca</string>
     <string name="highlight_line_ending">Evidèntzia s\'acabu de sa lìnia</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidèntzia sos ispatzios a s\'acabu de sas lìnias chi cuntenint duos o prus ispàtzios</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Incumintza dae bassu</string>
     <string name="start_on_bottom_when_loading_document">A pustis de àere carrigadu unu documentu,  pone su cursore a s\'acabu suo</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor podet editare petzi documentos locales e disponìbiles chene sa connessione a ìnternet e non suportat gestore de documentos chi non frunint s\'àndala intrea pro sos documentos.</string>
+    <string name="sync_to_local_folder_notice">Ammenta·ti: sas aplicatziones de sincronizatzione diant pòdere sarvare sos documentos in cartellas personalizadas. Aberi·los mudende sa cartella de sos documentos de Markor, o impreende un\'àteru gestore de documentos.</string>
     <string name="configure_in_the_apps_settings">Configura in sas impostatziones de s\'aplicatzione</string>
     <string name="vertical_alignment">Alliniamentu verticale</string>
     <string name="horizontal_alignment">Alliniamentu orizontale</string>
@@ -219,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documentos abbaidados dae pagu</string>
     <string name="details">Detàllios</string>
     <string name="calendar">Calendàriu</string>
+    <string name="warning_disallowed_sd_access">Atentzione! Custa aplicatzione non tenet su permissu de sarvare custu documentu. Totu sas modìficas s\'ant a pèrdere. Non b\'at peruna possibilidade de isòrvere su problema o de cunfirmare carchi cosa, Android blocat cale si siat atzessu inoghe.</string>
     <string name="error_picture_selection">Peruna immàgine ischertada, iscatada o sarvada.</string>
     <string name="gallery_picture">Immàgine de sa galleria</string>
     <string name="camera_picture">Immàgine de sa fotocàmera</string>
@@ -260,6 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">nota_mea</string>
     <string name="close">Serra</string>
     <string name="cancel">Annulla</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">T\'agradat custu progetu? Cheres chi bèngiat megioradu e chi sos problemas bèngiant isortos?\n\nS\'isvilupu de aplicatziones e s\'iscritura de publicatziones curreladas in sos blogs pigat unu muntone de tempus! Si cheres agiudare, pro fàghere in modu chi su progetu potzat sighire, pro praghere piga in cunsìderu s\'idea de fàghere una donatzione, fintzas si minore!\n\nCustu progetu est isvilupadu in su tempus lìberu, totu de badas e chene annùntzios publitzitàrios!</string>
     <string name="app_start_tab">Ischeda de incumintzu de s\'aplicatzione</string>
     <string name="tab_to_select_at_start">Ischeda de ischertare cando benit alluta s\'aplicatzione</string>
 </resources>
