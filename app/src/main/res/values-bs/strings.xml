@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
     <string name="tasks_with_todays_date">Zadatak s današnjim datumom</string>
     <string name="append_contexts_and_projects">Dodaj kontekste i projekte</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dodaj kontekste i projekte na kraj zadatka ako je korištena odgovarajuća tekstualna akcija</string>
     <string name="rtl_rendering">RTL prikaz</string>
     <string name="highlight_line_ending">Markiraj završetak reda</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markiraj bjeline na kraju redova u kojima se nalaze dvije ili više bjelina</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Počni na dnu</string>
     <string name="start_on_bottom_when_loading_document">Nakon otvaranja dokumenta, kursor pozicioniraj na kraj</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor može uređivati samo lokalne dokumente kojima ima pristup i ne podržava programe za upravljanje datotekama koji ne prikazuju cijelu putanju.</string>
+    <string name="sync_to_local_folder_notice">Napomena: Programi za sinhronizaciju nekada smještaju datoteke u vlastite direktorije. Pristupite im tako što ćete promijeniti direktorije u postavkama Markora ili koristite program za upravljanje datotekama.</string>
     <string name="configure_in_the_apps_settings">Odredi u podešavanjima programa</string>
     <string name="vertical_alignment">Uspravno poravnanje</string>
     <string name="horizontal_alignment">Vodoravno poravnanje</string>
@@ -219,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Nedavno otvoreni dokumenti</string>
     <string name="details">Detalji</string>
     <string name="calendar">Kalendar</string>
+    <string name="warning_disallowed_sd_access">Upozorenje! Program nema ovlasti da pohrani ovu datoteku i sve izmjene načinjene u njoj bit će poništene. Ovaj problem nije moguće riješiti, jer Android sprečava svaki pristup memoriji.</string>
     <string name="error_picture_selection">Nijedna slika nije označena, uslikana niti pohranjena.</string>
     <string name="gallery_picture">Slika iz galerije</string>
     <string name="camera_picture">Uslikaj sliku</string>
@@ -260,6 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">moja_biljeska</string>
     <string name="close">Zatvori</string>
     <string name="cancel">Otkaži</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Sviđa li Vam se ovaj projekat? Želite li da napreduje a problemi budu otklonjeni?\n\nRazvijanje aplikacija i pisanje članaka o njima uzima puno vremena! Ako biste voljeli pomoći da projekat opstane, molimo Vas da razmislite o skromnoj donaciji!\n\nRad na ovom projektu odvija se u slobodno vrijeme, a program je besplatan i ne sadrži nikakav vid reklama!</string>
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
 </resources>
