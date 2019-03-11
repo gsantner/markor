@@ -152,6 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insereix la data actual en iniciar una tasca nova</string>
     <string name="tasks_with_todays_date">Tasques amb data d\'avui</string>
     <string name="append_contexts_and_projects">Annexa contextos i projectes</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Afegeix contextos i projectes al final d\'una tasca en utilitzar l\'acció de text apropiada</string>
     <string name="rtl_rendering">Representació RTL</string>
     <string name="highlight_line_ending">Destaca el final de la línia</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Destaca espais al final de línies que contenen dos o més espais</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Comença a la part inferior</string>
     <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només pot editar documents locals disponibles sense connexió i no admet administradors d\'arxius que no proporcionin la ruta completa del fitxer.</string>
+    <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades, obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
     <string name="configure_in_the_apps_settings">Configureu-ho a la configuració de l\'aplicació</string>
     <string name="vertical_alignment">Alineació vertical</string>
     <string name="horizontal_alignment">Alineació horitzontal</string>
@@ -219,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documents vistos recentment</string>
     <string name="details">Detalls</string>
     <string name="calendar">Calendari</string>
+    <string name="warning_disallowed_sd_access">Alerta! L\'aplicació no té permís per desar aquest fitxer, es perdran tots els canvis. No hi ha cap possibilitat de resoldre el problema ni confirmar alguna cosa, Android nega qualsevol accés aquí.</string>
     <string name="error_picture_selection">No s\'ha seleccionat cap imatge</string>
     <string name="gallery_picture">Imatge de la galeria</string>
     <string name="camera_picture">Imatge de la càmera</string>
@@ -260,6 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">la meva nota</string>
     <string name="close">Tanca</string>
     <string name="cancel">Cancel·la</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Us agrada aquest projecte? Voleu que encara sigui millor i es solucionin els problemes?\n\nDesenvolupar aplicacions i escriure publicacions relacionades als blogs costa molt de temps! Si voleu ajudar perquè el projecte pugui continuar, considereu aportar una petita donació!\n\nAquest projecte es desenvolupa durant el temps lliure, completament gratis i sense publicitat!</string>
     <string name="app_start_tab">Pestanya d\'inici de l\'aplicació</string>
     <string name="tab_to_select_at_start">Pestanya per seleccionar quan s\'inicia l\'aplicació</string>
 </resources>
