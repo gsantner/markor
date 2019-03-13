@@ -12,11 +12,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Instellings</string>
+    <string name="appearance">Voorkoms</string>
     <string name="share">Deel</string>
     <string name="search">Soek</string>
     <string name="about">Omtrent</string>
+    <string name="hide_statusbar">Versteek status balk</string>
     <string name="changelog">Verandering-log</string>
+    <string name="language">Taal</string>
+    <string name="donate">Skenk</string>
     <string name="more">Meer</string>
+    <string name="general">Algemeen</string>
     <string name="default_">Verstek</string>
     <string name="miscellaneous">Diverse</string>
+    <string name="close">Sluit</string>
+    <string name="cancel">Kanselleer</string>
 </resources>

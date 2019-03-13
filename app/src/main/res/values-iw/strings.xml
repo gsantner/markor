@@ -260,4 +260,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">תאריך בלבד</string>
     <string name="last_used">שימוש אחרון</string>
     <string name="my_note">הערה_שלי</string>
+    <string name="close">סגירה</string>
+    <string name="cancel">ביטול</string>
 </resources>

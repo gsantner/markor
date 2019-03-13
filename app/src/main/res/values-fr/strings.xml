@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
     <string name="tasks_with_todays_date">Tâches d\'aujourd\'hui</string>
     <string name="append_contexts_and_projects">Ajout des contextes et projets</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Ajouter les contextes et projets à la fin d\'une tâche à l\'aide de l\'outil de texte approprié</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Ajouter les contextes et les projets à la fin d\'une tâche lors de l\'utilisation du texte approprié</string>
     <string name="rtl_rendering">Écriture de droite à gauche</string>
     <string name="highlight_line_ending">Afficher les fins de ligne</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Mettre en valeur les espaces en fin de ligne, à partir de deux espaces</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Commencer en haut</string>
     <string name="start_on_bottom_when_loading_document">Après l\'ouverture d\'un document, placer le curseur à la fin</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que des fichiers locaux, disponibles hors connexion, et ne supporte pas les gestionnaires de fichiers qui ne fournissent pas le chemin d’accès complet du fichier.</string>
-    <string name="sync_to_local_folder_notice">Note : les applications de synchronisation peuvent placer les fichiers dans des dossiers personnalisés. Vous pouvez les ouvrir en changeant le dossier des documents de Markor pour ce dossier personnalisé, ou en ouvrant le fichier via un autre explorateur de fichiers.</string>
+    <string name="sync_to_local_folder_notice">Remarque : Les applications de synchronisation peuvent placer des fichiers dans des dossiers personnalisés. Ouvrez-les en modifiant le dossier de document de Markor en conséquence, ou dans un autre gestionnaire de fichiers.</string>
     <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documents récemment ouverts</string>
     <string name="details">Détails</string>
     <string name="calendar">Calendrier</string>
-    <string name="warning_disallowed_sd_access">Attention ! L\'application ne possède pas les droits pour enregistrer ce fichier. Tous ses changements seront perdus. Il n\'y a pas moyen de résoudre le problème ou confirmer quoi que ce soit : Android empêche tout accès.</string>
+    <string name="warning_disallowed_sd_access">Attention ! L\'application n\'a pas la permission d\'enregistrer ce fichier, toutes les modifications seront perdues. Il n\'y a aucune possibilité de résoudre le problème ou de confirmer quelque chose, Android refuse tout accès ici.</string>
     <string name="error_picture_selection">Aucune image n\'a été sélectionnée.</string>
     <string name="gallery_picture">Photo depuis la galerie</string>
     <string name="camera_picture">Photo depuis l\'appareil</string>

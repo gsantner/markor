@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
     <string name="tasks_with_todays_date">Задачи с сегодняшней датой</string>
     <string name="append_contexts_and_projects">Добавить контексты и проекты</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Добавлять контексты и проекты в конец задачи при использовании соответствующих текстовых модулей</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Добавлять контексты и проекты в конце задачи при использовании соответствующего текстового действия</string>
     <string name="rtl_rendering">Отрисовка \"справа-налево\"</string>
     <string name="highlight_line_ending">Подсвечивать конец строки</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк, содержащие два или более пробела</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки документа курсор ставить в конец</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
-    <string name="sync_to_local_folder_notice">Примечание: Приложения использующие синхронизацию могут размещать файлы в пользовательских папках, откройте их, изменив папку документа Markor соответствующим образом, или в другом диспетчере файлов.</string>
+    <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора или в другом файловом менеджере.</string>
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Недавно открытые документы</string>
     <string name="details">Детали</string>
     <string name="calendar">Календарь</string>
-    <string name="warning_disallowed_sd_access">Предупреждение! Приложение не имеет разрешения на сохранение этого файла, все изменения сделаные здесь будут потеряны. Нет возможности разрешить проблему или что либо подтвердить. Android запрещает здесь любые действия.</string>
+    <string name="warning_disallowed_sd_access">Внимание! У приложения нет разрешения на сохранение этого файла, все изменения будут потеряны. Нет возможности разрешить проблему или подтвердить что-то, Android отказывает в доступе здесь.</string>
     <string name="error_picture_selection">Изображение не выбранно.</string>
     <string name="gallery_picture">Галерея фотографий</string>
     <string name="camera_picture">Фото камеры</string>
@@ -263,7 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">моя заметка</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите, чтобы он был улучшен и исправлен?\n\nРазвивающиеся приложения и написание связанных блогов много времени! Если вы хотите помочь, чтобы проект мог продолжить, пожалуйста, рассмотрите небольшое пожертвование!\n\nЭтот проект разработан в свободное время, полностью для бесплатных и без рекламы!</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание связанных блогов занимает много времени! Если вы хотите помочь проекту продолжить, пожалуйста, рассмотрите небольшое пожертвование!\n\nЭтот проект развивается в свободное время, полностью бесплатно и без рекламы!</string>
     <string name="app_start_tab">Вкладка запуска приложения</string>
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
 </resources>

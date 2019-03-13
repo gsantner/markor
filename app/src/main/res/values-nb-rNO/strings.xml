@@ -141,7 +141,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Sett inn nåværende dato når nytt gjøremål startes</string>
     <string name="tasks_with_todays_date">Gjøremål med dagens dato</string>
     <string name="append_contexts_and_projects">Tilføy kontekster og prosjekter</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Tilføy kontekster og prosjekter på slutten av et gjøremål, ved bruk av dertil egnet tekstmodulhandling</string>
     <string name="rtl_rendering">HTV-opptegning</string>
     <string name="highlight_line_ending">Framhev linjeendelser</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Framhev mellomrom ved linjeslutt for linjer som inneholder to eller flere mellomrom</string>
@@ -198,7 +197,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Nylig viste dokumenter</string>
     <string name="details">Detaljer</string>
     <string name="calendar">Kalender</string>
-    <string name="warning_disallowed_sd_access">Advarsel! Dette programmet har ikke tilgang til å lagre denne filen, alle endringer vil gå tapt. Det er ingen mulighet til å løse problemet eller å bekrefte noe. Android nekter enhver tilgang her.</string>
     <string name="error_picture_selection">Inget bilde valgt, tatt, eller lagret.</string>
     <string name="gallery_picture">Galleribilde</string>
     <string name="camera_picture">Kamerabilde</string>

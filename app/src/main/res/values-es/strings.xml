@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
     <string name="tasks_with_todays_date">Tareas con fecha de hoy</string>
     <string name="append_contexts_and_projects">Añadir contextos y proyectos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Añade contextos y proyectos al final de una tarea al usar la acción de módulo de texto apropiada</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Añadir contextos y proyectos al final de una tarea al usar el texto apropiado</string>
     <string name="rtl_rendering">Representación RTL</string>
     <string name="highlight_line_ending">Colorear el final de la línea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Resaltar los espacios al final de las líneas si estas terminan en dos o más espacios</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
-    <string name="sync_to_local_folder_notice">Importante: las aplicaciones sincronizadas pueden poner archivos en directorios personalizados, abrirlas cambiando los directorios de archivos de Markor o usando otro gestor de archivos.</string>
+    <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Ábrelas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documentos vistos recientemente</string>
     <string name="details">Detalles</string>
     <string name="calendar">Calendario</string>
-    <string name="warning_disallowed_sd_access">¡Advertencia! La aplicación no tiene permiso para guardar este archivo, se perderán todos los cambios. No hay posibilidad de resolver el problema o de confirmar algo, Android niega cualquier acceso aquí.</string>
+    <string name="warning_disallowed_sd_access">¡Advertencia! La aplicación no tiene permiso para guardar este archivo, todos los cambios se perderán. No hay posibilidad de resolver el problema o de confirmar algo, Android niega cualquier acceso aquí.</string>
     <string name="error_picture_selection">No se ha seleccionado ninguna imagen.</string>
     <string name="gallery_picture">Imagen de la galería</string>
     <string name="camera_picture">Imagen de la cámara</string>

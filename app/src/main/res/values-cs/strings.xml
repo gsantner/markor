@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Začněme u dna</string>
     <string name="start_on_bottom_when_loading_document">Po načtení dokumentu kurzor polohy na jeho konci</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
-    <string name="sync_to_local_folder_notice">Poznámka: Sync apps může umístit soubory do vlastních složek, otevřít je podle toho změnou složky dokumentů Markora nebo v jiném správci souborů.</string>
+    <string name="sync_to_local_folder_notice">Poznámka: Sync Apps může umístit soubory do vlastních složek.</string>
     <string name="configure_in_the_apps_settings">Nastavte v nastavení aplikace</string>
     <string name="vertical_alignment">Vertikální vyrovnání</string>
     <string name="horizontal_alignment">Horizontální přizpůsobení</string>
@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Nedávno jsem viděl dokumenty</string>
     <string name="details">Podrobnosti</string>
     <string name="calendar">Termíny</string>
-    <string name="warning_disallowed_sd_access">The app doesn\'t have the permission to save this file, all changes here will be lost.</string>
+    <string name="warning_disallowed_sd_access">The app doesn\'t have the permission to save this file, all changes will be lost.</string>
     <string name="error_picture_selection">Nebyl zvolen Âžádný obrázek.</string>
     <string name="gallery_picture">Obraz galerie</string>
     <string name="camera_picture">kamera obraz</string>
@@ -263,6 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">Moje poznámka</string>
     <string name="close">Konec</string>
     <string name="cancel">Rakovina</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
 </resources>

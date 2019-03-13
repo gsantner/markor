@@ -264,4 +264,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Serra</string>
     <string name="cancel">Annulla</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">T\'agradat custu progetu? Cheres chi bèngiat megioradu e chi sos problemas bèngiant isortos?\n\nS\'isvilupu de aplicatziones e s\'iscritura de publicatziones curreladas in sos blogs pigat unu muntone de tempus! Si cheres agiudare, pro fàghere in modu chi su progetu potzat sighire, pro praghere piga in cunsìderu s\'idea de fàghere una donatzione, fintzas si minore!\n\nCustu progetu est isvilupadu in su tempus lìberu, totu de badas e chene annùntzios publitzitàrios!</string>
+    <string name="app_start_tab">Ischeda de incumintzu de s\'aplicatzione</string>
+    <string name="tab_to_select_at_start">Ischeda de ischertare cando benit alluta s\'aplicatzione</string>
 </resources>

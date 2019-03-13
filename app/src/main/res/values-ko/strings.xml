@@ -12,7 +12,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">설정</string>
+    <string name="delete">삭제</string>
     <string name="appearance">모양</string>
+    <string name="rename">이름 바꾸기</string>
     <string name="share">공유</string>
     <string name="search">검색</string>
     <string name="about">이 앱에 대해서..</string>

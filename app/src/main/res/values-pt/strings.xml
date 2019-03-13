@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma tarefa</string>
     <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
     <string name="append_contexts_and_projects">Juntar contextos e projetos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Anexar contextos e projetos no fim de uma tarefa, se utilizada a ação de texto apropriada</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Anexar contextos e projetos no final de uma tarefa ao usar a textação apropriada</string>
     <string name="rtl_rendering">Processamento de RTL</string>
     <string name="highlight_line_ending">Destacar fim de linhas</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Destacar espaços no final das linhas que possuem dois ou mais espaços</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Iniciar no fim</string>
     <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais, off-line e não tem suporte a gestor de ficheiros que não disponibilizem o caminho completo do ficheiro.</string>
-    <string name="sync_to_local_folder_notice">Aviso: as aplicações de sincronização colocam os ficheiros em pastas personalizadas. Pode alterar a pasta de documentos do Markor ou através de um gestor de ficheiros.</string>
+    <string name="sync_to_local_folder_notice">Nota: Apps de sincronização podem colocar arquivos em pastas personalizadas. Abra-os alterando a pasta de documentos do Markor de acordo com isso, ou em outro gerenciador de arquivos.</string>
     <string name="configure_in_the_apps_settings">Configurar a aplicação</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documentos recentes</string>
     <string name="details">Detalhes</string>
     <string name="calendar">Calendário</string>
-    <string name="warning_disallowed_sd_access">Aviso! A aplicação não tem permissão para guardar as alterações e estas serão perdidas. Não existe qualquer forma para resolver este problema porque o sistema não permite qualquer acesso a esta localização.</string>
+    <string name="warning_disallowed_sd_access">Aviso! A aplicação não tem permissão para guardar este ficheiro e todas as alterações serão perdidas. Não existe qualquer forma para resolver este problema porque o sistema não permite qualquer acesso a esta localização.</string>
     <string name="error_picture_selection">Não há imagens selecionadas, obtidas ou guardadas.</string>
     <string name="gallery_picture">Imagem da galeria</string>
     <string name="camera_picture">Imagem da câmara</string>
