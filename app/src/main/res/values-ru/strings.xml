@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание связанных блогов занимает много времени! Если вы хотите помочь проекту продолжить, пожалуйста, рассмотрите небольшое пожертвование!\n\nЭтот проект развивается в свободное время, полностью бесплатно и без рекламы!</string>
     <string name="app_start_tab">Вкладка запуска приложения</string>
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
+    <string name="swipe_to_change_mode">Смахните для изменения режима</string>
+    <string name="swipe_to_change_mode_to_other">Смахните, чтобы изменить режим редактирования или представления, напротив текущего режима</string>
 </resources>
