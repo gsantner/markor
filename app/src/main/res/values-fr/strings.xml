@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Vous aimez ce projet ? Vous voulez participer à son amélioration et corriger ses problèmes ?\n\nDévelopper des applications et écrire les posts de blog correspondants demande beaucoup de temps ! Si vous voulez aider à la poursuite du projet, merci de considérer une petite donation.\n\nCe projet est développé sur du temps libre, complètement gratuitement et sans publicité !</string>
     <string name="app_start_tab">Onglet de démarrage</string>
     <string name="tab_to_select_at_start">Onglet à sélectionner lors du démarrage de l\'application</string>
+    <string name="swipe_to_change_mode">Glisser pour changer de mode</string>
+    <string name="swipe_to_change_mode_to_other">Glisser pour changer le mode de modification ou de représentation, le contraire du mode courant</string>
 </resources>
