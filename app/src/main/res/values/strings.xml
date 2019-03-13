@@ -278,4 +278,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Do you enjoy this project? Do you want to support further improvements and bug fixes?\n\nDeveloping apps and writing related blog posts take a lot of time! If you want to help the project to continue, please consider a small donation!\n\nThis project is developed in spare time, completely for free and without any advertisements!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
+    <string name="swipe_to_change_mode">Swipe to change mode</string>
+    <string name="swipe_to_change_mode_to_other">Swipe to change mode to edit or representation, the opposite of the current mode</string>
 </resources>

@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.action_preview: {
                 File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
+                f = _bottomNav.getSelectedItemId() == R.id.nav_linkbox ? as.getLinkBoxFile() : f;
                 DocumentActivity.launch(MainActivity.this, f, false, true, null);
                 return true;
             }

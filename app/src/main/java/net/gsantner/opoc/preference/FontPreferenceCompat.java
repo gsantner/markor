@@ -24,6 +24,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.ListPreference;
 import android.text.Spannable;
@@ -190,12 +191,17 @@ public class FontPreferenceCompat extends ListPreference {
         if (additionalyCheckedFolder != null && additionalyCheckedFolder.exists()) {
             files.addAll(Arrays.asList(additionalyCheckedFolder.listFiles(FONT_FILENAME_FILTER)));
         }
+        for (File checkedDir : new File[]{new File(Environment.getExternalStorageDirectory(), "fonts"), new File(Environment.getExternalStorageDirectory(), "Fonts")}){
+            if (checkedDir.exists()) {
+                files.addAll(Arrays.asList(checkedDir.listFiles(FONT_FILENAME_FILTER)));
+            }
+        }
 
         try {
             for (String filename : getContext().getAssets().list("fonts")) {
                 files.add(new File(ANDROID_ASSET_DIR + "fonts", filename));
             }
-        } catch (IOException ignored) {
+        } catch (Exception ignored) {
         }
 
         return files;

@@ -451,4 +451,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return R.id.nav_notebook;
     }
+
+    public boolean isSwipeToChangeMode(){
+        return getBool(R.string.pref_key__swipe_to_change_mode, false);
+    }
 }

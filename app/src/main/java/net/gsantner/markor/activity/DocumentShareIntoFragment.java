@@ -53,7 +53,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         Bundle args = new Bundle();
 
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) == null ? "" : intent.getStringExtra(Intent.EXTRA_TEXT);
         String tmp;
         if (intent.hasExtra(Intent.EXTRA_SUBJECT) && !sharedText.contains((tmp = intent.getStringExtra(Intent.EXTRA_SUBJECT)))) {
             if (!tmp.trim().contains("\n") && !sharedText.trim().contains("\n") && !sharedText.trim().contains(" ") && (sharedText.startsWith("http://") || sharedText.startsWith("https://"))) {

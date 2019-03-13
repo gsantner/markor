@@ -273,6 +273,12 @@
             android:key="@string/pref_key__is_preview_first"
             android:summary="@string/show_representation_of_markup_by_default"
             android:title="@string/prefer_representation" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_arrow_back_white_24dp"
+            android:key="@string/pref_key__swipe_to_change_mode"
+            android:summary="@string/swipe_to_change_mode_to_other"
+            android:title="@string/swipe_to_change_mode" />
     </PreferenceScreen>
 
 
