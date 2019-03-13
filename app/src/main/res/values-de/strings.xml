@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gefällt dir dieses Projekt? Möchtest du, dass es verbessert wird und Probleme behoben werden?\n\nDie Entwicklung von Apps und das schreiben von relevanten Blog-Einträgen kostet viel Zeit! Wenn du helfen möchtest, so dass das Projekt weitergehen kann, ziehe bitte eine kleine Spende in Betracht!\n\nDieses Projekt wird in der Freizeit, völlig kostenlos und ohne jegliche Werbeeinblendungen entwickelt &amp; angeboten!</string>
     <string name="app_start_tab">App-Start Tab</string>
     <string name="tab_to_select_at_start">Ausgewählter Tab beim App-Start</string>
+    <string name="swipe_to_change_mode">Wischen, um den Modus zu ändern</string>
+    <string name="swipe_to_change_mode_to_other">Wischen, um den Modus zu bearbeiten oder darzustellen, das Gegenteil des aktuellen Modus</string>
 </resources>
