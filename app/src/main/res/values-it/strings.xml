@@ -267,5 +267,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Scheda avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
     <string name="swipe_to_change_mode">Scorri per cambiare modalità</string>
-    <string name="swipe_to_change_mode_to_other">Scorri per cambiare modalità per modificare o rappresentare, l\'opposto della modalità corrente</string>
+    <string name="swipe_to_change_mode_to_other">Scorri per passare all\'opposto della modalità corrente (modifica/presentazione)</string>
 </resources>
