@@ -113,7 +113,7 @@ public class MarkdownTextConverter extends TextConverter {
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
-        options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
+        //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
 
         // gfm table parsing
