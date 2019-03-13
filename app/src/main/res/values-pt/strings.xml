@@ -267,5 +267,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Separador inicial</string>
     <string name="tab_to_select_at_start">Separador a mostrar ao iniciar a aplicação</string>
     <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
-    <string name="swipe_to_change_mode_to_other">Deslize para alterar o modo de edição ou representação, o oposto do modo atual</string>
+    <string name="swipe_to_change_mode_to_other">Deslize para alterar o entre o modo de edição e o modo de representação</string>
 </resources>
