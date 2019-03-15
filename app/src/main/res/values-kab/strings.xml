@@ -11,7 +11,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Ismenyifen</string>
+    <string name="settings">Iɣewwaṛen</string>
     <string name="light">Aceɛlal</string>
     <string name="dark">Ubrik</string>
     <string name="delete">Kkes</string>
@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Ugar n telɣut</string>
     <string name="show_license_of_the_app">Sken aselkin n uḍris</string>
     <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
-    <string name="language_change_restart_description">Beddel isem n tutlayt n ugrudem. Yessefk ad talseḍ tanekra n usnas akken teddu tutlaut tamaynut</string>
+    <string name="language_change_restart_description">Snifel tutlayt n usnas-agi. Ales tanekra n usnas akken ad tbeddel tutlayt</string>
     <string name="language">Tutlayt</string>
     <string name="error_need_storage_permission_to_save_documents">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
     <string name="open_with">Ldi s</string>
