@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Más información</string>
     <string name="show_license_of_the_app">Licencia GNU GPLv3 +</string>
     <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
-    <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reiniciar la aplicación para que se apliquen los cambios</string>
+    <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reinicie la aplicación para que los cambios surtan efecto</string>
     <string name="language">Idioma</string>
     <string name="error_need_storage_permission_to_save_documents">Se necesita permiso de almacenamiento para guardar documentos</string>
     <string name="open_with">Abrir con</string>
