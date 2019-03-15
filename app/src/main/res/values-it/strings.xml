@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Informazioni aggiuntive</string>
     <string name="show_license_of_the_app">Mostra la licenza dell\'applicazione</string>
     <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
-    <string name="language_change_restart_description">Cambia la lingua dell\'applicazione. È richiesto un ravvio affinchè le modifiche abbiano effetto</string>
+    <string name="language_change_restart_description">Cambia la lingua di questa app. Riavvia l\'app per rendere effettive le modifiche</string>
     <string name="language">Lingua</string>
     <string name="error_need_storage_permission_to_save_documents">Sono necessari i permessi di archiviazione per salvare i documenti</string>
     <string name="open_with">Apri con</string>
@@ -111,7 +111,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Scadenza</string>
     <string name="current_date">Data attuale</string>
     <string name="archive">Archivia</string>
-    <string name="add_task">Aggiungi avvità</string>
+    <string name="add_task">Aggiungi attività</string>
     <string name="add_x_witharg">Aggiungi %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Documento da caricare e salvare come \"%s\"</string>
     <string name="refresh">Ricarica</string>
@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
     <string name="tasks_with_todays_date">Attività con la data di oggi</string>
     <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un task usando l\'apposita azione di testo</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un\'attività quando usi un\'azione di testo appropriata</string>
     <string name="rtl_rendering">Render da destra a sinistra</string>
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
@@ -174,12 +174,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Seleziona tutto (Ctrl + A)</string>
     <string name="key_tab">Tabulatore</string>
     <string name="start_on_bottom">Inizia dal basso</string>
-    <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posizione il cursore alla fine</string>
+    <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posiziona il cursore alla fine</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
-    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Aprili modificando di conseguenza la cartella del documento di Markor, o in un altro file manager.</string>
+    <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Puoi aprirli modificando la cartella dei documenti di Markor, o usando un altro file manager.</string>
     <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
     <string name="vertical_alignment">Allineamento verticale</string>
-    <string name="horizontal_alignment">Allineamento orrizontale</string>
+    <string name="horizontal_alignment">Allineamento orizzontale</string>
     <string name="default_">Predefinito</string>
     <string name="left">A sinistra</string>
     <string name="right">A destra</string>
@@ -202,7 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Più informazioni su come contribuire a progetti open source, soprattutto app Android</string>
     <string name="join_community">Unisciti alla comunità</string>
     <string name="bug_reports_suggest_improvements">Dai un riscontro, segnala bug o suggerisci miglioramenti</string>
-    <string name="help_translating_this_app">Traduci l\'applicazoine in altre lingue</string>
+    <string name="help_translating_this_app">Traduci l\'applicazione in altre lingue</string>
     <string name="source_code">Codice sorgente</string>
     <string name="project_license">Licenza del progetto</string>
     <string name="project_contribution_info">Informazioni di contribuzione al progetto</string>
@@ -221,8 +221,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Documenti visti recentemente</string>
     <string name="details">Dettagli</string>
     <string name="calendar">Calendario</string>
-    <string name="warning_disallowed_sd_access">Attenzione! L\'app non ha il permesso di salvare il file: tutte le modifiche andranno perse. Non c\'è possibilità di risolvere il problema o di dare conferma: Android nega l\'accesso in questa locazione.</string>
-    <string name="error_picture_selection">Nessuna immagine selezionata.</string>
+    <string name="warning_disallowed_sd_access">Attenzione! L\'app non ha il permesso di salvare questo file, tutte le modifiche andranno perse. Non c\'è possibilità di risolvere il problema o di confermare qualcosa, Android nega qualsiasi accesso qui.</string>
+    <string name="error_picture_selection">Nessuna immagine selezionata, acquisita o salvata.</string>
     <string name="gallery_picture">Immagini dalla galleria</string>
     <string name="camera_picture">Immagini dalla fotocamera</string>
     <string name="enable_undo_and_redo_be_patient">Abilita l\'annullamento e la ripetizione delle azioni. Per utenti esperti: attenzione a non cancellare nulla di importante. Chiudere e aprire l\'editor per cancellare la cronologia.</string>
@@ -263,9 +263,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mia_nota</string>
     <string name="close">Chiudi</string>
     <string name="cancel">Annulla</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vedere altre migliorie e correzione di bachi?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
-    <string name="app_start_tab">Scheda avvio app</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vederlo ancora migliore e con i problemi risolti?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
+    <string name="app_start_tab">Scheda di avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
     <string name="swipe_to_change_mode">Scorri per cambiare modalità</string>
-    <string name="swipe_to_change_mode_to_other">Scorri per cambiare modalità per modificare o rappresentare, l\'opposto della modalità corrente</string>
+    <string name="swipe_to_change_mode_to_other">Scorri per passare all\'opposto della modalità corrente (modifica/presentazione)</string>
 </resources>
