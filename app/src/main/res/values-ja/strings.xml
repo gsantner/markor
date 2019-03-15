@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">このプロジェクトを気に入っていただけましたか? 改善したい、あるいは問題を修正したいですか?\n\nアプリの開発や、関連するブログの記事を書くに多くの時間がかかります! プロジェクトを進めるために、支援をしていただける場合は、少しの寄付をご検討ください!\n\nこのプロジェクトは余暇に開発していて、完全に無料で、広告はありません!</string>
     <string name="app_start_tab">アプリ開始タブ</string>
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
+    <string name="swipe_to_change_mode">スワイプしてモードを変更</string>
+    <string name="swipe_to_change_mode_to_other">スワイプして編集または表示のモードを変更します。現在のモードを反対に切り替えます</string>
 </resources>
