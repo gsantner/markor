@@ -123,6 +123,7 @@ public class MarkdownTextConverter extends TextConverter {
                 .set(TablesExtension.MAX_HEADER_ROWS, 1)
                 .set(TablesExtension.APPEND_MISSING_COLUMNS, true)
                 .set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
+                .set(WikiLinkExtension.LINK_ESCAPE_CHARS, "")
                 .set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true);
 
         // Add id to headers
