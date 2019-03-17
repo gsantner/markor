@@ -35,7 +35,6 @@ import android.text.TextUtils;
 import android.text.style.MetricAffectingSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -211,9 +210,12 @@ public class FontPreferenceCompat extends ListPreference {
         // Check all directories for fonts
         for (File checkedDir : checkedDirs) {
             if (checkedDir != null && checkedDir.exists()) {
-                for (File font : checkedDir.listFiles(FONT_FILENAME_FILTER)) {
-                    if (!additionalFonts.contains(new File(font.getAbsolutePath().replace("/Fonts/", "/fonts/")))) {
-                        additionalFonts.add(font);
+                File[] checkedDirFiles = checkedDir.listFiles(FONT_FILENAME_FILTER);
+                if (checkedDirFiles != null) {
+                    for (File font : checkedDirFiles) {
+                        if (!additionalFonts.contains(new File(font.getAbsolutePath().replace("/Fonts/", "/fonts/")))) {
+                            additionalFonts.add(font);
+                        }
                     }
                 }
             }
