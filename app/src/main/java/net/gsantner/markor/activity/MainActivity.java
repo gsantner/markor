@@ -130,7 +130,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
         startActivity(i);*/
 
-        _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab()), 1);
+        _bottomNav.postDelayed(() -> {
+            if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {
+                _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
+            }
+        }, 1);
     }
 
     private void optShowRate() {
@@ -360,7 +364,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         updateFabVisibility(pos == 0);
-        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox),getString(R.string.more)}[pos]);
+        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox), getString(R.string.more)}[pos]);
 
         if (pos > 0 && pos < 4) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection

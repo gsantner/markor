@@ -33,7 +33,6 @@
         <item translatable="false">@string/todo</item>
         <item translatable="false">@string/quicknote</item>
         <item translatable="false">@string/linkbox</item>
-        <item translatable="false">@string/more</item>
     </string-array>
 
 
@@ -41,6 +40,14 @@
         <item translatable="false">0</item>
         <item translatable="false">1</item>
         <item translatable="false">2</item>
+    </string-array>
+
+
+    <string-array name="pref_arrkeys__zero_to_three" translatable="false">
+        <item translatable="false">0</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
     </string-array>
 
     <string-array name="pref_arrkeys__zero_to_four" translatable="false">

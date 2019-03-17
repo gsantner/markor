@@ -91,7 +91,7 @@
             android:defaultValue="0"
             android:dialogTitle="@string/app_start_tab"
             android:entries="@array/pref_arrdisp__bottomnav"
-            android:entryValues="@array/pref_arrkeys__zero_to_four"
+            android:entryValues="@array/pref_arrkeys__zero_to_three"
             android:icon="@drawable/ic_file_gray_24dp"
             android:key="@string/pref_key__app_start_tab"
             android:summary="@string/tab_to_select_at_start"

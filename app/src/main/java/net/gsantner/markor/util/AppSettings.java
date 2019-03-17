@@ -446,8 +446,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return R.id.nav_quicknote;
             case 3:
                 return R.id.nav_linkbox;
-            case 4:
-                return R.id.nav_more;
         }
         return R.id.nav_notebook;
     }
