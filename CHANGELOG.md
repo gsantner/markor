@@ -1,6 +1,9 @@
 ### v1.8.0 (in progress)  
 - Option to enable/disable swipe to change mode  
-- Add /sdcard/Fonts directory to scanned fonts folder  
+- Add storage root and data directories to scanned fonts folder (e.g. /storage/emulated/0/Fonts)  
+- WikiLinks: Disable default escaped characters, so subfolder path is not converted to hyphen  
+- Bundle more fonts: Source Pro, DejaVu Sans Mono, Ubuntu, Lato  
+
 
 ### v1.7.0 [Blog post](https://gsantner.net/blog/2019/03/11/markor-release-v1.7-custom-fonts-linkbox-markdown.html?source=inapp_changelog&project=markor)  
 - Improved app color theme for better readability  
