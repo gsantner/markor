@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Детальніше</string>
     <string name="show_license_of_the_app">Показати ліцензію додатку</string>
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
-    <string name="language_change_restart_description">Змінити мову додатку. Перезапустіть додаток для застосування змін.</string>
+    <string name="language_change_restart_description">Змінити мову цієї програмки. Перезавантажте застосунок, щоб зміни запрацювали</string>
     <string name="language">Мова</string>
     <string name="error_need_storage_permission_to_save_documents">Потрібен дозвіл на запис для збереження документів</string>
     <string name="open_with">Відкрити в</string>

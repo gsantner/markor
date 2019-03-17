@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Us agrada aquest projecte? Voleu que encara sigui millor i es solucionin els problemes?\n\nDesenvolupar aplicacions i escriure publicacions relacionades als blogs costa molt de temps! Si voleu ajudar perquè el projecte pugui continuar, considereu aportar una petita donació!\n\nAquest projecte es desenvolupa durant el temps lliure, completament gratis i sense publicitat!</string>
     <string name="app_start_tab">Pestanya d\'inici de l\'aplicació</string>
     <string name="tab_to_select_at_start">Pestanya per seleccionar quan s\'inicia l\'aplicació</string>
+    <string name="swipe_to_change_mode">Fes lliscar el dit per canviar el mode</string>
+    <string name="swipe_to_change_mode_to_other">Feu lliscar el dit per canviar el mode d\'edició o representació, el contrari del mode actual</string>
 </resources>

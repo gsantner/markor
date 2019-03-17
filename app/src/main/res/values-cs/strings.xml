@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
+    <string name="swipe_to_change_mode">Swipe na změnu módu</string>
+    <string name="swipe_to_change_mode_to_other">Swipe změnit režim pro úpravu nebo zastoupení, opak současného módu</string>
 </resources>

@@ -262,4 +262,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">הערה_שלי</string>
     <string name="close">סגירה</string>
     <string name="cancel">ביטול</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">האם את/ה נהנה מפרוייקט זה? האם תרצה לתמוך בשיפור ותיקוני באגים?\n
+\n לכתוב אפליקציות ופוסטים קשורים לוקח המון זמן! אם ברצונך לעזור לפרוייקט להמשיך, נא לשקול תרומה קטנה!\n
+\n פיתוח הפרוייקט הזה נעשה בזמן החופשי, לגמרי בחינם וללא פרסומות!</string>
+    <string name="tab_to_select_at_start">טאב לבחירה כאשר האפליקציה מתחילה</string>
+    <string name="swipe_to_change_mode">החלק להחלפת מצב</string>
+    <string name="swipe_to_change_mode_to_other">החלק לשינוי המצב לעריכה או תצוגה, ההפך מהמצב הנוכחי</string>
 </resources>

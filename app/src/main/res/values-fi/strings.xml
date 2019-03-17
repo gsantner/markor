@@ -10,4 +10,12 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Asetukset</string>
+    <string name="light">Vaalea</string>
+    <string name="dark">Tumma</string>
+    <string name="delete">Poista</string>
+    <string name="appearance">Ulkoasu</string>
+    <string name="rename">Nimeä uudelleen</string>
+    <string name="confirm_delete">Vahvista poisto</string>
+</resources>

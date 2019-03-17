@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Daha fazla bilgi</string>
     <string name="show_license_of_the_app">Uygulamanın lisansını göster</string>
     <string name="show_third_party_licenses">3. parti lisanslarını göster</string>
-    <string name="language_change_restart_description">Bu uygulamanın dilini değiştirin. Değişikliklerin etkili olması için uygulamayı yeniden başlatın</string>
+    <string name="language_change_restart_description">Uygulamanın dilini değiştir. Değişikliklerin etkili olması için uygulamayı yeniden başlat</string>
     <string name="language">Dil</string>
     <string name="error_need_storage_permission_to_save_documents">Belgeleri kaydetmek için depolama alanı izin gerekiyor</string>
     <string name="open_with">Şununla aç</string>

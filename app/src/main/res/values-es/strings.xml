@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Más información</string>
     <string name="show_license_of_the_app">Licencia GNU GPLv3 +</string>
     <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
-    <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reiniciar la aplicación para que se apliquen los cambios</string>
+    <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reinicie la aplicación para que los cambios surtan efecto</string>
     <string name="language">Idioma</string>
     <string name="error_need_storage_permission_to_save_documents">Se necesita permiso de almacenamiento para guardar documentos</string>
     <string name="open_with">Abrir con</string>
@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">¿Te gusta este proyecto? ¿Quieres que se mejore y se corrijan problemas?\n\nEl desarrollo de aplicaciones y la escritura de entradas relacionadas del blog cuesta mucho tiempo. Si quieres ayudar a que el proyecto pueda continuar, por favor considera una pequeña donación!\n\nEste proyecto se desarrolla en tiempo de ocio, completamente gratis y sin publicidad!</string>
     <string name="app_start_tab">Pestaña de inicio</string>
     <string name="tab_to_select_at_start">Pestaña para seleccionar al iniciar la aplicación</string>
+    <string name="swipe_to_change_mode">Deslizar para cambiar el modo</string>
+    <string name="swipe_to_change_mode_to_other">Deslizar para cambiar el modo de edición o representación, lo contrario del modo actual</string>
 </resources>
