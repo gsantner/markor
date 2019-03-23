@@ -247,4 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">notatki</string>
     <string name="close">Zamknij</string>
     <string name="cancel">Anuluj</string>
+    <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
+    <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
 </resources>
