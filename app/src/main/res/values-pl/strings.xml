@@ -192,6 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
+    <string name="android_contribution_guide">Instrukcja Androida dla współtwórców</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu otwarto źródłowych projektów, szczególnie aplikacji Androida</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
@@ -245,4 +246,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Ostatnio używane</string>
     <string name="my_note">notatki</string>
     <string name="close">Zamknij</string>
+    <string name="cancel">Anuluj</string>
+    <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
+    <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
+    <string name="swipe_to_change_mode_to_other">Przesuń palcem, aby zmienić tryb do edycji lub reprezentacji, w przeciwieństwie to obecnego trybu</string>
 </resources>

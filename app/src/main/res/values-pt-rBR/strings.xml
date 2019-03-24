@@ -12,7 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Configurações</string>
-    <string name="light">Luz</string>
+    <string name="light">Claro</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>
     <string name="appearance">Aparência</string>
@@ -266,4 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Você gosta deste projeto? Você quer que ele fica melhor e com problemas corrigidos?\n\nDesenvolver aplicativos e escrever postagens relacionado em blog custa muito tempo! Se você quiser ajudar na continuação do projeto, por favor considere uma pequena doação!\n\nEsse projeto é desenvolvido durante o tempo de lazer, totalmente gratuito e sem propagandas!</string>
     <string name="app_start_tab">Aba inicial do app</string>
     <string name="tab_to_select_at_start">Guia para selecionar ao iniciar o aplicativo</string>
+    <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
+    <string name="swipe_to_change_mode_to_other">Deslize para alterar o modo de edição ou representação, o oposto do modo atual</string>
 </resources>

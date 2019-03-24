@@ -266,6 +266,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gefällt dir dieses Projekt? Möchtest du, dass es verbessert wird und Probleme behoben werden?\n\nDie Entwicklung von Apps und das schreiben von relevanten Blog-Einträgen kostet viel Zeit! Wenn du helfen möchtest, so dass das Projekt weitergehen kann, ziehe bitte eine kleine Spende in Betracht!\n\nDieses Projekt wird in der Freizeit, völlig kostenlos und ohne jegliche Werbeeinblendungen entwickelt &amp; angeboten!</string>
     <string name="app_start_tab">App-Start Tab</string>
     <string name="tab_to_select_at_start">Ausgewählter Tab beim App-Start</string>
-    <string name="swipe_to_change_mode">Wischen, um den Modus zu ändern</string>
-    <string name="swipe_to_change_mode_to_other">Wischen, um den Modus zu bearbeiten oder darzustellen, das Gegenteil des aktuellen Modus</string>
+    <string name="swipe_to_change_mode">Wischen um den Modus zu ändern</string>
+    <string name="swipe_to_change_mode_to_other">Wischen um den in den Bearbeitungs/Repräsentations-Modus zu wechseln, das Gegenteil des aktuellen Modus</string>
+    <string name="folder_first">Ordner zuerst</string>
+    <string name="go_to">Gehe zu</string>
+    <string name="appdata_public">AppData (öffentlich)</string>
+    <string name="appdata_private">AppData (privat)</string>
+    <string name="appdata_sdcard">AppData (SD Karte)</string>
+    <string name="internal_storage">Interner Speicher</string>
 </resources>
