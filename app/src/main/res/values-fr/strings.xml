@@ -268,4 +268,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Onglet à sélectionner lors du démarrage de l\'application</string>
     <string name="swipe_to_change_mode">Glisser pour changer de mode</string>
     <string name="swipe_to_change_mode_to_other">Glisser pour changer le mode de modification ou de représentation, le contraire du mode courant</string>
+    <string name="folder_first">Dossiers en premier</string>
+    <string name="appdata_private">Données de l\'applications (privé)</string>
 </resources>
