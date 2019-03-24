@@ -232,50 +232,7 @@ public class WrFilesystemListFragment extends GsFragmentBase {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-
-        _searchItem = menu.findItem(R.id.action_search);
-        _searchView = (SearchView) _searchItem.getActionView();
-
-        SearchManager searchManager = (SearchManager) _searchView.getContext().getSystemService(SEARCH_SERVICE);
-        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        _searchView.setQueryHint(getString(R.string.search_documents));
-        if (_searchView != null) {
-            _searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    if (query != null) {
-                        if (isVisible())
-                            search(query);
-                    }
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    if (newText != null) {
-                        if (isVisible()) {
-                            if (newText.equalsIgnoreCase("")) {
-                                clearSearchFilter();
-                            } else {
-                                search(newText);
-                            }
-                        }
-                    }
-                    return false;
-                }
-            });
-            _searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
-                MenuItem item = menu.findItem(R.id.action_import);
-                if (item != null) {
-                    item.setVisible(hasFocus);
-                }
-                if (!hasFocus) {
-                    _searchItem.collapseActionView();
-                }
-            });
-        }
         ContextUtils cu = ContextUtils.get();
-
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
     }

@@ -154,8 +154,7 @@ public class FilesystemDialog extends DialogFragment
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                getActivity(), lam.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
         _filesystemDialogAdapter = new FilesystemDialogAdapter(_dopt, context);

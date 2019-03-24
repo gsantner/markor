@@ -21,7 +21,59 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
+        android:visible="false"
         app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_go_to"
+        android:layout_width="match_parent"
+        android:icon="@drawable/ic_folder_white_24dp"
+        android:title="@string/go_to"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/go_to_appdata_sdcard"
+                android:icon="@drawable/ic_sd_card_black_24dp"
+                android:title="@string/appdata_sdcard"
+                android:visible="false"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/go_to_appdata_private"
+                android:icon="@drawable/ic_lock_outline_black_24dp"
+                android:title="@string/appdata_private"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/go_to_appdata_public"
+                android:icon="@drawable/ic_folder_white_24dp"
+                android:title="@string/appdata_public"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/go_to_storage"
+                android:icon="@drawable/ic_storage_black_24dp"
+                android:title="@string/internal_storage"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/go_to_recent_files"
+                android:icon="@drawable/ic_history_black_24dp"
+                android:title="@string/recently_viewed_documents"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_go_to_popular_files"
+                android:icon="@drawable/ic_favorite_black_24dp"
+                android:title="@string/popular_documents"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_go_to_home"
+                android:icon="@drawable/ic_folder_white_24dp"
+                android:title="@string/notebook"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+
+
     <item
         android:id="@+id/action_sort"
         android:layout_width="match_parent"
@@ -45,6 +97,12 @@
                 android:id="@+id/action_sort_by_filesize"
                 android:icon="@drawable/ic_sort_black_24dp"
                 android:title="@string/size"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_folder_first"
+                android:checkable="true"
+                android:icon="@drawable/ic_folder_white_24dp"
+                android:title="@string/folder_first"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_sort_reverse"

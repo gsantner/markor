@@ -280,4 +280,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>
     <string name="swipe_to_change_mode_to_other">Swipe to change mode to edit or representation, the opposite of the current mode</string>
+    <string name="folder_first">Folder first</string>
+    <string name="go_to">Go to</string>
+    <string name="appdata_public">AppData (public)</string>
+    <string name="appdata_private">AppData (private)</string>
+    <string name="appdata_sdcard">AppData (SD Card)</string>
+    <string name="internal_storage">Internal storage</string>
 </resources>

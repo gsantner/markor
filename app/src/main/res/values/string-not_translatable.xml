@@ -220,4 +220,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_todotxt_sort_todo" translatable="false">tmaid_todotxt_sort_todo</string>
     <string name="pref_key__app_start_tab" translatable="false">pref_key__app_start_tab</string>
     <string name="pref_key__swipe_to_change_mode" translatable="false">pref_key__swipe_to_change_mode</string>
+    <string name="pref_key__filesystem_folder_first" translatable="false">pref_key__filesystem_folder_first</string>
 </resources>

@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -49,6 +48,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.ui.FilesystemFragment;
 import net.gsantner.opoc.util.AndroidSupportMeWrapper;
@@ -410,12 +410,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 @Override
                                 public void onFsDialogConfig(FilesystemDialogData.Options opt) {
                                     opt.descModtimeInsteadOfParent = true;
+                                    opt.rootFolder = _appSettings.getNotebookDirectory();
+                                    opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
+                                    opt.doSelectMultiple = true;
+                                }
+
+                                @Override
+                                public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+                                    super.onFsDoUiUpdate(adapter);
+                                    if (adapter != null && adapter.getCurrentFolder() != null && adapter.getCurrentFolder().getName() != null) {
+                                        _toolbar.setTitle(adapter.getCurrentFolder().getName());
+                                    }
                                 }
 
                                 @Override
                                 public void onFsLongPressed(File file, boolean doSelectMultiple) {
                                     super.onFsLongPressed(file, doSelectMultiple);
-                                    FileInfoDialog.show(file, getSupportFragmentManager());
+                                }
+
+                                @Override
+                                public void onFsSelected(String request, File file) {
+                                    DocumentActivity.launch(MainActivity.this, file, false, null, null);
                                 }
                             }));
                         }

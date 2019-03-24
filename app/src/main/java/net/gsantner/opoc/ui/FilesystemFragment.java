@@ -20,7 +20,9 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,12 +31,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +55,10 @@ public class FilesystemFragment extends GsFragmentBase
     //## Static
     //########################
     public static final String FRAGMENT_TAG = "FilesystemDialogCreator";
+
+    public static final int SORT_BY_DATE = 0;
+    public static final int SORT_BY_NAME = 1;
+    public static final int SORT_BY_FILESIZE = 2;
 
     public static FilesystemFragment newInstance(FilesystemDialogData.Options options) {
         FilesystemFragment f = new FilesystemFragment();
@@ -65,6 +79,8 @@ public class FilesystemFragment extends GsFragmentBase
     private FilesystemDialogAdapter _filesystemDialogAdapter;
     private FilesystemDialogData.Options _dopt;
     private FilesystemDialogData.SelectionListener _callback;
+    private File _initialRootFolder = null;
+    private boolean firstResume = true;
 
     //########################
     //## Methods
@@ -186,6 +202,10 @@ public class FilesystemFragment extends GsFragmentBase
         return super.onBackPressed();
     }
 
+    public void reloadCurrentFolder() {
+        _filesystemDialogAdapter.reloadCurrentFolder();
+    }
+
     public File getCurrentFolder() {
         return _filesystemDialogAdapter.getCurrentFolder();
     }
@@ -199,6 +219,123 @@ public class FilesystemFragment extends GsFragmentBase
     @Override
     public void onResume() {
         super.onResume();
-        _filesystemDialogAdapter.reloadCurrentFolder();
+        if (_dopt.rootFolder != Environment.getExternalStorageDirectory() && _dopt.rootFolder != AppSettings.get().getNotebookDirectory()) {
+            //_dopt.rootFolder = AppSettings.get().getNotebookDirectory();
+            //_filesystemDialogAdapter.setCurrentFolder(_dopt.rootFolder, false);
+        }
+
+        if (!firstResume) {
+            _filesystemDialogAdapter.reloadCurrentFolder();
+        }
+
+        firstResume = false;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.filesystem__menu, menu);
+        ContextUtils cu = ContextUtils.get();
+        cu.tintMenuItems(menu, true, Color.WHITE);
+        cu.setSubMenuIconsVisiblity(menu, true);
+
+        MenuItem item;
+
+        if ((item = menu.findItem(R.id.action_folder_first)) != null) {
+            item.setChecked(AppSettings.get().isFilesystemListFolderFirst());
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        PermissionChecker permc = new PermissionChecker(getActivity());
+
+        switch (item.getItemId()) {
+            case R.id.action_sort_by_name: {
+                AppSettings.get().setSortMethod(SORT_BY_NAME);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_date: {
+                AppSettings.get().setSortMethod(SORT_BY_DATE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_filesize: {
+                AppSettings.get().setSortMethod(SORT_BY_FILESIZE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_reverse: {
+                item.setChecked(!item.isChecked());
+                AppSettings.get().setSortReverse(item.isChecked());
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_import: {
+                if (permc.mkdirIfStoragePermissionGranted()) {
+                    //showImportDialog();
+                }
+                return true;
+            }
+            case R.id.action_folder_first: {
+                item.setChecked(!item.isChecked());
+                AppSettings.get().setFilesystemListFolderFirst(item.isChecked());
+                _filesystemDialogAdapter.reloadCurrentFolder();
+                sortAdapter();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sortAdapter() {
+        _dopt.fileComparable = sortFolder(null);
+        _dopt.folderFirst = AppSettings.get().isFilesystemListFolderFirst();
+        reloadCurrentFolder();
+    }
+
+    public static Comparator<File> sortFolder(ArrayList<File> filesCurrentlyShown) {
+        final int sortMethod = AppSettings.get().getSortMethod();
+        final boolean sortReverse = AppSettings.get().isSortReverse();
+        /*int count = filesCurrentlyShown.size();
+        int lastFolderIndex = 0;
+        for (int i = 0; i < count; i++) {
+            if (filesCurrentlyShown.get(i).isDirectory()) {
+                lastFolderIndex++;
+            }
+        }*/
+
+        Comparator<File> comparator = new Comparator<File>() {
+            @Override
+            public int compare(File file, File other) {
+                if (sortReverse) {
+                    File swap = file;
+                    file = other;
+                    other = swap;
+                }
+
+                switch (sortMethod) {
+                    case SORT_BY_NAME:
+                        return new File(file.getAbsolutePath().toLowerCase()).compareTo(
+                                new File(other.getAbsolutePath().toLowerCase()));
+                    case SORT_BY_DATE:
+                        return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
+                    case SORT_BY_FILESIZE:
+                        if (file.isDirectory() && other.isDirectory()) {
+                            return other.list().length - file.list().length;
+                        }
+                        return Long.valueOf(other.length()).compareTo(file.length());
+                }
+                return file.compareTo(other);
+            }
+        };
+        return comparator;
+
+        /*Collections.sort(filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
+        Collections.sort(filesCurrentlyShown.subList(lastFolderIndex, count), comparator);*/
+
     }
 }

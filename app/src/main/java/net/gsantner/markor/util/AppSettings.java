@@ -453,4 +453,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isSwipeToChangeMode(){
         return getBool(R.string.pref_key__swipe_to_change_mode, false);
     }
+
+    public void setFilesystemListFolderFirst(boolean checked) {
+        setBool(R.string.pref_key__filesystem_folder_first, checked);
+    }
+
+
+    public boolean isFilesystemListFolderFirst() {
+        return getBool(R.string.pref_key__filesystem_folder_first, true);
+    }
 }

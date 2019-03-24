@@ -12,6 +12,7 @@ package net.gsantner.opoc.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -150,7 +151,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
     public Bundle saveInstanceState(Bundle outState) {
         outState = outState == null ? new Bundle() : outState;
-        outState.putString(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
+        if (_currentFolder != null) {
+            outState.putString(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
+        }
 
         if (_recyclerView != null) {
             if (_recyclerView.getLayoutManager() != null) {
@@ -178,6 +181,13 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
     public void reloadCurrentFolder() {
         restoreSavedInstanceState(saveInstanceState(null));
+    }
+
+    public void setCurrentFolder(File folder, boolean reload) {
+        _currentFolder = folder;
+        if (reload) {
+            reloadCurrentFolder();
+        }
     }
 
     public class TagContainer {
@@ -318,89 +328,103 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return false;
     }
 
-    public void loadFolder(File folder) {
-        _currentFolder = folder;
-        _adapterData.clear();
-        _virtualMapping.clear();
-        File file;
-        File[] files = null;
+    private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
-        if (_currentFolder.isDirectory()) {
-            files = _currentFolder.listFiles(this);
-        } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-            files = _dopt.recentFiles;
-        } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-            files = _dopt.popularFiles;
-        }
-        files = (files == null ? new File[0] : files);
+    public void loadFolder(final File folder) {
+        final Handler handler = new Handler();
 
-        Collections.addAll(_adapterData, files);
+        new Thread() {
+            @Override
+            public void run() {
+                synchronized (LOAD_FOLDER_SYNC_OBJECT) {
+                    _currentFolder = folder;
+                    _adapterData.clear();
+                    _virtualMapping.clear();
+                    File file;
+                    File[] files = null;
 
-        if (folder.getAbsolutePath().equals("/storage/emulated")) {
-            _adapterData.add(new File(folder, "0"));
-        }
+                    if (_currentFolder.isDirectory()) {
+                        files = _currentFolder.listFiles(FilesystemDialogAdapter.this);
+                    } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                        files = _dopt.recentFiles;
+                    } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
+                        files = _dopt.popularFiles;
+                    }
+                    files = (files == null ? new File[0] : files);
 
-        if (folder.getAbsolutePath().equals("/")) {
-            _adapterData.add(new File(folder, "storage"));
-        }
+                    Collections.addAll(_adapterData, files);
 
-        if (folder.getAbsolutePath().equals("/storage")) {
-            // Scan for /storage/emulated/{0,1,2,..}
-            for (int i = 0; i < 10; i++) {
-                file = new File("/storage/emulated/" + i);
-                if (file.canWrite()) {
-                    File remap = new File(folder, "emulated-" + i);
-                    _virtualMapping.put(remap, file);
-                    _adapterData.add(remap);
-                } else {
-                    break;
-                }
-            }
+                    if (folder.getAbsolutePath().equals("/storage/emulated")) {
+                        _adapterData.add(new File(folder, "0"));
+                    }
 
-            if (_dopt.recentFiles != null) {
-                _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
-                _adapterData.add(VIRTUAL_STORAGE_RECENTS);
-            }
-            if (_dopt.popularFiles != null) {
-                _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
-                _adapterData.add(VIRTUAL_STORAGE_POPULAR);
-            }
-            File appDataFolder = _context.getFilesDir();
-            if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
-                _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
-                _adapterData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
-            }
-        }
+                    if (folder.getAbsolutePath().equals("/")) {
+                        _adapterData.add(new File(folder, "storage"));
+                    }
 
-        for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
-            for (int i = 0; i < _adapterData.size(); i++) {
-                file = _adapterData.get(i);
-                if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
-                    int c = 0;
-                    for (char ch : file.getAbsolutePath().toCharArray()) {
-                        if (ch == '/') {
-                            c++;
+                    if (folder.getAbsolutePath().equals("/storage")) {
+                        // Scan for /storage/emulated/{0,1,2,..}
+                        for (int i = 0; i < 10; i++) {
+                            file = new File("/storage/emulated/" + i);
+                            if (file.canWrite()) {
+                                File remap = new File(folder, "emulated-" + i);
+                                _virtualMapping.put(remap, file);
+                                _adapterData.add(remap);
+                            } else {
+                                break;
+                            }
+                        }
+
+                        if (_dopt.recentFiles != null) {
+                            _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
+                            _adapterData.add(VIRTUAL_STORAGE_RECENTS);
+                        }
+                        if (_dopt.popularFiles != null) {
+                            _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
+                            _adapterData.add(VIRTUAL_STORAGE_POPULAR);
+                        }
+                        File appDataFolder = _context.getFilesDir();
+                        if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
+                            _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
+                            _adapterData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                         }
                     }
-                    if (c < 3) {
-                        File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
-                        _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
-                        _adapterData.add(remap);
+
+                    for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+                        for (int i = 0; i < _adapterData.size(); i++) {
+                            file = _adapterData.get(i);
+                            if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
+                                int c = 0;
+                                for (char ch : file.getAbsolutePath().toCharArray()) {
+                                    if (ch == '/') {
+                                        c++;
+                                    }
+                                }
+                                if (c < 3) {
+                                    File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
+                                    _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                                    _adapterData.add(remap);
+                                }
+                            }
+                        }
                     }
+
+                    Collections.sort(_adapterData, FilesystemDialogAdapter.this);
+
+                    if (canGoUp(_currentFolder)) {
+                        _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
+                    }
+
+                    handler.post(() -> {
+                        _filter.filter(_filter._lastFilter);
+                        notifyDataSetChanged();
+                        if (_dopt.listener != null) {
+                            _dopt.listener.onFsDoUiUpdate(FilesystemDialogAdapter.this);
+                        }
+                    });
                 }
             }
-        }
-
-        Collections.sort(_adapterData, this);
-
-        if (canGoUp(_currentFolder)) {
-            _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
-        }
-
-        if (_wasInit) {
-            _filter.filter(_filter._lastFilter);
-            notifyDataSetChanged();
-        }
+        }.start();
     }
 
     // listFiles(FilenameFilter)
@@ -415,6 +439,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     // Sort adapterData
     @Override
     public int compare(File o1, File o2) {
+        if (o1 == null || o2 == null) {
+            return 0;
+        }
         if (o1.isDirectory() && _dopt.folderFirst)
             return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
         else if (!o2.canWrite())
