@@ -268,4 +268,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Ausgewählter Tab beim App-Start</string>
     <string name="swipe_to_change_mode">Wischen, um den Modus zu ändern</string>
     <string name="swipe_to_change_mode_to_other">Wischen, um den Modus zu bearbeiten oder darzustellen, das Gegenteil des aktuellen Modus</string>
+    <string name="folder_first">Ordner zuerst</string>
+    <string name="go_to">Gehe zu</string>
+    <string name="appdata_sdcard">AppData (SD Karte)</string>
+    <string name="internal_storage">Interner Speicher</string>
 </resources>
