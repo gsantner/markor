@@ -134,7 +134,3 @@ Project is based on unmaintained projects writeily and writeily-pro.
 -->
 
 Apache License @ [gsantner](https://github.com/gsantner).
-
-### begin DUMP section >>> append-below
-
-  <li>💡 Notebook is the root folder of documents and can be changed to any location on filesystem. LinkBox, QuickNote and ToDo are textfiles</li>
