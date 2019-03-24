@@ -2,7 +2,9 @@
 
 <div align="center">
   <h1>Markor</h1>
-  <img src="./app/src/main/ic_launcher-web.png" width="100">
+  <a href="https://gsantner.net/project/markor.html?source=github">
+    <img src="./app/src/main/ic_launcher-web.png" width="100">
+  </a>
   <br />
   <b>Text editor - Notes &amp; Todo (for Android)</b>.
   <p>Simple and lightweight. Supports Markdown and the <a href="http://todotxt.org/">todo.txt</a> format.</p>
