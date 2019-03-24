@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -37,6 +38,12 @@ public class FileInfoDialog extends DialogFragment {
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
         dialog.setArguments(args);
         return dialog;
+    }
+
+    public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager){
+        FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(sourceFile);
+        fileInfoDialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
+        return fileInfoDialog;
     }
 
     @NonNull

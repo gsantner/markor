@@ -26,7 +26,7 @@ public class FilesystemDialogCreator {
     public static Function<File, Boolean> IsMimeText = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("text/");
     public static Function<File, Boolean> IsMimeImage = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("image/");
 
-    private static FilesystemDialogData.Options prepareFsDialogOpts(Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
+    public static FilesystemDialogData.Options prepareFsDialogOpts(Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
         AppSettings appSettings = new AppSettings(context);

@@ -26,6 +26,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -36,7 +37,10 @@ import android.view.WindowManager;
 
 import com.pixplicity.generate.Rate;
 
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.ui.FileInfoDialog;
+import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
@@ -45,6 +49,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemFragment;
 import net.gsantner.opoc.util.AndroidSupportMeWrapper;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
@@ -398,6 +404,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.nav_todo: {
                     if (fragment == null) {
                         fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
+
+                        if (BuildConfig.IS_TEST_BUILD) {
+                            fragment = FilesystemFragment.newInstance(FilesystemDialogCreator.prepareFsDialogOpts(getApplicationContext(), false, new FilesystemDialogData.SelectionListenerAdapter() {
+                                @Override
+                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                                    opt.descModtimeInsteadOfParent = true;
+                                }
+
+                                @Override
+                                public void onFsLongPressed(File file, boolean doSelectMultiple) {
+                                    super.onFsLongPressed(file, doSelectMultiple);
+                                    FileInfoDialog.show(file, getSupportFragmentManager());
+                                }
+                            }));
+                        }
                     }
                     break;
                 }

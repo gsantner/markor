@@ -33,6 +33,8 @@ public class FilesystemDialogData {
         void onFsDialogConfig(final Options opt);
 
         void onFsDoUiUpdate(final FilesystemDialogAdapter adapter);
+
+        void onFsLongPressed(File file, boolean doSelectMultiple);
     }
 
     public static class Options {
@@ -46,7 +48,11 @@ public class FilesystemDialogData {
                 doSelectFile = false,
                 doSelectMultiple = false;
 
-        public boolean mustStartWithRootFolder = true;
+        public boolean mustStartWithRootFolder = true,
+                folderFirst = true,
+                descModtimeInsteadOfParent = false;
+
+        public int itemSidePadding = 16; // dp
 
         // Visibility of elements
         public boolean
@@ -115,6 +121,11 @@ public class FilesystemDialogData {
 
         @Override
         public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+
+        }
+
+        @Override
+        public void onFsLongPressed(File file, boolean doSelectMultiple) {
 
         }
     }

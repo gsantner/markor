@@ -11,11 +11,13 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.Spanned;
+import android.text.format.DateUtils;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +54,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
+    private static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
+    private static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
 
     //########################
     //## Members
@@ -65,19 +69,26 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     private StringFilter _filter;
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
+    private final RecyclerView _recyclerView;
 
     //########################
     //## Methods
     //########################
 
     public FilesystemDialogAdapter(FilesystemDialogData.Options options, Context context) {
+        this(options, context, null);
+    }
+
+    public FilesystemDialogAdapter(FilesystemDialogData.Options options, Context context, RecyclerView recyclerView) {
         _dopt = options;
         _adapterData = new ArrayList<>();
         _adapterDataFiltered = new ArrayList<>();
         _currentSelection = new HashSet<>();
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
+        _recyclerView = recyclerView;
     }
+
 
     @NonNull
     @Override
@@ -109,7 +120,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        holder.description.setText(fileParent.equals(_currentFolder) ? fileParent.getAbsolutePath() : file.getAbsolutePath());
+        File descriptionFile = fileParent.equals(_currentFolder) ? fileParent : file;
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
@@ -119,6 +131,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         holder.image.setColorFilter(ContextCompat.getColor(_context,
                 _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
+
+        if (_dopt.itemSidePadding > 0) {
+            int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
+            holder.itemRoot.setPadding(dp, holder.itemRoot.getPaddingTop(), dp, holder.itemRoot.getPaddingBottom());
+        }
 
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
         //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
@@ -131,6 +148,38 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         holder.itemRoot.setOnLongClickListener(this);
     }
 
+    public Bundle saveInstanceState(Bundle outState) {
+        outState = outState == null ? new Bundle() : outState;
+        outState.putString(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
+
+        if (_recyclerView != null) {
+            if (_recyclerView.getLayoutManager() != null) {
+                outState.putParcelable(EXTRA_RECYCLER_SCROLL_STATE, _recyclerView.getLayoutManager().onSaveInstanceState());
+            }
+        }
+        return outState;
+    }
+
+    public void restoreSavedInstanceState(Bundle savedInstanceStateArg) {
+        final Bundle savedInstanceState = savedInstanceStateArg == null ? new Bundle() : savedInstanceStateArg;
+        File f;
+
+        if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER) && (f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER))).isDirectory()) {
+            loadFolder(f);
+        }
+
+        if (savedInstanceState.containsKey(EXTRA_RECYCLER_SCROLL_STATE) && _recyclerView.getLayoutManager() != null) {
+            _recyclerView.postDelayed(() -> {
+                _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE));
+            }, 200);
+        }
+
+    }
+
+    public void reloadCurrentFolder() {
+        restoreSavedInstanceState(saveInstanceState(null));
+    }
+
     public class TagContainer {
         public final File file;
         public final int position;
@@ -139,6 +188,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             file = file_;
             position = position_;
         }
+    }
+
+    public File getCurrentFolder() {
+        return _currentFolder;
     }
 
     @Override
@@ -232,6 +285,21 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return ret;
     }
 
+    public boolean goUp() {
+        if (canGoUp()) {
+            if (_currentFolder != null && _currentFolder.getAbsolutePath() != null && _currentFolder.getParentFile() != null && !_currentFolder.getParentFile().getAbsolutePath().equals(_currentFolder.getAbsolutePath())) {
+                loadFolder(_currentFolder.getParentFile());
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean canGoUp() {
+        return canGoUp(_currentFolder);
+    }
+
     public boolean canGoUp(File currentFolder) {
         File parentFolder = _currentFolder.getParentFile();
         return parentFolder != null && (!_dopt.mustStartWithRootFolder || parentFolder.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath()));
@@ -243,6 +311,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             case R.id.ui__filesystem_item__root: {
                 TagContainer data = (TagContainer) view.getTag();
                 toggleSelection(data);
+                _dopt.listener.onFsLongPressed(data.file, _dopt.doSelectMultiple);
                 return true;
             }
         }
@@ -346,11 +415,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     // Sort adapterData
     @Override
     public int compare(File o1, File o2) {
-        if (o1.isDirectory())
+        if (o1.isDirectory() && _dopt.folderFirst)
             return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
         else if (!o2.canWrite())
             return -1;
-        else if (o2.isDirectory())
+        else if (o2.isDirectory() && _dopt.folderFirst)
             return 1;
         else if (_dopt.fileComparable != null) {
             int v = _dopt.fileComparable.compare(o1, o2);
@@ -359,6 +428,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             }
         }
         return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
+    }
+
+    public boolean isCurrentFolderHome() {
+        return _currentFolder != null && _dopt.rootFolder != null && _dopt.rootFolder.getAbsolutePath().equals(_currentFolder.getAbsolutePath());
     }
 
     //########################

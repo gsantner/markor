@@ -249,4 +249,11 @@ public class FilesystemDialog extends DialogFragment
             _buttonOk.setVisibility(adapter.areItemsSelected() ? View.VISIBLE : View.GONE);
         }
     }
+
+    @Override
+    public void onFsLongPressed(File file, boolean doSelectMultiple) {
+        if (_callback != null) {
+            _callback.onFsLongPressed(file, doSelectMultiple);
+        }
+    }
 }
