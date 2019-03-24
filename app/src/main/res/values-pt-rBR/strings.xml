@@ -12,7 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Configurações</string>
-    <string name="light">Luz</string>
+    <string name="light">Claro</string>
     <string name="dark">Escuro</string>
     <string name="delete">Apagar</string>
     <string name="appearance">Aparência</string>
