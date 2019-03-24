@@ -4,7 +4,7 @@
   <h1>Markor</h1>
   <img src="./app/src/main/ic_launcher-web.png" width="100">
   <br />
-  <b>Text editor - Notes &amp; ToDo (for Android)</b>.
+  <b>Text editor - Notes &amp; Todo (for Android)</b>.
   <p>Simple and lightweight. Supports Markdown and the <a href="http://todotxt.org/">todo.txt</a> format.</p>
 
 [![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
