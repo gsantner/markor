@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
     <string name="swipe_to_change_mode">スワイプしてモードを変更</string>
     <string name="swipe_to_change_mode_to_other">スワイプして編集または表示のモードを変更します。現在のモードを反対に切り替えます</string>
+    <string name="folder_first">フォルダを上に表示</string>
+    <string name="go_to">移動</string>
+    <string name="appdata_public">AppData (公開)</string>
+    <string name="appdata_private">AppData (プライベート)</string>
+    <string name="appdata_sdcard">AppData (SD カード)</string>
+    <string name="internal_storage">内部ストレージ</string>
 </resources>
