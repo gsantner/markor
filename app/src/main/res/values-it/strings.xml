@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
     <string name="swipe_to_change_mode">Scorri per cambiare modalità</string>
     <string name="swipe_to_change_mode_to_other">Scorri per passare all\'opposto della modalità corrente (modifica/presentazione)</string>
+    <string name="folder_first">Prima le cartelle</string>
+    <string name="go_to">Vai a</string>
+    <string name="appdata_public">AppData (pubblico)</string>
+    <string name="appdata_private">AppData (privato)</string>
+    <string name="appdata_sdcard">AppData (scheda SD)</string>
+    <string name="internal_storage">Memoria interna</string>
 </resources>
