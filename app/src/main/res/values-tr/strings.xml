@@ -265,7 +265,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">İptal</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Bu projeyi beğendiniz mi? Projenin iyileştirilmesini ve sorunların çözülmesini istiyor musunuz?\n\nUygulama geliştirmek ve onunla ilgili blog gönderileri yazmak çok zaman alıyor! Projenin devam edebilmesi için yardım etmek istiyorsanız, lütfen küçük bir bağış yapmayı düşünün!\n\nBu proje boş zamanlarımda, tamamen ücretsiz ve reklamsız olarak geliştirilmiştir!</string>
     <string name="app_start_tab">Uygulama başlangıç sekmesi</string>
+    <string name="tab_to_select_at_start">Uygulama başlatılırken açılacak varsayılan sekmeyi seçin</string>
     <string name="swipe_to_change_mode">Modu değiştirmek için kaydırın</string>
+    <string name="swipe_to_change_mode_to_other">Düzenleme modu ve önizleme modu arasında geçiş yapmak için kaydırın</string>
     <string name="folder_first">İlk önce klasör</string>
     <string name="go_to">Git</string>
     <string name="appdata_public">Uygulama Verisi (herkese açık)</string>
