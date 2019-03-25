@@ -273,5 +273,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_public">Données de l\'application (Publique)</string>
     <string name="appdata_private">Données de l\'applications (privé)</string>
     <string name="appdata_sdcard">Données de l\'application (Carte SD)</string>
-    <string name="internal_storage">Stockage externe</string>
+    <string name="internal_storage">Stockage interne</string>
 </resources>
