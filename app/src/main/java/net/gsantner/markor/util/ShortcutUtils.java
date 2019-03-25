@@ -48,7 +48,7 @@ public class ShortcutUtils {
     /**
      * Update the app shortcuts.
      * The list will contain a link to to-do, QuickNote, LinkBox and 1 recent documents.
-     *
+     * <p>
      * Due to a limit in the Android API, only 4 shortcuts can be displayed.
      *
      * @param context Context

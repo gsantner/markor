@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -108,7 +109,7 @@ public class WrMarkorSingleton {
         return file.delete();
     }
 
-    public void deleteSelectedItems(List<File> files) {
+    public void deleteSelectedItems(Collection<File> files) {
         for (File file : files) {
             deleteFile(file);
         }

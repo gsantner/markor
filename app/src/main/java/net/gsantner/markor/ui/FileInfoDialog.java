@@ -40,7 +40,7 @@ public class FileInfoDialog extends DialogFragment {
         return dialog;
     }
 
-    public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager){
+    public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager) {
         FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(sourceFile);
         fileInfoDialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
         return fileInfoDialog;

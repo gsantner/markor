@@ -36,12 +36,10 @@ import android.view.WindowManager;
 
 import com.pixplicity.generate.Rate;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FileInfoDialog;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.ui.NewFileDialog;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
@@ -52,7 +50,6 @@ import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.ui.FilesystemFragment;
 import net.gsantner.opoc.util.AndroidSupportMeWrapper;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -65,9 +62,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
-import other.writeily.activity.WrFilesystemListFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements FilesystemFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
 
@@ -263,16 +259,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
 
-                    WrFilesystemListFragment frag = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
-
-                    NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentDir() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+                    FilesystemFragment frag = (FilesystemFragment) _viewPagerAdapter.getFragmentByTag(FilesystemFragment.FRAGMENT_TAG);
+                    NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentFolder() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
                                 DocumentActivity.launch(MainActivity.this, f, false, false, null);
                             } else if (f.isDirectory()) {
-                                WrFilesystemListFragment wrFragment = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
+                                FilesystemFragment wrFragment = (FilesystemFragment) _viewPagerAdapter.getFragmentByTag(FilesystemFragment.FRAGMENT_TAG);
                                 if (wrFragment != null) {
-                                    wrFragment.listFilesInDirectory(wrFragment.getCurrentDir(), true);
+                                    wrFragment.reloadCurrentFolder();
                                 }
                             }
                         }
@@ -368,6 +363,41 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
+    FilesystemDialogData.Options _filesystemDialogOptions = null;
+    @Override
+    public FilesystemDialogData.Options getFilesystemFragmentOptions(FilesystemDialogData.Options existingOptions) {
+        if (_filesystemDialogOptions == null) {
+            _filesystemDialogOptions = FilesystemDialogCreator.prepareFsDialogOpts(getApplicationContext(), false, new FilesystemDialogData.SelectionListenerAdapter() {
+                @Override
+                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                    opt.descModtimeInsteadOfParent = true;
+                    opt.rootFolder = _appSettings.getNotebookDirectory();
+                    opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
+                    opt.doSelectMultiple = opt.doSelectFolder = opt.doSelectFile = true;
+                }
+
+                @Override
+                public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+                    super.onFsDoUiUpdate(adapter);
+                    if (adapter != null && adapter.getCurrentFolder() != null && adapter.getCurrentFolder().getName() != null) {
+                        _toolbar.setTitle(adapter.areItemsSelected() ? "" : adapter.getCurrentFolder().getName());
+                    }
+                }
+
+                @Override
+                public void onFsSelected(String request, File file) {
+                    if (MarkdownTextConverter.isTextOrMarkdownFile(file)) {
+                        DocumentActivity.launch(MainActivity.this, file, false, null, null);
+                    } else {
+                        new net.gsantner.markor.util.ShareUtil(MainActivity.this)
+                                .viewFileInOtherApp(file, null);
+                    }
+                }
+            });
+        }
+        return _filesystemDialogOptions;
+    }
+
     class SectionsPagerAdapter extends FragmentPagerAdapter {
         private HashMap<Integer, GsFragmentBase> _fragCache = new LinkedHashMap<>();
 
@@ -382,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                 case R.id.nav_notebook: {
                     if (fragment == null) {
-                        fragment = new WrFilesystemListFragment();
+                        fragment = FilesystemFragment.newInstance(getFilesystemFragmentOptions(null));
                     }
                     break;
                 }
@@ -395,36 +425,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case R.id.nav_todo: {
                     if (fragment == null) {
                         fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
-
-                        if (BuildConfig.IS_TEST_BUILD) {
-                            fragment = FilesystemFragment.newInstance(FilesystemDialogCreator.prepareFsDialogOpts(getApplicationContext(), false, new FilesystemDialogData.SelectionListenerAdapter() {
-                                @Override
-                                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
-                                    opt.descModtimeInsteadOfParent = true;
-                                    opt.rootFolder = _appSettings.getNotebookDirectory();
-                                    opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
-                                    opt.doSelectMultiple = true;
-                                }
-
-                                @Override
-                                public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
-                                    super.onFsDoUiUpdate(adapter);
-                                    if (adapter != null && adapter.getCurrentFolder() != null && adapter.getCurrentFolder().getName() != null) {
-                                        _toolbar.setTitle(adapter.getCurrentFolder().getName());
-                                    }
-                                }
-
-                                @Override
-                                public void onFsLongPressed(File file, boolean doSelectMultiple) {
-                                    super.onFsLongPressed(file, doSelectMultiple);
-                                }
-
-                                @Override
-                                public void onFsSelected(String request, File file) {
-                                    DocumentActivity.launch(MainActivity.this, file, false, null, null);
-                                }
-                            }));
-                        }
                     }
                     break;
                 }
@@ -480,12 +480,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     /**
      * Restores the default toolbar. Used when changing the tab or moving to another activity
-     * while {@link WrFilesystemListFragment} action mode is active (e.g. when renaming a file)
+     * while {@link FilesystemFragment} action mode is active (e.g. when renaming a file)
      */
     private void restoreDefaultToolbar() {
-        WrFilesystemListFragment wrFragment = (WrFilesystemListFragment) _viewPagerAdapter.getFragmentByTag(WrFilesystemListFragment.FRAGMENT_TAG);
+        FilesystemFragment wrFragment = (FilesystemFragment) _viewPagerAdapter.getFragmentByTag(FilesystemFragment.FRAGMENT_TAG);
         if (wrFragment != null) {
-            wrFragment.finishActionMode();
+            wrFragment.clearSelection();
         }
     }
 }

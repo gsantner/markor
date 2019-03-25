@@ -16,14 +16,31 @@
 
 
     <item
-        android:id="@+id/action_search"
-        android:layout_width="match_parent"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:id="@+id/action_move_selected_items"
+        android:icon="@drawable/ic_input_black_24dp"
+        android:title="@string/move"
         android:visible="false"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_rename_selected_item"
+        android:icon="@drawable/ic_local_offer_black_24dp"
+        android:title="@string/rename"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_delete_selected_items"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:title="@string/delete"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_info_selected_item"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/details"
+        android:visible="false"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_go_to"
@@ -34,7 +51,13 @@
 
         <menu>
             <item
-                android:id="@+id/go_to_appdata_sdcard"
+                android:id="@+id/action_go_to_appdata_sdcard_1"
+                android:icon="@drawable/ic_sd_card_black_24dp"
+                android:title="@string/appdata_sdcard"
+                android:visible="false"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_go_to_appdata_sdcard_2"
                 android:icon="@drawable/ic_sd_card_black_24dp"
                 android:title="@string/appdata_sdcard"
                 android:visible="false"
@@ -46,9 +69,8 @@
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_go_to_appdata_public"
-                android:icon="@drawable/ic_folder_white_24dp"
+                android:icon="@drawable/ic_lock_open_black_24dp"
                 android:title="@string/appdata_public"
-                android:visible="false"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_go_to_storage"

@@ -10,8 +10,6 @@
 #########################################################*/
 package net.gsantner.opoc.preference;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings({"UnusedReturnValue", "SpellCheckingInspection", "unused", "SameParameterValue"})

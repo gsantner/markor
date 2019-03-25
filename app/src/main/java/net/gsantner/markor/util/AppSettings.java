@@ -20,6 +20,7 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
+import net.gsantner.opoc.ui.FilesystemFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,8 +28,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-
-import other.writeily.activity.WrFilesystemListFragment;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -211,7 +210,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, WrFilesystemListFragment.SORT_BY_NAME);
+        return getInt(R.string.pref_key__sort_method, FilesystemFragment.SORT_BY_NAME);
     }
 
     public void setSortReverse(boolean value) {
@@ -450,7 +449,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return R.id.nav_notebook;
     }
 
-    public boolean isSwipeToChangeMode(){
+    public boolean isSwipeToChangeMode() {
         return getBool(R.string.pref_key__swipe_to_change_mode, false);
     }
 

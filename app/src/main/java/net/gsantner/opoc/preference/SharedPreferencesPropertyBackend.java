@@ -559,7 +559,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     public boolean afterDaysTrue(String key, int daysSinceLastTime, int firstTime, final SharedPreferences... pref) {
         Date d = new Date(System.currentTimeMillis());
         if (!contains(key)) {
-            d = getDateOfDaysAgo(daysSinceLastTime-firstTime);
+            d = getDateOfDaysAgo(daysSinceLastTime - firstTime);
             setLong(key, d.getTime());
             return firstTime < 1;
         } else {

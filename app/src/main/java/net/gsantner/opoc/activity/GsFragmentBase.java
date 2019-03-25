@@ -52,7 +52,7 @@ public abstract class GsFragmentBase extends Fragment {
         _cu = new ContextUtils(inflater.getContext());
         _cu.setAppLanguage(getAppLanguage());
         _savedInstanceState = savedInstanceState;
-        if (getLayoutResId() == 0){
+        if (getLayoutResId() == 0) {
             Log.e(getClass().getCanonicalName(), "Error: GsFragmentbase.onCreateview: Returned 0 for getLayoutResId");
         }
         View view = inflater.inflate(getLayoutResId(), container, false);

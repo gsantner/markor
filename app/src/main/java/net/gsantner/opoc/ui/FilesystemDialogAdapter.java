@@ -55,8 +55,9 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
-    private static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
-    private static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
+    public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
+    public static final String EXTRA_DOPT = "EXTRA_DOPT";
+    public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
 
     //########################
     //## Members
@@ -90,7 +91,6 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         _recyclerView = recyclerView;
     }
 
-
     @NonNull
     @Override
     public UiFilesystemDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -122,7 +122,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
 
         File descriptionFile = fileParent.equals(_currentFolder) ? fileParent : file;
-        holder.description.setText(!_dopt.descModtimeInsteadOfParent ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
@@ -166,9 +166,21 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public void restoreSavedInstanceState(Bundle savedInstanceStateArg) {
         final Bundle savedInstanceState = savedInstanceStateArg == null ? new Bundle() : savedInstanceStateArg;
         File f;
+        String s;
 
-        if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER) && (f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER))).isDirectory()) {
-            loadFolder(f);
+        if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
+            //noinspection ConstantConditions
+            f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
+            s = f.getAbsolutePath();
+
+            boolean ok = f.isDirectory()
+                    || _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
+                    || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(s)
+                    || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(s)
+                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(s);
+            if (ok) {
+                loadFolder(f);
+            }
         }
 
         if (savedInstanceState.containsKey(EXTRA_RECYCLER_SCROLL_STATE) && _recyclerView.getLayoutManager() != null) {
@@ -271,8 +283,23 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
     }
 
+    public void unselectAll() {
+        for (int i = 0; i < _adapterDataFiltered.size(); i++) {
+            TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
+            if (_currentSelection.contains(data.file)) {
+                _currentSelection.remove(data.file);
+                notifyItemChanged(data.position);
+            }
+        }
+        _dopt.listener.onFsDoUiUpdate(this);
+    }
+
     public boolean areItemsSelected() {
         return !_currentSelection.isEmpty();
+    }
+
+    public Set<File> getCurrentSelection() {
+        return _currentSelection;
     }
 
     public boolean toggleSelection(TagContainer data) {

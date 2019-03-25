@@ -21,12 +21,11 @@ import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.ui.FilesystemDialogAdapter;
+import net.gsantner.opoc.ui.FilesystemFragment;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import other.writeily.activity.WrFilesystemListFragment;
 
 public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -67,7 +66,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         if (_dir != null && (_dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR))) {
             // nothing to do
         } else {
-            WrFilesystemListFragment.sortFolder(files);
+            FilesystemFragment.sortFolder(files);
         }
         _widgetFilesList = files.toArray(new File[files.size()]);
     }

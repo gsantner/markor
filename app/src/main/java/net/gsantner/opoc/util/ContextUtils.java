@@ -38,6 +38,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -48,6 +49,7 @@ import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.util.Pair;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -74,6 +76,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -519,11 +523,43 @@ public class ContextUtils {
     /**
      * Get the private directory for the current package (usually /data/data/package.name/)
      */
-    public String getAppDataDir() {
+    @SuppressWarnings("StatementWithEmptyBody")
+    public File getAppDataPrivateDir() {
+        File filesDir;
         try {
-            return _context.getPackageManager().getPackageInfo(getPackageIdReal(), 0).applicationInfo.dataDir;
+            filesDir = new File(new File(_context.getPackageManager().getPackageInfo(getPackageIdReal(), 0).applicationInfo.dataDir), "files");
         } catch (PackageManager.NameNotFoundException e) {
-            return _context.getFilesDir().getParent();
+            filesDir = _context.getFilesDir();
+        }
+        if (!filesDir.exists() && filesDir.mkdirs()) ;
+        return filesDir;
+    }
+
+    /**
+     * Get public (accessible) appdata folders
+     */
+    @SuppressWarnings("StatementWithEmptyBody")
+    public List<Pair<File, String>> getAppDataPublicDirs(boolean internalStorageFolder, boolean sdcardFolders, boolean storageNameWithoutType) {
+        List<Pair<File, String>> dirs = new ArrayList<>();
+        for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+            boolean isInt = externalFileDir.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
+            boolean add = (internalStorageFolder && isInt) || (sdcardFolders && !isInt);
+            if (add) {
+                dirs.add(new Pair<>(externalFileDir, getStorageName(externalFileDir, storageNameWithoutType)));
+                if (!externalFileDir.exists() && externalFileDir.mkdirs()) ;
+            }
+        }
+        return dirs;
+    }
+
+    public String getStorageName(File externalFileDir, boolean storageNameWithoutType) {
+        boolean isInt = externalFileDir.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
+
+        String[] split = externalFileDir.getAbsolutePath().split("/");
+        if (split.length > 2) {
+            return isInt ? (storageNameWithoutType ? "Internal Storage" : "") : (storageNameWithoutType ? split[2] : ("SD Card (" + split[2] + ")"));
+        } else {
+            return "Storage";
         }
     }
 

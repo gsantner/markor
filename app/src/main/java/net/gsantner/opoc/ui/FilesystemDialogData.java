@@ -19,11 +19,12 @@ import android.support.annotation.StringRes;
 import net.gsantner.markor.R;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {
-    public interface SelectionListener {
+    public interface SelectionListener extends Serializable{
         void onFsSelected(String request, File file);
 
         void onFsMultiSelected(String request, File... files);
@@ -37,7 +38,7 @@ public class FilesystemDialogData {
         void onFsLongPressed(File file, boolean doSelectMultiple);
     }
 
-    public static class Options {
+    public static class Options implements Serializable{
         public SelectionListener listener = new SelectionListenerAdapter();
         public File rootFolder = Environment.getExternalStorageDirectory();
         public String requestId = "show_dialog";
@@ -101,7 +102,7 @@ public class FilesystemDialogData {
         public File[] recentFiles, popularFiles = null;
     }
 
-    public static class SelectionListenerAdapter implements SelectionListener {
+    public static class SelectionListenerAdapter implements SelectionListener, Serializable {
         @Override
         public void onFsSelected(String request, File file) {
         }
