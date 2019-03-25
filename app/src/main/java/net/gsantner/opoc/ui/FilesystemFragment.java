@@ -36,6 +36,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -44,6 +45,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 import butterknife.BindView;
@@ -220,8 +222,8 @@ public class FilesystemFragment extends GsFragmentBase
     public void onResume() {
         super.onResume();
         if (_dopt.rootFolder != Environment.getExternalStorageDirectory() && _dopt.rootFolder != AppSettings.get().getNotebookDirectory()) {
-            //_dopt.rootFolder = AppSettings.get().getNotebookDirectory();
-            //_filesystemDialogAdapter.setCurrentFolder(_dopt.rootFolder, false);
+            _dopt.rootFolder = AppSettings.get().getNotebookDirectory();
+            _filesystemDialogAdapter.setCurrentFolder(_dopt.rootFolder, false);
         }
 
         if (!firstResume) {
@@ -251,6 +253,8 @@ public class FilesystemFragment extends GsFragmentBase
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         PermissionChecker permc = new PermissionChecker(getActivity());
+
+        File folderToLoad = null;
 
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
@@ -287,7 +291,34 @@ public class FilesystemFragment extends GsFragmentBase
                 sortAdapter();
                 return true;
             }
+            case R.id.action_go_to_home: {
+                folderToLoad = AppSettings.get().getNotebookDirectory();
+                break;
+            }
+            case R.id.action_go_to_popular_files: {
+                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR;
+                break;
+            }
+            case R.id.action_go_to_recent_files: {
+                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS;
+                break;
+            }
+            case R.id.action_go_to_appdata_private: {
+                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_APP_DATA_PRIVATE;
+                break;
+            }
+
+            case R.id.action_go_to_storage: {
+                folderToLoad = Environment.getExternalStorageDirectory();
+                break;
+            }
         }
+
+        if (folderToLoad != null){
+            _filesystemDialogAdapter.setCurrentFolder(folderToLoad, true);
+            return true;
+        }
+
         return false;
     }
 
@@ -300,13 +331,6 @@ public class FilesystemFragment extends GsFragmentBase
     public static Comparator<File> sortFolder(ArrayList<File> filesCurrentlyShown) {
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
-        /*int count = filesCurrentlyShown.size();
-        int lastFolderIndex = 0;
-        for (int i = 0; i < count; i++) {
-            if (filesCurrentlyShown.get(i).isDirectory()) {
-                lastFolderIndex++;
-            }
-        }*/
 
         Comparator<File> comparator = new Comparator<File>() {
             @Override
@@ -333,9 +357,5 @@ public class FilesystemFragment extends GsFragmentBase
             }
         };
         return comparator;
-
-        /*Collections.sort(filesCurrentlyShown.subList(0, lastFolderIndex), comparator);
-        Collections.sort(filesCurrentlyShown.subList(lastFolderIndex, count), comparator);*/
-
     }
 }

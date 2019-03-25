@@ -23,13 +23,5 @@
         android:visible="false"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_history"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:orderInCategory="100"
-        android:title="@string/recently_viewed_documents"
-        android:visible="true"
-        app:showAsAction="always" />
-
 </menu>
 

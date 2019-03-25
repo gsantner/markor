@@ -173,15 +173,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
                 return true;
             }
-            case R.id.action_history: {
-                SearchOrCustomTextDialogCreator.showRecentDocumentsDialog(this, new Callback.a1<String>() {
-                    @Override
-                    public void callback(String selectedFile) {
-                        DocumentActivity.launch(MainActivity.this, new File(selectedFile), false, false, null);
-                    }
-                });
-                return true;
-            }
         }
         return false;
 
