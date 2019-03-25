@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Separador a mostrar ao iniciar a aplicação</string>
     <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
     <string name="swipe_to_change_mode_to_other">Deslize para alterar o entre o modo de edição e o modo de representação</string>
+    <string name="folder_first">Pastas primeiro</string>
+    <string name="go_to">Ir para</string>
+    <string name="appdata_public">AppData (pública)</string>
+    <string name="appdata_private">AppData (privada)</string>
+    <string name="appdata_sdcard">AppData (cartão SD)</string>
+    <string name="internal_storage">Armazenamento interno</string>
 </resources>
