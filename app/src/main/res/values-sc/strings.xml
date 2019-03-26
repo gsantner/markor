@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Ischeda de ischertare cando benit alluta s\'aplicatzione</string>
     <string name="swipe_to_change_mode">Trìsina pro cambiare sa modalidade</string>
     <string name="swipe_to_change_mode_to_other">Trìsina pro cambiare sa modalidade de modìfica o rapresentatzione, su contràriu de sa modalidade atuale</string>
+    <string name="folder_first">In antis sas cartellas</string>
+    <string name="go_to">Bae a</string>
+    <string name="appdata_public">Datos de s\'aplicatzione (pùblicu)</string>
+    <string name="appdata_private">Datos de s\'aplicatzione (privadu)</string>
+    <string name="appdata_sdcard">Datos de s\'aplicatzione (ischeda SD)</string>
+    <string name="internal_storage">Memòria interna</string>
 </resources>
