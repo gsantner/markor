@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
     <string name="swipe_to_change_mode">Prevucite za promjenu načina rada</string>
     <string name="swipe_to_change_mode_to_other">Prevucite za promjenu načina rada: uređivanje ili prikazivanje</string>
+    <string name="folder_first">Prvo direktorij</string>
+    <string name="go_to">Idi do</string>
+    <string name="appdata_public">AppData (javno)</string>
+    <string name="appdata_private">AppData (privatno)</string>
+    <string name="appdata_sdcard">AppData (SD kartica)</string>
+    <string name="internal_storage">Interna memorija</string>
 </resources>
