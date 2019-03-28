@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/action_move_selected_items"
-        android:icon="@drawable/ic_input_black_24dp"
+        android:icon="@drawable/ic_move_black_24dp"
         android:title="@string/move"
         android:visible="false"
         app:showAsAction="always" />
