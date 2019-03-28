@@ -303,23 +303,33 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     }
 
     public boolean toggleSelection(TagContainer data) {
-        boolean ret = false;
-        if (_currentSelection.contains(data.file)) {
+        boolean clickHandled = false;
+
+        if (data.file.isDirectory() && getCurrentFolder().getParentFile().equals(data.file)){
+            // goUp
+            clickHandled = true;
+        }
+        else if (_currentSelection.contains(data.file)) {
+            // Single selection
             _currentSelection.remove(data.file);
-            ret = true;
+            clickHandled = true;
         } else if (_dopt.doSelectMultiple) {
+            // Multi selection
             if (_dopt.doSelectFile && !data.file.isDirectory()) {
+                // Multi selection - file
                 _currentSelection.add(data.file);
-                ret = true;
+                clickHandled = true;
             }
             if (_dopt.doSelectFolder && data.file.isDirectory()) {
+                // Multi selection - folder
                 _currentSelection.add(data.file);
-                ret = true;
+                clickHandled = true;
             }
         }
+
         notifyItemChanged(data.position);
         _dopt.listener.onFsDoUiUpdate(this);
-        return ret;
+        return clickHandled;
     }
 
     public boolean goUp() {

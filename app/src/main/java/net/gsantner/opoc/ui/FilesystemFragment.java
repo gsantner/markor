@@ -244,6 +244,7 @@ public class FilesystemFragment extends GsFragmentBase
     public void reloadCurrentFolder() {
         _filesystemDialogAdapter.unselectAll();
         _filesystemDialogAdapter.reloadCurrentFolder();
+        onFsDoUiUpdate(_filesystemDialogAdapter);
     }
 
     public File getCurrentFolder() {
@@ -272,6 +273,7 @@ public class FilesystemFragment extends GsFragmentBase
             }
         }
 
+        onFsDoUiUpdate(_filesystemDialogAdapter);
         firstResume = false;
     }
 
