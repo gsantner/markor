@@ -24,7 +24,7 @@
 
     <item
         android:id="@+id/action_rename_selected_item"
-        android:icon="@drawable/ic_local_offer_black_24dp"
+        android:icon="@drawable/ic_gs_rename_black_24dp"
         android:title="@string/rename"
         android:visible="false"
         app:showAsAction="always" />
