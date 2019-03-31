@@ -210,6 +210,12 @@ public class FilesystemFragment extends GsFragmentBase
             _callback.onFsDoUiUpdate(adapter);
         }
 
+        _recyclerList.postDelayed(this::updateMenuItems, 300);
+        _recyclerList.postDelayed(this::updateMenuItems, 1000);
+        _recyclerList.postDelayed(this::updateMenuItems, 3000);
+    }
+
+    private void updateMenuItems(){
         boolean multi1 = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() == 1;
         boolean multiMore = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() > 1;
 
