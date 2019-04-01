@@ -10,11 +10,26 @@
  *
 #########################################################*/
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ui__filesystem_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/empty_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="64dp"
+        android:text="¯\\_(ツ)_/¯"
+        android:visibility="gone"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/pull_to_refresh"
@@ -29,4 +44,5 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

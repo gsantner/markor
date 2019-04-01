@@ -99,6 +99,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return new UiFilesystemDialogViewHolder(v);
     }
 
+    public boolean isCurrentFolderEmpty(){
+        return _adapterData.size() < 2;
+    }
+
     public boolean isFileWriteable(File file, boolean isGoUp) {
         return file != null && (file.canWrite() || isGoUp || _virtualMapping.keySet().contains(file));
     }

@@ -23,10 +23,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -36,6 +34,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -85,6 +84,9 @@ public class FilesystemFragment extends GsFragmentBase
 
     @BindView(R.id.pull_to_refresh)
     public SwipeRefreshLayout swipe;
+
+    @BindView(R.id.empty_hint)
+    public TextView _emptyHint;
 
     private FilesystemDialogAdapter _filesystemDialogAdapter;
     private FilesystemDialogData.Options _dopt;
@@ -206,7 +208,9 @@ public class FilesystemFragment extends GsFragmentBase
         if (_callback != null) {
             _callback.onFsDoUiUpdate(adapter);
         }
+
         updateMenuItems();
+        _emptyHint.postDelayed(() -> _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE), 200);
         _recyclerList.postDelayed(this::updateMenuItems, 1000);
     }
 
