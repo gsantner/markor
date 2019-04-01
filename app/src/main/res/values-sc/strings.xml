@@ -274,4 +274,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Datos de s\'aplicatzione (privadu)</string>
     <string name="appdata_sdcard">Datos de s\'aplicatzione (ischeda SD)</string>
     <string name="internal_storage">Memòria interna</string>
+    <string name="open_the_document_from_main_view">Podes abèrrere su documentu dae sa vista printzipale in bassu, dae s\'esploradore de documentos o dae s\'allughidore. B\'at fintzas un\'optzione pro annànghere testu cumpartzidu in Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">\"Notas\" est sa cartella chi Markor carrigat in s\'esploradore de documentos cando s\'aplicatzione benit alluta. Est sa cartella de sos documentos tuos.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est s\'optzione prus lestra pro iscrìere notas. Est unu documentu in formadu Markdown, chi s\'agatat in &gt;Notebook/QuickNote.md&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
 </resources>
