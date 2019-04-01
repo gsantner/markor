@@ -274,4 +274,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privada)</string>
     <string name="appdata_sdcard">AppData (cartão SD)</string>
     <string name="internal_storage">Armazenamento interno</string>
+    <string name="open_the_document_from_main_view">Pode abrir um documento através da vista principal, de um explorador de ficheiros ou do \'launcher\'. Também existe uma opção para anexar texto partilhado ao Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Caderno é uma pasta que a aplicação carrega no explorador de ficheiros ao iniciar. É a pasta que contém todos os seus ficheiros.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para criar a sua nota. É um ficheiro com o formato Markdown, sendo colocado em &gt;Caderno/QuickNote.md&lt; mas pode ser definido um caminho personalizado nas definições.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilize a LinkBox para guardar os marcadores e as ligações aos sites que pretende ler mais tarde. É um ficheiro com o formato Markdown, sendo colocado em &gt;Caderno/LinkBox.md&lt; mas pode ser definido um caminho personalizado nas definições.</string>
+    <string name="todo_is_the_easiest_way_">Pode gerir as suas tarefas em ToDo. É um ficheiro com o formato todo.txt, sendo colocado em &gt;Caderno/todo.txt&lt; mas pode ser definido um caminho personalizado nas definições.</string>
 </resources>
