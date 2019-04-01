@@ -274,4 +274,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privatno)</string>
     <string name="appdata_sdcard">AppData (SD kartica)</string>
     <string name="internal_storage">Interna memorija</string>
+    <string name="open_the_document_from_main_view">Dokument možete otvoriti putem glavnog izbornika u dnu, preglednika datoteka ili pokretačkog programa. Također je moguće dodati tekst podijeljen s Markorom.</string>
+    <string name="notebook_is_the_home_of_your_files">Bilježnica je direktorij koji Markor pri pokretanju učitava u preglednik datoteka. Ona je centralno mjesto za Vaše datoteke.</string>
 </resources>
