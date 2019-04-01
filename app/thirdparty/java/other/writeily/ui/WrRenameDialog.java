@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -85,7 +84,7 @@ public class WrRenameDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
             if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
                 AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
-                if (_callback != null){
+                if (_callback != null) {
                     _callback.callback(file);
                 }
             }

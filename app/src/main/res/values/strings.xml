@@ -286,4 +286,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (private)</string>
     <string name="appdata_sdcard">AppData (SD Card)</string>
     <string name="internal_storage">Internal storage</string>
+    <string name="open_the_document_from_main_view">You can open the document from main view on the bottom, the file browser or the launcher. There is also a option to append text shared into Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook is the folder that Markor loads in the file browser when the app is started. It is the home folder of your files.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is the fastest option to write down notes. It is a file in Markdown format with default location &gt;Notebook/QuickNote.md&lt;, you can set a custom filepath in the settings.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Use LinkBox to keep bookmarks and links to websites you want to read later. It is a file in Markdown format with default location &gt;Notebook/LinkBox.md&lt;, you can set a custom filepath in the settings.</string>
+    <string name="todo_is_the_easiest_way_">Manage your tasks with ToDo. It is a file in todo.txt format with default location &gt;Notebook/todo.txt&lt;, you can set a custom filepath in the settings.</string>
 </resources>

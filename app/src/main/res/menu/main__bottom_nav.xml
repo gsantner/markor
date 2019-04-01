@@ -16,7 +16,7 @@
     <item
         android:id="@+id/nav_notebook"
         android:icon="@drawable/ic_folder_white_24dp"
-        android:title="@string/notebook" />
+        android:title="@string/files" />
 
     <item
         android:id="@+id/nav_todo"

@@ -89,7 +89,6 @@ public class FilesystemFragment extends GsFragmentBase
     private FilesystemDialogAdapter _filesystemDialogAdapter;
     private FilesystemDialogData.Options _dopt;
     private FilesystemDialogData.SelectionListener _callback;
-    private File _initialRootFolder = null;
     private boolean firstResume = true;
     private AppSettings _appSettings;
     private ContextUtils _contextUtils;
@@ -134,6 +133,8 @@ public class FilesystemFragment extends GsFragmentBase
         _filesystemDialogAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
+
+
     @Override
     public String getFragmentTag() {
         return "FilesystemFragment";
@@ -142,10 +143,6 @@ public class FilesystemFragment extends GsFragmentBase
     @Override
     protected int getLayoutResId() {
         return R.layout.opoc_filesystem_fragment;
-    }
-
-    private int rcolor(@ColorRes int colorRes) {
-        return ContextCompat.getColor(getActivity(), colorRes);
     }
 
     private void setDialogOptions(FilesystemDialogData.Options options) {
@@ -209,10 +206,8 @@ public class FilesystemFragment extends GsFragmentBase
         if (_callback != null) {
             _callback.onFsDoUiUpdate(adapter);
         }
-
-        _recyclerList.postDelayed(this::updateMenuItems, 300);
+        updateMenuItems();
         _recyclerList.postDelayed(this::updateMenuItems, 1000);
-        _recyclerList.postDelayed(this::updateMenuItems, 3000);
     }
 
     private void updateMenuItems(){
@@ -287,6 +282,7 @@ public class FilesystemFragment extends GsFragmentBase
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        System.out.println("fsui: onCreateOptionsMenu");
         inflater.inflate(R.menu.filesystem__menu, menu);
         ContextUtils cu = ContextUtils.get();
         cu.tintMenuItems(menu, true, Color.WHITE);
@@ -305,8 +301,8 @@ public class FilesystemFragment extends GsFragmentBase
             item.setVisible(true);
         }
         _fragmentMenu = menu;
+        updateMenuItems();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
