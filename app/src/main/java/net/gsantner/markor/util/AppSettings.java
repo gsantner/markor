@@ -191,6 +191,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getLanguage() {
+        if (BuildConfig.IS_TEST_BUILD && isAppCurrentVersionFirstStart(false)){
+            setString(R.string.pref_key__language, "en");
+            return "en";
+        }
+
         return getString(R.string.pref_key__language, "");
     }
 
@@ -236,7 +241,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isTodoStartTasksWithTodaysDateEnabled() {
         return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
     }
-
 
     public boolean isAppCurrentVersionFirstStart(boolean doSet) {
         int value = getInt(R.string.pref_key__app_first_start_current_version, -1);

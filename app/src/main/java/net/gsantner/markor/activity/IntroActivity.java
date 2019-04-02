@@ -12,6 +12,8 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.util.PermissionChecker;
 
 public class IntroActivity extends AppIntro {
@@ -29,6 +31,7 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new ContextUtils(this).setAppLanguage(AppSettings.get().getLanguage());
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest
