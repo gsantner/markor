@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Comença a la part inferior</string>
     <string name="start_on_bottom_when_loading_document">En carregar un document, ubica el cursor al final</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només pot editar documents locals disponibles sense connexió i no admet administradors d\'arxius que no proporcionin la ruta completa del fitxer.</string>
-    <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades, obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
+    <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades. Podeu obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
     <string name="configure_in_the_apps_settings">Configureu-ho a la configuració de l\'aplicació</string>
     <string name="vertical_alignment">Alineació vertical</string>
     <string name="horizontal_alignment">Alineació horitzontal</string>
@@ -268,4 +268,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Pestanya per seleccionar quan s\'inicia l\'aplicació</string>
     <string name="swipe_to_change_mode">Feu lliscar el dit per canviar el mode</string>
     <string name="swipe_to_change_mode_to_other">Feu lliscar el dit per canviar el mode d\'edició o representació, el contrari del mode actual</string>
+    <string name="folder_first">Carpeta primer</string>
+    <string name="go_to">Vés a</string>
+    <string name="appdata_public">AppData (públic)</string>
+    <string name="appdata_private">AppData (privat)</string>
+    <string name="appdata_sdcard">AppData (targeta SD)</string>
+    <string name="internal_storage">Emmagatzematge intern</string>
+    <string name="open_the_document_from_main_view">Podeu obrir el document des de la vista principal a la part inferior, al navegador de fitxers o al llançador. També hi ha una opció per afegir text compartit al Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">El quadern és la carpeta que Markor carrega al navegador de fitxers quan s\'inicia l\'aplicació. És la carpeta inicial dels vostres fitxers.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote és l’opció més ràpida per escriure notes. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/QuickNote.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilitzeu LinkBox per mantenir els marcadors i enllaços als llocs web que vulgueu llegir més endavant. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/LinkBox.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
+    <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
 </resources>

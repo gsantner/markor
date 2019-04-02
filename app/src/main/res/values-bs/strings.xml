@@ -268,4 +268,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
     <string name="swipe_to_change_mode">Prevucite za promjenu načina rada</string>
     <string name="swipe_to_change_mode_to_other">Prevucite za promjenu načina rada: uređivanje ili prikazivanje</string>
+    <string name="folder_first">Prvo direktorij</string>
+    <string name="go_to">Idi do</string>
+    <string name="appdata_public">AppData (javno)</string>
+    <string name="appdata_private">AppData (privatno)</string>
+    <string name="appdata_sdcard">AppData (SD kartica)</string>
+    <string name="internal_storage">Interna memorija</string>
+    <string name="open_the_document_from_main_view">Dokument možete otvoriti putem glavnog izbornika u dnu, preglednika datoteka ili pokretačkog programa. Također je moguće dodati tekst podijeljen s Markorom.</string>
+    <string name="notebook_is_the_home_of_your_files">Bilježnica je direktorij koji Markor pri pokretanju učitava u preglednik datoteka. Ona je centralno mjesto za Vaše datoteke.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je najbrži način za pisanje bilješki. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/QuickNote.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">LinkBox koristite za bilježenje linkova do web-stranica koje želite posjetiti kasnije. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/LinkBox.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
+    <string name="todo_is_the_easiest_way_">Zadacima upravljajte kroz ToDo datoteku, koja slijedi todo.txt metod bilježenja i pohranjena je na &gt;Notebook/todo.txt&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
 </resources>

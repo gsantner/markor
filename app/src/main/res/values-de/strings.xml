@@ -274,4 +274,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privat)</string>
     <string name="appdata_sdcard">AppData (SD Karte)</string>
     <string name="internal_storage">Interner Speicher</string>
+    <string name="open_the_document_from_main_view">Du kannst das Dokument unten in der Hauptansicht, dem Datei-Browser oder aus dem Launcher öffnen. Text der zu Markor geteilt wurde kann angefügt werden.</string>
+    <string name="notebook_is_the_home_of_your_files">Das Notizbuch ist der Ordner den Markor im Datei-Browser beim App-Start ladet. Es ist der Home-Ordner deiner Dateien.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote ist die schnellste Option um Notizen zu machen. Es ist eine Datei im Markdown Format mit dem Standardpfad &gt;Notizbuch/QuickNote.md&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Benutze LinkBox um Lesezeichen und Links zu Webseiten zu speichern, die du später lesen möchtest. Es ist eine Datei im Markdown Format mit dem Standardpfad &gt;Notizbuch/LinkBox.md&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
+    <string name="todo_is_the_easiest_way_">Manage deine Aufgaben mit ToDo. Es ist eine Datei im todo.txt Format mit dem Standardpfad &gt;Notizbuch/todo.txt&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
 </resources>

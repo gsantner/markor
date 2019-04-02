@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
     <string name="tasks_with_todays_date">Tareas con fecha de hoy</string>
     <string name="append_contexts_and_projects">Añadir contextos y proyectos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Añadir contextos y proyectos al final de una tarea al usar el texto apropiado</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Añade contextos y proyectos al final de una tarea al usar la acción de texto apropiada</string>
     <string name="rtl_rendering">Representación RTL</string>
     <string name="highlight_line_ending">Colorear el final de la línea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Resaltar los espacios al final de las líneas si estas terminan en dos o más espacios</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
-    <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Ábrelas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
+    <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Puede abrirlas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Pestaña para seleccionar al iniciar la aplicación</string>
     <string name="swipe_to_change_mode">Deslizar para cambiar el modo</string>
     <string name="swipe_to_change_mode_to_other">Deslizar para cambiar el modo de edición o representación, lo contrario del modo actual</string>
+    <string name="folder_first">Carpeta primero</string>
+    <string name="go_to">Ir a</string>
+    <string name="appdata_public">AppData (público)</string>
+    <string name="appdata_private">AppData (privado)</string>
+    <string name="appdata_sdcard">AppData (tarjeta SD)</string>
+    <string name="internal_storage">Almacenamiento interno</string>
 </resources>

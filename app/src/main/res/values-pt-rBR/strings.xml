@@ -268,4 +268,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Guia para selecionar ao iniciar o aplicativo</string>
     <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
     <string name="swipe_to_change_mode_to_other">Deslize para alterar o modo de edição ou representação, o oposto do modo atual</string>
+    <string name="folder_first">Pasta primeiro</string>
+    <string name="go_to">Ir para</string>
+    <string name="appdata_public">Dados do aplicativo (público)</string>
+    <string name="appdata_private">Dados do aplicativo (privado)</string>
+    <string name="appdata_sdcard">Dados do aplicativo (cartão SD)</string>
+    <string name="internal_storage">Armazenamento interno</string>
 </resources>
