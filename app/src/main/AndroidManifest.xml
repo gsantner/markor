@@ -101,6 +101,11 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity android:name=".activity.IntroActivity"
+            android:label="@string/about" />
+
         <activity
             android:name=".activity.openeditor.OpenEditorQuickNoteActivity"
             android:enabled="false"

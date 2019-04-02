@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements FilesystemFragmen
             e.printStackTrace();
         }
 
+        IntroActivity.optStart(this);
+
         // Setup viewpager
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements FilesystemFragmen
             }
         }, 1);
     }
+
 
     private void optShowRate() {
         new Rate.Builder(this)
@@ -303,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements FilesystemFragmen
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         updateFabVisibility(item.getItemId() == R.id.nav_notebook);
         PermissionChecker permc = new PermissionChecker(this);
+
         switch (item.getItemId()) {
             case R.id.nav_notebook: {
                 _viewPager.setCurrentItem(0);

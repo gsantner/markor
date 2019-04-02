@@ -133,8 +133,8 @@ dependencies {
     implementation "com.vladsch.flexmark:flexmark-ext-yaml-front-matter:${version_library_flexmark}"
 
     // UI libs
-    implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
     implementation 'com.pixplicity.generate:library:1.1.8'
+    implementation 'com.github.AppIntro:AppIntro:4.2.3'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
