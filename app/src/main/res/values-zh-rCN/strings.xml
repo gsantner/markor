@@ -268,4 +268,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">开始应用程序时选择的标签</string>
     <string name="swipe_to_change_mode">滑动以更改模式</string>
     <string name="swipe_to_change_mode_to_other">滑动以更改模式来编辑或代表，当前模式正相反</string>
+    <string name="go_to">转到</string>
+    <string name="internal_storage">内部存储</string>
 </resources>
