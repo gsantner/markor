@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,7 +62,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
 
-public class MainActivity extends AppCompatActivity implements FilesystemFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppActivityBase implements FilesystemFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
 
@@ -368,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements FilesystemFragmen
     }
 
     FilesystemDialogData.Options _filesystemDialogOptions = null;
+
     @Override
     public FilesystemDialogData.Options getFilesystemFragmentOptions(FilesystemDialogData.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
@@ -492,4 +492,6 @@ public class MainActivity extends AppCompatActivity implements FilesystemFragmen
             wrFragment.clearSelection();
         }
     }
+
+
 }

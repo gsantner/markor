@@ -53,7 +53,7 @@ import butterknife.ButterKnife;
 import other.so.AndroidBug5497Workaround;
 
 @SuppressWarnings("unused")
-public class DocumentActivity extends AppCompatActivity {
+public class DocumentActivity extends AppActivityBase {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
     public static final String EXTRA_LAUNCHER_SHORTCUT_PATH = "real_file_path_2";
 

@@ -175,15 +175,23 @@ public class ContextUtils {
         return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
     }
 
+    public String getAndroidVersion() {
+        return Build.VERSION.RELEASE + " (" + Build.VERSION.SDK_INT + ")";
+    }
+
     public String getAppVersionName() {
+        PackageManager manager = _context.getPackageManager();
         try {
-            PackageManager manager = _context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(getPackageIdManifest(), 0);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return "?";
+            try {
+                PackageInfo info = manager.getPackageInfo(getPackageIdReal(), 0);
+                return info.versionName;
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
         }
+        return "?";
     }
 
     public String getAppInstallationSource() {
@@ -890,6 +898,18 @@ public class ContextUtils {
         }
         return mimeType;
     }
+
+    public Integer parseColor(String colorstr) {
+        if (colorstr == null || colorstr.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            return Color.parseColor(colorstr);
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
+    }
+
 }
 
 

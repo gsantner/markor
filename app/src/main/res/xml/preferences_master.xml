@@ -63,6 +63,14 @@
                 android:summary="@string/open_new_documents_always_in_new_window"
                 android:title="@string/multiple_windows" />
 
+            <ListPreference
+                android:dialogTitle="@string/navigationbar_color"
+                android:entries="@array/pref_arrdisp__navigationbar_color"
+                android:entryValues="@array/pref_arrkeys__navigationbar_color"
+                android:icon="@drawable/ic_invert_colors_black_24dp"
+                android:key="@string/pref_key__navigationbar_color"
+                android:title="@string/navigationbar_color" />
+
         </PreferenceCategory>
 
     </PreferenceScreen>

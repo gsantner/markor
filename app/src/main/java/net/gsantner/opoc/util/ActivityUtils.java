@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -185,5 +186,39 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         ComponentName component = new ComponentName(context, activityClass);
         pkg.setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED
                 , PackageManager.DONT_KILL_APP);
+    }
+
+
+    @ColorInt
+    public Integer getCurrentPrimaryColor() {
+        TypedValue typedValue = new TypedValue();
+        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorPrimary"), typedValue, true);
+        return typedValue.data;
+    }
+
+    @ColorInt
+    public Integer getCurrentPrimaryDarkColor() {
+        TypedValue typedValue = new TypedValue();
+        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorPrimaryDark"), typedValue, true);
+        return typedValue.data;
+    }
+
+    @ColorInt
+    public Integer getCurrentAccentColor() {
+        TypedValue typedValue = new TypedValue();
+        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorAccent"), typedValue, true);
+        return typedValue.data;
+    }
+
+    public String replaceThemeColors(String colorstr) {
+        if (colorstr == null){
+            return colorstr;
+        }
+        colorstr = colorstr
+                .replace("accent", colorToHexString(getCurrentAccentColor()))
+                .replace("primary_dark", colorToHexString(getCurrentPrimaryDarkColor()))
+                .replace("primary", colorToHexString(getCurrentPrimaryColor()));
+
+        return colorstr;
     }
 }

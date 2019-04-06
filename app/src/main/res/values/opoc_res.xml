@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2019-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
+-->
+<resources>
+    <!-- Numbers -->
+    <string-array name="pref_arrkeys__zero_to_two" translatable="false">
+        <item translatable="false">0</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__zero_to_three" translatable="false">
+        <item translatable="false">0</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__zero_to_four" translatable="false">
+        <item translatable="false">0</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+        <item translatable="false">4</item>
+    </string-array>
+
+    <!-- Navigation bar color -->
+    <string name="pref_key__navigationbar_color" translatable="false">pref_key__navigationbar_color</string>
+    <string-array name="pref_arrdisp__navigationbar_color" translatable="false">
+        <item translatable="false">System</item>
+        <item translatable="false">@string/black</item>
+        <item translatable="false">@string/white</item>
+        <item translatable="false">App: Primary</item>
+        <item translatable="false">App: Primary Dark</item>
+        <item translatable="false">App: Accent</item>
+    </string-array>
+    <string-array name="pref_arrkeys__navigationbar_color" translatable="false">
+        <!--suppress CheckTagEmptyBody -->
+        <item translatable="false">system</item>
+        <item translatable="false">#000000</item>
+        <item translatable="false">#ffffff</item>
+        <item translatable="false">primary</item>
+        <item translatable="false">primary_dark</item>
+        <item translatable="false">accent</item>
+    </string-array>
+    <string name="black">Black</string>
+    <string name="white">White</string>
+</resources>

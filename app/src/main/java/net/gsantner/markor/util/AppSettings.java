@@ -465,4 +465,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isFilesystemListFolderFirst() {
         return getBool(R.string.pref_key__filesystem_folder_first, true);
     }
+
+    public String getNavigationBarColor() {
+        return getString(R.string.pref_key__navigationbar_color, "");
+    }
 }

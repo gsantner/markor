@@ -43,7 +43,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppActivityBase {
     static class RESULT {
         static final int NOCHANGE = -1;
         static final int CHANGED = 1;

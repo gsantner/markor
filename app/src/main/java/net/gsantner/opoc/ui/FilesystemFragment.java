@@ -286,7 +286,6 @@ public class FilesystemFragment extends GsFragmentBase
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        System.out.println("fsui: onCreateOptionsMenu");
         inflater.inflate(R.menu.filesystem__menu, menu);
         ContextUtils cu = ContextUtils.get();
         cu.tintMenuItems(menu, true, Color.WHITE);
