@@ -9,7 +9,7 @@ public class AppActivityBase extends GsActivityBase<AppSettings> {
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _activityUtils.parseColor(_activityUtils.replaceThemeColors(_appSettings.getNavigationBarColor()));
+        return _activityUtils.parseColor(_appSettings.getNavigationBarColor());
     }
 
     @Override

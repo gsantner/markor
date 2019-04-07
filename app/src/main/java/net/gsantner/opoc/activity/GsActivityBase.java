@@ -1,7 +1,6 @@
 package net.gsantner.opoc.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -18,7 +17,7 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
     protected ActivityUtils _activityUtils;
 
     @ColorInt
-    protected int _defaultNavigationBarColor = Color.BLACK;
+    protected Integer _defaultNavigationBarColor = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
         _activityUtils = new ActivityUtils(this);
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {
             _defaultNavigationBarColor = getWindow().getNavigationBarColor();
         }
     }

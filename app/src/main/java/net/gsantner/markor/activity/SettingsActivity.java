@@ -182,9 +182,6 @@ public class SettingsActivity extends AppActivityBase {
             updateSummary(R.string.pref_key__linkbox_filepath,
                     _cu.htmlToSpanned("<small><small>" + _as.getLinkBoxFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
-            updateSummary(R.string.pref_key__app_theme,
-                    getString(_as.isDarkThemeEnabled() ? R.string.dark : R.string.light)
-            );
             updatePreference(R.string.pref_key__is_launcher_for_special_files_enabled, null,
                     ("Launcher (" + getString(R.string.special_documents) + ")"),
                     getString(R.string.app_drawer_launcher_special_files_description), true

@@ -38,19 +38,11 @@
         <item translatable="false">System</item>
         <item translatable="false">@string/black</item>
         <item translatable="false">@string/white</item>
-        <item translatable="false">App: Primary</item>
-        <item translatable="false">App: Primary Dark</item>
-        <item translatable="false">App: Accent</item>
     </string-array>
     <string-array name="pref_arrkeys__navigationbar_color" translatable="false">
         <!--suppress CheckTagEmptyBody -->
-        <item translatable="false">system</item>
+        <item translatable="false"></item>
         <item translatable="false">#000000</item>
         <item translatable="false">#ffffff</item>
-        <item translatable="false">primary</item>
-        <item translatable="false">primary_dark</item>
-        <item translatable="false">accent</item>
     </string-array>
-    <string name="black">Black</string>
-    <string name="white">White</string>
 </resources>

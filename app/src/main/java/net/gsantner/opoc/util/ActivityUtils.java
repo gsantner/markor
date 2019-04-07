@@ -209,16 +209,4 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorAccent"), typedValue, true);
         return typedValue.data;
     }
-
-    public String replaceThemeColors(String colorstr) {
-        if (colorstr == null){
-            return colorstr;
-        }
-        colorstr = colorstr
-                .replace("accent", colorToHexString(getCurrentAccentColor()))
-                .replace("primary_dark", colorToHexString(getCurrentPrimaryDarkColor()))
-                .replace("primary", colorToHexString(getCurrentPrimaryColor()));
-
-        return colorstr;
-    }
 }

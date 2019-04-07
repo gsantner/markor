@@ -125,6 +125,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">The selected file is not located in the app\'s notebook directory. Do you want to copy it to the current folder? This will overwrite any existing file with the same name.</string>
     <string name="files_and_folders">Files and folders</string>
     <string name="document_browser">Document browser</string>
+    <string name="file_browser">File browser</string>
 
     <string name="create_note" needed="false">Create Note</string>
     <string name="special_documents" needed="false">Special documents</string>
@@ -292,4 +293,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Use LinkBox to keep bookmarks and links to websites you want to read later. It is a file in Markdown format with default location &gt;Notebook/LinkBox.md&lt;, you can set a custom filepath in the settings.</string>
     <string name="todo_is_the_easiest_way_">Manage your tasks with ToDo. It is a file in todo.txt format with default location &gt;Notebook/todo.txt&lt;, you can set a custom filepath in the settings.</string>
     <string name="navigationbar_color">Navigationbar color</string>
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="view">View</string>
+    <string name="view_mode">View mode</string>
+    <string name="edit_mode">Edit mode</string>
 </resources>
