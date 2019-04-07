@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
     <string name="files_and_folders">Dateien und Ordner</string>
     <string name="document_browser">Dokumenten-Browser</string>
+    <string name="file_browser">Dateimanager</string>
     <string name="create_note" needed="false">Notiz erstellen</string>
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
     <string name="keep_screen_on" needed="false">Bildschirm nicht ausschalten</string>
@@ -279,4 +280,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote ist die schnellste Option um Notizen zu machen. Es ist eine Datei im Markdown Format mit dem Standardpfad &gt;Notizbuch/QuickNote.md&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Benutze LinkBox um Lesezeichen und Links zu Webseiten zu speichern, die du später lesen möchtest. Es ist eine Datei im Markdown Format mit dem Standardpfad &gt;Notizbuch/LinkBox.md&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
     <string name="todo_is_the_easiest_way_">Manage deine Aufgaben mit ToDo. Es ist eine Datei im todo.txt Format mit dem Standardpfad &gt;Notizbuch/todo.txt&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
+    <string name="navigationbar_color">Navigationsleiste Farbe</string>
+    <string name="black">Schwarz</string>
+    <string name="white">Weiß</string>
+    <string name="view">Ansicht</string>
+    <string name="view_mode">Ansichts-Modus</string>
+    <string name="edit_mode">Bearbeitungs-Modus</string>
 </resources>
