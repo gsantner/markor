@@ -163,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Інтервал між рядками у процентах</string>
     <string name="line_spacing">Міжрядковий інтервал</string>
     <string name="archive_does_move_done_tasks">Перемістити виконані задачі до заданого файлу в тій же директорії</string>
+    <string name="sort_tasks_by_selected_order">Сортування завдань за обраним порядком</string>
     <string name="special_key">Спеціальна клавіша</string>
     <string name="key_page_up">До сторінки вище (Page Up)</string>
     <string name="key_page_down">До сторінки нижче (Page Down)</string>
@@ -209,6 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проекту. Запрошуются всі охочі, разом із новачками</string>
     <string name="project_team">Команда проекту</string>
     <string name="contributors_public_add_yourself_description">Показати інформацію про учасників проекту, що зробили внесок та побажали бути доданими до цього списку</string>
+    <string name="descending">за спаданням</string>
+    <string name="ascending">за зростанням</string>
     <string name="disable_spelling_underline">Вимкнути перевірку орфографії</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Пропозиції клавіатури залишаться, червоне підкреслення зникне</string>
     <string name="location">Розташування</string>
@@ -245,6 +248,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Тека</string>
     <string name="folder_is_created_without_extension">- Назва створеної теки не буде містити розширення файлу</string>
     <string name="keep_existing_file">- Файли та теки не перезаписуються</string>
+    <string name="multiple_windows">Декілька вікон</string>
     <string name="font">Шрифт</string>
+    <string name="open_new_documents_always_in_new_window">Завжди відкривати документи в окремих вікнах. Перемикання за допомогою кнопки \'недавні\' вашого пристрою.</string>
+    <string name="enter_or_select_format">Введіть або оберіть формат</string>
+    <string name="pick_date">Оберіть дату</string>
+    <string name="pick_time">Оберіть час</string>
     <string name="close">Закрити</string>
 </resources>
