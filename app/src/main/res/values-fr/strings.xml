@@ -279,4 +279,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est l\'option la plus rapide pour prendre des notes. Il s\'agit d\'un fichier au format Markdown dont l\'emplacement par défaut est &gt;Notebook/QuickNote.md&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilisez LinkBox pour sauver les signets et les liens aux sites web que vous voulez lire plus tard. Il s\'agit d\'un fichier au format Markdown dont l\'emplacement par défaut est &gt;NoteBook/LinkBox.md&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
     <string name="todo_is_the_easiest_way_">Gérez vos tâches avec ToDo. Il s\'agit d\'un fichier au format todo.txt dont l\'emplacement par défaut est &gt;NoteBook/todo.txt&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
+    <string name="navigationbar_color">Couleur de la barre de navigation</string>
 </resources>
