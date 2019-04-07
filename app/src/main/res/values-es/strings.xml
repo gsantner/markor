@@ -274,4 +274,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privado)</string>
     <string name="appdata_sdcard">AppData (tarjeta SD)</string>
     <string name="internal_storage">Almacenamiento interno</string>
+    <string name="open_the_document_from_main_view">Puede abrir el documento desde la vista principal en la parte inferior, el navegador de archivos o el lanzador. También hay una opción para añadir texto compartido en Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook es la carpeta que Markor carga en el navegador de archivos cuando se inicia la aplicación. Es la carpeta de inicio de sus archivos.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote es la opción más rápida para escribir notas. Es un archivo en formato Markdown con la ubicación predeterminada &gt;Notebook/QuickNote.md&lt;, puede establecer una ruta de archivo personalizada en la configuración.</string>
 </resources>
