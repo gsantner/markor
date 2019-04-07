@@ -279,4 +279,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote és l’opció més ràpida per escriure notes. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/QuickNote.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilitzeu LinkBox per mantenir els marcadors i enllaços als llocs web que vulgueu llegir més endavant. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/LinkBox.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
+    <string name="navigationbar_color">Color de la barra de navegació</string>
 </resources>
