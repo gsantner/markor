@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Su documentu ischertadu non s\'agatat in sa cartella de sas notas de s\'aplicatzione. Lu cheres copiare in sa cartella atuale? Custu at a subraiscrìere cale si siat documentu cun su matessi nùmene.</string>
     <string name="files_and_folders">Documentos e cartellas</string>
     <string name="document_browser">Esploradore de documentos</string>
+    <string name="file_browser">Esploradore de documentos</string>
     <string name="create_note" needed="false">Crea una nota</string>
     <string name="special_documents" needed="false">Documentos ispetziales</string>
     <string name="keep_screen_on" needed="false">Mantene s\'ischermu allutu</string>
@@ -279,4 +280,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est s\'optzione prus lestra pro iscrìere notas. Est unu documentu in formadu Markdown, chi s\'agatat in &gt;Notebook/QuickNote.md&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Imprea LinkBox pro sarvare sos sinnalibros e sos ligàmenes a sos sitos chi cheres lèghere prus a tardu. Est unu documentu in formadu Markdown, chi s\'agatat in &gt;Notebook/LinkBox.md&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
     <string name="todo_is_the_easiest_way_">Gesti sas atividades tuas cun ToDo. Est unu documentu in formadu todo.txt chi s\'agatat in &gt;Notebook/todo.txt&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
+    <string name="black">Nieddu</string>
+    <string name="white">Biancu</string>
+    <string name="view">Vista</string>
+    <string name="view_mode">Modalidade de visualizatzione</string>
+    <string name="edit_mode">Modalidade de modìfica</string>
 </resources>
