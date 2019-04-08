@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier du bloc note de l\'application. Souhaitez-vous le copier dans ce dossier? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
+    <string name="file_browser">Explorateur de fichiers</string>
     <string name="create_note" needed="false">Nouvelle note</string>
     <string name="special_documents" needed="false">Documents spéciaux</string>
     <string name="keep_screen_on" needed="false">Garder l\'écran allumé</string>
@@ -280,4 +281,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilisez LinkBox pour sauver les signets et les liens aux sites web que vous voulez lire plus tard. Il s\'agit d\'un fichier au format Markdown dont l\'emplacement par défaut est &gt;NoteBook/LinkBox.md&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
     <string name="todo_is_the_easiest_way_">Gérez vos tâches avec ToDo. Il s\'agit d\'un fichier au format todo.txt dont l\'emplacement par défaut est &gt;NoteBook/todo.txt&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
     <string name="navigationbar_color">Couleur de la barre de navigation</string>
+    <string name="black">Noir</string>
+    <string name="white">Blanc</string>
+    <string name="view">Vue</string>
+    <string name="view_mode">Mode visualisation</string>
+    <string name="edit_mode">Mode édition</string>
 </resources>
