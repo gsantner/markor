@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">El fitxer seleccionat no es troba al directori del quadern de l\'aplicació. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer existent amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
+    <string name="file_browser">Gestor de fitxers</string>
     <string name="create_note" needed="false">Crea una nota</string>
     <string name="special_documents" needed="false">Documents especials</string>
     <string name="keep_screen_on" needed="false">Mantén la pantalla encesa</string>
@@ -280,4 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilitzeu LinkBox per mantenir els marcadors i enllaços als llocs web que vulgueu llegir més endavant. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/LinkBox.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="navigationbar_color">Color de la barra de navegació</string>
+    <string name="black">Negre</string>
+    <string name="white">Blanc</string>
+    <string name="edit_mode">Mode d\'edició</string>
 </resources>
