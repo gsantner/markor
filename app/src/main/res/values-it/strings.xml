@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Navigatore dei documenti</string>
+    <string name="file_browser">File Browser</string>
     <string name="create_note" needed="false">Crea nota</string>
     <string name="special_documents" needed="false">Documenti speciali</string>
     <string name="keep_screen_on" needed="false">Mantieni lo schermo acceso</string>
@@ -280,4 +281,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Usa LinkBox per salvare segnalibri e link ai siti web che vuoi leggere più tardi. È un file in formato Markdown nella posizione predefinita &gt;Notebook/LinkBox.md&lt;, è possibile impostare un percorso file personalizzato nelle impostazioni.</string>
     <string name="todo_is_the_easiest_way_">Gestisci le tue attività con ToDo. È un file in formato todo.txt nella posizione predefinita &gt;Notebook/todo.txt&lt;, è possibile impostare un file personalizzato nelle impostazioni.</string>
     <string name="navigationbar_color">Colore barra navigazione</string>
+    <string name="black">Nero</string>
+    <string name="white">Bianco</string>
+    <string name="view_mode">Modalità visualizzazione</string>
+    <string name="edit_mode">Modalità modifica</string>
 </resources>
