@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Více informací</string>
     <string name="show_license_of_the_app">Zobrazit GNU GPLv3 licenci</string>
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
-    <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
+    <string name="language_change_restart_description">Pokud chcete změnit jazyk této aplikace, bude vyžadován její restart</string>
     <string name="language">Jazyk</string>
     <string name="error_need_storage_permission_to_save_documents">Potřebujte povolení ke skladování pro uložení dokumentů</string>
     <string name="open_with">Otevřít s</string>
@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v adresáři notebook aplikace.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
+    <string name="file_browser">Správce souborů</string>
     <string name="create_note" needed="false">Vytvořit Poznámku</string>
     <string name="special_documents" needed="false">Zvláštní dokumenty</string>
     <string name="keep_screen_on" needed="false">Keep screen on</string>
@@ -262,7 +263,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Poslední použité</string>
     <string name="my_note">Moje poznámka</string>
     <string name="close">Konec</string>
-    <string name="cancel">Rakovina</string>
+    <string name="cancel">Zrušit</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
