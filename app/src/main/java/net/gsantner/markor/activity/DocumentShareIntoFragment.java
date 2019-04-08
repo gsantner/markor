@@ -194,7 +194,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
             String currentContent = TextUtils.isEmpty(document.getContent().trim()) ? "" : (document.getContent().trim() + "\n");
-            DocumentIO.saveDocument(document, false, currentContent + seperator + _sharedText);
+            DocumentIO.saveDocument(document, currentContent + seperator + _sharedText);
             if (showEditor) {
                 showInDocumentActivity(document);
             }

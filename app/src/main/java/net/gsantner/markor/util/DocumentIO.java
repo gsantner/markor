@@ -127,30 +127,15 @@ public class DocumentIO {
         return document;
     }
 
-    public static synchronized boolean saveDocument(Document document, boolean argAllowRename, String currentText) {
+    public static synchronized boolean saveDocument(Document document, String currentText) {
         boolean ret;
         String filename = DocumentIO.normalizeTitleForFilename(document, currentText) + document.getFileExtension();
         document.setDoHistory(true);
         document.setFile(new File(document.getFile().getParentFile(), filename));
 
         Document documentInitial = document.getInitialVersion();
-        if (argAllowRename) {
-            if (!document.getFile().equals(documentInitial.getFile())) {
-                if (documentInitial.getFile().exists()) {
-                    if (FileUtils.renameFile(documentInitial.getFile(), document.getFile())) {
-                        // Rename succeeded -> Rename everything in history too
-                        for (Document hist : document.getHistory()) {
-                            hist.setFile(document.getFile());
-                            for (Document hist2 : hist.getHistory()) {
-                                hist2.setFile(document.getFile());
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            document.setFile(documentInitial.getFile());
-        }
+
+        document.setFile(documentInitial.getFile());
 
         if (!currentText.equals(documentInitial.getContent())) {
             document.forceAddNextChangeToHistory();

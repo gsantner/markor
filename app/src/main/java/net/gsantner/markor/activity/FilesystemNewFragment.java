@@ -291,7 +291,7 @@ public class FilesystemNewFragment extends GsFragmentBase implements TextFormat.
         boolean ret = false;
         if (isAdded() && _hlEditor != null) {
             boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
-            ret = DocumentIO.saveDocument(_document, argAllowRename, _hlEditor.getText().toString());
+            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString());
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {

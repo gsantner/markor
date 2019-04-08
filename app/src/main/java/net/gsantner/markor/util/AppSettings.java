@@ -183,7 +183,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isKeepScreenOn() {
-        return getBool(R.string.pref_key__is_keep_screen_on, false);
+        return getBool(R.string.pref_key__is_keep_screen_on, !BuildConfig.IS_TEST_BUILD);
     }
 
     public boolean isOverviewStatusBarHidden() {
