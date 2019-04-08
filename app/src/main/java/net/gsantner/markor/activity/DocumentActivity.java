@@ -23,7 +23,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
@@ -199,7 +198,11 @@ public class DocumentActivity extends AppActivityBase {
                 // No fancy exception handling :P. Nothing to see here.
             }
         }
-        return super.dispatchTouchEvent(event);
+        try {
+            return super.dispatchTouchEvent(event);
+        } catch (IndexOutOfBoundsException ignored) {
+            return false;
+        }
     }
 
     @Override
