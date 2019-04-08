@@ -283,5 +283,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Color de la barra de navegació</string>
     <string name="black">Negre</string>
     <string name="white">Blanc</string>
+    <string name="view">Vista</string>
+    <string name="view_mode">Mode de vista</string>
     <string name="edit_mode">Mode d\'edició</string>
 </resources>
