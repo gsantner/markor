@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
     <string name="files_and_folders">Ficheiros e pastas</string>
     <string name="document_browser">Explorador de ficheiros</string>
+    <string name="file_browser">Explorador de ficheirosicheiros</string>
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter ecrã ligado</string>
@@ -279,4 +280,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para criar a sua nota. É um ficheiro com o formato Markdown, sendo colocado em &gt;Caderno/QuickNote.md&lt; mas pode ser definido um caminho personalizado nas definições.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilize a LinkBox para guardar os marcadores e as ligações aos sites que pretende ler mais tarde. É um ficheiro com o formato Markdown, sendo colocado em &gt;Caderno/LinkBox.md&lt; mas pode ser definido um caminho personalizado nas definições.</string>
     <string name="todo_is_the_easiest_way_">Pode gerir as suas tarefas em ToDo. É um ficheiro com o formato todo.txt, sendo colocado em &gt;Caderno/todo.txt&lt; mas pode ser definido um caminho personalizado nas definições.</string>
+    <string name="black">Preto</string>
+    <string name="white">Branco</string>
+    <string name="view_mode">Modo de vista</string>
+    <string name="edit_mode">Modo de edição</string>
 </resources>

@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, aynı adla var olan herhangi bir dosyanın üzerine yazacaktır.</string>
     <string name="files_and_folders">Dosyalar ve klasörler</string>
     <string name="document_browser">Belge görüntüleyici</string>
+    <string name="file_browser">Dosya gezgini</string>
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
@@ -274,4 +275,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Uygulama Verisi (özel)</string>
     <string name="appdata_sdcard">Uygulama Verisi (SD Kart)</string>
     <string name="internal_storage">Dahili depolama</string>
+    <string name="black">Siyah</string>
+    <string name="white">Beyaz</string>
+    <string name="view">Görünüm</string>
+    <string name="view_mode">Görünüm modu</string>
+    <string name="edit_mode">Düzenleme modu</string>
 </resources>

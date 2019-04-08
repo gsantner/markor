@@ -467,6 +467,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getNavigationBarColor() {
-        return getString(R.string.pref_key__navigationbar_color, "");
+        return getString(R.string.pref_key__navigationbar_color, "#000000");
     }
 }

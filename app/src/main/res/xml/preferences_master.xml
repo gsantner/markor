@@ -78,9 +78,8 @@
         android:title="@string/appearance">
 
         <PreferenceCategory android:title="@string/general">
-            <!--suppress AndroidDomInspection -->
             <ListPreference
-                android:defaultValue=""
+                android:defaultValue="#000000"
                 android:dialogTitle="@string/navigationbar_color"
                 android:entries="@array/pref_arrdisp__navigationbar_color"
                 android:entryValues="@array/pref_arrkeys__navigationbar_color"
