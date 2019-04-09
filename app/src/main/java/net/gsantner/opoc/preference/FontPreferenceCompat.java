@@ -202,7 +202,7 @@ public class FontPreferenceCompat extends ListPreference {
 
         // Also check external storage directories, at the respective root and data directory
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(getContext(), null)) {
-            if (externalFileDir == null || externalFileDir.getAbsolutePath() == null){
+            if (externalFileDir == null || externalFileDir.getAbsolutePath() == null) {
                 continue;
             }
             checkedDirs.add(new File(externalFileDir.getAbsolutePath().replaceFirst("/Android/data/.*$", "/fonts")));

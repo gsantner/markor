@@ -99,7 +99,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return new UiFilesystemDialogViewHolder(v);
     }
 
-    public boolean isCurrentFolderEmpty(){
+    public boolean isCurrentFolderEmpty() {
         return _adapterData.size() < 2;
     }
 
@@ -309,11 +309,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     public boolean toggleSelection(TagContainer data) {
         boolean clickHandled = false;
 
-        if (data.file.isDirectory() && getCurrentFolder().getParentFile().equals(data.file)){
+        if (data.file.isDirectory() && getCurrentFolder().getParentFile().equals(data.file)) {
             // goUp
             clickHandled = true;
-        }
-        else if (_currentSelection.contains(data.file)) {
+        } else if (_currentSelection.contains(data.file)) {
             // Single selection
             _currentSelection.remove(data.file);
             clickHandled = true;

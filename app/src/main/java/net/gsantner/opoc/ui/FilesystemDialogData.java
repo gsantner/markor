@@ -24,7 +24,7 @@ import java.util.Comparator;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {
-    public interface SelectionListener extends Serializable{
+    public interface SelectionListener extends Serializable {
         void onFsSelected(String request, File file);
 
         void onFsMultiSelected(String request, File... files);
@@ -38,7 +38,7 @@ public class FilesystemDialogData {
         void onFsLongPressed(File file, boolean doSelectMultiple);
     }
 
-    public static class Options implements Serializable{
+    public static class Options implements Serializable {
         public SelectionListener listener = new SelectionListenerAdapter();
         public File rootFolder = Environment.getExternalStorageDirectory();
         public String requestId = "show_dialog";

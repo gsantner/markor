@@ -136,7 +136,6 @@ public class FilesystemFragment extends GsFragmentBase
     }
 
 
-
     @Override
     public String getFragmentTag() {
         return "FilesystemFragment";
@@ -214,7 +213,7 @@ public class FilesystemFragment extends GsFragmentBase
         _recyclerList.postDelayed(this::updateMenuItems, 1000);
     }
 
-    private void updateMenuItems(){
+    private void updateMenuItems() {
         boolean multi1 = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() == 1;
         boolean multiMore = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() > 1;
 

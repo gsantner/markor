@@ -550,6 +550,9 @@ public class ContextUtils {
     public List<Pair<File, String>> getAppDataPublicDirs(boolean internalStorageFolder, boolean sdcardFolders, boolean storageNameWithoutType) {
         List<Pair<File, String>> dirs = new ArrayList<>();
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+            if (externalFileDir == null || externalFileDir.getAbsolutePath() == null || Environment.getExternalStorageDirectory() == null) {
+                continue;
+            }
             boolean isInt = externalFileDir.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
             boolean add = (internalStorageFolder && isInt) || (sdcardFolders && !isInt);
             if (add) {
