@@ -54,11 +54,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Soubor</string>
     <string name="image">Obrázek</string>
     <string name="font_size">Velikost písma</string>
-    <string name="render_rtl_language">Render for right-to-left languages</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Error: Nebude vytvářet notebook adresář</string>
+    <string name="render_rtl_language">Vykreslovat pro right-to-left jazyky</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Error: Nelze vytvořit složku pro notebook</string>
     <string name="last_modified_witharg">Naposledy změněno: %s</string>
-    <string name="select_this_folder">Vyberte tuto složku</string>
-    <string name="select">Vyberte</string>
+    <string name="select_this_folder">Vybrat tuto složku</string>
+    <string name="select">Vybrat</string>
     <string name="create">Vytvoøit</string>
     <string name="select_entries">Vyberte položky</string>
     <string name="one_item_selected">Jeden z vybraných položek</string>
