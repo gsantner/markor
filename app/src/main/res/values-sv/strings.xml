@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Filen du har valt ligger inte i appens anteckningsmapp. Vill du kopiera den till aktuell mapp? Om filen existerar skrivs den över.</string>
     <string name="files_and_folders">Filar och mappar</string>
     <string name="document_browser">Dokumentbläddrare</string>
+    <string name="file_browser">Filhanterare</string>
     <string name="create_note" needed="false">Skapa anteckning</string>
     <string name="special_documents" needed="false">Specialdokument</string>
     <string name="keep_screen_on" needed="false">Håll skärmen påslagen</string>
@@ -264,4 +265,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
+    <string name="black">Svart</string>
+    <string name="white">Vit</string>
+    <string name="view">Visa</string>
+    <string name="view_mode">Visningsläge</string>
+    <string name="edit_mode">Redigera</string>
 </resources>
