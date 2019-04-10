@@ -162,11 +162,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Obecné</string>
     <string name="resources">Zdroje</string>
     <string name="space_between_lines_in_percent">Mezery mezi řádky v procentech</string>
-    <string name="line_spacing">Propojení</string>
+    <string name="line_spacing">Řádkování</string>
     <string name="archive_does_move_done_tasks">Přesun hotových úloh do zadaného souboru ve stejné složce</string>
-    <string name="sort_tasks_by_selected_order">Úkoly podle zvoleného pořadí</string>
-    <string name="special_key">Zvláštní klíč</string>
-    <string name="key_page_up">Pomoc v bolesti (</string>
+    <string name="sort_tasks_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
+    <string name="special_key">Speciální klíč</string>
+    <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
     <string name="key_pos_1">Line Start (Pos Home)</string>
     <string name="key_pos_end">Line End (Pos End)</string>
