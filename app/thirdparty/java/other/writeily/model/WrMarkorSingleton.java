@@ -9,7 +9,11 @@
 ###########################################################*/
 package other.writeily.model;
 
+import android.content.Context;
+import android.support.v4.provider.DocumentFile;
+
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.util.ShareUtil;
 
 import org.apache.commons.io.IOUtils;
 
@@ -94,24 +98,32 @@ public class WrMarkorSingleton {
             }
 
             // Delete the old file after copying it over
-            deleteFile(file);
+            deleteFile(file, null);
 
         }
     }
 
-    public boolean deleteFile(File file) {
+    public boolean deleteFile(File file, Context context) {
         if (file.isDirectory()) {
             for (File childFile : file.listFiles()) {
-                deleteFile(childFile);
+                deleteFile(childFile, context);
             }
         }
 
-        return file.delete();
+        ShareUtil shareUtil = new ShareUtil(context);
+        if (context != null && shareUtil.isUnderStorageAccessFolder(file)) {
+            DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+            shareUtil.freeContextRef();
+            return dof == null ? false : (dof.delete() || !dof.exists());
+        } else {
+            shareUtil.freeContextRef();
+            return file.delete();
+        }
     }
 
-    public void deleteSelectedItems(Collection<File> files) {
+    public void deleteSelectedItems(Collection<File> files, Context context) {
         for (File file : files) {
-            deleteFile(file);
+            deleteFile(file, context);
         }
     }
 

@@ -397,9 +397,14 @@ public class FilesystemFragment extends GsFragmentBase
             case R.id.action_delete_selected_items: {
                 askForDeletingFilesRecursive((confirmed, data) -> {
                     if (confirmed) {
-                        WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemDialogAdapter.getCurrentSelection());
-                        _filesystemDialogAdapter.unselectAll();
-                        _filesystemDialogAdapter.reloadCurrentFolder();
+                        Runnable deleter = () -> {
+                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemDialogAdapter.getCurrentSelection(), getContext());
+                            _recyclerList.post(() -> {
+                                _filesystemDialogAdapter.unselectAll();
+                                _filesystemDialogAdapter.reloadCurrentFolder();
+                            });
+                        };
+                        new Thread(deleter).start();
                     }
                 });
                 return true;

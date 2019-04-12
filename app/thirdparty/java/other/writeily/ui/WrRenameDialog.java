@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -76,18 +78,33 @@ public class WrRenameDialog extends DialogFragment {
         dialogBuilder.setView(root);
 
         EditText editText = root.findViewById(R.id.new_name);
+        editText.requestFocus();
         editText.setText(file.getName());
         editText.setTextColor(ContextCompat.getColor(root.getContext(),
                 darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
-            if (FileUtils.renameFileInSameFolder(file, _newNameField.getText().toString())) {
+            String newFileName = _newNameField.getText().toString();
+            ShareUtil shareUtil = new ShareUtil(root.getContext());
+            boolean renamed = false;
+            if (shareUtil.isUnderStorageAccessFolder(file)) {
+                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+                if (dof != null) {
+                    renamed = dof.renameTo(newFileName);
+                    renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
+                }
+            } else {
+                renamed = FileUtils.renameFileInSameFolder(file, newFileName);
+            }
+
+            if (renamed) {
                 AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                 if (_callback != null) {
                     _callback.callback(file);
                 }
             }
+            shareUtil.freeContextRef();
         });
 
         dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
