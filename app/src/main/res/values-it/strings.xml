@@ -283,6 +283,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Colore barra navigazione</string>
     <string name="black">Nero</string>
     <string name="white">Bianco</string>
+    <string name="view">Vedi</string>
     <string name="view_mode">Modalità visualizzazione</string>
     <string name="edit_mode">Modalità modifica</string>
 </resources>
