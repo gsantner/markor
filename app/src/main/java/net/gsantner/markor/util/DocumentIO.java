@@ -127,7 +127,7 @@ public class DocumentIO {
         return document;
     }
 
-    public static synchronized boolean saveDocument(Document document, String currentText) {
+    public static synchronized boolean saveDocument(Document document, String currentText, ShareUtil shareUtil) {
         boolean ret;
         String filename = DocumentIO.normalizeTitleForFilename(document, currentText) + document.getFileExtension();
         document.setDoHistory(true);
@@ -146,7 +146,17 @@ public class DocumentIO {
                 //noinspection ResultOfMethodCallIgnored
                 document.getFile().getParentFile().mkdirs();
             }
-            ret = FileUtils.writeFile(document.getFile(), document.getContent());
+            if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
+                shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
+                    try {
+                        fos.write(document.getContent().getBytes());
+                    } catch (Exception ex) {
+                    }
+                });
+                ret = true;
+            } else {
+                ret = FileUtils.writeFile(document.getFile(), document.getContent());
+            }
         } else {
             ret = true;
         }

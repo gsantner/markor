@@ -36,6 +36,7 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -84,6 +85,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private Document _document;
     private TextFormat _textFormat;
+    private ShareUtil _shareUtil;
 
     public DocumentEditFragment() {
     }
@@ -98,6 +100,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onViewCreated(view, savedInstanceState);
         //applyTextFormat(TextFormat.FORMAT_PLAIN);
         setupAppearancePreferences(view);
+        _shareUtil = new ShareUtil(view.getContext());
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
@@ -135,7 +138,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _document.getFile().getParentFile().mkdirs();
             }
             boolean permok = _document.getFile().canWrite();
-            if (!permok && !_document.getFile().isDirectory() && _document.getFile().getParentFile().canWrite()) {
+            if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
             }
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
@@ -291,7 +294,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         boolean ret = false;
         if (isAdded() && _hlEditor != null) {
             boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
-            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString());
+            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil);
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {

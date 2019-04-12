@@ -36,6 +36,7 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -291,7 +292,7 @@ public class FilesystemNewFragment extends GsFragmentBase implements TextFormat.
         boolean ret = false;
         if (isAdded() && _hlEditor != null) {
             boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
-            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString());
+            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), new ShareUtil(getContext()));
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {
