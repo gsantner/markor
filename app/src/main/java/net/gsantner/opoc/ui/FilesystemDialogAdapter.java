@@ -104,7 +104,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     }
 
     public boolean isFileWriteable(File file, boolean isGoUp) {
-        return file != null && (file.canWrite() || isGoUp || _virtualMapping.keySet().contains(file));
+        return file != null && (canWrite(file) || isGoUp || _virtualMapping.keySet().contains(file));
     }
 
     @Override
@@ -206,6 +206,13 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
     }
 
+    public void reconfigure() {
+        if (_dopt.listener != null) {
+            _dopt.listener.onFsDialogConfig(_dopt);
+            reloadCurrentFolder();
+        }
+    }
+
     public class TagContainer {
         public final File file;
         public final int position;
@@ -231,6 +238,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             _filter = new StringFilter(this, _adapterData);
         }
         return _filter;
+    }
+
+    public boolean isCurrentFolderWriteable() {
+        return canWrite(_currentFolder);
     }
 
     @Override
@@ -406,7 +417,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         // Scan for /storage/emulated/{0,1,2,..}
                         for (int i = 0; i < 10; i++) {
                             file = new File("/storage/emulated/" + i);
-                            if (file.canWrite()) {
+                            if (canWrite(file)) {
                                 File remap = new File(folder, "emulated-" + i);
                                 _virtualMapping.put(remap, file);
                                 _adapterData.add(remap);
@@ -433,7 +444,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                         for (int i = 0; i < _adapterData.size(); i++) {
                             file = _adapterData.get(i);
-                            if (!file.canWrite() && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
+                            if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                                 int c = 0;
                                 for (char ch : file.getAbsolutePath().toCharArray()) {
                                     if (ch == '/') {
@@ -467,6 +478,13 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }.start();
     }
 
+    private boolean canWrite(File file) {
+        if (file != null) {
+            return file.canWrite() || (_dopt.mountedStorageFolder != null && file.getAbsolutePath().startsWith(_dopt.mountedStorageFolder.getAbsolutePath()));
+        }
+        return false;
+    }
+
     // listFiles(FilenameFilter)
     @Override
     public boolean accept(File dir, String filename) {
@@ -484,7 +502,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
         if (o1.isDirectory() && _dopt.folderFirst)
             return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
-        else if (!o2.canWrite())
+        else if (!canWrite(o2))
             return -1;
         else if (o2.isDirectory() && _dopt.folderFirst)
             return 1;

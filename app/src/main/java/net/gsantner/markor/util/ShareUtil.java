@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -50,5 +51,9 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public PrintJob printOrCreatePdfFromWebview(WebView webview, Document document) {
         String jobName = String.format("%s (%s)", document.getTitle(), _context.getString(R.string.app_name));
         return super.print(webview, jobName);
+    }
+
+    public void showMountSdDialog(Activity... activity) {
+        showMountSdDialog(R.string.mount_storage, R.string.application_needs_access_to_storage_mount_it, R.drawable.mount_sdcard_help, activity);
     }
 }

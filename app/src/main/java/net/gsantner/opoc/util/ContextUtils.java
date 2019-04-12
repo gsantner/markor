@@ -98,6 +98,9 @@ public class ContextUtils {
         return _context;
     }
 
+    public void freeContextRef() {
+        _context = null;
+    }
 
     //
     // Class Methods
@@ -550,7 +553,7 @@ public class ContextUtils {
     public List<Pair<File, String>> getAppDataPublicDirs(boolean internalStorageFolder, boolean sdcardFolders, boolean storageNameWithoutType) {
         List<Pair<File, String>> dirs = new ArrayList<>();
         for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
-            if (externalFileDir == null || externalFileDir.getAbsolutePath() == null || Environment.getExternalStorageDirectory() == null) {
+            if (externalFileDir == null || Environment.getExternalStorageDirectory() == null) {
                 continue;
             }
             boolean isInt = externalFileDir.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -572,6 +575,35 @@ public class ContextUtils {
         } else {
             return "Storage";
         }
+    }
+
+    public List<Pair<File, String>> getStorages(boolean internalStorageFolder, boolean sdcardFolders) {
+        List<Pair<File, String>> storages = new ArrayList<>();
+        for (Pair<File, String> pair : getAppDataPublicDirs(internalStorageFolder, sdcardFolders, true)) {
+            if (pair.first != null && pair.first.getAbsolutePath().lastIndexOf("/Android/data") > 0) {
+                try {
+                    storages.add(new Pair<>(new File(pair.first.getCanonicalPath().replaceFirst("/Android/data.*", "")), pair.second));
+                } catch (IOException ignored) {
+                }
+            }
+        }
+        return storages;
+    }
+
+    public File getStorageRootFolder(File file) {
+        String filepath;
+        try {
+            filepath = file.getCanonicalPath();
+        } catch (Exception ignored) {
+            return null;
+        }
+        for (Pair<File, String> storage : getStorages(false, true)) {
+            //noinspection ConstantConditions
+            if (filepath.startsWith(storage.first.getAbsolutePath())) {
+                return storage.first;
+            }
+        }
+        return null;
     }
 
     /**

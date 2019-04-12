@@ -306,6 +306,10 @@ public class FilesystemFragment extends GsFragmentBase
         updateMenuItems();
     }
 
+    public FilesystemDialogAdapter getAdapter(){
+        return _filesystemDialogAdapter;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         PermissionChecker permc = new PermissionChecker(getActivity());

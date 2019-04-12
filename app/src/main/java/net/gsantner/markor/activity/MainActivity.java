@@ -27,6 +27,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,13 +44,13 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 import net.gsantner.opoc.ui.FilesystemFragment;
 import net.gsantner.opoc.util.AndroidSupportMeWrapper;
-import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +82,7 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
 
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
+    private ShareUtil _shareUtil;
 
     private String _currentTitle;
 
@@ -90,6 +92,7 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
         super.onCreate(savedInstanceState);
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
+        _shareUtil = new ShareUtil(this);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -133,13 +136,24 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
         i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
         startActivity(i);*/
 
+        //_shareUtil.showMountSdDialog(this);
+
+        _shareUtil.writeFile(new File("/storage/C151-0B05/amy.txt"), false, (arg1, arg2) -> {
+            try {
+                arg2.write("COOLICOOL".getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        _shareUtil.writeFile(new File("/storage/C151-0B05/some/very/vool"), true, null);
+        _shareUtil.writeFile(new File("/storage/C151-0B05/net/test/a.lol.txt"), false, null);
+
         _bottomNav.postDelayed(() -> {
             if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {
                 _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
             }
         }, 1);
     }
-
 
     private void optShowRate() {
         new Rate.Builder(this)
@@ -250,8 +264,11 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Determine some results and forward using Local Broadcast
-        ShareUtil shu = new ShareUtil(this.getApplicationContext());
-        shu.extractResultFromActivityResult(requestCode, resultCode, data);
+        Object result = _shareUtil.extractResultFromActivityResult(requestCode, resultCode, data, this);
+
+
+        FilesystemFragment frag = (FilesystemFragment) _viewPagerAdapter.getFragmentByTag(FilesystemFragment.FRAGMENT_TAG);
+        frag.getAdapter().reconfigure();
     }
 
     @OnClick({R.id.fab_add_new_item})
@@ -260,8 +277,17 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
         if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
-
                     FilesystemFragment frag = (FilesystemFragment) _viewPagerAdapter.getFragmentByTag(FilesystemFragment.FRAGMENT_TAG);
+
+                    if (_shareUtil.isUnderStorageAccessFolder(frag.getCurrentFolder()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                        _shareUtil.showMountSdDialog(this);
+                        return;
+                    }
+
+                    if (!frag.getAdapter().isCurrentFolderWriteable()) {
+                        return;
+                    }
+
                     NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentFolder() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
@@ -378,12 +404,13 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
                     opt.rootFolder = _appSettings.getNotebookDirectory();
                     opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     opt.doSelectMultiple = opt.doSelectFolder = opt.doSelectFile = true;
+                    opt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
                 }
 
                 @Override
                 public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
-                    super.onFsDoUiUpdate(adapter);
-                    if (adapter != null && adapter.getCurrentFolder() != null && adapter.getCurrentFolder().getName() != null) {
+                    if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
+                        PermissionChecker permc = new PermissionChecker(MainActivity.this);
                         _toolbar.setTitle(adapter.areItemsSelected() ? "" : adapter.getCurrentFolder().getName());
                     }
                 }

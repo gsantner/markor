@@ -40,7 +40,9 @@ public class FilesystemDialogData {
 
     public static class Options implements Serializable {
         public SelectionListener listener = new SelectionListenerAdapter();
-        public File rootFolder = Environment.getExternalStorageDirectory();
+        public File
+                rootFolder = Environment.getExternalStorageDirectory(),
+                mountedStorageFolder = null;
         public String requestId = "show_dialog";
 
         // Dialog type

@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.FilesystemDialog;
 import net.gsantner.opoc.ui.FilesystemDialogData;
 
@@ -29,6 +30,7 @@ public class FilesystemDialogCreator {
     public static FilesystemDialogData.Options prepareFsDialogOpts(Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
         FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
         ContextUtils cu = new ContextUtils(context);
+        ShareUtil shareUtil = new ShareUtil(context);
         AppSettings appSettings = new AppSettings(context);
         boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(opts.primaryColor));
         boolean darkTheme = appSettings.isDarkThemeEnabled();
@@ -72,6 +74,10 @@ public class FilesystemDialogCreator {
 
         opts.titleText = R.string.select;
 
+        opts.mountedStorageFolder = shareUtil.getStorageAccessFolder();
+
+        shareUtil.freeContextRef();
+        cu.freeContextRef();
         return opts;
     }
 

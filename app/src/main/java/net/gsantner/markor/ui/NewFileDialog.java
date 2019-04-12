@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.widget.Spinner;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
@@ -113,13 +115,21 @@ public class NewFileDialog extends DialogFragment {
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
 
+        final ShareUtil shareUtil = new ShareUtil(getContext());
+
         dialogBuilder
                 .setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
                     if (ez(fileNameEdit)) {
                         return;
                     }
+
                     File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
-                    callback(FileUtils.touch(f) || f.exists(), f);
+                    if (shareUtil.isUnderStorageAccessFolder(f)){
+                        DocumentFile dof = shareUtil.getDocumentFile(f, false);
+                        callback(dof.canWrite(), f);
+                    } else {
+                        callback(FileUtils.touch(f) || f.exists(), f);
+                    }
                     dialogInterface.dismiss();
                 })
                 .setNeutralButton(R.string.folder, (dialogInterface, i) -> {
@@ -127,7 +137,12 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
                     File f = new File(basedir, fileNameEdit.getText().toString());
-                    callback(f.mkdirs() || f.exists(), f);
+                    if (shareUtil.isUnderStorageAccessFolder(f)){
+                        DocumentFile dof = shareUtil.getDocumentFile(f, true);
+                        callback(dof.exists(), f);
+                    } else {
+                        callback(f.mkdirs() || f.exists(), f);
+                    }
                     dialogInterface.dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {

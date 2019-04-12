@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -37,19 +38,26 @@ import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.support.v4.graphics.drawable.IconCompat;
+import android.support.v4.provider.DocumentFile;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,9 +79,11 @@ public class ShareUtil {
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
     public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmm", Locale.getDefault());
     public final static String MIME_TEXT_PLAIN = "text/plain";
+    public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
 
     public final static int REQUEST_CAMERA_PICTURE = 50001;
     public final static int REQUEST_PICK_PICTURE = 50002;
+    public final static int REQUEST_SAF = 50003;
 
     protected static String _lastCameraPictureFilepath;
 
@@ -84,6 +94,10 @@ public class ShareUtil {
     public ShareUtil(Context context) {
         _context = context;
         _chooserTitle = "➥";
+    }
+
+    public void freeContextRef() {
+        _context = null;
     }
 
     public String getFileProviderAuthority() {
@@ -565,7 +579,7 @@ public class ShareUtil {
      * Result ({@link String}) will be available from {@link Activity#onActivityResult(int, int, Intent)}.
      * It has set resultCode to {@link Activity#RESULT_OK} with same requestCode, if successfully
      * The requested image savepath has to be stored at caller side (not contained in intent),
-     * it can be retrieved using {@link #extractResultFromActivityResult(int, int, Intent)},
+     * it can be retrieved using {@link #extractResultFromActivityResult(int, int, Intent, Activity...)}
      * returns null if an error happened.
      *
      * @param target Path to file to write to, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
@@ -621,7 +635,9 @@ public class ShareUtil {
      * Forward all arguments from activity. Only requestCodes from {@link ShareUtil} get analyzed.
      * Also may forward results via local broadcast
      */
-    public Object extractResultFromActivityResult(int requestCode, int resultCode, Intent data) {
+    @SuppressLint("ApplySharedPref")
+    public Object extractResultFromActivityResult(int requestCode, int resultCode, Intent data, Activity... activityOrNull) {
+        Activity activity = greedyGetActivity(activityOrNull);
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
                 String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
@@ -673,6 +689,18 @@ public class ShareUtil {
                         sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                     }
                     return picturePath;
+                }
+                break;
+            }
+
+            case REQUEST_SAF: {
+                if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    Uri treeUri = data.getData();
+                    PreferenceManager.getDefaultSharedPreferences(_context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        activity.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    }
+                    return treeUri;
                 }
                 break;
             }
@@ -820,6 +848,226 @@ public class ShareUtil {
         }
         if (pkg != null && customTabIntent != null) {
             customTabIntent.setPackage(pkg);
+        }
+    }
+
+    /***
+     * Request storage access. The user needs to press "Select storage" at the correct storage.
+     * @param activity The activity which will receive the result from startActivityForResult
+     */
+    public void requestStorageAccessFramework(Activity... activity) {
+        Activity a = greedyGetActivity(activity);
+        if (a != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                    | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+            );
+            a.startActivityForResult(intent, REQUEST_SAF);
+        }
+    }
+
+    /**
+     * Get storage access framework tree uri. The user must have granted access via {@link #requestStorageAccessFramework(Activity...)}
+     *
+     * @return Uri or null if not granted yet
+     */
+    public Uri getStorageAccessFrameworkTreeUri() {
+        String treeStr = PreferenceManager.getDefaultSharedPreferences(_context).getString(PREF_KEY__SAF_TREE_URI, null);
+        if (!TextUtils.isEmpty(treeStr)) {
+            try {
+                return Uri.parse(treeStr);
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get mounted storage folder root (by tree uri). The user must have granted access via {@link #requestStorageAccessFramework(Activity...)}
+     *
+     * @return File or null if SD not mounted
+     */
+    public File getStorageAccessFolder() {
+        Uri safUri = getStorageAccessFrameworkTreeUri();
+        if (safUri != null) {
+            String safUriStr = safUri.toString();
+            ContextUtils cu = new ContextUtils(_context);
+            for (Pair<File, String> storage : cu.getStorages(false, true)) {
+                @SuppressWarnings("ConstantConditions") String storageFolderName = storage.first.getName();
+                if (safUriStr.contains(storageFolderName)) {
+                    return storage.first;
+                }
+            }
+            cu.freeContextRef();
+        }
+        return null;
+    }
+
+    /**
+     * Check whether or not a file is under a storage access folder (external storage / SD)
+     *
+     * @param file The file object (file/folder)
+     * @return Wether or not the file is under storage access folder
+     */
+    public boolean isUnderStorageAccessFolder(File file) {
+        if (file != null) {
+            ContextUtils cu = new ContextUtils(_context);
+            for (Pair<File, String> storage : cu.getStorages(false, true)) {
+                if (file.getAbsolutePath().startsWith(storage.first.getAbsolutePath())) {
+                    cu.freeContextRef();
+                    return true;
+                }
+            }
+            cu.freeContextRef();
+        }
+        return false;
+    }
+
+    /**
+     * Greedy extract Activity from parameter or convert context if it's a activity
+     */
+    private Activity greedyGetActivity(Activity... activity) {
+        if (activity != null && activity.length != 0 && activity[0] != null) {
+            return activity[0];
+        }
+        if (_context instanceof Activity) {
+            return (Activity) _context;
+        }
+        return null;
+    }
+
+    /**
+     * Check whether or not a file can be written.
+     * Requires storage access framework permission for external storage (SD)
+     *
+     * @param file  The file object (file/folder)
+     * @param isDir Wether or not the given file parameter is a directory
+     * @return Wether or not the file can be written
+     */
+    public boolean canWriteFile(File file, boolean isDir) {
+        if (file == null) {
+            return false;
+        } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
+            return file.canWrite();
+        } else {
+            DocumentFile dof = getDocumentFile(file, isDir);
+            return dof != null && dof.canWrite();
+        }
+    }
+
+    /**
+     * Get a {@link DocumentFile} object out of a normal java {@link File}.
+     * When used on a external storage (SD), use {@link #requestStorageAccessFramework(Activity...)}
+     * first to get access. Otherwise this will fail.
+     *
+     * @param file  The file/folder to convert
+     * @param isDir Wether or not file is a directory. For non-existing (to be created) files this info is not known hence required.
+     * @return A {@link DocumentFile} object or null if file cannot be converted
+     */
+    public DocumentFile getDocumentFile(File file, boolean isDir) {
+        // On older versions use fromFile
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            return DocumentFile.fromFile(file);
+        }
+
+        // Get ContextUtils to find storageRootFolder
+        ContextUtils cu = new ContextUtils(_context);
+        File baseFolderFile = cu.getStorageRootFolder(file);
+        cu.freeContextRef();
+
+        String baseFolder = baseFolderFile == null ? null : baseFolderFile.getAbsolutePath();
+        boolean originalDirectory = false;
+        if (baseFolder == null) {
+            return null;
+        }
+
+        String relPath = null;
+        try {
+            String fullPath = file.getCanonicalPath();
+            if (!baseFolder.equals(fullPath)) {
+                relPath = fullPath.substring(baseFolder.length() + 1);
+            } else {
+                originalDirectory = true;
+            }
+        } catch (IOException e) {
+            return null;
+        } catch (Exception ignored) {
+            originalDirectory = true;
+        }
+        Uri treeUri;
+        if ((treeUri = getStorageAccessFrameworkTreeUri()) == null) {
+            return null;
+        }
+        DocumentFile dof = DocumentFile.fromTreeUri(_context, treeUri);
+        if (originalDirectory) {
+            return dof;
+        }
+        String[] parts = relPath.split("\\/");
+        for (int i = 0; i < parts.length; i++) {
+            DocumentFile nextDof = dof.findFile(parts[i]);
+            if (nextDof == null) {
+                nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);
+            }
+            dof = nextDof;
+        }
+        return dof;
+    }
+
+    public void showMountSdDialog(@StringRes int title, @StringRes int description, @DrawableRes int mountDescriptionGraphic, Activity... activityOrNull) {
+        Activity activity = greedyGetActivity(activityOrNull);
+        if (activity == null) {
+            return;
+        }
+
+        // Image viewer
+        ImageView imv = new ImageView(activity);
+        imv.setImageResource(mountDescriptionGraphic);
+        imv.setAdjustViewBounds(true);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+        dialog.setView(imv);
+        dialog.setTitle(title);
+        dialog.setMessage(_context.getString(description) + "\n\n");
+        dialog.setNegativeButton(android.R.string.cancel, null);
+        dialog.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> requestStorageAccessFramework(activity));
+        AlertDialog dialogi = dialog.create();
+        dialogi.show();
+    }
+
+    public void writeFile(File file, boolean isDirectory, Callback.a2<Boolean, FileOutputStream> writeFileCallback) {
+        try {
+            FileOutputStream fileOutputStream = null;
+            ParcelFileDescriptor pfd = null;
+            if (file.canWrite()) {
+                if (isDirectory) {
+                    file.mkdirs();
+                } else {
+                    fileOutputStream = new FileOutputStream(file);
+                }
+            } else {
+                DocumentFile dof = getDocumentFile(file, isDirectory);
+                if (dof != null && dof.getUri() != null && dof.canWrite()) {
+                    if (isDirectory) {
+                        // Nothing to do
+                    } else {
+                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "w");
+                        fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
+                    }
+                }
+            }
+            if (writeFileCallback != null) {
+                writeFileCallback.callback(fileOutputStream != null || (isDirectory && file.exists()), fileOutputStream);
+            }
+            if (fileOutputStream != null) {
+                fileOutputStream.close();
+            }
+            if (pfd != null) {
+                pfd.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
