@@ -124,7 +124,7 @@ public class NewFileDialog extends DialogFragment {
                     }
 
                     File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
-                    if (shareUtil.isUnderStorageAccessFolder(f)){
+                    if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, false);
                         callback(dof.canWrite(), f);
                     } else {
@@ -137,7 +137,7 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
                     File f = new File(basedir, fileNameEdit.getText().toString());
-                    if (shareUtil.isUnderStorageAccessFolder(f)){
+                    if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
                         callback(dof.exists(), f);
                     } else {

@@ -44,6 +44,7 @@ import net.gsantner.markor.ui.FilesystemDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -95,6 +96,7 @@ public class FilesystemFragment extends GsFragmentBase
     private AppSettings _appSettings;
     private ContextUtils _contextUtils;
     private Menu _fragmentMenu;
+    private ShareUtil _shareUtil;
 
     //########################
     //## Methods
@@ -111,6 +113,7 @@ public class FilesystemFragment extends GsFragmentBase
         ButterKnife.bind(this, root);
         _appSettings = new AppSettings(root.getContext());
         _contextUtils = new ContextUtils(root.getContext());
+        _shareUtil = new ShareUtil(root.getContext());
 
         if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
             throw new RuntimeException("Error: " + getActivity().getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
@@ -221,7 +224,7 @@ public class FilesystemFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible(multi1 || multiMore);
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(multi1);
-            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible(multi1 || multiMore);
+            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemDialogAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemDialogAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemDialogAdapter.areItemsSelected());
@@ -306,7 +309,7 @@ public class FilesystemFragment extends GsFragmentBase
         updateMenuItems();
     }
 
-    public FilesystemDialogAdapter getAdapter(){
+    public FilesystemDialogAdapter getAdapter() {
         return _filesystemDialogAdapter;
     }
 
