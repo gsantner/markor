@@ -285,4 +285,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Vista</string>
     <string name="view_mode">Modalidade de visualizatzione</string>
     <string name="edit_mode">Modalidade de modìfica</string>
+    <string name="mount_storage">Monta sa memòria de archiviatzione</string>
+    <string name="application_needs_access_to_storage_mount_it">Pro atzèdere a custa memòria de archiviatzione est netzessàriu unu permissu. Monta sa memòria pro frunire s\'atzessu. Cunfirma custu diàlogu pro otènnere una ventanedda. Ischerta sa memòria in ie e incarca pro ischertare.</string>
 </resources>
