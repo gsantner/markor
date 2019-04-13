@@ -286,4 +286,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Vista</string>
     <string name="view_mode">Mode de vista</string>
     <string name="edit_mode">Mode d\'edició</string>
+    <string name="mount_storage">Munta l\'emmagatzematge</string>
+    <string name="application_needs_access_to_storage_mount_it">Cal el permís per accedir a aquest emmagatzematge. Munteu l\'emmagatzematge per donar accés. Confirmeu aquest diàleg per obtenir una finestra emergent. Seleccioneu l\'emmagatzematge allà i premeu selecciona.</string>
 </resources>
