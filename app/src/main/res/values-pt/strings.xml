@@ -286,4 +286,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Ver</string>
     <string name="view_mode">Modo de vista</string>
     <string name="edit_mode">Modo de edição</string>
+    <string name="mount_storage">Montar armazenamento</string>
 </resources>
