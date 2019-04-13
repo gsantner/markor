@@ -286,4 +286,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Vue</string>
     <string name="view_mode">Mode visualisation</string>
     <string name="edit_mode">Mode édition</string>
+    <string name="mount_storage">Monter le stockage</string>
+    <string name="application_needs_access_to_storage_mount_it">Une autorisation est nécessaire pour accéder au stockage. Monter le stockage pour donner l\'accès. Confirmez cette fenêtre pour continuer. Sélectionnez ensuite le stockage et appuyez sur sélectionner.</string>
 </resources>
