@@ -312,7 +312,7 @@ public class DocumentActivity extends AppActivityBase {
 
     public void showShareInto(Intent intent) {
         // Disable edittext when going to shareinto
-        _toolbarTitleText.setText(R.string.import_);
+        _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
     }
 

@@ -137,7 +137,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 //noinspection ResultOfMethodCallIgnored
                 _document.getFile().getParentFile().mkdirs();
             }
-            boolean permok = _document.getFile().canWrite();
+            boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
             }

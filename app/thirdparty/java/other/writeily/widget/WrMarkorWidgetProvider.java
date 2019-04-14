@@ -65,11 +65,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             File directoryF = new File(directory);
             views.setTextViewText(R.id.widget_header_title, directoryF.getName());
 
-            // Create new File
+            // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             Intent newDocumentIntent = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_RUN)
-                    .putExtra(DocumentIO.EXTRA_PATH, directoryF)
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
+                    .setAction(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, 0, newDocumentIntent, 0));
 
             // Open Markor

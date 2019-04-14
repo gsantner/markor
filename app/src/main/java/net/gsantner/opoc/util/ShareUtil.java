@@ -950,7 +950,8 @@ public class ShareUtil {
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
-            return file.canWrite();
+            boolean s1 = isDir && file.getParentFile().canWrite();
+            return !isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite();
         } else {
             DocumentFile dof = getDocumentFile(file, isDir);
             return dof != null && dof.canWrite();
