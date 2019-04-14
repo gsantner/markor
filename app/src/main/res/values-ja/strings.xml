@@ -288,4 +288,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">編集モード</string>
     <string name="mount_storage">ストレージをマウント</string>
     <string name="application_needs_access_to_storage_mount_it">このストレージにアクセスするアクセス許可が必要です。アクセス許可を与えてストレージをマウントします。このダイアログを確認したらポップアップが表示されます。そこでストレージを選択して、選択を押してください。</string>
+    <string name="favourite">お気に入りに追加</string>
 </resources>

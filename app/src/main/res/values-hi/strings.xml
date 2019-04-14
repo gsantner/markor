@@ -121,4 +121,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">कई तरह का</string>
     <string name="background">पृष्ठभूमि</string>
     <string name="font">फ़ॉन्ट</string>
+    <string name="favourite">पसंदीदा</string>
 </resources>

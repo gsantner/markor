@@ -270,4 +270,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Visa</string>
     <string name="view_mode">Visningsläge</string>
     <string name="edit_mode">Redigera</string>
+    <string name="favourite">Favorit</string>
 </resources>

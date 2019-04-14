@@ -279,4 +279,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">快速说明是写下记事最快的选项。它是一个默认位置的Markdown格式的文件， &gt;笔记簿/QuickNote.md&lt;，您可以在设置中设置一个自定义文件路径。</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">使用 LinkBox 来保存您想要稍后阅读的网站的书签和链接。它是一个默认位置的Markdown格式的文件， &gt;Notebook/LinkBox.md&lt;，您可以在设置中设置一个自定义的文件路径。</string>
     <string name="todo_is_the_easiest_way_">管理您的任务 ToDo。它是一个包含默认位置的 todo.txt 格式的文件， &gt;笔记簿/todo.txt&lt;，您可以在设置中设置一个自定义文件路径。</string>
+    <string name="favourite">收藏</string>
 </resources>

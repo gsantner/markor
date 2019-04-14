@@ -268,4 +268,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>
     <string name="swipe_to_change_mode_to_other">Смахните, чтобы изменить режим редактирования или представления, напротив текущего режима</string>
+    <string name="favourite">Избранное</string>
 </resources>
