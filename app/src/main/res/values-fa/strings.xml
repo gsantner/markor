@@ -66,15 +66,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar_at_this_view">پنهان کردن نوار وضعیت در این نما</string>
     <string name="hide_statusbar">مخفی کردن نوار وضعیت</string>
     <string name="name">نام</string>
-    <string name="url_or_path">آدرس / مسیر</string>
+    <string name="url_or_path">آدرس(URL) / مسیر</string>
     <string name="insert_link">وارد کردن لینک</string>
     <string name="insert_image">وارد کردن تصویر</string>
     <string name="contributors">همکاران</string>
+    <string name="save_location">ذخیره مکان</string>
     <string name="select_storage_folder">انتخاب پوشه محل ذخیره</string>
     <string name="licenses">مجوزها</string>
     <string name="changelog">لاگ تغییرات</string>
     <string name="more_info">اطلاعات بیشتر</string>
     <string name="show_license_of_the_app">نمایش مجوز این برنامه</string>
+    <string name="show_third_party_licenses">نمایش مجوزهای شخص ثالث</string>
     <string name="language_change_restart_description">تغییر زبان برنامه. لازم است برنامه را از نو اجرا کنید تا تغییرات را ببینید</string>
     <string name="language">زبان</string>
     <string name="error_need_storage_permission_to_save_documents">برای ذخیره پرونده‌ها دسترسی به محل ذخیره‌سازی نیاز است</string>
@@ -89,6 +91,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_page">صفحه پروژه</string>
     <string name="press_back_again_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
     <string name="exit">خروج</string>
+    <string name="undo">عقبگرد</string>
+    <string name="redo">انجام مجدد</string>
     <string name="more">بیشتر</string>
     <string name="notebook">دفترچه</string>
     <string name="help">راهنما</string>
