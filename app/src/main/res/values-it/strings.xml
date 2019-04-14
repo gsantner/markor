@@ -288,4 +288,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Modalità modifica</string>
     <string name="mount_storage">Monta spazio di archiviazione</string>
     <string name="application_needs_access_to_storage_mount_it">È richiesto un permesso per accedere a questo spazio di archiviazione. Monta lo spazio per dare l\'accesso, quindi dai conferma per far comparire una finestra popup. A questo punto seleziona lo spazio di archiviazione e premi \"Seleziona\".</string>
+    <string name="share_into">Condividi con</string>
 </resources>
