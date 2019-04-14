@@ -274,4 +274,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Dados do aplicativo (privado)</string>
     <string name="appdata_sdcard">Dados do aplicativo (cartão SD)</string>
     <string name="internal_storage">Armazenamento interno</string>
+    <string name="favourite">Favorito</string>
 </resources>
