@@ -288,4 +288,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Modo de edição</string>
     <string name="mount_storage">Montar armazenamento</string>
     <string name="application_needs_access_to_storage_mount_it">Permissão é necessária para acessar este armazenamento. Monte o armazenamento para dar acesso. Confirme esta caixa de diálogo para obter um popup. Selecione o armazenamento lá e pressione selecionar.</string>
+    <string name="favourite">Favorito</string>
 </resources>
