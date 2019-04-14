@@ -243,4 +243,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">التاريخ فقط</string>
     <string name="last_used">آخر استخدام</string>
     <string name="my_note">ملاحظات</string>
+    <string name="favourite">المفضلة</string>
 </resources>
