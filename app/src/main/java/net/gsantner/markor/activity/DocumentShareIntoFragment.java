@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -38,7 +38,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
 
@@ -209,18 +209,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         private void showAppendDialog() {
-            FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+            FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                     opt.rootFolder = AppSettings.get().getNotebookDirectory();
                 }
 
                 @Override
-                public void onFsSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file) {
                     appendToExistingDocument(file, SEP_RULER, true);
                 }
 
-            }, getFragmentManager(), getActivity(), FilesystemDialogCreator.IsMimeText);
+            }, getFragmentManager(), getActivity(), FilesystemViewerFactory.IsMimeText);
         }
 
 

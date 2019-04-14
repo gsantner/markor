@@ -20,8 +20,8 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemDialogAdapter;
-import net.gsantner.opoc.ui.FilesystemFragment;
+import net.gsantner.opoc.ui.FilesystemViewerAdapter;
+import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -216,7 +216,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, FilesystemFragment.SORT_BY_NAME);
+        return getInt(R.string.pref_key__sort_method, FilesystemViewerFragment.SORT_BY_NAME);
     }
 
     public void setSortReverse(boolean value) {
@@ -299,7 +299,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         List<String> list = new ArrayList<>();
         List<File> favourites = getFavouriteFiles();
         for (File f : favourites) {
-            if (f != null && (f.exists() || FilesystemDialogAdapter.isVirtualStorage(f))) {
+            if (f != null && (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f))) {
                 list.add(f.getAbsolutePath());
             }
         }
@@ -383,7 +383,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         ArrayList<File> list = new ArrayList<>();
         for (String fp : getStringList(R.string.pref_key__favourite_files)) {
             File f = new File(fp);
-            if (f.exists() || FilesystemDialogAdapter.isVirtualStorage(f)) {
+            if (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f)) {
                 list.add(f);
             }
         }

@@ -17,18 +17,18 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.FilesystemDialog;
-import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemViewerDialog;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
 import java.util.List;
 
-public class FilesystemDialogCreator {
+public class FilesystemViewerFactory {
     public static Function<File, Boolean> IsMimeText = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("text/");
     public static Function<File, Boolean> IsMimeImage = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("image/");
 
-    public static FilesystemDialogData.Options prepareFsDialogOpts(Context context, boolean doSelectFolder, FilesystemDialogData.SelectionListener listener) {
-        FilesystemDialogData.Options opts = new FilesystemDialogData.Options();
+    public static FilesystemViewerData.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, FilesystemViewerData.SelectionListener listener) {
+        FilesystemViewerData.Options opts = new FilesystemViewerData.Options();
         ContextUtils cu = new ContextUtils(context);
         ShareUtil shareUtil = new ShareUtil(context);
         AppSettings appSettings = new AppSettings(context);
@@ -90,19 +90,19 @@ public class FilesystemDialogCreator {
         return files;
     }
 
-    private static void showDialog(FragmentManager fm, FilesystemDialogData.Options opts) {
-        FilesystemDialog filesystemDialog = FilesystemDialog.newInstance(opts);
-        filesystemDialog.show(fm, FilesystemDialog.FRAGMENT_TAG);
+    private static void showDialog(FragmentManager fm, FilesystemViewerData.Options opts) {
+        FilesystemViewerDialog filesystemViewerDialog = FilesystemViewerDialog.newInstance(opts);
+        filesystemViewerDialog.show(fm, FilesystemViewerDialog.FRAGMENT_TAG);
     }
 
-    public static void showFileDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context, Function<File, Boolean> fileOverallFilter) {
-        final FilesystemDialogData.Options opts = prepareFsDialogOpts(context, false, listener);
+    public static void showFileDialog(FilesystemViewerData.SelectionListener listener, FragmentManager fm, Context context, Function<File, Boolean> fileOverallFilter) {
+        final FilesystemViewerData.Options opts = prepareFsViewerOpts(context, false, listener);
         opts.fileOverallFilter = fileOverallFilter;
         showDialog(fm, opts);
     }
 
-    public static void showFolderDialog(FilesystemDialogData.SelectionListener listener, FragmentManager fm, Context context) {
-        final FilesystemDialogData.Options opts = prepareFsDialogOpts(context, true, listener);
+    public static void showFolderDialog(FilesystemViewerData.SelectionListener listener, FragmentManager fm, Context context) {
+        final FilesystemViewerData.Options opts = prepareFsViewerOpts(context, true, listener);
         opts.okButtonText = R.string.select_this_folder;
         showDialog(fm, opts);
     }

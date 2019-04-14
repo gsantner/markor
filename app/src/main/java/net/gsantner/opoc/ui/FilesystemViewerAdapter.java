@@ -47,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDialogAdapter.UiFilesystemDialogViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
+public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
     //########################
     //## Static
     //########################
@@ -63,7 +63,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //########################
     //## Members
     //########################
-    private final FilesystemDialogData.Options _dopt;
+    private final FilesystemViewerData.Options _dopt;
     private final List<File> _adapterData; // List of current folder
     private final List<File> _adapterDataFiltered; // Filtered list of current folder
     private final Set<File> _currentSelection;
@@ -78,11 +78,11 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //## Methods
     //########################
 
-    public FilesystemDialogAdapter(FilesystemDialogData.Options options, Context context) {
+    public FilesystemViewerAdapter(FilesystemViewerData.Options options, Context context) {
         this(options, context, null);
     }
 
-    public FilesystemDialogAdapter(FilesystemDialogData.Options options, Context context, RecyclerView recyclerView) {
+    public FilesystemViewerAdapter(FilesystemViewerData.Options options, Context context, RecyclerView recyclerView) {
         _dopt = options;
         _adapterData = new ArrayList<>();
         _adapterDataFiltered = new ArrayList<>();
@@ -94,10 +94,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
     @NonNull
     @Override
-    public UiFilesystemDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ilesystemViewerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.opoc_filesystem_item, parent, false);
         _wasInit = true;
-        return new UiFilesystemDialogViewHolder(v);
+        return new ilesystemViewerViewHolder(v);
     }
 
     public boolean isCurrentFolderEmpty() {
@@ -109,7 +109,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UiFilesystemDialogViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ilesystemViewerViewHolder holder, int position) {
         File file_pre = _adapterDataFiltered.get(position);
         File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         String filename = file_pre.getName();
@@ -210,7 +210,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
     public void reconfigure() {
         if (_dopt.listener != null) {
-            _dopt.listener.onFsDialogConfig(_dopt);
+            _dopt.listener.onFsViewerConfig(_dopt);
             reloadCurrentFolder();
         }
     }
@@ -268,7 +268,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         if (file.isDirectory()) {
                             loadFolder(file);
                         } else if (file.isFile()) {
-                            _dopt.listener.onFsSelected(_dopt.requestId, file);
+                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file);
                         } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
                             loadFolder(file);
                         }
@@ -283,10 +283,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             }
             case R.id.ui__filesystem_dialog__button_ok: {
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
-                    _dopt.listener.onFsMultiSelected(_dopt.requestId,
+                    _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
                 } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR) || _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE))) {
-                    _dopt.listener.onFsSelected(_dopt.requestId, _currentFolder);
+                    _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder);
                 }
                 return;
             }
@@ -308,7 +308,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                 notifyItemChanged(data.position);
             }
         }
-        _dopt.listener.onFsDoUiUpdate(this);
+        _dopt.listener.onFsViewerDoUiUpdate(this);
     }
 
     public boolean areItemsSelected() {
@@ -344,7 +344,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         }
 
         notifyItemChanged(data.position);
-        _dopt.listener.onFsDoUiUpdate(this);
+        _dopt.listener.onFsViewerDoUiUpdate(this);
         return clickHandled;
     }
 
@@ -374,7 +374,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
             case R.id.ui__filesystem_item__root: {
                 TagContainer data = (TagContainer) view.getTag();
                 toggleSelection(data);
-                _dopt.listener.onFsLongPressed(data.file, _dopt.doSelectMultiple);
+                _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
                 return true;
             }
         }
@@ -397,7 +397,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     File[] files = null;
 
                     if (_currentFolder.isDirectory()) {
-                        files = _currentFolder.listFiles(FilesystemDialogAdapter.this);
+                        files = _currentFolder.listFiles(FilesystemViewerAdapter.this);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
                         files = _dopt.recentFiles;
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
@@ -468,7 +468,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         }
                     }
 
-                    Collections.sort(_adapterData, FilesystemDialogAdapter.this);
+                    Collections.sort(_adapterData, FilesystemViewerAdapter.this);
 
                     if (canGoUp(_currentFolder)) {
                         _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
@@ -478,7 +478,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         _filter.filter(_filter._lastFilter);
                         notifyDataSetChanged();
                         if (_dopt.listener != null) {
-                            _dopt.listener.onFsDoUiUpdate(FilesystemDialogAdapter.this);
+                            _dopt.listener.onFsViewerDoUiUpdate(FilesystemViewerAdapter.this);
                         }
                     });
                 }
@@ -502,7 +502,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return f.isDirectory() || (!f.isDirectory() && _dopt.doSelectFile && yes);
     }
 
-    public FilesystemDialogData.Options getFsOptions() {
+    public FilesystemViewerData.Options getFsOptions() {
         return _dopt;
     }
 
@@ -545,12 +545,12 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 //##
 //########################
     private static class StringFilter extends Filter {
-        private FilesystemDialogAdapter _adapter;
+        private FilesystemViewerAdapter _adapter;
         private final List<File> _originalList;
         private final List<File> _filteredList;
         public CharSequence _lastFilter = "";
 
-        private StringFilter(FilesystemDialogAdapter adapter, List<File> adapterData) {
+        private StringFilter(FilesystemViewerAdapter adapter, List<File> adapterData) {
             super();
             _adapter = adapter;
             _originalList = adapterData;
@@ -589,7 +589,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     }
 
     @SuppressWarnings({"WeakerAccess", "unused"})
-    static class UiFilesystemDialogViewHolder extends RecyclerView.ViewHolder {
+    static class ilesystemViewerViewHolder extends RecyclerView.ViewHolder {
         //########################
         //## UI Binding
         //########################
@@ -605,7 +605,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         //########################
         //## Methods
         //########################
-        UiFilesystemDialogViewHolder(View row) {
+        ilesystemViewerViewHolder(View row) {
             super(row);
             ButterKnife.bind(this, row);
         }

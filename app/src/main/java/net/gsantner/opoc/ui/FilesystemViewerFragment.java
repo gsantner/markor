@@ -9,9 +9,9 @@
  *
 #########################################################*/
 /*
- * Revision 001 of FilesystemDialogCreator
+ * Revision 001 of FilesystemViewerFactory
  * A simple filesystem dialog with file, folder and multiple selection
- * most bits (color, text, images) can be controller using FilesystemDialogData.
+ * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
  * Most features are usable without any additional project files and resources
  *
@@ -40,7 +40,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.ui.FileInfoDialog;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -61,20 +61,20 @@ import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
 
-public class FilesystemFragment extends GsFragmentBase
-        implements FilesystemDialogData.SelectionListener {
+public class FilesystemViewerFragment extends GsFragmentBase
+        implements FilesystemViewerData.SelectionListener {
     //########################
     //## Static
     //########################
-    public static final String FRAGMENT_TAG = "FilesystemFragment";
+    public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
     public static final int SORT_BY_DATE = 0;
     public static final int SORT_BY_NAME = 1;
     public static final int SORT_BY_FILESIZE = 2;
 
-    public static FilesystemFragment newInstance(FilesystemDialogData.Options options) {
-        FilesystemFragment f = new FilesystemFragment();
-        options.listener.onFsDialogConfig(options);
+    public static FilesystemViewerFragment newInstance(FilesystemViewerData.Options options) {
+        FilesystemViewerFragment f = new FilesystemViewerFragment();
+        options.listener.onFsViewerConfig(options);
         return f;
     }
 
@@ -90,9 +90,9 @@ public class FilesystemFragment extends GsFragmentBase
     @BindView(R.id.empty_hint)
     public TextView _emptyHint;
 
-    private FilesystemDialogAdapter _filesystemDialogAdapter;
-    private FilesystemDialogData.Options _dopt;
-    private FilesystemDialogData.SelectionListener _callback;
+    private FilesystemViewerAdapter _filesystemViewerAdapter;
+    private FilesystemViewerData.Options _dopt;
+    private FilesystemViewerData.SelectionListener _callback;
     private boolean firstResume = true;
     private AppSettings _appSettings;
     private ContextUtils _contextUtils;
@@ -104,7 +104,7 @@ public class FilesystemFragment extends GsFragmentBase
     //########################
 
     public interface FilesystemFragmentOptionsListener {
-        FilesystemDialogData.Options getFilesystemFragmentOptions(FilesystemDialogData.Options existingOptions);
+        FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions);
     }
 
     @Override
@@ -126,23 +126,23 @@ public class FilesystemFragment extends GsFragmentBase
         _recyclerList.addItemDecoration(dividerItemDecoration);
         _previousNotebookDirectory = _appSettings.getNotebookDirectoryAsStr();
 
-        _filesystemDialogAdapter = new FilesystemDialogAdapter(_dopt, context, _recyclerList);
-        _recyclerList.setAdapter(_filesystemDialogAdapter);
-        _filesystemDialogAdapter.getFilter().filter("");
-        onFsDoUiUpdate(_filesystemDialogAdapter);
+        _filesystemViewerAdapter = new FilesystemViewerAdapter(_dopt, context, _recyclerList);
+        _recyclerList.setAdapter(_filesystemViewerAdapter);
+        _filesystemViewerAdapter.getFilter().filter("");
+        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         swipe.setOnRefreshListener(() -> {
-            _filesystemDialogAdapter.reloadCurrentFolder();
+            _filesystemViewerAdapter.reloadCurrentFolder();
             swipe.setRefreshing(false);
         });
 
-        _filesystemDialogAdapter.restoreSavedInstanceState(savedInstanceState);
+        _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
 
     @Override
     public String getFragmentTag() {
-        return "FilesystemFragment";
+        return "FilesystemViewerFragment";
     }
 
     @Override
@@ -150,7 +150,7 @@ public class FilesystemFragment extends GsFragmentBase
         return R.layout.opoc_filesystem_fragment;
     }
 
-    private void setDialogOptions(FilesystemDialogData.Options options) {
+    private void setDialogOptions(FilesystemViewerData.Options options) {
         _dopt = options;
         _callback = _dopt.listener;
         _dopt.listener = this;
@@ -161,11 +161,11 @@ public class FilesystemFragment extends GsFragmentBase
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:
             case R.id.ui__filesystem_dialog__home: {
-                _filesystemDialogAdapter.onClick(view);
+                _filesystemViewerAdapter.onClick(view);
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsNothingSelected(_dopt.requestId);
+                onFsViewerNothingSelected(_dopt.requestId);
                 break;
             }
 
@@ -179,37 +179,37 @@ public class FilesystemFragment extends GsFragmentBase
     }
 
     @Override
-    public void onFsSelected(String request, File file) {
+    public void onFsViewerSelected(String request, File file) {
         if (_callback != null) {
-            _callback.onFsSelected(_dopt.requestId, file);
+            _callback.onFsViewerSelected(_dopt.requestId, file);
         }
     }
 
     @Override
-    public void onFsMultiSelected(String request, File... files) {
+    public void onFsViewerMultiSelected(String request, File... files) {
         if (_callback != null) {
-            _callback.onFsMultiSelected(_dopt.requestId, files);
+            _callback.onFsViewerMultiSelected(_dopt.requestId, files);
         }
     }
 
     @Override
-    public void onFsNothingSelected(String request) {
+    public void onFsViewerNothingSelected(String request) {
         if (_callback != null) {
-            _callback.onFsNothingSelected(_dopt.requestId);
+            _callback.onFsViewerNothingSelected(_dopt.requestId);
         }
     }
 
     @Override
-    public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+    public void onFsViewerConfig(FilesystemViewerData.Options opt) {
         if (_callback != null) {
-            _callback.onFsDialogConfig(opt);
+            _callback.onFsViewerConfig(opt);
         }
     }
 
     @Override
-    public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+    public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
         if (_callback != null) {
-            _callback.onFsDoUiUpdate(adapter);
+            _callback.onFsViewerDoUiUpdate(adapter);
         }
 
         updateMenuItems();
@@ -218,9 +218,9 @@ public class FilesystemFragment extends GsFragmentBase
     }
 
     private void updateMenuItems() {
-        boolean multi1 = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() == 1;
-        boolean multiMore = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() > 1;
-        Set<File> selectedFiles = _filesystemDialogAdapter.getCurrentSelection();
+        boolean multi1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
+        boolean multiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
+        Set<File> selectedFiles = _filesystemViewerAdapter.getCurrentSelection();
 
         // Check if is a favourite
         boolean isFavourite = false;
@@ -238,44 +238,44 @@ public class FilesystemFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
-            _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemDialogAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemDialogAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemDialogAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemDialogAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(multi1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(multi1 && isFavourite);
         }
     }
 
     @Override
-    public void onFsLongPressed(File file, boolean doSelectMultiple) {
+    public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
         if (_callback != null) {
-            _callback.onFsLongPressed(file, doSelectMultiple);
+            _callback.onFsViewerItemLongPressed(file, doSelectMultiple);
         }
     }
 
     @Override
     public boolean onBackPressed() {
-        if (_filesystemDialogAdapter.canGoUp() && !_filesystemDialogAdapter.isCurrentFolderHome()) {
-            _filesystemDialogAdapter.goUp();
+        if (_filesystemViewerAdapter.canGoUp() && !_filesystemViewerAdapter.isCurrentFolderHome()) {
+            _filesystemViewerAdapter.goUp();
             return true;
         }
         return super.onBackPressed();
     }
 
     public void reloadCurrentFolder() {
-        _filesystemDialogAdapter.unselectAll();
-        _filesystemDialogAdapter.reloadCurrentFolder();
-        onFsDoUiUpdate(_filesystemDialogAdapter);
+        _filesystemViewerAdapter.unselectAll();
+        _filesystemViewerAdapter.reloadCurrentFolder();
+        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
     }
 
     public File getCurrentFolder() {
-        return _filesystemDialogAdapter.getCurrentFolder();
+        return _filesystemViewerAdapter.getCurrentFolder();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState = _filesystemDialogAdapter.saveInstanceState(outState);
+        outState = _filesystemViewerAdapter.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -286,16 +286,16 @@ public class FilesystemFragment extends GsFragmentBase
         super.onResume();
         if (!_appSettings.getNotebookDirectoryAsStr().equals(_previousNotebookDirectory)) {
             _dopt.rootFolder = _appSettings.getNotebookDirectory();
-            _filesystemDialogAdapter.setCurrentFolder(_dopt.rootFolder, false);
+            _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder, false);
         }
 
         if (!firstResume) {
-            if (_filesystemDialogAdapter.getCurrentFolder() != null) {
-                _filesystemDialogAdapter.reloadCurrentFolder();
+            if (_filesystemViewerAdapter.getCurrentFolder() != null) {
+                _filesystemViewerAdapter.reloadCurrentFolder();
             }
         }
 
-        onFsDoUiUpdate(_filesystemDialogAdapter);
+        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
         firstResume = false;
     }
 
@@ -324,8 +324,8 @@ public class FilesystemFragment extends GsFragmentBase
         updateMenuItems();
     }
 
-    public FilesystemDialogAdapter getAdapter() {
-        return _filesystemDialogAdapter;
+    public FilesystemViewerAdapter getAdapter() {
+        return _filesystemViewerAdapter;
     }
 
     @Override
@@ -366,7 +366,7 @@ public class FilesystemFragment extends GsFragmentBase
             case R.id.action_folder_first: {
                 item.setChecked(!item.isChecked());
                 _appSettings.setFilesystemListFolderFirst(item.isChecked());
-                _filesystemDialogAdapter.reloadCurrentFolder();
+                _filesystemViewerAdapter.reloadCurrentFolder();
                 sortAdapter();
                 return true;
             }
@@ -375,15 +375,15 @@ public class FilesystemFragment extends GsFragmentBase
                 break;
             }
             case R.id.action_go_to_popular_files: {
-                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR;
+                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
                 break;
             }
             case R.id.action_go_to_recent_files: {
-                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS;
+                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
                 break;
             }
             case R.id.action_go_to_favourite_files: {
-                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
                 break;
             }
             case R.id.action_go_to_appdata_private: {
@@ -415,8 +415,8 @@ public class FilesystemFragment extends GsFragmentBase
             }
             case R.id.action_favourite:
             case R.id.action_favourite_remove: {
-                if (_filesystemDialogAdapter.areItemsSelected()) {
-                    _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection()).get(0));
+                if (_filesystemViewerAdapter.areItemsSelected()) {
+                    _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0));
                     _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
                     updateMenuItems();
                 }
@@ -426,10 +426,10 @@ public class FilesystemFragment extends GsFragmentBase
                 askForDeletingFilesRecursive((confirmed, data) -> {
                     if (confirmed) {
                         Runnable deleter = () -> {
-                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemDialogAdapter.getCurrentSelection(), getContext());
+                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemViewerAdapter.getCurrentSelection(), getContext());
                             _recyclerList.post(() -> {
-                                _filesystemDialogAdapter.unselectAll();
-                                _filesystemDialogAdapter.reloadCurrentFolder();
+                                _filesystemViewerAdapter.unselectAll();
+                                _filesystemViewerAdapter.reloadCurrentFolder();
                             });
                         };
                         new Thread(deleter).start();
@@ -444,16 +444,16 @@ public class FilesystemFragment extends GsFragmentBase
             }
 
             case R.id.action_info_selected_item: {
-                if (_filesystemDialogAdapter.areItemsSelected()) {
-                    File file = new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection()).get(0);
+                if (_filesystemViewerAdapter.areItemsSelected()) {
+                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     FileInfoDialog.show(file, getFragmentManager());
                 }
                 return true;
             }
 
             case R.id.action_rename_selected_item: {
-                if (_filesystemDialogAdapter.areItemsSelected()) {
-                    File file = new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection()).get(0);
+                if (_filesystemViewerAdapter.areItemsSelected()) {
+                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
                     renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
                 }
@@ -462,7 +462,7 @@ public class FilesystemFragment extends GsFragmentBase
         }
 
         if (folderToLoad != null) {
-            _filesystemDialogAdapter.setCurrentFolder(folderToLoad, true);
+            _filesystemViewerAdapter.setCurrentFolder(folderToLoad, true);
             Toast.makeText(getContext(), folderToLoad.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -522,13 +522,13 @@ public class FilesystemFragment extends GsFragmentBase
 
 
     public void clearSelection() {
-        _filesystemDialogAdapter.unselectAll();
+        _filesystemViewerAdapter.unselectAll();
     }
 
 
     ///////////////
     public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
-        final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection());
+        final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         String message = String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n";
 
         for (File f : itemsToDelete) {
@@ -540,16 +540,16 @@ public class FilesystemFragment extends GsFragmentBase
     }
 
     private void askForMove() {
-        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection());
-        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
+        FilesystemViewerFactory.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsSelected(String request, File file) {
-                super.onFsSelected(request, file);
+            public void onFsViewerSelected(String request, File file) {
+                super.onFsViewerSelected(request, file);
                 WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
             }
 
             @Override
-            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                 opt.titleText = R.string.move;
                 opt.rootFolder = _appSettings.getNotebookDirectory();
             }
@@ -557,15 +557,15 @@ public class FilesystemFragment extends GsFragmentBase
     }
 
     private void showImportDialog() {
-        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsSelected(String request, File file) {
+            public void onFsViewerSelected(String request, File file) {
                 importFile(file);
                 reloadCurrentFolder();
             }
 
             @Override
-            public void onFsMultiSelected(String request, File... files) {
+            public void onFsViewerMultiSelected(String request, File... files) {
                 for (File file : files) {
                     importFile(file);
                 }
@@ -573,7 +573,7 @@ public class FilesystemFragment extends GsFragmentBase
             }
 
             @Override
-            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                 opt.titleText = R.string.import_from_device;
                 opt.doSelectMultiple = true;
                 opt.doSelectFile = true;

@@ -26,11 +26,11 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -395,9 +395,9 @@ public class MarkdownTextActions extends TextActions {
         }
 
         // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
-        final FilesystemDialogData.SelectionListener fsListener = new FilesystemDialogData.SelectionListenerAdapter() {
+        final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsSelected(final String request, final File file) {
+            public void onFsViewerSelected(final String request, final File file) {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 if (file.getAbsolutePath().startsWith(saveDir) && _document.getFile().getAbsolutePath().startsWith(saveDir)) {
@@ -410,7 +410,7 @@ public class MarkdownTextActions extends TextActions {
                             .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
                                         File targetCopy = new File(_document.getFile().getParentFile(), file.getName());
                                         if (FileUtils.copyFile(file, targetCopy)) {
-                                            onFsSelected(request, targetCopy);
+                                            onFsViewerSelected(request, targetCopy);
                                         }
                                     }
                             ).create().show();
@@ -429,7 +429,7 @@ public class MarkdownTextActions extends TextActions {
             }
 
             @Override
-            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                 if (_document != null && _document.getFile() != null) {
                     opt.rootFolder = _document.getFile().getParentFile();
                 }
@@ -439,7 +439,7 @@ public class MarkdownTextActions extends TextActions {
         // Request camera / gallery picture button handling
         ShareUtil shu = new ShareUtil(_activity);
         final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
-                    fsListener.onFsSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
+                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
                 },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
         File targetFolder = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
@@ -449,8 +449,8 @@ public class MarkdownTextActions extends TextActions {
         buttonBrowseFs.setOnClickListener(button -> {
             if (getActivity() instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) getActivity();
-                Function<File, Boolean> f = action == 3 ? null : FilesystemDialogCreator.IsMimeImage;
-                FilesystemDialogCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), _context, f);
+                Function<File, Boolean> f = action == 3 ? null : FilesystemViewerFactory.IsMimeImage;
+                FilesystemViewerFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), _context, f);
             }
         });
 

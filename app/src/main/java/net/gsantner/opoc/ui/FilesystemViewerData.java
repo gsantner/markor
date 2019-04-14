@@ -24,19 +24,19 @@ import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class FilesystemDialogData {
+public class FilesystemViewerData {
     public interface SelectionListener extends Serializable {
-        void onFsSelected(String request, File file);
+        void onFsViewerSelected(String request, File file);
 
-        void onFsMultiSelected(String request, File... files);
+        void onFsViewerMultiSelected(final String request, File... files);
 
-        void onFsNothingSelected(String request);
+        void onFsViewerNothingSelected(final String request);
 
-        void onFsDialogConfig(final Options opt);
+        void onFsViewerConfig(final Options opt);
 
-        void onFsDoUiUpdate(final FilesystemDialogAdapter adapter);
+        void onFsViewerDoUiUpdate(final FilesystemViewerAdapter adapter);
 
-        void onFsLongPressed(File file, boolean doSelectMultiple);
+        void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
     }
 
     public static class Options implements Serializable {
@@ -109,29 +109,29 @@ public class FilesystemDialogData {
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
         @Override
-        public void onFsSelected(String request, File file) {
+        public void onFsViewerSelected(String request, File file) {
         }
 
         @Override
-        public void onFsMultiSelected(String request, File... files) {
+        public void onFsViewerMultiSelected(String request, File... files) {
         }
 
         @Override
-        public void onFsNothingSelected(String request) {
+        public void onFsViewerNothingSelected(String request) {
         }
 
         @Override
-        public void onFsDialogConfig(Options opt) {
-
-        }
-
-        @Override
-        public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+        public void onFsViewerConfig(Options opt) {
 
         }
 
         @Override
-        public void onFsLongPressed(File file, boolean doSelectMultiple) {
+        public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
+
+        }
+
+        @Override
+        public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
 
         }
     }

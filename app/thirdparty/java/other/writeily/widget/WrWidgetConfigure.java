@@ -19,10 +19,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
 
@@ -44,19 +44,19 @@ public class WrWidgetConfigure extends AppCompatActivity {
         PermissionChecker permc = new PermissionChecker(this);
         if (permc.mkdirIfStoragePermissionGranted()) {
             FragmentManager fragManager = getSupportFragmentManager();
-            FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+            FilesystemViewerFactory.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file) {
                     complete(file.getAbsolutePath());
                 }
 
                 @Override
-                public void onFsNothingSelected(String request) {
+                public void onFsViewerNothingSelected(String request) {
                     finish();
                 }
 
                 @Override
-                public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                     opt.titleText = R.string.select_folder;
                     opt.rootFolder = AppSettings.get().getNotebookDirectory();
                 }

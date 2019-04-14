@@ -17,11 +17,11 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
-import net.gsantner.opoc.ui.FilesystemDialogAdapter;
-import net.gsantner.opoc.ui.FilesystemFragment;
+import net.gsantner.opoc.ui.FilesystemViewerAdapter;
+import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,19 +54,19 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file ->
                 !file.isDirectory() && MarkdownTextConverter.isTextOrMarkdownFile(file)
         );
-        if (_dir != null && _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS)) {
-            _widgetFilesList = FilesystemDialogCreator.strlistToArray(AppSettings.get().getRecentDocuments());
+        if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
+            _widgetFilesList = FilesystemViewerFactory.strlistToArray(AppSettings.get().getRecentDocuments());
         }
-        if (_dir != null && _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR)) {
-            _widgetFilesList = FilesystemDialogCreator.strlistToArray(AppSettings.get().getPopularDocuments());
+        if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
+            _widgetFilesList = FilesystemViewerFactory.strlistToArray(AppSettings.get().getPopularDocuments());
         }
         ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
 
         //noinspection StatementWithEmptyBody
-        if (_dir != null && (_dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_POPULAR))) {
+        if (_dir != null && (_dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR))) {
             // nothing to do
         } else {
-            FilesystemFragment.sortFolder(files);
+            FilesystemViewerFragment.sortFolder(files);
         }
         _widgetFilesList = files.toArray(new File[files.size()]);
     }

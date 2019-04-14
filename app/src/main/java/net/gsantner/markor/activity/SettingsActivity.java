@@ -27,7 +27,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenEditorLinkBoxActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
-import net.gsantner.markor.ui.FilesystemDialogCreator;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -35,7 +35,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemDialogData;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
 
@@ -221,9 +221,9 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__notebook_directory: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemDialogCreator.showFolderDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                        FilesystemViewerFactory.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file) {
                                 AppSettings as = AppSettings.get();
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
@@ -232,7 +232,7 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                                 opt.titleText = R.string.select_storage_folder;
                                 if (!permc.mkdirIfStoragePermissionGranted()) {
                                     opt.rootFolder = Environment.getExternalStorageDirectory();
@@ -245,9 +245,9 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__quicknote_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file) {
                                 AppSettings as = AppSettings.get();
                                 as.setQuickNoteFile(file);
                                 as.setRecreateMainRequired(true);
@@ -255,20 +255,20 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                                 opt.titleText = R.string.quicknote;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
+                        }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
                     }
                     return true;
                 }
                 case R.string.pref_key__todo_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file) {
                                 AppSettings as = AppSettings.get();
                                 as.setTodoFile(file);
                                 as.setRecreateMainRequired(true);
@@ -276,20 +276,20 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                                 opt.titleText = R.string.todo;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
+                        }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
                     }
                     return true;
                 }
                 case R.string.pref_key__linkbox_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemDialogCreator.showFileDialog(new FilesystemDialogData.SelectionListenerAdapter() {
+                        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file) {
                                 AppSettings as = AppSettings.get();
                                 as.setLinkBoxFile(file);
                                 as.setRecreateMainRequired(true);
@@ -297,11 +297,11 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                                 opt.titleText = R.string.linkbox;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
-                        }, fragManager, getActivity(), FilesystemDialogCreator.IsMimeText);
+                        }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
                     }
                     return true;
                 }

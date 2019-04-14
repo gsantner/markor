@@ -9,9 +9,9 @@
  *
 #########################################################*/
 /*
- * Revision 001 of FilesystemDialogCreator
+ * Revision 001 of FilesystemViewerFactory
  * A simple filesystem dialog with file, folder and multiple selection
- * most bits (color, text, images) can be controller using FilesystemDialogData.
+ * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
  * Most features are usable without any additional project files and resources
  *
@@ -47,17 +47,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class FilesystemDialog extends DialogFragment
-        implements FilesystemDialogData.SelectionListener {
+public class FilesystemViewerDialog extends DialogFragment
+        implements FilesystemViewerData.SelectionListener {
     //########################
     //## Static
     //########################
-    public static final String FRAGMENT_TAG = "FilesystemDialogCreator";
+    public static final String FRAGMENT_TAG = "FilesystemViewerFactory";
 
-    public static FilesystemDialog newInstance(FilesystemDialogData.Options options) {
-        FilesystemDialog f = new FilesystemDialog();
+    public static FilesystemViewerDialog newInstance(FilesystemViewerData.Options options) {
+        FilesystemViewerDialog f = new FilesystemViewerDialog();
         f.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-        options.listener.onFsDialogConfig(options);
+        options.listener.onFsViewerConfig(options);
         f.setDialogOptions(options);
         return f;
     }
@@ -92,9 +92,9 @@ public class FilesystemDialog extends DialogFragment
     @BindView(R.id.ui__filesystem_dialog__search_edit)
     EditText _searchEdit;
 
-    private FilesystemDialogAdapter _filesystemDialogAdapter;
-    private FilesystemDialogData.Options _dopt;
-    private FilesystemDialogData.SelectionListener _callback;
+    private FilesystemViewerAdapter _filesystemViewerAdapter;
+    private FilesystemViewerData.Options _dopt;
+    private FilesystemViewerData.SelectionListener _callback;
 
     //########################
     //## Methods
@@ -157,17 +157,17 @@ public class FilesystemDialog extends DialogFragment
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
-        _filesystemDialogAdapter = new FilesystemDialogAdapter(_dopt, context);
-        _recyclerList.setAdapter(_filesystemDialogAdapter);
-        _filesystemDialogAdapter.getFilter().filter("");
-        onFsDoUiUpdate(_filesystemDialogAdapter);
+        _filesystemViewerAdapter = new FilesystemViewerAdapter(_dopt, context);
+        _recyclerList.setAdapter(_filesystemViewerAdapter);
+        _filesystemViewerAdapter.getFilter().filter("");
+        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
     }
 
     private int rcolor(@ColorRes int colorRes) {
         return ContextCompat.getColor(getActivity(), colorRes);
     }
 
-    private void setDialogOptions(FilesystemDialogData.Options options) {
+    private void setDialogOptions(FilesystemViewerData.Options options) {
         _dopt = options;
         _callback = _dopt.listener;
         _dopt.listener = this;
@@ -176,8 +176,8 @@ public class FilesystemDialog extends DialogFragment
 
     @OnTextChanged(value = R.id.ui__filesystem_dialog__search_edit, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void changeAdapterFilter(CharSequence s, int start, int before, int count) {
-        if (_filesystemDialogAdapter != null) {
-            _filesystemDialogAdapter.getFilter().filter(s.toString());
+        if (_filesystemViewerAdapter != null) {
+            _filesystemViewerAdapter.getFilter().filter(s.toString());
         }
     }
 
@@ -186,7 +186,7 @@ public class FilesystemDialog extends DialogFragment
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:
             case R.id.ui__filesystem_dialog__home: {
-                _filesystemDialogAdapter.onClick(view);
+                _filesystemViewerAdapter.onClick(view);
                 break;
             }
             case R.id.ui__filesystem_dialog__search_button: {
@@ -198,7 +198,7 @@ public class FilesystemDialog extends DialogFragment
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsNothingSelected(_dopt.requestId);
+                onFsViewerNothingSelected(_dopt.requestId);
                 break;
             }
 
@@ -212,47 +212,47 @@ public class FilesystemDialog extends DialogFragment
     }
 
     @Override
-    public void onFsSelected(String request, File file) {
+    public void onFsViewerSelected(String request, File file) {
         if (_callback != null) {
-            _callback.onFsSelected(_dopt.requestId, file);
+            _callback.onFsViewerSelected(_dopt.requestId, file);
         }
         dismiss();
     }
 
     @Override
-    public void onFsMultiSelected(String request, File... files) {
+    public void onFsViewerMultiSelected(String request, File... files) {
         if (_callback != null) {
-            _callback.onFsMultiSelected(_dopt.requestId, files);
+            _callback.onFsViewerMultiSelected(_dopt.requestId, files);
         }
         dismiss();
     }
 
     @Override
-    public void onFsNothingSelected(String request) {
+    public void onFsViewerNothingSelected(String request) {
         if (_callback != null) {
-            _callback.onFsNothingSelected(_dopt.requestId);
+            _callback.onFsViewerNothingSelected(_dopt.requestId);
         }
         dismiss();
     }
 
     @Override
-    public void onFsDialogConfig(FilesystemDialogData.Options opt) {
+    public void onFsViewerConfig(FilesystemViewerData.Options opt) {
         if (_callback != null) {
-            _callback.onFsDialogConfig(opt);
+            _callback.onFsViewerConfig(opt);
         }
     }
 
     @Override
-    public void onFsDoUiUpdate(FilesystemDialogAdapter adapter) {
+    public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
         if (_dopt.doSelectMultiple && _dopt.doSelectFile) {
             _buttonOk.setVisibility(adapter.areItemsSelected() ? View.VISIBLE : View.GONE);
         }
     }
 
     @Override
-    public void onFsLongPressed(File file, boolean doSelectMultiple) {
+    public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
         if (_callback != null) {
-            _callback.onFsLongPressed(file, doSelectMultiple);
+            _callback.onFsViewerItemLongPressed(file, doSelectMultiple);
         }
     }
 }
