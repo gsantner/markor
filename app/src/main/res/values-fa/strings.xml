@@ -38,14 +38,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">به اشتراک‌گذاری با...</string>
     <string name="share">به اشتراک‌گذاری</string>
     <string name="search">جستجو</string>
-    <string name="representation">نمایندگی</string>
+    <string name="representation">ارائه</string>
+    <string name="display_converted_markup">نمایش کد های تغییر یافته</string>
     <string name="editor">ویرایش‌گر</string>
     <string name="folders">پوشه‌ها</string>
     <string name="files">فایل‌ها</string>
     <string name="document">پرونده</string>
     <string name="documents">پرونده‌ها</string>
+    <string name="html_as_plaintext">HTML (به عنوان متن ساده)</string>
     <string name="document_editor_font">قلم ویرایشگر پرونده</string>
     <string name="theme">پوسته</string>
+    <string name="show_representation_of_markup_by_default">نمایش فایل های نوشتاری در حالت (مد) ارائه، به صورت پیش فرض</string>
     <string name="about">درباره مارکور</string>
     <string name="plaintext">متن ساده</string>
     <string name="file">فایل</string>
@@ -57,9 +60,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">انتخاب این پوشه</string>
     <string name="select">انتخاب</string>
     <string name="create">ایجاد</string>
+    <string name="select_entries">ورودی ها را انتخاب کنید</string>
     <string name="one_item_selected">یک مورد انتخاب شده</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d مورد انتخاب شد</string>
+    <string name="hide_statusbar_at_this_view">پنهان کردن نوار وضعیت در این نما</string>
     <string name="hide_statusbar">مخفی کردن نوار وضعیت</string>
     <string name="name">نام</string>
+    <string name="url_or_path">آدرس / مسیر</string>
     <string name="insert_link">وارد کردن لینک</string>
     <string name="insert_image">وارد کردن تصویر</string>
     <string name="contributors">همکاران</string>
