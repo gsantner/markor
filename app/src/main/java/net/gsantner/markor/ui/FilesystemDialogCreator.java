@@ -71,6 +71,7 @@ public class FilesystemDialogCreator {
 
         opts.recentFiles = strlistToArray(appSettings.getRecentDocuments());
         opts.popularFiles = strlistToArray(appSettings.getPopularDocuments());
+        opts.favouriteFiles = appSettings.getFavouriteFiles();
 
         opts.titleText = R.string.select;
 

@@ -14,11 +14,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
+    <item
+        android:id="@+id/action_favourite"
+        android:icon="@drawable/ic_star_border_black_24dp"
+        android:title="@string/favourite"
+        android:visible="false"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_move_selected_items"
-        android:icon="@drawable/ic_gs_file_move_black_24dp"
-        android:title="@string/move"
+        android:id="@+id/action_favourite_remove"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="@string/favourite"
         android:visible="false"
         app:showAsAction="always" />
 
@@ -35,12 +41,21 @@
         android:title="@string/delete"
         android:visible="false"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/action_info_selected_item"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/details"
         android:visible="false"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_move_selected_items"
+        android:icon="@drawable/ic_gs_file_move_black_24dp"
+        android:title="@string/move"
+        android:visible="false"
+        app:showAsAction="never" />
+
 
     <item
         android:id="@+id/action_go_to"
@@ -86,6 +101,11 @@
                 android:id="@+id/action_go_to_popular_files"
                 android:icon="@drawable/ic_favorite_black_24dp"
                 android:title="@string/popular_documents"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_go_to_favourite_files"
+                android:icon="@drawable/ic_star_black_24dp"
+                android:title="@string/favourites"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_go_to_home"

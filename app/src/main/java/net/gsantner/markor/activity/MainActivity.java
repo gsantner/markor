@@ -412,6 +412,10 @@ public class MainActivity extends AppActivityBase implements FilesystemFragment.
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         PermissionChecker permc = new PermissionChecker(MainActivity.this);
                         _toolbar.setTitle(adapter.areItemsSelected() ? "" : adapter.getCurrentFolder().getName());
+
+                        if (adapter.getCurrentFolder().equals(FilesystemDialogAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
+                            adapter.getFsOptions().favouriteFiles = _appSettings.getFavouriteFiles();
+                        }
                     }
                 }
 

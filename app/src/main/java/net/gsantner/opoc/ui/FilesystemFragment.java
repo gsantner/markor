@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -219,6 +220,18 @@ public class FilesystemFragment extends GsFragmentBase
     private void updateMenuItems() {
         boolean multi1 = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() == 1;
         boolean multiMore = _dopt.doSelectMultiple && _filesystemDialogAdapter.getCurrentSelection().size() > 1;
+        Set<File> selectedFiles = _filesystemDialogAdapter.getCurrentSelection();
+
+        // Check if is a favourite
+        boolean isFavourite = false;
+        if (multi1) {
+            for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
+                if (selectedFiles.contains(favourite)) {
+                    isFavourite = true;
+                    break;
+                }
+            }
+        }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible(multi1 || multiMore);
@@ -229,6 +242,8 @@ public class FilesystemFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemDialogAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemDialogAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemDialogAdapter.areItemsSelected());
+            _fragmentMenu.findItem(R.id.action_favourite).setVisible(multi1 && !isFavourite);
+            _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(multi1 && isFavourite);
         }
     }
 
@@ -367,6 +382,10 @@ public class FilesystemFragment extends GsFragmentBase
                 folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_RECENTS;
                 break;
             }
+            case R.id.action_go_to_favourite_files: {
+                folderToLoad = FilesystemDialogAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                break;
+            }
             case R.id.action_go_to_appdata_private: {
                 folderToLoad = _contextUtils.getAppDataPrivateDir();
                 break;
@@ -393,6 +412,15 @@ public class FilesystemFragment extends GsFragmentBase
                     folderToLoad = appDataPublicDirs.get(0).first;
                 }
                 break;
+            }
+            case R.id.action_favourite:
+            case R.id.action_favourite_remove: {
+                if (_filesystemDialogAdapter.areItemsSelected()) {
+                    _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemDialogAdapter.getCurrentSelection()).get(0));
+                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    updateMenuItems();
+                }
+                return true;
             }
             case R.id.action_delete_selected_items: {
                 askForDeletingFilesRecursive((confirmed, data) -> {

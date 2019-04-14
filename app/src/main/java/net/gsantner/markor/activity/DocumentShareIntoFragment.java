@@ -106,7 +106,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        if (sharedText.trim().isEmpty()){
+        if (sharedText.trim().isEmpty()) {
             _hlEditor.requestFocus();
         }
     }

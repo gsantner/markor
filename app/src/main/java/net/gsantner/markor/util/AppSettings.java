@@ -20,6 +20,7 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
+import net.gsantner.opoc.ui.FilesystemDialogAdapter;
 import net.gsantner.opoc.ui.FilesystemFragment;
 
 import java.io.File;
@@ -294,6 +295,23 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         ShortcutUtils.setShortcuts(_context);
     }
 
+    public void toggleFavouriteFile(File file) {
+        List<String> list = new ArrayList<>();
+        List<File> favourites = getFavouriteFiles();
+        for (File f : favourites) {
+            if (f != null && (f.exists() || FilesystemDialogAdapter.isVirtualStorage(f))) {
+                list.add(f.getAbsolutePath());
+            }
+        }
+        String abs = file.getAbsolutePath();
+        if (list.contains(abs)) {
+            list.remove(abs);
+        } else {
+            list.add(abs);
+        }
+        setStringList(R.string.pref_key__favourite_files, list);
+    }
+
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
     private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
 
@@ -356,6 +374,17 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             if (!new File(list.get(i)).isFile()) {
                 list.remove(i);
                 i--;
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<File> getFavouriteFiles() {
+        ArrayList<File> list = new ArrayList<>();
+        for (String fp : getStringList(R.string.pref_key__favourite_files)) {
+            File f = new File(fp);
+            if (f.exists() || FilesystemDialogAdapter.isVirtualStorage(f)) {
+                list.add(f);
             }
         }
         return list;

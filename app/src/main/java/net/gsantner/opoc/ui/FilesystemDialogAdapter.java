@@ -52,6 +52,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
     //## Static
     //########################
     public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
+    public static final File VIRTUAL_STORAGE_FAVOURITE = new File("/storage/favourite-files");
     public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
@@ -181,7 +182,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                     || _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
                     || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(s)
                     || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(s)
-                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(s);
+                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(s)
+                    || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(s);
             if (ok) {
                 loadFolder(f);
             }
@@ -267,7 +269,7 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                             loadFolder(file);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsSelected(_dopt.requestId, file);
-                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
+                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
                             loadFolder(file);
                         }
                     }
@@ -400,6 +402,8 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         files = _dopt.recentFiles;
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
                         files = _dopt.popularFiles;
+                    } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
+                        files = (_dopt.favouriteFiles == null ? null : _dopt.favouriteFiles.toArray(new File[0]));
                     }
                     files = (files == null ? new File[0] : files);
 
@@ -433,6 +437,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
                         if (_dopt.popularFiles != null) {
                             _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
                             _adapterData.add(VIRTUAL_STORAGE_POPULAR);
+                        }
+                        if (_dopt.favouriteFiles != null) {
+                            _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
+                            _adapterData.add(VIRTUAL_STORAGE_FAVOURITE);
                         }
                         File appDataFolder = _context.getFilesDir();
                         if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
@@ -494,6 +502,10 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
         return f.isDirectory() || (!f.isDirectory() && _dopt.doSelectFile && yes);
     }
 
+    public FilesystemDialogData.Options getFsOptions() {
+        return _dopt;
+    }
+
     // Sort adapterData
     @Override
     public int compare(File o1, File o2) {
@@ -517,6 +529,14 @@ public class FilesystemDialogAdapter extends RecyclerView.Adapter<FilesystemDial
 
     public boolean isCurrentFolderHome() {
         return _currentFolder != null && _dopt.rootFolder != null && _dopt.rootFolder.getAbsolutePath().equals(_currentFolder.getAbsolutePath());
+    }
+
+    public static boolean isVirtualStorage(File file) {
+        return VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
+                VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
+                VIRTUAL_STORAGE_POPULAR.equals(file) ||
+                VIRTUAL_STORAGE_RECENTS.equals(file)
+                ;
     }
 
     //########################

@@ -21,6 +21,7 @@ import net.gsantner.markor.R;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemDialogData {
@@ -102,6 +103,8 @@ public class FilesystemDialogData {
         public int titleTextColor = primaryTextColor;
 
         public File[] recentFiles, popularFiles = null;
+
+        public List<File> favouriteFiles = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
