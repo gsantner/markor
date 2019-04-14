@@ -148,6 +148,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">هیچ</string>
     <string name="other">سایر موارد</string>
     <string name="alternative_naming">نامگذاری جایگزین</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">کد های رنگی بر اساس رنگشان زیرخط‌ دار بشوند یا نه</string>
+    <string name="underline_hex_color_codes">زیر خط دار کردن کد های رنگی</string>
     <string name="insert_current_date_when_starting_new_task">هنگامی که کار جدید ثبت می‌کنم تاریخ امروز را وارد کن</string>
     <string name="tasks_with_todays_date">کارها با تاریخ امروز</string>
     <string name="append_contexts_and_projects">بعد از اینکه پرونده بارگزاری شد، موقعیت مکان‌نما در انتهای پرونده قرار بگیرد</string>
