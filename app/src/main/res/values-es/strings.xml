@@ -280,4 +280,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilice LinkBox para guardar marcadores y enlaces a sitios web que quiera leer más tarde. Es un archivo en formato Markdown con la ubicación predeterminada &gt;Notebook/LinkBox.md&lt;, puede establecer una ruta de archivo personalizada en la configuración.</string>
     <string name="todo_is_the_easiest_way_">Administre sus tareas con ToDo. Es un archivo en formato todo.txt con la ubicación predeterminada &gt;Notebook/todo.txt&lt;, puede establecer una ruta de archivo personalizada en la configuración.</string>
     <string name="navigationbar_color">Color de la barra de navegación</string>
+    <string name="favourite">Favorito</string>
 </resources>
