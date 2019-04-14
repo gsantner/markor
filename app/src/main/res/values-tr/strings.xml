@@ -280,4 +280,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Görünüm</string>
     <string name="view_mode">Görünüm modu</string>
     <string name="edit_mode">Düzenleme modu</string>
+    <string name="favourite">Favorilere ekle</string>
 </resources>
