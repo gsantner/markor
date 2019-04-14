@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (به عنوان متن ساده)</string>
     <string name="document_editor_font">قلم ویرایشگر پرونده</string>
     <string name="theme">پوسته</string>
-    <string name="show_representation_of_markup_by_default">نمایش فایل های نوشتاری در حالت (مد) ارائه، به صورت پیش فرض</string>
+    <string name="show_representation_of_markup_by_default">نمایش مطالب در حالت (مد) ارائه، به صورت پیش فرض</string>
     <string name="about">درباره مارکور</string>
     <string name="plaintext">متن ساده</string>
     <string name="file">فایل</string>
@@ -99,12 +99,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="todo_list">لیست کارها</string>
     <string name="task">کار</string>
     <string name="category">دسته</string>
+    <string name="context">متن</string>
     <string name="list">لیست</string>
     <string name="priority">اولویت</string>
     <string name="history">تاریخچه</string>
+    <string name="sync">همگام سازی</string>
+    <string name="serach_or_custom">جستجو / سفارشی</string>
     <string name="save">ذخیره</string>
     <string name="update">بروزرسانی</string>
     <string name="clear">پاکسازی</string>
+    <string name="due_date">تاریخ سررسید</string>
     <string name="current_date">تاریخ اکنون</string>
     <string name="archive">بایگانی</string>
     <string name="add_task">افزودن کار</string>
@@ -113,8 +117,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">تازه کردن</string>
     <string name="create_shortcut">ایجاد میانبر</string>
     <string name="tried_to_create_shortcut_for_this_notice">ما میانبری به این پرونده در صفحه اصلی تلفن شما ایجاد کردیم؛ اما ممکن است بعضی لانچرها از این قابلیت پشتیبانی نکنند.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">فایل انتخاب شده در پوشه یادداشت های برنامه نیست. آیا می‌خواهید آن را به پوشه کنونی کپی کنید؟ این موجب رونویسی آن روی فایل‌های هم نام موجود خواهد شد.</string>
     <string name="files_and_folders">فایل‌ها و پوشه‌ها</string>
     <string name="document_browser">مرورگر پرونده</string>
+    <string name="file_browser">کاوش فایل ها</string>
     <string name="create_note" needed="false">ایجاد یادداشت</string>
     <string name="back_to_previous_folder" needed="false">بازگشت به پوشه قبلی</string>
     <string name="app_settings" needed="false">تنظیمات برنامه</string>
