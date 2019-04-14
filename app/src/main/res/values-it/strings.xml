@@ -120,7 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Navigatore dei documenti</string>
-    <string name="file_browser">File Browser</string>
+    <string name="file_browser">Esploratore dei file</string>
     <string name="create_note" needed="false">Crea nota</string>
     <string name="special_documents" needed="false">Documenti speciali</string>
     <string name="keep_screen_on" needed="false">Mantieni lo schermo acceso</string>
@@ -283,6 +283,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Colore barra navigazione</string>
     <string name="black">Nero</string>
     <string name="white">Bianco</string>
+    <string name="view">Vedi</string>
     <string name="view_mode">Modalità visualizzazione</string>
     <string name="edit_mode">Modalità modifica</string>
+    <string name="mount_storage">Monta spazio di archiviazione</string>
+    <string name="application_needs_access_to_storage_mount_it">È richiesto un permesso per accedere a questo spazio di archiviazione. Monta lo spazio per dare l\'accesso, quindi dai conferma per far comparire una finestra popup. A questo punto seleziona lo spazio di archiviazione e premi \"Seleziona\".</string>
 </resources>

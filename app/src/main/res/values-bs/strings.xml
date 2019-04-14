@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Označena datoteka ne nalazi se u direktoriju s bilješkama. Želite li je kopirati u trenutni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
     <string name="files_and_folders">Datoteke i direktoriji</string>
     <string name="document_browser">Preglednik dokumenata</string>
+    <string name="file_browser">Preglednik datoteka</string>
     <string name="create_note" needed="false">Kreiraj bilješku</string>
     <string name="special_documents" needed="false">Posebni dokumenti</string>
     <string name="keep_screen_on" needed="false">Održavaj upaljen ekran</string>
@@ -279,4 +280,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je najbrži način za pisanje bilješki. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/QuickNote.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">LinkBox koristite za bilježenje linkova do web-stranica koje želite posjetiti kasnije. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/LinkBox.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
     <string name="todo_is_the_easiest_way_">Zadacima upravljajte kroz ToDo datoteku, koja slijedi todo.txt metod bilježenja i pohranjena je na &gt;Notebook/todo.txt&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
+    <string name="navigationbar_color">Boja trake za navigaciju</string>
+    <string name="black">Crna</string>
+    <string name="white">Bijela</string>
+    <string name="view">Prikaži</string>
+    <string name="view_mode">Pregled</string>
+    <string name="edit_mode">Uređivanje</string>
+    <string name="mount_storage">Pripremi memoriju</string>
+    <string name="application_needs_access_to_storage_mount_it">Potrebno je dopuštenje za pristupanje memoriji. Pripremite memoriju da omogućite pristup. Potvrdite ovdje za nastavak. Označite memoriju i pritisnite odaberi.</string>
 </resources>

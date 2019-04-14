@@ -54,23 +54,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Soubor</string>
     <string name="image">Obrázek</string>
     <string name="font_size">Velikost písma</string>
-    <string name="render_rtl_language">Render for right-to-left languages</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Error: Nebude vytvářet notebook adresář</string>
+    <string name="render_rtl_language">Vykreslovat pro right-to-left jazyky</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Error: Nelze vytvořit složku pro notebook</string>
     <string name="last_modified_witharg">Naposledy změněno: %s</string>
-    <string name="select_this_folder">Vyberte tuto složku</string>
-    <string name="select">Vyberte</string>
+    <string name="select_this_folder">Vybrat tuto složku</string>
+    <string name="select">Vybrat</string>
     <string name="create">Vytvoøit</string>
     <string name="select_entries">Vyberte položky</string>
-    <string name="one_item_selected">Jeden z vybraných položek</string>
+    <string name="one_item_selected">Jedna položka vybrána</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
-    <string name="hide_statusbar_at_this_view">Skrýt laťku v tomto názoru</string>
+    <string name="hide_statusbar_at_this_view">Skrýt stavový řádek v tomto zobrazení</string>
     <string name="hide_statusbar">Schovat statusbar</string>
-    <string name="name">Jméno</string>
-    <string name="url_or_path">URL / Path</string>
-    <string name="insert_link">Vložte vazbu</string>
-    <string name="insert_image">Vlna obrázku</string>
+    <string name="name">Název</string>
+    <string name="url_or_path">URL / Cesta</string>
+    <string name="insert_link">Vložit odkaz</string>
+    <string name="insert_image">Vložit obrázek</string>
     <string name="contributors">Spolupracovníci</string>
-    <string name="save_location">Uložit umístění</string>
+    <string name="save_location">Umístění pro ukládání</string>
     <string name="select_storage_folder">Vyberte složku úložiště</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Historie</string>
@@ -79,23 +79,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
     <string name="language_change_restart_description">Pokud chcete změnit jazyk této aplikace, bude vyžadován její restart</string>
     <string name="language">Jazyk</string>
-    <string name="error_need_storage_permission_to_save_documents">Potřebujte povolení ke skladování pro uložení dokumentů</string>
+    <string name="error_need_storage_permission_to_save_documents">Potřebujeme povolení úložiště pro ukládání dokumentů</string>
     <string name="open_with">Otevřít s</string>
-    <string name="sort">Omluva</string>
-    <string name="date">Date</string>
-    <string name="deleteme____1">Jméno</string>
+    <string name="sort">Řadit podle</string>
+    <string name="date">Datum</string>
+    <string name="deleteme____1">Název</string>
     <string name="size">Velikost</string>
-    <string name="reverse_order">Opačný řád</string>
+    <string name="reverse_order">Obrátit pořadí</string>
     <string name="contribute">Přispět</string>
-    <string name="donate">Krátce</string>
+    <string name="donate">Darovat</string>
     <string name="project_page">Stránka projektu</string>
     <string name="press_back_again_to_exit">Znovu stiskněte tlačítko \"Zpět\" k odchodu</string>
     <string name="exit">Odejít</string>
-    <string name="undo">Nesložit</string>
-    <string name="redo">Redo</string>
+    <string name="undo">Zpět</string>
+    <string name="redo">Zopakovat</string>
     <string name="more">Více</string>
     <string name="notebook">Notebook</string>
-    <string name="help">Pomoc</string>
+    <string name="help">Nápověda</string>
     <string name="todo_list">To-Do List</string>
     <string name="task">Úkol</string>
     <string name="category">Kategorie</string>
@@ -116,57 +116,57 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokument, který má být nahrán a uložen jako \"%s\"</string>
     <string name="refresh">Přehled</string>
     <string name="create_shortcut">Vytvořit zkratku</string>
-    <string name="tried_to_create_shortcut_for_this_notice">Poznámka, že některé prádlo to nemusí podporovat.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v adresáři notebook aplikace.</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v notebook adresáři aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
     <string name="file_browser">Správce souborů</string>
-    <string name="create_note" needed="false">Vytvořit Poznámku</string>
-    <string name="special_documents" needed="false">Zvláštní dokumenty</string>
-    <string name="keep_screen_on" needed="false">Keep screen on</string>
+    <string name="create_note" needed="false">Vytvořit poznámku</string>
+    <string name="special_documents" needed="false">Speciální dokumenty</string>
+    <string name="keep_screen_on" needed="false">Udržet obrazovku zapnutou</string>
     <string name="back_to_previous_folder" needed="false">Zpět do předchozí složky</string>
     <string name="app_settings" needed="false">Nastavení aplikace</string>
-    <string name="editor_settings" needed="false">Upravit nastavení</string>
+    <string name="editor_settings" needed="false">Nastavení editoru</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Pamatujte poslední umístění složky při startu</string>
     <string name="number_of_files_witharg" needed="false">Počet souborů: %d</string>
-    <string name="app_wide">Všimněte se</string>
+    <string name="app_wide">Celo-aplikační</string>
     <string name="main_view">Hlavní pohled</string>
-    <string name="overall_theme_used_in_app">Obecné téma použité v app</string>
-    <string name="remember_last_directory">Pamatujte si poslední adresář</string>
-    <string name="syntax_highlighting">zvýrazňování daně</string>
-    <string name="highlighting_delay">Vyšší zpoždění</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodlevy v milisekundách pro zvýraznění občerstvení, nižší hodnota začne zvýrazňovat dříve, ale bude odčerpávat baterii a může zpomalit aplikaci na starší zařízení.</string>
-    <string name="highlighting_enabled_or_not__appspecific">Kontrola, zda vložený text by měla být zdůrazněna, nebo ne</string>
-    <string name="control_font_size_in_editor">Ovládejte velikost písma použitou v editoru</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit bar s ručními tlačítky na dno, tyto texty modifikují text nebo spustit akci na základě textu.</string>
-    <string name="load_last_opened_folder_at_startup">Ztrácíte poslední otevřenou složku již v úvodu</string>
-    <string name="format">Format</string>
+    <string name="overall_theme_used_in_app">Celkové téma použité v aplikaci</string>
+    <string name="remember_last_directory">Pamatuj si poslední adresář</string>
+    <string name="syntax_highlighting">Zvýraznění syntaxe</string>
+    <string name="highlighting_delay">Zpoždění zvýraznění</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodlevy v milisekundách pro znovu-zvýraznění, nižší hodnota začne zvýrazňovat dříve, ale bude odčerpávat baterii a může zpomalit aplikaci na starších zařízeních.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
+    <string name="control_font_size_in_editor">Ovládat velikost písma použitého v editoru</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit bar s šikovnými tlačítky na spodku, tyto akce textu modifikují text nebo spustí akci na základě textu.</string>
+    <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
+    <string name="format">Formát</string>
     <string name="contexts">Kontext</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekty</string>
     <string name="categories">Kategorie</string>
-    <string name="none">Ani</string>
-    <string name="other">Další</string>
+    <string name="none">Nic</string>
+    <string name="other">Ostatní</string>
     <string name="alternative_naming">Alternativní pojmenování</string>
-    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevných kódů podle barvy</string>
-    <string name="underline_hex_color_codes">Založení Hex barevné kódy</string>
-    <string name="insert_current_date_when_starting_new_task">Vložte aktuální datum při zahájení nového úkolu</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevné kódy barvou</string>
+    <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
+    <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
     <string name="tasks_with_todays_date">Úkoly s dnešním datem</string>
-    <string name="append_contexts_and_projects">Konečné kontexty a projekty</string>
+    <string name="append_contexts_and_projects">Připojit kontexty a projekty</string>
     <string name="append_contexts_and_projects_on_end_of_task">Konečné kontexty a projekty na konci úkolu při použití příslušné textové akce</string>
     <string name="rtl_rendering">vykreslování RTL</string>
-    <string name="highlight_line_ending">Závěrečná linie</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Vyšší prostory na konci řádků s dvěma nebo více mezerami</string>
-    <string name="use_monospace_for_code">Použijte monospace font pro kód</string>
-    <string name="use_different_fonttype_slow_down">Používejte jiný typ písma, změna dynamicky ovlivní výkon aplikace.</string>
+    <string name="highlight_line_ending">Zvýraznit konec řádku</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit mezery na koncích řádků, které obsahují dvě nebo více mezer</string>
+    <string name="use_monospace_for_code">Použít monospace font pro kód</string>
+    <string name="use_different_fonttype_slow_down">Používat jiný typ písma, změna dynamicky ovlivní výkon aplikace.</string>
     <string name="general">Obecné</string>
     <string name="resources">Zdroje</string>
-    <string name="space_between_lines_in_percent">Vesmír mezi řádky v procentech</string>
-    <string name="line_spacing">Propojení</string>
+    <string name="space_between_lines_in_percent">Mezery mezi řádky v procentech</string>
+    <string name="line_spacing">Řádkování</string>
     <string name="archive_does_move_done_tasks">Přesun hotových úloh do zadaného souboru ve stejné složce</string>
-    <string name="sort_tasks_by_selected_order">Úkoly podle zvoleného pořadí</string>
-    <string name="special_key">Zvláštní klíč</string>
-    <string name="key_page_up">Pomoc v bolesti (</string>
+    <string name="sort_tasks_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
+    <string name="special_key">Speciální klíč</string>
+    <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
     <string name="key_pos_1">Line Start (Pos Home)</string>
     <string name="key_pos_end">Line End (Pos End)</string>
@@ -240,7 +240,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Barva</string>
     <string name="zero_width_space">Prostor pro nulu</string>
     <string name="basic_color_scheme">Základní barevný režim</string>
-    <string name="background_foreground_color_in_editor_works_dark_light">Změní pozadí a povrchové barvy textového editoru.</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Změní barvu pozadí a popředí textového editoru. Upraví téma aplikace dostupné světlé a tmavé téma. Zvýraznění syntaxe zůstává stejné.</string>
     <string name="preset">Preset</string>
     <string name="foreground">Les</string>
     <string name="background">Pozadí</string>
@@ -249,7 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder">Folder</string>
     <string name="folder_is_created_without_extension">- složky jsou vytvořeny bez rozšíření souboru</string>
     <string name="keep_existing_file">- Soubory a složky nejsou přepsány</string>
-    <string name="multiple_windows">Vícečná okna</string>
+    <string name="multiple_windows">Více oken</string>
     <string name="font">Písmo</string>
     <string name="open_new_documents_always_in_new_window">Otevřít dokumenty vždy v oddělených oknech a zmáčkněte klávesou \'recents\' vašeho zařízení.</string>
     <string name="enter_or_select_format">Zadejte nebo vyberte formát</string>
@@ -269,4 +269,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
     <string name="swipe_to_change_mode">Swipe na změnu módu</string>
     <string name="swipe_to_change_mode_to_other">Swipe změnit režim pro úpravu nebo zastoupení, opak současného módu</string>
+    <string name="folder_first">Složky první</string>
+    <string name="go_to">Přejít na</string>
+    <string name="appdata_public">AppData (veřejná)</string>
+    <string name="appdata_private">AppData (soukromá)</string>
+    <string name="appdata_sdcard">AppData (SD karta)</string>
+    <string name="internal_storage">Vnitřní úložiště</string>
+    <string name="open_the_document_from_main_view">Dokument můžete otevřít z hlavního pohledu na spodní, prohlížeč souborů nebo praní, a také je možné připojit text sdílený do Markoru.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna, je to domácí složka vašich souborů.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost psát si poznámky. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Použijte LinkBox k uchovávání záložek a odkazů na webové stránky, které chcete číst později. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/LinkBox.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
+    <string name="todo_is_the_easiest_way_">Řídit své úkoly s ToDo. Je to soubor ve formátu todo.txt s výchozí polohou &gt;Notebook/todo.txt&lt;, můžete nastavit nastavení na vlastní filedráhu.</string>
+    <string name="navigationbar_color">Barva navigačního panelu</string>
+    <string name="black">Černá</string>
+    <string name="white">Bílá</string>
+    <string name="view">Zobrazení</string>
+    <string name="view_mode">Režim zobrazení</string>
+    <string name="edit_mode">Režim úprav</string>
 </resources>
