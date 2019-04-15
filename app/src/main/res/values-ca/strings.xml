@@ -290,4 +290,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="application_needs_access_to_storage_mount_it">Cal el permís per accedir a aquest emmagatzematge. Munteu l\'emmagatzematge per donar accés. Confirmeu aquest diàleg per obtenir una finestra emergent. Seleccioneu l\'emmagatzematge allà i premeu selecciona.</string>
     <string name="share_into">Comparteix en</string>
     <string name="favourite">Preferit</string>
+    <string name="favourites">Preferits</string>
 </resources>
