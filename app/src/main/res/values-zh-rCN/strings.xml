@@ -285,5 +285,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="white">白色</string>
     <string name="view">查看</string>
     <string name="mount_storage">挂载存储</string>
+    <string name="application_needs_access_to_storage_mount_it">访问此存储位置需要权限。挂载存储以提供访问权限。确认此对话框将弹出窗口。在那里选择存储位置，然后点按选择。</string>
+    <string name="share_into">分享到</string>
     <string name="favourite">收藏</string>
+    <string name="favourites">收藏</string>
 </resources>
