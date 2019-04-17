@@ -269,7 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">开始应用程序时选择的标签</string>
     <string name="swipe_to_change_mode">滑动以更改模式</string>
     <string name="swipe_to_change_mode_to_other">滑动以更改模式来编辑或代表，当前模式正相反</string>
-    <string name="folder_first">文件夹第一</string>
+    <string name="folder_first">文件夹在前</string>
     <string name="go_to">转到</string>
     <string name="appdata_public">应用程序数据(公开)</string>
     <string name="appdata_private">应用程序数据(私信)</string>
@@ -277,13 +277,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">内部存储</string>
     <string name="open_the_document_from_main_view">您可以从底部、文件浏览器或启动器主视图打开文档。还有一个选项来附加共享的文本到Markor。</string>
     <string name="notebook_is_the_home_of_your_files">关注簿是程序启动时Markor 在文件浏览器中加载的文件夹。它是文件的主文件夹。</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">快速说明是写下记事最快的选项。它是一个默认位置的Markdown格式的文件， &gt;笔记簿/QuickNote.md&lt;，您可以在设置中设置一个自定义文件路径。</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote 是写下记事最快的选项。它是一个默认位置为 &gt;Notebook/QuickNote.md&lt; 的 Markdown 格式的文件， ，您可以在设置中设置一个自定义文件路径。</string>
     <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">使用 LinkBox 来保存您想要稍后阅读的网站的书签和链接。它是一个默认位置的Markdown格式的文件， &gt;Notebook/LinkBox.md&lt;，您可以在设置中设置一个自定义的文件路径。</string>
     <string name="todo_is_the_easiest_way_">管理您的任务 ToDo。它是一个包含默认位置的 todo.txt 格式的文件， &gt;笔记簿/todo.txt&lt;，您可以在设置中设置一个自定义文件路径。</string>
     <string name="navigationbar_color">导航栏颜色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
     <string name="view">查看</string>
+    <string name="view_mode">查看模式</string>
+    <string name="edit_mode">编辑模式</string>
     <string name="mount_storage">挂载存储</string>
     <string name="application_needs_access_to_storage_mount_it">访问此存储位置需要权限。挂载存储以提供访问权限。确认此对话框将弹出窗口。在那里选择存储位置，然后点按选择。</string>
     <string name="share_into">分享到</string>
