@@ -148,7 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">无</string>
     <string name="other">其它</string>
     <string name="alternative_naming">别名</string>
-    <string name="underline_hex_color_wether_or_not_to_description__appspecific">在十六进制颜色代码下按照颜色添加下划线</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">为十六进制颜色代码按照颜色添加下划线</string>
     <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
     <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
     <string name="tasks_with_todays_date">为任务附上今天的日期</string>
@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">资源</string>
     <string name="space_between_lines_in_percent">单位为百分比</string>
     <string name="line_spacing">行距</string>
-    <string name="archive_does_move_done_tasks">将完成的工作移动至同目录下的指定文件</string>
+    <string name="archive_does_move_done_tasks">将完成的任务移动至同目录下的指定文件</string>
     <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
     <string name="key_page_up">上一页 (Page Up)</string>
@@ -173,14 +173,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_1_document">文首</string>
     <string name="key_pos_end_document">文末</string>
     <string name="key_ctrl_a">全选 (Ctrl + A)</string>
-    <string name="key_tab">制表符 (Tab 键)</string>
+    <string name="key_tab">制表符</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、脱机可用的文档，不支持不提供完整文件路径的文件管理器。</string>
     <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
     <string name="configure_in_the_apps_settings">在应用设置中设定</string>
-    <string name="vertical_alignment">纵向偏移</string>
-    <string name="horizontal_alignment">水平偏移</string>
+    <string name="vertical_alignment">纵向对齐</string>
+    <string name="horizontal_alignment">水平对齐</string>
     <string name="default_">默认</string>
     <string name="left">左端</string>
     <string name="right">右端</string>
