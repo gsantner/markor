@@ -82,9 +82,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_need_storage_permission_to_save_documents">需要存储权限以便保存文件</string>
     <string name="open_with">使用…打开</string>
     <string name="sort">排序方式</string>
-    <string name="date">按修改日期排序</string>
-    <string name="deleteme____1">按文件名称排序</string>
-    <string name="size">按文件大小排序</string>
+    <string name="date">日期</string>
+    <string name="deleteme____1">名称</string>
+    <string name="size">文件大小</string>
     <string name="reverse_order">逆向排序</string>
     <string name="contribute">贡献</string>
     <string name="donate">捐赠</string>
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="control_font_size_in_editor">调整编辑器中文字的字号</string>
     <string name="textactions_show_useful_actions_description__appspecific">显示一条带有快捷文本操作功能与插入常用语法功能的工具栏</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
-    <string name="format">生成</string>
+    <string name="format">格式</string>
     <string name="contexts">全文</string>
     <string name="project">项目</string>
     <string name="projects">项目</string>
