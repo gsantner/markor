@@ -45,7 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files">文件</string>
     <string name="document">文档</string>
     <string name="documents">文档</string>
-    <string name="html_as_plaintext">HTML</string>
+    <string name="html_as_plaintext">HTML （显示为纯文本）</string>
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
     <string name="show_representation_of_markup_by_default">默认情况下以预览模式显示已有文档</string>
