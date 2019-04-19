@@ -50,7 +50,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="theme">主题</string>
     <string name="show_representation_of_markup_by_default">默认情况下以预览模式显示已有文档</string>
     <string name="about">关于</string>
-    <string name="plaintext">文本</string>
+    <string name="plaintext">纯文本</string>
     <string name="file">文件</string>
     <string name="image">图片</string>
     <string name="font_size">字号</string>
