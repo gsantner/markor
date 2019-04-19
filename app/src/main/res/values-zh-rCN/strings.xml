@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="right">右端</string>
     <string name="top">顶端</string>
     <string name="bottom">底端</string>
-    <string name="center">中央</string>
+    <string name="center">居中</string>
     <string name="textaction_spacing">文本工具按钮宽度</string>
     <string name="horizontal_space_between_textactions">操作按钮的横向宽度</string>
     <string name="center_text">居中文字</string>
@@ -197,7 +197,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">评价本应用</string>
     <string name="translate">翻译</string>
     <string name="more_info_and_help">更多信息与帮助</string>
-    <string name="report_bugs">报告 bug</string>
+    <string name="report_bugs">报告错误</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">有关向开发人员捐款或为此项目贡献的更多信息。</string>
     <string name="android_contribution_guide">Android 平台通用贡献指南</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">更多关于如何为开源项目做贡献的信息，尤其是 Android 应用。</string>
