@@ -134,6 +134,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
         private static final String SEP_RULER = "\n---\n";
 
+        @Override
+        public boolean isDividerVisible() {
+            return true;
+        }
+
         public static ShareIntoImportOptionsFragment newInstance(String sharedText) {
             ShareIntoImportOptionsFragment f = new ShareIntoImportOptionsFragment();
             Bundle bundle = new Bundle();

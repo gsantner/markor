@@ -50,6 +50,11 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
     }
 
     @Override
+    public boolean isDividerVisible() {
+        return true;
+    }
+
+    @Override
     @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         ActivityUtils au = new ActivityUtils(getActivity());

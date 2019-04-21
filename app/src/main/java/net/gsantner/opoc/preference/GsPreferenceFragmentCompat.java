@@ -45,7 +45,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -56,10 +59,13 @@ import android.support.annotation.StringRes;
 import android.support.annotation.XmlRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -74,10 +80,11 @@ import java.util.Set;
 /**
  * Baseclass to use as preference fragment (with support libraries)
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPropertyBackend> extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
     private static final int DEFAULT_ICON_TINT_DELAY = 200;
+    protected boolean _isDividerVisible = false;
 
     //
     // Abstract
@@ -111,7 +118,6 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     }
 
     protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
-
     }
 
     public Integer getIconTintColor() {
@@ -406,8 +412,19 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     }
 
     private void onPreferenceScreenChangedPriv(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+        setDividerVisibility(isDividerVisible());
         onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
         updatePreferenceChangedListeners(true);
+    }
+
+    public void setDividerVisibility(boolean visible) {
+        _isDividerVisible = visible;
+        RecyclerView recyclerView = getListView();
+        if (visible) {
+            recyclerView.addItemDecoration(new DividerDecoration(getContext(), _flatPosIsPreferenceCategoryCallback));
+        } else if (recyclerView.getItemDecorationCount() > 0) {
+            recyclerView.removeItemDecoration(recyclerView.getItemDecorationAt(0));
+        }
     }
 
     /**
@@ -471,5 +488,84 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
             pref.setIcon(_cu.tintDrawable(pref.getIcon(), getIconTintColor()));
         }
         return target.addPreference(pref);
+    }
+
+
+    //###############################
+    //### Divider
+    ////###############################
+
+
+    public boolean isDividerVisible() {
+        return _isDividerVisible;
+    }
+
+
+    Callback.b1<Integer> _flatPosIsPreferenceCategoryCallback = position -> {
+        int flatPos = 0;
+        PreferenceGroup prefGroup = getPreferenceScreen();
+        if (prefGroup != null) {
+            int prefCount = prefGroup.getPreferenceCount();
+            for (int i = 0; i < prefCount; i++) {
+                Preference pref = prefGroup.getPreference(i);
+                if (pref != null) {
+                    if (pref instanceof PreferenceCategory) {
+                        PreferenceGroup prefSubGroup = ((PreferenceGroup) pref);
+                        for (int j = 0; j < prefSubGroup.getPreferenceCount(); j++) {
+                            flatPos++;
+                            if (flatPos == position) {
+                                return !(prefSubGroup.getPreference(j) instanceof PreferenceCategory);
+                            }
+                        }
+                    } else if (flatPos == position) {
+                        return true;
+                    }
+                }
+                flatPos++;
+            }
+        }
+        return false;
+    };
+
+    public static class DividerDecoration extends RecyclerView.ItemDecoration {
+        private Callback.b1<Integer> _isCategoryAtFlatpositionCallback;
+        private final Paint _paint;
+        private int _heightDp;
+
+        // b8b8b8 = default divider color
+        // d1d1d1 = often used in app
+        public DividerDecoration(Context context, Callback.b1<Integer> isCategoryAtFlatpos) {
+            this(context, Color.parseColor("#d1d1d1"), 1f);
+            _isCategoryAtFlatpositionCallback = isCategoryAtFlatpos;
+        }
+
+        public DividerDecoration(Context context, int color, float heightDp) {
+            _paint = new Paint();
+            _paint.setStyle(Paint.Style.FILL);
+            _paint.setColor(color);
+            _heightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightDp, context.getResources().getDisplayMetrics());
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view);
+            int viewType = parent.getAdapter() != null ? parent.getAdapter().getItemViewType(position) : 0;
+            if (viewType != 1) {
+                outRect.set(0, 0, 0, _heightDp);
+            } else {
+                outRect.setEmpty();
+            }
+        }
+
+        @Override
+        public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View view = parent.getChildAt(i);
+                int position = parent.getChildAdapterPosition(view);
+                if (_isCategoryAtFlatpositionCallback.callback(position)) {
+                    c.drawRect(view.getLeft(), view.getBottom(), view.getRight(), view.getBottom() + _heightDp, _paint);
+                }
+            }
+        }
     }
 }

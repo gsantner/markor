@@ -338,5 +338,10 @@ public class SettingsActivity extends AppActivityBase {
             }
             return null;
         }
+
+        @Override
+        public boolean isDividerVisible() {
+            return true;
+        }
     }
 }
