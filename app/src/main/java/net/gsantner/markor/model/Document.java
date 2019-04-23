@@ -29,6 +29,7 @@ public class Document implements Serializable {
     private boolean _doHistory = true;
     private int _historyPosition = 0;
     private long _lastChanged = 0;
+    private boolean _forceNoHistory = false;
 
     public Document() {
     }
@@ -99,7 +100,7 @@ public class Document implements Serializable {
     }
 
     public synchronized void addToHistory() {
-        if (_doHistory && (((_lastChanged + MIN_HISTORY_DELAY) < System.currentTimeMillis()))) {
+        if (isDoHistory() && (((_lastChanged + MIN_HISTORY_DELAY) < System.currentTimeMillis()))) {
             while (_historyPosition != _history.size() && _history.size() != 0) {
                 _history.remove(_history.size() - 1);
             }
@@ -150,7 +151,7 @@ public class Document implements Serializable {
 
     public synchronized Document getInitialVersion() {
         if (hasChangesNotInHistory()) {
-            boolean history = _doHistory;
+            boolean history = isDoHistory();
             setDoHistory(true);
             addToHistory();
             setDoHistory(history);
@@ -178,7 +179,7 @@ public class Document implements Serializable {
     //
 
     public boolean isDoHistory() {
-        return _doHistory;
+        return _doHistory && !_forceNoHistory;
     }
 
     public void setDoHistory(boolean doHistory) {

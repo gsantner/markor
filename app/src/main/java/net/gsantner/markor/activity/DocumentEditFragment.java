@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -40,6 +41,7 @@ import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
 
@@ -86,6 +88,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private Document _document;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
+    private TextViewUndoRedo _editTextUndoRedoHelper;
 
     public DocumentEditFragment() {
     }
@@ -113,6 +116,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(cursor);
             }
         }
+        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
         AppSettings appSettings = new AppSettings(view.getContext());
@@ -125,7 +129,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
         checkReloadDisk();
         int cursor = _hlEditor.getSelectionStart();
-        _hlEditor.setText(_document.getContent());
         cursor = Math.max(0, cursor);
         cursor = Math.min(_hlEditor.length(), cursor);
         _hlEditor.setSelection(cursor);
@@ -143,6 +146,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
+
+        /*if (_savedInstanceState != null && _savedInstanceState.containsKey("undoredopref")) {
+            _hlEditor.postDelayed(() -> {
+                SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
+                _editTextUndoRedoHelper.restorePersistentState(sp, _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
+            }, 100);
+        }*/
     }
 
     @Override
@@ -159,10 +169,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         boolean enable;
         Drawable drawable;
-        drawable = menu.findItem(R.id.action_undo).setEnabled(_document.canGoToEarlierVersion()).getIcon();
-        drawable.mutate().setAlpha(_document.canGoToEarlierVersion() ? 255 : 40);
-        drawable = menu.findItem(R.id.action_redo).setEnabled(_document.canGoToNewerVersion()).getIcon();
-        drawable.mutate().setAlpha(_document.canGoToNewerVersion() ? 255 : 40);
+        drawable = menu.findItem(R.id.action_undo).setEnabled(_editTextUndoRedoHelper.getCanUndo()).getIcon();
+        drawable.mutate().setAlpha(_editTextUndoRedoHelper.getCanUndo() ? 255 : 40);
+        drawable = menu.findItem(R.id.action_redo).setEnabled(_editTextUndoRedoHelper.getCanRedo()).getIcon();
+        drawable.mutate().setAlpha(_editTextUndoRedoHelper.getCanRedo() ? 255 : 40);
         enable = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         drawable = menu.findItem(R.id.action_save).setEnabled(enable).getIcon();
         drawable.mutate().setAlpha(enable ? 255 : 40);
@@ -187,16 +197,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_undo: {
-                if (_document.canGoToEarlierVersion()) {
-                    _document.goToEarlierVersion();
-                    loadDocumentIntoUi();
+                if (_editTextUndoRedoHelper.getCanUndo()) {
+                    _editTextUndoRedoHelper.undo();
+                    ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
             }
             case R.id.action_redo: {
-                if (_document.canGoToNewerVersion()) {
-                    _document.goToNewerVersion();
-                    loadDocumentIntoUi();
+                if (_editTextUndoRedoHelper.getCanRedo()) {
+                    _editTextUndoRedoHelper.redo();
+                    ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
             }
@@ -307,7 +317,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveDocument();
-        if ((_hlEditor.length() * _document.getHistory().size() * 1.05) < 9200) {
+        if ((_hlEditor.length() * _document.getHistory().size() * 1.05) < 9200 && false) {
             outState.putSerializable(SAVESTATE_DOCUMENT, _document);
         }
         if (getArguments() != null && _document.getFile() != null) {
@@ -317,6 +327,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
+        /*SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
+        _editTextUndoRedoHelper.storePersistentState(sp.edit(), _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
+        outState.putString("undoredopref", "put");*/
         super.onSaveInstanceState(outState);
     }
 
@@ -357,6 +370,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void checkReloadDisk() {
         Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
         if (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent())) {
+            _editTextUndoRedoHelper.clearHistory();
             _document = cmp;
             loadDocument();
             loadDocumentIntoUi();
