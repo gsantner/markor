@@ -532,10 +532,10 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         private final Paint _paint;
         private int _heightDp;
 
-        // b8b8b8 = default divider color
-        // d1d1d1 = often used in app
+        // b8b8b8          = default divider color
+        // d1d1d1 / 3d3d3d = color for light / dark mode
         public DividerDecoration(Context context, Callback.b1<Integer> isCategoryAtFlatpos) {
-            this(context, Color.parseColor("#d1d1d1"), 1f);
+            this(context, Color.parseColor(SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17) ? "#d1d1d1" : "#3d3d3d"), 1f);
             _isCategoryAtFlatpositionCallback = isCategoryAtFlatpos;
         }
 
