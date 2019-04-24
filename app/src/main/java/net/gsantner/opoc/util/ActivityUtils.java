@@ -48,6 +48,12 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         _activity = activity;
     }
 
+    @Override
+    public void freeContextRef() {
+        super.freeContextRef();
+        _activity = null;
+    }
+
     //########################
     //##     Methods
     //########################
@@ -98,18 +104,20 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
                 .show();
     }
 
-    public void hideSoftKeyboard() {
+    public ActivityUtils hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
             imm.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
         }
+        return this;
     }
 
-    public void showSoftKeyboard() {
+    public ActivityUtils showSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
             imm.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
         }
+        return this;
     }
 
     public void showDialogWithHtmlTextView(@StringRes int resTitleId, String html) {

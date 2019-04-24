@@ -243,7 +243,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 DocumentActivity a = (DocumentActivity) getActivity();
                 a.setDocument(document);
                 if (AppSettings.get().isPreviewFirst()) {
-                    a.showPreview(document, null);
+                    a.showTextEditor(document, null, false, true);
                 } else {
                     a.showTextEditor(document, null, false);
                 }

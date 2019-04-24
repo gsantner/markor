@@ -13,12 +13,12 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -27,6 +27,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.App;
@@ -37,6 +40,7 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -55,7 +59,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
-    public static boolean showPreviewOnBack = false;
+    private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -85,10 +89,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @BindView(R.id.document__fragment__edit__content_editor__permission_warning)
     TextView _textSdWarning;
 
+    @BindView(R.id.document__fragment_view_webview)
+    WebView _webView;
+
     private Document _document;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
     private TextViewUndoRedo _editTextUndoRedoHelper;
+    private boolean _isPreviewVisible;
 
     public DocumentEditFragment() {
     }
@@ -105,6 +113,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         setupAppearancePreferences(view);
         _shareUtil = new ShareUtil(view.getContext());
 
+        AppSettings appSettings = new AppSettings(view.getContext());
+        _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
+        _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
+        WebSettings webSettings = _webView.getSettings();
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setTextZoom((int) (appSettings.getFontSize() / 17f * 100f));
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setGeolocationEnabled(false);
+        webSettings.setJavaScriptEnabled(true);
+
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         }
@@ -119,9 +139,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
-        AppSettings appSettings = new AppSettings(view.getContext());
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, appSettings.getEditorLineSpacing());
+
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
+            _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
+        }
+        if (_isPreviewVisible) {
+            setDocumentViewVisibility(true);
+        }
     }
 
     @Override
@@ -167,15 +194,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
 
-        boolean enable;
+        boolean isTextEmpty;
+        boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
+        boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+
+        // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
         Drawable drawable;
-        drawable = menu.findItem(R.id.action_undo).setEnabled(_editTextUndoRedoHelper.getCanUndo()).getIcon();
-        drawable.mutate().setAlpha(_editTextUndoRedoHelper.getCanUndo() ? 255 : 40);
-        drawable = menu.findItem(R.id.action_redo).setEnabled(_editTextUndoRedoHelper.getCanRedo()).getIcon();
-        drawable.mutate().setAlpha(_editTextUndoRedoHelper.getCanRedo() ? 255 : 40);
-        enable = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
-        drawable = menu.findItem(R.id.action_save).setEnabled(enable).getIcon();
-        drawable.mutate().setAlpha(enable ? 255 : 40);
+        drawable = menu.findItem(R.id.action_undo).setEnabled(canUndo).getIcon();
+        drawable.mutate().setAlpha(canUndo ? 255 : 40);
+        drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).getIcon();
+        drawable.mutate().setAlpha(canRedo ? 255 : 40);
+        isTextEmpty = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
+        drawable = menu.findItem(R.id.action_save).setEnabled(isTextEmpty).getIcon();
+        drawable.mutate().setAlpha(isTextEmpty ? 255 : 40);
+
+        // Edit / Preview switch
+        menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
+        menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
     }
 
     public void loadDocumentIntoUi() {
@@ -212,6 +247,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_save: {
                 saveDocument();
+                return true;
+            }
+            case R.id.action_preview: {
+                setDocumentViewVisibility(true);
+                return true;
+            }
+            case R.id.action_edit: {
+                setDocumentViewVisibility(false);
+                return true;
+            }
+            case R.id.action_preview_edit_toggle: {
+                setDocumentViewVisibility(!_isPreviewVisible);
                 return true;
             }
         }
@@ -286,13 +333,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public boolean onBackPressed() {
         saveDocument();
-        if (showPreviewOnBack) {
-            showPreviewOnBack = false;
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof DocumentActivity) {
-                DocumentActivity da = ((DocumentActivity) activity);
-                da.showPreview(_document, null);
-            }
+        if (_isPreviewVisible) {
+            setDocumentViewVisibility(false);
             return true;
         }
         return false;
@@ -327,6 +369,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
+        outState.putBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
+
         /*SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
         _editTextUndoRedoHelper.storePersistentState(sp.edit(), _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
         outState.putString("undoredopref", "put");*/
@@ -341,12 +385,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             AppSettings appSettings = new AppSettings(getContext());
             appSettings.addRecentDocument(_document.getFile());
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        showPreviewOnBack = false;
     }
 
     private void updateLauncherWidgets() {
@@ -396,6 +434,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
+    public void setDocumentViewVisibility(boolean show) {
+        if (show) {
+            _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
+        }
+        ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
+        _isPreviewVisible = show;
+        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
+        ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
+    }
+
     //
     //
     //
@@ -403,5 +451,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public Document getDocument() {
         return _document;
+    }
+
+    public WebView getWebview() {
+        return _webView;
+    }
+
+    public DocumentEditFragment setPreviewFlag(boolean preview) {
+        _isPreviewVisible = preview;
+        return this;
     }
 }

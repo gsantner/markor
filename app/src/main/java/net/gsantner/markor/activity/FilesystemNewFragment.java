@@ -279,7 +279,7 @@ public class FilesystemNewFragment extends GsFragmentBase implements TextFormat.
             Activity activity = getActivity();
             if (activity != null && activity instanceof DocumentActivity) {
                 DocumentActivity da = ((DocumentActivity) activity);
-                da.showPreview(_document, null);
+                da.showTextEditor(_document, null, false, true);
             }
             return true;
         }

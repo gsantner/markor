@@ -15,9 +15,22 @@
     tools:ignore="AlwaysShowAction">
 
     <item
+        android:id="@+id/action_preview_edit_toggle"
+        android:icon="@drawable/ic_visibility_black_24dp"
+        android:title="@string/representation"
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/representation"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="@string/edit"
         app:showAsAction="always" />
 
     <item
@@ -30,7 +43,7 @@
         android:id="@+id/action_redo"
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/redo"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_save"

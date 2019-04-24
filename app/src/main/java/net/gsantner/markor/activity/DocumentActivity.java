@@ -144,11 +144,8 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (file != null) {
-            if (receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile()) {
-                showPreview(null, file);
-            } else {
-                showTextEditor(null, file, fileIsFolder);
-            }
+            boolean preview = receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile();
+            showTextEditor(null, file, fileIsFolder, preview);
         }
 
     }
@@ -160,9 +157,8 @@ public class DocumentActivity extends AppActivityBase {
         String frag = getCurrentVisibleFragment() != null ? getCurrentVisibleFragment().getFragmentTag() : null;
         frag = frag == null ? "" : frag;
 
-        menu.findItem(R.id.action_share_pdf).setVisible(frag.equals(DocumentRepresentationFragment.FRAGMENT_TAG)
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-        menu.findItem(R.id.action_share_image).setVisible(frag.equals(DocumentRepresentationFragment.FRAGMENT_TAG));
+        menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+        menu.findItem(R.id.action_share_image).setVisible(true);
 
         _contextUtils.tintMenuItems(menu, true, Color.WHITE);
         _contextUtils.setSubMenuIconsVisiblity(menu, true);
@@ -186,12 +182,7 @@ public class DocumentActivity extends AppActivityBase {
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     point.set(point.left, point.top, event.getX(), event.getY());
                     if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
-                        GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
-                        if (currentTop instanceof DocumentEditFragment) {
-                            onOptionsItemSelected(_menu.findItem(R.id.action_preview));
-                        } else if (currentTop instanceof DocumentRepresentationFragment) {
-                            onOptionsItemSelected(_menu.findItem(R.id.action_edit));
-                        }
+                        onOptionsItemSelected(_menu.findItem(R.id.action_preview_edit_toggle));
                     }
                 }
             } catch (Exception ignored) {
@@ -210,7 +201,7 @@ public class DocumentActivity extends AppActivityBase {
         net.gsantner.markor.util.ShareUtil shu = new net.gsantner.markor.util.ShareUtil(this);
 
         switch (item.getItemId()) {
-            case R.id.action_preview: {
+            /*case R.id.action_preview: {
                 if (saveDocument()) {
                     DocumentRepresentationFragment.showEditOnBack = true;
                     showPreview(_document, null);
@@ -222,7 +213,7 @@ public class DocumentActivity extends AppActivityBase {
                 DocumentEditFragment.showPreviewOnBack = true;
                 showTextEditor(_document, null, false);
                 return true;
-            }
+            }*/
             case R.id.action_add_shortcut_launcher_home: {
                 shu.createLauncherDesktopShortcut(_document);
                 return true;
@@ -266,7 +257,6 @@ public class DocumentActivity extends AppActivityBase {
                     shu.printOrCreatePdfFromWebview(getPreviewWebview(), _document);
                 }
                 return true;
-
             }
 
             case R.id.action_format_todotxt:
@@ -300,12 +290,17 @@ public class DocumentActivity extends AppActivityBase {
         }
     }
 
+
     public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
+        return showTextEditor(document, file, fileIsFolder, false);
+    }
+
+    public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
         GsFragmentBase frag;
         if (document != null) {
-            frag = showFragment(DocumentEditFragment.newInstance(document));
+            frag = showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
         } else {
-            frag = showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true));
+            frag = showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true).setPreviewFlag(preview));
         }
         return frag;
     }
@@ -314,15 +309,6 @@ public class DocumentActivity extends AppActivityBase {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
-    }
-
-    public void showPreview(@Nullable Document document, @Nullable File file) {
-        // Disable edittext when going to preview
-        if (document != null) {
-            showFragment(DocumentRepresentationFragment.newInstance(document));
-        } else {
-            showFragment(DocumentRepresentationFragment.newInstance(file));
-        }
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -409,16 +395,13 @@ public class DocumentActivity extends AppActivityBase {
             DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
             ret = def.saveDocument();
             setDocument(def.getDocument()); // Apply title again. Document is modified in edit activity
-        } else if (getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG) != null) {
-            ret = _document != null;
         }
         return ret;
     }
 
     private WebView getPreviewWebview() {
-        if (getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG) != null) {
-            return ((DocumentRepresentationFragment) getExistingFragment(DocumentRepresentationFragment.FRAGMENT_TAG))
-                    .getWebview();
+        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
+            return ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG)).getWebview();
         }
         return null;
     }
