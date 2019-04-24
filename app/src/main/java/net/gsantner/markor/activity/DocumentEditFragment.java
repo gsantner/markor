@@ -13,9 +13,11 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -31,10 +33,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -211,6 +215,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
+
+
+        menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+        menu.findItem(R.id.action_share_image).setVisible(true);
     }
 
     public void loadDocumentIntoUi() {
@@ -229,7 +237,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (!_isPreviewVisible) {
+            switch (item.getItemId()) {
+                case R.id.action_share_pdf:
+                case R.id.action_share_image: {
+                    setDocumentViewVisibility(true);
+                    _webView.postDelayed(() -> onOptionsItemSelected(item), 1000);
+                    return true;
+                }
+            }
+        }
+
         switch (item.getItemId()) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
@@ -259,6 +278,60 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_preview_edit_toggle: {
                 setDocumentViewVisibility(!_isPreviewVisible);
+                return true;
+            }
+            case R.id.action_add_shortcut_launcher_home: {
+                _shareUtil.createLauncherDesktopShortcut(_document);
+                return true;
+            }
+            case R.id.action_share_text: {
+                if (saveDocument()) {
+                    _shareUtil.shareText(_document.getContent(), "text/plain");
+                }
+                return true;
+            }
+            case R.id.action_share_file: {
+                if (saveDocument()) {
+                    _shareUtil.shareStream(_document.getFile(), "text/plain");
+                }
+                return true;
+            }
+            case R.id.action_share_html:
+            case R.id.action_share_html_source: {
+                if (saveDocument()) {
+                    MarkdownTextConverter converter = new MarkdownTextConverter();
+                    _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext()),
+                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
+                }
+                return true;
+            }
+            case R.id.action_share_calendar_event: {
+                if (saveDocument()) {
+                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _document.getContent(), null)) {
+                        Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return true;
+            }
+            case R.id.action_share_image: {
+                if (saveDocument()) {
+                    _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
+                }
+                return true;
+            }
+            case R.id.action_share_pdf: {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument()) {
+                    _shareUtil.printOrCreatePdfFromWebview(_webView, _document);
+                }
+                return true;
+            }
+            case R.id.action_format_todotxt:
+            case R.id.action_format_plaintext:
+            case R.id.action_format_markdown: {
+                if (_document != null) {
+                    _document.setFormat(item.getItemId());
+                    applyTextFormat(item.getItemId());
+                }
                 return true;
             }
         }
@@ -437,10 +510,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void setDocumentViewVisibility(boolean show) {
         if (show) {
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
+            new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
+            _hlEditor.clearFocus();
+            _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         }
         ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
         _isPreviewVisible = show;
-        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
     }
 

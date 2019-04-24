@@ -12,8 +12,6 @@ package net.gsantner.markor.activity;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
@@ -25,18 +23,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
@@ -51,7 +43,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import other.so.AndroidBug5497Workaround;
 
-@SuppressWarnings("unused")
 public class DocumentActivity extends AppActivityBase {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
     public static final String EXTRA_LAUNCHER_SHORTCUT_PATH = "real_file_path_2";
@@ -63,13 +54,11 @@ public class DocumentActivity extends AppActivityBase {
     @BindView(R.id.note__activity__text_note_title)
     TextView _toolbarTitleText;
 
-    private MarkdownTextConverter _mdRenderer = new MarkdownTextConverter();
     private FragmentManager _fragManager;
     private Document _document;
 
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
-    private Menu _menu;
 
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
         if (intent == null) {
@@ -150,29 +139,13 @@ public class DocumentActivity extends AppActivityBase {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        _menu = menu;
-        getMenuInflater().inflate(R.menu.document__menu, menu);
-        String frag = getCurrentVisibleFragment() != null ? getCurrentVisibleFragment().getFragmentTag() : null;
-        frag = frag == null ? "" : frag;
-
-        menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-        menu.findItem(R.id.action_share_image).setVisible(true);
-
-        _contextUtils.tintMenuItems(menu, true, Color.WHITE);
-        _contextUtils.setSubMenuIconsVisiblity(menu, true);
-        return true;
-    }
-
-
     private final RectF point = new RectF(0, 0, 0, 0);
     private static final int SWIPE_MIN_DX = 150;
     private static final int SWIPE_MAX_DY = 90;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (_appSettings.isSwipeToChangeMode()) {
+        if (_appSettings.isSwipeToChangeMode() && getCurrentVisibleFragment() instanceof DocumentEditFragment) {
             try {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
@@ -182,7 +155,7 @@ public class DocumentActivity extends AppActivityBase {
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     point.set(point.left, point.top, event.getX(), event.getY());
                     if (Math.abs(point.width()) > SWIPE_MIN_DX && Math.abs(point.height()) < SWIPE_MAX_DY) {
-                        onOptionsItemSelected(_menu.findItem(R.id.action_preview_edit_toggle));
+                        getCurrentVisibleFragment().getFragmentMenu().performIdentifierAction(R.id.action_preview_edit_toggle, 0);
                     }
                 }
             } catch (Exception ignored) {
@@ -194,86 +167,6 @@ public class DocumentActivity extends AppActivityBase {
         } catch (IndexOutOfBoundsException ignored) {
             return false;
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        net.gsantner.markor.util.ShareUtil shu = new net.gsantner.markor.util.ShareUtil(this);
-
-        switch (item.getItemId()) {
-            /*case R.id.action_preview: {
-                if (saveDocument()) {
-                    DocumentRepresentationFragment.showEditOnBack = true;
-                    showPreview(_document, null);
-                }
-                return true;
-            }
-
-            case R.id.action_edit: {
-                DocumentEditFragment.showPreviewOnBack = true;
-                showTextEditor(_document, null, false);
-                return true;
-            }*/
-            case R.id.action_add_shortcut_launcher_home: {
-                shu.createLauncherDesktopShortcut(_document);
-                return true;
-            }
-            case R.id.action_share_text: {
-                if (saveDocument()) {
-                    shu.shareText(_document.getContent(), "text/plain");
-                }
-                return true;
-            }
-            case R.id.action_share_file:
-                if (saveDocument()) {
-                    shu.shareStream(_document.getFile(), "text/plain");
-                }
-                return true;
-            case R.id.action_share_html:
-            case R.id.action_share_html_source: {
-                if (saveDocument()) {
-                    MarkdownTextConverter converter = new MarkdownTextConverter();
-                    shu.shareText(converter.convertMarkup(_document.getContent(), this),
-                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
-                }
-                return true;
-            }
-            case R.id.action_share_calendar_event: {
-                if (saveDocument()) {
-                    if (!shu.createCalendarAppointment(_document.getTitle(), _document.getContent(), null)) {
-                        Toast.makeText(this, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
-                    }
-                }
-                return true;
-            }
-            case R.id.action_share_image: {
-                if (saveDocument() && getPreviewWebview() != null) {
-                    shu.shareImage(ShareUtil.getBitmapFromWebView(getPreviewWebview()), Bitmap.CompressFormat.JPEG);
-                }
-                return true;
-            }
-            case R.id.action_share_pdf: {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument() && getPreviewWebview() != null) {
-                    shu.printOrCreatePdfFromWebview(getPreviewWebview(), _document);
-                }
-                return true;
-            }
-
-            case R.id.action_format_todotxt:
-            case R.id.action_format_plaintext:
-            case R.id.action_format_markdown: {
-                if (_document != null) {
-                    _document.setFormat(item.getItemId());
-                    GsFragmentBase frag = getCurrentVisibleFragment();
-                    if (frag != null && frag instanceof TextFormat.TextFormatApplier) {
-                        ((TextFormat.TextFormatApplier) frag).applyTextFormat(item.getItemId());
-                    }
-                }
-                return true;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -354,7 +247,6 @@ public class DocumentActivity extends AppActivityBase {
         }
     }
 
-
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
         GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
 
@@ -397,12 +289,5 @@ public class DocumentActivity extends AppActivityBase {
             setDocument(def.getDocument()); // Apply title again. Document is modified in edit activity
         }
         return ret;
-    }
-
-    private WebView getPreviewWebview() {
-        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
-            return ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG)).getWebview();
-        }
-        return null;
     }
 }
