@@ -265,10 +265,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
+    <string name="internal_storage">Intern lagring</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
     <string name="view">Visa</string>
     <string name="view_mode">Visningsläge</string>
     <string name="edit_mode">Redigera</string>
     <string name="favourite">Favorit</string>
+    <string name="favourites">Favoriter</string>
 </resources>
