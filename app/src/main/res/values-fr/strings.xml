@@ -291,4 +291,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Partager dans</string>
     <string name="favourite">Favoris</string>
     <string name="favourites">Favoris</string>
+    <string name="please_wait">Veuillez patienter</string>
 </resources>
