@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл отсутствует в каталоге приложения. Хотите скопировать данный файл в текущий каталог? Это перезапишет любые существующие файлы с таким же именем.</string>
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Просмотр документов</string>
+    <string name="file_browser">Браузер файлов</string>
     <string name="create_note" needed="false">Создать заметку</string>
     <string name="special_documents" needed="false">Особые документы</string>
     <string name="keep_screen_on" needed="false">Оставлять экран включенным</string>
@@ -268,5 +269,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>
     <string name="swipe_to_change_mode_to_other">Смахните, чтобы изменить режим редактирования или представления, напротив текущего режима</string>
+    <string name="folder_first">Сначала папку</string>
+    <string name="go_to">Перейти к</string>
+    <string name="appdata_public">AppData (публичный)</string>
+    <string name="appdata_private">AppData (приватный)</string>
+    <string name="appdata_sdcard">Приложения (SD-карта)</string>
+    <string name="internal_storage">Внутренняя память</string>
+    <string name="open_the_document_from_main_view">Вы можете открыть документ из главного вида внизу, файлового браузера или лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook - это папка, которую Маркор загружает в файловом браузере при запуске приложения. Это домашняя папка ваших файлов.</string>
     <string name="favourite">Избранное</string>
 </resources>
