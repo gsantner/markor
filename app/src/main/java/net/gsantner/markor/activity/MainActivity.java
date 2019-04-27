@@ -138,7 +138,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
         //_shareUtil.showMountSdDialog(this);
 
-        _shareUtil.writeFile(new File("/storage/C151-0B05/amy.txt"), false, (arg1, arg2) -> {
+        /*_shareUtil.writeFile(new File("/storage/C151-0B05/amy.txt"), false, (arg1, arg2) -> {
             try {
                 arg2.write("COOLICOOL".getBytes());
             } catch (IOException e) {
@@ -146,7 +146,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             }
         });
         _shareUtil.writeFile(new File("/storage/C151-0B05/some/very/vool"), true, null);
-        _shareUtil.writeFile(new File("/storage/C151-0B05/net/test/a.lol.txt"), false, null);
+        _shareUtil.writeFile(new File("/storage/C151-0B05/net/test/a.lol.txt"), false, null);*/
 
         _bottomNav.postDelayed(() -> {
             if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {

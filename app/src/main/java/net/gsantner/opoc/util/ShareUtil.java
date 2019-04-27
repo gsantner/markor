@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -39,6 +40,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.pm.ShortcutInfoCompat;
@@ -73,7 +76,7 @@ import static android.app.Activity.RESULT_OK;
  * Also allows to parse/fetch information out of shared information.
  * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
-@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection"})
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference"})
 public class ShareUtil {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm", Locale.getDefault());
@@ -1069,6 +1072,45 @@ public class ShareUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Call telephone number.
+     * Non direct call, opens up the dialer and pre-sets the telephone number. User needs to press manually.
+     * Direct call requires M permission granted, also add permissions to manifest:
+     * <uses-permission android:name="android.permission.CALL_PHONE" />
+     *
+     * @param telNo      The telephone number to call
+     * @param directCall Direct call number if possible
+     */
+    @SuppressWarnings("SimplifiableConditionalExpression")
+    public void callTelephoneNumber(String telNo, boolean... directCall) {
+        Activity activity = greedyGetActivity();
+        if (activity == null) {
+            throw new RuntimeException("Error: ShareUtil::callTelephoneNumber needs to be contstructed with activity context");
+        }
+        boolean ldirectCall = (directCall != null && directCall.length > 0) ? directCall[0] : true;
+
+
+        if (android.os.Build.VERSION.SDK_INT >= 23 && ldirectCall && activity != null) {
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 4001);
+                ldirectCall = false;
+            } else {
+                try {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + telNo));
+                    activity.startActivity(callIntent);
+                } catch (Exception ignored) {
+                    ldirectCall = false;
+                }
+            }
+        }
+        // Show dialer up with telephone number pre-inserted
+        if (!ldirectCall) {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
+            activity.startActivity(intent);
         }
     }
 }
