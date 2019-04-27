@@ -291,4 +291,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Condividi con</string>
     <string name="favourite">Preferito</string>
     <string name="favourites">Preferiti</string>
+    <string name="please_wait">Attendi</string>
 </resources>
