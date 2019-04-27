@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -216,5 +217,15 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         TypedValue typedValue = new TypedValue();
         _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorAccent"), typedValue, true);
         return typedValue.data;
+    }
+
+    @ColorInt
+    public Integer getActivityBackgroundColor() {
+        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[] {
+                android.R.attr.colorBackground,
+        });
+        int c = array.getColor(0, 0xFF0000);
+        array.recycle();
+        return c;
     }
 }
