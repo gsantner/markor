@@ -238,12 +238,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
+        boolean enablePreviewModeAndRerunAction = false;
         if (!_isPreviewVisible) {
             switch (item.getItemId()) {
                 case R.id.action_share_pdf:
                 case R.id.action_share_image: {
                     setDocumentViewVisibility(true);
-                    _webView.postDelayed(() -> onOptionsItemSelected(item), 1000);
+                    Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
+                    _webView.postDelayed(() -> onOptionsItemSelected(item), 5000);
                     return true;
                 }
             }
@@ -313,18 +315,19 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 }
                 return true;
             }
-            case R.id.action_share_image: {
-                if (saveDocument()) {
-                    _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
-                }
-                return true;
-            }
             case R.id.action_share_pdf: {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument()) {
                     _shareUtil.printOrCreatePdfFromWebview(_webView, _document);
                 }
                 return true;
             }
+            case R.id.action_share_image: {
+                if (saveDocument()) {
+                    _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
+                }
+                return true;
+            }
+
             case R.id.action_format_todotxt:
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {

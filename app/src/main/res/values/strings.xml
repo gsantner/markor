@@ -303,4 +303,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Share into</string>
     <string name="favourite">Favourite</string>
     <string name="favourites">Favourites</string>
+    <string name="please_wait">Please wait</string>
 </resources>
