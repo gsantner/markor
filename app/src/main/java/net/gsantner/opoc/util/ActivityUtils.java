@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.CalendarContract;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -93,9 +94,11 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
 
-    public void showSnackBar(@StringRes int stringResId, boolean showLong) {
-        Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+    public Snackbar showSnackBar(@StringRes int stringResId, boolean showLong) {
+        Snackbar s = Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
+                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
+        s.show();
+        return s;
     }
 
     public void showSnackBar(@StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
@@ -152,7 +155,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     // Toggle with no param, else set visibility according to first bool
-    public void toggleStatusbarVisibility(boolean... optionalForceVisible) {
+    public ActivityUtils toggleStatusbarVisibility(boolean... optionalForceVisible) {
         WindowManager.LayoutParams attrs = _activity.getWindow().getAttributes();
         int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (optionalForceVisible.length == 0) {
@@ -163,9 +166,10 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
             attrs.flags |= flag;
         }
         _activity.getWindow().setAttributes(attrs);
+        return this;
     }
 
-    public void showGooglePlayEntryForThisApp() {
+    public ActivityUtils showGooglePlayEntryForThisApp() {
         String pkgId = "details?id=" + _activity.getPackageName();
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
@@ -177,9 +181,10 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
             _activity.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://play.google.com/store/apps/" + pkgId)));
         }
+        return this;
     }
 
-    public void setStatusbarColor(int color, boolean... fromRes) {
+    public ActivityUtils setStatusbarColor(int color, boolean... fromRes) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (fromRes != null && fromRes.length > 0 && fromRes[0]) {
                 color = ContextCompat.getColor(_context, color);
@@ -187,14 +192,15 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
             _activity.getWindow().setStatusBarColor(color);
         }
+        return this;
     }
 
-    public void setLauncherActivityEnabled(Class activityClass, boolean enable) {
+    public ActivityUtils setLauncherActivityEnabled(Class activityClass, boolean enable) {
         Context context = _context.getApplicationContext();
         PackageManager pkg = context.getPackageManager();
         ComponentName component = new ComponentName(context, activityClass);
-        pkg.setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                , PackageManager.DONT_KILL_APP);
+        pkg.setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        return this;
     }
 
 
@@ -221,11 +227,20 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
     @ColorInt
     public Integer getActivityBackgroundColor() {
-        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[] {
+        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[]{
                 android.R.attr.colorBackground,
         });
         int c = array.getColor(0, 0xFF0000);
         array.recycle();
         return c;
+    }
+
+    public ActivityUtils startCalendarApp() {
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        builder.appendPath(Long.toString(System.currentTimeMillis()));
+        Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
+        _activity.startActivity(intent);
+        return this;
     }
 }
