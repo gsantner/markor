@@ -257,4 +257,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_time">Оберіть час</string>
     <string name="close">Закрити</string>
     <string name="favourite">Улюблене</string>
+    <string name="favourites">Вибране</string>
+    <string name="please_wait">Будь ласка, зачекайте</string>
 </resources>
