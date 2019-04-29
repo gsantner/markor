@@ -291,4 +291,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">情報の共有</string>
     <string name="favourite">お気に入りに追加</string>
     <string name="favourites">お気に入り</string>
+    <string name="please_wait">しばらくお待ちください</string>
 </resources>
