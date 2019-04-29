@@ -261,6 +261,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Останнє використане</string>
     <string name="close">Закрити</string>
     <string name="cancel">Скасувати</string>
+    <string name="app_start_tab">Вкладка запуску програми</string>
+    <string name="tab_to_select_at_start">Вибрати стартову сторінку програми</string>
+    <string name="swipe_to_change_mode">Проведіть, щоб змінити режим</string>
     <string name="go_to">Перейти</string>
     <string name="internal_storage">Внутрішнє сховище</string>
     <string name="black">Чорний</string>
