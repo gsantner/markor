@@ -269,7 +269,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Проведіть, щоб змінити режим</string>
     <string name="folder_first">Спершу папки</string>
     <string name="go_to">Перейти</string>
+    <string name="appdata_public">AppData (публічна)</string>
+    <string name="appdata_private">AppData (приватна)</string>
+    <string name="appdata_sdcard">AppData (SD-карта)</string>
     <string name="internal_storage">Внутрішнє сховище</string>
+    <string name="todo_is_the_easiest_way_">Керуйте своїми завданнями з ToDo. Це файл у форматі todo.txt, за умовчанням розташований у &gt;Notebook/todo.txt&lt;, ви можете встановити власний шлях у налаштуваннях.</string>
     <string name="navigationbar_color">Колір панелі навігації</string>
     <string name="black">Чорний</string>
     <string name="white">Білий</string>
@@ -277,6 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">Режим перегляду</string>
     <string name="edit_mode">Режим редагування</string>
     <string name="mount_storage">Підключити сховище</string>
+    <string name="application_needs_access_to_storage_mount_it">Для доступу до цього сховища потрібно отримати дозвіл. Монтуйте сховище, щоби отримати доступ. Погодьте цей діалог аби відкрити вікно вибору. Виділіть сховище там і натисніть «обрати».</string>
     <string name="share_into">Поділитися через</string>
     <string name="favourite">Улюблене</string>
     <string name="favourites">Вибране</string>
