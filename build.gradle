@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 
 buildscript {
     ext {
-        version_gradle_tools = "3.2.1"
+        version_gradle_tools = '3.3.2'
         version_plugin_kotlin = "1.3.11"
         enable_plugin_kotlin = false
 
@@ -34,6 +34,7 @@ buildscript {
         jcenter()
         maven { url "https://jitpack.io" }
         mavenCentral()
+        google()
     }
 
     dependencies {

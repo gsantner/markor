@@ -291,4 +291,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Teilen nach</string>
     <string name="favourite">Favorisieren</string>
     <string name="favourites">Favoriten</string>
+    <string name="text_words">Text Wörter</string>
 </resources>
