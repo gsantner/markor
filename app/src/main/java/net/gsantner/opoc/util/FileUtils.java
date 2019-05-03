@@ -413,7 +413,9 @@ public class FileUtils {
             while ((line = br.readLine()) != null) {
                 numLines.getAndIncrement();
                 numCharacters.getAndSet(numCharacters.get() + line.length());
-                numWords.getAndSet(numWords.get() + line.split("\\s+").length);
+                if (!line.equals("")) {
+                    numWords.getAndSet(numWords.get() + line.split("\\s+").length);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
