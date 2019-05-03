@@ -71,7 +71,7 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setView(root);
 
         ((TextView) root.findViewById(R.id.ui__fileinfodialog__name))
-                .setText(file.getParentFile().getName());
+                .setText(file.getName());
 
 
         ((TextView) root.findViewById(R.id.ui__fileinfodialog__location))
