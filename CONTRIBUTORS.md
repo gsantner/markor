@@ -37,3 +37,4 @@ Where:
 * **[Jawkwon Im](https://github.com/jakeoneijk)**<br/>~° Add keep screen on
 * **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
 * **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
+* **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter

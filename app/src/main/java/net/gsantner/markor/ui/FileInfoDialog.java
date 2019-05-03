@@ -93,12 +93,16 @@ public class FileInfoDialog extends DialogFragment {
 
             AtomicInteger linesCount = new AtomicInteger(0);
             AtomicInteger charactersCount = new AtomicInteger(0);
-            FileUtils.retrieveTextFileSummary(file, charactersCount, linesCount);
+            AtomicInteger wordsCount = new AtomicInteger(0);
+            FileUtils.retrieveTextFileSummary(file, charactersCount, linesCount, wordsCount);
 
             textNumLinesView.setText((linesCount.toString()));
 
             TextView textNumCharactersView = root.findViewById(R.id.ui__fileinfodialog__numbercharacters_description);
             textNumCharactersView.setText(charactersCount.toString());
+
+            TextView textNumWordsView = root.findViewById(R.id.ui__fileinfodialog__numberwords_description);
+            textNumWordsView.setText(wordsCount.toString());
         } else {
             root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
         }

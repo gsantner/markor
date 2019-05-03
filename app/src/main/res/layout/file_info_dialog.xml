@@ -84,16 +84,16 @@
             tools:text="today" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/ui__fileinfodialog__textinfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/size"
@@ -110,10 +110,10 @@
 
 
             <TextView
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/text_lines"
@@ -130,10 +130,10 @@
 
 
             <TextView
-                android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/text_characters"
@@ -147,6 +147,25 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
                 tools:text="25" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/text_words"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            <TextView
+                android:id="@+id/ui__fileinfodialog__numberwords_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:text="12" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

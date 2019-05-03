@@ -405,7 +405,7 @@ public class FileUtils {
      * Analyze given textfile and retrieve multiple information from it
      * Information is written back to the {@link AtomicInteger} parameters
      */
-    public static void retrieveTextFileSummary(File file, AtomicInteger numCharacters, AtomicInteger numLines) {
+    public static void retrieveTextFileSummary(File file, AtomicInteger numCharacters, AtomicInteger numLines, AtomicInteger numWords) {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(file));
@@ -413,11 +413,15 @@ public class FileUtils {
             while ((line = br.readLine()) != null) {
                 numLines.getAndIncrement();
                 numCharacters.getAndSet(numCharacters.get() + line.length());
+                if (!line.equals("")) {
+                    numWords.getAndSet(numWords.get() + line.split("\\s+").length);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
             numCharacters.set(-1);
             numLines.set(-1);
+            numWords.set(-1);
         } finally {
             if (br != null) {
                 try {
