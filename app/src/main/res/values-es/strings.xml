@@ -120,7 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">El archivo seleccionado no se encuentra en la carpeta del bloc de notas de la aplicación. ¿Desea copiarlo? Si existe un archivo con el mismo nombre será sobre escrito.</string>
     <string name="files_and_folders">Archivos y carpetas</string>
     <string name="document_browser">Navegador de documentos</string>
-    <string name="file_browser">Navegador de archivos</string>
+    <string name="file_browser">Explorador de archivos</string>
     <string name="create_note" needed="false">Crear nota</string>
     <string name="special_documents" needed="false">Documentos especiales</string>
     <string name="keep_screen_on" needed="false">Mantener pantalla encendida</string>
@@ -285,9 +285,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="white">Blanco</string>
     <string name="view">Ver</string>
     <string name="view_mode">Modo de vista</string>
-    <string name="edit_mode">Editar modo</string>
-    <string name="mount_storage">Almacenamiento de montaje</string>
-    <string name="application_needs_access_to_storage_mount_it">Se requiere permiso para acceder a este almacenamiento. Monta el almacenamiento para dar acceso. Confirma este diálogo para obtener un popup. Selecciona el almacenamiento allí y presiona seleccionar.</string>
+    <string name="edit_mode">Modo edición</string>
+    <string name="mount_storage">Montar el almacenamiento</string>
+    <string name="application_needs_access_to_storage_mount_it">Se requiere permiso para acceder a este almacenamiento. Monta el almacenamiento para dar acceso. Confirma este diálogo para obtener un ventana emergente. Selecciona el almacenamiento allí y presiona seleccionar.</string>
     <string name="share_into">Compartir en</string>
     <string name="favourite">Favorito</string>
+    <string name="favourites">Favoritos</string>
+    <string name="please_wait">Por favor, espere</string>
 </resources>

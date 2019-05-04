@@ -166,6 +166,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">کارهای انجام شده را به فایلی در یک پوشه انتقال دهید</string>
     <string name="sort_tasks_by_selected_order">مرتب سازی لیست کار ها بر اساس گزینه انتخاب شده</string>
     <string name="special_key">کلید ویژه</string>
+    <string name="key_page_up">بالا بردن صفحه (Page Up)</string>
+    <string name="key_page_down">پایین بردن صفحه (Page Down)</string>
     <string name="key_pos_1">ابتدای خط (کلید Home)</string>
     <string name="key_pos_end">انتهای خط (کلید End)</string>
     <string name="key_pos_1_document">آغاز پرونده</string>
@@ -181,4 +183,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">پایین</string>
     <string name="center">وسط</string>
     <string name="center_text">متن وسط باشد</string>
+    <string name="please_wait">لطفاً منتظر بمانید</string>
 </resources>
