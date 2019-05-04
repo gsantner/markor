@@ -68,7 +68,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/fab_circle"
-            android:text="@string/bookmark_symbol"
+            android:text="L"
             android:textColor="@color/white"
             android:textSize="18sp"
             tools:ignore="RtlHardcoded" />
@@ -117,6 +117,7 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textStyle="bold"
                 android:textColor="@color/light_grey"
                 android:textSize="24sp" />
 
