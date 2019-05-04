@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">場所</string>
     <string name="text_lines">テキスト行</string>
     <string name="text_characters">テキスト文字</string>
+    <string name="text_words">テキストの語句</string>
     <string name="directory">ディレクトリー</string>
     <string name="recently_viewed_documents">最近表示したドキュメント</string>
     <string name="details">詳細</string>
