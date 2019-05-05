@@ -293,4 +293,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Favorito</string>
     <string name="favourites">Favoritos</string>
     <string name="please_wait">Por favor, espere</string>
+    <string name="app_start_folder">Carpeta de inicio de la aplicación</string>
 </resources>
