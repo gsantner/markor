@@ -288,4 +288,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Uređivanje</string>
     <string name="mount_storage">Pripremi memoriju</string>
     <string name="application_needs_access_to_storage_mount_it">Potrebno je dopuštenje za pristupanje memoriji. Pripremite memoriju da omogućite pristup. Potvrdite ovdje za nastavak. Označite memoriju i pritisnite odaberi.</string>
+    <string name="favourite">Favorit</string>
+    <string name="favourites">Favoriti</string>
+    <string name="please_wait">Molimo sačekajte</string>
+    <string name="app_start_folder">Početni direktorij</string>
 </resources>
