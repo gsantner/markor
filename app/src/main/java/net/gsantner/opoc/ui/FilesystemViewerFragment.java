@@ -370,47 +370,16 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 sortAdapter();
                 return true;
             }
-            case R.id.action_go_to_home: {
-                folderToLoad = _appSettings.getNotebookDirectory();
-                break;
-            }
-            case R.id.action_go_to_popular_files: {
-                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
-                break;
-            }
-            case R.id.action_go_to_recent_files: {
-                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
-                break;
-            }
-            case R.id.action_go_to_favourite_files: {
-                folderToLoad = FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
-                break;
-            }
-            case R.id.action_go_to_appdata_private: {
-                folderToLoad = _contextUtils.getAppDataPrivateDir();
-                break;
-            }
-            case R.id.action_go_to_storage: {
-                folderToLoad = Environment.getExternalStorageDirectory();
-                break;
-            }
-            case R.id.action_go_to_appdata_sdcard_1: {
-                if (appDataPublicDirs.size() > 0) {
-                    folderToLoad = appDataPublicDirs.get(0).first;
-                }
-                break;
-            }
-            case R.id.action_go_to_appdata_sdcard_2: {
-                if (appDataPublicDirs.size() > 1) {
-                    folderToLoad = appDataPublicDirs.get(1).first;
-                }
-                break;
-            }
+            case R.id.action_go_to_home:
+            case R.id.action_go_to_popular_files:
+            case R.id.action_go_to_recent_files:
+            case R.id.action_go_to_favourite_files:
+            case R.id.action_go_to_appdata_private:
+            case R.id.action_go_to_storage:
+            case R.id.action_go_to_appdata_sdcard_1:
+            case R.id.action_go_to_appdata_sdcard_2:
             case R.id.action_go_to_appdata_public: {
-                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(true, false, false);
-                if (appDataPublicDirs.size() > 0) {
-                    folderToLoad = appDataPublicDirs.get(0).first;
-                }
+                folderToLoad = _appSettings.getFolderToLoadByMenuId(item.getItemId());
                 break;
             }
             case R.id.action_favourite:

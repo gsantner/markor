@@ -410,7 +410,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                     opt.descModtimeInsteadOfParent = true;
-                    opt.rootFolder = _appSettings.getNotebookDirectory();
+                    //opt.rootFolder = _appSettings.getNotebookDirectory();
+                    opt.rootFolder = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
                     opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     opt.doSelectMultiple = opt.doSelectFolder = opt.doSelectFile = true;
                     opt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();

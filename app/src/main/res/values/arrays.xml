@@ -88,4 +88,24 @@
         <item translatable="false">dd hh:mm:ss</item>
     </string-array>
 
+    <string-array name="pref_arrdisp__files_startup_folder" translatable="false">
+        <item translatable="false">@string/notebook</item>
+        <item translatable="false">@string/favourites</item>
+        <item translatable="false">@string/internal_storage</item>
+        <item translatable="false">@string/appdata_public</item>
+        <item translatable="false">@string/appdata_private</item>
+        <item translatable="false">@string/popular_documents</item>
+        <item translatable="false">@string/recently_viewed_documents</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__files_startup_folder" translatable="false">
+        <item translatable="false">notebook</item>
+        <item translatable="false">favourites</item>
+        <item translatable="false">internal_storage</item>
+        <item translatable="false">appdata_public</item>
+        <item translatable="false">appdata_private</item>
+        <item translatable="false">popular_documents</item>
+        <item translatable="false">recently_viewed_documents</item>
+    </string-array>
+
 </resources>

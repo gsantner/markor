@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
+import android.support.v4.util.Pair;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -497,5 +498,69 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getNavigationBarColor() {
         return getString(R.string.pref_key__navigationbar_color, "#000000");
+    }
+
+    public @IdRes
+    Integer getAppStartupFolderMenuId() {
+        switch (getString(R.string.pref_key__app_start_folder, "notebook")) {
+            case "favourites":
+                return R.id.action_go_to_favourite_files;
+            case "internal_storage":
+                return R.id.action_go_to_storage;
+            case "appdata_public":
+                return R.id.action_go_to_appdata_public;
+            case "appdata_private":
+                return R.id.action_go_to_appdata_private;
+            case "popular_documents":
+                return R.id.action_go_to_popular_files;
+            case "recently_viewed_documents":
+                return R.id.action_go_to_recent_files;
+        }
+        return R.id.action_go_to_home;
+    }
+
+    public File getFolderToLoadByMenuId(int itemId) {
+        ContextUtils contextUtils = new ContextUtils(_context);
+        List<Pair<File, String>> appDataPublicDirs = contextUtils.getAppDataPublicDirs(false, true, false);
+        switch (itemId) {
+            case R.id.action_go_to_home: {
+                return getNotebookDirectory();
+            }
+            case R.id.action_go_to_popular_files: {
+                return FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
+            }
+            case R.id.action_go_to_recent_files: {
+                return FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
+            }
+            case R.id.action_go_to_favourite_files: {
+                return FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
+            }
+            case R.id.action_go_to_appdata_private: {
+                return contextUtils.getAppDataPrivateDir();
+            }
+            case R.id.action_go_to_storage: {
+                return Environment.getExternalStorageDirectory();
+            }
+            case R.id.action_go_to_appdata_sdcard_1: {
+                if (appDataPublicDirs.size() > 0) {
+                    return appDataPublicDirs.get(0).first;
+                }
+                return Environment.getExternalStorageDirectory();
+            }
+            case R.id.action_go_to_appdata_sdcard_2: {
+                if (appDataPublicDirs.size() > 1) {
+                    return appDataPublicDirs.get(1).first;
+                }
+                return Environment.getExternalStorageDirectory();
+            }
+            case R.id.action_go_to_appdata_public: {
+                appDataPublicDirs = contextUtils.getAppDataPublicDirs(true, false, false);
+                if (appDataPublicDirs.size() > 0) {
+                    return appDataPublicDirs.get(0).first;
+                }
+                return contextUtils.getAppDataPrivateDir();
+            }
+        }
+        return getNotebookDirectory();
     }
 }

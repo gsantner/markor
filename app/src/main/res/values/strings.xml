@@ -305,4 +305,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Favourite</string>
     <string name="favourites">Favourites</string>
     <string name="please_wait">Please wait</string>
+    <string name="app_start_folder">App start folder</string>
 </resources>

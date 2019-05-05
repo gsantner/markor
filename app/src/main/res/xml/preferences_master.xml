@@ -54,6 +54,16 @@
                 android:summary="%1$s"
                 android:title="@string/app_start_tab" />
 
+            <ListPreference
+                android:defaultValue="notebook"
+                android:dialogTitle="@string/app_start_folder"
+                android:entries="@array/pref_arrdisp__files_startup_folder"
+                android:entryValues="@array/pref_arrkeys__files_startup_folder"
+                android:icon="@drawable/ic_file_gray_24dp"
+                android:key="@string/pref_key__app_start_folder"
+                android:summary="%1$s"
+                android:title="@string/app_start_folder" />
+
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_widgets_black_24dp"
