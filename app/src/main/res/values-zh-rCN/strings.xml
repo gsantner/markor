@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">位置</string>
     <string name="text_lines">文本行数</string>
     <string name="text_characters">文字符号</string>
+    <string name="text_words">文字词</string>
     <string name="directory">目录</string>
     <string name="recently_viewed_documents">最近文档</string>
     <string name="details">细节</string>
