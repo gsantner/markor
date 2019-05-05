@@ -1,10 +1,19 @@
 ![](https://test.gsantner.net/matomo/piwik.php?action_name=inapp_changelog&idsite=2&rec=1&urlref=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md&_cvar=%7B%221%22%3A%5B%22source%22%2C%22inapp_changelog%22%5D%2C%222%22%3A%5B%22project%22%2C%22markor%22%5D%2C%223%22%3A%5B%22packageid%22%2C%22net.gsantner.markor%22%5D%2C%224%22%3A%5B%22referrer%22%2C%22https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md%22%5D%7D)
 
-### v1.8.0 (in progress)  
+### v1.8.0 [Blog post](https://gsantner.net/blog/2019/05/06/markor-v1.8-file-navigation-favourites-markdown-editor.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.7.0...v1.8.0)  
+- Show app intro at first start  
+- All new file navigation  
+- Add favourite files  
+- Add quick navigiation options (to notebook, sdcard, AppData and more)  
+- Add option to set Navigation-Bar color  
+- Combine edit & view mode to one fragment, show view as overlay  
+- Add horizontal scrolling for code blocks in view mode  
+- More efficient undo/redo  
 - Option to enable/disable swipe to change mode  
-- Add storage root and data directories to scanned fonts folder (e.g. /storage/emulated/0/Fonts)  
 - WikiLinks: Disable default escaped characters, so subfolder path is not converted to hyphen  
-- Bundle more fonts: Source Pro, DejaVu Sans Mono, Ubuntu, Lato  
+- Added fonts: Source Pro, DejaVu Sans Mono, Ubuntu, Lato  
+- Scan storage Fonts folder for custom fonts  
+- Add word count to document info dialog  
 
 
 ### v1.7.0 [Blog post](https://gsantner.net/blog/2019/03/11/markor-release-v1.7-custom-fonts-linkbox-markdown.html?source=inapp_changelog&project=markor)  
