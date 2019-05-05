@@ -293,4 +293,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">收藏</string>
     <string name="favourites">收藏</string>
     <string name="please_wait">请稍候</string>
+    <string name="app_start_folder">应用起始文件夹</string>
 </resources>
