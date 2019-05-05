@@ -262,33 +262,42 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     };
 
     @Override
+    @SuppressWarnings("unused")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Determine some results and forward using Local Broadcast
         Object result = _shareUtil.extractResultFromActivityResult(requestCode, resultCode, data, this);
 
 
-        FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
-        frag.getAdapter().reconfigure();
+        try {
+            FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+            frag.getAdapter().reconfigure();
+        } catch (Exception ignored) {
+            recreate();
+        }
     }
 
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @OnClick({R.id.fab_add_new_item})
     public void onClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);
+        FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        if (fsFrag == null) {
+            return;
+        }
+
         if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
-                    FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
-
-                    if (_shareUtil.isUnderStorageAccessFolder(frag.getCurrentFolder()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                    if (_shareUtil.isUnderStorageAccessFolder(fsFrag.getCurrentFolder()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
                         _shareUtil.showMountSdDialog(this);
                         return;
                     }
 
-                    if (!frag.getAdapter().isCurrentFolderWriteable()) {
+                    if (!fsFrag.getAdapter().isCurrentFolderWriteable()) {
                         return;
                     }
 
-                    NewFileDialog dialog = NewFileDialog.newInstance(frag != null ? frag.getCurrentFolder() : AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+                    NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
                                 DocumentActivity.launch(MainActivity.this, f, false, false, null);

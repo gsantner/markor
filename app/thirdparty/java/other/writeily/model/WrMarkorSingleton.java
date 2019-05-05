@@ -76,7 +76,7 @@ public class WrMarkorSingleton {
     }
 
 
-    public void moveFile(File file, String destinationDir) {
+    public void moveFile(File file, String destinationDir, final Context context) {
         /* Rules:
          * 1. Don't move a file to the same location, no point
          * 2. Don't move a folder to itself
@@ -91,14 +91,14 @@ public class WrMarkorSingleton {
                 String newDestinationDir = copyDirectory(file, destinationDir);
 
                 for (File dirFile : file.listFiles()) {
-                    moveFile(dirFile, newDestinationDir);
+                    moveFile(dirFile, newDestinationDir, context);
                 }
             } else {
                 copyFile(file, destinationDir);
             }
 
             // Delete the old file after copying it over
-            deleteFile(file, null);
+            deleteFile(file, context);
 
         }
     }
@@ -127,9 +127,9 @@ public class WrMarkorSingleton {
         }
     }
 
-    public void moveSelectedNotes(List<File> files, String destination) {
+    public void moveSelectedNotes(List<File> files, String destination, final Context context) {
         for (File file : files) {
-            moveFile(file, destination);
+            moveFile(file, destination, context);
         }
     }
 

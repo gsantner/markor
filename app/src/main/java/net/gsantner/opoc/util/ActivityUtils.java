@@ -109,17 +109,21 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     public ActivityUtils hideSoftKeyboard() {
-        InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-            imm.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
+        if (_activity != null) {
+            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
+            }
         }
         return this;
     }
 
     public ActivityUtils showSoftKeyboard() {
-        InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-            imm.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
+        if (_activity != null) {
+            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
+                imm.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
+            }
         }
         return this;
     }

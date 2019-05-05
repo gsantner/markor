@@ -111,6 +111,10 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     @Override
     public void onBindViewHolder(@NonNull ilesystemViewerViewHolder holder, int position) {
         File file_pre = _adapterDataFiltered.get(position);
+        if (file_pre == null) {
+            holder.title.setText("????");
+            return;
+        }
         File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         String filename = file_pre.getName();
         if (_virtualMapping.keySet().contains(file_pre)) {
@@ -325,25 +329,26 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
     public boolean toggleSelection(TagContainer data) {
         boolean clickHandled = false;
-
-        if (data.file.isDirectory() && getCurrentFolder().getParentFile().equals(data.file)) {
-            // goUp
-            clickHandled = true;
-        } else if (_currentSelection.contains(data.file)) {
-            // Single selection
-            _currentSelection.remove(data.file);
-            clickHandled = true;
-        } else if (_dopt.doSelectMultiple) {
-            // Multi selection
-            if (_dopt.doSelectFile && !data.file.isDirectory()) {
-                // Multi selection - file
-                _currentSelection.add(data.file);
+        if (data != null && data.file != null && getCurrentFolder() != null) {
+            if (data.file.isDirectory() && getCurrentFolder().getParentFile() != null && getCurrentFolder().getParentFile().equals(data.file)) {
+                // goUp
                 clickHandled = true;
-            }
-            if (_dopt.doSelectFolder && data.file.isDirectory()) {
-                // Multi selection - folder
-                _currentSelection.add(data.file);
+            } else if (_currentSelection.contains(data.file)) {
+                // Single selection
+                _currentSelection.remove(data.file);
                 clickHandled = true;
+            } else if (_dopt.doSelectMultiple) {
+                // Multi selection
+                if (_dopt.doSelectFile && !data.file.isDirectory()) {
+                    // Multi selection - file
+                    _currentSelection.add(data.file);
+                    clickHandled = true;
+                }
+                if (_dopt.doSelectFolder && data.file.isDirectory()) {
+                    // Multi selection - folder
+                    _currentSelection.add(data.file);
+                    clickHandled = true;
+                }
             }
         }
 
@@ -368,7 +373,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     }
 
     public boolean canGoUp(File currentFolder) {
-        File parentFolder = _currentFolder.getParentFile();
+        File parentFolder = _currentFolder != null ? _currentFolder.getParentFile() : null;
         return parentFolder != null && (!_dopt.mustStartWithRootFolder || parentFolder.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath()));
     }
 
@@ -472,7 +477,10 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         }
                     }
 
-                    Collections.sort(_adapterData, FilesystemViewerAdapter.this);
+                    try {
+                        Collections.sort(_adapterData, FilesystemViewerAdapter.this);
+                    } catch (IllegalArgumentException ignored) {
+                    }
 
                     if (canGoUp(_currentFolder)) {
                         _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());

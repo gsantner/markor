@@ -514,7 +514,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
         };
 
         if (filesToSort != null) {
-            Collections.sort(filesToSort, comparator);
+            try {
+                Collections.sort(filesToSort, comparator);
+            } catch (Exception ignored) {
+            }
         }
 
         return comparator;
@@ -545,7 +548,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             @Override
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
-                WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath());
+                WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath(), getContext());
             }
 
             @Override

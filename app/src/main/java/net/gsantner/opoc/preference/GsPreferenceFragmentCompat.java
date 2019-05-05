@@ -570,7 +570,11 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
             int position = parent.getChildAdapterPosition(view);
-            int viewType = parent.getAdapter() != null ? parent.getAdapter().getItemViewType(position) : 0;
+            int viewType = 0;
+            try {
+                viewType = parent.getAdapter() != null ? parent.getAdapter().getItemViewType(position) : 0;
+            } catch (NullPointerException ignored) {
+            }
             if (viewType != 1) {
                 outRect.set(0, 0, 0, _heightDp);
             } else {

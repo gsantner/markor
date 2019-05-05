@@ -56,6 +56,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -574,7 +575,11 @@ public class ShareUtil {
             throw new RuntimeException("Error: ShareUtil.requestGalleryPicture needs an Activity Context.");
         }
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        ((Activity) _context).startActivityForResult(intent, REQUEST_PICK_PICTURE);
+        try {
+            ((Activity) _context).startActivityForResult(intent, REQUEST_PICK_PICTURE);
+        } catch (Exception ex) {
+            Toast.makeText(_context, "No gallery app installed!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
