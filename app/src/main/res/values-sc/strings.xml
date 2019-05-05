@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Positzione</string>
     <string name="text_lines">Lìnias de su testu</string>
     <string name="text_characters">Caràteres de su testu</string>
+    <string name="text_words">Paràulas de testu</string>
     <string name="directory">Cartella</string>
     <string name="recently_viewed_documents">Documentos abbaidados dae pagu</string>
     <string name="details">Detàllios</string>

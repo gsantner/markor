@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Localização</string>
     <string name="text_lines">Linhas de texto</string>
     <string name="text_characters">Caracteres de texto</string>
+    <string name="text_words">Palavras</string>
     <string name="directory">Diretório</string>
     <string name="recently_viewed_documents">Documentos recentes</string>
     <string name="details">Detalhes</string>

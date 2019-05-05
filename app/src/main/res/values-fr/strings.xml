@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Stocké dans</string>
     <string name="text_lines">Nombre de lignes</string>
     <string name="text_characters">Nombre de caractères</string>
+    <string name="text_words">Mots de texte</string>
     <string name="directory">Dossier</string>
     <string name="recently_viewed_documents">Documents récemment ouverts</string>
     <string name="details">Détails</string>
