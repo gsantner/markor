@@ -217,7 +217,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturni prijedlozi ostaju, crvena linija ispod teksta nestaje</string>
     <string name="location">Lokacija</string>
     <string name="text_lines">Redovi teksta</string>
-    <string name="text_characters">Tekstualni znakovi</string>
+    <string name="text_characters">Karakteri</string>
+    <string name="text_words">Riječi</string>
     <string name="directory">Direktorij</string>
     <string name="recently_viewed_documents">Nedavno otvoreni dokumenti</string>
     <string name="details">Detalji</string>
@@ -232,7 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Sadržaj</string>
     <string name="miscellaneous">Razno</string>
-    <string name="textaction">Tekstualne akcije</string>
+    <string name="textaction">Tekstualna akcija</string>
     <string name="textactions">Tekstualne akcije</string>
     <string name="prefer_representation">Preferiraj prezentaciju</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
@@ -288,6 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Uređivanje</string>
     <string name="mount_storage">Pripremi memoriju</string>
     <string name="application_needs_access_to_storage_mount_it">Potrebno je dopuštenje za pristupanje memoriji. Pripremite memoriju da omogućite pristup. Potvrdite ovdje za nastavak. Označite memoriju i pritisnite odaberi.</string>
+    <string name="share_into">Podijeli sa</string>
     <string name="favourite">Favorit</string>
     <string name="favourites">Favoriti</string>
     <string name="please_wait">Molimo sačekajte</string>
