@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Više informacija</string>
     <string name="show_license_of_the_app">Prikaži licencu programa</string>
     <string name="show_third_party_licenses">Prikaži ostale licence</string>
-    <string name="language_change_restart_description">Promijeni jezik programa. Iznova pokrenite program da aktivirate promjenu</string>
+    <string name="language_change_restart_description">Promijenite jezik programa. Iznova pokrenite program da aktivirate promjenu</string>
     <string name="language">Jezik</string>
     <string name="error_need_storage_permission_to_save_documents">Neophodna dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
@@ -87,7 +87,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Veličina</string>
     <string name="reverse_order">Obratni redoslijed</string>
     <string name="contribute">Sudjeluj</string>
-    <string name="donate">Doniraj</string>
+    <string name="donate">Donirajte</string>
     <string name="project_page">Stranica projekta</string>
     <string name="press_back_again_to_exit">Pritisnite \"Nazad\" još jednom da izađete</string>
     <string name="exit">Izlaz</string>
@@ -135,10 +135,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Zapamti zadnji direktorij</string>
     <string name="syntax_highlighting">Obilježavanje sintakse</string>
     <string name="highlighting_delay">Odgoda markiranja</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje markiranja. Niža vrijednost omogućava da markiranje počne ranije, ali će se to odraziti na Vašu bateriju i može usporiti program na starijim uređajima.</string>
-    <string name="highlighting_enabled_or_not__appspecific">Odredi hoće li uneseni tekst biti markiran ili ne</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje. Niža vrijednost znači da će markiranje početi ranije, ali će se to odraziti na bateriju i može usporiti program na starijim uređajima.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Hoće li uneseni tekst biti markiran ili ne</string>
     <string name="control_font_size_in_editor">Odredi veličinu slova u uređivaču</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnim dugmadima. Ove tekstualne akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnom dugmadi. Ove akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
     <string name="format">Format</string>
     <string name="contexts">Konteksti</string>
@@ -195,7 +195,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_existing_document">Označi postojeći dokument</string>
     <string name="open_source_licenses">Open Source licence</string>
     <string name="rate_this_app">Ocijenite ovaj program</string>
-    <string name="translate">Prevedi</string>
+    <string name="translate">Prevedite</string>
     <string name="more_info_and_help">Više informacija i pomoć</string>
     <string name="report_bugs">Prijavite greške i propuste</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Više informacija o doniranju programera ili sudjelovanju u ovom projektu</string>
@@ -251,7 +251,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Datoteke i direktoriji nisu prepisani</string>
     <string name="multiple_windows">Više prozora</string>
     <string name="font">Pismo</string>
-    <string name="open_new_documents_always_in_new_window">Uvijek otvori dokument u zasebnom prozoru. Za navigaciju koristite \"Recents (Zadnji otvoreni)\" tipku na Vašem uređaju.</string>
+    <string name="open_new_documents_always_in_new_window">Uvijek otvori dokument u zasebnom prozoru. Za navigaciju koristite \"Zadnji otvoreni (Recents)\" tipku na Vašem uređaju.</string>
     <string name="enter_or_select_format">Unesite ili odaberite format</string>
     <string name="pick_date">Izaberi datum</string>
     <string name="pick_time">Odredi vrijeme</string>
@@ -267,8 +267,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Sviđa li Vam se ovaj projekat? Želite li da napreduje a problemi budu otklonjeni?\n\nRazvijanje aplikacija i pisanje članaka o njima uzima puno vremena! Ako biste voljeli pomoći da projekat opstane, molimo Vas da razmislite o skromnoj donaciji!\n\nRad na ovom projektu odvija se u slobodno vrijeme, a program je besplatan i ne sadrži nikakav vid reklama!</string>
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
-    <string name="swipe_to_change_mode">Prevucite za promjenu načina rada</string>
-    <string name="swipe_to_change_mode_to_other">Prevucite za promjenu načina rada: uređivanje ili prikazivanje</string>
+    <string name="swipe_to_change_mode">Prevlačenjem promijenite način rada</string>
+    <string name="swipe_to_change_mode_to_other">Prevlačenjem promijenite način rada: uređivanje ili prikazivanje</string>
     <string name="folder_first">Prvo direktorij</string>
     <string name="go_to">Idi do</string>
     <string name="appdata_public">AppData (javno)</string>
