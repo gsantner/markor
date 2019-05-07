@@ -199,7 +199,7 @@ public class TodoTxtTextActions extends TextActions {
                                 if (doneFile.exists() && doneFile.canRead()) {
                                     doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
                                 }
-                                doneFileContents += TextUtils.join("\n", move);
+                                doneFileContents += TextUtils.join("\n", move).trim() + "\n";
                                 if (FileUtils.writeFile(doneFile, doneFileContents)) {
                                     // All went good
                                     _hlEditor.setText(TextUtils.join("\n", keep));
