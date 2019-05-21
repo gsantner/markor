@@ -24,6 +24,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
     <string name="create_folder">Creați Folder</string>
+    <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
     <string name="info">Info</string>
     <string name="import_">Importaţi</string>
