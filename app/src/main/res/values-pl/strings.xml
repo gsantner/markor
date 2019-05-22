@@ -214,6 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
     <string name="details">Szczegóły</string>
     <string name="calendar">Kalendarz</string>
+    <string name="warning_disallowed_sd_access">Uwaga! Aplikacja nie ma uprawnień, aby zapisać ten plik, wszystkie zmiany zostaną utracone. Nie ma możliwości, aby rozwiązać problem lub coś potwierdzić, Android odrzuca wszelki dostęp tutaj.</string>
     <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
     <string name="gallery_picture">Galeria zdjęć</string>
     <string name="camera_picture">Zdjęcie z aparatu</string>
