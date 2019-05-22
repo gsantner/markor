@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Местоположение</string>
     <string name="text_lines">Текстовые линии</string>
     <string name="text_characters">Параметры текста</string>
+    <string name="text_words">Текст слова</string>
     <string name="directory">Директория</string>
     <string name="recently_viewed_documents">Недавно открытые документы</string>
     <string name="details">Детали</string>
@@ -277,5 +278,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Внутренняя память</string>
     <string name="open_the_document_from_main_view">Вы можете открыть документ из главного вида внизу, файлового браузера или лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook - это папка, которую Маркор загружает в файловом браузере при запуске приложения. Это домашняя папка ваших файлов.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote - это самый быстрый вариант для записи заметок. Это файл в формате Markdown с расположением по умолчанию &gt;Notebook/QuickNote.md&lt;, вы можете установить собственный путь к файлу в настройках.</string>
     <string name="favourite">Избранное</string>
 </resources>
