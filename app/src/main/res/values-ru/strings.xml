@@ -177,7 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки документа курсор ставить в конец</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
-    <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора или в другом файловом менеджере.</string>
+    <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -289,5 +289,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">Режим редактирования</string>
     <string name="mount_storage">Подключение хранилища</string>
     <string name="application_needs_access_to_storage_mount_it">Для доступа к этому хранилищу требуется разрешение. Подключите хранилище для предоставления доступа. Подтвердите этот диалог, чтобы получить всплывающее окно. Выберите хранилище и нажмите кнопку \"Выбрать\".</string>
+    <string name="share_into">Поделиться в</string>
     <string name="favourite">Избранное</string>
+    <string name="favourites">Избранное</string>
+    <string name="please_wait">Пожалуйста подождите</string>
+    <string name="app_start_folder">Папка запуска приложения</string>
 </resources>
