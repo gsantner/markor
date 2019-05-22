@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
     <string name="files_and_folders">Pliki i foldery</string>
     <string name="document_browser">Przeglądarka dokumentów</string>
+    <string name="file_browser">Menedżer plików</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
     <string name="special_documents" needed="false">Specjalne dokumenty</string>
     <string name="keep_screen_on" needed="false">Pozostaw ekran włączony</string>
@@ -250,5 +251,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
     <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
     <string name="swipe_to_change_mode_to_other">Przesuń palcem, aby zmienić tryb do edycji lub reprezentacji, w przeciwieństwie to obecnego trybu</string>
+    <string name="appdata_sdcard">AppData (karta SD)</string>
+    <string name="internal_storage">Pamięć wewnętrzna</string>
+    <string name="navigationbar_color">Kolor paska nawigacji</string>
+    <string name="black">Czarny</string>
+    <string name="white">Biały</string>
+    <string name="view">Wyświetl</string>
+    <string name="view_mode">Tryb wyświetlania</string>
+    <string name="edit_mode">Tryb edycji</string>
     <string name="favourite">Ulubiony</string>
+    <string name="favourites">Ulubione</string>
+    <string name="please_wait">Proszę czekać</string>
 </resources>
