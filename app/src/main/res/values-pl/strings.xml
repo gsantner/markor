@@ -253,6 +253,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
     <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
     <string name="swipe_to_change_mode_to_other">Przesuń palcem, aby zmienić tryb do edycji lub reprezentacji, w przeciwieństwie to obecnego trybu</string>
+    <string name="folder_first">Najpierw katalogi</string>
     <string name="go_to">Przejdź do</string>
     <string name="appdata_sdcard">AppData (karta SD)</string>
     <string name="internal_storage">Pamięć wewnętrzna</string>
