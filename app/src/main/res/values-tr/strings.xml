@@ -275,10 +275,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Uygulama Verisi (özel)</string>
     <string name="appdata_sdcard">Uygulama Verisi (SD Kart)</string>
     <string name="internal_storage">Dahili depolama</string>
+    <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
     <string name="view">Görünüm</string>
     <string name="view_mode">Görünüm modu</string>
     <string name="edit_mode">Düzenleme modu</string>
     <string name="favourite">Favorilere ekle</string>
+    <string name="favourites">Favoriler</string>
+    <string name="please_wait">Lütfen bekleyin</string>
+    <string name="app_start_folder">Uygulama başlangıç klasörü</string>
 </resources>
