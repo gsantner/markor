@@ -245,5 +245,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">آخر استخدام</string>
     <string name="my_note">ملاحظات</string>
     <string name="close">إغلاق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="black">أسود</string>
+    <string name="white">أبيض</string>
     <string name="favourite">المفضلة</string>
+    <string name="favourites">المفضلة</string>
 </resources>
