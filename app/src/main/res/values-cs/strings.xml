@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Výborná poloha</string>
     <string name="text_lines">Text Linky</string>
     <string name="text_characters">Text znaky</string>
+    <string name="text_words">Textová slova</string>
     <string name="directory">Generální ředitelství</string>
     <string name="recently_viewed_documents">Nedávno jsem viděl dokumenty</string>
     <string name="details">Podrobnosti</string>
@@ -286,4 +287,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Zobrazení</string>
     <string name="view_mode">Režim zobrazení</string>
     <string name="edit_mode">Režim úprav</string>
+    <string name="mount_storage">Připojit úložiště</string>
+    <string name="share_into">Sdílet do</string>
+    <string name="favourite">Oblíbené</string>
+    <string name="favourites">Oblíbené</string>
+    <string name="please_wait">Čekejte prosím</string>
 </resources>

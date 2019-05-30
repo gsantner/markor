@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">الملف غير موجود في المجلد الخاص بالتطبيق. هل تريد نسخه للمجلد الحالي؟ (سيتم التعديل علي اي ملف موجود له نفس الإسم).</string>
     <string name="files_and_folders">الملفات والمجلدات</string>
     <string name="document_browser">متصفح المستندات</string>
+    <string name="file_browser">متصفح الملفات</string>
     <string name="create_note" needed="false">إنشاء ملاحظة</string>
     <string name="special_documents" needed="false">مستندات خاصة</string>
     <string name="keep_screen_on" needed="false">إبقاء الشاشة مضيئة</string>
@@ -243,5 +244,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">التاريخ فقط</string>
     <string name="last_used">آخر استخدام</string>
     <string name="my_note">ملاحظات</string>
+    <string name="close">إغلاق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="black">أسود</string>
+    <string name="white">أبيض</string>
     <string name="favourite">المفضلة</string>
+    <string name="favourites">المفضلة</string>
 </resources>

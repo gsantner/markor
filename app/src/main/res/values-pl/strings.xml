@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">Próbowałem dodać skrót do ekranu głównego do edycji tego dokumentu. Pamiętaj, że niektóre programy uruchamiające mogą tego nie obsługiwać.</string>
     <string name="files_and_folders">Pliki i foldery</string>
     <string name="document_browser">Przeglądarka dokumentów</string>
+    <string name="file_browser">Menedżer plików</string>
     <string name="create_note" needed="false">Utwórz notatkę</string>
     <string name="special_documents" needed="false">Specjalne dokumenty</string>
     <string name="keep_screen_on" needed="false">Pozostaw ekran włączony</string>
@@ -188,15 +189,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Schowek</string>
     <string name="select_existing_document">Wybierz istniejący dokument</string>
     <string name="open_source_licenses">Otwarto Źródłowo Bibloteki</string>
-    <string name="rate_this_app">Oceń tą aplikację</string>
+    <string name="rate_this_app">Oceń tę aplikację</string>
     <string name="translate">Tłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Więcej informacji o wspomaganiu dewelopera, lub współtworzeniu do tego projektu.</string>
     <string name="android_contribution_guide">Instrukcja Androida dla współtwórców</string>
     <string name="more_info_on_how_to_contribute_to_foss_android_projects">Więcej informacji o współtworzeniu otwarto źródłowych projektów, szczególnie aplikacji Androida</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
-    <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
+    <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
     <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
     <string name="project_contribution_info">Informacje o współtworzeniu projektu</string>
@@ -213,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Ostatnio przeglądane dokumenty</string>
     <string name="details">Szczegóły</string>
     <string name="calendar">Kalendarz</string>
+    <string name="warning_disallowed_sd_access">Uwaga! Aplikacja nie ma uprawnień, aby zapisać ten plik, wszystkie zmiany zostaną utracone. Nie ma możliwości, aby rozwiązać problem lub coś potwierdzić, Android odrzuca wszelki dostęp tutaj.</string>
     <string name="error_picture_selection">Nie wybrano żadnego obrazu.</string>
     <string name="gallery_picture">Galeria zdjęć</string>
     <string name="camera_picture">Zdjęcie z aparatu</string>
@@ -250,5 +253,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
     <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
     <string name="swipe_to_change_mode_to_other">Przesuń palcem, aby zmienić tryb do edycji lub reprezentacji, w przeciwieństwie to obecnego trybu</string>
+    <string name="folder_first">Najpierw katalogi</string>
+    <string name="go_to">Przejdź do</string>
+    <string name="appdata_sdcard">AppData (karta SD)</string>
+    <string name="internal_storage">Pamięć wewnętrzna</string>
+    <string name="navigationbar_color">Kolor paska nawigacji</string>
+    <string name="black">Czarny</string>
+    <string name="white">Biały</string>
+    <string name="view">Wyświetl</string>
+    <string name="view_mode">Tryb wyświetlania</string>
+    <string name="edit_mode">Tryb edycji</string>
     <string name="favourite">Ulubiony</string>
+    <string name="favourites">Ulubione</string>
+    <string name="please_wait">Proszę czekać</string>
 </resources>

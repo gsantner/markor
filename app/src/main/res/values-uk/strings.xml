@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Розташування</string>
     <string name="text_lines">Рядки тексту</string>
     <string name="text_characters">Символи тексту</string>
+    <string name="text_words">Слова тексту</string>
     <string name="directory">Директорія</string>
     <string name="recently_viewed_documents">Нещодавні документи</string>
     <string name="details">Деталі</string>
@@ -292,4 +293,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Улюблене</string>
     <string name="favourites">Вибране</string>
     <string name="please_wait">Будь ласка, зачекайте</string>
+    <string name="app_start_folder">Стартова папка програми</string>
 </resources>

@@ -177,7 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки документа курсор ставить в конец</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
-    <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора или в другом файловом менеджере.</string>
+    <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
     <string name="configure_in_the_apps_settings">Настроить в настройках приложения</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Местоположение</string>
     <string name="text_lines">Текстовые линии</string>
     <string name="text_characters">Параметры текста</string>
+    <string name="text_words">Текст слова</string>
     <string name="directory">Директория</string>
     <string name="recently_viewed_documents">Недавно открытые документы</string>
     <string name="details">Детали</string>
@@ -277,5 +278,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Внутренняя память</string>
     <string name="open_the_document_from_main_view">Вы можете открыть документ из главного вида внизу, файлового браузера или лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook - это папка, которую Маркор загружает в файловом браузере при запуске приложения. Это домашняя папка ваших файлов.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote - это самый быстрый вариант для записи заметок. Это файл в формате Markdown с расположением по умолчанию &gt;Notebook/QuickNote.md&lt;, вы можете установить собственный путь к файлу в настройках.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Используйте LinkBox для сохранения закладок и ссылок на сайты, которые вы хотите прочитать позже. Это файл в формате Markdown с расположением по умолчанию &gt;Notebook/LinkBox.md&lt;, вы можете установить собственный путь к файлу в настройках.</string>
+    <string name="todo_is_the_easiest_way_">Управление вашими задачами с ToDo. Это файл в формате todo.txt с местоположением по умолчанию &gt;Notebook/todo.txt&lt;, вы можете установить собственный путь к файлу в настройках.</string>
+    <string name="navigationbar_color">Цвет панели навигации</string>
+    <string name="black">Чёрный</string>
+    <string name="white">Белый</string>
+    <string name="view">Просмотр</string>
+    <string name="view_mode">Режим просмотра</string>
+    <string name="edit_mode">Режим редактирования</string>
+    <string name="mount_storage">Подключение хранилища</string>
+    <string name="application_needs_access_to_storage_mount_it">Для доступа к этому хранилищу требуется разрешение. Подключите хранилище для предоставления доступа. Подтвердите этот диалог, чтобы получить всплывающее окно. Выберите хранилище и нажмите кнопку \"Выбрать\".</string>
+    <string name="share_into">Поделиться в</string>
     <string name="favourite">Избранное</string>
+    <string name="favourites">Избранное</string>
+    <string name="please_wait">Пожалуйста подождите</string>
+    <string name="app_start_folder">Папка запуска приложения</string>
 </resources>
