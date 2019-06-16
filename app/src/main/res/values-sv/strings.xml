@@ -288,6 +288,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">Visningsläge</string>
     <string name="edit_mode">Redigera</string>
     <string name="mount_storage">Anslut extern lagring</string>
+    <string name="application_needs_access_to_storage_mount_it">Tillstånd krävs för att tillgå denna lagringsplats. Koppla enheten för att bevilja åtkomst. Godkänn för att öppna notifikationsfönster. Markera lagagringsenheten där och tryck på välj.</string>
+    <string name="share_into">Dela till</string>
     <string name="favourite">Favorit</string>
     <string name="favourites">Favoriter</string>
+    <string name="please_wait">Vänligen vänta</string>
 </resources>
