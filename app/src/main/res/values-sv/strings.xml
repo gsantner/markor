@@ -276,6 +276,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privat)</string>
     <string name="appdata_sdcard">AppData (SD kort)</string>
     <string name="internal_storage">Intern lagring</string>
+    <string name="open_the_document_from_main_view">Du kan öppna dokumentet från huvudvyns nederkant, filhanteraren eller programköraren. Det är möjligt att lägga till text delad till Markor.</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
     <string name="view">Visa</string>
