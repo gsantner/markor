@@ -276,7 +276,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (privat)</string>
     <string name="appdata_sdcard">AppData (SD kort)</string>
     <string name="internal_storage">Intern lagring</string>
-    <string name="open_the_document_from_main_view">Du kan öppna dokumentet från huvudvyns nederkant, filhanteraren eller programköraren. Det är möjligt att lägga till text delad till Markor.</string>
+    <string name="open_the_document_from_main_view">Du kan öppna dokumentet från huvudvyns nederkant, filhanteraren eller din programkörare. Det är möjligt att lägga till text delad till Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Anteckningsboken är katalogen Markor hämtar filhanteraren när programmet startas. Det är dina filers hemkatalaog.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">SnabbAnteckning är det snabbaste sättet att göra anteckningar. Det är en fil i Markdown-format som ligger i &gt;Notebook/QuickNote.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
     <string name="view">Visa</string>
