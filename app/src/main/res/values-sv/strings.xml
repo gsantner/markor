@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Plats</string>
     <string name="text_lines">Textrader</string>
     <string name="text_characters">Textsymboler</string>
+    <string name="text_words">Text Ord</string>
     <string name="directory">Katalog</string>
     <string name="recently_viewed_documents">Senaste visade dokument</string>
     <string name="details">Detaljer</string>
@@ -265,6 +266,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
+    <string name="app_start_tab">App startflik</string>
+    <string name="tab_to_select_at_start">Välj uppstartsflik</string>
+    <string name="swipe_to_change_mode">Svep för att ändra läge</string>
+    <string name="swipe_to_change_mode_to_other">Svep för att byta läge till ändra eller förhandsvisning, omvänt till nuvarande läge</string>
+    <string name="folder_first">Kataloger överst</string>
+    <string name="go_to">Gå till</string>
+    <string name="appdata_public">AppData (publik)</string>
+    <string name="appdata_private">AppData (privat)</string>
+    <string name="appdata_sdcard">AppData (SD kort)</string>
     <string name="internal_storage">Intern lagring</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
