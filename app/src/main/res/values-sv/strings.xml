@@ -293,4 +293,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Favorit</string>
     <string name="favourites">Favoriter</string>
     <string name="please_wait">Vänligen vänta</string>
+    <string name="app_start_folder">Programmets startmapp</string>
 </resources>
