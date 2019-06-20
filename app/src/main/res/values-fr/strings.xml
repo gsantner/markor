@@ -294,4 +294,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Favoris</string>
     <string name="please_wait">Veuillez patienter</string>
     <string name="app_start_folder">Dossier de démarrage de l\'application</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Le fichier sélectionné est peut-être un fichier brut. Voulez-vous l\'ouvrir avec l\'éditeur ou une autre application ?\n\nN\'essayez pas d\'ouvrir de fichiers binaires. Si vous n\'êtes pas sûr, ouvrez avec une autre application.</string>
 </resources>
