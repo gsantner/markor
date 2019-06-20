@@ -288,8 +288,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">Režim zobrazení</string>
     <string name="edit_mode">Režim úprav</string>
     <string name="mount_storage">Připojit úložiště</string>
+    <string name="application_needs_access_to_storage_mount_it">Pro přístup k tomuto úložišti je nutné získat záložní zálohu, čímž se vám umožní získat vysazení a vybrat si z nich.</string>
     <string name="share_into">Sdílet do</string>
     <string name="favourite">Oblíbené</string>
     <string name="favourites">Oblíbené</string>
     <string name="please_wait">Čekejte prosím</string>
+    <string name="app_start_folder">Zobrazit spouštěcí složku</string>
 </resources>
