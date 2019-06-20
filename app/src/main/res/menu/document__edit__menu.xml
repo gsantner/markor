@@ -20,7 +20,6 @@
         android:title="@string/representation"
         android:visible="false"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
@@ -43,6 +42,11 @@
         android:id="@+id/action_redo"
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/redo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/search"
         app:showAsAction="always" />
 
     <item

@@ -25,12 +25,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -190,5 +192,14 @@ public class SearchOrCustomTextDialog {
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
         dialog.show();
+        if (dopt.isSearchEnabled) {
+            try {
+                searchEditText.requestFocus();
+                ActivityUtils au = new ActivityUtils(activity);
+                au.showSoftKeyboard();
+                au.freeContextRef();
+            } catch (Exception ignored) {
+            }
+        }
     }
 }

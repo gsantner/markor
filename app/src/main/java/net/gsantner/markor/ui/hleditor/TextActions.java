@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
@@ -140,4 +141,14 @@ public abstract class TextActions {
     public void setEditorTextAsync(final String text) {
         _activity.runOnUiThread(() -> _hlEditor.setText(text));
     }
+
+    protected boolean runCommonTextAction(String action) {
+        return new CommonTextActions(_activity, _document, _hlEditor).runAction(action);
+    }
+
+    public boolean runAction(final String action) {
+        return runAction(action, false, null);
+    }
+
+    public abstract boolean runAction(final String action, boolean modLongClick, String anotherArg);
 }

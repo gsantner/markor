@@ -56,6 +56,11 @@ public class MarkdownTextActions extends TextActions {
         }
     }
 
+    @Override
+    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
+        return runCommonTextAction(action);
+    }
+
     //
     //
     //

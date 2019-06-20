@@ -38,6 +38,7 @@ import android.widget.Toast;
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
@@ -335,6 +336,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _document.setFormat(item.getItemId());
                     applyTextFormat(item.getItemId());
                 }
+                return true;
+            }
+            case R.id.action_search: {
+                setDocumentViewVisibility(false);
+                _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
                 return true;
             }
         }

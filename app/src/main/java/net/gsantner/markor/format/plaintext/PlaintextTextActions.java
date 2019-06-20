@@ -42,6 +42,37 @@ public class PlaintextTextActions extends TextActions {
         }
     }
 
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
+    @Override
+    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
+        if (modLongClick) {
+            switch (action) {
+                case CommonTextActions.ACTION_SPECIAL_KEY: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                    return true;
+                }
+                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
+                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
+                    return true;
+                }
+            }
+        }
+
+        switch (action) {
+            case "pick_datetime": {
+                DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+                return true;
+            }
+            default: {
+                if (runCommonTextAction(action)) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
+    }
+
     //
     //
     //
@@ -68,37 +99,14 @@ public class PlaintextTextActions extends TextActions {
             _action = action;
         }
 
-        @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
-            CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
-            switch (_action) {
-                case "pick_datetime": {
-                    DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
-                    break;
-                }
-                default: {
-                    commonTextActions.runAction(_action);
-                    break;
-                }
-            }
-
+            runAction(_action, false, null);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            switch (_action) {
-                case CommonTextActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
-                    return true;
-                }
-
-                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
-                    return true;
-                }
-            }
-            return false;
+            return runAction(_action, true, null);
         }
     }
 }
