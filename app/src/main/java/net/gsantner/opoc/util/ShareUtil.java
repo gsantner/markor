@@ -531,6 +531,15 @@ public class ShareUtil {
                             fileStr = fileStr.substring(prefix.length());
                         }
                     }
+
+                    // external/ prefix for External storage
+                    if (fileStr.startsWith((tmps = "external/"))) {
+                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                        if (f.exists()) {
+                            return f;
+                        }
+                    }
+
                     // Next/OwnCloud Fileprovider
                     for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
                         if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
@@ -545,6 +554,7 @@ public class ShareUtil {
                     if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
                         return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
                     }
+
                     // URI Encoded paths with full path after content://package/
                     if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
                         tmpf = new File(Uri.decode(fileStr));
