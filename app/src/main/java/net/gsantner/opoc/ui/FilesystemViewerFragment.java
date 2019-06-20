@@ -67,8 +67,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
-    public static final int SORT_BY_DATE = 0;
-    public static final int SORT_BY_NAME = 1;
+    public static final int SORT_BY_NAME = 0;
+    public static final int SORT_BY_DATE = 1;
     public static final int SORT_BY_FILESIZE = 2;
 
     public static FilesystemViewerFragment newInstance(FilesystemViewerData.Options options) {
@@ -317,6 +317,16 @@ public class FilesystemViewerFragment extends GsFragmentBase
         if ((item = menu.findItem(R.id.action_show_dotfiles)) != null) {
             item.setChecked(_appSettings.isShowDotFiles());
         }
+        MenuItem[] sortBy = new MenuItem[]{menu.findItem(R.id.action_sort_by_name), menu.findItem(R.id.action_sort_by_date), menu.findItem(R.id.action_sort_by_filesize),};
+        for (int i = 0; i < sortBy.length; i++) {
+            if (sortBy[i] != null) {
+                System.out.println("Sort METHOD =: " + _appSettings.getSortMethod());
+                if (_appSettings.getSortMethod() == i){
+                    sortBy[i].setChecked(true);
+                }
+            }
+        }
+
 
         List<Pair<File, String>> sdcardFolders = _contextUtils.getAppDataPublicDirs(false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
@@ -342,16 +352,19 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
         switch (item.getItemId()) {
             case R.id.action_sort_by_name: {
+                item.setChecked(true);
                 _appSettings.setSortMethod(SORT_BY_NAME);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_date: {
+                item.setChecked(true);
                 _appSettings.setSortMethod(SORT_BY_DATE);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_filesize: {
+                item.setChecked(true);
                 _appSettings.setSortMethod(SORT_BY_FILESIZE);
                 sortAdapter();
                 return true;
@@ -451,15 +464,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
         return false;
     }
 
-    public void sortAdapter() {
-        _dopt.fileComparable = sortFolder(null);
-        _dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
-        reloadCurrentFolder();
-    }
-
     public static Comparator<File> sortFolder(List<File> filesToSort) {
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
+        System.out.println("SORT METHOD NEW: " + sortMethod);
 
         Comparator<File> comparator = new Comparator<File>() {
             @Override
@@ -504,6 +512,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
         return comparator;
     }
 
+    public void sortAdapter() {
+        _dopt.fileComparable = sortFolder(null);
+        _dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
+        reloadCurrentFolder();
+    }
 
     public void clearSelection() {
         _filesystemViewerAdapter.unselectAll();

@@ -245,7 +245,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 case R.id.action_share_image: {
                     setDocumentViewVisibility(true);
                     Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
-                    _webView.postDelayed(() -> onOptionsItemSelected(item), 5000);
+                    _webView.postDelayed(() -> onOptionsItemSelected(item), 6000);
                     return true;
                 }
             }

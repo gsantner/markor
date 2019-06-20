@@ -104,7 +104,7 @@ public class DocumentActivity extends AppActivityBase {
                     .setNegativeButton(R.string.other, (dialog1, which) -> new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null));
             dialog.create().show();
         }
-        return true;
+        return result;
     }
 
     @Override
