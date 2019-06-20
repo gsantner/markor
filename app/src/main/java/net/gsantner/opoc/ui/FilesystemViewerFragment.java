@@ -22,7 +22,6 @@ package net.gsantner.opoc.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -312,6 +311,12 @@ public class FilesystemViewerFragment extends GsFragmentBase
         if ((item = menu.findItem(R.id.action_folder_first)) != null) {
             item.setChecked(_appSettings.isFilesystemListFolderFirst());
         }
+        if ((item = menu.findItem(R.id.action_sort_reverse)) != null) {
+            item.setChecked(_appSettings.isSortReverse());
+        }
+        if ((item = menu.findItem(R.id.action_show_dotfiles)) != null) {
+            item.setChecked(_appSettings.isShowDotFiles());
+        }
 
         List<Pair<File, String>> sdcardFolders = _contextUtils.getAppDataPublicDirs(false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
@@ -355,6 +360,13 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 item.setChecked(!item.isChecked());
                 _appSettings.setSortReverse(item.isChecked());
                 sortAdapter();
+                return true;
+            }
+            case R.id.action_show_dotfiles: {
+                item.setChecked(!item.isChecked());
+                _appSettings.setShowDotFiles(item.isChecked());
+                _dopt.showDotFiles = item.isChecked();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_import: {

@@ -419,6 +419,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     opt.doSelectMultiple = opt.doSelectFolder = opt.doSelectFile = true;
                     opt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
+                    opt.showDotFiles = _appSettings.isShowDotFiles();
                 }
 
                 @Override

@@ -563,4 +563,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return getNotebookDirectory();
     }
+
+    public void setShowDotFiles(boolean value) {
+        setBool(R.string.pref_key__show_dot_files, value);
+    }
+
+    public boolean isShowDotFiles() {
+        return getBool(R.string.pref_key__show_dot_files, false);
+    }
 }

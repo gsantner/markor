@@ -107,6 +107,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     </plurals>
     <string name="tag" translatable="false">Tag</string>
     <string name="tags" translatable="false">Tags</string>
+    <string name="dotfiles" translatable="false">.dotfiles</string>
 
     <!--
         Preference keys
@@ -223,4 +224,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__app_start_folder" translatable="false">pref_key__app_start_folder</string>
     <string name="pref_key__swipe_to_change_mode" translatable="false">pref_key__swipe_to_change_mode</string>
     <string name="pref_key__filesystem_folder_first" translatable="false">pref_key__filesystem_folder_first</string>
+    <string name="pref_key__show_dot_files" translatable="false">pref_key__show_dot_files</string>
 </resources>

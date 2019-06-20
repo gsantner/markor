@@ -153,6 +153,12 @@
                 android:icon="@drawable/ic_rotate_left_black_24dp"
                 android:title="@string/reverse_order"
                 app:showAsAction="never" />
+            <item
+                android:id="@+id/action_show_dotfiles"
+                android:checkable="true"
+                android:icon="@drawable/ic_visibility_black_24dp"
+                android:title="@string/dotfiles"
+                app:showAsAction="never" />
         </menu>
 
     </item>
