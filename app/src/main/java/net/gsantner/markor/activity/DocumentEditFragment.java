@@ -512,6 +512,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void setDocumentViewVisibility(boolean show) {
         if (show) {
+            _document.setContent(_hlEditor.getText().toString());
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
             new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
