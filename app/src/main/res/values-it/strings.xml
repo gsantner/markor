@@ -294,4 +294,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Preferiti</string>
     <string name="please_wait">Attendi</string>
     <string name="app_start_folder">Cartella iniziale app</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Il file selezionato può essere un file di testo semplice. Vuoi aprirlo nell\'editor o con un\'altra app?\n\nNon provare ad aprire file binari. Se non sei sicuro, aprilo con un\'altra app.</string>
 </resources>
