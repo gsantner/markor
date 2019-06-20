@@ -79,6 +79,34 @@ public class DocumentActivity extends AppActivityBase {
         activity.startActivity(intent);
     }
 
+    public static boolean checkIfMayBeATextFile(File file) {
+        String fn = file.getName().toLowerCase();
+        if (!fn.contains(".")) {
+            return true;
+        }
+        String ext = fn.substring(fn.lastIndexOf("."));
+        for (String ce : new String[]{"py", "cpp", "h", "js", "html", "css", "java", "qml", "go", "sh", "rb", ".tex", ".json", ".xml"}) {
+            if (ext.equals("." + ce)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
+        boolean result = checkIfMayBeATextFile(file);
+        if (result) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+            dialog.setTitle(R.string.open_with)
+                    .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
+                    .setIcon(R.drawable.ic_open_in_browser_black_24dp)
+                    .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, false, null, null))
+                    .setNegativeButton(R.string.other, (dialog1, which) -> new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null));
+            dialog.create().show();
+        }
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -9,9 +9,11 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -26,6 +28,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -38,6 +41,7 @@ import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
@@ -433,9 +437,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 public void onFsViewerSelected(String request, File file) {
                     if (MarkdownTextConverter.isTextOrMarkdownFile(file)) {
                         DocumentActivity.launch(MainActivity.this, file, false, null, null);
-                    } else {
-                        new net.gsantner.markor.util.ShareUtil(MainActivity.this)
-                                .viewFileInOtherApp(file, null);
+                    } else if (!DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file)) {
+                        new net.gsantner.markor.util.ShareUtil(MainActivity.this).viewFileInOtherApp(file, null);
                     }
                 }
             });
