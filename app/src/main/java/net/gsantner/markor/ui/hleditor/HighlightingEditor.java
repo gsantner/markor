@@ -87,9 +87,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void enableHighlighterAutoFormat() {
-        if (_hlEnabled) {
+        //if (_hlEnabled) {
             setAutoFormat(_hl.getAutoFormatter());
-        }
+        //}
     }
 
     private void cancelUpdate() {
