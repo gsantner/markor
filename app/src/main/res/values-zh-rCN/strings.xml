@@ -218,7 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">位置</string>
     <string name="text_lines">文本行数</string>
     <string name="text_characters">文字符号</string>
-    <string name="text_words">文字词</string>
+    <string name="text_words">文字</string>
     <string name="directory">目录</string>
     <string name="recently_viewed_documents">最近文档</string>
     <string name="details">细节</string>
@@ -294,4 +294,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">收藏</string>
     <string name="please_wait">请稍候</string>
     <string name="app_start_folder">应用起始文件夹</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">所选文件可能是纯文本文件。您想在编辑器或其他应用中打开它吗？\n\n不要尝试打开二进制文件。如果您不确定，请在其他应用中打开。</string>
 </resources>
