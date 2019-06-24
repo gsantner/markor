@@ -294,4 +294,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Preferidos</string>
     <string name="please_wait">Pro praghere iseta</string>
     <string name="app_start_folder">Cartella de incumintzu aplicatzione</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Su documentu ischertadu diat pòdere èssere unu documentu in testu simpre. Lu cheres abèrrere in s\'editore, o in un\'àtera aplicatzione?\n\nNon proves a abèrrere documentos binàrios. Si non ses seguru, aberi·lu cun un\'àtera aplicatzione.</string>
 </resources>
