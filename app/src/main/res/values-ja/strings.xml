@@ -295,4 +295,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="please_wait">しばらくお待ちください</string>
     <string name="app_start_folder">アプリ開始フォルダー</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">選択したファイルはプレインテキストのようです。エディター、それとも他のアプリで開きますか?\n\nバイナリーファイルは開かないでください。不確かな場合は他のアプリで開いてください。</string>
+    <string name="reload">再読み込み</string>
 </resources>
