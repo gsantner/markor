@@ -299,4 +299,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El fitxer seleccionat pot ser un fitxer de text simple. Voleu obrir-lo en l\'editor o en una altra aplicació?\n\nNo intenteu obrir fitxers binaris. Si no esteu segurs, obriu-lo amb una altra aplicació.</string>
     <string name="list_in_recent_files">Mostra-ho als fitxers recents</string>
     <string name="reload">Recarrega</string>
+    <string name="wrap_words">Ajusta les paraules</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
 </resources>
