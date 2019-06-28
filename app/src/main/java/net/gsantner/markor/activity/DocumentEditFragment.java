@@ -402,9 +402,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
+        boolean isInMainActivity = getActivity() instanceof MainActivity;
         AppSettings as = AppSettings.get();
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), as.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setHorizontallyScrolling(!as.isEditorLineBreakingEnabled() && !isInMainActivity);
 
         _hlEditor.setBackgroundColor(as.getEditorBackgroundColor());
         _hlEditor.setTextColor(as.getEditorForegroundColor());

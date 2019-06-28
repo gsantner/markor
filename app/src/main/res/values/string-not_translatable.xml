@@ -228,4 +228,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__filesystem_folder_first" translatable="false">pref_key__filesystem_folder_first</string>
     <string name="pref_key__show_dot_files" translatable="false">pref_key__show_dot_files</string>
     <string name="pref_key__tab_width" translatable="false">pref_key__tab_width</string>
+    <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
 </resources>

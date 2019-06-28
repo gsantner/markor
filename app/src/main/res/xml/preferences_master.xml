@@ -199,6 +199,12 @@
             android:key="@string/pref_key__editor_start_editing_on_bottom"
             android:summary="@string/start_on_bottom_when_loading_document"
             android:title="@string/start_on_bottom" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_visibility_black_24dp"
+            android:key="@string/pref_key__editor_enable_line_breaking"
+            android:summary="@string/soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling"
+            android:title="@string/wrap_words" />
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
@@ -212,7 +218,6 @@
             android:summary="@string/control_font_size_in_editor"
             android:title="@string/font_size"
             app:min="1" />
-
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="100"
             android:icon="@drawable/ic_format_line_spacing_black_24dp"

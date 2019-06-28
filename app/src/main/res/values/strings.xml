@@ -311,4 +311,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">The selected file may be a plaintext file.Do you want to open it in the editor, or in another app?\n\nDo not try to open binary files. If you are not sure, open with other app.</string>
     <string name="list_in_recent_files">List in recent files</string>
     <string name="reload">Reload</string>
+    <string name="wrap_words">Wrap words</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
 </resources>
