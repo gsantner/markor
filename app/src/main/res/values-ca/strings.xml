@@ -295,4 +295,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="please_wait">Espereu</string>
     <string name="app_start_folder">Carpeta d\'inici de l\'aplicació</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El fitxer seleccionat pot ser un fitxer de text simple. Voleu obrir-lo en l\'editor o en una altra aplicació?\n\nNo intenteu obrir fitxers binaris. Si no esteu segurs, obriu-lo amb una altra aplicació.</string>
+    <string name="reload">Recarrega</string>
 </resources>
