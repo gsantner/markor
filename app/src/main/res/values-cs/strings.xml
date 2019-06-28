@@ -294,4 +294,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Oblíbené</string>
     <string name="please_wait">Čekejte prosím</string>
     <string name="app_start_folder">Zobrazit spouštěcí složku</string>
+    <string name="reload">Aktualizovat</string>
 </resources>
