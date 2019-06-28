@@ -320,7 +320,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
         MenuItem[] sortBy = new MenuItem[]{menu.findItem(R.id.action_sort_by_name), menu.findItem(R.id.action_sort_by_date), menu.findItem(R.id.action_sort_by_filesize),};
         for (int i = 0; i < sortBy.length; i++) {
             if (sortBy[i] != null) {
-                System.out.println("Sort METHOD =: " + _appSettings.getSortMethod());
                 if (_appSettings.getSortMethod() == i){
                     sortBy[i].setChecked(true);
                 }
@@ -467,7 +466,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
     public static Comparator<File> sortFolder(List<File> filesToSort) {
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
-        System.out.println("SORT METHOD NEW: " + sortMethod);
 
         Comparator<File> comparator = new Comparator<File>() {
             @Override
