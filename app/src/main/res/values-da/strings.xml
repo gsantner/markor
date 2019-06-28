@@ -244,4 +244,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Sidst brugt</string>
     <string name="close">Luk</string>
     <string name="cancel">Annuller</string>
+    <string name="reload">Genindlæs</string>
 </resources>
