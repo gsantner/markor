@@ -34,10 +34,13 @@ import java.util.Locale;
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
+    private final SharedPreferences _prefHistory;
+
 
     public AppSettings(Context _context) {
         super(_context);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
+        _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
     }
 
     public static AppSettings get() {
@@ -593,5 +596,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 setRecentDocuments(recent);
             }
         }
+    }
+
+    /*public ArrayList<String> getFilesRatedWith(int rating) {
+        return getFilesTaggedWith("rating_" + Integer.toString(rating));
+    }
+
+    public ArrayList<String> getFilesTaggedWith(String tag) {
+        return getStringList("files_tagged_with" + tag, _prefHistory);
+    }*/
+
+    public int getRating(File file) {
+        return getInt(file.getAbsolutePath() + "_rating", 0);
+    }
+
+    public void setRating(File file, int value) {
+        setInt(file.getAbsolutePath() + "_rating", value);
     }
 }

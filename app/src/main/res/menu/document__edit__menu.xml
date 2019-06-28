@@ -116,4 +116,9 @@
                 android:title="@string/todo_txt" />
         </menu>
     </item>
+    <item
+        android:id="@+id/action_reload"
+        android:icon="@drawable/ic_redo_black_24dp"
+        android:title="@string/reload"
+        app:showAsAction="never" />
 </menu>

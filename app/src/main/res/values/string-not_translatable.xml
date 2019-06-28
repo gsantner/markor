@@ -108,6 +108,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tag" translatable="false">Tag</string>
     <string name="tags" translatable="false">Tags</string>
     <string name="dotfiles" translatable="false">.dotfiles</string>
+    <string name="tagging" translatable="false">Tagging</string>
+
 
     <!--
         Preference keys

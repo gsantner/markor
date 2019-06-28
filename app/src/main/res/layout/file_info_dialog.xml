@@ -153,6 +153,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/list_in_recent_files" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="24dp"
+            android:text="@string/tagging"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:visibility="gone" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

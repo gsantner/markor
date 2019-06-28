@@ -159,7 +159,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onResume() {
         super.onResume();
-        checkReloadDisk();
+        checkReloadDisk(false);
         int cursor = _hlEditor.getSelectionStart();
         cursor = Math.max(0, cursor);
         cursor = Math.min(_hlEditor.length(), cursor);
@@ -269,6 +269,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_save: {
                 saveDocument();
+                return true;
+            }
+            case R.id.action_reload: {
+                checkReloadDisk(true);
                 return true;
             }
             case R.id.action_preview: {
@@ -481,15 +485,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.setUserVisibleHint(isVisibleToUser);
         Activity a = getActivity();
         if (isVisibleToUser && a != null && a instanceof MainActivity) {
-            checkReloadDisk();
+            checkReloadDisk(false);
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
         }
     }
 
-    private void checkReloadDisk() {
+    private void checkReloadDisk(boolean forceReload) {
         Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
-        if (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent())) {
+        if (forceReload || (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent()))) {
             _editTextUndoRedoHelper.clearHistory();
             _document = cmp;
             loadDocument();
