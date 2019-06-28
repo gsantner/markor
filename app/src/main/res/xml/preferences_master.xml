@@ -222,6 +222,15 @@
             android:title="@string/line_spacing"
             app:min="50" />
 
+        <android.support.v7.preference.SeekBarPreference
+            android:defaultValue="4"
+            android:icon="@drawable/ic_keyboard_tab_black_24dp"
+            android:key="@string/pref_key__tab_width"
+            android:max="12"
+            android:summary="@string/amount_of_space_for_tab"
+            android:title="@string/tab_width"
+            app:min="1" />
+
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
                 android:defaultValue="true"

@@ -24,7 +24,6 @@ import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 public class MarkdownHighlighter extends Highlighter {
     public final String _fontType;
     public final Integer _fontSize;
-    private final boolean _highlightHexcolorEnabled;
     private final boolean _highlightLineEnding;
     private final boolean _highlightCodeChangeFont;
 
@@ -34,17 +33,17 @@ public class MarkdownHighlighter extends Highlighter {
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
     private static final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
 
-    public MarkdownHighlighter() {
-        AppSettings as = AppSettings.get();
-        _fontType = as.getFontFamily();
-        _fontSize = as.getFontSize();
-        _highlightHexcolorEnabled = as.isHighlightingHexColorEnabled();
-        _highlightLineEnding = as.isMarkdownHighlightLineEnding();
-        _highlightCodeChangeFont = as.isMarkdownHighlightCodeFontMonospaceAllowed();
+    public MarkdownHighlighter(HighlightingEditor hlEditor) {
+        super(hlEditor);
+        _highlightLinks = false;
+        _fontType = _appSettings.getFontFamily();
+        _fontSize = _appSettings.getFontSize();
+        _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
+        _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
     }
 
     @Override
-    protected Editable run(final HighlightingEditor editor, final Editable editable) {
+    protected Editable run(final Editable editable) {
         try {
             clearSpans(editable);
 
@@ -53,6 +52,7 @@ public class MarkdownHighlighter extends Highlighter {
             }
 
             _profiler.start(true, "Markdown Highlighting");
+            generalHighlightRun(editable);
 
             //_profiler.restart("Header");
             createHeaderSpanForMatches(editable, MarkdownHighlighterPattern.HEADER, MD_COLOR_HEADER);
@@ -80,10 +80,6 @@ public class MarkdownHighlighter extends Highlighter {
             }
             //_profiler.restart("Code - bgcolor");
             createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
-            if (_highlightHexcolorEnabled) {
-                //_profiler.restart("RGB Color underline");
-                createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
-            }
 
             _profiler.end();
             _profiler.printProfilingGroup();

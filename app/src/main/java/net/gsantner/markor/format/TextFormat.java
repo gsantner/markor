@@ -23,6 +23,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.ui.hleditor.TextActions;
 
 public class TextFormat {
@@ -35,25 +36,25 @@ public class TextFormat {
         void applyTextFormat(int textFormatId);
     }
 
-    public static TextFormat getFormat(int formatType, Activity activity, Document document) {
+    public static TextFormat getFormat(int formatType, Activity activity, Document document, HighlightingEditor hlEditor) {
         TextFormat format = new TextFormat();
         switch (formatType) {
             case FORMAT_PLAIN: {
                 format.setConverter(new PlaintextConverter());
-                format.setHighlighter(new PlaintextHighlighter());
+                format.setHighlighter(new PlaintextHighlighter(hlEditor));
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
             case FORMAT_TODOTXT: {
                 format.setConverter(new TodoTxtTextConverter());
-                format.setHighlighter(new TodoTxtHighlighter());
+                format.setHighlighter(new TodoTxtHighlighter(hlEditor));
                 format.setTextActions(new TodoTxtTextActions(activity, document));
                 break;
             }
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(new MarkdownTextConverter());
-                format.setHighlighter(new MarkdownHighlighter());
+                format.setHighlighter(new MarkdownHighlighter(hlEditor));
                 format.setTextActions(new MarkdownTextActions(activity, document));
                 break;
             }

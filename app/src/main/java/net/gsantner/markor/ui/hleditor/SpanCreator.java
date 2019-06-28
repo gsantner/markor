@@ -10,16 +10,24 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.text.ParcelableSpan;
+import android.text.style.MetricAffectingSpan;
 import android.text.style.ParagraphStyle;
 
 import java.util.regex.Matcher;
 
-public class SpanCreator {
-    public interface ParagraphStyleCreator {
+public interface SpanCreator {
+    Object create(Matcher matcher, int iM);
+
+    interface ParagraphStyleCreator {
         ParagraphStyle create(Matcher matcher, int iM);
     }
 
-    public interface ParcelableSpanCreator {
+    interface ParcelableSpanCreator {
         ParcelableSpan create(Matcher matcher, int iM);
     }
+
+    interface MetricAffectingSpanCreator {
+        MetricAffectingSpan create(Matcher matcher, int iM);
+    }
+
 }

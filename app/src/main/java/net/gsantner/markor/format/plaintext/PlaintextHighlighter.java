@@ -10,29 +10,19 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
 
-import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
-import net.gsantner.markor.format.todotxt.TodoTxtHighlighterPattern;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
-import net.gsantner.markor.util.AppSettings;
 
 public class PlaintextHighlighter extends Highlighter {
-    private final TodoTxtHighlighterColors colors;
-    public final String fontType;
-    public final Integer fontSize;
-
-    public PlaintextHighlighter() {
-        colors = new TodoTxtHighlighterColors();
-        fontType = AppSettings.get().getFontFamily();
-        fontSize = AppSettings.get().getFontSize();
+    public PlaintextHighlighter(HighlightingEditor hlEditor) {
+        super(hlEditor);
     }
 
     @Override
-    protected Editable run(final HighlightingEditor editor, final Editable editable) {
+    protected Editable run(final Editable editable) {
         try {
             clearSpans(editable);
 
@@ -41,15 +31,7 @@ public class PlaintextHighlighter extends Highlighter {
             }
 
             _profiler.start(true, "Plaintext Highlighting");
-
-            _profiler.restart("Link Color");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), colors.getLinkColor());
-            _profiler.restart("Link Size");
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), 0.7f);
-            _profiler.restart("Link Italic");
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), Typeface.ITALIC);
-
-
+            generalHighlightRun(editable);
             _profiler.end();
             _profiler.printProfilingGroup();
         } catch (Exception ex) {

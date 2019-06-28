@@ -10,7 +10,11 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
@@ -22,35 +26,76 @@ import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
 import android.text.style.ParagraphStyle;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.ReplacementSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
+import android.util.Patterns;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
+import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public abstract class Highlighter {
-
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
 
-    protected abstract Editable run(final HighlightingEditor editor, final Editable editable);
+    protected abstract Editable run(final Editable editable);
 
     public abstract InputFilter getAutoFormatter();
 
-    protected static Highlighter getDefaultHighlighter() {
-        return new MarkdownHighlighter();
+    protected static Highlighter getDefaultHighlighter(HighlightingEditor hlEditor) {
+        return new MarkdownHighlighter(hlEditor);
     }
 
     public abstract int getHighlightingDelay(Context context);
+
+    //
+    // Instance
+    //
+    protected final HighlightingEditor _hlEditor;
+    protected final AppSettings _appSettings;
+
+    protected final int _preCalcTabWidth;
+    protected boolean _highlightLinks = true;
+    protected final boolean _highlightHexcolor;
+
+    public Highlighter(HighlightingEditor editor) {
+        _hlEditor = editor;
+        _appSettings = new AppSettings(_hlEditor.getContext().getApplicationContext());
+
+        _preCalcTabWidth = (int) (_appSettings.getTabWidth() <= 1 ? -1 : editor.getPaint().measureText(" ") * _appSettings.getTabWidth());
+        _highlightHexcolor = _appSettings.isHighlightingHexColorEnabled();
+    }
+
+    public void generalHighlightRun(final Editable editable) {
+        _profiler.restart("General Highlighter");
+        if (_preCalcTabWidth > 0) {
+            _profiler.restart("Tabulator width");
+            createReplacementSpanForMatches(editable, Pattern.compile("\t"), _preCalcTabWidth);
+        }
+        if (_highlightLinks) {
+            _profiler.restart("Link Color");
+            createColorSpanForMatches(editable, Patterns.WEB_URL, 0xff1ea3fd);
+            _profiler.restart("Link Size");
+            createRelativeSizeSpanForMatches(editable, Patterns.WEB_URL, 0.7f);
+            _profiler.restart("Link Italic");
+            createStyleSpanForMatches(editable, Patterns.WEB_URL, Typeface.ITALIC);
+        }
+        if (_highlightHexcolor) {
+            _profiler.restart("RGB Color underline");
+            createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
+        }
+    }
 
 
     //
@@ -150,6 +195,32 @@ public abstract class Highlighter {
         }
     }
 
+    /**
+     * Create Span for matches in paragraph's. Note that this will highlight the full matched pattern
+     * (including optionals) if no group parameters are given.
+     *
+     * @param editable      Text editable
+     * @param pattern       The pattern to match
+     * @param creator       A ParcelableSpanCreator for ParcelableSpan
+     * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
+     */
+    protected void createSpanForMatchesM(final Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+        if (groupsToMatch == null || groupsToMatch.length < 1) {
+            groupsToMatch = new int[]{0};
+        }
+        int i = 0;
+        for (Matcher m = pattern.matcher(editable); m.find(); i++) {
+            Object span = creator.create(m, i);
+            if (span != null) {
+                for (int g : groupsToMatch) {
+                    if (g == 0 || g <= m.groupCount()) {
+                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+        }
+    }
+
     protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style, int... groupsToMatch) {
         createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
@@ -172,6 +243,19 @@ public abstract class Highlighter {
 
     protected void createRelativeSizeSpanForMatches(Editable editable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
         createSpanForMatches(editable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
+    }
+
+    protected void createReplacementSpanForMatches(final Editable editable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
+        createSpanForMatchesM(editable, pattern, (matcher, iM) -> new ReplacementSpan() {
+            @Override
+            public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
+                return charWidth;
+            }
+
+            @Override
+            public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
+            }
+        }, groupsToMatch);
     }
 
     protected void createMonospaceSpanForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {

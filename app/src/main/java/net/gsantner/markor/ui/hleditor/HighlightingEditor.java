@@ -47,7 +47,7 @@ public class HighlightingEditor extends AppCompatEditText {
         super(context, attrs);
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
-            setHighlighter(Highlighter.getDefaultHighlighter());
+            setHighlighter(Highlighter.getDefaultHighlighter(this));
             setAutoFormat(_hl.getAutoFormatter());
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
@@ -88,7 +88,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private void enableHighlighterAutoFormat() {
         //if (_hlEnabled) {
-            setAutoFormat(_hl.getAutoFormatter());
+        setAutoFormat(_hl.getAutoFormatter());
         //}
     }
 
@@ -105,7 +105,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_hlEnabled) {
             _modified = false;
             try {
-                _hl.run(this, editable);
+                _hl.run(editable);
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();

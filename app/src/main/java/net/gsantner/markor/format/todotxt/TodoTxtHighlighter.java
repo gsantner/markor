@@ -22,17 +22,14 @@ import net.gsantner.markor.util.AppSettings;
 
 public class TodoTxtHighlighter extends Highlighter {
     private final TodoTxtHighlighterColors colors;
-    public final String fontType;
-    public final Integer fontSize;
 
-    public TodoTxtHighlighter() {
+    public TodoTxtHighlighter(HighlightingEditor hlEditor) {
+        super(hlEditor);
         colors = new TodoTxtHighlighterColors();
-        fontType = AppSettings.get().getFontFamily();
-        fontSize = AppSettings.get().getFontSize();
     }
 
     @Override
-    protected Editable run(final HighlightingEditor editor, final Editable editable) {
+    protected Editable run(final Editable editable) {
         try {
             clearSpans(editable);
 
@@ -41,6 +38,7 @@ public class TodoTxtHighlighter extends Highlighter {
             }
 
             _profiler.start(true, "Todo.Txt Highlighting");
+            generalHighlightRun(editable);
             _profiler.restart("Paragraph top padding");
             createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
                     (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
@@ -52,13 +50,6 @@ public class TodoTxtHighlighter extends Highlighter {
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PROJECT.getPattern(), colors.getCategoryColor());
             _profiler.restart("KeyValue");
             createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.ITALIC);
-
-            _profiler.restart("Link Color");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), colors.getLinkColor());
-            _profiler.restart("Link Size");
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), 0.7f);
-            _profiler.restart("Link Italic");
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINK.getPattern(), Typeface.ITALIC);
 
             // Priorities
             _profiler.restart("Priority Bold");
@@ -86,7 +77,7 @@ public class TodoTxtHighlighter extends Highlighter {
             // Paragraph divider
             _profiler.restart("Paragraph divider");
             createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
-                    (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(editor.getCurrentTextColor(), 0.8f, editor.getTextSize() / 2f));
+                    (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(_hlEditor.getCurrentTextColor(), 0.8f, _hlEditor.getTextSize() / 2f));
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             _profiler.restart("Done BgColor");
