@@ -60,4 +60,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Locaţie</string>
     <string name="description">Descriere</string>
     <string name="miscellaneous">Diverse</string>
+    <string name="reload">Reîncarcă</string>
 </resources>
