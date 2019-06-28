@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,12 +75,11 @@ public class FileInfoDialog extends DialogFragment {
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), darkTheme ?
+        AppSettings appSettings = new AppSettings(inflater.getContext());
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.isDarkThemeEnabled() ?
                 R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
         root = inflater.inflate(R.layout.file_info_dialog, null);
 
-        dialogBuilder.setTitle(getResources().getString(R.string.details));
         dialogBuilder.setView(root);
 
         tv(root, R.id.ui__fileinfodialog__name).setText(file.getName());
@@ -96,13 +96,13 @@ public class FileInfoDialog extends DialogFragment {
 
         // Number of lines and character count only apply for files.
         if (FileUtils.isTextFile(file)) {
-            AtomicInteger linesCount = new AtomicInteger(0);
-            AtomicInteger charactersCount = new AtomicInteger(0);
-            AtomicInteger wordsCount = new AtomicInteger(0);
-            FileUtils.retrieveTextFileSummary(file, charactersCount, linesCount, wordsCount);
+            AtomicInteger valLines = new AtomicInteger(0);
+            AtomicInteger valChars = new AtomicInteger(0);
+            AtomicInteger valWords = new AtomicInteger(0);
+            FileUtils.retrieveTextFileSummary(file, valChars, valLines, valWords);
 
             tv(root, R.id.ui__fileinfodialog__textinfo_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
-            tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", linesCount.intValue(), wordsCount.intValue(), charactersCount.intValue()));
+            tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", valLines.intValue(), valWords.intValue(), valChars.intValue()));
 
         } else {
             root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
@@ -110,6 +110,11 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
             dialogInterface.dismiss();
         });
+
+        // Hide checkbox
+        CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
+        checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
+        checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
 
         return dialogBuilder;
     }

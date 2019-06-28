@@ -309,4 +309,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_width">Tab width</string>
     <string name="amount_of_space_for_tab">Amount of space characters to display tabulator</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">The selected file may be a plaintext file.Do you want to open it in the editor, or in another app?\n\nDo not try to open binary files. If you are not sure, open with other app.</string>
+    <string name="list_in_recent_files">List in recent files</string>
 </resources>

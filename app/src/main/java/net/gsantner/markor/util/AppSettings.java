@@ -281,6 +281,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void addRecentDocument(File file) {
+        if (!listFileInRecents(file)) {
+            return;
+        }
         if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
             ArrayList<String> recent = getRecentDocuments();
             recent.add(0, file.getAbsolutePath());
@@ -574,5 +577,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public int getTabWidth() {
         return getInt(R.string.pref_key__tab_width, 4);
+    }
+
+    public boolean listFileInRecents(File file) {
+        return getBool(file.getAbsolutePath() + "_list_in_recents", true);
+    }
+
+    public void setListFileInRecents(File file, boolean value) {
+        setBool(file.getAbsolutePath() + "_list_in_recents", value);
+
+        if (!value) {
+            ArrayList<String> recent = getRecentDocuments();
+            if (recent.contains(file.getAbsolutePath())) {
+                recent.remove(file.getAbsolutePath());
+                setRecentDocuments(recent);
+            }
+        }
     }
 }
