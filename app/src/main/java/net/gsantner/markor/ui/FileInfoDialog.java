@@ -9,8 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -18,14 +20,18 @@ import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileInfoDialog extends DialogFragment {
@@ -41,9 +47,9 @@ public class FileInfoDialog extends DialogFragment {
     }
 
     public static FileInfoDialog show(File sourceFile, FragmentManager fragmentManager) {
-        FileInfoDialog fileInfoDialog = FileInfoDialog.newInstance(sourceFile);
-        fileInfoDialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
-        return fileInfoDialog;
+        FileInfoDialog dialog = FileInfoDialog.newInstance(sourceFile);
+        dialog.show(fragmentManager, FileInfoDialog.FRAGMENT_TAG);
+        return dialog;
     }
 
     @NonNull
@@ -54,11 +60,17 @@ public class FileInfoDialog extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater);
         AlertDialog dialog = dialogBuilder.show();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        Window w;
+        if ((w = dialog.getWindow()) != null) {
+            w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
 
         return dialog;
     }
 
+    @SuppressLint("SetTextI18n")
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
@@ -70,47 +82,39 @@ public class FileInfoDialog extends DialogFragment {
         dialogBuilder.setTitle(getResources().getString(R.string.details));
         dialogBuilder.setView(root);
 
-        ((TextView) root.findViewById(R.id.ui__fileinfodialog__name))
-                .setText(file.getName());
+        tv(root, R.id.ui__fileinfodialog__name).setText(file.getName());
+        tv(root, R.id.ui__fileinfodialog__location).setText(file.getParentFile().getAbsolutePath());
+        tv(root, R.id.ui__fileinfodialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+        tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
+        tv(root, R.id.ui__fileinfodialog__size_description).setText(FileUtils.getReadableFileSize(file.length(), false));
+        tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
+            new ShareUtil(v.getContext()).setClipboard(file.getAbsolutePath());
+            Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+            return true;
+        });
 
-
-        ((TextView) root.findViewById(R.id.ui__fileinfodialog__location))
-                .setText(file.getParentFile().getAbsolutePath());
-
-        ((TextView) root.findViewById(R.id.ui__fileinfodialog__last_modified))
-                .setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
-
-        ((TextView) root.findViewById(R.id.ui__fileinfodialog__last_modified_caption))
-                .setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
-
-
-        TextView sizeView = root.findViewById(R.id.ui__fileinfodialog__size_description);
-        sizeView.setText(FileUtils.getReadableFileSize(file.length(), false));
 
         // Number of lines and character count only apply for files.
         if (FileUtils.isTextFile(file)) {
-            TextView textNumLinesView = root.findViewById(R.id.ui__fileinfodialog__numberlines_description);
-
             AtomicInteger linesCount = new AtomicInteger(0);
             AtomicInteger charactersCount = new AtomicInteger(0);
             AtomicInteger wordsCount = new AtomicInteger(0);
             FileUtils.retrieveTextFileSummary(file, charactersCount, linesCount, wordsCount);
 
-            textNumLinesView.setText((linesCount.toString()));
+            tv(root, R.id.ui__fileinfodialog__textinfo_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
+            tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", linesCount.intValue(), wordsCount.intValue(), charactersCount.intValue()));
 
-            TextView textNumCharactersView = root.findViewById(R.id.ui__fileinfodialog__numbercharacters_description);
-            textNumCharactersView.setText(charactersCount.toString());
-
-            TextView textNumWordsView = root.findViewById(R.id.ui__fileinfodialog__numberwords_description);
-            textNumWordsView.setText(wordsCount.toString());
         } else {
             root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
         }
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
             dialogInterface.dismiss();
-
         });
 
         return dialogBuilder;
+    }
+
+    private TextView tv(View root, @IdRes int resId) {
+        return root.findViewById(resId);
     }
 }
