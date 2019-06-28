@@ -35,7 +35,7 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
         versionName "1.8.2"
-        versionCode 72
+        versionCode 73
     }
 
     flavorDimensions "default"
