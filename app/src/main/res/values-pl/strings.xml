@@ -266,4 +266,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Ulubiony</string>
     <string name="favourites">Ulubione</string>
     <string name="please_wait">Proszę czekać</string>
+    <string name="reload">Przeładuj</string>
 </resources>
