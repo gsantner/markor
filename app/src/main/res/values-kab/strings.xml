@@ -181,4 +181,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background">Agilal</string>
     <string name="font">Tasefsit</string>
     <string name="favourite">Inurifen</string>
+    <string name="reload">Smiren</string>
 </resources>
