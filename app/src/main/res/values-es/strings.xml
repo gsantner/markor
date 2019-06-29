@@ -300,4 +300,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lista de archivos recientes</string>
     <string name="reload">Refrescar</string>
     <string name="wrap_words">Cambio de línea</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. Else activa el desplazamiento horizontal.</string>
 </resources>
