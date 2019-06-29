@@ -161,7 +161,7 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (file != null) {
-            boolean preview = receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile();
+            boolean preview = receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile() || file.getName().startsWith("index.");
             showTextEditor(null, file, fileIsFolder, preview);
         }
 
