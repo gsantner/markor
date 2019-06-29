@@ -70,45 +70,51 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="/sdcard/Documents/somewhere" />
 
-
-        <TextView
-            android:id="@+id/ui__fileinfodialog__last_modified_caption"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ui__fileinfodialog__fileinfo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textStyle="bold"
-            tools:text="@string/last_modified_witharg" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ui__fileinfodialog__last_modified"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            tools:text="today" />
+            <TextView
+                android:id="@+id/ui__fileinfodialog__last_modified_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textStyle="bold"
+                tools:text="@string/last_modified_witharg" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/size"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/ui__fileinfodialog__last_modified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:text="today" />
 
-        <TextView
-            android:id="@+id/ui__fileinfodialog__size_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            tools:text="859KB (81234 Bytes)" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/size"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ui__fileinfodialog__size_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:text="859KB (81234 Bytes)" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ui__fileinfodialog__textinfo"
@@ -138,39 +144,45 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ui__fileinfodialog__filesettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="24dp"
-            android:text="@string/settings"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="24dp"
+                android:text="@string/settings"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-        <CheckBox
-            android:id="@+id/ui__fileinfodialog__recents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/list_in_recent_files" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="24dp"
-            android:text="@string/tagging"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:visibility="gone" />
+            <CheckBox
+                android:id="@+id/ui__fileinfodialog__recents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/list_in_recent_files" />
 
-        <RatingBar
-            android:id="@+id/rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="0"
-            android:stepSize="1"
-            android:visibility="gone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="24dp"
+                android:text="@string/tagging"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:visibility="gone" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="1"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
