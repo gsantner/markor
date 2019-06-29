@@ -24,6 +24,11 @@ android {
     compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {
+        resValue "string", "manifest_package_id", "net.gsantner.markor"
+        applicationId "net.gsantner.markor"
+        versionName "1.8.3"
+        versionCode 74
+
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
@@ -31,11 +36,7 @@ android {
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
-
-        resValue "string", "manifest_package_id", "net.gsantner.markor"
-        applicationId "net.gsantner.markor"
-        versionName "1.8.2"
-        versionCode 73
+        setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-(" + versionName + ")")
     }
 
     flavorDimensions "default"
@@ -58,9 +59,9 @@ android {
         if (enable_plugin_kotlin) {
             main.java.srcDirs += 'src/main/kotlin'
         }
-        main.java.srcDirs +=  'thirdparty/java'
-        main.res.srcDirs +=  'thirdparty/res'
-        main.assets.srcDirs +=  'thirdparty/assets'
+        main.java.srcDirs += 'thirdparty/java'
+        main.res.srcDirs += 'thirdparty/res'
+        main.assets.srcDirs += 'thirdparty/assets'
     }
 
     buildTypes {
