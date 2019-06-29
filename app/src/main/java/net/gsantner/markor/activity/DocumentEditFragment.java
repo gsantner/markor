@@ -422,9 +422,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onBackPressed() {
+        boolean preview = getActivity().getIntent().getBooleanExtra(DocumentActivity.EXTRA_DO_PREVIEW, false) || AppSettings.get().isPreviewFirst();
         saveDocument();
-        if (_isPreviewVisible) {
+        if (_isPreviewVisible && !preview) {
             setDocumentViewVisibility(false);
+            return true;
+        } else if (!_isPreviewVisible && preview) {
+            setDocumentViewVisibility(true);
             return true;
         }
         return false;
