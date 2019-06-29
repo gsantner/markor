@@ -27,6 +27,7 @@ import java.net.URLDecoder;
 public class MarkorWebViewClient extends WebViewClient {
 
     private final Activity _activity;
+    private int _restoreScrollY = 0;
 
     public MarkorWebViewClient(Activity activity) {
         _activity = activity;
@@ -75,5 +76,17 @@ public class MarkorWebViewClient extends WebViewClient {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
+            view.postDelayed(() -> view.setScrollY(_restoreScrollY), dt);
+        }
+        super.onPageFinished(view, url);
+    }
+
+    public void setRestoreScrollY(int scrollY) {
+        _restoreScrollY = scrollY;
     }
 }

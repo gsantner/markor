@@ -102,6 +102,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private ShareUtil _shareUtil;
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
+    private MarkorWebViewClient _webViewClient;
 
     public DocumentEditFragment() {
     }
@@ -119,8 +120,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _shareUtil = new ShareUtil(view.getContext());
 
         AppSettings appSettings = new AppSettings(view.getContext());
+        _webViewClient = new MarkorWebViewClient(getActivity());
         _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
-        _webView.setWebViewClient(new MarkorWebViewClient(getActivity()));
+        _webView.setWebViewClient(_webViewClient);
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
@@ -524,13 +526,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void setDocumentViewVisibility(boolean show) {
         if (show) {
+            _webViewClient.setRestoreScrollY(_webView.getScrollY());
             _document.setContent(_hlEditor.getText().toString());
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
             new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         }
+        _webView.setAlpha(0);
         ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
+        if (show) {
+            _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
+        }
         _isPreviewVisible = show;
         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
     }
