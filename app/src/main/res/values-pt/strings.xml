@@ -294,6 +294,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Favoritos</string>
     <string name="please_wait">Por favor aguarde...</string>
     <string name="app_start_folder">Pasta inicial</string>
+    <string name="tab_width">Largura do separador</string>
+    <string name="amount_of_space_for_tab">Número de espaços para mostrar o separador</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O ficheiro selecionado pode ser um ficheiro de texto. deseja abri o ficheiro no editor ou com outra aplicação?\n\nNão tente abrir ficheiros binários. Se não tem a certeza, abra com outra aplicação.</string>
+    <string name="list_in_recent_files">Lista no ficheiros recentes</string>
     <string name="reload">Recarregar</string>
+    <string name="wrap_words">Moldar texto</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
 </resources>
