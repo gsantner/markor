@@ -299,4 +299,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Le fichier sélectionné est peut-être un fichier brut. Voulez-vous l\'ouvrir avec l\'éditeur ou une autre application ?\n\nN\'essayez pas d\'ouvrir de fichiers binaires. Si vous n\'êtes pas sûr, ouvrez avec une autre application.</string>
     <string name="list_in_recent_files">Lister dans les fichiers récents</string>
     <string name="reload">Rafraîchir</string>
+    <string name="recursive_search_in_current_directory">Recherche récursive dans le répertoire courant. Lorsque la requête contient un astérisque (*) la recherche regex est utilisée, sinon vérifie si la recherche est présente.</string>
 </resources>
