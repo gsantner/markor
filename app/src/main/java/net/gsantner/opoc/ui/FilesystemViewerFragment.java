@@ -40,6 +40,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -320,7 +321,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         MenuItem[] sortBy = new MenuItem[]{menu.findItem(R.id.action_sort_by_name), menu.findItem(R.id.action_sort_by_date), menu.findItem(R.id.action_sort_by_filesize),};
         for (int i = 0; i < sortBy.length; i++) {
             if (sortBy[i] != null) {
-                if (_appSettings.getSortMethod() == i){
+                if (_appSettings.getSortMethod() == i) {
                     sortBy[i].setChecked(true);
                 }
             }
@@ -385,6 +386,18 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 if (permc.mkdirIfStoragePermissionGranted()) {
                     showImportDialog();
                 }
+                return true;
+            }
+            case R.id.action_search: {
+                final File currentFolder = getCurrentFolder();
+                SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, relFilePath -> {
+                    File load = new File(currentFolder, relFilePath);
+                    if (load.isDirectory()) {
+                        _filesystemViewerAdapter.loadFolder(load);
+                    } else {
+                        onFsViewerSelected("", load);
+                    }
+                });
                 return true;
             }
             case R.id.action_folder_first: {

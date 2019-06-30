@@ -26,6 +26,7 @@ import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,6 +55,26 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
+
+    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
+            dopt.callback = callback;
+            dopt.isSearchEnabled = false;
+            dopt.data = searchResults;
+            dopt.cancelButtonText = R.string.close;
+            dopt.titleText = R.string.select;
+            dopt.messageText = null;
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        });
+        dopt.titleText = R.string.search;
+        dopt.isSearchEnabled = true;
+        dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
+        dopt.searchHintText = R.string.search;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();

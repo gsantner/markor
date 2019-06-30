@@ -12,10 +12,12 @@ package net.gsantner.opoc.ui;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -25,7 +27,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.LinearLayout;
@@ -36,9 +37,16 @@ import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
 public class SearchOrCustomTextDialog {
@@ -199,6 +207,111 @@ public class SearchOrCustomTextDialog {
                 au.showSoftKeyboard();
                 au.freeContextRef();
             } catch (Exception ignored) {
+            }
+        }
+    }
+
+
+    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback) {
+        query = query.replaceAll("(?<![.])[*]", ".*");
+        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"));
+        task.execute();
+        return task;
+    }
+
+    public static class SearchFilesTask extends AsyncTask<Void, File, List<String>> implements IOFileFilter {
+        private final Callback.a1<List<String>> _callback;
+        private final File _searchDir;
+        private final String _query;
+        private final boolean _isRegex;
+        private final WeakReference<Activity> _activityRef;
+
+        private final Pattern _regex;
+        private Snackbar _snackBar;
+
+        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex) {
+            _searchDir = searchDir;
+            _query = isRegex ? query : query.toLowerCase();
+            _callback = callback;
+            _isRegex = isRegex;
+            _regex = isRegex ? Pattern.compile(_query) : null;
+            _activityRef = new WeakReference<>(activity);
+        }
+
+        // Called for both, file and folder filter
+        @Override
+        public boolean accept(File file) {
+            return isMatching(file, true);
+        }
+
+        // Not called
+        @Override
+        public boolean accept(File dir, String name) {
+            return isMatching(new File(dir, name), true);
+        }
+
+        // In iterateFilesAndDirs, subdirs are only scanned when returning true on it
+        // But those dirs will also occur in iterator
+        // Hence call this aagain with alwaysMatchDir=false
+        public boolean isMatching(File file, boolean alwaysMatchDir) {
+            if (file.isDirectory()) {
+                // Do never scan .git directories, lots of files, lots of time
+                if (file.getName().equals(".git")) {
+                    return false;
+                }
+                if (alwaysMatchDir) {
+                    return true;
+                }
+            }
+            String name = file.getName();
+            file = file.getParentFile();
+            return _isRegex ? _regex.matcher(name).matches() : name.toLowerCase().contains(_query);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (_activityRef.get() != null) {
+                _snackBar = Snackbar.make(_activityRef.get().findViewById(android.R.id.content), _query + "...", Snackbar.LENGTH_INDEFINITE);
+                _snackBar.setAction(android.R.string.cancel, (v) -> {
+                    _snackBar.dismiss();
+                    cancel(true);
+                }).show();
+            }
+        }
+
+        @Override
+        protected List<String> doInBackground(Void... voidp) {
+            List<String> ret = new ArrayList<>();
+
+            boolean first = true;
+            Iterator<File> iter = FileUtils.iterateFilesAndDirs(_searchDir, this, this);
+            while (iter.hasNext() && !isCancelled()) {
+                File f = iter.next();
+                if (first) {
+                    first = false;
+                    if (f.equals(_searchDir)) {
+                        continue;
+                    }
+                }
+                if (f.isFile() || (f.isDirectory() && isMatching(f, false))) {
+                    ret.add(f.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", ""));
+                }
+            }
+            return ret;
+        }
+
+        @Override
+        protected void onPostExecute(List<String> ret) {
+            super.onPostExecute(ret);
+            if (_snackBar != null) {
+                _snackBar.dismiss();
+            }
+            if (_callback != null) {
+                try {
+                    _callback.callback(ret);
+                } catch (Exception ignored) {
+                }
             }
         }
     }

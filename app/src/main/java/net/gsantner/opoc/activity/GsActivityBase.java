@@ -26,7 +26,6 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
         _appSettings = createAppSettingsInstance(getApplicationContext());
         _activityUtils = new ActivityUtils(this);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {
             _defaultNavigationBarColor = getWindow().getNavigationBarColor();
         }

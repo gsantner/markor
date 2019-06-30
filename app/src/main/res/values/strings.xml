@@ -313,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Reload</string>
     <string name="wrap_words">Wrap words</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
+    <string name="recursive_search_in_current_directory">Recursive search in current directory. When query contains a asterisk (*) regex search is used, otherwise check if the query is contained.</string>
 </resources>

@@ -143,7 +143,7 @@ public abstract class Highlighter {
     //
 
     /**
-     * Create Span for matches in ParcelableSpan's. Note that this will highlight the full matched pattern
+     * Create Span for isMatching in ParcelableSpan's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
      * @param editable      Text editable
@@ -170,7 +170,7 @@ public abstract class Highlighter {
 
 
     /**
-     * Create Span for matches in paragraph's. Note that this will highlight the full matched pattern
+     * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
      * @param editable      Text editable
@@ -196,7 +196,7 @@ public abstract class Highlighter {
     }
 
     /**
-     * Create Span for matches in paragraph's. Note that this will highlight the full matched pattern
+     * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
      * @param editable      Text editable
