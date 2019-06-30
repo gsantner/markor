@@ -246,6 +246,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">ملاحظات</string>
     <string name="close">إغلاق</string>
     <string name="cancel">إلغاء</string>
+    <string name="go_to">ذهاب إلى</string>
+    <string name="internal_storage">وحدة التخزين الداخلية</string>
     <string name="black">أسود</string>
     <string name="white">أبيض</string>
     <string name="favourite">المفضلة</string>

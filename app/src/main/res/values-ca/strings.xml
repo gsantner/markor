@@ -45,7 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files">Fitxers</string>
     <string name="document">Document</string>
     <string name="documents">Documents</string>
-    <string name="html_as_plaintext">HTML (com a text pla)</string>
+    <string name="html_as_plaintext">HTML (com a text simple)</string>
     <string name="document_editor_font">Font de l\'editor de notes</string>
     <string name="theme">Tema</string>
     <string name="show_representation_of_markup_by_default">Mostra els documents existents en mode de representació per defecte</string>
@@ -294,4 +294,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Preferits</string>
     <string name="please_wait">Espereu</string>
     <string name="app_start_folder">Carpeta d\'inici de l\'aplicació</string>
+    <string name="tab_width">Amplada del tabulador</string>
+    <string name="amount_of_space_for_tab">Quantitat d\'espais per mostrar una tabulació</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El fitxer seleccionat pot ser un fitxer de text simple. Voleu obrir-lo en l\'editor o en una altra aplicació?\n\nNo intenteu obrir fitxers binaris. Si no esteu segurs, obriu-lo amb una altra aplicació.</string>
+    <string name="list_in_recent_files">Mostra-ho als fitxers recents</string>
+    <string name="reload">Recarrega</string>
+    <string name="wrap_words">Ajusta les paraules</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
+    <string name="recursive_search_in_current_directory">Cerca recursiva en el directori actual. Quan la consulta conté un asterisc (*) s\'utilitza la recerca d\'expressions regulars, en cas contrari, comproveu si la consulta està continguda.</string>
 </resources>

@@ -294,4 +294,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">お気に入り</string>
     <string name="please_wait">しばらくお待ちください</string>
     <string name="app_start_folder">アプリ開始フォルダー</string>
+    <string name="tab_width">タブの幅</string>
+    <string name="amount_of_space_for_tab">タブを表示するための空白文字の量</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">選択したファイルはプレインテキストのようです。エディター、それとも他のアプリで開きますか?\n\nバイナリーファイルは開かないでください。不確かな場合は他のアプリで開いてください。</string>
+    <string name="list_in_recent_files">最近使用したファイルのリスト</string>
+    <string name="reload">再読み込み</string>
+    <string name="wrap_words">単語の折り返し</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
 </resources>

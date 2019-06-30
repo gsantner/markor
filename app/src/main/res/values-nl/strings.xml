@@ -268,4 +268,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Tab om te selecteren bij het starten van de app</string>
     <string name="swipe_to_change_mode">Veeg om de modus te wijzigen</string>
     <string name="swipe_to_change_mode_to_other">Veeg om de modus te wijzigen om te bewerken of te vertegenwoordigen, het tegendeel van de huidige modus</string>
+    <string name="reload">Herladen</string>
 </resources>

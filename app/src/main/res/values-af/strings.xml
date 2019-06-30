@@ -26,4 +26,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverse</string>
     <string name="close">Sluit</string>
     <string name="cancel">Kanselleer</string>
+    <string name="reload">Herlaai</string>
 </resources>
