@@ -301,4 +301,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Weicher Zeilenumbruch falls der Text nicht auf den Bildschirm passt. Andernfalls wird horizontales Scrollen aktiviert.</string>
+    <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis. Wenn Suchbegriff einen Stern (*) enthält wird Regex-Suche verwendet, andernfalls wird überprüft ob der Suchbegriff vorhanden ist.</string>
 </resources>
