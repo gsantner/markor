@@ -295,5 +295,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="please_wait">Molimo sačekajte</string>
     <string name="app_start_folder">Početni direktorij</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Odabrana datoteka može biti obična tekstualna datoteka. Želite li je otvoriti u Markoru ili drugoj aplikaciji?\n\nNe pokušavajte otvoriti binarne datoteke. Ukoliko ste u nedoumici, otvorite je pomoću druge aplikacije.</string>
+    <string name="list_in_recent_files">Prikaži u nedavno otvorenim datotekama</string>
+    <string name="reload">Učitaj ponovo</string>
+    <string name="wrap_words">Prijelom redova</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Kad tekst prelazi širinu ekrana, koristiti blagi prijelom. Ako ne, tad aktivirati vodoravno pomjeranje.</string>
 </resources>
