@@ -300,4 +300,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">最近使用したファイルのリスト</string>
     <string name="reload">再読み込み</string>
     <string name="wrap_words">単語の折り返し</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
 </resources>
