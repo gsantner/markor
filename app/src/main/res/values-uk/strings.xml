@@ -299,4 +299,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Вибраний файл може бути у текстовому форматі. Ви хочете відкрити його редактором чи іншою програмою?\n\nНе відкривайте бінарний файл. Якщо не певні, відкривайте іншою програмою.</string>
     <string name="list_in_recent_files">Показати недавні файли</string>
     <string name="reload">Перезавантажити</string>
+    <string name="wrap_words">Перенесення рядків</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Використати м\'який перенос, якщо текст не вміщається у ширину екрану. В іншому разі слід дозволити горизонтальний скролинг.</string>
 </resources>
