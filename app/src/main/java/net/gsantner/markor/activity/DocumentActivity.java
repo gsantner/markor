@@ -11,6 +11,7 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -79,32 +80,39 @@ public class DocumentActivity extends AppActivityBase {
         activity.startActivity(intent);
     }
 
-    public static boolean checkIfMayBeATextFile(File file) {
+    public static String checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
         if (!fn.contains(".")) {
-            return true;
+            return "";
         }
         String ext = fn.substring(fn.lastIndexOf("."));
-        for (String ce : new String[]{"py", "cpp", "h", "js", "html", "css", "java", "qml", "go", "sh", "rb", ".tex", ".json", ".xml"}) {
-            if (ext.equals("." + ce)) {
-                return true;
+        for (String ce : new String[]{".py", ".cpp", ".h", ".js", ".html", ".css", ".java", ".qml", ".go", ".sh", ".rb", ".tex", ".json", ".xml"}) {
+            if (ext.equals(ce)) {
+                return ce;
             }
         }
-        return false;
+        return null;
     }
 
-    public static boolean askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
-        boolean result = checkIfMayBeATextFile(file);
-        if (result) {
+    public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
+        String ext = checkIfLikelyTextfileAndGetExt(file);
+        if (ext != null) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
                     .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, false, null, null))
+                    .setSingleChoiceItems(new String[]{"Always check"}, 1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
                     .setNegativeButton(R.string.other, (dialog1, which) -> new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null));
             dialog.create().show();
+        } else {
+            new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
         }
-        return result;
     }
 
     @Override
