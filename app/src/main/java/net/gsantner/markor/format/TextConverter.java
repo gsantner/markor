@@ -63,9 +63,9 @@ public abstract class TextConverter {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, WebView webView) {
+    public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode) {
         Context context = webView.getContext();
-        String html = convertMarkup(document.getContent(), context);
+        String html = convertMarkup(document.getContent(), context, isExportInLightMode);
 
 
         String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
@@ -85,11 +85,15 @@ public abstract class TextConverter {
      * @param context Android Context
      * @return html as String
      */
-    public abstract String convertMarkup(String markup, Context context);
+    public abstract String convertMarkup(String markup, Context context, boolean isExportInLightMode);
 
-    protected String putContentIntoTemplate(Context context, String content, String onLoadJs, String head) {
+    protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, String onLoadJs, String head) {
         AppSettings appSettings = new AppSettings(context);
-        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (appSettings.isDarkThemeEnabled() ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
+        boolean darkTheme = appSettings.isDarkThemeEnabled() && !isExportInLightMode;
+        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
+        if (isExportInLightMode) {
+            html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
+        }
         html += HTML004_HEAD_META_VIEWPORT_MOBILE;
         if (appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
@@ -117,7 +121,7 @@ public abstract class TextConverter {
 
         // Replace tokens
         html = html
-                .replace(TOKEN_BW_INVERSE_OF_THEME, appSettings.isDarkThemeEnabled() ? "white" : "black")
+                .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_NAME, getClass().getSimpleName())

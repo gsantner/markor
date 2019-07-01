@@ -106,7 +106,7 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "";
 
@@ -150,7 +150,7 @@ public class MarkdownTextConverter extends TextConverter {
         markup = markup.replace("{{ site.baseurl }}", "..");
 
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        return putContentIntoTemplate(context, converted, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
     }
 
     public static boolean isMarkdownFile(File file) {

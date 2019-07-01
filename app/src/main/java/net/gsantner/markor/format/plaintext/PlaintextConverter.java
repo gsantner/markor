@@ -25,12 +25,12 @@ public class PlaintextConverter extends TextConverter {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode) {
         String converted = "", onLoadJs = "", head = "";
         converted = HTML100_BODY_PRE_BEGIN
                 + TextUtilsCompat.htmlEncode(markup)
                 + HTML101_BODY_PRE_END;
-        return putContentIntoTemplate(context, converted, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
     }
 
     @Override

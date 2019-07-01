@@ -103,6 +103,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
+    private boolean _nextConvertToPrintMode = false;
 
     public DocumentEditFragment() {
     }
@@ -241,19 +242,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        boolean enablePreviewModeAndRerunAction = false;
-        if (!_isPreviewVisible) {
-            switch (item.getItemId()) {
-                case R.id.action_share_pdf:
-                case R.id.action_share_image: {
-                    setDocumentViewVisibility(true);
-                    Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
-                    _webView.postDelayed(() -> onOptionsItemSelected(item), 6000);
-                    return true;
-                }
-            }
-        }
-
         switch (item.getItemId()) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
@@ -309,7 +297,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
                     MarkdownTextConverter converter = new MarkdownTextConverter();
-                    _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext()),
+                    _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext(), false),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
@@ -322,19 +310,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 }
                 return true;
             }
+            case R.id.action_share_image:
             case R.id.action_share_pdf: {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && saveDocument()) {
-                    _shareUtil.printOrCreatePdfFromWebview(_webView, _document);
-                }
-                return true;
-            }
-            case R.id.action_share_image: {
                 if (saveDocument()) {
-                    _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
+                    _nextConvertToPrintMode = true;
+                    setDocumentViewVisibility(true);
+                    Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
+                    _webView.postDelayed(() -> {
+                        if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document);
+                        } else if (item.getItemId() == R.id.action_share_image) {
+                            _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
+                        }
+                    }, 6000);
                 }
+
                 return true;
             }
-
             case R.id.action_format_todotxt:
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {
@@ -532,11 +524,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (show) {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
             _document.setContent(_hlEditor.getText().toString());
-            _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView);
+            _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView, _nextConvertToPrintMode);
             new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         }
+        _nextConvertToPrintMode = false;
         _webView.setAlpha(0);
         ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
         if (show) {
