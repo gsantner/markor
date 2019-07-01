@@ -108,6 +108,29 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
                 .show();
     }
 
+    public ActivityUtils setSoftKeyboardVisibile(boolean visible, View... editView) {
+        final Activity activity = _activity;
+        if (activity != null) {
+            final View v = (editView != null && editView.length > 0) ? (editView[0]) : (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null ? activity.getCurrentFocus() : null);
+            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (v != null && imm != null) {
+                Runnable r = () -> {
+                    if (visible) {
+                        v.requestFocus();
+                        imm.showSoftInput(v, InputMethodManager.SHOW_FORCED);
+                    } else {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                };
+                r.run();
+                for (int d : new int[]{100, 350}) {
+                    v.postDelayed(r, d);
+                }
+            }
+        }
+        return this;
+    }
+
     public ActivityUtils hideSoftKeyboard() {
         if (_activity != null) {
             InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -122,7 +145,18 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         if (_activity != null) {
             InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-                imm.showSoftInput(_activity.getCurrentFocus(), InputMethodManager.SHOW_FORCED);
+                showSoftKeyboard(_activity.getCurrentFocus());
+            }
+        }
+        return this;
+    }
+
+
+    public ActivityUtils showSoftKeyboard(View textInputView) {
+        if (_activity != null) {
+            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (imm != null && textInputView != null) {
+                imm.showSoftInput(textInputView, InputMethodManager.SHOW_FORCED);
             }
         }
         return this;

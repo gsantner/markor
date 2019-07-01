@@ -26,6 +26,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
@@ -125,6 +126,7 @@ public class SearchOrCustomTextDialog {
             }
         };
 
+        final ActivityUtils activityUtils = new ActivityUtils(activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setSingleLine(true);
         searchEditText.setMaxLines(1);
@@ -150,6 +152,7 @@ public class SearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         final LinearLayout linearLayout = new LinearLayout(activity);
         listView.setAdapter(listAdapter);
+        listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         if (dopt.isSearchEnabled) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -167,7 +170,7 @@ public class SearchOrCustomTextDialog {
         dialogBuilder.setView(linearLayout)
                 .setTitle(dopt.titleText)
                 .setOnCancelListener(null)
-                .setNegativeButton(dopt.cancelButtonText, null);
+                .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
         if (dopt.isSearchEnabled) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 dialogInterface.dismiss();
@@ -196,18 +199,18 @@ public class SearchOrCustomTextDialog {
             return false;
         });
 
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        Window w;
+        if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
+            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         dialog.show();
+        if ((w = dialog.getWindow()) != null) {
+            w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+
         if (dopt.isSearchEnabled) {
-            try {
-                searchEditText.requestFocus();
-                ActivityUtils au = new ActivityUtils(activity);
-                au.showSoftKeyboard();
-                au.freeContextRef();
-            } catch (Exception ignored) {
-            }
+            searchEditText.requestFocus();
         }
     }
 
@@ -313,6 +316,7 @@ public class SearchOrCustomTextDialog {
                 } catch (Exception ignored) {
                 }
             }
+            new ActivityUtils(_activityRef.get()).hideSoftKeyboard().freeContextRef();
         }
     }
 }
