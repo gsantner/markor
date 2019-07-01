@@ -70,13 +70,26 @@
                 android:key="@string/pref_key__app_start_folder"
                 android:summary="%1$s"
                 android:title="@string/app_start_folder" />
+        </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/features">
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_highlight_black_24dp"
+                android:key="@string/pref_key__is_highlighting_activated"
+                android:summary="@string/highlighting_enabled_or_not__appspecific"
+                android:title="@string/syntax_highlighting" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_extension_black_24dp"
+                android:key="@string/pref_key__is_show_textactions_bar"
+                android:summary="@string/textactions_show_useful_actions_description__appspecific"
+                android:title="@string/textactions" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"
                 android:title="@string/special_documents" />
-
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_border_outer_black_24dp"
@@ -127,6 +140,14 @@
                 android:key="@string/pref_key__is_editor_statusbar_hidden"
                 android:summary="@string/hide_statusbar_at_this_view"
                 android:title="@string/hide_statusbar" />
+            <android.support.v7.preference.SeekBarPreference
+                android:defaultValue="8"
+                android:icon="@drawable/ic_space_bar_black_24dp"
+                android:key="@string/pref_key__editor_textaction_bar_item_padding"
+                android:max="32"
+                android:summary="@string/horizontal_space_between_textactions"
+                android:title="@string/textaction_spacing"
+                app:min="0" />
 
             <PreferenceScreen
                 android:icon="@drawable/ic_palette_black_24dp"
@@ -193,29 +214,11 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:summary="@string/editor_settings"
         android:title="@string/editor">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_filter_center_focus_black_24dp"
-            android:key="@string/pref_key__editor_start_editing_in_center"
-            android:summary="@string/edit_text_in_center_of_screen"
-            android:title="@string/center_text" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
-            android:key="@string/pref_key__editor_start_editing_on_bottom"
-            android:summary="@string/start_on_bottom_when_loading_document"
-            android:title="@string/start_on_bottom" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="@drawable/ic_visibility_black_24dp"
-            android:key="@string/pref_key__editor_enable_line_breaking"
-            android:summary="@string/soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling"
-            android:title="@string/wrap_words" />
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
             android:key="@string/pref_key__font_family"
-            android:title="@string/document_editor_font" />
+            android:title="@string/font" />
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="15"
             android:icon="@drawable/ic_format_size_black_24dp"
@@ -224,14 +227,6 @@
             android:summary="@string/control_font_size_in_editor"
             android:title="@string/font_size"
             app:min="1" />
-        <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="100"
-            android:icon="@drawable/ic_format_line_spacing_black_24dp"
-            android:key="@string/pref_key__editor_line_spacing"
-            android:max="250"
-            android:summary="@string/space_between_lines_in_percent"
-            android:title="@string/line_spacing"
-            app:min="50" />
 
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="4"
@@ -244,15 +239,7 @@
 
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_highlight_black_24dp"
-                android:key="@string/pref_key__is_highlighting_activated"
-                android:summary="@string/highlighting_enabled_or_not__appspecific"
-                android:title="@string/syntax_highlighting" />
-
-            <CheckBoxPreference
                 android:defaultValue="false"
-                android:dependency="@string/pref_key__is_highlighting_activated"
                 android:icon="@drawable/ic_format_color_fill_black_24dp"
                 android:key="@string/pref_key__is_highlighting_for_hexcolor_activated"
                 android:summary="@string/underline_hex_color_wether_or_not_to_description__appspecific"
@@ -265,22 +252,33 @@
                 android:title="@string/disable_spelling_underline" />
         </PreferenceCategory>
 
-
-        <PreferenceCategory android:title="@string/textactions">
+        <PreferenceCategory android:title="@string/miscellaneous">
+            <android.support.v7.preference.SeekBarPreference
+                android:defaultValue="100"
+                android:icon="@drawable/ic_format_line_spacing_black_24dp"
+                android:key="@string/pref_key__editor_line_spacing"
+                android:max="250"
+                android:summary="@string/space_between_lines_in_percent"
+                android:title="@string/line_spacing"
+                app:min="50" />
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_extension_black_24dp"
-                android:key="@string/pref_key__is_show_textactions_bar"
-                android:summary="@string/textactions_show_useful_actions_description__appspecific"
-                android:title="@string/textactions" />
-            <android.support.v7.preference.SeekBarPreference
-                android:defaultValue="8"
-                android:icon="@drawable/ic_space_bar_black_24dp"
-                android:key="@string/pref_key__editor_textaction_bar_item_padding"
-                android:max="32"
-                android:summary="@string/horizontal_space_between_textactions"
-                android:title="@string/textaction_spacing"
-                app:min="0" />
+                android:icon="@drawable/ic_visibility_black_24dp"
+                android:key="@string/pref_key__editor_enable_line_breaking"
+                android:summary="@string/soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling"
+                android:title="@string/wrap_words" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_filter_center_focus_black_24dp"
+                android:key="@string/pref_key__editor_start_editing_in_center"
+                android:summary="@string/edit_text_in_center_of_screen"
+                android:title="@string/center_text" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
+                android:key="@string/pref_key__editor_start_editing_on_bottom"
+                android:summary="@string/start_on_bottom_when_loading_document"
+                android:title="@string/start_on_bottom" />
         </PreferenceCategory>
     </PreferenceScreen>
 
@@ -288,7 +286,7 @@
     <PreferenceScreen
         android:icon="@drawable/ic_visibility_black_24dp"
         android:summary="@string/display_converted_markup"
-        android:title="@string/representation">
+        android:title="@string/view">
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="@string/inject_to_head_default"
             android:icon="@drawable/ic_add_white_24dp"
