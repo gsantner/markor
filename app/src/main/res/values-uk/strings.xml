@@ -294,5 +294,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Вибране</string>
     <string name="please_wait">Будь ласка, зачекайте</string>
     <string name="app_start_folder">Стартова папка програми</string>
+    <string name="tab_width">Ширина табуляції</string>
+    <string name="amount_of_space_for_tab">Кількість пробілів для відображення табуляції</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Вибраний файл може бути у текстовому форматі. Ви хочете відкрити його редактором чи іншою програмою?\n\nНе відкривайте бінарний файл. Якщо не певні, відкривайте іншою програмою.</string>
+    <string name="list_in_recent_files">Показати недавні файли</string>
     <string name="reload">Перезавантажити</string>
+    <string name="wrap_words">Перенесення рядків</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Використати м\'який перенос, якщо текст не вміщається у ширину екрану. В іншому разі слід дозволити горизонтальний скролинг.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточній папці. Якщо запит містить зірочку (*), застосовується пошук за сталими виразами (regex), інакше перевіряє вказаний запит.</string>
+    <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
 </resources>
