@@ -1,5 +1,23 @@
 ![](https://test.gsantner.net/matomo/piwik.php?action_name=inapp_changelog&idsite=2&rec=1&urlref=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md&_cvar=%7B%221%22%3A%5B%22source%22%2C%22inapp_changelog%22%5D%2C%222%22%3A%5B%22project%22%2C%22markor%22%5D%2C%223%22%3A%5B%22packageid%22%2C%22net.gsantner.markor%22%5D%2C%224%22%3A%5B%22referrer%22%2C%22https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md%22%5D%7D)
 
+
+### v2.0.0 [Blog post](https://gsantner.net/blog/2019/07/03/markor-v2.0-search-dotfiles-pdf-export.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.8.0...v2.0.0)  
+- Recursive file & folder search
+- Search button in editor, viewer and file browser
+- Always export PDF and images with light theme and white background (improves printing)
+- Show dialog on for textfiles to choose open in Markor or other app
+- Setting to set file extensions to always load in Markor
+- Always view files starting with "index."
+- Setting to configure wrap mode (=line breaking)
+- Menu option for reload file (editor/viewer)
+- Menu option for hiding files & folders starting with a dot
+- Setting to set tab width
+- Improve back button when always start view mode is set
+- Keep file browser sort order
+- Improve inline code highlighting
+- Add new line when archiving tasks
+
+
 ### v1.8.0 [Blog post](https://gsantner.net/blog/2019/05/06/markor-v1.8-file-navigation-favourites-markdown-editor.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.7.0...v1.8.0)  
 - Show app intro at first start  
 - All new file navigation  
