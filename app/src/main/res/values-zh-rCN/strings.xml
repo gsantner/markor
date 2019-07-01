@@ -294,6 +294,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">收藏</string>
     <string name="please_wait">请稍候</string>
     <string name="app_start_folder">应用起始文件夹</string>
+    <string name="tab_width">制表符宽度</string>
+    <string name="amount_of_space_for_tab">制表符显示的空格数</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">所选文件可能是纯文本文件。您想在编辑器或其他应用中打开它吗？\n\n不要尝试打开二进制文件。如果您不确定，请在其他应用中打开。</string>
+    <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
+    <string name="wrap_words">折行</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
+    <string name="recursive_search_in_current_directory">在当前目录中递归搜索。当查询包含星号 (*) 时使用正则表达式搜索，否则检查是否包含查询。</string>
 </resources>

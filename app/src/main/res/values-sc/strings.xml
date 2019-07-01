@@ -294,6 +294,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Preferidos</string>
     <string name="please_wait">Pro praghere iseta</string>
     <string name="app_start_folder">Cartella de incumintzu aplicatzione</string>
+    <string name="tab_width">Largària de su tabuladore</string>
+    <string name="amount_of_space_for_tab">Nùmeru de caràteres de ispàtziu pro ammustrare unu tabuladore</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Su documentu ischertadu diat pòdere èssere unu documentu in testu simpre. Lu cheres abèrrere in s\'editore, o in un\'àtera aplicatzione?\n\nNon proves a abèrrere documentos binàrios. Si non ses seguru, aberi·lu cun un\'àtera aplicatzione.</string>
+    <string name="list_in_recent_files">Allista in sos documentos reghentes</string>
     <string name="reload">Torra a carrigare</string>
+    <string name="wrap_words">Acontzu de sas lìnias</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
+    <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale. Cando sa chirca cuntenet un\'asteriscu (*) benit impreada sa chirca de espressiones regulares (regex), si nono verìfica si sa chirca est cuntenuda.</string>
 </resources>

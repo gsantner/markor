@@ -21,6 +21,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">Realmente queres eliminar este %s?</string>
     <string name="confirm_overwrite">Confirmar sobrescritura</string>
     <string name="file_already_exists_overwerite">O arquivo xa existe. Sobreescribir?</string>
+    <string name="browse_filesystem">Navegar por cartafoles</string>
     <string name="title">Título</string>
     <string name="empty_directory">Cartafol baleiro</string>
     <string name="enter_name_of_folder">Escriba o nome do seu cartafol</string>
@@ -37,6 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Compartir &#8230;</string>
     <string name="share">Compartir</string>
     <string name="search">Buscar</string>
+    <string name="representation">Representación</string>
     <string name="display_converted_markup">Amosar markup convertido</string>
     <string name="editor">Editor</string>
     <string name="folders">Cartafoles</string>
@@ -44,12 +46,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Documento</string>
     <string name="documents">Documentos</string>
     <string name="html_as_plaintext">HTML (como texto plano)</string>
+    <string name="document_editor_font">Tipo de letra do editor de notas</string>
     <string name="theme">Estilo</string>
+    <string name="show_representation_of_markup_by_default">Mostrar as notas en modo \'Representación\' por omisión</string>
     <string name="about">Sobre</string>
     <string name="plaintext">Texto plano</string>
     <string name="file">Arquivo</string>
     <string name="image">Imaxe</string>
     <string name="font_size">Tamaño do texto</string>
+    <string name="render_rtl_language">Renderizar para idiomas escritos de dereita a esqueda</string>
     <string name="last_modified_witharg">Última modificación: %s</string>
     <string name="create">Crear</string>
     <string name="select_entries">Seleccionar entradas</string>
