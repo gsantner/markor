@@ -44,6 +44,13 @@
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/miscellaneous">
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue=""
+                android:dialogMessage="@string/always_open_files_with_this_app_when_list_contains_file_extension"
+                android:icon="@drawable/ic_open_in_browser_black_24dp"
+                android:key="@string/pref_key__exts_to_always_open_in_this_app"
+                android:title="@string/always_open_with_this_app" />
+
             <ListPreference
                 android:defaultValue="0"
                 android:dialogTitle="@string/app_start_tab"
@@ -76,7 +83,6 @@
                 android:key="@string/pref_key__is_multi_window_enabled"
                 android:summary="@string/open_new_documents_always_in_new_window"
                 android:title="@string/multiple_windows" />
-
         </PreferenceCategory>
 
     </PreferenceScreen>

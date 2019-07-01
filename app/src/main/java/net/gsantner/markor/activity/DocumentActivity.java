@@ -11,7 +11,6 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -36,6 +35,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -80,38 +80,46 @@ public class DocumentActivity extends AppActivityBase {
         activity.startActivity(intent);
     }
 
-    public static String checkIfLikelyTextfileAndGetExt(File file) {
+    public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
         if (!fn.contains(".")) {
-            return "";
+            return new Object[]{true, ""};
         }
         String ext = fn.substring(fn.lastIndexOf("."));
-        for (String ce : new String[]{".py", ".cpp", ".h", ".js", ".html", ".css", ".java", ".qml", ".go", ".sh", ".rb", ".tex", ".json", ".xml"}) {
+        for (String ce : new String[]{".py", ".cpp", ".h", ".js", ".html", ".css", ".java", ".qml", ".go", ".sh", ".rb", ".tex", ".json", ".xml", ".ini", ".yaml", ".yml", ".csv"}) {
             if (ext.equals(ce)) {
-                return ce;
+                return new Object[]{true, ext};
             }
         }
-        return null;
+        return new Object[]{false, ext};
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
-        String ext = checkIfLikelyTextfileAndGetExt(file);
-        if (ext != null) {
+        Object[] fret = checkIfLikelyTextfileAndGetExt(file);
+        boolean isLikelyTextfile = (boolean) fret[0];
+        String ext = (String) fret[1];
+        boolean isYes = new AppSettings(activity.getApplicationContext()).isExtOpenWithThisApp(ext);
+
+        Callback.a1<Boolean> openFile = (openInThisApp) -> {
+            if (openInThisApp) {
+                DocumentActivity.launch(activity, file, false, null, null);
+            } else {
+                new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
+            }
+        };
+
+        if (isYes) {
+            openFile.callback(true);
+        } else if (isLikelyTextfile) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
-                    .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, false, null, null))
-                    .setSingleChoiceItems(new String[]{"Always check"}, 1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .setNegativeButton(R.string.other, (dialog1, which) -> new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null));
+                    .setPositiveButton(R.string.app_name, (dialog1, which) -> openFile.callback(true))
+                    .setNegativeButton(R.string.other, (dialog1, which) -> openFile.callback(false));
             dialog.create().show();
         } else {
-            new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
+            openFile.callback(false);
         }
     }
 

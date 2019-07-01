@@ -26,6 +26,7 @@ import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -616,5 +617,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isEditorLineBreakingEnabled() {
         return getBool(R.string.pref_key__editor_enable_line_breaking, true);
+    }
+
+    public boolean isExtOpenWithThisApp(String ext) {
+        if (ext.equals("")) {
+            ext = "None";
+        }
+        String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
+        return Arrays.asList(pref.toLowerCase().replace(",,", ",None,").replace(" ", "").split(",")).contains(ext);
     }
 }
