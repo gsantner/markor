@@ -41,6 +41,10 @@ public class PlainTextStuff {
 
     public static int[] getNeighbourLineEndings(String text, int pos, int posEnd) {
         final int len = text.length();
+
+        if (pos < len && pos >= 0 && text.charAt(pos) == '\n') {
+            pos--;
+        }
         pos = Math.min(Math.max(0, pos), len - 1);
         posEnd = Math.min(Math.max(0, posEnd), len - 1);
         if (pos == len) {
