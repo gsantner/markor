@@ -301,4 +301,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">再読み込み</string>
     <string name="wrap_words">単語の折り返し</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
+    <string name="recursive_search_in_current_directory">現在のディレクトリでの再帰検索。 クエリにアスタリスク (*) が含まれる場合は正規表現検索が使用されます。それ以外の場合、クエリが含まれるかどうかを確認してください。</string>
 </resources>
