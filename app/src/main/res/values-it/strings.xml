@@ -301,6 +301,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Ricarica</string>
     <string name="wrap_words">Parole a capo</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
-    <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella cartella corrente. Quando la query contiene un asterisco (*) viene utilizzata la ricerca regex, altrimenti controlla se la query è contenuta.</string>
+    <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella cartella corrente. Se la query contiene un asterisco (*) allora si usa la ricerca regex, altrimenti la si cerca direttamente.</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
 </resources>
