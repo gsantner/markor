@@ -300,4 +300,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Список последних файлов</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ставить мягкие переносы если текст не помещается, иначе добавить ползунок горизонтальной прокрутки.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Когда запрос включает звёздочку (*), используется поиск по регулярному выражению, иначе проверяется, содержится ли запрос в директории.</string>
+    <string name="always_open_with_this_app">Всегда использовать это приложение при открытии</string>
 </resources>
