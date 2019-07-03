@@ -302,4 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">折行</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
     <string name="recursive_search_in_current_directory">在当前目录中递归搜索。当查询包含星号 (*) 时使用正则表达式搜索，否则检查是否包含查询。</string>
+    <string name="always_open_with_this_app">总是使用此应用打开</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
 </resources>
