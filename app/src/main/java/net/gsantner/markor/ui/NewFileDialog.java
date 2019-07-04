@@ -186,7 +186,7 @@ public class NewFileDialog extends DialogFragment {
                 return "(A) Call Mom @mobile +family\n(A) Schedule annual checkup +health\n(A) Urgently buy milk @shop\n(B) Outline chapter 5 +novel @computer\n(C) Add cover sheets @work +myproject\nPlan backyard herb garden @home\nBuy salad @shop\nWrite blog post @pc\nInstall Markor @mobile\n2019-06-24 scan photos @home +blog\n2019-06-25 draw diagram @work \nx This has been done @home +renovations";
             }
             case 3: {
-                return "---\nlayout: post\ntags: []\ncategories: []\n#date: 2019-06-25 13:14:15\n#excerpt: ''\n#image: 'BASEURL/assets/blog/img/.png'\n#description:\n#permalink:\ntitle: ''\n---\n\n## Text\n\n`Inline code`\n\n```\nCode block\n```\n";
+                return "---\nlayout: post\ntags: []\ncategories: []\n#date: 2019-06-25 13:14:15\n#excerpt: ''\n#image: 'BASEURL/assets/blog/img/.png'\n#description:\n#permalink:\ntitle: 'title'\n---\n\n\n";
             }
             case 4: {
                 return "# Title\n## Description\n\n![Text](picture.png)\n\n### Ingredients\n\n|  Ingredient   | Amount |\n|:--------------|:-------|\n| 1             | 1      |\n| 2             | 2      |\n| 3             | 3      |\n| 4             | 4      |\n\n\n### Preparation\n\n1. Text\n2. Text\n\n";
