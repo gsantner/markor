@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -483,18 +483,18 @@ public class FilesystemViewerFragment extends GsFragmentBase
         Comparator<File> comparator = new Comparator<File>() {
             @Override
             public int compare(File file, File other) {
+                boolean mk1 = TextFormat.isTextFile(file);
+                boolean mk2 = TextFormat.isTextFile(other);
+                if (mk1 && !mk2) {
+                    return -1;
+                } else if (!mk1 && mk2) {
+                    return 1;
+                }
+
                 if (sortReverse) {
                     File swap = file;
                     file = other;
                     other = swap;
-                }
-
-                boolean mk1 = MarkdownTextConverter.isTextOrMarkdownFile(file);
-                boolean mk2 = MarkdownTextConverter.isTextOrMarkdownFile(other);
-                if (mk1 && !mk2) {
-                    return 1;
-                } else if (!mk1 && mk2) {
-                    return -1;
                 }
 
                 switch (sortMethod) {

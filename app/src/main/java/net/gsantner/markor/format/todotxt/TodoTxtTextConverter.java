@@ -13,6 +13,7 @@ import android.content.Context;
 import android.support.v4.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverter;
+import net.gsantner.opoc.format.todotxt.SttCommander;
 
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverter {
@@ -42,5 +43,10 @@ public class TodoTxtTextConverter extends TextConverter {
     @Override
     protected String getContentType() {
         return CONTENT_TYPE_HTML;
+    }
+
+    @Override
+    public boolean isFileOutOfThisFormat(String filepath) {
+        return SttCommander.TODOTXT_FILE_PATTERN.matcher(filepath).matches();
     }
 }

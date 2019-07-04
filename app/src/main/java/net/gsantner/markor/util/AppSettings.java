@@ -619,11 +619,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_enable_line_breaking, true);
     }
 
-    public boolean isExtOpenWithThisApp(String ext) {
+    private List<String> extSettingCache;
+
+    public synchronized boolean isExtOpenWithThisApp(String ext) {
         if (ext.equals("")) {
             ext = "None";
         }
-        String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
-        return Arrays.asList(pref.toLowerCase().replace(",,", ",None,").replace(" ", "").split(",")).contains(ext);
+        if (extSettingCache == null) {
+            String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
+            extSettingCache = Arrays.asList(pref.toLowerCase().replace(",,", ",None,").replace(" ", "").split(","));
+        }
+        return extSettingCache.contains(ext);
     }
 }

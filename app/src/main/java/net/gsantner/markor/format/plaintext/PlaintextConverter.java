@@ -13,6 +13,7 @@ import android.content.Context;
 import android.support.v4.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverter;
+import net.gsantner.markor.util.AppSettings;
 
 @SuppressWarnings("WeakerAccess")
 public class PlaintextConverter extends TextConverter {
@@ -36,5 +37,18 @@ public class PlaintextConverter extends TextConverter {
     @Override
     protected String getContentType() {
         return CONTENT_TYPE_HTML;
+    }
+
+    @Override
+    public boolean isFileOutOfThisFormat(String filepath) {
+        AppSettings appSettings = AppSettings.get();
+        if (!filepath.contains(".")) {
+            return appSettings.isExtOpenWithThisApp("");
+        }
+        String ext = filepath.substring(filepath.lastIndexOf("."));
+        if (appSettings.isExtOpenWithThisApp(ext)) {
+            return true;
+        }
+        return ext.equals(".txt");
     }
 }

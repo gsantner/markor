@@ -133,4 +133,6 @@ public abstract class TextConverter {
     protected String getContentType() {
         return CONTENT_TYPE_HTML;
     }
+
+    public abstract boolean isFileOutOfThisFormat(String filepath);
 }

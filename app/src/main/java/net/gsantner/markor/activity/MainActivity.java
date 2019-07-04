@@ -37,7 +37,7 @@ import android.view.WindowManager;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
@@ -433,7 +433,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file) {
-                    if (MarkdownTextConverter.isTextOrMarkdownFile(file)) {
+                    if (TextFormat.isTextFile(file)) {
                         DocumentActivity.launch(MainActivity.this, file, false, null, null);
                     } else {
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);

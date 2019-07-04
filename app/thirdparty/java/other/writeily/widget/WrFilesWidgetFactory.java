@@ -16,6 +16,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.util.AppSettings;
@@ -52,7 +53,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
 
     private void updateFiles() {
         _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file ->
-                !file.isDirectory() && MarkdownTextConverter.isTextOrMarkdownFile(file)
+                !file.isDirectory() && TextFormat.isTextFile(file)
         );
         if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList = FilesystemViewerFactory.strlistToArray(AppSettings.get().getRecentDocuments());

@@ -12,7 +12,7 @@ package other.writeily.model;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
 
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.util.ShareUtil;
 
 import org.apache.commons.io.IOUtils;
@@ -152,7 +152,7 @@ public class WrMarkorSingleton {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
-                } else if (MarkdownTextConverter.isTextOrMarkdownFile(f)) {
+                } else if (TextFormat.isTextFile(f)) {
                     addedFiles.add(f);
                 }
             }

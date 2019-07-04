@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 
@@ -117,7 +118,7 @@ public class WrFilesystemListAdapter extends ArrayAdapter<File> implements Filte
         try {
             File item = getItem(i);
             int documentAmount = (item == null ? 0
-                    : item.listFiles(file -> MarkdownTextConverter.isTextOrMarkdownFile(file)).length);
+                    : item.listFiles(file -> TextFormat.isTextFile(file)).length);
             int filesAmount = (item == null ? 0 : item.listFiles().length);
             StringBuilder sb = new StringBuilder();
             sb.append(_context.getResources().getQuantityString(R.plurals.documents, documentAmount));

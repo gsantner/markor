@@ -19,7 +19,7 @@ import android.webkit.WebViewClient;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -42,12 +42,12 @@ public class MarkorWebViewClient extends WebViewClient {
             File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;
             for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
-                if (MarkdownTextConverter.isTextOrMarkdownFile(new File(str))) {
+                if (TextFormat.isTextFile(new File(str))) {
                     file = new File(str);
                     break;
                 }
             }
-            if (MarkdownTextConverter.isTextOrMarkdownFile(file)) {
+            if (TextFormat.isTextFile(file)) {
                 Intent newPreview = new Intent(_activity, DocumentActivity.class);
                 newPreview.putExtra(DocumentIO.EXTRA_PATH, file);
                 newPreview.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);

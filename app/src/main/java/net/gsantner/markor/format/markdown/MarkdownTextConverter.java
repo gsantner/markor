@@ -33,12 +33,12 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
@@ -57,7 +57,9 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String EXT_MARKDOWN__TEXT = ".text";
     public static final String EXT_MARKDOWN__RMD = ".rmd";
 
-    public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\.((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd)|(zim))$)");
+    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd))";
+    public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
+    public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
     public static final String[] MD_EXTENSIONS = new String[]{
             EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
@@ -153,24 +155,17 @@ public class MarkdownTextConverter extends TextConverter {
         return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
     }
 
+    @Override
+    public boolean isFileOutOfThisFormat(String filepath) {
+        return MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches();
+    }
+
     public static boolean isMarkdownFile(File file) {
         String fnlower = file.getAbsolutePath().toLowerCase();
         if (fnlower.endsWith(".zim")) {
             return false;
         }
-        return MarkdownTextConverter.isTextOrMarkdownFile(file) && (!fnlower.endsWith(".txt") || fnlower.endsWith(".md.txt"));
+        return TextFormat.isTextFile(file) && (!fnlower.endsWith(".txt") || fnlower.endsWith(".md.txt"));
     }
 
-    // Either pass file or null and absolutePath
-    public static boolean isTextOrMarkdownFile(File file, String... absolutePath) {
-        String path = (absolutePath != null && absolutePath.length > 0)
-                ? absolutePath[0] : file.getAbsolutePath();
-        path = path.toLowerCase(Locale.ROOT);
-        for (String ext : MD_EXTENSIONS) {
-            if (path.endsWith(ext)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
