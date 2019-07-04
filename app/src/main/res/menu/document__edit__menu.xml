@@ -15,6 +15,18 @@
     tools:ignore="AlwaysShowAction">
 
     <item
+        android:id="@+id/action_undo"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="@string/undo"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_redo"
+        android:icon="@drawable/ic_redo_black_24dp"
+        android:title="@string/redo"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_preview_edit_toggle"
         android:icon="@drawable/ic_visibility_black_24dp"
         android:title="@string/representation"
@@ -31,30 +43,16 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_undo"
-        android:icon="@drawable/ic_undo_black_24dp"
-        android:title="@string/undo"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_redo"
-        android:icon="@drawable/ic_redo_black_24dp"
-        android:title="@string/redo"
-        app:showAsAction="always" />
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_save"
         android:icon="@drawable/ic_save_black_24dp"
         android:title="@string/save"
         app:showAsAction="never" />
-
 
     <item
         android:id="@+id/submenu_share"

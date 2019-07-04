@@ -208,9 +208,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
         Drawable drawable;
-        drawable = menu.findItem(R.id.action_undo).setEnabled(canUndo).getIcon();
+        drawable = menu.findItem(R.id.action_undo).setEnabled(canUndo).setVisible(!_isPreviewVisible).getIcon();
         drawable.mutate().setAlpha(canUndo ? 255 : 40);
-        drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).getIcon();
+        drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).setVisible(!_isPreviewVisible).getIcon();
         drawable.mutate().setAlpha(canRedo ? 255 : 40);
         isTextEmpty = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         drawable = menu.findItem(R.id.action_save).setEnabled(isTextEmpty).getIcon();
