@@ -56,6 +56,13 @@
         <item translatable="false">@string/jekyll_post</item>
     </string-array>
 
+    <string-array name="arr_file_templates" translatable="false">
+        <item translatable="false">@string/empty_file</item>
+        <item translatable="false">@string/file_template__md_markor_markdown_reference</item>
+        <item translatable="false">@string/file_template__txt_todo_sample</item>
+        <item translatable="false">@string/file_template__md_jekyll_post</item>
+    </string-array>
+
     <string-array name="new_file_types__file_extension" translatable="false">
         <item translatable="false">.md</item>
         <item translatable="false">.txt</item>
@@ -107,5 +114,4 @@
         <item translatable="false">popular_documents</item>
         <item translatable="false">recently_viewed_documents</item>
     </string-array>
-
 </resources>

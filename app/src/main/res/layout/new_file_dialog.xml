@@ -89,6 +89,23 @@
             android:entries="@array/new_file_types" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/template"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        <Spinner
+            android:id="@+id/new_file_dialog__template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/arr_file_templates" />
+
+        <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

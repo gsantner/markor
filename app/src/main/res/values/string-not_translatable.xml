@@ -231,4 +231,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
     <string name="features" translatable="false">Features</string>
+    <string name="file_template__md_markor_markdown_reference" translatable="false">markor-markdown-reference.md</string>
+    <string name="file_template__md_jekyll_post" translatable="false">3000-06-25-jekyll-post.md</string>
+    <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
 </resources>

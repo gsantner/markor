@@ -155,6 +155,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">None</string>
     <string name="other">Other</string>
     <string name="alternative_naming">Alternative naming</string>
+    <string name="empty_file">Empty file</string>
 
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>
@@ -316,4 +317,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Recursive search in current directory. When query contains a asterisk (*) regex search is used, otherwise check if the query is contained.</string>
     <string name="always_open_with_this_app">Always open with this app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Always open files with this app when the list contains the file extension. Use \'None, .html, .css , .js\' for example if you want to edit web files and those without file extension.</string>
+    <string name="template">Template</string>
 </resources>
