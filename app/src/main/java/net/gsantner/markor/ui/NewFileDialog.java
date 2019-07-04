@@ -188,6 +188,9 @@ public class NewFileDialog extends DialogFragment {
             case 3: {
                 return "---\nlayout: post\ntags: []\ncategories: []\n#date: 2019-06-25 13:14:15\n#excerpt: ''\n#image: 'BASEURL/assets/blog/img/.png'\n#description:\n#permalink:\ntitle: ''\n---\n\n## Text\n\n`Inline code`\n\n```\nCode block\n```\n";
             }
+            case 4: {
+                return "# Title\n## Description\n\n![Text](picture.png)\n\n### Ingredients\n\n|  Ingredient   | Amount |\n|:--------------|:-------|\n| 1             | 1      |\n| 2             | 2      |\n| 3             | 3      |\n| 4             | 4      |\n\n\n### Preparation\n\n1. Text\n2. Text\n\n";
+            }
         }
         return null;
     }
