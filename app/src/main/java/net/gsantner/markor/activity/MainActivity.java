@@ -84,7 +84,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     private ActivityUtils _contextUtils;
     private ShareUtil _shareUtil;
 
-    private String _currentTitle;
+    private String _cachedFolderTitle;
 
 
     @Override
@@ -231,6 +231,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
+        cacheCurrentFolder();
     }
 
     @Override
@@ -254,7 +256,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     } else {
                         _toolbar.setTitle("> " + currentDir.getName());
                     }
-                    _currentTitle = _toolbar.getTitle().toString();
+                    _cachedFolderTitle = _toolbar.getTitle().toString();
                     return;
                 }
             }
@@ -344,7 +346,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         switch (item.getItemId()) {
             case R.id.nav_notebook: {
                 _viewPager.setCurrentItem(0);
-                _toolbar.setTitle(_currentTitle);
+                _toolbar.setTitle(_cachedFolderTitle);
                 return true;
             }
 
@@ -394,7 +396,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         updateFabVisibility(pos == 0);
-        _toolbar.setTitle(new String[]{_currentTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox), getString(R.string.more)}[pos]);
+        _toolbar.setTitle(new String[]{_cachedFolderTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox), getString(R.string.more)}[pos]);
 
         if (pos > 0 && pos < 4) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
@@ -423,7 +425,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         PermissionChecker permc = new PermissionChecker(MainActivity.this);
-                        _toolbar.setTitle(adapter.areItemsSelected() ? "" : adapter.getCurrentFolder().getName());
+                        cacheCurrentFolder();
+                        _toolbar.setTitle(adapter.areItemsSelected() ? "" : _cachedFolderTitle);
 
                         if (adapter.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
                             adapter.getFsOptions().favouriteFiles = _appSettings.getFavouriteFiles();
@@ -535,5 +538,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         }
     }
 
-
+    private void cacheCurrentFolder() {
+        FilesystemViewerFragment fragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        _cachedFolderTitle = (fragment != null) ? fragment.getCurrentFolder().getName() : getResources().getString(R.string.app_name).toLowerCase();
+    }
 }
