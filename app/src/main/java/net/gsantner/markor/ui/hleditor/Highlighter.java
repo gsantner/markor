@@ -78,12 +78,13 @@ public abstract class Highlighter {
     }
 
     public void generalHighlightRun(final Editable editable) {
+		final String text = editable.toString();
         _profiler.restart("General Highlighter");
         if (_preCalcTabWidth > 0) {
             _profiler.restart("Tabulator width");
             createReplacementSpanForMatches(editable, Pattern.compile("\t"), _preCalcTabWidth);
         }
-        if (_highlightLinks) {
+        if (_highlightLinks && (text.contains("http://") || text.contains("https://"))) {
             _profiler.restart("Link Color");
             createColorSpanForMatches(editable, Patterns.WEB_URL, 0xff1ea3fd);
             _profiler.restart("Link Size");
