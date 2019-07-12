@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
+    <string name="file_browser">Gerenciador de arquivos</string>
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter a tela ligada</string>
@@ -147,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nenhum</string>
     <string name="other">Outros</string>
     <string name="alternative_naming">Nomes alternativos</string>
+    <string name="empty_file">Arquivo vazio</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
     <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
@@ -217,6 +219,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Localização</string>
     <string name="text_lines">Linhas de Texto</string>
     <string name="text_characters">Caracteres de Texto</string>
+    <string name="text_words">Palavras</string>
     <string name="directory">Pasta</string>
     <string name="recently_viewed_documents">Documentos vistos recentemente</string>
     <string name="details">Detalhes</string>
