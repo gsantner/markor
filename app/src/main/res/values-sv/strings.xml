@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioritet</string>
     <string name="history">Historik</string>
     <string name="sync">Synka</string>
-    <string name="serach_or_custom">Sök / Lägg till</string>
+    <string name="search_or_custom">Sök / Lägg till</string>
     <string name="save">Spara</string>
     <string name="update">Uppdatera</string>
     <string name="clear">Rensa</string>

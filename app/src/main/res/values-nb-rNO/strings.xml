@@ -98,7 +98,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioritet</string>
     <string name="history">Historikk</string>
     <string name="sync">Synkroniser</string>
-    <string name="serach_or_custom">Søk / egendefinert</string>
+    <string name="search_or_custom">Søk / egendefinert</string>
     <string name="save">Lagre</string>
     <string name="update">Oppdater</string>
     <string name="clear">Tøm</string>

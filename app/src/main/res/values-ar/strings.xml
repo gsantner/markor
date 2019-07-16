@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">الأولوية</string>
     <string name="history">السجل</string>
     <string name="sync">مزامنة</string>
-    <string name="serach_or_custom">بحث \ تخصيص</string>
+    <string name="search_or_custom">بحث \ تخصيص</string>
     <string name="save">حفظ</string>
     <string name="update">تحديث</string>
     <string name="clear">مسح</string>

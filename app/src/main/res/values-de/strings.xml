@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Priorität</string>
     <string name="history">Verlauf</string>
     <string name="sync">Synchronisieren</string>
-    <string name="serach_or_custom">Suchen / Benutzerdefiniert</string>
+    <string name="search_or_custom">Suchen / Benutzerdefiniert</string>
     <string name="save">Speichern</string>
     <string name="update">Aktualisieren</string>
     <string name="clear">Leeren</string>

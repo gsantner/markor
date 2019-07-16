@@ -13,6 +13,7 @@ package net.gsantner.opoc.format.todotxt;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -378,6 +379,10 @@ public class SttCommander {
                     difference = compare(x.getProjects(), y.getProjects());
                     break;
                 }
+                case "date": {
+                    difference = compare(x.getCreationDate(), y.getCreationDate()); 
+                    break;
+                }
                 default: {
                     return 0;
                 }
@@ -411,6 +416,16 @@ public class SttCommander {
             }
             return x.get(0).compareTo(y.get(0));
 
+        }
+        private int compare(String x, String y) {
+            if (x == null || y == null) return 0;
+            try {
+                Date xAsDate = DATEF_YYYY_MM_DD.parse(x);
+                Date yAsDate = DATEF_YYYY_MM_DD.parse(y);
+                return xAsDate.compareTo(yAsDate);
+            } catch (ParseException e) {
+                return 0;
+            }
         }
     }
 }

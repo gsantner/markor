@@ -109,7 +109,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Priority</string>
     <string name="history">History</string>
     <string name="sync">Sync</string>
-    <string name="serach_or_custom">Search / Custom</string>
+    <string name="search_or_custom">Search / Custom</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="clear">Clear</string>

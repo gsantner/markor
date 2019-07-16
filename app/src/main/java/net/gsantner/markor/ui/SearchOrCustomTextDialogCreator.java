@@ -130,7 +130,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.archive;
-        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -144,13 +144,14 @@ public class SearchOrCustomTextDialogCreator {
         String ocontext = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
         String oproject = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.tag : R.string.project);
         String oprio = activity.getString(R.string.priority);
+        String odate = activity.getString(R.string.date);
         String oasc = " (" + activity.getString(R.string.ascending) + ")";
         String odesc = " (" + activity.getString(R.string.descending) + ")";
         String optLastSelected = "showSttSortDialogue.last_selected";
 
         dopt.callback = arg1 -> {
             appSettings.setString(optLastSelected, arg1);
-            String[] values = arg1.replace(ocontext, "context").replace(oproject, "project").replace(oprio, "priority").split(" ");
+            String[] values = arg1.replace(ocontext, "context").replace(oproject, "project").replace(oprio, "priority").replace(odate, "date").split(" ");
             callback.callback(values[0], values[1].contains(odesc.replace(" ", "")));
         };
 
@@ -160,13 +161,15 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add(oproject + odesc);
         availableData.add(ocontext + oasc);
         availableData.add(ocontext + odesc);
+        availableData.add(odate + oasc);
+        availableData.add(odate + odesc);
 
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, ocontext + odesc));
 
         dopt.titleText = R.string.sort;
         dopt.messageText = activity.getString(R.string.sort_tasks_by_selected_order);
-        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.searchHintText = R.string.search_or_custom;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -179,7 +182,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
-        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -254,7 +257,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
-        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -312,7 +315,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.priority;
-        dopt.searchHintText = R.string.serach_or_custom;
+        dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = "";
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);

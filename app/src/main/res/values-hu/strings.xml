@@ -91,7 +91,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioritás</string>
     <string name="history">Előzmények</string>
     <string name="sync">Szinkronizálás</string>
-    <string name="serach_or_custom">Keresés / Egyéni</string>
+    <string name="search_or_custom">Keresés / Egyéni</string>
     <string name="save">Mentés</string>
     <string name="clear">Töröl</string>
     <string name="archive">Archivál</string>
