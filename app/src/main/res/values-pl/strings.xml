@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Zacznij od dołu</string>
     <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor może tylko edytować zapisane lokalnie, dostępne offline pliki oraz nie wspiera menedżerów plików, które nie zapewniają pełnej ścieżki pliku.</string>
+    <string name="sync_to_local_folder_notice">Uwaga: Aplikacje synchronizujące mogą zapisywać pliki w niestandardowych folderach. Otwórz je zmieniając folder dokumentów Markora, lub używając innego menedżera plików.</string>
     <string name="configure_in_the_apps_settings">Konfiguruj w ustawieniach aplikacji</string>
     <string name="vertical_alignment">Wyrównanie w pionie</string>
     <string name="horizontal_alignment">Wyrównanie w poziomie</string>
