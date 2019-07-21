@@ -98,6 +98,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Tazwart</string>
     <string name="history">Amazray</string>
     <string name="sync">Amtawi</string>
+    <string name="search_or_custom">Nadi / Sagen</string>
     <string name="save">Sekles</string>
     <string name="update">Lqem</string>
     <string name="clear">Sfeḍ</string>
