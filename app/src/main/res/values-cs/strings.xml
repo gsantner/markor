@@ -279,7 +279,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Dokument můžete otevřít z hlavního pohledu na spodní, prohlížeč souborů nebo praní, a také je možné připojit text sdílený do Markoru.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna, je to domácí složka vašich souborů.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost psát si poznámky. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
-    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Použijte LinkBox k uchovávání záložek a odkazů na webové stránky, které chcete číst později. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/LinkBox.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
     <string name="todo_is_the_easiest_way_">Řídit své úkoly s ToDo. Je to soubor ve formátu todo.txt s výchozí polohou &gt;Notebook/todo.txt&lt;, můžete nastavit nastavení na vlastní filedráhu.</string>
     <string name="navigationbar_color">Barva navigačního panelu</string>
     <string name="black">Černá</string>
