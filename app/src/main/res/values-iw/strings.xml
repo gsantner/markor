@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">עדפויות</string>
     <string name="history">היסטוריה</string>
     <string name="sync">סינכרון</string>
-    <string name="serach_or_custom">חיפוש / מותאם אישית</string>
+    <string name="search_or_custom">חיפוש / מותאם אישית</string>
     <string name="save">שמור</string>
     <string name="update">עדכן</string>
     <string name="clear">נקה</string>
