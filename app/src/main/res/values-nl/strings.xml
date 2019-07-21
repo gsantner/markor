@@ -279,7 +279,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">U kunt het document openen vanuit de hoofdweergave op de onderkant, de bestandsbrowser of de launcher. Er is ook een optie om tekst toe te voegen die in Markor wordt gedeeld.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook is de map die Markor in de bestandsbrowser laadt wanneer de app is gestart. Het is de home map van uw bestanden.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is de snelste optie om notities op te schrijven. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/QuickNote.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
-    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Gebruik LinkBox om bladwijzers en links te behouden naar websites die u later wilt lezen. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/LinkBox.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
     <string name="todo_is_the_easiest_way_">Beheer uw taken met ToDo. Het is een bestand in todo.txt formaat met standaard locatie &gt;Notebook/todo.txt&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
     <string name="navigationbar_color">Navigatiebalk kleur</string>
     <string name="black">Zwart</string>
