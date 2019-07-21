@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">مشاركة لـ&#8230;</string>
     <string name="share">مشاركة</string>
     <string name="search">بحث</string>
-    <string name="representation">العرض</string>
     <string name="display_converted_markup">عرض النصوص المنسقة</string>
     <string name="editor">المحرر</string>
     <string name="folders">مجلدات</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML - اتش تي ام ال (نص عادي)</string>
     <string name="document_editor_font">خط محرر المستندات</string>
     <string name="theme">المظهر</string>
-    <string name="show_representation_of_markup_by_default">عرض المستندات منسَّقة افتراضيا</string>
     <string name="about">عن التطبيق</string>
     <string name="plaintext">نصّ عادي</string>
     <string name="file">ملف</string>
