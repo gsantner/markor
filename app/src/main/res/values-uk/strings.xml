@@ -104,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Пріоритет</string>
     <string name="history">Історія</string>
     <string name="sync">Синхронізувати</string>
+    <string name="search_or_custom">Пошук / Розширений</string>
     <string name="save">Зберегти</string>
     <string name="update">Оновити</string>
     <string name="clear">Очистити</string>
