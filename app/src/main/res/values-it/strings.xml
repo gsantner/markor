@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (come file di testo)</string>
     <string name="document_editor_font">Font per l\'editor dei documenti</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Apri i file esistenti in modalità vista</string>
     <string name="about">Informazioni</string>
     <string name="plaintext">Testo semplice</string>
     <string name="file">File</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Varie</string>
     <string name="textaction">Azione sul testo</string>
     <string name="textactions">Azioni sul testo</string>
+    <string name="prefer_view">Preferisci vista</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
     <string name="color">Colore</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Scheda di avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
     <string name="swipe_to_change_mode">Scorri per cambiare modalità</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Scorri per modificare o visualizzare la modalità (opposta alla modalità corrente)</string>
     <string name="folder_first">Prima le cartelle</string>
     <string name="go_to">Vai a</string>
     <string name="appdata_public">AppData (pubblico)</string>
