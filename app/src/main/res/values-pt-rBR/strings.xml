@@ -276,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Você pode abrir o documento na parte inferior da tela principal, pelo gerenciador de arquivos ou no launcher. Há também a opção de anexar texto compartilhado pra dentro do Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook é a pasta que o Markor abre através do gerenciador de arquivos quando o app é iniciado. É a pasta padrão dos seus arquivos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, que você pode customizar a localização nas configurações.</string>
-    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Use o LinkBox para guardar links de websites que você deseja visitar depois. É um arquivo de formato Markdown com localização padrão em &gt;Notebook/LinkBox.md&lt;, e que pode ter sua localização customizada nas configurações.</string>
     <string name="todo_is_the_easiest_way_">Gerencie suas tarefas com ToDo. É um arquivo todo.txt com localização padrão &gt;Notebook/todo.txt&lt;, e que pode ter sua localização customizada nas configurações.</string>
     <string name="navigationbar_color">Cor da barra de navegação</string>
     <string name="black">Preto</string>

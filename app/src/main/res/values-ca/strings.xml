@@ -276,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Podeu obrir el document des de la vista principal a la part inferior, al navegador de fitxers o al llançador. També hi ha una opció per afegir text compartit al Markor.</string>
     <string name="notebook_is_the_home_of_your_files">El quadern és la carpeta que Markor carrega al navegador de fitxers quan s\'inicia l\'aplicació. És la carpeta inicial dels vostres fitxers.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote és l’opció més ràpida per escriure notes. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/QuickNote.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
-    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Utilitzeu LinkBox per mantenir els marcadors i enllaços als llocs web que vulgueu llegir més endavant. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/LinkBox.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="navigationbar_color">Color de la barra de navegació</string>
     <string name="black">Negre</string>

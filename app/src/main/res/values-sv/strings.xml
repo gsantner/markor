@@ -275,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Du kan öppna dokumentet från huvudvyns nederkant, filhanteraren eller din programkörare. Det är möjligt att lägga till text delad till Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Anteckningsboken är katalogen Markor hämtar filhanteraren när programmet startas. Det är dina filers hemkatalaog.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">SnabbAnteckning är det snabbaste sättet att göra anteckningar. Det är en fil i Markdown-format som ligger i &gt;Notebook/QuickNote.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
-    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Använd LänkByrån för att spara bokmärken och länkar till hemsidor som du vill läsa senare. Det är en fil i Markdown-format som ligger i &gt;Notebook/LinkBox.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
     <string name="todo_is_the_easiest_way_">Hantera dina göromål med ToDo. Det är en fil med filformatet .txt och är i &gt;Notebook/todo.txt&lt;, du kan ändra vart filen sparas i inställningarna.</string>
     <string name="navigationbar_color">Navigationslistfärg</string>
     <string name="black">Svart</string>
