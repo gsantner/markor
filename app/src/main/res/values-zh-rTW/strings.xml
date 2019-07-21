@@ -102,6 +102,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">優先</string>
     <string name="history">歷史</string>
     <string name="sync">同步</string>
+    <string name="search_or_custom">搜尋/自訂</string>
     <string name="save">儲存</string>
     <string name="update">升級</string>
     <string name="clear">清除</string>
