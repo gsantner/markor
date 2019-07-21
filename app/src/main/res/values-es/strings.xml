@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Compartir con...</string>
     <string name="share">Compartir</string>
     <string name="search">Búsqueda</string>
-    <string name="representation">Representación</string>
     <string name="display_converted_markup">Mostrar markup transformada</string>
     <string name="editor">Editor</string>
     <string name="folders">Carpetas</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (como texto plano)</string>
     <string name="document_editor_font">Tipo de letra del editor de notas</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Mostrar documentos existentes en modo de representación por defecto</string>
     <string name="about">Acerca de</string>
     <string name="plaintext">Texto plano</string>
     <string name="file">Archivo</string>
@@ -236,7 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverso</string>
     <string name="textaction">Acción de texto</string>
     <string name="textactions">Acciones de texto</string>
-    <string name="prefer_representation">Representación preferida</string>
     <string name="no_calendar_app_is_installed">¡No hay una aplicación de calendario instalada!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Color</string>
@@ -270,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Pestaña de inicio</string>
     <string name="tab_to_select_at_start">Pestaña para seleccionar al iniciar la aplicación</string>
     <string name="swipe_to_change_mode">Deslizar para cambiar el modo</string>
-    <string name="swipe_to_change_mode_to_other">Deslizar para cambiar el modo de edición o representación, lo contrario del modo actual</string>
     <string name="folder_first">Carpeta primero</string>
     <string name="go_to">Ir a</string>
     <string name="appdata_public">AppData (público)</string>
