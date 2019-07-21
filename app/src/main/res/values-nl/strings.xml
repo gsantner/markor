@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (als platte tekst)</string>
     <string name="document_editor_font">Notitie Bewerker Lettertype</string>
     <string name="theme">Thema</string>
+    <string name="open_existing_files_in_view_mode">Open bestaande bestanden in weergave modus</string>
     <string name="about">Over</string>
     <string name="plaintext">Platte tekst</string>
     <string name="file">Bestand</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Overige</string>
     <string name="textaction">Tekstactie</string>
     <string name="textactions">Tekstacties</string>
+    <string name="prefer_view">Voorkeur weergave</string>
     <string name="no_calendar_app_is_installed">Geen agenda app is geïnstalleerd!</string>
     <string name="popular_documents">Populaire documenten</string>
     <string name="color">Kleur</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">App starttabblad</string>
     <string name="tab_to_select_at_start">Tab om te selecteren bij het starten van de app</string>
     <string name="swipe_to_change_mode">Veeg om de modus te wijzigen</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Veeg om te veranderen naar bewerk of bekijk modus (omgekeerd van de huidige modus)</string>
     <string name="folder_first">Map eerst</string>
     <string name="go_to">Ga naar</string>
     <string name="appdata_public">AppData (openbaar)</string>
