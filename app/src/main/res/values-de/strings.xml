@@ -285,7 +285,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Navigationsleiste Farbe</string>
     <string name="black">Schwarz</string>
     <string name="white">Weiß</string>
-    <string name="view">Ansicht</string>
+    <string name="view">Betrachten</string>
     <string name="view_mode">Ansichts-Modus</string>
     <string name="edit_mode">Bearbeitungs-Modus</string>
     <string name="mount_storage">Speicher einhängen</string>
