@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (jako prostý text)</string>
     <string name="document_editor_font">Dokument Editor Font</string>
     <string name="theme">Motiv</string>
+    <string name="open_existing_files_in_view_mode">Otevřete stávající soubory v režimu zobrazení</string>
     <string name="about">Informace</string>
     <string name="plaintext">Prostý text</string>
     <string name="file">Soubor</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Ostatní</string>
     <string name="textaction">Textil</string>
     <string name="textactions">Texty</string>
+    <string name="prefer_view">Názor budoucí volby</string>
     <string name="no_calendar_app_is_installed">Žádný kalendář aplikace není nainstalován!</string>
     <string name="popular_documents">Populační dokumenty</string>
     <string name="color">Barva</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
     <string name="swipe_to_change_mode">Swipe na změnu módu</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Přechod na změnu režimu pro úpravu nebo zobrazení (naproti současnému režimu)</string>
     <string name="folder_first">Složky první</string>
     <string name="go_to">Přejít na</string>
     <string name="appdata_public">AppData (veřejná)</string>
