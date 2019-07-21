@@ -613,6 +613,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             String pref = getString(R.string.pref_key__exts_to_always_open_in_this_app, "");
             extSettingCache = Arrays.asList(pref.toLowerCase().replace(",,", ",None,").replace(" ", "").split(","));
         }
-        return extSettingCache.contains(ext);
+        return extSettingCache.contains(ext) || extSettingCache.contains(".*");
     }
 }
