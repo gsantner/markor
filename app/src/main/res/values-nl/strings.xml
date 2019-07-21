@@ -104,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioriteit</string>
     <string name="history">Geschiedenis</string>
     <string name="sync">Sync</string>
+    <string name="search_or_custom">Zoeken / Aangepast</string>
     <string name="save">Opslaan</string>
     <string name="update">Bijwerken</string>
     <string name="clear">Wissen</string>
