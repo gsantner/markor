@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">اولویت</string>
     <string name="history">تاریخچه</string>
     <string name="sync">همگام سازی</string>
-    <string name="serach_or_custom">جستجو / سفارشی</string>
+    <string name="search_or_custom">جستجو / سفارشی</string>
     <string name="save">ذخیره</string>
     <string name="update">بروزرسانی</string>
     <string name="clear">پاکسازی</string>

@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Priorita</string>
     <string name="history">Historie</string>
     <string name="sync">Sync</string>
-    <string name="serach_or_custom">Hledat / Zákon</string>
+    <string name="search_or_custom">Hledat / Zákon</string>
     <string name="save">Uložit</string>
     <string name="update">Aktualizace</string>
     <string name="clear">Jasně</string>

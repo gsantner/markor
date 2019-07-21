@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Öncelik</string>
     <string name="history">Geçmiş</string>
     <string name="sync">Eşitle</string>
-    <string name="serach_or_custom">Ara / Özel</string>
+    <string name="search_or_custom">Ara / Özel</string>
     <string name="save">Kaydet</string>
     <string name="update">Güncelle</string>
     <string name="clear">Temizle</string>

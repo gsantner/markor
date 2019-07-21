@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">優先度</string>
     <string name="history">履歴</string>
     <string name="sync">同期</string>
-    <string name="serach_or_custom">検索 / カスタム</string>
+    <string name="search_or_custom">検索 / カスタム</string>
     <string name="save">保存</string>
     <string name="update">更新</string>
     <string name="clear">クリア</string>

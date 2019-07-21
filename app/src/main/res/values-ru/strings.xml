@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Приоритет</string>
     <string name="history">История</string>
     <string name="sync">Синхронизация</string>
-    <string name="serach_or_custom">Поиск / Настраиваемый</string>
+    <string name="search_or_custom">Поиск / Настраиваемый</string>
     <string name="save">Сохранить</string>
     <string name="update">Обновить</string>
     <string name="clear">Очистить</string>
