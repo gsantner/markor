@@ -38,6 +38,26 @@
         android:icon="@drawable/ic_date_range_black_24dp"
         android:key="@string/pref_key__share_into__calendar_event"
         android:title="@string/calendar" />
+
+    <PreferenceCategory
+        android:key="@string/pref_key__favourite_files"
+        android:title="@string/file_browser" />
+
+    <Preference
+        android:icon="@drawable/ic_star_black_24dp"
+        android:key="@string/pref_key__favourite_files"
+        android:title="@string/favourites" />
+
+    <Preference
+        android:icon="@drawable/ic_history_black_24dp"
+        android:key="@string/pref_key__recent_documents"
+        android:title="@string/recently_viewed_documents" />
+
+    <Preference
+        android:icon="@drawable/ic_favorite_black_24dp"
+        android:key="@string/pref_key__popular_documents"
+        android:title="@string/popular_documents" />
+
     <Preference
         android:icon="@drawable/ic_keyboard_return_black_24dp"
         android:key="@string/pref_key__share_into__existing_document"
@@ -47,12 +67,5 @@
         android:key="@string/pref_key__share_into__create_document"
         android:title="@string/create_new_document" />
 
-    <PreferenceCategory
-        android:key="@string/pref_key__recent_documents"
-        android:title="@string/recently_viewed_documents" />
-
-    <PreferenceCategory
-        android:key="@string/pref_key__popular_documents"
-        android:title="@string/popular_documents" />
 
 </PreferenceScreen> <!-- Screen -->

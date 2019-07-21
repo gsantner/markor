@@ -37,7 +37,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
+import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
@@ -129,7 +129,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
 
-    public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat {
+    public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
         private static final String SEP_RULER = "\n---\n";
@@ -161,7 +161,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         @Override
-        protected SharedPreferencesPropertyBackend getAppSettings(Context context) {
+        protected AppSettings getAppSettings(Context context) {
             return new AppSettings(context);
         }
 
@@ -186,7 +186,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         public Integer getIconTintColor() {
-            boolean dark = ((AppSettings) getAppSettings(getContext())).isDarkThemeEnabled();
+            boolean dark = getAppSettings(getContext()).isDarkThemeEnabled();
             return _cu.rcolor(dark ? R.color.dark__primary_text : R.color.light__primary_text);
         }
 
@@ -209,15 +209,34 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
 
             if (file != null) {
-                ((AppSettings) _appSettings).addRecentDocument(file);
+                _appSettings.addRecentDocument(file);
             }
         }
 
-        private void showAppendDialog() {
+        private void showAppendDialog(int keyId) {
+            final File startFolder;
+            switch (keyId) {
+                case R.string.pref_key__favourite_files: {
+                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                    break;
+                }
+                case R.string.pref_key__popular_documents: {
+                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
+                    break;
+                }
+                case R.string.pref_key__recent_documents: {
+                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
+                    break;
+                }
+                default: {
+                    startFolder = _appSettings.getNotebookDirectory();
+                    break;
+                }
+            }
             FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                    opt.rootFolder = AppSettings.get().getNotebookDirectory();
+                    opt.rootFolder = startFolder;
                 }
 
                 @Override
@@ -230,7 +249,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            NewFileDialog dialog = NewFileDialog.newInstance(AppSettings.get().getNotebookDirectory(), (ok, f) -> {
+            NewFileDialog dialog = NewFileDialog.newInstance(_appSettings.getNotebookDirectory(), (ok, f) -> {
                 if (ok && f.isFile()) {
                     appendToExistingDocument(f, "", true);
                 }
@@ -242,7 +261,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
                 a.setDocument(document);
-                if (AppSettings.get().isPreviewFirst()) {
+                if (_appSettings.isPreviewFirst()) {
                     a.showTextEditor(document, null, false, true);
                 } else {
                     a.showTextEditor(document, null, false);
@@ -271,15 +290,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     }
                     return true;
                 }
+                case R.string.pref_key__favourite_files:
+                case R.string.pref_key__popular_documents:
+                case R.string.pref_key__recent_documents:
                 case R.string.pref_key__share_into__existing_document: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        showAppendDialog();
+                        showAppendDialog(keyId);
                     }
                     return true;
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(AppSettings.get().getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
                         close = true;
                     }
                     break;
@@ -293,7 +315,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                                 sep = tmps;
                             }
                         }
-                        appendToExistingDocument(AppSettings.get().getTodoFile(), sep, false);
+                        appendToExistingDocument(_appSettings.getTodoFile(), sep, false);
                         close = true;
                     }
                     break;
@@ -343,19 +365,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             Preference pref;
 
             setPreferenceVisible(R.string.pref_key__share_into__todo, !_sharedText.trim().contains("\n") && _sharedText.length() < 300);
-            setPreferenceVisible(R.string.pref_key__share_into__quicknote, maybeHasWebUrl && _sharedText.length() < 10000);
             setPreferenceVisible(R.string.pref_key__share_into__open_in_browser, maybeHasWebUrl);
-
-            if ((pref = findPreference(R.string.pref_key__recent_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
-                for (String filepath : new AppSettings(pref.getContext()).getRecentDocuments()) {
-                    addDocumentToPrefgroup(filepath, (PreferenceGroup) pref);
-                }
-            }
-            if ((pref = findPreference(R.string.pref_key__popular_documents)) != null && ((PreferenceGroup) pref).getPreferenceCount() == 0) {
-                for (String filepath : new AppSettings(pref.getContext()).getPopularDocuments()) {
-                    addDocumentToPrefgroup(filepath, (PreferenceGroup) pref);
-                }
-            }
         }
 
         private void addDocumentToPrefgroup(String filepath, final PreferenceGroup prefGroup) {
