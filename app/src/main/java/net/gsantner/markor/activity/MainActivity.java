@@ -61,6 +61,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import butterknife.OnPageChange;
 
 public class MainActivity extends AppActivityBase implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -275,6 +276,18 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         } catch (Exception ignored) {
             recreate();
         }
+    }
+
+    @OnLongClick({R.id.fab_add_new_item})
+    public boolean onLongClickFab(View view) {
+        PermissionChecker permc = new PermissionChecker(this);
+        FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
+            fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)
+                            ? FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE : FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS
+                    , true);
+        }
+        return true;
     }
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
