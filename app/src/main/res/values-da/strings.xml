@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Del til...</string>
     <string name="share">Del</string>
     <string name="search">Søg</string>
-    <string name="representation">Repræsentation</string>
     <string name="display_converted_markup">Vis konverteret markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Mapper</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (som ren tekst)</string>
     <string name="document_editor_font">Editor skrifttype</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Vis eksisterende dokumenter i repræsentationstilstand som standard</string>
     <string name="about">Om</string>
     <string name="plaintext">Ren tekst</string>
     <string name="file">Fil</string>
@@ -229,7 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Teksthandling</string>
     <string name="textactions">Teksthandlinger</string>
-    <string name="prefer_representation">Foretræk repræsentation</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app installeret</string>
     <string name="color">Farve</string>
     <string name="preset">Forudindstilling</string>
