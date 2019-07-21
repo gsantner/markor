@@ -28,6 +28,7 @@ public class MarkorWebViewClient extends WebViewClient {
 
     private final Activity _activity;
     private int _restoreScrollY = 0;
+    private boolean _restoreScrollYEnabled = false;
 
     public MarkorWebViewClient(Activity activity) {
         _activity = activity;
@@ -80,13 +81,19 @@ public class MarkorWebViewClient extends WebViewClient {
 
     @Override
     public void onPageFinished(WebView view, String url) {
-        for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
-            view.postDelayed(() -> view.setScrollY(_restoreScrollY), dt);
+        if (_restoreScrollYEnabled) {
+            for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
+                view.postDelayed(() -> view.setScrollY(_restoreScrollY), dt);
+            }
+            _restoreScrollYEnabled = false;
         }
         super.onPageFinished(view, url);
     }
 
     public void setRestoreScrollY(int scrollY) {
         _restoreScrollY = scrollY;
+        _restoreScrollYEnabled = true;
     }
+
+
 }
