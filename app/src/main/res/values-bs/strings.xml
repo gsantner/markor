@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Podijeli sa ...</string>
     <string name="share">Podijeli</string>
     <string name="search">Traži</string>
-    <string name="representation">Prezentacija</string>
     <string name="display_converted_markup">Prikaži konvertovani markup</string>
     <string name="editor">Uređivač</string>
     <string name="folders">Direktoriji</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (kao obični tekst)</string>
     <string name="document_editor_font">Font u uređivaču dokumenata</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Za osnovni prikaz postojećih dokumenata koristi prezentaciju</string>
     <string name="about">O programu</string>
     <string name="plaintext">Obični tekst</string>
     <string name="file">Datoteka</string>
@@ -235,7 +233,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Razno</string>
     <string name="textaction">Tekstualna akcija</string>
     <string name="textactions">Tekstualne akcije</string>
-    <string name="prefer_representation">Preferiraj prezentaciju</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
     <string name="color">Boja</string>
@@ -269,7 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
     <string name="swipe_to_change_mode">Prevlačenjem promijenite način rada</string>
-    <string name="swipe_to_change_mode_to_other">Prevlačenjem promijenite način rada: uređivanje ili prikazivanje</string>
     <string name="folder_first">Prvo direktorij</string>
     <string name="go_to">Idi do</string>
     <string name="appdata_public">AppData (javno)</string>

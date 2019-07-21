@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Udostępnij do&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
-    <string name="representation">Reprezentacja</string>
     <string name="display_converted_markup">Wyświetl przekonwertowane znaczniki</string>
     <string name="editor">Edytor</string>
     <string name="folders">Foldery</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
-    <string name="show_representation_of_markup_by_default">Pokaż domyślnie istniejące dokumenty w tybie reprezentacji</string>
     <string name="about">Informacje</string>
     <string name="plaintext">Zwykły tekst</string>
     <string name="file">Plik</string>
@@ -230,7 +228,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematyka</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
-    <string name="prefer_representation">Preferuj reprezentację</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
     <string name="color">Kolor</string>
@@ -258,7 +255,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">Anuluj</string>
     <string name="tab_to_select_at_start">Wybierana karta podczas uruchamiania aplikacji</string>
     <string name="swipe_to_change_mode">Przesuń, aby zmienić tryb</string>
-    <string name="swipe_to_change_mode_to_other">Przesuń palcem, aby zmienić tryb do edycji lub reprezentacji, w przeciwieństwie to obecnego trybu</string>
     <string name="folder_first">Najpierw katalogi</string>
     <string name="go_to">Przejdź do</string>
     <string name="appdata_sdcard">AppData (karta SD)</string>

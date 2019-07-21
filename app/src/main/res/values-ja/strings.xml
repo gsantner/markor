@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">共有&#8230;</string>
     <string name="share">共有</string>
     <string name="search">検索</string>
-    <string name="representation">リプレゼンテーション</string>
     <string name="display_converted_markup">変換されたマークアップを表示</string>
     <string name="editor">エディター</string>
     <string name="folders">フォルダー</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (プレーンテキストとして)</string>
     <string name="document_editor_font">ドキュメントエディターフォント</string>
     <string name="theme">テーマ</string>
-    <string name="show_representation_of_markup_by_default">デフォルトで既存のドキュメントをリプレゼンテーションモードで表示します</string>
     <string name="about">情報</string>
     <string name="plaintext">プレーンテキスト</string>
     <string name="file">ファイル</string>
@@ -236,7 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">その他</string>
     <string name="textaction">テキスト操作</string>
     <string name="textactions">テキスト操作</string>
-    <string name="prefer_representation">リプレゼンテーション優先</string>
     <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
     <string name="popular_documents">人気のあるドキュメント</string>
     <string name="color">色</string>
@@ -270,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">アプリ開始タブ</string>
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
     <string name="swipe_to_change_mode">スワイプしてモードを変更</string>
-    <string name="swipe_to_change_mode_to_other">スワイプして編集または表示のモードを変更します。現在のモードを反対に切り替えます</string>
     <string name="folder_first">フォルダを上に表示</string>
     <string name="go_to">移動</string>
     <string name="appdata_public">AppData (公開)</string>

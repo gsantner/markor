@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Dela till&#8230;</string>
     <string name="share">Dela</string>
     <string name="search">Söc</string>
-    <string name="representation">Representation</string>
     <string name="display_converted_markup">Visa konverterad märkspråk</string>
     <string name="editor">Redaktör</string>
     <string name="folders">Mappar</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (som klartext)</string>
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Visa befintliga dokument i representationsläge som standard</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Fil</string>
@@ -235,7 +233,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Textåtgärd</string>
     <string name="textactions">Textåtgärder</string>
-    <string name="prefer_representation">Föredra representation</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
     <string name="popular_documents">Populära dokument</string>
     <string name="color">Färg</string>
@@ -269,7 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">App startflik</string>
     <string name="tab_to_select_at_start">Välj uppstartsflik</string>
     <string name="swipe_to_change_mode">Svep för att ändra läge</string>
-    <string name="swipe_to_change_mode_to_other">Svep för att byta läge till ändra eller förhandsvisning, omvänt till nuvarande läge</string>
     <string name="folder_first">Kataloger överst</string>
     <string name="go_to">Gå till</string>
     <string name="appdata_public">AppData (publik)</string>

@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">&#8230; ലേക്ക് പങ്കുവെക്കുക</string>
     <string name="share">പങ്കുവയ്ക്കുക</string>
     <string name="search">തിരയുക</string>
-    <string name="representation">പ്രതിപാദനം</string>
     <string name="display_converted_markup">മാർക്ക് അപ് പരിവർത്തനം വന്നത് കാണിക്കുക</string>
     <string name="editor">എഡിറ്റർ</string>
     <string name="folders">ഫോൾഡറുകൾ</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">ഹ്ത്മ്ൽ (വെറും ടെക്സ്റ്റ്‌ ആയിട്ട് തന്നെ)</string>
     <string name="document_editor_font">ഡോക്യുമെന്റ് എഡിറ്ററിന്റെ അക്ഷരങ്ങളുടെ രൂപം</string>
     <string name="theme">പ്രതീതി</string>
-    <string name="show_representation_of_markup_by_default">സാധാരണയായി നിലവിലുള്ള ഡോക്യൂമെന്റസ് പ്രതിപാദന മട്ടിൽ കാണിക്കുക</string>
     <string name="about">കുറിച്ച്</string>
     <string name="plaintext">വെറും ടെക്സ്റ്റ്‌</string>
     <string name="file">ഫയൽ</string>

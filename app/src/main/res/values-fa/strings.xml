@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">به اشتراک‌گذاری با...</string>
     <string name="share">به اشتراک‌گذاری</string>
     <string name="search">جستجو</string>
-    <string name="representation">ارائه</string>
     <string name="display_converted_markup">نمایش کد های تغییر یافته</string>
     <string name="editor">ویرایش‌گر</string>
     <string name="folders">پوشه‌ها</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (به عنوان متن ساده)</string>
     <string name="document_editor_font">قلم ویرایشگر پرونده</string>
     <string name="theme">پوسته</string>
-    <string name="show_representation_of_markup_by_default">نمایش مطالب در حالت (مد) ارائه، به صورت پیش فرض</string>
     <string name="about">درباره مارکور</string>
     <string name="plaintext">متن ساده</string>
     <string name="file">فایل</string>

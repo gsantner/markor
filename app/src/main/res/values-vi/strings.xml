@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Chia sẻ về&#8230;</string>
     <string name="share">Chia sẻ</string>
     <string name="search">Tìm kiếm</string>
-    <string name="representation">Đại diện</string>
     <string name="display_converted_markup">Màn hình hiển thị chuyển đổi đánh dấu</string>
     <string name="editor">Biên tập viên</string>
     <string name="folders">Thư mục</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (như văn bản thuần)</string>
     <string name="document_editor_font">Phông chữ soạn thảo tài liệu</string>
     <string name="theme">Chủ đề</string>
-    <string name="show_representation_of_markup_by_default">Hiển thị tài liệu hiện có ở chế độ đại diện bởi mặc định</string>
     <string name="about">Trong khoảng</string>
     <string name="plaintext">Văn bản đơn thuần</string>
     <string name="file">Tệp tin</string>

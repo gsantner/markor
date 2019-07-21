@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Cumpartzi cun…</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>
-    <string name="representation">Rapresentatzione</string>
     <string name="display_converted_markup">Ammustra su markup cunvertidu</string>
     <string name="editor">Editore</string>
     <string name="folders">Cartellas</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (comente testu simpre)</string>
     <string name="document_editor_font">Caràtere de s\'editore de documentos</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Ammustra sos documentos esistentes in modalidade de rapresentatzione comente impostatzione predefinida</string>
     <string name="about">Informatziones</string>
     <string name="plaintext">Testu simpre</string>
     <string name="file">Documentu</string>
@@ -236,7 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Vàriu</string>
     <string name="textaction">Atzione de su testu</string>
     <string name="textactions">Atziones de su testu</string>
-    <string name="prefer_representation">Preferi rapresentatzione</string>
     <string name="no_calendar_app_is_installed">Non b\'at peruna aplicatzione de calendàriu installada!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Colore</string>
@@ -270,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Ischeda de allughìngiu de s\'aplicatzione</string>
     <string name="tab_to_select_at_start">Ischeda de ischertare cando benit alluta s\'aplicatzione</string>
     <string name="swipe_to_change_mode">Trìsina pro cambiare sa modalidade</string>
-    <string name="swipe_to_change_mode_to_other">Trìsina pro cambiare sa modalidade de modìfica o rapresentatzione, su contràriu de sa modalidade atuale</string>
     <string name="folder_first">In antis sas cartellas</string>
     <string name="go_to">Bae a</string>
     <string name="appdata_public">Datos de s\'aplicatzione (pùblicu)</string>
