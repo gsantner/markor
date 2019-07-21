@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Partager avec…</string>
     <string name="share">Partager</string>
     <string name="search">Recherche</string>
-    <string name="representation">Représentation</string>
     <string name="display_converted_markup">Afficher le Markup converti</string>
     <string name="editor">Éditeur</string>
     <string name="folders">Dossiers</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (en texte brut)</string>
     <string name="document_editor_font">Police de l\'éditeur</string>
     <string name="theme">Thème</string>
-    <string name="show_representation_of_markup_by_default">Afficher les documents existant en mode de représentation par défaut</string>
     <string name="about">À propos</string>
     <string name="plaintext">Texte brut</string>
     <string name="file">Fichier</string>
@@ -236,7 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Action texte</string>
     <string name="textactions">Actions texte</string>
-    <string name="prefer_representation">Représentation préférée</string>
     <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
     <string name="popular_documents">Documents populaires</string>
     <string name="color">Couleur</string>
@@ -270,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Onglet de démarrage</string>
     <string name="tab_to_select_at_start">Onglet à sélectionner lors du démarrage de l\'application</string>
     <string name="swipe_to_change_mode">Glisser pour changer de mode</string>
-    <string name="swipe_to_change_mode_to_other">Glisser pour changer le mode de modification ou de représentation, le contraire du mode courant</string>
     <string name="folder_first">Dossiers en premier</string>
     <string name="go_to">Allez à</string>
     <string name="appdata_public">Données de l\'application (Publique)</string>
