@@ -284,17 +284,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     }
                     break;
                 }
-                case R.string.pref_key__share_into__linkbox: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        _sharedText = _sharedText
-                                .replace("http://", "\nhttp://").replace("https://", "\nhttps://")
-                                .replaceAll("(\\s*)?-(\\s*)?\\n", "\n")
-                                .trim();
-                        appendToExistingDocument(AppSettings.get().getLinkBoxFile(), "\n", false);
-                        close = true;
-                    }
-                    break;
-                }
                 case R.string.pref_key__share_into__todo: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
@@ -354,7 +343,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             Preference pref;
 
             setPreferenceVisible(R.string.pref_key__share_into__todo, !_sharedText.trim().contains("\n") && _sharedText.length() < 300);
-            setPreferenceVisible(R.string.pref_key__share_into__linkbox, maybeHasWebUrl && _sharedText.length() < 1200);
             setPreferenceVisible(R.string.pref_key__share_into__quicknote, maybeHasWebUrl && _sharedText.length() < 10000);
             setPreferenceVisible(R.string.pref_key__share_into__open_in_browser, maybeHasWebUrl);
 

@@ -41,8 +41,6 @@ public class IntroActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.linkbox), getString(R.string.use_linkbox_to_keep_bookmarks_and_links_to_websites), R.drawable.ic_launcher_linkbox, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-
 
         // Permissions -- takes a permission and slide number
         askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, getSlides().size());

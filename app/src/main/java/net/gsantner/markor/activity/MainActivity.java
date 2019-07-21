@@ -126,7 +126,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         // Setup viewpager
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
-        _viewPager.setOffscreenPageLimit(5);
+        _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Send Test intent
@@ -177,7 +177,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         switch (item.getItemId()) {
             case R.id.action_preview: {
                 File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
-                f = _bottomNav.getSelectedItemId() == R.id.nav_linkbox ? as.getLinkBoxFile() : f;
                 DocumentActivity.launch(MainActivity.this, f, false, true, null);
                 return true;
             }
@@ -364,16 +363,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 _toolbar.setTitle(R.string.quicknote);
                 return true;
             }
-            case R.id.nav_linkbox: {
-                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
-                restoreDefaultToolbar();
-                _viewPager.setCurrentItem(3);
-                _toolbar.setTitle(R.string.linkbox);
-                return true;
-            }
             case R.id.nav_more: {
                 restoreDefaultToolbar();
-                _viewPager.setCurrentItem(4);
+                _viewPager.setCurrentItem(3);
                 _toolbar.setTitle(R.string.more);
                 return true;
             }
@@ -396,9 +388,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
         _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
         updateFabVisibility(pos == 0);
-        _toolbar.setTitle(new String[]{_cachedFolderTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.linkbox), getString(R.string.more)}[pos]);
+        _toolbar.setTitle(new String[]{_cachedFolderTitle, getString(R.string.todo), getString(R.string.quicknote), getString(R.string.more)}[pos]);
 
-        if (pos > 0 && pos < 4) {
+        if (pos > 0 && pos < 3) {
             permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
         }
     }
@@ -474,12 +466,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 case R.id.nav_todo: {
                     if (fragment == null) {
                         fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
-                    }
-                    break;
-                }
-                case R.id.nav_linkbox: {
-                    if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(_appSettings.getLinkBoxFile(), false, false);
                     }
                     break;
                 }

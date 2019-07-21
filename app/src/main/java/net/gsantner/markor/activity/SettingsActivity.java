@@ -24,7 +24,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenEditorLinkBoxActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
@@ -65,7 +64,6 @@ public class SettingsActivity extends AppActivityBase {
 /*
         ActivityUtils au = new ActivityUtils(this);
         boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
-        au.setLauncherActivityEnabled(OpenEditorLinkBoxActivity.class, extraLaunchersEnabled);
         au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
         au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);*/
 
@@ -178,9 +176,6 @@ public class SettingsActivity extends AppActivityBase {
             updateSummary(R.string.pref_key__todo_filepath,
                     _cu.htmlToSpanned("<small><small>" + _as.getTodoFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
-            updateSummary(R.string.pref_key__linkbox_filepath,
-                    _cu.htmlToSpanned("<small><small>" + _as.getLinkBoxFile().getAbsolutePath().replace(remove, "") + "</small></small>")
-            );
             updatePreference(R.string.pref_key__is_launcher_for_special_files_enabled, null,
                     ("Launcher (" + getString(R.string.special_documents) + ")"),
                     getString(R.string.app_drawer_launcher_special_files_description), true
@@ -207,7 +202,6 @@ public class SettingsActivity extends AppActivityBase {
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
-                au.setLauncherActivityEnabled(OpenEditorLinkBoxActivity.class, extraLaunchersEnabled);
                 au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
                 au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
             }
@@ -279,27 +273,6 @@ public class SettingsActivity extends AppActivityBase {
                             @Override
                             public void onFsViewerConfig(FilesystemViewerData.Options opt) {
                                 opt.titleText = R.string.todo;
-                                opt.rootFolder = Environment.getExternalStorageDirectory();
-                            }
-                        }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
-                    }
-                    return true;
-                }
-                case R.string.pref_key__linkbox_filepath: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
-                            @Override
-                            public void onFsViewerSelected(String request, File file) {
-                                AppSettings as = AppSettings.get();
-                                as.setLinkBoxFile(file);
-                                as.setRecreateMainRequired(true);
-                                doUpdatePreferences();
-                            }
-
-                            @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                                opt.titleText = R.string.linkbox;
                                 opt.rootFolder = Environment.getExternalStorageDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);

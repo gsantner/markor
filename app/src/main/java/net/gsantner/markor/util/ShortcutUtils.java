@@ -19,7 +19,6 @@ import android.support.annotation.NonNull;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.activity.openeditor.OpenEditorLinkBoxActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
@@ -37,7 +36,6 @@ public class ShortcutUtils {
     private static final String ID_PREFIX = "shortcut_";
     private static final String ID_TO_DO = ID_PREFIX + "to_do";
     private static final String ID_QUICK_NOTE = ID_PREFIX + "quick_note";
-    private static final String ID_LINK_BOX = ID_PREFIX + "link_box";
 
     private static final int MAX_RECENT_DOCUMENTS = 1;
 
@@ -47,7 +45,7 @@ public class ShortcutUtils {
 
     /**
      * Update the app shortcuts.
-     * The list will contain a link to to-do, QuickNote, LinkBox and 1 recent documents.
+     * The list will contain a link to to-do, QuickNote and 1 recent documents.
      * <p>
      * Due to a limit in the Android API, only 4 shortcuts can be displayed.
      *
@@ -84,18 +82,6 @@ public class ShortcutUtils {
                 .setIntent(intentQuickNote)
                 .build();
         newShortcuts.add(shortcutQuickNote);
-
-        // Create the LinkBox shortcut
-        Intent intentLinkBox = new Intent(context, OpenEditorLinkBoxActivity.class);
-        intentLinkBox.setAction(Intent.ACTION_VIEW);
-
-        ShortcutInfo shortcutLinkBox = new ShortcutInfo.Builder(context, ID_LINK_BOX)
-                .setShortLabel(createShortLabel(context.getString(R.string.linkbox)))
-                .setLongLabel(createLongLabel(context.getString(R.string.linkbox)))
-                .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_linkbox))
-                .setIntent(intentLinkBox)
-                .build();
-        newShortcuts.add(shortcutLinkBox);
 
         // Generate shortcuts for the most recent documents. Maximum of MAX_RECENT_DOCUMENTS.
         AppSettings settings = new AppSettings(context);

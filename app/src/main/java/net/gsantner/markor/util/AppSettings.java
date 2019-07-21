@@ -113,19 +113,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
-    public File getLinkBoxFile() {
-        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.linkbox_default_filename)).getAbsolutePath();
-        String defaultValueTxt = new File(getNotebookDirectoryAsStr(), "linkbox.txt").getAbsolutePath();
-        if (new File(defaultValueTxt).exists()) {
-            defaultValue = defaultValueTxt;
-        }
-        return new File(getString(R.string.pref_key__linkbox_filepath, defaultValue));
-    }
-
-    public void setLinkBoxFile(File file) {
-        setString(R.string.pref_key__linkbox_filepath, file.getAbsolutePath());
-    }
-
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
@@ -288,12 +275,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (!listFileInRecents(file)) {
             return;
         }
-        if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
+        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             ArrayList<String> recent = getRecentDocuments();
             recent.add(0, file.getAbsolutePath());
             recent.remove(getTodoFile().getAbsolutePath());
             recent.remove(getQuickNoteFile().getAbsolutePath());
-            recent.remove(getLinkBoxFile().getAbsolutePath());
             recent.remove("");
             recent.remove(null);
 
@@ -327,7 +313,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (file == null || !file.exists()) {
             return;
         }
-        if (!file.equals(getTodoFile()) && !file.equals(getLinkBoxFile()) && !file.equals(getQuickNoteFile())) {
+        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
         }
@@ -337,7 +323,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (file == null || !file.exists()) {
             return -1;
         }
-        if (file.equals(getTodoFile()) || file.equals(getLinkBoxFile()) || file.equals(getQuickNoteFile())) {
+        if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
             return -2;
         }
         return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
@@ -478,14 +464,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public @IdRes
     int getAppStartupTab() {
-        int i = getIntOfStringPref(R.string.pref_key__app_start_tab, R.id.nav_notebook);
+        int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);
         switch (i) {
             case 1:
                 return R.id.nav_todo;
             case 2:
                 return R.id.nav_quicknote;
-            case 3:
-                return R.id.nav_linkbox;
         }
         return R.id.nav_notebook;
     }

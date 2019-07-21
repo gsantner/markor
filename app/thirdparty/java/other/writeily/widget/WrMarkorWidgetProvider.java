@@ -94,7 +94,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Open LinkBox
             Intent openLinkBox = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_NEW_OUTGOING_CALL)
-                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getLinkBoxFile())
+                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_linkbox, PendingIntent.getActivity(context, 0, openLinkBox, 0));
 

@@ -36,11 +36,6 @@
                 android:key="@string/pref_key__todo_filepath"
                 android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
                 android:title="@string/todo" />
-            <Preference
-                android:icon="@drawable/ic_bookmark_black_24dp"
-                android:key="@string/pref_key__linkbox_filepath"
-                android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
-                android:title="@string/linkbox" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/miscellaneous">
@@ -57,7 +52,7 @@
                 android:entries="@array/pref_arrdisp__bottomnav"
                 android:entryValues="@array/pref_arrkeys__zero_to_three"
                 android:icon="@drawable/ic_file_gray_24dp"
-                android:key="@string/pref_key__app_start_tab"
+                android:key="@string/pref_key__app_start_tab_v2"
                 android:summary="%1$s"
                 android:title="@string/app_start_tab" />
 

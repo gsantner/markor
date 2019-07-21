@@ -32,7 +32,6 @@
         <item translatable="false">@string/notebook</item>
         <item translatable="false">@string/todo</item>
         <item translatable="false">@string/quicknote</item>
-        <item translatable="false">@string/linkbox</item>
     </string-array>
 
     <string-array name="textactions_press_key__text" translatable="false">

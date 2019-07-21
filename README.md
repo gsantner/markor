@@ -33,10 +33,9 @@ Markor is a TextEditor for Android. This project aims to make an editor that is 
 <br/>📚 Notebook: Store all documents on a common filesystem folder
 <br/>📓 QuickNote: Fast accessible for keeping notes
 <br/>☑️ To-Do: Write down your to-do
-<br/>🔖 LinkBox: Share pages to read later into bookmark list
 <br/>🖍 Markup formats: Markdown and todo.txt
 <br/>📋 Copy to clipboard: Copy any text, including text shared into Markor
-<br/>💡 Notebook is the root folder of documents and can be changed to any location on filesystem. LinkBox, QuickNote and ToDo are textfiles
+<br/>💡 Notebook is the root folder of documents and can be changed to any location on filesystem. QuickNote and ToDo are textfiles
 <br/>
 <br/>🎨 Highly customizeable, dark theme available
 <br/>💾 Auto-Save with options for undo/redo
