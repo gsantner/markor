@@ -104,7 +104,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioridade</string>
     <string name="history">Histórico</string>
     <string name="sync">Sincronizar</string>
-    <string name="serach_or_custom">Pesquisa/Personalizado</string>
     <string name="save">Guardar</string>
     <string name="update">Atualizar</string>
     <string name="clear">Limpar</string>
