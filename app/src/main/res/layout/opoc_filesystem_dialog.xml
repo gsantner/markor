@@ -15,7 +15,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ui__filesystem_dialog__root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginTop="4dp">
 
     <TextView

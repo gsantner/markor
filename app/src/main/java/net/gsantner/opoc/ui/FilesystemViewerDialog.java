@@ -31,6 +31,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -253,6 +254,15 @@ public class FilesystemViewerDialog extends DialogFragment
     public void onFsViewerItemLongPressed(File file, boolean doSelectMultiple) {
         if (_callback != null) {
             _callback.onFsViewerItemLongPressed(file, doSelectMultiple);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window w;
+        if (getDialog() != null && (w = getDialog().getWindow()) != null) {
+            w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
     }
 }

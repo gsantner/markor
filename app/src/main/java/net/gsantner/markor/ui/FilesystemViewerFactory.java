@@ -12,6 +12,7 @@ package net.gsantner.markor.ui;
 import android.arch.core.util.Function;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
