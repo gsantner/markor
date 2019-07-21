@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
-    <string name="representation">Önizleme modu</string>
     <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
     <string name="editor">Düzenleyici</string>
     <string name="folders">Klasörler</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (düz metin olarak)</string>
     <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
-    <string name="show_representation_of_markup_by_default">Mevcut belgeleri varsayılan olarak önizleme modunda göster</string>
     <string name="about">Markor Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
@@ -236,7 +234,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Çeşitli</string>
     <string name="textaction">Metin eylemi</string>
     <string name="textactions">Metin eylemleri</string>
-    <string name="prefer_representation">Önizleme modunu kullan</string>
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
     <string name="color">Renk</string>
@@ -270,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Uygulama başlangıç sekmesi</string>
     <string name="tab_to_select_at_start">Uygulama başlatılırken açılacak varsayılan sekmeyi seçin</string>
     <string name="swipe_to_change_mode">Modu değiştirmek için kaydırın</string>
-    <string name="swipe_to_change_mode_to_other">Düzenleme modu ve önizleme modu arasında geçiş yapmak için kaydırın</string>
     <string name="folder_first">İlk önce klasör</string>
     <string name="go_to">Git</string>
     <string name="appdata_public">Uygulama Verisi (herkese açık)</string>
