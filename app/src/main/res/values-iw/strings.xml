@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">שתף ל&#8230;</string>
     <string name="share">שתף</string>
     <string name="search">חפש</string>
-    <string name="representation">ייצוג</string>
     <string name="display_converted_markup">הצג markup מומר</string>
     <string name="editor">עורך</string>
     <string name="folders">תיקיות</string>
@@ -48,7 +47,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (כטקסט רגיל)</string>
     <string name="document_editor_font">גופן עורך המסמכים</string>
     <string name="theme">ערכת עיצוב</string>
-    <string name="show_representation_of_markup_by_default">הצג מסמכים במצב ייצוג כברירת מחדל</string>
     <string name="about">אודות</string>
     <string name="plaintext">טקסט פשוט</string>
     <string name="file">קובץ</string>
@@ -232,7 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">שונות</string>
     <string name="textaction">פעולת טקסט</string>
     <string name="textactions">פעולות טקסט</string>
-    <string name="prefer_representation">העדף הצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
     <string name="color">צבע</string>
@@ -267,5 +264,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 \n פיתוח הפרוייקט הזה נעשה בזמן החופשי, לגמרי בחינם וללא פרסומות!</string>
     <string name="tab_to_select_at_start">טאב לבחירה כאשר האפליקציה מתחילה</string>
     <string name="swipe_to_change_mode">החלק להחלפת מצב</string>
-    <string name="swipe_to_change_mode_to_other">החלק לשינוי המצב לעריכה או תצוגה, ההפך מהמצב הנוכחי</string>
 </resources>
