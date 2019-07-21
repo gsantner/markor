@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Немає</string>
     <string name="other">Інше</string>
     <string name="alternative_naming">Альтернативне іменування</string>
+    <string name="empty_file">Порожній файл</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
     <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
@@ -304,4 +305,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточній папці. Якщо запит містить зірочку (*), застосовується пошук за сталими виразами (regex), інакше перевіряє вказаний запит.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
+    <string name="template">Шаблон</string>
 </resources>

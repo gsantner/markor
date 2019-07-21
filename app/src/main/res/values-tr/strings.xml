@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Yok</string>
     <string name="other">Diğer</string>
     <string name="alternative_naming">Alternatif adlandırma</string>
+    <string name="empty_file">Boş dosya</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hex Renk Kodlarının renklerine göre altını çiz</string>
     <string name="underline_hex_color_codes">Hex Renk Kodlarının Altını Çiz</string>
     <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
@@ -218,6 +219,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Konum</string>
     <string name="text_lines">Yazı Satırları</string>
     <string name="text_characters">Yazı Karakterleri</string>
+    <string name="text_words">Metin Kelimeleri</string>
     <string name="directory">Dizin</string>
     <string name="recently_viewed_documents">Son görüntülenen belgeler</string>
     <string name="details">Ayrıntılar</string>
@@ -275,6 +277,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Uygulama Verisi (özel)</string>
     <string name="appdata_sdcard">Uygulama Verisi (SD Kart)</string>
     <string name="internal_storage">Dahili depolama</string>
+    <string name="open_the_document_from_main_view">Belgeyi alt kısımdaki ana görünümden, dosya tarayıcısından veya başlatıcıdan açabilirsiniz. Markor\'da paylaşılan metni ekleme seçeneği de vardır.</string>
+    <string name="notebook_is_the_home_of_your_files">Not Defteri, uygulama başlatıldığında Markor\'un dosya tarayıcısına yüklediği dizindir. Dosyalarınızın ana dizinidir.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">HızlıNot not yazmak için en hızlı seçenektir. &gt;NotDefteri/HızlıNot.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Yer imlerini ve daha sonra okumak istediğiniz web sitelerine olan bağlantıları korumak için BağlantıKutusu\'nu kullanın. &gt;NotDefteri/BağlantıKutusu.md&lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>

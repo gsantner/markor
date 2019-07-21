@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nada</string>
     <string name="other">Otros</string>
     <string name="alternative_naming">Nombres alternativos</string>
+    <string name="empty_file">Archivo vacío</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Especifica si subrayar los códigos de color hexadecimal de acuerdo a su color o no</string>
     <string name="underline_hex_color_codes">Subrayar códigos de color hexadecimal</string>
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
@@ -302,4 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Cambio de línea</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. De lo contrario, activa el desplazamiento horizontal.</string>
     <string name="recursive_search_in_current_directory">Búsqueda recursiva en el directorio actual. Cuando la consulta contiene un asterisco (*) se utiliza la búsqueda de expresiones regulares, de lo contrario, compruebe si la consulta está contenida.</string>
+    <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
+    <string name="template">Plantilla</string>
 </resources>

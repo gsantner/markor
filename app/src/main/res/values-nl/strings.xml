@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">Het geselecteerde bestand bevindt zich niet in de notitiemap van de app. Wilt u het kopiëren naar de huidige map? Dit overschrijft een bestaand bestand met dezelfde naam.</string>
     <string name="files_and_folders">Bestanden en mappen</string>
     <string name="document_browser">Document verkenner</string>
+    <string name="file_browser">Bestandsbrowser</string>
     <string name="create_note" needed="false">Maak notitie</string>
     <string name="special_documents" needed="false">Speciale documenten</string>
     <string name="keep_screen_on" needed="false">Scherm aanlaten</string>
@@ -147,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Geen</string>
     <string name="other">Overige</string>
     <string name="alternative_naming">Alternatieve benaming</string>
+    <string name="empty_file">Leeg bestand</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Of om hex kleurcodes te onderstrepen naar kleur</string>
     <string name="underline_hex_color_codes">Onderstreep Hex Kleurcodes</string>
     <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>
@@ -217,6 +219,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Locatie</string>
     <string name="text_lines">Tekstregels</string>
     <string name="text_characters">Teksttekens</string>
+    <string name="text_words">Tekstwoorden</string>
     <string name="directory">Map</string>
     <string name="recently_viewed_documents">Onlangs bekeken documenten</string>
     <string name="details">Details</string>
@@ -268,5 +271,39 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_to_select_at_start">Tab om te selecteren bij het starten van de app</string>
     <string name="swipe_to_change_mode">Veeg om de modus te wijzigen</string>
     <string name="swipe_to_change_mode_to_other">Veeg om de modus te wijzigen om te bewerken of te vertegenwoordigen, het tegendeel van de huidige modus</string>
+    <string name="folder_first">Map eerst</string>
+    <string name="go_to">Ga naar</string>
+    <string name="appdata_public">AppData (openbaar)</string>
+    <string name="appdata_private">AppData (privé)</string>
+    <string name="appdata_sdcard">AppData (SD-kaart)</string>
+    <string name="internal_storage">Interne opslag</string>
+    <string name="open_the_document_from_main_view">U kunt het document openen vanuit de hoofdweergave op de onderkant, de bestandsbrowser of de launcher. Er is ook een optie om tekst toe te voegen die in Markor wordt gedeeld.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook is de map die Markor in de bestandsbrowser laadt wanneer de app is gestart. Het is de home map van uw bestanden.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is de snelste optie om notities op te schrijven. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/QuickNote.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Gebruik LinkBox om bladwijzers en links te behouden naar websites die u later wilt lezen. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/LinkBox.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
+    <string name="todo_is_the_easiest_way_">Beheer uw taken met ToDo. Het is een bestand in todo.txt formaat met standaard locatie &gt;Notebook/todo.txt&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
+    <string name="navigationbar_color">Navigatiebalk kleur</string>
+    <string name="black">Zwart</string>
+    <string name="white">Wit</string>
+    <string name="view">Bekijk</string>
+    <string name="view_mode">Bekijk modus</string>
+    <string name="edit_mode">Bewerk modus</string>
+    <string name="mount_storage">Koppel opslag</string>
+    <string name="application_needs_access_to_storage_mount_it">Toegang is vereist om deze opslag te kunnen gebruiken. Koppel de opslag om toegang te geven. Bevestig dit dialoogvenster om een pop-up te krijgen. Selecteer de opslag en druk op selecteer.</string>
+    <string name="share_into">Delen in</string>
+    <string name="favourite">Favoriet</string>
+    <string name="favourites">Favorieten</string>
+    <string name="please_wait">Een ogenblik geduld</string>
+    <string name="app_start_folder">App start map</string>
+    <string name="tab_width">Tab breedte</string>
+    <string name="amount_of_space_for_tab">Aantal spaties om tabulator weer te geven</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Het geselecteerde bestand kan een duidelijk tekstbestand zijn.Wilt u het openen in de editor of in een andere app?\n\nprobeer niet om binaire bestanden te openen. Als u het niet weet, open met andere app.</string>
+    <string name="list_in_recent_files">Lijst in recente bestanden</string>
     <string name="reload">Herladen</string>
+    <string name="wrap_words">Woorden weghalen</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break als tekst niet past bij schermbreedte. Schakel horizontaal scrollen in.</string>
+    <string name="recursive_search_in_current_directory">Terugkerend zoeken in de huidige map. Wanneer query een asterisk (*) regex zoekopdracht bevat, wordt gebruikt, anders controleer of de query is ingeperkt.</string>
+    <string name="always_open_with_this_app">Altijd open met deze app</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
+    <string name="template">Sjabloon</string>
 </resources>

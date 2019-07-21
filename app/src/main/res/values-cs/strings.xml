@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nic</string>
     <string name="other">Ostatní</string>
     <string name="alternative_naming">Alternativní pojmenování</string>
+    <string name="empty_file">Prázdný soubor</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevné kódy barvou</string>
     <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
@@ -294,5 +295,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Oblíbené</string>
     <string name="please_wait">Čekejte prosím</string>
     <string name="app_start_folder">Zobrazit spouštěcí složku</string>
+    <string name="tab_width">Rozšířka tabulek</string>
+    <string name="amount_of_space_for_tab">Stříbení mezer znaků k zobrazení tabulky</string>
+    <string name="list_in_recent_files">Seznam v nedávných spisech</string>
     <string name="reload">Aktualizovat</string>
+    <string name="wrap_words">Zapisovat slova</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkká přestávka, pokud text není vhodný pro šířku obrazovky.</string>
+    <string name="recursive_search_in_current_directory">V aktuálním adresáři se používá rekursivní vyhledávání, kde je vyhledávání v klášteře (*) regex, jinak zkontrolujte, zda je dotaz obsažen.</string>
+    <string name="always_open_with_this_app">Vždy otevřené s touto aplikací</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Pokud seznam obsahuje rozšíření souboru, můžete použít \"Žádný, .html, .css , .js\" například pokud chcete editovat webové soubory a ty bez rozšíření souborů.</string>
+    <string name="template">Template</string>
 </resources>

@@ -120,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
+    <string name="file_browser">Gerenciador de arquivos</string>
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter a tela ligada</string>
@@ -147,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nenhum</string>
     <string name="other">Outros</string>
     <string name="alternative_naming">Nomes alternativos</string>
+    <string name="empty_file">Arquivo vazio</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
     <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
@@ -217,6 +219,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">Localização</string>
     <string name="text_lines">Linhas de Texto</string>
     <string name="text_characters">Caracteres de Texto</string>
+    <string name="text_words">Palavras</string>
     <string name="directory">Pasta</string>
     <string name="recently_viewed_documents">Documentos vistos recentemente</string>
     <string name="details">Detalhes</string>
@@ -274,6 +277,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Dados do aplicativo (privado)</string>
     <string name="appdata_sdcard">Dados do aplicativo (cartão SD)</string>
     <string name="internal_storage">Armazenamento interno</string>
+    <string name="open_the_document_from_main_view">Você pode abrir o documento na parte inferior da tela principal, pelo gerenciador de arquivos ou no launcher. Há também a opção de anexar texto compartilhado pra dentro do Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook é a pasta que o Markor abre através do gerenciador de arquivos quando o app é iniciado. É a pasta padrão dos seus arquivos.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, que você pode customizar a localização nas configurações.</string>
+    <string name="use_linkbox_to_keep_bookmarks_and_links_to_websites">Use o LinkBox para guardar links de websites que você deseja visitar depois. É um arquivo de formato Markdown com localização padrão em &gt;Notebook/LinkBox.md&lt;, e que pode ter sua localização customizada nas configurações.</string>
+    <string name="todo_is_the_easiest_way_">Gerencie suas tarefas com ToDo. É um arquivo todo.txt com localização padrão &gt;Notebook/todo.txt&lt;, e que pode ter sua localização customizada nas configurações.</string>
+    <string name="navigationbar_color">Cor da barra de navegação</string>
+    <string name="black">Preto</string>
+    <string name="white">Branco</string>
+    <string name="view">Ver</string>
+    <string name="view_mode">Modo de visualização</string>
+    <string name="edit_mode">Modo de edição</string>
+    <string name="mount_storage">Acessar armazenamento</string>
+    <string name="application_needs_access_to_storage_mount_it">É necessário permissão para acessar este armazenamento. Faça a montagem para permitir o acesso à ele, confirme o diálogo exibido e selecione o armazenamento, clicando em \"selecione\".</string>
+    <string name="share_into">Compartilhar para</string>
     <string name="favourite">Favorito</string>
+    <string name="favourites">Favoritos</string>
+    <string name="please_wait">Por favor aguarde</string>
+    <string name="app_start_folder">Pasta inicial do app</string>
+    <string name="tab_width">Largura da aba</string>
+    <string name="amount_of_space_for_tab">Quantidade de espaços para exibir tabulação</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
+    <string name="list_in_recent_files">Lista de arquivos recentes</string>
     <string name="reload">Atualizar</string>
 </resources>

@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Нет</string>
     <string name="other">Другое</string>
     <string name="alternative_naming">Альтернативное именование</string>
+    <string name="empty_file">Пустой файл</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
@@ -294,6 +295,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Избранное</string>
     <string name="please_wait">Пожалуйста подождите</string>
     <string name="app_start_folder">Папка запуска приложения</string>
+    <string name="tab_width">Ширина отступа</string>
+    <string name="amount_of_space_for_tab">Количество пробелов для отображения отступа</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
+    <string name="list_in_recent_files">Список последних файлов</string>
     <string name="reload">Обновить</string>
+    <string name="wrap_words">Переносить слова</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ставить мягкие переносы если текст не помещается, иначе добавить ползунок горизонтальной прокрутки.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Когда запрос включает звёздочку (*), используется поиск по регулярному выражению, иначе проверяется, содержится ли запрос в директории.</string>
+    <string name="always_open_with_this_app">Всегда использовать это приложение при открытии</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы с этим приложением, когда список содержит расширение файла. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения файла.</string>
+    <string name="template">Шаблон</string>
 </resources>

@@ -39,7 +39,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">Ibahagi</string>
     <string name="search">Hanapin</string>
     <string name="representation">Representasyon</string>
+    <string name="display_converted_markup">Ipakita ang na-convert markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Mga Folder</string>
     <string name="files">Mga File</string>
+    <string name="document">Dokumento</string>
+    <string name="documents">Mga Dokumento</string>
+    <string name="html_as_plaintext">HTML (bilang Plain Text)</string>
+    <string name="document_editor_font">Titik (font) ng Editor ng Dokumento</string>
+    <string name="theme">Tema</string>
 </resources>

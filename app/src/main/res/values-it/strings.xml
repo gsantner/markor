@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nessuno</string>
     <string name="other">Altro</string>
     <string name="alternative_naming">Nomi alternativi</string>
+    <string name="empty_file">File vuoto</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
     <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esa</string>
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
@@ -303,4 +304,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella cartella corrente. Se la query contiene un asterisco (*) allora si usa la ricerca regex, altrimenti la si cerca direttamente.</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e quelli senza estensione file.</string>
+    <string name="template">Template</string>
 </resources>
