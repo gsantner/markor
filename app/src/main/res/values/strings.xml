@@ -38,7 +38,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
-    <string name="representation">Representation</string>
     <string name="display_converted_markup">Display converted markup</string>
     <string name="editor">Editor</string>
     <string name="folders">Folders</string>
@@ -49,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="document_editor_font">Document Editor Font</string>
     <string name="theme">Theme</string>
-    <string name="show_representation_of_markup_by_default">Show existing documents in representation mode by default</string>
+    <string name="open_existing_files_in_view_mode">Open existing files in view mode</string>
     <string name="about">About</string>
     <string name="plaintext">Plain Text</string>
     <string name="file">File</string>
@@ -248,7 +247,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Miscellaneous</string>
     <string name="textaction">Textaction</string>
     <string name="textactions">Textactions</string>
-    <string name="prefer_representation">Prefer representation</string>
+    <string name="prefer_view">Prefer view</string>
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
     <string name="color">Color</string>
@@ -282,7 +281,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>
-    <string name="swipe_to_change_mode_to_other">Swipe to change mode to edit or representation, the opposite of the current mode</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Swipe to change to edit or view mode (opposite of the current mode)</string>
     <string name="folder_first">Folder first</string>
     <string name="go_to">Go to</string>
     <string name="appdata_public">AppData (public)</string>

@@ -308,13 +308,13 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_visibility_black_24dp"
             android:key="@string/pref_key__is_preview_first"
-            android:summary="@string/show_representation_of_markup_by_default"
-            android:title="@string/prefer_representation" />
+            android:summary="@string/open_existing_files_in_view_mode"
+            android:title="@string/prefer_view" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_arrow_back_white_24dp"
             android:key="@string/pref_key__swipe_to_change_mode"
-            android:summary="@string/swipe_to_change_mode_to_other"
+            android:summary="@string/swipe_to_change_to_edit_or_view_mode"
             android:title="@string/swipe_to_change_mode" />
     </PreferenceScreen>
 
@@ -352,7 +352,7 @@
                     android:summary="@string/use_different_fonttype_slow_down"
                     android:title="@string/use_monospace_for_code" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/representation">
+            <PreferenceCategory android:title="@string/view">
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_looks_5_black_24dp"

@@ -66,7 +66,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.cancelButtonText = R.string.close;
             dopt.titleText = R.string.select;
             dopt.messageText = null;
-            if (dopt.data.isEmpty()){
+            if (dopt.data.isEmpty()) {
                 dopt.messageText = "     ¯\\_(ツ)_/¯     ";
             }
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
