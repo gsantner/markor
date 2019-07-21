@@ -13,7 +13,6 @@ package net.gsantner.opoc.format.todotxt;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -380,7 +379,7 @@ public class SttCommander {
                     break;
                 }
                 case "date": {
-                    difference = compare(x.getCreationDate(), y.getCreationDate()); 
+                    difference = compare(x.getCreationDate(), y.getCreationDate());
                     break;
                 }
                 default: {
@@ -393,15 +392,14 @@ public class SttCommander {
             return difference;
         }
 
+        private int compareNull(Object o1, Object o2) {
+            return ((o1 == null && o2 == null) || (o1 != null && o2 != null))
+                    ? 0
+                    : o1 == null ? -1 : 0;
+        }
+
         private int compare(Character x, Character y) {
-            return x.compareTo(y);/*
-            if (Character.toLowerCase(y) < Character.toLowerCase(x)) {
-                return 1;
-            }
-            if (Character.toLowerCase(y) == Character.toLowerCase(x)) {
-                return 0;
-            }
-            return -1;*/
+            return Character.compare(Character.toLowerCase(x), Character.toLowerCase(y));
         }
 
         private int compare(List<String> x, List<String> y) {
@@ -417,14 +415,13 @@ public class SttCommander {
             return x.get(0).compareTo(y.get(0));
 
         }
+
         private int compare(String x, String y) {
-            if (x == null || y == null) return 0;
-            try {
-                Date xAsDate = DATEF_YYYY_MM_DD.parse(x);
-                Date yAsDate = DATEF_YYYY_MM_DD.parse(y);
-                return xAsDate.compareTo(yAsDate);
-            } catch (ParseException e) {
-                return 0;
+            int n = compareNull(x, y);
+            if (n != 0) {
+                return n;
+            } else {
+                return x.toLowerCase().compareTo(y.toLowerCase());
             }
         }
     }
