@@ -112,6 +112,9 @@
             <item
                 android:id="@+id/action_format_todotxt"
                 android:title="@string/todo_txt" />
+            <item
+                android:id="@+id/action_format_keyvalue"
+                android:title="@string/key_value" />
         </menu>
     </item>
     <item

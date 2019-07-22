@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public abstract class Highlighter {
+    protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);

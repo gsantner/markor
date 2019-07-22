@@ -327,6 +327,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
                 return true;
             }
+            case R.id.action_format_keyvalue:
             case R.id.action_format_todotxt:
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {

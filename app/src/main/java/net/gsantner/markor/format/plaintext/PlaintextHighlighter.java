@@ -48,7 +48,7 @@ public class PlaintextHighlighter extends Highlighter {
 
     @Override
     public int getHighlightingDelay(Context context) {
-        return 2500;
+        return LONG_HIGHLIGHTING_DELAY;
     }
 
 }

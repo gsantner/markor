@@ -95,10 +95,13 @@ public class DocumentIO {
 
         if (document.getFormat() == TextFormat.FORMAT_UNKNOWN) {
             String fnlower = document.getFile().getName().toLowerCase();
+            document.setFormat(TextFormat.FORMAT_PLAIN);
 
             if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
-            } else if (MarkdownTextConverter.isMarkdownFile(filePath)) {
+            } else if (TextFormat.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
+                document.setFormat(TextFormat.FORMAT_KEYVALUE);
+            } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
             } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
@@ -115,7 +118,6 @@ public class DocumentIO {
                     document.setTitle(oldTitle);
                 }
                 document.setFormat(TextFormat.FORMAT_PLAIN);
-
             }
         }
 
