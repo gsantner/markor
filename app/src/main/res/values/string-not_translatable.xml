@@ -231,4 +231,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__md_jekyll_post" translatable="false">3000-06-25-jekyll-post.md</string>
     <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
+    <string name="file_template__txt_zim_wiki" translatable="false">zim-wiki.txt</string>
 </resources>

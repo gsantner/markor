@@ -1,0 +1,68 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2019-01-28T20:53:47+01:00
+
+====== Zim Wiki ======
+Let me try to gather a list of the formatting options Zim provides.
+
+====== Head 1 ======
+
+===== Head 2 =====
+
+==== Head 3 ====
+
+=== Head 4 ===
+
+== Head 5 ==
+
+**Bold**
+//italics//
+__marked (yellow Background)__
+~~striked~~
+
+* Unordered List
+* second item
+	* [[Sub-Item]]
+		* Subsub-Item
+			* and one more sub
+* Back to first indent level
+
+1. ordered list
+2. second item
+	a. item 2a
+		1. Item 2a1
+		2. Item 2a2
+	b. item 2b
+		1. 2b1
+			a. 2b1a
+3. an so on...
+
+[ ] Checklist
+[ ] unchecked item
+[*] checked item
+[x] crossed item
+[>] Item marked with a yellow left-to-right-arrow
+[ ] another unchecked item
+
+
+This ist ''preformatted text'' inline.
+
+'''
+This is a preformatted text block.
+It spans multiple lines.
+And it's visually indented.
+'''
+
+We also have _{subscript} and ^{superscript}.
+
+It seems there is no way to combine those styles.
+//**this is simply italic**// and you can see the asterisks.
+**//This is simply bold//** and you can see the slashes.
+__**This is simply marked yellow**__ and you can see the asterisks.
+
+This is a web link: [[https://github.com/gsantner/markor|Markor on Github]]
+Links inside the Zim Wiki project can be made by simply using the [[Page Name]] in double square brackets.
+This my also contain some hierarchy information, like [[Folder:Subfolder:Document Name]]
+
+
+This zim wiki reference file was created for the [[https://gsantner.net/project/markor?source=markdownref|Markor]] project by [[https://gsantner.net|Gregor Santner]] and is licensed [[https://creativecommons.org/publicdomain/zero/1.0/legalcode|Creative Commons Zero 1.0]] (public domain). File revision 1.
