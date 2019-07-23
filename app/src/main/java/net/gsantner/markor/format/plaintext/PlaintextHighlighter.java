@@ -13,12 +13,13 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 
 public class PlaintextHighlighter extends Highlighter {
-    public PlaintextHighlighter(HighlightingEditor hlEditor) {
-        super(hlEditor);
+    public PlaintextHighlighter(HighlightingEditor hlEditor, Document document) {
+        super(hlEditor, document);
     }
 
     @Override

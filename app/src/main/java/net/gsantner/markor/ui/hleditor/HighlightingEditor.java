@@ -18,7 +18,10 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
 
 
 public class HighlightingEditor extends AppCompatEditText {
@@ -47,7 +50,7 @@ public class HighlightingEditor extends AppCompatEditText {
         super(context, attrs);
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
-            setHighlighter(Highlighter.getDefaultHighlighter(this));
+            setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
             setAutoFormat(_hl.getAutoFormatter());
             setHighlightingEnabled(as.isHighlightingEnabled());
         }

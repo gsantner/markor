@@ -66,27 +66,27 @@ public class TextFormat {
         switch (formatType) {
             case FORMAT_PLAIN: {
                 format.setConverter(CONVERTER_PLAINTEXT);
-                format.setHighlighter(new PlaintextHighlighter(hlEditor));
+                format.setHighlighter(new PlaintextHighlighter(hlEditor, document));
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
             case FORMAT_TODOTXT: {
                 format.setConverter(CONVERTER_TODOTXT);
-                format.setHighlighter(new TodoTxtHighlighter(hlEditor));
+                format.setHighlighter(new TodoTxtHighlighter(hlEditor, document));
                 format.setTextActions(new TodoTxtTextActions(activity, document));
                 break;
             }
 
             case FORMAT_KEYVALUE: {
                 format.setConverter(CONVERTER_PLAINTEXT);
-                format.setHighlighter(new KeyValueHighlighter(hlEditor));
+                format.setHighlighter(new KeyValueHighlighter(hlEditor, document));
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(CONVERTER_MARKDOWN);
-                format.setHighlighter(new MarkdownHighlighter(hlEditor));
+                format.setHighlighter(new MarkdownHighlighter(hlEditor, document));
                 format.setTextActions(new MarkdownTextActions(activity, document));
                 break;
             }

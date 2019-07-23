@@ -14,9 +14,12 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
+
+import java.io.File;
 
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
@@ -32,8 +35,8 @@ public class MarkdownHighlighter extends Highlighter {
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
     private static final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
 
-    public MarkdownHighlighter(HighlightingEditor hlEditor) {
-        super(hlEditor);
+    public MarkdownHighlighter(HighlightingEditor hlEditor, Document document) {
+        super(hlEditor, document);
         _highlightLinks = false;
         _fontType = _appSettings.getFontFamily();
         _fontSize = _appSettings.getFontSize();

@@ -15,14 +15,15 @@ import android.text.Editable;
 import android.text.InputFilter;
 
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 
 import java.util.regex.Pattern;
 
 public class KeyValueHighlighter extends Highlighter {
-    public KeyValueHighlighter(HighlightingEditor hlEditor) {
-        super(hlEditor);
+    public KeyValueHighlighter(HighlightingEditor hlEditor, Document document) {
+        super(hlEditor, document);
     }
 
     @Override
@@ -50,6 +51,14 @@ public class KeyValueHighlighter extends Highlighter {
             createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 0xffef6D00);
             _profiler.restart("KeyValue: comment");
             createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_COMMENT.getPattern(), 0xff88b04b);
+
+            /*
+            // Too expensive
+            if (getFilepath().toLowerCase().endsWith(".csv")) {
+                _profiler.restart("KeyValue: csv");
+                createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_CSV.getPattern(), Typeface.BOLD);
+            }
+            */
 
 
             _profiler.end();
@@ -80,8 +89,7 @@ public class KeyValueHighlighter extends Highlighter {
         PATTERN_INI_KEY(Pattern.compile("(?im)^([a-z_0-9]+)\\s*[=]")),
         PATTERN_UNORDERED_LIST(MarkdownHighlighterPattern.LIST_UNORDERED.pattern),
         PATTERN_COMMENT(Pattern.compile("(?im)^((#|//)\\s+.*)$")),
-
-
+        PATTERN_CSV(Pattern.compile("[,;:]")),
         ;
 
         private Pattern pattern;

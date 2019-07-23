@@ -16,6 +16,7 @@ import android.text.InputFilter;
 
 import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -23,8 +24,8 @@ import net.gsantner.markor.util.AppSettings;
 public class TodoTxtHighlighter extends Highlighter {
     private final TodoTxtHighlighterColors colors;
 
-    public TodoTxtHighlighter(HighlightingEditor hlEditor) {
-        super(hlEditor);
+    public TodoTxtHighlighter(HighlightingEditor hlEditor, Document document) {
+        super(hlEditor, document);
         colors = new TodoTxtHighlighterColors();
     }
 

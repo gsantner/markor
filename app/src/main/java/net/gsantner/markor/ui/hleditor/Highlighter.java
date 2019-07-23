@@ -36,7 +36,8 @@ import android.util.Patterns;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
-import net.gsantner.markor.format.markdown.MarkdownHighlighter;
+import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.NanoProfiler;
 
@@ -54,8 +55,8 @@ public abstract class Highlighter {
 
     public abstract InputFilter getAutoFormatter();
 
-    protected static Highlighter getDefaultHighlighter(HighlightingEditor hlEditor) {
-        return new MarkdownHighlighter(hlEditor);
+    protected static Highlighter getDefaultHighlighter(HighlightingEditor hlEditor, Document document) {
+        return new PlaintextHighlighter(hlEditor, document);
     }
 
     public abstract int getHighlightingDelay(Context context);
@@ -69,17 +70,19 @@ public abstract class Highlighter {
     protected final int _preCalcTabWidth;
     protected boolean _highlightLinks = true;
     protected final boolean _highlightHexcolor;
+    protected final Document _document;
 
-    public Highlighter(HighlightingEditor editor) {
+    public Highlighter(HighlightingEditor editor, Document document) {
         _hlEditor = editor;
         _appSettings = new AppSettings(_hlEditor.getContext().getApplicationContext());
 
         _preCalcTabWidth = (int) (_appSettings.getTabWidth() <= 1 ? -1 : editor.getPaint().measureText(" ") * _appSettings.getTabWidth());
         _highlightHexcolor = _appSettings.isHighlightingHexColorEnabled();
+        _document = document;
     }
 
     public void generalHighlightRun(final Editable editable) {
-		final String text = editable.toString();
+        final String text = editable.toString();
         _profiler.restart("General Highlighter");
         if (_preCalcTabWidth > 0) {
             _profiler.restart("Tabulator width");
@@ -97,6 +100,13 @@ public abstract class Highlighter {
             _profiler.restart("RGB Color underline");
             createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
         }
+    }
+
+    protected String getFilepath() {
+        if (_document != null && _document.getFile() != null) {
+            return _document.getFile().getAbsolutePath();
+        }
+        return "";
     }
 
 
