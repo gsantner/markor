@@ -40,6 +40,7 @@ public class KeyValueHighlighter extends Highlighter {
 
             _profiler.restart("KeyValue: Generic key-value");
             createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE_QUOTED.getPattern(), Typeface.BOLD);
             createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_UNORDERED_LIST.getPattern(), 0xffef6D00);
             _profiler.restart("KeyValue: vcard");
             createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_VCARD_KEY.getPattern(), Typeface.BOLD);
@@ -73,6 +74,7 @@ public class KeyValueHighlighter extends Highlighter {
 
     enum KeyValueHighlighterPattern {
         PATTERN_KEY_VALUE(Pattern.compile("(?im)^([a-z_0-9]+)[-:=]")),
+        PATTERN_KEY_VALUE_QUOTED(Pattern.compile("(?i)([\"'][a-z_0-9\\- ]+[\"']\\s*[-:=])")),
         PATTERN_VCARD_KEY(Pattern.compile("(?im)^(?<FIELD>[^\\s:;]+)(;(?<PARAM>[^=:;]+)=\"?(?<VALUE>[^:;]+)\"?)*:")),
         PATTERN_INI_HEADER(Pattern.compile("(?im)^(\\[.*\\])$")),
         PATTERN_INI_KEY(Pattern.compile("(?im)^([a-z_0-9]+)\\s*[=]")),

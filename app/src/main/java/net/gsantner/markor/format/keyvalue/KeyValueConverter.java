@@ -22,6 +22,6 @@ public class KeyValueConverter extends PlaintextConverter {
             return false;
         }
         String ext = filepath.substring(filepath.lastIndexOf(".")).toLowerCase();
-        return Arrays.asList(new String[]{".yml", ".yaml", ".toml", ".vcf", ".ics", ".ini"}).contains(ext);
+        return Arrays.asList(new String[]{".yml", ".yaml", ".toml", ".vcf", ".ics", ".ini", ".json"}).contains(ext);
     }
 }
