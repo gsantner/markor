@@ -142,7 +142,7 @@ public abstract class Highlighter {
         }
     }
 
-    private boolean _isFirstHighlighting = true;
+    private boolean _isFirstHighlighting = false;
 
     protected boolean isFirstHighlighting() {
         boolean f = _isFirstHighlighting;
