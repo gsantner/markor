@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (düz metin olarak)</string>
     <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Varolan dosyaları görünüm modunda aç</string>
     <string name="about">Markor Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Çeşitli</string>
     <string name="textaction">Metin eylemi</string>
     <string name="textactions">Metin eylemleri</string>
+    <string name="prefer_view">Görünümü tercih et</string>
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
     <string name="color">Renk</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Uygulama başlangıç sekmesi</string>
     <string name="tab_to_select_at_start">Uygulama başlatılırken açılacak varsayılan sekmeyi seçin</string>
     <string name="swipe_to_change_mode">Modu değiştirmek için kaydırın</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Düzenleme veya görüntüleme moduna geçmek için kaydırın (geçerli modun karşısında)</string>
     <string name="folder_first">İlk önce klasör</string>
     <string name="go_to">Git</string>
     <string name="appdata_public">Uygulama Verisi (herkese açık)</string>
