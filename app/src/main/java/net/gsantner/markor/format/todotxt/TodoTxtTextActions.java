@@ -92,7 +92,7 @@ public class TodoTxtTextActions extends TextActions {
             final String origText = _hlEditor.getText().toString();
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
-            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
+            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
                 if (updatedTask != null) {
@@ -266,11 +266,14 @@ public class TodoTxtTextActions extends TextActions {
 
         @Override
         public boolean onLongClick(View v) {
+            if (_hlEditor.getText() == null) {
+                return false;
+            }
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
-            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _document, _hlEditor);
+            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {

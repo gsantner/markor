@@ -42,10 +42,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingsActivity extends AppActivityBase {
-    static class RESULT {
-        static final int NOCHANGE = -1;
-        static final int CHANGED = 1;
-        static final int RESTART_REQ = 2;
+    
+    @SuppressWarnings("WeakerAccess")
+    public static class RESULT {
+        public static final int NOCHANGE = -1;
+        public static final int CHANGED = 1;
+        public static final int RESTART_REQ = 2;
     }
 
     public static int activityRetVal = RESULT.NOCHANGE;

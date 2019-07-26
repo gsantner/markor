@@ -143,7 +143,7 @@ public abstract class TextActions {
     }
 
     protected boolean runCommonTextAction(String action) {
-        return new CommonTextActions(_activity, _document, _hlEditor).runAction(action);
+        return new CommonTextActions(_activity, _hlEditor).runAction(action);
     }
 
     public boolean runAction(final String action) {

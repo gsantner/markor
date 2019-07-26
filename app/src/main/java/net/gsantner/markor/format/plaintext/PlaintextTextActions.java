@@ -48,11 +48,11 @@ public class PlaintextTextActions extends TextActions {
         if (modLongClick) {
             switch (action) {
                 case CommonTextActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
                 case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
             }
@@ -93,7 +93,7 @@ public class PlaintextTextActions extends TextActions {
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
-        String _action;
+        private String _action;
 
         PlaintextTextActionImpl(String action) {
             _action = action;
