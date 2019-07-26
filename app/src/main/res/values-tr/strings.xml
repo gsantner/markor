@@ -98,7 +98,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="todo_list">Yapılacaklar Listesi</string>
     <string name="task">Görev</string>
     <string name="category">Kategori</string>
-    <string name="context">İçerik</string>
+    <string name="context">Bağlam</string>
     <string name="list">Liste</string>
     <string name="priority">Öncelik</string>
     <string name="history">Geçmiş</string>
