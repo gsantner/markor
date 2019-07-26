@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (texto simples)</string>
     <string name="document_editor_font">Tipo de letra do editor</string>
     <string name="theme">Tema</string>
-    <string name="open_existing_files_in_view_mode">Abrir arquivos existentes no modo de visualização</string>
+    <string name="open_existing_files_in_view_mode">Abrir ficheiros existentes no modo de visualização</string>
     <string name="about">Acerca</string>
     <string name="plaintext">Texto simples</string>
     <string name="file">Ficheiro</string>
@@ -269,7 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Separador inicial</string>
     <string name="tab_to_select_at_start">Separador a mostrar ao iniciar a aplicação</string>
     <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Deslize para alterar para editar ou ver o modo (ao contrário do modo atual)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Deslize para alterar entre o modo de edição e o modo de visualização (modo oposto ao atual)</string>
     <string name="folder_first">Pastas primeiro</string>
     <string name="go_to">Ir para</string>
     <string name="appdata_public">AppData (pública)</string>

@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (プレーンテキストとして)</string>
     <string name="document_editor_font">ドキュメントエディターフォント</string>
     <string name="theme">テーマ</string>
+    <string name="open_existing_files_in_view_mode">表示モードで既存のファイルを開く</string>
     <string name="about">情報</string>
     <string name="plaintext">プレーンテキスト</string>
     <string name="file">ファイル</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">その他</string>
     <string name="textaction">テキスト操作</string>
     <string name="textactions">テキスト操作</string>
+    <string name="prefer_view">お好みビュー</string>
     <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
     <string name="popular_documents">人気のあるドキュメント</string>
     <string name="color">色</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">アプリ開始タブ</string>
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
     <string name="swipe_to_change_mode">スワイプしてモードを変更</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">スワイプして編集と表示モードを変更します (現在のモードを反対に)</string>
     <string name="folder_first">フォルダを上に表示</string>
     <string name="go_to">移動</string>
     <string name="appdata_public">AppData (公開)</string>
