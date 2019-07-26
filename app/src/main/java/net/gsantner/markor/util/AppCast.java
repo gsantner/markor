@@ -33,7 +33,8 @@ public class AppCast {
     private static class PathExtra {
         public static final String EXTRA_PATH = "EXTRA_PATH";
 
-        static Intent getIntentWithPathExtra(String action, String path) {
+        @SuppressWarnings("WeakerAccess")
+        public static Intent getIntentWithPathExtra(String action, String path) {
             Intent intent = new Intent(action);
             intent.putExtra(EXTRA_PATH, path);
             return intent;

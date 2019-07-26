@@ -54,12 +54,10 @@ public class CommonTextActions {
 
 
     private final Activity _activity;
-    private final Document _document;
     private final HighlightingEditor _hlEditor;
 
-    public CommonTextActions(Activity activity, Document document, HighlightingEditor hlEditor) {
+    public CommonTextActions(Activity activity, HighlightingEditor hlEditor) {
         _activity = activity;
-        _document = document;
         _hlEditor = hlEditor;
     }
 

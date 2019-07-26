@@ -408,7 +408,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         }
     }
 
-    FilesystemViewerData.Options _filesystemDialogOptions = null;
+    private FilesystemViewerData.Options _filesystemDialogOptions = null;
 
     @Override
     public FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions) {

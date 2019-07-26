@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/gsantner/markor.svg?branch=master)](https://travis-ci.org/gsantner/markor)
 [![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/gsantner/markor/total.svg?logo=github&logoColor=lime)](https://github.com/gsantner/markor/releases)
+[![Codacy Code quality](https://img.shields.io/codacy/grade/aff869c440bc48b7bd64680e97cbc453)](https://www.codacy.com/app/gsantner/markor)
 
 
 # Markor

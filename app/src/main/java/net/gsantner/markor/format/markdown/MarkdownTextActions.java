@@ -148,19 +148,19 @@ public class MarkdownTextActions extends TextActions {
                     break;
                 }
                 case R.string.tmaid_general_delete_lines: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_DELETE_LINES);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_DELETE_LINES);
                     break;
                 }
                 case R.string.tmaid_general_open_link_browser: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
                     break;
                 }
                 case R.string.tmaid_general_special_key: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SPECIAL_KEY);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
                 case R.string.tmaid_general_color_picker: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
                     break;
                 }
                 case R.string.tmaid_markdown_insert_link:
@@ -179,11 +179,11 @@ public class MarkdownTextActions extends TextActions {
         public boolean onLongClick(View v) {
             switch (_action) {
                 case R.string.tmaid_general_open_link_browser: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
                 case R.string.tmaid_general_special_key: {
-                    new CommonTextActions(_activity, _document, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
                 case R.string.tmaid_markdown_insert_image: {
@@ -209,21 +209,21 @@ public class MarkdownTextActions extends TextActions {
                 _editable = editable;
             }
 
-            void insertText(int location, String text) {
+            private void insertText(int location, String text) {
                 _editable.insert(location, text);
                 _selectionEnd += text.length();
             }
 
-            void removeText(int location, String text) {
+            private void removeText(int location, String text) {
                 _editable.delete(location, location + text.length());
                 _selectionEnd -= text.length();
             }
 
-            int getSelectionStart() {
+            private int getSelectionStart() {
                 return _selectionStart;
             }
 
-            int getSelectionEnd() {
+            private int getSelectionEnd() {
                 return _selectionEnd;
             }
         }
