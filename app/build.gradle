@@ -135,7 +135,7 @@ dependencies {
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
-    implementation 'com.github.AppIntro:AppIntro:4.2.3'
+    implementation 'com.github.AppIntro:AppIntro:v5.1.0'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
