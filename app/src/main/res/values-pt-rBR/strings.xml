@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (como texto simples)</string>
     <string name="document_editor_font">Fonte das notas</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Abrir arquivos existentes no modo de pre-visualização</string>
     <string name="about">Sobre</string>
     <string name="plaintext">Texto puro</string>
     <string name="file">Arquivo</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diversos</string>
     <string name="textaction">Ações de texto</string>
     <string name="textactions">Ações de texto</string>
+    <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Cor</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Aba inicial do app</string>
     <string name="tab_to_select_at_start">Guia para selecionar ao iniciar o aplicativo</string>
     <string name="swipe_to_change_mode">Deslize para alterar o modo</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Deslize para alterar entre o modo de edição e o modo de visualização (modo oposto ao atual)</string>
     <string name="folder_first">Pasta primeiro</string>
     <string name="go_to">Ir para</string>
     <string name="appdata_public">Dados do aplicativo (público)</string>
@@ -295,4 +298,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
     <string name="list_in_recent_files">Lista de arquivos recentes</string>
     <string name="reload">Atualizar</string>
+    <string name="wrap_words">Ajuste de palavras</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no tela. Também ativa a deslocação horizontal.</string>
+    <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual. Se a consulta possuir um asterisco (*), é utilizada a expressão regular (Regex) para a pesquisa, caso contrário verifique se a consulta está contida.</string>
+    <string name="always_open_with_this_app">Sempre abrir com este aplicativo</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esse aplicativo se a extensão do arquivo estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar arquivos web ou arquivos que não tenham extensão.</string>
+    <string name="template">Modelo</string>
 </resources>
