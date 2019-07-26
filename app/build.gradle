@@ -134,7 +134,7 @@ dependencies {
     implementation "com.vladsch.flexmark:flexmark-ext-yaml-front-matter:${version_library_flexmark}"
 
     // UI libs
-    implementation 'com.pixplicity.generate:library:1.1.8'
+    implementation 'com.pixplicity.generate:library:1.3.0'
     implementation 'com.github.AppIntro:AppIntro:4.2.3'
 
     // Tool libraries
