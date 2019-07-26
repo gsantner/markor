@@ -274,4 +274,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="amount_of_space_for_tab">Ilość spacji za tabulator</string>
     <string name="reload">Przeładuj</string>
     <string name="wrap_words">Zawijanie słów</string>
+    <string name="template">Szablon</string>
 </resources>

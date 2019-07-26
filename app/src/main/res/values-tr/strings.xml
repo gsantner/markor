@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (düz metin olarak)</string>
     <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Varolan dosyaları görünüm modunda aç</string>
     <string name="about">Markor Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
@@ -97,7 +98,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="todo_list">Yapılacaklar Listesi</string>
     <string name="task">Görev</string>
     <string name="category">Kategori</string>
-    <string name="context">Bağlam</string>
+    <string name="context">İçerik</string>
     <string name="list">Liste</string>
     <string name="priority">Öncelik</string>
     <string name="history">Geçmiş</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Çeşitli</string>
     <string name="textaction">Metin eylemi</string>
     <string name="textactions">Metin eylemleri</string>
+    <string name="prefer_view">Görünümü tercih et</string>
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
     <string name="color">Renk</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Uygulama başlangıç sekmesi</string>
     <string name="tab_to_select_at_start">Uygulama başlatılırken açılacak varsayılan sekmeyi seçin</string>
     <string name="swipe_to_change_mode">Modu değiştirmek için kaydırın</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Düzenleme veya görüntüleme moduna geçmek için kaydırın (geçerli modun karşısında)</string>
     <string name="folder_first">İlk önce klasör</string>
     <string name="go_to">Git</string>
     <string name="appdata_public">Uygulama Verisi (herkese açık)</string>
@@ -276,15 +279,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Belgeyi alt kısımdaki ana görünümden, dosya tarayıcısından veya başlatıcıdan açabilirsiniz. Markor\'da paylaşılan metni ekleme seçeneği de vardır.</string>
     <string name="notebook_is_the_home_of_your_files">Not Defteri, uygulama başlatıldığında Markor\'un dosya tarayıcısına yüklediği dizindir. Dosyalarınızın ana dizinidir.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">HızlıNot not yazmak için en hızlı seçenektir. &gt;NotDefteri/HızlıNot.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
+    <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. Varsayılan &gt;NoteDefteri/todo.txt&lt; konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
     <string name="view">Görünüm</string>
     <string name="view_mode">Görünüm modu</string>
     <string name="edit_mode">Düzenleme modu</string>
+    <string name="mount_storage">Depolama bağla</string>
+    <string name="application_needs_access_to_storage_mount_it">Bu depolamaya erişmek için izin gerekli. Erişimi sağlamak için depolamayı bağlayın. Bir açılır pencere almak için bu iletişim kutusunu onaylayın. Oradaki depolamayı seçin ve seç tuşuna basın.</string>
+    <string name="share_into">İçine paylaş</string>
     <string name="favourite">Favorilere ekle</string>
     <string name="favourites">Favoriler</string>
     <string name="please_wait">Lütfen bekleyin</string>
     <string name="app_start_folder">Uygulama başlangıç klasörü</string>
+    <string name="tab_width">Sekme genişliği</string>
+    <string name="amount_of_space_for_tab">Tablo oluşturucuyu görüntülemek için boşluk karakteri miktarı</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Seçilen dosya bir düz metin dosyası olabilir. Düzenleyicide veya başka bir uygulamada açmak ister misiniz?\n\nİkili dosyaları açmayı denemeyin. Emin değilseniz diğer uygulamalarla açın.</string>
+    <string name="list_in_recent_files">Son dosyalarda listele</string>
     <string name="reload">Yeniden Yükle</string>
+    <string name="wrap_words">Kelimeleri kaydır</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
+    <string name="recursive_search_in_current_directory">Geçerli dizinde özyinelemeli arama. Sorgu yıldız (*) içeriyorsa, regex search kullanılır, aksi halde sorgunun içerip içermediğini kontrol edin.</string>
+    <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
+    <string name="template">Şablon</string>
 </resources>

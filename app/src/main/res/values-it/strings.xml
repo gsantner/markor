@@ -235,7 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Varie</string>
     <string name="textaction">Azione sul testo</string>
     <string name="textactions">Azioni sul testo</string>
-    <string name="prefer_view">Preferisci vista</string>
+    <string name="prefer_view">Vista preferita</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
     <string name="color">Colore</string>
@@ -302,6 +302,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella cartella corrente. Se la query contiene un asterisco (*) allora si usa la ricerca regex, altrimenti la si cerca direttamente.</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e quelli senza estensione file.</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="template">Template</string>
 </resources>

@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (com a text simple)</string>
     <string name="document_editor_font">Font de l\'editor de notes</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Obre els fitxers existents en mode vista</string>
     <string name="about">Quant a</string>
     <string name="plaintext">Text simple</string>
     <string name="file">Fitxer</string>
@@ -234,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Acció de text</string>
     <string name="textactions">Accions de text</string>
+    <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>
     <string name="popular_documents">Documents populars</string>
     <string name="color">Color</string>
@@ -267,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Pestanya d\'inici de l\'aplicació</string>
     <string name="tab_to_select_at_start">Pestanya per seleccionar quan s\'inicia l\'aplicació</string>
     <string name="swipe_to_change_mode">Feu lliscar el dit per canviar el mode</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Llisqueu el dit per canviar al mode d\'edició o de visualització (oposat al mode actual)</string>
     <string name="folder_first">Carpeta primer</string>
     <string name="go_to">Vés a</string>
     <string name="appdata_public">AppData (públic)</string>
