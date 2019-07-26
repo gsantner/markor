@@ -49,6 +49,6 @@ public class PlaintextConverter extends TextConverter {
         if (appSettings.isExtOpenWithThisApp(ext)) {
             return true;
         }
-        return ext.equals(".txt");
+        return ".txt".equals(ext);
     }
 }

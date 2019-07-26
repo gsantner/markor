@@ -35,7 +35,6 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MarkdownTextActions extends TextActions {
 
@@ -288,6 +287,9 @@ public class MarkdownTextActions extends TextActions {
         }
 
         private void runMarkdownInlineAction(String _action) {
+            if (_hlEditor.getText() == null) {
+                return;
+            }
             if (_hlEditor.hasSelection()) {
                 String text = _hlEditor.getText().toString();
                 int selectionStart = _hlEditor.getSelectionStart();
@@ -323,9 +325,10 @@ public class MarkdownTextActions extends TextActions {
                 }
             } else {
                 //Condition for Empty Selection
-                if (false) {
+                /*if (false) {
                     // Condition for things that should only be placed at the start of the line even if no text is selected
-                } else if (_action.equals("----\n")) {
+                } else */
+                if ("----\n".equals(_action)) {
                     _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action);
                 } else {
                     // Condition for formatting which is inserted on either side of the cursor
@@ -337,9 +340,6 @@ public class MarkdownTextActions extends TextActions {
         }
 
     }
-
-    private static final Pattern LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
-    private static final Pattern IMAGE_PATTERN = Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)");
 
     @SuppressWarnings("RedundantCast")
     private void showInsertImageOrLinkDialog(int action) {
@@ -378,7 +378,7 @@ public class MarkdownTextActions extends TextActions {
             }
 
             String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-            Matcher m = (action == 3 ? LINK_PATTERN : IMAGE_PATTERN).matcher(line);
+            Matcher m = (action == 3 ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
             if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                 int stat = lineStartidx + m.start();
                 int en = lineStartidx + m.end();

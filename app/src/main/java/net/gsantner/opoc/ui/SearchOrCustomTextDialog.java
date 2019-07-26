@@ -126,7 +126,6 @@ public class SearchOrCustomTextDialog {
             }
         };
 
-        final ActivityUtils activityUtils = new ActivityUtils(activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setSingleLine(true);
         searchEditText.setMaxLines(1);
@@ -156,8 +155,7 @@ public class SearchOrCustomTextDialog {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         if (dopt.isSearchEnabled) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ContextUtils cu = new net.gsantner.opoc.util.ContextUtils(listView.getContext());
-            int px = (int) (new net.gsantner.opoc.util.ContextUtils(listView.getContext()).convertDpToPx(8));
+            int px = (int) (new ContextUtils(listView.getContext()).convertDpToPx(8));
             lp.setMargins(px, px / 2, px, px / 2);
             linearLayout.addView(searchEditText, lp);
         }

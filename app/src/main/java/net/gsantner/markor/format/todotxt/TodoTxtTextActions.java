@@ -79,7 +79,7 @@ public class TodoTxtTextActions extends TextActions {
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
-        int _action;
+        private int _action;
 
         TodoTxtTextActionsImpl(int action) {
             _action = action;
@@ -215,8 +215,6 @@ public class TodoTxtTextActions extends TextActions {
                                     _hlEditor.setSelection(newIndex);
                                 }
                             }
-                        } else {
-                            // Maybe show a nice message popup? :)
                         }
                     });
                     return;

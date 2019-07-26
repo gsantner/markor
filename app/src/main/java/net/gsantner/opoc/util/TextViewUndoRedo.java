@@ -271,11 +271,7 @@ public class TextViewUndoRedo {
         }
 
         mEditHistory.mmPosition = sp.getInt(prefix + ".position", -1);
-        if (mEditHistory.mmPosition == -1) {
-            return false;
-        }
-
-        return true;
+        return mEditHistory.mmPosition != -1;
     }
 
     // =================================================================== //

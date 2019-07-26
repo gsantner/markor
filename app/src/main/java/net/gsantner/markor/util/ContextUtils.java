@@ -24,7 +24,6 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     public static String getMimeType(String url) {
-        String mime = null;
         String ext = MimeTypeMap.getFileExtensionFromUrl(url);
         return ext != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) : null;
     }

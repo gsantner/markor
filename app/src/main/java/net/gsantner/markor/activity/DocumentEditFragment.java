@@ -79,7 +79,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
-        args.putBoolean(DocumentIO.EXTRA_ALLOW_RENAME, allowRename);
         f.setArguments(args);
         return f;
     }
@@ -431,8 +430,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean ret = false;
-        if (isAdded() && _hlEditor != null) {
-            boolean argAllowRename = getArguments() == null || getArguments().getBoolean(DocumentIO.EXTRA_ALLOW_RENAME, true);
+        if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
             ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil);
             updateLauncherWidgets();
 
@@ -505,18 +503,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onFragmentFirstTimeVisible() {
         AppSettings as = new AppSettings(getContext());
-        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            //  TODO
-            if (_hlEditor.length() > 0) {
-                int lastPos;
-                if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                    _hlEditor.requestFocus();
-                    _hlEditor.setSelection(lastPos);
-                    _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
-                } else if (as.isEditorStartOnBotttom()) {
-                    _hlEditor.requestFocus();
-                    _hlEditor.setSelection(_hlEditor.length());
-                }
+        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
+            int lastPos;
+            if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
+                _hlEditor.requestFocus();
+                _hlEditor.setSelection(lastPos);
+                _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
+            } else if (as.isEditorStartOnBotttom()) {
+                _hlEditor.requestFocus();
+                _hlEditor.setSelection(_hlEditor.length());
             }
         }
     }

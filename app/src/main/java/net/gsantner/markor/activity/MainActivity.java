@@ -429,7 +429,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 @Override
                 public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
-                        PermissionChecker permc = new PermissionChecker(MainActivity.this);
                         cacheCurrentFolder();
                         _toolbar.setTitle(adapter.areItemsSelected() ? "" : _cachedFolderTitle);
 

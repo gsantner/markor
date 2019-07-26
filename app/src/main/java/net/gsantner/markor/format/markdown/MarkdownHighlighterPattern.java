@@ -21,7 +21,9 @@ public enum MarkdownHighlighterPattern {
     QUOTATION(Pattern.compile("(\\n|^)>")),
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
     CODE(Pattern.compile("(?m)(`(?!`)(.*?)`)|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)")),
-    DOUBLESPACE_LINE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n"));
+    DOUBLESPACE_LINE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n")),
+    ACTION_LINK_PATTERN(Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)")),
+    ACTION_IMAGE_PATTERN(Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)"));
 
 
     public final Pattern pattern;

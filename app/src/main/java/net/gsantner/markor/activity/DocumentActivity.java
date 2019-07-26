@@ -142,7 +142,6 @@ public class DocumentActivity extends AppActivityBase {
 
         Intent receivingIntent = getIntent();
         String intentAction = receivingIntent.getAction();
-        String type = receivingIntent.getType();
         File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
 
         setSupportActionBar(_toolbar);

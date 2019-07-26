@@ -49,6 +49,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
 
+    @BindView(R.id.document__fragment__share_into__highlighting_editor)
+    HighlightingEditor _hlEditor;
+
     public static DocumentShareIntoFragment newInstance(Intent intent) {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         Bundle args = new Bundle();
@@ -69,9 +72,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         f.setArguments(args);
         return f;
     }
-
-    @BindView(R.id.document__fragment__share_into__highlighting_editor)
-    HighlightingEditor _hlEditor;
 
     private ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
 

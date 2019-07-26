@@ -19,8 +19,6 @@ import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
-import java.io.File;
-
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
 public class MarkdownHighlighter extends Highlighter {

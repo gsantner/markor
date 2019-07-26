@@ -278,7 +278,6 @@ public class SearchOrCustomTextDialogCreator {
 
 
     public static void showSearchDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
-        List<String> empty = new ArrayList<>();
         /*SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callbackValue -> {*/

@@ -33,7 +33,6 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
     private Highlighter _hl;
-    private int _hlDelay;
 
     private OnTextChangedListener _onTextChangedListener = null;
     private final Handler _updateHandler = new Handler();
@@ -56,7 +55,6 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
-        _hlDelay = as.getMarkdownHighlightingDelay();
         addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable e) {
@@ -79,7 +77,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setHighlighter(Highlighter newHighlighter) {
         _hl = newHighlighter;
-        _hlDelay = _hl.getHighlightingDelay(getContext());
         reloadHighlighter();
 
         // Alpha in animation

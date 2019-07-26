@@ -181,6 +181,8 @@ public class CommonTextActions {
                 });
                 return true;
             }
+            default:
+                break;
         }
         return false;
     }
