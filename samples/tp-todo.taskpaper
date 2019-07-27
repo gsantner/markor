@@ -1,0 +1,18 @@
+Computer:
+- Run backups @due(2019-07-31)
+
+Phone:
+- Call mom @today
+- Schedule haircut @due(2019-07-31) @priority(3)
+
+Errands:
+- Pick up milk
+- Get gas
+
+Home Remodeling:
+- Get quotes @start(2019-08-01) @due(2019-08-11)
+- Purchases supplies
+
+Archived:
+- Post example file to Github @done(2019-07-27) @project(Computer)
+

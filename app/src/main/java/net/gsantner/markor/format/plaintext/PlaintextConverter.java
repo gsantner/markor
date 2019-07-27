@@ -15,10 +15,14 @@ import android.support.v4.text.TextUtilsCompat;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SuppressWarnings("WeakerAccess")
 public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
+	private static final List<String> EXT = Arrays.asList(new String[] { ".txt", ".taskpaper" });
 
 
     //########################
@@ -49,6 +53,6 @@ public class PlaintextConverter extends TextConverter {
         if (appSettings.isExtOpenWithThisApp(ext)) {
             return true;
         }
-        return ".txt".equals(ext);
+        return EXT.contains(ext);
     }
 }
