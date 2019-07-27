@@ -30,4 +30,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">Siirrä</string>
     <string name="info">Tiedot</string>
     <string name="import_from_device">Tuo laitteelta</string>
+    <string name="import_">Tuo</string>
 </resources>
