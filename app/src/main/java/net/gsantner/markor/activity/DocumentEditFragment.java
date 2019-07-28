@@ -37,9 +37,9 @@ import android.widget.Toast;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -295,7 +295,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
-                    MarkdownTextConverter converter = new MarkdownTextConverter();
+                    TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
+                    converter.setCurrentFileExt(_document.getFileExtension());
                     _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext(), false),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }

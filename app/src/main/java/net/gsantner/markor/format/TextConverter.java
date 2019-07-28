@@ -30,7 +30,7 @@ public abstract class TextConverter {
     protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}"; // this is either 'right' or 'left'
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
-    protected static final String TOKEN_TEXT_CONVERTER_NAME = "{{ post.text_converter_name }}";
+    protected static final String TOKEN_TEXT_CONVERTER_CSS_CLASS = "{{ post.text_converter_name }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
     protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
@@ -40,7 +40,7 @@ public abstract class TextConverter {
     protected static final String HTML004_HEAD_META_VIEWPORT_MOBILE = "<style>video, img { max-width: 100%; } pre { max-width: 100%; overflow: auto; } </style>";//"<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>";
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
-    protected static final String HTML500_BODY = "</head>\n<body onload='onPageLoaded_markor_private();'>\n\n<!-- USER CONTENT -->\n\n\n";
+    protected static final String HTML500_BODY = "</head>\n<body class='" + TOKEN_TEXT_CONVERTER_CSS_CLASS + "' onload='onPageLoaded_markor_private();'>\n\n<!-- USER CONTENT -->\n\n\n";
     //protected static final String HTML900_TO_TOP = "<a class='back_to_top'>&uarr;</a>"
     //        + CSS_S + ".back_to_top { position: fixed; bottom: 80px; right: 40px; z-index: 9999; width: 30px; height: 30px; text-align: center; line-height: 30px; background: #f5f5f5; color: #444; cursor: pointer; border-radius: 2px; display: none; } .back_to_top:hover { background: #e9ebec; } .back_to_top-show { display: block; }" +CSS_E
     //        + "<script>" + "(function() { 'use strict'; function trackScroll() { var scrolled = window.pageYOffset; var coords = document.documentElement.clientHeight; if (scrolled > coords) { goTopBtn.classList.add('back_to_top-show'); } if (scrolled < coords) { goTopBtn.classList.remove('back_to_top-show'); } } function backToTop() { if (window.pageYOffset > 0) { window.scrollBy(0, -80); setTimeout(backToTop, 0); } } var goTopBtn = document.querySelector('.back_to_top'); window.addEventListener('scroll', trackScroll); goTopBtn.addEventListener('click', backToTop); })();" + "</script>";
@@ -51,6 +51,11 @@ public abstract class TextConverter {
 
     // protected static final String HTML_JQUERY_INCLUDE = "<script src='file:///android_asset/jquery/jquery-3.3.1.min.js'></script>"; // currently not bundled
 
+    protected String _currentFileExt;
+
+    public void setCurrentFileExt(String currentFileExt) {
+        _currentFileExt = currentFileExt;
+    }
 
     //########################
     //## Methods
@@ -65,8 +70,8 @@ public abstract class TextConverter {
      */
     public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode) {
         Context context = webView.getContext();
+        setCurrentFileExt(document.getFileExtension());
         String html = convertMarkup(document.getContent(), context, isExportInLightMode);
-
 
         String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
         if (document.getFile() != null && document.getFile().getParentFile() != null) {
@@ -124,7 +129,7 @@ public abstract class TextConverter {
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_NAME, getClass().getSimpleName())
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + _currentFileExt.replace(".", ""))
         ;
 
         return html;

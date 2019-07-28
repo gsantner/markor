@@ -207,6 +207,9 @@ public class Document implements Serializable {
     }
 
     public String getFileExtension() {
+        if (_fileExtension == null && _file != null) {
+            _fileExtension = (_file.getName().contains(".") ? _file.getName().substring(_file.getName().lastIndexOf(".")) : "").toLowerCase();
+        }
         return _fileExtension;
     }
 
