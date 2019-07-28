@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Otros</string>
     <string name="alternative_naming">Nombres alternativos</string>
     <string name="empty_file">Archivo vacío</string>
+    <string name="break_page_pdf_print">Página de interrupción (PDF/impresión)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Especifica si subrayar los códigos de color hexadecimal de acuerdo a su color o no</string>
     <string name="underline_hex_color_codes">Subrayar códigos de color hexadecimal</string>
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
