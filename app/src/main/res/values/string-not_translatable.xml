@@ -233,6 +233,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
     <string name="file_template__txt_zim_wiki" translatable="false">zim-wiki.txt</string>
     <string name="key_value" translatable="false">Key - Value</string>
-    <string name="break_page_pdf_print">Break page (PDF/Printing)</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
 </resources>
