@@ -42,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingsActivity extends AppActivityBase {
-    
+
     @SuppressWarnings("WeakerAccess")
     public static class RESULT {
         public static final int NOCHANGE = -1;

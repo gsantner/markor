@@ -102,8 +102,8 @@
         </activity>
 
 
-
-        <activity android:name=".activity.IntroActivity"
+        <activity
+            android:name=".activity.IntroActivity"
             android:label="@string/about" />
 
         <activity
@@ -121,9 +121,9 @@
 
         <activity
             android:name=".activity.DocumentActivity"
-            android:maxRecents="5"
             android:label="@string/app_name"
             android:launchMode="standard"
+            android:maxRecents="5"
             android:parentActivityName=".activity.MainActivity"
             android:taskAffinity=".activity.DocumentActivity"
             android:theme="@style/AppTheme.Light"
@@ -475,37 +475,295 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.txt" />
 
-                <!-- Handling of file extension ".zim" -->
+                <!-- Handling of file extension ".taskpaper" -->
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\.zim" />
+                    android:pathPattern=".*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\.zim" />
+                    android:pathPattern=".*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.taskpaper" />
                 <data
                     android:mimeType="*/*"
-                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.zim" />
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.taskpaper" />
+
+                <!-- Handling of file extension ".yml" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.yml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.yml" />
+
+                <!-- Handling of file extension ".yaml" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.yaml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.yaml" />
+
+                <!-- Handling of file extension ".toml" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.toml" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.toml" />
+
+                <!-- Handling of file extension ".vcf" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.vcf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.vcf" />
+
+                <!-- Handling of file extension ".ics" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.ics" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.ics" />
+
+                <!-- Handling of file extension ".ini" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.ini" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.ini" />
+
+                <!-- Handling of file extension ".json" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.json" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.json" />
+
+                <!-- Handling of file extension ".csv" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.csv" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.csv" />
+
+
             </intent-filter>
         </activity>
     </application>
