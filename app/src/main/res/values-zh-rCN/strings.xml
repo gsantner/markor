@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML （显示为纯文本）</string>
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
-    <string name="open_existing_files_in_view_mode">在视图模式中打开现有文件</string>
+    <string name="open_existing_files_in_view_mode">在查看模式中打开现有文件</string>
     <string name="about">关于</string>
     <string name="plaintext">纯文本</string>
     <string name="file">文件</string>
@@ -269,7 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">应用程序启动选项卡</string>
     <string name="tab_to_select_at_start">启动应用时选择的选项卡</string>
     <string name="swipe_to_change_mode">滑动以更改模式</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">滑动以更改以编辑或查看模式(当前模式相反)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">滑动以切换编辑或查看模式(当前模式相反)</string>
     <string name="folder_first">文件夹在前</string>
     <string name="go_to">转到</string>
     <string name="appdata_public">应用数据(公共)</string>
