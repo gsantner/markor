@@ -45,6 +45,8 @@
         <item translatable="false">@string/key_tab</item>
         <item translatable="false">@string/search</item>
         <item translatable="false">@string/zero_width_space</item>
+        <item translatable="false">@string/break_page_pdf_print</item>
+        <item translatable="false">@string/ohm</item>
     </string-array>
 
     <string-array name="new_file_types" translatable="false">
