@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">其它</string>
     <string name="alternative_naming">别名</string>
     <string name="empty_file">空文件</string>
+    <string name="break_page_pdf_print">断页 (PDF/打印)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">为十六进制颜色代码按照颜色添加下划线</string>
     <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
     <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
