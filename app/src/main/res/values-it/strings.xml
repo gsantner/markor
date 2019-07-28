@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Altro</string>
     <string name="alternative_naming">Nomi alternativi</string>
     <string name="empty_file">File vuoto</string>
+    <string name="break_page_pdf_print">Pagina di arresto (PDF/Stampa)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
     <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esa</string>
     <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
