@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Другое</string>
     <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
+    <string name="break_page_pdf_print">Страница останова (PDF/Печать)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>

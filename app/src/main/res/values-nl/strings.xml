@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Overige</string>
     <string name="alternative_naming">Alternatieve benaming</string>
     <string name="empty_file">Leeg bestand</string>
+    <string name="break_page_pdf_print">Breek pagina (PDF/Afdrukken)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Of om hex kleurcodes te onderstrepen naar kleur</string>
     <string name="underline_hex_color_codes">Onderstreep Hex Kleurcodes</string>
     <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>

@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Ostatní</string>
     <string name="alternative_naming">Alternativní pojmenování</string>
     <string name="empty_file">Prázdný soubor</string>
+    <string name="break_page_pdf_print">Stránka Break (PDF/Printing)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevné kódy barvou</string>
     <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>

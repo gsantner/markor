@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (como texto simples)</string>
     <string name="document_editor_font">Fonte das notas</string>
     <string name="theme">Tema</string>
-    <string name="open_existing_files_in_view_mode">Abrir arquivos existentes no modo de pre-visualização</string>
+    <string name="open_existing_files_in_view_mode">Abrir arquivos existentes no modo de visualização</string>
     <string name="about">Sobre</string>
     <string name="plaintext">Texto puro</string>
     <string name="file">Arquivo</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioridade</string>
     <string name="history">História</string>
     <string name="sync">Sincronização</string>
-    <string name="search_or_custom">Persquisa / Personalizado</string>
+    <string name="search_or_custom">Busca / Personalizado</string>
     <string name="save">Salvar</string>
     <string name="update">Atualização</string>
     <string name="clear">Limpar</string>

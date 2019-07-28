@@ -18,4 +18,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Ulkoasu</string>
     <string name="rename">Nimeä uudelleen</string>
     <string name="confirm_delete">Vahvista poisto</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Haluatko varmasti poistaa tämän %s?</string>
+    <string name="confirm_overwrite">Vahvista ylikirjoitus</string>
+    <string name="file_already_exists_overwerite">Tiedosto on jo olemassa, korvataanko?</string>
+    <string name="browse_filesystem">Selaa tiedostojärjestelmää</string>
+    <string name="title">Otsikko</string>
+    <string name="empty_directory">Tyhjä hakemisto</string>
+    <string name="enter_name_of_folder">Syötä kansion nimi</string>
+    <string name="create_folder">Luo kansio</string>
+    <string name="create_new_document">Luo uusi asiakirja</string>
+    <string name="move">Siirrä</string>
+    <string name="info">Tiedot</string>
+    <string name="import_from_device">Tuo laitteelta</string>
+    <string name="import_">Tuo</string>
 </resources>
