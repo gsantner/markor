@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (som klartext)</string>
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Öppna existerande fil i vyläge</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Fil</string>
@@ -146,6 +147,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Ingen</string>
     <string name="other">Andra</string>
     <string name="alternative_naming">Alternativ namngivning</string>
+    <string name="empty_file">Tom fil</string>
+    <string name="break_page_pdf_print">Bryt sida (pdf/utskrift)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ge färger skrivna som hexkod ett understreck i aktuell färg</string>
     <string name="underline_hex_color_codes">Färgmarkera hexkoder</string>
     <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
@@ -233,6 +236,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Textåtgärd</string>
     <string name="textactions">Textåtgärder</string>
+    <string name="prefer_view">Föredrag vy</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
     <string name="popular_documents">Populära dokument</string>
     <string name="color">Färg</string>
@@ -266,6 +270,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">App startflik</string>
     <string name="tab_to_select_at_start">Välj uppstartsflik</string>
     <string name="swipe_to_change_mode">Svep för att ändra läge</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Svep för att byta läge till ändrings- eller vyäge (omvänt till nuvarande läge)</string>
     <string name="folder_first">Kataloger överst</string>
     <string name="go_to">Gå till</string>
     <string name="appdata_public">AppData (publik)</string>
@@ -289,5 +294,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Favoriter</string>
     <string name="please_wait">Vänligen vänta</string>
     <string name="app_start_folder">Programmets startmapp</string>
+    <string name="tab_width">Tabbredd</string>
+    <string name="amount_of_space_for_tab">Antal blanksteg att visa i tab</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Filen du valt kan vara rå klartext. Vill du öppna den i texteditor eller i en annan app?\n\nFörsök inte öppna binärfiler. Om du är osäker, var god öppna i en annan app.</string>
+    <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
+    <string name="wrap_words">Bryt långa rader</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell skrollning.</string>
 </resources>
