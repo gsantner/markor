@@ -301,4 +301,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell skrollning.</string>
+    <string name="recursive_search_in_current_directory">Sök rekursivt ned i katalogen när förfrågan innehåller regex med asteriks (*) används; stanna se om förfrågan är hållen i sammanhanget.</string>
 </resources>
