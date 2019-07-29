@@ -236,7 +236,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Textåtgärd</string>
     <string name="textactions">Textåtgärder</string>
-    <string name="prefer_view">Föredrag vy</string>
+    <string name="prefer_view">Föredra vy</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
     <string name="popular_documents">Populära dokument</string>
     <string name="color">Färg</string>
@@ -302,4 +302,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Bryt långa rader</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell skrollning.</string>
     <string name="recursive_search_in_current_directory">Sök rekursivt ned i katalogen när förfrågan innehåller regex med asteriks (*) används; stanna se om förfrågan är hållen i sammanhanget.</string>
+    <string name="always_open_with_this_app">Föredra att öppna med appen</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer av typen i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webfiler och filer utan filändelse.</string>
+    <string name="template">Mall</string>
 </resources>
