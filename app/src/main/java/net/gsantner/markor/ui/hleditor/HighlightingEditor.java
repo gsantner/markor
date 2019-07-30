@@ -62,7 +62,9 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (!_modified) {
                     return;
                 }
-                _updateHandler.postDelayed(_updateRunnable, _hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext()));
+                if (_hl != null) {
+                    _updateHandler.postDelayed(_updateRunnable, _hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext()));
+                }
             }
 
             @Override
