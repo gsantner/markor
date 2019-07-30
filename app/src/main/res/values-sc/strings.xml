@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Àteru</string>
     <string name="alternative_naming">Nùmenes alternativos</string>
     <string name="empty_file">Documentu bòidu</string>
+    <string name="break_page_pdf_print">Interrutzione de pàgina (PDF/Imprenta)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sutalìnia o nono sos còdighes esadetzimales de sos colores a segunda de sos colores</string>
     <string name="underline_hex_color_codes">Sutalìnia sos còdighes esadetzimales de sos colores</string>
     <string name="insert_current_date_when_starting_new_task">Inserta sa data currente cando incumentzas un\'atividade noa</string>
