@@ -111,6 +111,8 @@ public class HighlightingEditor extends AppCompatEditText {
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();
+            } catch (Error e) {
+                e.printStackTrace();
             }
             _modified = true;
         }
