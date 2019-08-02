@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (en texte brut)</string>
     <string name="document_editor_font">Police de l\'éditeur</string>
     <string name="theme">Thème</string>
-    <string name="open_existing_files_in_view_mode">Ouvrir les fichiers existants en mode vue</string>
+    <string name="open_existing_files_in_view_mode">Ouvrir les fichiers existants en mode lecture</string>
     <string name="about">À propos</string>
     <string name="plaintext">Texte brut</string>
     <string name="file">Fichier</string>
