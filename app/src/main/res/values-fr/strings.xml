@@ -270,7 +270,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Onglet de démarrage</string>
     <string name="tab_to_select_at_start">Onglet à sélectionner lors du démarrage de l\'application</string>
     <string name="swipe_to_change_mode">Glisser pour changer de mode</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Glisser pour modifier ou afficher le mode (en face du mode actuel)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Glisser pour modifier le mode édition ou lecture (contraire du mode actuel)</string>
     <string name="folder_first">Dossiers en premier</string>
     <string name="go_to">Allez à</string>
     <string name="appdata_public">Données de l\'application (Publique)</string>
