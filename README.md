@@ -34,7 +34,7 @@ Markor is a TextEditor for Android. This project aims to make an editor that is 
 <br/>📚 Notebook: Store all documents on a common filesystem folder
 <br/>📓 QuickNote: Fast accessible for keeping notes
 <br/>☑️ To-Do: Write down your to-do
-<br/>🖍 Markup formats: Markdown and todo.txt
+<br/>🖍 Formats: Markdown, todo.txt, csv, ics, ini, json, toml, txt, vcf, yaml  
 <br/>📋 Copy to clipboard: Copy any text, including text shared into Markor
 <br/>💡 Notebook is the root folder of documents and can be changed to any location on filesystem. QuickNote and ToDo are textfiles
 <br/>
@@ -43,37 +43,23 @@ Markor is a TextEditor for Android. This project aims to make an editor that is 
 <br/>👌 No ads or unnecessary permissions
 <br/>🌎 Language selection -- use other language than on the system
 <br/>
-<br/>💡 Unlike other office suites (like LibreOffice) or to-do apps (like Wunderlist), Markor has one streamlined text editor with no other editing UI. Markor shows how powerful and expressive simple text can be. View, edit, manipulate and convert plaintext!
-<br/>
-<br/>🔃 Markor works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli
-<br/>
-<br/>👀 These apps may also be in your interest if you like Markor: OneNote, EverNote, Google Keep, Wunderlist, Read-It-Later, Pocket, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
-
+<br/>🔃 Markor is an offline app. It works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli
 
 ### Privacy<a name="privacy"></a>
-The app doesn't use the internet connection unless external resources are referenced in self created documents (on purpose). 
-The app is working completly offline, no internet connection required! No personal data will be requested or shared (i.e. calendar or contacts).
-Documents can be shared to other apps from inside the app by pressing the share button.
-Document will be stored locally in the device public documents folder or in a custom folder.
+The app doesn't use the internet connection unless external resources (e.g. display image  by URL) are referenced in user generated content. 
+The app is working completly offline, no internet connection required! No personal data will be requested or shared with the author or third parties (i.e. calendar or contacts).
+Files can be shared to other apps from inside the app by pressing the share button.
+Files are stored locally in a user selectable folder, defaulting to the device public documents folder.
 
-## Contributions
-The project is always open for contributions and welcomes pull requests. Take a look at our [issue tracker](https://github.com/gsantner/markor/issues) for open issues, especially those tagged with [good first issue](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) and [help wanted](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
-The project uses [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions), with one exception: private members are `_camelCase` instead of `mBigCamel`. You may use Android Studios _auto reformat feature_ before sending a PR.
+#### Android Permissions
+* WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE  
+  Read and write files from/to device storage.
+* INTERNET  
+  In user generated content data can be loaded from the internet.
+* INSTALL_SHORTCUT  
+  Install shortcut to launchers to open a file/folder in Markor.
 
-Translations can be contributed via [Crowdin](https://crowdin.com/project/markor/invite).
-
-#### Resources
-* Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt) | [CoC](/CODE_OF_CONDUCT.md)
-* App on F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor/) [2](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
-* App on Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Crash60](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
-
-## Licensing
-The code of the app is licensed Apache 2.0 (See [LICENSE](/LICENSE.txt) for details).  
-Localization files and resources (string\*.xml) are licensed CC0 1.0.  
-Project is based on unmaintained projects writeily and writeily-pro.
-
-
-## Screenshots
+## Demo
 <div style="display:flex;" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/01.png" width="19%" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/02.png" width="19%" style="margin-left:10px;" >
@@ -85,6 +71,26 @@ Project is based on unmaintained projects writeily and writeily-pro.
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/03.png" width="19%" style="margin-left:10px;" >
 	<img src="https://raw.githubusercontent.com/gsantner/markor-metadata-latest/master/en-US/phoneScreenshots/06.png" width="19%" style="margin-left:10px;" >
 </div>
+
+## Contributions
+* **Development (Source code)**  
+  The project is always open for contributions and welcomes merge requests. Take a look at our [issue tracker](https://github.com/gsantner/markor/issues) for open issues, especially those tagged with [good first issue](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) and [help wanted](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
+The project uses [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions). Additionally: Use `_camelCase` instead of `mCamelCase` for class members. Use Android Studios _auto reformat feature_ before sending a MR.
+* **Localization**  
+  Translate on [Crowdin](https://crowdin.com/project/markor/invite) (free).
+
+#### Resources
+* Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt)
+* F-Droid Store: [Listing](https://f-droid.org/packages/net.gsantner.markor/) [2](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
+* Google Play Store: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Crash60](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
+* More download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases(https://github.com/gsantner/markor/releases)
+
+## Licensing
+The code of the app is licensed Apache 2.0 or Commerical (See [LICENSE](/LICENSE.txt) for details).  
+Localization & translation files (string\*.xml) are licensed CC0 1.0.  
+Project is based on unmaintained projects writeily and writeily-pro.
+
+
 
 <!--
 ### Notice
