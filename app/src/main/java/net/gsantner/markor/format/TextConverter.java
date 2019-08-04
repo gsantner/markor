@@ -71,7 +71,12 @@ public abstract class TextConverter {
     public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode) {
         Context context = webView.getContext();
         setCurrentFileExt(document.getFileExtension());
-        String html = convertMarkup(document.getContent(), context, isExportInLightMode);
+        String html;
+        try {
+            html = convertMarkup(document.getContent(), context, isExportInLightMode);
+        } catch (Exception e) {
+            html = "Please report at project issue tracker: " + e.toString();
+        }
 
         String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
         if (document.getFile() != null && document.getFile().getParentFile() != null) {

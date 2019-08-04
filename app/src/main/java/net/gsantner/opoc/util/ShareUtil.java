@@ -193,6 +193,19 @@ public class ShareUtil {
     }
 
     /**
+     * Cap text to first x characters if the Android Transation limit (1MB in total) is expected
+     * to be reached. As other values may be contained in the Intent this might not work in all cases.
+     */
+    protected String optCapTextToTransactionLimit(String text) {
+        text = TextUtils.isEmpty(text) ? "" : text;
+        if (text.length() > 120000) {
+            Toast.makeText(_context, "The Android system allows to share 1MB of data maximum. The content was too big and automatically capped.", Toast.LENGTH_LONG).show();
+            return text.substring(0, 120000);
+        }
+        return text;
+    }
+
+    /**
      * Share text with given mime-type
      *
      * @param text     The text to share
@@ -200,7 +213,7 @@ public class ShareUtil {
      */
     public void shareText(String text, @Nullable String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, text);
+        intent.putExtra(Intent.EXTRA_TEXT, optCapTextToTransactionLimit(text));
         intent.setType(mimeType != null ? mimeType : MIME_TEXT_PLAIN);
         showChooser(intent, null);
     }
@@ -482,7 +495,7 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
         if (body != null) {
-            intent.putExtra(Intent.EXTRA_TEXT, body);
+            intent.putExtra(Intent.EXTRA_TEXT, optCapTextToTransactionLimit(body));
         }
         if (to != null && to.length > 0 && to[0] != null) {
             intent.putExtra(Intent.EXTRA_EMAIL, to);
