@@ -135,6 +135,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         }
 
         File descriptionFile = file.equals(_currentFolder.getParentFile()) ? fileParent : file;
+        //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 

@@ -22,5 +22,5 @@
 
 Blog / project page: [gsantner.net](https://gsantner.net) 
 
-![Markor Logo](https://raw.githubusercontent.com/gsantner/markor/dev/app/src/main/ic_launcher-web.png)
+![Markor Logo](https://raw.githubusercontent.com/gsantner/markor/master/app/src/main/ic_launcher-web.png)
 

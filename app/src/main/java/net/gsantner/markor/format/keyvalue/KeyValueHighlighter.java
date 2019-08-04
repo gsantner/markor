@@ -49,6 +49,7 @@ public class KeyValueHighlighter extends Highlighter {
             createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_KEY.getPattern(), Typeface.BOLD);
             createRelativeSizeSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 1.25f);
             createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 0xffef6D00);
+            createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_COMMENT.getPattern(), 0xff88b04b);
             _profiler.restart("KeyValue: comment");
             createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_COMMENT.getPattern(), 0xff88b04b);
 
@@ -87,6 +88,7 @@ public class KeyValueHighlighter extends Highlighter {
         PATTERN_VCARD_KEY(Pattern.compile("(?im)^(?<FIELD>[^\\s:;]+)(;(?<PARAM>[^=:;]+)=\"?(?<VALUE>[^:;]+)\"?)*:")),
         PATTERN_INI_HEADER(Pattern.compile("(?im)^(\\[.*\\])$")),
         PATTERN_INI_KEY(Pattern.compile("(?im)^([a-z_0-9]+)\\s*[=]")),
+        PATTERN_INI_COMMENT(Pattern.compile("(?im)^(;.*)$")),
         PATTERN_UNORDERED_LIST(MarkdownHighlighterPattern.LIST_UNORDERED.pattern),
         PATTERN_COMMENT(Pattern.compile("(?im)^((#|//)\\s+.*)$")),
         PATTERN_CSV(Pattern.compile("[,;:]")),
