@@ -1,0 +1,13 @@
+* Show app intro at first start
+* All new file navigation
+* Add favourite files
+* Add quick navigiation options (to notebook, sdcard, AppData and more)
+* Add option to set Navigation-Bar color
+* Combine edit & view mode to one fragment, show view as overlay
+* Add horizontal scrolling for code blocks in view mode
+* More efficient undo/redo
+* Option to enable/disable swipe to change mode
+* WikiLinks: Disable default escaped characters, so subfolder path is not converted to hyphen
+* Added fonts: Source Pro, DejaVu Sans Mono, Ubuntu, Lato
+* Scan storage Fonts folder for custom fonts
+* Add word count to document info dialog﻿

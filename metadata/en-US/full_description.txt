@@ -1,0 +1,28 @@
+📝 Create notes and manage your to-do list using simple markup formats
+🌲 Work completely offline - whenever, wherever
+👌 Compatible with any other plaintext software on any platform -- edit with notepad or vim, filter with grep, convert to PDF or create a zip archive
+
+🖍 Syntax Highlighting and format related actions -- quick insert pictures and to-do
+👀 Convert, preview, and share documents as HTML and PDF
+
+📚 Notebook: Store all documents on a common filesystem folder
+📓 QuickNote: Fast accessible for keeping notes
+☑️ To-Do: Write down your to-do
+🖍 Markup formats: Markdown and todo.txt
+📋 Copy to clipboard: Copy any text, including text shared into Markor
+💡 Notebook is the root folder of documents and can be changed to any location on filesystem. QuickNote and ToDo are textfiles
+
+🎨 Highly customizeable, dark theme available
+💾 Auto-Save with options for undo/redo
+👌 No ads or unnecessary permissions
+🌎 Language selection -- use other language than on the system
+
+💡 Unlike other office suites (like <a href="fdroid.app:org.documentfoundation.libreoffice">LibreOffice</a>) or to-do apps (like Wunderlist), Markor has one streamlined text editor with no other editing UI. Markor shows how powerful and expressive simple text can be. View, edit, manipulate and convert plaintext!
+
+🔃 Markor works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, <a href="fdroid.app:com.owncloud.android">OwnCloud</a>, <a href="fdroid.app:com.nextcloud.client">NextCloud</a>, <a href="fdroid.app:com.seafile.seadroid2">Seafile</a>, <a href="fdroid.app:com.nutomic.syncthingandroid">Syncthing</a>, <a href="fdroid.app:org.amoradi.syncopoli">Syncopoli</a>
+
+👀 These apps may also be in your interest if you like Markor: OneNote, EverNote, Google Keep, Wunderlist, Read-It-Later, Pocket, Epsilon Notes, iA Writer, Todoist, Shaarli, Wallabag, Simple Notes, Simpletask, Share to clipboard, NextCloud Bookmarks, Easy Open Link
+
+
+<b>Support the project:</b>
+<a href="https://github.com/gsantner/markor/issues/">Report ideas and issues</a> | <a href="https://matrix.to/#/#markor:matrix.org">Join discussion on Matrix</a> | <a href="https://crowdin.com/project/markor/invite">Translate</a> | <a href="https://github.com/gsantner/markor#contributions">More information about contributions</a> | <a href="https://gsantner.net/android-contribution-guide/?packageid=net.gsantner.markor&name=Markor&web=https://github.com/gsantner/markor&source=fdroid#logcat">Android Contribution Guide</a>

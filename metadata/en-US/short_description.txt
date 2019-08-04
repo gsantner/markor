@@ -1,0 +1,1 @@
+Text editor - Notes & ToDo. Lightweight. Markdown and todo.txt support.
