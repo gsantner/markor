@@ -21,11 +21,9 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.util.Locale;
 import java.util.UUID;
 
 public class DocumentIO {
@@ -64,7 +62,6 @@ public class DocumentIO {
 
         Document document = new Document();
         document.setDoHistory(false);
-        document.setFileExtension(MarkdownTextConverter.EXT_MARKDOWN__MD);
         File extraPath = (File) arguments.getSerializable(EXTRA_PATH);
         File filePath = extraPath;
 
@@ -76,14 +73,6 @@ public class DocumentIO {
                 filePath = new File(extraPath, String.format("%s-%s%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
             }
         } else if (filePath.isFile() && filePath.canRead()) {
-            // Extract existing extension
-            for (String ext : MarkdownTextConverter.MD_EXTENSIONS) {
-                if (filePath.getName().toLowerCase(Locale.getDefault()).endsWith(ext)) {
-                    document.setFileExtension(ext);
-                    break;
-                }
-            }
-
             // Extract content and title
             document.setTitle(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
             document.setContent(FileUtils.readTextFileFast(filePath));
@@ -95,8 +84,11 @@ public class DocumentIO {
             String fnlower = document.getFile().getName().toLowerCase();
             document.setFormat(TextFormat.FORMAT_PLAIN);
 
-            if (SttCommander.TODOTXT_FILE_PATTERN.matcher(fnlower).matches()) {
+            if (TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_TODOTXT);
+                if (!TextUtils.isEmpty(document.getContent())) {
+                    document.setContent(document.getContent().trim());
+                }
             } else if (TextFormat.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_KEYVALUE);
             } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
@@ -104,32 +96,23 @@ public class DocumentIO {
             } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             } else {
-                String oldTitle = document.getTitle();
-                if (oldTitle.contains(".")) {
-                    int lastIndexOfDot = oldTitle.lastIndexOf(".");
-
-                    //divide oldTitle to document title and file extension
-                    document.setFileExtension(oldTitle.substring(lastIndexOfDot));
-                    document.setTitle(oldTitle.substring(0, lastIndexOfDot));
-                } else {
-                    document.setFileExtension("");
-                    document.setTitle(oldTitle);
-                }
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             }
         }
 
-        if (document.getFormat() == TextFormat.FORMAT_TODOTXT && !TextUtils.isEmpty(document.getContent())) {
-            document.setContent(document.getContent().trim());
+        String title;
+        if ((title = document.getTitle()).contains(".")) {
+            int lastIndexOfDot = title.lastIndexOf(".");
+            document.setTitle(title.substring(0, lastIndexOfDot));
         }
 
         document.setDoHistory(true);
         return document;
     }
 
-    public static synchronized boolean saveDocument(Document document, String currentText, ShareUtil shareUtil) {
+    public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil) {
         boolean ret;
-        String filename = DocumentIO.normalizeTitleForFilename(document, currentText) + document.getFileExtension();
+        String filename = DocumentIO.normalizeTitleForFilename(document, text) + document.getFileExtension();
         document.setDoHistory(true);
         document.setFile(new File(document.getFile().getParentFile(), filename));
 
@@ -137,9 +120,9 @@ public class DocumentIO {
 
         document.setFile(documentInitial.getFile());
 
-        if (!currentText.equals(documentInitial.getContent())) {
+        if (!text.equals(documentInitial.getContent())) {
             document.forceAddNextChangeToHistory();
-            document.setContent(currentText);
+            document.setContent(text + (!TextUtils.isEmpty(text) && !text.endsWith("\n") ? "\n" : ""));
 
             // Create parent (=folder of file) if not exists
             if (!document.getFile().getParentFile().exists()) {

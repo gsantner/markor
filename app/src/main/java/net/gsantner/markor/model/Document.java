@@ -213,10 +213,6 @@ public class Document implements Serializable {
         return _fileExtension;
     }
 
-    public void setFileExtension(String fileExtension) {
-        _fileExtension = fileExtension;
-    }
-
     public long getLastChanged() {
         return _lastChanged;
     }
