@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.text.TextWatcher;
+import android.text.Editable;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
@@ -51,6 +53,8 @@ public class WrRenameDialog extends DialogFragment {
 
     private EditText _newNameField;
     private Callback.a1<File> _callback;
+    private boolean _filenameClash;
+    private boolean _filenameChanged;
 
     @NonNull
     @Override
@@ -63,6 +67,60 @@ public class WrRenameDialog extends DialogFragment {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         _newNameField = dialog.findViewById(R.id.new_name);
+        _newNameField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                _filenameChanged = true;
+                if (_filenameClash) {
+                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    dialog.setMessage("");
+                    _filenameClash = false;
+                }
+            }
+        });
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+            View root = inflater.inflate(R.layout.rename__dialog, null);
+            String newFileName = _newNameField.getText().toString();
+            ShareUtil shareUtil = new ShareUtil(root.getContext());
+            boolean renamed = false;
+            if (shareUtil.isUnderStorageAccessFolder(file)) {
+                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+                if (dof != null) {
+                    renamed = dof.renameTo(newFileName);
+                    renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
+                }
+            } else {
+                File newFile = new File(file.getParent(), newFileName);
+                if (_filenameChanged && newFile.exists()) {
+                    dialog.setMessage("File already exists! Please enter a different filename");
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    _filenameClash = true;
+                } else {
+                    renamed = FileUtils.renameFile(file, newFile);
+                }
+            }
+
+            if (renamed || !_filenameChanged) {
+                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
+                if (_callback != null) {
+                    _callback.callback(file);
+                }
+                shareUtil.freeContextRef();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> dialog.dismiss());
+
+        //dialog.show();
+
         return dialog;
     }
 
@@ -75,6 +133,7 @@ public class WrRenameDialog extends DialogFragment {
         root = inflater.inflate(R.layout.rename__dialog, null);
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));
+        dialogBuilder.setMessage("");
         dialogBuilder.setView(root);
 
         EditText editText = root.findViewById(R.id.new_name);
@@ -83,34 +142,9 @@ public class WrRenameDialog extends DialogFragment {
         editText.setTextColor(ContextCompat.getColor(root.getContext(),
                 darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
-
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
-            String newFileName = _newNameField.getText().toString();
-            ShareUtil shareUtil = new ShareUtil(root.getContext());
-            boolean renamed = false;
-            if (shareUtil.isUnderStorageAccessFolder(file)) {
-                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
-                if (dof != null) {
-                    renamed = dof.renameTo(newFileName);
-                    renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
-                }
-            } else {
-                renamed = FileUtils.renameFileInSameFolder(file, newFileName);
-            }
-
-            if (renamed) {
-                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
-                if (_callback != null) {
-                    _callback.callback(file);
-                }
-            }
-            shareUtil.freeContextRef();
-        });
-
-        dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
+        dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
 
         return dialogBuilder;
     }
-
-
 }
