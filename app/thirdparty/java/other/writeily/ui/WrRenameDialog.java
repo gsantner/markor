@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.text.TextWatcher;
 import android.text.Editable;
 
@@ -79,7 +80,7 @@ public class WrRenameDialog extends DialogFragment {
                 _filenameChanged = true;
                 if (_filenameClash) {
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                    dialog.setMessage("");
+                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText("");
                     _filenameClash = false;
                 }
             }
@@ -99,7 +100,8 @@ public class WrRenameDialog extends DialogFragment {
             } else {
                 File newFile = new File(file.getParent(), newFileName);
                 if (_filenameChanged && newFile.exists()) {
-                    dialog.setMessage("File already exists! Please enter a different filename");
+                    //dialog.setMessage("File already exists! Please enter a different filename");
+                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText("File already exists! Please enter a different filename");
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     _filenameClash = true;
                 } else {
@@ -119,8 +121,6 @@ public class WrRenameDialog extends DialogFragment {
 
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> dialog.dismiss());
 
-        //dialog.show();
-
         return dialog;
     }
 
@@ -133,7 +133,6 @@ public class WrRenameDialog extends DialogFragment {
         root = inflater.inflate(R.layout.rename__dialog, null);
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));
-        dialogBuilder.setMessage("");
         dialogBuilder.setView(root);
 
         EditText editText = root.findViewById(R.id.new_name);
