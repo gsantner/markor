@@ -47,7 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (простой текст)</string>
     <string name="document_editor_font">Шрифт редактора заметок</string>
     <string name="theme">Тема</string>
-    <string name="open_existing_files_in_view_mode">Открыть существующие файлы в режиме просмотра</string>
+    <string name="open_existing_files_in_view_mode">Открывать существующие файлы в режиме просмотра</string>
     <string name="about">О программе</string>
     <string name="plaintext">Простой текст</string>
     <string name="file">Файл</string>
@@ -148,7 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Другое</string>
     <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
-    <string name="break_page_pdf_print">Страница останова (PDF/Печать)</string>
+    <string name="break_page_pdf_print">Разрыв страницы (PDF/Печать)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
@@ -236,7 +236,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Прочее</string>
     <string name="textaction">Операция с текстом</string>
     <string name="textactions">Операции с текстом</string>
-    <string name="prefer_view">Вид</string>
+    <string name="prefer_view">Предпочитать просмотр</string>
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Популярные документы</string>
     <string name="color">Цвет</string>
@@ -270,7 +270,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Вкладка запуска приложения</string>
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Смахните, чтобы изменить режим редактирования или просмотра (напротив текущего режима)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Смахните для перехода между режимом редактирования и просмотра (на режим, противоположный текущему)</string>
     <string name="folder_first">Сначала папку</string>
     <string name="go_to">Перейти к</string>
     <string name="appdata_public">AppData (публичный)</string>
@@ -294,7 +294,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Избранное</string>
     <string name="please_wait">Пожалуйста подождите</string>
     <string name="app_start_folder">Папка запуска приложения</string>
-    <string name="tab_width">Ширина отступа</string>
+    <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов для отображения отступа</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
     <string name="list_in_recent_files">Список последних файлов</string>
