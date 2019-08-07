@@ -236,7 +236,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Action texte</string>
     <string name="textactions">Actions texte</string>
-    <string name="prefer_view">Préférer la vue</string>
+    <string name="prefer_view">Vue préférée</string>
     <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
     <string name="popular_documents">Documents populaires</string>
     <string name="color">Couleur</string>
