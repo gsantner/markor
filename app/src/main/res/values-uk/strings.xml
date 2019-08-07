@@ -148,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Інше</string>
     <string name="alternative_naming">Альтернативне іменування</string>
     <string name="empty_file">Порожній файл</string>
+    <string name="break_page_pdf_print">Розрив сторінки (PDF/Друк)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
     <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
@@ -235,7 +236,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Різне</string>
     <string name="textaction">Команда тексту</string>
     <string name="textactions">Команди тексту</string>
-    <string name="prefer_view">Бажаний вигляд</string>
+    <string name="prefer_view">Перевага перегляду</string>
     <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
     <string name="popular_documents">Популярні документи</string>
     <string name="color">Колір</string>
