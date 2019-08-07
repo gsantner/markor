@@ -62,7 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Обрати елементи</string>
     <string name="one_item_selected">Один елемент обрано</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d елементів обрано</string>
-    <string name="hide_statusbar_at_this_view">Приховувати рядок статусу</string>
+    <string name="hide_statusbar_at_this_view">Приховувати рядок статусу для цього екрану</string>
     <string name="hide_statusbar">Сховати рядок статусу</string>
     <string name="name">Ім\'я</string>
     <string name="url_or_path">URL / Шлях</string>
@@ -268,8 +268,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам подобається цей проект? Ви хотіли би підтримати подальший розвиток та виправлення помилок?\n\nРозробка програм і написання супровідних записів до блогу займає чимало часу! Якщо ви хочете, аби проект розививався й далі, зробіть, будь ласка, невелике пожертвування!\n\nЦей проект розробляється у вільний час, абсолютно безкоштовно та без жодної реклами!</string>
     <string name="app_start_tab">Вкладка запуску програми</string>
     <string name="tab_to_select_at_start">Вибрати стартову сторінку програми</string>
-    <string name="swipe_to_change_mode">Проведіть, щоб змінити режим</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Проведіть пальцем для зміни режиму редагування та перегляду (на протилежний до активного)</string>
+    <string name="swipe_to_change_mode">Зміна режиму змахуванням</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Проведіть пальцем для переходу між редагуванням та переглядом (на режим, протилежний до поточного)</string>
     <string name="folder_first">Спершу папки</string>
     <string name="go_to">Перейти</string>
     <string name="appdata_public">AppData (публічна)</string>
@@ -277,13 +277,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_sdcard">AppData (SD-карта)</string>
     <string name="internal_storage">Внутрішнє сховище</string>
     <string name="open_the_document_from_main_view">Ви можете відкрити документ з головного екрану внизу, переглядача файлів чи програми робочого стола. Також є можливість додати текст, поширений у Markor.</string>
-    <string name="notebook_is_the_home_of_your_files">Notebook це папка, яку Markor завантажує у переглядач файлів, коли програма запускається. Це домашня папака для ваших файлів.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook – тека, яку Markor завантажує у переглядач файлів при запуску програми. Це домашня тека ваших файлів.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote це найшвидший спосіб записувати нотатки. Це файл у форматі Markdown з типовим розташуванням &gt;Notebook/QuickNote.md&lt;, яке ви можете змінити у налаштуваннях.</string>
     <string name="todo_is_the_easiest_way_">Керуйте своїми завданнями з ToDo. Це файл у форматі todo.txt, за умовчанням розташований у &gt;Notebook/todo.txt&lt;, ви можете встановити власний шлях у налаштуваннях.</string>
     <string name="navigationbar_color">Колір панелі навігації</string>
     <string name="black">Чорний</string>
     <string name="white">Білий</string>
-    <string name="view">Переглянути</string>
+    <string name="view">Перегляд</string>
     <string name="view_mode">Режим перегляду</string>
     <string name="edit_mode">Режим редагування</string>
     <string name="mount_storage">Підключити сховище</string>
