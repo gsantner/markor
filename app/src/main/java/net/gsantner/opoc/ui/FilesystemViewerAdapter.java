@@ -361,6 +361,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     public boolean goUp() {
         if (canGoUp()) {
             if (_currentFolder != null && _currentFolder.getAbsolutePath() != null && _currentFolder.getParentFile() != null && !_currentFolder.getParentFile().getAbsolutePath().equals(_currentFolder.getAbsolutePath())) {
+                unselectAll();
                 loadFolder(_currentFolder.getParentFile());
                 return true;
             }
