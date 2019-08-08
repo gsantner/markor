@@ -51,11 +51,9 @@ public class WrRenameDialog extends DialogFragment {
         return dialog;
     }
 
-
-    private EditText _newNameField;
     private Callback.a1<File> _callback;
     private boolean _filenameClash;
-    private String _origFilename;
+    private AlertDialog _dialog;
 
     @NonNull
     @Override
@@ -64,66 +62,48 @@ public class WrRenameDialog extends DialogFragment {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater);
-        AlertDialog dialog = dialogBuilder.show();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        _dialog = dialogBuilder.show();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        _newNameField = dialog.findViewById(R.id.new_name);
-        _newNameField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (_origFilename == null) {
-                    _origFilename = s.toString();
-                }
-            }
+        EditText newNameField = _dialog.findViewById(R.id.new_name);
+        addFilenameClashTextWatcher(newNameField);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (_filenameClash) {
-                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText("");
-                    _filenameClash = false;
-                }
-            }
-        });
-
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+        _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             View root = inflater.inflate(R.layout.rename__dialog, null);
-            String newFileName = _newNameField.getText().toString();
+            String newFileName = newNameField.getText().toString();
             ShareUtil shareUtil = new ShareUtil(root.getContext());
             boolean renamed = false;
+            boolean filenameChanged = !file.getName().equals(newFileName);
+            if (filenameChanged) {
+                _filenameClash = checkFilenameClash(file, newFileName);
+            }
             if (shareUtil.isUnderStorageAccessFolder(file)) {
                 DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
                 if (dof != null) {
-                    renamed = dof.renameTo(newFileName);
-                    renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
+                    if (!_filenameClash) {
+                        renamed = dof.renameTo(newFileName);
+                        renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
+                    }
                 }
             } else {
-                File newFile = new File(file.getParent(), newFileName);
-                if (_origFilename != null && !_origFilename.equals(newFileName) && newFile.exists()) {
-                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                    _filenameClash = true;
-                } else {
-                    renamed = FileUtils.renameFile(file, newFile);
+                if (!_filenameClash) {
+                    renamed = FileUtils.renameFileInSameFolder(file, newFileName);
                 }
             }
 
-            if (renamed || _origFilename == null) {
+            if (renamed || !filenameChanged) {
                 AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                 if (_callback != null) {
                     _callback.callback(file);
                 }
                 shareUtil.freeContextRef();
-                dialog.dismiss();
+                _dialog.dismiss();
             }
         });
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> dialog.dismiss());
+        _dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> _dialog.dismiss());
 
-        return dialog;
+        return _dialog;
     }
 
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
@@ -141,11 +121,40 @@ public class WrRenameDialog extends DialogFragment {
         editText.requestFocus();
         editText.setText(file.getName());
         editText.setTextColor(ContextCompat.getColor(root.getContext(),
-                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+                    darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
         dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
 
         return dialogBuilder;
+    }
+
+    private void addFilenameClashTextWatcher(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (_filenameClash) {
+                    ((AlertDialog) _dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    ((TextView) _dialog.findViewById(R.id.dialog_message)).setText("");
+                    _filenameClash = false;
+                }
+            }
+        });
+    }
+
+    private boolean checkFilenameClash(File originalFile, String newName) {
+        File newFile = new File(originalFile.getParent(), newName);
+        if (newFile.exists()) {
+            ((TextView) _dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
+            _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            return true;
+        }
+        return false;
     }
 }
