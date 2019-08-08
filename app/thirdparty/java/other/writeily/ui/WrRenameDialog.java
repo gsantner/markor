@@ -55,7 +55,7 @@ public class WrRenameDialog extends DialogFragment {
     private EditText _newNameField;
     private Callback.a1<File> _callback;
     private boolean _filenameClash;
-    private boolean _filenameChanged;
+    private String _origFilename;
 
     @NonNull
     @Override
@@ -70,14 +70,17 @@ public class WrRenameDialog extends DialogFragment {
         _newNameField = dialog.findViewById(R.id.new_name);
         _newNameField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (_origFilename == null) {
+                    _origFilename = s.toString();
+                }
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-                _filenameChanged = true;
                 if (_filenameClash) {
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     ((TextView) dialog.findViewById(R.id.dialog_message)).setText("");
@@ -99,9 +102,8 @@ public class WrRenameDialog extends DialogFragment {
                 }
             } else {
                 File newFile = new File(file.getParent(), newFileName);
-                if (_filenameChanged && newFile.exists()) {
-                    //dialog.setMessage("File already exists! Please enter a different filename");
-                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText("File already exists! Please enter a different filename");
+                if (_origFilename != null && !_origFilename.equals(newFileName) && newFile.exists()) {
+                    ((TextView) dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     _filenameClash = true;
                 } else {
@@ -109,7 +111,7 @@ public class WrRenameDialog extends DialogFragment {
                 }
             }
 
-            if (renamed || !_filenameChanged) {
+            if (renamed || _origFilename == null) {
                 AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                 if (_callback != null) {
                     _callback.callback(file);
