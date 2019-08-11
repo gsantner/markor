@@ -99,4 +99,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="task">Gawain</string>
     <string name="empty_file">Walang lamang talaksan</string>
     <string name="break_page_pdf_print">Baliin ang pahina (PDF/Pagpi-print)</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kung sasalungguhitan ba ang mga kodigo-kulay na hex ayon sa kulay</string>
+    <string name="underline_hex_color_codes">Salungguhitan ang mga Kodigo-Kulay na Hex</string>
+    <string name="insert_current_date_when_starting_new_task">Isingit ang petsa ngayon kapag gagawa ng bagong gawain</string>
+    <string name="tasks_with_todays_date">Mga Gawain na may petsa ngayon</string>
+    <string name="append_contexts_and_projects">Isama ang mga konteksto at proyekto</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Isama ang mga konteksto at proyekto sa dulo ng isang gawain kapag gagamitin ang tamang textaction</string>
+    <string name="rtl_rendering">Pagre-render ng RTL</string>
+    <string name="highlight_line_ending">I-highlight ang dulo ng linya</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">I-highlight ang mga space sa dulo ng mga linyang mayroong dalawa o higit pang space</string>
+    <string name="use_monospace_for_code">Gumamit ng titik na monospace para sa kodigo</string>
+    <string name="use_different_fonttype_slow_down">Gagamitin ang ibang uri ng titik. Maaaring makaapekto ito sa pagganap ng app.</string>
+    <string name="general">Kabuuan</string>
+    <string name="resources">Mga Mapagkukunan</string>
 </resources>
