@@ -122,4 +122,9 @@
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_record_audio"
+        android:title="Record audio"
+        app:showAsAction="never"
+    />
 </menu>

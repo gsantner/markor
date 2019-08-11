@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -341,6 +342,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 setDocumentViewVisibility(false);
                 _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
                 return true;
+            }
+            case R.id.action_record_audio: {
+                FragmentManager fm = getChildFragmentManager();
+                AudioToNoteFragment editNameDialogFragment = AudioToNoteFragment.newInstance(_document.getFile().getPath());
+                editNameDialogFragment.show(fm, "fragment_edit_name");
+
+                return true;
+
             }
         }
         return super.onOptionsItemSelected(item);
