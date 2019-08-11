@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,12 +12,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import net.gsantner.markor.R;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,7 @@ public class AudioToNoteFragment extends DialogFragment {
     private String path;
 
     private boolean recording = false;
+    private MediaRecorder recorder;
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,15 +57,45 @@ public class AudioToNoteFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_audio_to_note, container, false);
-        view.findViewById(R.id.start_recording).setOnClickListener(new View.OnClickListener() {
+        Button recordingButton = view.findViewById(R.id.start_recording);
+        recordingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!recording) {
+                if (recording) {
+                    recording = false;
+                    stopRecording();
+                    recordingButton.setText("Start");
+                } else {
                     recording = true;
+                    startRecording();
+                    recordingButton.setText("Stop");
                 }
             }
         });
         return view;
+    }
+
+    private void startRecording() {
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(path + "recording");
+        Log.w("DEV", "stopRecording: path: " + path +"  name: " + recording);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("DEV", "stopRecording: IOException occurred while preparing recorder", e);
+        }
+
+        recorder.start();
+    }
+
+    private void stopRecording() {
+        recorder.stop();
+        recorder.release();
+        recorder = null;
     }
 
 
