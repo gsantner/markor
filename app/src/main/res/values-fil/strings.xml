@@ -97,6 +97,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Tulong</string>
     <string name="todo_list">Listahan ng To-Do</string>
     <string name="task">Gawain</string>
+    <string name="category">Kategorya</string>
+    <string name="context">Konteksto</string>
+    <string name="list">Listahan</string>
+    <string name="priority">Prayoridad</string>
     <string name="empty_file">Walang lamang talaksan</string>
     <string name="break_page_pdf_print">Baliin ang pahina (PDF/Pagpi-print)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kung sasalungguhitan ba ang mga kodigo-kulay na hex ayon sa kulay</string>
@@ -112,4 +116,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_different_fonttype_slow_down">Gagamitin ang ibang uri ng titik. Maaaring makaapekto ito sa pagganap ng app.</string>
     <string name="general">Kabuuan</string>
     <string name="resources">Mga Mapagkukunan</string>
+    <string name="space_between_lines_in_percent">Porsyento ng espasyo sa pagitan ng mga linya</string>
+    <string name="line_spacing">Espasyo ng Linya</string>
+    <string name="archive_does_move_done_tasks">Ilipat ang mga natapos na gawain sa tinukoy na talaksan sa parehong panlupi</string>
+    <string name="sort_tasks_by_selected_order">Ayusin ang mga gawain sa piniling ayos</string>
+    <string name="special_key">Espesyal na Key</string>
+    <string name="key_page_up">Pahina Pataas (Page Up)</string>
+    <string name="key_page_down">Pahina Pababa (Page Down)</string>
+    <string name="key_pos_1">Linya Umpisa (Pos Home)</string>
+    <string name="key_pos_end">Linya Dulo (Pos End)</string>
+    <string name="key_pos_1_document">Simula ng dokumento</string>
+    <string name="key_pos_end_document">Dulo ng dokumento</string>
+    <string name="key_ctrl_a">Piliin lahat (Ctrl+A)</string>
+    <string name="key_tab">Tab</string>
+    <string name="start_on_bottom">Magsimula sa ibaba</string>
+    <string name="start_on_bottom_when_loading_document">Pagkakarga ng dokumento, ilagay ang panuro sa dulo nito</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Maari lamang mag-edit ang Markor ng lokal at offline na mga dokumento at hindi nito sinusuportahan ang mga file manager na hindi nagbibigay ng buong daanan ng talaksan.</string>
 </resources>
