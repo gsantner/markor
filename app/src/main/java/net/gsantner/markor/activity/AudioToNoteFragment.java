@@ -1,17 +1,11 @@
 package net.gsantner.markor.activity;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +84,8 @@ public class AudioToNoteFragment extends DialogFragment {
         recorder.release();
         recorder = null;
     }
-
-
 }
+
+
+// TODO: Test on real device. MediaRecorder does not run on simulated devices
+// TODO: Test behaviour when creating multiple files
