@@ -15,21 +15,31 @@
             android:layout_height="wrap_content"
             android:text="Record your thoughts !" />
 
+        <Button
+            android:id="@+id/start_recording"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:text="Start"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/start_recording"
+                android:id="@+id/save_recording"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start"/>
+                android:text="Save"
+                android:background="null"
+                style="?android:attr/borderlessButtonStyle" />
 
             <Button
                 android:id="@+id/cancel_recording"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="null"
+                style="?android:attr/borderlessButtonStyle"
                 android:text="Cancel"/>
         </LinearLayout>
     </LinearLayout>
