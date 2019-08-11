@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -348,6 +349,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 String text = "Hello!\nThanks for developing this app.\nI'm sending this debug log to you to improve the app. The debug log is below.\nI also looked at the FAQ \nhttps://gsantner.net/project/" + getString(R.string.app_name_real).toLowerCase() + ".html\nand checked if it resolves my issue. This debug log allows to analyze and improve performance, but it doesn't give information about crashes! If the app crashes, I will add all steps to reproduce the issue. \n\n\n\n------------------------\n\n\n\n";
                 text += AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
                 _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, new StringBuilder(getString(R.string.app_contact_email_reverse)).reverse().toString());
+                return true;
+            }
+            case R.id.action_record_audio: {
+                FragmentManager fm = getChildFragmentManager();
+                AudioToNoteFragment editNameDialogFragment = AudioToNoteFragment.newInstance(_document.getFile().getPath());
+                editNameDialogFragment.show(fm, "fragment_edit_name");
                 return true;
             }
         }
