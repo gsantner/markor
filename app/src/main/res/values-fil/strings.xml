@@ -114,6 +114,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">Idagdag ang %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentong ikakarga at ise-save bilang \"%s\"</string>
     <string name="refresh">Sariwain</string>
+    <string name="create_shortcut">Gumawa ng shortcut</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Sinubukang gumawa ng shortcut sa iyong home screen. Dapat mong malaman na may mga launcher na hindi suportado ito.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Ang napiling talaksan ay wala sa direktorya ng Kuwaderno ng app. Gusto mo bang kopyahin ito sa panlupi ngayon? Susulatan nito ang kahit anong talaksan na may parehong pangalan.</string>
+    <string name="files_and_folders">Mga Talaksan at Panlupi</string>
+    <string name="document_browser">Browser ng Dokumento</string>
+    <string name="file_browser">Browser ng Talaksan</string>
+    <string name="create_note" needed="false">Gumawa ng Tala</string>
+    <string name="special_documents" needed="false">Mga Espesyal ng Dokumento</string>
+    <string name="keep_screen_on" needed="false">Panatilihing nakabukas ang screen</string>
+    <string name="back_to_previous_folder" needed="false">Bumalik sa nakaraang talaksan</string>
+    <string name="app_settings" needed="false">Mga Pagsasaayos ng App</string>
+    <string name="editor_settings" needed="false">Mga Pagsasaayos ng Editor</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Alalanin ang huling lugar ng panlupi sa pagbukas</string>
+    <string name="number_of_files_witharg" needed="false">Bilang ng mga talaksan: %d</string>
+    <string name="app_wide">Buong app</string>
+    <string name="main_view">Pangunahing View</string>
+    <string name="overall_theme_used_in_app">Ang pangkalahatang temang gagamitin ng app</string>
+    <string name="remember_last_directory">Alalanin ang huling direktorya</string>
+    <string name="syntax_highlighting">Pagha-highlight ng syntax</string>
     <string name="empty_file">Walang lamang talaksan</string>
     <string name="break_page_pdf_print">Baliin ang pahina (PDF/Pagpi-print)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kung sasalungguhitan ba ang mga kodigo-kulay na hex ayon sa kulay</string>
