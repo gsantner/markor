@@ -554,6 +554,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
                 WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath(), getContext());
+                _filesystemViewerAdapter.unselectAll();
+                _filesystemViewerAdapter.reloadCurrentFolder();
             }
 
             @Override
