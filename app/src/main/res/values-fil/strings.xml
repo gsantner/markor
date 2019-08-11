@@ -47,4 +47,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (bilang Plain Text)</string>
     <string name="document_editor_font">Titik (font) ng Editor ng Dokumento</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Buksan ang mga umiiral na file sa View mode</string>
+    <string name="about">Tungkol sa</string>
+    <string name="plaintext">Teksto</string>
+    <string name="file">Talaksan</string>
+    <string name="image">Larawan</string>
+    <string name="font_size">Laki ng Titik</string>
+    <string name="render_rtl_language">I-render para sa mga wikang kanan pakaliwa</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Kamalian: Hindi makagawa ng direktoryo ng Kuwaderno</string>
+    <string name="last_modified_witharg">Huling binago: %s</string>
+    <string name="select_this_folder">Piliin itong panlupi</string>
+    <string name="select">Pumili</string>
+    <string name="create">Gumawa</string>
+    <string name="select_entries">Pumili ng mga tala</string>
 </resources>
