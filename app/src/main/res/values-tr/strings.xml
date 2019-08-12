@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Yeni belge oluştur</string>
     <string name="move">Taşı</string>
     <string name="info">Bilgi</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Dosya/dizin zaten var! Lütfen farklı bir ad kullanın</string>
     <string name="import_from_device">Cihazdan içe aktar</string>
     <string name="import_">İçe Aktar</string>
     <string name="append_to_witharg">%s ekle</string>
