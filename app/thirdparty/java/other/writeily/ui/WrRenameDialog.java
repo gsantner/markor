@@ -20,6 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.text.TextWatcher;
+import android.text.Editable;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
@@ -48,9 +51,9 @@ public class WrRenameDialog extends DialogFragment {
         return dialog;
     }
 
-
-    private EditText _newNameField;
     private Callback.a1<File> _callback;
+    private boolean _filenameClash;
+    private AlertDialog _dialog;
 
     @NonNull
     @Override
@@ -59,11 +62,48 @@ public class WrRenameDialog extends DialogFragment {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         AlertDialog.Builder dialogBuilder = setUpDialog(file, inflater);
-        AlertDialog dialog = dialogBuilder.show();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        _dialog = dialogBuilder.show();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        _newNameField = dialog.findViewById(R.id.new_name);
-        return dialog;
+        EditText newNameField = _dialog.findViewById(R.id.new_name);
+        addFilenameClashTextWatcher(newNameField);
+
+        _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+            View root = inflater.inflate(R.layout.rename__dialog, null);
+            String newFileName = newNameField.getText().toString();
+            ShareUtil shareUtil = new ShareUtil(root.getContext());
+            boolean renamed = false;
+            boolean filenameChanged = !file.getName().equals(newFileName);
+            if (filenameChanged) {
+                _filenameClash = checkFilenameClash(file, newFileName);
+            }
+            if (shareUtil.isUnderStorageAccessFolder(file)) {
+                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+                if (dof != null) {
+                    if (!_filenameClash) {
+                        renamed = dof.renameTo(newFileName);
+                        renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
+                    }
+                }
+            } else {
+                if (!_filenameClash) {
+                    renamed = FileUtils.renameFileInSameFolder(file, newFileName);
+                }
+            }
+
+            if (renamed || !filenameChanged) {
+                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
+                if (_callback != null) {
+                    _callback.callback(file);
+                }
+                shareUtil.freeContextRef();
+                _dialog.dismiss();
+            }
+        });
+
+        _dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(view -> _dialog.dismiss());
+
+        return _dialog;
     }
 
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
@@ -81,36 +121,40 @@ public class WrRenameDialog extends DialogFragment {
         editText.requestFocus();
         editText.setText(file.getName());
         editText.setTextColor(ContextCompat.getColor(root.getContext(),
-                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+                    darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
-
-        dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialog, which) -> {
-            String newFileName = _newNameField.getText().toString();
-            ShareUtil shareUtil = new ShareUtil(root.getContext());
-            boolean renamed = false;
-            if (shareUtil.isUnderStorageAccessFolder(file)) {
-                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
-                if (dof != null) {
-                    renamed = dof.renameTo(newFileName);
-                    renamed = renamed || (file.getParentFile() != null && new File(file.getParentFile(), newFileName).exists());
-                }
-            } else {
-                renamed = FileUtils.renameFileInSameFolder(file, newFileName);
-            }
-
-            if (renamed) {
-                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
-                if (_callback != null) {
-                    _callback.callback(file);
-                }
-            }
-            shareUtil.freeContextRef();
-        });
-
-        dialogBuilder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+        dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
+        dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
 
         return dialogBuilder;
     }
 
+    private void addFilenameClashTextWatcher(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (_filenameClash) {
+                    ((AlertDialog) _dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    ((TextView) _dialog.findViewById(R.id.dialog_message)).setText("");
+                    _filenameClash = false;
+                }
+            }
+        });
+    }
+
+    private boolean checkFilenameClash(File originalFile, String newName) {
+        File newFile = new File(originalFile.getParent(), newName);
+        if (newFile.exists()) {
+            ((TextView) _dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
+            _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            return true;
+        }
+        return false;
+    }
 }
