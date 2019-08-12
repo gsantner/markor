@@ -48,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">ഹ്ത്മ്ൽ (വെറും ടെക്സ്റ്റ്‌ ആയിട്ട് തന്നെ)</string>
     <string name="document_editor_font">ഡോക്യുമെന്റ് എഡിറ്ററിന്റെ അക്ഷരങ്ങളുടെ രൂപം</string>
     <string name="theme">പ്രതീതി</string>
+    <string name="open_existing_files_in_view_mode">നിലവിലുള്ള ഫയൽസ് വ്യൂ മോഡിൽ തുറക്കുക</string>
     <string name="about">കുറിച്ച്</string>
     <string name="plaintext">വെറും ടെക്സ്റ്റ്‌</string>
     <string name="file">ഫയൽ</string>
@@ -86,7 +87,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">വിപരീത ക്രമം</string>
     <string name="contribute">സംഭാവന</string>
     <string name="donate">സംഭാവനചെയ്യുക</string>
+    <string name="project_page">പ്രൊജക്റ്റ് പേജ്</string>
+    <string name="press_back_again_to_exit">പുറത്തുകടക്കാൻ വീണ്ടും \"പുറകോട്ട്\" അമർത്തുക</string>
+    <string name="exit">പുറത്തുകടക്കുക</string>
+    <string name="undo">പൂർവസ്ഥിതിയിലാക്കുക</string>
+    <string name="redo">പുതിയപടിയാക്കുക</string>
     <string name="more">കൂടുതൽ</string>
+    <string name="notebook">നോട്ടുബുക്ക്</string>
+    <string name="help">സഹായം</string>
     <string name="general">പൊതു</string>
     <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
     <string name="cancel">റദ്ദാക്കുക</string>
