@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">新建文档</string>
     <string name="move">移动</string>
     <string name="info">信息</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">文件/文件夹已存在！请使用不同的名称</string>
     <string name="import_from_device">从本设备导入</string>
     <string name="import_">导入</string>
     <string name="append_to_witharg">附加至 %s</string>
