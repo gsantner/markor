@@ -16,13 +16,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.text.TextWatcher;
-import android.text.Editable;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppCast;
@@ -121,7 +121,7 @@ public class WrRenameDialog extends DialogFragment {
         editText.requestFocus();
         editText.setText(file.getName());
         editText.setTextColor(ContextCompat.getColor(root.getContext(),
-                    darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
         dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
@@ -132,10 +132,12 @@ public class WrRenameDialog extends DialogFragment {
     private void addFilenameClashTextWatcher(EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
