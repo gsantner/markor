@@ -73,6 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="licenses">അനുമതിപത്രം</string>
     <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
     <string name="more_info">കൂടുതൽ വിവരങ്ങൾ</string>
+    <string name="show_license_of_the_app">അപ്പ്ലിക്കേഷന്റെ അനുമതിപത്രം കാണിക്കുക</string>
     <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
     <string name="language">ഭാഷ</string>
     <string name="more">കൂടുതൽ</string>
