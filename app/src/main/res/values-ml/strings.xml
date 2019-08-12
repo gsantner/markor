@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">പുതിയ ഡോക്യുമെന്റ് ഉണ്ടാക്കുക</string>
     <string name="move">മറ്റൊരിടത്തേക്ക് മാറ്റുക</string>
     <string name="info">വിവരം</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">ഈ പേരിൽ ഫയൽ/ഫോൾഡർ നിലവിലുണ്ട്! ദയവായി മറ്റൊരു പേര് ഉപയോഗിക്കുക</string>
     <string name="import_from_device">ഡിവൈസിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുക</string>
     <string name="import_">ഇമ്പോർട്ട്‌</string>
     <string name="append_to_witharg">%s-ഓട് കൂട്ടിച്ചേർക്കുക</string>
@@ -63,7 +64,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d എണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
     <string name="hide_statusbar_at_this_view">ഈ കാഴ്ച്ചയിൽ സ്റ്റേറ്റ്സ്ബാർ മറക്കുക</string>
     <string name="hide_statusbar">സ്റ്റാറ്റസ് ബാർ മറയ്ക്കുക</string>
+    <string name="name">പേര്</string>
+    <string name="insert_link">ലിങ്ക് ചേർക്കുക</string>
+    <string name="insert_image">ചിത്രം ചേർക്കുക</string>
+    <string name="contributors">സംഭാവകർ</string>
+    <string name="save_location">സേവ് ചെയ്യേണ്ട സ്ഥലം</string>
+    <string name="select_storage_folder">സ്റ്റോറേജ് ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
+    <string name="licenses">അനുമതിപത്രം</string>
     <string name="changelog">അടയാളപ്പെടുത്തിയ മാറ്റങ്ങൾ</string>
+    <string name="more_info">കൂടുതൽ വിവരങ്ങൾ</string>
     <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
     <string name="language">ഭാഷ</string>
     <string name="more">കൂടുതൽ</string>
