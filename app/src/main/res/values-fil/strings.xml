@@ -269,4 +269,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">Ikansela</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Nag-e-enjoy ka ba sa proyektong ito? Gusto mo bang suportahan ang lalo pang mga pagpapahusay at pagsasaayos sa mga bug?\n\nKumakain kaya ng malaking oras ang pagde-develop ng mga app at pagsusulat ng mga kaugnay na mga blog post! Kung gusto mong tumulong para magpatuloy pa ang proyekto, mangyaring ikonsidera ang maliit na donasyon!\n\nDine-develop ang proyektong ito sa bakanteng oras, ganap na walang bayad at walang kahit anong mga patalastas!</string>
     <string name="app_start_tab">Panimulang tab ng app</string>
+    <string name="tab_to_select_at_start">Pipiliing tab kapag nagbukas ang app</string>
+    <string name="swipe_to_change_mode">Mag-swipe para magpalit ng mode</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Mag-swipe para magpalit papunta sa edit o view mode (kabaligtaran ng mode ngayon)</string>
+    <string name="folder_first">Folder muna</string>
+    <string name="go_to">Pumunta sa</string>
+    <string name="appdata_public">AppData (pampubliko)</string>
+    <string name="appdata_private">AppData (pampribado)</string>
+    <string name="appdata_sdcard">AppData (SD Card)</string>
+    <string name="internal_storage">Internal na storage</string>
+    <string name="open_the_document_from_main_view">Maari mong buksan ang dokumento mula sa pangunahing view sa ibaba, mula sa file browser o kaya naman sa launcher. May opsyon din na idagdag ang ibinahaging teksto sa Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Ang Notebook ay ang folder na nilo-load ng Markor sa file brower sa kada magbubukas ang app. Ito ang home folder ng iyong mga file.</string>
 </resources>
