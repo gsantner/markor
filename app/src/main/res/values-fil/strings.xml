@@ -226,4 +226,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Mga Detalye</string>
     <string name="calendar">Kalendaryo</string>
     <string name="warning_disallowed_sd_access">Babala! Walang permiso ang app para i-save itong file, mawawala ang lahat ng mga pagbabago. Imposible itong ma-resolba o para makumpirma, pinagbabawalan ng Android ang kahit anong access dito.</string>
+    <string name="error_picture_selection">Walang larawang napili, nakunan or na-save.</string>
+    <string name="gallery_picture">Larawan sa gallery</string>
+    <string name="camera_picture">Larawan sa kamera</string>
+    <string name="enable_undo_and_redo_be_patient">I-enable ang mga aksyong undo at redo. Angkop lamang para sa paggamit na advance, mag-ingat sa pagbubura ng mga importanteng bagay. Isara at buksan muli ang editor para linisin ang kasaysayan.</string>
+    <string name="description">Paglalarawan</string>
+    <string name="edit_picture">Isaayos ang larawan</string>
+    <string name="math">Matematika</string>
+    <string name="table_of_contents">Talaan ng nilalaman</string>
+    <string name="miscellaneous">Sari-sari</string>
+    <string name="textaction">Textaction</string>
+    <string name="textactions">Mga textaction</string>
 </resources>
