@@ -216,4 +216,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">pababa</string>
     <string name="ascending">pataas</string>
     <string name="disable_spelling_underline">I-disable ang spelling underline</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Mananatili ang mga suhestyon sa keyboard, mawawala ang pulang salungguhit</string>
+    <string name="location">Lokasyon</string>
+    <string name="text_lines">Mga linya ng teksto</string>
+    <string name="text_characters">Mga karakter ng teksto</string>
+    <string name="text_words">Mga Salita ng teksto</string>
+    <string name="directory">Direktorya</string>
+    <string name="recently_viewed_documents">Kabubukas na mga dokumento</string>
+    <string name="details">Mga Detalye</string>
+    <string name="calendar">Kalendaryo</string>
 </resources>
