@@ -267,4 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">aking_tala</string>
     <string name="close">Isara</string>
     <string name="cancel">Ikansela</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Nag-e-enjoy ka ba sa proyektong ito? Gusto mo bang suportahan ang lalo pang mga pagpapahusay at pagsasaayos sa mga bug?\n\nKumakain kaya ng malaking oras ang pagde-develop ng mga app at pagsusulat ng mga kaugnay na mga blog post! Kung gusto mong tumulong para magpatuloy pa ang proyekto, mangyaring ikonsidera ang maliit na donasyon!\n\nDine-develop ang proyektong ito sa bakanteng oras, ganap na walang bayad at walang kahit anong mga patalastas!</string>
+    <string name="app_start_tab">Panimulang tab ng app</string>
 </resources>
