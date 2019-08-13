@@ -195,9 +195,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Baguhin ang teksto sa gitna ng screen</string>
     <string name="clipboard">Clipboard</string>
     <string name="select_existing_document">Piliin ang nakabukas na dokumento</string>
-    <string name="open_source_licenses">Mga Nakabukas na Lisensiya</string>
+    <string name="open_source_licenses">Mga Malayang-Bukas na Lisensiya</string>
     <string name="rate_this_app">I-rate itong app</string>
     <string name="translate">Magsalin</string>
     <string name="more_info_and_help">Karagdagang impormasyon at tulong</string>
     <string name="report_bugs">Mag-ulat ng mga bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Karagdagang impormasyon sa pagdo-donate sa developer, o sa pag-aambag sa proyektong ito.</string>
+    <string name="android_contribution_guide">Gabay sa pag-aambag sa Android</string>
+    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Karagdagang impormasyon sa pag-aambag sa mga proyektong malayang-bukas, lalo na sa mga app ng Android</string>
+    <string name="join_community">Sumali sa Komunidad</string>
+    <string name="bug_reports_suggest_improvements">Magbigay ng feedback, mag-ulat ng mga bug o mag-suggest ng mga pagpapahusay</string>
 </resources>
