@@ -12,6 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Instellings</string>
+    <string name="light">Lig</string>
     <string name="appearance">Voorkoms</string>
     <string name="share">Deel</string>
     <string name="search">Soek</string>
