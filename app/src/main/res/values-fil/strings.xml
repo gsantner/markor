@@ -179,4 +179,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Magsimula sa ibaba</string>
     <string name="start_on_bottom_when_loading_document">Pagka-load ng dokumento, ilagay ang panuro sa dulo nito</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Maari lamang mag-edit ang Markor ng lokal at offline na mga dokumento at hindi nito sinusuportahan ang mga file manager na hindi nagbibigay ng buong daanan ng file.</string>
+    <string name="sync_to_local_folder_notice">Tandaan: Maaring maglagay ng mga file sa mga custom na folder ang mga app sa pagsi-sync. Buksan sila sa pamamagitan ng pagbago sa folder ng dokumento ng Markor, o di kaya naman sa isang file manager.</string>
+    <string name="configure_in_the_apps_settings">I-konpigura sa mga pagsasaayos ng app</string>
+    <string name="vertical_alignment">Patayong pagkakahanay</string>
+    <string name="horizontal_alignment">Pahigang pagkakahanay</string>
+    <string name="default_">Default</string>
+    <string name="left">Kaliwa</string>
+    <string name="right">Kanan</string>
+    <string name="top">Itaas</string>
+    <string name="bottom">Ibaba</string>
+    <string name="center">Gitna</string>
+    <string name="textaction_spacing">Espasyo ng textaction</string>
+    <string name="horizontal_space_between_textactions">Pahigang espasyo sa pagitan ng mga button na textaction</string>
+    <string name="center_text">Igitna ang teksto</string>
+    <string name="edit_text_in_center_of_screen">Baguhin ang teksto sa gitna ng screen</string>
+    <string name="clipboard">Clipboard</string>
+    <string name="select_existing_document">Piliin ang nakabukas na dokumento</string>
+    <string name="open_source_licenses">Mga Nakabukas na Lisensiya</string>
+    <string name="rate_this_app">I-rate itong app</string>
+    <string name="translate">Magsalin</string>
+    <string name="more_info_and_help">Karagdagang impormasyon at tulong</string>
+    <string name="report_bugs">Mag-ulat ng mga bug</string>
 </resources>
