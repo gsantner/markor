@@ -225,4 +225,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">Kabubukas na mga dokumento</string>
     <string name="details">Mga Detalye</string>
     <string name="calendar">Kalendaryo</string>
+    <string name="warning_disallowed_sd_access">Babala! Walang permiso ang app para i-save itong file, mawawala ang lahat ng mga pagbabago. Imposible itong ma-resolba o para makumpirma, pinagbabawalan ng Android ang kahit anong access dito.</string>
 </resources>
