@@ -87,12 +87,15 @@ public class SearchOrCustomTextDialogCreator {
         String tmps;
         for (String document : appSettings.getRecentDocuments()) {
             final SpannableStringBuilder sb = new SpannableStringBuilder(document);
-            sb.setSpan(boldSpan, document.lastIndexOf("/"), document.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            if (document.startsWith((tmps = appSettings.getNotebookDirectoryAsStr()))) {
-                sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-            } else if (document.startsWith((tmps = Environment.getExternalStorageDirectory().toString()))) {
-                sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-
+            try {
+                sb.setSpan(boldSpan, document.lastIndexOf("/"), document.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                if (document.startsWith((tmps = appSettings.getNotebookDirectoryAsStr()))) {
+                    sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                } else if (document.startsWith((tmps = Environment.getExternalStorageDirectory().toString()))) {
+                    sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                }
+            } catch (Exception ignored) {
+                // setSpan may throw error
             }
             spannables.add(sb);
         }

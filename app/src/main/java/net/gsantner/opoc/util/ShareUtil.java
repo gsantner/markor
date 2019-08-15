@@ -531,7 +531,7 @@ public class ShareUtil {
                 }
                 if (fileStr.startsWith((tmps = "content://"))) {
                     fileStr = fileStr.substring(tmps.length());
-                    String fileProvider = fileStr.substring(0, fileStr.indexOf("/"));
+                    String fileProvider = fileStr.substring(0, fileStr.contains("/") ? fileStr.indexOf("/") : 0);
                     fileStr = fileStr.substring(fileProvider.length() + 1);
 
                     // Some file managers dont add leading slash
@@ -1037,7 +1037,7 @@ public class ShareUtil {
             return dof;
         }
         String[] parts = relPath.split("\\/");
-        for (int i = 0; i < parts.length; i++) {
+        for (int i = 0; dof != null && i < parts.length; i++) {
             DocumentFile nextDof = dof.findFile(parts[i]);
             if (nextDof == null) {
                 nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);

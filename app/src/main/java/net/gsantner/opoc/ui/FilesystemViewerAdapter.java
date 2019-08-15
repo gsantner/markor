@@ -127,7 +127,10 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.title.setText(isGoUp ? ".." : filename, TextView.BufferType.SPANNABLE);
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
         if (!isFileWriteable(file, isGoUp) && holder.title.length() > 0) {
-            ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            try {
+                ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } catch (Exception ignored) {
+            }
         }
 
         if (_dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(file)) {

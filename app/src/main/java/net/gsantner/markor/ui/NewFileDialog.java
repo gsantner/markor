@@ -136,7 +136,7 @@ public class NewFileDialog extends DialogFragment {
                                 }
                             });
                         }
-                        callback(dof.canWrite(), f);
+                        callback(dof != null && dof.canWrite(), f);
                     } else {
                         boolean touchOk = FileUtils.touch(f);
                         if (f.exists() && f.length() < 5 && templateContents != null) {
@@ -153,7 +153,7 @@ public class NewFileDialog extends DialogFragment {
                     File f = new File(basedir, fileNameEdit.getText().toString());
                     if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
-                        callback(dof.exists(), f);
+                        callback(dof != null && dof.exists(), f);
                     } else {
                         callback(f.mkdirs() || f.exists(), f);
                     }

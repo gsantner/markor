@@ -181,7 +181,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         public void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
-            if ((_sharedText.length() * 1.05) < 9200) {
+            if ((_sharedText.length() * 1.05) < 8200) {
                 outState.putString(EXTRA_TEXT, _sharedText);
             }
         }

@@ -286,7 +286,13 @@ public class SearchOrCustomTextDialog {
             List<String> ret = new ArrayList<>();
 
             boolean first = true;
-            Iterator<File> iter = FileUtils.iterateFilesAndDirs(_searchDir, this, this);
+            Iterator<File> iter = null;
+            try {
+                iter = FileUtils.iterateFilesAndDirs(_searchDir, this, this);
+            } catch (Exception ex) {
+                // Iterator may throw an error at creation
+                return ret;
+            }
             while (iter.hasNext() && !isCancelled()) {
                 File f = iter.next();
                 if (first) {
