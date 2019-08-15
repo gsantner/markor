@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 public abstract class Highlighter {
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
+    protected float _highlightingFactorBasedOnFilesize = 1f;
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
 
@@ -81,8 +82,13 @@ public abstract class Highlighter {
         _document = document;
     }
 
+    public float getHighlightingFactorBasedOnFilesize() {
+        return _highlightingFactorBasedOnFilesize;
+    }
+
     public void generalHighlightRun(final Editable editable) {
         final String text = editable.toString();
+        _highlightingFactorBasedOnFilesize = Math.max(1, Math.min(Math.max(text.length() - 9000, 10000) / 10000, 4));
         _profiler.restart("General Highlighter");
         if (_preCalcTabWidth > 0) {
             _profiler.restart("Tabulator width");

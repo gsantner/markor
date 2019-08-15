@@ -63,7 +63,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     return;
                 }
                 if (_hl != null) {
-                    _updateHandler.postDelayed(_updateRunnable, _hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext()));
+                    _updateHandler.postDelayed(_updateRunnable, (int) _hl.getHighlightingFactorBasedOnFilesize() * (_hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext())));
                 }
             }
 
