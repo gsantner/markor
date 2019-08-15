@@ -15,6 +15,8 @@ import android.webkit.WebView;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
+import java.io.File;
+
 @SuppressWarnings("WeakerAccess")
 public abstract class TextConverter {
     //########################
@@ -26,6 +28,8 @@ public abstract class TextConverter {
 
     protected static final String CSS_S = "<style type='text/css'>";
     protected static final String CSS_E = "</style>";
+    protected static final String JS_S = "<script>";
+    protected static final String JS_E = "</script>";
 
     protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}"; // this is either 'right' or 'left'
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
@@ -38,6 +42,7 @@ public abstract class TextConverter {
     protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
     protected static final String HTML004_HEAD_META_VIEWPORT_MOBILE = "<style>video, img { max-width: 100%; } pre { max-width: 100%; overflow: auto; } </style>";//"<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>";
+    protected static final String HTML100_PERCENT_IN_FILEPATH = "<base>" + JS_S + "var newbase = document.baseURI.split('%').join('%25'); document.querySelector('base').setAttribute('href', newbase);" + JS_E;
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
     protected static final String HTML500_BODY = "</head>\n<body class='" + TOKEN_TEXT_CONVERTER_CSS_CLASS + "' onload='onPageLoaded_markor_private();'>\n\n<!-- USER CONTENT -->\n\n\n";
@@ -51,12 +56,6 @@ public abstract class TextConverter {
 
     // protected static final String HTML_JQUERY_INCLUDE = "<script src='file:///android_asset/jquery/jquery-3.3.1.min.js'></script>"; // currently not bundled
 
-    protected String _currentFileExt;
-
-    public void setCurrentFileExt(String currentFileExt) {
-        _currentFileExt = currentFileExt;
-    }
-
     //########################
     //## Methods
     //########################
@@ -68,12 +67,11 @@ public abstract class TextConverter {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode) {
+    public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode, File file) {
         Context context = webView.getContext();
-        setCurrentFileExt(document.getFileExtension());
         String html;
         try {
-            html = convertMarkup(document.getContent(), context, isExportInLightMode);
+            html = convertMarkup(document.getContent(), context, isExportInLightMode, file);
         } catch (Exception e) {
             html = "Please report at project issue tracker: " + e.toString();
         }
@@ -88,6 +86,13 @@ public abstract class TextConverter {
         return html;
     }
 
+    protected String getFileExtension(File file) {
+        if (file == null) {
+            return "";
+        }
+        return (file.getName().contains(".") ? file.getName().substring(file.getName().lastIndexOf(".")) : "").toLowerCase();
+    }
+
     /**
      * Convert markup text to target format
      *
@@ -95,9 +100,10 @@ public abstract class TextConverter {
      * @param context Android Context
      * @return html as String
      */
-    public abstract String convertMarkup(String markup, Context context, boolean isExportInLightMode);
+    public abstract String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file);
 
-    protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, String onLoadJs, String head) {
+    protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, File file, String onLoadJs, String head) {
+        final String contentLower = content.toLowerCase();
         AppSettings appSettings = new AppSettings(context);
         boolean darkTheme = appSettings.isDarkThemeEnabled() && !isExportInLightMode;
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
@@ -123,6 +129,13 @@ public abstract class TextConverter {
         // Remove duplicate style blocks
         html = html.replace(CSS_E + CSS_S, "").replace(CSS_E + "\n" + CSS_S, "");
 
+        // Options based on filepath
+        if (file != null) {
+            if (file.getAbsolutePath().contains("%") || ((contentLower.contains(".nextcloud") || contentLower.contains(".owncloud")) && (contentLower.contains("%2") || contentLower.contains("%4")))) {
+                html += HTML100_PERCENT_IN_FILEPATH;
+            }
+        }
+
         // Load content
         html += HTML500_BODY;
         html += appSettings.getInjectedBody();
@@ -134,7 +147,7 @@ public abstract class TextConverter {
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + _currentFileExt.replace(".", ""))
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
         ;
 
         return html;

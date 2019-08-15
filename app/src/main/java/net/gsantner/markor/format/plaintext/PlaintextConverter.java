@@ -15,6 +15,7 @@ import android.support.v4.text.TextUtilsCompat;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
 public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
-    private static final List<String> EXT = Arrays.asList(new String[]{".txt", ".taskpaper"});
+    private static final List<String> EXT = Arrays.asList(".txt", ".taskpaper");
 
 
     //########################
@@ -30,12 +31,12 @@ public class PlaintextConverter extends TextConverter {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
         converted = HTML100_BODY_PRE_BEGIN
                 + TextUtilsCompat.htmlEncode(markup)
                 + HTML101_BODY_PRE_END;
-        return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
     @Override

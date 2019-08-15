@@ -15,6 +15,8 @@ import android.support.v4.text.TextUtilsCompat;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 
+import java.io.File;
+
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverter {
 
@@ -27,12 +29,12 @@ public class TodoTxtTextConverter extends TextConverter {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
         converted = HTML100_BODY_PRE_BEGIN
                 + parse(TextUtilsCompat.htmlEncode(markup))
                 + HTML101_BODY_PRE_END;
-        return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
     private String parse(String str) {

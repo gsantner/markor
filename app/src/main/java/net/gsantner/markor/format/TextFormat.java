@@ -78,7 +78,7 @@ public class TextFormat {
             }
 
             case FORMAT_KEYVALUE: {
-                format.setConverter(CONVERTER_PLAINTEXT);
+                format.setConverter(CONVERTER_KEYVALUE);
                 format.setHighlighter(new KeyValueHighlighter(hlEditor, document));
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;

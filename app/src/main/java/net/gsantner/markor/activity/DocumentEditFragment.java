@@ -296,8 +296,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
-                    converter.setCurrentFileExt(_document.getFileExtension());
-                    _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext(), false),
+                    _shareUtil.shareText(converter.convertMarkup(_document.getContent(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
@@ -523,7 +522,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         if (show) {
             _document.setContent(_hlEditor.getText().toString());
-            _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView, _nextConvertToPrintMode);
+            _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView, _nextConvertToPrintMode, _document.getFile());
             new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);

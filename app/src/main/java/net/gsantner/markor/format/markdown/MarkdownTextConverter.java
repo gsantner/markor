@@ -109,7 +109,7 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "";
 
@@ -153,12 +153,12 @@ public class MarkdownTextConverter extends TextConverter {
         markup = markup.replace("{{ site.baseurl }}", "..");
 
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        return putContentIntoTemplate(context, converted, isExportInLightMode, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        return MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches();
+        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches() && !filepath.toLowerCase().endsWith(".txt")) || filepath.toLowerCase().endsWith(".md.txt");
     }
 
     public static boolean isMarkdownFile(File file) {
