@@ -240,7 +240,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (doSet) {
             setInt(R.string.pref_key__app_first_start_current_version, BuildConfig.VERSION_CODE);
         }
-        return value != BuildConfig.VERSION_CODE;
+        return true;//value != BuildConfig.VERSION_CODE;
     }
 
     public float getEditorLineSpacing() {

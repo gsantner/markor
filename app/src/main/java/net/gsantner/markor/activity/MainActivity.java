@@ -116,7 +116,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW, SimpleMarkdownParser.FILTER_CHANGELOG);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
                 ActivityUtils _au = new ActivityUtils(this);
-                _au.showDialogWithHtmlTextView(R.string.licenses, html);
+                _au.showDialogWithHtmlTextView(0, html);
             }
         } catch (IOException e) {
             e.printStackTrace();

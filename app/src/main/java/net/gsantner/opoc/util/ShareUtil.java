@@ -193,19 +193,6 @@ public class ShareUtil {
     }
 
     /**
-     * Cap text to first x characters if the Android Transation limit (1MB in total) is expected
-     * to be reached. As other values may be contained in the Intent this might not work in all cases.
-     */
-    protected String optCapTextToTransactionLimit(String text) {
-        text = TextUtils.isEmpty(text) ? "" : text;
-        if (text.length() > 120000) {
-            Toast.makeText(_context, "The Android system allows to share 1MB of data maximum. The content was too big and automatically capped.", Toast.LENGTH_LONG).show();
-            return text.substring(0, 120000);
-        }
-        return text;
-    }
-
-    /**
      * Share text with given mime-type
      *
      * @param text     The text to share
@@ -213,7 +200,7 @@ public class ShareUtil {
      */
     public void shareText(String text, @Nullable String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, optCapTextToTransactionLimit(text));
+        intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType(mimeType != null ? mimeType : MIME_TEXT_PLAIN);
         showChooser(intent, null);
     }
@@ -495,7 +482,7 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
         if (body != null) {
-            intent.putExtra(Intent.EXTRA_TEXT, optCapTextToTransactionLimit(body));
+            intent.putExtra(Intent.EXTRA_TEXT, body);
         }
         if (to != null && to.length > 0 && to[0] != null) {
             intent.putExtra(Intent.EXTRA_EMAIL, to);
@@ -531,7 +518,7 @@ public class ShareUtil {
                 }
                 if (fileStr.startsWith((tmps = "content://"))) {
                     fileStr = fileStr.substring(tmps.length());
-                    String fileProvider = fileStr.substring(0, fileStr.contains("/") ? fileStr.indexOf("/") : 0);
+                    String fileProvider = fileStr.substring(0, fileStr.indexOf("/"));
                     fileStr = fileStr.substring(fileProvider.length() + 1);
 
                     // Some file managers dont add leading slash
@@ -1037,7 +1024,7 @@ public class ShareUtil {
             return dof;
         }
         String[] parts = relPath.split("\\/");
-        for (int i = 0; dof != null && i < parts.length; i++) {
+        for (int i = 0; i < parts.length; i++) {
             DocumentFile nextDof = dof.findFile(parts[i]);
             if (nextDof == null) {
                 nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);

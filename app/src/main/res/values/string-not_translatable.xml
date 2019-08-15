@@ -9,7 +9,8 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="app_name" translatable="false">Markor</string>
+    <string name="app_name_real">Markor</string>
+    <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
@@ -64,10 +65,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017-2019
-        \n**Gregor Santner**
-        \n
+        **Gregor Santner**
         \n**Official project sources:**
-        \n[Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
+        [Website](https://gsantner.net/index.html?source=inapp_license_official_project_source) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
     ]]></string>
 
     <string name="inject_to_head" translatable="false">Inject -> head</string>

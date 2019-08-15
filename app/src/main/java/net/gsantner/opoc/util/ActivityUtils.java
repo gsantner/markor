@@ -32,6 +32,7 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
@@ -175,11 +176,15 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         scroll.addView(textView);
         textView.setMovementMethod(new LinkMovementMethod());
         textView.setText(isHtml ? new SpannableString(Html.fromHtml(text)) : text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
                 .setPositiveButton(android.R.string.ok, null).setOnDismissListener(dismissedListener)
-                .setTitle(resTitleId).setView(scroll);
-        dialog.show();
+                .setView(scroll);
+        if (resTitleId != 0) {
+            dialog.setTitle(resTitleId);
+        }
+        dialogFullWidth(dialog.show(), true, false);
     }
 
     public void showDialogWithRawFileInWebView(String fileInRaw, @StringRes int resTitleId) {
@@ -189,7 +194,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
                 .setPositiveButton(android.R.string.ok, null)
                 .setTitle(resTitleId)
                 .setView(wv);
-        dialog.show();
+        dialogFullWidth(dialog.show(), true, false);
     }
 
     // Toggle with no param, else set visibility according to first bool
@@ -280,5 +285,35 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
         _activity.startActivity(intent);
         return this;
+    }
+
+    /**
+     * Detect if the activity is currently in splitscreen/multiwindow mode
+     */
+    public boolean isInSplitScreenMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return _activity.isInMultiWindowMode();
+        }
+        return false;
+    }
+
+    /**
+     * Show dialog in full width / show keyboard
+     *
+     * @param dialog Get via dialog.show()
+     */
+    public void dialogFullWidth(AlertDialog dialog, boolean fullWidth, boolean showKeyboard) {
+        try {
+            Window w;
+            if (dialog != null && (w = dialog.getWindow()) != null) {
+                if (fullWidth) {
+                    w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                }
+                if (showKeyboard) {
+                    w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+            }
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -38,7 +38,6 @@
     <Preference
         android:icon="@drawable/ic_info_black_24dp"
         android:key="@string/pref_key__more_info__help"
-        android:summary="@string/more_info_and_help"
         android:title="@string/help" />
 
 

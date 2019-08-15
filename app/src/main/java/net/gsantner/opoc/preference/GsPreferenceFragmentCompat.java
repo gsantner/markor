@@ -512,7 +512,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         }
     }
 
-    private Callback.b1<Integer> _flatPosIsPreferenceCategoryCallback = position -> {
+    Callback.b1<Integer> _flatPosIsPreferenceCategoryCallback = position -> {
         int flatPos = 0;
         PreferenceGroup prefGroup = getPreferenceScreen();
         if (prefGroup != null) {

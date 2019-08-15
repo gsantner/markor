@@ -152,18 +152,18 @@ public class LanguagePreferenceCompat extends ListPreference {
                 + ((!country.isEmpty() && !country.toLowerCase(Locale.getDefault()).equals(language.toLowerCase(Locale.getDefault()))) ? (", " + country) : "")
                 + ")";
 
-        //    "fil".equals(localeAndroidCode
-        if ("zh-rCN".equals(localeAndroidCode)) {
+        if (localeAndroidCode.equals("zh-rCN")) {
             ret = ret.substring(0, ret.indexOf(" ") + 1) + "Simplified" + ret.substring(ret.indexOf(" "));
-        } else if ("zh-rTW".equals(localeAndroidCode)) {
+        } else if (localeAndroidCode.equals("zh-rTW")) {
             ret = ret.substring(0, ret.indexOf(" ") + 1) + "Traditional" + ret.substring(ret.indexOf(" "));
-        } else if ("fil".equals(localeAndroidCode)) {
-            ret = ret.substring(0, ret.indexOf("(") + 1) + "Philippines)";
-        } else if ("sr-rRS".equals(localeAndroidCode)) {
+        } else if (localeAndroidCode.equals("sr-rRS")) {
             ret = ret.substring(0, ret.indexOf(" ") + 1) + "Latin" + ret.substring(ret.indexOf(" "));
         } else if (localeAndroidCode.startsWith("sr")) {
             ret = ret.substring(0, ret.indexOf(" ") + 1) + "Cyrillic" + ret.substring(ret.indexOf(" "));
+        } else if (localeAndroidCode.equals("fil")) {
+            ret = ret.substring(0, ret.indexOf("(") + 1) + "Philippines)";
         }
+
         return ret;
     }
 
