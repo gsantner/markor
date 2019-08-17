@@ -115,8 +115,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">ഹോം സ്ക്രീനിലേക്ക് എളുപ്പവഴി സൃഷ്ടിക്കാൻ ശ്രമിച്ചു. എല്ലാ ലോഞ്ചേഴ്സും ഇത് അനുവദിക്കണമെന്നില്ല എന്നറിയുക.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">തിരഞ്ഞെടുത്ത ഫയൽ അപ്പ്ലിക്കേഷന്റെ നോട്ടുബുക്ക് ഫോൾഡറിൽ ഇല്ല. അത് ഇപ്പോഴത്തെ ഫോൾഡറിലേക്കു പകർത്തണോ? ശ്രദ്ധിക്കുക, ഇപ്രകാരം ചെയ്യുന്നത് നിലവിൽ അതെ പേരിൽ ഉള്ള ഫയലിനെ ഓവർറൈറ്റ് ചെയ്യും.</string>
     <string name="files_and_folders">ഫയൽസും ഫോൾഡേഴ്‌സും</string>
+    <string name="document_browser">ഡോക്യുമെന്റ് തിരച്ചിൽസംവിധാനം</string>
+    <string name="file_browser">ഫയൽ തിരച്ചിൽസംവിധാനം</string>
     <string name="back_to_previous_folder" needed="false">മുൻപത്തെ ഫോൾഡറിലേക്കു പോവുക</string>
     <string name="general">പൊതു</string>
+    <string name="key_page_down">പേജ് താഴേക്ക് (Page Down)</string>
+    <string name="key_pos_1">വരിയുടെ തുടക്കം (Pos Home)</string>
+    <string name="key_pos_end">വരിയുടെ അവസാനം (Pos End)</string>
+    <string name="key_pos_1_document">ഡോക്യുമെന്റ് തുടക്കം</string>
+    <string name="key_pos_end_document">ഡോക്യുമെന്റ് അവസാനം</string>
+    <string name="key_ctrl_a">എല്ലാം തിരഞ്ഞെടുക്കുക (Ctrl+A)</string>
+    <string name="key_tab">പട്ടിക തയ്യാറാക്കൽ</string>
+    <string name="start_on_bottom">താഴെനിന്ന് തുടങ്ങുക</string>
+    <string name="start_on_bottom_when_loading_document">ഡോക്യുമെന്റ് ലോഡ് ചെയ്യുമ്പോൾ കഴ്സർ അവസാനം നിർത്തുക</string>
     <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>
     <string name="cancel">റദ്ദാക്കുക</string>
     <string name="reload">വീണ്ടും ലോഡ് ചെയ്യുക</string>
