@@ -47,7 +47,8 @@ public class NanoProfiler {
     public void printProfilingGroup() {
         if (_profilerEnabled) {
             String text = formatter.format(_profilingGroupValue / 1000f).replaceAll("\\G0", " ") + " [ms] for Group " + _groupCount;
-            System.out.println("NanoProfiler::: " + _groupCount + text);
+            text = "NanoProfiler::: " + _groupCount + text;
+            System.out.println(text);
         }
     }
 
@@ -57,7 +58,8 @@ public class NanoProfiler {
             _profilingValue = now - _profilingValue;
             _profilingGroupValue += _profilingValue / 1000f;
             String text = formatter.format(_profilingValue / 1000f).replaceAll("\\G0", " ") + " [µs] for " + _text;
-            System.out.println("NanoProfiler::: " + _groupCount + text);
+            text = "NanoProfiler::: " + _groupCount + text;
+            System.out.println(text);
         }
     }
 }
