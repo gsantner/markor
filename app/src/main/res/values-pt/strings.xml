@@ -306,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esta aplicação se a wextensão do ficheiro estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar ficheiros web ou ficheiros que não tenham extensão.</string>
     <string name="template">Modelo</string>
+    <string name="send_debug_log">Enviar Log de Depuração</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Ajuda enviando informações de depuração para o desenvolvedor(s). Dados são enviados por e-mail através do seu aplicativo de e-mail e você pode ver todos os dados enviados antes de enviar. Você encontrará uma opção adicional de \"Enviar log de depuração\" no menu superior quando habilitado. Cria o rascunho de e-mail.</string>
 </resources>
