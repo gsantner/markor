@@ -305,4 +305,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Vždy otevřené s touto aplikací</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Pokud seznam obsahuje rozšíření souboru, můžete použít \"Žádný, .html, .css , .js\" například pokud chcete editovat webové soubory a ty bez rozšíření souborů.</string>
     <string name="template">Template</string>
+    <string name="send_debug_log">Odešle dluhovou ztrátu</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Pomocí odesílání debug informací vývojářům (s). Data jsou odeslána e-mailem a můžete vidět všechny odeslané údaje před odesláním.</string>
 </resources>
