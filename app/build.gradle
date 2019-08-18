@@ -27,7 +27,7 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
         versionName "2.0.6"
-        versionCode 83
+        versionCode 84
 
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
@@ -41,16 +41,16 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-        flavorDefault {
-        }
-        flavorGplay {
-            buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
-        }
         flavorTest {
             applicationId "net.gsantner.markor_test"
             versionCode = Integer.parseInt(new Date().format('yyMMdd'))
             versionName = new Date().format('yyMMdd')
             buildConfigField "boolean", "IS_TEST_BUILD", "true"
+        }
+        flavorDefault {
+        }
+        flavorGplay {
+            buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
         }
     }
 

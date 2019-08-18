@@ -18,6 +18,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
@@ -62,17 +63,30 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (!_modified) {
                     return;
                 }
+                if (MainActivity.IS_DEBUG_ENABLED) {
+                    AppSettings.appendDebugLog("Changed text (afterTextChanged)");
+                }
                 if (_hl != null) {
-                    _updateHandler.postDelayed(_updateRunnable, (int) _hl.getHighlightingFactorBasedOnFilesize() * (_hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext())));
+                    int delay = (int) _hl.getHighlightingFactorBasedOnFilesize() * (_hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext()));
+                    if (MainActivity.IS_DEBUG_ENABLED) {
+                        AppSettings.appendDebugLog("Highlighting run: delay " + delay + "ms, cfactor " + _hl.getHighlightingFactorBasedOnFilesize());
+                    }
+                    _updateHandler.postDelayed(_updateRunnable, delay);
                 }
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (MainActivity.IS_DEBUG_ENABLED) {
+                    AppSettings.appendDebugLog("Changed text (onTextChanged)");
+                }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (MainActivity.IS_DEBUG_ENABLED) {
+                    AppSettings.appendDebugLog("Changed text (beforeTextChanged)");
+                }
             }
         });
     }
@@ -107,12 +121,19 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_hlEnabled) {
             _modified = false;
             try {
+                if (MainActivity.IS_DEBUG_ENABLED) {
+                    AppSettings.appendDebugLog("Start highlighting");
+                }
                 _hl.run(editable);
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();
             } catch (Error e) {
                 e.printStackTrace();
+            }
+            if (MainActivity.IS_DEBUG_ENABLED) {
+                AppSettings.appendDebugLog(_hl._profiler.resetDebugText());
+                AppSettings.appendDebugLog("Finished highlighting");
             }
             _modified = true;
         }
@@ -168,5 +189,14 @@ public class HighlightingEditor extends AppCompatEditText {
         if (indexesValid(start, stop)) {
             super.setSelection(start, stop);
         }
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
+        if (MainActivity.IS_DEBUG_ENABLED) {
+            AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
+        }
+
     }
 }

@@ -200,6 +200,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings appSettings = new AppSettings(getActivity());
         menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && getActivity() instanceof DocumentActivity);
 
         boolean isTextEmpty;
         boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
@@ -339,6 +340,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_search: {
                 setDocumentViewVisibility(false);
                 _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
+                return true;
+            }
+            case R.id.action_send_debug_log: {
+                String text = "Hello!\nThanks for developing this app.\nI'm sending this debug log to you to improve the app. The debug log is below.\nI also looked at the FAQ \nhttps://gsantner.net/project/" + getString(R.string.app_name_real).toLowerCase() + ".html\nand checked if it resolves my issue. This debug log allows to analyze and improve performance, but it doesn't give information about crashes! If the app crashes, I will add all steps to reproduce the issue. \n\n\n\n------------------------\n\n\n\n";
+                text += AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
+                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, new StringBuilder(getString(R.string.app_contact_email_reverse)).reverse().toString());
                 return true;
             }
         }

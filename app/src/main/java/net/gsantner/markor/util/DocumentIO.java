@@ -18,6 +18,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
@@ -107,6 +108,10 @@ public class DocumentIO {
         }
 
         document.setDoHistory(true);
+        if (MainActivity.IS_DEBUG_ENABLED) {
+            String c = document.getContent();
+            AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + ")");
+        }
         return document;
     }
 
@@ -144,6 +149,15 @@ public class DocumentIO {
             ret = true;
         }
         return ret;
+    }
+
+    public static String getMaskedContent(Document document) {
+        String text = document.getContent().toLowerCase();
+        String httpToken = "§$§$§$§$";
+        text = text.replace("http://", httpToken).replace("https://", httpToken);
+        text = text.replaceAll("\\w", "a");
+        text = text.replace(httpToken, "https://");
+        return text;
     }
 
     public static String normalizeTitleForFilename(Document _document, String currentContent) {

@@ -34,6 +34,7 @@ import android.text.style.TypefaceSpan;
 import android.util.Patterns;
 
 import net.gsantner.markor.BuildConfig;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
@@ -50,7 +51,7 @@ public abstract class Highlighter {
     protected final static InputFilter AUTOFORMATTER_NONE = (charSequence, i, i1, spanned, i2, i3) -> null;
     protected float _highlightingFactorBasedOnFilesize = 1f;
 
-    protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD);
+    protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD || MainActivity.IS_DEBUG_ENABLED);
 
     protected abstract Editable run(final Editable editable);
 

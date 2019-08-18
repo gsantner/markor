@@ -615,4 +615,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return extSettingCache.contains(ext) || extSettingCache.contains(".*");
     }
+
+    public boolean isDebugLogEnabled() {
+        return getBool(R.string.pref_key__is_debug_log_enabled, false);
+    }
 }

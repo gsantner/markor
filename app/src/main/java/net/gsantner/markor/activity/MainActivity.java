@@ -36,6 +36,7 @@ import android.view.WindowManager;
 
 import com.pixplicity.generate.Rate;
 
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
@@ -65,6 +66,8 @@ import butterknife.OnLongClick;
 import butterknife.OnPageChange;
 
 public class MainActivity extends AppActivityBase implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
+    public static boolean IS_DEBUG_ENABLED = false;
+
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
 
@@ -86,7 +89,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     private ShareUtil _shareUtil;
 
     private String _cachedFolderTitle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +207,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     protected void onResume() {
         new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
+        IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD || _appSettings.isDebugLogEnabled();
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
             Intent intent = getIntent();

@@ -58,6 +58,8 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     protected static final String ARRAY_SEPARATOR = "%%%";
     protected static final String ARRAY_SEPARATOR_SUBSTITUTE = "§§§";
     public static final String SHARED_PREF_APP = "app";
+    private static String _debugLog = "";
+
 
     //
     // Members, Constructors
@@ -570,5 +572,17 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
             setLong(key, new Date(System.currentTimeMillis()).getTime());
         }
         return trigger;
+    }
+
+    public static void clearDebugLog() {
+        _debugLog = "";
+    }
+
+    public static String getDebugLog() {
+        return _debugLog;
+    }
+
+    public static synchronized void appendDebugLog(String text) {
+        _debugLog += "[" + new Date().toString() + "] " + text + "\n";
     }
 }

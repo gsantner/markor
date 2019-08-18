@@ -91,6 +91,12 @@
                 android:key="@string/pref_key__is_multi_window_enabled"
                 android:summary="@string/open_new_documents_always_in_new_window"
                 android:title="@string/multiple_windows" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_bug_report_black_24dp"
+                android:key="@string/pref_key__is_debug_log_enabled"
+                android:summary="@string/help_by_sending_debug_information_to_the_developer"
+                android:title="@string/debug" />
         </PreferenceCategory>
 
     </PreferenceScreen>

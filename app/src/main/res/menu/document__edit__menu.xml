@@ -122,4 +122,10 @@
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_send_debug_log"
+        android:icon="@drawable/ic_bug_report_black_24dp"
+        android:title="@string/send_debug_log"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>

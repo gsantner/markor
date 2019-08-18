@@ -22,10 +22,17 @@ public class NanoProfiler {
     private boolean _profilerEnabled = true;
     private long _profilingValue = -1;
     private String _text;
+    private static String _debugText = "";
 
     public NanoProfiler setEnabled(boolean enabled) {
         _profilerEnabled = enabled;
         return this;
+    }
+
+    public String resetDebugText() {
+        String text = _debugText;
+        _debugText = "";
+        return text;
     }
 
     public void start(boolean increaseGroupCounter, String... optionalText) {
@@ -48,6 +55,7 @@ public class NanoProfiler {
         if (_profilerEnabled) {
             String text = formatter.format(_profilingGroupValue / 1000f).replaceAll("\\G0", " ") + " [ms] for Group " + _groupCount;
             text = "NanoProfiler::: " + _groupCount + text;
+            _debugText += text + "\n";
             System.out.println(text);
         }
     }
@@ -59,6 +67,7 @@ public class NanoProfiler {
             _profilingGroupValue += _profilingValue / 1000f;
             String text = formatter.format(_profilingValue / 1000f).replaceAll("\\G0", " ") + " [µs] for " + _text;
             text = "NanoProfiler::: " + _groupCount + text;
+            _debugText += text + "\n";
             System.out.println(text);
         }
     }

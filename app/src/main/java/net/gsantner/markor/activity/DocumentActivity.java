@@ -126,6 +126,7 @@ public class DocumentActivity extends AppActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppSettings.clearDebugLog();
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
