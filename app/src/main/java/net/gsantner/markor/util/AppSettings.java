@@ -130,7 +130,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getMarkdownHighlightingDelay() {
-        return getInt(R.string.pref_key__markdown__hl_delay, 270);
+        return getInt(R.string.pref_key__markdown__hl_delay_v2, 650);
     }
 
 
@@ -564,7 +564,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getTabWidth() {
-        return getInt(R.string.pref_key__tab_width, 4);
+        return getInt(R.string.pref_key__tab_width_v2, 1);
     }
 
     public boolean listFileInRecents(File file) {

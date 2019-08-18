@@ -230,9 +230,9 @@
             app:min="1" />
 
         <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="4"
+            android:defaultValue="1"
             android:icon="@drawable/ic_keyboard_tab_black_24dp"
-            android:key="@string/pref_key__tab_width"
+            android:key="@string/pref_key__tab_width_v2"
             android:max="12"
             android:summary="@string/amount_of_space_for_tab"
             android:title="@string/tab_width"
@@ -333,9 +333,9 @@
 
             <PreferenceCategory android:title="@string/syntax_highlighting">
                 <android.support.v7.preference.SeekBarPreference
-                    android:defaultValue="270"
+                    android:defaultValue="650"
                     android:icon="@drawable/ic_highlight_black_24dp"
-                    android:key="@string/pref_key__markdown__hl_delay"
+                    android:key="@string/pref_key__markdown__hl_delay_v2"
                     android:max="3000"
                     android:summary="@string/highlighting_delay_lower_value_more_battery_drain_description__appspecific"
                     android:title="@string/highlighting_delay"
