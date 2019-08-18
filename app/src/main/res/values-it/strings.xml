@@ -306,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="template">Template</string>
+    <string name="send_debug_log">Invia Log di debug</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Aiuta inviando informazioni di debug allo sviluppatore(i). I dati vengono inviati via email tramite la tua app e-mail e puoi vedere tutti i dati inviati prima di inviare. Troverai un\'opzione aggiuntiva \"Invia log di debug\" nel menu in alto quando abilitato. Crea la bozza di posta elettronica.</string>
 </resources>
