@@ -307,5 +307,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
     <string name="template">Vorlage</string>
     <string name="send_debug_log">Debug-Log senden</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hilfe, indem Sie Debug-Informationen an Entwickler(n) senden. Daten werden per E-Mail per E-Mail per E-Mail gesendet und Sie können alle gesendeten Daten vor dem Senden sehen. Sie finden eine zusätzliche Option \"Debug-Log senden\" im oberen Menü, wenn aktiviert. Es erstellt den E-Mail-Entwurf.</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Hilf indem du Debug-Informationen an Entwickler sendest. Daten werden per E-Mail mit deiner E-Mail App gesendet und es können alle Daten vor Versand betrachtet werden. Eine zusätzliche Option \"Debug-Log senden\" im oberen Menü wird hinzugefügt wenn diese Option aktiviert ist. Sie erstellt den E-Mail-Entwurf.</string>
 </resources>
