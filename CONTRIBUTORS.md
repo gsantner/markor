@@ -38,3 +38,4 @@ Where:
 * **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
 * **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
+* **[Daniele Ricci](daniele.athome@gmail.com)**<br/>~° Front matter markdown template
