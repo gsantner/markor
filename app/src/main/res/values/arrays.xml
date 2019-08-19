@@ -62,6 +62,7 @@
         <item translatable="false">@string/file_template__md_markor_markdown_reference</item>
         <item translatable="false">@string/file_template__txt_todo_sample</item>
         <item translatable="false">@string/file_template__md_jekyll_post</item>
+        <item translatable="false">@string/file_template__md_front_matter</item>
         <item translatable="false">@string/file_template__md_cooking_recipe</item>
         <item translatable="false">@string/file_template__txt_zim_wiki</item>
     </string-array>

@@ -231,6 +231,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="features" translatable="false">Features</string>
     <string name="file_template__md_markor_markdown_reference" translatable="false">markor-markdown-reference.md</string>
     <string name="file_template__md_jekyll_post" translatable="false">2029-01-01-jekyll-post.md</string>
+    <string name="file_template__md_front_matter" translatable="false">front-matter.md</string>
     <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
     <string name="file_template__txt_zim_wiki" translatable="false">zim-wiki.txt</string>
