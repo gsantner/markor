@@ -308,4 +308,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Sjabloon</string>
     <string name="send_debug_log">Stuur debug log</string>
     <string name="help_by_sending_debug_information_to_the_developer">Help door debug informatie te verzenden naar ontwikkelaar(s). Gegevens worden per e-mail verzonden via uw e-mail app en u kunt alle verzonden gegevens zien voordat u het versturen. U vindt een extra optie \"Stuur debug log\" in het bovenste menu wanneer dit is ingeschakeld. Het maakt het e-mailconcept.</string>
+    <string name="print_pdf">Print / PDF</string>
 </resources>
