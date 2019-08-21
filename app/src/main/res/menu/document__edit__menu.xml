@@ -66,8 +66,8 @@
                 android:title="@string/plaintext" />
             <item
                 android:id="@+id/action_share_pdf"
-                android:icon="@drawable/ic_picture_as_pdf_black_24dp"
-                android:title="@string/pdf"
+                android:icon="@drawable/ic_print_black_24dp"
+                android:title="@string/print_pdf"
                 android:visible="false" />
             <item
                 android:id="@+id/action_share_file"
