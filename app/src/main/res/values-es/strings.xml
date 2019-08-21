@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="move">Mover</string>
     <string name="info">Información</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">¡El archivo/carpeta ya existe! Por favor, usa un nombre diferente</string>
     <string name="import_from_device">Importar desde dispositivo</string>
     <string name="import_">Importar</string>
     <string name="append_to_witharg">Agregar a %s</string>
@@ -305,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
     <string name="template">Plantilla</string>
+    <string name="send_debug_log">Enviar registro de depuración</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(s). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
 </resources>

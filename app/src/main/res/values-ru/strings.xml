@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Создать новый документ</string>
     <string name="move">Переместить</string>
     <string name="info">Информация</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Файл/папка уже существует! Пожалуйста, используйте другое имя</string>
     <string name="import_from_device">Импортировать с устройства</string>
     <string name="import_">Импортировать</string>
     <string name="append_to_witharg">Добавить к %s</string>
@@ -305,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Всегда использовать это приложение при открытии</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы с этим приложением, когда список содержит расширение файла. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения файла.</string>
     <string name="template">Шаблон</string>
+    <string name="send_debug_log">Отправить лог отладки</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Помогите разработчикам, отправляя отладочную информацию. Данные отправляются по электронной почте через ваше приложение электронной почты, и вы можете просмотреть все отправляемые данные перед отправкой. Вы найдете дополнительный пункт \"Отправить журнал отладки\" в верхнем меню, когда включено. Она создает черновик электронной почты.</string>
 </resources>

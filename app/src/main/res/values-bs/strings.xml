@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Kreiraj novi dokument</string>
     <string name="move">Premjesti</string>
     <string name="info">Informacija</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Datoteka/direktorij već postoji! Molimo odaberite drugi naziv</string>
     <string name="import_from_device">Prenesi sa uređaja</string>
     <string name="import_">Unesi</string>
     <string name="append_to_witharg">Dodaj %s</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (kao obični tekst)</string>
     <string name="document_editor_font">Font u uređivaču dokumenata</string>
     <string name="theme">Tema</string>
+    <string name="open_existing_files_in_view_mode">Otvori postojeće datoteke u načinu rada za čitanje</string>
     <string name="about">O programu</string>
     <string name="plaintext">Obični tekst</string>
     <string name="file">Datoteka</string>
@@ -146,6 +148,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nema</string>
     <string name="other">Ostalo</string>
     <string name="alternative_naming">Alternativni nazivi</string>
+    <string name="empty_file">Prazna datoteka</string>
+    <string name="break_page_pdf_print">Prekid stranice (PDF/printanje)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Da li podvući hex kōdove boje prema boji</string>
     <string name="underline_hex_color_codes">Podvući Hex kōdove boje</string>
     <string name="insert_current_date_when_starting_new_task">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
@@ -233,6 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Razno</string>
     <string name="textaction">Tekstualna akcija</string>
     <string name="textactions">Tekstualne akcije</string>
+    <string name="prefer_view">Preferirani način rada</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
     <string name="color">Boja</string>
@@ -266,6 +271,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
     <string name="swipe_to_change_mode">Prevlačenjem promijenite način rada</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Prevucite da aktivirate način rada za uređivanje ili čitanje (suprotno trenutno aktivnom načinu)</string>
     <string name="folder_first">Prvo direktorij</string>
     <string name="go_to">Idi do</string>
     <string name="appdata_public">AppData (javno)</string>
@@ -299,4 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekurzivno pretraživanje u trenutnom direktoriju. Kad upit sadržava zvjezdicu (*) koriste se regularni izrazi.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
+    <string name="template">Šablon</string>
+    <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Pomozite razvojnom timu šaljući informacije o greškama. Podaci se šalju putem Vaše email aplikacije i možete ih pregledati prije slanja. U gornjem ćete meniju pronaći \"Pošalji izvještaj za ispravljanje grešaka\" opciju kad je aktivna. Ona će kreirati novi email.</string>
 </resources>

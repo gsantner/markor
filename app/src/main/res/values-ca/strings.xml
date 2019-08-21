@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Crea un nou document</string>
     <string name="move">Mou</string>
     <string name="info">Informació</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">El fitxer/carpeta ja existeix. Utilitzeu un nom diferent</string>
     <string name="import_from_device">Importa des d\'un dispositiu</string>
     <string name="import_">Importa</string>
     <string name="append_to_witharg">Afegeixi a %s</string>
@@ -148,6 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Altres</string>
     <string name="alternative_naming">Noms alternatius</string>
     <string name="empty_file">Fitxer buit</string>
+    <string name="break_page_pdf_print">Salt de pàgina (PDF/Impressió)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ja sigui per subratllar els codis de color hexadecimal segons el color</string>
     <string name="underline_hex_color_codes">Subratlla els codis hexadecimals de color</string>
     <string name="insert_current_date_when_starting_new_task">Insereix la data actual en iniciar una tasca nova</string>
@@ -304,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
     <string name="template">Plantilla</string>
+    <string name="send_debug_log">Envia registre de depuració</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Ajudeu-nos enviant informació de depuració als desenvolupadors. Les dades s\'envien per correu a través de l\'aplicació de correu i podeu veure totes les dades que s\'enviaran abans d\'enviar-les. Trobareu una opció addicional «Envia registre de depuració» al menú superior quan estigui activada. Crea l\'esborrany de correu.</string>
 </resources>

@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Neues Dokument erstellen</string>
     <string name="move">Verschieben</string>
     <string name="info">Info</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Datei/Ordner existiert bereits! Verwende bitte einen anderen Namen</string>
     <string name="import_from_device">Von Gerät importieren</string>
     <string name="import_">Importieren</string>
     <string name="append_to_witharg">Anhängen an %s</string>
@@ -148,7 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Anderes</string>
     <string name="alternative_naming">Alternative Benennung</string>
     <string name="empty_file">Leere Datei</string>
-    <string name="break_page_pdf_print">Seite brechen (PDF/Drucken)</string>
+    <string name="break_page_pdf_print">Seite umbrechen (PDF/Drucken)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
     <string name="underline_hex_color_codes">Hex-Farb-Codes unterstreichen</string>
     <string name="insert_current_date_when_starting_new_task">Das aktuelle Datum einfügen wenn eine neue Aufgabe begonnen wird</string>
@@ -305,4 +306,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Immer mit dieser App öffnen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
     <string name="template">Vorlage</string>
+    <string name="send_debug_log">Debug-Log senden</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Hilf indem du Debug-Informationen an Entwickler sendest. Daten werden per E-Mail mit deiner E-Mail App gesendet und es können alle Daten vor Versand betrachtet werden. Eine zusätzliche Option \"Debug-Log senden\" im oberen Menü wird hinzugefügt wenn diese Option aktiviert ist. Sie erstellt den E-Mail-Entwurf.</string>
 </resources>
