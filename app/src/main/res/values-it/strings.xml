@@ -308,4 +308,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Template</string>
     <string name="send_debug_log">Invia log di debug</string>
     <string name="help_by_sending_debug_information_to_the_developer">Aiuta inviando informazioni di debug agli sviluppatori. I dati vengono inviati tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di inviare. Troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email, nel menu in alto quando abilitato.</string>
+    <string name="print_pdf">Stampa / PDF</string>
 </resources>
