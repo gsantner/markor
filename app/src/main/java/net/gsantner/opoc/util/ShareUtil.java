@@ -100,6 +100,10 @@ public class ShareUtil {
         _chooserTitle = "➥";
     }
 
+    public void setContext(Context c) {
+        _context = c;
+    }
+
     public void freeContextRef() {
         _context = null;
     }
@@ -334,14 +338,17 @@ public class ShareUtil {
     public PrintJob print(WebView webview, String jobName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             PrintDocumentAdapter printAdapter;
-            PrintManager printManager = (PrintManager) webview.getContext().getSystemService(Context.PRINT_SERVICE);
+            PrintManager printManager = (PrintManager) _context.getSystemService(Context.PRINT_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 printAdapter = webview.createPrintDocumentAdapter(jobName);
             } else {
                 printAdapter = webview.createPrintDocumentAdapter();
             }
             if (printManager != null) {
-                return printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
+                try {
+                    return printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
+                } catch (Exception ignored) {
+                }
             }
         } else {
             Log.e(getClass().getName(), "ERROR: Method called on too low Android API version");

@@ -242,6 +242,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
+        _shareUtil.setContext(getActivity()
+        );
         switch (item.getItemId()) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
