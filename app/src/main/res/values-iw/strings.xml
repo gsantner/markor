@@ -218,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">מיקום</string>
     <string name="text_lines">שורות טקסט</string>
     <string name="text_characters">תווי טקסט</string>
+    <string name="text_words">מילות טקסט</string>
     <string name="directory">תיקיה</string>
     <string name="recently_viewed_documents">מסמכים שנצפו לאחרונה</string>
     <string name="details">פרטים</string>
@@ -266,6 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">האם את/ה נהנה מפרוייקט זה? האם תרצה לתמוך בשיפור ותיקוני באגים?\n
 \n לכתוב אפליקציות ופוסטים קשורים לוקח המון זמן! אם ברצונך לעזור לפרוייקט להמשיך, נא לשקול תרומה קטנה!\n
 \n פיתוח הפרוייקט הזה נעשה בזמן החופשי, לגמרי בחינם וללא פרסומות!</string>
+    <string name="app_start_tab">כרטיסיה שתוצג בפתיחה</string>
     <string name="tab_to_select_at_start">טאב לבחירה כאשר האפליקציה מתחילה</string>
     <string name="swipe_to_change_mode">החלק להחלפת מצב</string>
 </resources>
