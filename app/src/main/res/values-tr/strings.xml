@@ -308,4 +308,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Şablon</string>
     <string name="send_debug_log">Hata Ayıklama Günlüğü Gönder</string>
     <string name="help_by_sending_debug_information_to_the_developer">Geliştiricilere hata ayıklama bilgisi göndererek yardım edin. Veri, e-posta uygulamanız aracılığıyla e-posta ile gönderilir ve gönderilmeden önce tüm gönderilen verileri görebilirsiniz. Etkinleştirildiğinde, üst menüde ek bir \"Hata ayıklama günlüğü gönder\" seçeneğini bulabilirsiniz. E-posta taslağını oluşturur.</string>
+    <string name="print_pdf">Yazdır / PDF</string>
 </resources>
