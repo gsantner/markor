@@ -275,4 +275,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">תיקיות לפני קבצים</string>
     <string name="go_to">עבור אל</string>
     <string name="internal_storage">אחסון פנימי</string>
+    <string name="navigationbar_color">צבע שורת הניווט</string>
+    <string name="black">שחור</string>
+    <string name="white">לבן</string>
+    <string name="view_mode">מצב תצוגה</string>
+    <string name="edit_mode">מצב עריכה</string>
+    <string name="mount_storage">הטמע אחסון</string>
+    <string name="share_into">שתף ל</string>
+    <string name="favourite">מועדף</string>
 </resources>
