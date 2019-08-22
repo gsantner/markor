@@ -235,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">שונות</string>
     <string name="textaction">פעולת טקסט</string>
     <string name="textactions">פעולות טקסט</string>
+    <string name="prefer_view">העדף תצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
     <string name="color">צבע</string>
@@ -270,4 +271,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">כרטיסיה שתוצג בפתיחה</string>
     <string name="tab_to_select_at_start">טאב לבחירה כאשר האפליקציה מתחילה</string>
     <string name="swipe_to_change_mode">החלק להחלפת מצב</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">החלק לשינוי המצב לעריכה או תצוגה (הפך מהמצב הנוכחי)</string>
+    <string name="folder_first">תיקיות לפני קבצים</string>
+    <string name="go_to">עבור אל</string>
+    <string name="internal_storage">אחסון פנימי</string>
 </resources>
