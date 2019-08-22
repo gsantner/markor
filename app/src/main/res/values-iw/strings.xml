@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">צור מסמך חדש</string>
     <string name="move">הזז</string>
     <string name="info">מידע</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">הקובץ/תיקיה כבר קיים! נא לבחור שם אחר</string>
     <string name="import_from_device">ייבא מהמכשיר</string>
     <string name="import_">ייבא</string>
     <string name="append_to_witharg">להוסיף ל- %s</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (כטקסט רגיל)</string>
     <string name="document_editor_font">גופן עורך המסמכים</string>
     <string name="theme">ערכת עיצוב</string>
+    <string name="open_existing_files_in_view_mode">פתח קבצים קיימים במצב תצוגה</string>
     <string name="about">אודות</string>
     <string name="plaintext">טקסט פשוט</string>
     <string name="file">קובץ</string>
@@ -118,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">הקובץ הנבחר לא נמצא בתיקיית המחברות של האפליקציה. האם תרצה להעתיק אותו לתיקיה הנוכחית? זה יקרוס כל קובץ קיים עם שם זהה.</string>
     <string name="files_and_folders">קבצים ותיקיות</string>
     <string name="document_browser">דפדפן מסמכים</string>
+    <string name="file_browser">מנהל קבצים</string>
     <string name="create_note" needed="false">צור פתק</string>
     <string name="special_documents" needed="false">מסמכים מיוחדים</string>
     <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
@@ -145,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">אף אחד</string>
     <string name="other">אחר</string>
     <string name="alternative_naming">שם חלופי</string>
+    <string name="empty_file">קובץ ריק</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
