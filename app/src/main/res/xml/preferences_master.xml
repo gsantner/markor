@@ -283,28 +283,12 @@
         </PreferenceCategory>
     </PreferenceScreen>
 
-    <!-- Preview screen -->
+    <!-- View screen -->
     <PreferenceScreen
         android:icon="@drawable/ic_visibility_black_24dp"
         android:summary="@string/display_converted_markup"
         android:title="@string/view">
-        <android.support.v7.preference.EditTextPreference
-            android:defaultValue="@string/inject_to_head_default"
-            android:icon="@drawable/ic_add_white_24dp"
-            android:key="@string/pref_key__inject_to_head"
-            android:summary="@string/js_css"
-            android:title="@string/inject_to_head" />
-        <android.support.v7.preference.EditTextPreference
-            android:defaultValue=""
-            android:icon="@drawable/ic_add_white_24dp"
-            android:key="@string/pref_key__inject_to_body"
-            android:title="@string/inject_to_body" />
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
-            android:key="@string/pref_key__is_render_rtl"
-            android:summary="@string/render_rtl_language"
-            android:title="@string/rtl_rendering" />
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_visibility_black_24dp"
@@ -317,6 +301,37 @@
             android:key="@string/pref_key__swipe_to_change_mode"
             android:summary="@string/swipe_to_change_to_edit_or_view_mode"
             android:title="@string/swipe_to_change_mode" />
+
+        <PreferenceCategory android:title="@string/inject">
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/inject_to_head_default"
+                android:icon="@drawable/ic_add_white_24dp"
+                android:key="@string/pref_key__inject_to_head"
+                android:summary="@string/js_css"
+                android:title="@string/inject_to_head" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue=""
+                android:icon="@drawable/ic_add_white_24dp"
+                android:key="@string/pref_key__inject_to_body"
+                android:title="@string/inject_to_body" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/text">
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
+                android:key="@string/pref_key__is_render_rtl"
+                android:summary="@string/render_rtl_language"
+                android:title="@string/rtl_rendering" />
+            <android.support.v7.preference.SeekBarPreference
+                android:defaultValue="-1"
+                android:icon="@drawable/ic_format_size_black_24dp"
+                android:summary="-1 => Editor"
+                android:key="@string/pref_key__view_font_size"
+                android:max="36"
+                android:title="@string/font_size"
+                app:min="-1" />
+        </PreferenceCategory>
     </PreferenceScreen>
 
 

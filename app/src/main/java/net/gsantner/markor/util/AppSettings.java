@@ -121,6 +121,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__editor_font_size, 15);
     }
 
+    public int getViewFontSize() {
+        int size = getInt(R.string.pref_key__view_font_size, -1);
+        return size < 2 ? getFontSize() : size;
+    }
+
     public boolean isEditor_ShowTextActionsBar() {
         return getBool(R.string.pref_key__is_show_textactions_bar, true);
     }
