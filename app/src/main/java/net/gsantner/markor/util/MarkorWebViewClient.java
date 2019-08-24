@@ -43,8 +43,9 @@ public class MarkorWebViewClient extends WebViewClient {
             File file = new File(URLDecoder.decode(url.replace("file://", "")));
             String mimetype;
             for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
-                if (TextFormat.isTextFile(new File(str))) {
-                    file = new File(str);
+                File f = new File(str);
+                if (f.exists() && TextFormat.isTextFile(f)) {
+                    file = f;
                     break;
                 }
             }
