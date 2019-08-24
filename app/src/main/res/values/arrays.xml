@@ -47,6 +47,7 @@
         <item translatable="false">@string/zero_width_space</item>
         <item translatable="false">@string/break_page_pdf_print</item>
         <item translatable="false">@string/ohm</item>
+        <item translatable="false">@string/char_punctation_mark_arrows</item>
     </string-array>
 
     <string-array name="new_file_types" translatable="false">

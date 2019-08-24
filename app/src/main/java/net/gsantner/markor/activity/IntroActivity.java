@@ -17,13 +17,12 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.opoc.util.PermissionChecker;
 
 public class IntroActivity extends AppIntro {
+    private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
 
     public static void optStart(Activity activeActivity) {
         SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
-        String key = IntroActivity.class.getCanonicalName() + "was_shown";
-        boolean wasShownYet = getPrefs.getBoolean(key, false);
+        boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
         if (!wasShownYet) {
-            getPrefs.edit().putBoolean(key, true).apply();
             activeActivity.startActivity(new Intent(activeActivity, IntroActivity.class));
         }
     }
@@ -67,6 +66,7 @@ public class IntroActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
+        PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().putBoolean(PREF_KEY_WAS_SHOWN, true).apply();
         finish();
     }
 

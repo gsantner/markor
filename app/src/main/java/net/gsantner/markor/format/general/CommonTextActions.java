@@ -97,6 +97,8 @@ public class CommonTextActions {
                         _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
                     } else if (callbackPayload.equals(rstr(R.string.ohm))) {
                         _hlEditor.insertOrReplaceTextOnCursor("Ω");
+                    } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+                        _hlEditor.insertOrReplaceTextOnCursor("»«");
                     }
                 });
                 return true;
