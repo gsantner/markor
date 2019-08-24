@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">צור מסמך חדש</string>
     <string name="move">הזז</string>
     <string name="info">מידע</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">הקובץ/תיקיה כבר קיים! נא לבחור שם אחר</string>
     <string name="import_from_device">ייבא מהמכשיר</string>
     <string name="import_">ייבא</string>
     <string name="append_to_witharg">להוסיף ל- %s</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (כטקסט רגיל)</string>
     <string name="document_editor_font">גופן עורך המסמכים</string>
     <string name="theme">ערכת עיצוב</string>
+    <string name="open_existing_files_in_view_mode">פתח קבצים קיימים במצב תצוגה</string>
     <string name="about">אודות</string>
     <string name="plaintext">טקסט פשוט</string>
     <string name="file">קובץ</string>
@@ -118,6 +120,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">הקובץ הנבחר לא נמצא בתיקיית המחברות של האפליקציה. האם תרצה להעתיק אותו לתיקיה הנוכחית? זה יקרוס כל קובץ קיים עם שם זהה.</string>
     <string name="files_and_folders">קבצים ותיקיות</string>
     <string name="document_browser">דפדפן מסמכים</string>
+    <string name="file_browser">מנהל קבצים</string>
     <string name="create_note" needed="false">צור פתק</string>
     <string name="special_documents" needed="false">מסמכים מיוחדים</string>
     <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
@@ -145,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">אף אחד</string>
     <string name="other">אחר</string>
     <string name="alternative_naming">שם חלופי</string>
+    <string name="empty_file">קובץ ריק</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
@@ -214,6 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">מיקום</string>
     <string name="text_lines">שורות טקסט</string>
     <string name="text_characters">תווי טקסט</string>
+    <string name="text_words">מילות טקסט</string>
     <string name="directory">תיקיה</string>
     <string name="recently_viewed_documents">מסמכים שנצפו לאחרונה</string>
     <string name="details">פרטים</string>
@@ -230,6 +235,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">שונות</string>
     <string name="textaction">פעולת טקסט</string>
     <string name="textactions">פעולות טקסט</string>
+    <string name="prefer_view">העדף תצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
     <string name="color">צבע</string>
@@ -262,6 +268,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">האם את/ה נהנה מפרוייקט זה? האם תרצה לתמוך בשיפור ותיקוני באגים?\n
 \n לכתוב אפליקציות ופוסטים קשורים לוקח המון זמן! אם ברצונך לעזור לפרוייקט להמשיך, נא לשקול תרומה קטנה!\n
 \n פיתוח הפרוייקט הזה נעשה בזמן החופשי, לגמרי בחינם וללא פרסומות!</string>
+    <string name="app_start_tab">כרטיסיה שתוצג בפתיחה</string>
     <string name="tab_to_select_at_start">טאב לבחירה כאשר האפליקציה מתחילה</string>
     <string name="swipe_to_change_mode">החלק להחלפת מצב</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">החלק לשינוי המצב לעריכה או תצוגה (הפך מהמצב הנוכחי)</string>
+    <string name="folder_first">תיקיות לפני קבצים</string>
+    <string name="go_to">עבור אל</string>
+    <string name="internal_storage">אחסון פנימי</string>
+    <string name="navigationbar_color">צבע שורת הניווט</string>
+    <string name="black">שחור</string>
+    <string name="white">לבן</string>
+    <string name="view_mode">מצב תצוגה</string>
+    <string name="edit_mode">מצב עריכה</string>
+    <string name="mount_storage">הטמע אחסון</string>
+    <string name="share_into">שתף ל</string>
+    <string name="favourite">מועדף</string>
+    <string name="favourites">מועדפים</string>
+    <string name="please_wait">המתן</string>
+    <string name="tab_width">רוחב טאב</string>
+    <string name="amount_of_space_for_tab">כמות הרווחים להצגת טאב</string>
+    <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
+    <string name="reload">טען מחדש</string>
+    <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
 </resources>

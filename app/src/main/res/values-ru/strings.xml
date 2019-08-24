@@ -308,4 +308,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить лог отладки</string>
     <string name="help_by_sending_debug_information_to_the_developer">Помогите разработчикам, отправляя отладочную информацию. Данные отправляются по электронной почте через ваше приложение электронной почты, и вы можете просмотреть все отправляемые данные перед отправкой. Вы найдете дополнительный пункт \"Отправить журнал отладки\" в верхнем меню, когда включено. Она создает черновик электронной почты.</string>
+    <string name="print_pdf">Печать / PDF</string>
 </resources>
