@@ -29,6 +29,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -238,6 +240,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            _fragmentMenu.findItem(R.id.action_email_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected());
@@ -449,6 +452,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
 
+            case R.id.action_email_selected_items: {
+                askForEmail();
+                return true;
+            }
+
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
@@ -564,6 +572,14 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 opt.rootFolder = _appSettings.getNotebookDirectory();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
+    }
+
+     private void askForEmail() {
+        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
+        ShareUtil s = new ShareUtil(getContext());
+        s.shareMultipleStreams(filesToMove, "text/plain");
+        _filesystemViewerAdapter.unselectAll();
+        _filesystemViewerAdapter.reloadCurrentFolder();
     }
 
     private void showImportDialog() {

@@ -103,8 +103,7 @@
   - todo.txt: Highlight multiple levels of context/projects (@@/++)  
 - Text Actions  
   - Add zero-width space character to 'special characters'  
-  - Add color picker  
-
+  - Add color picker
 **Improved:**  
 - TextActions  
   - Markdown: Multiline textaction for header/quote/list  
