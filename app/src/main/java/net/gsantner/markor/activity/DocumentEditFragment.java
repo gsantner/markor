@@ -345,8 +345,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_record_audio: {
                 FragmentManager fm = getChildFragmentManager();
-                AudioToNoteFragment editNameDialogFragment = AudioToNoteFragment.newInstance(_document.getFile().getPath());
-                editNameDialogFragment.show(fm, "fragment_edit_name");
+                AudioToNoteFragment audioToNoteFragment = AudioToNoteFragment.newInstance(_document.getFile().getPath(), _hlEditor);
+                audioToNoteFragment.show(fm, "fragment_edit_name");
 
                 return true;
 
