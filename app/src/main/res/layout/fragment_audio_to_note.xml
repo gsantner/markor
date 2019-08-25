@@ -31,14 +31,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:background="null"
                 style="?android:attr/borderlessButtonStyle" />
 
             <Button
                 android:id="@+id/cancel_recording"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="null"
                 style="?android:attr/borderlessButtonStyle"
                 android:text="Cancel"/>
         </LinearLayout>
