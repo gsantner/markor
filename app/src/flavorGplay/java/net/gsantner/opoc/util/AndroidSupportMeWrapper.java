@@ -13,7 +13,6 @@ package net.gsantner.opoc.util;
 import android.app.Activity;
 
 import net.gsantner.opoc.util.ActivityUtils;
-
 public class AndroidSupportMeWrapper extends ActivityUtils {
 
     public AndroidSupportMeWrapper(Activity activity) {
