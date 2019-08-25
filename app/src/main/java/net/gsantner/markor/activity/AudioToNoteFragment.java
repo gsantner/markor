@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import net.gsantner.markor.R;
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +31,14 @@ import java.io.IOException;
  */
 public class AudioToNoteFragment extends DialogFragment {
     private static final String ARG_PATH = "textFilePath";
+    private static final String ARG_HLEDITOR = "textFilePath";
+
+    private static HighlightingEditor highlightEditor;
+
     private static final String FILE_EXTENSION = ".3gp";
 
     private String textFilePath;
+    private String currentAudioFilePath;
 
     private boolean recording = false;
     private MediaRecorder recorder;
@@ -45,8 +51,9 @@ public class AudioToNoteFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static AudioToNoteFragment newInstance(String path) {
+    public static AudioToNoteFragment newInstance(String path, HighlightingEditor highlightingEditor) {
         AudioToNoteFragment fragment = new AudioToNoteFragment();
+        highlightEditor = highlightingEditor;
         Bundle args = new Bundle();
         args.putString(ARG_PATH, path);
         fragment.setArguments(args);
@@ -93,6 +100,9 @@ public class AudioToNoteFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (hasRecording) {
+                    highlightEditor.insertOrReplaceTextOnCursor(
+                            currentAudioFilePath.substring(
+                                    currentAudioFilePath.lastIndexOf("/")));
                     dismiss();
                 }
             }
@@ -119,12 +129,12 @@ public class AudioToNoteFragment extends DialogFragment {
             return;
         }
 
+        this.currentAudioFilePath = generateFilePath();
+
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        String newFilePath = generateFilePath();
-        Log.w("DEV", "startRecording: new generated file path" + newFilePath);
-        recorder.setOutputFile(newFilePath);
+        recorder.setOutputFile(currentAudioFilePath);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
@@ -167,4 +177,5 @@ public class AudioToNoteFragment extends DialogFragment {
 
 
 // TODO: Test on real device. MediaRecorder does not run on simulated devices
-// TODO: Test behaviour when creating multiple files
+
+//TODO: DO need callback interface
