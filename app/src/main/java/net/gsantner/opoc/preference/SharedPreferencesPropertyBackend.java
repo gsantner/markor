@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -545,7 +546,9 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
      * Substract current datetime by given amount of days
      */
     public Date getDateOfDaysAgo(int days) {
-        return new Date(System.currentTimeMillis() - days * 1000 * 60 * 60 * 24);
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DAY_OF_MONTH, -days);
+        return cal.getTime();
     }
 
     /**
