@@ -112,8 +112,8 @@ public class AudioToNoteFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 // on cancel we assume the recorded audio is not wanted -> have to remove it
-                if (hasRecording && textFilePath != null) {
-                    File audioFile = new File(textFilePath);
+                if (hasRecording && currentAudioFilePath != null) {
+                    File audioFile = new File(currentAudioFilePath);
                     audioFile.delete();
                 }
                 dismiss();
