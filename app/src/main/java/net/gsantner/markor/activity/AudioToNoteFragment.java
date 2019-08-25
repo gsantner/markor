@@ -111,7 +111,7 @@ public class AudioToNoteFragment extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // if we are still recording, termiante it
+                // if we are still recording, terminate it
                 if(recorder != null) {
                     stopRecording();
                 }
