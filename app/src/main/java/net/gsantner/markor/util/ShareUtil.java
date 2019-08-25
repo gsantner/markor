@@ -24,7 +24,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.Document;
 
-
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 

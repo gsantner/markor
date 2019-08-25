@@ -30,7 +30,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder already exists! Please use a different name</string>
 
-
     <string name="import_from_device">Import from device</string>
     <string name="import_">Import</string>
     <string name="append_to_witharg">Append to %s</string>
