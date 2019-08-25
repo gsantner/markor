@@ -30,6 +30,8 @@ import java.io.IOException;
  */
 public class AudioToNoteFragment extends DialogFragment {
     private static final String ARG_PATH = "textFilePath";
+    private static final String FILE_EXTENSION = ".3gp";
+
     private String textFilePath;
 
     private boolean recording = false;
@@ -149,20 +151,17 @@ public class AudioToNoteFragment extends DialogFragment {
     }
 
     private String generateFilePath() {
-        String[] splitPath = textFilePath.split("/");
-        Log.w("DEV", "generateFileName: " + splitPath.toString());
-        String textFile = splitPath[(splitPath.length -1)];
-        Log.w("DEV", "generateFileName: textfilename :" + textFile);
-        splitPath[(splitPath.length -1)]= textFile.split("\\.")[0] + "_audio";
+        String audioFileGeneric = textFilePath.substring(0, textFilePath.lastIndexOf(".")) + "_audio";
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i< splitPath.length; i++) {
-            stringBuilder.append(splitPath[i]);
-            if (i < (splitPath.length -1)) {
-                stringBuilder.append("/");
-            }
+        int i = 1;
+        File audioFile = new File(audioFileGeneric + FILE_EXTENSION);
+        while (audioFile.exists()) {
+            audioFile = new File(audioFileGeneric + "_" + i + FILE_EXTENSION);
+            i++;
         }
-        return stringBuilder.toString();
+
+        Log.w("DEV", "generateFilePath: absolute file path: " + audioFile.getAbsolutePath());
+        return audioFile.getAbsolutePath();
     }
 }
 
