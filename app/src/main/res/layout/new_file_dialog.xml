@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/folder_is_created_without_extension" />
+
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"

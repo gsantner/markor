@@ -230,7 +230,7 @@ public class ShareUtil {
         ArrayList<Uri> uris = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         intent.setType(mimeType);
-        for (File file : files){
+        for (File file : files) {
             File uri = new File(file.toString());
             Uri uriFile = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
             uris.add(uriFile);
@@ -241,7 +241,7 @@ public class ShareUtil {
             showChooser(intent, null);
             return true;
         } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument
-           return false;
+            return false;
         }
     }
 

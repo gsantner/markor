@@ -29,7 +29,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,7 +49,6 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -574,7 +572,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         }, getActivity().getSupportFragmentManager(), getActivity());
     }
 
-     private void askForEmail() {
+    private void askForEmail() {
         final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         ShareUtil s = new ShareUtil(getContext());
         s.shareMultipleStreams(filesToMove, "text/plain");
