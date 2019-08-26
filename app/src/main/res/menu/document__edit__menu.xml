@@ -124,7 +124,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_record_audio"
-        android:title="Record audio"
-        app:showAsAction="never"
-    />
+        android:icon="@drawable/ic_keyboard_voice_black_24dp"
+        android:title="@string/record"
+        app:showAsAction="never" />
 </menu>
