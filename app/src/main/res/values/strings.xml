@@ -321,4 +321,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Send Debug Log</string>
     <string name="help_by_sending_debug_information_to_the_developer">Help by sending debug information to developer(s). Data is sent by email via your email app and you can see all sent data prior to sending. You will find an additional \"Send debug log\" option in top menu when enabled. It creates the email draft.</string>
     <string name="print_pdf">Print / PDF</string>
+    <string name="record">Record audio</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
