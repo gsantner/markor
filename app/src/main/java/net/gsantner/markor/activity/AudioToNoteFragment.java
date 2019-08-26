@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 
@@ -67,7 +69,7 @@ public class AudioToNoteFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_audio_to_note, container, false);
-        Button recordingButton = view.findViewById(R.id.start_recording);
+        ImageButton recordingButton = view.findViewById(R.id.start_recording);
         saveButton = view.findViewById(R.id.save_recording);
         Button cancelButton = view.findViewById(R.id.cancel_recording);
 
@@ -79,11 +81,11 @@ public class AudioToNoteFragment extends DialogFragment {
                 if (recording) {
                     recording = false;
                     stopRecording();
-                    recordingButton.setText("Start");
+                    recordingButton.setImageResource(R.drawable.ic_play_circle_outline_black_140dp);
                 } else {
                     recording = true;
                     startRecording();
-                    recordingButton.setText("Stop");
+                    recordingButton.setImageResource(R.drawable.ic_stop_black_140dp);
                 }
             }
         });
