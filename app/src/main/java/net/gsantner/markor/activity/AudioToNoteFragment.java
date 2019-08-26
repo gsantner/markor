@@ -32,9 +32,9 @@ import java.io.IOException;
 public class AudioToNoteFragment extends DialogFragment {
     private static final String ARG_PATH = "textFilePath";
 
-    private static HighlightingEditor highlightEditor;
-
     private static final String FILE_EXTENSION = ".3gp";
+
+    private static HighlightingEditor highlightEditor;
 
     private String textFilePath;
     private String currentAudioFilePath;
