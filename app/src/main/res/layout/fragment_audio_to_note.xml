@@ -10,16 +10,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <ImageButton
+            android:id="@+id/start_recording"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Record your thoughts !" />
-
-        <Button
-            android:id="@+id/start_recording"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:text="Start"/>
+            android:src="@drawable/ic_play_circle_outline_black_140dp"
+            android:background="@color/white"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,17 +25,17 @@
 
             <Button
                 android:id="@+id/save_recording"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                style="?android:attr/borderlessButtonStyle" />
+                android:text="Save" />
 
             <Button
                 android:id="@+id/cancel_recording"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="Cancel"/>
+                android:text="Cancel" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
