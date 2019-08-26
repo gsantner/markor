@@ -308,4 +308,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">テンプレート</string>
     <string name="send_debug_log">デバッグログを送信</string>
     <string name="help_by_sending_debug_information_to_the_developer">開発者にデバッグ情報を送信して支援してください。 データはメールアプリを使用してメールで送信され、送信前にすべての送信データを確認できます。 有効にすると、トップメニューに \"デバッグログを送信\" オプションが追加されます。 メールの下書きを作成します。</string>
+    <string name="print_pdf">印刷 / PDF</string>
 </resources>
