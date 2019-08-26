@@ -23,15 +23,14 @@ import java.io.IOException;
 /**
  * Requires permission to record audio permission (200);
  *
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
+ * Simple DialogFragment. Includes functionality to record audio notes from within text files.
+ * Audio notes will be saved in the same folder as the text file.
+ *
  * Use the {@link AudioToNoteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class AudioToNoteFragment extends DialogFragment {
     private static final String ARG_PATH = "textFilePath";
-    private static final String ARG_HLEDITOR = "textFilePath";
 
     private static HighlightingEditor highlightEditor;
 
@@ -179,8 +178,3 @@ public class AudioToNoteFragment extends DialogFragment {
         return audioFile.getAbsolutePath();
     }
 }
-
-
-// TODO: Test on real device. MediaRecorder does not run on simulated devices
-
-//TODO: DO need callback interface
