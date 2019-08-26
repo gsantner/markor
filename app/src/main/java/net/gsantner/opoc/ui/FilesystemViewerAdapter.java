@@ -331,6 +331,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         return _currentSelection;
     }
 
+    public boolean isFilesOnlySelected() {
+        for (File f : _currentSelection) {
+            if (f.isDirectory()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean toggleSelection(TagContainer data) {
         boolean clickHandled = false;
         if (data != null && data.file != null && getCurrentFolder() != null) {

@@ -65,6 +65,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -230,18 +231,23 @@ public class ShareUtil {
         }
     }
 
-    public boolean shareMultipleStreams(List<File> files, String mimeType) {
+    /**
+     * Share the given files as stream with given mime-type
+     *
+     * @param files    The files to share
+     * @param mimeType The files mime type. Usally * / * is the best option
+     */
+    public boolean shareStreamMultiple(Collection<File> files, String mimeType) {
         ArrayList<Uri> uris = new ArrayList<>();
-        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-        intent.setType(mimeType);
         for (File file : files) {
             File uri = new File(file.toString());
-            Uri uriFile = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
-            uris.add(uriFile);
+            uris.add(FileProvider.getUriForFile(_context, getFileProviderAuthority(), file));
         }
 
         try {
-            intent.putParcelableArrayListExtra(intent.EXTRA_STREAM, uris);
+            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            intent.setType(mimeType);
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
             showChooser(intent, null);
             return true;
         } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument

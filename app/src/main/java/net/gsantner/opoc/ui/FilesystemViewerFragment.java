@@ -218,15 +218,16 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void updateMenuItems() {
-        boolean multi1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
-        boolean multiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
-        Set<File> selectedFiles = _filesystemViewerAdapter.getCurrentSelection();
+        final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
+        final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
+        final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
+        final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
 
         // Check if is a favourite
         boolean isFavourite = false;
-        if (multi1) {
+        if (selMulti1) {
             for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
-                if (selectedFiles.contains(favourite)) {
+                if (selFiles.contains(favourite)) {
                     isFavourite = true;
                     break;
                 }
@@ -234,17 +235,18 @@ public class FilesystemViewerFragment extends GsFragmentBase
         }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
-            _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible(multi1 || multiMore);
-            _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(multi1);
-            _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(multi1);
-            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
-            _fragmentMenu.findItem(R.id.action_email_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            _fragmentMenu.findItem(R.id.action_search).setVisible(selFiles.isEmpty());
+            _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible(selMulti1 || selMultiMore);
+            _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1);
+            _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
+            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_favourite).setVisible(multi1 && !isFavourite);
-            _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(multi1 && isFavourite);
+            _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
+            _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
         }
     }
 
@@ -450,8 +452,12 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
 
-            case R.id.action_email_selected_items: {
-                askForEmail();
+            case R.id.action_share_files: {
+                ShareUtil s = new ShareUtil(getContext());
+                s.shareStreamMultiple(_filesystemViewerAdapter.getCurrentSelection(), "*/*");
+                _filesystemViewerAdapter.unselectAll();
+                _filesystemViewerAdapter.reloadCurrentFolder();
+                s.freeContextRef();
                 return true;
             }
 
@@ -570,14 +576,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 opt.rootFolder = _appSettings.getNotebookDirectory();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
-    }
-
-    private void askForEmail() {
-        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        ShareUtil s = new ShareUtil(getContext());
-        s.shareMultipleStreams(filesToMove, "text/plain");
-        _filesystemViewerAdapter.unselectAll();
-        _filesystemViewerAdapter.reloadCurrentFolder();
     }
 
     private void showImportDialog() {

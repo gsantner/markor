@@ -47,7 +47,7 @@
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/details"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_move_selected_items"
@@ -57,11 +57,11 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_email_selected_items"
-        android:icon="@drawable/gs_email_sign_black_24dp"
-        android:title="@string/email"
+        android:id="@+id/action_share_files"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:title="@string/share"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 
 
     <item
