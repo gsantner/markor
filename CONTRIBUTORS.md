@@ -38,3 +38,4 @@ Where:
 * **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
 * **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
+* **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser

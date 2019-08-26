@@ -230,6 +230,25 @@ public class ShareUtil {
         }
     }
 
+    public boolean shareMultipleStreams(List<File> files, String mimeType) {
+        ArrayList<Uri> uris = new ArrayList<>();
+        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        intent.setType(mimeType);
+        for (File file : files) {
+            File uri = new File(file.toString());
+            Uri uriFile = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+            uris.add(uriFile);
+        }
+
+        try {
+            intent.putParcelableArrayListExtra(intent.EXTRA_STREAM, uris);
+            showChooser(intent, null);
+            return true;
+        } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument
+            return false;
+        }
+    }
+
     /**
      * Start calendar application to add new event, with given details prefilled
      */

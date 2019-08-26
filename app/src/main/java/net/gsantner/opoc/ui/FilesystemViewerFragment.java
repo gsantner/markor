@@ -238,6 +238,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(multi1);
             _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            _fragmentMenu.findItem(R.id.action_email_selected_items).setVisible((multi1 || multiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected());
@@ -449,6 +450,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
 
+            case R.id.action_email_selected_items: {
+                askForEmail();
+                return true;
+            }
+
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
@@ -564,6 +570,14 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 opt.rootFolder = _appSettings.getNotebookDirectory();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
+    }
+
+    private void askForEmail() {
+        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
+        ShareUtil s = new ShareUtil(getContext());
+        s.shareMultipleStreams(filesToMove, "text/plain");
+        _filesystemViewerAdapter.unselectAll();
+        _filesystemViewerAdapter.reloadCurrentFolder();
     }
 
     private void showImportDialog() {

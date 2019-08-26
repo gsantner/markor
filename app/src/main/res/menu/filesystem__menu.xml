@@ -56,6 +56,13 @@
         android:visible="false"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_email_selected_items"
+        android:icon="@drawable/gs_email_sign_black_24dp"
+        android:title="@string/email"
+        android:visible="false"
+        app:showAsAction="never" />
+
 
     <item
         android:id="@+id/action_go_to"
