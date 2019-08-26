@@ -46,10 +46,6 @@ public class AudioToNoteFragment extends DialogFragment {
 
     private Button saveButton;
 
-    public AudioToNoteFragment() {
-        // Required empty public constructor
-    }
-
     public static AudioToNoteFragment newInstance(String path, HighlightingEditor highlightingEditor) {
         AudioToNoteFragment fragment = new AudioToNoteFragment();
         highlightEditor = highlightingEditor;
