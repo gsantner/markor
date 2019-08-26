@@ -71,8 +71,6 @@ public class AudioToNoteFragment extends DialogFragment {
         saveButton = view.findViewById(R.id.save_recording);
         Button cancelButton = view.findViewById(R.id.cancel_recording);
 
-        Log.w("DEV", "onCreateView: textFilePath: " + textFilePath);
-
         doSelfPermissions();
 
         recordingButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +138,7 @@ public class AudioToNoteFragment extends DialogFragment {
         try {
             recorder.prepare();
         } catch (IOException e) {
-            Log.e("DEV", "stopRecording: IOException occurred while preparing recorder", e);
+            e.printStackTrace();
         }
         recorder.start();
     }
@@ -170,7 +168,6 @@ public class AudioToNoteFragment extends DialogFragment {
             i++;
         }
 
-        Log.w("DEV", "generateFilePath: absolute file path: " + audioFile.getAbsolutePath());
         return audioFile.getAbsolutePath();
     }
 }
