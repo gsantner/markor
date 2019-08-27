@@ -146,6 +146,7 @@ dependencies {
 
     // Processors
     def anpros = ["com.jakewharton:butterknife-compiler:${version_library_butterknife}"]
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     for (anpro in anpros) {
         if (enable_plugin_kotlin) {
             kapt anpro
