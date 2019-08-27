@@ -131,6 +131,6 @@
     <item
         android:id="@+id/action_record_audio"
         android:icon="@drawable/ic_keyboard_voice_black_24dp"
-        android:title="@string/record"
+        android:title="@string/record_audio"
         app:showAsAction="never" />
 </menu>
