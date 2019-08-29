@@ -37,6 +37,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
 
+    private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
     public AppSettings(Context _context) {
         super(_context);
@@ -86,6 +87,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getNotebookDirectoryAsStr() {
         String dir = getString(R.string.pref_key__notebook_directory, "");
+        if (dir.isEmpty() && LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
+            dir = LOCAL_TESTFOLDER_FILEPATH.getParentFile().getParent();
+            setSaveDirectory(dir);
+        }
         if (dir.isEmpty()) {
             dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
                     , rstr(R.string.app_name).toLowerCase(Locale.ROOT))
@@ -97,6 +102,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public File getQuickNoteFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
+        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
+            defaultValue = new File(LOCAL_TESTFOLDER_FILEPATH, rstr(R.string.quicknote_default_filename)).getAbsolutePath();
+        }
         return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
     }
 
@@ -106,6 +114,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public File getTodoFile() {
         String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
+        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
+            defaultValue = new File(LOCAL_TESTFOLDER_FILEPATH, rstr(R.string.todo_default_filename)).getAbsolutePath();
+        }
         return new File(getString(R.string.pref_key__todo_filepath, defaultValue));
     }
 
@@ -622,6 +633,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isDebugLogEnabled() {
-        return getBool(R.string.pref_key__is_debug_log_enabled, false);
+        return getBool(R.string.pref_key__is_debug_log_enabled, BuildConfig.IS_TEST_BUILD);
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
 public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
-    private static final List<String> EXT = Arrays.asList(".txt", ".taskpaper");
+    private static final List<String> EXT = Arrays.asList(".txt", ".taskpaper", ".html");
 
 
     //########################
@@ -33,9 +33,13 @@ public class PlaintextConverter extends TextConverter {
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
-        converted = HTML100_BODY_PRE_BEGIN
-                + TextUtilsCompat.htmlEncode(markup)
-                + HTML101_BODY_PRE_END;
+        if (file != null && file.getName().toLowerCase().endsWith(".html")) {
+            converted += markup;
+        } else {
+            converted = HTML100_BODY_PRE_BEGIN
+                    + TextUtilsCompat.htmlEncode(markup)
+                    + HTML101_BODY_PRE_END;
+        }
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
