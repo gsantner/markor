@@ -152,7 +152,6 @@ public class AudioToNoteFragment extends DialogFragment {
         recorder = null;
     }
 
-    //TODO: Incorporate this in the app wide permission handling
     private boolean doSelfPermissions() {
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 200);
         return true;
@@ -171,7 +170,6 @@ public class AudioToNoteFragment extends DialogFragment {
         return audioFile.getAbsolutePath();
     }
 
-
     private PullableSource configureMic() {
         return new PullableSource.Default(
                 new AudioRecordConfig.Default(
@@ -184,6 +182,4 @@ public class AudioToNoteFragment extends DialogFragment {
     private File configureOutputFile() {
         return new File(generateFilePath());
     }
-
-
 }
