@@ -326,6 +326,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_audio">Save</string>
     <string name="cancel_audio">Cancel</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
