@@ -1,6 +1,7 @@
 package net.gsantner.markor.activity;
 
 import android.Manifest;
+import android.media.AudioFormat;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,13 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import java.io.File;
 import java.io.IOException;
 
+import omrecorder.AudioChunk;
+import omrecorder.AudioRecordConfig;
+import omrecorder.OmRecorder;
+import omrecorder.PullTransport;
+import omrecorder.PullableSource;
+import omrecorder.Recorder;
+
 /**
  * Requires permission to record audio permission (200);
  *
@@ -32,7 +40,7 @@ import java.io.IOException;
 public class AudioToNoteFragment extends DialogFragment {
     private static final String ARG_PATH = "textFilePath";
 
-    private static final String FILE_EXTENSION = ".3gp";
+    private static final String FILE_EXTENSION = ".wav";
 
     private static HighlightingEditor highlightEditor;
 
@@ -40,7 +48,7 @@ public class AudioToNoteFragment extends DialogFragment {
     private String currentAudioFilePath;
 
     private boolean recording = false;
-    private MediaRecorder recorder;
+    private Recorder recorder;
 
     private boolean hasRecording = false;
 
@@ -129,27 +137,19 @@ public class AudioToNoteFragment extends DialogFragment {
 
         this.currentAudioFilePath = generateFilePath();
 
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(currentAudioFilePath);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        try {
-            recorder.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        recorder.start();
+        recorder = OmRecorder.wav(new PullTransport.Default(configureMic()), configureOutputFile());
+        recorder.startRecording();
     }
 
     private void stopRecording() {
-        recorder.stop();
-        recorder.release();
+        try {
+            recorder.stopRecording();
+            hasRecording = true;
+            saveButton.setEnabled(true);
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
         recorder = null;
-
-        hasRecording = true;
-        saveButton.setEnabled(true);
     }
 
     //TODO: Incorporate this in the app wide permission handling
@@ -170,4 +170,20 @@ public class AudioToNoteFragment extends DialogFragment {
 
         return audioFile.getAbsolutePath();
     }
+
+
+    private PullableSource configureMic() {
+        return new PullableSource.Default(
+                new AudioRecordConfig.Default(
+                        MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
+                        AudioFormat.CHANNEL_IN_MONO, 44100
+                )
+        );
+    }
+
+    private File configureOutputFile() {
+        return new File(generateFilePath());
+    }
+
+
 }
