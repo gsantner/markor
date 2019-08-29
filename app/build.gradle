@@ -143,6 +143,7 @@ dependencies {
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
+    implementation 'com.kailashdabhi:om-recorder:1.1.5'
 
     // Processors
     def anpros = ["com.jakewharton:butterknife-compiler:${version_library_butterknife}"]
