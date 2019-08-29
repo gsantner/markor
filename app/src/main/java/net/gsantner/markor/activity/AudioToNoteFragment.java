@@ -21,7 +21,6 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import java.io.File;
 import java.io.IOException;
 
-import omrecorder.AudioChunk;
 import omrecorder.AudioRecordConfig;
 import omrecorder.OmRecorder;
 import omrecorder.PullTransport;
