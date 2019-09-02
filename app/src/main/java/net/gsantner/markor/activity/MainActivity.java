@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -91,9 +92,17 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     private String _cachedFolderTitle;
 
+    public boolean isHighPerformingDevice() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
+                Runtime.getRuntime().availableProcessors() >= 4 &&
+                activityManager.getMemoryClass() >= 128;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("OIDA", "onCreate: " + isHighPerformingDevice());
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
         _shareUtil = new ShareUtil(this);
