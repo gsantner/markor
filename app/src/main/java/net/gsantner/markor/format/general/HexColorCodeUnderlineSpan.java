@@ -18,10 +18,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HexColorCodeUnderlineSpan implements SpanCreator.ParcelableSpanCreator {
-    public static final Pattern PATTERN = Pattern.compile("(?:\\s|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|$)");
+    public static final Pattern PATTERN = Pattern.compile("(?:\\s|[\";,:'*]|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|[\";,:'*]|$)");
 
     public ParcelableSpan create(Matcher matcher, int iM) {
-        return new ColorUnderlineSpan(Color.parseColor(matcher.group(1)), null);
+        return new ColorUnderlineSpan(Color.parseColor(matcher.group(1)), 3f);
 
     }
 }
