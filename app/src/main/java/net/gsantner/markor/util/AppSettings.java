@@ -36,6 +36,7 @@ import java.util.Locale;
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
+    public static Boolean isDeviceGoodHardware = null;
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
@@ -43,6 +44,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
+        if (isDeviceGoodHardware == null) {
+            ContextUtils cu = new ContextUtils(_context);
+            isDeviceGoodHardware = cu.isDeviceGoodHardware();
+            cu.freeContextRef();
+        }
     }
 
     public static AppSettings get() {
@@ -634,5 +640,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isDebugLogEnabled() {
         return getBool(R.string.pref_key__is_debug_log_enabled, BuildConfig.IS_TEST_BUILD);
+    }
+
+    public boolean isMarkdownBiggerHeadings() {
+        int k = R.string.pref_key__editor_markdown_bigger_headings;
+        if (!isPrefSet(k)) {
+            setBool(k, isDeviceGoodHardware);
+            return isDeviceGoodHardware;
+        }
+        return getBool(k, isDeviceGoodHardware);
     }
 }

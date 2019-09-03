@@ -26,8 +26,9 @@ public class MarkdownHighlighter extends Highlighter {
     public final Integer _fontSize;
     private final boolean _highlightLineEnding;
     private final boolean _highlightCodeChangeFont;
+    private final boolean _highlightBiggerHeadings;
 
-    private static final int MD_COLOR_HEADER = 0xffef6D00;
+    private static final int MD_COLOR_HEADING = 0xffef6D00;
     private static final int MD_COLOR_LINK = 0xff1ea3fe;
     private static final int MD_COLOR_LIST = 0xffdaa521;
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
@@ -40,6 +41,7 @@ public class MarkdownHighlighter extends Highlighter {
         _fontSize = _appSettings.getFontSize();
         _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
+        _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
     }
 
     @Override
@@ -54,8 +56,12 @@ public class MarkdownHighlighter extends Highlighter {
             _profiler.start(true, "Markdown Highlighting");
             generalHighlightRun(editable);
 
-            _profiler.restart("Header");
-            createHeaderSpanForMatches(editable, MarkdownHighlighterPattern.HEADER, MD_COLOR_HEADER);
+            _profiler.restart("Heading");
+            if (_highlightBiggerHeadings) {
+                createHeaderSpanForMatches(editable, MarkdownHighlighterPattern.HEADING, MD_COLOR_HEADING);
+            } else {
+                createColorSpanForMatches(editable, MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
+            }
             _profiler.restart("Link");
             createColorSpanForMatches(editable, MarkdownHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
             _profiler.restart("List");
@@ -91,7 +97,7 @@ public class MarkdownHighlighter extends Highlighter {
     }
 
     private void createHeaderSpanForMatches(Editable editable, MarkdownHighlighterPattern pattern, int headerColor) {
-        createSpanForMatches(editable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, editable, headerColor));
+        createSpanForMatches(editable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, editable, headerColor, _highlightBiggerHeadings));
     }
 
     @Override

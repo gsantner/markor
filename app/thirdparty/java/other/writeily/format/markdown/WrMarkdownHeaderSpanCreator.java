@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.ParcelableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -32,19 +33,25 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     protected MarkdownHighlighter _highlighter;
     private final Editable _editable;
     private final int _color;
+    private final boolean _dynmicTextSize;
 
-    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color) {
+    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
         _editable = editable;
         _color = color;
+        _dynmicTextSize = dynamicTextSize;
     }
 
     public ParcelableSpan create(Matcher m, int iM) {
-        final char[] charSequence = extractMatchingRange(m);
-        float proportion = calculateProportionBasedOnHeaderType(charSequence);
-        Float size = calculateAdjustedSize(proportion);
-        return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
-                ColorStateList.valueOf(_color), null);
+        if (_dynmicTextSize) {
+            final char[] charSequence = extractMatchingRange(m);
+            float proportion = calculateProportionBasedOnHeaderType(charSequence);
+            Float size = calculateAdjustedSize(proportion);
+            return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
+                    ColorStateList.valueOf(_color), null);
+        } else {
+            return new ForegroundColorSpan(_color);
+        }
     }
 
     private float calculateAdjustedSize(Float proportion) {
