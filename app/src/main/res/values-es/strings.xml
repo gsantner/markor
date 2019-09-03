@@ -309,4 +309,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Enviar registro de depuración</string>
     <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(s). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
     <string name="print_pdf">Imprimir / PDF</string>
+    <string name="bigger_headings">Encabezados mayores</string>
+    <string name="increase_text_size_of_headings_according_to_level">Incrementa el tamaño de texto de las cabeceras según el nivel (# h1, ## h2. ### h3…)</string>
 </resources>
