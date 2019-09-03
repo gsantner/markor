@@ -309,4 +309,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">发送调试日志</string>
     <string name="help_by_sending_debug_information_to_the_developer">通过向开发者发送调试信息提供帮助。数据通过电子邮件应用发送，您可以在发送前看到所有发送的数据。如果启用，您将在顶部菜单中找到额外的“发送调试日志”选项。它创建电子邮件草稿。</string>
     <string name="print_pdf">打印/PDF</string>
+    <string name="bigger_headings">大标题</string>
+    <string name="increase_text_size_of_headings_according_to_level">按级别 (## h1, ### h2. ##### h3… )增加头部的文字大小</string>
 </resources>
