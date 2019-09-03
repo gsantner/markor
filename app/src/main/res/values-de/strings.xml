@@ -309,4 +309,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Debug-Log senden</string>
     <string name="help_by_sending_debug_information_to_the_developer">Hilf indem du Debug-Informationen an Entwickler sendest. Daten werden per E-Mail mit deiner E-Mail App gesendet und es können alle Daten vor Versand betrachtet werden. Eine zusätzliche Option \"Debug-Log senden\" im oberen Menü wird hinzugefügt wenn diese Option aktiviert ist. Sie erstellt den E-Mail-Entwurf.</string>
     <string name="print_pdf">Drucken / PDF</string>
+    <string name="bigger_headings">Größere Überschriften</string>
+    <string name="increase_text_size_of_headings_according_to_level">Erhöhe die Textgröße der Header nach Level (# h1, ## h2. ## h3…)</string>
 </resources>
