@@ -306,6 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
     <string name="template">Шаблон</string>
-    <string name="send_debug_log">Надсилати Debug-журнал</string>
+    <string name="send_debug_log">Надіслати журнал зневадження</string>
     <string name="help_by_sending_debug_information_to_the_developer">Допоможіть розробникам, надсилаючи зневаджувальну інформацію. Дані надсилаються по e-mail за допомогою вашого додатку електронної пошти і ви можете переглянути ці дані перед надсиланням. Коли це налаштування увімкнено, у верхньому меню з\'явиться додатковий пункт \"Надіслати журнал зневадження\", який створює чернетку листа.</string>
+    <string name="print_pdf">Друк / PDF</string>
 </resources>
