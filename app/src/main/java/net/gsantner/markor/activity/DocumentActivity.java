@@ -215,8 +215,7 @@ public class DocumentActivity extends AppActivityBase {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Determine some results and forward using Local Broadcast
-        ShareUtil shu = new ShareUtil(this.getApplicationContext());
+        ShareUtil shu = new ShareUtil(this);
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 

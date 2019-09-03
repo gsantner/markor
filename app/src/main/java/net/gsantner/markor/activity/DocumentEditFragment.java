@@ -178,6 +178,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
             }
+            if (_shareUtil.isUnderStorageAccessFolder(_document.getFile()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                _shareUtil.showMountSdDialog(getActivity());
+                return;
+            }
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
 
