@@ -309,4 +309,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Надіслати журнал зневадження</string>
     <string name="help_by_sending_debug_information_to_the_developer">Допоможіть розробникам, надсилаючи зневаджувальну інформацію. Дані надсилаються по e-mail за допомогою вашого додатку електронної пошти і ви можете переглянути ці дані перед надсиланням. Коли це налаштування увімкнено, у верхньому меню з\'явиться додатковий пункт \"Надіслати журнал зневадження\", який створює чернетку листа.</string>
     <string name="print_pdf">Друк / PDF</string>
+    <string name="bigger_headings">Збільшувати заголовки</string>
 </resources>
