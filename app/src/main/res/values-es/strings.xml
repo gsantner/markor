@@ -201,8 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Ayuda y más información sobre esta aplicación</string>
     <string name="report_bugs">Informar de fallos</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Más información sobre donar al desarrollador, o contribuir a este proyecto.</string>
-    <string name="android_contribution_guide">Guía de colaboración Android</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Más información sobre la colaboración con proyectos de código abierto, especialmente aplicaciones de Android</string>
+
+
     <string name="join_community">Únete a la comunidad</string>
     <string name="bug_reports_suggest_improvements">Da tu opinión, reporta errores o sugiere mejoras</string>
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>

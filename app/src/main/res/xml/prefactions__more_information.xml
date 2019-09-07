@@ -67,12 +67,6 @@
             android:summary="@string/more_info_on_how_to_contribute_to_this_project"
             android:title="@string/project_contribution_info" />
 
-        <Preference
-            android:icon="@drawable/ic_info_black_24dp"
-            android:key="@string/pref_key__more_info__android_contribution_guide"
-            android:summary="@string/more_info_on_how_to_contribute_to_foss_android_projects"
-            android:title="@string/android_contribution_guide" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -201,8 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">詳細情報とヘルプ</string>
     <string name="report_bugs">バグを報告</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">開発者への寄付や、このプロジェクトに対する貢献の詳細情報。</string>
-    <string name="android_contribution_guide">Android 貢献者向けガイド</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">オープンソースプロジェクト、特に Android アプリの貢献者向け詳細情報</string>
+
+
     <string name="join_community">コミュニティに参加する</string>
     <string name="bug_reports_suggest_improvements">フィードバック、バグ報告、改善を提案してください</string>
     <string name="help_translating_this_app">このアプリを他の言語に翻訳してください</string>

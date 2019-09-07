@@ -201,8 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Više informacija i pomoć</string>
     <string name="report_bugs">Prijavite greške i propuste</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Više informacija o doniranju programera ili sudjelovanju u ovom projektu</string>
-    <string name="android_contribution_guide">Android uputstvo za sudjelovanje</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Više informacija o sudjelovanju u razvoju softvera otvorenog kōda, naročito za Android</string>
+
+
     <string name="join_community">Postanite član zajednice</string>
     <string name="bug_reports_suggest_improvements">Kažite nam Vaše utiske, prijavite greške i propuste ili predložite kako možemo poboljšati program</string>
     <string name="help_translating_this_app">Prevedite ovaj program na druge jezike</string>
