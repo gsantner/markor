@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -547,7 +546,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _nextConvertToPrintMode = false;
         _webView.setAlpha(0);
-        ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
+        _webView.setVisibility(show ? View.VISIBLE : View.GONE);
         if (show) {
             _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
         }
