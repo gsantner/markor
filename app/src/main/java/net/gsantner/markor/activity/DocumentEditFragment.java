@@ -103,6 +103,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
+    private boolean _firstFileLoad = true;
 
     public DocumentEditFragment() {
     }
@@ -504,6 +505,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void checkReloadDisk(boolean forceReload) {
+        if (_firstFileLoad) {
+            _firstFileLoad = false;
+            return;
+        }
         Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
         if (forceReload || (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent()))) {
             _editTextUndoRedoHelper.clearHistory();

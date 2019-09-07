@@ -16,6 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,11 +43,20 @@ public class FileUtils {
 
     public static String readTextFileFast(final File file) {
         try {
-            return new String(readCloseBinaryStream(new FileInputStream(file)));
+            return new String(readCloseStreamWithSize(new FileInputStream(file), (int) file.length()));
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         }
         return "";
+    }
+
+    public static byte[] readCloseStreamWithSize(final InputStream stream, int size) {
+        byte[] data = new byte[size];
+        try (DataInputStream dis = new DataInputStream(stream)) {
+            dis.readFully(data);
+        } catch (IOException ignored) {
+        }
+        return data;
     }
 
     public static String readTextFile(final File file) {

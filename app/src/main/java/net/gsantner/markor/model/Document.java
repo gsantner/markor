@@ -29,6 +29,7 @@ public class Document implements Serializable {
     private boolean _doHistory = true;
     private int _historyPosition = 0;
     private long _lastChanged = 0;
+    private long _modTime = 0;
     private boolean _forceNoHistory = false;
 
     public Document() {
@@ -52,6 +53,7 @@ public class Document implements Serializable {
         target.setTitle(source.getTitle());
         target.setContent(source.getContent());
         target.setFormat(source.getFormat());
+        target.setModTime(source.getModTime());
         target.setDoHistory(true);
         return target;
     }
@@ -223,5 +225,13 @@ public class Document implements Serializable {
 
     public void setFormat(int format) {
         _format = format;
+    }
+
+    public long getModTime() {
+        return _modTime;
+    }
+
+    public void setModTime(long modTime) {
+        _modTime = modTime;
     }
 }
