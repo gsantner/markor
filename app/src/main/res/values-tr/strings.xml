@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="report_bugs">Hataları bildir</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Geliştiriciye bağış yapma veya bu projeye katkıda bulunma hakkında daha fazla bilgi alın.</string>
-    <string name="android_contribution_guide">Android katkıda bulunma rehberi</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Açık kaynaklı projelere, özellikle Android uygulamalara katkıda bulunma hakkında daha fazla bilgi alın</string>
     <string name="join_community">Topluluğa katıl</string>
     <string name="bug_reports_suggest_improvements">Geri bildirim verin, hataları bildirin veya iyileştirmeler önerin</string>
     <string name="help_translating_this_app">Bu uygulamayı diğer dillere çevirin</string>
