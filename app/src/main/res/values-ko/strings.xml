@@ -39,7 +39,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">번역하기</string>
     <string name="more_info_and_help">도움말</string>
     <string name="report_bugs">버그 신고</string>
-    <string name="android_contribution_guide">안드로이드 기여 가이드</string>
     <string name="join_community">커뮤니티에 참여</string>
     <string name="bug_reports_suggest_improvements">피드백을 주고, 버그를 신고하거나 개선점을 알려주기</string>
     <string name="help_translating_this_app">이 앱을 다른 언어로 번역하기</string>
