@@ -16,6 +16,7 @@ import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiImageType;
+import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
@@ -100,7 +101,9 @@ public class MarkdownTextConverter extends TextConverter {
             TocExtension.create(),                // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
             SimTocExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
             WikiLinkExtension.create(),           // https://github.com/vsch/flexmark-java/wiki/Extensions#wikilinks
-            YamlFrontMatterExtension.create());
+            YamlFrontMatterExtension.create(),
+            FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
+    );
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
@@ -143,6 +146,7 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
 
+
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
@@ -152,7 +156,16 @@ public class MarkdownTextConverter extends TextConverter {
         // Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..");
 
+        ////////////
+        // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+
+        // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
+        if (converted.contains("footnote-")) {
+            converted = converted.replace("</p>\n<a href=\"#fnref-", "<a href=\"#fnref-").replace("class=\"footnote-backref\">&#8617;</a>", "class=\"footnote-backref\"> &#8617;</a></p>");
+        }
+
+        // Deliver result
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
