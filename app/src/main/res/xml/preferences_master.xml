@@ -191,6 +191,10 @@
                         android:title="@string/editor_basic_color_scheme_black_or_white" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
+                        android:key="@string/pref_key__editor_basic_color_scheme_amoled"
+                        android:title="@string/editor_basic_color_scheme_amoled" />
+                    <Preference
+                        android:icon="@drawable/ic_palette_black_24dp"
                         android:key="@string/pref_key__editor_basic_color_scheme_solarized"
                         android:title="@string/editor_basic_color_scheme_solarized" />
                     <Preference

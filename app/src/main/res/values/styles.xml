@@ -10,7 +10,6 @@
 #########################################################*/
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -31,6 +30,9 @@
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@color/light__background</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -39,7 +41,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="android:windowBackground">@color/light__background</item>
 
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>

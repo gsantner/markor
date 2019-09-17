@@ -55,6 +55,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return new AppSettings(App.get());
     }
 
+    public void setDarkThemeEnabled(boolean enabled) {
+        setString(R.string.pref_key__app_theme, enabled ? "dark" : "light");
+    }
+
     public boolean isDarkThemeEnabled() {
         switch (getString(R.string.pref_key__app_theme, "light")) {
             case "light": {

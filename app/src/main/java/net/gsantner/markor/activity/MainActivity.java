@@ -29,7 +29,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,7 +101,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("OIDA", "onCreate: " + isHighPerformingDevice());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setExitTransition(null);
+        }
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
         _shareUtil = new ShareUtil(this);
