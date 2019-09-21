@@ -103,7 +103,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.13.1'
@@ -137,6 +136,8 @@ dependencies {
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
     implementation 'com.github.AppIntro:AppIntro:4.2.3'
+    implementation 'com.kailashdabhi:om-recorder:1.1.5'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
