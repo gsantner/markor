@@ -58,11 +58,11 @@ public class SettingsActivity extends AppActivityBase {
 
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
-        super.onCreate(b);
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
         setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        super.onCreate(b);
 /*
         ActivityUtils au = new ActivityUtils(this);
         boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
@@ -291,6 +291,12 @@ public class SettingsActivity extends AppActivityBase {
                     _as.setEditorBasicColor(false, R.color.black, R.color.white);
                     break;
                 }
+                case R.string.pref_key__editor_basic_color_scheme_amoled: {
+                    _as.setEditorBasicColor(true, R.color.white, R.color.black);
+                    _as.setEditorBasicColor(false, R.color.black, R.color.white);
+                    _as.setDarkThemeEnabled(true);
+                    break;
+                }
                 case R.string.pref_key__editor_basic_color_scheme_solarized: {
                     _as.setEditorBasicColor(true, R.color.solarized_fg, R.color.solarized_bg_dark);
                     _as.setEditorBasicColor(false, R.color.solarized_fg, R.color.solarized_bg_light);
@@ -304,6 +310,11 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__editor_basic_color_scheme_greenscale: {
                     _as.setEditorBasicColor(true, R.color.green_dark, R.color.black);
                     _as.setEditorBasicColor(false, R.color.green_light, R.color.white);
+                    break;
+                }
+                case R.string.pref_key__editor_basic_color_scheme_sepia: {
+                    _as.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
+                    _as.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
                     break;
                 }
             }

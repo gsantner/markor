@@ -211,8 +211,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">More info and help</string>
     <string name="report_bugs">Report bugs</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project.</string>
-    <string name="android_contribution_guide">Android contribution guide</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">More info on contributing to open source projects, especially Android apps</string>
+
+
     <string name="join_community">Join the Community</string>
     <string name="bug_reports_suggest_improvements">Give feedback, report bugs or suggest improvements</string>
     <string name="help_translating_this_app">Translate this app into other languages</string>
@@ -325,8 +325,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">Record audio</string>
     <string name="save_audio">Save</string>
     <string name="cancel_audio">Cancel</string>
-
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bigger_headings">Bigger headings</string>
+    <string name="increase_text_size_of_headings_according_to_level">Increase text size of headers according to level (# h1, ## h2. ### h3…)</string>
 </resources>

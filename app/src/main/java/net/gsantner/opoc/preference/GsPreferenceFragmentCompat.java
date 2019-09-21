@@ -67,7 +67,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
@@ -224,9 +227,22 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         updatePreferenceIcons.callback(this);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) view.getLayoutParams();
-            lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
-            view.setLayoutParams(lp);
+            view.postDelayed(() -> {
+                ViewGroup.LayoutParams lpg = view.getLayoutParams();
+                if (lpg instanceof LinearLayout.LayoutParams) {
+                    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lpg;
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    view.setLayoutParams(lp);
+                } else if (lpg instanceof FrameLayout.LayoutParams) {
+                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) lpg;
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    view.setLayoutParams(lp);
+                } else if (lpg instanceof RelativeLayout.LayoutParams) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lpg;
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    view.setLayoutParams(lp);
+                }
+            }, 10);
         }
     }
 

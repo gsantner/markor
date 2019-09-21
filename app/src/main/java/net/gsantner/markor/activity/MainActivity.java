@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,7 +29,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,9 +91,18 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     private String _cachedFolderTitle;
 
+    public boolean isHighPerformingDevice() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
+                Runtime.getRuntime().availableProcessors() >= 4 &&
+                activityManager.getMemoryClass() >= 128;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setExitTransition(null);
+        }
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
         _shareUtil = new ShareUtil(this);
@@ -105,6 +114,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             _appSettings.setLastOpenedDirectory(null);
         }
         setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);

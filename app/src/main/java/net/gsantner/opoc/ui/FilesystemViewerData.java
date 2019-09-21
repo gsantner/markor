@@ -55,7 +55,7 @@ public class FilesystemViewerData {
         public boolean mustStartWithRootFolder = true,
                 folderFirst = true,
                 descModtimeInsteadOfParent = false,
-                showDotFiles = false;
+                showDotFiles = true;
 
         public int itemSidePadding = 16; // dp
 

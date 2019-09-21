@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,6 +103,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
+    private boolean _firstFileLoad = true;
 
     public DocumentEditFragment() {
     }
@@ -178,6 +178,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
+            }
+            if (_shareUtil.isUnderStorageAccessFolder(_document.getFile()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                _shareUtil.showMountSdDialog(getActivity());
+                return;
             }
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
@@ -507,6 +511,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void checkReloadDisk(boolean forceReload) {
+        if (_firstFileLoad) {
+            _firstFileLoad = false;
+            return;
+        }
         Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
         if (forceReload || (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent()))) {
             _editTextUndoRedoHelper.clearHistory();
@@ -522,11 +530,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
             if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                _hlEditor.requestFocus();
+                if (!as.isPreviewFirst()) {
+                    _hlEditor.requestFocus();
+                }
                 _hlEditor.setSelection(lastPos);
                 _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
             } else if (as.isEditorStartOnBotttom()) {
-                _hlEditor.requestFocus();
+                if (!as.isPreviewFirst()) {
+                    _hlEditor.requestFocus();
+                }
                 _hlEditor.setSelection(_hlEditor.length());
             }
         }
@@ -545,7 +557,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _nextConvertToPrintMode = false;
         _webView.setAlpha(0);
-        ((FrameLayout) _webView.getParent()).setVisibility(show ? View.VISIBLE : View.GONE);
+        _webView.setVisibility(show ? View.VISIBLE : View.GONE);
         if (show) {
             _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
         }

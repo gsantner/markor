@@ -1,0 +1,24 @@
+- Improved editor, highlighting and overall performance
+- New file dialog: Templates
+- New format: KeyValue - highlighting for json, ini, csv, yaml, vcard, ics, toml and other simple key-value like syntax
+- Long click on main view plus button -> open favourites/recents
+- Use lightweight Markdown heading highlighting on non-highend devices
+- Show SD Card dialog when opening file that is under SAF
+- Share: Rename PDF -> Print/PDF 
+- Text action to sort todo by date
+- Keep view mode scroll position
+- Remove LinkBox from main screen to improve performance
+- Make filesystem selection dialog fill screen
+- Rework share into: Use file browser to select favourite/recent/popular files
+- Special keys added: Insert page break for PDF/Printing, ohm key, punctation mark arrows
+- Append linefeed on end when saving
+- Show error when trying to rename to existing file/folder
+- Add special handling for percent encoded filenames in nextcloud/owncloud folder
+- Link 'More->Help' to Project website FAQ
+- Debug Log settings option
+- Improve local/linked file opening when clicking link at preview
+- Add option to set font size in view mode
+- Share (multiple) files from file browser
+- PlaintextConverter: Put HTML into preview as is (allow to view html files)
+- Fix folder title not visible sometimes
+- Enable hex color highlighting for various prefix/postfixes (like colon, quote, ...)

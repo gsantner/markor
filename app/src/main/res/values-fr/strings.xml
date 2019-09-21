@@ -201,8 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Plus d\'informations et d\'aide sur cette application</string>
     <string name="report_bugs">Signaler un bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Plus d’infos sur les possibilités de faire un don au développeur et de contribuer à ce projet.</string>
-    <string name="android_contribution_guide">Guide de contribution Android</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Plus d\'informations sur les possibilités de contribuer à un projet Open Source, notamment à des applications Android</string>
+
+
     <string name="join_community">Rejoindre la communauté</string>
     <string name="bug_reports_suggest_improvements">Commentaires et suggestions</string>
     <string name="help_translating_this_app">Traduire cette application</string>
@@ -309,4 +309,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Envoyer un journal de débogage</string>
     <string name="help_by_sending_debug_information_to_the_developer">Aide en envoyant des informations de débogage aux développeurs. Les données sont envoyées par email par l\'intermédiaire de votre application e-mail et vous pouvez voir toutes les données envoyées avant l\'envoi. Vous trouverez une option supplémentaire \"Envoyer un journal de débogage\" dans le menu supérieur lorsque activé. Elle crée le brouillon d\'email.</string>
     <string name="print_pdf">Imprimer / PDF</string>
+    <string name="bigger_headings">Titres plus grands</string>
+    <string name="increase_text_size_of_headings_according_to_level">Augmenter la taille du texte des en-têtes selon le niveau (# h1, ## h2. ## h3…)</string>
 </resources>

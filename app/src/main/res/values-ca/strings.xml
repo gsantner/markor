@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Més informació i ajuda</string>
     <string name="report_bugs">Informeu d\'errors</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Més informació sobre la donació al desenvolupador, o com contribuir a aquest projecte.</string>
-    <string name="android_contribution_guide">Guia de contribució d\'Android</string>
-    <string name="more_info_on_how_to_contribute_to_foss_android_projects">Més informació sobre la contribució als projectes de codi obert, especialment a les aplicacions d\'Android</string>
     <string name="join_community">Uniu-vos a la comunitat</string>
     <string name="bug_reports_suggest_improvements">Feu comentaris, informeu d\'errors o suggeriu millores</string>
     <string name="help_translating_this_app">Traduïu aquesta aplicació a altres idiomes</string>
@@ -308,4 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Envia registre de depuració</string>
     <string name="help_by_sending_debug_information_to_the_developer">Ajudeu-nos enviant informació de depuració als desenvolupadors. Les dades s\'envien per correu a través de l\'aplicació de correu i podeu veure totes les dades que s\'enviaran abans d\'enviar-les. Trobareu una opció addicional «Envia registre de depuració» al menú superior quan estigui activada. Crea l\'esborrany de correu.</string>
+    <string name="print_pdf">Imprimeix / PDF</string>
+    <string name="bigger_headings">Capçaleres més grans</string>
+    <string name="increase_text_size_of_headings_according_to_level">Incrementa la mida de les capçaleres d\'acord amb el nivell (# h1, ## h2. ### h3…)</string>
 </resources>

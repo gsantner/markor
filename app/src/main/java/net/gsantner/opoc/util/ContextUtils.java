@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
@@ -47,6 +48,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.util.Pair;
@@ -945,6 +947,16 @@ public class ContextUtils {
         }
     }
 
+    public boolean isDeviceGoodHardware() {
+        try {
+            ActivityManager activityManager = (ActivityManager) _context.getSystemService(Context.ACTIVITY_SERVICE);
+            return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
+                    Runtime.getRuntime().availableProcessors() >= 4 &&
+                    activityManager.getMemoryClass() >= 128;
+        } catch (Exception ignored) {
+            return true;
+        }
+    }
 }
 
 

@@ -12,6 +12,7 @@ package net.gsantner.markor.activity;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
@@ -61,6 +62,8 @@ public class DocumentActivity extends AppActivityBase {
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
 
+    private static boolean nextLaunchTransparentBg = false;
+
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
@@ -77,6 +80,7 @@ public class DocumentActivity extends AppActivityBase {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new AppSettings(activity.getApplicationContext()).isMultiWindowEnabled()) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         }
+        nextLaunchTransparentBg = (activity instanceof MainActivity);
         activity.startActivity(intent);
     }
 
@@ -126,6 +130,9 @@ public class DocumentActivity extends AppActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(null);
+        }
         AppSettings.clearDebugLog();
         _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
@@ -134,6 +141,10 @@ public class DocumentActivity extends AppActivityBase {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        if (nextLaunchTransparentBg) {
+            getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+            nextLaunchTransparentBg = false;
+        }
         setContentView(R.layout.document__activity);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
         ButterKnife.bind(this);
@@ -215,8 +226,7 @@ public class DocumentActivity extends AppActivityBase {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Determine some results and forward using Local Broadcast
-        ShareUtil shu = new ShareUtil(this.getApplicationContext());
+        ShareUtil shu = new ShareUtil(this);
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 

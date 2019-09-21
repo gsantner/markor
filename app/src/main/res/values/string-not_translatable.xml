@@ -17,7 +17,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
-    <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/supportme/?project=markor&source=inapp_supdon]]></string>
+    <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/page/supportme.html?project=markor&source=inapp_supdon]]></string>
     <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false">@string/more_info_on_how_to_donate_or_otherwise_support_this_project_text</string>
     <string name="donate_" translatable="false">@string/donate</string>
@@ -49,9 +49,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_theme_auto" translatable="false">auto</string>
     <string name="editor_basic_color_scheme_markor" translatable="false">Markor</string>
     <string name="editor_basic_color_scheme_black_or_white" translatable="false">Black or White</string>
+    <string name="editor_basic_color_scheme_amoled" translatable="false">AMOLED</string>
     <string name="editor_basic_color_scheme_solarized" translatable="false">Solarized</string>
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">gruvbox</string>
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
+    <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
 
     <string name="auto" translatable="false">Auto</string>
     <string name="hexcode" translatable="false">Hexcode</string>
@@ -160,7 +162,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__more_info__rate_app" translatable="false">pref_key__more_info__rate_app</string>
     <string name="pref_key__more_info__translate" translatable="false">pref_key__more_info__translate</string>
     <string name="pref_key__more_info__join_community" translatable="false">pref_key__more_info__join_community</string>
-    <string name="pref_key__more_info__android_contribution_guide" translatable="false">pref_key__more_info__android_contribution_guide</string>
+
     <string name="pref_key__more_info__app" translatable="false">pref_key__more_info__app</string>
     <string name="pref_key__more_info__donate" translatable="false">pref_key__more_info__donate</string>
     <string name="pref_key__more_info__project_contribution_info" translatable="false">pref_key__more_info__project_contribution_info</string>
@@ -170,6 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__more_info__copy_build_information" translatable="false">pref_key__more_info__copy_build_information</string>
     <string name="pref_key__editor_textaction_bar_item_padding" translatable="false">pref_key__editor_textaction_bar_item_padding</string>
     <string name="pref_key__editor_disable_spelling_red_underline" translatable="false">pref_key__editor_disable_spelling_red_underline</string>
+    <string name="pref_key__editor_markdown_bigger_headings" translatable="false">pref_key__editor_markdown_bigger_headings</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__favourite_files" translatable="false">pref_key__favourite_files</string>
@@ -185,9 +188,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_basic_color_scheme__fg_dark" translatable="false">pref_key__editor_basic_color_scheme__fg_dark</string>
     <string name="pref_key__editor_basic_color_scheme_solarized" translatable="false">pref_key__editor_basic_color_scheme_solarized</string>
     <string name="pref_key__editor_basic_color_scheme_blackorwhite" translatable="false">pref_key__editor_basic_color_scheme_blackorwhite</string>
+    <string name="pref_key__editor_basic_color_scheme_amoled" translatable="false">pref_key__editor_basic_color_scheme_amoled</string>
     <string name="pref_key__editor_basic_color_scheme_markor" translatable="false">pref_key__editor_basic_color_scheme_markor</string>
     <string name="pref_key__editor_basic_color_scheme_gruvbox" translatable="false">pref_key__editor_basic_color_scheme_gruvbox</string>
     <string name="pref_key__editor_basic_color_scheme_greenscale" translatable="false">pref_key__editor_basic_color_scheme_greenscale</string>
+    <string name="pref_key__editor_basic_color_scheme_sepia" translatable="false">pref_key__editor_basic_color_scheme_sepia</string>
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
 
     <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
@@ -235,6 +240,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
     <string name="file_template__txt_zim_wiki" translatable="false">zim-wiki.txt</string>
+    <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
     <string name="debug" translatable="false">Debug</string>

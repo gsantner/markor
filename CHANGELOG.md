@@ -1,7 +1,33 @@
 ![](https://test.gsantner.net/matomo/piwik.php?action_name=inapp_changelog&idsite=2&rec=1&urlref=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md&_cvar=%7B%221%22%3A%5B%22source%22%2C%22inapp_changelog%22%5D%2C%222%22%3A%5B%22project%22%2C%22markor%22%5D%2C%223%22%3A%5B%22packageid%22%2C%22net.gsantner.markor%22%5D%2C%224%22%3A%5B%22referrer%22%2C%22https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md%22%5D%7D)
 
 
-### v2.0.0 [Blog post](https://gsantner.net/blog/2019/07/03/markor-v2.0-search-dotfiles-pdf-export.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.8.0...v2.0.0)  
+### v2.1 [Blog post](https://gsantner.net/blog/2019/09/04/markor-v2.1-search-dotfiles-pdf-export.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v2.0.0...v2.1.0)  
+- Improved editor, highlighting and overall performance
+- New file dialog: Templates
+- New format: KeyValue - highlighting for json, ini, csv, yaml, vcard, ics, toml and other simple key-value like syntax
+- Long click on main view plus button -> open favourites/recents
+- Use lightweight Markdown heading highlighting on non-highend devices
+- Show SD Card dialog when opening file that is under SAF
+- Share: Rename PDF -> Print/PDF 
+- Text action to sort todo by date
+- Keep view mode scroll position
+- Remove LinkBox from main screen to improve performance
+- Make filesystem selection dialog fill screen
+- Rework share into: Use file browser to select favourite/recent/popular files
+- Special keys added: Insert page break for PDF/Printing, ohm key, punctation mark arrows
+- Append linefeed on end when saving
+- Show error when trying to rename to existing file/folder
+- Add special handling for percent encoded filenames in nextcloud/owncloud folder
+- Link 'More->Help' to Project website FAQ
+- Debug Log settings option
+- Improve local/linked file opening when clicking link at preview
+- Add option to set font size in view mode
+- Share (multiple) files from file browser
+- PlaintextConverter: Put HTML into preview as is (allow to view html files)
+- Fix folder title not visible sometimes
+- Enable hex color highlighting for various prefix/postfixes (like colon, quote, ...)
+
+### v2.0 [Blog post](https://gsantner.net/blog/2019/07/03/markor-v2.0-search-dotfiles-pdf-export.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.8.0...v2.0.0)  
 - Recursive file & folder search
 - Search button in editor, viewer and file browser
 - Always export PDF and images with light theme and white background (improves printing)
@@ -18,7 +44,7 @@
 - Add new line when archiving tasks
 
 
-### v1.8.0 [Blog post](https://gsantner.net/blog/2019/05/06/markor-v1.8-file-navigation-favourites-markdown-editor.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.7.0...v1.8.0)  
+### v1.8 [Blog post](https://gsantner.net/blog/2019/05/06/markor-v1.8-file-navigation-favourites-markdown-editor.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v1.7.0...v1.8.0)  
 - Show app intro at first start  
 - All new file navigation  
 - Add favourite files  
@@ -34,7 +60,7 @@
 - Add word count to document info dialog  
 
 
-### v1.7.0 [Blog post](https://gsantner.net/blog/2019/03/11/markor-release-v1.7-custom-fonts-linkbox-markdown.html?source=inapp_changelog&project=markor)  
+### v1.7 [Blog post](https://gsantner.net/blog/2019/03/11/markor-release-v1.7-custom-fonts-linkbox-markdown.html?source=inapp_changelog&project=markor)  
 - Improved app color theme for better readability  
 - Load custom fonts from file  
   - Markor bundles 5 additional open fonts  
@@ -52,7 +78,7 @@
 - Option to set app start tab (Notebook / ToDo / QuickNote / LinkBox / More)  
 
 
-### v1.6.0 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html?source=inapp_changelog&project=markor)
+### v1.6 [Blog post](https://gsantner.net/blog/2018/12/30/markor-release-v1.6.html?source=inapp_changelog&project=markor)
 **New features:**  
 - TextAction: Insert date/time  
 - Add website title when sharing into Markor, if browser supports it  
@@ -72,7 +98,7 @@
 - New file dialog: Jekyll option on older devices  
 - Title not updated when swiping  
 
-### v1.5.0 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html?source=inapp_changelog&project=markor)
+### v1.5 [Blog post](https://gsantner.net/blog/2018/12/09/markor-release-v1.5.html?source=inapp_changelog&project=markor)
 **New features:**  
 - App-wide  
   - Settings option: Keep screen on
@@ -94,7 +120,7 @@
   - Set inital background color before loading document  
   - Math/KaTex: Show inline when single dollar is used
 
-### v1.4.0
+### v1.4
 **New features:**  
 - App-wide  
   - Add popular documents to 'share into'  
@@ -120,7 +146,7 @@
 - Filesystem  
   - Discard selection when leaving filesystem view  
 
-### v1.3.0
+### v1.3
 **New features:**  
 - App-wide  
   - Add 'Auto' theme, switch light/dark theme by current hour  
@@ -152,7 +178,7 @@
 - App-wide
   - Special files: When app launcher was used, create file if not exists   
 
-### v1.2.0 [Blog post](https://gsantner.net/blog/2018/09/18/markor-release-v1.2.html?source=inapp_changelog&project=markor)
+### v1.2 [Blog post](https://gsantner.net/blog/2018/09/18/markor-release-v1.2.html?source=inapp_changelog&project=markor)
 **New features:**
 - General
   - Launchers to directly open LinkBox/ToDo/QuickNote (opt-in)
@@ -173,7 +199,7 @@
 - Editor
   - File saving
 
-### v1.1.0 [Blog post](https://gsantner.net/blog/2018/09/09/markor-release-v1.1.html?source=inapp_changelog&project=markor)
+### v1.1 [Blog post](https://gsantner.net/blog/2018/09/09/markor-release-v1.1.html?source=inapp_changelog&project=markor)
 **New features:**  
 - Text Module Actions
   - Markdown Picture Dialog

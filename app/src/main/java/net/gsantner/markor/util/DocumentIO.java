@@ -75,8 +75,9 @@ public class DocumentIO {
             }
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract content and title
-            document.setTitle(MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(filePath.getName()).replaceAll(""));
+            document.setTitle(filePath.getName());
             document.setContent(FileUtils.readTextFileFast(filePath));
+            document.setModTime(filePath.lastModified());
         }
 
         document.setFile(filePath);
