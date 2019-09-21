@@ -204,7 +204,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings appSettings = new AppSettings(getActivity());
         menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
-        menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && getActivity() instanceof DocumentActivity);
+        menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && getActivity() instanceof DocumentActivity && !_isPreviewVisible);
 
         boolean isTextEmpty;
         boolean canUndo = _editTextUndoRedoHelper.getCanUndo();

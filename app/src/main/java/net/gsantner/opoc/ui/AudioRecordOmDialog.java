@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -57,10 +58,13 @@ public class AudioRecordOmDialog {
         // Init
         final String EMOJI_MICROPHONE = "\uD83C\uDFA4";
         final String EMOJI_STOP = "\uD83D\uDED1";
-        final String EMOJI_RESTART_CYCLONE = "\uD83C\uDF00";
+        final String EMOJI_RESTART = "\uD83D\uDD04";
+        final String EMOJI_SPEAKER = "\uD83D\uDD0A";
+
         final AtomicBoolean isRecording = new AtomicBoolean();
         final AtomicBoolean isRecordSavedOnce = new AtomicBoolean();
         final AtomicReference<Recorder> recorder = new AtomicReference<>();
+        final AtomicReference<MediaPlayer> mediaPlayer = new AtomicReference<>();
         final File TMP_FILE_RECORDING = new File(activity.getCacheDir(), "recording.wav");
         if (TMP_FILE_RECORDING.exists()) {
             TMP_FILE_RECORDING.delete();
@@ -81,7 +85,7 @@ public class AudioRecordOmDialog {
         final LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
-        final TextView playButton = new TextView(activity);
+        final TextView playbackButton = new TextView(activity);
         final TextView recordButton = new TextView(activity);
         final View sep1 = new View(activity);
         sep1.setLayoutParams(new LinearLayout.LayoutParams(100, 1));
@@ -97,34 +101,47 @@ public class AudioRecordOmDialog {
                     isRecordSavedOnce.set(true);
                 } catch (Exception ignored) {
                 }
-                playButton.setEnabled(true);
             } else {
                 recorderManager.callback(true);
             }
-            recordButton.setText(isRecording.get() ? EMOJI_RESTART_CYCLONE : EMOJI_STOP);
+
+            // Update state
             isRecording.set(!isRecording.get());
+            recordButton.setText(isRecording.get() ? EMOJI_STOP : EMOJI_RESTART);
+            playbackButton.setEnabled(!isRecording.get());
         });
 
+        final Callback.a0 playbackStoppedCallback = () -> {
+            recordButton.setEnabled(true);
+            if (mediaPlayer.get() != null) {
+                mediaPlayer.getAndSet(null).release();
+            }
+            playbackButton.setText(EMOJI_SPEAKER);
+        };
+
         // Play button
-        playButton.setEnabled(false);
-        playButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 64);
-        playButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        playButton.setText("▶️");
-        playButton.setOnClickListener(v -> {
+        playbackButton.setEnabled(false);
+        playbackButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 64);
+        playbackButton.setGravity(Gravity.CENTER_HORIZONTAL);
+        playbackButton.setText(EMOJI_SPEAKER);
+        playbackButton.setOnClickListener(v -> {
+            final boolean startPlaybackNow = mediaPlayer.get() == null;
             recordButton.setEnabled(false);
-            playButton.setEnabled(false);
-            try {
-                MediaPlayer player = new MediaPlayer();
-                player.setDataSource(TMP_FILE_RECORDING.getAbsolutePath());
-                player.prepare();
-                player.start();
-                player.setOnCompletionListener(mp -> {
-                    recordButton.setEnabled(true);
-                    playButton.setEnabled(true);
-                    player.release();
-                });
-                player.setLooping(false);
-            } catch (IOException ignored) {
+            playbackButton.setText(startPlaybackNow ? EMOJI_STOP : EMOJI_SPEAKER);
+            if (startPlaybackNow) {
+                try {
+                    MediaPlayer player = new MediaPlayer();
+                    mediaPlayer.set(player);
+                    player.setDataSource(TMP_FILE_RECORDING.getAbsolutePath());
+                    player.prepare();
+                    player.start();
+                    player.setOnCompletionListener(mp -> playbackStoppedCallback.callback());
+                    player.setLooping(false);
+                } catch (IOException ignored) {
+                }
+            } else {
+                mediaPlayer.get().stop();
+                playbackStoppedCallback.callback();
             }
         });
 
@@ -141,7 +158,7 @@ public class AudioRecordOmDialog {
                     if (TMP_FILE_RECORDING.exists()) {
                         TMP_FILE_RECORDING.delete();
                     }
-                } else {
+                } else if (recordFinishedCallbackWithPathToTemporaryFile != null) {
                     recordFinishedCallbackWithPathToTemporaryFile.callback(TMP_FILE_RECORDING);
                 }
             }
@@ -149,10 +166,17 @@ public class AudioRecordOmDialog {
         };
 
         ////////////////////////////////////
+        // Tooltip
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            playbackButton.setTooltipText("Play recording / Stop playback");
+            recordButton.setTooltipText("Record Audio (Voice Note)");
+        }
+
+        ////////////////////////////////////
         // Add to layout
-        layout.addView(recordButton);
+        layout.addView(playbackButton);
         layout.addView(sep1);
-        layout.addView(playButton);
+        layout.addView(recordButton);
 
         ////////////////////////////////////
         // Create & show dialog

@@ -12,6 +12,11 @@ package net.gsantner.opoc.util;
 
 @SuppressWarnings("unused")
 public class Callback {
+
+    public interface a0 {
+        void callback();
+    }
+
     public interface a1<A> {
         void callback(A arg1);
     }
