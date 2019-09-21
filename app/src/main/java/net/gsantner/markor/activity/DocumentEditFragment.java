@@ -523,11 +523,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
             if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                _hlEditor.requestFocus();
+                if (!as.isPreviewFirst()) {
+                    _hlEditor.requestFocus();
+                }
                 _hlEditor.setSelection(lastPos);
                 _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
             } else if (as.isEditorStartOnBotttom()) {
-                _hlEditor.requestFocus();
+                if (!as.isPreviewFirst()) {
+                    _hlEditor.requestFocus();
+                }
                 _hlEditor.setSelection(_hlEditor.length());
             }
         }
