@@ -58,11 +58,11 @@ public class SettingsActivity extends AppActivityBase {
 
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
-        super.onCreate(b);
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
         setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        super.onCreate(b);
 /*
         ActivityUtils au = new ActivityUtils(this);
         boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();

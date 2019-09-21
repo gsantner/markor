@@ -100,7 +100,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setExitTransition(null);
         }
@@ -115,6 +114,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             _appSettings.setLastOpenedDirectory(null);
         }
         setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
