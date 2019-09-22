@@ -14,8 +14,8 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:padding="8dp"
-    android:paddingBottom="0dp"
-    android:paddingTop="0dp">
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,33 +44,41 @@
             android:id="@+id/ui__select_path_dialog__browse_filesystem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
             android:drawableStart="@drawable/ic_insert_drive_file_black_24dp"
+            android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
             android:text="@string/browse_filesystem" />
 
         <Button
             android:id="@+id/ui__select_path_dialog__camera_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_photo_camera_black_24dp"
             android:drawableStart="@drawable/ic_photo_camera_black_24dp"
+            android:drawableLeft="@drawable/ic_photo_camera_black_24dp"
             android:text="@string/camera_picture" />
 
         <Button
             android:id="@+id/ui__select_path_dialog__gallery_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_image_black_24dp"
             android:drawableStart="@drawable/ic_image_black_24dp"
+            android:drawableLeft="@drawable/ic_image_black_24dp"
             android:text="@string/gallery_picture" />
 
         <Button
             android:id="@+id/ui__select_path_dialog__edit_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_crop_black_24dp"
             android:drawableStart="@drawable/ic_crop_black_24dp"
+            android:drawableLeft="@drawable/ic_crop_black_24dp"
             android:text="@string/edit_picture" />
+
+        <Button
+            android:id="@+id/ui__select_path_dialog__record_audio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_keyboard_voice_black_24dp"
+            android:drawableLeft="@drawable/ic_keyboard_voice_black_24dp"
+            android:text="@string/record_audio" />
     </LinearLayout>
 
 </ScrollView>

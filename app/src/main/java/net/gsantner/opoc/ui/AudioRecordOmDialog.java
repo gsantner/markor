@@ -47,7 +47,7 @@ import omrecorder.Recorder;
 //
 @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
 public class AudioRecordOmDialog {
-    public static void showAudioRecordDialog(final Activity activity, final int themeIdRes, @StringRes final int titleResId, final Callback.a1<File> recordFinishedCallbackWithPathToTemporaryFile) {
+    public static void showAudioRecordDialog(final Activity activity, @StringRes final int titleResId, final Callback.a1<File> recordFinishedCallbackWithPathToTemporaryFile) {
         ////////////////////////////////////
         // Request permission in case not granted. Do not show dialog UI in this case
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -94,7 +94,7 @@ public class AudioRecordOmDialog {
 
         ////////////////////////////////////
         // Create UI
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, themeIdRes);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         final LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER_HORIZONTAL);

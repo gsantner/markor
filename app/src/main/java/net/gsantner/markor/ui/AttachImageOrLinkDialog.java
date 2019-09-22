@@ -19,6 +19,7 @@ import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.opoc.ui.AudioRecordOmDialog;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
@@ -29,7 +30,7 @@ import java.util.regex.Matcher;
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
     @SuppressWarnings("RedundantCast")
-    public static Dialog showInsertImageOrLinkDialog(int action, int textFormatId, Activity activity, HighlightingEditor _hlEditor, final File currentWorkingFile) {
+    public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
         final AppSettings _appSettings = new AppSettings(activity.getApplicationContext());
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
@@ -39,27 +40,36 @@ public class AttachImageOrLinkDialog {
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
+        final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
         final int startCursorPos = _hlEditor.getSelectionStart();
-
-        // Extract filepath if using Markdown
+        buttonAudioRecord.setVisibility(action == 4 ? View.VISIBLE : View.GONE);
+        buttonPictureCamera.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
+        buttonPictureGallery.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
+        buttonPictureEdit.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
+        final int actionTitle;
         final String formatTemplate;
         switch (action) {
             default:
             case 3: { // file / link
                 formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
+                actionTitle = R.string.insert_link;
                 break;
             }
             case 2: { // image
                 formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
+                actionTitle = R.string.insert_image;
                 break;
             }
             case 4: { // audio
                 formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
+                actionTitle = R.string.audio;
                 break;
             }
 
         }
+
+        // Extract filepath if using Markdown
         if (textFormatId == TextFormat.FORMAT_MARKDOWN) {
             if (_hlEditor.hasSelection()) {
                 String selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
@@ -94,15 +104,6 @@ public class AttachImageOrLinkDialog {
             }
         }
 
-        int actionTitle = R.string.select;
-        if (action == 3) {
-            actionTitle = R.string.insert_link;
-            buttonPictureCamera.setVisibility(View.GONE);
-            buttonPictureGallery.setVisibility(View.GONE);
-            buttonPictureEdit.setVisibility(View.GONE);
-        } else if (action == 2) {
-            actionTitle = R.string.insert_image;
-        }
 
         // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
         final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
@@ -154,10 +155,13 @@ public class AttachImageOrLinkDialog {
         buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) activity;
-                Function<File, Boolean> f = action == 3 ? null : FilesystemViewerFactory.IsMimeImage;
+                Function<File, Boolean> f = action == 4 ? FilesystemViewerFactory.IsMimeAudio : (action == 3 ? null : FilesystemViewerFactory.IsMimeImage);
                 FilesystemViewerFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
             }
         });
+
+        // Audio Record -> fs listener with arg file,"audio_record"
+        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record", cbValAudioRecordFilepath)));
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");

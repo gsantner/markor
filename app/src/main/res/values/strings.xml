@@ -324,4 +324,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bigger_headings">Bigger headings</string>
     <string name="increase_text_size_of_headings_according_to_level">Increase text size of headers according to level (# h1, ## h2. ### h3…)</string>
     <string name="current">Current</string>
+    <string name="record_audio">Record Audio</string>
 </resources>

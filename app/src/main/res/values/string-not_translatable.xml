@@ -248,4 +248,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inject" translatable="false">Inject</string>
     <string name="char_punctation_mark_arrows" translatable="false">Punctuation mark (»«)</string>
     <string name="assets" translatable="false">Assets</string>
+    <string name="audio" translatable="false">Audio</string>
 </resources>
