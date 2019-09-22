@@ -192,8 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Oversæt</string>
     <string name="more_info_and_help">Mere info og hjælp</string>
     <string name="report_bugs">Rapporter fejl</string>
-
-
     <string name="join_community">Bliv en del af fællesskabet</string>
     <string name="bug_reports_suggest_improvements">Giv feedback, rapporter fejl og foreslå forbedringer</string>
     <string name="help_translating_this_app">Overset dette program til andre sprog</string>
