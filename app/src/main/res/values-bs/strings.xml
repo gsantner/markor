@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Više informacija i pomoć</string>
     <string name="report_bugs">Prijavite greške i propuste</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Više informacija o doniranju programera ili sudjelovanju u ovom projektu</string>
-
-
     <string name="join_community">Postanite član zajednice</string>
     <string name="bug_reports_suggest_improvements">Kažite nam Vaše utiske, prijavite greške i propuste ili predložite kako možemo poboljšati program</string>
     <string name="help_translating_this_app">Prevedite ovaj program na druge jezike</string>
@@ -309,4 +307,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
     <string name="help_by_sending_debug_information_to_the_developer">Pomozite razvojnom timu šaljući informacije o greškama. Podaci se šalju putem Vaše email aplikacije i možete ih pregledati prije slanja. U gornjem ćete meniju pronaći \"Pošalji izvještaj za ispravljanje grešaka\" opciju kad je aktivna. Ona će kreirati novi email.</string>
     <string name="print_pdf">Štampaj / PDF</string>
+    <string name="bigger_headings">Veći naslovi</string>
+    <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>
 </resources>
