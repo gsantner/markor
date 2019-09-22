@@ -309,4 +309,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Imprimeix / PDF</string>
     <string name="bigger_headings">Capçaleres més grans</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa la mida de les capçaleres d\'acord amb el nivell (# h1, ## h2. ### h3…)</string>
+    <string name="current">Actual</string>
 </resources>
