@@ -311,4 +311,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="increase_text_size_of_headings_according_to_level">Incrementa el tamaño de texto de las cabeceras según el nivel (# h1, ## h2. ### h3…)</string>
     <string name="current">Actual</string>
     <string name="record_audio">Grabar audio</string>
+    <string name="attach">Adjuntar</string>
 </resources>
