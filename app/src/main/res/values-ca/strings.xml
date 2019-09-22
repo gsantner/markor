@@ -310,4 +310,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bigger_headings">Capçaleres més grans</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa la mida de les capçaleres segons el nivell (# h1, ## h2. ### h3…)</string>
     <string name="current">Actual</string>
+    <string name="record_audio">Enregistra àudio</string>
+    <string name="attach">Adjunta</string>
 </resources>
