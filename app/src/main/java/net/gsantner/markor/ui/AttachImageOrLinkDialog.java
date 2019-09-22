@@ -89,11 +89,15 @@ public class AttachImageOrLinkDialog {
             public void onFsViewerSelected(final String request, final File file) {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
-                if (file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir)) {
+                boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
+                boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
+                if (isInCurrentDir || isInSaveDir) {
                     text = FileUtils.relativePath(currentWorkingFile, file);
+                } else if ("abs_if_not_relative".equals(request)) {
+                    text = file.getAbsolutePath();
                 } else {
                     File targetCopy = new File(currentWorkingFile.getParentFile(), file.getName());
-                    showCopyFileToLocalDirDialog(activity, file, targetCopy, cbRetValSuccess -> onFsViewerSelected(request, targetCopy));
+                    showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile));
                 }
                 if (text == null) {
                     text = file.getAbsolutePath();
@@ -147,9 +151,7 @@ public class AttachImageOrLinkDialog {
 
         builder.setView(view)
                 .setTitle(actionTitle)
-                .setOnDismissListener(dialog -> {
-                    LocalBroadcastManager.getInstance(activity).unregisterReceiver(lbr);
-                })
+                .setOnDismissListener(dialog -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(lbr))
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                     if (_hlEditor.hasSelection()) {
                         _hlEditor.setSelection(startCursorPos);
@@ -157,8 +159,7 @@ public class AttachImageOrLinkDialog {
                 })
                 .setPositiveButton(android.R.string.ok, (dialog, id) -> {
                     String title = editPathName.getText().toString().replace(")", "\\)");
-                    String url = editPathUrl.getText().toString().replace(")", "\\)")
-                            .replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+                    String url = editPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
                     if (_hlEditor.hasSelection()) {
                         _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), String.format(formatTemplate, title, url));
                         _hlEditor.setSelection(_hlEditor.getSelectionStart());
@@ -169,19 +170,26 @@ public class AttachImageOrLinkDialog {
         return builder.show();
     }
 
-    public static Dialog showCopyFileToLocalDirDialog(final Activity activity, final File srcFile, final File tarFile, final Callback.a1<Boolean> copyFileFinishedCallback) {
-        Dialog d = new AlertDialog.Builder(activity)
+    public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final Callback.a2<Boolean, File> copyFileFinishedCallback) {
+        final Callback.a1<File> copyToDirInvocation = cbValTargetFile -> new ShareUtil(activity).writeFile(cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
+            if (wfCbValOpened && FileUtils.copyFile(srcFile, wfCbValStream)) {
+                copyFileFinishedCallback.callback(true, cbValTargetFile);
+            }
+        });
+
+        final File tarFileInAssetsDir = new File(new AppSettings(activity).getNotebookDirectory(), tarFile.getName());
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
                 .setTitle(R.string.import_)
                 .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
-                    new ShareUtil(activity).writeFile(tarFile, false, (wfCbValOpened, wfCbValStream) -> {
-                        if (wfCbValOpened && FileUtils.copyFile(srcFile, wfCbValStream)) {
-                            copyFileFinishedCallback.callback(true);
-                        }
-                    });
-                }).create();
-        d.show();
-        return d;
+                .setPositiveButton(R.string.current, (dialogInterface, which) -> copyToDirInvocation.callback(tarFile))
+                .setNeutralButton(R.string.assets, (dialogInterface, which) -> copyToDirInvocation.callback(tarFileInAssetsDir));
+        if (disableCancel) {
+            dialogBuilder.setCancelable(false);
+        } else {
+            dialogBuilder.setNegativeButton(android.R.string.no, null);
+        }
+        return dialogBuilder.show();
     }
 }
