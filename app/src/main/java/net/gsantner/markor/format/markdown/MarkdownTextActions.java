@@ -26,7 +26,7 @@ import net.gsantner.markor.util.AppSettings;
 public class MarkdownTextActions extends TextActions {
 
     public MarkdownTextActions(Activity activity, Document document) {
-        super(activity, document, TextFormat.FORMAT_MARKDOWN);
+        super(activity, document);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_markdown_insert_link:
                 case R.string.tmaid_markdown_insert_image: {
-                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, getTextFormatId(),_activity, _hlEditor, _document.getFile());
+                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(),_activity, _hlEditor, _document.getFile());
                     break;
                 }
                 case R.string.tmaid_general_time: {

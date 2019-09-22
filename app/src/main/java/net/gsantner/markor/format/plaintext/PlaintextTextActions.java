@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
@@ -24,7 +23,7 @@ import net.gsantner.markor.util.AppSettings;
 public class PlaintextTextActions extends TextActions {
 
     public PlaintextTextActions(Activity activity, Document document) {
-        super(activity, document, TextFormat.FORMAT_PLAIN);
+        super(activity, document);
     }
 
 

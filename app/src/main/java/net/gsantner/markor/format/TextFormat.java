@@ -62,7 +62,7 @@ public class TextFormat {
     }
 
     public static TextFormat getFormat(int formatId, Activity activity, Document document, HighlightingEditor hlEditor) {
-        TextFormat format = new TextFormat(formatId);
+        TextFormat format = new TextFormat();
         switch (formatId) {
             case FORMAT_PLAIN: {
                 format.setConverter(CONVERTER_PLAINTEXT);
@@ -100,14 +100,11 @@ public class TextFormat {
     private TextActions _textActions;
     private Highlighter _highlighter;
     private TextConverter _converter;
-    private final int _formatId;
 
-    public TextFormat(int formatId) {
-        _formatId = formatId;
+    public TextFormat() {
     }
 
-    public TextFormat(int formatId, TextActions textActions, Highlighter highlighter, TextConverter converter) {
-        _formatId = formatId;
+    public TextFormat(TextActions textActions, Highlighter highlighter, TextConverter converter) {
         _textActions = textActions;
         _highlighter = highlighter;
         _converter = converter;
@@ -140,9 +137,5 @@ public class TextFormat {
 
     public void setConverter(TextConverter converter) {
         _converter = converter;
-    }
-
-    public int getFormatId() {
-        return _formatId;
     }
 }

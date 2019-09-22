@@ -39,7 +39,9 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -222,6 +224,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
+        menu.findItem(R.id.submenu_attach).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
 
 
@@ -244,11 +247,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions().setDocument(_document);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        _shareUtil.setContext(getActivity()
-        );
-        switch (item.getItemId()) {
+        _shareUtil.setContext(getActivity());
+        final int itemId = item.getItemId();
+        switch (itemId) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
                     _editTextUndoRedoHelper.undo();
@@ -352,6 +356,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 String text = "Hello!\nThanks for developing this app.\nI'm sending this debug log to you to improve the app. The debug log is below.\nI also looked at the FAQ \nhttps://gsantner.net/project/" + getString(R.string.app_name_real).toLowerCase() + ".html\nand checked if it resolves my issue. This debug log allows to analyze and improve performance, but it doesn't give information about crashes! If the app crashes, I will add all steps to reproduce the issue. \n\n\n\n------------------------\n\n\n\n";
                 text += AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
                 _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, new StringBuilder(getString(R.string.app_contact_email_reverse)).reverse().toString());
+                return true;
+            }
+
+            case R.id.action_attach_color: {
+                new CommonTextActions(getActivity(), _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
+                return true;
+            }
+            case R.id.action_attach_date: {
+                DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                return true;
+            }
+            case R.id.action_attach_audio:
+            case R.id.action_attach_file:
+            case R.id.action_attach_image:
+            case R.id.action_attach_link: {
+                int actionId = (itemId == R.id.action_attach_audio ? 4 : (itemId == R.id.action_attach_image ? 2 : 3));
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(actionId, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             }
         }

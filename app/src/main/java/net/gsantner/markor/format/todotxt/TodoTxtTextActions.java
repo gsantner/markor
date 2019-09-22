@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -37,7 +36,7 @@ import java.util.List;
 public class TodoTxtTextActions extends TextActions {
 
     public TodoTxtTextActions(Activity activity, Document document) {
-        super(activity, document, TextFormat.FORMAT_TODOTXT);
+        super(activity, document);
     }
 
     @Override
