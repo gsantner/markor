@@ -310,4 +310,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bigger_headings">Grotere rubrieken</string>
     <string name="increase_text_size_of_headings_according_to_level">Verhoog tekstgrootte van headers volgens niveau (# h1, ## h2. ### h3…)</string>
     <string name="current">Huidige</string>
+    <string name="record_audio">Audio opnemen</string>
 </resources>
