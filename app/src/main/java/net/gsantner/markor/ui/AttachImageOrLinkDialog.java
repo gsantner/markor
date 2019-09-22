@@ -19,19 +19,19 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
 
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
-
-
     @SuppressWarnings("RedundantCast")
-    public static Dialog showInsertImageOrLinkDialog(int action, Activity _activity, HighlightingEditor _hlEditor, final File currentWorkingFile) {
-        final AppSettings _appSettings = new AppSettings(_activity.getApplicationContext());
-        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(_activity);
-        final View view = _activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
+    public static Dialog showInsertImageOrLinkDialog(int action, Activity activity, HighlightingEditor _hlEditor, final File currentWorkingFile) {
+        final AppSettings _appSettings = new AppSettings(activity.getApplicationContext());
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
+        final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
         final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
@@ -92,17 +92,8 @@ public class AttachImageOrLinkDialog {
                 if (file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir)) {
                     text = FileUtils.relativePath(currentWorkingFile, file);
                 } else {
-                    new AlertDialog.Builder(_activity)
-                            .setTitle(R.string.import_)
-                            .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
-                            .setNegativeButton(android.R.string.no, null)
-                            .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
-                                        File targetCopy = new File(currentWorkingFile.getParentFile(), file.getName());
-                                        if (FileUtils.copyFile(file, targetCopy)) {
-                                            onFsViewerSelected(request, targetCopy);
-                                        }
-                                    }
-                            ).create().show();
+                    File targetCopy = new File(currentWorkingFile.getParentFile(), file.getName());
+                    showCopyFileToLocalDirDialog(activity, file, targetCopy, cbRetValSuccess -> onFsViewerSelected(request, targetCopy));
                 }
                 if (text == null) {
                     text = file.getAbsolutePath();
@@ -126,7 +117,7 @@ public class AttachImageOrLinkDialog {
         };
 
         // Request camera / gallery picture button handling
-        final ShareUtil shu = new ShareUtil(_activity);
+        final ShareUtil shu = new ShareUtil(activity);
         final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
                     fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
                 },
@@ -136,10 +127,10 @@ public class AttachImageOrLinkDialog {
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
         buttonBrowseFs.setOnClickListener(button -> {
-            if (_activity instanceof AppCompatActivity) {
-                AppCompatActivity a = (AppCompatActivity) _activity;
+            if (activity instanceof AppCompatActivity) {
+                AppCompatActivity a = (AppCompatActivity) activity;
                 Function<File, Boolean> f = action == 3 ? null : FilesystemViewerFactory.IsMimeImage;
-                FilesystemViewerFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), _activity, f);
+                FilesystemViewerFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
             }
         });
 
@@ -157,7 +148,7 @@ public class AttachImageOrLinkDialog {
         builder.setView(view)
                 .setTitle(actionTitle)
                 .setOnDismissListener(dialog -> {
-                    LocalBroadcastManager.getInstance(_activity).unregisterReceiver(lbr);
+                    LocalBroadcastManager.getInstance(activity).unregisterReceiver(lbr);
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                     if (_hlEditor.hasSelection()) {
@@ -176,5 +167,21 @@ public class AttachImageOrLinkDialog {
                     }
                 });
         return builder.show();
+    }
+
+    public static Dialog showCopyFileToLocalDirDialog(final Activity activity, final File srcFile, final File tarFile, final Callback.a1<Boolean> copyFileFinishedCallback) {
+        Dialog d = new AlertDialog.Builder(activity)
+                .setTitle(R.string.import_)
+                .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
+                    new ShareUtil(activity).writeFile(tarFile, false, (wfCbValOpened, wfCbValStream) -> {
+                        if (wfCbValOpened && FileUtils.copyFile(srcFile, wfCbValStream)) {
+                            copyFileFinishedCallback.callback(true);
+                        }
+                    });
+                }).create();
+        d.show();
+        return d;
     }
 }

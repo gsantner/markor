@@ -240,6 +240,30 @@ public class FileUtils {
         }
     }
 
+    public static boolean copyFile(final File src, final FileOutputStream os) {
+        InputStream is = null;
+        try {
+            try {
+                is = new FileInputStream(src);
+                byte[] buf = new byte[BUFFER_SIZE];
+                int len;
+                while ((len = is.read(buf)) > 0) {
+                    os.write(buf, 0, len);
+                }
+                return true;
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
+                if (os != null) {
+                    os.close();
+                }
+            }
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
     // Returns -1 if the file did not contain any of the needles, otherwise,
     // the index of which needle was found in the contents of the file.
     //

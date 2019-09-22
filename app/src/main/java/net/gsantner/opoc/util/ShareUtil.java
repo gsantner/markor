@@ -1088,11 +1088,12 @@ public class ShareUtil {
         dialogi.show();
     }
 
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
     public void writeFile(File file, boolean isDirectory, Callback.a2<Boolean, FileOutputStream> writeFileCallback) {
         try {
             FileOutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            if (file.canWrite()) {
+            if (file.canWrite() || (!file.exists() && file.getParentFile().canWrite())) {
                 if (isDirectory) {
                     file.mkdirs();
                 } else {
@@ -1113,7 +1114,10 @@ public class ShareUtil {
                 writeFileCallback.callback(fileOutputStream != null || (isDirectory && file.exists()), fileOutputStream);
             }
             if (fileOutputStream != null) {
-                fileOutputStream.close();
+                try {
+                    fileOutputStream.close();
+                } catch (Exception ignored) {
+                }
             }
             if (pfd != null) {
                 pfd.close();
