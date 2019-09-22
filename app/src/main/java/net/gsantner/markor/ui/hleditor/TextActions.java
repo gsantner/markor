@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
@@ -36,14 +37,16 @@ public abstract class TextActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textActionSidePadding;
+    private final int _textFormatId;
 
-    public TextActions(Activity activity, Document document) {
+    public TextActions(Activity activity, Document document, int textFormatId) {
         _document = document;
         _activity = activity;
         _au = new ActivityUtils(activity);
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _textFormatId = textFormatId;
     }
 
     public abstract void appendTextActionsToBar(ViewGroup viewGroup);
@@ -151,4 +154,8 @@ public abstract class TextActions {
     }
 
     public abstract boolean runAction(final String action, boolean modLongClick, String anotherArg);
+
+    protected int getTextFormatId() {
+        return _textFormatId;
+    }
 }

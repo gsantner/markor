@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -28,51 +29,71 @@ import java.util.regex.Matcher;
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
     @SuppressWarnings("RedundantCast")
-    public static Dialog showInsertImageOrLinkDialog(int action, Activity activity, HighlightingEditor _hlEditor, final File currentWorkingFile) {
+    public static Dialog showInsertImageOrLinkDialog(int action, int textFormatId, Activity activity, HighlightingEditor _hlEditor, final File currentWorkingFile) {
         final AppSettings _appSettings = new AppSettings(activity.getApplicationContext());
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
-        final EditText editPathName = view.findViewById(R.id.ui__select_path_dialog__name);
-        final EditText editPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
-        final Button buttonBrowseFs = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
+        final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
+        final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
+        final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
 
         final int startCursorPos = _hlEditor.getSelectionStart();
-        if (_hlEditor.hasSelection()) {
-            String selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
-            editPathName.setText(selected_text);
-        } else if (_hlEditor.getText().toString().isEmpty()) {
-            editPathName.setText("");
-        } else {
-            final Editable contentText = _hlEditor.getText();
-            int lineStartidx = Math.max(startCursorPos, 0);
-            int lineEndidx = Math.min(startCursorPos, contentText.length() - 1);
-            lineStartidx = Math.min(lineEndidx, lineStartidx);
-            for (; lineStartidx > 0; lineStartidx--) {
-                if (contentText.charAt(lineStartidx) == '\n') {
-                    break;
-                }
+
+        // Extract filepath if using Markdown
+        final String formatTemplate;
+        switch (action) {
+            default:
+            case 3: { // file / link
+                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
+                break;
             }
-            for (; lineEndidx < contentText.length(); lineEndidx++) {
-                if (contentText.charAt(lineEndidx) == '\n') {
-                    break;
-                }
+            case 2: { // image
+                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
+                break;
+            }
+            case 4: { // audio
+                formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
+                break;
             }
 
-            final String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-            Matcher m = (action == 3 ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
-            if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
-                int stat = lineStartidx + m.start();
-                int en = lineStartidx + m.end();
-                _hlEditor.setSelection(stat, en);
-                editPathName.setText(m.group(1));
-                editPathUrl.setText((m.group(2)));
+        }
+        if (textFormatId == TextFormat.FORMAT_MARKDOWN) {
+            if (_hlEditor.hasSelection()) {
+                String selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
+                inputPathName.setText(selected_text);
+            } else if (_hlEditor.getText().toString().isEmpty()) {
+                inputPathName.setText("");
+            } else {
+                final Editable contentText = _hlEditor.getText();
+                int lineStartidx = Math.max(startCursorPos, 0);
+                int lineEndidx = Math.min(startCursorPos, contentText.length() - 1);
+                lineStartidx = Math.min(lineEndidx, lineStartidx);
+                for (; lineStartidx > 0; lineStartidx--) {
+                    if (contentText.charAt(lineStartidx) == '\n') {
+                        break;
+                    }
+                }
+                for (; lineEndidx < contentText.length(); lineEndidx++) {
+                    if (contentText.charAt(lineEndidx) == '\n') {
+                        break;
+                    }
+                }
+
+                final String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
+                Matcher m = (action == 3 ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
+                if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
+                    int stat = lineStartidx + m.start();
+                    int en = lineStartidx + m.end();
+                    _hlEditor.setSelection(stat, en);
+                    inputPathName.setText(m.group(1));
+                    inputPathUrl.setText((m.group(2)));
+                }
             }
         }
 
-        final String formatTemplate = action == 3 ? "[%s](%s)" : "![%s](%s)";
         int actionTitle = R.string.select;
         if (action == 3) {
             actionTitle = R.string.insert_link;
@@ -103,12 +124,12 @@ public class AttachImageOrLinkDialog {
                     text = file.getAbsolutePath();
                 }
 
-                editPathUrl.setText(text);
+                inputPathUrl.setText(text);
 
-                if (editPathName.getText().toString().isEmpty()) {
+                if (inputPathName.getText().toString().isEmpty()) {
                     text = file.getName();
                     text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
-                    editPathName.setText(text);
+                    inputPathName.setText(text);
                 }
             }
 
@@ -130,7 +151,7 @@ public class AttachImageOrLinkDialog {
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
-        buttonBrowseFs.setOnClickListener(button -> {
+        buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) activity;
                 Function<File, Boolean> f = action == 3 ? null : FilesystemViewerFactory.IsMimeImage;
@@ -139,7 +160,7 @@ public class AttachImageOrLinkDialog {
         });
 
         buttonPictureEdit.setOnClickListener(v -> {
-            String filepath = editPathUrl.getText().toString().replace("%20", " ");
+            String filepath = inputPathUrl.getText().toString().replace("%20", " ");
             if (!filepath.startsWith("/")) {
                 filepath = new File(currentWorkingFile.getParent(), filepath).getAbsolutePath();
             }
@@ -158,13 +179,14 @@ public class AttachImageOrLinkDialog {
                     }
                 })
                 .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                    String title = editPathName.getText().toString().replace(")", "\\)");
-                    String url = editPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+                    String title = inputPathName.getText().toString().replace(")", "\\)");
+                    String url = inputPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+                    String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
                     if (_hlEditor.hasSelection()) {
-                        _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), String.format(formatTemplate, title, url));
+                        _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
                         _hlEditor.setSelection(_hlEditor.getSelectionStart());
                     } else {
-                        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), String.format(formatTemplate, title, url));
+                        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), newText);
                     }
                 });
         return builder.show();
