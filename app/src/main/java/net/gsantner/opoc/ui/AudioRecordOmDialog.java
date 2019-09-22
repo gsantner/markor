@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,23 +60,35 @@ public class AudioRecordOmDialog {
         final String EMOJI_MICROPHONE = "\uD83C\uDFA4";
         final String EMOJI_STOP = "\uD83D\uDED1";
         final String EMOJI_RESTART = "\uD83D\uDD04";
-        final String EMOJI_SPEAKER = "\uD83D\uDD0A";
+        final String EMOJI_SPEAKER = "\uD83C\uDFA7";
 
         final AtomicBoolean isRecording = new AtomicBoolean();
         final AtomicBoolean isRecordSavedOnce = new AtomicBoolean();
         final AtomicReference<Recorder> recorder = new AtomicReference<>();
         final AtomicReference<MediaPlayer> mediaPlayer = new AtomicReference<>();
+        final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
+        final AtomicReference<Long> startTime = new AtomicReference<>();
         final File TMP_FILE_RECORDING = new File(activity.getCacheDir(), "recording.wav");
         if (TMP_FILE_RECORDING.exists()) {
             TMP_FILE_RECORDING.delete();
         }
 
         // Record management callbacks
-        final Callback.a1<Boolean> recorderManager = (cbArgRestart) -> {
+        final Callback.a2<Boolean, Boolean> recorderManager = (cbArgRestart, cbArgStop) -> {
             if (cbArgRestart) {
                 final PullableSource SRC_MICROPHONE = new PullableSource.Default(new AudioRecordConfig.Default(MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT, AudioFormat.CHANNEL_IN_STEREO, 44100));
                 recorder.set(OmRecorder.wav(new PullTransport.Default(SRC_MICROPHONE), TMP_FILE_RECORDING));
                 recorder.get().startRecording();
+                startTime.set(System.currentTimeMillis());
+            } else if (cbArgStop) {
+                try {
+                    recorder.get().stopRecording();
+                    isRecordSavedOnce.set(true);
+
+                    int[] diff = FileUtils.getTimeDiffHMS(System.currentTimeMillis(), startTime.get());
+                    dialog.get().setMessage(String.format(Locale.getDefault(), "%02d:%02d:%02d / %s [.wav]", diff[0], diff[1], diff[2], FileUtils.getReadableFileSize(TMP_FILE_RECORDING.length(), true)));
+                } catch (Exception ignored) {
+                }
             }
         };
 
@@ -96,13 +109,9 @@ public class AudioRecordOmDialog {
         recordButton.setText(EMOJI_MICROPHONE);
         recordButton.setOnClickListener(v -> {
             if (isRecording.get()) {
-                try {
-                    recorder.get().stopRecording();
-                    isRecordSavedOnce.set(true);
-                } catch (Exception ignored) {
-                }
+                recorderManager.callback(false, true);
             } else {
-                recorderManager.callback(true);
+                recorderManager.callback(true, false);
             }
 
             // Update state
@@ -184,12 +193,16 @@ public class AudioRecordOmDialog {
                 .setTitle(titleResId)
                 .setPositiveButton(android.R.string.ok, dialogOkAndCancelListener)
                 .setNegativeButton(android.R.string.cancel, dialogOkAndCancelListener)
+                .setMessage("00:00:00 / 0kB [.wav]")
                 .setView(layout);
-        final AlertDialog dialog = dialogBuilder.create();
+        dialog.set(dialogBuilder.create());
         Window w;
-        dialog.show();
-        if ((w = dialog.getWindow()) != null) {
+        dialog.get().show();
+        if ((w = dialog.get().getWindow()) != null) {
             w.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            WindowManager.LayoutParams wlp = w.getAttributes();
+            wlp.gravity = Gravity.BOTTOM;
+            w.setAttributes(wlp);
         }
     }
 

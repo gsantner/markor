@@ -455,4 +455,13 @@ public class FileUtils {
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, unit))
                 + " " + units[unit];
     }
+
+    public static int[] getTimeDiffHMS(long now, long past) {
+        int[] ret = new int[3];
+        long diff = Math.abs(now - past);
+        ret[0] = (int) (diff / (1000 * 60 * 60)); // hours
+        ret[1] = (int) (diff / (1000 * 60)) % 60; // min
+        ret[2] = (int) (diff / 1000) % 60; // sec
+        return ret;
+    }
 }
