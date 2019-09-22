@@ -29,7 +29,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
     <string name="info">Information</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">Fil/mapp som redan finns! Använd ett annat namn</string>
     <string name="import_from_device">Importera från enhet</string>
     <string name="import_">Importera</string>
     <string name="append_to_witharg">Lägg till %s</string>
@@ -304,9 +303,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Föredra att öppna med appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer av typen i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webfiler och filer utan filändelse.</string>
     <string name="template">Mall</string>
-    <string name="send_debug_log">Skicka Felsökningsloggen</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjälpa till genom att skicka debug-information till utvecklare(s). Uppgifterna skickas med e-post via din e-app och du kan se alla data som skickas innan du skickar. Du kommer att hitta en extra \"Skicka debug log\" - alternativet i huvudmenyn när den är aktiverad. Det skapar e-post utkast.</string>
-    <string name="print_pdf">Print / PDF</string>
-    <string name="bigger_headings">Större rubriker</string>
-    <string name="increase_text_size_of_headings_according_to_level">Öka storlek på text i rubriker enligt nivå (# h1, ## h2. ### h3…)</string>
 </resources>
