@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Più informazioni e aiuto</string>
     <string name="report_bugs">Segnala un bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su come donare allo sviluppatore, o su come contribuire a questo progetto.</string>
-
-
     <string name="join_community">Unisciti alla comunità</string>
     <string name="bug_reports_suggest_improvements">Dai un riscontro, segnala bug o suggerisci miglioramenti</string>
     <string name="help_translating_this_app">Traduci l\'applicazione in altre lingue</string>
@@ -307,7 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="template">Template</string>
     <string name="send_debug_log">Invia log di debug</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Aiuta inviando informazioni di debug agli sviluppatori. I dati vengono inviati tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di inviare. Troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email, nel menu in alto quando abilitato.</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Aiutaci inviando informazioni di debug agli sviluppatori. I dati vengono inviati tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di inviare. Troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email, nel menu in alto quando abilitato.</string>
     <string name="print_pdf">Stampa / PDF</string>
     <string name="bigger_headings">Intestazioni più grandi</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumenta la dimensione del testo delle intestazioni in base al livello (# h1, ## h2. ### h3…)</string>
