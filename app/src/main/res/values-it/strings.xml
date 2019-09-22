@@ -310,4 +310,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bigger_headings">Intestazioni più grandi</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumenta la dimensione del testo delle intestazioni in base al livello (# h1, ## h2. ### h3…)</string>
     <string name="current">Attuale</string>
+    <string name="record_audio">Registra audio</string>
 </resources>
