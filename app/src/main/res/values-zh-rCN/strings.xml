@@ -311,4 +311,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="increase_text_size_of_headings_according_to_level">按级别 (## h1, ### h2, ##### h3…) 增加标题文字大小</string>
     <string name="current">当前</string>
     <string name="record_audio">录制音频</string>
+    <string name="attach">附件</string>
 </resources>
