@@ -1,10 +1,9 @@
-# vim:
+# vim: sw=2 ts=2 noexpandtab:
 files:
   - source: /app/src/main/res/values/strings.xml
     translation: /app/src/main/res/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
-        kn: kn 		# Kannada (Asian)
         gl: gl  	# Galician
         sc: sc  	# Sardinian
         kab: kab        # Kabyle
@@ -44,4 +43,10 @@ files:
         bs: bs		# Bosnian
         sr: sr		# Serbian, Cyrillic
         sr-CS: sr-rRS	# Serbian, Latin
+        bn: bn # Bengali
+        pa-IN: pa # Punjabi, India
+        jv: jw # Javanese
+        mr: mr # Marathi
+        te: te # Telugu
+        ur-PK: ur # Urdu, Pakistan
     translate_attributes: 0
