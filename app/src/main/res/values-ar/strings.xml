@@ -267,6 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
     <string name="template">النموذج</string>
     <string name="print_pdf">طباعة/PDF</string>
+    <string name="bigger_headings">عناوين أكبر</string>
     <string name="current">الحالي</string>
     <string name="attach">ارفق</string>
 </resources>
