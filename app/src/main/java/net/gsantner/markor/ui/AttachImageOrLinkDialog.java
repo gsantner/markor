@@ -118,7 +118,11 @@ public class AttachImageOrLinkDialog {
                 } else if ("abs_if_not_relative".equals(request)) {
                     text = file.getAbsolutePath();
                 } else {
-                    File targetCopy = new File(currentWorkingFile.getParentFile(), file.getName());
+                    String filename = file.getName();
+                    if ("audio_record_om_dialog".equals(request)) {
+                        filename = AudioRecordOmDialog.generateFilename(file).getName();
+                    }
+                    File targetCopy = new File(currentWorkingFile.getParentFile(), filename);
                     showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile));
                 }
                 if (text == null) {
@@ -161,7 +165,7 @@ public class AttachImageOrLinkDialog {
         });
 
         // Audio Record -> fs listener with arg file,"audio_record"
-        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record", cbValAudioRecordFilepath)));
+        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath)));
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");
@@ -210,7 +214,7 @@ public class AttachImageOrLinkDialog {
                 .setTitle(R.string.import_)
                 .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
                 .setPositiveButton(R.string.current, (dialogInterface, which) -> copyToDirInvocation.callback(tarFile))
-                .setNeutralButton(R.string.assets, (dialogInterface, which) -> copyToDirInvocation.callback(tarFileInAssetsDir));
+                .setNeutralButton(R.string.notebook, (dialogInterface, which) -> copyToDirInvocation.callback(tarFileInAssetsDir));
         if (disableCancel) {
             dialogBuilder.setCancelable(false);
         } else {

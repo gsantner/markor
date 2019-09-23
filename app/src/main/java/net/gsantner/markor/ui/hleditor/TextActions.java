@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;

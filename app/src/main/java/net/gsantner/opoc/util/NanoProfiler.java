@@ -11,12 +11,14 @@
 package net.gsantner.opoc.util;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * A timer for quick time measurement. Nano - in both, time and functions
  */
 public class NanoProfiler {
-    private final DecimalFormat formatter = new DecimalFormat("000000000.0000000");
+    private final DecimalFormat formatter = new DecimalFormat("000000000.0000000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
     private long _profilingGroupValue = 0;
     private int _groupCount = 0;
     private boolean _profilerEnabled = true;

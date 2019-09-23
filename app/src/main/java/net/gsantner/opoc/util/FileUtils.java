@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -476,8 +477,7 @@ public class FileUtils {
         }
         String[] units = abbreviation ? new String[]{"B", "kB", "MB", "GB", "TB"} : new String[]{"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
         int unit = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, unit))
-                + " " + units[unit];
+        return new DecimalFormat("#,##0.#", DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(size / Math.pow(1024, unit)) + " " + units[unit];
     }
 
     public static int[] getTimeDiffHMS(long now, long past) {

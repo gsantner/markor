@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -57,10 +58,10 @@ public class AudioRecordOmDialog {
 
         ////////////////////////////////////
         // Init
-        final String EMOJI_MICROPHONE = "\uD83C\uDFA4";
-        final String EMOJI_STOP = "\uD83D\uDED1";
+        final String EMOJI_MICROPHONE = "\uD83D\uDD34";
+        final String EMOJI_STOP = "⭕";//"\uD83D\uDED1";
         final String EMOJI_RESTART = "\uD83D\uDD04";
-        final String EMOJI_SPEAKER = "\uD83C\uDFA7";
+        final String EMOJI_SPEAKER = "\uD83D\uDD0A"; //"\uD83C\uDFA7";
 
         final AtomicBoolean isRecording = new AtomicBoolean();
         final AtomicBoolean isRecordSavedOnce = new AtomicBoolean();
@@ -104,6 +105,7 @@ public class AudioRecordOmDialog {
         sep1.setLayoutParams(new LinearLayout.LayoutParams(100, 1));
 
         // Record button
+        recordButton.setTextColor(Color.BLACK);
         recordButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 64);
         recordButton.setGravity(Gravity.CENTER_HORIZONTAL);
         recordButton.setText(EMOJI_MICROPHONE);
@@ -129,6 +131,7 @@ public class AudioRecordOmDialog {
         };
 
         // Play button
+        playbackButton.setTextColor(Color.BLACK);
         playbackButton.setEnabled(false);
         playbackButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 64);
         playbackButton.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -206,12 +209,8 @@ public class AudioRecordOmDialog {
         }
     }
 
-    private static String generateFilePath(File recordDirectory) {
-        try {
-            final String prefix = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date()) + "-record-";
-            return File.createTempFile(prefix, ".wav", recordDirectory).getAbsolutePath();
-        } catch (Exception ignored) {
-        }
-        return null;
+    public static File generateFilename(File recordDirectory) {
+        final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
+        return new File(recordDirectory, datestr + "-record.wav");
     }
 }

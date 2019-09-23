@@ -647,7 +647,7 @@ public class ShareUtil {
                 if (target != null && !target.isDirectory()) {
                     photoFile = target;
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH);
                     File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
                     String imageFileName = ((new ContextUtils(_context).rstr("app_name")).replaceAll("[^a-zA-Z0-9\\.\\-]", "_") + "_").replace("__", "_") + sdf.format(new Date());
                     photoFile = new File(storageDir, imageFileName + ".jpg");

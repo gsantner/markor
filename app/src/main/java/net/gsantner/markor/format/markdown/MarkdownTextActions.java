@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
@@ -152,7 +151,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_markdown_insert_link:
                 case R.string.tmaid_markdown_insert_image: {
-                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(),_activity, _hlEditor, _document.getFile());
+                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
                     break;
                 }
                 case R.string.tmaid_general_time: {
