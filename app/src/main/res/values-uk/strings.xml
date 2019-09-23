@@ -17,7 +17,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Вилучити</string>
     <string name="appearance">Вигляд</string>
     <string name="rename">Перейменувати</string>
-    <string name="confirm_delete">Підтвердіть вилучення</string>
+    <string name="confirm_delete">Підтвердіть видалення</string>
     <string name="do_you_really_want_to_delete_this_witharg">Ви справді бажаєте вилучити %s?</string>
     <string name="confirm_overwrite">Підтвердіть перезапис</string>
     <string name="file_already_exists_overwerite">Файл уже існує, перезаписати?</string>
