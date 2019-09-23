@@ -309,4 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Imprimer / PDF</string>
     <string name="bigger_headings">Titres plus grands</string>
     <string name="increase_text_size_of_headings_according_to_level">Augmenter la taille du texte des en-têtes selon le niveau (# h1, ## h2. ## h3…)</string>
+    <string name="current">Actuel</string>
+    <string name="record_audio">Enregistrer l\'audio</string>
+    <string name="attach">Attacher</string>
 </resources>

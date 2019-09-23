@@ -18,14 +18,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Вигляд</string>
     <string name="rename">Перейменувати</string>
     <string name="confirm_delete">Підтвердіть видалення</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Дійсно вилучити %s?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Ви справді бажаєте видалити %s?</string>
     <string name="confirm_overwrite">Підтвердіть перезапис</string>
-    <string name="file_already_exists_overwerite">Файл вже існує, перезаписати?</string>
+    <string name="file_already_exists_overwerite">Файл уже існує, перезаписати?</string>
     <string name="browse_filesystem">Перегляд файлів</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Поточна директорія порожня</string>
     <string name="enter_name_of_folder">Введіть ім’я директорії</string>
-    <string name="create_folder">Створити директорію</string>
+    <string name="create_folder">Створити теку</string>
     <string name="create_new_document">Створити документ</string>
     <string name="move">Перемістити</string>
     <string name="info">Інформація</string>
@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_from_device">Імпортувати з пристрою</string>
     <string name="import_">Імпортувати</string>
     <string name="append_to_witharg">Додати до %s</string>
-    <string name="select_folder">Обрати директорію</string>
+    <string name="select_folder">Обрати теку</string>
     <string name="edit">Редагувати</string>
     <string name="search_documents">Пошук нотаток</string>
     <string name="share_to_arrow">Надіслати до…</string>
@@ -278,7 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Внутрішнє сховище</string>
     <string name="open_the_document_from_main_view">Ви можете відкрити документ з головного екрану внизу, переглядача файлів чи програми робочого стола. Також є можливість додати текст, поширений у Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook – тека, яку Markor завантажує у переглядач файлів при запуску програми. Це домашня тека ваших файлів.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote це найшвидший спосіб записувати нотатки. Це файл у форматі Markdown з типовим розташуванням &gt;Notebook/QuickNote.md&lt;, яке ви можете змінити у налаштуваннях.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote – найшвидший спосіб записувати нотатки. Це файл у форматі Markdown з типовим розташуванням &gt;Notebook/QuickNote.md&lt;, яке ви можете змінити у налаштуваннях.</string>
     <string name="todo_is_the_easiest_way_">Керуйте своїми завданнями з ToDo. Це файл у форматі todo.txt, за умовчанням розташований у &gt;Notebook/todo.txt&lt;, ви можете встановити власний шлях у налаштуваннях.</string>
     <string name="navigationbar_color">Колір панелі навігації</string>
     <string name="black">Чорний</string>
@@ -304,9 +304,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
     <string name="template">Шаблон</string>
-    <string name="send_debug_log">Надіслати журнал зневадження</string>
+    <string name="send_debug_log">Надсилати Debug-журнал</string>
     <string name="help_by_sending_debug_information_to_the_developer">Допоможіть розробникам, надсилаючи зневаджувальну інформацію. Дані надсилаються по e-mail за допомогою вашого додатку електронної пошти і ви можете переглянути ці дані перед надсиланням. Коли це налаштування увімкнено, у верхньому меню з\'явиться додатковий пункт \"Надіслати журнал зневадження\", який створює чернетку листа.</string>
     <string name="print_pdf">Друк / PDF</string>
     <string name="bigger_headings">Збільшувати заголовки</string>
     <string name="increase_text_size_of_headings_according_to_level">Збільшувати розмір тексту заголовків відповідно до рівня (# h1, ## h2, ### h3…)</string>
+    <string name="current">Поточний</string>
+    <string name="record_audio">Записати аудіо</string>
+    <string name="attach">Прикріпити</string>
 </resources>

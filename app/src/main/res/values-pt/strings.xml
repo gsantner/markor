@@ -309,4 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Imprimir/PDF</string>
     <string name="bigger_headings">Cabeçalho grande</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumentar tamanho do texto dos cabeçalhos, de acordo com o nível (# h1, ## h2. ### h3…)</string>
+    <string name="current">Atual</string>
+    <string name="record_audio">Gravar áudio</string>
+    <string name="attach">Anexar</string>
 </resources>

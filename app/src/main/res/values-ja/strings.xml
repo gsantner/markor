@@ -309,4 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">印刷 / PDF</string>
     <string name="bigger_headings">見出しを大きくする</string>
     <string name="increase_text_size_of_headings_according_to_level">レベルに応じて見出しのテキストサイズを大きくします (# h1, ## h2. ### h3…)</string>
+    <string name="current">現在</string>
+    <string name="record_audio">音声の録音</string>
+    <string name="attach">添付</string>
 </resources>
