@@ -25,7 +25,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="title">Заголовок</string>
     <string name="empty_directory">Поточна директорія порожня</string>
     <string name="enter_name_of_folder">Введіть ім’я директорії</string>
-    <string name="create_folder">Створити теку</string>
+    <string name="create_folder">Створити директорію</string>
     <string name="create_new_document">Створити документ</string>
     <string name="move">Перемістити</string>
     <string name="info">Інформація</string>
@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_from_device">Імпортувати з пристрою</string>
     <string name="import_">Імпортувати</string>
     <string name="append_to_witharg">Додати до %s</string>
-    <string name="select_folder">Обрати теку</string>
+    <string name="select_folder">Обрати директорію</string>
     <string name="edit">Редагувати</string>
     <string name="search_documents">Пошук нотаток</string>
     <string name="share_to_arrow">Надіслати до…</string>
@@ -248,8 +248,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Встановити колір тексту чи тла? Можна користуватися hex-кодами кольорів.</string>
     <string name="type">Тип</string>
     <string name="folder">Тека</string>
-    <string name="folder_is_created_without_extension">- Назва створеної теки не буде містити розширення файлу</string>
-    <string name="keep_existing_file">- Файли та теки не перезаписуються</string>
+    <string name="folder_is_created_without_extension">- Назва створеної директорії не буде містити розширення файлу</string>
+    <string name="keep_existing_file">- Файли та директорії не перезаписуються</string>
     <string name="multiple_windows">Декілька вікон</string>
     <string name="font">Шрифт</string>
     <string name="open_new_documents_always_in_new_window">Завжди відкривати документи в окремих вікнах. Перемикання за допомогою кнопки \'недавні\' вашого пристрою.</string>
