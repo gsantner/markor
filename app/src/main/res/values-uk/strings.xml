@@ -14,7 +14,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="settings">Налаштування</string>
     <string name="light">Світла</string>
     <string name="dark">Темна</string>
-    <string name="delete">Видалити</string>
+    <string name="delete">Вилучити</string>
     <string name="appearance">Вигляд</string>
     <string name="rename">Перейменувати</string>
     <string name="confirm_delete">Підтвердіть видалення</string>
