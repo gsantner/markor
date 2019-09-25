@@ -51,7 +51,9 @@ import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -286,7 +288,7 @@ public class ContextUtils {
      */
     public Boolean bcbool(String fieldName, Boolean defaultValue) {
         Object field = getBuildConfigValue(fieldName);
-        if (field != null && field instanceof Boolean) {
+        if (field instanceof Boolean) {
             return (Boolean) field;
         }
         return defaultValue;
@@ -297,7 +299,7 @@ public class ContextUtils {
      */
     public String bcstr(String fieldName, String defaultValue) {
         Object field = getBuildConfigValue(fieldName);
-        if (field != null && field instanceof String) {
+        if (field instanceof String) {
             return (String) field;
         }
         return defaultValue;
@@ -308,7 +310,7 @@ public class ContextUtils {
      */
     public Integer bcint(String fieldName, int defaultValue) {
         Object field = getBuildConfigValue(fieldName);
-        if (field != null && field instanceof Integer) {
+        if (field instanceof Integer) {
             return (Integer) field;
         }
         return defaultValue;
@@ -827,6 +829,9 @@ public class ContextUtils {
      * This may not work on some devices and it maybe won't work on future android updates
      */
     public void setSubMenuIconsVisiblity(Menu menu, boolean visible) {
+        if (TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+            return;
+        }
         if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
             try {
                 @SuppressLint("PrivateApi") Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
