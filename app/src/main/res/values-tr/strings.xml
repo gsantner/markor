@@ -309,4 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Yazdır / PDF</string>
     <string name="bigger_headings">Daha büyük başlıklar</string>
     <string name="increase_text_size_of_headings_according_to_level">Başlıkların metin boyutunu seviyeye göre artırın (# h1, ## h2. ### h3…)</string>
+    <string name="current">Geçerli</string>
+    <string name="record_audio">Ses Kaydet</string>
+    <string name="attach">Ekle</string>
 </resources>
