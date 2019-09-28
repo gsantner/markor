@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crea scorciatoia</string>
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Il file non è situato nella cartella corrente. Vuoi copiarlo nella cartella corrente? Se sì, sovrascriverà qualsiasi file esistente con lo stesso nome.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Navigatore dei documenti</string>
     <string name="file_browser">Esploratore dei file</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Attuale</string>
     <string name="record_audio">Registra audio</string>
     <string name="attach">Allega</string>
+    <string name="copy_file">Copia file</string>
 </resources>
