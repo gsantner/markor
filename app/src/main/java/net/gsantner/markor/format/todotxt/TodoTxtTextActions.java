@@ -67,12 +67,12 @@ public class TodoTxtTextActions extends TextActions {
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
             {R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp},
-            {R.string.tmaid_general_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
             {R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp},
             {R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp},
             {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp},
-            {R.string.tmaid_general_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
-            {R.string.tmaid_general_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
+            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
+            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp},
             {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
             {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp},
@@ -166,7 +166,7 @@ public class TodoTxtTextActions extends TextActions {
                     _hlEditor.getText().insert(origSelectionStart, SttCommander.getToday());
                     return;
                 }
-                case R.string.tmaid_general_delete_lines: {
+                case R.string.tmaid_common_delete_lines: {
                     removeTasksBetweenIndexes(_hlEditor.getText(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
                     return;
                 }
@@ -238,11 +238,11 @@ public class TodoTxtTextActions extends TextActions {
                     }.start());
                     break;
                 }
-                case R.string.tmaid_general_open_link_browser: {
+                case R.string.tmaid_common_open_link_browser: {
                     commonTextActions.runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
                     break;
                 }
-                case R.string.tmaid_general_special_key: {
+                case R.string.tmaid_common_special_key: {
                     commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
@@ -290,12 +290,12 @@ public class TodoTxtTextActions extends TextActions {
                     });
                     return true;
                 }
-                case R.string.tmaid_general_special_key: {
+                case R.string.tmaid_common_special_key: {
                     commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
 
-                case R.string.tmaid_general_open_link_browser: {
+                case R.string.tmaid_common_open_link_browser: {
                     commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }

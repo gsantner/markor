@@ -28,28 +28,25 @@ import net.gsantner.opoc.util.ContextUtils;
 
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
-    public static final String ACTION_SPECIAL_KEY = "press_special_key";
+    public static final String ACTION_SPECIAL_KEY = "tmaid_common_special_key";
 
     public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
-    public static final String ACTION_OPEN_LINK_BROWSER = "open_selected_link_in_browser";
-
+    public static final String ACTION_OPEN_LINK_BROWSER = "tmaid_common_open_link_browser";
 
     public static final int ACTION_COLOR_PICKER_ICON = R.drawable.ic_format_color_fill_black_24dp;
-    public static final String ACTION_COLOR_PICKER = "open_color_picker";
+    public static final String ACTION_COLOR_PICKER = "tmaid_common_color_picker";
 
     public static final int ACTION_DELETE_LINES_ICON = R.drawable.ic_delete_black_24dp;
-    public static final String ACTION_DELETE_LINES = "delete_lines_between";
-
+    public static final String ACTION_DELETE_LINES = "tmaid_common_delete_lines";
 
     public static final int ACTION_END_LINE_WITH_TWO_SPACES_ICON = R.drawable.ic_keyboard_return_black_24dp;
-    public static final String ACTION_END_LINE_WITH_TWO_SPACES = "markdown_end_line_with_two_spaces";
+    public static final String ACTION_END_LINE_WITH_TWO_SPACES = "tmaid_markdown_end_line_with_two_spaces";
 
     public static final int ACTION_SEARCH_ICON = R.drawable.ic_search_black_24dp;
-    public static final String ACTION_SEARCH = "search_in_content";
-
+    public static final String ACTION_SEARCH = "tmaid_common_search_in_content_of_current_file";
 
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.format_header_1;
-    public static final String ACTION_JUMP_BOTTOM_TOP = "jump_bottom_top";
+    public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
 
     private final Activity _activity;

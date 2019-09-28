@@ -78,18 +78,14 @@ public class PlaintextTextActions extends TextActions {
     //
 
     private static final int[][] ACTIONS_ICONS = {
-            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 0},
-            {CommonTextActions.ACTION_DELETE_LINES_ICON, 1},
+            {CommonTextActions.ACTION_DELETE_LINES_ICON, 0},
+            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
             {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 2},
-            {CommonTextActions.ACTION_COLOR_PICKER_ICON, 3},
-            {R.drawable.ic_access_time_black_24dp, 4},
     };
     private static final String[] ACTIONS = {
-            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
             CommonTextActions.ACTION_DELETE_LINES,
+            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
             CommonTextActions.ACTION_SPECIAL_KEY,
-            CommonTextActions.ACTION_COLOR_PICKER,
-            "pick_datetime",
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {

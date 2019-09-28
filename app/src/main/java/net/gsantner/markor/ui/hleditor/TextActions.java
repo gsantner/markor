@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +95,150 @@ public abstract class TextActions {
                     .setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
+    protected int findLineStart(int cursor, String text) {
+        int i = cursor - 1;
+        for (; i >= 0; i--) {
+            if (text.charAt(i) == '\n') {
+                break;
+            }
+        }
+
+        return i + 1;
+    }
+
+    protected int findNextLine(int startIndex, int endIndex, String text) {
+        int index = -1;
+        for (int i = startIndex; i < endIndex; i++) {
+            if (text.charAt(i) == '\n') {
+                index = i + 1;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+
+
+    public static class TextSelection {
+
+        private int _selectionStart;
+        private int _selectionEnd;
+        private Editable _editable;
+
+
+        TextSelection(int start, int end, Editable editable) {
+            _selectionStart = start;
+            _selectionEnd = end;
+            _editable = editable;
+        }
+
+        private void insertText(int location, String text) {
+            _editable.insert(location, text);
+            _selectionEnd += text.length();
+        }
+
+        private void removeText(int location, String text) {
+            _editable.delete(location, location + text.length());
+            _selectionEnd -= text.length();
+        }
+
+        private int getSelectionStart() {
+            return _selectionStart;
+        }
+
+        private int getSelectionEnd() {
+            return _selectionEnd;
+        }
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action) {
+        runMarkdownRegularPrefixAction(action, null);
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action, String replaceString) {
+        String text = _hlEditor.getText().toString();
+        TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
+
+        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
+
+        while (lineStart != -1) {
+            if (replaceString == null) {
+                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                    textSelection.removeText(lineStart, action);
+                } else {
+                    textSelection.insertText(lineStart, action);
+                }
+            } else {
+                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                    textSelection.removeText(lineStart, action);
+                    textSelection.insertText(lineStart, replaceString);
+                } else if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(replaceString)) {
+                    textSelection.removeText(lineStart, replaceString);
+                    textSelection.insertText(lineStart, action);
+                } else {
+                    textSelection.insertText(lineStart, action);
+                }
+            }
+
+            text = _hlEditor.getText().toString();
+
+            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
+        }
+    }
+
+    protected void runMarkdownInlineAction(String _action) {
+        if (_hlEditor.getText() == null) {
+            return;
+        }
+        if (_hlEditor.hasSelection()) {
+            String text = _hlEditor.getText().toString();
+            int selectionStart = _hlEditor.getSelectionStart();
+            int selectionEnd = _hlEditor.getSelectionEnd();
+
+            //Check if Selection includes the shortcut characters
+            if (selectionEnd < text.length() && selectionStart >= 0 && (text.substring(selectionStart, selectionEnd)
+                    .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
+
+                text = text.substring(selectionStart + _action.length(),
+                        selectionEnd - _action.length());
+                _hlEditor.getText()
+                        .replace(selectionStart, selectionEnd, text);
+
+            }
+            //Check if Selection is Preceded and succeeded by shortcut characters
+            else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
+                    (selectionStart >= _action.length())) &&
+                    (text.substring(selectionStart - _action.length(),
+                            selectionEnd + _action.length())
+                            .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
+
+                text = text.substring(selectionStart, selectionEnd);
+                _hlEditor.getText()
+                        .replace(selectionStart - _action.length(),
+                                selectionEnd + _action.length(), text);
+
+            }
+            //Condition to insert shortcut preceding and succeeding the selection
+            else {
+                _hlEditor.getText().insert(selectionStart, _action);
+                _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
+            }
+        } else {
+            //Condition for Empty Selection
+                /*if (false) {
+                    // Condition for things that should only be placed at the start of the line even if no text is selected
+                } else */
+            if ("----\n".equals(_action)) {
+                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action);
+            } else {
+                // Condition for formatting which is inserted on either side of the cursor
+                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action)
+                        .insert(_hlEditor.getSelectionEnd(), _action);
+                _hlEditor.setSelection(_hlEditor.getSelectionStart() - _action.length());
+            }
+        }
+    }
 
     //
     //
@@ -143,7 +288,15 @@ public abstract class TextActions {
     }
 
     protected boolean runCommonTextAction(String action) {
-        return new CommonTextActions(_activity, _hlEditor).runAction(action);
+        switch (action){
+            case "tmaid_common_unordered_list_hyphen": {
+                runMarkdownRegularPrefixAction("- ");
+                return true;
+            }
+            default: {
+                return new CommonTextActions(_activity, _hlEditor).runAction(action);
+            }
+        }
     }
 
     public boolean runAction(final String action) {
