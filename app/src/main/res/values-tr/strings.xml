@@ -278,7 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Dahili depolama</string>
     <string name="open_the_document_from_main_view">Belgeyi alt kısımdaki ana görünümden, dosya tarayıcısından veya başlatıcıdan açabilirsiniz. Markor\'da paylaşılan metni ekleme seçeneği de vardır.</string>
     <string name="notebook_is_the_home_of_your_files">Not Defteri, uygulama başlatıldığında Markor\'un dosya tarayıcısına yüklediği dizindir. Dosyalarınızın ana dizinidir.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">HızlıNot not yazmak için en hızlı seçenektir. &gt;NotDefteri/HızlıNot.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote not yazmak için en hızlı seçenektir. &gt;NotDefteri/QuickNote.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. Varsayılan &gt;NoteDefteri/todo.txt&lt; konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
