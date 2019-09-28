@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crear acceso directo</string>
     <string name="tried_to_create_shortcut_for_this_notice">Se intentó añadir un acceso en tu pantalla principal. Ten presente que algunos lanzadores no permiten esto.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">El archivo seleccionado no se encuentra en la carpeta del bloc de notas de la aplicación. ¿Desea copiarlo? Si existe un archivo con el mismo nombre será sobre escrito.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">El archivo no está ubicado en la carpeta actual. ¿Desea copiarlo a la carpeta actual? Esto sobreescribirá cualquier archivo existente con el mismo nombre.</string>
     <string name="files_and_folders">Archivos y carpetas</string>
     <string name="document_browser">Navegador de documentos</string>
     <string name="file_browser">Explorador de archivos</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actual</string>
     <string name="record_audio">Grabar audio</string>
     <string name="attach">Adjuntar</string>
+    <string name="copy_file">Copiar archivo</string>
 </resources>
