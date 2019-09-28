@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">اختر مجلدا</string>
     <string name="edit">تعديل</string>
     <string name="search_documents">بحث في المستندات</string>
-    <string name="share_to_arrow">مشاركة لـ&#8230;</string>
+    <string name="share_to_arrow">مشاركة مع…</string>
     <string name="share">مشاركة</string>
     <string name="search">بحث</string>
     <string name="display_converted_markup">عرض النصوص المنسقة</string>
@@ -146,6 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">بدون</string>
     <string name="other">أخرى</string>
     <string name="alternative_naming">التسمية البديلة</string>
+    <string name="empty_file">ملف فارغ</string>
+    <string name="break_page_pdf_print">الصفحة الفاصلة (PDF/طباعة)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">وضع خط تحت رموز الألوان ام لا</string>
     <string name="underline_hex_color_codes">وضع خط تحت رموز الألوان</string>
     <string name="insert_current_date_when_starting_new_task">كتابة التاريخ عند كتابة مهمة جديدة</string>
@@ -171,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">اختيار الكل (Ctrl + A)</string>
     <string name="start_on_bottom">البدء في نهاية الوثيقة</string>
     <string name="start_on_bottom_when_loading_document">عند فتح وثيقة، يتم توجيه مؤشر الكتابة عند نهاية النص</string>
+    <string name="configure_in_the_apps_settings">اظبطه في إعدادات التطبيق</string>
     <string name="vertical_alignment">محاذاة رأسية</string>
     <string name="horizontal_alignment">محاذاة أفقية</string>
     <string name="default_">افتراضي</string>
@@ -202,6 +205,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ascending">تصاعدي</string>
     <string name="disable_spelling_underline">تعطيل التدقيق الإملائي</string>
     <string name="location">الموقع</string>
+    <string name="text_lines">خطوط النص</string>
+    <string name="text_characters">حروف النص</string>
+    <string name="text_words">كلمات النص</string>
     <string name="directory">مجلد</string>
     <string name="recently_viewed_documents">الوثائق التي تم عرضها مؤخرا</string>
     <string name="details">التفاصيل</string>
@@ -214,7 +220,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">رياضيات</string>
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
+    <string name="textaction">إجراء نصي</string>
+    <string name="textactions">إجراءات نصية</string>
     <string name="no_calendar_app_is_installed">لا يوجد تطبيق تقويم!</string>
+    <string name="popular_documents">المستندات الشائعة</string>
     <string name="color">اللون</string>
     <string name="zero_width_space">بدون مسافات بين الأحرف</string>
     <string name="basic_color_scheme">نظام الألوان الأساسي</string>
@@ -242,10 +251,28 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">ملاحظات</string>
     <string name="close">إغلاق</string>
     <string name="cancel">إلغاء</string>
+    <string name="swipe_to_change_mode">اسحب لتغيير الوضع</string>
+    <string name="folder_first">المجلدات أوّلا</string>
     <string name="go_to">ذهاب إلى</string>
     <string name="internal_storage">وحدة التخزين الداخلية</string>
+    <string name="navigationbar_color">لون شريط التنقل</string>
     <string name="black">أسود</string>
     <string name="white">أبيض</string>
+    <string name="view_mode">طريقة العرض</string>
+    <string name="edit_mode">وضع التحرير</string>
+    <string name="share_into">شارك في</string>
     <string name="favourite">المفضلة</string>
     <string name="favourites">المفضلة</string>
+    <string name="please_wait">يُرجى الانتظار</string>
+    <string name="tab_width">عرض اللسان</string>
+    <string name="list_in_recent_files">ادرجه في الملفات الحديثة</string>
+    <string name="reload">إنعاش</string>
+    <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
+    <string name="template">النموذج</string>
+    <string name="send_debug_log">إرسال سِجل للأخطاء</string>
+    <string name="print_pdf">طباعة/PDF</string>
+    <string name="bigger_headings">عناوين أكبر</string>
+    <string name="current">الحالي</string>
+    <string name="record_audio">تسجيل الصوت</string>
+    <string name="attach">ارفق</string>
 </resources>
