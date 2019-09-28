@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Vytvořit zkratku</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v notebook adresáři aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v současné složce, chcete jej zkopírovat do stávající složky, která přepíše stávající soubor se stejným jménem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
     <string name="file_browser">Správce souborů</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Aktuální</string>
     <string name="record_audio">Record Audio</string>
     <string name="attach">Attach</string>
+    <string name="copy_file">Kopírovat soubor</string>
 </resources>
