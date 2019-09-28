@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Kısayol oluştur</string>
     <string name="tried_to_create_shortcut_for_this_notice">Bu belgeyi düzenlemek için ana ekranınıza bir kısayol eklemeye çalışır. Bazı başlatıcıların bunu desteklemeyebileceğini unutmayın.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Seçilen dosya, uygulamanın not defteri dizininde yer almıyor. Bunu geçerli klasöre kopyalamak istiyor musunuz? Bu, aynı adla var olan herhangi bir dosyanın üzerine yazacaktır.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Dosya geçerli dizinde bulunmuyor.  Geçerli dizine kopyalamak istiyor musunuz?  Bu aynı ada sahip herhangi bir dosyanın üzerine yazacaktır.</string>
     <string name="files_and_folders">Dosyalar ve klasörler</string>
     <string name="document_browser">Belge görüntüleyici</string>
     <string name="file_browser">Dosya gezgini</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Geçerli</string>
     <string name="record_audio">Ses Kaydet</string>
     <string name="attach">Ekle</string>
+    <string name="copy_file">Dosyayı kopyala</string>
 </resources>
