@@ -25,6 +25,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.util.Locale;
 import java.util.UUID;
 
 public class DocumentIO {
@@ -111,7 +112,7 @@ public class DocumentIO {
         document.setDoHistory(true);
         if (MainActivity.IS_DEBUG_ENABLED) {
             String c = document.getContent();
-            AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + ")");
+            AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + "). Language >" + Locale.getDefault().toString() + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
         return document;
     }
