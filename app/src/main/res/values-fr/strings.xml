@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Créer un raccourci</string>
     <string name="tried_to_create_shortcut_for_this_notice">Une erreur est survenue lors de l\'ajout d\'un raccourci vers l\'édition de ce document sur votre écran d\'accueil. Tous les écrans d\'accueil ne gèrent pas cette fonctionnalité.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Le fichier sélectionné n\'est pas situé dans le dossier du bloc note de l\'application. Souhaitez-vous le copier dans ce dossier? Si un fichier du même nom y est déjà présent, il sera écrasé.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Le fichier n\'est pas situé dans le dossier actuel. Voulez-vous le copier dans le dossier actuel ? Cela remplacera tout fichier existant avec le même nom.</string>
     <string name="files_and_folders">Fichiers et dossiers</string>
     <string name="document_browser">Explorateur de documents</string>
     <string name="file_browser">Explorateur de fichiers</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actuel</string>
     <string name="record_audio">Enregistrer l\'audio</string>
     <string name="attach">Attacher</string>
+    <string name="copy_file">Copier le fichier</string>
 </resources>
