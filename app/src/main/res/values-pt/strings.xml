@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Criar atalho</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tentar criar um ataho no ecrã inicial. Alguns \'launchers\' não permitem esta operação.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">O arquivo não está localizado na pasta atual. Você quer copiá-lo para a pasta atual? Isto irá sobrescrever qualquer arquivo existente com o mesmo nome.</string>
     <string name="files_and_folders">Ficheiros e pastas</string>
     <string name="document_browser">Explorador de ficheiros</string>
     <string name="file_browser">Explorador de ficheirosicheiros</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Atual</string>
     <string name="record_audio">Gravar áudio</string>
     <string name="attach">Anexar</string>
+    <string name="copy_file">Copiar arquivo</string>
 </resources>
