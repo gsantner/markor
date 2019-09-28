@@ -60,7 +60,7 @@ public class AudioRecordOmDialog {
         // Init
         final String EMOJI_MICROPHONE = "\uD83D\uDD34";
         final String EMOJI_STOP = "⭕";//"\uD83D\uDED1";
-        final String EMOJI_RESTART = "\uD83D\uDD04";
+        final String EMOJI_RESTART = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? "\uD83D\uDD04" : EMOJI_MICROPHONE;
         final String EMOJI_SPEAKER = "\uD83D\uDD0A"; //"\uD83C\uDFA7";
 
         final AtomicBoolean isRecording = new AtomicBoolean();

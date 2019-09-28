@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
-import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
@@ -33,76 +32,59 @@ public class PlaintextTextActions extends TextActions {
             setBarVisible(barLayout, true);
 
             // Regular actions
-            for (int[] actions : ACTIONS_ICONS) {
-                PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(ACTIONS[actions[1]]);
-                appendTextActionToBar(barLayout, actions[0], actionCallback, actionCallback);
+            for (int[] actions : TMA_ACTIONS) {
+                PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(actions[0]);
+                appendTextActionToBar(barLayout, actions[1], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
         }
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        if (modLongClick) {
-            switch (action) {
-                case CommonTextActions.ACTION_SPECIAL_KEY: {
-                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
-                    return true;
-                }
-                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
-                    return true;
-                }
-            }
-        }
-
-        switch (action) {
-            case "pick_datetime": {
-                DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
-                return true;
-            }
-            default: {
-                if (runCommonTextAction(action)) {
-                    return true;
-                }
-                break;
-            }
-        }
-        return false;
+        return runCommonTextAction(action);
     }
 
     //
     //
     //
-
-    private static final int[][] ACTIONS_ICONS = {
-            {CommonTextActions.ACTION_DELETE_LINES_ICON, 0},
-            {CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, 1},
-            {CommonTextActions.ACTION_SPECIAL_KEY__ICON, 2},
-    };
-    private static final String[] ACTIONS = {
-            CommonTextActions.ACTION_DELETE_LINES,
-            CommonTextActions.ACTION_OPEN_LINK_BROWSER,
-            CommonTextActions.ACTION_SPECIAL_KEY,
+    private static final int[][] TMA_ACTIONS = {
+            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp},
+            {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp},
+            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON},
+            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
+            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
-        private String _action;
+        private int _action;
 
-        PlaintextTextActionImpl(String action) {
+        PlaintextTextActionImpl(int action) {
             _action = action;
         }
 
         @Override
         public void onClick(View view) {
-            runAction(_action, false, null);
+            runAction(_context.getString(_action), false, null);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            return runAction(_action, true, null);
+            String action = _context.getString(_action);
+            switch (action) {
+                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
+                    action = CommonTextActions.ACTION_SEARCH;
+                    break;
+                }
+                case CommonTextActions.ACTION_SPECIAL_KEY: {
+                    action = CommonTextActions.ACTION_JUMP_BOTTOM_TOP;
+                    break;
+                }
+            }
+            return runAction(action, true, null);
         }
     }
 }

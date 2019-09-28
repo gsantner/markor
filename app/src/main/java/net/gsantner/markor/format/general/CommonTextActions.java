@@ -45,7 +45,7 @@ public class CommonTextActions {
     public static final int ACTION_SEARCH_ICON = R.drawable.ic_search_black_24dp;
     public static final String ACTION_SEARCH = "tmaid_common_search_in_content_of_current_file";
 
-    public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.format_header_1;
+    public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
 

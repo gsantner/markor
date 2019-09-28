@@ -95,6 +95,7 @@ public abstract class TextActions {
                     .setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
+
     protected int findLineStart(int cursor, String text) {
         int i = cursor - 1;
         for (; i >= 0; i--) {
@@ -117,7 +118,6 @@ public abstract class TextActions {
 
         return index;
     }
-
 
 
     public static class TextSelection {
@@ -288,9 +288,17 @@ public abstract class TextActions {
     }
 
     protected boolean runCommonTextAction(String action) {
-        switch (action){
+        switch (action) {
             case "tmaid_common_unordered_list_hyphen": {
                 runMarkdownRegularPrefixAction("- ");
+                return true;
+            }
+            case "tmaid_common_checkbox_list": {
+                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
+                return true;
+            }
+            case "tmaid_common_ordered_list_number": {
+                runMarkdownRegularPrefixAction("1. ");
                 return true;
             }
             default: {

@@ -51,7 +51,7 @@ public class MarkdownTextActions extends TextActions {
 
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_markdown_checkbox, R.drawable.ic_check_box_black_24dp},
+            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp},
             {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp},
             {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp},
             {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
@@ -59,7 +59,7 @@ public class MarkdownTextActions extends TextActions {
             {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
-            {R.string.tmaid_markdown_ol, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp},
             {R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp},
             {R.string.tmaid_markdown_h1, R.drawable.format_header_1},
             {R.string.tmaid_markdown_h2, R.drawable.format_header_2},
@@ -98,14 +98,6 @@ public class MarkdownTextActions extends TextActions {
                     runMarkdownRegularPrefixAction("- ");
                     break;
                 }*/
-                case R.string.tmaid_markdown_ol: {
-                    runMarkdownRegularPrefixAction("1. ");
-                    break;
-                }
-                case R.string.tmaid_markdown_checkbox: {
-                    runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
-                    break;
-                }
                 case R.string.tmaid_markdown_bold: {
                     runMarkdownInlineAction("**");
                     break;
