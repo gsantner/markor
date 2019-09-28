@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Maak snelkoppeling</string>
     <string name="tried_to_create_shortcut_for_this_notice">Poging om snelkoppeling toe te voegen aan je beginscherm. Niet alle launchers ondersteunen dit.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Het geselecteerde bestand bevindt zich niet in de notitiemap van de app. Wilt u het kopiëren naar de huidige map? Dit overschrijft een bestaand bestand met dezelfde naam.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Het bestand is niet in de huidige map geplaatst. Wilt u het kopiëren naar de huidige map? Dit overschrijft elk bestaand bestand met dezelfde naam.</string>
     <string name="files_and_folders">Bestanden en mappen</string>
     <string name="document_browser">Document verkenner</string>
     <string name="file_browser">Bestandsbrowser</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Huidige</string>
     <string name="record_audio">Audio opnemen</string>
     <string name="attach">Bijvoegen</string>
+    <string name="copy_file">Bestand kopiëren</string>
 </resources>
