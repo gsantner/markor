@@ -123,6 +123,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Create shortcut</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tried to create a shortcut to your home screen. Note that some launchers may not support this.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">The selected file is not located in the app\'s notebook directory. Do you want to copy it to the current folder? This will overwrite any existing file with the same name.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">The file is not located in the current folder. Do you want to copy it to the current folder? This will overwrite any existing file with the same name.</string>
     <string name="files_and_folders">Files and folders</string>
     <string name="document_browser">Document browser</string>
     <string name="file_browser">File browser</string>
@@ -326,4 +327,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Current</string>
     <string name="record_audio">Record Audio</string>
     <string name="attach">Attach</string>
+    <string name="copy_file">Copy file</string>
 </resources>

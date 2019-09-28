@@ -211,8 +211,8 @@ public class AttachImageOrLinkDialog {
 
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
-                .setTitle(R.string.import_)
-                .setMessage(R.string.file_not_in_save_path_do_import_notice__appspecific)
+                .setTitle(R.string.copy_file)
+                .setMessage(R.string.file_not_in_current_folder_do_copy__appspecific)
                 .setPositiveButton(R.string.current, (dialogInterface, which) -> copyToDirInvocation.callback(tarFile))
                 .setNeutralButton(R.string.notebook, (dialogInterface, which) -> copyToDirInvocation.callback(tarFileInAssetsDir));
         if (disableCancel) {
