@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">在桌面上创建快捷方式</string>
     <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加编辑此文件的图标。部分启动器可能不支持此操作。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在此应用的笔记本目录中。是否要将其复制到当前文件夹？这将覆盖任何具有相同名称的现有文件。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖任何已存在的文件，同时使用相同的名称。</string>
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
     <string name="file_browser">文件浏览器</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">当前</string>
     <string name="record_audio">录制音频</string>
     <string name="attach">附件</string>
+    <string name="copy_file">复制文件</string>
 </resources>
