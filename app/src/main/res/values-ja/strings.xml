@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">ショートカットを作成</string>
     <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">選択したファイルはアプリのノートディレクトリーにありません。 現在のフォルダーにコピーしますか? これは同じ名前の既存のファイルを上書きします。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">現在のフォルダーにファイルがありません。 現在のフォルダーにコピーしますか？ これにより、同じ名前の既存のファイルが上書きされます。</string>
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
     <string name="file_browser">ファイルブラウザー</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">現在</string>
     <string name="record_audio">音声の録音</string>
     <string name="attach">添付</string>
+    <string name="copy_file">ファイルのコピー</string>
 </resources>
