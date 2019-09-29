@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crea una drecera</string>
     <string name="tried_to_create_shortcut_for_this_notice">S\'ha intentat afegir una drecera a la pantalla principal. Recordeu que alguns llançadors no permeten això.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">El fitxer seleccionat no es troba al directori del quadern de l\'aplicació. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer existent amb el mateix nom.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">El fitxer no es troba al directori actual. Voleu copiar-lo alguna directori actual? Això sobreescriurà qualsevol fitxer amb el mateix nom.</string>
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
     <string name="file_browser">Gestor de fitxers</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Actual</string>
     <string name="record_audio">Enregistra àudio</string>
     <string name="attach">Adjunta</string>
+    <string name="copy_file">Copia el fitxer</string>
 </resources>
