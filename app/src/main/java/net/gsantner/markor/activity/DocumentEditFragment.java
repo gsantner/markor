@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.App;
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
@@ -133,6 +134,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         webSettings.setDatabaseEnabled(true);
         webSettings.setGeolocationEnabled(false);
         webSettings.setJavaScriptEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.IS_TEST_BUILD) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);

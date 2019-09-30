@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.markdown;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
@@ -146,12 +147,16 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
 
-
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
         }
+
+        // Enable View (block) code syntax highlighting
+        final String xt = getViewHlPrismIncludes(context, (appSettings.isDarkThemeEnabled() ? "-tomorrow" : ""));
+        head += xt;
+
 
         // Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..");
@@ -167,6 +172,30 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Deliver result
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+    }
+
+    @SuppressWarnings({"ConstantConditions", "StringConcatenationInsideStringBufferAppend"})
+    private String getViewHlPrismIncludes(@NonNull final Context context, final String themeName) {
+        final StringBuilder sb = new StringBuilder(1500);
+        final String js_prefix = "<script type='text/javascript' src='file:///android_asset/prism/";
+        sb.append("\n\n");
+        sb.append("<link rel='stylesheet' href='file:///android_asset/prism/prism" + themeName + ".min.css' /> ");
+        sb.append(js_prefix + "prism.min.js'></script> ");
+        sb.append(js_prefix + "prism-markup-templating.min.js'></script> ");
+        try {
+            for (String lang : context.getAssets().list("prism")) {
+                if (!lang.endsWith(".js") || lang.contains("prism.min.js") || lang.contains("prism-markup-templating.min.js")) {
+                    continue;
+                }
+                sb.append(js_prefix);
+                sb.append(lang);
+                sb.append("'></script> ");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sb.append("\n\n");
+        return sb.toString();
     }
 
     @Override
