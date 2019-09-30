@@ -153,6 +153,19 @@
         </menu>
     </item>
     <item
+        android:visible="false"
+        android:id="@+id/submenu_tools"
+        android:icon="@drawable/ic_format_shapes_black_24dp"
+        android:title="@string/tools"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:visible="false"
+                android:id="@+id/action_load_epub"
+                android:title="Convert &amp; load epub" />
+        </menu>
+    </item>
+    <item
         android:id="@+id/action_reload"
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"

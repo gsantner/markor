@@ -328,4 +328,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">Record Audio</string>
     <string name="attach">Attach</string>
     <string name="copy_file">Copy file</string>
+    <string name="page">Page</string>
+    <string name="experimental_features">Experimental features</string>
+    <string name="tools">Tools</string>
+    <string name="reading">Reading</string>
+    <string name="read">Read</string>
 </resources>
