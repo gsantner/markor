@@ -325,6 +325,10 @@ public class SttCommander {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
 
+    public static boolean isTodoFile(String filepath) {
+        return filepath != null && SttCommander.TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text"));
+    }
+
     // Only captures the first group of each match
     private static List<String> parseAllUniqueMatchesWithOneValue(String text, Pattern pattern) {
         List<String> ret = new ArrayList<>();

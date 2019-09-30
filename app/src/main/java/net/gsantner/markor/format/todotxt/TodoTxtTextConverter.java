@@ -49,6 +49,6 @@ public class TodoTxtTextConverter extends TextConverter {
 
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        return SttCommander.TODOTXT_FILE_PATTERN.matcher(filepath).matches();
+        return SttCommander.isTodoFile(filepath);
     }
 }
