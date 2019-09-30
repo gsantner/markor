@@ -118,6 +118,9 @@ public class DocumentIO {
     }
 
     public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil) {
+        if (text != null && text.trim().isEmpty() && text.length() < 5) {
+            return false;
+        }
         boolean ret;
         String filename = DocumentIO.normalizeTitleForFilename(document, text) + document.getFileExtension();
         document.setDoHistory(true);
