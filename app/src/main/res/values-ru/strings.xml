@@ -208,10 +208,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="source_code">Исходный код</string>
     <string name="project_license">Лицензия проекта</string>
     <string name="project_contribution_info">Информация о вкладе в проекта</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Подробнее о том, как внести свой вклад в данный проект</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Подробнее о том, как внести свой вклад в этот проект</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
-    <string name="contributors_public_add_yourself_description">Показ информации об участниках. Позволить показать здесь список учасников успевших внести свой вклад.</string>
+    <string name="contributors_public_add_yourself_description">Показ информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
     <string name="descending">по убыванию</string>
     <string name="ascending">по возрастанию</string>
     <string name="disable_spelling_underline">Отключить проверку орфографии</string>
@@ -314,4 +314,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">Запись аудио</string>
     <string name="attach">Прикрепить</string>
     <string name="copy_file">Копировать файл</string>
+    <string name="page">Страница</string>
+    <string name="experimental_features">Экспериментальные особенности</string>
+    <string name="tools">Инструменты</string>
+    <string name="reading">Чтение</string>
+    <string name="read">Читать</string>
 </resources>
