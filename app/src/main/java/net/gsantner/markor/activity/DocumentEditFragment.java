@@ -53,6 +53,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
+import net.gsantner.opoc.util.CoolExperimentalStuff;
 
 import java.io.File;
 
@@ -198,6 +199,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _editTextUndoRedoHelper.restorePersistentState(sp, _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
             }, 100);
         }*/
+
+        if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
+            String text = CoolExperimentalStuff.convertEpubToText(getString(R.string.page));
+            CoolExperimentalStuff.showSpeedReadDialog(getActivity(), R.string.view, text);
+        }
+
+
     }
 
     @Override
@@ -216,6 +224,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         boolean isTextEmpty;
         boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
         boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+        boolean isExpimentalFeaturesEnabled = appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
         Drawable drawable;
@@ -235,6 +244,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
+
+        menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
+        menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
     }
 
     public void loadDocumentIntoUi() {
