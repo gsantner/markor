@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Создать ярлык</string>
     <string name="tried_to_create_shortcut_for_this_notice">Попытались добавить ярлык на домашний экран для редактирования этого документа. Примечание: некоторые лаунчеры могут не поддерживать это.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл отсутствует в каталоге приложения. Хотите скопировать данный файл в текущий каталог? Это перезапишет любые существующие файлы с таким же именем.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Файл не расположен в текущей папке. Вы хотите скопировать его в текущую папку? Это перезапишет любой существующий файл с таким же именем.</string>
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Просмотр документов</string>
     <string name="file_browser">Браузер файлов</string>
@@ -312,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Текущий</string>
     <string name="record_audio">Запись аудио</string>
     <string name="attach">Прикрепить</string>
+    <string name="copy_file">Копировать файл</string>
 </resources>
