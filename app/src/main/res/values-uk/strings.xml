@@ -117,8 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Оновити</string>
     <string name="create_shortcut">Створити піктограму</string>
     <string name="tried_to_create_shortcut_for_this_notice">Спробували додати піктограму для документу на домашній екран. Примітка: деякі програми робочого стола не підтримують це.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл знаходиться не в директорії Записника. Бажаєте копіювати файл до поточної директорії? Це призведе до перезапису наявного файлу з тим же іменем.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Цей файл розміщений не в поточній директорії. Бажаєте копіювати його до поточної директорії? Це призведе до перезапису наявного файлу з тим же іменем.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Обраний файл не в директорії Записника. Бажаєте копіювати файл до поточної директорії? Це призведе до перезапису наявного файлу з тим же іменем.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Цей файл не в поточній директорії. Бажаєте копіювати його до поточної директорії? Це призведе до перезапису наявного файлу з тим же іменем.</string>
     <string name="files_and_folders">Файли та директорії</string>
     <string name="document_browser">Перегляд документів</string>
     <string name="file_browser">Перегляд файлів</string>
