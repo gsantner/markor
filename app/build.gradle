@@ -138,7 +138,7 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:4.2.3'
     implementation 'com.kailashdabhi:om-recorder:1.1.5'
     implementation 'com.github.QuadFlask:colorpicker:0.0.13'
-    implementation 'com.github.mertakdut:EpubParser:1.0.9'
+    implementation 'com.github.mertakdut:EpubParser:1.0.95'
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"

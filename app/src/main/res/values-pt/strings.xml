@@ -314,4 +314,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">Gravar áudio</string>
     <string name="attach">Anexar</string>
     <string name="copy_file">Copiar ficheiro</string>
+    <string name="page">Página</string>
+    <string name="experimental_features">Funcionalidades experimentais</string>
+    <string name="tools">Ferramentas</string>
+    <string name="reading">Leitura</string>
+    <string name="read">Ler</string>
 </resources>

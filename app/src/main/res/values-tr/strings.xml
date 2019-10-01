@@ -314,4 +314,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">Ses Kaydet</string>
     <string name="attach">Ekle</string>
     <string name="copy_file">Dosyayı kopyala</string>
+    <string name="page">Sayfa</string>
+    <string name="experimental_features">Deneysel özellikler</string>
+    <string name="tools">Araçlar</string>
+    <string name="reading">Okunuyor</string>
+    <string name="read">Oku</string>
 </resources>

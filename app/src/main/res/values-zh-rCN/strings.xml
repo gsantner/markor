@@ -314,4 +314,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">录制音频</string>
     <string name="attach">附件</string>
     <string name="copy_file">复制文件</string>
+    <string name="page">页 次</string>
+    <string name="experimental_features">实验功能</string>
+    <string name="tools">工具</string>
+    <string name="reading">阅读</string>
+    <string name="read">读取</string>
 </resources>
