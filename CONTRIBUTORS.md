@@ -39,3 +39,4 @@ Where:
 * **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
 * **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser
+* **[Vladimir Kacur](vladimirkacur9@gmail.com)**<br/>~° Working on copying content of file
