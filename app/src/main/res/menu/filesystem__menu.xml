@@ -20,7 +20,12 @@
         android:title="@string/favourite"
         android:visible="false"
         app:showAsAction="always" />
-
+    <item
+        android:id="@+id/action_copy"
+        android:icon="@drawable/ic_content_copy_black_24dp"
+        android:title="@string/favourite"
+        android:visible="false"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_favourite_remove"
         android:icon="@drawable/ic_star_black_24dp"
