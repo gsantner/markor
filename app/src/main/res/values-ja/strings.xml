@@ -314,4 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="record_audio">音声の録音</string>
     <string name="attach">添付</string>
     <string name="copy_file">ファイルのコピー</string>
+    <string name="page">ページ</string>
+    <string name="experimental_features">実験的な機能</string>
 </resources>
