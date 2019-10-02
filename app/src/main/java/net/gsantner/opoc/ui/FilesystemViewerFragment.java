@@ -245,7 +245,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_copy).setVisible(selMulti1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
         }
@@ -478,17 +477,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 }
                 return true;
             }
-            case R.id.action_copy: {
-                if (_filesystemViewerAdapter.areItemsSelected()) {
-                    Runnable copy = () -> {
-                        WrMarkorSingleton.getInstance().copyContentOfItems(_filesystemViewerAdapter.getCurrentFile(), getContext());
-                    };
-                    new Thread(copy).start();
-
-                }
-                return true;
-            }
-
         }
 
         if (folderToLoad != null) {
