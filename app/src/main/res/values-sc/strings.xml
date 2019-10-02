@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crea un\'incurtzada</string>
     <string name="tried_to_create_shortcut_for_this_notice">Apo proadu a creare un\'incurtzada a s\'ischermada printzipale tua. Ammenta·ti chi carchi allughidore diat pòdere non suportare custu.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Su documentu ischertadu non s\'agatat in sa cartella de sas notas de s\'aplicatzione. Lu cheres copiare in sa cartella atuale? Custu at a subraiscrìere cale si siat documentu cun su matessi nùmene.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Su documentu no est in sa cartella atuale. Lu cheres copiare in sa cartella atuale? Custu at a subraiscrìere cale si siat documentu cun su matessi nùmene.</string>
     <string name="files_and_folders">Documentos e cartellas</string>
     <string name="document_browser">Esploradore de documentos</string>
     <string name="file_browser">Esploradore de documentos</string>
@@ -312,4 +313,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">Atuale</string>
     <string name="record_audio">Registra s\'àudio</string>
     <string name="attach">Allega</string>
+    <string name="copy_file">Còpia su documentu</string>
+    <string name="page">Pàgina</string>
+    <string name="experimental_features">Funtzionalidades isperimentales</string>
+    <string name="tools">Ainas</string>
+    <string name="reading">Leghidura</string>
+    <string name="read">Leghe</string>
 </resources>
