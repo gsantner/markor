@@ -254,6 +254,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text" translatable="false">Text</string>
     <string name="inject" translatable="false">Inject</string>
     <string name="char_punctation_mark_arrows" translatable="false">Punctuation mark (»«)</string>
+    <string name="indent" translatable="false">Indent</string>
+    <string name="deindent" translatable="false">De-indent</string>
     <string name="assets" translatable="false">Assets</string>
     <string name="audio" translatable="false">Audio</string>
 </resources>

@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import net.gsantner.markor.activity.MainActivity;
@@ -148,6 +149,51 @@ public class HighlightingEditor extends AppCompatEditText {
         int start = Math.max(getSelectionStart(), 0);
         int end = Math.max(getSelectionEnd(), 0);
         getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());
+    }
+
+    public void indentCurrentLine() {
+        String text = getText().toString();
+        int start = getSelectionStart();
+
+        switch (shiftWidth(text)) {
+            case 4:
+                getText().insert(start, "    ");
+                break;
+            case 2:
+                getText().insert(start, "  ");
+                break;
+            case 8:
+                getText().insert(start, "        ");
+                break;
+        }
+    }
+
+    public void deIndentCurrentLine() {
+        String text = getText().toString();
+        int sw = shiftWidth(text);
+        int start = getSelectionStart();
+        int end = getSelectionStart() + sw;
+
+        if (end <= text.length()) {
+            text = text.substring(start, end);
+            if (sw == 4 && text.equals("    ")) {
+                getText().replace(start, end, "");
+            } else if (sw == 2 && text.equals("  ")) {
+                getText().replace(start, end, "");
+            } else if (sw == 8 && text.equals("        ")) {
+                getText().replace(start, end, "");
+            }
+        }
+    }
+
+    private int shiftWidth(String text) {
+        if (text.contains("sw=2") || text.contains("shiftwidth=2")) {
+            return 2;
+        } else if (text.contains("sw=8") || text.contains("shiftwidth=8")) {
+            return 8;
+        } else {
+            return 4;
+        }
     }
 
     //
