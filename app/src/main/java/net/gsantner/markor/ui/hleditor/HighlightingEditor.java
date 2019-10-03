@@ -150,6 +150,18 @@ public class HighlightingEditor extends AppCompatEditText {
         getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());
     }
 
+    public void deIndentCurrentLine() {
+        int start = getSelectionStart();
+        int end = getSelectionStart() + 4;
+        String fourFirstChars = getText().toString();
+
+        if (end <= fourFirstChars.length()) {
+            fourFirstChars = fourFirstChars.substring(start, end);
+            if ("    ".equals(fourFirstChars))
+                getText().replace(start, end, "");
+        }
+    }
+
     //
     // Simple getter / setter
     //

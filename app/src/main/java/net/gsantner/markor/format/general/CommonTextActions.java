@@ -96,6 +96,12 @@ public class CommonTextActions {
                         _hlEditor.insertOrReplaceTextOnCursor("Ω");
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
+                    } else if (callbackPayload.equals(rstr(R.string.indent))) {
+                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+                        _hlEditor.insertOrReplaceTextOnCursor("    ");
+                    } else if (callbackPayload.equals(rstr(R.string.deindent))) {
+                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+                        _hlEditor.deIndentCurrentLine();
                     }
                 });
                 return true;
