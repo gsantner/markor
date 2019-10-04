@@ -3,13 +3,13 @@ package net.gsantner.opoc.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,20 +18,22 @@ import com.github.mertakdut.Reader;
 import com.github.mertakdut.exception.OutOfPagesException;
 import com.github.mertakdut.exception.ReadingException;
 
+import java.io.File;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 // License Public domain/CC0 for now
 // Just some experimental code
 public class CoolExperimentalStuff {
 
-    public static String convertEpubToText(final String translatedStringForPage) {
-        final String filepath = "/sdcard/epub.epub";
+    public static String convertEpubToText(final File filepath, final String translatedStringForPage) {
+        //final String filepath = new File("/sdcard/epub.epub");
         final StringBuilder sb = new StringBuilder();
         final Reader reader = new Reader();
         reader.setMaxContentPerSection(1000);
         reader.setIsIncludingTextContent(true);
         try {
-            reader.setFullContent(filepath);
+            reader.setFullContent(filepath.getAbsolutePath());
         } catch (Exception e) {
             return "";
         }
@@ -60,12 +62,13 @@ public class CoolExperimentalStuff {
     }
 
 
-    public static void showSpeedReadDialog(final Activity activity, @StringRes final int titleResId, String text) {
+    public static void showSpeedReadDialog(final Activity activity, String text) {
         ////////////////////////////////////
         // Init
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         final AtomicReference<Long> wpm = new AtomicReference<>((long) (1000 * 60 / 300));
         final AtomicReference<String> displayString = new AtomicReference<>();
+        final AtomicReference<Integer> textPos = new AtomicReference<>(0);
 
         ////////////////////////////////////
         // Create UI
@@ -75,13 +78,25 @@ public class CoolExperimentalStuff {
         layout.setGravity(Gravity.CENTER_HORIZONTAL);
         final View sep1 = new View(activity);
         sep1.setLayoutParams(new LinearLayout.LayoutParams(100, 1));
+        final TextView currentWordTextShower = new TextView(activity);
+
+        final Button buttonMoveWords = new Button(activity);
+        buttonMoveWords.setText("+100 words (click)\n-100 long click swipe down");
+        buttonMoveWords.setOnClickListener(v -> textPos.set(Math.max(0, Math.min(text.length() - 2, textPos.get() + 100))));
+        buttonMoveWords.setOnLongClickListener(v -> {
+            textPos.set(Math.max(0, textPos.get() - 100));
+            return false;
+        });
 
         final TextView textViewTextDisplay = new TextView(activity);
         textViewTextDisplay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);
         textViewTextDisplay.setGravity(Gravity.CENTER);
         textViewTextDisplay.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         textViewTextDisplay.setMinHeight((int) new ContextUtils(activity).convertDpToPx(1000));
-        Runnable updateViewOnUi = () -> textViewTextDisplay.setText(displayString.get());
+        Runnable updateViewOnUi = () -> {
+            textViewTextDisplay.setText(displayString.get());
+            currentWordTextShower.setText(String.format(Locale.ENGLISH, "Word: %d", textPos.get() + 1));
+        };
 
         Thread s = new Thread() {
             @Override
@@ -89,8 +104,8 @@ public class CoolExperimentalStuff {
                 try {
                     Thread.sleep(2000);
                     String[] strs = text.replaceAll("[^\\p{L}\\p{Nd}]+", "\n").replaceAll("\\s+", "\n").split("\n");
-                    for (int i = 0; i < strs.length; i++) {
-                        displayString.set(strs[i]);
+                    for (textPos.set(0); textPos.get() < strs.length; textPos.set(textPos.get() + 1)) {
+                        displayString.set(strs[textPos.get()]);
                         textViewTextDisplay.post(updateViewOnUi);
                         Thread.sleep(wpm.get());
                     }
@@ -110,6 +125,8 @@ public class CoolExperimentalStuff {
 
         ////////////////////////////////////
         // Add to layout
+        layout.addView(buttonMoveWords);
+        layout.addView(currentWordTextShower);
         layout.addView(textViewTextDisplay);
 
         ////////////////////////////////////

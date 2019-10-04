@@ -43,6 +43,7 @@ import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
+import net.gsantner.markor.ui.FilesystemViewerFactory;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -51,9 +52,10 @@ import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
+import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.TextViewUndoRedo;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
 
@@ -201,8 +203,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }*/
 
         if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
-            String text = CoolExperimentalStuff.convertEpubToText(getString(R.string.page));
-            CoolExperimentalStuff.showSpeedReadDialog(getActivity(), R.string.view, text);
+            _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
 
 
@@ -247,6 +248,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
         menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
+        menu.findItem(R.id.action_speed_read).setVisible(isExpimentalFeaturesEnabled);
     }
 
     public void loadDocumentIntoUi() {
@@ -390,6 +392,27 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_attach_link: {
                 int actionId = (itemId == R.id.action_attach_audio ? 4 : (itemId == R.id.action_attach_image ? 2 : 3));
                 AttachImageOrLinkDialog.showInsertImageOrLinkDialog(actionId, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
+                return true;
+            }
+
+            case R.id.action_load_epub: {
+                FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                                                           @Override
+                                                           public void onFsViewerSelected(String request, File file) {
+                                                               _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
+                                                           }
+
+                                                           @Override
+                                                           public void onFsViewerConfig(FilesystemViewerData.Options opt) {
+                                                               opt.titleText = R.string.select;
+                                                           }
+                                                       }, getFragmentManager(), getActivity(),
+                        input -> input != null && input.getAbsolutePath().toLowerCase().endsWith(".epub")
+                );
+                return true;
+            }
+            case R.id.action_speed_read: {
+                CoolExperimentalStuff.showSpeedReadDialog(getActivity(), _document.getContent());
                 return true;
             }
         }
