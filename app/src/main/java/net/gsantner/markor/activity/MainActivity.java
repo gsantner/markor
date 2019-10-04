@@ -305,6 +305,10 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             return;
         }
 
+        if (fsFrag.getAdapter().isCurrentFolderVirtual()) {
+            fsFrag.getAdapter().loadFolder(_appSettings.getNotebookDirectory());
+            return;
+        }
         if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {

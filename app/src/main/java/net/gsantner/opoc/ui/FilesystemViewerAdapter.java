@@ -227,6 +227,18 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         }
     }
 
+    public boolean isCurrentFolderVirtual() {
+        return _currentFolder != null && (
+                _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)
+                        || _currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)
+                        || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR)
+                        || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS)
+                        || _currentFolder.equals(new File("/storage"))
+                        || _currentFolder.equals(new File("/storage/self"))
+                        || _currentFolder.equals(new File("/storage/emulated"))
+        );
+    }
+
     public class TagContainer {
         public final File file;
         public final int position;
