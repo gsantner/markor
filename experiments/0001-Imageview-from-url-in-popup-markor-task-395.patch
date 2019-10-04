@@ -1,0 +1,225 @@
+From 917131cca34cf8788a21b8e1bc1675ceb8aa0a97 Mon Sep 17 00:00:00 2001
+From: Gregor Santner <gsantner@mailbox.org>
+Date: Fri, 4 Oct 2019 20:08:45 +0200
+Subject: [PATCH] Imageview from url in popup (#395) by @noob893796;
+ ImageViewer PR improvements
+
+---
+ app/build.gradle                              |  2 +-
+ .../markdown/MarkdownTextModuleActions.java   |  2 +
+ .../plaintext/CommonTextModuleActions.java    | 36 +++++++++++++++++-
+ .../markor/util/DownloadImageTask.java        | 37 +++++++++++++++++++
+ .../opoc/format/plaintext/PlainTextStuff.java |  4 ++
+ .../main/res/layout/select_path_dialog.xml    |  8 ++++
+ app/src/main/res/values/strings.xml           |  1 +
+ 7 files changed, 88 insertions(+), 2 deletions(-)
+ create mode 100644 app/src/main/java/net/gsantner/markor/util/DownloadImageTask.java
+
+diff --git a/app/build.gradle b/app/build.gradle
+index 401a970d..278dafd3 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -105,7 +105,6 @@ android {
+ }
+ 
+ dependencies {
+-    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
+     // Testing
+     testImplementation 'junit:junit:4.12'
+     testImplementation 'org.assertj:assertj-core:3.8.0'
+@@ -138,6 +137,7 @@ dependencies {
+     // UI libs
+     implementation 'com.mobsandgeeks:adapter-kit:0.5.3'
+     implementation 'com.pixplicity.generate:library:1.1.8'
++    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
+ 
+     // Tool libraries
+     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
+diff --git a/app/src/main/java/net/gsantner/markor/format/markdown/MarkdownTextModuleActions.java b/app/src/main/java/net/gsantner/markor/format/markdown/MarkdownTextModuleActions.java
+index 8b1d237e..f5bdec29 100644
+--- a/app/src/main/java/net/gsantner/markor/format/markdown/MarkdownTextModuleActions.java
++++ b/app/src/main/java/net/gsantner/markor/format/markdown/MarkdownTextModuleActions.java
+@@ -288,6 +288,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
+         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
+         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
+         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
++        final Button buttonPicturePreview = view.findViewById(R.id.ui__select_path_dialog__preview_picture);
+ 
+         int startCursorPos = _hlEditor.getSelectionStart();
+         if (_hlEditor.hasSelection()) {
+@@ -387,6 +388,7 @@ public class MarkdownTextModuleActions extends TextModuleActions {
+         File targetFolder = _document.getFile() != null ? _document.getFile().getParentFile() : _appSettings.getNotebookDirectory();
+         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
+         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
++        buttonPictureGallery.setOnClickListener(button -> new CommonTextModuleActions(_activity, _document, _hlEditor).runAction(CommonTextModuleActions.ACTION_OPEN_IMAGE_IN_VIEWER, editPathUrl.getText().toString()));
+ 
+         buttonBrowseFs.setOnClickListener(button -> {
+             if (getActivity() instanceof AppCompatActivity) {
+diff --git a/app/src/main/java/net/gsantner/markor/format/plaintext/CommonTextModuleActions.java b/app/src/main/java/net/gsantner/markor/format/plaintext/CommonTextModuleActions.java
+index a90b3ee4..41b9049b 100644
+--- a/app/src/main/java/net/gsantner/markor/format/plaintext/CommonTextModuleActions.java
++++ b/app/src/main/java/net/gsantner/markor/format/plaintext/CommonTextModuleActions.java
+@@ -11,8 +11,14 @@ package net.gsantner.markor.format.plaintext;
+ 
+ import android.app.Activity;
+ import android.content.DialogInterface;
++import android.graphics.Color;
++import android.graphics.drawable.ColorDrawable;
+ import android.support.annotation.StringRes;
++import android.view.Gravity;
+ import android.view.KeyEvent;
++import android.widget.ImageView;
++import android.widget.LinearLayout;
++import android.widget.PopupWindow;
+ 
+ import com.flask.colorpicker.ColorPickerView;
+ import com.flask.colorpicker.Utils;
+@@ -23,6 +29,7 @@ import net.gsantner.markor.R;
+ import net.gsantner.markor.model.Document;
+ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
++import net.gsantner.markor.util.DownloadImageTask;
+ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
+ import net.gsantner.opoc.util.Callback;
+ import net.gsantner.opoc.util.ContextUtils;
+@@ -34,6 +41,8 @@ public class CommonTextModuleActions {
+     public static final int ACTION_OPEN_LINK_BROWSER__ICON = R.drawable.ic_open_in_browser_black_24dp;
+     public static final String ACTION_OPEN_LINK_BROWSER = "open_selected_link_in_browser";
+ 
++    public static final int ACTION_OPEN_IMAGE_IN_VIEWER__ICON = R.drawable.ic_image_black_24dp;
++    public static final String ACTION_OPEN_IMAGE_IN_VIEWER = "open_image_in_viewer";
+ 
+     public static final int ACTION_COLOR_PICKER_ICON = R.drawable.ic_format_color_fill_black_24dp;
+     public static final String ACTION_COLOR_PICKER = "open_color_picker";
+@@ -68,7 +77,7 @@ public class CommonTextModuleActions {
+     }
+ 
+     // Returns true when handled
+-    public boolean runAction(String action) {
++    public boolean runAction(String action, String... args) {
+         final String origText = _hlEditor.getText().toString();
+         switch (action) {
+             case ACTION_SPECIAL_KEY: {
+@@ -110,6 +119,31 @@ public class CommonTextModuleActions {
+                 }
+                 return true;
+             }
++            case ACTION_OPEN_IMAGE_IN_VIEWER: {
++                String url = null;
++                if (args != null && args.length > 0 && args[0] != null) {
++                    url = args[0];
++                }
++                if ((url != null || (url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null)) {
++                    String lower = url.toLowerCase();
++                    if (lower.endsWith(".jpg") || lower.endsWith(".png") || lower.endsWith(".jpeg")) {
++                        // inflate the layout of the popup window
++                        ImageView imageview = new ImageView(_activity);
++                        imageview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
++                        new DownloadImageTask(imageview).execute(url);
++
++                        // create the popup window
++                        int width = LinearLayout.LayoutParams.MATCH_PARENT;
++                        int height = LinearLayout.LayoutParams.MATCH_PARENT;
++                        final PopupWindow popupWindow = new PopupWindow(imageview, width, height, true);
++                        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
++
++                        popupWindow.showAtLocation(_hlEditor, Gravity.CENTER, 0, 0);
++                        imageview.setOnClickListener(view -> popupWindow.dismiss());
++                    }
++                }
++                return true;
++            }
+             case ACTION_DELETE_LINES: {
+                 int[] indexes = PlainTextStuff.getNeighbourLineEndings(_hlEditor.getText().toString(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
+                 if (indexes != null) {
+diff --git a/app/src/main/java/net/gsantner/markor/util/DownloadImageTask.java b/app/src/main/java/net/gsantner/markor/util/DownloadImageTask.java
+new file mode 100644
+index 00000000..8d405be3
+--- /dev/null
++++ b/app/src/main/java/net/gsantner/markor/util/DownloadImageTask.java
+@@ -0,0 +1,37 @@
++package net.gsantner.markor.util;
++
++import android.annotation.SuppressLint;
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
++import android.os.AsyncTask;
++import android.util.Log;
++import android.widget.ImageView;
++
++import java.io.InputStream;
++
++public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
++    @SuppressLint("StaticFieldLeak")
++    private ImageView _imageview;
++
++    public DownloadImageTask(ImageView imageview) {
++        _imageview = imageview;
++    }
++
++    protected Bitmap doInBackground(String... urls) {
++        String urldisplay = urls[0];
++        Bitmap dlbitmap = null;
++        try {
++            InputStream in = new java.net.URL(urldisplay).openStream();
++            dlbitmap = BitmapFactory.decodeStream(in);
++        } catch (Exception e) {
++            Log.e("Error", e.getMessage());
++            e.printStackTrace();
++        }
++        return dlbitmap;
++    }
++
++    protected void onPostExecute(Bitmap result) {
++        _imageview.setImageBitmap(result);
++        _imageview = null;
++    }
++}
+\ No newline at end of file
+diff --git a/app/src/main/java/net/gsantner/opoc/format/plaintext/PlainTextStuff.java b/app/src/main/java/net/gsantner/opoc/format/plaintext/PlainTextStuff.java
+index 0d676b2d..6a3719ab 100644
+--- a/app/src/main/java/net/gsantner/opoc/format/plaintext/PlainTextStuff.java
++++ b/app/src/main/java/net/gsantner/opoc/format/plaintext/PlainTextStuff.java
+@@ -31,6 +31,10 @@ public class PlainTextStuff {
+                         end = pos;
+                     }
+                 }
++                if (text.charAt(end-1) == ')'){
++                    // Probably MD link ending
++                    end--;
++                }
+                 if ((end - begin) > 5 && end > 5) {
+                     return text.substring(begin, end);
+                 }
+diff --git a/app/src/main/res/layout/select_path_dialog.xml b/app/src/main/res/layout/select_path_dialog.xml
+index fba24d83..ba7c0843 100644
+--- a/app/src/main/res/layout/select_path_dialog.xml
++++ b/app/src/main/res/layout/select_path_dialog.xml
+@@ -71,6 +71,14 @@
+             android:drawableLeft="@drawable/ic_crop_black_24dp"
+             android:drawableStart="@drawable/ic_crop_black_24dp"
+             android:text="@string/edit_picture" />
++
++        <Button
++            android:id="@+id/ui__select_path_dialog__preview_picture"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:drawableLeft="@drawable/ic_image_black_24dp"
++            android:drawableStart="@drawable/ic_image_black_24dp"
++            android:text="@string/preview" />
+     </LinearLayout>
+ 
+ </ScrollView>
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index c3bbd056..b919a2ca 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -251,4 +251,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+     <string name="foreground">Foreground</string>
+     <string name="background">Background</string>
+     <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
++    <string name="preview">Preview</string>
+ </resources>
+-- 
+2.17.1
+
