@@ -58,11 +58,14 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1164,5 +1167,27 @@ public class ShareUtil {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
             activity.startActivity(intent);
         }
+    }
+
+    public StringBuilder fetchContentOfFile(File file){
+        InputStream in;
+        StringBuilder sb = null;
+        String lineSeparator = System.getProperty("line.separator");
+        if(file==null){
+            return null;
+        }
+        try {
+            in = new FileInputStream(file.getAbsoluteFile());
+            InputStreamReader isr = new InputStreamReader(in);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line + lineSeparator);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb;
     }
 }

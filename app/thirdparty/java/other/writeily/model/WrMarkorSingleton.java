@@ -139,24 +139,9 @@ public class WrMarkorSingleton {
 
     public void copyContentOfFile(File file,Context context) {
         if(TextFormat.isTextFile(file,file.getAbsolutePath())){
-            InputStream in = null;
-            StringBuilder sb = null;
-            String lineSeparator = System.getProperty("line.separator");
-            try {
-                in = new FileInputStream(file.getAbsoluteFile());
-                InputStreamReader isr = new InputStreamReader(in);
-                BufferedReader bufferedReader = new BufferedReader(isr);
-                sb = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line + lineSeparator);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-            ClipData clip = ClipData.newPlainText(context.getPackageName(), sb);
-            cm.setPrimaryClip(clip);
+            ShareUtil shareUtil = new ShareUtil(context);
+            StringBuilder builder=shareUtil.fetchContentOfFile(file);
+            shareUtil.setClipboard(builder);
         }
     }
 
