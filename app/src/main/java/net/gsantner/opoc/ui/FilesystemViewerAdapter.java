@@ -331,7 +331,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         return _currentSelection;
     }
 
-    public File descriptionFile() {
+    public File getCurrentFile() {
         return descriptionFile;
     }
 
