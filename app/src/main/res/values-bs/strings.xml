@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Priloži sliku</string>
     <string name="contributors">Saradnici</string>
     <string name="save_location">Pohrani lokaciju</string>
-    <string name="select_storage_folder">Označi direktorij za pohranjivanje</string>
+    <string name="select_storage_folder">Označite direktorij za pohranjivanje</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Popis izmjena</string>
     <string name="more_info">Više informacija</string>
@@ -214,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
     <string name="descending">inverzno</string>
     <string name="ascending">redom</string>
-    <string name="disable_spelling_underline">Isključi podvlačenje pravopisnih grešaka</string>
+    <string name="disable_spelling_underline">Isključi provjeru pravopisa</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturni prijedlozi ostaju, crvena linija ispod teksta nestaje</string>
     <string name="location">Lokacija</string>
     <string name="text_lines">Redovi teksta</string>
