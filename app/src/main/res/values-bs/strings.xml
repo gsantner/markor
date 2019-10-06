@@ -269,8 +269,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Sviđa li Vam se ovaj projekat? Želite li da napreduje a problemi budu otklonjeni?\n\nRazvijanje aplikacija i pisanje članaka o njima uzima puno vremena! Ako biste voljeli pomoći da projekat opstane, molimo Vas da razmislite o skromnoj donaciji!\n\nRad na ovom projektu odvija se u slobodno vrijeme, a program je besplatan i ne sadrži nikakav vid reklama!</string>
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
-    <string name="swipe_to_change_mode">Prevlačenjem promijenite način rada</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Prevucite da aktivirate način rada za uređivanje ili čitanje (suprotno trenutno aktivnom načinu)</string>
+    <string name="swipe_to_change_mode">Promjena prevlačenjem</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Prevucite ulijevo/udesno da aktivirate način rada za uređivanje ili čitanje (suprotno trenutno aktivnom načinu)</string>
     <string name="folder_first">Prvo direktorij</string>
     <string name="go_to">Idi do</string>
     <string name="appdata_public">AppData (javno)</string>
