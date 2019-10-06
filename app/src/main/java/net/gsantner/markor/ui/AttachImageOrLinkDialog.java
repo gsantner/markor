@@ -136,6 +136,14 @@ public class AttachImageOrLinkDialog {
                     text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
                     inputPathName.setText(text);
                 }
+                text = inputPathUrl.getText().toString();
+                try {
+                    if (text.startsWith("../assets/") && currentWorkingFile.getParentFile().getName().equals("_posts")) {
+                        text = "{{ site.baseurl }}" + text.substring(2);
+                        inputPathUrl.setText(text);
+                    }
+                } catch (Exception ignored) {
+                }
             }
 
             @Override
@@ -189,6 +197,7 @@ public class AttachImageOrLinkDialog {
                 .setPositiveButton(android.R.string.ok, (dialog, id) -> {
                     String title = inputPathName.getText().toString().replace(")", "\\)");
                     String url = inputPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+                    url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
                     String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
                     if (_hlEditor.hasSelection()) {
                         _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
