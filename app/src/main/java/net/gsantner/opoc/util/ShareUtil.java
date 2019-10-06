@@ -587,6 +587,18 @@ public class ShareUtil {
                         return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
                     }
 
+                    if (fileStr.startsWith(tmps = "external_files/")) {
+                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory() + "/" + fileStr.substring(tmps.length())));
+                        if (f.exists()) {
+                            return f;
+                        }
+                        f = new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
+                        if (f.exists()) {
+                            return f;
+                        }
+
+                    }
+
                     // URI Encoded paths with full path after content://package/
                     if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
                         tmpf = new File(Uri.decode(fileStr));
