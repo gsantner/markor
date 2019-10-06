@@ -29,6 +29,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Luo uusi asiakirja</string>
     <string name="move">Siirrä</string>
     <string name="info">Tiedot</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Tiedosto / kansio on jo olemassa! Käytä toista nimeä</string>
     <string name="import_from_device">Tuo laitteelta</string>
     <string name="import_">Tuo</string>
+    <string name="append_to_witharg">Liitä kohteeseen %s</string>
+    <string name="select_folder">Valitse kansio</string>
+    <string name="edit">Muokkaa</string>
+    <string name="search_documents">Etsi dokumentteja</string>
+    <string name="share_to_arrow">Jaa kohteeseen&#8230;</string>
+    <string name="share">Jaa</string>
+    <string name="search">Hae</string>
+    <string name="display_converted_markup">Näytä muunnettu merkintä</string>
+    <string name="editor">Editori</string>
+    <string name="folders">Kansiot</string>
+    <string name="files">Tiedostot</string>
+    <string name="document">Dokumentti</string>
+    <string name="documents">Dokumentit</string>
+    <string name="html_as_plaintext">HTML (tekstinä)</string>
 </resources>
