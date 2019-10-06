@@ -49,4 +49,5 @@ files:
         mr: mr # Marathi
         te: te # Telugu
         ur-PK: ur # Urdu, Pakistan
+        id: in # Indonesian
     translate_attributes: 0
