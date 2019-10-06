@@ -441,6 +441,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         cacheCurrentFolder();
                         _toolbar.setTitle(adapter.areItemsSelected() ? "" : _cachedFolderTitle);
+                        invalidateOptionsMenu();
 
                         if (adapter.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
                             adapter.getFsOptions().favouriteFiles = _appSettings.getFavouriteFiles();

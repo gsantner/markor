@@ -420,6 +420,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
     public void loadFolder(final File folder) {
         final Handler handler = new Handler();
+        _currentSelection.clear();
 
         new Thread() {
             @Override

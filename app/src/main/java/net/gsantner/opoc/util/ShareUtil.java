@@ -588,13 +588,11 @@ public class ShareUtil {
                     }
 
                     if (fileStr.startsWith(tmps = "external_files/")) {
-                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory() + "/" + fileStr.substring(tmps.length())));
-                        if (f.exists()) {
-                            return f;
-                        }
-                        f = new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
-                        if (f.exists()) {
-                            return f;
+                        for (String prefix : new String[]{Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
+                            File f = new File(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
+                            if (f.exists()) {
+                                return f;
+                            }
                         }
 
                     }
@@ -634,6 +632,11 @@ public class ShareUtil {
         } catch (Exception ex) {
             Toast.makeText(_context, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public String extractFileFromIntentStr(Intent receivingIntent) {
+        File f = extractFileFromIntent(receivingIntent);
+        return f != null ? f.getAbsolutePath() : null;
     }
 
     /**
@@ -728,6 +731,10 @@ public class ShareUtil {
                         }
                         cursor.close();
                     }
+
+                    // Try to grab via file extraction method
+                    data.setAction(Intent.ACTION_VIEW);
+                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(data);
 
                     // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
                     if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
