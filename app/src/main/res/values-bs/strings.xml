@@ -71,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Priloži sliku</string>
     <string name="contributors">Saradnici</string>
     <string name="save_location">Pohrani lokaciju</string>
-    <string name="select_storage_folder">Označi direktorij za pohranjivanje</string>
+    <string name="select_storage_folder">Označite direktorij za pohranjivanje</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Popis izmjena</string>
     <string name="more_info">Više informacija</string>
@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Prikaži ostale licence</string>
     <string name="language_change_restart_description">Promijenite jezik programa. Iznova pokrenite program da aktivirate promjenu</string>
     <string name="language">Jezik</string>
-    <string name="error_need_storage_permission_to_save_documents">Neophodna dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
+    <string name="error_need_storage_permission_to_save_documents">Neophodna je dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
     <string name="sort">Sortiraj</string>
     <string name="date">Datum</string>
@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Kreiraj prečicu</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokušano je smještanje prečice na početni ekran. Imajte na umu da neki programi za prikaz i upravljanje programima to ne podržavaju.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Označena datoteka ne nalazi se u direktoriju s bilješkama. Želite li je kopirati u trenutni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Datoteka se ne nalazi u ovom direktoriju. Želite li je kopirati u otvoreni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
     <string name="files_and_folders">Datoteke i direktoriji</string>
     <string name="document_browser">Preglednik dokumenata</string>
     <string name="file_browser">Preglednik datoteka</string>
@@ -213,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
     <string name="descending">inverzno</string>
     <string name="ascending">redom</string>
-    <string name="disable_spelling_underline">Isključi podvlačenje pravopisnih grešaka</string>
+    <string name="disable_spelling_underline">Isključi provjeru pravopisa</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturni prijedlozi ostaju, crvena linija ispod teksta nestaje</string>
     <string name="location">Lokacija</string>
     <string name="text_lines">Redovi teksta</string>
@@ -268,8 +269,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Sviđa li Vam se ovaj projekat? Želite li da napreduje a problemi budu otklonjeni?\n\nRazvijanje aplikacija i pisanje članaka o njima uzima puno vremena! Ako biste voljeli pomoći da projekat opstane, molimo Vas da razmislite o skromnoj donaciji!\n\nRad na ovom projektu odvija se u slobodno vrijeme, a program je besplatan i ne sadrži nikakav vid reklama!</string>
     <string name="app_start_tab">Aktivni odjeljak</string>
     <string name="tab_to_select_at_start">Odjeljak za biranje pri pokretanju programa</string>
-    <string name="swipe_to_change_mode">Prevlačenjem promijenite način rada</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Prevucite da aktivirate način rada za uređivanje ili čitanje (suprotno trenutno aktivnom načinu)</string>
+    <string name="swipe_to_change_mode">Promjena prevlačenjem</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Prevucite ulijevo/udesno da aktivirate način rada za uređivanje ili čitanje (suprotno trenutno aktivnom načinu)</string>
     <string name="folder_first">Prvo direktorij</string>
     <string name="go_to">Idi do</string>
     <string name="appdata_public">AppData (javno)</string>
@@ -283,7 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Boja trake za navigaciju</string>
     <string name="black">Crna</string>
     <string name="white">Bijela</string>
-    <string name="view">Prikaži</string>
+    <string name="view">Prikaz</string>
     <string name="view_mode">Pregled</string>
     <string name="edit_mode">Uređivanje</string>
     <string name="mount_storage">Pripremi memoriju</string>
@@ -309,4 +310,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Štampaj / PDF</string>
     <string name="bigger_headings">Veći naslovi</string>
     <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>
+    <string name="current">Otvoreni</string>
+    <string name="record_audio">Snimanje zvuka</string>
+    <string name="attach">Priloži</string>
+    <string name="copy_file">Kopiraj datoteku</string>
+    <string name="page">Stranica</string>
+    <string name="experimental_features">Eksperimentalne opcije</string>
+    <string name="tools">Alati</string>
+    <string name="reading">Čitam</string>
+    <string name="read">Čitaj</string>
 </resources>
