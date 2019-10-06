@@ -241,6 +241,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
         menu.findItem(R.id.submenu_attach).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
 
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
