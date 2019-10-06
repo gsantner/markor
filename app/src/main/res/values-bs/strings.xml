@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Prikaži ostale licence</string>
     <string name="language_change_restart_description">Promijenite jezik programa. Iznova pokrenite program da aktivirate promjenu</string>
     <string name="language">Jezik</string>
-    <string name="error_need_storage_permission_to_save_documents">Neophodna dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
+    <string name="error_need_storage_permission_to_save_documents">Neophodna je dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
     <string name="sort">Sortiraj</string>
     <string name="date">Datum</string>
@@ -118,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Kreiraj prečicu</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokušano je smještanje prečice na početni ekran. Imajte na umu da neki programi za prikaz i upravljanje programima to ne podržavaju.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Označena datoteka ne nalazi se u direktoriju s bilješkama. Želite li je kopirati u trenutni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Datoteka se ne nalazi u ovom direktoriju. Želite li je kopirati u otvoreni direktorij? Time ćete prepisati datoteku s istom nazivom, ukoliko postoji.</string>
     <string name="files_and_folders">Datoteke i direktoriji</string>
     <string name="document_browser">Preglednik dokumenata</string>
     <string name="file_browser">Preglednik datoteka</string>
@@ -283,7 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="navigationbar_color">Boja trake za navigaciju</string>
     <string name="black">Crna</string>
     <string name="white">Bijela</string>
-    <string name="view">Prikaži</string>
+    <string name="view">Prikaz</string>
     <string name="view_mode">Pregled</string>
     <string name="edit_mode">Uređivanje</string>
     <string name="mount_storage">Pripremi memoriju</string>
@@ -309,4 +310,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">Štampaj / PDF</string>
     <string name="bigger_headings">Veći naslovi</string>
     <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>
+    <string name="current">Otvoreni</string>
+    <string name="record_audio">Snimanje zvuka</string>
+    <string name="attach">Priloži</string>
+    <string name="copy_file">Kopiraj datoteku</string>
+    <string name="page">Stranica</string>
+    <string name="experimental_features">Eksperimentalne opcije</string>
+    <string name="tools">Alati</string>
+    <string name="reading">Čitam</string>
+    <string name="read">Čitaj</string>
 </resources>
