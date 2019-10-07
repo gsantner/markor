@@ -333,4 +333,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Tools</string>
     <string name="reading">Reading</string>
     <string name="read">Read</string>
+    <string name="auto_scroll">Auto-scroll</string>
 </resources>

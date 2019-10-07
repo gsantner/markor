@@ -180,4 +180,10 @@
         android:title="@string/send_debug_log"
         android:visible="false"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_auto_scroll"
+        android:icon="@drawable/ic_arrow_downward_black_24dp"
+        android:title="@string/auto_scroll"
+        android:visible="false"
+        app:showAsAction="never" />
 </menu>
