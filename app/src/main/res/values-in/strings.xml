@@ -17,6 +17,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Hapus</string>
     <string name="appearance">Tampilan</string>
     <string name="rename">Ubah Nama</string>
+    <string name="confirm_delete">Konfirmasi Hapus</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Apakah Anda yakin ingin menghapus %s?</string>
+    <string name="confirm_overwrite">Konfirmasi Timpa</string>
+    <string name="file_already_exists_overwerite">Berkas sudah ada, timpa?</string>
+    <string name="browse_filesystem">Rambah filesystem</string>
+    <string name="title">Judul</string>
+    <string name="empty_directory">Direktori kosong</string>
     <string name="editor">Laman Pengubahan</string>
     <string name="about">Tentang Kami</string>
     <string name="create">Buat Baru</string>
