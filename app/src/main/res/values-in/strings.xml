@@ -12,7 +12,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Preferensi</string>
+    <string name="light">Terang</string>
+    <string name="dark">Gelap</string>
+    <string name="delete">Hapus</string>
     <string name="appearance">Tampilan</string>
+    <string name="rename">Ubah Nama</string>
     <string name="editor">Laman Pengubahan</string>
     <string name="about">Tentang Kami</string>
     <string name="create">Buat Baru</string>
