@@ -18,6 +18,8 @@ import com.github.mertakdut.Reader;
 import com.github.mertakdut.exception.OutOfPagesException;
 import com.github.mertakdut.exception.ReadingException;
 
+import net.gsantner.markor.R;
+
 import java.io.File;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
@@ -141,4 +143,34 @@ public class CoolExperimentalStuff {
             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
     }
+
+    public static void startAutoScroller(final Activity activity, final boolean isWebView) {
+
+        View view;
+        if (isWebView) {
+            view = activity.findViewById(R.id.document__fragment_view_webview);
+        } else {
+            view = activity.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
+        }
+
+        final int scrollAmount = view.getHeight() / 3;
+        final int millisecondsDelay = 5000;
+
+        Thread s = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (view.getVisibility() == View.VISIBLE) {
+                        Thread.sleep(millisecondsDelay);
+                        view.scrollBy(0, scrollAmount);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        };
+        s.start();
+
+        // TODO: Add some listener to cancel the scrolling
+    }
+
 }

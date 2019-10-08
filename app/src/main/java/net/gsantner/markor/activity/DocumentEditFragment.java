@@ -109,7 +109,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private boolean _firstFileLoad = true;
-    private boolean _isAutoScrolling = false; // TODO: review
 
     public DocumentEditFragment() {
     }
@@ -251,7 +250,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
         menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
         menu.findItem(R.id.action_speed_read).setVisible(isExpimentalFeaturesEnabled);
-        menu.findItem(R.id.action_auto_scroll).setVisible(!isExpimentalFeaturesEnabled); // FIXME: Invert
+        menu.findItem(R.id.action_auto_scroll).setVisible(isExpimentalFeaturesEnabled);
     }
 
     public void loadDocumentIntoUi() {
@@ -420,18 +419,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_auto_scroll: {
                 // TODO: Implement
-                if (!_isAutoScrolling) {
-                    initiateAutoScroller();
-                }
+                CoolExperimentalStuff.startAutoScroller(getActivity(),
+                        _webView.getVisibility() == View.VISIBLE);
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    // TODO: Move this function
-    private void initiateAutoScroller() {
-
     }
 
     private long _lastChangedThreadStart = 0;
