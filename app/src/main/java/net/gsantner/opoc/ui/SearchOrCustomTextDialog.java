@@ -11,8 +11,11 @@
 package net.gsantner.opoc.ui;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,6 +60,7 @@ public class SearchOrCustomTextDialog {
         public Callback.a1<String> callback;
         public List<? extends CharSequence> data = new ArrayList<>();
         public List<? extends CharSequence> highlightData = new ArrayList<>();
+        public List<Integer> iconsForData = new ArrayList<>();
         public String messageText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
@@ -91,6 +95,15 @@ public class SearchOrCustomTextDialog {
             public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
                 TextView textView = (TextView) super.getView(pos, convertView, parent);
                 String text = textView.getText().toString();
+
+                int posInOriginalList = dopt.data.indexOf(text);
+                if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size()) {
+                    textView.setCompoundDrawablesWithIntrinsicBounds(dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
+                    textView.setCompoundDrawablePadding(32);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        textView.setCompoundDrawableTintList(ColorStateList.valueOf(dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
+                    }
+                }
 
                 boolean hl = dopt.highlightData.contains(text);
                 textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);

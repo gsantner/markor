@@ -44,7 +44,6 @@ import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.FilesystemViewerFactory;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -55,7 +54,6 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
@@ -264,8 +262,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             DocumentActivity da = ((DocumentActivity) activity);
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
-
-            SearchOrCustomTextDialogCreator.showAttachSomethingDialog(getActivity(), arg1 -> onOptionsItemSelected(_fragmentMenu.findItem(arg1)));
         }
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);

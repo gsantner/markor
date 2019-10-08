@@ -55,22 +55,25 @@ public class SearchOrCustomTextDialogCreator {
     public static void showAttachSomethingDialog(final Activity activity, final Callback.a1<Integer> userCallback) {
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToActionMap = new ArrayList<>();
-        final Callback.a2<Integer, Integer> addToList = (strRes, actionRes) -> {
+        final List<Integer> availableDataToIconMap = new ArrayList<>();
+        final Callback.a3<Integer, Integer, Integer> addToList = (strRes, actionRes, iconRes) -> {
             availableData.add(activity.getString(strRes));
             availableDataToActionMap.add(actionRes);
+            availableDataToIconMap.add(iconRes);
         };
-        addToList.callback(R.string.color, R.id.action_attach_color);
-        addToList.callback(R.string.insert_link, R.id.action_attach_link);
-        addToList.callback(R.string.file, R.id.action_attach_file);
-        addToList.callback(R.string.image, R.id.action_attach_image);
-        addToList.callback(R.string.audio, R.id.action_attach_audio);
-        addToList.callback(R.string.date, R.id.action_attach_date);
+        addToList.callback(R.string.color, R.id.action_attach_color, R.drawable.ic_image_black_24dp);
+        addToList.callback(R.string.insert_link, R.id.action_attach_link, R.drawable.ic_link_black_24dp);
+        addToList.callback(R.string.file, R.id.action_attach_file, R.drawable.ic_attach_file_black_24dp);
+        addToList.callback(R.string.image, R.id.action_attach_image, R.drawable.ic_image_black_24dp);
+        addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
+        addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_date_range_black_24dp);
 
 
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
         dopt.data = availableData;
+        dopt.iconsForData = availableDataToIconMap;
         dopt.isSearchEnabled = false;
         dopt.titleText = 0;
         dopt.fillScreenWidth = false;
