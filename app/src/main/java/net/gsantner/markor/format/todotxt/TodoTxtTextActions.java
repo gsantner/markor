@@ -12,6 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -89,6 +90,7 @@ public class TodoTxtTextActions extends TextActions {
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
             final int origSelectionStart = _hlEditor.getSelectionStart();

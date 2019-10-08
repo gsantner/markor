@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
 
 public class MarkdownTextActions extends TextActions {
 
@@ -78,7 +80,8 @@ public class MarkdownTextActions extends TextActions {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
                     runMarkdownRegularPrefixAction("> ");
@@ -133,7 +136,7 @@ public class MarkdownTextActions extends TextActions {
         }
 
         @Override
-        public boolean onLongClick(View v) {
+        public boolean onLongClick(View view) {
             switch (_action) {
                 case R.string.tmaid_common_open_link_browser: {
                     new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);

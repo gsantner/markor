@@ -41,6 +41,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -84,6 +86,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.VIBRATOR_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.graphics.Bitmap.CompressFormat;
 
@@ -960,6 +963,22 @@ public class ContextUtils {
                     activityManager.getMemoryClass() >= 128;
         } catch (Exception ignored) {
             return true;
+        }
+    }
+
+    // Vibrate device one time by given amount of time, defaulting to 50ms
+    // Requires <uses-permission android:name="android.permission.VIBRATE" /> in AndroidManifest to work
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    @SuppressLint("MissingPermission")
+    public void vibrate(int... ms) {
+        int ms_v = ms != null && ms.length > 0 ? ms[0] : 50;
+        Vibrator vibrator = ((Vibrator) _context.getSystemService(VIBRATOR_SERVICE));
+        if (vibrator == null) {
+            return;
+        } else if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(ms_v, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            vibrator.vibrate(ms_v);
         }
     }
 }

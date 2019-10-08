@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -70,6 +71,7 @@ public class PlaintextTextActions extends TextActions {
 
         @Override
         public void onClick(View view) {
+            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             runAction(_context.getString(_action), false, null);
         }
 
