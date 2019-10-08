@@ -73,6 +73,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
+
     //########################
     //## Methods
     //########################
