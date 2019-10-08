@@ -481,9 +481,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
             case R.id.action_copy: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    Runnable copy = () -> WrMarkorSingleton.getInstance().copyContentOfFile(_filesystemViewerAdapter.descriptionFile(), getContext());
-                    new Thread(copy).start();
-
+                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
+                    if(TextFormat.isTextFile(file,file.getAbsolutePath())){
+                        ShareUtil shareUtil = new ShareUtil(getContext());
+                        shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                    }
                 }
                 return true;
             }

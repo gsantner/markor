@@ -73,7 +73,6 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
-    private File descriptionFile;
     //########################
     //## Methods
     //########################
@@ -137,7 +136,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.accentColor));
         }
 
-        descriptionFile = file.equals(_currentFolder.getParentFile()) ? fileParent : file;
+        final File descriptionFile = file.equals(_currentFolder.getParentFile()) ? fileParent : file;
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
@@ -329,10 +328,6 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
     public Set<File> getCurrentSelection() {
         return _currentSelection;
-    }
-
-    public File descriptionFile() {
-        return descriptionFile;
     }
 
     public boolean isFilesOnlySelected() {

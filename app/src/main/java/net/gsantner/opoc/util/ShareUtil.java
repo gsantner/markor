@@ -1169,25 +1169,4 @@ public class ShareUtil {
         }
     }
 
-    public StringBuilder fetchContentOfFile(File file){
-        InputStream in;
-        StringBuilder sb = null;
-        String lineSeparator = System.getProperty("line.separator");
-        if(file==null){
-            return null;
-        }
-        try {
-            in = new FileInputStream(file.getAbsoluteFile());
-            InputStreamReader isr = new InputStreamReader(in);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line + lineSeparator);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb;
-    }
 }

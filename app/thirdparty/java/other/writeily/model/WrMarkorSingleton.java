@@ -8,23 +8,15 @@
  *   https://opensource.org/licenses/MIT
 ###########################################################*/
 package other.writeily.model;
-
-import android.content.ClipData;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
-
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.util.ShareUtil;
-
 import org.apache.commons.io.IOUtils;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -134,14 +126,6 @@ public class WrMarkorSingleton {
     public void moveSelectedNotes(List<File> files, String destination, final Context context) {
         for (File file : files) {
             moveFile(file, destination, context);
-        }
-    }
-
-    public void copyContentOfFile(File file,Context context) {
-        if(TextFormat.isTextFile(file,file.getAbsolutePath())){
-            ShareUtil shareUtil = new ShareUtil(context);
-            StringBuilder builder=shareUtil.fetchContentOfFile(file);
-            shareUtil.setClipboard(builder);
         }
     }
 
