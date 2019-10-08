@@ -10,7 +10,9 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.service.ImageLoaderTask;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -47,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
+public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter, ImageLoaderTask.OnImageLoadedListener<FilesystemViewerAdapter.ilesystemViewerViewHolder> {
     //########################
     //## Static
     //########################
@@ -73,6 +77,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
+    private Bitmap _fileImage;
+    private Bitmap _folderImage;
 
     //########################
     //## Methods
@@ -90,6 +96,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
         _recyclerView = recyclerView;
+        _fileImage = ContextUtils.get().drawableToBitmap(ContextCompat.getDrawable(_context, _dopt.fileImage));
+        _folderImage = ContextUtils.get().drawableToBitmap(ContextCompat.getDrawable(_context, _dopt.folderImage));
     }
 
     @NonNull
@@ -142,13 +150,29 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
-        holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
+        Bitmap image = _fileImage;
+        boolean isImage = false;
+
+        if (file.isDirectory()) {
+            image = _folderImage;
+        } else {
+            if (filename.endsWith(".jpg") || filename.endsWith(".png")) {
+                isImage = true;
+                ImageLoaderTask<ilesystemViewerViewHolder> taskLoadImage = new ImageLoaderTask<>(this, _context, true, holder);
+                taskLoadImage.execute(file);
+            }
+        }
+
+        holder.image.setImageBitmap(image);
         if (_currentSelection.contains(file)) {
             holder.image.setImageResource(_dopt.selectedItemImage);
         }
-        holder.image.setColorFilter(ContextCompat.getColor(_context,
-                _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
-                android.graphics.PorterDuff.Mode.SRC_ATOP);
+
+        if (!isImage) {
+            holder.image.setColorFilter(ContextCompat.getColor(_context,
+                    _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
+                    android.graphics.PorterDuff.Mode.SRC_ATOP);
+        }
 
         if (_dopt.itemSidePadding > 0) {
             int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
@@ -237,6 +261,21 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         || _currentFolder.equals(new File("/storage/self"))
                         || _currentFolder.equals(new File("/storage/emulated"))
         );
+    }
+
+    @Override
+    public void onImageLoaded(Bitmap bitmap, ilesystemViewerViewHolder holder) {
+        holder.image.setImageBitmap(bitmap);
+        TagContainer data = (TagContainer) holder.itemRoot.getTag();
+        if (data != null && data.file != null) {
+            File file = data.file;
+            holder.image.clearColorFilter();
+            if (_currentSelection.contains(file)) {
+                holder.image.setImageResource(_dopt.selectedItemImage);
+                holder.image.setColorFilter(ContextCompat.getColor(_context, _dopt.accentColor),
+                        android.graphics.PorterDuff.Mode.SRC_ATOP);
+            }
+        }
     }
 
     public class TagContainer {
