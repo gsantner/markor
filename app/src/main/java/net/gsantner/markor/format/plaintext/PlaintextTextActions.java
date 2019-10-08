@@ -56,6 +56,7 @@ public class PlaintextTextActions extends TextActions {
             {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON},
             {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
             {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
     };
 

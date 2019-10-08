@@ -19,6 +19,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.view.Gravity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -48,6 +49,32 @@ public class SearchOrCustomTextDialogCreator {
 
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showAttachSomethingDialog(final Activity activity, final Callback.a1<Integer> userCallback) {
+        final List<String> availableData = new ArrayList<>();
+        final List<Integer> availableDataToActionMap = new ArrayList<>();
+        final Callback.a2<Integer, Integer> addToList = (strRes, actionRes) -> {
+            availableData.add(activity.getString(strRes));
+            availableDataToActionMap.add(actionRes);
+        };
+        addToList.callback(R.string.color, R.id.action_attach_color);
+        addToList.callback(R.string.insert_link, R.id.action_attach_link);
+        addToList.callback(R.string.file, R.id.action_attach_file);
+        addToList.callback(R.string.image, R.id.action_attach_image);
+        addToList.callback(R.string.audio, R.id.action_attach_audio);
+        addToList.callback(R.string.date, R.id.action_attach_date);
+
+
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
+        dopt.data = availableData;
+        dopt.isSearchEnabled = false;
+        dopt.titleText = 0;
+        dopt.fillScreenWidth = false;
+        dopt.gravity = Gravity.BOTTOM | Gravity.END;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

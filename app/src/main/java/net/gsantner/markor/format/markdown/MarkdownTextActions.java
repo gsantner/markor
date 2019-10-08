@@ -57,6 +57,7 @@ public class MarkdownTextActions extends TextActions {
             {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp},
             {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
             {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
             {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp},

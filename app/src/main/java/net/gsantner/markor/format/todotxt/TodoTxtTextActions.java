@@ -72,6 +72,7 @@ public class TodoTxtTextActions extends TextActions {
             {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp},
             {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
             {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
+            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp},
             {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
@@ -246,6 +247,8 @@ public class TodoTxtTextActions extends TextActions {
                     commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
+                default:
+                    runAction(_context.getString(_action));
             }
 
             /*

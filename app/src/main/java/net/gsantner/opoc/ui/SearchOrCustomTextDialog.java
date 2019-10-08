@@ -23,6 +23,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class SearchOrCustomTextDialog {
         public String messageText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
+        public boolean fillScreenWidth = true;
+        public int gravity = Gravity.NO_GRAVITY;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -166,9 +169,11 @@ public class SearchOrCustomTextDialog {
             dialogBuilder.setMessage(dopt.messageText);
         }
         dialogBuilder.setView(linearLayout)
-                .setTitle(dopt.titleText)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
+        if (dopt.titleText != 0) {
+            dialogBuilder.setTitle(dopt.titleText);
+        }
         if (dopt.isSearchEnabled) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 dialogInterface.dismiss();
@@ -203,8 +208,14 @@ public class SearchOrCustomTextDialog {
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         dialog.show();
-        if ((w = dialog.getWindow()) != null) {
+        if ((w = dialog.getWindow()) != null && dopt.fillScreenWidth) {
             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+
+        if ((w = dialog.getWindow()) != null && dopt.gravity != Gravity.NO_GRAVITY) {
+            WindowManager.LayoutParams wlp = w.getAttributes();
+            wlp.gravity = dopt.gravity;
+            w.setAttributes(wlp);
         }
 
         if (dopt.isSearchEnabled) {

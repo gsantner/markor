@@ -23,7 +23,10 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.AttachImageOrLinkDialog;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 
@@ -299,6 +302,29 @@ public abstract class TextActions {
             }
             case "tmaid_common_ordered_list_number": {
                 runMarkdownRegularPrefixAction("1. ");
+                return true;
+            }
+            case "tmaid_common_attach_something": {
+                SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
+                    switch (itemId) {
+                        case R.id.action_attach_color: {
+                            new CommonTextActions(getActivity(), _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
+                            break;
+                        }
+                        case R.id.action_attach_date: {
+                            DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                            break;
+                        }
+                        case R.id.action_attach_audio:
+                        case R.id.action_attach_file:
+                        case R.id.action_attach_image:
+                        case R.id.action_attach_link: {
+                            int actionId = (itemId == R.id.action_attach_audio ? 4 : (itemId == R.id.action_attach_image ? 2 : 3));
+                            AttachImageOrLinkDialog.showInsertImageOrLinkDialog(actionId, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
+                            break;
+                        }
+                    }
+                });
                 return true;
             }
             default: {

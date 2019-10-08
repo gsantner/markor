@@ -196,6 +196,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
 
     <string name="tmaid_common_delete_lines" translatable="false">tmaid_common_delete_lines</string>
+    <string name="tmaid_common_attach_something" translatable="false">tmaid_common_attach_something</string>
     <string name="tmaid_common_unordered_list_hyphen" translatable="false">tmaid_common_unordered_list_hyphen</string>
     <string name="tmaid_common_ordered_list_number" translatable="false">tmaid_common_ordered_list_number</string>
     <string name="tmaid_common_checkbox_list" translatable="false">tmaid_common_checkbox_list</string>
