@@ -247,6 +247,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
+            _fragmentMenu.findItem(R.id.action_copy).setVisible(selMulti1);
         }
     }
 
@@ -474,6 +475,17 @@ public class FilesystemViewerFragment extends GsFragmentBase
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
                     renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
+                }
+                return true;
+            }
+
+            case R.id.action_copy: {
+                if (_filesystemViewerAdapter.areItemsSelected()) {
+                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
+                    if(TextFormat.isTextFile(file,file.getAbsolutePath())){
+                        ShareUtil shareUtil = new ShareUtil(getContext());
+                        shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                    }
                 }
                 return true;
             }
