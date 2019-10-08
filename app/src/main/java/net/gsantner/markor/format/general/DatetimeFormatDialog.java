@@ -115,6 +115,7 @@ public class DatetimeFormatDialog {
         });
 
         formatEdit.setText(as.getString(LAST_USED_PREF, ""));
+        viewRoot.findViewById(R.id.time_format_last_used).setEnabled(!as.getString(LAST_USED_PREF, "").isEmpty());
         viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> formatEdit.setText(as.getString(LAST_USED_PREF, "")));
         viewRoot.findViewById(R.id.time_format_just_date).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedDateFormat()));
         viewRoot.findViewById(R.id.time_format_just_time).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedTimeFormat()));
@@ -177,7 +178,7 @@ public class DatetimeFormatDialog {
      */
     private static String parseDatetimeFormatToString(String timeFormat, Long datetime) {
         try {
-            DateFormat formatter = new SimpleDateFormat(timeFormat, CLOCALE);
+            DateFormat formatter = new SimpleDateFormat(timeFormat.replace("\\n", "\n"), CLOCALE);
             return formatter.format(datetime);
         } catch (Exception e) {
             // ToDO: some exception handler about not acceptable format maybe??

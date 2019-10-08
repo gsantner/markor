@@ -304,6 +304,10 @@ public abstract class TextActions {
                 runMarkdownRegularPrefixAction("1. ");
                 return true;
             }
+            case "tmaid_common_time": {
+                DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                return true;
+            }
             case "tmaid_common_attach_something": {
                 SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
                     switch (itemId) {

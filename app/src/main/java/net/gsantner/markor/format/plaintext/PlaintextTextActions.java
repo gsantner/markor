@@ -58,6 +58,7 @@ public class PlaintextTextActions extends TextActions {
             {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
             {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
+            {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp},
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
