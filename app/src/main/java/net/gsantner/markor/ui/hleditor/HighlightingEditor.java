@@ -164,6 +164,8 @@ public class HighlightingEditor extends AppCompatEditText {
             case 8:
                 getText().insert(start, "        ");
                 break;
+            default:
+                break;
         }
     }
 
@@ -175,11 +177,11 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (end <= text.length()) {
             text = text.substring(start, end);
-            if (sw == 4 && text.equals("    ")) {
+            if (sw == 4 && "    ".equals(text)) {
                 getText().replace(start, end, "");
-            } else if (sw == 2 && text.equals("  ")) {
+            } else if (sw == 2 && "  ".equals(text)) {
                 getText().replace(start, end, "");
-            } else if (sw == 8 && text.equals("        ")) {
+            } else if (sw == 8 && "        ".equals(text)) {
                 getText().replace(start, end, "");
             }
         }
