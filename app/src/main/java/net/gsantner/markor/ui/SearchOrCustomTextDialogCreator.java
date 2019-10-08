@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
+import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -76,7 +77,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.iconsForData = availableDataToIconMap;
         dopt.isSearchEnabled = false;
         dopt.titleText = 0;
-        dopt.fillScreenWidth = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -192,8 +193,21 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add(odate + oasc);
         availableData.add(odate + odesc);
 
+        final List<Integer> dataIcons = new ArrayList<>();
+        dataIcons.add(R.drawable.ic_star_border_black_24dp);
+        dataIcons.add(R.drawable.ic_star_border_black_24dp);
+        dataIcons.add(R.drawable.ic_local_offer_black_24dp);
+        dataIcons.add(R.drawable.ic_local_offer_black_24dp);
+        dataIcons.add(R.drawable.gs_email_sign_black_24dp);
+        dataIcons.add(R.drawable.gs_email_sign_black_24dp);
+        dataIcons.add(R.drawable.ic_date_range_black_24dp);
+        dataIcons.add(R.drawable.ic_date_range_black_24dp);
+
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, ocontext + odesc));
+        dopt.iconsForData = dataIcons;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.gravity = Gravity.BOTTOM | Gravity.END;
 
         dopt.titleText = R.string.sort;
         dopt.messageText = activity.getString(R.string.sort_tasks_by_selected_order);
@@ -339,12 +353,20 @@ public class SearchOrCustomTextDialogCreator {
             highlightedData.add(Character.toString(selectedPriority));
         }
 
+        final List<Integer> dataIcons = new ArrayList<>();
+        dataIcons.add(R.drawable.ic_delete_black_24dp);
+        for (int i = 0; i <= 5; i++) {
+            dataIcons.add(R.drawable.ic_star_border_black_24dp);
+        }
+
+        dopt.iconsForData = dataIcons;
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.priority;
-        dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = "";
         dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = 475;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

@@ -64,7 +64,8 @@ public class SearchOrCustomTextDialog {
         public String messageText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
-        public boolean fillScreenWidth = true;
+        public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
+        public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int gravity = Gravity.NO_GRAVITY;
 
         @ColorInt
@@ -103,6 +104,8 @@ public class SearchOrCustomTextDialog {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         textView.setCompoundDrawableTintList(ColorStateList.valueOf(dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
                     }
+                } else {
+                    textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 }
 
                 boolean hl = dopt.highlightData.contains(text);
@@ -221,8 +224,10 @@ public class SearchOrCustomTextDialog {
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         dialog.show();
-        if ((w = dialog.getWindow()) != null && dopt.fillScreenWidth) {
-            w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        if ((w = dialog.getWindow()) != null) {
+            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
+            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
+            w.setLayout(ds_w, ds_h);
         }
 
         if ((w = dialog.getWindow()) != null && dopt.gravity != Gravity.NO_GRAVITY) {
