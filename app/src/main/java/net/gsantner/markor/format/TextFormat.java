@@ -46,6 +46,10 @@ public class TextFormat {
 
     // Either pass file or null and absolutePath
     public static boolean isTextFile(File file, String... absolutePath) {
+        if (file == null && (absolutePath == null || absolutePath.length < 1)) {
+            return false;
+        }
+
         String path = (absolutePath != null && absolutePath.length > 0) ? absolutePath[0] : file.getAbsolutePath();
         path = path.toLowerCase(Locale.ROOT);
 

@@ -225,12 +225,21 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
         // Check if is a favourite
         boolean isFavourite = false;
+        boolean selTextFilesOnly = false;
         if (selMulti1) {
             for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
                 if (selFiles.contains(favourite)) {
                     isFavourite = true;
                     break;
                 }
+            }
+        }
+        for (File f : _filesystemViewerAdapter.getCurrentSelection()) {
+            if (TextFormat.isTextFile(f)) {
+                selTextFilesOnly = true;
+            } else {
+                selTextFilesOnly = false;
+                break;
             }
         }
 
@@ -247,7 +256,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
-            _fragmentMenu.findItem(R.id.action_copy).setVisible(selMulti1);
+            _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
         }
     }
 
@@ -479,12 +488,13 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
 
-            case R.id.action_copy: {
+            case R.id.action_fs_copy_to_clipboard: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    if(TextFormat.isTextFile(file,file.getAbsolutePath())){
-                        ShareUtil shareUtil = new ShareUtil(getContext());
-                        shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                    if (TextFormat.isTextFile(file, file.getAbsolutePath())) {
+                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                        Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                        _filesystemViewerAdapter.unselectAll();
                     }
                 }
                 return true;

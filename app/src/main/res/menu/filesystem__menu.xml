@@ -27,11 +27,11 @@
         android:visible="false"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_copy"
+        android:id="@+id/action_fs_copy_to_clipboard"
         android:icon="@drawable/ic_content_copy_black_24dp"
-        android:title="@string/favourite"
+        android:title="@string/clipboard"
         android:visible="false"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_rename_selected_item"
         android:icon="@drawable/ic_gs_rename_black_24dp"

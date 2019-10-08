@@ -10,6 +10,7 @@ import android.view.View;
 
 public class MenuItemIdDummy implements MenuItem {
     private final int _itemId;
+
     public MenuItemIdDummy(final int itemId) {
         _itemId = itemId;
     }
