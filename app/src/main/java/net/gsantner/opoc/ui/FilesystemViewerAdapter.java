@@ -32,8 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.opoc.service.ImageLoaderTask;
+import net.gsantner.opoc.util.ImageLoaderTask;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -76,8 +75,6 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
-    private Bitmap _fileImage;
-    private Bitmap _folderImage;
 
     //########################
     //## Methods
@@ -95,8 +92,6 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
         _recyclerView = recyclerView;
-        _fileImage = ContextUtils.get().drawableToBitmap(ContextCompat.getDrawable(_context, _dopt.fileImage));
-        _folderImage = ContextUtils.get().drawableToBitmap(ContextCompat.getDrawable(_context, _dopt.folderImage));
     }
 
     @NonNull
@@ -149,20 +144,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
-        Bitmap image = _fileImage;
-        boolean isImage = false;
+        holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
 
-        if (file.isDirectory()) {
-            image = _folderImage;
-        } else {
-            if (filename.endsWith(".jpg") || filename.endsWith(".png")) {
-                isImage = true;
-                ImageLoaderTask<ilesystemViewerViewHolder> taskLoadImage = new ImageLoaderTask<>(this, _context, true, holder);
-                taskLoadImage.execute(file);
-            }
+        final boolean isImage = ((filename.toLowerCase().endsWith(".jpg")) || (filename.toLowerCase().endsWith(".png")));
+
+        if (isImage) {
+            ImageLoaderTask<ilesystemViewerViewHolder> taskLoadImage = new ImageLoaderTask<>(this, _context, true, holder);
+            taskLoadImage.execute(file);
         }
 
-        holder.image.setImageBitmap(image);
         if (_currentSelection.contains(file)) {
             holder.image.setImageResource(_dopt.selectedItemImage);
         }
@@ -264,16 +254,9 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
     @Override
     public void onImageLoaded(Bitmap bitmap, ilesystemViewerViewHolder holder) {
-        holder.image.setImageBitmap(bitmap);
-        TagContainer data = (TagContainer) holder.itemRoot.getTag();
-        if (data != null && data.file != null) {
-            File file = data.file;
-            holder.image.clearColorFilter();
-            if (_currentSelection.contains(file)) {
-                holder.image.setImageResource(_dopt.selectedItemImage);
-                holder.image.setColorFilter(ContextCompat.getColor(_context, _dopt.accentColor),
-                        android.graphics.PorterDuff.Mode.SRC_ATOP);
-            }
+        try {
+            holder.image.setImageBitmap(bitmap);
+        } catch(Exception ignored) {
         }
     }
 
