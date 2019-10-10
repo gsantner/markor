@@ -418,9 +418,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_auto_scroll: {
-                // TODO: Implement
-                CoolExperimentalStuff.startAutoScroller(getActivity(),
-                        _webView.getVisibility() == View.VISIBLE);
+                boolean isWebView = _webView.getVisibility() == View.VISIBLE;
+
+                if (!CoolExperimentalStuff.existsAutoScroller()){
+                    CoolExperimentalStuff.startAutoScroller(getActivity(), isWebView);
+                } else {
+                    CoolExperimentalStuff.stopAutoScrollerIfExists();
+                }
                 return true;
             }
         }
@@ -624,6 +628,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
         }
         _isPreviewVisible = show;
+        CoolExperimentalStuff.stopAutoScrollerIfExists();
         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
     }
 

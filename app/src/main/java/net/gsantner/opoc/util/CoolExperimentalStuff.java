@@ -144,8 +144,9 @@ public class CoolExperimentalStuff {
         }
     }
 
-    public static void startAutoScroller(final Activity activity, final boolean isWebView) {
+    private static Thread autoScrollerThread = null;
 
+    public static void startAutoScroller(final Activity activity, final boolean isWebView) {
         View view;
         if (isWebView) {
             view = activity.findViewById(R.id.document__fragment_view_webview);
@@ -156,7 +157,7 @@ public class CoolExperimentalStuff {
         final int scrollAmount = view.getHeight() / 3;
         final int millisecondsDelay = 5000;
 
-        Thread s = new Thread() {
+        autoScrollerThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -168,9 +169,18 @@ public class CoolExperimentalStuff {
                 }
             }
         };
-        s.start();
+        autoScrollerThread.start();
+    }
 
-        // TODO: Add some listener to cancel the scrolling
+    public static void stopAutoScrollerIfExists() {
+        if (existsAutoScroller()) {
+            autoScrollerThread.interrupt();
+        }
+        autoScrollerThread = null;
+    }
+
+    public static boolean existsAutoScroller() {
+        return autoScrollerThread != null && autoScrollerThread.isAlive();
     }
 
 }

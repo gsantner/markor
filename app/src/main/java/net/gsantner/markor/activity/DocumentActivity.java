@@ -37,6 +37,7 @@ import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -271,6 +272,12 @@ public class DocumentActivity extends AppActivityBase {
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CoolExperimentalStuff.stopAutoScrollerIfExists();
     }
 
     @Override
