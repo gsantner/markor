@@ -18,8 +18,6 @@ import com.github.mertakdut.Reader;
 import com.github.mertakdut.exception.OutOfPagesException;
 import com.github.mertakdut.exception.ReadingException;
 
-import net.gsantner.markor.R;
-
 import java.io.File;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
@@ -27,6 +25,8 @@ import java.util.concurrent.atomic.AtomicReference;
 // License Public domain/CC0 for now
 // Just some experimental code
 public class CoolExperimentalStuff {
+
+    private static Thread autoScrollerThread = null;
 
     public static String convertEpubToText(final File filepath, final String translatedStringForPage) {
         //final String filepath = new File("/sdcard/epub.epub");
@@ -144,16 +144,7 @@ public class CoolExperimentalStuff {
         }
     }
 
-    private static Thread autoScrollerThread = null;
-
-    public static void startAutoScroller(final Activity activity, final boolean isWebView) {
-        View view;
-        if (isWebView) {
-            view = activity.findViewById(R.id.document__fragment_view_webview);
-        } else {
-            view = activity.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
-        }
-
+    public static void startAutoScroller(final View view) {
         final int scrollAmount = view.getHeight() / 3;
         final int millisecondsDelay = 5000;
 
@@ -161,11 +152,13 @@ public class CoolExperimentalStuff {
             @Override
             public void run() {
                 try {
-                    while (view.getVisibility() == View.VISIBLE) {
+                    while (view.canScrollVertically(1)) {
                         Thread.sleep(millisecondsDelay);
                         view.scrollBy(0, scrollAmount);
                     }
                 } catch (Exception ignored) {
+                } finally {
+                    autoScrollerThread = null;
                 }
             }
         };
@@ -176,11 +169,10 @@ public class CoolExperimentalStuff {
         if (existsAutoScroller()) {
             autoScrollerThread.interrupt();
         }
-        autoScrollerThread = null;
     }
 
     public static boolean existsAutoScroller() {
-        return autoScrollerThread != null && autoScrollerThread.isAlive();
+        return autoScrollerThread != null;
     }
 
 }

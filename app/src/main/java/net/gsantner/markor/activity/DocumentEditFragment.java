@@ -418,10 +418,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_auto_scroll: {
-                boolean isWebView = _webView.getVisibility() == View.VISIBLE;
-
                 if (!CoolExperimentalStuff.existsAutoScroller()){
-                    CoolExperimentalStuff.startAutoScroller(getActivity(), isWebView);
+                    View view;
+                    if (_webView.getVisibility() == View.VISIBLE) {
+                        view = _webView;
+                    }
+                    else {
+                        view = getActivity().findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
+                    }
+                    CoolExperimentalStuff.startAutoScroller(view);
                 } else {
                     CoolExperimentalStuff.stopAutoScrollerIfExists();
                 }
