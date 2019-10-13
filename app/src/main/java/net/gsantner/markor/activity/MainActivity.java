@@ -66,7 +66,8 @@ import butterknife.OnLongClick;
 import butterknife.OnPageChange;
 
 public class MainActivity extends AppActivityBase implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
-    public static boolean IS_DEBUG_ENABLED = false;
+    
+	public static boolean IS_DEBUG_ENABLED = false;
 
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
