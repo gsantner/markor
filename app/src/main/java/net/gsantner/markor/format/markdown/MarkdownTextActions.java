@@ -20,7 +20,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 
 public class MarkdownTextActions extends TextActions {
 

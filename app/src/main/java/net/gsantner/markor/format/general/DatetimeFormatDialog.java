@@ -9,14 +9,13 @@ package net.gsantner.markor.format.general;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.support.v4.os.ConfigurationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +27,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.util.Callback;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DatetimeFormatDialog {
 
@@ -48,10 +49,10 @@ public class DatetimeFormatDialog {
      * @param activity {@link Activity} from which is {@link DatetimeFormatDialog} called
      * @param hlEditor {@link HighlightingEditor} which 'll add selected result to cursor position
      */
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     public static void showDatetimeFormatDialog(final Activity activity, final HighlightingEditor hlEditor) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, (ViewGroup) null);
+        final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
         ContextUtils cu = new ContextUtils(viewRoot.getContext());
         AppSettings as = new AppSettings(viewRoot.getContext());
@@ -62,37 +63,39 @@ public class DatetimeFormatDialog {
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.SECOND, 0);
 
-        String[] defaultDatetimeFormats = activity.getBaseContext().getResources().getStringArray(
-                R.array.time_date_formats_array);
+        final String[] defaultDatetimeFormats = activity.getBaseContext().getResources().getStringArray(R.array.time_date_formats_array);
 
+        final AtomicReference<Dialog> dialog = new AtomicReference<>();
+        final AtomicReference<Callback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
+        final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
         final EditText formatEdit = viewRoot.findViewById(R.id.datetime_format_input);
         final TextView previewView = viewRoot.findViewById(R.id.formatted_example);
         final Button datePickButton = viewRoot.findViewById(R.id.start_datepicker_button);
         final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
         final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
-        formatInsteadCheckbox.setChecked(false);
         final CheckBox alwaysNowCheckBox = viewRoot.findViewById(R.id.always_use_current_datetime_checkbox);
 
-        viewRoot.findViewById(R.id.datetime_format_input_show_spinner).setOnClickListener(v -> popupWindow.show());
+
+        // Popup window for ComboBox
         popupWindow.setAdapter(new SimpleAdapter(activity, createAdapterData(defaultDatetimeFormats),
                 android.R.layout.simple_expandable_list_item_2, new String[]{"format", "date"},
                 new int[]{android.R.id.text1, android.R.id.text2}
         ));
-        popupWindow.setAnchorView(formatEdit);
-        popupWindow.setModal(true);
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
             formatEdit.setText(defaultDatetimeFormats[position]);
             popupWindow.dismiss();
             setToNow(cal, alwaysNowCheckBox.isChecked());
             previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
         });
+        popupWindow.setAnchorView(formatEdit);
+        popupWindow.setModal(true);
+        viewRoot.findViewById(R.id.datetime_format_input_show_spinner).setOnClickListener(v -> popupWindow.show());
 
-        // check for changes in combo box every 2 sec(delay)
+        // monitor format input at combobox and update resulting value
         formatEdit.addTextChangedListener(new TextWatcher() {
-            boolean isTyping = false;
             private final int DELAY = 100;
-            private long editTime = System.currentTimeMillis();
+            private long editTime = 0;
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,20 +110,20 @@ public class DatetimeFormatDialog {
             @Override
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
-                    isTyping = false;
                     setToNow(cal, alwaysNowCheckBox.isChecked());
                     previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }
             }
         });
-
         formatEdit.setText(as.getString(LAST_USED_PREF, ""));
-        viewRoot.findViewById(R.id.time_format_last_used).setEnabled(!as.getString(LAST_USED_PREF, "").isEmpty());
-        viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> formatEdit.setText(as.getString(LAST_USED_PREF, "")));
-        viewRoot.findViewById(R.id.time_format_just_date).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedDateFormat()));
-        viewRoot.findViewById(R.id.time_format_just_time).setOnClickListener(b -> formatEdit.setText(cu.getLocalizedTimeFormat()));
 
-        // DatePicker Dialog
+        viewRoot.findViewById(R.id.time_format_last_used).setEnabled(!as.getString(LAST_USED_PREF, "").isEmpty());
+        viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(as.getString(LAST_USED_PREF, "")));
+        viewRoot.findViewById(R.id.time_format_just_date).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(cu.getLocalizedDateFormat()));
+        viewRoot.findViewById(R.id.time_format_just_time).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(cu.getLocalizedTimeFormat()));
+        viewRoot.findViewById(R.id.time_format_yyyy_mm_dd).setOnClickListener(b -> callbackInsertTextToEditor.get().callback("YYYY-mm-dd"));
+
+        // Pick Date Dialog
         datePickButton.setOnClickListener(button -> new DatePickerDialog(activity, (view, year, month, day) -> {
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
@@ -129,7 +132,7 @@ public class DatetimeFormatDialog {
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         );
 
-        // TimePicker Dialog
+        // Pick Time Dialog
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
@@ -138,37 +141,36 @@ public class DatetimeFormatDialog {
         );
 
         // hide buttons when both check box are checked
-        View.OnClickListener onOptionsChangedListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean dateChangeable = !formatInsteadCheckbox.isChecked() && !alwaysNowCheckBox.isChecked();
-                timePickButton.setEnabled(dateChangeable);
-                datePickButton.setEnabled(dateChangeable);
-                alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
-            }
+        View.OnClickListener onOptionsChangedListener = v -> {
+            boolean dateChangeable = !formatInsteadCheckbox.isChecked() && !alwaysNowCheckBox.isChecked();
+            timePickButton.setEnabled(dateChangeable);
+            datePickButton.setEnabled(dateChangeable);
+            dateHeadline.setEnabled(!formatInsteadCheckbox.isChecked());
+            alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
         };
-
         formatInsteadCheckbox.setOnClickListener(onOptionsChangedListener);
         alwaysNowCheckBox.setOnClickListener(onOptionsChangedListener);
 
+        callbackInsertTextToEditor.set((selectedFormat) -> {
+            setToNow(cal, alwaysNowCheckBox.isChecked());
+            String text = parseDatetimeFormatToString(selectedFormat, cal.getTimeInMillis());
+            previewView.setText(text);
+            hlEditor.insertOrReplaceTextOnCursor(getOutput(
+                    formatInsteadCheckbox.isChecked(), text, formatEdit.getText().toString())
+            );
+            dialog.get().dismiss();
+        });
+
         // set builder and implement buttons to discard and submit
         builder.setView(viewRoot)
-                .setNeutralButton(R.string.help, (dialog, which) -> cu.openWebpageInExternalBrowser("https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns"))
+                .setNeutralButton(R.string.help, (dlgI, which) -> cu.openWebpageInExternalBrowser("https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns"))
                 .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        as.setString(LAST_USED_PREF, formatEdit.getText().toString());
-                        setToNow(cal, alwaysNowCheckBox.isChecked());
-                        String text = parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis());
-                        previewView.setText(text);
-                        hlEditor.insertOrReplaceTextOnCursor(getOutput(
-                                formatInsteadCheckbox.isChecked(), text, formatEdit.getText().toString())
-                        );
-                    }
+                .setPositiveButton(android.R.string.ok, (dlgI, which) -> {
+                    as.setString(LAST_USED_PREF, formatEdit.getText().toString());
+                    callbackInsertTextToEditor.get().callback(formatEdit.getText().toString());
                 });
 
-        builder.show();
+        dialog.set(builder.show());
     }
 
     /**

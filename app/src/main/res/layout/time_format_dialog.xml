@@ -7,7 +7,8 @@
     android:layout_margin="0dp"
     android:padding="0dp"
     android:paddingTop="0dp"
-    android:paddingBottom="0dp">
+    android:paddingBottom="0dp"
+    tools:ignore="ButtonStyle">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,36 +64,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="ButtonStyle">
-
-            <Button
-                android:id="@+id/time_format_last_used"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="38"
-                android:focusable="true"
-                android:text="@string/last_used"
-                android:textAllCaps="false" />
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/time_format_just_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="32"
+                android:layout_weight="50"
                 android:focusable="true"
                 android:text="@string/just_date"
                 android:textAllCaps="false" />
-
 
             <Button
                 android:id="@+id/time_format_just_time"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="30"
+                android:layout_weight="50"
                 android:focusable="true"
                 android:text="@string/just_time"
                 android:textAllCaps="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/time_format_last_used"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:focusable="true"
+                android:text="@string/last_used"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/time_format_yyyy_mm_dd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:focusable="true"
+                android:text="YYYY-mm-dd"
+                android:textAllCaps="false"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
 
@@ -103,6 +118,7 @@
             android:text="@string/get_format_instead_date_or_time" />
 
         <TextView
+            android:id="@+id/date_headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

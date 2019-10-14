@@ -76,8 +76,8 @@ public class TodoTxtTextActions extends TextActions {
             {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
             {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
             {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp},
-            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
             {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp},
+            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {

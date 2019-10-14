@@ -167,7 +167,8 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        List<String> availableData = new ArrayList<>();
+        final List<String> availableData = new ArrayList<>();
+        final List<Integer> availableDataToIconMap = new ArrayList<>();
 
         AppSettings appSettings = new AppSettings(activity.getApplicationContext());
         String o_context = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
@@ -189,40 +190,23 @@ public class SearchOrCustomTextDialogCreator {
             callback.callback(values[0], values[1].contains(d_desc.replace(" ", "")));
         };
 
-        availableData.add(o_prio + d_asc);
-        availableData.add(o_prio + d_desc);
-        availableData.add(o_project + d_asc);
-        availableData.add(o_project + d_desc);
-        availableData.add(o_context + d_asc);
-        availableData.add(o_context + d_desc);
-        availableData.add(o_date + d_asc);
-        availableData.add(o_date + d_desc);
-        availableData.add(o_duedate + d_asc);
-        availableData.add(o_duedate + d_desc);
-        availableData.add(o_description + d_asc);
-        availableData.add(o_description + d_desc);
-        availableData.add(o_textline + d_asc);
-        availableData.add(o_textline + d_desc);
-
-        final List<Integer> dataIcons = new ArrayList<>();
-        dataIcons.add(R.drawable.ic_star_border_black_24dp);
-        dataIcons.add(R.drawable.ic_star_border_black_24dp);
-        dataIcons.add(R.drawable.ic_local_offer_black_24dp);
-        dataIcons.add(R.drawable.ic_local_offer_black_24dp);
-        dataIcons.add(R.drawable.gs_email_sign_black_24dp);
-        dataIcons.add(R.drawable.gs_email_sign_black_24dp);
-        dataIcons.add(R.drawable.ic_date_range_black_24dp);
-        dataIcons.add(R.drawable.ic_date_range_black_24dp);
-        dataIcons.add(R.drawable.ic_date_range_black_24dp);
-        dataIcons.add(R.drawable.ic_date_range_black_24dp);
-        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
-        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
-        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
-        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
+        final Callback.a2<String, Integer> addToList = (o_by, iconRes) -> {
+            availableData.add(o_by + d_asc);
+            availableData.add(o_by + d_desc);
+            availableDataToIconMap.add(iconRes);
+            availableDataToIconMap.add(iconRes);
+        };
+        addToList.callback(o_prio, R.drawable.ic_star_border_black_24dp);
+        addToList.callback(o_project, R.drawable.ic_local_offer_black_24dp);
+        addToList.callback(o_context, R.drawable.gs_email_sign_black_24dp);
+        addToList.callback(o_date, R.drawable.ic_date_range_black_24dp);
+        addToList.callback(o_duedate, R.drawable.ic_date_range_black_24dp);
+        addToList.callback(o_description, R.drawable.ic_text_fields_black_24dp);
+        addToList.callback(o_textline, R.drawable.ic_text_fields_black_24dp);
 
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, o_context + d_desc));
-        dopt.iconsForData = dataIcons;
+        dopt.iconsForData = availableDataToIconMap;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 530;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
