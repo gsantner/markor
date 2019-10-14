@@ -170,28 +170,39 @@ public class SearchOrCustomTextDialogCreator {
         List<String> availableData = new ArrayList<>();
 
         AppSettings appSettings = new AppSettings(activity.getApplicationContext());
-        String ocontext = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
-        String oproject = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.tag : R.string.project);
-        String oprio = activity.getString(R.string.priority);
-        String odate = activity.getString(R.string.date);
-        String oasc = " (" + activity.getString(R.string.ascending) + ")";
-        String odesc = " (" + activity.getString(R.string.descending) + ")";
+        String o_context = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
+        String o_project = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.tag : R.string.project);
+        String o_prio = activity.getString(R.string.priority);
+        String o_date = activity.getString(R.string.date);
+        String o_textline = activity.getString(R.string.text_lines);
+        String o_description = activity.getString(R.string.description);
+        String o_duedate = activity.getString(R.string.due_date);
+        String d_asc = " (" + activity.getString(R.string.ascending) + ")";
+        String d_desc = " (" + activity.getString(R.string.descending) + ")";
         String optLastSelected = "showSttSortDialogue.last_selected";
 
         dopt.callback = arg1 -> {
             appSettings.setString(optLastSelected, arg1);
-            String[] values = arg1.replace(ocontext, "context").replace(oproject, "project").replace(oprio, "priority").replace(odate, "date").split(" ");
-            callback.callback(values[0], values[1].contains(odesc.replace(" ", "")));
+            String[] values = arg1.replace(o_context, "context").replace(o_project, "project").replace(o_prio, "priority")
+                    .replace(o_date, "date").replace(o_textline, "line").replace(o_description, "description").replace(o_duedate, "duedate")
+                    .split(" ");
+            callback.callback(values[0], values[1].contains(d_desc.replace(" ", "")));
         };
 
-        availableData.add(oprio + oasc);
-        availableData.add(oprio + odesc);
-        availableData.add(oproject + oasc);
-        availableData.add(oproject + odesc);
-        availableData.add(ocontext + oasc);
-        availableData.add(ocontext + odesc);
-        availableData.add(odate + oasc);
-        availableData.add(odate + odesc);
+        availableData.add(o_prio + d_asc);
+        availableData.add(o_prio + d_desc);
+        availableData.add(o_project + d_asc);
+        availableData.add(o_project + d_desc);
+        availableData.add(o_context + d_asc);
+        availableData.add(o_context + d_desc);
+        availableData.add(o_date + d_asc);
+        availableData.add(o_date + d_desc);
+        availableData.add(o_duedate + d_asc);
+        availableData.add(o_duedate + d_desc);
+        availableData.add(o_description + d_asc);
+        availableData.add(o_description + d_desc);
+        availableData.add(o_textline + d_asc);
+        availableData.add(o_textline + d_desc);
 
         final List<Integer> dataIcons = new ArrayList<>();
         dataIcons.add(R.drawable.ic_star_border_black_24dp);
@@ -202,15 +213,22 @@ public class SearchOrCustomTextDialogCreator {
         dataIcons.add(R.drawable.gs_email_sign_black_24dp);
         dataIcons.add(R.drawable.ic_date_range_black_24dp);
         dataIcons.add(R.drawable.ic_date_range_black_24dp);
+        dataIcons.add(R.drawable.ic_date_range_black_24dp);
+        dataIcons.add(R.drawable.ic_date_range_black_24dp);
+        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
+        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
+        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
+        dataIcons.add(R.drawable.ic_text_fields_black_24dp);
 
         dopt.data = availableData;
-        dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, ocontext + odesc));
+        dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, o_context + d_desc));
         dopt.iconsForData = dataIcons;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = 530;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
 
-        dopt.titleText = R.string.sort;
-        dopt.messageText = activity.getString(R.string.sort_tasks_by_selected_order);
+        dopt.titleText = R.string.sort_tasks_by_selected_order;
+        dopt.messageText = "";
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);

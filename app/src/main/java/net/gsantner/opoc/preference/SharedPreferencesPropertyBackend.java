@@ -547,7 +547,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
      */
     public Date getDateOfDaysAgo(int days) {
         Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_MONTH, -days);
+        cal.add(Calendar.DATE, -days);
         return cal.getTime();
     }
 

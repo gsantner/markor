@@ -23,6 +23,7 @@ public class SttCommanderTests {
 
     private String TODAY = SttCommander.DATEF_YYYY_MM_DD.format(new Date());
     private String DEMO_LINE_1 = "2017-11-29 create some fancy unit tests @foss";
+    private String DEMO_LINE_2 = "x 2019-10-14 " + DEMO_LINE_1 + " due:2019-10-12 kvp:kvpvalue";
     private String DEMO_LINE_MULTIPLE = DEMO_LINE_1 + "\n" + DEMO_LINE_1 + "\n" + DEMO_LINE_1;
 
     private SttTaskWithParserInfo task(String taskLine) {
@@ -56,6 +57,29 @@ public class SttCommanderTests {
         assertThat(task.getTaskLine()).isEqualTo("2 +app 017" + DEMO_LINE_1.substring(4));
 
         assertThat(task.getProjects().contains("app")).isEqualTo(true);
+    }
+
+
+    @Test()
+    public void checkDone() {
+        SttTaskWithParserInfo task = task(DEMO_LINE_2);
+        assertThat(task.isDone()).isEqualTo(true);
+        task = task(DEMO_LINE_1);
+        assertThat(task.isDone()).isEqualTo(false);
+    }
+
+    @Test()
+    public void checkKeyValuePairs() {
+        SttTaskWithParserInfo task = task(DEMO_LINE_2);
+        assertThat(task.getKeyValuePairs().size()).isEqualTo(2);
+
+        assertThat(task.getKeyValuePairs().containsKey("kvp")).isEqualTo(true);
+        assertThat(task.getKeyValuePairs().get("kvp")).isEqualTo("kvpvalue");
+
+        assertThat(task.getKeyValuePairs().containsKey("due")).isEqualTo(true);
+        assertThat(task.getKeyValuePairs().get("due")).isEqualTo("2019-10-12");
+
+        assertThat(task.getDueDate()).isEqualTo("2019-10-12");
     }
 
     @Test()

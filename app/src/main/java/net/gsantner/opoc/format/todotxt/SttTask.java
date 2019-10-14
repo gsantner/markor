@@ -30,6 +30,7 @@ public class SttTask implements Serializable {
     protected static final int PROP_PRIORITY = 22;
     protected static final int PROP_CREATION_DATE = 23;
     protected static final int PROP_COMPLETION_DATE = 24;
+    protected static final int PROP_DUE_DATE = 25;
 
     public static final char PRIORITY_NONE = (char) -1;
 
@@ -119,6 +120,15 @@ public class SttTask implements Serializable {
         return this;
     }
 
+    public String getDueDate() {
+        return _data.getString(PROP_DUE_DATE, "");
+    }
+
+    public SttTask setDueDate(String value) {
+        _data.setString(PROP_DUE_DATE, value);
+        return this;
+    }
+
     public String getDescription() {
         return _data.getString(PROP_DESCRIPTION, "");
     }
@@ -131,4 +141,6 @@ public class SttTask implements Serializable {
     public MapPropertyBackend<Integer> getData() {
         return _data;
     }
+
+
 }

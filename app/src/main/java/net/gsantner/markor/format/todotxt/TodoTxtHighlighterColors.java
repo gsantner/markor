@@ -48,7 +48,7 @@ public class TodoTxtHighlighterColors {
     }
 
     public int getDateColor() {
-        return 0xcc4d4d4d;
+        return 0xcc6d6d6d;
     }
 
     public int getCategoryColor() {

@@ -10,12 +10,15 @@
 #########################################################*/
 package net.gsantner.opoc.format.todotxt;
 
+import net.gsantner.opoc.format.todotxt.extension.SttTaskParserInfoExtension;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +50,7 @@ public class SttCommander {
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)((?:[a-z]+):(?:[a-z0-9_-]+))");
+    public static final Pattern PATTERN_DUE_DATE = Pattern.compile("(?:due:)(" + PT_DATE + ")");
     public static final Pattern PATTERN_PRIORITY_ANY = Pattern.compile("(?:^|\\n)\\(([A-Za-z])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_A = Pattern.compile("(?:^|\\n)\\(([Aa])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_B = Pattern.compile("(?:^|\\n)\\(([Bb])\\)\\s");
@@ -119,6 +123,7 @@ public class SttCommander {
         task.setCreationDate(parseCreationDate(line));
         task.setPriority(parsePriority(line));
         task.setKeyValuePairs(parseKeyValuePairs(line));
+        task.setDueDate(parseDueDate(line));
 
         System.out.print("");
         return task;
@@ -143,6 +148,10 @@ public class SttCommander {
 
     private String parseCreationDate(String line) {
         return parseOneValueOrDefault(line, PATTERN_CREATION_DATE, "");
+    }
+
+    private String parseDueDate(String line) {
+        return parseOneValueOrDefault(line, PATTERN_DUE_DATE, "");
     }
 
     private char parsePriority(String line) {
@@ -325,6 +334,12 @@ public class SttCommander {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
 
+    public static String getDaysFromToday(int days) {
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DATE, days);
+        return DATEF_YYYY_MM_DD.format(cal.getTime());
+    }
+
     public static boolean isTodoFile(String filepath) {
         return filepath != null && SttCommander.TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text"));
     }
@@ -386,6 +401,22 @@ public class SttCommander {
                     difference = compare(x.getCreationDate(), y.getCreationDate());
                     break;
                 }
+                case "duedate": {
+                    difference = compare(x.getDueDate(), y.getDueDate());
+                    break;
+                }
+                case "description": {
+                    difference = compare(x.getDescription(), y.getDescription());
+                    break;
+                }
+                case "line": {
+                    if (x instanceof SttTaskParserInfoExtension && y instanceof SttTaskParserInfoExtension) {
+                        difference = compare(((SttTaskParserInfoExtension) x).getTaskLine(), ((SttTaskParserInfoExtension) y).getTaskLine());
+                    } else {
+                        difference = compare(x.getDescription(), y.getDescription());
+                    }
+                    break;
+                }
                 default: {
                     return 0;
                 }
@@ -425,7 +456,7 @@ public class SttCommander {
             if (n != 0) {
                 return n;
             } else {
-                return x.toLowerCase().compareTo(y.toLowerCase());
+                return x.trim().toLowerCase().compareTo(y.trim().toLowerCase());
             }
         }
     }

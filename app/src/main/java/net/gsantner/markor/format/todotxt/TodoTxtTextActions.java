@@ -304,6 +304,10 @@ public class TodoTxtTextActions extends TextActions {
                     commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
                 }
+                case R.string.tmaid_todotxt_current_date: {
+                    _hlEditor.getText().insert(origSelectionStart, " due:" + SttCommander.getDaysFromToday(3));
+                    return true;
+                }
             }
             return false;
         }

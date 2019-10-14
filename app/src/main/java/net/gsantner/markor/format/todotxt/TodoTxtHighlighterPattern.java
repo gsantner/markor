@@ -33,6 +33,7 @@ public enum TodoTxtHighlighterPattern {
     PRIORITY_D(SttCommander.PATTERN_PRIORITY_D),
     PRIORITY_E(SttCommander.PATTERN_PRIORITY_E),
     PRIORITY_F(SttCommander.PATTERN_PRIORITY_F),
+    DUE_DATE(SttCommander.PATTERN_DUE_DATE),
 
     LINK(Patterns.WEB_URL),
     NEWLINE_CHARACTER(Pattern.compile("(\\n|^)")),

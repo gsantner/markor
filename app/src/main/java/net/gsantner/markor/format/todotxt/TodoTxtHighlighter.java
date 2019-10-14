@@ -71,6 +71,7 @@ public class TodoTxtHighlighter extends Highlighter {
             // Date: Match Creation date before completition date
             _profiler.restart("Date Color");
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
+            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DUE_DATE.getPattern(), colors.getPriorityColor(1), 1);
             //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CREATION_DATE.getPattern(), 0xff00ff00);
             //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.COMPLETION_DATE.getPattern(), 0xff0000ff);
 
