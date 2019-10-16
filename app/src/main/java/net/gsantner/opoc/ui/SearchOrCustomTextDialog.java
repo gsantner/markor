@@ -98,7 +98,7 @@ public class SearchOrCustomTextDialog {
                 String text = textView.getText().toString();
 
                 int posInOriginalList = dopt.data.indexOf(text);
-                if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size()) {
+                if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size() && dopt.iconsForData.get(posInOriginalList) != 0) {
                     textView.setCompoundDrawablesWithIntrinsicBounds(dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
                     textView.setCompoundDrawablePadding(32);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

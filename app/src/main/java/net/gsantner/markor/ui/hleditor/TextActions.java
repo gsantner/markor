@@ -29,6 +29,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.format.todotxt.SttCommander;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -306,6 +307,11 @@ public abstract class TextActions {
             }
             case "tmaid_common_time": {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                return true;
+            }
+
+            case "tmaid_common_time_insert_timestamp": {
+                _hlEditor.insertOrReplaceTextOnCursor("- " + SttCommander.getDaysFromToday(0) + ": ");
                 return true;
             }
             case "tmaid_common_attach_something": {

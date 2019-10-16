@@ -151,6 +151,10 @@ public class MarkdownTextActions extends TextActions {
                     _hlEditor.setSelection(pos + 48);
                     return true;
                 }
+                case R.string.tmaid_common_time: {
+                    runCommonTextAction("tmaid_common_time_insert_timestamp");
+                    return true;
+                }
             }
             return false;
         }

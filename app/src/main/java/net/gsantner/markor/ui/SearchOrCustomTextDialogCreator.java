@@ -48,6 +48,7 @@ public class SearchOrCustomTextDialogCreator {
         String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
         dopt.data = new ArrayList<>(Arrays.asList(actions));
 
+        dopt.dialogHeightDp = 530;
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);

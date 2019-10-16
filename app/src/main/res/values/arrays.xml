@@ -79,31 +79,6 @@
         <item translatable="false">.md</item>
     </string-array>
 
-    <!-- few basic date/time formats -->
-    <string-array name="time_date_formats_array" translatable="false">
-        <item translatable="false">hh:mm</item>
-        <item translatable="false">yyyy-MM-dd</item>
-        <item translatable="false">dd.MM.yyyy</item>
-        <item translatable="false">dd-MM-yyyy</item>
-        <item translatable="false">MM/dd/yyyy</item>
-        <item translatable="false">yyyy/MM/dd</item>
-        <item translatable="false">MMM yyyy</item>
-        <item translatable="false">hh:mm:ss</item>
-        <item translatable="false">HH:mm:ss</item>
-        <item translatable="false">dd hh:mm</item>
-        <item translatable="false">dd-MM-yyyy hh:mm</item>
-        <item translatable="false">dd-MM-yyyy hh:mm:ss.s</item>
-        <item translatable="false">dd-MM-yyyy HH:mm</item>
-        <item translatable="false">dd-MM-yyyy HH:mm:ss.s</item>
-        <item translatable="false">dd-MM-yy</item>
-        <item translatable="false">MM/dd/yy</item>
-        <item translatable="false">dd.MM.yy</item>
-        <item translatable="false">yy/MM/dd</item>
-        <item translatable="false">dd hh:mm:ss</item>
-        <item translatable="false">\'[W\'w\']\' EEEE, dd.MM.yyyy</item>
-        <item translatable="false">\'\\n\[W\'w\']\' EEEE, dd.MM.yyyy\'\\n-------------------------------\\n\'</item>
-    </string-array>
-
     <string-array name="pref_arrdisp__files_startup_folder" translatable="false">
         <item translatable="false">@string/notebook</item>
         <item translatable="false">@string/favourites</item>

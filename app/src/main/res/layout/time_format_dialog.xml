@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="50"
                 android:focusable="true"
-                android:text="YYYY-mm-dd"
+                android:text="yyyy-MM-dd"
                 android:textAllCaps="false"
                 tools:ignore="HardcodedText" />
         </LinearLayout>

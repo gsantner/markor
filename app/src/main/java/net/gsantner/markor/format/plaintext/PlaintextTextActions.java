@@ -87,6 +87,10 @@ public class PlaintextTextActions extends TextActions {
                     action = CommonTextActions.ACTION_JUMP_BOTTOM_TOP;
                     break;
                 }
+                case "tmaid_common_time": {
+                    action = "tmaid_common_time_insert_timestamp";
+                    break;
+                }
             }
             return runAction(action, true, null);
         }

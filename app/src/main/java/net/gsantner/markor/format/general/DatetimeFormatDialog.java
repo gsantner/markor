@@ -42,14 +42,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class DatetimeFormatDialog {
 
-    private static Locale CLOCALE;
-    private static final String LAST_USED_PREF = DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat";
-
     /**
      * @param activity {@link Activity} from which is {@link DatetimeFormatDialog} called
      * @param hlEditor {@link HighlightingEditor} which 'll add selected result to cursor position
      */
-    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n, InflateParams"})
     public static void showDatetimeFormatDialog(final Activity activity, final HighlightingEditor hlEditor) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
@@ -57,13 +54,36 @@ public class DatetimeFormatDialog {
         ContextUtils cu = new ContextUtils(viewRoot.getContext());
         AppSettings as = new AppSettings(viewRoot.getContext());
 
-        CLOCALE = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
+        final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
+        final String LAST_USED_PREF = DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat";
+
+        final String[] PREDEFINED_DATE_TIME_FORMATS = new String[]{
+                "hh:mm",
+                "yyyy-MM-dd",
+                "dd.MM.yyyy",
+                "dd-MM-yyyy",
+                "MM/dd/yyyy",
+                "yyyy/MM/dd",
+                "MMM yyyy",
+                "hh:mm:ss",
+                "HH:mm:ss",
+                "dd hh:mm",
+                "dd-MM-yyyy hh:mm",
+                "dd-MM-yyyy hh:mm:ss.s",
+                "dd-MM-yyyy HH:mm",
+                "dd-MM-yyyy HH:mm:ss.s",
+                "dd-MM-yy",
+                "MM/dd/yy",
+                "dd.MM.yy",
+                "yy/MM/dd",
+                "dd hh:mm:ss",
+                "'[W'w']' EEEE, dd.MM.yyyy",
+                "'\\n[W'w']' EEEE, dd.MM.yyyy'\\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\\n'",
+        };
 
         final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.SECOND, 0);
-
-        final String[] defaultDatetimeFormats = activity.getBaseContext().getResources().getStringArray(R.array.time_date_formats_array);
 
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
         final AtomicReference<Callback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
@@ -78,15 +98,15 @@ public class DatetimeFormatDialog {
 
 
         // Popup window for ComboBox
-        popupWindow.setAdapter(new SimpleAdapter(activity, createAdapterData(defaultDatetimeFormats),
+        popupWindow.setAdapter(new SimpleAdapter(activity, createAdapterData(locale, PREDEFINED_DATE_TIME_FORMATS),
                 android.R.layout.simple_expandable_list_item_2, new String[]{"format", "date"},
                 new int[]{android.R.id.text1, android.R.id.text2}
         ));
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
-            formatEdit.setText(defaultDatetimeFormats[position]);
+            formatEdit.setText(PREDEFINED_DATE_TIME_FORMATS[position]);
             popupWindow.dismiss();
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
+            previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
         });
         popupWindow.setAnchorView(formatEdit);
         popupWindow.setModal(true);
@@ -111,7 +131,7 @@ public class DatetimeFormatDialog {
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
                     setToNow(cal, alwaysNowCheckBox.isChecked());
-                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }
             }
         });
@@ -121,14 +141,14 @@ public class DatetimeFormatDialog {
         viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(as.getString(LAST_USED_PREF, "")));
         viewRoot.findViewById(R.id.time_format_just_date).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(cu.getLocalizedDateFormat()));
         viewRoot.findViewById(R.id.time_format_just_time).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(cu.getLocalizedTimeFormat()));
-        viewRoot.findViewById(R.id.time_format_yyyy_mm_dd).setOnClickListener(b -> callbackInsertTextToEditor.get().callback("YYYY-mm-dd"));
+        viewRoot.findViewById(R.id.time_format_yyyy_mm_dd).setOnClickListener(b -> callbackInsertTextToEditor.get().callback("yyyy-MM-dd"));
 
         // Pick Date Dialog
         datePickButton.setOnClickListener(button -> new DatePickerDialog(activity, (view, year, month, day) -> {
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
-                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         );
 
@@ -136,7 +156,7 @@ public class DatetimeFormatDialog {
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
-                    previewView.setText(parseDatetimeFormatToString(formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         );
 
@@ -153,7 +173,7 @@ public class DatetimeFormatDialog {
 
         callbackInsertTextToEditor.set((selectedFormat) -> {
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            String text = parseDatetimeFormatToString(selectedFormat, cal.getTimeInMillis());
+            String text = parseDatetimeFormatToString(locale, selectedFormat, cal.getTimeInMillis());
             previewView.setText(text);
             hlEditor.insertOrReplaceTextOnCursor(getOutput(
                     formatInsteadCheckbox.isChecked(), text, formatEdit.getText().toString())
@@ -174,13 +194,14 @@ public class DatetimeFormatDialog {
     }
 
     /**
+     * @param locale     {@link Locale} locale
      * @param timeFormat {@link String} text which 'll be used as format for {@link SimpleDateFormat}
      * @param datetime   {@link Long} selected _datetime in milisecond
      * @return formatted _datetime
      */
-    private static String parseDatetimeFormatToString(String timeFormat, Long datetime) {
+    private static String parseDatetimeFormatToString(final Locale locale, final String timeFormat, final Long datetime) {
         try {
-            DateFormat formatter = new SimpleDateFormat(timeFormat.replace("\\n", "\n"), CLOCALE);
+            DateFormat formatter = new SimpleDateFormat(timeFormat.replace("\\n", "\n"), locale);
             return formatter.format(datetime);
         } catch (Exception e) {
             // ToDO: some exception handler about not acceptable format maybe??
@@ -199,25 +220,27 @@ public class DatetimeFormatDialog {
     }
 
     /**
+     * @param locale                 {@link Locale} locale
      * @param defaultDatetimeFormats {@link String...} contains all default _datetime formats
      * @return extends {@link String...} with preview of given formats
      */
-    private static String[] expandFormatsWithValues(String[] defaultDatetimeFormats) {
+    private static String[] expandFormatsWithValues(final Locale locale, final String[] defaultDatetimeFormats) {
         String[] result = new String[defaultDatetimeFormats.length * 2];
         for (int i = 0; i < defaultDatetimeFormats.length; i++) {
             result[i * 2] = defaultDatetimeFormats[i];
-            result[(i * 2) + 1] = parseDatetimeFormatToString(defaultDatetimeFormats[i], System.currentTimeMillis());
+            result[(i * 2) + 1] = parseDatetimeFormatToString(locale, defaultDatetimeFormats[i], System.currentTimeMillis());
         }
         return result;
     }
 
     /**
+     * @param locale  {@link Locale} locale
      * @param formats {@link String...} contains all default _datetime formats with preview
      * @return {@link List} of mapped pairs ->> format + preview
      */
-    private static List<Map<String, String>> createAdapterData(String[] formats) {
+    private static List<Map<String, String>> createAdapterData(final Locale locale, final String[] formats) {
         List<Map<String, String>> pairs = new ArrayList<>();
-        String[] formatAndParsed = expandFormatsWithValues(formats);
+        String[] formatAndParsed = expandFormatsWithValues(locale, formats);
 
         for (int i = 0; i < formatAndParsed.length; i++) {
             Map<String, String> pair = new HashMap<>(2);

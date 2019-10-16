@@ -259,4 +259,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="deindent" translatable="false">De-indent</string>
     <string name="assets" translatable="false">Assets</string>
     <string name="audio" translatable="false">Audio</string>
+    <string name="continued_overline" translatable="false">Continued overline (‾‾‾‾)</string>
+    <string name="shrug" translatable="false">Shrug (¯\_(ツ)_/¯)</string>
 </resources>
