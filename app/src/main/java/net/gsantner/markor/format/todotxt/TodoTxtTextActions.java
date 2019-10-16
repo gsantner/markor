@@ -22,6 +22,8 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.DocumentIO;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
@@ -208,7 +210,9 @@ public class TodoTxtTextActions extends TextActions {
                                     doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
                                 }
                                 doneFileContents += TextUtils.join("\n", move).trim() + "\n";
-                                if (FileUtils.writeFile(doneFile, doneFileContents)) {
+
+                                // Write to do done file
+                                if (DocumentIO.saveDocument(new Document(doneFile), doneFileContents, new ShareUtil(_activity))) {
                                     // All went good
                                     _hlEditor.setText(TextUtils.join("\n", keep));
                                     int newIndex = _hlEditor.getText().toString().indexOf(newCursorTarget);
