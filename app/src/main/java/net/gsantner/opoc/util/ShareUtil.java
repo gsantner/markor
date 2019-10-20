@@ -360,18 +360,23 @@ public class ShareUtil {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
-    public PrintJob print(WebView webview, String jobName) {
+    public PrintJob print(final WebView webview, final String jobName, final boolean... landscape) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            PrintDocumentAdapter printAdapter;
-            PrintManager printManager = (PrintManager) _context.getSystemService(Context.PRINT_SERVICE);
+            final PrintDocumentAdapter printAdapter;
+            final PrintManager printManager = (PrintManager) _context.getSystemService(Context.PRINT_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 printAdapter = webview.createPrintDocumentAdapter(jobName);
             } else {
                 printAdapter = webview.createPrintDocumentAdapter();
             }
+            final PrintAttributes.Builder attrib = new PrintAttributes.Builder();
+            if (landscape != null && landscape.length > 0 && landscape[0]) {
+                attrib.setMediaSize(new PrintAttributes.MediaSize("ISO_A4", "android", 11690, 8270));
+                attrib.setMinMargins(new PrintAttributes.Margins(0,0,0,0));
+            }
             if (printManager != null) {
                 try {
-                    return printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
+                    return printManager.print(jobName, printAdapter, attrib.build());
                 } catch (Exception ignored) {
                 }
             }

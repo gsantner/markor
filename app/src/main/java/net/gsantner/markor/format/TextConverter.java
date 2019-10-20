@@ -10,12 +10,14 @@
 package net.gsantner.markor.format;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.webkit.WebView;
 
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class TextConverter {
@@ -35,6 +37,8 @@ public abstract class TextConverter {
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
     protected static final String TOKEN_TEXT_CONVERTER_CSS_CLASS = "{{ post.text_converter_name }}";
+    protected static final String TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT = "{{ app.webview_max_zoom_out_by_default }}";
+    protected static final String TOKEN_POST_TODAY_DATE = "{{ post.date_today }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
     protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
@@ -82,6 +86,12 @@ public abstract class TextConverter {
         }
         baseFolder = "file://" + baseFolder + "/";
         webView.loadDataWithBaseURL(baseFolder, html, getContentType(), UTF_CHARSET, null);
+
+        // When TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT is contained in text zoom out as far possible
+        // Notice: overViewMode / useWideViewPort work differently
+        for (int i = (html.contains(TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT) ? 0 : 99); i < 30; i++) {
+            webView.postDelayed(webView::zoomOut, 210 * (i < 5 ? 1 : (i < 10 ? 2 : (i < 15 ? 3 : (i < 20 ? 5 : 9)))));
+        }
 
         return html;
     }
@@ -148,6 +158,7 @@ public abstract class TextConverter {
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
+                .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()));
         ;
 
         return html;

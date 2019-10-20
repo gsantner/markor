@@ -241,6 +241,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
         menu.findItem(R.id.submenu_attach).setVisible(false);
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
 
 
@@ -351,11 +352,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document);
+                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document, _document.getContent().contains("beamer\n"));
                         } else if (item.getItemId() == R.id.action_share_image) {
                             _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
                         }
-                    }, 6000);
+                    }, 7000);
                 }
 
                 return true;
