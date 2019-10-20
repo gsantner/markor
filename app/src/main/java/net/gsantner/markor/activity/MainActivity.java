@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -90,6 +91,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     private String _cachedFolderTitle;
 
+    @SuppressLint("SdCardPath")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -135,24 +137,10 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
 
-        // Send Test intent
-        /*Intent i = new Intent(this, DocumentActivity.class);
-        i.setAction(Intent.ACTION_SEND);
-        i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_TEXT, "hello worldX\nGreat year");
-        startActivity(i);*/
-
-        //_shareUtil.showMountSdDialog(this);
-
-        /*_shareUtil.writeFile(new File("/storage/C151-0B05/amy.txt"), false, (arg1, arg2) -> {
-            try {
-                arg2.write("COOLICOOL".getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        _shareUtil.writeFile(new File("/storage/C151-0B05/some/very/vool"), true, null);
-        _shareUtil.writeFile(new File("/storage/C151-0B05/net/test/a.lol.txt"), false, null);*/
+        // noinspection PointlessBooleanExpression - Send Test intent
+        if (BuildConfig.IS_TEST_BUILD && false) {
+            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), false, true, null);
+        }
 
         _bottomNav.postDelayed(() -> {
             if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {
