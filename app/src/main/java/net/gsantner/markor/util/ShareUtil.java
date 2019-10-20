@@ -48,9 +48,9 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
-    public PrintJob printOrCreatePdfFromWebview(WebView webview, Document document) {
-        String jobName = String.format("%s (%s)", document.getTitle(), _context.getString(R.string.app_name));
-        return super.print(webview, jobName);
+    public PrintJob printOrCreatePdfFromWebview(WebView webview, Document document, boolean...landscape) {
+        String jobName = String.format("%s (%s)", document.getTitle(), _context.getString(R.string.app_name_real));
+        return super.print(webview, jobName, landscape);
     }
 
     public void showMountSdDialog(Activity... activity) {
