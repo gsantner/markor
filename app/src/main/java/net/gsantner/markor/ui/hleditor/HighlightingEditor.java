@@ -145,6 +145,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void insertOrReplaceTextOnCursor(String newText) {
+        newText = (newText == null ? "" : newText);
         int start = Math.max(getSelectionStart(), 0);
         int end = Math.max(getSelectionEnd(), 0);
         getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());

@@ -89,8 +89,8 @@ public class DatetimeFormatDialog {
         final AtomicReference<Callback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
-        final EditText formatEdit = viewRoot.findViewById(R.id.datetime_format_input);
-        final TextView previewView = viewRoot.findViewById(R.id.formatted_example);
+        final EditText formatEditText = viewRoot.findViewById(R.id.datetime_format_input);
+        final TextView previewTextView = viewRoot.findViewById(R.id.formatted_example);
         final Button datePickButton = viewRoot.findViewById(R.id.start_datepicker_button);
         final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
         final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
@@ -103,17 +103,17 @@ public class DatetimeFormatDialog {
                 new int[]{android.R.id.text1, android.R.id.text2}
         ));
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
-            formatEdit.setText(PREDEFINED_DATE_TIME_FORMATS[position]);
+            formatEditText.setText(PREDEFINED_DATE_TIME_FORMATS[position]);
             popupWindow.dismiss();
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
+            previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
         });
-        popupWindow.setAnchorView(formatEdit);
+        popupWindow.setAnchorView(formatEditText);
         popupWindow.setModal(true);
         viewRoot.findViewById(R.id.datetime_format_input_show_spinner).setOnClickListener(v -> popupWindow.show());
 
         // monitor format input at combobox and update resulting value
-        formatEdit.addTextChangedListener(new TextWatcher() {
+        formatEditText.addTextChangedListener(new TextWatcher() {
             private final int DELAY = 100;
             private long editTime = 0;
 
@@ -131,11 +131,14 @@ public class DatetimeFormatDialog {
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
                     setToNow(cal, alwaysNowCheckBox.isChecked());
-                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+                    final boolean error = previewTextView.getText().toString().isEmpty() && !formatEditText.getText().toString().isEmpty();
+                    formatEditText.setError(error ? "^^^!!!  'normal text'" : null);
+                    previewTextView.setVisibility(error? View.GONE : View.VISIBLE);
                 }
             }
         });
-        formatEdit.setText(as.getString(LAST_USED_PREF, ""));
+        formatEditText.setText(as.getString(LAST_USED_PREF, ""));
 
         viewRoot.findViewById(R.id.time_format_last_used).setEnabled(!as.getString(LAST_USED_PREF, "").isEmpty());
         viewRoot.findViewById(R.id.time_format_last_used).setOnClickListener(b -> callbackInsertTextToEditor.get().callback(as.getString(LAST_USED_PREF, "")));
@@ -148,7 +151,7 @@ public class DatetimeFormatDialog {
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
-                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         );
 
@@ -156,7 +159,7 @@ public class DatetimeFormatDialog {
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
-                    previewView.setText(parseDatetimeFormatToString(locale, formatEdit.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         );
 
@@ -174,9 +177,9 @@ public class DatetimeFormatDialog {
         callbackInsertTextToEditor.set((selectedFormat) -> {
             setToNow(cal, alwaysNowCheckBox.isChecked());
             String text = parseDatetimeFormatToString(locale, selectedFormat, cal.getTimeInMillis());
-            previewView.setText(text);
+            previewTextView.setText(text);
             hlEditor.insertOrReplaceTextOnCursor(getOutput(
-                    formatInsteadCheckbox.isChecked(), text, formatEdit.getText().toString())
+                    formatInsteadCheckbox.isChecked(), text, formatEditText.getText().toString())
             );
             dialog.get().dismiss();
         });
@@ -186,8 +189,8 @@ public class DatetimeFormatDialog {
                 .setNeutralButton(R.string.help, (dlgI, which) -> cu.openWebpageInExternalBrowser("https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns"))
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, (dlgI, which) -> {
-                    as.setString(LAST_USED_PREF, formatEdit.getText().toString());
-                    callbackInsertTextToEditor.get().callback(formatEdit.getText().toString());
+                    as.setString(LAST_USED_PREF, formatEditText.getText().toString());
+                    callbackInsertTextToEditor.get().callback(formatEditText.getText().toString());
                 });
 
         dialog.set(builder.show());
