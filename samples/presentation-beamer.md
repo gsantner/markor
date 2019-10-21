@@ -21,7 +21,7 @@ background: slategrey;
 
 -----------------
 
-# Slide title
+## Slide title
 
 
 1. All Markdown features of Markor are **supported** for Slides too ~~strikeout~~ _italic_ `code`
@@ -29,13 +29,13 @@ background: slategrey;
 3. End last slide with hyphens too
 4. Slide backgrounds can be configured using CSS, for all and individual slides
 5. Print / PDF export in landscape mode
-6. Images can be centered by adding 'imghcenter' in alt text, grow to page size with 'imgbig'
-7. Example: `![desc imghcenter imgbig](a.jpg)`
+6. Create title only slides (like first slide) by starting the slide (line after `---`) with title `# title`
 
 
 -----------------
-# Slide with centered image
-* imghcenter in description centers image, imgbig makes it big
+## Slide with centered image
+* Images can be centered by adding 'imghcenter' in alt text & grown to page size with 'imgbig'
+* Example: `![text imghcenter imgbig text](a.jpg)`
 
 ![imghcenter imgbig](file:///android_asset/img/flowerfield.jpg)
 
@@ -43,7 +43,7 @@ background: slategrey;
 
 
 -----------------
-# Page with gradient background
+## Page with gradient background
 * and a picture
 * configure background color/image with CSS .slide_p4 { } (4 = the slide page number)
 
@@ -53,8 +53,8 @@ background: slategrey;
 <style> .slide_p4 { background: linear-gradient(to bottom, #11998e, #38ef7d); } </style>
 
 -----------------
-# Page with image background
-* and text on top
+## Page with image background
+* containing text and a table
 
 | Left aligned | Middle aligned | Right aligned |
 | :------------------- | :----------------------: | --------------------: |
@@ -63,7 +63,10 @@ background: slategrey;
 
 
 
-<style> .slide_p5 { background: url('file:///android_asset/img/schindelpattern.jpg') no-repeat center center fixed; background-size: cover; } </style>
+<style> 
+.slide_p5 { background: url('file:///android_asset/img/schindelpattern.jpg') no-repeat center center fixed; background-size: cover; }
+.slide_p5 > .slide_body > * { color: black; }
+</style>
 
 -----------------
 
