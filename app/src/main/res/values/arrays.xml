@@ -50,6 +50,8 @@
         <item translatable="false">@string/char_punctation_mark_arrows</item>
         <item translatable="false">@string/indent</item>
         <item translatable="false">@string/deindent</item>
+        <item translatable="false">@string/shrug</item>
+        <item translatable="false">@string/continued_overline</item>
     </string-array>
 
     <string-array name="new_file_types" translatable="false">
