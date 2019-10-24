@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -115,6 +116,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             holder.title.setText("????");
             return;
         }
+        new ContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
         File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         String filename = file_pre.getName();
         if (_virtualMapping.keySet().contains(file_pre)) {

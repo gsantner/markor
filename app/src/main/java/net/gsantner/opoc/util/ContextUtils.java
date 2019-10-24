@@ -495,10 +495,16 @@ public class ContextUtils {
      */
     public void setAppLanguage(String androidLC) {
         Locale locale = getLocaleByAndroidCode(androidLC);
+        locale = (locale != null && !androidLC.isEmpty()) ? locale : Resources.getSystem().getConfiguration().locale;
+        setLocale(locale);
+    }
+
+    public ContextUtils setLocale(Locale locale) {
         Configuration config = _context.getResources().getConfiguration();
-        config.locale = (locale != null && !androidLC.isEmpty())
-                ? locale : Resources.getSystem().getConfiguration().locale;
+        config.locale = (locale != null ? locale : Resources.getSystem().getConfiguration().locale);
         _context.getResources().updateConfiguration(config, null);
+        Locale.setDefault(locale);
+        return this;
     }
 
     /**
