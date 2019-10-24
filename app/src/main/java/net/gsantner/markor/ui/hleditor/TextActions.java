@@ -29,7 +29,10 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.todotxt.SttCommander;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -311,7 +314,10 @@ public abstract class TextActions {
             }
 
             case "tmaid_common_time_insert_timestamp": {
-                _hlEditor.insertOrReplaceTextOnCursor("- " + SttCommander.getDaysFromToday(0) + ": ");
+                try {
+                    _hlEditor.insertOrReplaceTextOnCursor(new SimpleDateFormat(_appSettings.getString(DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat", ""), Locale.getDefault()).format(new Date()).replace("\\n", "\n"));
+                } catch (Exception ignored) {
+                }
                 return true;
             }
             case "tmaid_common_attach_something": {
