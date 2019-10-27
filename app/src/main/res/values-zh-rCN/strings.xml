@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">工具</string>
     <string name="reading">阅读</string>
     <string name="read">读取</string>
+    <string name="table">表</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">多列？按表按钮开始一个表(插入头部)，按短添加行数。</string>
+    <string name="example_of_a_markdown_table">Markdown表示例</string>
 </resources>
