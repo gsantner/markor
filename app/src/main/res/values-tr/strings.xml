@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Araçlar</string>
     <string name="reading">Okunuyor</string>
     <string name="read">Oku</string>
+    <string name="table">Tablo</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Ne kadar sütun? Bir tablo başlatmak için tablo düğmesine uzun basın (başlık ekle), bir satır eklemek için kısa basın.</string>
+    <string name="example_of_a_markdown_table">Markdown tablosu örneği</string>
 </resources>
