@@ -1,5 +1,25 @@
 ![](https://test.gsantner.net/matomo/piwik.php?action_name=inapp_changelog&idsite=2&rec=1&urlref=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md&_cvar=%7B%221%22%3A%5B%22source%22%2C%22inapp_changelog%22%5D%2C%222%22%3A%5B%22project%22%2C%22markor%22%5D%2C%223%22%3A%5B%22packageid%22%2C%22net.gsantner.markor%22%5D%2C%224%22%3A%5B%22referrer%22%2C%22https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FCHANGELOG.md%22%5D%7D)
 
+### v2.2
+- Added Presentations & Slides with Markdown
+- Added audio recording dialog which allows to add voice to documents. Manual interaction required to start & stop voice recording. Voice recording permission required for this feature
+- Added editor button to create Markdown tables
+- Markdown Footnotes support added
+- Added attachment button for all formats (insert color, link, image, file, audio, date)
+- Date/Time button long press now inserts text with last used format
+- Improved SD Card reading & writing
+- Added option to File-import-dialog to import to notebook instead of current folder
+- Reordered editor buttons so global actions are on same position at all formats
+- Source code highlighting for View mode
+- Added settings option to enable experimental features
+- New experimental feature: Convert epub to plaintext and replace current text with ebook
+- New experimental feature: Speed Reading for (text from) edit mode
+- New Special Keys option: Indent / Deindent current line
+- Copy textfile to clipboard from file browser
+- Added highlighting todo.txt due dates
+- Long press the todo.txt date button to insert due date
+- Sepia editor theme
+
 
 ### v2.1 [Blog post](https://gsantner.net/blog/2019/09/04/markor-v2.1-search-dotfiles-pdf-export.html?source=inapp_changelog&project=markor) | [Code changes](https://github.com/gsantner/markor/compare/v2.0.0...v2.1.0)  
 - Improved editor, highlighting and overall performance
