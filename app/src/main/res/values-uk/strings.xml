@@ -211,7 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Докладніше про можливості зробити внесок у проект</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проекту. Запрошуются всі охочі, разом із новачками</string>
     <string name="project_team">Команда проекту</string>
-    <string name="contributors_public_add_yourself_description">Показати інформацію про учасників проекту, що зробили внесок та побажали бути доданими до цього списку</string>
+    <string name="contributors_public_add_yourself_description">Показати інформацію про учасників. Ви можете додати сюди інформацію про себе, якщо зробили внесок в проект</string>
     <string name="descending">за спаданням</string>
     <string name="ascending">за зростанням</string>
     <string name="disable_spelling_underline">Вимкнути перевірку орфографії</string>
@@ -301,7 +301,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Перезавантажити</string>
     <string name="wrap_words">Перенесення рядків</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Додавати м\'які переноси замість відображення смуги горизонтальної прокрутки, коли текст не вміщається у ширину екрану.</string>
-    <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточній папці. Якщо запит містить зірочку (*), застосовується пошук за сталими виразами (regex), інакше перевіряє вказаний запит.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточній директорії. Якщо запит містить зірочку (*), застосовується пошук за регулярним виразом, інакше перевіряє наявність запит в директорії.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
     <string name="template">Шаблон</string>
