@@ -67,6 +67,7 @@ public class SearchOrCustomTextDialog {
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int gravity = Gravity.NO_GRAVITY;
+        public int searchInputType = 0;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -151,6 +152,7 @@ public class SearchOrCustomTextDialog {
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
+        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override

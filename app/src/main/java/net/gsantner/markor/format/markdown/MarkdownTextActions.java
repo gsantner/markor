@@ -11,6 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
 import android.view.HapticFeedbackConstants;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,8 +19,10 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.Callback;
 
 public class MarkdownTextActions extends TextActions {
 
@@ -63,12 +66,12 @@ public class MarkdownTextActions extends TextActions {
             {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp},
             {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp},
             {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp},
+            {R.string.tmaid_markdown_table_insert_columns, R.drawable.ic_view_module_black_24dp},
             {R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp},
             {R.string.tmaid_markdown_h1, R.drawable.format_header_1},
             {R.string.tmaid_markdown_h2, R.drawable.format_header_2},
             {R.string.tmaid_markdown_h3, R.drawable.format_header_3},
             {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp},
-            {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp},
     };
 
     private class MarkdownTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
@@ -122,6 +125,10 @@ public class MarkdownTextActions extends TextActions {
                     runMarkdownInlineAction("----\n");
                     break;
                 }
+                case R.string.tmaid_markdown_table_insert_columns: {
+                    SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, callbackInsertTableRow);
+                    break;
+                }
                 case R.string.tmaid_markdown_insert_link:
                 case R.string.tmaid_markdown_insert_image: {
                     AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
@@ -155,8 +162,38 @@ public class MarkdownTextActions extends TextActions {
                     runCommonTextAction("tmaid_common_time_insert_timestamp");
                     return true;
                 }
+                case R.string.tmaid_markdown_table_insert_columns: {
+                    SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, callbackInsertTableRow);
+                    break;
+                }
             }
             return false;
         }
+
+        private final Callback.a2<Integer, Boolean> callbackInsertTableRow = (cols, isHeaderEnabled) -> {
+            StringBuilder sb = new StringBuilder("");
+            _hlEditor.requestFocus();
+            if (!_hlEditor.isCurrentLineEmpty()) {
+                sb.append("\n");
+            }
+            for (int i = 0; i < cols - 1; i++) {
+                sb.append("  | ");
+            }
+            if (isHeaderEnabled) {
+                sb.append("\n");
+                for (int i = 0; i < cols; i++) {
+                    sb.append("---");
+                    if (i < cols - 1) {
+                        sb.append("|");
+                    }
+                }
+            }
+            _hlEditor.moveCursorToEndOfLine(0);
+            _hlEditor.insertOrReplaceTextOnCursor(sb.toString());
+            _hlEditor.moveCursorToBeginOfLine(0);
+            if (isHeaderEnabled) {
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
+            }
+        };
     }
 }

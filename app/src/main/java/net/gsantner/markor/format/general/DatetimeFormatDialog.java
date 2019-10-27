@@ -134,7 +134,7 @@ public class DatetimeFormatDialog {
                     previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                     final boolean error = previewTextView.getText().toString().isEmpty() && !formatEditText.getText().toString().isEmpty();
                     formatEditText.setError(error ? "^^^!!!  'normal text'" : null);
-                    previewTextView.setVisibility(error? View.GONE : View.VISIBLE);
+                    previewTextView.setVisibility(error ? View.GONE : View.VISIBLE);
                 }
             }
         });

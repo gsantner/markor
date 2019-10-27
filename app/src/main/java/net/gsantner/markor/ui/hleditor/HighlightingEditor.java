@@ -25,7 +25,16 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 
 
+@SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
+    public boolean isCurrentLineEmpty() {
+        final int posOrig = getSelectionStart();
+        final int posLineBegin = moveCursorToBeginOfLine(0);
+        final int posEndBegin = moveCursorToEndOfLine(0);
+        setSelection(posOrig);
+        return posLineBegin == posEndBegin;
+    }
+
     interface OnTextChangedListener {
         void onTextChanged(String text);
     }
@@ -159,6 +168,18 @@ public class HighlightingEditor extends AppCompatEditText {
         } else {
             return 4;
         }
+    }
+
+    public int moveCursorToEndOfLine(int offset) {
+        simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
+        setSelection(getSelectionStart() + offset);
+        return getSelectionStart();
+    }
+
+    public int moveCursorToBeginOfLine(int offset) {
+        simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+        setSelection(getSelectionStart() + offset);
+        return getSelectionStart();
     }
 
     //

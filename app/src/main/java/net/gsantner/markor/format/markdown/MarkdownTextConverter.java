@@ -129,10 +129,10 @@ public class MarkdownTextConverter extends TextConverter {
 
         // gfm table parsing
         options.set(TablesExtension.WITH_CAPTION, false)
-                .set(TablesExtension.COLUMN_SPANS, false)
-                .set(TablesExtension.MIN_HEADER_ROWS, 1)
+                .set(TablesExtension.COLUMN_SPANS, true)
+                .set(TablesExtension.MIN_HEADER_ROWS, 0)
                 .set(TablesExtension.MAX_HEADER_ROWS, 1)
-                .set(TablesExtension.APPEND_MISSING_COLUMNS, true)
+                .set(TablesExtension.APPEND_MISSING_COLUMNS, false)
                 .set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
                 .set(WikiLinkExtension.LINK_ESCAPE_CHARS, "")
                 .set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true);
