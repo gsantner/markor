@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Nástroje</string>
     <string name="reading">Přečtěte</string>
     <string name="read">Přečtěte</string>
+    <string name="table">Ping pong</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Kolik sloupců? Tisk tlačítka na stůl dlouho pro spuštění tabulky (vložte hlavičku), stiskněte krátký pro přidání řádku.</string>
+    <string name="example_of_a_markdown_table">Příklad Markdown tabulky</string>
 </resources>

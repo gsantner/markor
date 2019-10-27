@@ -275,5 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="template">Szablon</string>
     <string name="print_pdf">Drukuj PDF</string>
     <string name="copy_file">Kopiuj plik</string>
+    <string name="experimental_features">Funkcje eksperymentalne</string>
     <string name="read">Czytaj</string>
 </resources>

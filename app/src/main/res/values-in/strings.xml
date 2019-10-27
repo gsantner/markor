@@ -12,7 +12,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Preferensi</string>
+    <string name="light">Terang</string>
+    <string name="dark">Gelap</string>
+    <string name="delete">Hapus</string>
     <string name="appearance">Tampilan</string>
+    <string name="rename">Ubah Nama</string>
+    <string name="confirm_delete">Konfirmasi Hapus</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Apakah Anda yakin ingin menghapus %s?</string>
+    <string name="confirm_overwrite">Konfirmasi Timpa</string>
+    <string name="file_already_exists_overwerite">Berkas sudah ada, timpa?</string>
+    <string name="browse_filesystem">Rambah filesystem</string>
+    <string name="title">Judul</string>
+    <string name="empty_directory">Direktori kosong</string>
     <string name="editor">Laman Pengubahan</string>
     <string name="about">Tentang Kami</string>
     <string name="create">Buat Baru</string>
@@ -30,6 +41,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Lainnya</string>
     <string name="translate">Terjemahan</string>
     <string name="report_bugs">Laporkan Bug</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Info tentang donasi untuk developer atau kontribusi untuk project ini.</string>
     <string name="bug_reports_suggest_improvements">Saran atau lapor bug</string>
     <string name="help_translating_this_app">Terjemahkan aplikasi ini ke bahasa lain</string>
     <string name="project_contribution_info">Info proyek konstributor</string>

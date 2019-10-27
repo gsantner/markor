@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Strumenti</string>
     <string name="reading">Lettura</string>
     <string name="read">Leggi</string>
+    <string name="table">Tavolo</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Quante colonne? Premi il pulsante tabella a lungo per avviare una tabella (inserire intestazione), premere corto per aggiungere una riga.</string>
+    <string name="example_of_a_markdown_table">Esempio di una tabella Markdown</string>
 </resources>
