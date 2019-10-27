@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Инструменты</string>
     <string name="reading">Чтение</string>
     <string name="read">Читать</string>
+    <string name="table">Таблица</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Сколько столбцов? Нажмите кнопку таблицы, чтобы запустить таблицу (вставить заголовок), нажмите короткий, чтобы добавить строку.</string>
+    <string name="example_of_a_markdown_table">Пример таблицы Markdown</string>
 </resources>
