@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Herramientas</string>
     <string name="reading">Leyendo</string>
     <string name="read">Leer</string>
+    <string name="table">Tabla</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">¿Cuántas columnas? Pulsa el botón de la tabla para iniciar una tabla (insertar cabecera), pulsa corto para añadir una fila.</string>
+    <string name="example_of_a_markdown_table">Ejemplo de una tabla Markdown</string>
 </resources>
