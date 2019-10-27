@@ -47,6 +47,7 @@ public abstract class TextConverter {
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
     protected static final String HTML004_HEAD_META_VIEWPORT_MOBILE = "<style>video, img { max-width: 100%; } pre { max-width: 100%; overflow: auto; } </style>";//"<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>";
     protected static final String HTML100_PERCENT_IN_FILEPATH = "<base>" + JS_S + "var newbase = document.baseURI.split('%').join('%25'); document.querySelector('base').setAttribute('href', newbase);" + JS_E;
+    protected static final String CSS_TABLE_STYLE = CSS_S + "table, th, td {  border: 1px solid " + TOKEN_BW_INVERSE_OF_THEME + "; border-collapse: collapse; border-spacing: 0; padding: 6px; }" + CSS_E;
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
     protected static final String HTML500_BODY = "</head>\n<body class='" + TOKEN_TEXT_CONVERTER_CSS_CLASS + "' onload='onPageLoaded_markor_private();'>\n\n<!-- USER DOCUMENT CONTENT -->\n\n\n";
@@ -120,7 +121,7 @@ public abstract class TextConverter {
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
-        html += HTML004_HEAD_META_VIEWPORT_MOBILE;
+        html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE;
         if (appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
         }
