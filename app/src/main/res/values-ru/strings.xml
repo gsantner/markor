@@ -315,7 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attach">Прикрепить</string>
     <string name="copy_file">Копировать файл</string>
     <string name="page">Страница</string>
-    <string name="experimental_features">Экспериментальные особенности</string>
+    <string name="experimental_features">Экспериментальные функции</string>
     <string name="tools">Инструменты</string>
     <string name="reading">Чтение</string>
     <string name="read">Читать</string>
