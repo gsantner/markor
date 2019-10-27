@@ -320,5 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Читання</string>
     <string name="read">Читати</string>
     <string name="table">Таблиця</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Скільки колонок? Тривале натискання кнопки таблиці починає таблицю (вставляє заголовок), коротке – додає рядок.</string>
     <string name="example_of_a_markdown_table">Приклад таблиці в Markdown</string>
 </resources>
