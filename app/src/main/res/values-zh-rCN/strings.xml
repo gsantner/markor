@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML （显示为纯文本）</string>
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
-    <string name="open_existing_files_in_view_mode">在查看模式中打开现有文件</string>
+    <string name="open_existing_files_in_view_mode">Open existing files in view mode</string>
     <string name="about">关于</string>
     <string name="plaintext">纯文本</string>
     <string name="file">文件</string>
@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">优先级</string>
     <string name="history">历史</string>
     <string name="sync">同步</string>
-    <string name="search_or_custom">搜索 / 自定义</string>
+    <string name="search_or_custom">Search / Custom</string>
     <string name="save">保存</string>
     <string name="update">更新</string>
     <string name="clear">清空</string>
