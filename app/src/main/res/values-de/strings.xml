@@ -319,4 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Werkzeuge</string>
     <string name="reading">Lesen</string>
     <string name="read">Lesen</string>
+    <string name="table">Tabelle</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Wie viel Spalten? Drücke die Tabellentaste lange, um eine Tabelle zu starten (Header einfügen), drücke kurz, um eine Zeile hinzuzufügen.</string>
+    <string name="example_of_a_markdown_table">Beispiel einer Markdown-Tabelle</string>
 </resources>
