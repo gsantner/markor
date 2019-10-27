@@ -302,10 +302,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Когда запрос включает звёздочку (*), используется поиск по регулярному выражению, иначе проверяется, содержится ли запрос в директории.</string>
-    <string name="always_open_with_this_app">Всегда использовать это приложение при открытии</string>
+    <string name="always_open_with_this_app">Всегда открывать этим приложением</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы с этим приложением, когда список содержит расширение файла. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения файла.</string>
     <string name="template">Шаблон</string>
-    <string name="send_debug_log">Отправить лог отладки</string>
+    <string name="send_debug_log">Отправить журнал отладки</string>
     <string name="help_by_sending_debug_information_to_the_developer">Помогите разработчикам, отправляя отладочную информацию. Данные отправляются по электронной почте вашим приложением электронной почты, и вы можете просмотреть перед отправкой все отправляемые данные. Вы найдете дополнительный пункт \"Отправить журнал отладки\" в верхнем меню, когда включено. Он создает черновик письма.</string>
     <string name="print_pdf">Печать / PDF</string>
     <string name="bigger_headings">Увеличивать заголовки</string>
