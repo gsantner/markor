@@ -12,6 +12,7 @@ package net.gsantner.markor.ui.hleditor;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -68,9 +69,10 @@ public abstract class TextActions {
         };
     }
 
-    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
+    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
+        btn.setContentDescription(_activity.getString(descRes));
         btn.setOnClickListener(v -> {
             try {
                 listener.onClick(v);
