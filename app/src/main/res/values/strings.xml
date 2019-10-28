@@ -366,4 +366,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="todotxt_archive_done_tasks">Archive completed tasks</string>
     <string name="todotxt_current_date">Current date</string>
     <string name="todotxt_sort_todo">Sort by todo</string>
+    <string name="create_new_file_or_folder">Create a new file or folder</string>
 </resources>
