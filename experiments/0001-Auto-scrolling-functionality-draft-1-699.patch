@@ -1,0 +1,175 @@
+From 1beb40b47c969aa46003093437536efbeda36d5f Mon Sep 17 00:00:00 2001
+From: Gregor Santner <gsantner@mailbox.org>
+Date: Mon, 28 Oct 2019 18:24:19 +0100
+Subject: [PATCH] Auto scrolling functionality, draft 1 (#699)
+
+---
+ .../markor/activity/DocumentActivity.java     |  7 ++++
+ .../markor/activity/DocumentEditFragment.java | 17 ++++++++++
+ .../opoc/util/CoolExperimentalStuff.java      | 34 +++++++++++++++++++
+ .../main/res/menu/document__edit__menu.xml    |  6 ++++
+ app/src/main/res/values/strings.xml           |  1 +
+ .../drawable/ic_arrow_downward_black_24dp.xml |  9 +++++
+ 6 files changed, 74 insertions(+)
+ create mode 100644 app/thirdparty/res/drawable/ic_arrow_downward_black_24dp.xml
+
+diff --git a/app/src/main/java/net/gsantner/markor/activity/DocumentActivity.java b/app/src/main/java/net/gsantner/markor/activity/DocumentActivity.java
+index eca0ab1f..b9d95876 100644
+--- a/app/src/main/java/net/gsantner/markor/activity/DocumentActivity.java
++++ b/app/src/main/java/net/gsantner/markor/activity/DocumentActivity.java
+@@ -37,6 +37,7 @@ import net.gsantner.markor.util.DocumentIO;
+ import net.gsantner.markor.util.PermissionChecker;
+ import net.gsantner.opoc.activity.GsFragmentBase;
+ import net.gsantner.opoc.util.Callback;
++import net.gsantner.opoc.util.CoolExperimentalStuff;
+ import net.gsantner.opoc.util.ShareUtil;
+ 
+ import java.io.File;
+@@ -273,6 +274,12 @@ public class DocumentActivity extends AppActivityBase {
+         }
+     }
+ 
++    @Override
++    protected void onPause() {
++        super.onPause();
++        CoolExperimentalStuff.stopAutoScrollerIfExists();
++    }
++
+     @Override
+     @SuppressWarnings("StatementWithEmptyBody")
+     public void onBackPressed() {
+diff --git a/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java b/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
+index c0ad2d1f..23af187d 100644
+--- a/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
++++ b/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
+@@ -250,6 +250,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+         menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
+         menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
+         menu.findItem(R.id.action_speed_read).setVisible(isExpimentalFeaturesEnabled);
++        menu.findItem(R.id.action_auto_scroll).setVisible(isExpimentalFeaturesEnabled);
+     }
+ 
+     public void loadDocumentIntoUi() {
+@@ -416,6 +417,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+                 CoolExperimentalStuff.showSpeedReadDialog(getActivity(), _document.getContent());
+                 return true;
+             }
++            case R.id.action_auto_scroll: {
++                if (!CoolExperimentalStuff.existsAutoScroller()){
++                    View view;
++                    if (_webView.getVisibility() == View.VISIBLE) {
++                        view = _webView;
++                    }
++                    else {
++                        view = getActivity().findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
++                    }
++                    CoolExperimentalStuff.startAutoScroller(view);
++                } else {
++                    CoolExperimentalStuff.stopAutoScrollerIfExists();
++                }
++                return true;
++            }
+         }
+         return super.onOptionsItemSelected(item);
+     }
+@@ -617,6 +633,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+             _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
+         }
+         _isPreviewVisible = show;
++        CoolExperimentalStuff.stopAutoScrollerIfExists();
+         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
+     }
+ 
+diff --git a/app/src/main/java/net/gsantner/opoc/util/CoolExperimentalStuff.java b/app/src/main/java/net/gsantner/opoc/util/CoolExperimentalStuff.java
+index bdff5294..26d1b2d8 100644
+--- a/app/src/main/java/net/gsantner/opoc/util/CoolExperimentalStuff.java
++++ b/app/src/main/java/net/gsantner/opoc/util/CoolExperimentalStuff.java
+@@ -26,6 +26,8 @@ import java.util.concurrent.atomic.AtomicReference;
+ // Just some experimental code
+ public class CoolExperimentalStuff {
+ 
++    private static Thread autoScrollerThread = null;
++
+     public static String convertEpubToText(final File filepath, final String translatedStringForPage) {
+         //final String filepath = new File("/sdcard/epub.epub");
+         final StringBuilder sb = new StringBuilder();
+@@ -141,4 +143,36 @@ public class CoolExperimentalStuff {
+             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+         }
+     }
++
++    public static void startAutoScroller(final View view) {
++        final int scrollAmount = view.getHeight() / 3;
++        final int millisecondsDelay = 5000;
++
++        autoScrollerThread = new Thread() {
++            @Override
++            public void run() {
++                try {
++                    while (view.canScrollVertically(1)) {
++                        Thread.sleep(millisecondsDelay);
++                        view.scrollBy(0, scrollAmount);
++                    }
++                } catch (Exception ignored) {
++                } finally {
++                    autoScrollerThread = null;
++                }
++            }
++        };
++        autoScrollerThread.start();
++    }
++
++    public static void stopAutoScrollerIfExists() {
++        if (existsAutoScroller()) {
++            autoScrollerThread.interrupt();
++        }
++    }
++
++    public static boolean existsAutoScroller() {
++        return autoScrollerThread != null;
++    }
++
+ }
+diff --git a/app/src/main/res/menu/document__edit__menu.xml b/app/src/main/res/menu/document__edit__menu.xml
+index a20abd6c..1b83c6f8 100644
+--- a/app/src/main/res/menu/document__edit__menu.xml
++++ b/app/src/main/res/menu/document__edit__menu.xml
+@@ -180,4 +180,10 @@
+         android:title="@string/send_debug_log"
+         android:visible="false"
+         app:showAsAction="never" />
++    <item
++        android:id="@+id/action_auto_scroll"
++        android:icon="@drawable/ic_arrow_downward_black_24dp"
++        android:title="@string/auto_scroll"
++        android:visible="false"
++        app:showAsAction="never" />
+ </menu>
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index d92ba199..607df2df 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -333,4 +333,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+     <string name="tools">Tools</string>
+     <string name="reading">Reading</string>
+     <string name="read">Read</string>
++    <string name="auto_scroll">Auto-scroll</string>
+ </resources>
+diff --git a/app/thirdparty/res/drawable/ic_arrow_downward_black_24dp.xml b/app/thirdparty/res/drawable/ic_arrow_downward_black_24dp.xml
+new file mode 100644
+index 00000000..23277e22
+--- /dev/null
++++ b/app/thirdparty/res/drawable/ic_arrow_downward_black_24dp.xml
+@@ -0,0 +1,9 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++        android:width="24dp"
++        android:height="24dp"
++        android:viewportWidth="24.0"
++        android:viewportHeight="24.0">
++    <path
++        android:pathData="M20,12l-1.41,-1.41L13,16.17V4h-2v12.17l-5.58,-5.59L4,12l8,8 8,-8z"
++        android:fillColor="#010101"/>
++</vector>
+-- 
+2.17.1
+
