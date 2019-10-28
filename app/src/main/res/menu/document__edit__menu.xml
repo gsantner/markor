@@ -61,6 +61,12 @@
         android:title="@string/redo"
         app:showAsAction="always" />
 
+    <item android:id="@+id/action_search_view"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView" />
+
     <item
         android:id="@+id/action_preview_edit_toggle"
         android:icon="@drawable/ic_visibility_black_24dp"
