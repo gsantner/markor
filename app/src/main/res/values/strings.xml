@@ -363,4 +363,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_alphabetically">Sort alphabetically</string>
     <string name="create_new_file_or_folder">Create a new file or folder</string>
     <string name="choose_format">Choose format</string>
+    <string name="selected">Selected</string>
 </resources>

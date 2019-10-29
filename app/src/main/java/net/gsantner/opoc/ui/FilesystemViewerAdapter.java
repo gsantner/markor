@@ -144,9 +144,12 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
+        int descriptionRes;
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
+        descriptionRes =file.isDirectory() ? _dopt.folderDescription : _dopt.fileDescription;
         if (_currentSelection.contains(file)) {
             holder.image.setImageResource(_dopt.selectedItemImage);
+            descriptionRes =_dopt.selectedItemDescription;
         }
         holder.image.setColorFilter(ContextCompat.getColor(_context,
                 _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
@@ -157,6 +160,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             holder.itemRoot.setPadding(dp, holder.itemRoot.getPaddingTop(), dp, holder.itemRoot.getPaddingBottom());
         }
 
+        holder.itemRoot.setContentDescription(_context.getString(descriptionRes) + " " + holder.title.getText().toString() + " " + holder.description.getText().toString());
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
         //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(view -> {
