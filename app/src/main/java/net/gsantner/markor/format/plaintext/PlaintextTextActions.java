@@ -51,15 +51,15 @@ public class PlaintextTextActions extends TextActions {
     //
     //
     private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.common_checkbox_list},
-            {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp, R.string.common_unordered_list_hyphen},
-            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.common_ordered_list_number},
-            {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.common_jump_to_bottom},
-            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.common_delete_lines},
-            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.common_open_link_browser},
-            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.common_attach_something},
-            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.common_special_key},
-            {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.common_time},
+            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list},
+            {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp, R.string.unordered_list},
+            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list},
+            {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.jump_to_bottom},
+            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
+            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link},
+            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach},
+            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key},
+            {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time},
     };
 
     private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
