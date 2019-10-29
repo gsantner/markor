@@ -32,10 +32,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">Dosya/dizin zaten var! Lütfen farklı bir ad kullanın</string>
     <string name="import_from_device">Cihazdan içe aktar</string>
     <string name="import_">İçe Aktar</string>
-    <string name="append_to_witharg">%s ekle</string>
+    <string name="append_to_witharg">%s içine ekle</string>
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
-    <string name="search_documents">Belgelerde ara</string>
+    <string name="search_documents">Belgeleri ara</string>
     <string name="share_to_arrow">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
@@ -52,7 +52,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="about">Markor Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
-    <string name="image">Görüntü</string>
+    <string name="image">Resim</string>
     <string name="font_size">Yazı Tipi Boyutu</string>
     <string name="render_rtl_language">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hata: Kaydetme dizini oluşturulamıyor</string>
@@ -280,7 +280,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Belgeyi alt kısımdaki ana görünümden, dosya tarayıcısından veya başlatıcıdan açabilirsiniz. Markor\'da paylaşılan metni ekleme seçeneği de vardır.</string>
     <string name="notebook_is_the_home_of_your_files">Not Defteri, uygulama başlatıldığında Markor\'un dosya tarayıcısına yüklediği dizindir. Dosyalarınızın ana dizinidir.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote not yazmak için en hızlı seçenektir. &gt;NotDefteri/QuickNote.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
-    <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. Varsayılan &gt;NoteDefteri/todo.txt&lt; konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
+    <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. &gt;NoteDefteri/todo.txt&lt; varsayılan konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
