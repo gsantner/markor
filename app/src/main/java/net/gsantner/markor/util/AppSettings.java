@@ -651,11 +651,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isMarkdownBiggerHeadings() {
-        int k = R.string.pref_key__editor_markdown_bigger_headings;
-        if (!isPrefSet(k)) {
-            setBool(k, isDeviceGoodHardware);
-            return isDeviceGoodHardware;
-        }
-        return getBool(k, isDeviceGoodHardware);
+        return getBool(R.string.pref_key__editor_markdown_bigger_headings_2, false);
     }
 }
