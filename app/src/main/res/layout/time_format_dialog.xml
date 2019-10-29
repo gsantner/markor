@@ -46,6 +46,7 @@
 
             <TextView
                 android:id="@+id/datetime_format_input_show_spinner"
+                android:contentDescription="@string/choose_format"
                 style="@style/Base.Widget.AppCompat.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
