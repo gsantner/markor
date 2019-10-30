@@ -29,7 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">新建文档</string>
     <string name="move">移动</string>
     <string name="info">信息</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">文件/文件夹已存在！请使用不同的名称</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">已存在同名文件/文件夹！请换一个名字试试。</string>
     <string name="import_from_device">从本设备导入</string>
     <string name="import_">导入</string>
     <string name="append_to_witharg">附加至 %s</string>
@@ -118,7 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">在桌面上创建快捷方式</string>
     <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加编辑此文件的图标。部分启动器可能不支持此操作。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在此应用的笔记本目录中。是否要将其复制到当前文件夹？这将覆盖任何具有相同名称的现有文件。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖任何已存在的文件，同时使用相同的名称。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖已有文件。</string>
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
     <string name="file_browser">文件浏览器</string>
@@ -306,10 +306,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
-    <string name="help_by_sending_debug_information_to_the_developer">通过向开发者发送调试信息提供帮助。数据通过电子邮件应用发送，您可以在发送前看到所有发送的数据。如果启用，您将在顶部菜单中找到额外的“发送调试日志”选项。它创建电子邮件草稿。</string>
+    <string name="help_by_sending_debug_information_to_the_developer">向开发者发送调试信息以提供帮助。数据将通过电子邮件应用发送，您可以在发送前查看所有数据。如果启用此选项，您将在顶部菜单中找到额外的“发送调试日志”选项。它将创建一个草稿邮件。</string>
     <string name="print_pdf">打印/PDF</string>
     <string name="bigger_headings">大标题</string>
-    <string name="increase_text_size_of_headings_according_to_level">按级别 (## h1, ### h2, ##### h3…) 增加标题文字大小</string>
+    <string name="increase_text_size_of_headings_according_to_level">根据标题级别(# h1, ## h2, ### h3…) 增加标题文字大小</string>
     <string name="current">当前</string>
     <string name="record_audio">录制音频</string>
     <string name="attach">附件</string>
@@ -319,7 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">工具</string>
     <string name="reading">阅读</string>
     <string name="read">读取</string>
-    <string name="table">表</string>
+    <string name="table">表格</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">多列？按表按钮开始一个表(插入头部)，按短添加行数。</string>
-    <string name="example_of_a_markdown_table">Markdown表示例</string>
+    <string name="example_of_a_markdown_table">Markdown 表格示例</string>
 </resources>
