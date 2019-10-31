@@ -662,5 +662,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
         });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchView.setIconified(true);
+                }
+            }
+        });
     }
 }
