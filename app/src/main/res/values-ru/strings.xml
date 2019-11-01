@@ -322,14 +322,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">Таблица</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Сколько столбцов? Длинное нажатие на кнопку таблицы начинает таблицу (вставка заголовка), коротко – добавляет строку.</string>
     <string name="example_of_a_markdown_table">Пример таблицы Markdown</string>
-    <string name="delete_lines">Удалить линии</string>
+    <string name="delete_lines">Удалить строки</string>
     <string name="unordered_list">Неупорядоченный список</string>
-    <string name="ordered_list">Упорядоченный список</string>
-    <string name="check_list">Проверить список</string>
+    <string name="ordered_list">Нумерованный список</string>
+    <string name="check_list">Контрольный список</string>
     <string name="open_link">Открыть ссылку</string>
     <string name="common_color_picker">Выбор цвета</string>
     <string name="date_and_time">Дата и время</string>
-    <string name="jump_to_bottom">Перейти внизу</string>
+    <string name="jump_to_bottom">Перейти в конец</string>
     <string name="quote">Цитата</string>
     <string name="heading">Заголовок</string>
     <string name="heading_1">Заголовок 1</string>
@@ -345,7 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_project">Добавить проект</string>
     <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
     <string name="sort_alphabetically">Сортировать по алфавиту</string>
-    <string name="create_new_file_or_folder">Создать новый файл или папку</string>
+    <string name="create_new_file_or_folder">Создать новый файл или директорию</string>
     <string name="choose_format">Выберите формат</string>
     <string name="selected">Выбрано</string>
     <string name="back">Назад</string>
