@@ -28,4 +28,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Sluit</string>
     <string name="cancel">Kanselleer</string>
     <string name="reload">Herlaai</string>
+    <string name="common_search_in_content_of_current_file">Soek</string>
 </resources>
