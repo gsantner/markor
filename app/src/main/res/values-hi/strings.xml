@@ -127,4 +127,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background">पृष्ठभूमि</string>
     <string name="font">फ़ॉन्ट</string>
     <string name="favourite">पसंदीदा</string>
+    <string name="common_search_in_content_of_current_file">खोजें</string>
 </resources>
