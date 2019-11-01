@@ -270,7 +270,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">Pestaña de inicio</string>
     <string name="tab_to_select_at_start">Pestaña para seleccionar al iniciar la aplicación</string>
     <string name="swipe_to_change_mode">Deslizar para cambiar el modo</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">Desliza para cambiar para editar o ver el modo (frente al modo actual)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">Desliza para cambiar a editar o ver el modo (frente al modo actual)</string>
     <string name="folder_first">Carpeta primero</string>
     <string name="go_to">Ir a</string>
     <string name="appdata_public">AppData (público)</string>
@@ -306,7 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Enviar registro de depuración</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(s). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(es). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
     <string name="print_pdf">Imprimir / PDF</string>
     <string name="bigger_headings">Encabezados mayores</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa el tamaño de texto de las cabeceras según el nivel (# h1, ## h2. ### h3…)</string>
@@ -320,7 +320,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Leyendo</string>
     <string name="read">Leer</string>
     <string name="table">Tabla</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">¿Cuántas columnas? Pulsa el botón de la tabla para iniciar una tabla (insertar cabecera), pulsa corto para añadir una fila.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">¿Cuántas columnas? Mantén pulsado el botón de la tabla para iniciar una tabla (insertar cabecera), pulsa corto para añadir una fila.</string>
     <string name="example_of_a_markdown_table">Ejemplo de una tabla Markdown</string>
     <string name="delete_lines">Eliminar líneas</string>
     <string name="unordered_list">Lista sin ordenar</string>
@@ -337,7 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Título 3</string>
     <string name="bold">Negrita</string>
     <string name="italic">Cursiva</string>
-    <string name="strikeout">Golpear</string>
+    <string name="strikeout">Tachar</string>
     <string name="inline_code">Código en línea</string>
     <string name="horizontal_line">Línea horizontal</string>
     <string name="toggle_done">Alternar hecho</string>

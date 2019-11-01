@@ -324,10 +324,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="example_of_a_markdown_table">Приклад таблиці в Markdown</string>
     <string name="delete_lines">Видалити рядки</string>
     <string name="unordered_list">Ненумерований список</string>
-    <string name="ordered_list">Впорядкований список</string>
-    <string name="check_list">Список</string>
+    <string name="ordered_list">Нумерований список</string>
+    <string name="check_list">Контрольний список</string>
     <string name="open_link">Відкрити посилання</string>
-    <string name="common_color_picker">Піпетка</string>
+    <string name="common_color_picker">Вибір кольору</string>
     <string name="date_and_time">Дата та час</string>
     <string name="jump_to_bottom">Перейти до кінця</string>
     <string name="quote">Цитата</string>
@@ -337,16 +337,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Заголовок 3</string>
     <string name="bold">Жирний</string>
     <string name="italic">Курсив</string>
-    <string name="strikeout">В Удар</string>
+    <string name="strikeout">Перекреслений</string>
     <string name="inline_code">Вбудований код</string>
     <string name="horizontal_line">Горизонтальна лінія</string>
     <string name="toggle_done">Перемкнути виконане</string>
     <string name="add_context">Додати контекст</string>
-    <string name="add_project">Додати проект</string>
+    <string name="add_project">Додати проєкт</string>
     <string name="archive_completed_tasks">Архівувати завершені завдання</string>
     <string name="sort_alphabetically">Сортувати за алфавітом</string>
-    <string name="create_new_file_or_folder">Створити новий файл чи папку</string>
-    <string name="choose_format">Виберіть формат</string>
+    <string name="create_new_file_or_folder">Створити новий файл чи директорію</string>
+    <string name="choose_format">Оберіть формат</string>
     <string name="selected">Обрано</string>
     <string name="back">Повернутися назад</string>
 </resources>
