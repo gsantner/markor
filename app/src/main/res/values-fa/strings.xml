@@ -182,4 +182,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center">وسط</string>
     <string name="center_text">متن وسط باشد</string>
     <string name="please_wait">لطفاً منتظر بمانید</string>
+    <string name="common_search_in_content_of_current_file">جستجو</string>
 </resources>
