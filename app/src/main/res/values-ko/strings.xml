@@ -54,4 +54,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background">배경</string>
     <string name="font">글꼴</string>
     <string name="reload">새로고침</string>
+    <string name="common_search_in_content_of_current_file">검색</string>
 </resources>
