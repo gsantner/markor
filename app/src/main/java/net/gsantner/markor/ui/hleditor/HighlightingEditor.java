@@ -21,6 +21,7 @@ import android.view.KeyEvent;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 
@@ -39,6 +40,7 @@ public class HighlightingEditor extends AppCompatEditText {
         void onTextChanged(String text);
     }
 
+    private final boolean _isDeviceGoodHardware;
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
@@ -64,6 +66,7 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
+        _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -127,7 +130,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void highlightWithoutChange(Editable editable) {
-        if (_hlEnabled) {
+        if (_hlEnabled && editable.length() <= (_isDeviceGoodHardware ? 100000 : 35000)) {
             _modified = false;
             try {
                 if (MainActivity.IS_DEBUG_ENABLED) {
