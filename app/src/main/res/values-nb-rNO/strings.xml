@@ -87,7 +87,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Avslutt</string>
     <string name="undo">Angre</string>
     <string name="redo">Gjenta</string>
-    <string name="more">Mor</string>
+    <string name="more">Mer</string>
     <string name="notebook">Notatblokk</string>
     <string name="help">Hjelp</string>
     <string name="todo_list">Gjøremålsliste</string>

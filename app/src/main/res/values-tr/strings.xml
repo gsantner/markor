@@ -32,10 +32,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">Dosya/dizin zaten var! Lütfen farklı bir ad kullanın</string>
     <string name="import_from_device">Cihazdan içe aktar</string>
     <string name="import_">İçe Aktar</string>
-    <string name="append_to_witharg">%s ekle</string>
+    <string name="append_to_witharg">%s içine ekle</string>
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
-    <string name="search_documents">Belgelerde ara</string>
+    <string name="search_documents">Belgeleri ara</string>
     <string name="share_to_arrow">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>
@@ -52,10 +52,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="about">Markor Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
-    <string name="image">Görüntü</string>
+    <string name="image">Resim</string>
     <string name="font_size">Yazı Tipi Boyutu</string>
     <string name="render_rtl_language">Sağdan sola yazılan diller için metin yönünü değiştir</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Hata: Kaydetme dizini oluşturulamıyor</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Hata: Not defteri dizini oluşturulamıyor</string>
     <string name="last_modified_witharg">Son düzenleme: %s</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
@@ -68,7 +68,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
     <string name="insert_link">Bağlantı Ekle</string>
-    <string name="insert_image">Görüntü Ekle</string>
+    <string name="insert_image">Resim Ekle</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="save_location">Kayıt konumu</string>
     <string name="select_storage_folder">Depolama klasörünü seç</string>
@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3. parti lisanslarını göster</string>
     <string name="language_change_restart_description">Uygulamanın dilini değiştir. Değişikliklerin etkili olması için uygulamayı yeniden başlat</string>
     <string name="language">Dil</string>
-    <string name="error_need_storage_permission_to_save_documents">Belgeleri kaydetmek için depolama alanı izin gerekiyor</string>
+    <string name="error_need_storage_permission_to_save_documents">Belgeleri kaydetmek için depolama izni gerekiyor</string>
     <string name="open_with">Şununla aç</string>
     <string name="sort">Sırala</string>
     <string name="date">Tarihe göre sırala</string>
@@ -137,9 +137,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="syntax_highlighting">Sözdizimini vurgula</string>
     <string name="highlighting_delay">Vurgulama gecikmesi</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak pilinizi tüketir ve eski cihazlarda uygulamayı yavaşlatabilir.</string>
-    <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanması gerekip gerekmediğini kontrol et</string>
+    <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanıp vurgulanmayacağını kontrol edin</string>
     <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Altta kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
     <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
     <string name="format">Biçim</string>
     <string name="contexts">Bağlamlar</string>
@@ -165,7 +165,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Genel</string>
     <string name="resources">Kaynaklar</string>
     <string name="space_between_lines_in_percent">Satırlar arasındaki boşlukların yüzdesi</string>
-    <string name="line_spacing">Satır aralığı</string>
+    <string name="line_spacing">Satır Aralığı</string>
     <string name="archive_does_move_done_tasks">Bitirilen görevleri aynı klasöre belirtilen dosyaya taşı</string>
     <string name="sort_tasks_by_selected_order">Görevleri seçilen düzene göre sırala</string>
     <string name="special_key">Özel Tuş</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_1_document">Belge Başlangıcı</string>
     <string name="key_pos_end_document">Belge Sonu</string>
     <string name="key_ctrl_a">Tümünü seç (Ctrl + A)</string>
-    <string name="key_tab">Tab</string>
+    <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Alttan başla</string>
     <string name="start_on_bottom_when_loading_document">Bir belge yüklendikten sonra, İmleci belge sonuna yerleştir.</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
@@ -208,10 +208,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="source_code">Kaynak Kodu</string>
     <string name="project_license">Proje Lisansı</string>
     <string name="project_contribution_info">Proje katkıda bulunma rehberi</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Bu projeye nasıl katkıda bulunacağına dair daha fazla bilgi alın</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">Bu projeye nasıl katkıda bulunacağınıza dair daha fazla bilgi alın</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
-    <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
+    <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
     <string name="descending">azalan</string>
     <string name="ascending">artan</string>
     <string name="disable_spelling_underline">Yazım denetimini kapat</string>
@@ -280,7 +280,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Belgeyi alt kısımdaki ana görünümden, dosya tarayıcısından veya başlatıcıdan açabilirsiniz. Markor\'da paylaşılan metni ekleme seçeneği de vardır.</string>
     <string name="notebook_is_the_home_of_your_files">Not Defteri, uygulama başlatıldığında Markor\'un dosya tarayıcısına yüklediği dizindir. Dosyalarınızın ana dizinidir.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote not yazmak için en hızlı seçenektir. &gt;NotDefteri/QuickNote.md &lt; varsayılan konumunda bulunan Markdown biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
-    <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. Varsayılan &gt;NoteDefteri/todo.txt&lt; konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
+    <string name="todo_is_the_easiest_way_">Görevlerinizi ToDo ile yönetin. &gt;NoteDefteri/todo.txt&lt; varsayılan konumunda todo.txt biçiminde bir dosyadır, ayarlarda özel bir dosya yolu ayarlayabilirsiniz.</string>
     <string name="navigationbar_color">Gezinme çubuğu rengi</string>
     <string name="black">Siyah</string>
     <string name="white">Beyaz</string>
