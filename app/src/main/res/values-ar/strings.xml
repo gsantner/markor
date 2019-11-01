@@ -275,5 +275,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="current">الحالي</string>
     <string name="record_audio">تسجيل الصوت</string>
     <string name="attach">ارفق</string>
-    <string name="common_search_in_content_of_current_file">بحث</string>
 </resources>
