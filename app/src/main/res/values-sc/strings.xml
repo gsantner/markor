@@ -319,4 +319,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Ainas</string>
     <string name="reading">Leghidura</string>
     <string name="read">Leghe</string>
+    <string name="common_search_in_content_of_current_file">Chirca</string>
 </resources>
