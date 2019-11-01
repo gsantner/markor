@@ -324,8 +324,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="example_of_a_markdown_table">Приклад таблиці в Markdown</string>
     <string name="delete_lines">Видалити рядки</string>
     <string name="unordered_list">Ненумерований список</string>
-    <string name="ordered_list">Впорядкований список</string>
-    <string name="check_list">Список</string>
+    <string name="ordered_list">Нумерований список</string>
+    <string name="check_list">Контрольний список</string>
     <string name="open_link">Відкрити посилання</string>
     <string name="common_color_picker">Вибір кольору</string>
     <string name="date_and_time">Дата та час</string>
