@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -242,6 +243,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.submenu_attach).setVisible(false);
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.action_search_view).setVisible(_isPreviewVisible);
+        createSearchView(menu);
+
         menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
 
 
@@ -640,5 +644,31 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public DocumentEditFragment setPreviewFlag(boolean preview) {
         _isPreviewVisible = preview;
         return this;
+    }
+
+    public void createSearchView(Menu menu) {
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                _webView.findNext(true);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                _webView.findAllAsync(text);
+                return true;
+            }
+        });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchView.setIconified(true);
+                }
+            }
+        });
     }
 }
