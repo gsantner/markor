@@ -337,7 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Título 3</string>
     <string name="bold">Negrita</string>
     <string name="italic">Cursiva</string>
-    <string name="strikeout">Golpear</string>
+    <string name="strikeout">Tachar</string>
     <string name="inline_code">Código en línea</string>
     <string name="horizontal_line">Línea horizontal</string>
     <string name="toggle_done">Alternar hecho</string>
