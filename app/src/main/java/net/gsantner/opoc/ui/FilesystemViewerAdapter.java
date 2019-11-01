@@ -48,7 +48,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
+public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
     //########################
     //## Static
     //########################
@@ -91,14 +91,31 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
         _recyclerView = recyclerView;
+
+        ContextUtils cu = new ContextUtils(context);
+        if (_dopt.primaryColor == 0) {
+            _dopt.primaryColor = cu.getResId(ContextUtils.ResType.COLOR, "primary");
+        }
+        if (_dopt.accentColor == 0) {
+            _dopt.accentColor = cu.getResId(ContextUtils.ResType.COLOR, "accent");
+        }
+        if (_dopt.primaryTextColor == 0) {
+            _dopt.primaryTextColor = cu.getResId(ContextUtils.ResType.COLOR, "primary_text");
+        }
+        if (_dopt.secondaryTextColor == 0) {
+            _dopt.secondaryTextColor = cu.getResId(ContextUtils.ResType.COLOR, "secondary_text");
+        }
+        if (_dopt.titleTextColor == 0) {
+            _dopt.titleTextColor = _dopt.primaryTextColor;
+        }
     }
 
     @NonNull
     @Override
-    public ilesystemViewerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FilesystemViewerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.opoc_filesystem_item, parent, false);
         _wasInit = true;
-        return new ilesystemViewerViewHolder(v);
+        return new FilesystemViewerViewHolder(v);
     }
 
     public boolean isCurrentFolderEmpty() {
@@ -110,7 +127,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ilesystemViewerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FilesystemViewerViewHolder holder, int position) {
         File file_pre = _adapterDataFiltered.get(position);
         if (file_pre == null) {
             holder.title.setText("????");
@@ -144,12 +161,11 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
-        int descriptionRes;
+        int descriptionRes = file.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile;
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
-        descriptionRes = file.isDirectory() ? _dopt.folderDescription : _dopt.fileDescription;
         if (_currentSelection.contains(file)) {
             holder.image.setImageResource(_dopt.selectedItemImage);
-            descriptionRes = _dopt.selectedItemDescription;
+            descriptionRes = _dopt.contentDescriptionSelected;
         }
         holder.image.setColorFilter(ContextCompat.getColor(_context,
                 _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
@@ -160,7 +176,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             holder.itemRoot.setPadding(dp, holder.itemRoot.getPaddingTop(), dp, holder.itemRoot.getPaddingBottom());
         }
 
-        holder.itemRoot.setContentDescription(_context.getString(descriptionRes) + " " + holder.title.getText().toString() + " " + holder.description.getText().toString());
+        holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
         //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(view -> {
@@ -637,7 +653,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     }
 
     @SuppressWarnings({"WeakerAccess", "unused"})
-    static class ilesystemViewerViewHolder extends RecyclerView.ViewHolder {
+    static class FilesystemViewerViewHolder extends RecyclerView.ViewHolder {
         //########################
         //## UI Binding
         //########################
@@ -653,7 +669,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         //########################
         //## Methods
         //########################
-        ilesystemViewerViewHolder(View row) {
+        FilesystemViewerViewHolder(View row) {
             super(row);
             ButterKnife.bind(this, row);
         }

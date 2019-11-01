@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/LightTextToolbarOverlay" />
+            android:theme="@style/LightTextToolbarOverlay"
+            app:navigationContentDescription="@string/back" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -155,6 +155,10 @@ public class ContextUtils {
      * Get color by given color ressource id
      */
     public int rcolor(@ColorRes int resId) {
+        if (resId == 0) {
+            Log.e(getClass().getName(), "ContextUtils::rcolor: resId is 0!");
+            return Color.BLACK;
+        }
         return ContextCompat.getColor(_context, resId);
     }
 

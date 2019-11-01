@@ -34,7 +34,7 @@ public class FilesystemViewerFactory {
         ContextUtils cu = new ContextUtils(context);
         ShareUtil shareUtil = new ShareUtil(context);
         AppSettings appSettings = new AppSettings(context);
-        boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(opts.primaryColor));
+        boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(R.color.primary));
         boolean darkTheme = appSettings.isDarkThemeEnabled();
 
         if (listener != null) {
@@ -50,6 +50,9 @@ public class FilesystemViewerFactory {
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
         opts.mustStartWithRootFolder = false;
+        opts.contentDescriptionFolder = R.string.folder;
+        opts.contentDescriptionSelected = R.string.selected;
+        opts.contentDescriptionFile = R.string.file;
 
         opts.fileComparable = (o1, o2) -> {
             String m1 = ContextUtils.get().getMimeType(o1);

@@ -16,8 +16,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
-import net.gsantner.markor.R;
-
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -81,11 +79,11 @@ public class FilesystemViewerData {
         @StringRes
         public int searchHint = android.R.string.search_go;
         @StringRes
-        public int folderDescription = R.string.folder;
+        public int contentDescriptionFolder = 0;
         @StringRes
-        public int selectedItemDescription = R.string.selected;
+        public int contentDescriptionSelected = 0;
         @StringRes
-        public int fileDescription = R.string.file;
+        public int contentDescriptionFile = 0;
         @DrawableRes
         public int homeButtonImage = android.R.drawable.star_big_on;
         @DrawableRes
@@ -99,15 +97,15 @@ public class FilesystemViewerData {
         @ColorRes
         public int backgroundColor = android.R.color.background_light;
         @ColorRes
-        public int primaryColor = R.color.primary;
+        public int primaryColor = 0;
         @ColorRes
-        public int accentColor = R.color.accent;
+        public int accentColor = 0;
         @ColorRes
-        public int primaryTextColor = R.color.primary_text;
+        public int primaryTextColor = 0;
         @ColorRes
-        public int secondaryTextColor = R.color.secondary_text;
+        public int secondaryTextColor = 0;
         @ColorRes
-        public int titleTextColor = primaryTextColor;
+        public int titleTextColor = 0;
 
         public File[] recentFiles, popularFiles = null;
 
