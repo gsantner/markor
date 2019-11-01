@@ -208,4 +208,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background">Bakgrunn</string>
     <string name="font">Skrift</string>
     <string name="favourite">Favoritt</string>
+    <string name="common_search_in_content_of_current_file">Søk</string>
 </resources>
