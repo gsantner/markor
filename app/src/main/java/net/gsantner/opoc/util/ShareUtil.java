@@ -577,6 +577,14 @@ public class ShareUtil {
                         }
                     }
 
+                    // media/ prefix for External storage
+                    if (fileStr.startsWith((tmps = "media/"))) {
+                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                        if (f.exists()) {
+                            return f;
+                        }
+                    }
+
                     // Next/OwnCloud Fileprovider
                     for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
                         if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
