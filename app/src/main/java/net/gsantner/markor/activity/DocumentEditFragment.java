@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -102,6 +103,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @BindView(R.id.document__fragment_view_webview)
     WebView _webView;
 
+    private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
@@ -119,6 +121,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return R.layout.document__fragment__edit;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -217,16 +220,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         ContextUtils cu = ContextUtils.get();
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
-
         AppSettings appSettings = new AppSettings(getActivity());
+
         menu.findItem(R.id.action_undo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && getActivity() instanceof DocumentActivity && !_isPreviewVisible);
 
-        boolean isTextEmpty;
-        boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
-        boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
-        boolean isExpimentalFeaturesEnabled = appSettings.isExperimentalFeaturesEnabled();
+        final boolean isTextEmpty = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
+        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
+        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+        final boolean isExperimentalFeaturesEnabled = appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
         Drawable drawable;
@@ -234,7 +237,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         drawable.mutate().setAlpha(canUndo ? 255 : 40);
         drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).setVisible(!_isPreviewVisible).getIcon();
         drawable.mutate().setAlpha(canRedo ? 255 : 40);
-        isTextEmpty = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         drawable = menu.findItem(R.id.action_save).setEnabled(isTextEmpty).getIcon();
         drawable.mutate().setAlpha(isTextEmpty ? 255 : 40);
 
@@ -244,17 +246,40 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
         menu.findItem(R.id.action_search_view).setVisible(_isPreviewVisible);
-        createSearchView(menu);
-
         menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
 
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
 
-        menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
-        menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
-        menu.findItem(R.id.action_speed_read).setVisible(isExpimentalFeaturesEnabled);
+        menu.findItem(R.id.submenu_tools).setVisible(isExperimentalFeaturesEnabled);
+        menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
+        menu.findItem(R.id.action_speed_read).setVisible(isExperimentalFeaturesEnabled);
+
+
+        // SearchView (View Mode)
+        _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
+        _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+        _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
+        _menuSearchViewForViewMode.setOnQueryTextFocusChangeListener((v, searchHasFocus) -> {
+            if (!searchHasFocus) {
+                _menuSearchViewForViewMode.setQuery("", false);
+                _menuSearchViewForViewMode.setIconified(true);
+            }
+        });
+        _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                _webView.findNext(true);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                _webView.findAllAsync(text);
+                return true;
+            }
+        });
     }
 
     public void loadDocumentIntoUi() {
@@ -263,7 +288,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
         _hlEditor.setSelection(editorpos < 0 ? 0 : editorpos);
         Activity activity = getActivity();
-        if (activity != null && activity instanceof DocumentActivity) {
+        if (activity instanceof DocumentActivity) {
             DocumentActivity da = ((DocumentActivity) activity);
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
@@ -505,6 +530,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         } else if (!_isPreviewVisible && preview) {
             setDocumentViewVisibility(true);
             return true;
+        } else if (!_menuSearchViewForViewMode.isIconified()) {
+            _menuSearchViewForViewMode.clearFocus();
+            return true;
         }
         return false;
     }
@@ -644,31 +672,5 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public DocumentEditFragment setPreviewFlag(boolean preview) {
         _isPreviewVisible = preview;
         return this;
-    }
-
-    public void createSearchView(Menu menu) {
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String text) {
-                _webView.findNext(true);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String text) {
-                _webView.findAllAsync(text);
-                return true;
-            }
-        });
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    searchView.setIconified(true);
-                }
-            }
-        });
     }
 }

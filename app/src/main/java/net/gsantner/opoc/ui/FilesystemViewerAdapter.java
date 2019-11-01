@@ -146,10 +146,10 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         int descriptionRes;
         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
-        descriptionRes =file.isDirectory() ? _dopt.folderDescription : _dopt.fileDescription;
+        descriptionRes = file.isDirectory() ? _dopt.folderDescription : _dopt.fileDescription;
         if (_currentSelection.contains(file)) {
             holder.image.setImageResource(_dopt.selectedItemImage);
-            descriptionRes =_dopt.selectedItemDescription;
+            descriptionRes = _dopt.selectedItemDescription;
         }
         holder.image.setColorFilter(ContextCompat.getColor(_context,
                 _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),

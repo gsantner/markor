@@ -372,7 +372,7 @@ public class ShareUtil {
             final PrintAttributes.Builder attrib = new PrintAttributes.Builder();
             if (landscape != null && landscape.length > 0 && landscape[0]) {
                 attrib.setMediaSize(new PrintAttributes.MediaSize("ISO_A4", "android", 11690, 8270));
-                attrib.setMinMargins(new PrintAttributes.Margins(0,0,0,0));
+                attrib.setMinMargins(new PrintAttributes.Margins(0, 0, 0, 0));
             }
             if (printManager != null) {
                 try {
