@@ -151,4 +151,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Csak dátum</string>
     <string name="last_used">Utoljára használt</string>
     <string name="reload">Újratölt</string>
+    <string name="common_search_in_content_of_current_file">Keresés</string>
 </resources>
