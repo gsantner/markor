@@ -344,7 +344,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="common_color_picker">Color picker</string>
     <string name="date_and_time">Date and time</string>
     <string name="jump_to_bottom">Jump to bottom</string>
-    <string name="common_search_in_content_of_current_file">Search</string>
     <string name="quote">Quote</string>
     <string name="heading">Heading</string>
     <string name="heading_1">Heading 1</string>
