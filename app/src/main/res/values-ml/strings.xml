@@ -141,5 +141,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center">നടുക്ക്</string>
     <string name="cancel">റദ്ദാക്കുക</string>
     <string name="reload">വീണ്ടും ലോഡ് ചെയ്യുക</string>
-    <string name="common_search_in_content_of_current_file">തിരയുക</string>
 </resources>
