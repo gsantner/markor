@@ -60,4 +60,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descriere</string>
     <string name="miscellaneous">Diverse</string>
     <string name="reload">Reîncarcă</string>
+    <string name="common_search_in_content_of_current_file">Căutare</string>
 </resources>
