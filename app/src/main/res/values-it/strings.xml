@@ -340,7 +340,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">Barrato</string>
     <string name="inline_code">Codice in linea</string>
     <string name="horizontal_line">Riga orizzontale</string>
-    <string name="toggle_done">Commuta fatta</string>
+    <string name="toggle_done">Stato invertito</string>
     <string name="add_context">Aggiungi contesto</string>
     <string name="add_project">Aggiungi progetto</string>
     <string name="archive_completed_tasks">Archivia attività completate</string>
