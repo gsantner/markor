@@ -88,5 +88,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
     <string name="line_spacing">Line Spacing</string>
     <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
-    <string name="common_search_in_content_of_current_file">Tìm kiếm</string>
 </resources>
