@@ -46,5 +46,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Dokumentti</string>
     <string name="documents">Dokumentit</string>
     <string name="html_as_plaintext">HTML (tekstinä)</string>
-    <string name="common_search_in_content_of_current_file">Hae</string>
 </resources>
