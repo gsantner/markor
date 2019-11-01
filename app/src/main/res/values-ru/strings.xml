@@ -337,7 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Заголовок 3</string>
     <string name="bold">Жирный</string>
     <string name="italic">Курсив</string>
-    <string name="strikeout">Вычеркнуть</string>
+    <string name="strikeout">Перечеркнутый</string>
     <string name="inline_code">Встроенный код</string>
     <string name="horizontal_line">Горизонтальная линия</string>
     <string name="toggle_done">Переключить завершено</string>
