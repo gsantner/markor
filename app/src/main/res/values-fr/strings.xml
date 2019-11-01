@@ -322,4 +322,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">Table</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Combien de colonnes ? Appuyez sur le bouton de table pour démarrer une table (en-tête d\'insertion), appuyez sur court pour ajouter une ligne.</string>
     <string name="example_of_a_markdown_table">Exemple de table Markdown</string>
+    <string name="common_search_in_content_of_current_file">Rechercher</string>
 </resources>
