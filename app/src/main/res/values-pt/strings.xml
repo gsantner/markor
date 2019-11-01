@@ -337,16 +337,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Título 3</string>
     <string name="bold">Negrito</string>
     <string name="italic">Itálico</string>
-    <string name="strikeout">Atacar</string>
+    <string name="strikeout">Rasurado</string>
     <string name="inline_code">Código em linha</string>
     <string name="horizontal_line">Linha horizontal</string>
-    <string name="toggle_done">Alternar concluído</string>
+    <string name="toggle_done">Alternar conclusão</string>
     <string name="add_context">Adicionar contexto</string>
     <string name="add_project">Adicionar projeto</string>
     <string name="archive_completed_tasks">Arquivar tarefas concluídas</string>
     <string name="sort_alphabetically">Ordenar alfabeticamente</string>
-    <string name="create_new_file_or_folder">Criar um novo arquivo ou pasta</string>
-    <string name="choose_format">Escolha o formato</string>
+    <string name="create_new_file_or_folder">Criar um novo ficheiro ou pasta</string>
+    <string name="choose_format">Escolher formato</string>
     <string name="selected">Selecionado</string>
-    <string name="back">Voltar</string>
+    <string name="back">Recuar</string>
 </resources>
