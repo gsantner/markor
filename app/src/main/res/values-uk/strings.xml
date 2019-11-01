@@ -345,8 +345,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_project">Додати проект</string>
     <string name="archive_completed_tasks">Архівувати завершені завдання</string>
     <string name="sort_alphabetically">Сортувати за алфавітом</string>
-    <string name="create_new_file_or_folder">Створити новий файл чи папку</string>
-    <string name="choose_format">Виберіть формат</string>
+    <string name="create_new_file_or_folder">Створити новий файл чи директорію</string>
+    <string name="choose_format">Оберіть формат</string>
     <string name="selected">Обрано</string>
     <string name="back">Повернутися назад</string>
 </resources>
