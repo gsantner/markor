@@ -41,7 +41,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.Light">
+        android:usesCleartextTraffic="true"
+        android:appCategory="productivity"
+        android:isGame="false"
+        android:theme="@style/AppTheme.Light"
+        tools:targetApi="o">
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
