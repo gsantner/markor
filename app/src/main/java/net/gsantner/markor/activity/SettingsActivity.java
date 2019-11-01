@@ -79,6 +79,7 @@ public class SettingsActivity extends AppActivityBase {
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationContentDescription(getResources().getString(R.string.back));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
     }

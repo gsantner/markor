@@ -50,7 +50,7 @@ public class TodoTxtTextActions extends TextActions {
             // Regular actions
             for (int[] actions : TMA_ACTIONS) {
                 TodoTxtTextActionsImpl actionCallback = new TodoTxtTextActionsImpl(actions[0]);
-                appendTextActionToBar(barLayout, actions[1], actionCallback, actionCallback);
+                appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
             }
         } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
             setBarVisible(barLayout, false);
@@ -69,17 +69,17 @@ public class TodoTxtTextActions extends TextActions {
 
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp},
-            {R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp},
-            {R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp},
-            {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp},
-            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON},
-            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON},
-            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp},
-            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON},
-            {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp},
-            {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp},
-            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp},
+            {R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp, R.string.toggle_done},
+            {R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp, R.string.add_context},
+            {R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp, R.string.add_project},
+            {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp, R.string.priority},
+            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
+            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link},
+            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach},
+            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key},
+            {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp, R.string.archive_completed_tasks},
+            {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp, R.string.sort_alphabetically},
+            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp, R.string.current_date},
     };
 
     private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {

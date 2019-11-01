@@ -80,6 +80,12 @@ public class FilesystemViewerData {
         public int titleText = android.R.string.untitled;
         @StringRes
         public int searchHint = android.R.string.search_go;
+        @StringRes
+        public int folderDescription = R.string.folder;
+        @StringRes
+        public int selectedItemDescription = R.string.selected;
+        @StringRes
+        public int fileDescription = R.string.file;
         @DrawableRes
         public int homeButtonImage = android.R.drawable.star_big_on;
         @DrawableRes
