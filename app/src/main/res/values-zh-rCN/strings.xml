@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">选择格式</string>
     <string name="selected">已选择</string>
     <string name="back">后退</string>
+    <string name="expand_collapse">展开/收起</string>
 </resources>
