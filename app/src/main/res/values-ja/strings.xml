@@ -340,7 +340,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">取り消し線</string>
     <string name="inline_code">インラインコード</string>
     <string name="horizontal_line">水平線</string>
+    <string name="toggle_done">完了を切り替え</string>
     <string name="add_context">コンテキストを追加</string>
     <string name="add_project">プロジェクトを追加</string>
     <string name="archive_completed_tasks">完了したタスクをアーカイブ</string>
+    <string name="sort_alphabetically">アルファベット順に並べ替え</string>
+    <string name="create_new_file_or_folder">新しいファイルまたはフォルダーを作成</string>
+    <string name="choose_format">書式の選択</string>
+    <string name="selected">選択済み</string>
+    <string name="back">戻る</string>
+    <string name="expand_collapse">展開 / 折りたたみ</string>
 </resources>
