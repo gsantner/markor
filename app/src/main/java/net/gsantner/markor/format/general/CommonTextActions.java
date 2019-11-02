@@ -281,7 +281,7 @@ public class CommonTextActions {
     public int getCurrentCursorLine()
     {
         int selectionStart = Selection.getSelectionStart(_hlEditor.getText());
-        if (!(selectionStart == -1)) {
+        if (selectionStart != -1) {
             System.out.println(_hlEditor.getLayout().getLineForOffset(selectionStart));
             return _hlEditor.getLayout().getLineForOffset(selectionStart);
         }
