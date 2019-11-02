@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Elegir formato</string>
     <string name="selected">Seleccionado</string>
     <string name="back">Atrás</string>
+    <string name="expand_collapse">Expandir / Contraer</string>
 </resources>
