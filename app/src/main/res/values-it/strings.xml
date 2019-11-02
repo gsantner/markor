@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Scegli il formato</string>
     <string name="selected">Selezionati</string>
     <string name="back">Indietro</string>
+    <string name="expand_collapse">Espandi / Comprimi</string>
 </resources>
