@@ -26,6 +26,10 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.StringReader;
+
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "tmaid_common_special_key";
@@ -54,6 +58,8 @@ public class CommonTextActions {
     public static final int ACTION_MOVE_LINE_DOWN_ICON = R.drawable.ic_arrow_downward_black_24dp;
     public static final String ACTION_MOVE_LINE_DOWN = "tmaid_common_line_down";
 
+
+    static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
@@ -154,9 +160,11 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_MOVE_LINE_UP: {
+                _hlEditor.setSelection(getIndexFromPos(getCurrentLine()-1, -1));
                 return true;
             }
             case ACTION_MOVE_LINE_DOWN: {
+                _hlEditor.setSelection(getIndexFromPos(getCurrentLine()+1,-1));
                 return true;
             }
             case ACTION_COLOR_PICKER: {
@@ -241,6 +249,43 @@ public class CommonTextActions {
                 _hlEditor.getText().replace(start, end, "");
             }
         }
+    }
+
+    private int getIndexFromPos(int line, int column) {
+        int lineCount = getTrueLineCount();
+        if (line < 0) line = getCurrentLine();  // No line, take current line
+        if (line >= lineCount) line = lineCount - 1;  // Line out of bounds, take last line
+
+        String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
+        int currentLine = 0;
+        for (int i = 0; i < content.length(); i++) {
+            if (currentLine == line) {
+                int lineLength = content.substring(i, content.length()).indexOf(LINE_SEPARATOR);
+                if (column < 0 || column > lineLength) return i + lineLength;  // No column or column out of bounds, take last column
+                else return i + column;
+            }
+            if (String.valueOf(content.charAt(i)).equals(LINE_SEPARATOR)) currentLine++;
+        }
+        return -1;  // Should not happen
+    }
+
+    private int getCurrentLine () {
+        return _hlEditor.getLayout().getLineForOffset(_hlEditor.getSelectionStart());
+    }
+
+    private int getTrueLineCount() {
+        int count;
+        String text = _hlEditor.getText().toString();
+        StringReader sr = new StringReader(text);
+        LineNumberReader lnr = new LineNumberReader(sr);
+        try {
+            lnr.skip(Long.MAX_VALUE);
+            count = lnr.getLineNumber() + 1;
+        } catch (IOException e) {
+            count = 0;  // Should not happen
+        }
+        sr.close();
+        return count;
     }
 
 
