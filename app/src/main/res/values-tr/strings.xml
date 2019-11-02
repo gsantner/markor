@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Format seç</string>
     <string name="selected">Seçili</string>
     <string name="back">Geri</string>
+    <string name="expand_collapse">Genişlet / Daralt</string>
 </resources>
