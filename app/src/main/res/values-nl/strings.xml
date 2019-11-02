@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Kies formaat</string>
     <string name="selected">Geselecteerd</string>
     <string name="back">Terug</string>
+    <string name="expand_collapse">Uitvouwen / samenvouwen</string>
 </resources>
