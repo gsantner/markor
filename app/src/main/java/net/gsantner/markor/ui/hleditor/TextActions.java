@@ -322,6 +322,10 @@ public abstract class TextActions {
                 }
                 return true;
             }
+            case "tmaid_common_accordion": {
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + _context.getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                return true;
+            }
             case "tmaid_common_attach_something": {
                 SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
                     switch (itemId) {

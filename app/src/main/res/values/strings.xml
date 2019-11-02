@@ -363,4 +363,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Choose format</string>
     <string name="selected">Selected</string>
     <string name="back">Back</string>
+    <string name="expand_collapse">Expand / Collapse</string>
 </resources>

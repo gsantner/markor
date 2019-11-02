@@ -47,6 +47,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private Highlighter _hl;
 
     private OnTextChangedListener _onTextChangedListener = null;
+    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
     private final Handler _updateHandler = new Handler();
     private final Runnable _updateRunnable = () -> {
         Editable e = getText();
@@ -158,9 +159,14 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void insertOrReplaceTextOnCursor(String newText) {
         newText = (newText == null ? "" : newText);
+        int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
+        newText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
         int start = Math.max(getSelectionStart(), 0);
         int end = Math.max(getSelectionEnd(), 0);
         getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());
+        if (newCursorPos >= 0) {
+            setSelection(start + newCursorPos);
+        }
     }
 
     public int getShiftWidth(String text) {
