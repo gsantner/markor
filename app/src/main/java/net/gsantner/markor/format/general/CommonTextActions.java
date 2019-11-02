@@ -59,7 +59,7 @@ public class CommonTextActions {
     public static final String ACTION_MOVE_LINE_DOWN = "tmaid_common_line_down";
 
 
-    static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
@@ -253,13 +253,14 @@ public class CommonTextActions {
 
     private int getIndexFromPos(int line, int column) {
         int lineCount = getTrueLineCount();
-        if (line < 0) line = getCurrentLine();  // No line, take current line
-        if (line >= lineCount) line = lineCount - 1;  // Line out of bounds, take last line
+        int finalLine = 0;
+        if (line < 0) finalLine = getCurrentLine();  // No line, take current line
+        if (line >= lineCount) finalLine = lineCount - 1;  // Line out of bounds, take last line
 
         String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
-            if (currentLine == line) {
+            if (currentLine == finalLine) {
                 int lineLength = content.substring(i, content.length()).indexOf(LINE_SEPARATOR);
                 if (column < 0 || column > lineLength) return i + lineLength;  // No column or column out of bounds, take last column
                 else return i + column;
