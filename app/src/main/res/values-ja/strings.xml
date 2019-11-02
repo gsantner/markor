@@ -322,4 +322,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">表</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">列はいくつですか? 表ボタンを長押しすると、表を開始し (ヘッダーを挿入)、短く押すと行を追加します。</string>
     <string name="example_of_a_markdown_table">マークダウン表の例</string>
+    <string name="delete_lines">行を削除</string>
+    <string name="unordered_list">箇条書き</string>
+    <string name="ordered_list">番号付きリスト</string>
+    <string name="check_list">チェックリスト</string>
+    <string name="open_link">リンクを開く</string>
+    <string name="common_color_picker">色の選択</string>
+    <string name="date_and_time">日付と時刻</string>
+    <string name="jump_to_bottom">ジャンプボタン</string>
+    <string name="quote">引用</string>
+    <string name="heading">見出し</string>
+    <string name="heading_1">見出し 1</string>
+    <string name="heading_2">見出し 2</string>
+    <string name="heading_3">見出し 3</string>
+    <string name="bold">太字</string>
+    <string name="italic">斜体</string>
+    <string name="strikeout">取り消し線</string>
+    <string name="inline_code">インラインコード</string>
+    <string name="horizontal_line">水平線</string>
+    <string name="add_context">コンテキストを追加</string>
+    <string name="add_project">プロジェクトを追加</string>
+    <string name="archive_completed_tasks">完了したタスクをアーカイブ</string>
 </resources>
