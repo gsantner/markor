@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Trieu el format</string>
     <string name="selected">Seleccionat</string>
     <string name="back">Enrere</string>
+    <string name="expand_collapse">Expandeix/Replega</string>
 </resources>
