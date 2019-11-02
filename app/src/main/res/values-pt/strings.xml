@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Escolher formato</string>
     <string name="selected">Selecionado</string>
     <string name="back">Recuar</string>
+    <string name="expand_collapse">Expandir / Recolher</string>
 </resources>
