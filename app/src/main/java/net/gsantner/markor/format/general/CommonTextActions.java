@@ -12,6 +12,7 @@ package net.gsantner.markor.format.general;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.text.Selection;
 import android.view.KeyEvent;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -52,13 +53,6 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
-    public static final int ACTION_MOVE_LINE_UP_ICON = R.drawable.ic_arrow_upward_black_24dp;
-    public static final String ACTION_MOVE_LINE_UP = "tmaid_common_line_up";
-
-    public static final int ACTION_MOVE_LINE_DOWN_ICON = R.drawable.ic_arrow_downward_black_24dp;
-    public static final String ACTION_MOVE_LINE_DOWN = "tmaid_common_line_down";
-
-
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private final Activity _activity;
@@ -92,6 +86,10 @@ public class CommonTextActions {
                         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
+                    } else if (callbackPayload.equals(rstr(R.string.key_line_up))){
+                        moveLineUp();
+                    } else if (callbackPayload.equals(rstr(R.string.key_line_down))){
+                        moveLineDown();
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
@@ -157,14 +155,6 @@ public class CommonTextActions {
             case ACTION_JUMP_BOTTOM_TOP: {
                 int pos = _hlEditor.getSelectionStart();
                 _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
-                return true;
-            }
-            case ACTION_MOVE_LINE_UP: {
-                _hlEditor.setSelection(getIndexFromPos(getCurrentLine()-1, -1));
-                return true;
-            }
-            case ACTION_MOVE_LINE_DOWN: {
-                _hlEditor.setSelection(getIndexFromPos(getCurrentLine()+1,-1));
                 return true;
             }
             case ACTION_COLOR_PICKER: {
@@ -251,27 +241,52 @@ public class CommonTextActions {
         }
     }
 
+
+    private void moveLineUp() {
+        _hlEditor.setSelection(getIndexFromPos(-1,0)-1,getIndexFromPos(-1,-1));
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_COPY);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PASTE);
+    }
+
+    private void moveLineDown() {
+        _hlEditor.setSelection(getIndexFromPos(-1,0)-1,getIndexFromPos(-1,-1));
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_COPY);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_DOWN);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PASTE);
+    }
+
     private int getIndexFromPos(int line, int column) {
         int lineCount = getTrueLineCount();
         int finalLine = 0;
-        if (line < 0) finalLine = getCurrentLine();  // No line, take current line
-        if (line >= lineCount) finalLine = lineCount - 1;  // Line out of bounds, take last line
+        if (line < 0) finalLine = getCurrentCursorLine();
+        if (line >= lineCount) finalLine = lineCount - 1;
 
         String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
             if (currentLine == finalLine) {
                 int lineLength = content.substring(i, content.length()).indexOf(LINE_SEPARATOR);
-                if (column < 0 || column > lineLength) return i + lineLength;  // No column or column out of bounds, take last column
+                if (column < 0 || column > lineLength) return i + lineLength;
                 else return i + column;
             }
             if (String.valueOf(content.charAt(i)).equals(LINE_SEPARATOR)) currentLine++;
         }
-        return -1;  // Should not happen
+
+        return -1;
     }
 
-    private int getCurrentLine () {
-        return _hlEditor.getLayout().getLineForOffset(_hlEditor.getSelectionStart());
+    public int getCurrentCursorLine()
+    {
+        int selectionStart = Selection.getSelectionStart(_hlEditor.getText());
+        if (!(selectionStart == -1)) {
+            System.out.println(_hlEditor.getLayout().getLineForOffset(selectionStart));
+            return _hlEditor.getLayout().getLineForOffset(selectionStart);
+        }
+
+        return -1;
     }
 
     private int getTrueLineCount() {
