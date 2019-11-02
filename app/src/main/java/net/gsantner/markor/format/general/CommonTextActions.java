@@ -48,6 +48,12 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
+    public static final int ACTION_MOVE_LINE_UP_ICON = R.drawable.ic_arrow_upward_black_24dp;
+    public static final String ACTION_MOVE_LINE_UP = "tmaid_common_line_up";
+
+    public static final int ACTION_MOVE_LINE_DOWN_ICON = R.drawable.ic_arrow_downward_black_24dp;
+    public static final String ACTION_MOVE_LINE_DOWN = "tmaid_common_line_down";
+
 
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
@@ -145,6 +151,12 @@ public class CommonTextActions {
             case ACTION_JUMP_BOTTOM_TOP: {
                 int pos = _hlEditor.getSelectionStart();
                 _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+                return true;
+            }
+            case ACTION_MOVE_LINE_UP: {
+                return true;
+            }
+            case ACTION_MOVE_LINE_DOWN: {
                 return true;
             }
             case ACTION_COLOR_PICKER: {
