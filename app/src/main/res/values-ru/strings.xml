@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Выберите формат</string>
     <string name="selected">Выбрано</string>
     <string name="back">Назад</string>
+    <string name="expand_collapse">Развернуть / Свернуть</string>
 </resources>
