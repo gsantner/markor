@@ -244,18 +244,18 @@ public class CommonTextActions {
 
     private void moveLineUp() {
         _hlEditor.setSelection(getIndexFromPos(-1,0)-1,getIndexFromPos(-1,-1));
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_COPY);
+         String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PASTE);
+        _hlEditor.getText().insert(_hlEditor.getSelectionStart(),lineToMove);
     }
 
     private void moveLineDown() {
-        _hlEditor.setSelection(getIndexFromPos(-1,0)-1,getIndexFromPos(-1,-1));
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_COPY);
+        _hlEditor.setSelection(getIndexFromPos(-1,0),getIndexFromPos(-1,-1)+1);
+        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_DOWN);
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PASTE);
+        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
     }
 
     private int getIndexFromPos(int line, int column) {
