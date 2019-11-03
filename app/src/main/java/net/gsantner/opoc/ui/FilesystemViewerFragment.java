@@ -200,9 +200,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     @Override
-    public void onFsViewerConfig(FilesystemViewerData.Options opt) {
+    public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
         if (_callback != null) {
-            _callback.onFsViewerConfig(opt);
+            _callback.onFsViewerConfig(dopt);
         }
     }
 
@@ -593,9 +593,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
             }
 
             @Override
-            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                opt.titleText = R.string.move;
-                opt.rootFolder = _appSettings.getNotebookDirectory();
+            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                dopt.titleText = R.string.move;
+                dopt.rootFolder = _appSettings.getNotebookDirectory();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }
@@ -617,11 +617,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
             }
 
             @Override
-            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                opt.titleText = R.string.import_from_device;
-                opt.doSelectMultiple = true;
-                opt.doSelectFile = true;
-                opt.doSelectFolder = true;
+            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                dopt.titleText = R.string.import_from_device;
+                dopt.doSelectMultiple = true;
+                dopt.doSelectFile = true;
+                dopt.doSelectFolder = true;
             }
         }, getFragmentManager(), getActivity(), null);
     }

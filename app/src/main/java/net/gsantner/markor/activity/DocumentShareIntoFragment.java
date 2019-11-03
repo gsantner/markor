@@ -237,8 +237,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
             FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                    opt.rootFolder = startFolder;
+                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                    dopt.rootFolder = startFolder;
                 }
 
                 @Override

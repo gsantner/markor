@@ -229,10 +229,10 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                                opt.titleText = R.string.select_storage_folder;
+                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                                dopt.titleText = R.string.select_storage_folder;
                                 if (!permc.mkdirIfStoragePermissionGranted()) {
-                                    opt.rootFolder = Environment.getExternalStorageDirectory();
+                                    dopt.rootFolder = Environment.getExternalStorageDirectory();
                                 }
                             }
                         }, fragManager, getActivity());
@@ -252,9 +252,9 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                                opt.titleText = R.string.quicknote;
-                                opt.rootFolder = Environment.getExternalStorageDirectory();
+                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                                dopt.titleText = R.string.quicknote;
+                                dopt.rootFolder = Environment.getExternalStorageDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
                     }
@@ -273,9 +273,9 @@ public class SettingsActivity extends AppActivityBase {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                                opt.titleText = R.string.todo;
-                                opt.rootFolder = Environment.getExternalStorageDirectory();
+                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                                dopt.titleText = R.string.todo;
+                                dopt.rootFolder = Environment.getExternalStorageDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerFactory.IsMimeText);
                     }

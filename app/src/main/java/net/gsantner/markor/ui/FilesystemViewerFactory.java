@@ -67,6 +67,8 @@ public class FilesystemViewerFactory {
             return 0;
         };
 
+        opts.accentColor = R.color.accent;
+        opts.primaryColor = R.color.primary;
         opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
         opts.secondaryTextColor = darkTheme ? R.color.dark__secondary_text : R.color.light__secondary_text;
         opts.backgroundColor = darkTheme ? R.color.dark__background : R.color.light__background;

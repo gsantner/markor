@@ -147,9 +147,9 @@ public class AttachImageOrLinkDialog {
             }
 
             @Override
-            public void onFsViewerConfig(FilesystemViewerData.Options opt) {
+            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                 if (currentWorkingFile != null) {
-                    opt.rootFolder = currentWorkingFile.getParentFile();
+                    dopt.rootFolder = currentWorkingFile.getParentFile();
                 }
             }
         };

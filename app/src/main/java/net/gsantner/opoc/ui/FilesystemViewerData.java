@@ -24,13 +24,13 @@ import java.util.List;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class FilesystemViewerData {
     public interface SelectionListener extends Serializable {
-        void onFsViewerSelected(String request, File file);
+        void onFsViewerSelected(final String request, final File file);
 
-        void onFsViewerMultiSelected(final String request, File... files);
+        void onFsViewerMultiSelected(final String request, final File... files);
 
         void onFsViewerNothingSelected(final String request);
 
-        void onFsViewerConfig(final Options opt);
+        void onFsViewerConfig(final Options dopt);
 
         void onFsViewerDoUiUpdate(final FilesystemViewerAdapter adapter);
 
@@ -126,7 +126,7 @@ public class FilesystemViewerData {
         }
 
         @Override
-        public void onFsViewerConfig(Options opt) {
+        public void onFsViewerConfig(Options dopt) {
 
         }
 

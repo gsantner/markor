@@ -437,8 +437,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                                                            }
 
                                                            @Override
-                                                           public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                                                               opt.titleText = R.string.select;
+                                                           public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                                                               dopt.titleText = R.string.select;
                                                            }
                                                        }, getFragmentManager(), getActivity(),
                         input -> input != null && input.getAbsolutePath().toLowerCase().endsWith(".epub")

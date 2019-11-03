@@ -237,9 +237,9 @@ public class FilesystemViewerDialog extends DialogFragment
     }
 
     @Override
-    public void onFsViewerConfig(FilesystemViewerData.Options opt) {
+    public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
         if (_callback != null) {
-            _callback.onFsViewerConfig(opt);
+            _callback.onFsViewerConfig(dopt);
         }
     }
 

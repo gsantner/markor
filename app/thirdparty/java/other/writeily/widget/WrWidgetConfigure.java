@@ -56,9 +56,9 @@ public class WrWidgetConfigure extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                    opt.titleText = R.string.select_folder;
-                    opt.rootFolder = AppSettings.get().getNotebookDirectory();
+                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                    dopt.titleText = R.string.select_folder;
+                    dopt.rootFolder = AppSettings.get().getNotebookDirectory();
                 }
             }, fragManager, this);
         }

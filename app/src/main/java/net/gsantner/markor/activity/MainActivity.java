@@ -413,15 +413,15 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         if (_filesystemDialogOptions == null) {
             _filesystemDialogOptions = FilesystemViewerFactory.prepareFsViewerOpts(getApplicationContext(), false, new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options opt) {
-                    opt.descModtimeInsteadOfParent = true;
+                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                    dopt.descModtimeInsteadOfParent = true;
                     //opt.rootFolder = _appSettings.getNotebookDirectory();
-                    opt.rootFolder = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
-                    opt.folderFirst = _appSettings.isFilesystemListFolderFirst();
-                    opt.doSelectMultiple = opt.doSelectFolder = opt.doSelectFile = true;
-                    opt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
-                    opt.showDotFiles = _appSettings.isShowDotFiles();
-                    opt.fileComparable = FilesystemViewerFragment.sortFolder(null);
+                    dopt.rootFolder = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
+                    dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
+                    dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
+                    dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
+                    dopt.showDotFiles = _appSettings.isShowDotFiles();
+                    dopt.fileComparable = FilesystemViewerFragment.sortFolder(null);
                 }
 
                 @Override
