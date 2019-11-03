@@ -25,7 +25,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -55,6 +57,8 @@ public class DocumentActivity extends AppActivityBase {
     Toolbar _toolbar;
     @BindView(R.id.note__activity__text_note_title)
     TextView _toolbarTitleText;
+    @BindView(R.id.back_to_top_button)
+    Button _backToTopButton;
 
     private FragmentManager _fragManager;
     private Document _document;
@@ -63,7 +67,6 @@ public class DocumentActivity extends AppActivityBase {
     private ActivityUtils _contextUtils;
 
     private static boolean nextLaunchTransparentBg = false;
-
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
@@ -191,7 +194,10 @@ public class DocumentActivity extends AppActivityBase {
             boolean preview = receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile() || file.getName().startsWith("index.");
             showTextEditor(null, file, fileIsFolder, preview);
         }
+    }
 
+    public void backToTop(View view){
+        findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent).setScrollY(0);
     }
 
     private final RectF point = new RectF(0, 0, 0, 0);

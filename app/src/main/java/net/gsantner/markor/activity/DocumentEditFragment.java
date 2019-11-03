@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,6 +102,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @BindView(R.id.document__fragment_view_webview)
     WebView _webView;
 
+    @BindView(R.id.document__fragment__edit__content_editor__scrolling_parent)
+    ScrollView scrollView;
+
     private Document _document;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
@@ -124,7 +128,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         //applyTextFormat(TextFormat.FORMAT_PLAIN);
         setupAppearancePreferences(view);
         _shareUtil = new ShareUtil(view.getContext());
-
         AppSettings appSettings = new AppSettings(view.getContext());
         _webViewClient = new MarkorWebViewClient(getActivity());
         _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));

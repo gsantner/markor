@@ -43,12 +43,18 @@
 
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    <Button
+        android:id="@+id/back_to_top_button"
+        android:onClick="backToTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_top"/>
 
     <FrameLayout
         android:id="@+id/document__placeholder_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.AppBarLayout>
 
 </LinearLayout>
