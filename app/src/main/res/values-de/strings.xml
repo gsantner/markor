@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Format auswählen</string>
     <string name="selected">Ausgewählt</string>
     <string name="back">Zurück</string>
+    <string name="expand_collapse">Erweitern / Einklappen</string>
 </resources>

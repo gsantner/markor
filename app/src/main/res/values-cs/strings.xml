@@ -349,4 +349,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">Zvolte formát</string>
     <string name="selected">Vybrané</string>
     <string name="back">Zpátky</string>
+    <string name="expand_collapse">Rozbalit / Sbalit</string>
 </resources>
