@@ -50,4 +50,5 @@ files:
         te: te # Telugu
         ur-PK: ur # Urdu, Pakistan
         id: in # Indonesian
+        sk: sk # Slovak
     translate_attributes: 0
