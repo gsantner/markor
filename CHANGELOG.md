@@ -1,3 +1,13 @@
+### v2.3 (in progress)
+- Add search to View Mode
+- Accessibility improvements & Talkback support
+- Allow http on Android>=9
+- Telegram file edit support
+- Add accordion dropdown markdown button
+- Yellow icon for favourite files
+- Markdown: Normal sized headers by default, increases performance
+- Disable highlighting on big files to improve edit performance
+
 ### v2.2 [Blog Post](https://gsantner.net/blog/2019/10/27/markor-v2.2-markdown-presentations-voicenotes-audiorecord-tables.html?source=changelog)
 - Added Presentations & Slides with Markdown
 - Added audio recording dialog which allows to add voice to documents. Manual interaction required to start & stop voice recording. Voice recording permission required for this feature
