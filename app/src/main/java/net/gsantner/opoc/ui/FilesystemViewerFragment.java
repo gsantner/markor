@@ -9,7 +9,7 @@
  *
 #########################################################*/
 /*
- * Revision 001 of FilesystemViewerFactory
+ * Revision 001 of FilesystemViewerCreator
  * A simple filesystem dialog with file, folder and multiple selection
  * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
@@ -39,7 +39,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FileInfoDialog;
-import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -514,37 +514,26 @@ public class FilesystemViewerFragment extends GsFragmentBase
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
 
-        Comparator<File> comparator = new Comparator<File>() {
-            @Override
-            public int compare(File file, File other) {
-                boolean mk1 = TextFormat.isTextFile(file);
-                boolean mk2 = TextFormat.isTextFile(other);
-                if (mk1 && !mk2) {
-                    return -1;
-                } else if (!mk1 && mk2) {
-                    return 1;
-                }
-
-                if (sortReverse) {
-                    File swap = file;
-                    file = other;
-                    other = swap;
-                }
-
-                switch (sortMethod) {
-                    case SORT_BY_NAME:
-                        return new File(file.getAbsolutePath().toLowerCase()).compareTo(
-                                new File(other.getAbsolutePath().toLowerCase()));
-                    case SORT_BY_DATE:
-                        return Long.valueOf(other.lastModified()).compareTo(file.lastModified());
-                    case SORT_BY_FILESIZE:
-                        if (file.isDirectory() && other.isDirectory()) {
-                            return other.list().length - file.list().length;
-                        }
-                        return Long.valueOf(other.length()).compareTo(file.length());
-                }
-                return file.compareTo(other);
+        final Comparator<File> comparator = (current, other) -> {
+            if (sortReverse) {
+                File swap = current;
+                current = other;
+                other = swap;
             }
+
+            switch (sortMethod) {
+                case SORT_BY_NAME:
+                    return new File(current.getAbsolutePath().toLowerCase()).compareTo(
+                            new File(other.getAbsolutePath().toLowerCase()));
+                case SORT_BY_DATE:
+                    return Long.compare(other.lastModified(), current.lastModified());
+                case SORT_BY_FILESIZE:
+                    if (current.isDirectory() && other.isDirectory()) {
+                        return other.list().length - current.list().length;
+                    }
+                    return Long.compare(other.length(), current.length());
+            }
+            return current.compareTo(other);
         };
 
         if (filesToSort != null) {
@@ -571,19 +560,19 @@ public class FilesystemViewerFragment extends GsFragmentBase
     ///////////////
     public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        String message = String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n";
+        StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
 
         for (File f : itemsToDelete) {
-            message += "\n" + f.getAbsolutePath();
+            message.append("\n").append(f.getAbsolutePath());
         }
 
-        WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message, itemsToDelete, confirmCallback);
+        WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
         confirmDialog.show(getActivity().getSupportFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void askForMove() {
         final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        FilesystemViewerFactory.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+        FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
@@ -601,7 +590,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void showImportDialog() {
-        FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+        FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(String request, File file) {
                 importFile(file);

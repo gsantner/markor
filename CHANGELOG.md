@@ -7,6 +7,7 @@
 - Yellow icon for favourite files
 - Markdown: Normal sized headers by default, increases performance
 - Disable highlighting on big files to improve edit performance
+- Don't sort non-document files in third group
 
 ### v2.2 [Blog Post](https://gsantner.net/blog/2019/10/27/markor-v2.2-markdown-presentations-voicenotes-audiorecord-tables.html?source=changelog)
 - Added Presentations & Slides with Markdown

@@ -9,7 +9,7 @@
  *
 #########################################################*/
 /*
- * Revision 001 of FilesystemViewerFactory
+ * Revision 001 of FilesystemViewerCreator
  * A simple filesystem dialog with file, folder and multiple selection
  * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
@@ -53,7 +53,7 @@ public class FilesystemViewerDialog extends DialogFragment
     //########################
     //## Static
     //########################
-    public static final String FRAGMENT_TAG = "FilesystemViewerFactory";
+    public static final String FRAGMENT_TAG = "FilesystemViewerCreator";
 
     public static FilesystemViewerDialog newInstance(FilesystemViewerData.Options options) {
         FilesystemViewerDialog f = new FilesystemViewerDialog();

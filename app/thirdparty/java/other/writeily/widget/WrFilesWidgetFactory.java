@@ -18,7 +18,7 @@ import android.widget.RemoteViewsService;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
@@ -56,10 +56,10 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
                 !file.isDirectory() && TextFormat.isTextFile(file)
         );
         if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
-            _widgetFilesList = FilesystemViewerFactory.strlistToArray(AppSettings.get().getRecentDocuments());
+            _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments());
         }
         if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
-            _widgetFilesList = FilesystemViewerFactory.strlistToArray(AppSettings.get().getPopularDocuments());
+            _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments());
         }
         ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
 

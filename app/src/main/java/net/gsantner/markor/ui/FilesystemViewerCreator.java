@@ -23,7 +23,7 @@ import net.gsantner.opoc.ui.FilesystemViewerDialog;
 import java.io.File;
 import java.util.List;
 
-public class FilesystemViewerFactory {
+public class FilesystemViewerCreator {
     public static Function<File, Boolean> IsMimeText = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("text/");
     public static Function<File, Boolean> IsMimeImage = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("image/");
     public static Function<File, Boolean> IsMimeAudio = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("audio/");

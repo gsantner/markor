@@ -40,7 +40,7 @@ import com.pixplicity.generate.Rate;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppCast;
@@ -411,7 +411,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     @Override
     public FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
-            _filesystemDialogOptions = FilesystemViewerFactory.prepareFsViewerOpts(getApplicationContext(), false, new FilesystemViewerData.SelectionListenerAdapter() {
+            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(getApplicationContext(), false, new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;

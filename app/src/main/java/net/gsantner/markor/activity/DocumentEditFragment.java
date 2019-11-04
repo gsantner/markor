@@ -45,7 +45,7 @@ import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
-import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -430,7 +430,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             case R.id.action_load_epub: {
-                FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                                                            @Override
                                                            public void onFsViewerSelected(String request, File file) {
                                                                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));

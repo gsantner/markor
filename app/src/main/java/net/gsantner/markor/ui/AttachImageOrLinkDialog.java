@@ -167,8 +167,8 @@ public class AttachImageOrLinkDialog {
         buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) activity;
-                Function<File, Boolean> f = action == 4 ? FilesystemViewerFactory.IsMimeAudio : (action == 3 ? null : FilesystemViewerFactory.IsMimeImage);
-                FilesystemViewerFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
+                Function<File, Boolean> f = action == 4 ? FilesystemViewerCreator.IsMimeAudio : (action == 3 ? null : FilesystemViewerCreator.IsMimeImage);
+                FilesystemViewerCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
             }
         });
 

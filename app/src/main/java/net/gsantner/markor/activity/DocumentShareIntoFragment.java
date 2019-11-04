@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.FilesystemViewerFactory;
+import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -235,7 +235,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
             }
-            FilesystemViewerFactory.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.rootFolder = startFolder;
@@ -246,7 +246,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     appendToExistingDocument(file, SEP_RULER, true);
                 }
 
-            }, getFragmentManager(), getActivity(), FilesystemViewerFactory.IsMimeText);
+            }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
         }
 
 
