@@ -319,4 +319,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tools">Ainas</string>
     <string name="reading">Leghidura</string>
     <string name="read">Leghe</string>
+    <string name="table">Tabella</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Cantas colonnas? Incarca su butone de sa tabella a longu pro creare una tabella (insertare s\'intestatzione), a curtzu pro annànghere una riga.</string>
+    <string name="example_of_a_markdown_table">Esèmpiu de una tabella Markdown</string>
+    <string name="delete_lines">Iscantzella sas lìnias</string>
+    <string name="unordered_list">Lista disordinada</string>
+    <string name="ordered_list">Lista ordinada</string>
+    <string name="check_list">Lista de verìfica</string>
+    <string name="open_link">Aberi su ligàmene</string>
+    <string name="common_color_picker">Ischertadore de colores</string>
+    <string name="date_and_time">Data e ora</string>
+    <string name="jump_to_bottom">Brinca a giosso</string>
+    <string name="quote">Tzita</string>
+    <string name="heading">Tìtulu</string>
+    <string name="heading_1">Tìtulu 1</string>
+    <string name="heading_2">Tìtulu 2</string>
+    <string name="heading_3">Tìtulu 3</string>
+    <string name="bold">Grussitu</string>
+    <string name="italic">Cursivu</string>
+    <string name="strikeout">Istangadu</string>
+    <string name="inline_code">Còdighe in lìnia</string>
+    <string name="horizontal_line">Lìnia orizontale</string>
 </resources>
