@@ -11,6 +11,7 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -127,6 +128,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public void onBindViewHolder(@NonNull FilesystemViewerViewHolder holder, int position) {
         File file_pre = _adapterDataFiltered.get(position);
         if (file_pre == null) {
@@ -134,15 +136,20 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             return;
         }
         new ContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
-        File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
-        String filename = file_pre.getName();
+        final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
+        final String filename = file_pre.getName();
         if (_virtualMapping.keySet().contains(file_pre)) {
             file_pre = _virtualMapping.get(file_pre);
         }
         final File file = file_pre;
         final File fileParent = file.getParentFile() == null ? new File("/") : file.getParentFile();
+        final File descriptionFile = file.equals(_currentFolder.getParentFile()) ? file : fileParent;
+        final boolean isGoUp = file.equals(_currentFolder.getParentFile());
+        final boolean isSelected = _currentSelection.contains(file);
+        final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(file);
+        final boolean isPopular = _dopt.popularFiles != null && _dopt.popularFiles.contains(file);
+        final int descriptionRes = isSelected ? _dopt.contentDescriptionSelected : (file.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile);
 
-        boolean isGoUp = file.equals(_currentFolder.getParentFile());
         holder.title.setText(isGoUp ? ".." : filename, TextView.BufferType.SPANNABLE);
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
         if (!isFileWriteable(file, isGoUp) && holder.title.length() > 0) {
@@ -152,24 +159,17 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             }
         }
 
-        if (_dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(file)) {
-            holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.accentColor));
-        }
-
-        final File descriptionFile = file.equals(_currentFolder.getParentFile()) ? fileParent : file;
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, descriptionFile.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
-        int descriptionRes = file.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile;
-        holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
-        if (_currentSelection.contains(file)) {
-            holder.image.setImageResource(_dopt.selectedItemImage);
-            descriptionRes = _dopt.contentDescriptionSelected;
-        }
+        holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (file.isDirectory() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
+                isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
+        if (!isSelected && isFavourite) {
+            holder.image.setColorFilter(Color.parseColor("#E3B51B"));
+        }
 
         if (_dopt.itemSidePadding > 0) {
             int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
@@ -178,7 +178,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
-        //        _currentSelection.contains(file) ? _dopt.primaryColor : _dopt.backgroundColor));
+        //        isSelected ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(view -> {
             Toast.makeText(_context, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             return true;
@@ -457,9 +457,9 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                     if (_currentFolder.isDirectory()) {
                         files = _currentFolder.listFiles(FilesystemViewerAdapter.this);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        files = _dopt.recentFiles;
+                        files = _dopt.recentFiles.toArray(new File[0]);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-                        files = _dopt.popularFiles;
+                        files = _dopt.popularFiles.toArray(new File[0]);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
                         files = (_dopt.favouriteFiles == null ? null : _dopt.favouriteFiles.toArray(new File[0]));
                     }

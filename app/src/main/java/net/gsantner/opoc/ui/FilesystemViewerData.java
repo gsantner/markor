@@ -107,9 +107,7 @@ public class FilesystemViewerData {
         @ColorRes
         public int titleTextColor = 0;
 
-        public File[] recentFiles, popularFiles = null;
-
-        public List<File> favouriteFiles = null;
+        public List<File> favouriteFiles, recentFiles, popularFiles = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {

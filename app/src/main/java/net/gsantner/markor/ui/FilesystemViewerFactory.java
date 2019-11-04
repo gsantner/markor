@@ -76,8 +76,8 @@ public class FilesystemViewerFactory {
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 
-        opts.recentFiles = strlistToArray(appSettings.getRecentDocuments());
-        opts.popularFiles = strlistToArray(appSettings.getPopularDocuments());
+        opts.recentFiles = appSettings.getAsFileList(appSettings.getRecentDocuments());
+        opts.popularFiles = appSettings.getAsFileList(appSettings.getPopularDocuments());
         opts.favouriteFiles = appSettings.getFavouriteFiles();
 
         opts.titleText = R.string.select;

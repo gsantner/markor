@@ -399,6 +399,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return list;
     }
 
+    public ArrayList<File> getAsFileList(List<String> list) {
+        ArrayList<File> r = new ArrayList<>();
+        for (String f : list) {
+            r.add(new File(f));
+        }
+        return r;
+    }
+
     public ArrayList<File> getFavouriteFiles() {
         ArrayList<File> list = new ArrayList<>();
         for (String fp : getStringList(R.string.pref_key__favourite_files)) {
