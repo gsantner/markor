@@ -16,6 +16,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -142,5 +143,18 @@ public abstract class GsFragmentBase extends Fragment {
 
     public Menu getFragmentMenu() {
         return _fragmentMenu;
+    }
+
+    /**
+     * Get the toolbar from activity
+     * Requires id to be set to @+id/toolbar
+     */
+    @SuppressWarnings("ConstantConditions")
+    protected Toolbar getToolbar() {
+        try {
+            return (Toolbar) getActivity().findViewById(new ContextUtils(getActivity()).getResId(ContextUtils.ResType.ID, "toolbar"));
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

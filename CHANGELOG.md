@@ -1,4 +1,5 @@
 ### v2.3 (in progress)
+- Long press toolbar to jump to top/bottom (edit & view mode)
 - Add search to View Mode
 - Accessibility improvements & Talkback support
 - Allow http on Android>=9

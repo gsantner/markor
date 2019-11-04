@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -169,6 +170,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         if (_isPreviewVisible) {
             setDocumentViewVisibility(true);
+        }
+
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
     }
 
@@ -599,6 +605,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
         }
+
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null && isVisibleToUser) {
+            toolbar.setOnLongClickListener(_longClickToTopOrBottom);
+        }
     }
 
     private void checkReloadDisk(boolean forceReload) {
@@ -655,6 +666,26 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _isPreviewVisible = show;
         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
     }
+
+    final View.OnLongClickListener _longClickToTopOrBottom = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (getUserVisibleHint()) {
+                if (_isPreviewVisible) {
+                    boolean top = _webView.getScrollY() > 100;
+                    _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
+                    if (!top) {
+                        _webView.scrollBy(0, 1000);
+                        _webView.scrollBy(0, 1000);
+                    }
+                } else {
+                    new CommonTextActions(getActivity(), _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                }
+                return true;
+            }
+            return false;
+        }
+    };
 
     //
     //
