@@ -320,9 +320,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Leghidura</string>
     <string name="read">Leghe</string>
     <string name="table">Tabella</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Cantas colonnas? Incarca su butone de sa tabella a longu pro creare una tabella (insertare s\'intestatzione), a curtzu pro annànghere una riga.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Cantas colonnas? Incarca su butone de sa tabella a longu pro creare una tabella (insertare s\'intestatzione), pro pagu pro annànghere una riga.</string>
     <string name="example_of_a_markdown_table">Esèmpiu de una tabella Markdown</string>
-    <string name="delete_lines">Iscantzella sas lìnias</string>
+    <string name="delete_lines">Iscantzella sas rigas</string>
     <string name="unordered_list">Lista disordinada</string>
     <string name="ordered_list">Lista ordinada</string>
     <string name="check_list">Lista de verìfica</string>
@@ -339,5 +339,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="italic">Cursivu</string>
     <string name="strikeout">Istangadu</string>
     <string name="inline_code">Còdighe in lìnia</string>
-    <string name="horizontal_line">Lìnia orizontale</string>
+    <string name="horizontal_line">Riga orizontale</string>
+    <string name="toggle_done">Furriadura acumprida</string>
+    <string name="add_context">Annanghe cuntestu</string>
+    <string name="add_project">Annanghe unu progetu</string>
+    <string name="archive_completed_tasks">Archìvia sas fainas acabadas</string>
+    <string name="sort_alphabetically">Òrdina alfabeticamente</string>
+    <string name="create_new_file_or_folder">Crea unu documentu o una cartella noa</string>
+    <string name="choose_format">Issèbera su formadu</string>
+    <string name="selected">Ischertados</string>
+    <string name="back">In palas</string>
+    <string name="expand_collapse">Ismànnia / Mìnima</string>
 </resources>
