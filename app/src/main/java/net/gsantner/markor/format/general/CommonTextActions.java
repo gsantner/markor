@@ -27,9 +27,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.io.StringReader;
+
 
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
