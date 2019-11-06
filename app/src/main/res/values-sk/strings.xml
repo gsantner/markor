@@ -8,5 +8,5 @@
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vzdycky otvaraj subory touto aplikaciou</string>
     <string name="always_open_with_this_app">Vzdycky otvaraj touto aplikaciou</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
-    <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>
+    <string name="amount_of_space_for_tab">Pocet medzie po pouzity tabulatora</string>
 </resources>
