@@ -259,16 +259,16 @@ public class CommonTextActions {
     }
 
     private int getIndexFromPos(int line, int column) {
-        int lineCount = getTrueLineCount();
+        String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
+        int lineCount = content.split(LINE_SEPARATOR).length;
         int finalLine = 0;
         if (line < 0) finalLine = getCurrentCursorLine();
         if (line >= lineCount) finalLine = lineCount - 1;
 
-        String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
             if (currentLine == finalLine) {
-                int lineLength = content.substring(i, content.length()).indexOf(LINE_SEPARATOR);
+                int lineLength = content.substring(i).indexOf(LINE_SEPARATOR);
                 if (column < 0 || column > lineLength) return i + lineLength;
                 else return i + column;
             }
@@ -288,21 +288,5 @@ public class CommonTextActions {
 
         return -1;
     }
-
-    private int getTrueLineCount() {
-        int count;
-        String text = _hlEditor.getText().toString();
-        StringReader sr = new StringReader(text);
-        LineNumberReader lnr = new LineNumberReader(sr);
-        try {
-            lnr.skip(Long.MAX_VALUE);
-            count = lnr.getLineNumber() + 1;
-        } catch (IOException e) {
-            count = 0;  // Should not happen
-        }
-        sr.close();
-        return count;
-    }
-
 
 }
