@@ -259,11 +259,12 @@ public class CommonTextActions {
     private int getIndexFromPos(int line, int column) {
         String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int lineCount = content.split(LINE_SEPARATOR).length;
-        if (line >= lineCount) line = lineCount - 1;
+        int finalLine = line;
+        if (line >= lineCount) finalLine = lineCount - 1;
 
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
-            if (currentLine == line) {
+            if (currentLine == finalLine) {
                 int lineLength = content.substring(i).indexOf(LINE_SEPARATOR);
                 if (column < 0 || column > lineLength) return i + lineLength;
                 else return i + column;
