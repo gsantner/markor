@@ -241,7 +241,7 @@ public class CommonTextActions {
 
 
     private void moveLineUp() {
-        _hlEditor.setSelection(getIndexFromPos(-1,0)-1,getIndexFromPos(-1,-1));
+        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true),0)-1,getIndexFromPos(getCurrentCursorLine(false),-1));
          String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
@@ -249,7 +249,7 @@ public class CommonTextActions {
     }
 
     private void moveLineDown() {
-        _hlEditor.setSelection(getIndexFromPos(-1,0),getIndexFromPos(-1,-1)+1);
+        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true),0),getIndexFromPos(getCurrentCursorLine(false),-1)+1);
         String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_DOWN);
@@ -259,13 +259,11 @@ public class CommonTextActions {
     private int getIndexFromPos(int line, int column) {
         String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int lineCount = content.split(LINE_SEPARATOR).length;
-        int finalLine = 0;
-        if (line < 0) finalLine = getCurrentCursorLine();
-        if (line >= lineCount) finalLine = lineCount - 1;
+        if (line >= lineCount) line = lineCount - 1;
 
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
-            if (currentLine == finalLine) {
+            if (currentLine == line) {
                 int lineLength = content.substring(i).indexOf(LINE_SEPARATOR);
                 if (column < 0 || column > lineLength) return i + lineLength;
                 else return i + column;
@@ -276,12 +274,13 @@ public class CommonTextActions {
         return -1;
     }
 
-    public int getCurrentCursorLine()
+    public int getCurrentCursorLine(boolean start)
     {
-        int selectionStart = Selection.getSelectionStart(_hlEditor.getText());
-        if (selectionStart != -1) {
-            System.out.println(_hlEditor.getLayout().getLineForOffset(selectionStart));
-            return _hlEditor.getLayout().getLineForOffset(selectionStart);
+        int selection = start ? Selection.getSelectionStart(_hlEditor.getText())
+                : Selection.getSelectionEnd(_hlEditor.getText());
+        if (selection != -1) {
+            System.out.println(_hlEditor.getLayout().getLineForOffset(selection));
+            return _hlEditor.getLayout().getLineForOffset(selection);
         }
 
         return -1;
