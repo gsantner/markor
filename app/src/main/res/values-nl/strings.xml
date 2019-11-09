@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Alternatieve benaming</string>
     <string name="empty_file">Leeg bestand</string>
     <string name="break_page_pdf_print">Breek pagina (PDF/Afdrukken)</string>
+    <string name="underline">Onderstrepen</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Of om hex kleurcodes te onderstrepen naar kleur</string>
     <string name="underline_hex_color_codes">Onderstreep Hex Kleurcodes</string>
     <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontale lijn</string>
     <string name="toggle_done">Schakelen voltooid</string>
+    <string name="link_color">Linkkleur</string>
     <string name="add_context">Context toevoegen</string>
     <string name="add_project">Voeg project toe</string>
     <string name="archive_completed_tasks">Voltooide taken archiveren</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Geselecteerd</string>
     <string name="back">Terug</string>
     <string name="expand_collapse">Uitvouwen / samenvouwen</string>
+    <string name="essential">Essentieel</string>
 </resources>
