@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Noms alternatius</string>
     <string name="empty_file">Fitxer buit</string>
     <string name="break_page_pdf_print">Salt de pàgina (PDF/Impressió)</string>
+    <string name="underline">Subratlla</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ja sigui per subratllar els codis de color hexadecimal segons el color</string>
     <string name="underline_hex_color_codes">Subratlla els codis hexadecimals de color</string>
     <string name="insert_current_date_when_starting_new_task">Insereix la data actual en iniciar una tasca nova</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Codi en línia</string>
     <string name="horizontal_line">Línia horitzontal</string>
     <string name="toggle_done">Commutació feta</string>
+    <string name="link_color">Color de l\'enllaç</string>
     <string name="add_context">Afegeix context</string>
     <string name="add_project">Afegeix un projecte</string>
     <string name="archive_completed_tasks">Arxivar les tasques completades</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Seleccionat</string>
     <string name="back">Enrere</string>
     <string name="expand_collapse">Expandeix/Replega</string>
+    <string name="essential">Essencial</string>
 </resources>
