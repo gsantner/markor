@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Alternativní pojmenování</string>
     <string name="empty_file">Prázdný soubor</string>
     <string name="break_page_pdf_print">Stránka Break (PDF/Printing)</string>
+    <string name="underline">Podtržení</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevné kódy barvou</string>
     <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Inline kód</string>
     <string name="horizontal_line">Vodorovná čára</string>
     <string name="toggle_done">Přepnout hotovo</string>
+    <string name="link_color">Barva odkazu</string>
     <string name="add_context">Přidat kontext</string>
     <string name="add_project">Přidat projekt</string>
     <string name="archive_completed_tasks">Archivovat dokončené úkoly</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Vybrané</string>
     <string name="back">Zpátky</string>
     <string name="expand_collapse">Rozbalit / Sbalit</string>
+    <string name="essential">Základní</string>
 </resources>

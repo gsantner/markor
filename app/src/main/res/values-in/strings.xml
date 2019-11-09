@@ -32,6 +32,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors">Kontributor</string>
     <string name="licenses">Lisensi</string>
     <string name="changelog">Catatan Perubahan</string>
+    <string name="show_license_of_the_app">Tampilkan lisensi GNU GPLv3</string>
     <string name="show_third_party_licenses">Tampilkan lisensi pihak ketiga</string>
     <string name="language_change_restart_description">Mengubah bahasa aplikasi. Buka ulang aplikasi setelah mengubah preferensi bahasa</string>
     <string name="language">Bahasa</string>
@@ -48,4 +49,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Info untuk berkontribusi dalam proyek ini</string>
     <string name="error_picture_selection">Tidak ada gambar yang dipilih.</string>
     <string name="miscellaneous">Lain-lain</string>
+    <string name="background">Latar Belakang</string>
+    <string name="font">Jenis Karakter</string>
 </resources>

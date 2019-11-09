@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
     <string name="break_page_pdf_print">Разрыв страницы (PDF/Печать)</string>
+    <string name="underline">Подчеркнутый</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
@@ -303,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Когда запрос включает звёздочку (*), используется поиск по регулярному выражению, иначе проверяется, содержится ли запрос в директории.</string>
     <string name="always_open_with_this_app">Всегда открывать этим приложением</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения файла.</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения.</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить журнал отладки</string>
     <string name="help_by_sending_debug_information_to_the_developer">Помогите разработчикам, отправляя отладочную информацию. Данные отправляются по электронной почте вашим приложением электронной почты, и вы можете просмотреть перед отправкой все отправляемые данные. Вы найдете дополнительный пункт \"Отправить журнал отладки\" в верхнем меню, когда включено. Он создает черновик письма.</string>
@@ -341,13 +342,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Встроенный код</string>
     <string name="horizontal_line">Горизонтальная линия</string>
     <string name="toggle_done">Переключить завершено</string>
+    <string name="link_color">Цвет ссылки</string>
     <string name="add_context">Добавить контекст</string>
     <string name="add_project">Добавить проект</string>
     <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
     <string name="sort_alphabetically">Сортировать по алфавиту</string>
-    <string name="create_new_file_or_folder">Создать новый файл или директорию</string>
+    <string name="create_new_file_or_folder">Создать новый файл или папку</string>
     <string name="choose_format">Выберите формат</string>
     <string name="selected">Выбрано</string>
     <string name="back">Назад</string>
     <string name="expand_collapse">Развернуть / Свернуть</string>
+    <string name="essential">Важнейшее</string>
 </resources>
