@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Альтернативне іменування</string>
     <string name="empty_file">Порожній файл</string>
     <string name="break_page_pdf_print">Розрив сторінки (PDF/Друк)</string>
+    <string name="underline">Підкреслити</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
     <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Вбудований код</string>
     <string name="horizontal_line">Горизонтальна лінія</string>
     <string name="toggle_done">Перемкнути виконане</string>
+    <string name="link_color">Колір посилання</string>
     <string name="add_context">Додати контекст</string>
     <string name="add_project">Додати проєкт</string>
     <string name="archive_completed_tasks">Архівувати завершені завдання</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Обрано</string>
     <string name="back">Назад</string>
     <string name="expand_collapse">Розгорнути / Згорнути</string>
+    <string name="essential">Незамінні</string>
 </resources>
