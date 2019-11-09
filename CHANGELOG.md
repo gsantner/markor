@@ -1,4 +1,6 @@
 ### v2.3 (in progress)
+- Improve table of contents - add border around, disable underline
+- Update Markdown parser
 - Long press toolbar to jump to top/bottom (edit & view mode)
 - Add search to View Mode
 - Accessibility improvements & Talkback support
