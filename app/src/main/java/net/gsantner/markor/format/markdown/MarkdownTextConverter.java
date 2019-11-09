@@ -11,6 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
@@ -144,8 +145,18 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Prepare head and javascript calls
         head += CSS_HEADER_UNDERLINE + CSS_H1_H2_UNDERLINE + CSS_BLOCKQUOTE_VERTICAL_LINE + CSS_LIST_TASK_NO_BULLET;
-        if (appSettings.isMarkdownTableOfContentsEnabled() && (markup.contains("#") || markup.contains("<h"))) {
-            markup = "[TOC]: # ''\n  \n" + markup;
+
+        // Table of contents
+        final String parentFolderName = file != null && file.getParentFile() != null && !TextUtils.isEmpty(file.getParentFile().getName()) ? file.getParentFile().getName() : "";
+        final boolean isInBlogFolder = parentFolderName.equals("_posts") || parentFolderName.equals("blog") || parentFolderName.equals("post");
+        if ((isInBlogFolder || appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
+            final String tocToken = "[TOC]: # ''\n  \n";
+            if (markup.startsWith("---")) {
+                markup = markup.replaceFirst("[\n][-]{3,}[\n]{2}", "\n---\n" + tocToken + "\n");
+            }
+            if (!markup.contains(tocToken)) {
+                markup = tocToken + markup;
+            }
             options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.BLANK_LINE_SPACER, false);
