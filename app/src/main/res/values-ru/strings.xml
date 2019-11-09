@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
     <string name="break_page_pdf_print">Разрыв страницы (PDF/Печать)</string>
+    <string name="underline">Подчеркнутый</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при создании новой задачи</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Встроенный код</string>
     <string name="horizontal_line">Горизонтальная линия</string>
     <string name="toggle_done">Переключить завершено</string>
+    <string name="link_color">Цвет ссылки</string>
     <string name="add_context">Добавить контекст</string>
     <string name="add_project">Добавить проект</string>
     <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Выбрано</string>
     <string name="back">Назад</string>
     <string name="expand_collapse">Развернуть / Свернуть</string>
+    <string name="essential">Важнейшее</string>
 </resources>
