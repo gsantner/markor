@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">别名</string>
     <string name="empty_file">空文件</string>
     <string name="break_page_pdf_print">分页 (PDF/打印)</string>
+    <string name="underline">下划线</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">为十六进制颜色代码按照颜色添加下划线</string>
     <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
     <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">行内代码</string>
     <string name="horizontal_line">水平线</string>
     <string name="toggle_done">切换完成</string>
+    <string name="link_color">链接颜色</string>
     <string name="add_context">添加上下文内容</string>
     <string name="add_project">添加项目</string>
     <string name="archive_completed_tasks">存档已完成的任务</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">已选择</string>
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>
+    <string name="essential">基本的</string>
 </resources>
