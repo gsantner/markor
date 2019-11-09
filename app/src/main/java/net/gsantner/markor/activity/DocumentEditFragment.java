@@ -301,6 +301,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
+
+        if (_isPreviewVisible) {
+            _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            setDocumentViewVisibility(_isPreviewVisible);
+        }
     }
 
     @SuppressWarnings("ConstantConditions")

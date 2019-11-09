@@ -19,6 +19,7 @@
         android:id="@+id/submenu_attach"
         android:icon="@drawable/ic_attach_file_black_24dp"
         android:title="@string/attach"
+        android:visible="false"
         app:showAsAction="always">
         <menu>
             <item
@@ -70,13 +71,13 @@
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
-        android:title="@string/view"
+        android:title="@string/view_mode"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_edit_black_24dp"
-        android:title="@string/edit"
+        android:title="@string/edit_mode"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_search"
