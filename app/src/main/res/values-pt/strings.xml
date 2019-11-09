@@ -342,7 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Código em linha</string>
     <string name="horizontal_line">Linha horizontal</string>
     <string name="toggle_done">Alternar conclusão</string>
-    <string name="link_color">Cor do link</string>
+    <string name="link_color">Cor da ligação</string>
     <string name="add_context">Adicionar contexto</string>
     <string name="add_project">Adicionar projeto</string>
     <string name="archive_completed_tasks">Arquivar tarefas concluídas</string>
