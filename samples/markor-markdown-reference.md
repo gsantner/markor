@@ -1,4 +1,4 @@
----
+---------------
 
 # Markdown Reference
 Automatically generate _table of contents_ by checking the option here: `Settings > Format > Markdown`.
@@ -9,7 +9,7 @@ Automatically generate _table of contents_ by checking the option here: `Setting
 ##### H5 Header
 ###### H6 Header
 
----
+---------------
 
 ## Text
 
@@ -33,7 +33,7 @@ are
 awesome
 ```
 
----
+---------------
  
 ## Lists
 ### Ordered & unordered
@@ -77,14 +77,14 @@ awesome
 1. [x] Clean
 2. [ ] Cook
 
----
+---------------
 
 ## Links
 [Link](https://duckduckgo.com/)
 
 [File in same folder as the document.](markor-markdown-reference.md) Use %20 for spaces!
 
----
+---------------
 
 ## Tables
 
@@ -102,7 +102,7 @@ Test | Test | Test
 
 <!-- Comment: Not visibile in view. Can also be across multiple lines. -->
 
----
+---------------
 
 ## Math (KaTeX)
 See [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Format > Markdown`.
@@ -117,7 +117,7 @@ $ I = \frac V R $
 $$\begin{array}{c} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\ \nabla \cdot \vec{\mathbf{B}} & = 0 \end{array}$$
 </div>
 
----
+---------------
 
 ## Text (advanced)
 
@@ -159,7 +159,7 @@ required for Markdown support)
 lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
 </div>
 
----
+---------------
 
 ## Multimedia
 
@@ -180,10 +180,10 @@ Yellowcard - Lights up in the sky
 
 <audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>
 
----
+---------------
 
 This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 1.
 
----
+---------------
 
 
