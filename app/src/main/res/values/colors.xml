@@ -29,6 +29,7 @@
 
     <color name="accent_light">#FF9800</color>
     <color name="divider_2">#3d3d3d</color>
+    <color name="default_link_color">#388E3C</color>
 
     <color name="light__background">#eeeeee</color>
     <color name="light__background_2">#f9f9f9</color>

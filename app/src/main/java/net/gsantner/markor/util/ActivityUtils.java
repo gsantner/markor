@@ -11,9 +11,17 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 
+import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+
 public class ActivityUtils extends net.gsantner.opoc.util.ActivityUtils {
 
     public ActivityUtils(Activity activity) {
         super(activity);
+    }
+
+    public void applySpecialLaunchersVisibility(boolean extraLaunchersEnabled) {
+        setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
     }
 }

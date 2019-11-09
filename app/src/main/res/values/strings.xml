@@ -158,6 +158,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Alternative naming</string>
     <string name="empty_file">Empty file</string>
     <string name="break_page_pdf_print">Break page (PDF/Printing)</string>
+    <string name="underline">Underline</string>
 
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>
@@ -355,6 +356,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontal line</string>
     <string name="toggle_done">Toggle done</string>
+    <string name="link_color">Link color</string>
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>
@@ -364,4 +366,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Selected</string>
     <string name="back">Back</string>
     <string name="expand_collapse">Expand / Collapse</string>
+    <string name="essential">Essential</string>
 </resources>

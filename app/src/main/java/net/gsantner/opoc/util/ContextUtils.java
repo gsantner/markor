@@ -184,12 +184,12 @@ public class ContextUtils {
      * @param intColor  The color coded in int
      * @param withAlpha Optional; Set first bool parameter to true to also include alpha value
      */
-    public String colorToHexString(int intColor, boolean... withAlpha) {
+    public static String colorToHexString(int intColor, boolean... withAlpha) {
         boolean a = withAlpha != null && withAlpha.length >= 1 && withAlpha[0];
         return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
     }
 
-    public String getAndroidVersion() {
+    public static String getAndroidVersion() {
         return Build.VERSION.RELEASE + " (" + Build.VERSION.SDK_INT + ")";
     }
 

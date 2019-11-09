@@ -11,6 +11,7 @@ package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
@@ -198,7 +199,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isSpecialFileLaunchersEnabled() {
-        return getBool(R.string.pref_key__is_launcher_for_special_files_enabled, false);
+        if (BuildConfig.IS_TEST_BUILD) {
+            return false;
+        }
+        return getBool(R.string.pref_key__is_launcher_for_special_files_enabled, true);
     }
 
     public boolean isKeepScreenOn() {
@@ -655,5 +659,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isMarkdownBiggerHeadings() {
         return getBool(R.string.pref_key__editor_markdown_bigger_headings_2, false);
+    }
+
+    public String getViewModeLinkColor() {
+        return ContextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));
     }
 }

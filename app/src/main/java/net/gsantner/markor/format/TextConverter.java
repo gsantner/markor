@@ -36,12 +36,14 @@ public abstract class TextConverter {
     protected static final String TOKEN_TEXT_DIRECTION = "{{ app.text_direction }}"; // this is either 'right' or 'left'
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
+    protected static final String TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE = "{{ app.token_headline_underline_inverse_of_theme }}";
+    protected static final String TOKEN_LINK_COLOR = "{{ app.token_link_color }}";
     protected static final String TOKEN_TEXT_CONVERTER_CSS_CLASS = "{{ post.text_converter_name }}";
     protected static final String TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT = "{{ app.webview_max_zoom_out_by_default }}";
     protected static final String TOKEN_POST_TODAY_DATE = "{{ post.date_today }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
-    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color:#388E3C;text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
+    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_LIGHT = CSS_S + "html,body{color:#303030;}blockquote{color:#73747d;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
@@ -156,6 +158,8 @@ public abstract class TextConverter {
         // Replace tokens
         html = html
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
+                .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
+                .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))

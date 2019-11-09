@@ -81,7 +81,7 @@
                 android:summary="@string/textactions_show_useful_actions_description__appspecific"
                 android:title="@string/textactions" />
             <CheckBoxPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"
                 android:title="@string/special_documents" />
@@ -108,9 +108,9 @@
 
     <!-- Document browser screen -->
     <PreferenceScreen
-        android:icon="@drawable/ic_color_lens_black_24dp"
-        android:summary="@string/theme"
-        android:title="@string/appearance">
+        android:icon="@drawable/ic_border_outer_black_24dp"
+        android:summary="@string/miscellaneous"
+        android:title="@string/other">
 
         <PreferenceCategory android:title="@string/general">
             <ListPreference
@@ -227,7 +227,7 @@
     <PreferenceScreen
         android:icon="@drawable/ic_edit_black_24dp"
         android:summary="@string/editor_settings"
-        android:title="@string/editor">
+        android:title="@string/edit_mode">
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
@@ -300,7 +300,7 @@
     <PreferenceScreen
         android:icon="@drawable/ic_visibility_black_24dp"
         android:summary="@string/display_converted_markup"
-        android:title="@string/view">
+        android:title="@string/view_mode">
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -330,6 +330,11 @@
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/text">
+            <other.com.flask.colorpicker.ColorPickerPreference
+                android:defaultValue="@color/default_link_color"
+                android:icon="@drawable/ic_format_underlined_black_24dp"
+                android:key="@string/pref_key__view_mode_link_color"
+                android:title="@string/link_color" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
@@ -339,9 +344,9 @@
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="-1"
                 android:icon="@drawable/ic_format_size_black_24dp"
-                android:summary="-1 => Editor"
                 android:key="@string/pref_key__view_font_size"
                 android:max="36"
+                android:summary="-1 => Editor"
                 android:title="@string/font_size"
                 app:min="-1" />
         </PreferenceCategory>
@@ -349,10 +354,7 @@
 
 
     <!-- Formats screen -->
-    <PreferenceScreen
-        android:icon="@drawable/ic_format_shapes_black_24dp"
-        android:summary="@string/markup_formats_supported_list"
-        android:title="@string/format">
+    <PreferenceCategory android:title="@string/format">
 
         <!-- Markdown screen -->
         <PreferenceScreen
@@ -387,7 +389,7 @@
                     android:summary="@string/use_different_fonttype_slow_down"
                     android:title="@string/use_monospace_for_code" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/view">
+            <PreferenceCategory android:title="@string/view_mode">
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_looks_5_black_24dp"
@@ -443,10 +445,10 @@
                     android:title="@string/alternative_naming" />
             </PreferenceCategory>
         </PreferenceScreen>
-    </PreferenceScreen>
+    </PreferenceCategory>
 
     <!-- Most important settings -->
-    <PreferenceCategory android:title="@string/general">
+    <PreferenceCategory android:title="@string/essential">
         <ListPreference
             android:defaultValue="@string/app_theme_light"
             android:dialogTitle="@string/theme"

@@ -142,6 +142,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), false, true, null);
         }
 
+        (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
+
         _bottomNav.postDelayed(() -> {
             if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {
                 _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());

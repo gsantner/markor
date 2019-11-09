@@ -204,8 +204,7 @@ public class SettingsActivity extends AppActivityBase {
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
-                au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
-                au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
+                au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
             }
         }
 
