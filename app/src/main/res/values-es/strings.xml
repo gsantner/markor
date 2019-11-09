@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Nombres alternativos</string>
     <string name="empty_file">Archivo vacío</string>
     <string name="break_page_pdf_print">Página de interrupción (PDF/impresión)</string>
+    <string name="underline">Subrayado</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Especifica si subrayar los códigos de color hexadecimal de acuerdo a su color o no</string>
     <string name="underline_hex_color_codes">Subrayar códigos de color hexadecimal</string>
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Código en línea</string>
     <string name="horizontal_line">Línea horizontal</string>
     <string name="toggle_done">Alternar hecho</string>
+    <string name="link_color">Color de enlace</string>
     <string name="add_context">Añadir contexto</string>
     <string name="add_project">Añadir proyecto</string>
     <string name="archive_completed_tasks">Archivar tareas completadas</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Seleccionado</string>
     <string name="back">Atrás</string>
     <string name="expand_collapse">Expandir / Contraer</string>
+    <string name="essential">Esencial</string>
 </resources>
