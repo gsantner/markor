@@ -28,6 +28,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opprett mappe</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="move">Flytt</string>
+    <string name="info">Info</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Fil/mappe eksisterer allerede! Vennligst velg et annet navn</string>
     <string name="import_from_device">Importer fra enhet</string>
     <string name="import_">Importer</string>
     <string name="append_to_witharg">Tilføy %s</string>
@@ -37,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Del til&#8230;</string>
     <string name="share">Del</string>
     <string name="search">Søk</string>
+    <string name="display_converted_markup">Vis konvertert markup</string>
     <string name="editor">Skriveprogram</string>
     <string name="folders">Mapper</string>
     <string name="files">Filer</string>
@@ -45,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (i klartekst)</string>
     <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
     <string name="theme">Drakt</string>
+    <string name="open_existing_files_in_view_mode">Åpne eksisterende filer i visningsmodus</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartekst</string>
     <string name="file">Fil</string>
@@ -59,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementer valgt</string>
+    <string name="hide_statusbar_at_this_view">Skjul statusfelt i denne visningen</string>
     <string name="hide_statusbar">Skjul statusfelt</string>
     <string name="name">Navn</string>
     <string name="url_or_path">Nettadresse / sti</string>
