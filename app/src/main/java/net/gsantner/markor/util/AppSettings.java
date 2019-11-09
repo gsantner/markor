@@ -210,11 +210,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getLanguage() {
-        if (BuildConfig.IS_TEST_BUILD && isAppCurrentVersionFirstStart(false)) {
-            setString(R.string.pref_key__language, "en");
-            return "en";
-        }
-
         return getString(R.string.pref_key__language, "");
     }
 
