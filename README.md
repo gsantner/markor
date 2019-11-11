@@ -58,6 +58,8 @@ Files are stored locally in a user selectable folder, defaulting to the device p
   In user generated content data can be loaded from the internet.
 * INSTALL_SHORTCUT  
   Install shortcut to launchers to open a file/folder in Markor.
+* RECORD_AUDIO  
+  Markor allows to attach voice notes to the text. The permission is only used when clicking the "attach audio" button/menu to start the audio record dialog. Audio recording is always started and stopped by the user (button press).
 
 ## Demo
 <div style="display:flex;" >
