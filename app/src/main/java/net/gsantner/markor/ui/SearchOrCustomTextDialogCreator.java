@@ -324,7 +324,7 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        sortUniqNonEmpty(availableData, "music", "video", "download");
+        sortUniqNonEmpty(availableData, "music", "video");
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
