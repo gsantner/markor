@@ -33,6 +33,12 @@ are
 awesome
 ```
 
+<details>
+  <summary>Collapsable - Click to expand!</summary>
+
+  Expanded
+</details>
+
 ---------------
  
 ## Lists

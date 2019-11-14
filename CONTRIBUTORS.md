@@ -40,3 +40,4 @@ Where:
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
 * **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
+* **[Ömer Gök](https://github.com/gokomer)**<br/>~° Added dropdown markdown reference
