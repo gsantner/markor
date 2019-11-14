@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Touches spéciales</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
+    <string name="key_line_up">Alignement (ligne haut)</string>
+    <string name="key_line_down">Alignement (ligne base)</string>
     <string name="key_pos_1">Début de ligne</string>
     <string name="key_pos_end">Fin de ligne</string>
     <string name="key_pos_1_document">Début de document</string>
