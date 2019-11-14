@@ -24,8 +24,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
-import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;

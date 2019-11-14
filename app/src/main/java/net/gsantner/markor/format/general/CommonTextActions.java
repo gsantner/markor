@@ -82,9 +82,9 @@ public class CommonTextActions {
                         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
-                    } else if (callbackPayload.equals(rstr(R.string.key_line_up))){
+                    } else if (callbackPayload.equals(rstr(R.string.key_line_up))) {
                         moveLineUp();
-                    } else if (callbackPayload.equals(rstr(R.string.key_line_down))){
+                    } else if (callbackPayload.equals(rstr(R.string.key_line_down))) {
                         moveLineDown();
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
@@ -243,16 +243,16 @@ public class CommonTextActions {
 
 
     private void moveLineUp() {
-        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true),0)-1,getIndexFromPos(getCurrentCursorLine(false),-1));
-         String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
+        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true), 0) - 1, getIndexFromPos(getCurrentCursorLine(false), -1));
+        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
-        _hlEditor.getText().insert(_hlEditor.getSelectionStart(),lineToMove);
+        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
     }
 
     private void moveLineDown() {
-        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true),0),getIndexFromPos(getCurrentCursorLine(false),-1)+1);
-        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(),_hlEditor.getSelectionEnd());
+        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true), 0), getIndexFromPos(getCurrentCursorLine(false), -1) + 1);
+        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_DOWN);
         _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
