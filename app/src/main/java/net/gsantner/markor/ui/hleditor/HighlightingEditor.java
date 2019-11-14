@@ -229,6 +229,10 @@ public class HighlightingEditor extends AppCompatEditText {
     public void setSelection(int start, int stop) {
         if (indexesValid(start, stop)) {
             super.setSelection(start, stop);
+        } else if (indexesValid(start, stop - 1)) {
+            super.setSelection(start, stop - 1);
+        } else if (indexesValid(start + 1, stop)) {
+            super.setSelection(start + 1, stop);
         }
     }
 

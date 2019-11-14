@@ -12,7 +12,7 @@ package net.gsantner.markor.format.general;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
-import android.text.Selection;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -27,6 +27,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "tmaid_common_special_key";
@@ -49,7 +50,7 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
@@ -83,9 +84,9 @@ public class CommonTextActions {
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
                     } else if (callbackPayload.equals(rstr(R.string.key_line_up))) {
-                        moveLineUp();
+                        moveLineBy1(true);
                     } else if (callbackPayload.equals(rstr(R.string.key_line_down))) {
-                        moveLineDown();
+                        moveLineBy1(false);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
@@ -241,48 +242,36 @@ public class CommonTextActions {
         }
     }
 
-
-    private void moveLineUp() {
-        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true), 0) - 1, getIndexFromPos(getCurrentCursorLine(false), -1));
+    public void moveLineBy1(boolean up) {
+        selectWholeLine(true);
+        selectWholeLine(false);
         String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
+        if (!lineToMove.endsWith(LINE_SEPARATOR)) {
+            lineToMove += LINE_SEPARATOR;
+        }
         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
+        _hlEditor.simulateKeyPress(up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
         _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
     }
 
-    private void moveLineDown() {
-        _hlEditor.setSelection(getIndexFromPos(getCurrentCursorLine(true), 0), getIndexFromPos(getCurrentCursorLine(false), -1) + 1);
-        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_DOWN);
-        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
-    }
-
-    private int getIndexFromPos(int line, int column) {
-        String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
-        int lineCount = content.split(LINE_SEPARATOR).length;
-        int finalLine = line;
-        if (line >= lineCount) {
-            finalLine = lineCount - 1;
+    public void selectWholeLine(boolean toStart) {
+        final String content = _hlEditor.getText().toString();
+        if (_hlEditor.getSelectionStart() == content.length()) {
+            _hlEditor.setSelection(_hlEditor.getSelectionStart() - 1, _hlEditor.getSelectionEnd());
+        }
+        if (_hlEditor.getSelectionEnd() == content.length()) {
+            _hlEditor.setSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd() - 1);
         }
 
-        int currentLine = 0;
-        for (int i = 0; i < content.length(); i++) {
-            if (currentLine == finalLine) {
-                int lineLength = content.substring(i).indexOf(LINE_SEPARATOR);
-                return (column < 0 || column > lineLength) ? (i + lineLength) : (i + column);
-            }
-            if (String.valueOf(content.charAt(i)).equals(LINE_SEPARATOR)) {
-                currentLine++;
+        int i = (toStart ? _hlEditor.getSelectionStart() : _hlEditor.getSelectionEnd());
+        for (; i > 0 && i < content.length(); i = toStart ? (i - 1) : (i + 1)) {
+            if (content.charAt(i) == '\n' || content.charAt(i) == '\r') {
+                i = toStart ? i + 1 : i + 1;
+                break;
             }
         }
-
-        return -1;
-    }
-
-    public int getCurrentCursorLine(final boolean start) {
-        final int selection = start ? Selection.getSelectionStart(_hlEditor.getText()) : Selection.getSelectionEnd(_hlEditor.getText());
-        return selection == -1 ? -1 : (_hlEditor.getLayout().getLineForOffset(selection));
+        _hlEditor.setSelection(toStart ? i : _hlEditor.getSelectionStart(), toStart ? _hlEditor.getSelectionEnd() : i);
     }
 
 }
