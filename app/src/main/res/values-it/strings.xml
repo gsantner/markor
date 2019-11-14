@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
+    <string name="key_line_up">Allinea (linea su)</string>
+    <string name="key_line_down">Giù (riga giù)</string>
     <string name="key_pos_1">Inizio della linea (tasto Home)</string>
     <string name="key_pos_end">Fine della linea (tasto End)</string>
     <string name="key_pos_1_document">Inizio del documento</string>
