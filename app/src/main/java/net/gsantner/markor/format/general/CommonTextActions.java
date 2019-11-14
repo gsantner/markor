@@ -27,8 +27,6 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
-
-
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "tmaid_common_special_key";
@@ -260,31 +258,27 @@ public class CommonTextActions {
         String content = _hlEditor.getText().toString() + LINE_SEPARATOR;
         int lineCount = content.split(LINE_SEPARATOR).length;
         int finalLine = line;
-        if (line >= lineCount) finalLine = lineCount - 1;
+        if (line >= lineCount) {
+            finalLine = lineCount - 1;
+        }
 
         int currentLine = 0;
         for (int i = 0; i < content.length(); i++) {
             if (currentLine == finalLine) {
                 int lineLength = content.substring(i).indexOf(LINE_SEPARATOR);
-                if (column < 0 || column > lineLength) return i + lineLength;
-                else return i + column;
+                return (column < 0 || column > lineLength) ? (i + lineLength) : (i + column);
             }
-            if (String.valueOf(content.charAt(i)).equals(LINE_SEPARATOR)) currentLine++;
+            if (String.valueOf(content.charAt(i)).equals(LINE_SEPARATOR)) {
+                currentLine++;
+            }
         }
 
         return -1;
     }
 
-    public int getCurrentCursorLine(boolean start)
-    {
-        int selection = start ? Selection.getSelectionStart(_hlEditor.getText())
-                : Selection.getSelectionEnd(_hlEditor.getText());
-        if (selection != -1) {
-            System.out.println(_hlEditor.getLayout().getLineForOffset(selection));
-            return _hlEditor.getLayout().getLineForOffset(selection);
-        }
-
-        return -1;
+    public int getCurrentCursorLine(final boolean start) {
+        final int selection = start ? Selection.getSelectionStart(_hlEditor.getText()) : Selection.getSelectionEnd(_hlEditor.getText());
+        return selection == -1 ? -1 : (_hlEditor.getLayout().getLineForOffset(selection));
     }
 
 }
