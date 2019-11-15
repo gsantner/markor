@@ -83,9 +83,9 @@ public class CommonTextActions {
                         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
-                    } else if (callbackPayload.equals(rstr(R.string.key_line_up))) {
+                    } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
                         moveLineBy1(true);
-                    } else if (callbackPayload.equals(rstr(R.string.key_line_down))) {
+                    } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
                         moveLineBy1(false);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
