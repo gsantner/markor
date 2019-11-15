@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Megjelenés</string>
     <string name="rename">Átnevezés</string>
     <string name="confirm_delete">Törlés Megerősítése</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Biztosan törölni szeretnéd ezt: %s?</string>
     <string name="confirm_overwrite">Felülírás megerősítése</string>
     <string name="file_already_exists_overwerite">A fájl már létezik, felülírja?</string>
     <string name="browse_filesystem">Tallózás</string>

@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">外觀</string>
     <string name="rename">重新命名</string>
     <string name="confirm_delete">確定刪除</string>
-    <string name="do_you_really_want_to_delete_this_witharg">您真的要刪除這個 %s 嗎？</string>
     <string name="confirm_overwrite">確認覆寫</string>
     <string name="file_already_exists_overwerite">檔案已經存在，要覆寫嗎？</string>
     <string name="browse_filesystem">瀏覽檔案系統</string>

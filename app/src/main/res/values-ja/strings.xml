@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">外観</string>
     <string name="rename">名前を変更</string>
     <string name="confirm_delete">削除の確認</string>
-    <string name="do_you_really_want_to_delete_this_witharg">この %s を削除してもよろしいですか?</string>
     <string name="confirm_overwrite">上書きの確認</string>
     <string name="file_already_exists_overwerite">ファイルはすでに存在します。上書きしますか?</string>
     <string name="browse_filesystem">ファイルシステムを参照</string>

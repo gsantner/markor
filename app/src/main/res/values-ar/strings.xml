@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">المظهر</string>
     <string name="rename">إعادة التسمية</string>
     <string name="confirm_delete">تأكيد الحذف</string>
-    <string name="do_you_really_want_to_delete_this_witharg">هل تريد حقا حذف %s؟</string>
     <string name="confirm_overwrite">تأكيد التعديل</string>
     <string name="file_already_exists_overwerite">الملف موجود بالفعل، استبدال ؟</string>
     <string name="browse_filesystem">تصفح الملفات</string>

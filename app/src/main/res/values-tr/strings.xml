@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Görünüm</string>
     <string name="rename">Yeniden Adlandır</string>
     <string name="confirm_delete">Silmeyi Onayla</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Bu %syi gerçekten silmek istiyor musunuz?</string>
     <string name="confirm_overwrite">Üzerine Yazmayı Onayla</string>
     <string name="file_already_exists_overwerite">Dosya zaten var, üzerine yazılsın mı?</string>
     <string name="browse_filesystem">Dosya sistemine göz at</string>

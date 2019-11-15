@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Aparèntzia</string>
     <string name="rename">Muda su nùmene</string>
     <string name="confirm_delete">Cinfirma s\'iscantzellamentu</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Cheres a beru a iscantzellare custu %s?</string>
     <string name="confirm_overwrite">Cunfirma sa subraiscritura</string>
     <string name="file_already_exists_overwerite">Su documentu esist giai, lu cheres subraiscrìere?</string>
     <string name="browse_filesystem">Esplora su sistema de documentos</string>

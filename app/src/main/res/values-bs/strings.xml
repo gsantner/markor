@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Izgled</string>
     <string name="rename">Preimenuj</string>
     <string name="confirm_delete">Potvrdi brisanje</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Želite li zaista obrisati %s?</string>
     <string name="confirm_overwrite">Potvrdi prepisivanje</string>
     <string name="file_already_exists_overwerite">Datoteka već postoji. Prepisati?</string>
     <string name="browse_filesystem">Pregledaj datoteke</string>

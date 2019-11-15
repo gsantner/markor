@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Udem</string>
     <string name="rename">Beddel isem</string>
     <string name="confirm_delete">Sentem tukksa</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Tebɣiḍ ad tekkseḍ aya %s?</string>
     <string name="confirm_overwrite">Sentem asfeɛj</string>
     <string name="file_already_exists_overwerite">Afaylu s yisem-agi yella yakan : tebɣiḍ ad tesfeɛjeḍ-t ?</string>
     <string name="browse_filesystem">Snirem anagraw n ifuyla</string>

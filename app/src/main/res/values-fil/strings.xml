@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Hitsura</string>
     <string name="rename">I-rename</string>
     <string name="confirm_delete">Tiyakin Alisin</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Sigurado ka bang gusto mong burahin ang %s?</string>
     <string name="confirm_overwrite">Tiyaking I-o-overwrite</string>
     <string name="file_already_exists_overwerite">Mayroon nang ganitong file, i-overwrite?</string>
     <string name="browse_filesystem">Mag-browse sa filesystem</string>

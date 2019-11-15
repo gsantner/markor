@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Utseende</string>
     <string name="rename">Byt namn</string>
     <string name="confirm_delete">Bekräfta radering</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Vill du verkligen radera den här %s?</string>
     <string name="confirm_overwrite">Skriva över?</string>
     <string name="file_already_exists_overwerite">Filen finns redan, skriva över?</string>
     <string name="browse_filesystem">Bläddra i filsystemet</string>

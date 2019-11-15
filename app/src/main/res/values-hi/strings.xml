@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">दिखावट</string>
     <string name="rename">नाम बदलने</string>
     <string name="confirm_delete">हटाने की पुष्टि करें</string>
-    <string name="do_you_really_want_to_delete_this_witharg">क्या आप वास्तव में %s हटाना चाहते हैं?</string>
     <string name="confirm_overwrite">ओवरराइट की पुष्टि करें</string>
     <string name="file_already_exists_overwerite">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
     <string name="title">शीर्षक</string>

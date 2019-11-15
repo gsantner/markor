@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">מראה</string>
     <string name="rename">שינוי שם</string>
     <string name="confirm_delete">אשר מחיקה</string>
-    <string name="do_you_really_want_to_delete_this_witharg">האם אתה באמת רוצה למחוק את %s?</string>
     <string name="confirm_overwrite">אשר דריסה</string>
     <string name="file_already_exists_overwerite">הקובץ קיים, לדרוס?</string>
     <string name="browse_filesystem">עיין במערכת הקבצים</string>

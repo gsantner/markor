@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Внешний вид</string>
     <string name="rename">Переименовать</string>
     <string name="confirm_delete">Подтвердить удаление</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Вы действительно хотите удалить этот %s?</string>
     <string name="confirm_overwrite">Подтвердить перезапись</string>
     <string name="file_already_exists_overwerite">Файл уже существует, перезаписать?</string>
     <string name="browse_filesystem">Просмотр файлов</string>

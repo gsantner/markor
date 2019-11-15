@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">ظاهر</string>
     <string name="rename">تغییر نام</string>
     <string name="confirm_delete">تایید حذف</string>
-    <string name="do_you_really_want_to_delete_this_witharg">آیا حقیقتاً میخواهید %s را حذف کنید؟</string>
     <string name="confirm_overwrite">تایید جایگزینی</string>
     <string name="file_already_exists_overwerite">این فایل اکنون وجود دارد، جایگزین شود؟</string>
     <string name="browse_filesystem">مرور فایل‌ها</string>

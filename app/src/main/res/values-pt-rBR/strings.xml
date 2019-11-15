@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Aparência</string>
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Você realmente deseja excluir essa %s?</string>
     <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
     <string name="file_already_exists_overwerite">O arquivo já existe. Sobrescrever?</string>
     <string name="browse_filesystem">Navegar no SD</string>

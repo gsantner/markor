@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Xuất hiện</string>
     <string name="rename">Đổi tên</string>
     <string name="confirm_delete">Xác nhận xóa bỏ</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Bạn có thực sự muốn xoá này %s?</string>
     <string name="confirm_overwrite">Xác nhận ghi đè</string>
     <string name="file_already_exists_overwerite">Tệp đã tồn tại, ghi đè lên?</string>
     <string name="browse_filesystem">Trình duyệt hệ thống tập tin</string>

@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Apparence</string>
     <string name="rename">Renommer</string>
     <string name="confirm_delete">Confirmez la suppression</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Voulez-vous vraiment supprimer ça %s?</string>
     <string name="confirm_overwrite">Confirmer écrasement</string>
     <string name="file_already_exists_overwerite">Un fichier portant le même nom existe déjà : faut-il l\'écraser ?</string>
     <string name="browse_filesystem">Parcourir le système de fichiers</string>

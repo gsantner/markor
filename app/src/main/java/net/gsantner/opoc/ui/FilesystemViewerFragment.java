@@ -560,7 +560,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     ///////////////
     public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
+        StringBuilder message = new StringBuilder(getResources().getQuantityString(R.plurals.do_you_really_want_to_delete_this_document, itemsToDelete.size()) + "\n\n");
 
         for (File f : itemsToDelete) {
             message.append("\n").append(f.getAbsolutePath());

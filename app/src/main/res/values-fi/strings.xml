@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Ulkoasu</string>
     <string name="rename">Nimeä uudelleen</string>
     <string name="confirm_delete">Vahvista poisto</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Haluatko varmasti poistaa tämän %s?</string>
     <string name="confirm_overwrite">Vahvista ylikirjoitus</string>
     <string name="file_already_exists_overwerite">Tiedosto on jo olemassa, korvataanko?</string>
     <string name="browse_filesystem">Selaa tiedostojärjestelmää</string>

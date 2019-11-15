@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Utseende</string>
     <string name="rename">Gi nytt navn</string>
     <string name="confirm_delete">Bekreft sletting</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Ønsker du virkelig å slette denne %s?</string>
     <string name="confirm_overwrite">Bekreft overskriving</string>
     <string name="file_already_exists_overwerite">Filen finnes allerede, overskriv?</string>
     <string name="browse_filesystem">Utforsk filsystem</string>

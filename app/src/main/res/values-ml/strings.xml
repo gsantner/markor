@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">രൂപം</string>
     <string name="rename">പേര് തിരുത്തുക</string>
     <string name="confirm_delete">നീക്കം ചെയ്യുന്നത് ഉറപ്പുവരുത്തുക</string>
-    <string name="do_you_really_want_to_delete_this_witharg">ഉറപ്പായും നീക്കം ചെയ്യാമല്ലോ ഈ %s?</string>
     <string name="confirm_overwrite">ഓവർറൈറ്റ് ഉറപ്പുവരുത്തുക</string>
     <string name="file_already_exists_overwerite">നിലവിൽ മറ്റൊരു ഫയൽ ഉണ്ട്, അത് ഓവർറൈറ്റ് ചെയ്യണോ?</string>
     <string name="browse_filesystem">ഫയൽ സിസ്റ്റത്തിൽ തിരയുക</string>

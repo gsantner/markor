@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Erscheinungsbild</string>
     <string name="rename">Umbenennen</string>
     <string name="confirm_delete">Löschen bestätigen</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Möchtest du %s wirklich löschen?</string>
     <string name="confirm_overwrite">Überschreiben bestätigen</string>
     <string name="file_already_exists_overwerite">Datei existiert bereits. Überschreiben?</string>
     <string name="browse_filesystem">Dateisystem durchsuchen</string>

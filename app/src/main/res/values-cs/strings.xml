@@ -18,7 +18,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Vzhled</string>
     <string name="rename">Přejmenovat</string>
     <string name="confirm_delete">Potvrdit odstranění</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Opravdu chcete smazat %s?</string>
     <string name="confirm_overwrite">Potvrdit přepsání</string>
     <string name="file_already_exists_overwerite">Soubor již existuje, přepsat?</string>
     <string name="browse_filesystem">Procházet souborový systém</string>
