@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Tecla especial</string>
     <string name="key_page_up">Página acima (Page Up)</string>
     <string name="key_page_down">Página abaixo (Page Down)</string>
+    <string name="move_text_one_line_up">Subir o texto com uma linha</string>
+    <string name="move_text_one_line_down">Mover o texto de uma linha para baixo</string>
     <string name="key_pos_1">Início de linha (Home)</string>
     <string name="key_pos_end">Fim de linha (End)</string>
     <string name="key_pos_1_document">Início do documento</string>
