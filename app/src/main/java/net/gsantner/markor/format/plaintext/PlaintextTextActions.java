@@ -18,7 +18,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.AppSettings;
 
 public class PlaintextTextActions extends TextActions {
 
@@ -29,7 +28,7 @@ public class PlaintextTextActions extends TextActions {
 
     @Override
     public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
+        if (barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Regular actions
@@ -37,8 +36,6 @@ public class PlaintextTextActions extends TextActions {
                 PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(actions[0]);
                 appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
-            setBarVisible(barLayout, false);
         }
     }
 
