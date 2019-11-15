@@ -344,7 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Встроенный код</string>
     <string name="horizontal_line">Горизонтальная линия</string>
     <string name="toggle_done">Сменить статус</string>
-    <string name="link_color">Цвет ссылки</string>
+    <string name="link_color">Цвет ссылок</string>
     <string name="add_context">Добавить контекст</string>
     <string name="add_project">Добавить проект</string>
     <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
