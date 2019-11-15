@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Özel Tuş</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
+    <string name="key_line_up">Satır yukarı (satır yukarı)</string>
+    <string name="key_line_down">Satır aşağı (satır aşağı)</string>
     <string name="key_pos_1">Satır Başlangıcı (Pos Home)</string>
     <string name="key_pos_end">Satır Sonu (Pos End)</string>
     <string name="key_pos_1_document">Belge Başlangıcı</string>
