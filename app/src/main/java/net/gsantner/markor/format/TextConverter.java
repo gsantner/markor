@@ -164,7 +164,6 @@ public abstract class TextConverter {
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()));
-        ;
 
         return html;
     }

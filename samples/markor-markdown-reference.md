@@ -1,5 +1,3 @@
----------------
-
 # Markdown Reference
 Automatically generate _table of contents_ by checking the option here: `Settings > Format > Markdown`.
 
@@ -9,15 +7,13 @@ Automatically generate _table of contents_ by checking the option here: `Setting
 ##### H5 Header
 ###### H6 Header
 
----------------
+<!-- --------------- -->
 
-## Text
+## Format Text
 
-*Italic emphasis*
-_Alternative italic emphasis_
+*Italic emphasis* , _Alternative italic emphasis_
 
-**Bold emphasis**
-__Alternative bold emphasis__
+**Bold emphasis** , __Alternative bold emphasis__
 
 ~~Strikethrough~~
 
@@ -33,7 +29,7 @@ are
 awesome
 ```
 
----------------
+<!-- --------------- -->
  
 ## Lists
 ### Ordered & unordered
@@ -77,14 +73,14 @@ awesome
 1. [x] Clean
 2. [ ] Cook
 
----------------
+<!-- --------------- -->
 
 ## Links
 [Link](https://duckduckgo.com/)
 
 [File in same folder as the document.](markor-markdown-reference.md) Use %20 for spaces!
 
----------------
+<!-- --------------- -->
 
 ## Tables
 
@@ -100,12 +96,12 @@ Shorter | Table | Syntax
 Test | Test | Test
 Test | Test | Test
 
-<!-- Comment: Not visibile in view. Can also be across multiple lines. -->
+<!-- Comment: Not visibile in view. Can also span across multiple lines. End with:-->
 
----------------
+<!-- --------------- -->
 
 ## Math (KaTeX)
-See [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Format > Markdown`.
+See [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Markdown`.
 
 ### Math inline
 
@@ -117,9 +113,12 @@ $ I = \frac V R $
 $$\begin{array}{c} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\ \nabla \cdot \vec{\mathbf{B}} & = 0 \end{array}$$
 </div>
 
----------------
 
-## Text (advanced)
+$$\frac{k_t}{k_e} = \sqrt{2}$$
+
+<!-- --------------- -->
+
+## Format Text (continued)
 
 ### Text color
 
@@ -139,51 +138,62 @@ The <sub>Subway</sub> sandwich was <sup>super</sup>
 Super special characters: ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ⁿ ™ ® ℠
 
 ### Text positioning
-<div align='right'>
+<div markdown='1' align='right'>
 
 text on the **right**
 
 </div>
 
-<div align='center'>
+<div markdown='1' align='center'>
 
 text in the **center**  
 (one empy line above and below  
-required for Markdown support)
+required for Markdown support OR markdown='1')
 
 </div>
 
 ### Block Text
 
-<div style='text-align: justify; text-justify: inter-word;'>
+<div markdown='1' style='text-align: justify; text-justify: inter-word;'>
 lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
 </div>
 
----------------
+### Dropdown
+
+<details markdown='1'><summary>Click to Expand/Collapse</summary>
+
+Expanded content. Shows up and keeps visible when clicking expand. Hide again by clicking the dropdown button again.
+
+</details>
+
+
+<!-- --------------- -->
 
 ## Multimedia
 
-### Image
+### Images
 ![Image](https://gsantner.net/assets/blog/img/markor/markor-v1-7-showcase-3.jpg)
 
-### YouTube
+### Videos
+**Youtube** [Welcome to Upper Austria](https://www.youtube.com/watch?v=RJREFH7Lmm8)
 <iframe width='360' height='200' src='https://www.youtube.com/embed/RJREFH7Lmm8'> </iframe>
 
-### Link to video
-[Road in the wood](https://open.tube/videos/watch/8116312a-dbbd-43a3-9260-9ea6367c72fc) (Peertube)
+**Peertube** [Road in the wood](https://open.tube/videos/watch/8116312a-dbbd-43a3-9260-9ea6367c72fc)
 <div><video controls><source src='https://peertube.mastodon.host/download/videos/8116312a-dbbd-43a3-9260-9ea6367c72fc-480.mp4' </source></video></div>
 
-<!--  Local video file <div><video controls><source src='voice-parrot.mp4' </source></video></div> -->
+<!-- **Local video** <div><video controls><source src='voice-parrot.mp4' </source></video></div> -->
 
-### Audio / Music
-Yellowcard - Lights up in the sky
+### Audio & Music
+**Web audio** [Guifrog - Xia Yu](https://www.freemusicarchive.org/music/Guifrog/Xia_Yu)
+<audio controls src='https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Guifrog/Xia_Yu/Guifrog_-_Xia_Yu.mp3'></audio>
 
+**Local audio** Yellowcard - Lights up in the sky
 <audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>
 
----------------
+------------------
 
-This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 1.
+This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 2.
 
----------------
+------------------
 
 

@@ -84,7 +84,7 @@ public class MarkdownAutoFormat implements InputFilter {
         } else if (dest.length() > 1) {
             Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString());
             if (listMatcher.find()) {
-                return Character.toString(dest.charAt(0)) + " ";
+                return dest.charAt(0) + " ";
             } else {
                 Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString());
                 if (m.find()) {

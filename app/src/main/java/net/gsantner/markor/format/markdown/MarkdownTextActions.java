@@ -170,7 +170,7 @@ public class MarkdownTextActions extends TextActions {
         }
 
         private final Callback.a2<Integer, Boolean> callbackInsertTableRow = (cols, isHeaderEnabled) -> {
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder();
             _hlEditor.requestFocus();
             if (!_hlEditor.isCurrentLineEmpty()) {
                 sb.append("\n");

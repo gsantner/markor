@@ -77,7 +77,7 @@ public class NetworkUtils {
             int written = 0;
             final float invLength = 1f / connection.getContentLength();
 
-            byte data[] = new byte[BUFFER_SIZE];
+            byte[] data = new byte[BUFFER_SIZE];
             while ((count = input.read(data)) != -1) {
                 output.write(data, 0, count);
                 if (invLength != -1f && progressCallback != null) {
