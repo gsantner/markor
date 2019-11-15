@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Специальная клавиша</string>
     <string name="key_page_up">Листать вверх</string>
     <string name="key_page_down">Листать вниз</string>
+    <string name="move_text_one_line_up">Переместить текст на одну строку вверх</string>
+    <string name="move_text_one_line_down">Переместить текст на одну строку вниз</string>
     <string name="key_pos_1">Начало строки (Домашняя позиция)</string>
     <string name="key_pos_end">Конец строки (Конечная позиция)</string>
     <string name="key_pos_1_document">Начало документа</string>
