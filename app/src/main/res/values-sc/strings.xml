@@ -172,8 +172,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Tecla ispetziale</string>
     <string name="key_page_up">Pàgina in subra (Page Up)</string>
     <string name="key_page_down">Pàgina in suta (Page Down)</string>
-    <string name="key_line_up">Allìnia (lìnia in susu)</string>
-    <string name="key_line_down">Allìnia (lìnia in suta)</string>
     <string name="key_pos_1">Incumintzu de sa lìnia (tecla Home)</string>
     <string name="key_pos_end">Fine de sa lìnia (tecla End)</string>
     <string name="key_pos_1_document">Incumintzu de su documentu</string>
