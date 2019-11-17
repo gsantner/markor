@@ -151,6 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="alternative_naming">Nùmenes alternativos</string>
     <string name="empty_file">Documentu bòidu</string>
     <string name="break_page_pdf_print">Interrutzione de pàgina (PDF/Imprenta)</string>
+    <string name="underline">Suta-lìnia</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sutalìnia o nono sos còdighes esadetzimales de sos colores a segunda de sos colores</string>
     <string name="underline_hex_color_codes">Sutalìnia sos còdighes esadetzimales de sos colores</string>
     <string name="insert_current_date_when_starting_new_task">Inserta sa data currente cando incumentzas un\'atividade noa</string>
@@ -341,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Còdighe in lìnia</string>
     <string name="horizontal_line">Riga orizontale</string>
     <string name="toggle_done">Furriadura acumprida</string>
+    <string name="link_color">Colore de su ligàmene</string>
     <string name="add_context">Annanghe cuntestu</string>
     <string name="add_project">Annanghe unu progetu</string>
     <string name="archive_completed_tasks">Archìvia sas fainas acabadas</string>
@@ -350,4 +352,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Ischertados</string>
     <string name="back">In palas</string>
     <string name="expand_collapse">Ismànnia / Mìnima</string>
+    <string name="essential">Essentziale</string>
 </resources>

@@ -28,6 +28,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opprett mappe</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="move">Flytt</string>
+    <string name="info">Info</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Fil/mappe eksisterer allerede! Vennligst velg et annet navn</string>
     <string name="import_from_device">Importer fra enhet</string>
     <string name="import_">Importer</string>
     <string name="append_to_witharg">Tilføy %s</string>
@@ -37,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">Del til&#8230;</string>
     <string name="share">Del</string>
     <string name="search">Søk</string>
+    <string name="display_converted_markup">Vis konvertert markup</string>
     <string name="editor">Skriveprogram</string>
     <string name="folders">Mapper</string>
     <string name="files">Filer</string>
@@ -45,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (i klartekst)</string>
     <string name="document_editor_font">Dokumenttekstbehandlerskrift</string>
     <string name="theme">Drakt</string>
+    <string name="open_existing_files_in_view_mode">Åpne eksisterende filer i visningsmodus</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartekst</string>
     <string name="file">Fil</string>
@@ -59,12 +63,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementer valgt</string>
+    <string name="hide_statusbar_at_this_view">Skjul statusfelt i denne visningen</string>
     <string name="hide_statusbar">Skjul statusfelt</string>
     <string name="name">Navn</string>
     <string name="url_or_path">Nettadresse / sti</string>
     <string name="insert_link">Sett inn lenke</string>
     <string name="insert_image">Sett inn bilde</string>
     <string name="contributors">Bidragsytere</string>
+    <string name="save_location">Lagre posisjon</string>
     <string name="select_storage_folder">Velg lagringsmappe</string>
     <string name="licenses">Lisenser</string>
     <string name="changelog">Endringslogg</string>
@@ -111,10 +117,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Gjenoppfrisk</string>
     <string name="create_shortcut">Lag snarvei</string>
     <string name="tried_to_create_shortcut_for_this_notice">Prøvde å legge til snarvei på hjemmeskjermen din for redigering av dette dokumentet. Merk at noen oppstartere ikke støtter dette.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Den valgte filen bevares ikke innenfor appens notatblokk-filsti. Vil du kopiere den til den gjeldene mappen? Dette kan overskrive en eksisterende fil hvis den har samme navn.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Filen bevares ikke i den gjeldene mappen. Vil du kopiere den til den gjeldene mappen? Dette kan overskrive en eksisterende fil hvis den har samme navn.</string>
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Dokumentutforsker</string>
+    <string name="file_browser">Filbehandler</string>
     <string name="create_note" needed="false">Opprett notat</string>
     <string name="special_documents" needed="false">Spesialdokumenter</string>
+    <string name="keep_screen_on" needed="false">Behold skjermen påslått</string>
     <string name="back_to_previous_folder" needed="false">Tilbake til forrige mappe</string>
     <string name="app_settings" needed="false">Programinnstillinger</string>
     <string name="editor_settings" needed="false">Tekstbehandlerinnstillinger</string>
@@ -126,16 +136,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Husk siste mapper</string>
     <string name="syntax_highlighting">Syntaksframheving</string>
     <string name="highlighting_delay">Framhevingsforsinkelse</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Forsinkelse i millisekunder for framhevelsesforsinkelse. Lavere verdi starter framheving tidligere, men tømmer batteriet fortere, og kan senke ytelsen på eldre enheter.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontroller hvorvidt innskrevet tekst skal framheves eller ei</string>
     <string name="control_font_size_in_editor">Kontroller skriftstørrelsen brukt i tekstbehandleren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger for å sette inn ofte brukt tekst i tekstmoduler</string>
     <string name="load_last_opened_folder_at_startup">Last sist åpnet mappe ved oppstart</string>
+    <string name="format">Format</string>
     <string name="contexts">Kontekster</string>
     <string name="project">Prosjekt</string>
     <string name="projects">Prosjekter</string>
     <string name="categories">Kategorier</string>
     <string name="none">Ingen</string>
     <string name="other">Annet</string>
+    <string name="alternative_naming">Alternativt navn</string>
+    <string name="empty_file">Tom fil</string>
+    <string name="break_page_pdf_print">Bryt til sider (PDF/Printing)</string>
+    <string name="underline">Understrek</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hvorvidt heksadesimale fargekoder skal understrekes i henhold til farge</string>
     <string name="underline_hex_color_codes">Understrek heksadesimale fargekoder</string>
     <string name="insert_current_date_when_starting_new_task">Sett inn nåværende dato når nytt gjøremål startes</string>
@@ -151,14 +167,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Mellomrom mellom linjer i prosent</string>
     <string name="line_spacing">Linjeavstand</string>
     <string name="archive_does_move_done_tasks">Flytt fullførte gjøremål til angitt fil i samme mappe</string>
+    <string name="sort_tasks_by_selected_order">Sorter gjøremålene etter valgt rekkefølge</string>
     <string name="special_key">Spesialtast</string>
+    <string name="key_page_up">Side opp (Page Up)</string>
+    <string name="key_page_down">Side ned (Page Down)</string>
     <string name="key_pos_1">Linjestart (Pos Home)</string>
     <string name="key_pos_end">Linjeslutt (Pos End)</string>
     <string name="key_pos_1_document">Dokumentbegynnelse</string>
     <string name="key_pos_end_document">Dokumentslutt</string>
     <string name="key_ctrl_a">Velg alt (Ctrl+A)</string>
+    <string name="key_tab">Tab</string>
     <string name="start_on_bottom">Start på bunnen</string>
     <string name="start_on_bottom_when_loading_document">Etter at et dokument lastes, posisjoner pekeren ved dets slutt</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bare redigere lokale tilgjengelige dokumenter og støtter ikke filbehandlere som ikke gir en hel filsti.</string>
     <string name="configure_in_the_apps_settings">Sett opp i programinnstillingene</string>
     <string name="vertical_alignment">Loddrett justering</string>
     <string name="horizontal_alignment">Vannrett justering</string>
