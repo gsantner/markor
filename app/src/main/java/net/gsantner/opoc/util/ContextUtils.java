@@ -90,7 +90,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.graphics.Bitmap.CompressFormat;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources", "UnusedAssignment"})
 public class ContextUtils {
     //
     // Members, Constructors
@@ -122,21 +122,29 @@ public class ContextUtils {
      *
      * @return A valid id if the id could be found, else 0
      */
-    public int getResId(ResType resType, final String name) {
-        return _context.getResources().getIdentifier(name, resType.name().toLowerCase(), _context.getPackageName());
+    public int getResId(final ResType resType, final String name) {
+        try {
+            return _context.getResources().getIdentifier(name, resType.name().toLowerCase(), _context.getPackageName());
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
      * Get String by given string ressource id (nuermic)
      */
-    public String rstr(@StringRes int strResId) {
-        return _context.getString(strResId);
+    public String rstr(@StringRes final int strResId) {
+        try {
+            return _context.getString(strResId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
      * Get String by given string ressource identifier (textual)
      */
-    public String rstr(String strResKey) {
+    public String rstr(final String strResKey) {
         try {
             return rstr(getResId(ResType.STRING, strResKey));
         } catch (Resources.NotFoundException e) {
@@ -147,14 +155,18 @@ public class ContextUtils {
     /**
      * Get drawable from given ressource identifier
      */
-    public Drawable rdrawable(@DrawableRes int resId) {
-        return ContextCompat.getDrawable(_context, resId);
+    public Drawable rdrawable(@DrawableRes final int resId) {
+        try {
+            return ContextCompat.getDrawable(_context, resId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
      * Get color by given color ressource id
      */
-    public int rcolor(@ColorRes int resId) {
+    public int rcolor(@ColorRes final int resId) {
         if (resId == 0) {
             Log.e(getClass().getName(), "ContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
@@ -184,7 +196,7 @@ public class ContextUtils {
      * @param intColor  The color coded in int
      * @param withAlpha Optional; Set first bool parameter to true to also include alpha value
      */
-    public static String colorToHexString(int intColor, boolean... withAlpha) {
+    public static String colorToHexString(final int intColor, final boolean... withAlpha) {
         boolean a = withAlpha != null && withAlpha.length >= 1 && withAlpha[0];
         return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
     }
@@ -214,7 +226,7 @@ public class ContextUtils {
             src = _context.getPackageManager().getInstallerPackageName(getPackageIdManifest());
         } catch (Exception ignored) {
         }
-        if (TextUtils.isEmpty(src)) {
+        if (src == null || src.trim().isEmpty()) {
             return "Sideloaded";
         } else if (src.toLowerCase().contains(".amazon.")) {
             return "Amazon Appstore";
@@ -222,7 +234,7 @@ public class ContextUtils {
         switch (src) {
             case "com.android.vending":
             case "com.google.android.feedback": {
-                return "Google Play Store";
+                return "Google Play";
             }
             case "org.fdroid.fdroid.privileged":
             case "org.fdroid.fdroid": {
@@ -246,12 +258,12 @@ public class ContextUtils {
      * If the parameter is an string a browser will get triggered
      */
     public void openWebpageInExternalBrowser(final String url) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         try {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -261,7 +273,7 @@ public class ContextUtils {
      */
     public String getPackageIdManifest() {
         String pkg = rstr("manifest_package_id");
-        return pkg != null ? pkg : _context.getPackageName();
+        return !TextUtils.isEmpty(pkg) ? pkg : _context.getPackageName();
     }
 
     /**
@@ -279,7 +291,7 @@ public class ContextUtils {
      * of the package set in manifest (root element).
      * Falls back to applicationId of the app which may differ from manifest.
      */
-    public Object getBuildConfigValue(String fieldName) {
+    public Object getBuildConfigValue(final String fieldName) {
         String pkg = getPackageIdManifest() + ".BuildConfig";
         try {
             Class<?> c = Class.forName(pkg);
@@ -293,7 +305,7 @@ public class ContextUtils {
     /**
      * Get a BuildConfig bool value
      */
-    public Boolean bcbool(String fieldName, Boolean defaultValue) {
+    public Boolean bcbool(final String fieldName, final Boolean defaultValue) {
         Object field = getBuildConfigValue(fieldName);
         if (field instanceof Boolean) {
             return (Boolean) field;
@@ -304,7 +316,7 @@ public class ContextUtils {
     /**
      * Get a BuildConfig string value
      */
-    public String bcstr(String fieldName, String defaultValue) {
+    public String bcstr(final String fieldName, final String defaultValue) {
         Object field = getBuildConfigValue(fieldName);
         if (field instanceof String) {
             return (String) field;
@@ -315,7 +327,7 @@ public class ContextUtils {
     /**
      * Get a BuildConfig string value
      */
-    public Integer bcint(String fieldName, int defaultValue) {
+    public Integer bcint(final String fieldName, final int defaultValue) {
         Object field = getBuildConfigValue(fieldName);
         if (field instanceof Integer) {
             return (Integer) field;
@@ -405,8 +417,8 @@ public class ContextUtils {
      * Check if app with given {@code packageName} is installed
      */
     public boolean isAppInstalled(String packageName) {
-        PackageManager pm = _context.getApplicationContext().getPackageManager();
         try {
+            PackageManager pm = _context.getApplicationContext().getPackageManager();
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
@@ -418,17 +430,17 @@ public class ContextUtils {
      * Restart the current app. Supply the class to start on startup
      */
     public void restartApp(Class classToStart) {
-        Intent inte = new Intent(_context, classToStart);
-        PendingIntent inteP = PendingIntent.getActivity(_context, 555, inte, PendingIntent.FLAG_CANCEL_CURRENT);
+        Intent intent = new Intent(_context, classToStart);
+        PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (_context instanceof Activity) {
             ((Activity) _context).finish();
         }
         if (mgr != null) {
-            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, inteP);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendi);
         } else {
-            inte.addFlags(FLAG_ACTIVITY_NEW_TASK);
-            _context.startActivity(inte);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(intent);
         }
         Runtime.getRuntime().exit(0);
     }
@@ -497,13 +509,13 @@ public class ContextUtils {
      * {@code androidLC} may be in any of the forms: en, de, de-rAt
      * If given an empty string, the default (system) locale gets loaded
      */
-    public void setAppLanguage(String androidLC) {
+    public void setAppLanguage(final String androidLC) {
         Locale locale = getLocaleByAndroidCode(androidLC);
         locale = (locale != null && !androidLC.isEmpty()) ? locale : Resources.getSystem().getConfiguration().locale;
         setLocale(locale);
     }
 
-    public ContextUtils setLocale(Locale locale) {
+    public ContextUtils setLocale(final Locale locale) {
         Configuration config = _context.getResources().getConfiguration();
         config.locale = (locale != null ? locale : Resources.getSystem().getConfiguration().locale);
         _context.getResources().updateConfiguration(config, null);
@@ -515,7 +527,7 @@ public class ContextUtils {
      * Try to guess if the color on top of the given {@code colorOnBottomInt}
      * should be light or dark. Returns true if top color should be light
      */
-    public boolean shouldColorOnTopBeLight(@ColorInt int colorOnBottomInt) {
+    public boolean shouldColorOnTopBeLight(@ColorInt final int colorOnBottomInt) {
         return 186 > (((0.299 * Color.red(colorOnBottomInt))
                 + ((0.587 * Color.green(colorOnBottomInt))
                 + (0.114 * Color.blue(colorOnBottomInt)))));
@@ -524,7 +536,7 @@ public class ContextUtils {
     /**
      * Convert a html string to an android {@link Spanned} object
      */
-    public Spanned htmlToSpanned(String html) {
+    public Spanned htmlToSpanned(final String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
@@ -583,7 +595,7 @@ public class ContextUtils {
         return dirs;
     }
 
-    public String getStorageName(File externalFileDir, boolean storageNameWithoutType) {
+    public String getStorageName(final File externalFileDir, final boolean storageNameWithoutType) {
         boolean isInt = externalFileDir.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath());
 
         String[] split = externalFileDir.getAbsolutePath().split("/");
@@ -594,7 +606,7 @@ public class ContextUtils {
         }
     }
 
-    public List<Pair<File, String>> getStorages(boolean internalStorageFolder, boolean sdcardFolders) {
+    public List<Pair<File, String>> getStorages(final boolean internalStorageFolder, final boolean sdcardFolders) {
         List<Pair<File, String>> storages = new ArrayList<>();
         for (Pair<File, String> pair : getAppDataPublicDirs(internalStorageFolder, sdcardFolders, true)) {
             if (pair.first != null && pair.first.getAbsolutePath().lastIndexOf("/Android/data") > 0) {
@@ -607,7 +619,7 @@ public class ContextUtils {
         return storages;
     }
 
-    public File getStorageRootFolder(File file) {
+    public File getStorageRootFolder(final File file) {
         String filepath;
         try {
             filepath = file.getCanonicalPath();
@@ -628,7 +640,7 @@ public class ContextUtils {
      *
      * @param files Files and folders to scan
      */
-    public void mediaScannerScanFile(File... files) {
+    public void mediaScannerScanFile(final File... files) {
         if (android.os.Build.VERSION.SDK_INT > 19) {
             String[] paths = new String[files.length];
             for (int i = 0; i < files.length; i++) {
@@ -677,8 +689,12 @@ public class ContextUtils {
     /**
      * Get a {@link Bitmap} out of a {@link DrawableRes}
      */
-    public Bitmap drawableToBitmap(@DrawableRes int drawableId) {
-        return drawableToBitmap(ContextCompat.getDrawable(_context, drawableId));
+    public Bitmap drawableToBitmap(@DrawableRes final int drawableId) {
+        try {
+            return drawableToBitmap(ContextCompat.getDrawable(_context, drawableId));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -686,7 +702,7 @@ public class ContextUtils {
      * Specifying a {@code maxDimen} is also possible and a value below 2000
      * is recommended, otherwise a {@link OutOfMemoryError} may occur
      */
-    public Bitmap loadImageFromFilesystem(File imagePath, int maxDimen) {
+    public Bitmap loadImageFromFilesystem(final File imagePath, final int maxDimen) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(imagePath.getAbsolutePath(), options);
@@ -702,7 +718,7 @@ public class ContextUtils {
      * @param maxDimen Max size of the Bitmap (width or height)
      * @return the scaling factor that needs to be applied to the bitmap
      */
-    public int calculateInSampleSize(BitmapFactory.Options options, int maxDimen) {
+    public int calculateInSampleSize(final BitmapFactory.Options options, final int maxDimen) {
         // Raw height and width of image
         int height = options.outHeight;
         int width = options.outWidth;
@@ -718,7 +734,7 @@ public class ContextUtils {
      * Scale the bitmap so both dimensions are lower or equal to {@code maxDimen}
      * This keeps the aspect ratio
      */
-    public Bitmap scaleBitmap(Bitmap bitmap, int maxDimen) {
+    public Bitmap scaleBitmap(final Bitmap bitmap, final int maxDimen) {
         int picSize = Math.min(bitmap.getHeight(), bitmap.getWidth());
         float scale = 1.f * maxDimen / picSize;
         Matrix matrix = new Matrix();
@@ -729,7 +745,7 @@ public class ContextUtils {
     /**
      * Write the given {@link Bitmap} to {@code imageFile}, in {@link CompressFormat#JPEG} format
      */
-    public boolean writeImageToFileJpeg(File imageFile, Bitmap image) {
+    public boolean writeImageToFileJpeg(final File imageFile, final Bitmap image) {
         return writeImageToFile(imageFile, image, Bitmap.CompressFormat.JPEG, 95);
     }
 
@@ -742,7 +758,7 @@ public class ContextUtils {
      * @param quality    Quality level, defaults to 95
      * @return True if writing was successful
      */
-    public boolean writeImageToFile(File targetFile, Bitmap image, CompressFormat format, Integer quality) {
+    public boolean writeImageToFile(final File targetFile, final Bitmap image, CompressFormat format, Integer quality) {
         File folder = new File(targetFile.getParent());
         if (quality == null || quality < 0 || quality > 100) {
             quality = 95;
@@ -780,7 +796,7 @@ public class ContextUtils {
      * Draw text in the center of the given {@link DrawableRes}
      * This may be useful for e.g. badge counts
      */
-    public Bitmap drawTextOnDrawable(@DrawableRes int drawableRes, String text, int textSize) {
+    public Bitmap drawTextOnDrawable(@DrawableRes final int drawableRes, final String text, final int textSize) {
         Resources resources = _context.getResources();
         float scale = resources.getDisplayMetrics().density;
         Bitmap bitmap = drawableToBitmap(drawableRes);
@@ -805,7 +821,7 @@ public class ContextUtils {
      * Try to tint all {@link Menu}s {@link MenuItem}s with given color
      */
     @SuppressWarnings("ConstantConditions")
-    public void tintMenuItems(Menu menu, boolean recurse, @ColorInt int iconColor) {
+    public void tintMenuItems(final Menu menu, final boolean recurse, @ColorInt final int iconColor) {
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
             try {
@@ -822,14 +838,14 @@ public class ContextUtils {
     /**
      * Loads {@link Drawable} by given {@link DrawableRes} and applies a color
      */
-    public Drawable tintDrawable(@DrawableRes int drawableRes, @ColorInt int color) {
+    public Drawable tintDrawable(@DrawableRes final int drawableRes, @ColorInt final int color) {
         return tintDrawable(rdrawable(drawableRes), color);
     }
 
     /**
      * Tint a {@link Drawable} with given {@code color}
      */
-    public Drawable tintDrawable(@Nullable Drawable drawable, @ColorInt int color) {
+    public Drawable tintDrawable(@Nullable Drawable drawable, @ColorInt final int color) {
         if (drawable != null) {
             drawable = DrawableCompat.wrap(drawable);
             DrawableCompat.setTint(drawable.mutate(), color);
@@ -841,7 +857,7 @@ public class ContextUtils {
      * Try to make icons in Toolbar/ActionBars SubMenus visible
      * This may not work on some devices and it maybe won't work on future android updates
      */
-    public void setSubMenuIconsVisiblity(Menu menu, boolean visible) {
+    public void setSubMenuIconsVisiblity(final Menu menu, final boolean visible) {
         if (TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL) {
             return;
         }
@@ -904,7 +920,7 @@ public class ContextUtils {
     }
 
 
-    public String getMimeType(File file) {
+    public String getMimeType(final File file) {
         return getMimeType(Uri.fromFile(file));
     }
 
@@ -913,7 +929,7 @@ public class ContextUtils {
      * Android/Java's own MimeType map is very very small and detection barely works at all
      * Hence use custom map for some file extensions
      */
-    public String getMimeType(Uri uri) {
+    public String getMimeType(final Uri uri) {
         String mimeType = null;
         if (ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) {
             ContentResolver cr = _context.getContentResolver();
@@ -954,7 +970,7 @@ public class ContextUtils {
         return mimeType;
     }
 
-    public Integer parseColor(String colorstr) {
+    public Integer parseColor(final String colorstr) {
         if (colorstr == null || colorstr.trim().isEmpty()) {
             return null;
         }
@@ -980,7 +996,7 @@ public class ContextUtils {
     // Requires <uses-permission android:name="android.permission.VIBRATE" /> in AndroidManifest to work
     @SuppressWarnings("UnnecessaryReturnStatement")
     @SuppressLint("MissingPermission")
-    public void vibrate(int... ms) {
+    public void vibrate(final int... ms) {
         int ms_v = ms != null && ms.length > 0 ? ms[0] : 50;
         Vibrator vibrator = ((Vibrator) _context.getSystemService(VIBRATOR_SERVICE));
         if (vibrator == null) {

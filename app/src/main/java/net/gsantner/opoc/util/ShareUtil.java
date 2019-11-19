@@ -96,12 +96,12 @@ public class ShareUtil {
     protected String _fileProviderAuthority;
     protected String _chooserTitle;
 
-    public ShareUtil(Context context) {
+    public ShareUtil(final Context context) {
         _context = context;
         _chooserTitle = "➥";
     }
 
-    public void setContext(Context c) {
+    public void setContext(final Context c) {
         _context = c;
     }
 
@@ -116,13 +116,13 @@ public class ShareUtil {
         return _fileProviderAuthority;
     }
 
-    public ShareUtil setFileProviderAuthority(String fileProviderAuthority) {
+    public ShareUtil setFileProviderAuthority(final String fileProviderAuthority) {
         _fileProviderAuthority = fileProviderAuthority;
         return this;
     }
 
 
-    public ShareUtil setChooserTitle(String title) {
+    public ShareUtil setChooserTitle(final String title) {
         _chooserTitle = title;
         return this;
     }
@@ -133,7 +133,7 @@ public class ShareUtil {
      * @param file the file
      * @return Uri for this file
      */
-    public Uri getUriByFileProviderAuthority(File file) {
+    public Uri getUriByFileProviderAuthority(final File file) {
         return FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
     }
 
@@ -143,7 +143,7 @@ public class ShareUtil {
      * @param intent      Thing to be shared
      * @param chooserText The title text for the chooser, or null for default
      */
-    public void showChooser(Intent intent, String chooserText) {
+    public void showChooser(final Intent intent, final String chooserText) {
         _context.startActivity(Intent.createChooser(intent,
                 chooserText != null ? chooserText : _chooserTitle));
     }
@@ -157,7 +157,7 @@ public class ShareUtil {
      * @param iconRes Icon resource for the item
      * @param title   Title of the item
      */
-    public void createLauncherDesktopShortcut(Intent intent, @DrawableRes int iconRes, String title) {
+    public void createLauncherDesktopShortcut(final Intent intent, @DrawableRes final int iconRes, final String title) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (intent.getAction() == null) {
@@ -182,7 +182,7 @@ public class ShareUtil {
      * @param iconRes Icon resource for the item
      * @param title   Title of the item
      */
-    public void createLauncherDesktopShortcutLegacy(Intent intent, @DrawableRes int iconRes, String title) {
+    public void createLauncherDesktopShortcutLegacy(final Intent intent, @DrawableRes final int iconRes, final String title) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (intent.getAction() == null) {
@@ -203,7 +203,7 @@ public class ShareUtil {
      * @param text     The text to share
      * @param mimeType MimeType or null (uses text/plain)
      */
-    public void shareText(String text, @Nullable String mimeType) {
+    public void shareText(final String text, @Nullable final String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType(mimeType != null ? mimeType : MIME_TEXT_PLAIN);
@@ -216,7 +216,7 @@ public class ShareUtil {
      * @param file     The file to share
      * @param mimeType The files mime type
      */
-    public boolean shareStream(File file, String mimeType) {
+    public boolean shareStream(final File file, final String mimeType) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
@@ -237,7 +237,7 @@ public class ShareUtil {
      * @param files    The files to share
      * @param mimeType The files mime type. Usally * / * is the best option
      */
-    public boolean shareStreamMultiple(Collection<File> files, String mimeType) {
+    public boolean shareStreamMultiple(final Collection<File> files, final String mimeType) {
         ArrayList<Uri> uris = new ArrayList<>();
         for (File file : files) {
             File uri = new File(file.toString());
@@ -258,14 +258,13 @@ public class ShareUtil {
     /**
      * Start calendar application to add new event, with given details prefilled
      */
-    public boolean createCalendarAppointment(@Nullable String title, @Nullable String description, @Nullable String location, @Nullable Long... startAndEndTime) {
+    public boolean createCalendarAppointment(@Nullable final String title, @Nullable final String description, @Nullable final String location, @Nullable final Long... startAndEndTime) {
         Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
         if (title != null) {
             intent.putExtra(CalendarContract.Events.TITLE, title);
         }
         if (description != null) {
-            description = description.length() > 800 ? description.substring(0, 800) : description;
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
+            intent.putExtra(CalendarContract.Events.DESCRIPTION, (description.length() > 800 ? description.substring(0, 800) : description));
         }
         if (location != null) {
             intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
@@ -292,7 +291,7 @@ public class ShareUtil {
      *
      * @param file The file to share
      */
-    public boolean viewFileInOtherApp(File file, @Nullable String type) {
+    public boolean viewFileInOtherApp(final File file, @Nullable final String type) {
         // On some specific devices the first won't work
         Uri fileUri = null;
         try {
@@ -324,7 +323,7 @@ public class ShareUtil {
      * @param format A {@link Bitmap.CompressFormat}, supporting JPEG,PNG,WEBP
      * @return if success, true
      */
-    public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format) {
+    public boolean shareImage(final Bitmap bitmap, final Bitmap.CompressFormat format) {
         return shareImage(bitmap, format, 95, "SharedImage");
     }
 
@@ -337,7 +336,7 @@ public class ShareUtil {
      * @param quality   Quality of the exported image [0-100]
      * @return if success, true
      */
-    public boolean shareImage(Bitmap bitmap, Bitmap.CompressFormat format, int quality, String imageName) {
+    public boolean shareImage(final Bitmap bitmap, final Bitmap.CompressFormat format, final int quality, final String imageName) {
         try {
             String ext = format.name().toLowerCase();
             File file = File.createTempFile(imageName, "." + ext.replace("jpeg", "jpg"), _context.getExternalCacheDir());
@@ -359,7 +358,6 @@ public class ShareUtil {
      * @return {{@link PrintJob}} or null
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @SuppressWarnings("deprecation")
     public PrintJob print(final WebView webview, final String jobName, final boolean... landscape) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final PrintDocumentAdapter printAdapter;
@@ -391,8 +389,7 @@ public class ShareUtil {
      * See {@link #print(WebView, String) print method}
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @SuppressWarnings("deprecation")
-    public PrintJob createPdf(WebView webview, String jobName) {
+    public PrintJob createPdf(final WebView webview, final String jobName) {
         return print(webview, jobName);
     }
 
@@ -404,7 +401,7 @@ public class ShareUtil {
      * @return A {@link Bitmap} or null
      */
     @Nullable
-    public static Bitmap getBitmapFromWebView(WebView webView) {
+    public static Bitmap getBitmapFromWebView(final WebView webView) {
         try {
             //Measure WebView's content
             int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -437,7 +434,7 @@ public class ShareUtil {
      * Replace (primary) clipboard contents with given {@code text}
      * @param text Text to be set
      */
-    public boolean setClipboard(CharSequence text) {
+    public boolean setClipboard(final CharSequence text) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
@@ -490,7 +487,7 @@ public class ShareUtil {
      * @param callback        Callback after paste try
      * @param serverOrNothing Supply one or no hastebin server. If empty, the default gets taken
      */
-    public void pasteOnHastebin(final String text, final Callback.a2<Boolean, String> callback, String... serverOrNothing) {
+    public void pasteOnHastebin(final String text, final Callback.a2<Boolean, String> callback, final String... serverOrNothing) {
         final Handler handler = new Handler();
         final String server = (serverOrNothing != null && serverOrNothing.length > 0 && serverOrNothing[0] != null)
                 ? serverOrNothing[0] : "https://hastebin.com";
@@ -512,7 +509,7 @@ public class ShareUtil {
      * @param body    Body (content) text to be prefilled in the mail
      * @param to      recipients to be prefilled in the mail
      */
-    public void draftEmail(String subject, String body, String... to) {
+    public void draftEmail(final String subject, final String body, final String... to) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
         if (subject != null) {
@@ -533,7 +530,7 @@ public class ShareUtil {
      * @param receivingIntent The intent from {@link Activity#getIntent()}
      * @return A file or null if extraction did not succeed
      */
-    public File extractFileFromIntent(Intent receivingIntent) {
+    public File extractFileFromIntent(final Intent receivingIntent) {
         String action = receivingIntent.getAction();
         String type = receivingIntent.getType();
         File tmpf;
@@ -647,7 +644,7 @@ public class ShareUtil {
         }
     }
 
-    public String extractFileFromIntentStr(Intent receivingIntent) {
+    public String extractFileFromIntentStr(final Intent receivingIntent) {
         File f = extractFileFromIntent(receivingIntent);
         return f != null ? f.getAbsolutePath() : null;
     }
@@ -662,7 +659,8 @@ public class ShareUtil {
      *
      * @param target Path to file to write to, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
      */
-    public String requestCameraPicture(File target) {
+    @SuppressWarnings("RegExpRedundantEscape")
+    public String requestCameraPicture(final File target) {
         if (!(_context instanceof Activity)) {
             throw new RuntimeException("Error: ShareUtil.requestCameraPicture needs an Activity Context.");
         }
@@ -714,7 +712,7 @@ public class ShareUtil {
      * Also may forward results via local broadcast
      */
     @SuppressLint("ApplySharedPref")
-    public Object extractResultFromActivityResult(int requestCode, int resultCode, Intent data, Activity... activityOrNull) {
+    public Object extractResultFromActivityResult(final int requestCode, final int resultCode, final Intent data, final Activity... activityOrNull) {
         Activity activity = greedyGetActivity(activityOrNull);
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
@@ -794,7 +792,7 @@ public class ShareUtil {
      * Send a local broadcast (to receive within app), with given action and string-extra+value.
      * This is a convenience method for quickly sending just one thing.
      */
-    public void sendLocalBroadcastWithStringExtra(String action, String extra, CharSequence value) {
+    public void sendLocalBroadcastWithStringExtra(final String action, final String extra, final CharSequence value) {
         Intent intent = new Intent(action);
         intent.putExtra(extra, value);
         LocalBroadcastManager.getInstance(_context).sendBroadcast(intent);
@@ -808,7 +806,7 @@ public class ShareUtil {
      * @param filterActions  All {@link IntentFilter} actions to filter for
      * @return The created instance. Has to be unregistered on {@link Activity} lifecycle events.
      */
-    public BroadcastReceiver receiveResultFromLocalBroadcast(Callback.a2<Intent, BroadcastReceiver> callback, boolean autoUnregister, String... filterActions) {
+    public BroadcastReceiver receiveResultFromLocalBroadcast(final Callback.a2<Intent, BroadcastReceiver> callback, final boolean autoUnregister, final String... filterActions) {
         IntentFilter intentFilter = new IntentFilter();
         for (String filterAction : filterActions) {
             intentFilter.addAction(filterAction);
@@ -836,7 +834,7 @@ public class ShareUtil {
      *
      * @param file File that should be edited
      */
-    public void requestPictureEdit(File file) {
+    public void requestPictureEdit(final File file) {
         Uri uri = getUriByFileProviderAuthority(file);
         int flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
@@ -858,9 +856,10 @@ public class ShareUtil {
      *
      * @param file Target file
      * @param mode 1 for picture, 2 for video, anything else for other
-     * @return
+     * @return Media URI
      */
-    public Uri getMediaUri(File file, int mode) {
+    @SuppressWarnings("TryFinallyCanBeTryWithResources")
+    public Uri getMediaUri(final File file, final int mode) {
         Uri uri = MediaStore.Files.getContentUri("external");
         uri = (mode != 0) ? (mode == 1 ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Video.Media.EXTERNAL_CONTENT_URI) : uri;
 
@@ -886,7 +885,7 @@ public class ShareUtil {
      * which implement the Chrome Custom Tab interface. This method changes
      * the customtab intent to use an available compatible browser, if available.
      */
-    public void enableChromeCustomTabsForOtherBrowsers(Intent customTabIntent) {
+    public void enableChromeCustomTabsForOtherBrowsers(final Intent customTabIntent) {
         String[] checkpkgs = new String[]{
                 "com.android.chrome", "com.chrome.beta", "com.chrome.dev", "com.google.android.apps.chrome", "org.chromium.chrome",
                 "org.mozilla.fennec_fdroid", "org.mozilla.firefox", "org.mozilla.firefox_beta", "org.mozilla.fennec_aurora",
@@ -937,7 +936,7 @@ public class ShareUtil {
      * Request storage access. The user needs to press "Select storage" at the correct storage.
      * @param activity The activity which will receive the result from startActivityForResult
      */
-    public void requestStorageAccessFramework(Activity... activity) {
+    public void requestStorageAccessFramework(final Activity... activity) {
         Activity a = greedyGetActivity(activity);
         if (a != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
@@ -993,7 +992,7 @@ public class ShareUtil {
      * @param file The file object (file/folder)
      * @return Wether or not the file is under storage access folder
      */
-    public boolean isUnderStorageAccessFolder(File file) {
+    public boolean isUnderStorageAccessFolder(final File file) {
         if (file != null) {
             // When file writeable as is, it's the fastest way to learn SAF isn't required
             if (file.canWrite()) {
@@ -1014,7 +1013,7 @@ public class ShareUtil {
     /**
      * Greedy extract Activity from parameter or convert context if it's a activity
      */
-    private Activity greedyGetActivity(Activity... activity) {
+    private Activity greedyGetActivity(final Activity... activity) {
         if (activity != null && activity.length != 0 && activity[0] != null) {
             return activity[0];
         }
@@ -1032,7 +1031,7 @@ public class ShareUtil {
      * @param isDir Wether or not the given file parameter is a directory
      * @return Wether or not the file can be written
      */
-    public boolean canWriteFile(File file, boolean isDir) {
+    public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
@@ -1054,7 +1053,8 @@ public class ShareUtil {
      * @param isDir Wether or not file is a directory. For non-existing (to be created) files this info is not known hence required.
      * @return A {@link DocumentFile} object or null if file cannot be converted
      */
-    public DocumentFile getDocumentFile(File file, boolean isDir) {
+    @SuppressWarnings("RegExpRedundantEscape")
+    public DocumentFile getDocumentFile(final File file, final boolean isDir) {
         // On older versions use fromFile
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             return DocumentFile.fromFile(file);
@@ -1103,7 +1103,7 @@ public class ShareUtil {
         return dof;
     }
 
-    public void showMountSdDialog(@StringRes int title, @StringRes int description, @DrawableRes int mountDescriptionGraphic, Activity... activityOrNull) {
+    public void showMountSdDialog(@StringRes final int title, @StringRes final int description, @DrawableRes final int mountDescriptionGraphic, final Activity... activityOrNull) {
         Activity activity = greedyGetActivity(activityOrNull);
         if (activity == null) {
             return;
@@ -1125,7 +1125,7 @@ public class ShareUtil {
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
-    public void writeFile(File file, boolean isDirectory, Callback.a2<Boolean, FileOutputStream> writeFileCallback) {
+    public void writeFile(final File file, final boolean isDirectory, final Callback.a2<Boolean, FileOutputStream> writeFileCallback) {
         try {
             FileOutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
@@ -1173,7 +1173,7 @@ public class ShareUtil {
      * @param directCall Direct call number if possible
      */
     @SuppressWarnings("SimplifiableConditionalExpression")
-    public void callTelephoneNumber(String telNo, boolean... directCall) {
+    public void callTelephoneNumber(final String telNo, final boolean... directCall) {
         Activity activity = greedyGetActivity();
         if (activity == null) {
             throw new RuntimeException("Error: ShareUtil::callTelephoneNumber needs to be contstructed with activity context");
