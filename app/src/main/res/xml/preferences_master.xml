@@ -76,12 +76,6 @@
                 android:title="@string/syntax_highlighting" />
             <CheckBoxPreference
                 android:defaultValue="true"
-                android:icon="@drawable/ic_extension_black_24dp"
-                android:key="@string/pref_key__is_show_textactions_bar"
-                android:summary="@string/textactions_show_useful_actions_description__appspecific"
-                android:title="@string/textactions" />
-            <CheckBoxPreference
-                android:defaultValue="true"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"
                 android:title="@string/special_documents" />

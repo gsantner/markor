@@ -995,6 +995,10 @@ public class ShareUtil {
      */
     public boolean isUnderStorageAccessFolder(File file) {
         if (file != null) {
+            // When file writeable as is, it's the fastest way to learn SAF isn't required
+            if (file.canWrite()) {
+                return false;
+            }
             ContextUtils cu = new ContextUtils(_context);
             for (Pair<File, String> storage : cu.getStorages(false, true)) {
                 if (file.getAbsolutePath().startsWith(storage.first.getAbsolutePath())) {

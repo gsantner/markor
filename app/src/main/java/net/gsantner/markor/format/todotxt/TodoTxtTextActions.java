@@ -21,7 +21,6 @@ import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
@@ -44,7 +43,7 @@ public class TodoTxtTextActions extends TextActions {
 
     @Override
     public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
+        if (barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
             // Regular actions
@@ -52,8 +51,6 @@ public class TodoTxtTextActions extends TextActions {
                 TodoTxtTextActionsImpl actionCallback = new TodoTxtTextActionsImpl(actions[0]);
                 appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
-            setBarVisible(barLayout, false);
         }
     }
 

@@ -148,10 +148,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return size < 2 ? getFontSize() : size;
     }
 
-    public boolean isEditor_ShowTextActionsBar() {
-        return getBool(R.string.pref_key__is_show_textactions_bar, true);
-    }
-
     public boolean isHighlightingEnabled() {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }

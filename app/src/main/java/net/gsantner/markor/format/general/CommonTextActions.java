@@ -12,6 +12,7 @@ package net.gsantner.markor.format.general;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.flask.colorpicker.ColorPickerView;
@@ -26,6 +27,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
     public static final String ACTION_SPECIAL_KEY = "tmaid_common_special_key";
@@ -48,6 +50,7 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
+    private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
@@ -80,6 +83,10 @@ public class CommonTextActions {
                         _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
+                    } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
+                        moveLineBy1(true);
+                    } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
+                        moveLineBy1(false);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
@@ -235,5 +242,36 @@ public class CommonTextActions {
         }
     }
 
+    public void moveLineBy1(boolean up) {
+        selectWholeLine(true);
+        selectWholeLine(false);
+        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
+        if (!lineToMove.endsWith(LINE_SEPARATOR)) {
+            lineToMove += LINE_SEPARATOR;
+        }
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
+        _hlEditor.simulateKeyPress(up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
+    }
+
+    public void selectWholeLine(boolean toStart) {
+        final String content = _hlEditor.getText().toString();
+        if (_hlEditor.getSelectionStart() == content.length()) {
+            _hlEditor.setSelection(_hlEditor.getSelectionStart() - 1, _hlEditor.getSelectionEnd());
+        }
+        if (_hlEditor.getSelectionEnd() == content.length()) {
+            _hlEditor.setSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd() - 1);
+        }
+
+        int i = (toStart ? _hlEditor.getSelectionStart() : _hlEditor.getSelectionEnd());
+        for (; i > 0 && i < content.length(); i = toStart ? (i - 1) : (i + 1)) {
+            if (content.charAt(i) == '\n' || content.charAt(i) == '\r') {
+                i = toStart ? i + 1 : i + 1;
+                break;
+            }
+        }
+        _hlEditor.setSelection(toStart ? i : _hlEditor.getSelectionStart(), toStart ? _hlEditor.getSelectionEnd() : i);
+    }
 
 }

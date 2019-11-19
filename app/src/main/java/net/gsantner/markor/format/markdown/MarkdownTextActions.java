@@ -21,7 +21,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
 
 public class MarkdownTextActions extends TextActions {
@@ -32,14 +31,12 @@ public class MarkdownTextActions extends TextActions {
 
     @Override
     public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (AppSettings.get().isEditor_ShowTextActionsBar() && barLayout.getChildCount() == 0) {
+        if (barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
             for (int[] actions : TMA_ACTIONS) {
                 MarkdownTextActionsImpl actionCallback = new MarkdownTextActionsImpl(actions[0]);
                 appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
             }
-        } else if (!AppSettings.get().isEditor_ShowTextActionsBar()) {
-            setBarVisible(barLayout, false);
         }
     }
 
@@ -173,7 +170,7 @@ public class MarkdownTextActions extends TextActions {
         }
 
         private final Callback.a2<Integer, Boolean> callbackInsertTableRow = (cols, isHeaderEnabled) -> {
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder();
             _hlEditor.requestFocus();
             if (!_hlEditor.isCurrentLineEmpty()) {
                 sb.append("\n");

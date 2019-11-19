@@ -73,7 +73,7 @@ public class PlainTextStuff {
         if (endings != null) {
             StringBuffer sb = new StringBuffer();
             sb.append(text.substring(0, pos));
-            sb.append(text.substring(posEnd, text.length()));
+            sb.append(text.substring(posEnd));
             return sb.toString();
         }
         return text;

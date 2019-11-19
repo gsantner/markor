@@ -1,4 +1,5 @@
 ### v2.3 (in progress)
+- Add action to Move current selected line(s)/cursor text up/down by 1
 - Add settings option for View-Mode link color
 - Improve table of contents - add border around, disable underline
 - Update Markdown parser

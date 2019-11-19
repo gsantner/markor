@@ -118,7 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Crea scorciatoia</string>
     <string name="tried_to_create_shortcut_for_this_notice">La scorciatoia per modificare la nota è stata creata. Qualche lanciatore di applicazioni potrebbe non supportare tale funzione.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Il file selezionato non si trova nella cartella del documenti dell\'app. Copiare il file nella cartella attuale? L\'azione sovrascriverà eventuali file esistenti.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Il file non è situato nella cartella corrente. Vuoi copiarlo nella cartella corrente? Se sì, sovrascriverà qualsiasi file esistente con lo stesso nome.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Il file non è situato nella cartella corrente. Vuoi copiarlo nella cartella corrente? Questo sovrascriverà qualsiasi file esistente con lo stesso nome.</string>
     <string name="files_and_folders">File e cartelle</string>
     <string name="document_browser">Navigatore dei documenti</string>
     <string name="file_browser">Esploratore dei file</string>
@@ -172,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
+    <string name="move_text_one_line_up">Sposta il testo una riga in su</string>
+    <string name="move_text_one_line_down">Sposta il testo una riga in giù</string>
     <string name="key_pos_1">Inizio della linea (tasto Home)</string>
     <string name="key_pos_end">Fine della linea (tasto End)</string>
     <string name="key_pos_1_document">Inizio del documento</string>
@@ -307,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="template">Template</string>
     <string name="send_debug_log">Invia log di debug</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Aiutaci inviando informazioni di debug agli sviluppatori. I dati vengono inviati tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di inviare. Se abilitata, troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email, nel menu in alto.</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Aiutaci inviando informazioni di debug agli sviluppatori. I dati vengono spediti tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di spedire. Se abilitata, nel menù in alto troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email.</string>
     <string name="print_pdf">Stampa / PDF</string>
     <string name="bigger_headings">Intestazioni più grandi</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumenta la dimensione del testo delle intestazioni in base al livello (# h1, ## h2. ### h3…)</string>

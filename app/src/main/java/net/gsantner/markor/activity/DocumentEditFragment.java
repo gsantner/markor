@@ -597,7 +597,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void updateLauncherWidgets() {
         Context c = App.get().getApplicationContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
-        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(c, WrMarkorWidgetProvider.class));
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(c, WrMarkorWidgetProvider.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 

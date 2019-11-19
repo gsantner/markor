@@ -320,10 +320,7 @@ public class DocumentActivity extends AppActivityBase {
     public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
         FragmentManager fmgr = getSupportFragmentManager();
         GsFragmentBase fragment = (GsFragmentBase) fmgr.findFragmentByTag(fragmentTag);
-        if (fragment != null) {
-            return fragment;
-        }
-        return null;
+        return fragment;
     }
 
     private GsFragmentBase getCurrentVisibleFragment() {
