@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,6 +24,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
@@ -40,6 +43,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends AppActivityBase {
 
@@ -317,6 +321,23 @@ public class SettingsActivity extends AppActivityBase {
                     break;
                 }
             }
+
+            // Handling widget color scheme
+            AppSettings _appSettings = new AppSettings(getContext());
+            RemoteViews remoteViews = new RemoteViews(getContext().getPackageName(), R.layout.widget_layout);
+            if(!_appSettings.isDarkThemeEnabled()){
+                //Log.i("SettingsActivity", "DARK FALSE");
+                remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", getContext().getResources().getColor(R.color.dark__background));
+                remoteViews.setTextColor(R.id.widget_note_title, Color.WHITE );
+            }
+            else{
+                //Log.i("SettingsActivity", "DARK TRUE");
+                remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", getContext().getResources().getColor(R.color.light__background));
+                remoteViews.setTextColor(R.id.widget_note_title, Color.BLACK );
+            }
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+            appWidgetManager.updateAppWidget(new ComponentName(getContext().getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
+
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
                 _as.setRecreateMainRequired(true);

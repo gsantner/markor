@@ -15,6 +15,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
@@ -51,6 +52,19 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // Handling widget color scheme
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+        AppSettings _appSettings = new AppSettings(context);
+        if(!_appSettings.isDarkThemeEnabled()){
+            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
+            remoteViews.setTextColor(R.id.widget_note_title, Color.WHITE );
+        }
+        else{
+            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
+            remoteViews.setTextColor(R.id.widget_note_title, Color.BLACK );
+        }
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+
         final int N = appWidgetIds.length;
 
         // Perform this loop procedure for each App Widget that belongs to this provider
