@@ -78,11 +78,11 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         AppSettings _appSettings = new AppSettings(_context);
         if(_appSettings.isDarkThemeEnabled()){
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", _context.getResources().getColor(R.color.dark__background));
-            remoteViews.setTextColor(R.id.widget_note_title, Color.WHITE );
+            remoteViews.setTextColor(R.id.widget_note_title,_context.getResources().getColor(R.color.dark__primary_text) );
         }
         else{
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", _context.getResources().getColor(R.color.light__background));
-            remoteViews.setTextColor(R.id.widget_note_title, Color.BLACK );
+            remoteViews.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.light__primary_text) );
         }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(_context);
         appWidgetManager.updateAppWidget(new ComponentName(_context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
@@ -102,8 +102,8 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     public RemoteViews getViewAt(int position) {
         RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
-        AppSettings appSettings = new AppSettings(_context);
-        rowView.setTextColor(R.id.widget_note_title, appSettings.isDarkThemeEnabled() ? _context.getResources().getColor(R.color.dark__primary_text) :  _context.getResources().getColor(R.color.light__primary_text));
+        //AppSettings appSettings = new AppSettings(_context);
+        //rowView.setTextColor(R.id.widget_note_title, appSettings.isDarkThemeEnabled() ? _context.getResources().getColor(R.color.dark__primary_text) :  _context.getResources().getColor(R.color.light__primary_text));
         if (position < _widgetFilesList.length) {
             File file = _widgetFilesList[position];
             Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file).putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, file.isDirectory());

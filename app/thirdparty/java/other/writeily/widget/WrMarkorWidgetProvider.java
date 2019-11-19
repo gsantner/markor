@@ -57,11 +57,11 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
         AppSettings _appSettings = new AppSettings(context);
         if(!_appSettings.isDarkThemeEnabled()){
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
-            remoteViews.setTextColor(R.id.widget_note_title, Color.WHITE );
+            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.dark__primary_text) );
         }
         else{
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
-            remoteViews.setTextColor(R.id.widget_note_title, Color.BLACK );
+            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.light__primary_text) );
         }
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 
