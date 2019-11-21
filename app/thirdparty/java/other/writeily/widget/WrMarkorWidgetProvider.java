@@ -12,6 +12,7 @@ package other.writeily.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,17 +54,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // Handling widget color scheme
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-        AppSettings _appSettings = new AppSettings(context);
-        if(!_appSettings.isDarkThemeEnabled()){
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
-            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.dark__primary_text) );
-        }
-        else{
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
-            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.light__primary_text) );
-        }
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        handleWidgetScheme(
+                context,
+                new RemoteViews(context.getPackageName(), R.layout.widget_layout),
+                new AppSettings(context).isDarkThemeEnabled());
 
         final int N = appWidgetIds.length;
 
@@ -132,5 +126,18 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    public static void handleWidgetScheme(Context context, RemoteViews remoteViews, Boolean enabled){
+        if(!enabled){
+            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
+            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.dark__primary_text) );
+        }
+        else{
+            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
+            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.light__primary_text) );
+        }
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.updateAppWidget(new ComponentName(context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
     }
 }

@@ -74,19 +74,11 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         _widgetFilesList = files.toArray(new File[files.size()]);
 
         // Handling widget color scheme
-        RemoteViews remoteViews = new RemoteViews(_context.getPackageName(), R.layout.widget_layout);
-        AppSettings _appSettings = new AppSettings(_context);
-        if(_appSettings.isDarkThemeEnabled()){
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", _context.getResources().getColor(R.color.dark__background));
-            remoteViews.setTextColor(R.id.widget_note_title,_context.getResources().getColor(R.color.dark__primary_text) );
+        WrMarkorWidgetProvider.handleWidgetScheme(
+                _context,
+                new RemoteViews(_context.getPackageName(), R.layout.widget_layout),
+                !new AppSettings(_context).isDarkThemeEnabled());
         }
-        else{
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", _context.getResources().getColor(R.color.light__background));
-            remoteViews.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.light__primary_text) );
-        }
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(_context);
-        appWidgetManager.updateAppWidget(new ComponentName(_context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
-    }
 
     @Override
     public void onDestroy() {
