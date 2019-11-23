@@ -10,10 +10,8 @@
 package other.writeily.widget;
 
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -78,7 +76,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
                 _context,
                 new RemoteViews(_context.getPackageName(), R.layout.widget_layout),
                 !new AppSettings(_context).isDarkThemeEnabled());
-        }
+    }
 
     @Override
     public void onDestroy() {

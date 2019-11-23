@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
