@@ -22,6 +22,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -38,6 +39,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends AppActivityBase {
 
@@ -315,6 +317,12 @@ public class SettingsActivity extends AppActivityBase {
                     break;
                 }
             }
+
+            // Handling widget color scheme
+            WrMarkorWidgetProvider.handleWidgetScheme(
+                    getContext(),
+                    new RemoteViews(getContext().getPackageName(), R.layout.widget_layout),
+                    new AppSettings(getContext()).isDarkThemeEnabled());
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
                 _as.setRecreateMainRequired(true);
