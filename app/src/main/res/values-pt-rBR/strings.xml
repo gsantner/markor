@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
     <string name="info">Informações</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Arquivo/pasta já existe! Por favor use um nome diferente</string>
     <string name="import_from_device">Importar do dispositivo</string>
     <string name="import_">Importar</string>
     <string name="append_to_witharg">Acrescentar para %s</string>
@@ -117,6 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Criar atalho</string>
     <string name="tried_to_create_shortcut_for_this_notice">Tentou adicionar um atalho em sua tela inicial para editar este documento. Observe que alguns lançadores podem não suportar isso.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">O ficheiro selecionado não está localizado no diretório correto. Deseja copiar o ficheiro para a pasta atual? Os ficheiros existentes serão substituídos se o seu nome for igual.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">O arquivo não está localizado na pasta atual. Você deseja copiá-lo para a pasta atual? Isso irá sobrescrever qualquer arquivo existente com o mesmo nome.</string>
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
     <string name="file_browser">Gerenciador de arquivos</string>
@@ -148,6 +150,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Outros</string>
     <string name="alternative_naming">Nomes alternativos</string>
     <string name="empty_file">Arquivo vazio</string>
+    <string name="break_page_pdf_print">Quebra de página (PDF/Impressão)</string>
+    <string name="underline">Sublinhado</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
     <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
@@ -168,6 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Tecla Especial</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Página seguinte (Page Down)</string>
+    <string name="move_text_one_line_up">Mova o texto uma linha a cima</string>
+    <string name="move_text_one_line_down">Mova o texto uma linha abaixo</string>
     <string name="key_pos_1">Início da linha (Pos Home)</string>
     <string name="key_pos_end">Fim da linha (Pos End)</string>
     <string name="key_pos_1_document">Início do documento</string>
@@ -302,4 +308,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">Sempre abrir com este aplicativo</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esse aplicativo se a extensão do arquivo estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar arquivos web ou arquivos que não tenham extensão.</string>
     <string name="template">Modelo</string>
+    <string name="send_debug_log">Enviar informações de depuração</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Ajude-nos enviando as informações de depuração para o programador(es). Os dados são enviados por e-mail e você pode ver todos os dados que serão submetidos antes de os enviar. Se a opção estiver ativa, encontrará a opção \"Enviar registo de debug\" no menu superior. Será criado um e-mail de rascunho.</string>
+    <string name="print_pdf">Imprimir/PDF</string>
+    <string name="bigger_headings">Cabeçalhos maiores</string>
+    <string name="increase_text_size_of_headings_according_to_level">Aumentar o tamanho dos cabeçalhos de acordo com o nível (# h1, ## h2. ### h3…)</string>
+    <string name="current">Atual</string>
+    <string name="record_audio">Gravar Áudio</string>
+    <string name="attach">Anexar</string>
+    <string name="copy_file">Copiar arquivo</string>
+    <string name="page">Página</string>
+    <string name="experimental_features">Recursos experimentais</string>
+    <string name="tools">Ferramentas</string>
+    <string name="reading">Leitura</string>
+    <string name="read">Ler</string>
+    <string name="table">Tabela</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Quantas colunas? Toque longo no botão da tabela para criar uma tabela e toque curto para adicionar uma linha.</string>
+    <string name="example_of_a_markdown_table">Exemplo de uma tabela Markdown</string>
+    <string name="delete_lines">Excluir linhas</string>
+    <string name="unordered_list">Lista não ordenada</string>
 </resources>
