@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">建立新的文件</string>
     <string name="move">移動</string>
     <string name="info">資訊</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">文件／資料夾名稱已存在，請重新命名</string>
     <string name="import_from_device">從裝置匯入</string>
     <string name="import_">匯入</string>
     <string name="append_to_witharg">增補到 %s</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (純文字)</string>
     <string name="document_editor_font">文件編輯字型</string>
     <string name="theme">主題</string>
+    <string name="open_existing_files_in_view_mode">於檢視模式中開啟現存的文件</string>
     <string name="about">說明</string>
     <string name="plaintext">純文字文件</string>
     <string name="file">檔案</string>
