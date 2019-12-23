@@ -118,8 +118,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">建立捷徑</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所選文件未列於程式的\"筆記本\"目錄內，您要將它複製到現行目錄內嗎？這樣可能會覆蓋原來檔案。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">所選文件未列於程式的\"筆記本\"目錄內，您要將它複製到現行目錄內嗎？這樣可能會覆蓋原來檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
+    <string name="file_browser">檔案瀏覽器</string>
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
@@ -146,6 +148,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">分類項目</string>
     <string name="none">全無</string>
     <string name="other">其他</string>
+    <string name="alternative_naming">别名</string>
+    <string name="empty_file">空白檔案</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
     <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
