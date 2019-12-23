@@ -199,15 +199,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
-    <string name="open_source_licenses">Åpen kildekode-lisenser</string>
-    <string name="rate_this_app">Ranger denne appen</string>
+    <string name="open_source_licenses">Лицензии открытого ПО</string>
+    <string name="rate_this_app">Оценить приложение</string>
     <string name="translate">Перевести</string>
     <string name="more_info_and_help">Mer informasjon og hjelp</string>
     <string name="report_bugs">Сообщить об ошибках</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Более подробная информация о том как отблагодарить разработчика, или внести вклад в этот проект.</string>
     <string name="join_community">Bli med i fellesskapet</string>
     <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
-    <string name="help_translating_this_app">Oversett denne appen til andre språk</string>
+    <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
     <string name="source_code">Исходный код</string>
     <string name="project_license">Лицензия проекта</string>
     <string name="project_contribution_info">Информация о вкладе в проекта</string>
@@ -300,7 +300,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов для отображения отступа</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
-    <string name="list_in_recent_files">Показывать в последних файлах</string>
+    <string name="list_in_recent_files">Показывать в недавних файлах</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
