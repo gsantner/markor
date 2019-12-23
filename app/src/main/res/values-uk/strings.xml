@@ -172,8 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Спеціальна клавіша</string>
     <string name="key_page_up">До сторінки вище (Page Up)</string>
     <string name="key_page_down">До сторінки нижче (Page Down)</string>
-    <string name="move_text_one_line_up">Перемістити текст один рядок вгору</string>
-    <string name="move_text_one_line_down">Перемістити текст один рядок вниз</string>
+    <string name="move_text_one_line_up">Перемістити текст на один рядок вище</string>
+    <string name="move_text_one_line_down">Перемістити текст на один рядок нижче</string>
     <string name="key_pos_1">До початку рядка (Home)</string>
     <string name="key_pos_end">В кінець рядка (End)</string>
     <string name="key_pos_1_document">Початок документа</string>
