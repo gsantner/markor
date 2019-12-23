@@ -52,4 +52,6 @@ files:
         id: in # Indonesian
         sk: sk # Slovak
         kn: kn # Kannada (Asian)
+        ta: ta # Tamil (Asian)
+        sq: sq # Albanian
     translate_attributes: 0
