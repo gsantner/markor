@@ -29,6 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">建立新的文件</string>
     <string name="move">移動</string>
     <string name="info">資訊</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">文件／資料夾名稱已存在，請重新命名</string>
     <string name="import_from_device">從裝置匯入</string>
     <string name="import_">匯入</string>
     <string name="append_to_witharg">增補到 %s</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (純文字)</string>
     <string name="document_editor_font">文件編輯字型</string>
     <string name="theme">主題</string>
+    <string name="open_existing_files_in_view_mode">於檢視模式中開啟現存的文件</string>
     <string name="about">說明</string>
     <string name="plaintext">純文字文件</string>
     <string name="file">檔案</string>
@@ -115,8 +117,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">更新</string>
     <string name="create_shortcut">建立捷徑</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">所選文件未列於程式的\"筆記本\"目錄內，您要將它複製到現行目錄內嗎？這樣可能會覆蓋原來檔案。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">所選文件未列於程式的\"筆記本\"目錄內，您要將它複製到現行目錄內嗎？這樣可能會覆蓋原來檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
+    <string name="file_browser">檔案瀏覽器</string>
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
@@ -143,6 +148,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">分類項目</string>
     <string name="none">全無</string>
     <string name="other">其他</string>
+    <string name="alternative_naming">别名</string>
+    <string name="empty_file">空白檔案</string>
+    <string name="break_page_pdf_print">分頁(PDF/列印)</string>
+    <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
     <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
@@ -159,9 +168,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">行距以百分比表示</string>
     <string name="line_spacing">行距</string>
     <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
+    <string name="sort_tasks_by_selected_order">依所選的順序排列</string>
     <string name="special_key">特殊鍵</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
+    <string name="move_text_one_line_up">移動文字上一行</string>
+    <string name="move_text_one_line_down">移動文字下一行</string>
     <string name="key_pos_1">起始行 (Pos Home)</string>
     <string name="key_pos_end">行末 (Pos End)</string>
     <string name="key_pos_1_document">文件起頭</string>
