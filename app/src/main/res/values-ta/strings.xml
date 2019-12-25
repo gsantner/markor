@@ -17,4 +17,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">நீக்கு</string>
     <string name="appearance">தோற்றம்</string>
     <string name="rename">மறுபெயரிடு</string>
+    <string name="confirm_delete">அழித்தலை உறுதிசெய்</string>
+    <string name="do_you_really_want_to_delete_this_witharg">%s உறுதியாக இதை அழிக்கவா?</string>
 </resources>
