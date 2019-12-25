@@ -66,4 +66,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">படத்தை செருகவும்</string>
     <string name="contributors">பங்களிப்பாளர்கள்</string>
     <string name="save_location">இருப்பிடத்தை சேமி</string>
+    <string name="select_storage_folder">சேமிப்பக உறையை தேர்ந்தெடு</string>
+    <string name="licenses">உரிமங்கள்</string>
+    <string name="changelog">மாற்றப்பதிவேடு</string>
+    <string name="more_info">மேலும் தகவல்</string>
+    <string name="show_license_of_the_app">செயலியின் உரிமத்தை காட்டு</string>
+    <string name="file_browser">கோப்பு உலாவி</string>
+    <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
+    <string name="special_documents" needed="false">சிறப்பு கோப்புகள்</string>
+    <string name="keep_screen_on" needed="false">திரையை இயக்கத்தில் வைத்திரு</string>
+    <string name="back_to_previous_folder" needed="false">முந்தைய கோப்புரைக்கு திரும்ப செல்லவும்</string>
+    <string name="app_settings" needed="false">செயலி அமைப்புகள்</string>
+    <string name="editor_settings" needed="false">தொகுப்பான் அமைப்புகள்</string>
 </resources>
