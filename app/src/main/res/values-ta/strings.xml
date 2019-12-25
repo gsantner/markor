@@ -19,4 +19,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">மறுபெயரிடு</string>
     <string name="confirm_delete">அழித்தலை உறுதிசெய்</string>
     <string name="do_you_really_want_to_delete_this_witharg">%s உறுதியாக இதை அழிக்கவா?</string>
+    <string name="confirm_overwrite">மேலெழுத்துவதை உறுதி செய்</string>
+    <string name="file_already_exists_overwerite">கோப்பு ஏற்கனவே உள்ளது, மேல்எழுதவா?</string>
+    <string name="browse_filesystem">கோப்பு அமைப்பில் உலாவு</string>
+    <string name="title">தலைப்பு</string>
+    <string name="empty_directory">காலி கோப்புரை</string>
+    <string name="enter_name_of_folder">உங்கள் கோப்புரையின் பெயரை உள்ளீடவும்</string>
+    <string name="create_folder">கோப்புறையை உருவாக்கு</string>
+    <string name="create_new_document">புதிய ஆவணத்தை உருவாக்கு</string>
+    <string name="move">நகர்த்து</string>
+    <string name="info">தகவல்</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">கோப்பு/கோப்புறை ஏற்கனவே உள்ளது. தயவு செய்து வேறு பெயரை பயன்படுத்தவும்</string>
 </resources>
