@@ -30,4 +30,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">நகர்த்து</string>
     <string name="info">தகவல்</string>
     <string name="file_folder_already_exists_please_use_a_different_name">கோப்பு/கோப்புறை ஏற்கனவே உள்ளது. தயவு செய்து வேறு பெயரை பயன்படுத்தவும்</string>
+    <string name="import_from_device">சாதனத்தில் இருந்து இறக்குமதி செய்யவும்</string>
+    <string name="import_">இறக்குமதி</string>
+    <string name="append_to_witharg">%s இதனுடன் சேர்க்கவும்</string>
+    <string name="select_folder">கோப்புறையைத் தேர்வு செய்</string>
+    <string name="edit">திருத்து</string>
+    <string name="search_documents">கோப்புகளை தேடு</string>
+    <string name="share_to_arrow">&#8230; ல் பகிரவும்</string>
+    <string name="share">பகிர்</string>
+    <string name="search">தேடு</string>
+    <string name="editor">தொகுப்பான்</string>
+    <string name="folders">கோப்புரைகள்</string>
+    <string name="files">கோப்புகள்</string>
+    <string name="document">கோப்பு</string>
+    <string name="documents">கோப்புகள்</string>
+    <string name="html_as_plaintext">HTML ( சாதரண உரையாக)</string>
 </resources>
