@@ -45,4 +45,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">கோப்பு</string>
     <string name="documents">கோப்புகள்</string>
     <string name="html_as_plaintext">HTML ( சாதரண உரையாக)</string>
+    <string name="document_editor_font">கோப்பு தொகுப்பான் எழுத்துரு</string>
+    <string name="about">இதைப்பற்றி</string>
+    <string name="plaintext">சாதாரண உரை</string>
+    <string name="file">கோப்பு</string>
+    <string name="image">படம்</string>
+    <string name="font_size">எழுத்துரு அளவு</string>
+    <string name="last_modified_witharg">கடைசியாக மாற்றம் செய்யப்பட்டது: %s</string>
+    <string name="select_this_folder">இந்த கோப்புறையைத் தேர்ந்தெடு</string>
+    <string name="select">தேர்ந்தெடு</string>
+    <string name="create">உருவாக்கு</string>
+    <string name="select_entries">பதிவுகளை தேர்ந்தெடுக்கவும்</string>
+    <string name="one_item_selected">ஒரு உருப்படி தேர்வு செய்யப்பட்டது</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d உருப்படிகள் தேர்ந்தெடுக்கப்பட்டன</string>
 </resources>
