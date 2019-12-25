@@ -10,4 +10,11 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">அமைப்புகள்</string>
+    <string name="light">வெளிச்சம்</string>
+    <string name="dark">இருட்டு</string>
+    <string name="delete">நீக்கு</string>
+    <string name="appearance">தோற்றம்</string>
+    <string name="rename">மறுபெயரிடு</string>
+</resources>
