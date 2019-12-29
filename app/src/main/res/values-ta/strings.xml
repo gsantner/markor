@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="documents">கோப்புகள்</string>
     <string name="html_as_plaintext">HTML ( சாதரண உரையாக)</string>
     <string name="document_editor_font">கோப்பு தொகுப்பான் எழுத்துரு</string>
+    <string name="theme">நிற அழகாக்கம்</string>
     <string name="open_existing_files_in_view_mode">காட்சி முறைமையில் ஏற்கனவே உள்ள கோப்புகளை திற</string>
     <string name="about">இதைப்பற்றி</string>
     <string name="plaintext">சாதாரண உரை</string>
