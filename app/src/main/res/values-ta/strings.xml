@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">கோப்பு</string>
     <string name="image">படம்</string>
     <string name="font_size">எழுத்துரு அளவு</string>
+    <string name="render_rtl_language">வலமிருந்து இடமாக இருக்கும் மொழிகளுக்கு ஏற்றவாறு மாற்று</string>
     <string name="last_modified_witharg">கடைசியாக மாற்றம் செய்யப்பட்டது: %s</string>
     <string name="select_this_folder">இந்த கோப்புறையைத் தேர்ந்தெடு</string>
     <string name="select">தேர்ந்தெடு</string>
@@ -77,6 +78,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">மூன்றாம் தரப்பு உரிமங்கள் காட்டு</string>
     <string name="language_change_restart_description">இந்த செயலியின் மொழியை தெரிவு செய்யவும். இந்த மாற்றங்களின் விளைவு தெரிய மீண்டும் செயலியை திறக்கவும்</string>
     <string name="language">மொழி</string>
+    <string name="error_need_storage_permission_to_save_documents">ஆவணங்களை சேமிக்க சேமிப்பகத்தை அணுக அனுமதி வேண்டும்</string>
+    <string name="open_with">இதன்மூலம் திற</string>
+    <string name="sort">இதனை கொண்டு வரிசைப்படுத்து</string>
+    <string name="date">தேதி</string>
+    <string name="deleteme____1">பெயர்</string>
+    <string name="size">அளவு</string>
+    <string name="reverse_order">தலைகீழ் ஒழுங்கு</string>
     <string name="file_browser">கோப்பு உலாவி</string>
     <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
     <string name="special_documents" needed="false">சிறப்பு கோப்புகள்</string>
