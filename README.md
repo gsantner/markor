@@ -91,7 +91,7 @@ The project uses [AOSP Java Code Style](https://source.android.com/source/code-s
 * Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt)
 * F-Droid Store: [Listing](https://f-droid.org/packages/net.gsantner.markor/) [2](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
 * Google Play Store: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Crash60](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
-* More download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases(https://github.com/gsantner/markor/releases)
+* More download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases](https://github.com/gsantner/markor/releases)
 
 ## Licensing
 The code of the app is licensed Apache 2.0 or Commerical (See [LICENSE](/LICENSE.txt) for details).  
