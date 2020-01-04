@@ -72,7 +72,11 @@ public class AttachImageOrLinkDialog {
         // Extract filepath if using Markdown
         if (textFormatId == TextFormat.FORMAT_MARKDOWN) {
             if (_hlEditor.hasSelection()) {
-                String selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
+                String selected_text = "";
+                try {
+                    selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
+                } catch (Exception ignored) {
+                }
                 inputPathName.setText(selected_text);
             } else if (_hlEditor.getText().toString().isEmpty()) {
                 inputPathName.setText("");
@@ -195,15 +199,18 @@ public class AttachImageOrLinkDialog {
                     }
                 })
                 .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                    String title = inputPathName.getText().toString().replace(")", "\\)");
-                    String url = inputPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
-                    url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
-                    String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
-                    if (_hlEditor.hasSelection()) {
-                        _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
-                        _hlEditor.setSelection(_hlEditor.getSelectionStart());
-                    } else {
-                        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), newText);
+                    try {
+                        String title = inputPathName.getText().toString().replace(")", "\\)");
+                        String url = inputPathUrl.getText().toString().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
+                        url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
+                        String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
+                        if (_hlEditor.hasSelection()) {
+                            _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
+                            _hlEditor.setSelection(_hlEditor.getSelectionStart());
+                        } else {
+                            _hlEditor.getText().insert(_hlEditor.getSelectionStart(), newText);
+                        }
+                    } catch (Exception ignored) {
                     }
                 });
         return builder.show();

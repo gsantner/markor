@@ -144,8 +144,10 @@ public class ShareUtil {
      * @param chooserText The title text for the chooser, or null for default
      */
     public void showChooser(final Intent intent, final String chooserText) {
-        _context.startActivity(Intent.createChooser(intent,
-                chooserText != null ? chooserText : _chooserTitle));
+        try {
+            _context.startActivity(Intent.createChooser(intent, chooserText != null ? chooserText : _chooserTitle));
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -445,7 +447,10 @@ public class ShareUtil {
             android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
                 ClipData clip = ClipData.newPlainText(_context.getPackageName(), text);
-                cm.setPrimaryClip(clip);
+                try {
+                    cm.setPrimaryClip(clip);
+                } catch (Exception ignored) {
+                }
                 return true;
             }
         }
@@ -1096,7 +1101,11 @@ public class ShareUtil {
         for (int i = 0; i < parts.length; i++) {
             DocumentFile nextDof = dof.findFile(parts[i]);
             if (nextDof == null) {
-                nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);
+                try {
+                    nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);
+                } catch (Exception ignored) {
+                    nextDof = null;
+                }
             }
             dof = nextDof;
         }

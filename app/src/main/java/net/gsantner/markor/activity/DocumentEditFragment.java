@@ -542,7 +542,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         } else if (!_isPreviewVisible && preview) {
             setDocumentViewVisibility(true);
             return true;
-        } else if (!_menuSearchViewForViewMode.isIconified()) {
+        } else if (_menuSearchViewForViewMode != null && !_menuSearchViewForViewMode.isIconified()) {
             _menuSearchViewForViewMode.clearFocus();
             return true;
         }
