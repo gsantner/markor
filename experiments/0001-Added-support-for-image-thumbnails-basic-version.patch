@@ -1,0 +1,173 @@
+From 419ea7856e2ade808006ec29cb97278d397461a7 Mon Sep 17 00:00:00 2001
+From: Gregor Santner <gsantner@mailbox.org>
+Date: Wed, 8 Jan 2020 19:51:46 +0100
+Subject: [PATCH] Added support for image thumbnails (basic version)
+
+Optimized imports
+
+Moved ImageLoaderTask and changed FsViewerAdapter
+---
+ .../opoc/ui/FilesystemViewerAdapter.java      | 29 ++++++-
+ .../gsantner/opoc/util/ImageLoaderTask.java   | 79 +++++++++++++++++++
+ 2 files changed, 104 insertions(+), 4 deletions(-)
+ create mode 100644 app/src/main/java/net/gsantner/opoc/util/ImageLoaderTask.java
+
+diff --git a/app/src/main/java/net/gsantner/opoc/ui/FilesystemViewerAdapter.java b/app/src/main/java/net/gsantner/opoc/ui/FilesystemViewerAdapter.java
+index 4dc5b5fd..6e8dd27e 100644
+--- a/app/src/main/java/net/gsantner/opoc/ui/FilesystemViewerAdapter.java
++++ b/app/src/main/java/net/gsantner/opoc/ui/FilesystemViewerAdapter.java
+@@ -11,6 +11,7 @@
+ package net.gsantner.opoc.ui;
+ 
+ import android.content.Context;
++import android.graphics.Bitmap;
+ import android.os.Bundle;
+ import android.os.Handler;
+ import android.support.annotation.NonNull;
+@@ -31,6 +32,7 @@ import android.widget.TextView;
+ import android.widget.Toast;
+ 
+ import net.gsantner.markor.R;
++import net.gsantner.opoc.util.ImageLoaderTask;
+ 
+ import java.io.File;
+ import java.io.FilenameFilter;
+@@ -47,7 +49,7 @@ import butterknife.BindView;
+ import butterknife.ButterKnife;
+ 
+ @SuppressWarnings({"WeakerAccess", "unused"})
+-public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
++public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.ilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter, ImageLoaderTask.OnImageLoadedListener<FilesystemViewerAdapter.ilesystemViewerViewHolder> {
+     //########################
+     //## Static
+     //########################
+@@ -143,12 +145,23 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
+         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
+ 
+         holder.image.setImageResource(file.isDirectory() ? _dopt.folderImage : _dopt.fileImage);
++
++        final boolean isImage = ((filename.toLowerCase().endsWith(".jpg")) || (filename.toLowerCase().endsWith(".png")));
++
++        if (isImage) {
++            ImageLoaderTask<ilesystemViewerViewHolder> taskLoadImage = new ImageLoaderTask<>(this, _context, true, holder);
++            taskLoadImage.execute(file);
++        }
++
+         if (_currentSelection.contains(file)) {
+             holder.image.setImageResource(_dopt.selectedItemImage);
+         }
+-        holder.image.setColorFilter(ContextCompat.getColor(_context,
+-                _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
+-                android.graphics.PorterDuff.Mode.SRC_ATOP);
++
++        if (!isImage) {
++            holder.image.setColorFilter(ContextCompat.getColor(_context,
++                    _currentSelection.contains(file) ? _dopt.accentColor : _dopt.secondaryTextColor),
++                    android.graphics.PorterDuff.Mode.SRC_ATOP);
++        }
+ 
+         if (_dopt.itemSidePadding > 0) {
+             int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
+@@ -239,6 +252,14 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
+         );
+     }
+ 
++    @Override
++    public void onImageLoaded(Bitmap bitmap, ilesystemViewerViewHolder holder) {
++        try {
++            holder.image.setImageBitmap(bitmap);
++        } catch(Exception ignored) {
++        }
++    }
++
+     public class TagContainer {
+         public final File file;
+         public final int position;
+diff --git a/app/src/main/java/net/gsantner/opoc/util/ImageLoaderTask.java b/app/src/main/java/net/gsantner/opoc/util/ImageLoaderTask.java
+new file mode 100644
+index 00000000..4007595c
+--- /dev/null
++++ b/app/src/main/java/net/gsantner/opoc/util/ImageLoaderTask.java
+@@ -0,0 +1,79 @@
++/*#######################################################
++ *
++ *   Maintained by Gregor Santner, 2017-
++ *   https://gsantner.net/
++ *
++ *   License of this file: Apache 2.0 (Commercial upon request)
++ *     https://www.apache.org/licenses/LICENSE-2.0
++ *     https://github.com/gsantner/opoc/#licensing
++ *
++#########################################################*/
++package net.gsantner.opoc.util;
++
++import android.content.Context;
++import android.graphics.Bitmap;
++import android.os.AsyncTask;
++import android.support.v4.content.ContextCompat;
++
++import net.gsantner.markor.R;
++import net.gsantner.markor.util.AppSettings;
++import net.gsantner.markor.util.ContextUtils;
++
++import java.io.File;
++
++
++public class ImageLoaderTask<T> extends AsyncTask<File, Void, Bitmap> {
++    private final static int MAX_DIMENSION = 5000;
++    private final static int MAX_SIZE = 64;
++
++    public interface OnImageLoadedListener<T> {
++        void onImageLoaded(Bitmap bitmap, T callbackParam);
++    }
++
++    private final Context _context;
++    private final OnImageLoadedListener _listener;
++    private final T _callbackParam;
++    private final boolean _loadThumbnail;
++
++    public ImageLoaderTask(OnImageLoadedListener listener, Context context, boolean loadThumbnail, T callbackParam) {
++        _listener = listener;
++        _context = context;
++        _callbackParam = callbackParam;
++        _loadThumbnail = loadThumbnail;
++    }
++
++    private Bitmap loadStorageImage(File pathToImage) {
++        File cacheFile = new File(_context.getCacheDir(), pathToImage.getAbsolutePath().substring(1));
++        ContextUtils cu = ContextUtils.get();
++        Bitmap bitmap;
++        try {
++            if (_loadThumbnail) {
++                if (cacheFile.exists()) {
++                    bitmap = cu.loadImageFromFilesystem(cacheFile, MAX_SIZE);
++                } else {
++                    bitmap = cu.loadImageFromFilesystem(pathToImage, MAX_SIZE);
++                    cu.writeImageToFile(cacheFile, bitmap, Bitmap.CompressFormat.JPEG, 65);
++                }
++            } else {
++                bitmap = cu.loadImageFromFilesystem(pathToImage, MAX_SIZE);
++            }
++        } catch (NullPointerException nul) {
++            int expImage = AppSettings.get().isDarkThemeEnabled() ? R.drawable.ic_file_white_24dp : R.drawable.ic_file_gray_24dp;
++            bitmap = cu.drawableToBitmap(ContextCompat.getDrawable(_context, expImage));
++        }
++
++        return bitmap;
++    }
++
++    @Override
++    protected Bitmap doInBackground(File... params) {
++        return loadStorageImage(params[0]);
++    }
++
++    @Override
++    protected void onPostExecute(Bitmap bitmap) {
++        super.onPostExecute(bitmap);
++        if (_listener != null)
++            _listener.onImageLoaded(bitmap, _callbackParam);
++    }
++}
+-- 
+2.17.1
+
