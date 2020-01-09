@@ -571,19 +571,13 @@ public class ShareUtil {
                         }
                     }
 
-                    // external/ prefix for External storage
-                    if (fileStr.startsWith((tmps = "external/"))) {
-                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
-                        if (f.exists()) {
-                            return f;
-                        }
-                    }
-
-                    // media/ prefix for External storage
-                    if (fileStr.startsWith((tmps = "media/"))) {
-                        File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
-                        if (f.exists()) {
-                            return f;
+                    // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
+                    for (String prefix : new String[]{"external/", "media/", "storage_root/"}) {
+                        if (fileStr.startsWith((tmps = prefix))) {
+                            File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                            if (f.exists()) {
+                                return f;
+                            }
                         }
                     }
 
