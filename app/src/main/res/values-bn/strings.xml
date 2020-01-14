@@ -27,4 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_name_of_folder">আপনার ফোল্ডারের নাম লিখুন</string>
     <string name="create_folder">ফোল্ডার তৈরি করুন</string>
     <string name="create_new_document">নতুন ডকুমেন্ট তৈরি করুন</string>
+    <string name="move">সরান</string>
+    <string name="info">তথ্য</string>
 </resources>
