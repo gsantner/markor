@@ -10,4 +10,14 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">সেটিংস</string>
+    <string name="light">আলো</string>
+    <string name="dark">অন্ধকার</string>
+    <string name="delete">মুছুন</string>
+    <string name="appearance">আকার</string>
+    <string name="rename">নাম পরিবর্তন</string>
+    <string name="confirm_delete">মুছে ফেলা নিশ্চিত করুন</string>
+    <string name="do_you_really_want_to_delete_this_witharg">আপনি কি সত্যিই %s মুছতে চান?</string>
+    <string name="confirm_overwrite">ওভাররাইট নিশ্চিত করুন</string>
+</resources>
