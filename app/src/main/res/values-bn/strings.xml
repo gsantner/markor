@@ -20,4 +20,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="confirm_delete">মুছে ফেলা নিশ্চিত করুন</string>
     <string name="do_you_really_want_to_delete_this_witharg">আপনি কি সত্যিই %s মুছতে চান?</string>
     <string name="confirm_overwrite">ওভাররাইট নিশ্চিত করুন</string>
+    <string name="file_already_exists_overwerite">ফাইল আগেই উপস্থিত, ওভাররাইট?</string>
+    <string name="browse_filesystem">ফাইল সিস্টেমটি ব্রাউজ করুন</string>
+    <string name="title">শিরোনাম</string>
+    <string name="empty_directory">খালি ডিরেক্টরি</string>
+    <string name="enter_name_of_folder">আপনার ফোল্ডারের নাম লিখুন</string>
+    <string name="create_folder">ফোল্ডার তৈরি করুন</string>
+    <string name="create_new_document">নতুন ডকুমেন্ট তৈরি করুন</string>
 </resources>
