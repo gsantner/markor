@@ -66,8 +66,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="one_item_selected">One item selected</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
 
-    <string name="hide_statusbar_at_this_view">Hide the statusbar in this view</string>
-    <string name="hide_statusbar">Hide statusbar</string>
+    <string name="hide_statusbar_at_this_view">Hide the status bar in this view</string>
+    <string name="hide_statusbar">Hide status bar</string>
 
     <string name="name">Name</string>
     <string name="url_or_path">URL / Path</string>
@@ -146,7 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but it will drain your battery and may slow down the app on older devices.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
     <string name="control_font_size_in_editor">Control the font size used in the editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These textactions modify the text or run an action based on the text.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These text actions modify the text or run an action based on the text.</string>
     <string name="load_last_opened_folder_at_startup">Load the last opened folder at startup</string>
     <string name="format">Format</string>
     <string name="contexts">Contexts</string>
@@ -166,7 +166,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insert the current date when starting a new task</string>
     <string name="tasks_with_todays_date">Tasks with today\'s date</string>
     <string name="append_contexts_and_projects">Append contexts and projects</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at the end of a task when using the appropriate textaction</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at the end of a task when using the appropriate text action</string>
     <string name="rtl_rendering">RTL rendering</string>
     <string name="highlight_line_ending">Highlight line ending</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Highlight spaces at the end of lines containing two or more spaces</string>
@@ -202,8 +202,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bottom</string>
     <string name="center">Center</string>
-    <string name="textaction_spacing">Textaction spacing</string>
-    <string name="horizontal_space_between_textactions">Horizontal space between textaction buttons</string>
+    <string name="textaction_spacing">Text action spacing</string>
+    <string name="horizontal_space_between_textactions">Horizontal space between text action buttons</string>
 
     <string name="center_text">Center text</string>
     <string name="edit_text_in_center_of_screen">Edit text in the center of the screen</string>
@@ -251,8 +251,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Math</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
-    <string name="textaction">Textaction</string>
-    <string name="textactions">Textactions</string>
+    <string name="textaction">Text action</string>
+    <string name="textactions">Text actions</string>
     <string name="prefer_view">Prefer view</string>
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
@@ -298,7 +298,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook is the folder that Markor loads in the file browser when the app is started. It is the home folder of your files.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is the fastest option to write down notes. It is a file in Markdown format with default location &gt;Notebook/QuickNote.md&lt;, you can set a custom filepath in the settings.</string>
     <string name="todo_is_the_easiest_way_">Manage your tasks with ToDo. It is a file in todo.txt format with default location &gt;Notebook/todo.txt&lt;, you can set a custom filepath in the settings.</string>
-    <string name="navigationbar_color">Navigationbar color</string>
+    <string name="navigationbar_color">Navigation bar color</string>
     <string name="black">Black</string>
     <string name="white">White</string>
     <string name="view">View</string>
