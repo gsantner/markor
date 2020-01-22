@@ -85,11 +85,11 @@ public abstract class TextActions {
         if (longClickListener != null) {
             btn.setOnLongClickListener(v -> {
                 try {
-                    longClickListener.onLongClick(v);
+                    return longClickListener.onLongClick(v);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                return true;
+                return false;
             });
         }
         btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
