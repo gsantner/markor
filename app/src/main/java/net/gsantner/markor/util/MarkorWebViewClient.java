@@ -37,6 +37,10 @@ public class MarkorWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         try {
+            if (url.equals("about:blank")){
+                view.reload();
+                return true;
+            }
             if (url.startsWith("file:///android_asset/")) {
                 return false;
             } else if (url.startsWith("file://")) {
