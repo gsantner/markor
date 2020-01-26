@@ -63,8 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Обрати елементи</string>
     <string name="one_item_selected">Один елемент обрано</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d елементів обрано</string>
-    <string name="hide_statusbar_at_this_view">Приховувати рядок статусу для цього екрану</string>
-    <string name="hide_statusbar">Сховати рядок статусу</string>
     <string name="name">Ім\'я</string>
     <string name="url_or_path">URL / Шлях</string>
     <string name="insert_link">Вставити посилання</string>
@@ -139,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки синтаксису у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та можуть сповільнити роботу додатку на старіших пристроях.</string>
     <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
     <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для команд тексту, що змінюють текст або виконують відповідну йому дію.</string>
     <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту директорію після запуску</string>
     <string name="format">Форматування</string>
     <string name="contexts">Контексти</string>
@@ -157,7 +154,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
     <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
     <string name="append_contexts_and_projects">Додати контексти та проєкти</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проєкти в кінець задачі з використанням відповідної команди тексту</string>
     <string name="rtl_rendering">Відображення зправа-наліво</string>
     <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
@@ -193,8 +189,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Вгорі</string>
     <string name="bottom">Знизу</string>
     <string name="center">У центрі</string>
-    <string name="textaction_spacing">Проміжки між командами</string>
-    <string name="horizontal_space_between_textactions">Горизонтальні проміжки між кнопками команд</string>
     <string name="center_text">Центрувати текст</string>
     <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
     <string name="clipboard">Буфер обміну</string>
@@ -237,8 +231,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Формули</string>
     <string name="table_of_contents">Зміст</string>
     <string name="miscellaneous">Різне</string>
-    <string name="textaction">Команда тексту</string>
-    <string name="textactions">Команди тексту</string>
     <string name="prefer_view">Перевага перегляду</string>
     <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
     <string name="popular_documents">Популярні документи</string>
@@ -284,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook – директорія, яку Markor завантажує у переглядач файлів при запуску програми. Це домашня тека ваших файлів.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote – найшвидший спосіб записувати нотатки. Це файл у форматі Markdown з типовим розташуванням &gt;Notebook/QuickNote.md&lt;, яке ви можете змінити у налаштуваннях.</string>
     <string name="todo_is_the_easiest_way_">Керуйте своїми завданнями з ToDo. Це файл у форматі todo.txt, за умовчанням розташований у &gt;Notebook/todo.txt&lt;, ви можете встановити власний шлях у налаштуваннях.</string>
-    <string name="navigationbar_color">Колір панелі навігації</string>
     <string name="black">Чорний</string>
     <string name="white">Білий</string>
     <string name="view">Перегляд</string>
