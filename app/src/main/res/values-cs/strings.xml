@@ -63,7 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Vyberte položky</string>
     <string name="one_item_selected">Jedna položka vybrána</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
-    <string name="hide_statusbar_at_this_view">Skrýt stavový řádek v tomto zobrazení</string>
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="name">Název</string>
     <string name="url_or_path">URL / Cesta</string>
@@ -139,7 +138,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodlevy v milisekundách pro znovu-zvýraznění, nižší hodnota začne zvýrazňovat dříve, ale bude odčerpávat baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
     <string name="control_font_size_in_editor">Ovládat velikost písma použitého v editoru</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit bar s šikovnými tlačítky na spodku, tyto akce textu modifikují text nebo spustí akci na základě textu.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
     <string name="format">Formát</string>
     <string name="contexts">Kontext</string>
@@ -157,7 +155,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
     <string name="tasks_with_todays_date">Úkoly s dnešním datem</string>
     <string name="append_contexts_and_projects">Připojit kontexty a projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Konečné kontexty a projekty na konci úkolu při použití příslušné textové akce</string>
     <string name="rtl_rendering">vykreslování RTL</string>
     <string name="highlight_line_ending">Zvýraznit konec řádku</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit mezery na koncích řádků, které obsahují dvě nebo více mezer</string>
@@ -193,8 +190,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bůh</string>
     <string name="center">Centrum</string>
-    <string name="textaction_spacing">Náprava textových akcí</string>
-    <string name="horizontal_space_between_textactions">Horizontální prostor mezi textovými tlačítky</string>
     <string name="center_text">Center</string>
     <string name="edit_text_in_center_of_screen">Upravit text v centru obrazovky</string>
     <string name="clipboard">Kličková deska</string>
@@ -237,8 +232,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Math</string>
     <string name="table_of_contents">Tabulka obsahu</string>
     <string name="miscellaneous">Ostatní</string>
-    <string name="textaction">Textil</string>
-    <string name="textactions">Texty</string>
     <string name="prefer_view">Názor budoucí volby</string>
     <string name="no_calendar_app_is_installed">Žádný kalendář aplikace není nainstalován!</string>
     <string name="popular_documents">Populační dokumenty</string>
@@ -284,7 +277,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna, je to domácí složka vašich souborů.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost psát si poznámky. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
     <string name="todo_is_the_easiest_way_">Řídit své úkoly s ToDo. Je to soubor ve formátu todo.txt s výchozí polohou &gt;Notebook/todo.txt&lt;, můžete nastavit nastavení na vlastní filedráhu.</string>
-    <string name="navigationbar_color">Barva navigačního panelu</string>
     <string name="black">Černá</string>
     <string name="white">Bílá</string>
     <string name="view">Zobrazení</string>
