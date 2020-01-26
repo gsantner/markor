@@ -14,6 +14,7 @@ import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -73,6 +74,7 @@ public abstract class TextActions {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setContentDescription(_activity.getString(descRes));
+        TooltipCompat.setTooltipText(btn, _activity.getString(descRes));
         btn.setOnClickListener(v -> {
             try {
                 listener.onClick(v);
@@ -83,11 +85,11 @@ public abstract class TextActions {
         if (longClickListener != null) {
             btn.setOnLongClickListener(v -> {
                 try {
-                    longClickListener.onLongClick(v);
+                    return longClickListener.onLongClick(v);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                return true;
+                return false;
             });
         }
         btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
