@@ -63,8 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecteer invoeren</string>
     <string name="one_item_selected">1 item geselecteerd</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items geselecteerd</string>
-    <string name="hide_statusbar_at_this_view">Verberg de statusbalk in deze weergave</string>
-    <string name="hide_statusbar">Verberg statusbalk</string>
     <string name="name">Naam</string>
     <string name="url_or_path">URL / Pad</string>
     <string name="insert_link">Voeg koppeling toe</string>
@@ -139,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vertraging in milliseconden voor het markeren van verversing. Een lagere waarde zal eerder markeren, maar het zal uw batterij verliezen en kan de app op oudere apparaten vertragen.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controleren of ingevoerde tekst moet worden gemarkeerd of niet</string>
     <string name="control_font_size_in_editor">Stel de lettergrootte in die gebruikt wordt in de bewerker</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Toon een balk met handige knoppen onderaan. Deze textacties wijzigen de tekst of voeren een actie op basis van de tekst.</string>
     <string name="load_last_opened_folder_at_startup">Laad de laatst geopende folder tijdens het opstarten</string>
     <string name="format">Formaat</string>
     <string name="contexts">Contexten</string>
@@ -157,7 +154,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>
     <string name="tasks_with_todays_date">Taken met de datum van vandaag</string>
     <string name="append_contexts_and_projects">Context en projecten toevoegen</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Voeg contexten en projecten toe aan het einde van een taak bij het gebruik van de juiste textactie</string>
     <string name="rtl_rendering">Rechts-naar-links</string>
     <string name="highlight_line_ending">Markeer einde van de regel</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markeer spaties aan het einde van de regel met meer dan twee spaties</string>
@@ -193,8 +189,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Bovenkant</string>
     <string name="bottom">Onderkant</string>
     <string name="center">Midden</string>
-    <string name="textaction_spacing">Tekst afstand</string>
-    <string name="horizontal_space_between_textactions">Horizontale ruimte tussen textactie knoppen</string>
     <string name="center_text">Centreren</string>
     <string name="edit_text_in_center_of_screen">Bewerk tekst in het midden van het scherm</string>
     <string name="clipboard">Plakbord</string>
@@ -237,8 +231,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Wis</string>
     <string name="table_of_contents">Inhoudsopgave</string>
     <string name="miscellaneous">Overige</string>
-    <string name="textaction">Tekstactie</string>
-    <string name="textactions">Tekstacties</string>
     <string name="prefer_view">Voorkeur weergave</string>
     <string name="no_calendar_app_is_installed">Geen agenda app is geïnstalleerd!</string>
     <string name="popular_documents">Populaire documenten</string>
@@ -284,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook is de map die Markor in de bestandsbrowser laadt wanneer de app is gestart. Het is de home map van uw bestanden.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote is de snelste optie om notities op te schrijven. Het is een bestand in Markdown formaat met standaard locatie &gt;Notebook/QuickNote.md&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
     <string name="todo_is_the_easiest_way_">Beheer uw taken met ToDo. Het is een bestand in todo.txt formaat met standaard locatie &gt;Notebook/todo.txt&lt;, u kunt een aangepast bestandspad instellen in de instellingen.</string>
-    <string name="navigationbar_color">Navigatiebalk kleur</string>
     <string name="black">Zwart</string>
     <string name="white">Wit</string>
     <string name="view">Bekijk</string>
