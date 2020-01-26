@@ -62,8 +62,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Välj poster</string>
     <string name="one_item_selected">Ett objekt valt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d objekt valda</string>
-    <string name="hide_statusbar_at_this_view">Göm statusfältet i den här vyn</string>
-    <string name="hide_statusbar">Dölj statusfältet</string>
     <string name="name">Namn</string>
     <string name="url_or_path">URL / sökväg</string>
     <string name="insert_link">Infoga länk</string>
@@ -137,7 +135,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_or_not__appspecific">Ska inskriven text vara syntaxfärgad?</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
     <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
     <string name="format">Format</string>
     <string name="contexts">Kontexter</string>
@@ -154,7 +151,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
     <string name="tasks_with_todays_date">Uppgifter med dagens datum</string>
     <string name="append_contexts_and_projects">Bifoga kontexter och projekt</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Bifoga kontexter och projekt i slutet av en uppgift om rätt textmodulskommando används</string>
     <string name="rtl_rendering">VTH-visning</string>
     <string name="highlight_line_ending">Markera radslut</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
@@ -188,8 +184,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Överst</string>
     <string name="bottom">Längst ner</string>
     <string name="center">Mitten</string>
-    <string name="textaction_spacing">Textmodulsavstånd</string>
-    <string name="horizontal_space_between_textactions">Vågräta utrymmet mellan textmodulsknappar</string>
     <string name="center_text">Centrera text</string>
     <string name="edit_text_in_center_of_screen">Editera text i mitten av skärmen</string>
     <string name="clipboard">Klippbord</string>
@@ -232,8 +226,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematik</string>
     <string name="table_of_contents">Innehållsförteckning</string>
     <string name="miscellaneous">Diverse</string>
-    <string name="textaction">Textåtgärd</string>
-    <string name="textactions">Textåtgärder</string>
     <string name="prefer_view">Föredra vy</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
     <string name="popular_documents">Populära dokument</string>
@@ -279,7 +271,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Anteckningsboken är katalogen Markor hämtar filhanteraren när programmet startas. Det är dina filers hemkatalaog.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">SnabbAnteckning är det snabbaste sättet att göra anteckningar. Det är en fil i Markdown-format som ligger i &gt;Notebook/QuickNote.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
     <string name="todo_is_the_easiest_way_">Hantera dina göromål med ToDo. Det är en fil med filformatet .txt och är i &gt;Notebook/todo.txt&lt;, du kan ändra vart filen sparas i inställningarna.</string>
-    <string name="navigationbar_color">Navigationslistfärg</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
     <string name="view">Visa</string>
