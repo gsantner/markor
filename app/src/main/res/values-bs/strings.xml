@@ -63,8 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Označi stavke</string>
     <string name="one_item_selected">Označena jedna stavka</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Označeno stavki: %d</string>
-    <string name="hide_statusbar_at_this_view">Sakrij statusnu traku u ovom prikazu</string>
-    <string name="hide_statusbar">Sakrij statusnu traku</string>
     <string name="name">Ime</string>
     <string name="url_or_path">URL / putanja</string>
     <string name="insert_link">Priloži link</string>
@@ -139,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje. Niža vrijednost znači da će markiranje početi ranije, ali će se to odraziti na bateriju i može usporiti program na starijim uređajima.</string>
     <string name="highlighting_enabled_or_not__appspecific">Hoće li uneseni tekst biti markiran ili ne</string>
     <string name="control_font_size_in_editor">Odredi veličinu slova u uređivaču</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku sa korisnom dugmadi. Ove akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
     <string name="format">Format</string>
     <string name="contexts">Konteksti</string>
@@ -157,7 +154,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
     <string name="tasks_with_todays_date">Zadatak s današnjim datumom</string>
     <string name="append_contexts_and_projects">Dodaj kontekste i projekte</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Dodaj kontekste i projekte na kraj zadatka ako je korištena odgovarajuća tekstualna akcija</string>
     <string name="rtl_rendering">RTL prikaz</string>
     <string name="highlight_line_ending">Markiraj završetak reda</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markiraj bjeline na kraju redova u kojima se nalaze dvije ili više bjelina</string>
@@ -193,8 +189,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Vrh</string>
     <string name="bottom">Dno</string>
     <string name="center">Sredina</string>
-    <string name="textaction_spacing">Razmaci između tekstualnih akcija</string>
-    <string name="horizontal_space_between_textactions">Vodoravni razmak između dugmadi s tekstualnim akcijama</string>
     <string name="center_text">Tekst u sredini</string>
     <string name="edit_text_in_center_of_screen">Obrađuj tekst na sredini ekrana</string>
     <string name="clipboard">Kopirani sadržaj</string>
@@ -237,8 +231,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Sadržaj</string>
     <string name="miscellaneous">Razno</string>
-    <string name="textaction">Tekstualna akcija</string>
-    <string name="textactions">Tekstualne akcije</string>
     <string name="prefer_view">Preferirani način rada</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
@@ -284,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Bilježnica je direktorij koji Markor pri pokretanju učitava u preglednik datoteka. Ona je centralno mjesto za Vaše datoteke.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je najbrži način za pisanje bilješki. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/QuickNote.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
     <string name="todo_is_the_easiest_way_">Zadacima upravljajte kroz ToDo datoteku, koja slijedi todo.txt metod bilježenja i pohranjena je na &gt;Notebook/todo.txt&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
-    <string name="navigationbar_color">Boja trake za navigaciju</string>
     <string name="black">Crna</string>
     <string name="white">Bijela</string>
     <string name="view">Prikaz</string>
