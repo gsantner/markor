@@ -61,8 +61,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Vælg elementer</string>
     <string name="one_item_selected">Et element valgt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d objekt valgt</string>
-    <string name="hide_statusbar_at_this_view">Gem statusbar på dette skærmbillede</string>
-    <string name="hide_statusbar">Gem statusbar</string>
     <string name="name">Navn</string>
     <string name="url_or_path">URL / Sti</string>
     <string name="insert_link">Indsæt link</string>
@@ -135,7 +133,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antal millisekunder der ventes før fremhævelsen er genopfrisket. En lavere værdi vil starte fremhævelsen tidligere, men vil sluge mere batteri og presse maskineriet.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollér om angivne tekst skal være fremhævet eller ej</string>
     <string name="control_font_size_in_editor">Kontrollér størrelsen af skrifttypen der bliver brugt i editoren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Vis en bjælke med nyttige knapper i bunden. Disse teksthandlinger modificerer teksten eller kører en handling baseret på tekstens indhold.</string>
     <string name="load_last_opened_folder_at_startup">Hent den sidst åbnede mappe ved programstart</string>
     <string name="format">Format</string>
     <string name="contexts">Kontekster</string>
@@ -150,7 +147,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Indsæt aktuelle dato når en ny opgave startes</string>
     <string name="tasks_with_todays_date">Opgaver med dato i dag</string>
     <string name="append_contexts_and_projects">Tilføj kontekster og projekter</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Tilføj kontekster og projekter når en opgave fuldføres når der bruges passende teksthandling</string>
     <string name="rtl_rendering">Højre-mod-venstre visning</string>
     <string name="highlight_line_ending">Fremhæv linie slutningen</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Fremhæv mellemrum ved linieendelser der har mere end to mellemrum</string>
@@ -181,8 +177,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Øverste</string>
     <string name="bottom">Bund</string>
     <string name="center">Centrer</string>
-    <string name="textaction_spacing">Teksthandlings mellemrum</string>
-    <string name="horizontal_space_between_textactions">Mellemrum mellem horisontale teksthandlingsknapper</string>
     <string name="center_text">Centrér tekst</string>
     <string name="edit_text_in_center_of_screen">Redigér tekst i centrum af skærmen</string>
     <string name="clipboard">Udklipsholder</string>
@@ -223,8 +217,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematik</string>
     <string name="table_of_contents">Indhold</string>
     <string name="miscellaneous">Diverse</string>
-    <string name="textaction">Teksthandling</string>
-    <string name="textactions">Teksthandlinger</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app installeret</string>
     <string name="color">Farve</string>
     <string name="preset">Forudindstilling</string>
