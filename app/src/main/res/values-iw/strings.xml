@@ -63,8 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">בחר רשומות</string>
     <string name="one_item_selected">פריט אחד נבחר</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d פריטים נבחרו</string>
-    <string name="hide_statusbar_at_this_view">הסתר שורת מצב בתצוגה זו</string>
-    <string name="hide_statusbar">הסתר שורת מצב</string>
     <string name="name">שם</string>
     <string name="url_or_path">קישור לרשת / נתיב קובץ</string>
     <string name="insert_link">הכנס קישור</string>
@@ -138,7 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
     <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
     <string name="control_font_size_in_editor">שלוט בגודל הגופן בו משתמש העורך</string>
-    <string name="textactions_show_useful_actions_description__appspecific">הצג שורה עם כפתורים שימושיים בתחתית. פעולות הטקסט האלו משנות את הטקסט או מבצעות פעולה התלויה בטקסט.</string>
     <string name="load_last_opened_folder_at_startup">טען את התיקיה באחרונה בעת אתחול</string>
     <string name="format">פורמט</string>
     <string name="contexts">הקשרים</string>
@@ -154,7 +151,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
     <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
     <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
-    <string name="append_contexts_and_projects_on_end_of_task">הוסף הקשרים ופרויקטים לסוף מטלה בעת שימוש בפעולת הטקסט המתאימה</string>
     <string name="rtl_rendering">תצוגת ימין-לשמאל</string>
     <string name="highlight_line_ending">הדגש סיום שורה</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">הדגש רווחים בסוף שורות המכילות שניים או יותר רווחים</string>
@@ -187,8 +183,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">עליון</string>
     <string name="bottom">תחתית</string>
     <string name="center">מרכז</string>
-    <string name="textaction_spacing">מרווח בין פעולות טקסט</string>
-    <string name="horizontal_space_between_textactions">מרווח אופקי בין כפתורי פעולות טקסט</string>
     <string name="center_text">מרכז טקסט</string>
     <string name="edit_text_in_center_of_screen">ערוך טקסט במרכז המסך</string>
     <string name="clipboard">לוח גזירים</string>
@@ -231,8 +225,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">מתמטיקה</string>
     <string name="table_of_contents">תוכן עניינים</string>
     <string name="miscellaneous">שונות</string>
-    <string name="textaction">פעולת טקסט</string>
-    <string name="textactions">פעולות טקסט</string>
     <string name="prefer_view">העדף תצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
@@ -273,7 +265,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">תיקיות לפני קבצים</string>
     <string name="go_to">עבור אל</string>
     <string name="internal_storage">אחסון פנימי</string>
-    <string name="navigationbar_color">צבע שורת הניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
     <string name="view_mode">מצב תצוגה</string>
