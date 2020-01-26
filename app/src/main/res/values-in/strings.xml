@@ -27,8 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor">Laman Pengubahan</string>
     <string name="about">Tentang Kami</string>
     <string name="create">Buat Baru</string>
-    <string name="hide_statusbar_at_this_view">Sembunyikan kolom status pada tampilan ini</string>
-    <string name="hide_statusbar">Sembunyikan kolom status</string>
     <string name="contributors">Kontributor</string>
     <string name="licenses">Lisensi</string>
     <string name="changelog">Catatan Perubahan</string>
