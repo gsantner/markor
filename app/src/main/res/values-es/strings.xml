@@ -63,8 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
-    <string name="hide_statusbar_at_this_view">Ocultar la barra de estado en esta vista</string>
-    <string name="hide_statusbar">Ocultar barra de estado</string>
+    <string name="hide_statusbar">Ocultar la barra de estado</string>
     <string name="name">Ordenar por nombre</string>
     <string name="url_or_path">URL / Ruta</string>
     <string name="insert_link">Insertar enlace</string>
@@ -139,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retraso en milisegundos para refrescar el resaltado. Un valor menor iniciará el énfasis pronto, pero afectará a la batería y al desempeño en equipos antiguos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el texto ingresado debe ser resaltado o no</string>
     <string name="control_font_size_in_editor">Edita el tamaño de fuente usada en el editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles en la parte inferior que modifican el texto o realizan acciones en función de este.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Muestra una barra con funciones útiles para insertar módulos de texto comúnmente usados</string>
     <string name="load_last_opened_folder_at_startup">Cargar la última carpeta abierta al iniciar</string>
     <string name="format">Formato</string>
     <string name="contexts">Contextos</string>
@@ -157,7 +156,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
     <string name="tasks_with_todays_date">Tareas con fecha de hoy</string>
     <string name="append_contexts_and_projects">Añadir contextos y proyectos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Añade contextos y proyectos al final de una tarea al usar la acción de texto apropiada</string>
     <string name="rtl_rendering">Representación RTL</string>
     <string name="highlight_line_ending">Colorear el final de la línea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Resaltar los espacios al final de las líneas si estas terminan en dos o más espacios</string>
@@ -194,7 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Inferior</string>
     <string name="center">Centro</string>
     <string name="textaction_spacing">Espaciado de módulo de texto</string>
-    <string name="horizontal_space_between_textactions">Espacio horizontal entre botones de acción de texto</string>
     <string name="center_text">Centrar texto</string>
     <string name="edit_text_in_center_of_screen">Editar texto en el centro de la pantalla</string>
     <string name="clipboard">Portapapeles</string>
@@ -284,7 +281,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook es la carpeta que Markor carga en el navegador de archivos cuando se inicia la aplicación. Es la carpeta de inicio de sus archivos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote es la opción más rápida para escribir notas. Es un archivo en formato Markdown con la ubicación predeterminada &gt;Notebook/QuickNote.md&lt;, puede establecer una ruta de archivo personalizada en la configuración.</string>
     <string name="todo_is_the_easiest_way_">Administre sus tareas con ToDo. Es un archivo en formato todo.txt con la ubicación predeterminada &gt;Notebook/todo.txt&lt;, puede establecer una ruta de archivo personalizada en la configuración.</string>
-    <string name="navigationbar_color">Color de la barra de navegación</string>
     <string name="black">Negro</string>
     <string name="white">Blanco</string>
     <string name="view">Ver</string>
