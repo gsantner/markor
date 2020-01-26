@@ -59,7 +59,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Fren yiwen neɣ ugar n inekcamen</string>
     <string name="one_item_selected">Anekcam</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d n inekcamen ttwafernen</string>
-    <string name="hide_statusbar">Ffer afeggag n waddad</string>
     <string name="name">Isem</string>
     <string name="url_or_path">URL / Abrid</string>
     <string name="insert_link">Ger aseɣwen</string>
