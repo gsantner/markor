@@ -58,6 +58,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">प्रविष्टियों का चयन करें</string>
     <string name="one_item_selected">एक आइटम चयनित</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d आइटम चयनित</string>
+    <string name="hide_statusbar">स्थिति पट्टी छुपाएँ</string>
     <string name="name">नाम</string>
     <string name="url_or_path">URL / पथ</string>
     <string name="insert_link">लिंक सम्मिलित करें</string>
