@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
+    <string name="hide_statusbar">Esconder barra de status</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
     <string name="insert_link">Inserir Link</string>
@@ -137,6 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso em milissegundos para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
     <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
     <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
     <string name="format">Formatar</string>
     <string name="contexts">Contextos</string>
@@ -189,6 +191,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">inferior</string>
     <string name="center">Centro</string>
+    <string name="textaction_spacing">Espaçamento do módulo de texto</string>
     <string name="center_text">Texto no centro</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro da tela</string>
     <string name="clipboard">Área de transferência</string>
@@ -231,6 +234,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matemática</string>
     <string name="table_of_contents">Tabela de conteúdos</string>
     <string name="miscellaneous">Diversos</string>
+    <string name="textaction">Ações de texto</string>
+    <string name="textactions">Ações de texto</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
     <string name="popular_documents">Documentos populares</string>
