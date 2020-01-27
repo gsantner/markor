@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Ischerta sas intradas</string>
     <string name="one_item_selected">Un\'elementu ischertadu</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos ischertados</string>
+    <string name="hide_statusbar">Istichi sa barra de s\'istadu</string>
     <string name="name">Nùmene</string>
     <string name="url_or_path">URL / Àndala</string>
     <string name="insert_link">Inserta unu ligàmene</string>
