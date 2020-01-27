@@ -61,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
+    <string name="hide_statusbar">Agochar barra de estado</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Ruta</string>
     <string name="insert_link">Inserir ligazón</string>
