@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Öğeleri seç</string>
     <string name="one_item_selected">Bir öğe seçildi</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d öğe seçildi</string>
+    <string name="hide_statusbar">Durum çubuğunu gizle</string>
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
     <string name="insert_link">Bağlantı Ekle</string>
@@ -137,6 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vurgulamayı yenilemek için milisaniye cinsinden gecikme değeri. Daha düşük bir değer, daha erken vurgulamaya başlar, ancak pilinizi tüketir ve eski cihazlarda uygulamayı yavaşlatabilir.</string>
     <string name="highlighting_enabled_or_not__appspecific">Girilen metnin vurgulanıp vurgulanmayacağını kontrol edin</string>
     <string name="control_font_size_in_editor">Düzenleyicide kullanılan yazı tipi boyutunu kontrol et</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Alttaki kullanışlı düğmeleri olan bir çubuk gösterir. Bu metin eylemleri metni değiştirir veya metne dayalı bir eylemi çalıştırır.</string>
     <string name="load_last_opened_folder_at_startup">Başlangıçta son açılan klasörü yükle</string>
     <string name="format">Biçim</string>
     <string name="contexts">Bağlamlar</string>
@@ -189,6 +191,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Üst</string>
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
+    <string name="textaction_spacing">Metin eylemleri arasındaki boşluk</string>
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
@@ -231,6 +234,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematik</string>
     <string name="table_of_contents">İçindekiler</string>
     <string name="miscellaneous">Çeşitli</string>
+    <string name="textaction">Metin eylemi</string>
+    <string name="textactions">Metin eylemleri</string>
     <string name="prefer_view">Görünümü tercih et</string>
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
