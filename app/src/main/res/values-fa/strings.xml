@@ -61,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">ورودی ها را انتخاب کنید</string>
     <string name="one_item_selected">یک مورد انتخاب شده</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d مورد انتخاب شد</string>
+    <string name="hide_statusbar">مخفی کردن نوار وضعیت</string>
     <string name="name">نام</string>
     <string name="url_or_path">آدرس(URL) / مسیر</string>
     <string name="insert_link">وارد کردن لینک</string>
@@ -134,6 +135,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">فاصله زمانی برای به روز رسانی عملیات مشخص کردن را تعیین کنید. عدد پایان تر، مشخص کردن را سریع‌ تر انجام می‌دهد؛ ولی باتری بیشتری مصرف خواهد کرد و شاید باعث کاهش سرعت اپ در دستگاه های ضعیف تر شود.</string>
     <string name="highlighting_enabled_or_not__appspecific">مشخص کنید که آیا متن وارد شده باید مشخص شود(هایلایت) یا نه</string>
     <string name="control_font_size_in_editor">کنترل اندازه قلم ویرایشگر</string>
+    <string name="textactions_show_useful_actions_description__appspecific">نمایش یک نوار با عملکردهای کاربردی برای افزودن ماژول‌های متنی متداول</string>
     <string name="load_last_opened_folder_at_startup">بارگزاری آخرین پوشه باز شده هنگام راه‌اندازی</string>
     <string name="format">فرمت</string>
     <string name="contexts">متن ها</string>
