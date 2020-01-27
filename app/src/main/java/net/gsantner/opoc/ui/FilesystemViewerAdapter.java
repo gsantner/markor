@@ -149,8 +149,12 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(file);
         final boolean isPopular = _dopt.popularFiles != null && _dopt.popularFiles.contains(file);
         final int descriptionRes = isSelected ? _dopt.contentDescriptionSelected : (file.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile);
+        String titleText = filename;
+        if (isCurrentFolderVirtual() && "index.html".equals(filename)) {
+            titleText += " [" + fileParent.getName() + "]";
+        }
 
-        holder.title.setText(isGoUp ? ".." : filename, TextView.BufferType.SPANNABLE);
+        holder.title.setText(isGoUp ? ".." : titleText, TextView.BufferType.SPANNABLE);
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
         if (!isFileWriteable(file, isGoUp) && holder.title.length() > 0) {
             try {
