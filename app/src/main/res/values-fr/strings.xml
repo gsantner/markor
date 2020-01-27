@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Sélectionnez une ou plusieurs entrées</string>
     <string name="one_item_selected">Une entrée sélectionnée</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items choisis</string>
+    <string name="hide_statusbar_at_this_view">Masquer la barre d\'état dans cette vue</string>
     <string name="hide_statusbar">Cacher la barre de statut</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
@@ -156,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
     <string name="tasks_with_todays_date">Tâches d\'aujourd\'hui</string>
     <string name="append_contexts_and_projects">Ajout des contextes et projets</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Ajouter des contextes et des projets à la fin d\'une tâche lorsque vous utilisez l\'action de texte appropriée</string>
     <string name="rtl_rendering">Écriture de droite à gauche</string>
     <string name="highlight_line_ending">Afficher les fins de ligne</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Mettre en valeur les espaces en fin de ligne, à partir de deux espaces</string>
@@ -192,6 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">En bas</string>
     <string name="center">Centré</string>
     <string name="textaction_spacing">Espacement du module de texte</string>
+    <string name="horizontal_space_between_textactions">Espace horizontal entre les boutons d\'action du texte</string>
     <string name="center_text">Centrer le texte</string>
     <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
     <string name="clipboard">Presse-papier</string>
@@ -281,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook est le dossier depuis lequel Markor charge les fichiers à son démarrage. C\'est le dossier principal de vos fichiers.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est l\'option la plus rapide pour prendre des notes. Il s\'agit d\'un fichier au format Markdown dont l\'emplacement par défaut est &gt;Notebook/QuickNote.md&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
     <string name="todo_is_the_easiest_way_">Gérez vos tâches avec ToDo. Il s\'agit d\'un fichier au format todo.txt dont l\'emplacement par défaut est &gt;NoteBook/todo.txt&lt;, vous pouvez définir un emplacement personnalisé dans les paramètres.</string>
+    <string name="navigationbar_color">Couleur de la barre de navigation</string>
     <string name="black">Noir</string>
     <string name="white">Blanc</string>
     <string name="view">Vue</string>
