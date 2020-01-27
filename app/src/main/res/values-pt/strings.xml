@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
-    <string name="hide_statusbar_at_this_view">Ocultar a barra de status nesta visualização</string>
+    <string name="hide_statusbar_at_this_view">Ocultar a barra de estado nesta vista</string>
     <string name="hide_statusbar">Ocultar barra de estado</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL/Caminho</string>
@@ -139,7 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso (em milissegundos) para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto digitado deve ser destacado</string>
     <string name="control_font_size_in_editor">Controlar o tamanho do tipo de letra do editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com botões úteis na parte inferior. Estas ações de texto modificam o texto ou executam uma ação baseada no texto.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com botões na parte inferior. Estas ações de texto modificam o texto ou executam uma ação baseada no texto.</string>
     <string name="load_last_opened_folder_at_startup">Ao iniciar, abrir a última pasta utilizada</string>
     <string name="format">Formato</string>
     <string name="contexts">Contextos</string>
@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma tarefa</string>
     <string name="tasks_with_todays_date">Tarefas com a data de hoje</string>
     <string name="append_contexts_and_projects">Juntar contextos e projetos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa quando estiver usando uma ação de texto apropriado</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa ao utilizar uma ação de texto apropriada</string>
     <string name="rtl_rendering">Processamento de RTL</string>
     <string name="highlight_line_ending">Destacar fim de linhas</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Destacar espaços no final das linhas que possuem dois ou mais espaços</string>
