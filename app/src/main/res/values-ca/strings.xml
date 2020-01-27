@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecciona les entrades</string>
     <string name="one_item_selected">Un element seleccionat</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elements seleccionats</string>
+    <string name="hide_statusbar_at_this_view">Amaga la barra d\'estat en aquesta vista</string>
     <string name="hide_statusbar">Amaga la barra d\'estat</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -138,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
     <string name="control_font_size_in_editor">Controla la mida de la font utilitzada a l\'editor</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Mostra una barra amb botons útils a la part inferior. Aquestes accions de text modifiquen el text o executen una acció basada en el text.</string>
     <string name="load_last_opened_folder_at_startup">Carrega l\'última carpeta oberta a l\'inici</string>
     <string name="format">Format</string>
     <string name="contexts">Contextos</string>
@@ -155,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Insereix la data actual en iniciar una tasca nova</string>
     <string name="tasks_with_todays_date">Tasques amb data d\'avui</string>
     <string name="append_contexts_and_projects">Annexa contextos i projectes</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Afegeix contextos i projectes al final d\'una tasca en utilitzar l\'acció de text apropiada</string>
     <string name="rtl_rendering">Representació RTL</string>
     <string name="highlight_line_ending">Destaca el final de la línia</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Destaca espais al final de línies que contenen dos o més espais</string>
@@ -190,6 +193,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">Inferior</string>
     <string name="center">Centre</string>
+    <string name="textaction_spacing">Espaiat d\'acció del text</string>
+    <string name="horizontal_space_between_textactions">Espai horitzontal entre botons d\'acció de text</string>
     <string name="center_text">Centra el text</string>
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
@@ -232,6 +237,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matemàtiques</string>
     <string name="table_of_contents">Taula de continguts</string>
     <string name="miscellaneous">Divers</string>
+    <string name="textaction">Accions de text</string>
+    <string name="textactions">Accions de text</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>
     <string name="popular_documents">Documents populars</string>
@@ -277,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">El quadern és la carpeta que Markor carrega al navegador de fitxers quan s\'inicia l\'aplicació. És la carpeta inicial dels vostres fitxers.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote és l’opció més ràpida per escriure notes. És un fitxer en format Markdown amb la ubicació per defecte &gt;Quadern/QuickNote.md&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
     <string name="todo_is_the_easiest_way_">Gestioneu les vostres tasques amb ToDo. És un fitxer en format todo.txt amb la ubicació per defecte &gt;Quadern/todo.txt&lt;, podeu establir una ruta de fitxers personalitzada a la configuració.</string>
+    <string name="navigationbar_color">Color de la barra de navegació</string>
     <string name="black">Negre</string>
     <string name="white">Blanc</string>
     <string name="view">Vista</string>
