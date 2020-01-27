@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
     <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
     <string name="append_contexts_and_projects">Додати контексти та проєкти</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проекти в кінець задачі з використанням відповідної команди тексту</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проєкти в кінець задачі з використанням відповідної команди тексту</string>
     <string name="rtl_rendering">Відображення зправа-наліво</string>
     <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
