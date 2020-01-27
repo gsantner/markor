@@ -63,6 +63,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Wybierz wpisy</string>
     <string name="one_item_selected">Zaznaczono jedną rzecz</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Zaznaczono %d rzeczy</string>
+    <string name="hide_statusbar_at_this_view">Ukryj pasek stanu w tym widoku</string>
+    <string name="hide_statusbar">Ukryj pasek stanu</string>
     <string name="name">Nazwa</string>
     <string name="url_or_path">URL / Ścieżka</string>
     <string name="insert_link">Wstaw link</string>
@@ -137,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale to będzie rozładowywać baterię i aplikacja może działać wolniej na starszych urzączeniach.</string>
     <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
     <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
     <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
     <string name="format">Format</string>
     <string name="contexts">Konteksty</string>
@@ -154,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="append_contexts_and_projects">Dodaj konteksty i projekty</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dołącz kontekst i projekty na końcu zadania przy użyciu odpowiedniej akcji tekstowej</string>
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -189,6 +193,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Góra</string>
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
+    <string name="textaction_spacing">Odstęp akcji tekstu</string>
+    <string name="horizontal_space_between_textactions">Odstęp poziomy pomiędzy przyciskami akcji tekstu</string>
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
     <string name="clipboard">Schowek</string>
@@ -231,6 +237,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematyka</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
+    <string name="textaction">Akcja tekstu</string>
+    <string name="textactions">Akcje tekstowe</string>
     <string name="prefer_view">Preferuj widok</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
@@ -276,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notatnik jest katalogiem, który Markor ładuje w przeglądarce plików po uruchomieniu aplikacji. To jest folder domowy Twoich plików.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote to najszybsza opcja zapisywania notatek. Jest to plik w formacie Markdown z domyślną lokalizacją &gt;Notatnik/QuickNote. d&lt;, możesz ustawić niestandardową ścieżkę plików w ustawieniach.</string>
     <string name="todo_is_the_easiest_way_">Zarządzaj zadaniami za pomocą ToDo. Jest to plik w formacie todo.txt z domyślną lokalizacją &gt;Notebook/todo. xt&lt;, możesz ustawić niestandardową ścieżkę plików w ustawieniach.</string>
+    <string name="navigationbar_color">Kolor paska nawigacji</string>
     <string name="black">Czarny</string>
     <string name="white">Biały</string>
     <string name="view">Wyświetl</string>
