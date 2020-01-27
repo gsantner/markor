@@ -182,7 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">表格</string>
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">檔案管理員未提供app需要的數據</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Makor 僅能編輯本機，離線的文件，也不支援未提供完整路徑的檔案管理程式。</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
     <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
     <string name="vertical_alignment">垂直偏移</string>
@@ -204,6 +204,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻譯</string>
     <string name="more_info_and_help">更多關於這個App的資訊和幫助</string>
     <string name="report_bugs">回報臭蟲</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">更多關於如何贊助開發或支持這個專案的資訊</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
     <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
@@ -215,6 +216,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">專案團隊</string>
     <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
     <string name="descending">降冪</string>
+    <string name="ascending">升羃</string>
+    <string name="disable_spelling_underline">取消拼寫底線</string>
     <string name="location">地點</string>
     <string name="text_lines">文字行</string>
     <string name="details">細節</string>
