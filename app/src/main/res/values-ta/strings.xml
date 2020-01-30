@@ -87,11 +87,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">நன்கொடை</string>
     <string name="exit">வெளியேறு</string>
     <string name="undo">செயல்தவிர்</string>
+    <string name="redo">மீண்டும்செய்</string>
     <string name="more">மேலும்</string>
     <string name="notebook">குறிப்பேடு</string>
     <string name="help">உதவி</string>
     <string name="category">வகை</string>
     <string name="context">சூழ் அமைவு</string>
+    <string name="sync">ஒத்திசை</string>
+    <string name="save">சேமி</string>
+    <string name="update">புதுப்பி</string>
     <string name="file_browser">கோப்பு உலாவி</string>
     <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
     <string name="special_documents" needed="false">சிறப்பு கோப்புகள்</string>
