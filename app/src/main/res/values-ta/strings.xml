@@ -85,6 +85,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">தலைகீழ் ஒழுங்கு</string>
     <string name="contribute">பங்கேற்க்க</string>
     <string name="donate">நன்கொடை</string>
+    <string name="press_back_again_to_exit">வெளியேற மீண்டும் அழுத்தவும்</string>
     <string name="exit">வெளியேறு</string>
     <string name="undo">செயல்தவிர்</string>
     <string name="redo">மீண்டும்செய்</string>
