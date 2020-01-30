@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Ischerta sas intradas</string>
     <string name="one_item_selected">Un\'elementu ischertadu</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos ischertados</string>
+    <string name="hide_statusbar_at_this_view">Istichi sa barra de istadu in custa vista</string>
     <string name="hide_statusbar">Istichi sa barra de s\'istadu</string>
     <string name="name">Nùmene</string>
     <string name="url_or_path">URL / Àndala</string>
@@ -138,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardu in millisegundos pro s\'agiornamentu de s\'evidentziatzione. Unu valore prus bassu at a evidentziare prus in presse, ma at a consumire de prus sa bateria tua e diat pòdere rallentare s\'aplicatzione in sos dispositivos prus betzos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla si su testu insertadu diat dèpere èssere evidentziadu o nono</string>
     <string name="control_font_size_in_editor">Controlla sa mannària de su caràtere impreadu in s\'editore</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Ammustra una barra cun butones discansosos in suta. Custas atziones de su testu mudant su testu o faghent partire un\'atzione basada in subra de su testu.</string>
     <string name="load_last_opened_folder_at_startup">Càrriga s\'ùrtima cartella aberta a s\'allughìngiu</string>
     <string name="format">Formadu</string>
     <string name="contexts">Cuntestos</string>
@@ -155,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserta sa data currente cando incumentzas un\'atividade noa</string>
     <string name="tasks_with_todays_date">Atividades cun data de oe</string>
     <string name="append_contexts_and_projects">Annanghe cuntestos e progetos</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Annanghe cuntestos e progetos a s\'acabu de un\'atividade cando ses impreende s\'atzione pro su testu apropriada</string>
     <string name="rtl_rendering">Renderizatzione dae destra a manca</string>
     <string name="highlight_line_ending">Evidèntzia s\'acabu de sa lìnia</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidèntzia sos ispatzios a s\'acabu de sas lìnias chi cuntenint duos o prus ispàtzios</string>
@@ -190,6 +193,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In artu</string>
     <string name="bottom">In bassu</string>
     <string name="center">Tzentru</string>
+    <string name="textaction_spacing">Ispatziamentu intre sas atziones de su testu</string>
+    <string name="horizontal_space_between_textactions">Ispàtziu orizontale intre sos butones de atzione pro su testu</string>
     <string name="center_text">Tzentra su testu</string>
     <string name="edit_text_in_center_of_screen">Èdita su testu in su tzentru de s\'ischermu</string>
     <string name="clipboard">Punta de billete</string>
@@ -232,6 +237,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matemàtica</string>
     <string name="table_of_contents">Ìnditze</string>
     <string name="miscellaneous">Vàriu</string>
+    <string name="textaction">Atziones de su testu</string>
+    <string name="textactions">Atziones de su testu</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">Non b\'at peruna aplicatzione de calendàriu installada!</string>
     <string name="popular_documents">Documentos populares</string>
@@ -277,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">\"Notas\" est sa cartella chi Markor carrigat in s\'esploradore de documentos cando s\'aplicatzione benit alluta. Est sa cartella de sos documentos tuos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote est s\'optzione prus lestra pro iscrìere notas. Est unu documentu in formadu Markdown, chi s\'agatat in &gt;Notebook/QuickNote.md&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
     <string name="todo_is_the_easiest_way_">Gesti sas atividades tuas cun ToDo. Est unu documentu in formadu todo.txt chi s\'agatat in &gt;Notebook/todo.txt&lt;. Podes impostare un\'àndala personalizada pro su documentu in sas impostatziones.</string>
+    <string name="navigationbar_color">Colore de sa barra de navigatzione</string>
     <string name="black">Nieddu</string>
     <string name="white">Biancu</string>
     <string name="view">Abbàida</string>
