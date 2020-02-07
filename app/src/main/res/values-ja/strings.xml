@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">項目を選択</string>
     <string name="one_item_selected">1 アイテム選択</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d アイテム選択</string>
+    <string name="hide_statusbar_at_this_view">このビューでステータスバーを非表示にします</string>
     <string name="hide_statusbar">ステータスバーを非表示</string>
     <string name="name">名前</string>
     <string name="url_or_path">URL / パス</string>
@@ -156,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">新しいタスクを開始するとき、現在の日付を挿入します</string>
     <string name="tasks_with_todays_date">今日の日付のタスク</string>
     <string name="append_contexts_and_projects">コンテキストとプロジェクトを追加</string>
+    <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了時にコンテキストとプロジェクトを追加します</string>
     <string name="rtl_rendering">RTL レンダリング</string>
     <string name="highlight_line_ending">行の終わりを強調表示</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
@@ -192,6 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">下部</string>
     <string name="center">中央</string>
     <string name="textaction_spacing">テキスト操作の間隔</string>
+    <string name="horizontal_space_between_textactions">テキスト操作の横の間隔</string>
     <string name="center_text">テキストの中央揃え</string>
     <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
     <string name="clipboard">クリップボード</string>
@@ -281,6 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook は、アプリが起動する時に、Markor がファイルブラウザーで読み込むフォルダーです。あなたのファイルのホームフォルダーになります。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote は、メモを書くための最速のオプションです。デフォルトの場所は &gt;Notebook/QuickNote.md&lt; で Markdown 形式のファイルです。設定でカスタムのパスを設定できます。</string>
     <string name="todo_is_the_easiest_way_">ToDo とタスクを管理します。デフォルトの場所は &gt;Notebook/todo.txt&lt; で Todo.txt 形式のファイルです。設定でカスタムパスを設定できます。</string>
+    <string name="navigationbar_color">ナビゲーションバーの色</string>
     <string name="black">黒</string>
     <string name="white">白</string>
     <string name="view">表示</string>
