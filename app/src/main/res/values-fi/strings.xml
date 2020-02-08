@@ -103,6 +103,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list">Lista</string>
     <string name="priority">Tärkeys</string>
     <string name="history">Historia</string>
+    <string name="sync">Synkronoi</string>
+    <string name="search_or_custom">Haku / mukautettu</string>
+    <string name="save">Tallenna</string>
+    <string name="update">Päivitä</string>
+    <string name="clear">Tyhjennä</string>
+    <string name="due_date">Eräpäivä</string>
+    <string name="current_date">Nykyinen päivämäärä</string>
+    <string name="archive">Arkistoi</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Valittu tiedosto ei sijaitse sovelluksen muistiinpanohakemistossa. Haluatko kopioida sen nykyiseen kansioon? Tämä korvaa kaikki samannimiset tiedostot.</string>
     <string name="notebook_is_the_home_of_your_files">Muistiinpanot on kansio, jonka Markor lataa tiedostoselaimeen, kun sovellus käynnistetään. Se on tiedostojesi kotikansio.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
