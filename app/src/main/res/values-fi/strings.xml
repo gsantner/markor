@@ -55,7 +55,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">Kuva</string>
     <string name="font_size">Fonttikoko</string>
     <string name="render_rtl_language">Hahmonna oikealta vasemmalle -kielille</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Virhe: muistiinpanokokoelman hakemistoa ei voi luoda</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Virhe: muistiinpanojen hakemistoa ei voi luoda</string>
     <string name="last_modified_witharg">Viimeksi muokattu: %s</string>
     <string name="select_this_folder">Valitse tämä kansio</string>
     <string name="select">Valitse</string>
@@ -94,4 +94,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">Kumoa</string>
     <string name="redo">Tee uudelleen</string>
     <string name="more">Lisää</string>
+    <string name="notebook">Muistiinpanot</string>
+    <string name="help">Ohje</string>
+    <string name="todo_list">Tehtävälista</string>
+    <string name="task">Tehtävä</string>
+    <string name="category">Luokka</string>
+    <string name="context">Asiayhteys</string>
+    <string name="list">Lista</string>
+    <string name="priority">Tärkeys</string>
+    <string name="history">Historia</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Valittu tiedosto ei sijaitse sovelluksen muistiinpanohakemistossa. Haluatko kopioida sen nykyiseen kansioon? Tämä korvaa kaikki samannimiset tiedostot.</string>
+    <string name="notebook_is_the_home_of_your_files">Muistiinpanot on kansio, jonka Markor lataa tiedostoselaimeen, kun sovellus käynnistetään. Se on tiedostojesi kotikansio.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
+    <string name="todo_is_the_easiest_way_">Hallitse tehtäviäsi ToDo:lla. Se on tiedosto todo.txt-muodossa, jonka oletussijainti on &gt;Notebook/todo.txt&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
 </resources>
