@@ -46,4 +46,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Dokumentti</string>
     <string name="documents">Dokumentit</string>
     <string name="html_as_plaintext">HTML (tekstinä)</string>
+    <string name="document_editor_font">Asiakirjaeditorin fontti</string>
+    <string name="theme">Teema</string>
+    <string name="open_existing_files_in_view_mode">Avaa olemassa olevat tiedostot katselutilassa</string>
+    <string name="about">Tietoja</string>
+    <string name="plaintext">Pelkkä teksti</string>
+    <string name="file">Tiedosto</string>
+    <string name="image">Kuva</string>
+    <string name="font_size">Fonttikoko</string>
+    <string name="render_rtl_language">Hahmonna oikealta vasemmalle -kielille</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Virhe: muistiinpanokokoelman hakemistoa ei voi luoda</string>
+    <string name="last_modified_witharg">Viimeksi muokattu: %s</string>
+    <string name="select_this_folder">Valitse tämä kansio</string>
+    <string name="select">Valitse</string>
+    <string name="create">Luo</string>
 </resources>
