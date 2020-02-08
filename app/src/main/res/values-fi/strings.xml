@@ -136,6 +136,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Muista viimeinen hakemisto</string>
     <string name="syntax_highlighting">Syntaksin korostaminen</string>
     <string name="highlighting_delay">Korostusviive</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viive millisekunneissa korostuksen päivitykseen. Pienempi arvo aloittaa korostuksen aiemmin, mutta se tyhjentää akun ja saattaa hidastaa sovellusta vanhemmilla laitteilla.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Hallitse, onko syötetty teksti korostettava vai ei</string>
+    <string name="control_font_size_in_editor">Hallitse editorissa käytettyä fonttikokoa</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Näytä palkki, jossa alhaalla on käteviä painikkeita. Nämä tekstitoiminnot muuttavat tekstiä tai suorittavat tekstiin perustuvan toiminnon.</string>
+    <string name="load_last_opened_folder_at_startup">Lataa viimeksi avattu kansio käynnistyksen yhteydessä</string>
+    <string name="format">Muoto</string>
     <string name="notebook_is_the_home_of_your_files">Muistiinpanot on kansio, jonka Markor lataa tiedostoselaimeen, kun sovellus käynnistetään. Se on tiedostojesi kotikansio.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
     <string name="todo_is_the_easiest_way_">Hallitse tehtäviäsi ToDo:lla. Se on tiedosto todo.txt-muodossa, jonka oletussijainti on &gt;Notebook/todo.txt&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
