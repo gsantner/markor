@@ -118,6 +118,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Luo pikakuvake</string>
     <string name="tried_to_create_shortcut_for_this_notice">Yritettiin luoda pikakuvake aloitusnäyttöön. Huomaa, että jotkut käynnistimet eivät ehkä tue tätä.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Valittu tiedosto ei sijaitse sovelluksen muistiinpanohakemistossa. Haluatko kopioida sen nykyiseen kansioon? Tämä korvaa kaikki samannimiset tiedostot.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Tiedostoa ei löydy nykyisestä kansiosta. Haluatko kopioida sen nykyiseen kansioon? Tämä korvaa kaikki olemassa olevat tiedostot samalla nimellä.</string>
+    <string name="files_and_folders">Tiedostot ja kansiot</string>
+    <string name="document_browser">Asiakirjaselain</string>
+    <string name="file_browser">Tiedostoselain</string>
+    <string name="create_note" needed="false">Luo muistiinpano</string>
+    <string name="special_documents" needed="false">Erityiset asiakirjat</string>
+    <string name="keep_screen_on" needed="false">Pidä näyttö päällä</string>
+    <string name="back_to_previous_folder" needed="false">Takaisin edelliseen kansioon</string>
+    <string name="app_settings" needed="false">Sovellusasetukset</string>
+    <string name="editor_settings" needed="false">Editorin asetukset</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Muista viimeinen kansion sijainti käynnistyksen yhteydessä</string>
+    <string name="number_of_files_witharg" needed="false">Tiedostojen määrä: %d</string>
+    <string name="app_wide">Kaiken kattava</string>
+    <string name="main_view">Päänäkymä</string>
+    <string name="overall_theme_used_in_app">Sovelluksessa käytetty yleinen teema</string>
+    <string name="remember_last_directory">Muista viimeinen hakemisto</string>
+    <string name="syntax_highlighting">Syntaksin korostaminen</string>
+    <string name="highlighting_delay">Korostusviive</string>
     <string name="notebook_is_the_home_of_your_files">Muistiinpanot on kansio, jonka Markor lataa tiedostoselaimeen, kun sovellus käynnistetään. Se on tiedostojesi kotikansio.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
     <string name="todo_is_the_easiest_way_">Hallitse tehtäviäsi ToDo:lla. Se on tiedosto todo.txt-muodossa, jonka oletussijainti on &gt;Notebook/todo.txt&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
