@@ -198,7 +198,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (BuildConfig.IS_TEST_BUILD) {
             return false;
         }
-        return getBool(R.string.pref_key__is_launcher_for_special_files_enabled, true);
+        return getBool(R.string.pref_key__is_launcher_for_special_files_enabled, false);
     }
 
     public boolean isKeepScreenOn() {
