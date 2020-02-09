@@ -19,7 +19,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="about">О програму</string>
     <string name="image">Слика</string>
     <string name="create">Napravi</string>
-    <string name="hide_statusbar">Sakrij status</string>
     <string name="contributors">Сарадници</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Дневник измена</string>

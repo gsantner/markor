@@ -63,7 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
-    <string name="hide_statusbar_at_this_view">Ocultar barra de status nesta visualização</string>
     <string name="hide_statusbar">Esconder barra de status</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
@@ -157,7 +156,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
     <string name="tasks_with_todays_date">Tarefas para hoje</string>
     <string name="append_contexts_and_projects">Inserir contextos e projetos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa quando usado uma ação de módulo de texto apropriado</string>
     <string name="rtl_rendering">Renderização de RTL</string>
     <string name="highlight_line_ending">Realçar o fim da linha</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
@@ -194,7 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">inferior</string>
     <string name="center">Centro</string>
     <string name="textaction_spacing">Espaçamento do módulo de texto</string>
-    <string name="horizontal_space_between_textactions">Espaçamento horizontal de ações</string>
     <string name="center_text">Texto no centro</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro da tela</string>
     <string name="clipboard">Área de transferência</string>
@@ -284,7 +281,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook é a pasta que o Markor abre através do gerenciador de arquivos quando o app é iniciado. É a pasta padrão dos seus arquivos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, que você pode customizar a localização nas configurações.</string>
     <string name="todo_is_the_easiest_way_">Gerencie suas tarefas com ToDo. É um arquivo todo.txt com localização padrão &gt;Notebook/todo.txt&lt;, e que pode ter sua localização customizada nas configurações.</string>
-    <string name="navigationbar_color">Cor da barra de navegação</string>
     <string name="black">Preto</string>
     <string name="white">Branco</string>
     <string name="view">Ver</string>

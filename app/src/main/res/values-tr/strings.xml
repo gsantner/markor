@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
     <string name="tasks_with_todays_date">Bugünün tarihi ile görevler</string>
     <string name="append_contexts_and_projects">Bağlamları ve projeleri ekle</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Uygun metin eylemini kullanırken, bir görevin sonuna bağlamları ve projeleri ekle</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Uygun metin eylemini kullanırken görevin sonuna bağlamlar ve projeler ekle</string>
     <string name="rtl_rendering">Sağdan sola metin yönü</string>
     <string name="highlight_line_ending">Satır sonunu vurgula</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>

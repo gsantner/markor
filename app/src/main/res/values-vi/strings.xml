@@ -61,8 +61,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Chọn mục</string>
     <string name="one_item_selected">Một khoản mục được chọn</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d khoản mục được chọn</string>
-    <string name="hide_statusbar_at_this_view">Ẩn thanh trạng thái trong dạng xem này</string>
-    <string name="hide_statusbar">Ẩn thanh trạng thái</string>
     <string name="name">Tên</string>
     <string name="url_or_path">URL / đường dẫn</string>
     <string name="insert_link">Chèn liên kết</string>

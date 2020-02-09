@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">選擇 輸入文字</string>
     <string name="one_item_selected">已經選擇一個項目</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已選擇 %d 項目</string>
-    <string name="hide_statusbar_at_this_view">在這個視角隱藏狀態列</string>
+    <string name="hide_statusbar_at_this_view">在此檢視隱藏狀態列</string>
     <string name="hide_statusbar">隱藏狀態列</string>
     <string name="name">名稱</string>
     <string name="url_or_path">網址 / 路徑</string>
@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
     <string name="tasks_with_todays_date">有今天日期的工作</string>
     <string name="append_contexts_and_projects">增補內文與專案等</string>
-    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字模組在工作的結尾增加內文或專案。</string>
+    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字動作時在工作的結尾增加內文或專案。</string>
     <string name="rtl_rendering">RTL 顯現</string>
     <string name="highlight_line_ending">標記行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
@@ -182,6 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">表格</string>
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Makor 僅能編輯本機，離線的文件，也不支援未提供完整路徑的檔案管理程式。</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
     <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
     <string name="vertical_alignment">垂直偏移</string>
@@ -193,7 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">底端</string>
     <string name="center">中央</string>
     <string name="textaction_spacing">文字模組間距</string>
-    <string name="horizontal_space_between_textactions">活動的水平距離</string>
+    <string name="horizontal_space_between_textactions">字句動作按鈕間的水平空間</string>
     <string name="center_text">文件中央</string>
     <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
@@ -203,6 +204,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻譯</string>
     <string name="more_info_and_help">更多關於這個App的資訊和幫助</string>
     <string name="report_bugs">回報臭蟲</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">更多關於如何贊助開發或支持這個專案的資訊</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
     <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
@@ -214,6 +216,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">專案團隊</string>
     <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
     <string name="descending">降冪</string>
+    <string name="ascending">升羃</string>
+    <string name="disable_spelling_underline">取消拼寫底線</string>
     <string name="location">地點</string>
     <string name="text_lines">文字行</string>
     <string name="details">細節</string>

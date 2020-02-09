@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Обрати елементи</string>
     <string name="one_item_selected">Один елемент обрано</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d елементів обрано</string>
-    <string name="hide_statusbar_at_this_view">Приховувати рядок статусу для цього екрану</string>
+    <string name="hide_statusbar_at_this_view">Приховувати рядок стану для цього перегляду</string>
     <string name="hide_statusbar">Сховати рядок статусу</string>
     <string name="name">Ім\'я</string>
     <string name="url_or_path">URL / Шлях</string>
@@ -194,7 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Знизу</string>
     <string name="center">У центрі</string>
     <string name="textaction_spacing">Проміжки між командами</string>
-    <string name="horizontal_space_between_textactions">Горизонтальні проміжки між кнопками команд</string>
+    <string name="horizontal_space_between_textactions">Горизонтальний інтервал між кнопками команд</string>
     <string name="center_text">Центрувати текст</string>
     <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
     <string name="clipboard">Буфер обміну</string>

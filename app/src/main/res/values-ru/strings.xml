@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Выбран один элемент</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элементов выбрано</string>
-    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом приложении</string>
+    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом представлении</string>
     <string name="hide_statusbar">Скрыть строку состояния</string>
     <string name="name">Имя</string>
     <string name="url_or_path">URL / Путь</string>
@@ -139,7 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и может снизить производительность на старых устройствах.</string>
     <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Показать панель с полезными действиями для вставки текстовых модулей</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Показать снизу панель с полезными кнопками для операций, которые изменяют текст или выполняют соответствующее ему действие.</string>
     <string name="load_last_opened_folder_at_startup">Загружать последнюю открытую папку при запуске</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексты</string>
@@ -193,8 +193,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Выровнить по верхнему краю</string>
     <string name="bottom">Подвал</string>
     <string name="center">Центр</string>
-    <string name="textaction_spacing">Расстояние между текстовыми модулями</string>
-    <string name="horizontal_space_between_textactions">Горизонтальное активное пространсто</string>
+    <string name="textaction_spacing">Расстояние между операциями</string>
+    <string name="horizontal_space_between_textactions">Горизонтальное пространство между текстовыми кнопками действий</string>
     <string name="center_text">Текст по центру</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>

@@ -63,8 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Pumili ng mga entry</string>
     <string name="one_item_selected">Isang item ang napili</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d na mga item ang napili</string>
-    <string name="hide_statusbar_at_this_view">Itago ang status bar sa view na ito</string>
-    <string name="hide_statusbar">Itago ang status bar</string>
     <string name="name">Pangalan</string>
     <string name="url_or_path">URL / Daanan</string>
     <string name="insert_link">Magsingit ng Link</string>
@@ -138,7 +136,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antala sa milisegundo para sa refresh ng pagha-highlight. Magsisimula ang pagha-highlight nang mas maaga kapag mababa ang nakalagay, pero uubusin nito ang iyong baterya at maaring pabagalin ang app sa mga lumang device.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolin kung ang pinasok na teksto ay kailangan bang i-highlight o hindi</string>
     <string name="control_font_size_in_editor">Kontrolin ang laki ng titik na gagamitin sa editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Magpakita ng isang hilera na may magagamit na mga pindutan sa ibaba. Babaguhin ng mga textaction na ito ang teksto o magpatakbo ng aksyon base sa teksto.</string>
     <string name="load_last_opened_folder_at_startup">I-load ang huling binuksang folder sa pagbukas</string>
     <string name="format">Ayos</string>
     <string name="contexts">Mga Konteksto</string>
@@ -155,7 +152,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Isingit ang petsa ngayon kapag gagawa ng bagong gawain</string>
     <string name="tasks_with_todays_date">Mga Gawain na may petsa ngayon</string>
     <string name="append_contexts_and_projects">Isama ang mga konteksto at proyekto</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Isama ang mga konteksto at proyekto sa dulo ng isang gawain kapag gagamitin ang tamang textaction</string>
     <string name="rtl_rendering">Pagre-render ng RTL</string>
     <string name="highlight_line_ending">I-highlight ang dulo ng linya</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">I-highlight ang mga space sa dulo ng mga linyang mayroong dalawa o higit pang space</string>
@@ -189,8 +185,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Itaas</string>
     <string name="bottom">Ibaba</string>
     <string name="center">Gitna</string>
-    <string name="textaction_spacing">Espasyo ng textaction</string>
-    <string name="horizontal_space_between_textactions">Pahigang espasyo sa pagitan ng mga button na textaction</string>
     <string name="center_text">Igitna ang teksto</string>
     <string name="edit_text_in_center_of_screen">Baguhin ang teksto sa gitna ng screen</string>
     <string name="clipboard">Clipboard</string>
@@ -233,8 +227,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Talaan ng nilalaman</string>
     <string name="miscellaneous">Sari-sari</string>
-    <string name="textaction">Textaction</string>
-    <string name="textactions">Mga textaction</string>
     <string name="prefer_view">Mas gustong view</string>
     <string name="no_calendar_app_is_installed">Walang naka-install na app na kalendaryo!</string>
     <string name="popular_documents">Mga popular na dokumento</string>
@@ -280,7 +272,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Ang Notebook ay ang folder na nilo-load ng Markor sa file brower sa kada magbubukas ang app. Ito ang home folder ng iyong mga file.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">Ang Quicknote ay ang pinakamabilis na opsyon para magsulat ng mga tala. Ito ay isang file sa format na Markdown na default na nakalagay sa &gt;Notebook/QuickNote.md&lt;, maari kang magtakda ng custom na filepath sa mga pagsasaayos.</string>
     <string name="todo_is_the_easiest_way_">Pamahalaan ang iyong mga gawain sa ToDo. Ito ay isang file sa format na todo.txt na default na nakalagay sa &gt;Notebook/todo.txt&lt;, maari kang magtakda ng custom ng filepath sa mga pagsasaayos.</string>
-    <string name="navigationbar_color">Kulay ng Navigationbar</string>
     <string name="black">Itim</string>
     <string name="white">Puti</string>
     <string name="view">View</string>

@@ -61,7 +61,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementos seleccionados</string>
-    <string name="hide_statusbar_at_this_view">Agochar a barra de estado nesta vista</string>
     <string name="hide_statusbar">Agochar barra de estado</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Ruta</string>
@@ -88,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Tempo en milisegundos para o refresco do resaltado de sintaxe. Un valor mais baixo fará que o resaltado empeze antes, pero consumirá a batería e pode ralentizar a aplicación en dispositivos vellos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla se o texto introducido debe resaltarse ou non</string>
     <string name="control_font_size_in_editor">Controla o tamaño do texto empregado no editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Amosa unha barra con botóns útiles. Estes Textactions modifican o texto o executan unha acción baseada no texto.</string>
     <string name="load_last_opened_folder_at_startup">Carga o último cartafol aberto ao iniciarse</string>
     <string name="format">Formato</string>
     <string name="contexts">Contextos</string>
@@ -104,7 +102,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserir data actual ao iniciar unha nova tarefa</string>
     <string name="tasks_with_todays_date">Tarefas con data de hoxe</string>
     <string name="append_contexts_and_projects">Engadir contextos e proxectos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Engadir contextos e proxectos ao final da tarefa cando se empregue a acción de texto apropiada</string>
     <string name="general">Xeral</string>
     <string name="default_">Por omisión</string>
     <string name="report_bugs">Reporte erros</string>

@@ -16,7 +16,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor">Uređivač</string>
     <string name="about">O ovom</string>
     <string name="create">Napravi</string>
-    <string name="hide_statusbar_at_this_view">Sakrij status na ovom pregledu</string>
     <string name="hide_statusbar">Sakrij status</string>
     <string name="contributors">Pomo\'nici</string>
     <string name="licenses">Licence</string>

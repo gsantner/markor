@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">新しいタスクを開始するとき、現在の日付を挿入します</string>
     <string name="tasks_with_todays_date">今日の日付のタスク</string>
     <string name="append_contexts_and_projects">コンテキストとプロジェクトを追加</string>
-    <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了後にコンテキストとプロジェクトを追加します</string>
+    <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了時にコンテキストとプロジェクトを追加します</string>
     <string name="rtl_rendering">RTL レンダリング</string>
     <string name="highlight_line_ending">行の終わりを強調表示</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
@@ -194,7 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">下部</string>
     <string name="center">中央</string>
     <string name="textaction_spacing">テキスト操作の間隔</string>
-    <string name="horizontal_space_between_textactions">操作の横の間隔</string>
+    <string name="horizontal_space_between_textactions">テキスト操作の横の間隔</string>
     <string name="center_text">テキストの中央揃え</string>
     <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
     <string name="clipboard">クリップボード</string>

@@ -62,8 +62,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">பதிவுகளை தேர்ந்தெடுக்கவும்</string>
     <string name="one_item_selected">ஒரு உருப்படி தேர்வு செய்யப்பட்டது</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d உருப்படிகள் தேர்ந்தெடுக்கப்பட்டன</string>
-    <string name="hide_statusbar_at_this_view">நிலமைப்பட்டயை இந்த காட்சி அமைப்பில் மறை</string>
-    <string name="hide_statusbar">நிலைமைப்பட்டையை மறை</string>
     <string name="name">பெயர்</string>
     <string name="url_or_path">இணைய முகவரி/ கோப்பின் பாதை</string>
     <string name="insert_link">இணைப்பை செருகவும்</string>
@@ -87,11 +85,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">தலைகீழ் ஒழுங்கு</string>
     <string name="contribute">பங்கேற்க்க</string>
     <string name="donate">நன்கொடை</string>
+    <string name="press_back_again_to_exit">வெளியேற மீண்டும் அழுத்தவும்</string>
+    <string name="exit">வெளியேறு</string>
+    <string name="undo">செயல்தவிர்</string>
+    <string name="redo">மீண்டும்செய்</string>
     <string name="more">மேலும்</string>
     <string name="notebook">குறிப்பேடு</string>
     <string name="help">உதவி</string>
     <string name="category">வகை</string>
     <string name="context">சூழ் அமைவு</string>
+    <string name="sync">ஒத்திசை</string>
+    <string name="save">சேமி</string>
+    <string name="update">புதுப்பி</string>
     <string name="file_browser">கோப்பு உலாவி</string>
     <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
     <string name="special_documents" needed="false">சிறப்பு கோப்புகள்</string>

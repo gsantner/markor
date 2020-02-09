@@ -237,7 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matemàtiques</string>
     <string name="table_of_contents">Taula de continguts</string>
     <string name="miscellaneous">Divers</string>
-    <string name="textaction">Acció de text</string>
+    <string name="textaction">Accions de text</string>
     <string name="textactions">Accions de text</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>

@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Wstawianie bieżącej daty podczas uruchamiania nowego zadania</string>
     <string name="tasks_with_todays_date">Zadania z dzisiejszą datą</string>
     <string name="append_contexts_and_projects">Dodaj konteksty i projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Dodaj konteksty i projekty na końcu zadania, gdy używasz odpowiedniej akcji tekstu</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dołącz kontekst i projekty na końcu zadania przy użyciu odpowiedniej akcji tekstowej</string>
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
@@ -193,8 +193,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Góra</string>
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
-    <string name="textaction_spacing">Odstępy Tekstu akcji</string>
-    <string name="horizontal_space_between_textactions">Poziomy odstęp akcji</string>
+    <string name="textaction_spacing">Odstęp akcji tekstu</string>
+    <string name="horizontal_space_between_textactions">Odstęp poziomy pomiędzy przyciskami akcji tekstu</string>
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
     <string name="clipboard">Schowek</string>
@@ -237,8 +237,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematyka</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
-    <string name="textaction">Tekstakcja</string>
-    <string name="textactions">Akcje tekstur</string>
+    <string name="textaction">Akcja tekstu</string>
+    <string name="textactions">Akcje tekstowe</string>
     <string name="prefer_view">Preferuj widok</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>

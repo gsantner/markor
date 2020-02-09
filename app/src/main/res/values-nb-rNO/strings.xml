@@ -63,7 +63,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elementer valgt</string>
-    <string name="hide_statusbar_at_this_view">Skjul statusfelt i denne visningen</string>
     <string name="hide_statusbar">Skjul statusfelt</string>
     <string name="name">Navn</string>
     <string name="url_or_path">Nettadresse / sti</string>
@@ -189,7 +188,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Bunn</string>
     <string name="center">Midten</string>
     <string name="textaction_spacing">Tekstmodulavstand</string>
-    <string name="horizontal_space_between_textactions">Vannrett avstand for handlinger</string>
     <string name="center_text">Sentrer tekst</string>
     <string name="clipboard">Utklippstavle</string>
     <string name="select_existing_document">Velg eksisterende dokument</string>
