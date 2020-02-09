@@ -124,8 +124,6 @@ public class SttCommander {
         task.setPriority(parsePriority(line));
         task.setKeyValuePairs(parseKeyValuePairs(line));
         task.setDueDate(parseDueDate(line));
-
-        System.out.print("");
         return task;
     }
 
@@ -164,7 +162,11 @@ public class SttCommander {
     }
 
     private String parseDescription(String line) {
-        return parseOneValueOrDefault(line, PATTERN_DESCRIPTION, "");
+        String d = parseOneValueOrDefault(line, PATTERN_DESCRIPTION, "");
+        if (parseCreationDate(line).isEmpty() && d.startsWith(" " + parseCompletionDate(line) + " ")) {
+            d = d.substring(1 + 4 + 1 + 2 + 1 + 2 + 1);
+        }
+        return d;
     }
 
     private Map<String, String> parseKeyValuePairs(String line) {
@@ -222,12 +224,12 @@ public class SttCommander {
         String tmp;
         if (task.isDone()) {
             sb.append("x ");
+            if (!nz(task.getCompletionDate())) {
+                task.setCompletionDate(getToday());
+            }
+            sb.append(task.getCompletionDate());
+            sb.append(" ");
             if (nz(tmp = task.getCreationDate())) {
-                if (!nz(task.getCompletionDate())) {
-                    task.setCompletionDate(getToday());
-                }
-                sb.append(task.getCompletionDate());
-                sb.append(" ");
                 sb.append(tmp);
                 sb.append(" ");
             }
