@@ -20,7 +20,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">Вы действительно хотите удалить этот %s?</string>
     <string name="confirm_overwrite">Подтвердите перезапись</string>
     <string name="file_already_exists_overwerite">Файл уже существует. Перезаписать его?</string>
-    <string name="browse_filesystem">Обзор файлов</string>
+    <string name="browse_filesystem">Выбрать на устройстве</string>
     <string name="title">Заголовок</string>
     <string name="empty_directory">Пустая папка</string>
     <string name="enter_name_of_folder">Введите имя папки</string>
@@ -213,11 +213,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Подробнее о том, как внести вклад в этот проект</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
-    <string name="contributors_public_add_yourself_description">Показ информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
+    <string name="contributors_public_add_yourself_description">Показать информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
     <string name="descending">по убыванию</string>
     <string name="ascending">по возрастанию</string>
     <string name="disable_spelling_underline">Отключить подчёркивание ошибок</string>
-    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Предложения клавиатуры остаются, красная подсветка исчезает</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Оставить подсказки клавиатуры, но выключить красное подчёркивание</string>
     <string name="location">Местоположение</string>
     <string name="text_lines">Текстовые линии</string>
     <string name="text_characters">Параметры текста</string>
@@ -227,7 +227,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Подробности</string>
     <string name="calendar">Календарь</string>
     <string name="warning_disallowed_sd_access">Внимание! У приложения нет разрешения на сохранение этого файла, все изменения будут потеряны. Нет возможности разрешить проблему или подтвердить что-то, Android отказывает в доступе здесь.</string>
-    <string name="error_picture_selection">Изображение не выбранно.</string>
+    <string name="error_picture_selection">Изображение не выбрано.</string>
+    <string name="gallery_picture">Выбрать в галерее</string>
+    <string name="camera_picture">Сделать фотографию</string>
     <string name="enable_undo_and_redo_be_patient">Включение отмены и повтора действий. Подходит только для продвинутого использования, проявите терпение, чтобы не удалить что нибудь важное. Закройте и откройте редактор, для очистки истории.</string>
     <string name="description">Описание</string>
     <string name="edit_picture">Редактировать изображение</string>
@@ -266,8 +268,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">моя заметка</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание связанных блогов занимает много времени! Если вы хотите помочь проекту продолжить, пожалуйста, рассмотрите небольшое пожертвование!\n\nЭтот проект развивается в свободное время, полностью бесплатно и без рекламы!</string>
-    <string name="app_start_tab">Вкладка запуска приложения</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание постов в блоге занимает много времени! Если вы хотите помочь проекту, пожалуйста, сделайте небольшое пожертвование!\n\nРазработчки развивают проект в свободное время без зарплаты и рекламы!</string>
+    <string name="app_start_tab">Начальная вкладка</string>
     <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Смахните для перехода между режимом редактирования и просмотра (на режим, противоположный текущему)</string>
@@ -292,10 +294,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Поделиться в</string>
     <string name="favourite">Избранное</string>
     <string name="favourites">Избранные</string>
+    <string name="please_wait">Подождите</string>
+    <string name="app_start_folder">Начальная папка</string>
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
     <string name="list_in_recent_files">Показывать в списке недавних</string>
+    <string name="reload">Перезагрузить</string>
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Если в запросе есть звёздочка (*), используется поиск по регулярному выражению.</string>
@@ -308,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bigger_headings">Увеличивать заголовки</string>
     <string name="increase_text_size_of_headings_according_to_level">Увеличивать размер текста заголовков в соответствии с уровнем (# h1, ## h2, ### h3…)</string>
     <string name="current">Текущий</string>
+    <string name="record_audio">Записать аудио</string>
     <string name="attach">Прикрепить</string>
     <string name="copy_file">Копировать файл</string>
     <string name="page">Страница</string>
@@ -316,6 +322,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Чтение</string>
     <string name="read">Читать</string>
     <string name="table">Таблица</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Сколько колонок? Длинное нажатие на кнопку таблицы начнёт таблицу, вставив заголовок, короткое — добавит строку.</string>
     <string name="example_of_a_markdown_table">Пример Markdown-таблицы</string>
     <string name="delete_lines">Удалить строки</string>
     <string name="unordered_list">Неупорядоченный список</string>
