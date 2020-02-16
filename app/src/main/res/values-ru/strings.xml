@@ -22,7 +22,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_already_exists_overwerite">Файл уже существует, перезаписать?</string>
     <string name="browse_filesystem">Просмотр файлов</string>
     <string name="title">Заголовок</string>
-    <string name="empty_directory">Пустой каталог</string>
+    <string name="empty_directory">Пустая папка</string>
     <string name="enter_name_of_folder">Введите имя вашей папки</string>
     <string name="create_folder">Создать Папку</string>
     <string name="create_new_document">Создать новый документ</string>
@@ -132,7 +132,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">Общее</string>
     <string name="main_view">Главный экран</string>
     <string name="overall_theme_used_in_app">Тема, используемая в приложении</string>
-    <string name="remember_last_directory">Запомнить последнюю директорию</string>
+    <string name="remember_last_directory">Запоминать последнюю папку</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка обновления подсветки в миллисекундах. При меньшем значении подсветка начинается раньше, но это увеличивает энергопотребление и может снизить производительность на старых устройствах.</string>
@@ -222,7 +222,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_lines">Текстовые линии</string>
     <string name="text_characters">Параметры текста</string>
     <string name="text_words">Текст слова</string>
-    <string name="directory">Директория</string>
+    <string name="directory">Папка</string>
     <string name="recently_viewed_documents">Недавно открытые документы</string>
     <string name="details">Детали</string>
     <string name="calendar">Календарь</string>
@@ -299,11 +299,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
-    <string name="list_in_recent_files">Показывать в недавних файлах</string>
+    <string name="list_in_recent_files">Показывать в списке недавних</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
-    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Когда запрос включает звёздочку (*), используется поиск по регулярному выражению, иначе проверяется, содержится ли запрос в директории.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Если в запросе есть звёздочка (*), используется поиск по регулярному выражению, иначе проверяется точное соответствие.</string>
     <string name="always_open_with_this_app">Всегда открывать этим приложением</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения.</string>
     <string name="template">Шаблон</string>
