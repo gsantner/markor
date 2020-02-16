@@ -60,25 +60,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">Выбрать</string>
     <string name="create">Создать</string>
     <string name="select_entries">Выбрать элементы</string>
-    <string name="one_item_selected">Выбран один элемент</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элементов выбрано</string>
-    <string name="hide_statusbar_at_this_view">Скрыть строку состояния в этом представлении</string>
-    <string name="hide_statusbar">Скрыть строку состояния</string>
-    <string name="name">Сортировка по имени</string>
-    <string name="url_or_path">URL / Путь</string>
+    <string name="one_item_selected">Один элемент выбран</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элемента выбрано</string>
+    <string name="hide_statusbar_at_this_view">Скрывать строку состояния в этом режиме</string>
+    <string name="hide_statusbar">Скрывать строку состояния</string>
+    <string name="name">По имени</string>
+    <string name="url_or_path">URL/путь</string>
     <string name="insert_link">Вставить ссылку</string>
     <string name="insert_image">Вставить изображение</string>
-    <string name="contributors">Разработчики</string>
-    <string name="save_location">Размещение хранилища</string>
+    <string name="contributors">Участники</string>
+    <string name="save_location">Место сохраниения</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="licenses">Лицензии</string>
-    <string name="changelog">История изменений</string>
-    <string name="more_info">Больше информации</string>
-    <string name="show_license_of_the_app">Лицензия GNU GPLv3+</string>
+    <string name="changelog">Список изменений</string>
+    <string name="more_info">Дополнительная информация</string>
+    <string name="show_license_of_the_app">Показать лицензию приложения</string>
     <string name="show_third_party_licenses">Показать сторонние лицензии</string>
     <string name="language_change_restart_description">Изменить язык этого приложения. Перезапустите приложение, чтобы изменения вступили в силу</string>
     <string name="language">Язык</string>
-    <string name="error_need_storage_permission_to_save_documents">Нужно разрешение на запись, чтобы сохранить документы</string>
+    <string name="error_need_storage_permission_to_save_documents">Требуется разрешение для сохранения документов</string>
     <string name="open_with">Открыть с помощью</string>
     <string name="sort">Сортировка</string>
     <string name="date">Сортировка по дате</string>
