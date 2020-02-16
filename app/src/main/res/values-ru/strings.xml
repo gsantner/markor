@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Вставить ссылку</string>
     <string name="insert_image">Вставить изображение</string>
     <string name="contributors">Участники</string>
+    <string name="save_location">Сохранить расположение</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="licenses">Лицензии</string>
     <string name="changelog">Список изменений</string>
@@ -114,9 +115,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_to_be_loaded_and_saved_as_witharg">Документ будет загружен и сохранён как \"%s\"</string>
     <string name="refresh">Обновить</string>
     <string name="create_shortcut">Создать ярлык</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Сделана попытка создать ярлык на домашнем экране. Некоторые домашние экраны не поддерживают ярлыки.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Выбранный файл находится не в папке блокнота. Скопировать его сюда? Если файл с таким именем существует, он будет перезаписан.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Этот файл не находится в текущей папке. Скопировать его сюда? Если файл с таким именем существует, он будет перезаписан.</string>
     <string name="files_and_folders">Файлы и папки</string>
+    <string name="document_browser">Обозреватель документов</string>
+    <string name="file_browser">Обозреватель файлов</string>
     <string name="create_note" needed="false">Создать заметку</string>
     <string name="special_documents" needed="false">Особые документы</string>
     <string name="keep_screen_on" needed="false">Не отключать экран</string>
@@ -127,29 +131,28 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg" needed="false">Количество файлов: %d</string>
     <string name="app_wide">Общее</string>
     <string name="main_view">Главный экран</string>
+    <string name="overall_theme_used_in_app">Используемая тема оформления</string>
     <string name="remember_last_directory">Запоминать последнюю папку</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
-    <string name="highlighting_enabled_or_not__appspecific">Должен ли введённый текст быть подсвечен</string>
-    <string name="control_font_size_in_editor">Выбрать размер шрифта, используемый в редакторе</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Показать снизу панель с полезными кнопками для операций, которые изменяют текст или выполняют соответствующее ему действие.</string>
-    <string name="load_last_opened_folder_at_startup">Загружать последнюю открытую папку при запуске</string>
+    <string name="highlighting_enabled_or_not__appspecific">Подсвечивать введённый текст</string>
+    <string name="control_font_size_in_editor">Выбрать размер шрифта в редакторе</string>
+    <string name="load_last_opened_folder_at_startup">При запуске загружать последнюю открытую папку</string>
     <string name="format">Формат</string>
-    <string name="contexts">Контексты</string>
+    <string name="contexts">Контекст</string>
     <string name="project">Проект</string>
     <string name="projects">Проекты</string>
     <string name="categories">Категории</string>
-    <string name="none">Отсутствует</string>
-    <string name="other">Прочее</string>
+    <string name="none">Нет</string>
+    <string name="other">Другие</string>
     <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
-    <string name="break_page_pdf_print">Разрыв страницы (PDF/Печать)</string>
-    <string name="underline">Подчеркивание</string>
-    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчеркивать цветовые HEX коды в соответствии с цветом</string>
-    <string name="underline_hex_color_codes">Подчеркивать цветовые HEX коды</string>
+    <string name="underline">Подчёркивание</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчёркивать цветовые HEX-коды в соответствии с цветом</string>
+    <string name="underline_hex_color_codes">Подчеркивать цветовые HEX-коды</string>
     <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при добавлении задачи</string>
     <string name="tasks_with_todays_date">Задачи с сегодняшней датой</string>
-    <string name="append_contexts_and_projects">Добавить контексты и проекты</string>
+    <string name="append_contexts_and_projects">Добавить контекст и проекты</string>
     <string name="append_contexts_and_projects_on_end_of_task">Добавлять контексты и проекты в конце задачи при использовании соответствующего текстового действия</string>
     <string name="rtl_rendering">Письмо слева направо</string>
     <string name="highlight_line_ending">Подсвечивать конец строки</string>
