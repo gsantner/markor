@@ -287,6 +287,15 @@
                 android:key="@string/pref_key__editor_start_editing_on_bottom"
                 android:summary="@string/start_on_bottom_when_loading_document"
                 android:title="@string/start_on_bottom" />
+            <ListPreference
+                android:defaultValue="-"
+                android:dialogTitle="@string/theme"
+                android:entries="@array/pref_arrdisp__unordered_list_character"
+                android:entryValues="@array/pref_arrkeys__unordered_list_character"
+                android:icon="@drawable/ic_list_black_24dp"
+                android:key="@string/pref_key__editor_unordered_list_character"
+                android:summary="@string/unordered_list_character_summary"
+                android:title="@string/unordered_list_character" />
         </PreferenceCategory>
     </PreferenceScreen>
 

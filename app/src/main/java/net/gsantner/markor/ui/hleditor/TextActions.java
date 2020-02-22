@@ -300,8 +300,8 @@ public abstract class TextActions {
 
     protected boolean runCommonTextAction(String action) {
         switch (action) {
-            case "tmaid_common_unordered_list_hyphen": {
-                runMarkdownRegularPrefixAction("- ");
+            case "tmaid_common_unordered_list_char": {
+                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
                 return true;
             }
             case "tmaid_common_checkbox_list": {

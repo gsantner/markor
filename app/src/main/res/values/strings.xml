@@ -191,6 +191,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
+    <string name="unordered_list_character">Unordered list character</string>
+    <string name="unordered_list_character_summary">Which character to use to denote unordered lists</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available documents and does not support file managers that do not provide the full file path.</string>
     <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders. Open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="configure_in_the_apps_settings">Configure in the app settings</string>
