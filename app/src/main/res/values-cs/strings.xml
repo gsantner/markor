@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Zpátky</string>
     <string name="expand_collapse">Rozbalit / Sbalit</string>
     <string name="essential">Základní</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Připojit okem čitelné UUID k novým úkolům</string>
 </resources>
