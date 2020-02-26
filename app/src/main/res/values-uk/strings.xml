@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Назад</string>
     <string name="expand_collapse">Розгорнути / Згорнути</string>
     <string name="essential">Важливе</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових задач</string>
 </resources>
