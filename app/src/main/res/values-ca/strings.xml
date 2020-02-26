@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Enrere</string>
     <string name="expand_collapse">Expandeix/Replega</string>
     <string name="essential">Essencial</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Afegeix UUID llegible per humans a les noves tasques</string>
 </resources>
