@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="one_item_selected">Один элемент выбран</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элемента выбрано</string>
     <string name="hide_statusbar_at_this_view">Скрывать строку состояния в этом режиме</string>
-    <string name="hide_statusbar">Скрывать строку состояния</string>
+    <string name="hide_statusbar">Скрыть строку состояния</string>
     <string name="name">По имени</string>
     <string name="url_or_path">URL/путь</string>
     <string name="insert_link">Вставить ссылку</string>
@@ -72,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Сохранить расположение</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="licenses">Лицензии</string>
-    <string name="changelog">Список изменений</string>
+    <string name="changelog">История изменений</string>
     <string name="more_info">Дополнительная информация</string>
     <string name="show_license_of_the_app">Показать лицензию приложения</string>
     <string name="show_third_party_licenses">Показать сторонние лицензии</string>
@@ -89,10 +89,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate">Пожертвовать</string>
     <string name="project_page">Страница проекта</string>
     <string name="press_back_again_to_exit">Нажмите «Назад» ещё раз, чтобы выйти</string>
-    <string name="exit">Выйти</string>
+    <string name="exit">Выход</string>
     <string name="undo">Отменить</string>
     <string name="redo">Вернуть</string>
-    <string name="more">Прочее</string>
+    <string name="more">Дополнительно</string>
     <string name="notebook">Блокнот</string>
     <string name="help">Помощь</string>
     <string name="todo_list">Список дел</string>
@@ -204,9 +204,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Информация о том, как сделать пожертвование или внести вклад в проект.</string>
-    <string name="join_community">Присоединяйтесь к сообществу</string>
+    <string name="join_community">Присоединиться к сообществу</string>
     <string name="bug_reports_suggest_improvements">Оставьте отзыв, сообщите об ошибках или предложите улучшения</string>
-    <string name="help_translating_this_app">Переведите это приложение на другие языки</string>
+    <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
     <string name="source_code">Исходный код</string>
     <string name="project_license">Лицензия проекта</string>
     <string name="project_contribution_info">Информация о вкладе в проект</string>
@@ -300,7 +300,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
     <string name="list_in_recent_files">Показывать в списке недавних</string>
-    <string name="reload">Перезагрузить</string>
+    <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Если в запросе есть звёздочка (*), используется поиск по регулярному выражению.</string>
@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Назад</string>
     <string name="expand_collapse">Развернуть / Свернуть</string>
     <string name="essential">Основное</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Добавить пользовательский UUID к новым задачам</string>
 </resources>
