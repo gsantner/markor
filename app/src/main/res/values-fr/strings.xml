@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Retour</string>
     <string name="expand_collapse">Développer / Réduire</string>
     <string name="essential">Essentiel</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID lisible par l\'homme aux nouvelles tâches</string>
 </resources>
