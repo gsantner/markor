@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -659,5 +660,18 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getViewModeLinkColor() {
         return ContextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));
+    }
+
+    public boolean isTodoNewTaskWithHuuidEnabled() {
+        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_huuid, false);
+    }
+
+    public String getHuuidDeviceId() {
+        String deviceid = getString("huuid_deviceid", null);
+        if (deviceid == null) {
+            deviceid = String.format("%08x", new Random().nextInt()).substring(0, 4);
+            setString("huuid_deviceid", deviceid);
+        }
+        return deviceid;
     }
 }

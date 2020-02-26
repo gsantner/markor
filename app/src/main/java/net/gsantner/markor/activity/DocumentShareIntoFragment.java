@@ -312,10 +312,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
-                            tmps = SttCommander.getToday() + " ";
-                            if (!_sharedText.startsWith(tmps)) {
-                                sep = tmps;
-                            }
+                            sep = SttCommander.getToday() + " ";
+                        }
+                        if (appSettings.isTodoNewTaskWithHuuidEnabled()) {
+                            sep += "huuid:" + PlainTextStuff.huuid(appSettings.getHuuidDeviceId()) + " ";
+                            sep = sep.replace("\n", "");
                         }
                         appendToExistingDocument(_appSettings.getTodoFile(), sep, false);
                         close = true;
