@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>
     <string name="essential">基本的</string>
+    <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
 </resources>
