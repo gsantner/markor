@@ -354,4 +354,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Geri</string>
     <string name="expand_collapse">Genişlet / Daralt</string>
     <string name="essential">Gerekli</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Yeni görevlere insan tarafından okunabilen UUID ekle</string>
 </resources>
