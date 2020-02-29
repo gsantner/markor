@@ -53,7 +53,7 @@ public class MarkdownTextActions extends TextActions {
     // Mapping from action (string res) to icon (drawable res)
     private static final int[][] TMA_ACTIONS = {
             {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list},
-            {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp, R.string.unordered_list},
+            {R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list},
             {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold},
             {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic},
             {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
@@ -100,8 +100,8 @@ public class MarkdownTextActions extends TextActions {
                     runMarkdownRegularPrefixAction("### ");
                     break;
                 }
-                /*case R.string.tmaid_common_unordered_list_hyphen: {
-                    runMarkdownRegularPrefixAction("- ");
+                /*case R.string.tmaid_common_unordered_list_char: {
+                    runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
                     break;
                 }*/
                 case R.string.tmaid_markdown_bold: {

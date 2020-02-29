@@ -103,4 +103,16 @@
         <item translatable="false">popular_documents</item>
         <item translatable="false">recently_viewed_documents</item>
     </string-array>
+
+    <string-array name="pref_arrdisp__unordered_list_character" translatable="false">
+        <item translatable="false">@string/unordered_list_char_dash</item>
+        <item translatable="false">@string/unordered_list_char_asterisk</item>
+        <item translatable="false">@string/unordered_list_char_plus</item>
+    </string-array>
+
+    <string-array name="pref_arrkeys__unordered_list_character" translatable="false">
+        <item translatable="false">-</item>
+        <item translatable="false">*</item>
+        <item translatable="false">+</item>
+    </string-array>
 </resources>

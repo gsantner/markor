@@ -49,7 +49,7 @@ public class PlaintextTextActions extends TextActions {
     //
     private static final int[][] TMA_ACTIONS = {
             {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list},
-            {R.string.tmaid_common_unordered_list_hyphen, R.drawable.ic_list_black_24dp, R.string.unordered_list},
+            {R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list},
             {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list},
             {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.jump_to_bottom},
             {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},

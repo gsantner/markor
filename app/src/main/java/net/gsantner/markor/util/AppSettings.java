@@ -662,6 +662,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return ContextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));
     }
 
+    public String getUnorderedListCharacter() {
+        return getString(R.string.pref_key__editor_unordered_list_character, "-");
+    }
+
     public boolean isTodoNewTaskWithHuuidEnabled() {
         return getBool(R.string.pref_key__todotxt__start_new_tasks_with_huuid, false);
     }
