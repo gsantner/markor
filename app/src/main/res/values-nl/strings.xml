@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Documenteinde</string>
     <string name="start_on_bottom">Start onderaan</string>
     <string name="start_on_bottom_when_loading_document">Bij het laden van een document, plaats cursor aan het einde</string>
+    <string name="unordered_list_character">Ongeordende lijst teken</string>
+    <string name="character_to_start_items_of_unordered_list_with">Welk teken gebruikt moet worden om ongeordende lijsten te tonen</string>
+    <string name="unordered_list_char_dash">Streepje (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan alleen lokale, offline beschikbare documenten bewerken en ondersteunt geen bestandsbeheerders die niet het volledige bestandspad aangeven.</string>
     <string name="sync_to_local_folder_notice">Opmerking: Sync apps kunnen bestanden plaatsen in aangepaste mappen. Open ze door de document map van Markor dienovereenkomstig te wijzigen, of in een andere bestandsbeheerder.</string>
     <string name="configure_in_the_apps_settings">Configureren in de app instellingen</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">App start map</string>
     <string name="tab_width">Tab breedte</string>
     <string name="amount_of_space_for_tab">Aantal spaties om tabulator weer te geven</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Het geselecteerde bestand kan een platte tekst bestand zijn. Wil je het openen in de editor of in een andere app?\n\nProbeer niet binaire bestanden te openen. Als u niet zeker bent, open dan met een andere app.</string>
     <string name="list_in_recent_files">Lijst in recente bestanden</string>
     <string name="reload">Herladen</string>
     <string name="wrap_words">Woorden weghalen</string>
