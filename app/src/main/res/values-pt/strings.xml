@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulação</string>
     <string name="start_on_bottom">Iniciar no fim</string>
     <string name="start_on_bottom_when_loading_document">Ao carregar um documento, colocar o cursor no final</string>
+    <string name="unordered_list_character">Caracter de lista não ordenado</string>
+    <string name="character_to_start_items_of_unordered_list_with">Qual personagem usar para denotar listas não ordenadas</string>
+    <string name="unordered_list_char_dash">Traço (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais, off-line e não tem suporte a gestor de ficheiros que não disponibilizem o caminho completo do ficheiro.</string>
     <string name="sync_to_local_folder_notice">Aviso: as aplicações de sincronização podem colocar os ficheiros em pastas personalizadas. Pode abrir os ficheiros alterando a pasta de documentos do Markor ou através de um gestor de ficheiros.</string>
     <string name="configure_in_the_apps_settings">Configurar a aplicação</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Pasta inicial</string>
     <string name="tab_width">Largura do separador</string>
     <string name="amount_of_space_for_tab">Número de espaços utilizados para o separador</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
     <string name="list_in_recent_files">Lista nos ficheiros recentes</string>
     <string name="reload">Recarregar</string>
     <string name="wrap_words">Moldar texto</string>
