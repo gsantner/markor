@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляція</string>
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завантаження документа встановити курсор в кінець</string>
+    <string name="unordered_list_character">Невпорядкований символ списку</string>
+    <string name="character_to_start_items_of_unordered_list_with">Визначає який символ використовувати для позначення невпорядкованих списків</string>
+    <string name="unordered_list_char_dash">Dash (-)</string>
+    <string name="unordered_list_char_asterisk">Зірочка (*)</string>
+    <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
     <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
     <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Стартова директорія програми</string>
     <string name="tab_width">Ширина табуляції</string>
     <string name="amount_of_space_for_tab">Кількість пробілів для відображення табуляції</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Обраний файл може бути текстовим файлом. Відкрити її у редакторі чи інших програмах?\n\nНе відкривайте двійкові файли в інших програмах. Якщо ви не впевнені, відкрийте інший додаток.</string>
     <string name="list_in_recent_files">Показати в нещодавніх документах</string>
     <string name="reload">Перезавантажити</string>
     <string name="wrap_words">Перенесення рядків</string>
