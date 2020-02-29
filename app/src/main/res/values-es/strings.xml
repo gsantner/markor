@@ -298,7 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Carpeta de inicio de la aplicación</string>
     <string name="tab_width">Ancho de tabulación</string>
     <string name="amount_of_space_for_tab">Cantidad de caracteres de espacio para mostrar tabulador</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El archivo seleccionado debe ser un archivo de texto plano. ¿Desea abrirlo en el editor o en otra aplicación?\n\nNo intente abrir archivos binarios. Si no está seguro, ábralo con otra aplicación.</string>
     <string name="list_in_recent_files">Lista de archivos recientes</string>
     <string name="reload">Refrescar</string>
     <string name="wrap_words">Cambio de línea</string>
