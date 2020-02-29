@@ -298,7 +298,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Uygulama başlangıç klasörü</string>
     <string name="tab_width">Sekme genişliği</string>
     <string name="amount_of_space_for_tab">Tablo oluşturucuyu görüntülemek için boşluk karakteri miktarı</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Seçilen dosya bir düz metin dosyası olabilir. Düzenleyicide veya başka bir uygulamada açmak ister misiniz?\n\nİkili dosyaları açmayı denemeyin. Emin değilseniz diğer uygulamalarla açın.</string>
     <string name="list_in_recent_files">Son dosyalarda listele</string>
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
