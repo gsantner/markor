@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
+    <string name="character_to_start_items_of_unordered_list_with">Welches Zeichen verwendet werden soll um ungeordnete Listen zu bezeichnen</string>
+    <string name="unordered_list_char_dash">Strich (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbaren Dokumente bearbeiten. Datei-Manager die nicht den vollständigen Dateipfad angeben sind nicht unterstützt.</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">App-Start Ordner</string>
     <string name="tab_width">Tabulatorbreite</string>
     <string name="amount_of_space_for_tab">Anzahl von Leerzeichen zur Tabulator-Darstellung</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Die ausgewählte Datei kann eine Klartext-Datei sein. Möchten Sie es im Editor oder in einer anderen App öffnen?\n\nVersuchen Sie nicht, binäre Dateien zu öffnen. Wenn Sie sich nicht sicher sind, öffnen Sie mit einer anderen App.</string>
     <string name="list_in_recent_files">In zuletzt geöffneten Dateien anzeigen</string>
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>
