@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Börja vid botten</string>
     <string name="start_on_bottom_when_loading_document">När dokument laddat, placera markören vid slutet av raden</string>
+    <string name="unordered_list_character">Oordnat listtecken</string>
+    <string name="character_to_start_items_of_unordered_list_with">Vilket tecken att använda för att beteckna obeställda listor</string>
+    <string name="unordered_list_char_dash">Streck (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
     <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
     <string name="configure_in_the_apps_settings">Ställ in i appens inställningar</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Programmets startmapp</string>
     <string name="tab_width">Tabbredd</string>
     <string name="amount_of_space_for_tab">Antal blanksteg att visa i tab</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valda filen kan vara en klartext fil. Vill du öppna den i redigeraren, eller i en annan app?\n\nFörsök inte att öppna binära filer. Om du inte är säker, öppna med andra appar.</string>
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
