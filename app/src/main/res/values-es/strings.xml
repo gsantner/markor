@@ -181,11 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulador</string>
     <string name="start_on_bottom">Iniciar desde abajo</string>
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
-    <string name="unordered_list_character">Carácter de lista sin orden</string>
+    <string name="unordered_list_character">Carácter para lista desordenada</string>
     <string name="character_to_start_items_of_unordered_list_with">Qué carácter usar para denotar listas no ordenadas</string>
     <string name="unordered_list_char_dash">Guión (-)</string>
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
-    <string name="unordered_list_char_plus">Plus (+)</string>
+    <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
     <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Puede abrirlas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
     <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
@@ -303,7 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Carpeta de inicio de la aplicación</string>
     <string name="tab_width">Ancho de tabulación</string>
     <string name="amount_of_space_for_tab">Cantidad de caracteres de espacio para mostrar tabulador</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El archivo seleccionado puede ser un archivo de texto plano. ¿Desea abrirlo en el editor, o en otra aplicación?\n\nNo intente abrir archivos binarios. Si no estás seguro, abre con otra aplicación.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">El archivo seleccionado puede ser un archivo de texto plano. ¿Deseas abrirlo en el editor, o en otra aplicación?\n\nNo intente abrir archivos binarios. Si no estás seguro, abre con otra aplicación.</string>
     <string name="list_in_recent_files">Lista de archivos recientes</string>
     <string name="reload">Refrescar</string>
     <string name="wrap_words">Cambio de línea</string>
