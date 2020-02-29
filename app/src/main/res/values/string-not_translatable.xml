@@ -54,9 +54,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">Gruvbox</string>
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
     <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
-    <string name="unordered_list_char_dash">Dash (-)</string>
-    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
-    <string name="unordered_list_char_plus">Plus (+)</string>
 
     <string name="auto" translatable="false">Auto</string>
     <string name="hexcode" translatable="false">Hexcode</string>

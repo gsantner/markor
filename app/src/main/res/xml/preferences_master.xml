@@ -294,7 +294,7 @@
                 android:entryValues="@array/pref_arrkeys__unordered_list_character"
                 android:icon="@drawable/ic_list_black_24dp"
                 android:key="@string/pref_key__editor_unordered_list_character"
-                android:summary="@string/unordered_list_character_summary"
+                android:summary="@string/character_to_start_items_of_unordered_list_with"
                 android:title="@string/unordered_list_character" />
         </PreferenceCategory>
     </PreferenceScreen>
