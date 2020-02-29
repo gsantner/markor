@@ -13,6 +13,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 
 import java.util.Date;
@@ -64,12 +65,15 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-        if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
-            if (dend == 0 || (dend == dest.length() || dend == dest.length() - 1)
-                    || (dest.charAt(dend) == '\n')) {
-                return SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+        String t = "";
+        if (dend == 0 || (dend == dest.length() || dend == dest.length() - 1) || (dest.charAt(dend) == '\n')) {
+            if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
+                t = SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+            }
+            if (AppSettings.get().isTodoNewTaskWithHuuidEnabled()) {
+                t += "huuid:" + PlainTextStuff.huuid(AppSettings.get().getHuuidDeviceId()) + " ";
             }
         }
-        return "";
+        return t;
     }
 }
