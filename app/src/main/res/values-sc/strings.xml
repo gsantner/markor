@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabuladore</string>
     <string name="start_on_bottom">Incumintza dae bassu</string>
     <string name="start_on_bottom_when_loading_document">A pustis de àere carrigadu unu documentu,  pone su cursore a s\'acabu suo</string>
+    <string name="unordered_list_character">Caràtere pro listas disordinadas</string>
+    <string name="character_to_start_items_of_unordered_list_with">Su caràtere de impreare pro sinnalare sas listas disordinadas</string>
+    <string name="unordered_list_char_dash">Tratigheddu (-)</string>
+    <string name="unordered_list_char_asterisk">Asteriscu (*)</string>
+    <string name="unordered_list_char_plus">Prus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor podet editare petzi documentos locales e disponìbiles chene sa connessione a ìnternet e non suportat gestore de documentos chi non frunint s\'àndala intrea pro sos documentos.</string>
     <string name="sync_to_local_folder_notice">Ammenta·ti: sas aplicatziones de sincronizatzione diant pòdere sarvare sos documentos in cartellas personalizadas. Aberi·los mudende sa cartella de sos documentos de Markor, o impreende un\'àteru gestore de documentos.</string>
     <string name="configure_in_the_apps_settings">Configura in sas impostatziones de s\'aplicatzione</string>
@@ -298,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Cartella de incumintzu aplicatzione</string>
     <string name="tab_width">Largària de su tabuladore</string>
     <string name="amount_of_space_for_tab">Nùmeru de caràteres de ispàtziu pro ammustrare unu tabuladore</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Su documentu ischertadu diat pòdere èssere unu documentu in testu simpre. Lu cheres abèrrere in s\'editore, o in un\'àtera aplicatzione?\n\nNon proves a abèrrere documentos binàrios. Si non ses seguru, aberi·lu cun un\'àtera aplicatzione.</string>
     <string name="list_in_recent_files">Allista in sos documentos reghentes</string>
     <string name="reload">Torra a carrigare</string>
     <string name="wrap_words">Acontzu de sas lìnias</string>
