@@ -183,8 +183,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">Po načtení dokumentu kurzor polohy na jeho konci</string>
     <string name="unordered_list_character">Neuspořádaný znak seznamu</string>
     <string name="character_to_start_items_of_unordered_list_with">Jaký znak lze použít k označení neuspořádaných seznamů</string>
-    <string name="unordered_list_char_dash">Pošta (-)</string>
-    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_dash">Pomlčka (-)</string>
+    <string name="unordered_list_char_asterisk">Hvězdička (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
     <string name="sync_to_local_folder_notice">Poznámka: Sync Apps může umístit soubory do vlastních složek.</string>
