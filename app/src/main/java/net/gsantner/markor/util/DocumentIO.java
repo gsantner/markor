@@ -11,6 +11,7 @@ package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
@@ -25,6 +26,8 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -35,6 +38,7 @@ public class DocumentIO {
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
+    private static final CryptWithPassword cryptWithPassword = new CryptWithPassword();
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
@@ -77,7 +81,22 @@ public class DocumentIO {
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract content and title
             document.setTitle(filePath.getName());
-            document.setContent(FileUtils.readTextFileFast(filePath));
+            String content;
+            if (isEncryptedFile(filePath)) {
+                try {
+                    final byte[] encyptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
+                    content = cryptWithPassword.decrypt(encyptedContext, getPassword(new ShareUtil(context)));
+                } catch (FileNotFoundException e) {
+                    System.err.println("readTextFileFast: File " + filePath + " not found.");
+                    content = "";
+                } catch (CryptWithPassword.EncryptionFailedException e) {
+                    System.err.println("encryption failed for File " + filePath + ". " + e.getMessage());
+                    content = "";
+                }
+            } else {
+                content = FileUtils.readTextFileFast(filePath);
+            }
+            document.setContent(content);
             document.setModTime(filePath.lastModified());
         }
 
@@ -139,16 +158,28 @@ public class DocumentIO {
                 //noinspection ResultOfMethodCallIgnored
                 document.getFile().getParentFile().mkdirs();
             }
-            if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
-                shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
-                    try {
-                        fos.write(document.getContent().getBytes());
-                    } catch (Exception ex) {
-                    }
-                });
-                ret = true;
-            } else {
-                ret = FileUtils.writeFile(document.getFile(), document.getContent());
+            try {
+                final byte[] contentAsBytes;
+                if (isEncryptedFile(document.getFile())) {
+                    contentAsBytes = cryptWithPassword.encrypt(document.getContent(), getPassword(shareUtil));
+                } else {
+                    contentAsBytes = document.getContent().getBytes();
+                }
+
+                if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
+                    shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
+                        try {
+                            fos.write(contentAsBytes);
+                        } catch (Exception ex) {
+                        }
+                    });
+                    ret = true;
+                } else {
+                    ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
+                }
+            } catch (CryptWithPassword.EncryptionFailedException e) {
+                e.printStackTrace();
+                ret = false;
             }
         } else {
             ret = true;
@@ -201,4 +232,14 @@ public class DocumentIO {
             return null;
         }
     };
+
+    private static char[] getPassword(ShareUtil shareUtil) {
+        // TODO niels 21.03.20: Password must be dynamic
+        return "TODO".toCharArray();
+    }
+
+    private static boolean isEncryptedFile(File file) {
+        return file.getName().endsWith(MarkdownTextConverter.EXT_MARKDOWN__SMD) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
 }
