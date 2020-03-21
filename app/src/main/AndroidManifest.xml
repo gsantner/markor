@@ -255,6 +255,38 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.md" />
 
+                <!-- Handling of file extension ".smd" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.smd" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.smd" />
+
                 <!-- Handling of file extension ".mdown" -->
                 <data
                     android:mimeType="*/*"

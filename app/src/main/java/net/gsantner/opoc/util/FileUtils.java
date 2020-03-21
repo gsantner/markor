@@ -419,6 +419,7 @@ public class FileUtils {
                         case "mkdn":
                         case "mdwn":
                         case "rmd":
+                        case "smd":
                             guess = "text/markdown";
                             break;
                         case "txt":

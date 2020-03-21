@@ -948,6 +948,7 @@ public class ContextUtils {
                     case "mkdn":
                     case "mdwn":
                     case "rmd":
+                    case "smd":
                         mimeType = "text/markdown";
                         break;
                     case "yaml":
