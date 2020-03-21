@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -82,10 +83,10 @@ public class DocumentIO {
             // Extract content and title
             document.setTitle(filePath.getName());
             String content;
-            if (isEncryptedFile(filePath)) {
+            if (isEncryptedFile(filePath) && getPassword(context) != null) {
                 try {
                     final byte[] encyptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
-                    content = cryptWithPassword.decrypt(encyptedContext, getPassword(new ShareUtil(context)));
+                    content = cryptWithPassword.decrypt(encyptedContext, getPassword(context).toCharArray());
                 } catch (FileNotFoundException e) {
                     System.err.println("readTextFileFast: File " + filePath + " not found.");
                     content = "";
@@ -160,8 +161,8 @@ public class DocumentIO {
             }
             try {
                 final byte[] contentAsBytes;
-                if (isEncryptedFile(document.getFile())) {
-                    contentAsBytes = cryptWithPassword.encrypt(document.getContent(), getPassword(shareUtil));
+                if (isEncryptedFile(document.getFile()) && getPassword(shareUtil.getContext()) != null) {
+                    contentAsBytes = cryptWithPassword.encrypt(document.getContent(), getPassword(shareUtil.getContext()).toCharArray());
                 } else {
                     contentAsBytes = document.getContent().getBytes();
                 }
@@ -233,9 +234,14 @@ public class DocumentIO {
         }
     };
 
-    private static char[] getPassword(ShareUtil shareUtil) {
-        // TODO niels 21.03.20: Password must be dynamic
-        return "TODO".toCharArray();
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private static String getPassword(Context context) {
+        final SecurityStore securityStore = new SecurityStore(context);
+        final String pw = securityStore.loadKey();
+        if (pw == null || pw.trim().isEmpty()) {
+            return null;
+        }
+        return pw;
     }
 
     private static boolean isEncryptedFile(File file) {

@@ -355,4 +355,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Erweitern / Einklappen</string>
     <string name="essential">Essenziell</string>
     <string name="append_human_readable_uuid_to_new_tasks">Menschlich lesbare UUID neuen Aufgaben hinzufügen</string>
+    <string name="password">Passwort</string>
 </resources>
