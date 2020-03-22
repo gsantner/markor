@@ -38,12 +38,12 @@ class CryptWithPassword {
         this.saltLength = saltLength;
     }
 
-    CryptWithPassword() {
+    protected CryptWithPassword() {
         this(new SecureRandom(), 64);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    byte[] encrypt(String plainText, char[] password) throws EncryptionFailedException {
+    protected byte[] encrypt(String plainText, char[] password) throws EncryptionFailedException {
         try {
             final byte[] salt = getRandomBytes(saltLength);
             final byte[] nonce = getRandomBytes(32);
@@ -62,7 +62,7 @@ class CryptWithPassword {
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    String decrypt(byte[] encryptedText, char[] password) throws EncryptionFailedException {
+    protected String decrypt(byte[] encryptedText, char[] password) throws EncryptionFailedException {
         try {
             final byte[] nonce = Arrays.copyOfRange(encryptedText, 0, 32);
             final byte[] salt = Arrays.copyOfRange(encryptedText, 32, 32 + saltLength);
@@ -107,7 +107,7 @@ class CryptWithPassword {
         return salt;
     }
 
-    static final class EncryptionFailedException extends Exception {
+    protected static final class EncryptionFailedException extends Exception {
         EncryptionFailedException(String message, Throwable cause) {
             super(message, cause);
         }
