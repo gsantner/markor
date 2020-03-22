@@ -41,3 +41,4 @@ Where:
 * **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions.
+* **[Niels](opensource21@gmail.com)**<br>~° Added encryption for smd.
