@@ -107,11 +107,21 @@ public abstract class TextActions {
         }
     }
 
-    protected int findLineStart(int cursor, String text) {
+    protected int findLineStart(int cursor, String text, Boolean ignoreLeadingWhitespace) {
         int i = cursor - 1;
+
         for (; i >= 0; i--) {
             if (text.charAt(i) == '\n') {
                 break;
+            }
+        }
+
+        if (ignoreLeadingWhitespace) {
+            for (; i < (cursor - 1); ++i) {
+                char c = text.charAt(i + 1);
+                if (c != ' ' && c != '\t') {
+                    break;
+                }
             }
         }
 
@@ -164,14 +174,22 @@ public abstract class TextActions {
     }
 
     protected void runMarkdownRegularPrefixAction(String action) {
-        runMarkdownRegularPrefixAction(action, null);
+        runMarkdownRegularPrefixAction(action, null, false);
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action, Boolean ignoreLeadingWhitespace) {
+        runMarkdownRegularPrefixAction(action, null, ignoreLeadingWhitespace);
     }
 
     protected void runMarkdownRegularPrefixAction(String action, String replaceString) {
+        runMarkdownRegularPrefixAction(action, replaceString, false);
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreLeadingWhitespace) {
         String text = _hlEditor.getText().toString();
         TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
+        int lineStart = findLineStart(textSelection.getSelectionStart(), text, ignoreLeadingWhitespace);
 
         while (lineStart != -1) {
             if (replaceString == null) {
@@ -301,15 +319,15 @@ public abstract class TextActions {
     protected boolean runCommonTextAction(String action) {
         switch (action) {
             case "tmaid_common_unordered_list_char": {
-                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
+                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
                 return true;
             }
             case "tmaid_common_checkbox_list": {
-                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
+                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ", true);
                 return true;
             }
             case "tmaid_common_ordered_list_number": {
-                runMarkdownRegularPrefixAction("1. ");
+                runMarkdownRegularPrefixAction("1. ", true);
                 return true;
             }
             case "tmaid_common_time": {
