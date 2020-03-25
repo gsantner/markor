@@ -130,6 +130,19 @@ public abstract class TextActions {
         return index;
     }
 
+    protected int findWhitespaceEnd(int startIndex, int endIndex, String text) {
+        int index = endIndex;
+        for (int i = startIndex; i < endIndex; i++) {
+            char c = text.charAt(i);
+            if (c != ' ' && c != '\t') {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
 
     public static class TextSelection {
 
@@ -176,20 +189,25 @@ public abstract class TextActions {
     }
 
     protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
+
         String text = _hlEditor.getText().toString();
-        TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
+
+        int selectionStart = _hlEditor.getSelectionStart();
+        int selectionEnd = _hlEditor.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = _hlEditor.getSelectionStart();
+            selectionStart = _hlEditor.getSelectionEnd();
+        }
+
+        TextSelection textSelection = new TextSelection(selectionStart, selectionEnd, _hlEditor.getText());
 
         int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
         while (lineStart != -1) {
 
             if (ignoreIndent) {
-                for (; lineStart < textSelection.getSelectionStart(); lineStart++) {
-                    char c = text.charAt(lineStart);
-                    if (c != ' ' && c != '\t') {
-                        break;
-                    }
-                }
+                lineStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
             }
 
             if (replaceString == null) {
