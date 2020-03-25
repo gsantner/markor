@@ -107,21 +107,11 @@ public abstract class TextActions {
         }
     }
 
-    protected int findLineStart(int cursor, String text, Boolean ignoreLeadingWhitespace) {
+    protected int findLineStart(int cursor, String text) {
         int i = cursor - 1;
-
         for (; i >= 0; i--) {
             if (text.charAt(i) == '\n') {
                 break;
-            }
-        }
-
-        if (ignoreLeadingWhitespace) {
-            for (; i < (cursor - 1); ++i) {
-                char c = text.charAt(i + 1);
-                if (c != ' ' && c != '\t') {
-                    break;
-                }
             }
         }
 
@@ -177,21 +167,31 @@ public abstract class TextActions {
         runMarkdownRegularPrefixAction(action, null, false);
     }
 
-    protected void runMarkdownRegularPrefixAction(String action, Boolean ignoreLeadingWhitespace) {
-        runMarkdownRegularPrefixAction(action, null, ignoreLeadingWhitespace);
+    protected void runMarkdownRegularPrefixAction(String action, Boolean ignoreIndent) {
+        runMarkdownRegularPrefixAction(action, null, ignoreIndent);
     }
 
     protected void runMarkdownRegularPrefixAction(String action, String replaceString) {
         runMarkdownRegularPrefixAction(action, replaceString, false);
     }
 
-    protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreLeadingWhitespace) {
+    protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
         String text = _hlEditor.getText().toString();
         TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
 
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text, ignoreLeadingWhitespace);
+        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
         while (lineStart != -1) {
+
+            if (ignoreIndent) {
+                for (; lineStart < textSelection.getSelectionStart(); lineStart++) {
+                    char c = text.charAt(lineStart);
+                    if (c != ' ' && c != '\t') {
+                        break;
+                    }
+                }
+            }
+
             if (replaceString == null) {
                 if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
                     textSelection.removeText(lineStart, action);
