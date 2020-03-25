@@ -166,6 +166,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown__monospace_some_parts, false);
     }
 
+    public boolean isMarkdownDisableCodeBlockHighlight() {
+        return getBool(R.string.pref_key__markdown__disable_code_block_highlight, false);
+    }
 
     public int getHighlightingDelayTodoTxt() {
         return getInt(R.string.pref_key__todotxt__hl_delay, 870);
