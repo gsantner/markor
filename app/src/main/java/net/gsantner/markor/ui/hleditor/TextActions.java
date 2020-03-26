@@ -130,6 +130,19 @@ public abstract class TextActions {
         return index;
     }
 
+    protected int findWhitespaceEnd(int startIndex, int endIndex, String text) {
+        int index = endIndex;
+        for (int i = startIndex; i < endIndex; i++) {
+            char c = text.charAt(i);
+            if (c != ' ' && c != '\t') {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
 
     public static class TextSelection {
 
@@ -164,16 +177,39 @@ public abstract class TextActions {
     }
 
     protected void runMarkdownRegularPrefixAction(String action) {
-        runMarkdownRegularPrefixAction(action, null);
+        runMarkdownRegularPrefixAction(action, null, false);
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action, Boolean ignoreIndent) {
+        runMarkdownRegularPrefixAction(action, null, ignoreIndent);
     }
 
     protected void runMarkdownRegularPrefixAction(String action, String replaceString) {
+        runMarkdownRegularPrefixAction(action, replaceString, false);
+    }
+
+    protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
+
         String text = _hlEditor.getText().toString();
-        TextSelection textSelection = new TextSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), _hlEditor.getText());
+
+        int selectionStart = _hlEditor.getSelectionStart();
+        int selectionEnd = _hlEditor.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = _hlEditor.getSelectionStart();
+            selectionStart = _hlEditor.getSelectionEnd();
+        }
+
+        TextSelection textSelection = new TextSelection(selectionStart, selectionEnd, _hlEditor.getText());
 
         int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
         while (lineStart != -1) {
+
+            if (ignoreIndent) {
+                lineStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
+            }
+
             if (replaceString == null) {
                 if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
                     textSelection.removeText(lineStart, action);
@@ -301,15 +337,15 @@ public abstract class TextActions {
     protected boolean runCommonTextAction(String action) {
         switch (action) {
             case "tmaid_common_unordered_list_char": {
-                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
+                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
                 return true;
             }
             case "tmaid_common_checkbox_list": {
-                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ");
+                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ", true);
                 return true;
             }
             case "tmaid_common_ordered_list_number": {
-                runMarkdownRegularPrefixAction("1. ");
+                runMarkdownRegularPrefixAction("1. ", true);
                 return true;
             }
             case "tmaid_common_time": {
