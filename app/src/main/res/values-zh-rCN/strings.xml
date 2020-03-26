@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
+    <string name="disable_code_block_highlight">禁用高亮显示代码块</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
@@ -181,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">制表符</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
+    <string name="unordered_list_character">无序列表字符</string>
+    <string name="character_to_start_items_of_unordered_list_with">哪个字符用来表示无序列表</string>
+    <string name="unordered_list_char_dash">破折号 (-)</string>
+    <string name="unordered_list_char_asterisk">小行星(*)</string>
+    <string name="unordered_list_char_plus">+ (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、脱机可用的文档，不支持不提供完整文件路径的文件管理器。</string>
     <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
     <string name="configure_in_the_apps_settings">在应用设置中设定</string>
@@ -298,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">应用起始文件夹</string>
     <string name="tab_width">制表符宽度</string>
     <string name="amount_of_space_for_tab">制表符显示的空格数</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">所选文件可能是纯文本文件。您想在编辑器或其他应用中打开它吗？\n\n不要尝试打开二进制文件。如果您不确定，请在其他应用中打开。</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个整数文件。 您想要在编辑器或其他应用中打开它吗？\n\n不要尝试打开二进制文件。 如果您不确定，请与其他应用程序打开。</string>
     <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
     <string name="wrap_words">折行</string>

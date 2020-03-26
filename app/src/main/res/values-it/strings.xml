@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
     <string name="use_monospace_for_code">Usa un font monospace per il codice</string>
+    <string name="disable_code_block_highlight">Disabilita evidenziazione per i blocchi di codice</string>
     <string name="use_different_fonttype_slow_down">Utilizza più tipi di font per il codice. Tale opzione può conseguire un impatto sulle prestazioni dell\'applicazione.</string>
     <string name="general">Generali</string>
     <string name="resources">Risorse</string>
@@ -181,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulatore</string>
     <string name="start_on_bottom">Inizia dal basso</string>
     <string name="start_on_bottom_when_loading_document">Dopo che un documento è stato caricato, posiziona il cursore alla fine</string>
+    <string name="unordered_list_character">Carattere per liste non ordinate</string>
+    <string name="character_to_start_items_of_unordered_list_with">Carattere da usare per indicare le liste non ordinate</string>
+    <string name="unordered_list_char_dash">Trattino (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisco (*)</string>
+    <string name="unordered_list_char_plus">Più (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Puoi aprirli modificando la cartella dei documenti di Markor, o usando un altro file manager.</string>
     <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
@@ -298,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Cartella iniziale app</string>
     <string name="tab_width">Larghezza tab</string>
     <string name="amount_of_space_for_tab">Numero di spazi da visualizzare per un tab</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Il file selezionato può essere un file di testo semplice. Vuoi aprirlo nell\'editor o con un\'altra app?\n\nNon provare ad aprire file binari. Se non sei sicuro, aprilo con un\'altra app.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Il file selezionato può essere un file di testo normale. Vuoi aprirlo nell\'editor o in un\'altra app?\n\nNon provare ad aprire file binari. Se non sei sicuro, apri con un\'altra app.</string>
     <string name="list_in_recent_files">Lista nei file recenti</string>
     <string name="reload">Ricarica</string>
     <string name="wrap_words">Parole a capo</string>
@@ -354,5 +360,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Indietro</string>
     <string name="expand_collapse">Espandi / Comprimi</string>
     <string name="essential">Essenziale</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Aggiungi UUID leggibile alle nuove attività</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Aggiungi un UUID leggibile alle nuove attività</string>
 </resources>

@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Zeilenende hervorheben</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
     <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
+    <string name="disable_code_block_highlight">Hervorhebung für Code-Blöcke deaktivieren</string>
     <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
     <string name="general">Allgemeines</string>
     <string name="resources">Ressourcen</string>
@@ -181,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
+    <string name="character_to_start_items_of_unordered_list_with">Welches Zeichen verwendet werden soll um ungeordnete Listen zu bezeichnen</string>
+    <string name="unordered_list_char_dash">Strich (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbaren Dokumente bearbeiten. Datei-Manager die nicht den vollständigen Dateipfad angeben sind nicht unterstützt.</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
@@ -298,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">App-Start Ordner</string>
     <string name="tab_width">Tabulatorbreite</string>
     <string name="amount_of_space_for_tab">Anzahl von Leerzeichen zur Tabulator-Darstellung</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Die ausgewählte Datei sollte nur Text enthalten. Möchtest du sie im Editor oder einer anderen App öffnen?\n\nBitte öffne keine Binärdateien. Falls du dir unsicher bist, öffne die Datei mit einer anderen App.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Die ausgewählte Datei kann eine Klartext-Datei sein. Möchten Sie es im Editor oder in einer anderen App öffnen?\n\nVersuchen Sie nicht, binäre Dateien zu öffnen. Wenn Sie sich nicht sicher sind, öffnen Sie mit einer anderen App.</string>
     <string name="list_in_recent_files">In zuletzt geöffneten Dateien anzeigen</string>
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>

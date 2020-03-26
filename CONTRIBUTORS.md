@@ -41,4 +41,5 @@ Where:
 * **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions.
-* **[Niels](opensource21@gmail.com)**<br>~° Added encryption for smd.
+* **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists.
+* **[Niels](opensource21@gmail.com)**<br>~° Added encryption for smd (secure markdown).

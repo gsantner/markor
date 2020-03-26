@@ -27,6 +27,7 @@ public class MarkdownHighlighter extends Highlighter {
     private final boolean _highlightLineEnding;
     private final boolean _highlightCodeChangeFont;
     private final boolean _highlightBiggerHeadings;
+    private final boolean _highlightDisableCodeBlock;
 
     private static final int MD_COLOR_HEADING = 0xffef6D00;
     private static final int MD_COLOR_LINK = 0xff1ea3fe;
@@ -42,6 +43,7 @@ public class MarkdownHighlighter extends Highlighter {
         _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
+        _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
     }
 
     @Override
@@ -85,7 +87,9 @@ public class MarkdownHighlighter extends Highlighter {
                 createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.CODE.pattern);
             }
             _profiler.restart("Code - bgcolor");
-            createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+            if (!_highlightDisableCodeBlock) {
+                createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+            }
 
             _profiler.end();
             _profiler.printProfilingGroup();
