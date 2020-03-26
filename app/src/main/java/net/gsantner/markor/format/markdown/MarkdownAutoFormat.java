@@ -70,14 +70,16 @@ public class MarkdownAutoFormat implements InputFilter {
         Arrays.fill(indentChars, ' ');
         String indentString = new String(indentChars);
 
-        Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
+        String previousLine = dest.toString().substring(iend, dend);
+
+        Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
         if (uMatch.find()) {
-            indentString += uMatch.group() + " ";
-        } else {
-            Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
-            if (oMatch.find()) {
-                indentString += addNumericListItemIfNeeded(oMatch.group(1));
-            }
+            return indentString + uMatch.group() + " ";
+        }
+
+        Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
+        if (oMatch.find()) {
+            return indentString + addNumericListItemIfNeeded(oMatch.group(1));
         }
 
         return indentString;
