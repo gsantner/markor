@@ -146,7 +146,6 @@ public abstract class TextActions {
         return index;
     }
 
-<<<<<<< HEAD
     protected int[] getSelection() {
 
         int selectionStart = _hlEditor.getSelectionStart();
@@ -160,9 +159,6 @@ public abstract class TextActions {
         int[] selection = {selectionStart, selectionEnd};
         return selection;
     }
-
-=======
->>>>>>> master
 
     public static class TextSelection {
 
