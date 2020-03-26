@@ -17,7 +17,7 @@ public enum MarkdownHighlighterPattern {
     HEADING(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     HEADING_SIMPLE(Pattern.compile("(?m)(#{1,6}\\s.*$)")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
-    LIST_UNORDERED(Pattern.compile("(\\n|^)\\s{0,12}([*+-])( \\[[ xX]\\])?(?= )")),
+    LIST_UNORDERED(Pattern.compile("(\\n|^)\\s{1,16}([*+-])( \\[[ xX]\\])?(?= )")),
     LIST_ORDERED(Pattern.compile("(?m)^([0-9]+)(\\.)")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
