@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Подсвечивать конец строки</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк с двумя и более пробелами</string>
     <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
+    <string name="disable_code_block_highlight">Отключить подсветку блоков кода</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
     <string name="general">Общие</string>
     <string name="resources">Ресурсы</string>
@@ -181,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляция</string>
     <string name="start_on_bottom">Начать снизу</string>
     <string name="start_on_bottom_when_loading_document">После загрузки ставить курсор в конец документа</string>
+    <string name="unordered_list_character">Символ неупорядоченного списка</string>
+    <string name="character_to_start_items_of_unordered_list_with">Какой символ использовать для обозначения неупорядоченных списков</string>
+    <string name="unordered_list_char_dash">Тире (-)</string>
+    <string name="unordered_list_char_asterisk">Астериск (*)</string>
+    <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
     <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
     <string name="configure_in_the_apps_settings">Изменить в настройках приложения</string>
@@ -298,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Начальная папка</string>
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть простым текстовым файлом. Вы хотите открыть его в редакторе или в другом приложении?\n\nНе пытайтесь открывать двоичные файлы. Если вы не уверены, то откройте файл при помощи другого приложения.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть текстовым файлом. Открыть его в редакторе или в другом приложении?\n\nНе пытаться открыть бинарные файлы. Если вы не уверены, откройте другое приложение.</string>
     <string name="list_in_recent_files">Показывать в списке недавних</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>

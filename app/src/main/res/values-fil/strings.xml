@@ -285,7 +285,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Panimulang folder ng app</string>
     <string name="tab_width">Lapad ng tab</string>
     <string name="amount_of_space_for_tab">Bilang ng mga space character para ipakita ang tabulator</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Maaring file na plaintext ang napiling file. Gusto mo bang buksan ito sa editor, o sa isang app?\n\nHuwag subukang buksan ang mga file na binary. Kung hindi ka sigurado, buksan ito sa ibang app.</string>
     <string name="list_in_recent_files">Listahan sa mga kamakailang file</string>
     <string name="reload">I-reload</string>
     <string name="wrap_words">I-wrap ang mga salita</string>

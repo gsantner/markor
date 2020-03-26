@@ -181,6 +181,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">タブ</string>
     <string name="start_on_bottom">下部で開始</string>
     <string name="start_on_bottom_when_loading_document">ドキュメントの読み込み時に、カーソル位置は最後になります</string>
+    <string name="unordered_list_character">順序なしリスト文字</string>
+    <string name="character_to_start_items_of_unordered_list_with">順序なしのリストを示すために使用する文字</string>
+    <string name="unordered_list_char_dash">ダッシュ (-)</string>
+    <string name="unordered_list_char_asterisk">アスタリスク (*)</string>
+    <string name="unordered_list_char_plus">プラス (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markorはローカルのオフライン利用可能なドキュメントのみ編集できます。ファイルをフルパスで提供しないファイルマネージャーはサポートしていません。</string>
     <string name="sync_to_local_folder_notice">注意: 同期アプリがカスタムフォルダーにファイルを配置することがあります。Markor のドキュメントフォルダーを変更するか、別のファイルマネージャーでそれを開くことができます。</string>
     <string name="configure_in_the_apps_settings">アプリ設定を構成します</string>
@@ -354,4 +359,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">戻る</string>
     <string name="expand_collapse">展開 / 折りたたみ</string>
     <string name="essential">必須</string>
+    <string name="append_human_readable_uuid_to_new_tasks">人間が読めるUUIDを新しいタスクに追加</string>
 </resources>
