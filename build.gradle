@@ -13,8 +13,8 @@ import java.text.SimpleDateFormat
 
 buildscript {
     ext {
-        version_gradle_tools = "3.5.3"
-        version_plugin_kotlin = "1.3.61"
+        version_gradle_tools = "3.6.1"
+        version_plugin_kotlin = "1.3.71"
         enable_plugin_kotlin = false
 
         version_compileSdk = 28

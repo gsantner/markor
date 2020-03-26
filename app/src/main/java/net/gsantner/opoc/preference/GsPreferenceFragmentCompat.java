@@ -432,6 +432,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         setDividerVisibility(isDividerVisible());
         onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
         updatePreferenceChangedListeners(true);
+        doUpdatePreferences();
     }
 
     /**
