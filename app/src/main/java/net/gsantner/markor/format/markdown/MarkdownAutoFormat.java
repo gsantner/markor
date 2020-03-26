@@ -13,17 +13,14 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import java.util.regex.Matcher;
+import java.util.Arrays;
 
 public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (end - start == 1
-                    && start < source.length()
-                    && dstart <= dest.length()) {
-                char newChar = source.charAt(start);
-
-                if (newChar == '\n') {
+            if (start < source.length() && dstart <= dest.length()) {
+                if (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n') {
                     return autoIndent(source, dest, dstart, dend);
                 }
             }
@@ -53,49 +50,34 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-        if (istart > -1 && istart < dest.length() - 1) {
-            int iend;
 
-            for (iend = ++istart; iend < dest.length() - 1; ++iend) {
-                char c = dest.charAt(iend);
-                if (c != ' ' && c != '\t') {
-                    break;
-                }
+        // Determine leading whitespace
+        int iend;
+        for (iend = istart + 1; iend < dest.length(); ++iend) {
+            char c = dest.charAt(iend);
+            if (c != ' ' && c != '\t') {
+                break;
             }
-
-            if (iend < dest.length() - 1) {
-                // This is for any line that is not the first line in a file
-                Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
-                if (listMatcher.find()) {
-                    return dest.toString().substring(istart, iend) + listMatcher.group() + " ";
-                } else {
-                    Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
-                    if (m.find()) {
-                        return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
-                    } else {
-                        return "";
-                    }
-                }
-            } else {
-                return "";
-            }
-        } else if (istart > -1) {
-            return "";
-        } else if (dest.length() > 1) {
-            Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString());
-            if (listMatcher.find()) {
-                return dest.charAt(0) + " ";
-            } else {
-                Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString());
-                if (m.find()) {
-                    return addNumericListItemIfNeeded(m.group(1));
-                } else {
-                    return "";
-                }
-            }
-        } else {
-            return "";
         }
+
+        // Construct whitespace
+        int indentSize = iend - istart - 1;
+        char[] indentChars = new char[indentSize];
+        Arrays.fill(indentChars, ' ');
+        String indentString = new String(indentChars);
+
+        // Add appropriate list identifier
+        Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
+        if (uMatch.find()) {
+            indentString += uMatch.group() + " ";
+        } else {
+            Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
+            if (oMatch.find()) {
+                indentString += addNumericListItemIfNeeded(oMatch.group(1));
+            }
+        }
+
+        return indentString;
     }
 
     private String addNumericListItemIfNeeded(String itemNumStr) {
