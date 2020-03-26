@@ -187,6 +187,7 @@ public class SettingsActivity extends AppActivityBase {
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+            setPreferenceVisible(R.string.pref_key__swipe_to_change_mode, _as.isExperimentalFeaturesEnabled());
         }
 
         @Override
