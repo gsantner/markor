@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
+    <string name="disable_code_block_highlight">禁用高亮显示代码块</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
