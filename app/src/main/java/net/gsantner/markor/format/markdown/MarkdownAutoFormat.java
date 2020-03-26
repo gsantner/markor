@@ -20,7 +20,7 @@ public class MarkdownAutoFormat implements InputFilter {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
             if (start < source.length() && dstart <= dest.length()) {
-                if (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n') {
+                if ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n')) {
                     return autoIndent(source, dest, dstart, dend);
                 }
             }
@@ -66,7 +66,6 @@ public class MarkdownAutoFormat implements InputFilter {
         Arrays.fill(indentChars, ' ');
         String indentString = new String(indentChars);
 
-        // Add appropriate list identifier
         Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
         if (uMatch.find()) {
             indentString += uMatch.group() + " ";
