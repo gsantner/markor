@@ -20,7 +20,7 @@ public class MarkdownAutoFormat implements InputFilter {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
             if (start < source.length() && dstart <= dest.length()) {
-                if ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n')) {
+                if (isNewLine(source, start, end)) {
                     return autoIndent(source, dest, dstart, dend);
                 }
             }
@@ -28,6 +28,10 @@ public class MarkdownAutoFormat implements InputFilter {
             e.printStackTrace();
         }
         return source;
+    }
+
+    private static Boolean isNewLine(CharSequence source, int start, int end) {
+        return ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n'));
     }
 
     private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
