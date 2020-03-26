@@ -19,10 +19,11 @@ public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (start < source.length() && dstart <= dest.length()) {
-                if (isNewLine(source, start, end)) {
-                    return autoIndent(source, dest, dstart, dend);
-                }
+            if (start < source.length()
+                    && dstart <= dest.length()
+                    && isNewLine(source, start, end)) {
+
+                return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
