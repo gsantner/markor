@@ -11,6 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.util.Log;
 
 import java.util.regex.Matcher;
 import java.util.Arrays;
@@ -75,12 +76,15 @@ public class MarkdownAutoFormat implements InputFilter {
 
         Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
         if (uMatch.find()) {
-            return indentString + uMatch.group() + " ";
+            String bullet = uMatch.group() + " ";
+            Boolean emptyList = previousLine.equals(bullet);
+            return indentString + (emptyList ? "" : bullet);
         }
 
         Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
         if (oMatch.find()) {
-            return indentString + addNumericListItemIfNeeded(oMatch.group(1));
+            Boolean emptyList = previousLine.equals(oMatch.group(1) + ". ");
+            return indentString + (emptyList ? "" : addNumericListItemIfNeeded(oMatch.group(1)));
         }
 
         return indentString;
