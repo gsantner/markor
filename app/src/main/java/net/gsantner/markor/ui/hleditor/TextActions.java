@@ -111,6 +111,20 @@ public abstract class TextActions {
         }
     }
 
+    protected int[] getSelection() {
+
+        int selectionStart = _hlEditor.getSelectionStart();
+        int selectionEnd = _hlEditor.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = _hlEditor.getSelectionStart();
+            selectionStart = _hlEditor.getSelectionEnd();
+        }
+
+        int[] selection = {selectionStart, selectionEnd};
+        return selection;
+    }
+
     public static class TextSelection {
 
         private int _selectionStart;
@@ -161,7 +175,7 @@ public abstract class TextActions {
 
         int[] selection = getSelection();
         TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
-        
+
         int lineStart = StringUtils.getLineStart(text, textSelection.getSelectionStart());
 
         while (lineStart <= textSelection.getSelectionEnd()) {
