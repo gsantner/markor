@@ -14,16 +14,20 @@ import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
+import java.util.regex.Matcher;
 
 
 @SuppressWarnings("UnusedReturnValue")
@@ -69,6 +73,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
+
         addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable e) {
@@ -99,6 +104,57 @@ public class HighlightingEditor extends AppCompatEditText {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Changed text (beforeTextChanged)");
+                }
+            }
+        });
+
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                return;
+            }
+
+            @Override
+            public void afterTextChanged(Editable e) {
+                Spannable eSpan = (Spannable) e;
+                for (Object span : eSpan.getSpans(0, e.length(), this.getClass())) {
+                    if ((eSpan.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
+                        e.delete(eSpan.getSpanStart(span), eSpan.getSpanEnd(span));
+                    }
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // This method is called to notify you that, within s,
+                // the count characters beginning at start have just replaced old text that had length before.
+                if ( count > 0 && start < s.length() && s.charAt(start) == '\n' ) {
+                    // Check if previous like matches
+                    int iStart, iEnd;
+
+                    for (iStart = start - 1; iStart > -1; iStart--) {
+                        if (s.charAt(iStart) == '\n') break;
+                    }
+
+                    for (iEnd = iStart + 1; iEnd < start; iEnd++) {
+                        char c = s.charAt(iEnd);
+                        if (c != ' ' && c != '\t') break;
+                    }
+
+                    String previousLine = s.subSequence(iEnd, start).toString();
+
+                    Matcher match = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
+                    if (match.find() && previousLine.equals(match.group() + " ")) {
+                        ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
+                        return;
+                    }
+
+                    match = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
+                    if (match.find() && previousLine.equals(match.group(1) + ". ")) {
+                        ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
+                        return;
+                    }
                 }
             }
         });
