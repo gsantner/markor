@@ -31,6 +31,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,56 +111,6 @@ public abstract class TextActions {
         }
     }
 
-    protected int findLineStart(int cursor, String text) {
-        int i = cursor - 1;
-        for (; i >= 0; i--) {
-            if (text.charAt(i) == '\n') {
-                break;
-            }
-        }
-
-        return i + 1;
-    }
-
-    protected int findNextLine(int startIndex, int endIndex, String text) {
-        int index = -1;
-        for (int i = startIndex; i < endIndex; i++) {
-            if (text.charAt(i) == '\n') {
-                index = i + 1;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    protected int findWhitespaceEnd(int startIndex, int endIndex, String text) {
-        int index = endIndex;
-        for (int i = startIndex; i < endIndex; i++) {
-            char c = text.charAt(i);
-            if (c != ' ' && c != '\t') {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    protected int[] getSelection() {
-
-        int selectionStart = _hlEditor.getSelectionStart();
-        int selectionEnd = _hlEditor.getSelectionEnd();
-
-        if (selectionEnd < selectionStart) {
-            selectionEnd = _hlEditor.getSelectionStart();
-            selectionStart = _hlEditor.getSelectionEnd();
-        }
-
-        int[] selection = {selectionStart, selectionEnd};
-        return selection;
-    }
-
     public static class TextSelection {
 
         private int _selectionStart;
@@ -211,25 +162,28 @@ public abstract class TextActions {
         int[] selection = getSelection();
         TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
         
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
+        int lineStart = StringUtils.getLineStart(text, textSelection.getSelectionStart());
 
-        while (lineStart != -1) {
+        while (lineStart <= textSelection.getSelectionEnd()) {
 
             if (ignoreIndent) {
-                lineStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
+                lineStart = StringUtils.getNextNonWhitespace(text, lineStart, textSelection.getSelectionEnd());
             }
 
+            int selEnd = StringUtils.getLineEnd(text, textSelection.getSelectionEnd());
+            String remainingString = text.substring(lineStart, selEnd);
+
             if (replaceString == null) {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                if (remainingString.startsWith(action)) {
                     textSelection.removeText(lineStart, action);
                 } else {
                     textSelection.insertText(lineStart, action);
                 }
             } else {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                if (remainingString.startsWith(action)) {
                     textSelection.removeText(lineStart, action);
                     textSelection.insertText(lineStart, replaceString);
-                } else if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(replaceString)) {
+                } else if (remainingString.startsWith(replaceString)) {
                     textSelection.removeText(lineStart, replaceString);
                     textSelection.insertText(lineStart, action);
                 } else {
@@ -238,8 +192,8 @@ public abstract class TextActions {
             }
 
             text = _hlEditor.getText().toString();
-
-            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
+            // Get next line
+            lineStart = StringUtils.getLineEnd(text, lineStart, textSelection.getSelectionEnd()) + 1;
         }
     }
 

@@ -109,54 +109,7 @@ public class HighlightingEditor extends AppCompatEditText {
         });
 
         // This watcher detects and handles termination of lists when last item is empty
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Not used
-            }
-
-            @Override
-            public void afterTextChanged(Editable e) {
-                Spannable eSpan = (Spannable) e;
-                for (Object span : eSpan.getSpans(0, e.length(), this.getClass())) {
-                    if ((eSpan.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
-                        e.delete(eSpan.getSpanStart(span), eSpan.getSpanEnd(span));
-                    }
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if ( count > 0 && start < s.length() && s.charAt(start) == '\n' ) {
-
-                    int iStart;
-                    for (iStart = start - 1; iStart > -1; iStart--) {
-                        if (s.charAt(iStart) == '\n') break;
-                    }
-
-                    int iEnd;
-                    for (iEnd = iStart + 1; iEnd < start; iEnd++) {
-                        char c = s.charAt(iEnd);
-                        if (c != ' ' && c != '\t') break;
-                    }
-
-                    String previousLine = s.subSequence(iEnd, start).toString();
-
-                    Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
-                    if (uMatch.find() && previousLine.equals(uMatch.group() + " ")) {
-                        ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
-                        return;
-                    }
-
-                    Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
-                    if (oMatch.find() && previousLine.equals(oMatch.group(1) + ". ")) {
-                        ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
-                        return;
-                    }
-                }
-            }
-        });
+        addTextChangedListener(new ListHandler());
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
