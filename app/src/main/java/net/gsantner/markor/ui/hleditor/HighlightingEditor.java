@@ -108,9 +108,12 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         });
 
+        // This watcher detects and handles termination of lists when last item is empty
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not used
+            }
 
             @Override
             public void afterTextChanged(Editable e) {
