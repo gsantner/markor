@@ -27,9 +27,8 @@ public final class StringUtils {
     }
 
     public static int getLineEnd(CharSequence s, int start, int maxRange) {
-        int limitedMaxRange = Math.max(maxRange, s.length());
         int i = start;
-        for (; i < limitedMaxRange; i++) {
+        for (; i < maxRange && i < s.length(); i++) {
             if (s.charAt(i) == '\n') {
                 break;
             }
@@ -43,9 +42,8 @@ public final class StringUtils {
     }
 
     public static int getNextNonWhitespace(CharSequence s, int start, int maxRange) {
-        maxRange = Math.max(maxRange, s.length());
         int i = start;
-        for (; i < maxRange; i++) {
+        for (; i < maxRange && i < s.length(); i++) {
             char c = s.charAt(i);
             if (c != ' ' && c != '\t') {
                 break;
@@ -53,5 +51,4 @@ public final class StringUtils {
         }
         return i;
     }
-
 }
