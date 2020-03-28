@@ -110,9 +110,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                return;
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void afterTextChanged(Editable e) {
