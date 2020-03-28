@@ -14,20 +14,16 @@ import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
-import java.util.regex.Matcher;
 
 
 @SuppressWarnings("UnusedReturnValue")
