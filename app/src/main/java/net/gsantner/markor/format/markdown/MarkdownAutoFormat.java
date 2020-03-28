@@ -15,6 +15,8 @@ import android.text.Spanned;
 import java.util.regex.Matcher;
 import java.util.Arrays;
 
+import net.gsantner.markor.util.StringUtils;
+
 public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -36,53 +38,35 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
     private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-        int istart = findLineBreakPosition(dest, dstart);
+        int iStart = StringUtils.getLineStart(dest, dstart);
 
         // append white space of previous line and new indent
-        return source + createIndentForNextLine(dest, dend, istart);
-    }
-
-    private int findLineBreakPosition(Spanned dest, int dstart) {
-        int istart = dstart - 1;
-
-        for (; istart > -1; --istart) {
-            char c = dest.charAt(istart);
-            if (c == '\n') {
-                break;
-            }
-        }
-        return istart;
+        return source + createIndentForNextLine(dest, dend, iStart);
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
 
         // Determine leading whitespace
-        int iend;
-        for (iend = istart + 1; iend < dest.length(); ++iend) {
-            char c = dest.charAt(iend);
-            if (c != ' ' && c != '\t') {
-                break;
-            }
-        }
+        int iEnd = StringUtils.getNextNonWhitespace(dest, istart);
 
         // Construct whitespace
-        int indentSize = iend - istart - 1;
+        int indentSize = iEnd - istart;
         char[] indentChars = new char[indentSize];
         Arrays.fill(indentChars, ' ');
         String indentString = new String(indentChars);
 
-        String previousLine = dest.toString().substring(iend, dend);
+        String previousLine = dest.toString().substring(iEnd, dend);
 
         Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
         if (uMatch.find()) {
             String bullet = uMatch.group() + " ";
-            Boolean emptyList = previousLine.equals(bullet);
+            boolean emptyList = previousLine.equals(bullet);
             return indentString + (emptyList ? "" : bullet);
         }
 
         Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
         if (oMatch.find()) {
-            Boolean emptyList = previousLine.equals(oMatch.group(1) + ". ");
+            boolean emptyList = previousLine.equals(oMatch.group(1) + ". ");
             return indentString + (emptyList ? "" : addNumericListItemIfNeeded(oMatch.group(1)));
         }
 
