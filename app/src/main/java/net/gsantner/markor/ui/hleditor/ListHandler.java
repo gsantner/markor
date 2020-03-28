@@ -23,16 +23,14 @@ public class ListHandler implements TextWatcher {
             String previousLine = s.subSequence(iEnd, start).toString();
             Spannable sSpan = (Spannable) s;
 
-            if (start < s.length()) start++; // Include the newline
-
             Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
             if (uMatch.find() && previousLine.equals(uMatch.group() + " ")) {
-                sSpan.setSpan(this, iStart , start, Spanned.SPAN_COMPOSING);
+                sSpan.setSpan(this, iStart , start + 1, Spanned.SPAN_COMPOSING);
             }
             else {
                 Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
                 if (oMatch.find() && previousLine.equals(oMatch.group(1) + ". ")) {
-                    sSpan.setSpan(this, iStart , start, Spanned.SPAN_COMPOSING);
+                    sSpan.setSpan(this, iStart , start + 1, Spanned.SPAN_COMPOSING);
                 }
             }
         }

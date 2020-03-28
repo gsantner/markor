@@ -27,9 +27,9 @@ public final class StringUtils {
     }
 
     public static int getLineEnd(CharSequence s, int start, int maxRange) {
-        maxRange = Math.max(maxRange, s.length());
+        int limitedMaxRange = Math.max(maxRange, s.length());
         int i = start;
-        for (; i < maxRange; i++) {
+        for (; i < limitedMaxRange; i++) {
             if (s.charAt(i) == '\n') {
                 break;
             }
