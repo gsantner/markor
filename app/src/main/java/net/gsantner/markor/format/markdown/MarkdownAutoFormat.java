@@ -11,7 +11,6 @@ package net.gsantner.markor.format.markdown;
 
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.util.Log;
 
 import java.util.regex.Matcher;
 import java.util.Arrays;

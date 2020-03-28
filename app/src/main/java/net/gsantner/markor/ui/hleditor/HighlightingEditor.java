@@ -127,16 +127,14 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                // This method is called to notify you that, within s,
-                // the count characters beginning at start have just replaced old text that had length before.
                 if ( count > 0 && start < s.length() && s.charAt(start) == '\n' ) {
-                    // Check if previous like matches
-                    int iStart, iEnd;
 
+                    int iStart;
                     for (iStart = start - 1; iStart > -1; iStart--) {
                         if (s.charAt(iStart) == '\n') break;
                     }
 
+                    int iEnd;
                     for (iEnd = iStart + 1; iEnd < start; iEnd++) {
                         char c = s.charAt(iEnd);
                         if (c != ' ' && c != '\t') break;
@@ -144,14 +142,14 @@ public class HighlightingEditor extends AppCompatEditText {
 
                     String previousLine = s.subSequence(iEnd, start).toString();
 
-                    Matcher match = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
-                    if (match.find() && previousLine.equals(match.group() + " ")) {
+                    Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
+                    if (uMatch.find() && previousLine.equals(uMatch.group() + " ")) {
                         ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
                         return;
                     }
 
-                    match = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
-                    if (match.find() && previousLine.equals(match.group(1) + ". ")) {
+                    Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
+                    if (oMatch.find() && previousLine.equals(oMatch.group(1) + ". ")) {
                         ((Spannable) s).setSpan(this, iStart, start, Spanned.SPAN_COMPOSING);
                         return;
                     }
