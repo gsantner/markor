@@ -34,6 +34,7 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
@@ -91,12 +92,16 @@ public class DocumentIO {
             if (isEncryptedFile(filePath) && getPassword(context) != null) {
                 try {
                     final byte[] encyptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
-                    content = JavaPasswordbasedCryption.getDecyptedText(encyptedContext, getPassword(context));
+                    if (encyptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
+                        content = JavaPasswordbasedCryption.getDecyptedText(encyptedContext, getPassword(context));
+                    } else {
+                        content = new String(encyptedContext, StandardCharsets.UTF_8);
+                    }
                 } catch (FileNotFoundException e) {
-                    System.err.println("readTextFileFast: File " + filePath + " not found.");
+                    Log.e(LOG_TAG_NAME, "loadDocument:  File " + filePath + " not found.");
                     content = "";
-                } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-                    System.err.println("encryption failed for File " + filePath + ". " + e.getMessage());
+                } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
+                    Log.e(LOG_TAG_NAME, "loadDocument:  encryption failed for File " + filePath + ". " + e.getMessage());
                     content = "";
                 }
             } else {
