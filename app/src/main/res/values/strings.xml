@@ -379,4 +379,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_password">Password for file encryption.</string>
     <string name="password">Password</string>
     <string name="no_password_found_warning"><![CDATA[No password found, can\'t en-/decrypt.\nGo to \'Settings -> General -> Password\' to set a password.]]></string>
+    <string name="encrypt_file_content">encrypt file content</string>
 </resources>

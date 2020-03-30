@@ -11,6 +11,7 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,11 +24,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import net.gsantner.Constants;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.security.PasswordStore;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
@@ -78,9 +82,16 @@ public class NewFileDialog extends DialogFragment {
 
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
+        final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && new PasswordStore(inflater.getContext()).loadKey() != null) {
+            encryptCheckbox.setChecked(true);
+        } else {
+            encryptCheckbox.setVisibility(View.GONE);
+        }
 
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
@@ -102,7 +113,11 @@ public class NewFileDialog extends DialogFragment {
                 }
 
                 if (ext != null) {
-                    fileExtEdit.setText(ext);
+                    if (encryptCheckbox.isChecked()) {
+                        fileExtEdit.setText(ext + Constants.ENCRYPTION_EXTENSION);
+                    } else {
+                        fileExtEdit.setText(ext);
+                    }
                 }
                 if (prefix != null && !fileNameEdit.getText().toString().startsWith(prefix)) {
                     fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -113,6 +128,20 @@ public class NewFileDialog extends DialogFragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
+        });
+
+        encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            final String currentExtention = fileExtEdit.getText().toString();
+            if (isChecked) {
+                if (!currentExtention.endsWith(Constants.ENCRYPTION_EXTENSION)) {
+                    fileExtEdit.setText(currentExtention + Constants.ENCRYPTION_EXTENSION);
+                }
+            } else {
+                if (currentExtention.endsWith(Constants.ENCRYPTION_EXTENSION)) {
+                    fileExtEdit.setText(currentExtention.substring(0, currentExtention.length() - Constants.ENCRYPTION_EXTENSION.length()));
+                }
+            }
+
         });
 
         dialogBuilder.setView(root);
