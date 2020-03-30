@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.gsantner.Constants;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
@@ -253,7 +254,7 @@ public class DocumentIO {
     }
 
     private static boolean isEncryptedFile(File file) {
-        return file.getName().endsWith(ShareUtil.ENCRYPTION_EXTENSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        return file.getName().endsWith(Constants.ENCRYPTION_EXTENSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
 }
