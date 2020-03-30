@@ -34,6 +34,10 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         setChooserTitle(_context.getString(R.string.share_to_arrow));
     }
 
+    Context getContext() {
+        return _context;
+    }
+
     public void createLauncherDesktopShortcut(Document document) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://

@@ -11,20 +11,29 @@ package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.security.JavaPasswordbasedCryption;
+import net.gsantner.markor.security.PasswordStore;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -32,9 +41,9 @@ public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
+    private static final String LOG_TAG_NAME = "DocumentIO";
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
-
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
@@ -77,7 +86,22 @@ public class DocumentIO {
         } else if (filePath.isFile() && filePath.canRead()) {
             // Extract content and title
             document.setTitle(filePath.getName());
-            document.setContent(FileUtils.readTextFileFast(filePath));
+            String content;
+            if (isEncryptedFile(filePath) && getPassword(context) != null) {
+                try {
+                    final byte[] encyptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
+                    content = JavaPasswordbasedCryption.getDecyptedText(encyptedContext, getPassword(context));
+                } catch (FileNotFoundException e) {
+                    System.err.println("readTextFileFast: File " + filePath + " not found.");
+                    content = "";
+                } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
+                    System.err.println("encryption failed for File " + filePath + ". " + e.getMessage());
+                    content = "";
+                }
+            } else {
+                content = FileUtils.readTextFileFast(filePath);
+            }
+            document.setContent(content);
             document.setModTime(filePath.lastModified());
         }
 
@@ -139,16 +163,29 @@ public class DocumentIO {
                 //noinspection ResultOfMethodCallIgnored
                 document.getFile().getParentFile().mkdirs();
             }
-            if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
-                shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
-                    try {
-                        fos.write(document.getContent().getBytes());
-                    } catch (Exception ex) {
-                    }
-                });
-                ret = true;
-            } else {
-                ret = FileUtils.writeFile(document.getFile(), document.getContent());
+            try {
+                final byte[] contentAsBytes;
+                if (isEncryptedFile(document.getFile()) && getPassword(shareUtil.getContext()) != null) {
+                    contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom())
+                            .encrypt(document.getContent(), getPassword(shareUtil.getContext()));
+                } else {
+                    contentAsBytes = document.getContent().getBytes();
+                }
+
+                if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
+                    shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
+                        try {
+                            fos.write(contentAsBytes);
+                        } catch (Exception ex) {
+                        }
+                    });
+                    ret = true;
+                } else {
+                    ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
+                }
+            } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
+                e.printStackTrace();
+                ret = false;
             }
         } else {
             ret = true;
@@ -201,4 +238,22 @@ public class DocumentIO {
             return null;
         }
     };
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private static char[] getPassword(Context context) {
+        final PasswordStore securityStore = new PasswordStore(context);
+        final char[] pw = securityStore.loadKey();
+        if (pw == null || pw.length == 0) {
+            final String warningText = context.getString(R.string.no_password_found_warning);
+            Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
+            Log.w(LOG_TAG_NAME, warningText);
+            return null;
+        }
+        return pw;
+    }
+
+    private static boolean isEncryptedFile(File file) {
+        return file.getName().endsWith(ShareUtil.ENCRYPTION_EXTENSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
 }
