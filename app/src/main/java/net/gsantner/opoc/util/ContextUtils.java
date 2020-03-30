@@ -72,6 +72,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.gsantner.Constants;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
 import java.io.BufferedReader;
@@ -935,7 +936,11 @@ public class ContextUtils {
             ContentResolver cr = _context.getContentResolver();
             mimeType = cr.getType(uri);
         } else {
-            String ext = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+            String filename = uri.toString();
+            if (filename.endsWith(Constants.ENCRYPTION_EXTENSION)) {
+                filename = filename.substring(0, filename.length() - Constants.ENCRYPTION_EXTENSION.length());
+            }
+            String ext = MimeTypeMap.getFileExtensionFromUrl(filename);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
 
             // Try to guess if the recommended methods fail

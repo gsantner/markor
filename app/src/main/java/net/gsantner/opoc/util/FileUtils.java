@@ -11,6 +11,8 @@
 package net.gsantner.opoc.util;
 
 
+import net.gsantner.Constants;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -409,9 +411,13 @@ public class FileUtils {
 
             if (guess == null || guess.isEmpty()) {
                 guess = "*/*";
-                int dot = file.getName().lastIndexOf(".") + 1;
-                if (dot > 0 && dot < file.getName().length()) {
-                    switch (file.getName().substring(dot)) {
+                String filename = file.getName();
+                if (filename.endsWith(Constants.ENCRYPTION_EXTENSION)) {
+                    filename = filename.substring(0, filename.length() - Constants.ENCRYPTION_EXTENSION.length());
+                }
+                int dot = filename.lastIndexOf(".") + 1;
+                if (dot > 0 && dot < filename.length()) {
+                    switch (filename.substring(dot)) {
                         case "md":
                         case "markdown":
                         case "mkd":
