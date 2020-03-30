@@ -255,6 +255,38 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.md" />
 
+                <!-- Handling of file extension ".jenc" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.jenc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.jenc" />
+
                 <!-- Handling of file extension ".mdown" -->
                 <data
                     android:mimeType="*/*"

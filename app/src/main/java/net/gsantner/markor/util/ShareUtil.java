@@ -26,6 +26,7 @@ import net.gsantner.markor.model.Document;
 
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
+    public static final String ENCRYPTION_EXTENSION = ".jenc";
 
     public ShareUtil(Context context) {
         super(context);
