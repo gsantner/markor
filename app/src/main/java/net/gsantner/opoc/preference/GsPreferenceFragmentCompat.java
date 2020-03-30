@@ -72,6 +72,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -151,6 +152,12 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
 
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            Preference somePreference = findPreference(R.string.pref_key__default_encryption_password);
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            preferenceScreen.removePreference(somePreference);
+        }
 
         if (activity != null && activity.getTheme() != null) {
             TypedArray array = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});

@@ -36,6 +36,11 @@
                 android:key="@string/pref_key__todo_filepath"
                 android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
                 android:title="@string/todo" />
+            <Preference
+                android:icon="@drawable/ic_iconfinder_ic_vpn_key_48px_3669407"
+                android:key="@string/pref_key__default_encryption_password"
+                android:summary="@string/document_password"
+                android:title="@string/password" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/miscellaneous">

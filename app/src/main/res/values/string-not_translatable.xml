@@ -271,4 +271,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="continued_overline" translatable="false">Continued overline (‾‾‾‾)</string>
     <string name="shrug" translatable="false">Shrug (¯\_(ツ)_/¯)</string>
     <string name="accordion" translatable="false">Accordion</string>
+    <string name="pref_key__default_encryption_password" translatable="false">pref_key__default_encryption_password</string>
 </resources>
