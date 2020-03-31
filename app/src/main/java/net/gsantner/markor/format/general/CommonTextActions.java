@@ -10,8 +10,10 @@
 package net.gsantner.markor.format.general;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
@@ -23,9 +25,14 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.StringUtils;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+
+import java.util.Arrays;
 
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
@@ -55,9 +62,16 @@ public class CommonTextActions {
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
 
+    protected AppSettings _appSettings;
+    private int _tabWidth;
+    protected Context _context;
+
     public CommonTextActions(Activity activity, HighlightingEditor hlEditor) {
         _activity = activity;
         _hlEditor = hlEditor;
+        _context = activity != null ? activity : _hlEditor.getContext();
+        _appSettings = new AppSettings(_context);
+        _tabWidth = _appSettings.getTabWidth();
     }
 
     private String rstr(@StringRes int resKey) {
@@ -108,11 +122,9 @@ public class CommonTextActions {
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
                     } else if (callbackPayload.equals(rstr(R.string.indent))) {
-                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-                        indentCurrentLine();
+                        runIndentLines(false);
                     } else if (callbackPayload.equals(rstr(R.string.deindent))) {
-                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-                        deIndentCurrentLine();
+                        runIndentLines(true);
                     }
                 });
                 return true;
@@ -202,6 +214,56 @@ public class CommonTextActions {
                 break;
         }
         return false;
+    }
+
+    protected void runIndentLines(Boolean deIndent) {
+
+        Editable text = _hlEditor.getText();
+
+        int[] selection = getSelection();
+        int selectionStart = selection[0];
+        int selectionEnd = selection[1];
+
+        int lineStart = StringUtils.getLineStart(text, selectionStart);
+
+        char[] tabChars = new char[_tabWidth];
+        Arrays.fill(tabChars, ' ');
+        String tabString = new String(tabChars);
+
+        while (lineStart <= selectionEnd) {
+
+            if (deIndent) {
+                int textStart = StringUtils.getNextNonWhitespace(text, lineStart, selectionEnd);
+                int spaceCount = textStart - lineStart;
+                int delCount = Math.min(_tabWidth, spaceCount);
+                if (delCount > 0) {
+                    text.delete(lineStart, delCount);
+                    selectionEnd -= delCount;
+                }
+            }
+            else {
+                text.insert(lineStart, tabString);
+                selectionEnd += _tabWidth;
+            }
+
+            text = _hlEditor.getText();
+            // Get next line
+            lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
+        }
+    }
+
+    protected int[] getSelection() {
+
+        int selectionStart = _hlEditor.getSelectionStart();
+        int selectionEnd = _hlEditor.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = _hlEditor.getSelectionStart();
+            selectionStart = _hlEditor.getSelectionEnd();
+        }
+
+        int[] selection = {selectionStart, selectionEnd};
+        return selection;
     }
 
 

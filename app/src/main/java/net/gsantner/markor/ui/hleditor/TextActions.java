@@ -36,7 +36,6 @@ import net.gsantner.markor.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Arrays;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -211,44 +210,6 @@ public abstract class TextActions {
         }
     }
 
-    protected void runIndentLines(Boolean deIndent) {
-
-        String text = _hlEditor.getText().toString();
-
-        int[] selection = getSelection();
-        TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
-
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
-
-        char[] chars = new char[_tabWidth];
-        Arrays.fill(chars, ' ');
-        String tabString = new String(chars);
-
-        while (lineStart != -1) {
-
-            if (deIndent) {
-                int textStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
-                int spaceCount = textStart - lineStart;
-                if (spaceCount >= _tabWidth) {
-                    textSelection.removeText(lineStart, tabString);
-                }
-                else if (spaceCount > 0) {
-                    // Handle case where line is indented by less than tabWidth
-                    for (int i = 0; i < spaceCount; i++) {
-                        textSelection.removeText(lineStart, " ");
-                    }
-                }
-            }
-            else {
-                textSelection.insertText(lineStart, tabString);
-            }
-
-            text = _hlEditor.getText().toString();
-
-            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
-        }
-    }
-
     protected void runMarkdownInlineAction(String _action) {
         if (_hlEditor.getText() == null) {
             return;
@@ -365,14 +326,6 @@ public abstract class TextActions {
             }
             case "tmaid_common_time": {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
-                return true;
-            }
-            case "tmaid_common_indent": {
-                runIndentLines(false);
-                return true;
-            }
-            case "tmaid_common_deindent": {
-                runIndentLines(true);
                 return true;
             }
 
