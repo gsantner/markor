@@ -71,8 +71,6 @@ public class MarkdownTextActions extends TextActions {
             {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp, R.string.horizontal_line},
             {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout},
             {R.string.tmaid_common_accordion, R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion},
-            {R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent},
-            {R.string.tmaid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent},
     };
 
     private class MarkdownTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
