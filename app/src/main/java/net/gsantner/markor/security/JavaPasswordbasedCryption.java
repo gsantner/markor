@@ -138,7 +138,7 @@ public class JavaPasswordbasedCryption {
     private byte[] decryptBytes(byte[] encrypted, char[] password) throws EncryptionFailedException {
         try {
             final Version currentVersion = getVersion(encrypted);
-            if (currentVersion != version) {
+            if (!currentVersion.equals(version)) {
                 throw new IllegalArgumentException("The current version " + currentVersion.name() + " differs from configured version " + version.name());
             }
             int from = Version.NAME_LENGTH;

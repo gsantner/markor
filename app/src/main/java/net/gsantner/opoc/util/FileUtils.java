@@ -430,6 +430,8 @@ public class FileUtils {
                         case "txt":
                             guess = "text/plain";
                             break;
+                        default:
+                            guess = "*/*";
                     }
                 }
             }
