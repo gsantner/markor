@@ -44,6 +44,7 @@ Markor is a TextEditor for Android. This project aims to make an editor that is 
 <br/>🌎 Language selection -- use other language than on the system
 <br/>
 <br/>🔃 Markor is an offline app. It works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli
+<br/> Can encrypt your notes. You must set therefor a password at the preferences and use android Kitkat or newer, better Marshmallow. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) as a desktop companion. 
 
 ### Privacy<a name="privacy"></a>
 The app doesn't use the internet connection unless external resources (e.g. display image  by URL) are referenced in user generated content. 
