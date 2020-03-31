@@ -35,6 +35,7 @@ import net.gsantner.markor.util.AppSettings;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Arrays;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -46,6 +47,7 @@ public abstract class TextActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textActionSidePadding;
+    private int _tabWidth;
 
     public TextActions(Activity activity, Document document) {
         _document = document;
@@ -54,6 +56,7 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _tabWidth = _appSettings.getTabWidth();
     }
 
     public abstract void appendTextActionsToBar(ViewGroup viewGroup);
@@ -143,6 +146,19 @@ public abstract class TextActions {
         return index;
     }
 
+    protected int[] getSelection() {
+
+        int selectionStart = _hlEditor.getSelectionStart();
+        int selectionEnd = _hlEditor.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = _hlEditor.getSelectionStart();
+            selectionStart = _hlEditor.getSelectionEnd();
+        }
+
+        int[] selection = {selectionStart, selectionEnd};
+        return selection;
+    }
 
     public static class TextSelection {
 
@@ -192,16 +208,9 @@ public abstract class TextActions {
 
         String text = _hlEditor.getText().toString();
 
-        int selectionStart = _hlEditor.getSelectionStart();
-        int selectionEnd = _hlEditor.getSelectionEnd();
-
-        if (selectionEnd < selectionStart) {
-            selectionEnd = _hlEditor.getSelectionStart();
-            selectionStart = _hlEditor.getSelectionEnd();
-        }
-
-        TextSelection textSelection = new TextSelection(selectionStart, selectionEnd, _hlEditor.getText());
-
+        int[] selection = getSelection();
+        TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
+        
         int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
         while (lineStart != -1) {
@@ -226,6 +235,44 @@ public abstract class TextActions {
                 } else {
                     textSelection.insertText(lineStart, action);
                 }
+            }
+
+            text = _hlEditor.getText().toString();
+
+            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
+        }
+    }
+
+    protected void runIndentLines(Boolean deIndent) {
+
+        String text = _hlEditor.getText().toString();
+
+        int[] selection = getSelection();
+        TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
+
+        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
+
+        char[] chars = new char[_tabWidth];
+        Arrays.fill(chars, ' ');
+        String tabString = new String(chars);
+
+        while (lineStart != -1) {
+
+            if (deIndent) {
+                int textStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
+                int spaceCount = textStart - lineStart;
+                if (spaceCount >= _tabWidth) {
+                    textSelection.removeText(lineStart, tabString);
+                }
+                else if (spaceCount > 0) {
+                    // Handle case where line is indented by less than tabWidth
+                    for (int i = 0; i < spaceCount; i++) {
+                        textSelection.removeText(lineStart, " ");
+                    }
+                }
+            }
+            else {
+                textSelection.insertText(lineStart, tabString);
             }
 
             text = _hlEditor.getText().toString();
@@ -350,6 +397,14 @@ public abstract class TextActions {
             }
             case "tmaid_common_time": {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                return true;
+            }
+            case "tmaid_common_indent": {
+                runIndentLines(false);
+                return true;
+            }
+            case "tmaid_common_deindent": {
+                runIndentLines(true);
                 return true;
             }
 
