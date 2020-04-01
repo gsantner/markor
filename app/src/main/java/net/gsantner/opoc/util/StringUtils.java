@@ -1,6 +1,5 @@
 package net.gsantner.opoc.util;
 
-import android.text.Editable;
 import android.widget.TextView;
 
 public final class StringUtils {
