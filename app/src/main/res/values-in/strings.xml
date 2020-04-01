@@ -23,6 +23,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_filesystem">Rambah filesystem</string>
     <string name="title">Judul</string>
     <string name="empty_directory">Direktori kosong</string>
+    <string name="enter_name_of_folder">Masukkan nama folder anda</string>
+    <string name="create_folder">Buat Folder</string>
+    <string name="create_new_document">Buat dokumen baru</string>
+    <string name="move">Pindahkan</string>
+    <string name="info">Info</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">File/folder sudah ada! Silahkan menggunakan nama lain</string>
+    <string name="import_from_device">Import dari perangkat</string>
+    <string name="import_">Import</string>
     <string name="editor">Laman Pengubahan</string>
     <string name="about">Tentang Kami</string>
     <string name="create">Buat Baru</string>
