@@ -89,7 +89,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Keluar</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Tampilkan bilah dengan tombol praktis di bawah. Aksi teks ini mengubah teks atau menjalankan aksi berdasar teks.</string>
+    <string name="load_last_opened_folder_at_startup">Muat folder yang dibuka terakhir</string>
+    <string name="format">Format</string>
+    <string name="contexts">Konteks</string>
+    <string name="project">Proyek</string>
+    <string name="projects">Proyek</string>
+    <string name="categories">Kategori</string>
+    <string name="none">Kosong</string>
     <string name="other">Lainnya</string>
+    <string name="alternative_naming">Penamaan alternatif</string>
+    <string name="empty_file">Berkas kosong</string>
     <string name="translate">Terjemahan</string>
     <string name="report_bugs">Laporkan Bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Info tentang donasi untuk developer atau kontribusi untuk project ini.</string>
