@@ -25,7 +25,6 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
-import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.StringUtils;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
@@ -236,8 +235,9 @@ public class CommonTextActions {
                 int textStart = StringUtils.getNextNonWhitespace(text, lineStart, selectionEnd);
                 int spaceCount = textStart - lineStart;
                 int delCount = Math.min(_tabWidth, spaceCount);
-                if (delCount > 0) {
-                    text.delete(lineStart, delCount);
+                int delEnd = lineStart + delCount;
+                if (delCount > 0 && delEnd < text.length()) {
+                    text.delete(lineStart, delEnd);
                     selectionEnd -= delCount;
                 }
             }
