@@ -432,6 +432,7 @@ public class FileUtils {
                             break;
                         default:
                             guess = "*/*";
+                            break;
                     }
                 }
             }
