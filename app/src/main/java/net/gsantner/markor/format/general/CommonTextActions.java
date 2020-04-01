@@ -219,7 +219,7 @@ public class CommonTextActions {
 
         Editable text = _hlEditor.getText();
 
-        int[] selection = getSelection();
+        int[] selection = StringUtils.getSelection(_hlEditor);
         int selectionStart = selection[0];
         int selectionEnd = selection[1];
 
@@ -250,20 +250,6 @@ public class CommonTextActions {
             // Get next line
             lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
         }
-    }
-
-    protected int[] getSelection() {
-
-        int selectionStart = _hlEditor.getSelectionStart();
-        int selectionEnd = _hlEditor.getSelectionEnd();
-
-        if (selectionEnd < selectionStart) {
-            selectionEnd = _hlEditor.getSelectionStart();
-            selectionStart = _hlEditor.getSelectionEnd();
-        }
-
-        int[] selection = {selectionStart, selectionEnd};
-        return selection;
     }
 
 

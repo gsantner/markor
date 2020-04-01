@@ -1,5 +1,8 @@
 package net.gsantner.opoc.util;
 
+import android.text.Editable;
+import android.widget.TextView;
+
 public final class StringUtils {
 
     // Suppress default constructor for noninstantiability
@@ -51,4 +54,19 @@ public final class StringUtils {
         }
         return i;
     }
+
+    public static int[] getSelection(TextView text) {
+
+        int selectionStart = text.getSelectionStart();
+        int selectionEnd = text.getSelectionEnd();
+
+        if (selectionEnd < selectionStart) {
+            selectionEnd = text.getSelectionStart();
+            selectionStart = text.getSelectionEnd();
+        }
+
+        int[] selection = {selectionStart, selectionEnd};
+        return selection;
+    }
+
 }
