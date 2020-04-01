@@ -87,6 +87,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">Urut terbalik</string>
     <string name="donate">Donasi</string>
     <string name="exit">Keluar</string>
+    <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="other">Lainnya</string>
     <string name="translate">Terjemahan</string>
     <string name="report_bugs">Laporkan Bug</string>
