@@ -1,4 +1,4 @@
-package net.gsantner.markor.util;
+package net.gsantner.opoc.util;
 
 public final class StringUtils {
 

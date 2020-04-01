@@ -31,7 +31,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.StringUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

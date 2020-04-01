@@ -15,7 +15,7 @@ import android.text.Spanned;
 import java.util.regex.Matcher;
 import java.util.Arrays;
 
-import net.gsantner.markor.util.StringUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 public class MarkdownAutoFormat implements InputFilter {
     @Override
