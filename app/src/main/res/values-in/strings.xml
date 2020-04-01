@@ -115,6 +115,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_different_fonttype_slow_down">Gunakan tipe huruf berbeda. Mengubah ini secara dinamis mempengaruhi performa aplikasi.</string>
     <string name="general">Umum</string>
     <string name="resources">Sumber Daya</string>
+    <string name="space_between_lines_in_percent">Jarak antar baris dalam persen</string>
+    <string name="line_spacing">Jarak Baris</string>
+    <string name="unordered_list_char_dash">Garis hubung (-)</string>
+    <string name="unordered_list_char_asterisk">Bintang (*)</string>
+    <string name="unordered_list_char_plus">Tambah (+)</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor hanya dapat mengedit file lokal, dokumen tersedia secara offline dan tidak mendukung pengelola berkas yang tidak menyertakan berkas utasan penuh.</string>
     <string name="translate">Terjemahan</string>
     <string name="report_bugs">Laporkan Bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Info tentang donasi untuk developer atau kontribusi untuk project ini.</string>
