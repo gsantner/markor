@@ -167,7 +167,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
-        holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (file.isDirectory() ? _dopt.folderImage : _dopt.fileImage));
+        holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
                 isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
