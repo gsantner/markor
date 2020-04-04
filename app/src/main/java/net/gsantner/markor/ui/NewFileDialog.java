@@ -31,7 +31,7 @@ import android.widget.Spinner;
 import net.gsantner.Constants;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.security.PasswordStore;
+import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;

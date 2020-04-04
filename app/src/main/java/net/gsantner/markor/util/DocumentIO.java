@@ -27,8 +27,8 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.security.JavaPasswordbasedCryption;
-import net.gsantner.markor.security.PasswordStore;
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;

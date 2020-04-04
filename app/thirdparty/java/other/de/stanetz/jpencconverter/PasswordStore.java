@@ -1,4 +1,4 @@
-package net.gsantner.markor.security;
+package other.de.stanetz.jpencconverter;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;

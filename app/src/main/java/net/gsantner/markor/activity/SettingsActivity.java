@@ -30,7 +30,7 @@ import android.widget.EditText;
 import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.security.PasswordStore;
+import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
