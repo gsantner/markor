@@ -252,44 +252,6 @@ public class CommonTextActions {
         }
     }
 
-
-    public void indentCurrentLine() {
-        String text = _hlEditor.getText().toString();
-        int start = _hlEditor.getSelectionStart();
-
-        switch (_hlEditor.getShiftWidth(text)) {
-            case 4:
-                _hlEditor.getText().insert(start, "    ");
-                break;
-            case 2:
-                _hlEditor.getText().insert(start, "  ");
-                break;
-            case 8:
-                _hlEditor.getText().insert(start, "        ");
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void deIndentCurrentLine() {
-        String text = _hlEditor.getText().toString();
-        int sw = _hlEditor.getShiftWidth(text);
-        int start = _hlEditor.getSelectionStart();
-        int end = _hlEditor.getSelectionStart() + sw;
-
-        if (end <= text.length()) {
-            text = text.substring(start, end);
-            if (sw == 4 && "    ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
-            } else if (sw == 2 && "  ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
-            } else if (sw == 8 && "        ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
-            }
-        }
-    }
-
     public void moveLineBy1(boolean up) {
         selectWholeLine(true);
         selectWholeLine(false);
