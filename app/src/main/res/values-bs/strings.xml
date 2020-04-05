@@ -62,6 +62,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Označi stavke</string>
     <string name="one_item_selected">Označena jedna stavka</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">Označeno stavki: %d</string>
+    <string name="hide_statusbar_at_this_view">Sakrij statusnu traku iz ovog prikaza</string>
+    <string name="hide_statusbar">Sakrij statusnu traku</string>
     <string name="name">Ime</string>
     <string name="url_or_path">URL / putanja</string>
     <string name="insert_link">Priloži link</string>
@@ -136,6 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Koliko će milisekundi biti odgođeno osvježavanje. Niža vrijednost znači da će markiranje početi ranije, ali će se to odraziti na bateriju i može usporiti program na starijim uređajima.</string>
     <string name="highlighting_enabled_or_not__appspecific">Hoće li uneseni tekst biti markiran ili ne</string>
     <string name="control_font_size_in_editor">Odredi veličinu slova u uređivaču</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Pri dnu prikaži traku s korisnom dugmadi. Ove akcije mijenjaju tekst ili pokreću radnju utemeljenu na tekstu.</string>
     <string name="load_last_opened_folder_at_startup">Prikaži zadnji otvoreni direktorij prilikom pokretanja programa</string>
     <string name="format">Format</string>
     <string name="contexts">Konteksti</string>
@@ -344,4 +347,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Nazad</string>
     <string name="expand_collapse">Prikaži / Sakrij</string>
     <string name="essential">Neophodno</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Dodaj čitljiv UUID u novim zadacima</string>
 </resources>
