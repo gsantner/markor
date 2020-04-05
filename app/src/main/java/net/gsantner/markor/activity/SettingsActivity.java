@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -24,13 +22,9 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
-import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
@@ -45,6 +39,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import other.de.stanetz.jpencconverter.PasswordStore;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends AppActivityBase {
@@ -212,6 +207,14 @@ public class SettingsActivity extends AppActivityBase {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
+            } else if (eq(key, R.string.pref_key__default_encryption_password)
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                final String pw = prefs.getString(key, null);
+                final SharedPreferences.Editor edit = prefs.edit();
+                edit.remove(key);
+                edit.commit();
+                final PasswordStore store = new PasswordStore(this.getActivity());
+                store.storeKey(pw);
             }
         }
 
@@ -286,24 +289,6 @@ public class SettingsActivity extends AppActivityBase {
                         }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
                     }
                     return true;
-                }
-                case R.string.pref_key__default_encryption_password: {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        Activity activity = getActivity();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                        LayoutInflater inflater = activity.getLayoutInflater();
-                        final View view = inflater.inflate(R.layout.password_dialog, null);
-                        builder.setView(view).setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                                    final EditText password = (EditText) view.findViewById(R.id.password);
-                                    final String pw = password.getText().toString();
-                                    final PasswordStore store = new PasswordStore(this.getActivity());
-                                    store.storeKey(pw);
-                                    dialog.dismiss();
-                                }
-                        );
-                        final AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    }
                 }
                 case R.string.pref_key__editor_basic_color_scheme_markor: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
