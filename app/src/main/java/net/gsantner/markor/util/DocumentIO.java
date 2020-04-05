@@ -43,7 +43,6 @@ public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
-    private static final String LOG_TAG_NAME = "DocumentIO";
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
@@ -98,10 +97,10 @@ public class DocumentIO {
                         content = new String(encyptedContext, StandardCharsets.UTF_8);
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(LOG_TAG_NAME, "loadDocument:  File " + filePath + " not found.");
+                    Log.e(DocumentIO.class.getName(), "loadDocument:  File " + filePath + " not found.");
                     content = "";
                 } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
-                    Log.e(LOG_TAG_NAME, "loadDocument:  encryption failed for File " + filePath + ". " + e.getMessage());
+                    Log.e(DocumentIO.class.getName(), "loadDocument:  encryption failed for File " + filePath + ". " + e.getMessage());
                     content = "";
                 }
             } else {
@@ -252,7 +251,7 @@ public class DocumentIO {
         if (pw == null || pw.length == 0) {
             final String warningText = context.getString(R.string.no_password_found_warning);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
-            Log.w(LOG_TAG_NAME, warningText);
+            Log.w(DocumentIO.class.getName(), warningText);
             return null;
         }
         return pw;
