@@ -156,10 +156,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
     <string name="tasks_with_todays_date">Zadatak s današnjim datumom</string>
     <string name="append_contexts_and_projects">Dodaj kontekste i projekte</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Dodaj kontekste i projekte na kraj zadatka ako je korištena odgovarajuća tekstualna akcija</string>
     <string name="rtl_rendering">RTL prikaz</string>
     <string name="highlight_line_ending">Markiraj završetak reda</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markiraj bjeline na kraju redova u kojima se nalaze dvije ili više bjelina</string>
     <string name="use_monospace_for_code">Koristi monospace font za kōd</string>
+    <string name="disable_code_block_highlight">Isključi isticanje za kōd</string>
     <string name="use_different_fonttype_slow_down">Koristi različite vrste slova. Dinamične izmjene odrazit će se na performanse programa.</string>
     <string name="general">Opće</string>
     <string name="resources">Resursi</string>
@@ -180,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Počni na dnu</string>
     <string name="start_on_bottom_when_loading_document">Nakon otvaranja dokumenta, kursor pozicioniraj na kraj</string>
+    <string name="unordered_list_character">Znak za nenumerisana nabrajanja</string>
+    <string name="character_to_start_items_of_unordered_list_with">Koji će se znak koristiti da označi nenumerisana nabrajanja</string>
+    <string name="unordered_list_char_dash">Crtica (-)</string>
+    <string name="unordered_list_char_asterisk">Zvjezdica (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor može uređivati samo lokalne dokumente kojima ima pristup i ne podržava programe za upravljanje datotekama koji ne prikazuju cijelu putanju.</string>
     <string name="sync_to_local_folder_notice">Napomena: Programi za sinhronizaciju nekada smještaju datoteke u vlastite direktorije. Pristupite im tako što ćete promijeniti direktorije u postavkama Markora ili koristite program za upravljanje datotekama.</string>
     <string name="configure_in_the_apps_settings">Odredi u podešavanjima programa</string>
@@ -191,6 +198,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Vrh</string>
     <string name="bottom">Dno</string>
     <string name="center">Sredina</string>
+    <string name="textaction_spacing">Razmaci između tekstualnih akcija</string>
+    <string name="horizontal_space_between_textactions">Vodoravni razmak između dugmadi s tekstualnim akcijama</string>
     <string name="center_text">Tekst u sredini</string>
     <string name="edit_text_in_center_of_screen">Obrađuj tekst na sredini ekrana</string>
     <string name="clipboard">Kopirani sadržaj</string>
@@ -233,6 +242,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Sadržaj</string>
     <string name="miscellaneous">Razno</string>
+    <string name="textaction">Akcija za tekst</string>
+    <string name="textactions">Akcije za tekst</string>
     <string name="prefer_view">Preferirani način rada</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
@@ -278,6 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Bilježnica je direktorij koji Markor pri pokretanju učitava u preglednik datoteka. Ona je centralno mjesto za Vaše datoteke.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je najbrži način za pisanje bilješki. Datoteka slijedi Markdown notaciju i pohranjena je na &gt;Notebook/QuickNote.md&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
     <string name="todo_is_the_easiest_way_">Zadacima upravljajte kroz ToDo datoteku, koja slijedi todo.txt metod bilježenja i pohranjena je na &gt;Notebook/todo.txt&lt; lokaciji, koja se može promijeniti u podešavanjima.</string>
+    <string name="navigationbar_color">Boja trake za navigaciju</string>
     <string name="black">Crna</string>
     <string name="white">Bijela</string>
     <string name="view">Prikaz</string>
@@ -292,6 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Početni direktorij</string>
     <string name="tab_width">Širina tabulatora</string>
     <string name="amount_of_space_for_tab">Broj razmaka za prikaz tabulatora</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Odabrana datoteka može biti obična tekstualna datoteka. Želite li je otvoriti u Markoru ili drugoj aplikaciji?\n\nNe pokušavajte otvoriti binarne datoteke. Ukoliko ste u nedoumici, otvorite je pomoću druge aplikacije.</string>
     <string name="list_in_recent_files">Prikaži u nedavno otvorenim datotekama</string>
     <string name="reload">Učitaj ponovo</string>
     <string name="wrap_words">Prijelom redova</string>
