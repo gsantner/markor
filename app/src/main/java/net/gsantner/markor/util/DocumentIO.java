@@ -100,7 +100,8 @@ public class DocumentIO {
                     Log.e(DocumentIO.class.getName(), "loadDocument:  File " + filePath + " not found.");
                     content = "";
                 } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
-                    Log.e(DocumentIO.class.getName(), "loadDocument:  encryption failed for File " + filePath + ". " + e.getMessage());
+                    Toast.makeText(context, R.string.failed_to_decrypt_document, Toast.LENGTH_LONG).show();
+                    Log.e(DocumentIO.class.getName(), "loadDocument:  decrypt failed for File " + filePath + ". " + e.getMessage(), e);
                     content = "";
                 }
             } else {
@@ -198,7 +199,9 @@ public class DocumentIO {
                 ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-            e.printStackTrace();
+            Log.e(DocumentIO.class.getName(), "loadDocument:  enrypt failed for File " +
+                    document.getFile().getAbsolutePath() + ". " + e.getMessage(), e);
+            Toast.makeText(context, R.string.failed_to_encrypt_document, Toast.LENGTH_LONG).show();
             ret = false;
         }
         return ret;
