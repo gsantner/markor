@@ -61,16 +61,15 @@ public class CommonTextActions {
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
 
-    protected AppSettings _appSettings;
     private int _tabWidth;
-    protected Context _context;
 
     public CommonTextActions(Activity activity, HighlightingEditor hlEditor) {
         _activity = activity;
         _hlEditor = hlEditor;
-        _context = activity != null ? activity : _hlEditor.getContext();
-        _appSettings = new AppSettings(_context);
-        _tabWidth = _appSettings.getTabWidth();
+
+        Context context = activity != null ? activity : _hlEditor.getContext();
+        AppSettings settings = new AppSettings(context);
+        _tabWidth = settings.getTabWidth();
     }
 
     private String rstr(@StringRes int resKey) {
