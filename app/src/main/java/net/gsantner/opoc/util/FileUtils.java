@@ -11,8 +11,6 @@
 package net.gsantner.opoc.util;
 
 
-import net.gsantner.Constants;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -38,6 +36,8 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
 public class FileUtils {
@@ -412,8 +412,8 @@ public class FileUtils {
             if (guess == null || guess.isEmpty()) {
                 guess = "*/*";
                 String filename = file.getName();
-                if (filename.endsWith(Constants.ENCRYPTION_EXTENSION)) {
-                    filename = filename.substring(0, filename.length() - Constants.ENCRYPTION_EXTENSION.length());
+                if (filename.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                    filename = filename.substring(0, filename.length() - JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION.length());
                 }
                 int dot = filename.lastIndexOf(".") + 1;
                 if (dot > 0 && dot < filename.length()) {

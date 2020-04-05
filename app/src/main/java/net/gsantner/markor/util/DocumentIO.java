@@ -21,14 +21,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import net.gsantner.Constants;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -38,6 +35,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
@@ -259,7 +259,7 @@ public class DocumentIO {
     }
 
     private static boolean isEncryptedFile(File file) {
-        return file.getName().endsWith(Constants.ENCRYPTION_EXTENSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
 }

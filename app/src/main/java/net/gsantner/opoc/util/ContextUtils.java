@@ -72,7 +72,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.gsantner.Constants;
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
 import java.io.BufferedReader;
@@ -86,6 +85,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -937,8 +938,8 @@ public class ContextUtils {
             mimeType = cr.getType(uri);
         } else {
             String filename = uri.toString();
-            if (filename.endsWith(Constants.ENCRYPTION_EXTENSION)) {
-                filename = filename.substring(0, filename.length() - Constants.ENCRYPTION_EXTENSION.length());
+            if (filename.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                filename = filename.substring(0, filename.length() - JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION.length());
             }
             String ext = MimeTypeMap.getFileExtensionFromUrl(filename);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());

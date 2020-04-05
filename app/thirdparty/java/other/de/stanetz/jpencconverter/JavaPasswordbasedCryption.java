@@ -39,6 +39,11 @@ import javax.crypto.spec.SecretKeySpec;
 @SuppressWarnings("unused")
 public class JavaPasswordbasedCryption {
 
+    /**
+     * Recommended extension for encrypted files.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR2)
+    public static final String DEFAULT_ENCRYPTION_EXTENSION = ".jenc";
     private final Version version;
     private final Random random;
 

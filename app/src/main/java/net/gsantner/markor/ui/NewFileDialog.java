@@ -28,10 +28,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import net.gsantner.Constants;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import other.de.stanetz.jpencconverter.PasswordStore;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
@@ -42,6 +40,9 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
@@ -114,7 +115,7 @@ public class NewFileDialog extends DialogFragment {
 
                 if (ext != null) {
                     if (encryptCheckbox.isChecked()) {
-                        fileExtEdit.setText(ext + Constants.ENCRYPTION_EXTENSION);
+                        fileExtEdit.setText(ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                     } else {
                         fileExtEdit.setText(ext);
                     }
@@ -133,12 +134,12 @@ public class NewFileDialog extends DialogFragment {
         encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             final String currentExtention = fileExtEdit.getText().toString();
             if (isChecked) {
-                if (!currentExtention.endsWith(Constants.ENCRYPTION_EXTENSION)) {
-                    fileExtEdit.setText(currentExtention + Constants.ENCRYPTION_EXTENSION);
+                if (!currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                    fileExtEdit.setText(currentExtention + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 }
             } else {
-                if (currentExtention.endsWith(Constants.ENCRYPTION_EXTENSION)) {
-                    fileExtEdit.setText(currentExtention.substring(0, currentExtention.length() - Constants.ENCRYPTION_EXTENSION.length()));
+                if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                    fileExtEdit.setText(currentExtention.substring(0, currentExtention.length() - JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION.length()));
                 }
             }
 
