@@ -10,8 +10,10 @@
 package net.gsantner.markor.format.general;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
@@ -23,9 +25,13 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+
+import java.util.Arrays;
 
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
@@ -55,9 +61,15 @@ public class CommonTextActions {
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
 
+    private int _tabWidth;
+
     public CommonTextActions(Activity activity, HighlightingEditor hlEditor) {
         _activity = activity;
         _hlEditor = hlEditor;
+
+        Context context = activity != null ? activity : _hlEditor.getContext();
+        AppSettings settings = new AppSettings(context);
+        _tabWidth = settings.getTabWidth();
     }
 
     private String rstr(@StringRes int resKey) {
@@ -108,11 +120,9 @@ public class CommonTextActions {
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
                     } else if (callbackPayload.equals(rstr(R.string.indent))) {
-                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-                        indentCurrentLine();
+                        runIndentLines(false);
                     } else if (callbackPayload.equals(rstr(R.string.deindent))) {
-                        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-                        deIndentCurrentLine();
+                        runIndentLines(true);
                     }
                 });
                 return true;
@@ -204,41 +214,40 @@ public class CommonTextActions {
         return false;
     }
 
+    protected void runIndentLines(Boolean deIndent) {
 
-    public void indentCurrentLine() {
-        String text = _hlEditor.getText().toString();
-        int start = _hlEditor.getSelectionStart();
+        Editable text = _hlEditor.getText();
 
-        switch (_hlEditor.getShiftWidth(text)) {
-            case 4:
-                _hlEditor.getText().insert(start, "    ");
-                break;
-            case 2:
-                _hlEditor.getText().insert(start, "  ");
-                break;
-            case 8:
-                _hlEditor.getText().insert(start, "        ");
-                break;
-            default:
-                break;
-        }
-    }
+        int[] selection = StringUtils.getSelection(_hlEditor);
+        int selectionStart = selection[0];
+        int selectionEnd = selection[1];
 
-    public void deIndentCurrentLine() {
-        String text = _hlEditor.getText().toString();
-        int sw = _hlEditor.getShiftWidth(text);
-        int start = _hlEditor.getSelectionStart();
-        int end = _hlEditor.getSelectionStart() + sw;
+        int lineStart = StringUtils.getLineStart(text, selectionStart);
 
-        if (end <= text.length()) {
-            text = text.substring(start, end);
-            if (sw == 4 && "    ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
-            } else if (sw == 2 && "  ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
-            } else if (sw == 8 && "        ".equals(text)) {
-                _hlEditor.getText().replace(start, end, "");
+        char[] tabChars = new char[_tabWidth];
+        Arrays.fill(tabChars, ' ');
+        String tabString = new String(tabChars);
+
+        while (lineStart <= selectionEnd) {
+
+            if (deIndent) {
+                int textStart = StringUtils.getNextNonWhitespace(text, lineStart, selectionEnd);
+                int spaceCount = textStart - lineStart;
+                int delCount = Math.min(_tabWidth, spaceCount);
+                int delEnd = lineStart + delCount;
+                if (delCount > 0 && delEnd < text.length()) {
+                    text.delete(lineStart, delEnd);
+                    selectionEnd -= delCount;
+                }
             }
+            else {
+                text.insert(lineStart, tabString);
+                selectionEnd += _tabWidth;
+            }
+
+            text = _hlEditor.getText();
+            // Get next line
+            lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
         }
     }
 

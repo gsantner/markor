@@ -13,19 +13,19 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import java.util.regex.Matcher;
+import java.util.Arrays;
+
+import net.gsantner.opoc.util.StringUtils;
 
 public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (end - start == 1
-                    && start < source.length()
-                    && dstart <= dest.length()) {
-                char newChar = source.charAt(start);
+            if (start < source.length()
+                    && dstart <= dest.length()
+                    && isNewLine(source, start, end)) {
 
-                if (newChar == '\n') {
-                    return autoIndent(source, dest, dstart, dend);
-                }
+                return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
@@ -33,69 +33,44 @@ public class MarkdownAutoFormat implements InputFilter {
         return source;
     }
 
-    private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-        int istart = findLineBreakPosition(dest, dstart);
-
-        // append white space of previous line and new indent
-        return source + createIndentForNextLine(dest, dend, istart);
+    private static Boolean isNewLine(CharSequence source, int start, int end) {
+        return ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n'));
     }
 
-    private int findLineBreakPosition(Spanned dest, int dstart) {
-        int istart = dstart - 1;
+    private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
+        int iStart = StringUtils.getLineStart(dest, dstart);
 
-        for (; istart > -1; --istart) {
-            char c = dest.charAt(istart);
-            if (c == '\n') {
-                break;
-            }
-        }
-        return istart;
+        // append white space of previous line and new indent
+        return source + createIndentForNextLine(dest, dend, iStart);
     }
 
     private String createIndentForNextLine(Spanned dest, int dend, int istart) {
-        if (istart > -1 && istart < dest.length() - 1) {
-            int iend;
 
-            for (iend = ++istart; iend < dest.length() - 1; ++iend) {
-                char c = dest.charAt(iend);
-                if (c != ' ' && c != '\t') {
-                    break;
-                }
-            }
+        // Determine leading whitespace
+        int iEnd = StringUtils.getNextNonWhitespace(dest, istart);
 
-            if (iend < dest.length() - 1) {
-                // This is for any line that is not the first line in a file
-                Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString().substring(iend, dend));
-                if (listMatcher.find()) {
-                    return dest.toString().substring(istart, iend) + listMatcher.group() + " ";
-                } else {
-                    Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString().substring(iend, dend));
-                    if (m.find()) {
-                        return dest.subSequence(istart, iend) + addNumericListItemIfNeeded(m.group(1));
-                    } else {
-                        return "";
-                    }
-                }
-            } else {
-                return "";
-            }
-        } else if (istart > -1) {
-            return "";
-        } else if (dest.length() > 1) {
-            Matcher listMatcher = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(dest.toString());
-            if (listMatcher.find()) {
-                return dest.charAt(0) + " ";
-            } else {
-                Matcher m = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(dest.toString());
-                if (m.find()) {
-                    return addNumericListItemIfNeeded(m.group(1));
-                } else {
-                    return "";
-                }
-            }
-        } else {
-            return "";
+        // Construct whitespace
+        int indentSize = iEnd - istart;
+        char[] indentChars = new char[indentSize];
+        Arrays.fill(indentChars, ' ');
+        String indentString = new String(indentChars);
+
+        String previousLine = dest.toString().substring(iEnd, dend);
+
+        Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
+        if (uMatch.find()) {
+            String bullet = uMatch.group() + " ";
+            boolean emptyList = previousLine.equals(bullet);
+            return indentString + (emptyList ? "" : bullet);
         }
+
+        Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
+        if (oMatch.find()) {
+            boolean emptyList = previousLine.equals(oMatch.group(1) + ". ");
+            return indentString + (emptyList ? "" : addNumericListItemIfNeeded(oMatch.group(1)));
+        }
+
+        return indentString;
     }
 
     private String addNumericListItemIfNeeded(String itemNumStr) {

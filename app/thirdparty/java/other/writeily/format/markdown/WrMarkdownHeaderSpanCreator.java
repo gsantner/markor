@@ -47,7 +47,7 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
             final char[] charSequence = extractMatchingRange(m);
             float proportion = calculateProportionBasedOnHeaderType(charSequence);
             Float size = calculateAdjustedSize(proportion);
-            return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, (int) size.byteValue(),
+            return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, size.byteValue(),
                     ColorStateList.valueOf(_color), null);
         } else {
             return new ForegroundColorSpan(_color);
