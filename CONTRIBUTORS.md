@@ -42,4 +42,4 @@ Where:
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions.
 * **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists.
-* **[Niels](opensource21@gmail.com)**<br>~° Added encryption for files.
+* **[Niels](https://stackoverflow.com/users/432115/niels)**<br>~° Added encryption for files.
