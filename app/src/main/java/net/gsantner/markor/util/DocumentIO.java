@@ -160,40 +160,46 @@ public class DocumentIO {
         document.setFile(documentInitial.getFile());
 
         if (!text.equals(documentInitial.getContent())) {
-            document.forceAddNextChangeToHistory();
-            document.setContent(text + (!TextUtils.isEmpty(text) && !text.endsWith("\n") ? "\n" : ""));
-
-            // Create parent (=folder of file) if not exists
-            if (!document.getFile().getParentFile().exists()) {
-                //noinspection ResultOfMethodCallIgnored
-                document.getFile().getParentFile().mkdirs();
-            }
-            try {
-                final byte[] contentAsBytes;
-                if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
-                    contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom())
-                            .encrypt(document.getContent(), getPassword(context));
-                } else {
-                    contentAsBytes = document.getContent().getBytes();
-                }
-
-                if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
-                    shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
-                        try {
-                            fos.write(contentAsBytes);
-                        } catch (Exception ex) {
-                        }
-                    });
-                    ret = true;
-                } else {
-                    ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
-                }
-            } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-                e.printStackTrace();
-                ret = false;
-            }
+            ret = writeContent(document, text, shareUtil, context);
         } else {
             ret = true;
+        }
+        return ret;
+    }
+
+    private static boolean writeContent(Document document, String text, ShareUtil shareUtil, Context context) {
+        boolean ret;
+        document.forceAddNextChangeToHistory();
+        document.setContent(text + (!TextUtils.isEmpty(text) && !text.endsWith("\n") ? "\n" : ""));
+
+        // Create parent (=folder of file) if not exists
+        if (!document.getFile().getParentFile().exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            document.getFile().getParentFile().mkdirs();
+        }
+        try {
+            final byte[] contentAsBytes;
+            if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
+                contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom())
+                        .encrypt(document.getContent(), getPassword(context));
+            } else {
+                contentAsBytes = document.getContent().getBytes();
+            }
+
+            if (shareUtil.isUnderStorageAccessFolder(document.getFile())) {
+                shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
+                    try {
+                        fos.write(contentAsBytes);
+                    } catch (Exception ex) {
+                    }
+                });
+                ret = true;
+            } else {
+                ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
+            }
+        } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
+            e.printStackTrace();
+            ret = false;
         }
         return ret;
     }
