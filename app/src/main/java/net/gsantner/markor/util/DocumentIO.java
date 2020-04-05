@@ -146,7 +146,7 @@ public class DocumentIO {
         return document;
     }
 
-    public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil) {
+    public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil, Context context) {
         if (text != null && text.trim().isEmpty() && text.length() < 5) {
             return false;
         }
@@ -170,9 +170,9 @@ public class DocumentIO {
             }
             try {
                 final byte[] contentAsBytes;
-                if (isEncryptedFile(document.getFile()) && getPassword(shareUtil.getContext()) != null) {
+                if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
                     contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom())
-                            .encrypt(document.getContent(), getPassword(shareUtil.getContext()));
+                            .encrypt(document.getContent(), getPassword(context));
                 } else {
                     contentAsBytes = document.getContent().getBytes();
                 }

@@ -554,7 +554,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument() {
         boolean ret = false;
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
-            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil);
+            ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil, getContext());
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {
