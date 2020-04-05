@@ -88,7 +88,8 @@ public class NewFileDialog extends DialogFragment {
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && new PasswordStore(inflater.getContext()).loadKey() != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
+                new PasswordStore(inflater.getContext()).loadKey(R.string.pref_key__default_encryption_password) != null) {
             encryptCheckbox.setChecked(true);
         } else {
             encryptCheckbox.setVisibility(View.GONE);

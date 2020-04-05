@@ -5,14 +5,16 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -54,6 +56,8 @@ import javax.crypto.spec.GCMParameterSpec;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class PasswordStore {
 
+    private static final String ASTERISKED_PW = "***";
+
     private static final String LOG_TAG_NAME = "SecurityStore";
     private static final String CIPHER_MODE = "AES/GCM/NoPadding";
 
@@ -65,10 +69,8 @@ public class PasswordStore {
     // Exists PIN, Pattern or Fingerprint or something else.
     private final boolean _deviceIsProtected;
 
-    private final SharedPreferences _preferences;
+    private final SharedPreferencesPropertyBackend _preferences;
     private final Context _context;
-    private final String defaultKeyname = "default-encrpytion-password";
-
 
     /**
      * Initialize this object.
@@ -86,7 +88,7 @@ public class PasswordStore {
         } else {
             _deviceIsProtected = false;
         }
-        this._preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this._preferences = new SharedPreferencesPropertyBackend(context);
     }
 
     /**
@@ -97,14 +99,13 @@ public class PasswordStore {
      * @param securityMode   the grade of security.
      * @return <code>true</code> if the operation was successful.
      */
-    @SuppressWarnings("WeakerAccess")
     public boolean storeKey(String unencryptedKey, String keyname, SecurityMode securityMode) {
-        if (unencryptedKey == null || unencryptedKey.isEmpty()) {
-            final SharedPreferences.Editor editor = _preferences.edit();
-            editor.remove(keyname + KEY_SUFFIX_KEY);
-            editor.remove(keyname + KEY_SUFFIX_IV);
-            editor.apply();
+        if (ASTERISKED_PW.equals(unencryptedKey)) {
+            // Prevent Looping.
             return true;
+        }
+        if (unencryptedKey == null || unencryptedKey.isEmpty()) {
+            return clearAllKeys(keyname);
         }
         try {
             final SecurityMode usedSecurityMode;
@@ -135,9 +136,10 @@ public class PasswordStore {
             }
             crypteKey = cipher.doFinal(unencryptedKey.getBytes("UTF-8"));
 
-            final SharedPreferences.Editor editor = _preferences.edit();
+            final SharedPreferences.Editor editor = _preferences.getDefaultPreferencesEditor();
             editor.putString(keyname + KEY_SUFFIX_KEY, Base64.encodeToString(crypteKey, Base64.DEFAULT));
             editor.putString(keyname + KEY_SUFFIX_IV, Base64.encodeToString(iv, Base64.DEFAULT));
+            editor.putString(keyname, "***");
             editor.apply();
             return true;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException |
@@ -152,22 +154,39 @@ public class PasswordStore {
         } catch (UnsupportedEncodingException e) {
             Log.e(LOG_TAG_NAME, "Unkown encoding", e);
         }
-        _preferences.edit().clear().apply();
+        clearAllKeys(keyname);
         return false;
     }
 
-    public boolean storeKey(String unencryptedKey) {
-        return storeKey(unencryptedKey, defaultKeyname, SecurityMode.NONE);
+    private boolean clearAllKeys(String keyname) {
+        final SharedPreferences.Editor editor = _preferences.getDefaultPreferencesEditor();
+        editor.remove(keyname + KEY_SUFFIX_KEY);
+        editor.remove(keyname + KEY_SUFFIX_IV);
+        editor.remove(keyname);
+        editor.apply();
+        return true;
+    }
+
+    /**
+     * Store the given password in a secure way. If the unencryptedKey is null or empty it removes the stored key.
+     *
+     * @param unencryptedKey the password unencrypted.
+     * @param keyAsResId     the name of the key under which it will be store in preferences as resource-id.
+     * @return <code>true</code> if the operation was successful.
+     */
+    public boolean storeKey(String unencryptedKey, @StringRes int keyAsResId) {
+        return storeKey(unencryptedKey, _context.getString(keyAsResId), SecurityMode.NONE);
     }
 
 
     /**
-     * Loads a saved key (under default-key) or <code>null</code> if no key is found.
+     * Loads a saved key or <code>null</code> if no key is found.
      *
+     * @param keyAsResId the Resource-Id for the key
      * @return the saved key or <code>null</code> if no key is found.
      */
-    public char[] loadKey() {
-        return loadKey(defaultKeyname);
+    public char[] loadKey(@StringRes int keyAsResId) {
+        return loadKey(_context.getString(keyAsResId));
     }
 
     /**

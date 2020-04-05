@@ -209,12 +209,8 @@ public class SettingsActivity extends AppActivityBase {
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
             } else if (eq(key, R.string.pref_key__default_encryption_password)
                     && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                final String pw = prefs.getString(key, null);
-                final SharedPreferences.Editor edit = prefs.edit();
-                edit.remove(key);
-                edit.commit();
                 final PasswordStore store = new PasswordStore(this.getActivity());
-                store.storeKey(pw);
+                store.storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
             }
         }
 
