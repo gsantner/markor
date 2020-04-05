@@ -119,7 +119,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     }
 
     public synchronized void doUpdatePreferences() {
-
+        setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
     }
 
     protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
@@ -151,13 +151,6 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
         _cu = new ContextUtils(activity);
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
-
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            Preference somePreference = findPreference(R.string.pref_key__default_encryption_password);
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            preferenceScreen.removePreference(somePreference);
-        }
 
         if (activity != null && activity.getTheme() != null) {
             TypedArray array = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
