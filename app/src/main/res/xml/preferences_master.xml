@@ -410,6 +410,12 @@
                     android:key="@string/pref_key__markdown_show_toc"
                     android:title="@string/table_of_contents" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/user_interface">
+                <Preference
+                    android:title="@string/set_markdown_action_order"
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__markdown__reorder_actions" />
+            </PreferenceCategory>
 
         </PreferenceScreen>
 

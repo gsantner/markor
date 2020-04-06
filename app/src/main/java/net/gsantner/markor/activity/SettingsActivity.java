@@ -9,7 +9,9 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -81,6 +83,8 @@ public class SettingsActivity extends AppActivityBase {
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
+
+        // Add callback for reorder activity
     }
 
     protected void showFragment(String tag, boolean addToBackStack) {
@@ -316,6 +320,12 @@ public class SettingsActivity extends AppActivityBase {
                     _as.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
                     _as.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
                     break;
+                }
+                case R.string.pref_key__markdown__reorder_actions: {
+                    Activity current = getActivity();
+                    Intent myIntent = new Intent(current, ActionOrderActivity.class);
+                    myIntent.putExtra("key", "R.xml.markdown_actions");
+                    current.startActivity(myIntent);
                 }
             }
 
