@@ -1,13 +1,16 @@
 package net.gsantner.markor.activity;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.ContextUtils;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class ActionOrderActivity extends AppCompatActivity {
@@ -34,8 +37,13 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.reorder_actions_actionbar__menu, menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.reorder_actions_actionbar__menu, menu);
+
+        ContextUtils cu = ContextUtils.get();
+        cu.tintMenuItems(menu, true, Color.WHITE);
+
         return true;
     }
 
@@ -45,12 +53,13 @@ public class ActionOrderActivity extends AppCompatActivity {
         switch (id) {
 
             case android.R.id.home:
+                // Return to settings
                 finish();
                 return true;
 
             case R.id.action_reorder_accept:
                 // Save order state
-                // Return to settings
+                finish();
                 return true;
 
             default:

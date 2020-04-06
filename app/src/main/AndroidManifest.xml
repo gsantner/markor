@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-/*#######################################################
- *
- *   Maintained by Gregor Santner, 2017-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
-#########################################################*/
--->
-
-<!-- Do NOT run auto format on this file -->
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="net.gsantner.markor"
@@ -29,7 +17,6 @@
     <uses-feature
         android:name="android.hardware.type.pc"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -37,14 +24,14 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:appCategory="productivity"
         android:fullBackupContent="@xml/full_backup_rules"
         android:icon="@drawable/ic_launcher"
+        android:isGame="false"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:appCategory="productivity"
-        android:isGame="false"
         android:theme="@style/AppTheme.Light"
+        android:usesCleartextTraffic="true"
         tools:targetApi="o">
         <activity
             android:name=".activity.MainActivity"
@@ -53,7 +40,6 @@
             android:taskAffinity=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,6 +48,12 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
+        <activity android:name=".activity.ActionOrderActivity"
+            android:parentActivityName=".activity.SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity" />
+        </activity>
         <activity android:name="other.writeily.widget.WrWidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -101,15 +93,13 @@
             android:taskAffinity=".activity.MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activity.IntroActivity"
             android:label="@string/about" />
-
         <activity
             android:name=".activity.openeditor.OpenEditorQuickNoteActivity"
             android:enabled="false"
@@ -119,10 +109,10 @@
             android:taskAffinity=".activity.MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.DocumentActivity"
             android:label="@string/app_name"
@@ -143,11 +133,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
+
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
-
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -161,7 +151,6 @@
                 <data android:mimeType="text/htm" />
                 <data android:mimeType="text/html" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <action android:name="android.intent.action.VIEW" />
@@ -173,7 +162,7 @@
                   #  Filter MIME based
                   #  From docs: If filter has mimeType but no scheme, the content: and file: schemes are assumed.
                   ##############################
-                  -->
+                -->
                 <data android:scheme="content" />
                 <data android:scheme="file" />
                 <data android:mimeType="text/plain" />
@@ -181,7 +170,6 @@
                 <data android:mimeType="text/markdown" />
                 <data android:mimeType="text/x-markdown" />
                 <data android:mimeType="application/octet-stream" />
-
                 <data android:host="*" />
 
                 <!--
@@ -190,7 +178,7 @@
                   #    Pattern matcher works till first match, so multiple hierachy levels have to be added.
                   #    See https://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i/4621284#4621284
                   ##############################
-                  -->
+                -->
                 <!-- Handling of file extension ".markdown" -->
                 <data
                     android:mimeType="*/*"
@@ -766,8 +754,6 @@
                 <data
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.csv" />
-
-
             </intent-filter>
         </activity>
     </application>

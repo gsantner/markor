@@ -1,0 +1,14 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ActionOrderActivity">
+
+    <item
+        android:id="@+id/action_reorder_accept"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="@string/action_reorder_accept"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+</menu>
