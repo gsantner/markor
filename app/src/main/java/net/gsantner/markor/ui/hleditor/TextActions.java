@@ -11,6 +11,8 @@ package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -23,7 +25,10 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.vladsch.flexmark.util.collection.OrderedMap;
+
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
@@ -34,8 +39,14 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -59,7 +70,88 @@ public abstract class TextActions {
         _tabWidth = _appSettings.getTabWidth();
     }
 
-    public abstract void appendTextActionsToBar(ViewGroup viewGroup);
+    protected abstract class ActionCallback implements View.OnLongClickListener, View.OnClickListener {};
+    protected abstract ActionCallback getActionCallback(@StringRes int keyId);
+
+    protected abstract @StringRes int getFormatActionsKey();
+
+    public abstract OrderedMap<String, ActionItem> getActiveActionMap();
+
+    protected OrderedMap<String, ActionItem> getActiveActionMap(ActionItem[] actionArray) {
+        OrderedMap<String, ActionItem> map = new OrderedMap<>();
+        Resources res = _activity.getResources();
+        for (ActionItem action : actionArray) map.put(res.getString(action.keyId), action);
+        return map;
+    }
+
+    protected List<String> getActiveActionKeys() {
+        ArrayList<String> keys = new ArrayList<String>();
+        for (String key : getActiveActionMap().keyIterable()) {
+            keys.add(key);
+        }
+        return keys;
+    }
+
+    public void saveActionOrder(List<String> keys) {
+        StringBuilder builder = new StringBuilder();
+        for (String key: keys) builder.append(key).append(',');
+        if (builder.length() > 0 && builder.charAt(builder.length() - 1) == ',') {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        String combinedKeys = builder.toString();
+
+        // Store the keys
+        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
+        String formatKey = _activity.getResources().getString(getFormatActionsKey());
+        settings.edit().putString(formatKey, combinedKeys).apply();
+    }
+
+    public List<String> getActionOrder() {
+
+        ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());
+        ArrayList<String> prefKeys = definedKeys;
+
+        String formatKey = _activity.getResources().getString(getFormatActionsKey());
+        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
+        String combinedKeys = settings.getString(formatKey, null);
+
+        boolean changed = false;
+        if (combinedKeys != null) {
+            prefKeys = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
+
+            Set<String> prefSet = new HashSet<>(prefKeys);
+            Set<String> defSet = new HashSet<>(definedKeys);
+
+            // Add any defined keys which are not in prefs
+            defSet.removeAll(prefSet);
+            prefKeys.addAll(defSet);
+
+            // Removed any pref keys which are not defined
+            prefSet.removeAll(definedKeys);
+            prefKeys.removeAll(prefSet);
+
+            changed = defSet.size() > 0 || prefSet.size() > 0;
+
+        }
+
+        if (changed) saveActionOrder(prefKeys);
+
+        return prefKeys;
+    }
+
+    public void appendTextActionsToBar(ViewGroup barLayout) {
+        if (barLayout.getChildCount() == 0) {
+            setBarVisible(barLayout, true);
+
+            Map<String, ActionItem> map = getActiveActionMap();
+            List<String> orderedKeys = getActionOrder();
+            for (String key : orderedKeys) {
+                ActionItem action = map.get(key);
+                ActionCallback actionCallback = getActionCallback(action.keyId);
+                appendTextActionToBar(barLayout, action.iconId, action.stringId, actionCallback, actionCallback);
+            }
+        }
+    }
 
     public View.OnLongClickListener getLongListenerShowingToastWithText(final String text) {
         return v -> {

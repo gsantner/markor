@@ -10,12 +10,15 @@
 package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
+import android.support.annotation.StringRes;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.vladsch.flexmark.util.collection.OrderedMap;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
@@ -30,50 +33,54 @@ public class MarkdownTextActions extends TextActions {
     }
 
     @Override
-    public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (barLayout.getChildCount() == 0) {
-            setBarVisible(barLayout, true);
-            for (int[] actions : TMA_ACTIONS) {
-                MarkdownTextActionsImpl actionCallback = new MarkdownTextActionsImpl(actions[0]);
-                appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
-            }
-        }
-    }
-
-    @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         return runCommonTextAction(action);
     }
 
+    @Override
+    protected ActionCallback getActionCallback(@StringRes int keyId) {
+        return new MarkdownTextActionsImpl(keyId);
+    }
+
+    @Override
+    public OrderedMap<String, ActionItem> getActiveActionMap() {
+        return getActiveActionMap(TMA_ACTIONS);
+    }
+
+    @Override
+    protected @StringRes int getFormatActionsKey() {
+        return R.string.pref_key__markdown__action_keys;
+    }
+
     //
     //
     //
 
-
-    // Mapping from action (string res) to icon (drawable res)
-    private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list},
-            {R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list},
-            {R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold},
-            {R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic},
-            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
-            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link},
-            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach},
-            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key},
-            {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time},
-            {R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code},
-            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list},
-            {R.string.tmaid_markdown_table_insert_columns, R.drawable.ic_view_module_black_24dp, R.string.table},
-            {R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp, R.string.quote},
-            {R.string.tmaid_markdown_h1, R.drawable.format_header_1, R.string.heading_1},
-            {R.string.tmaid_markdown_h2, R.drawable.format_header_2, R.string.heading_2},
-            {R.string.tmaid_markdown_h3, R.drawable.format_header_3, R.string.heading_3},
-            {R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp, R.string.horizontal_line},
-            {R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout},
-            {R.string.tmaid_common_accordion, R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion},
+    private static final ActionItem[] TMA_ACTIONS = {
+            new ActionItem(R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list),
+            new ActionItem(R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
+            new ActionItem(R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold),
+            new ActionItem(R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
+            new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
+            new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+            new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
+            new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+            //new ActionItem(R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
+            new ActionItem(R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code),
+            new ActionItem(R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
+            new ActionItem(R.string.tmaid_markdown_table_insert_columns, R.drawable.ic_view_module_black_24dp, R.string.table),
+            new ActionItem(R.string.tmaid_markdown_quote, R.drawable.ic_format_quote_black_24dp, R.string.quote),
+            new ActionItem(R.string.tmaid_markdown_h1, R.drawable.format_header_1, R.string.heading_1),
+            new ActionItem(R.string.tmaid_markdown_h2, R.drawable.format_header_2, R.string.heading_2),
+            new ActionItem(R.string.tmaid_markdown_h3, R.drawable.format_header_3, R.string.heading_3),
+            new ActionItem(R.string.tmaid_markdown_horizontal_line, R.drawable.ic_more_horiz_black_24dp, R.string.horizontal_line),
+            new ActionItem(R.string.tmaid_markdown_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
+            new ActionItem(R.string.tmaid_common_accordion, R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion),
+            new ActionItem(R.string.tmaid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
+            new ActionItem(R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
     };
 
-    private class MarkdownTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
+    private class MarkdownTextActionsImpl extends ActionCallback {
         private int _action;
 
         MarkdownTextActionsImpl(int action) {

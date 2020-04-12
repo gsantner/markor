@@ -50,8 +50,6 @@
         <item translatable="false">@string/break_page_pdf_print</item>
         <item translatable="false">@string/ohm</item>
         <item translatable="false">@string/char_punctation_mark_arrows</item>
-        <item translatable="false">@string/indent</item>
-        <item translatable="false">@string/deindent</item>
         <item translatable="false">@string/shrug</item>
         <item translatable="false">@string/continued_overline</item>
     </string-array>

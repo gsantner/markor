@@ -56,6 +56,11 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
+    public static final String ACTION_INDENT = "tmaid_common_indent";
+
+    public static final String ACTION_DEINDENT = "tmaid_common_deindent";
+
+
     private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
     private final Activity _activity;
@@ -119,10 +124,6 @@ public class CommonTextActions {
                         _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
-                    } else if (callbackPayload.equals(rstr(R.string.indent))) {
-                        runIndentLines(false);
-                    } else if (callbackPayload.equals(rstr(R.string.deindent))) {
-                        runIndentLines(true);
                     }
                 });
                 return true;
@@ -206,6 +207,14 @@ public class CommonTextActions {
                                 .show();
                     }
                 });
+                return true;
+            }
+            case ACTION_INDENT: {
+                runIndentLines(false);
+                return true;
+            }
+            case ACTION_DEINDENT: {
+                runIndentLines(true);
                 return true;
             }
             default:

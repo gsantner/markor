@@ -10,13 +10,16 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
+import android.support.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.vladsch.flexmark.util.collection.OrderedMap;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -42,21 +45,23 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (barLayout.getChildCount() == 0) {
-            setBarVisible(barLayout, true);
-
-            // Regular actions
-            for (int[] actions : TMA_ACTIONS) {
-                TodoTxtTextActionsImpl actionCallback = new TodoTxtTextActionsImpl(actions[0]);
-                appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
-            }
-        }
+    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
+        return runCommonTextAction(action);
     }
 
     @Override
-    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        return runCommonTextAction(action);
+    protected ActionCallback getActionCallback(@StringRes int keyId) {
+        return new TodoTxtTextActionsImpl(keyId);
+    }
+
+    @Override
+    public OrderedMap<String, ActionItem> getActiveActionMap() {
+        return getActiveActionMap(TMA_ACTIONS);
+    }
+
+    @Override
+    protected @StringRes int getFormatActionsKey() {
+        return R.string.pref_key__todotxt__action_keys;
     }
 
     //
@@ -65,21 +70,21 @@ public class TodoTxtTextActions extends TextActions {
 
 
     // Mapping from action (string res) to icon (drawable res)
-    private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp, R.string.toggle_done},
-            {R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp, R.string.add_context},
-            {R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp, R.string.add_project},
-            {R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp, R.string.priority},
-            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
-            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link},
-            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach},
-            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key},
-            {R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp, R.string.archive_completed_tasks},
-            {R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp, R.string.sort_alphabetically},
-            {R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp, R.string.current_date},
+    public static final ActionItem[] TMA_ACTIONS = {
+            new ActionItem(R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp, R.string.toggle_done),
+            new ActionItem(R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp, R.string.add_context),
+            new ActionItem(R.string.tmaid_todotxt_add_project, R.drawable.ic_local_offer_black_24dp, R.string.add_project),
+            new ActionItem(R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp, R.string.priority),
+            new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
+            new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+            new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
+            new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+            new ActionItem(R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp, R.string.archive_completed_tasks),
+            new ActionItem(R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp, R.string.sort_alphabetically),
+            new ActionItem(R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp, R.string.current_date),
     };
 
-    private class TodoTxtTextActionsImpl implements View.OnClickListener, View.OnLongClickListener {
+    private class TodoTxtTextActionsImpl extends ActionCallback {
         private int _action;
 
         TodoTxtTextActionsImpl(int action) {
