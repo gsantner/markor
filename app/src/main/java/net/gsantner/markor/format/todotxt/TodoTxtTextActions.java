@@ -16,8 +16,6 @@ import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
-import com.vladsch.flexmark.util.collection.OrderedMap;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;

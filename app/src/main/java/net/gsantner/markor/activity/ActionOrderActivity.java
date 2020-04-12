@@ -125,7 +125,7 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 
-    class Adapter extends RecyclerView.Adapter<Holder> {
+    private class Adapter extends RecyclerView.Adapter<Holder> {
         private List<ActionItem> _actions;
         ArrayList<Integer> order;
 
@@ -153,33 +153,33 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 
-    static class Holder extends RecyclerView.ViewHolder {
+    private class Holder extends RecyclerView.ViewHolder {
 
         private LinearLayout _row;
 
-        Holder(View row) {
+        public Holder(View row) {
             super(row);
             _row = (LinearLayout) row;
         }
 
-        void bindModel(ActionItem action) {
+        public void bindModel(ActionItem action) {
             ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
             ((TextView) _row.getChildAt(1)).setText(action.stringId);
         }
 
-        void setHighlight() {
+        public void setHighlight() {
             _row.setAlpha(0.5f);
         }
 
-        void unsetHighlight() {
+        public void unsetHighlight() {
             _row.setAlpha(1.0f);
         }
 
     }
 
-    class ReorderCallback extends ItemTouchHelper.SimpleCallback {
+    private class ReorderCallback extends ItemTouchHelper.SimpleCallback {
 
-        Adapter _adapter;
+        private Adapter _adapter;
 
         ReorderCallback(Adapter adapter) {
             super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
