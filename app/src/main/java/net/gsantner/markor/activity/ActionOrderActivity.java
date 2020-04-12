@@ -7,7 +7,6 @@ import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.ContextUtils;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -25,10 +24,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.vladsch.flexmark.util.collection.OrderedMap;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
 
@@ -118,7 +116,7 @@ public class ActionOrderActivity extends AppCompatActivity {
                 break;
         }
 
-        OrderedMap<String, ActionItem> actionMap = _textActions.getActiveActionMap();
+        Map<String, ActionItem> actionMap = _textActions.getActiveActionMap();
         _keys = new ArrayList<>(_textActions.getActionOrder());
         _actions = new ArrayList<ActionItem>();
 

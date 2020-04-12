@@ -14,13 +14,14 @@ import android.support.annotation.StringRes;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
-import com.vladsch.flexmark.util.collection.OrderedMap;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PlaintextTextActions extends TextActions {
 
@@ -39,8 +40,8 @@ public class PlaintextTextActions extends TextActions {
     }
 
     @Override
-    public OrderedMap<String, ActionItem> getActiveActionMap() {
-        return getActiveActionMap(TMA_ACTIONS);
+    public List<ActionItem> getActiveActionList() {
+        return Arrays.asList(TMA_ACTIONS);
     }
 
     @Override

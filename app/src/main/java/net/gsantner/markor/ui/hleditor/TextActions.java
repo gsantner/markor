@@ -25,8 +25,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.vladsch.flexmark.util.collection.OrderedMap;
-
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
@@ -42,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -75,20 +74,27 @@ public abstract class TextActions {
 
     protected abstract @StringRes int getFormatActionsKey();
 
-    public abstract OrderedMap<String, ActionItem> getActiveActionMap();
+    protected abstract List<ActionItem> getActiveActionList();
 
-    protected OrderedMap<String, ActionItem> getActiveActionMap(ActionItem[] actionArray) {
-        OrderedMap<String, ActionItem> map = new OrderedMap<>();
-        Resources res = _activity.getResources();
-        for (ActionItem action : actionArray) map.put(res.getString(action.keyId), action);
+    public Map<String, ActionItem> getActiveActionMap() {
+        List<ActionItem> actionList = getActiveActionList();
+        List<String> keyList = getActiveActionKeys();
+
+        Map<String, ActionItem> map = new HashMap<String, ActionItem>();
+
+        for (int i = 0; i < actionList.size(); i++) {
+            map.put(keyList.get(i), actionList.get(i));
+        }
         return map;
     }
 
     protected List<String> getActiveActionKeys() {
+        List<ActionItem> actionList = getActiveActionList();
         ArrayList<String> keys = new ArrayList<String>();
-        for (String key : getActiveActionMap().keyIterable()) {
-            keys.add(key);
-        }
+
+        Resources res = _activity.getResources();
+        for (ActionItem item : actionList) keys.add(res.getString(item.keyId));
+
         return keys;
     }
 

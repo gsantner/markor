@@ -34,6 +34,7 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,8 +56,8 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    public OrderedMap<String, ActionItem> getActiveActionMap() {
-        return getActiveActionMap(TMA_ACTIONS);
+    public List<ActionItem> getActiveActionList() {
+        return Arrays.asList(TMA_ACTIONS);
     }
 
     @Override
