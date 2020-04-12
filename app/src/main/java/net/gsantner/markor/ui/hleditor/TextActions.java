@@ -69,13 +69,36 @@ public abstract class TextActions {
         _tabWidth = _appSettings.getTabWidth();
     }
 
+    /**
+     * Derived classes must implement a callback which inherits from ActionCallback
+     */
     protected abstract class ActionCallback implements View.OnLongClickListener, View.OnClickListener {};
+
+    /**
+     * Factory to generate ActionCallback for given keyId
+     * @param keyId Callback must handle keyId
+     * @return Child class of ActionCallback
+     */
     protected abstract ActionCallback getActionCallback(@StringRes int keyId);
 
+    /**
+     * Derived classes must return a unique StringRes id.
+     * This is used to extract the appropriate action order preference.
+     *
+     * @return StringRes preference key
+     */
     protected abstract @StringRes int getFormatActionsKey();
 
+    /**
+     * Derived classes must return a List of ActionItem. One for each action they want to implement.
+     * @return List of ActionItems
+     */
     protected abstract List<ActionItem> getActiveActionList();
 
+    /**
+     * Map every string Action identifier -> ActionItem
+     * @return Map of String key -> Action
+     */
     public Map<String, ActionItem> getActiveActionMap() {
         List<ActionItem> actionList = getActiveActionList();
         List<String> keyList = getActiveActionKeys();
@@ -88,6 +111,11 @@ public abstract class TextActions {
         return map;
     }
 
+    /**
+     * Get string for every ActionItem.keyId defined by getActiveActionList
+     *
+     * @return List or resource strings
+     */
     protected List<String> getActiveActionKeys() {
         List<ActionItem> actionList = getActiveActionList();
         ArrayList<String> keys = new ArrayList<String>();
@@ -98,6 +126,14 @@ public abstract class TextActions {
         return keys;
     }
 
+    /**
+     * Save an action order to preferences.
+     * The Preference is derived from the key returned by getFormatActionsKey
+     *
+     * Keys are joined into a comma separated list before saving.
+     *
+     * @param List of keys (in order) to save
+     */
     public void saveActionOrder(List<String> keys) {
         StringBuilder builder = new StringBuilder();
         for (String key: keys) builder.append(key).append(',');
@@ -112,6 +148,19 @@ public abstract class TextActions {
         settings.edit().putString(formatKey, combinedKeys).apply();
     }
 
+    /**
+     * Get the ordered list of preference keys.
+     *
+     * This routine does the following:
+     * 1. Extract list of currently defined actions
+     * 2. Extract saved action-order-list (Comma separated) from preferences
+     * 3. Split action order list into list of action keys
+     * 4. Remove action keys which are no longer present in currently defined actions from the preference list
+     * 5. Add new actions which are not in the preference list to the preference list
+     * 6. If changes were made (i.e. actions have been added or removed), re-save the preference list
+     *
+     * @return List of Action Item keys in order specified by preferences
+     */
     public List<String> getActionOrder() {
 
         ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());

@@ -136,7 +136,7 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private class Adapter extends RecyclerView.Adapter<Holder> {
         private List<ActionItem> _actions;
-        ArrayList<Integer> order;
+        public ArrayList<Integer> order;
 
         Adapter(List<ActionItem> actions) {
             super();

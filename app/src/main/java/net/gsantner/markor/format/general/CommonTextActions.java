@@ -60,7 +60,6 @@ public class CommonTextActions {
 
     public static final String ACTION_DEINDENT = "tmaid_common_deindent";
 
-
     private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
     private final Activity _activity;
