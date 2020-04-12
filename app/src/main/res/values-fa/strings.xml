@@ -149,6 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">سایر موارد</string>
     <string name="alternative_naming">نامگذاری جایگزین</string>
     <string name="empty_file">Prazna datoteka</string>
+    <string name="break_page_pdf_print">Prekid stranice (PDF/printanje)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">کد های رنگی بر اساس رنگشان زیرخط‌ دار بشوند یا نه</string>
     <string name="underline_hex_color_codes">زیر خط دار کردن کد های رنگی</string>
     <string name="insert_current_date_when_starting_new_task">هنگامی که کار جدید ثبت می‌کنم تاریخ امروز را وارد کن</string>
