@@ -5,10 +5,17 @@
     tools:context=".ActionOrderActivity">
 
     <item
+        android:id="@+id/action_reorder_reset"
+        android:icon="@drawable/ic_cached_black_24dp"
+        android:title="@string/action_reorder_reset"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_reorder_accept"
         android:icon="@drawable/ic_check_black_24dp"
         android:title="@string/action_reorder_accept"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom" />
 
 </menu>

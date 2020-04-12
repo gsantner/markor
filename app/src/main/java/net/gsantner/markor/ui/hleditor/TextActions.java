@@ -116,7 +116,7 @@ public abstract class TextActions {
      *
      * @return List or resource strings
      */
-    protected List<String> getActiveActionKeys() {
+    public List<String> getActiveActionKeys() {
         List<ActionItem> actionList = getActiveActionList();
         ArrayList<String> keys = new ArrayList<String>();
 

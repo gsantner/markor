@@ -102,6 +102,15 @@ public class ActionOrderActivity extends AppCompatActivity {
                 finish();
                 return true;
 
+            case R.id.action_reorder_reset:
+                List<String> activeKeys = _textActions.getActiveActionKeys();
+                for (int i = 0; i < activeKeys.size(); i++) {
+                    String key = activeKeys.get(i);
+                    _adapter.order.set(i, _keys.indexOf(key));
+                }
+                _adapter.notifyDataSetChanged();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

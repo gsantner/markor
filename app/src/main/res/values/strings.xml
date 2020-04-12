@@ -382,6 +382,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_plaintext_action_order">Reorder action buttons</string>
     <string name="set_keyvalue_action_order">Reorder action buttons</string>
     <string name="action_reorder_accept">Accept new order</string>
-    <string name="action_reorder_cancel">Discard changes</string>
+    <string name="action_reorder_reset">Revert to default order</string>
     <string name="title_activity_test_activity">test_activity</string>
 </resources>
