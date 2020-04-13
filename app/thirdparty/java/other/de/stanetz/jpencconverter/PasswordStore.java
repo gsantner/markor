@@ -5,6 +5,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
@@ -13,8 +14,6 @@ import android.support.annotation.StringRes;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,7 +55,7 @@ import javax.crypto.spec.GCMParameterSpec;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class PasswordStore {
 
-    private static final String ASTERISKED_PW = "***";
+    public static final String ASTERISKED_PW = "***";
 
     private static final String LOG_TAG_NAME = "SecurityStore";
     private static final String CIPHER_MODE = "AES/GCM/NoPadding";
@@ -69,7 +68,7 @@ public class PasswordStore {
     // Exists PIN, Pattern or Fingerprint or something else.
     private final boolean _deviceIsProtected;
 
-    private final SharedPreferencesPropertyBackend _preferences;
+    private final SharedPreferences _preferences;
     private final Context _context;
 
     /**
@@ -88,7 +87,7 @@ public class PasswordStore {
         } else {
             _deviceIsProtected = false;
         }
-        this._preferences = new SharedPreferencesPropertyBackend(context);
+        this._preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     /**
@@ -136,7 +135,7 @@ public class PasswordStore {
             }
             crypteKey = cipher.doFinal(unencryptedKey.getBytes("UTF-8"));
 
-            final SharedPreferences.Editor editor = _preferences.getDefaultPreferencesEditor();
+            final SharedPreferences.Editor editor = _preferences.edit();
             editor.putString(keyname + KEY_SUFFIX_KEY, Base64.encodeToString(crypteKey, Base64.DEFAULT));
             editor.putString(keyname + KEY_SUFFIX_IV, Base64.encodeToString(iv, Base64.DEFAULT));
             editor.putString(keyname, "***");
@@ -159,7 +158,7 @@ public class PasswordStore {
     }
 
     private boolean clearAllKeys(String keyname) {
-        final SharedPreferences.Editor editor = _preferences.getDefaultPreferencesEditor();
+        final SharedPreferences.Editor editor = _preferences.edit();
         editor.remove(keyname + KEY_SUFFIX_KEY);
         editor.remove(keyname + KEY_SUFFIX_IV);
         editor.remove(keyname);

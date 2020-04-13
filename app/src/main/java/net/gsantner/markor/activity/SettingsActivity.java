@@ -211,6 +211,10 @@ public class SettingsActivity extends AppActivityBase {
                     && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 final PasswordStore store = new PasswordStore(this.getActivity());
                 store.storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
+                // Never delete the password, otherwise you will remove the password in PasswordStore too!
+                // Never remove this line, otherwise the password will be stored unencrypted forever.
+                // Using commit and while to ensure that the asterisk-pw is definitely written.
+                while(!prefs.edit().putString(key, PasswordStore.ASTERISKED_PW).commit());
             }
         }
 
