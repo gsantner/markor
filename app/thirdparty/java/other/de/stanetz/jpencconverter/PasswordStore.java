@@ -55,6 +55,7 @@ import javax.crypto.spec.GCMParameterSpec;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class PasswordStore {
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public static final String ASTERISKED_PW = "***";
 
     private static final String LOG_TAG_NAME = "SecurityStore";

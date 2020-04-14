@@ -214,7 +214,7 @@ public class SettingsActivity extends AppActivityBase {
                 // Never delete the password, otherwise you will remove the password in PasswordStore too!
                 // Never remove this line, otherwise the password will be stored unencrypted forever.
                 // Using commit and while to ensure that the asterisk-pw is definitely written.
-                while(!prefs.edit().putString(key, PasswordStore.ASTERISKED_PW).commit());
+                while (!prefs.edit().putString(key, PasswordStore.ASTERISKED_PW).commit()) ;
             }
         }
 
@@ -344,6 +344,13 @@ public class SettingsActivity extends AppActivityBase {
         @Override
         public boolean isDividerVisible() {
             return true;
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            // Reset Password to ensure it's not stored as plaintext.
+            _as.getDefaultPreferencesEditor().putString(getContext().getString(R.string.pref_key__default_encryption_password), PasswordStore.ASTERISKED_PW).commit();
         }
     }
 }
