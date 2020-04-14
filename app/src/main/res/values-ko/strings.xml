@@ -235,5 +235,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (개인)</string>
     <string name="appdata_sdcard">AppData (SD 카드)</string>
     <string name="internal_storage">내부 저장소</string>
+    <string name="open_the_document_from_main_view">기본 보기 모드의 하단, 파일 탐색기, 또는 런처에서 문서를 열 수 있습니다. Markor에 공유된 텍스트를 추가할 수 있는 옵션도 있습니다.</string>
+    <string name="notebook_is_the_home_of_your_files">\'노트북\'은 앱이 시작될 때 Markor가 파일 탐색기에서 불러오는 폴더입니다. 노트북은 파일과 문서의 보금자리(최상위) 폴더입니다.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">\'퀵노트\'는 노트를 작성할 수 있는 가장 빠른 옵션입니다. 퀵노트는 마크다운 형식의 파일이며 &gt;Notebook/QuickNote.md&lt;가 기본 위치입니다. 설정에서 이 기본 위치를 임의로 변경할 수 있습니다.</string>
+    <string name="todo_is_the_easiest_way_">\'할 일\'을 활용해 일정을 관리해보세요. 할 일은 todo.txt 형식의 파일이며 &gt;Notebook/todo.txt&lt;가 기본 위치입니다. 설정에서 이 기본 위치를 임의로 변경할 수 있습니다.</string>
+    <string name="navigationbar_color">탐색 버튼 색상</string>
     <string name="reload">새로고침</string>
 </resources>
