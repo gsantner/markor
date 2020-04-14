@@ -121,6 +121,38 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">파일과 폴더</string>
     <string name="document_browser">문서 탐색기</string>
     <string name="file_browser">파일 탐색기</string>
+    <string name="create_note" needed="false">노트 만들기</string>
+    <string name="special_documents" needed="false">특수 문서</string>
+    <string name="keep_screen_on" needed="false">화면 켜짐 유지</string>
+    <string name="back_to_previous_folder" needed="false">이전 폴더로 가기</string>
+    <string name="app_settings" needed="false">앱 설정</string>
+    <string name="editor_settings" needed="false">편집기 설정</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">앱 시작 시 마지막 폴더 위치 기억하기</string>
+    <string name="number_of_files_witharg" needed="false">파일 갯수: %d</string>
+    <string name="app_wide">앱 전반</string>
+    <string name="main_view">기본 화면</string>
+    <string name="overall_theme_used_in_app">앱 전체에서 사용할 테마</string>
+    <string name="remember_last_directory">마지막 폴더 기억</string>
+    <string name="syntax_highlighting">문법 강조</string>
+    <string name="highlighting_delay">강조 지연</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">문법 강조 표시를 지연해서 새로고침할 시간을 밀리초(1000분의 1초) 단위로 입력하세요. 낮은 숫자는 보다 재빠르게 문법을 강조 표시하지만, 배터리를 더 빨리 소모시킬 수 있으며 낮은 성능의 기기에서 앱의 작동이 느려질 수 있습니다.</string>
+    <string name="highlighting_enabled_or_not__appspecific">입력한 글을 강조 표시할지를 선택</string>
+    <string name="control_font_size_in_editor">편집기에서 사용할 글꼴 크기를 조절</string>
+    <string name="textactions_show_useful_actions_description__appspecific">다기능 버튼 모음을 하단에 표시합니다. 이는 텍스트를 편집하거나 텍스트에 적절한 동작을 수행합니다.</string>
+    <string name="load_last_opened_folder_at_startup">앱 시작 시 마지막으로 열었던 폴더를 불러오기</string>
+    <string name="format">형식</string>
+    <string name="contexts">문맥</string>
+    <string name="project">프로젝트</string>
+    <string name="projects">프로젝트</string>
+    <string name="categories">카테고리</string>
+    <string name="none">없음</string>
+    <string name="other">기타</string>
+    <string name="alternative_naming">대체할 이름</string>
+    <string name="empty_file">빈 파일</string>
+    <string name="break_page_pdf_print">페이지 나누기 (PDF/인쇄)</string>
+    <string name="underline">밑줄</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">HEX 색상 코드에 밑줄을 표시할 지 여부</string>
+    <string name="underline_hex_color_codes">HEX 색상 코드에 밑줄</string>
     <string name="general">기본 설정</string>
     <string name="default_">기본값</string>
     <string name="open_source_licenses">오픈 소스 라이선스</string>
