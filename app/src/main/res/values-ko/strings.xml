@@ -190,7 +190,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor는 클라우드가 아닌 기기 내부의 오프라인 파일만 편집하며, 파일 경로 전체를 온전하게 제공하지 않는 파일 관리자는 지원하지 않습니다.</string>
     <string name="sync_to_local_folder_notice">참고사항: 동기화 앱들은 파일을 자체적인 임의의 폴더에 저장할 때가 있습니다. 이런 파일을 열고자 할 때는 Markor의 문서 폴더를 이에 맞게 변경해서 설정하거나 다른 파일 관리자를 사용하세요.</string>
     <string name="configure_in_the_apps_settings">앱 설정에서 조정</string>
+    <string name="vertical_alignment">세로 정렬</string>
+    <string name="horizontal_alignment">가로 정렬</string>
     <string name="default_">기본값</string>
+    <string name="left">왼쪽</string>
+    <string name="right">오른쪽</string>
+    <string name="top">위</string>
+    <string name="bottom">아래</string>
+    <string name="center">중앙</string>
+    <string name="textaction_spacing">텍스트 동작 버튼 간격</string>
+    <string name="horizontal_space_between_textactions">텍스트 동작 버튼의 가로 간격을 설정</string>
     <string name="open_source_licenses">오픈 소스 라이선스</string>
     <string name="rate_this_app">이 앱을 평가하세요!</string>
     <string name="translate">번역하기</string>
