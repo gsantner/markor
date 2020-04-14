@@ -119,6 +119,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_save_path_do_import_notice__appspecific">선택된 파일이 앱의 노트북 폴더에 위치하고 있지 않습니다. 현재 폴더에 이를 복사할까요? 같은 이름으로 기존에 존재하는 파일을 덮어쓰게 됩니다.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">파일이 앱의 노트북 폴더에 위치하고 있지 않습니다. 현재 폴더에 이를 복사할까요? 같은 이름으로 기존에 존재하는 파일을 덮어쓰게 됩니다.</string>
     <string name="files_and_folders">파일과 폴더</string>
+    <string name="document_browser">문서 탐색기</string>
+    <string name="file_browser">파일 탐색기</string>
     <string name="general">기본 설정</string>
     <string name="default_">기본값</string>
     <string name="open_source_licenses">오픈 소스 라이선스</string>
