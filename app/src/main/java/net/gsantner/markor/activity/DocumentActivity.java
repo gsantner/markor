@@ -312,7 +312,7 @@ public class DocumentActivity extends AppActivityBase {
         } else {
             fragment = currentTop;
         }
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
         return fragment;
     }
 
