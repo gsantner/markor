@@ -239,7 +239,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enable_undo_and_redo_be_patient">\'실행 취소\' 및 \'다시 실행\' 동작 기능을 활성화합니다. 고급 사용자에게만 추천하며, 중요한 변경 사항이 손실되지 않도록 침착하게 사용하세요. 실행 이력을 지우려면 편집기를 닫고 다시 열면 됩니다.</string>
     <string name="description">설명</string>
     <string name="edit_picture">이미지 편집</string>
-    <string name="math">계산</string>
+    <string name="math">수식</string>
     <string name="table_of_contents">목차</string>
     <string name="miscellaneous">기타</string>
     <string name="textaction">텍스트 동작</string>
