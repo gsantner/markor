@@ -177,6 +177,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        onPrepareOptionsMenu(getFragmentMenu());
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -208,6 +214,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
     }
+
 
 
     @Override
@@ -468,8 +475,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private long _lastChangedThreadStart = 0;
 
     @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {

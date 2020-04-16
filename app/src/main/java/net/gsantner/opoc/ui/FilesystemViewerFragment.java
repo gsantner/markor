@@ -211,54 +211,54 @@ public class FilesystemViewerFragment extends GsFragmentBase
         if (_callback != null) {
             _callback.onFsViewerDoUiUpdate(adapter);
         }
-
-        updateMenuItems();
-        _emptyHint.postDelayed(() -> _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE), 200);
-        _recyclerList.postDelayed(this::updateMenuItems, 1000);
+        onPrepareOptionsMenu(getFragmentMenu());
+        _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE);
     }
 
-    private void updateMenuItems() {
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
         File folder = getCurrentFolder();
 
-        if (folder != null) {
-            final String curFilepath = folder.getAbsolutePath();
-            final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
-            final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
-            final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
-            final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
+        if (folder == null || menu == null) return;
 
-            // Check if is a favourite
-            boolean isFavourite = false;
-            boolean selTextFilesOnly = true;
-            boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
-            if (selMulti1) {
-                for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
-                    if (selFiles.contains(favourite)) {
-                        isFavourite = true;
-                        break;
-                    }
+        final String curFilepath = folder.getAbsolutePath();
+        final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
+        final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
+        final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
+        final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
+
+        // Check if is a favourite
+        boolean isFavourite = false;
+        boolean selTextFilesOnly = true;
+        boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
+        if (selMulti1) {
+            for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
+                if (selFiles.contains(favourite)) {
+                    isFavourite = true;
+                    break;
                 }
             }
-            for (File f : _filesystemViewerAdapter.getCurrentSelection()) {
-                selTextFilesOnly = (selTextFilesOnly && TextFormat.isTextFile(f));
-                selWritable = (selWritable && f.canWrite());
-            }
+        }
+        for (File f : _filesystemViewerAdapter.getCurrentSelection()) {
+            selTextFilesOnly = (selTextFilesOnly && TextFormat.isTextFile(f));
+            selWritable = (selWritable && f.canWrite());
+        }
 
-            if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
-                _fragmentMenu.findItem(R.id.action_search).setVisible(selFiles.isEmpty() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
-                _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
-                _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
-                _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
-                _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
-                _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
-                _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-                _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-                _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
-                _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-                _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
-                _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
-                _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
-            }
+        if (menu.findItem(R.id.action_delete_selected_items) != null) {
+            menu.findItem(R.id.action_search).setVisible(selFiles.isEmpty() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
+            menu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
+            menu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
+            menu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
+            menu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            menu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            menu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            menu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            menu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
+            menu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
+            menu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
+            menu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
+            menu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
         }
     }
 
@@ -342,7 +342,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
             }
         }
 
-
         List<Pair<File, String>> sdcardFolders = _contextUtils.getAppDataPublicDirs(false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
@@ -351,7 +350,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
             item.setVisible(true);
         }
         _fragmentMenu = menu;
-        updateMenuItems();
     }
 
     public FilesystemViewerAdapter getAdapter() {
@@ -439,7 +437,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0));
                     _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
-                    updateMenuItems();
+                    onPrepareOptionsMenu(getFragmentMenu());
                 }
                 return true;
             }
