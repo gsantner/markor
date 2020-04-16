@@ -186,32 +186,30 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onStart() {
         super.onStart();
 
-        checkReloadDisk(false);
-        int cursor = _hlEditor.getSelectionStart();
-        cursor = Math.max(0, cursor);
-        cursor = Math.min(_hlEditor.length(), cursor);
-        _hlEditor.setSelection(cursor);
-
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-        if (_document != null && _document.getFile() != null) {
-            if (!_document.getFile().getParentFile().exists()) {
-                //noinspection ResultOfMethodCallIgnored
-                _document.getFile().getParentFile().mkdirs();
-            }
-            boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
-            if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
-                permok = true;
-            }
-            if (_shareUtil.isUnderStorageAccessFolder(_document.getFile()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+
+        try {
+            File file = _document.getFile();
+            File parent = file.getParentFile();
+            if (parent.exists()) parent.mkdirs();
+
+            boolean permok = _shareUtil.canWriteFile(file, false);
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+
+            if (_shareUtil.isUnderStorageAccessFolder(file) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
                 _shareUtil.showMountSdDialog(getActivity());
                 return;
             }
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
-        }
 
-        if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
-            _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
+            if (getActivity() instanceof DocumentActivity) {
+                if (file.getAbsolutePath().contains("mordor/1-epub-experiment.md")) {
+                    _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
+                }
+            }
+        }
+        catch (NullPointerException e) {
+            // Did not have valid document or parent
         }
     }
 
