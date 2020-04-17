@@ -189,31 +189,24 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings appSettings = new AppSettings(getContext());
         _hlEditor.setGravity(appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
-        try {
-            File file = _document.getFile();
-            File parent = file.getParentFile();
+        File file = _document.getFile();
+        File parent = (file == null) ? null : file.getParentFile();
+        if (file != null && parent != null) {
+
             if (parent.exists()) parent.mkdirs();
 
-            boolean permok = _shareUtil.canWriteFile(file, false);
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+            _textSdWarning.setVisibility(_shareUtil.canWriteFile(file, false) ? View.GONE : View.VISIBLE);
 
             if (_shareUtil.isUnderStorageAccessFolder(file) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
                 _shareUtil.showMountSdDialog(getActivity());
                 return;
             }
 
-            if (getActivity() instanceof DocumentActivity) {
-                if (file.getAbsolutePath().contains("mordor/1-epub-experiment.md")) {
-                    _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
-                }
+            if (getActivity() instanceof DocumentActivity && file.getAbsolutePath().contains("mordor/1-epub-experiment.md")) {
+                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
             }
         }
-        catch (NullPointerException e) {
-            // Did not have valid document or parent
-        }
     }
-
-
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
