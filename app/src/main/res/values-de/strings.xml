@@ -361,4 +361,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Erweitern / Einklappen</string>
     <string name="essential">Essenziell</string>
     <string name="append_human_readable_uuid_to_new_tasks">Menschlich lesbare UUID neuen Aufgaben hinzufügen</string>
+    <string name="action_order">Aktionsreihenfolge</string>
+    <string name="action_reorder_accept">Neue Bestellung akzeptieren</string>
+    <string name="load_default_settings">Standardeinstellungen laden</string>
+    <string name="drag">Ziehen</string>
 </resources>
