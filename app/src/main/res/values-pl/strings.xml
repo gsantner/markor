@@ -361,4 +361,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Rozwiń / Zwiń</string>
     <string name="essential">Zasadnicze</string>
     <string name="append_human_readable_uuid_to_new_tasks">Dołącz czytelny dla człowieka UUID do nowych zadań</string>
+    <string name="action_order">Kolejność działań</string>
+    <string name="action_reorder_accept">Zaakceptuj nowe zamówienie</string>
+    <string name="load_default_settings">Załaduj domyślne ustawienia</string>
+    <string name="drag">Przeciągnij</string>
 </resources>
