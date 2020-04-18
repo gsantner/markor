@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -59,7 +60,7 @@ public class ActionOrderActivity extends AppCompatActivity {
         final AppSettings appSettings = new AppSettings(this);
         final ActivityUtils contextUtils = new ActivityUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(R.style.AppTheme_Light);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_order_activity);
 
@@ -73,6 +74,7 @@ public class ActionOrderActivity extends AppCompatActivity {
         // Set up recyclerview
         final RecyclerView recycler = findViewById(R.id.action_order_activity_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
         _adapter = new Adapter(_actions);
@@ -87,10 +89,10 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        ContextUtils cu = ContextUtils.get();
+        final ContextUtils cu = ContextUtils.get();
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.freeContextRef();
 
@@ -106,7 +108,7 @@ public class ActionOrderActivity extends AppCompatActivity {
             }
 
             case R.id.action_reorder_reset: {
-                List<String> activeKeys = _textActions.getActiveActionKeys();
+                final List<String> activeKeys = _textActions.getActiveActionKeys();
                 for (int i = 0; i < activeKeys.size(); i++) {
                     String key = activeKeys.get(i);
                     _adapter.order.set(i, _keys.indexOf(key));
@@ -119,7 +121,7 @@ public class ActionOrderActivity extends AppCompatActivity {
     }
 
     private void saveNewOrder() {
-        ArrayList<String> reorderedKeys = new ArrayList<>();
+        final ArrayList<String> reorderedKeys = new ArrayList<>();
         for (int i : _adapter.order) {
             reorderedKeys.add(_keys.get(i));
         }
@@ -134,7 +136,7 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     @SuppressWarnings("ConstantConditions")
     private void extractActionData() {
-        int documentType = getIntent().getExtras().getInt(EXTRA_FORMAT_KEY);
+        final int documentType = getIntent().getExtras().getInt(EXTRA_FORMAT_KEY);
 
         switch (documentType) {
             default:
@@ -149,7 +151,7 @@ public class ActionOrderActivity extends AppCompatActivity {
                 break;
         }
 
-        Map<String, TextActions.ActionItem> actionMap = _textActions.getActiveActionMap();
+        final Map<String, TextActions.ActionItem> actionMap = _textActions.getActiveActionMap();
         _keys = new ArrayList<>(_textActions.getActionOrder());
         _actions = new ArrayList<>();
 
@@ -159,15 +161,17 @@ public class ActionOrderActivity extends AppCompatActivity {
     }
 
     private class Adapter extends RecyclerView.Adapter<Holder> {
-        private List<TextActions.ActionItem> _actions;
-        private ArrayList<Integer> order;
+        private final List<TextActions.ActionItem> _actions;
+        private final ArrayList<Integer> order;
 
-        Adapter(List<TextActions.ActionItem> actions) {
+        private Adapter(List<TextActions.ActionItem> actions) {
             super();
             _actions = actions;
 
             order = new ArrayList<>();
-            for (int i = 0; i < _actions.size(); i++) order.add(i);
+            for (int i = 0; i < _actions.size(); i++) {
+                order.add(i);
+            }
         }
 
         @NonNull
@@ -188,32 +192,31 @@ public class ActionOrderActivity extends AppCompatActivity {
     }
 
     private static class Holder extends RecyclerView.ViewHolder {
-        private LinearLayout _row;
+        private final LinearLayout _row;
 
-        Holder(View row) {
+        private Holder(View row) {
             super(row);
             _row = (LinearLayout) row;
         }
 
-        void bindModel(TextActions.ActionItem action) {
+        private void bindModel(TextActions.ActionItem action) {
             ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
             ((TextView) _row.getChildAt(1)).setText(action.stringId);
         }
 
-        void setHighlight() {
+        private void setHighlight() {
             _row.setAlpha(0.5f);
         }
 
-        void unsetHighlight() {
+        private void unsetHighlight() {
             _row.setAlpha(1.0f);
         }
     }
 
     private class ReorderCallback extends ItemTouchHelper.SimpleCallback {
+        private final Adapter _adapter;
 
-        private Adapter _adapter;
-
-        ReorderCallback(Adapter adapter) {
+        private ReorderCallback(Adapter adapter) {
             super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
             _adapter = adapter;
         }
@@ -223,7 +226,7 @@ public class ActionOrderActivity extends AppCompatActivity {
             final int from = viewHolder.getAdapterPosition();
             final int to = target.getAdapterPosition();
 
-            int value = _adapter.order.get(from);
+            final int value = _adapter.order.get(from);
             _adapter.order.remove(from);
             _adapter.order.add(to, value);
             _adapter.notifyItemMoved(from, to);
