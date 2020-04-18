@@ -324,21 +324,21 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__markdown__reorder_actions: {
                     Activity current = getActivity();
                     Intent myIntent = new Intent(current, ActionOrderActivity.class);
-                    myIntent.putExtra("key", R.id.action_format_markdown);
+                    myIntent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, R.id.action_format_markdown);
                     current.startActivity(myIntent);
                     break;
                 }
                 case R.string.pref_key__plaintext__reorder_actions: {
                     Activity current = getActivity();
                     Intent myIntent = new Intent(current, ActionOrderActivity.class);
-                    myIntent.putExtra("key", R.id.action_format_plaintext);
+                    myIntent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, R.id.action_format_plaintext);
                     current.startActivity(myIntent);
                     break;
                 }
                 case R.string.pref_key__todotxt__reorder_actions: {
                     Activity current = getActivity();
                     Intent myIntent = new Intent(current, ActionOrderActivity.class);
-                    myIntent.putExtra("key", R.id.action_format_todotxt);
+                    myIntent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, R.id.action_format_todotxt);
                     current.startActivity(myIntent);
                     break;
                 }

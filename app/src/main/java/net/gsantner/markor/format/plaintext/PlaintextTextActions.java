@@ -15,7 +15,6 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -60,7 +59,8 @@ public class PlaintextTextActions extends TextActions {
     }
 
     @Override
-    protected @StringRes int getFormatActionsKey() {
+    protected @StringRes
+    int getFormatActionsKey() {
         return R.string.pref_key__plaintext__action_keys;
     }
 

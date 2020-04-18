@@ -26,10 +26,10 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Arrays;
 
@@ -247,8 +247,7 @@ public class CommonTextActions {
                     text.delete(lineStart, delEnd);
                     selectionEnd -= delCount;
                 }
-            }
-            else {
+            } else {
                 text.insert(lineStart, tabString);
                 selectionEnd += _tabWidth;
             }

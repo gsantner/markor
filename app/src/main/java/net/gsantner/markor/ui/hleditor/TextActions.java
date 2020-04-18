@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.ActionItem;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
@@ -72,10 +71,14 @@ public abstract class TextActions {
     /**
      * Derived classes must implement a callback which inherits from ActionCallback
      */
-    protected abstract class ActionCallback implements View.OnLongClickListener, View.OnClickListener {};
+    protected abstract class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
+    }
+
+    ;
 
     /**
      * Factory to generate ActionCallback for given keyId
+     *
      * @param keyId Callback must handle keyId
      * @return Child class of ActionCallback
      */
@@ -87,16 +90,19 @@ public abstract class TextActions {
      *
      * @return StringRes preference key
      */
-    protected abstract @StringRes int getFormatActionsKey();
+    protected abstract @StringRes
+    int getFormatActionsKey();
 
     /**
      * Derived classes must return a List of ActionItem. One for each action they want to implement.
+     *
      * @return List of ActionItems
      */
     protected abstract List<ActionItem> getActiveActionList();
 
     /**
      * Map every string Action identifier -> ActionItem
+     *
      * @return Map of String key -> Action
      */
     public Map<String, ActionItem> getActiveActionMap() {
@@ -129,14 +135,14 @@ public abstract class TextActions {
     /**
      * Save an action order to preferences.
      * The Preference is derived from the key returned by getFormatActionsKey
-     *
+     * <p>
      * Keys are joined into a comma separated list before saving.
      *
-     * @param List of keys (in order) to save
+     * @param keys of keys (in order) to save
      */
     public void saveActionOrder(List<String> keys) {
         StringBuilder builder = new StringBuilder();
-        for (String key: keys) builder.append(key).append(',');
+        for (String key : keys) builder.append(key).append(',');
         if (builder.length() > 0 && builder.charAt(builder.length() - 1) == ',') {
             builder.deleteCharAt(builder.length() - 1);
         }
@@ -150,7 +156,7 @@ public abstract class TextActions {
 
     /**
      * Get the ordered list of preference keys.
-     *
+     * <p>
      * This routine does the following:
      * 1. Extract list of currently defined actions
      * 2. Extract saved action-order-list (Comma separated) from preferences
@@ -507,4 +513,25 @@ public abstract class TextActions {
     }
 
     public abstract boolean runAction(final String action, boolean modLongClick, String anotherArg);
+
+    public static class ActionItem {
+        @StringRes
+        public int keyId;
+        @DrawableRes
+        public int iconId;
+        @StringRes
+        public int stringId;
+
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+            keyId = key;
+            iconId = icon;
+            stringId = string;
+        }
+
+        public ActionItem(int[] data) {
+            keyId = data[0];
+            iconId = data[1];
+            stringId = data[2];
+        }
+    }
 }

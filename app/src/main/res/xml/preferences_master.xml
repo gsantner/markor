@@ -412,7 +412,7 @@
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/user_interface">
                 <Preference
-                    android:title="@string/set_markdown_action_order"
+                    android:title="@string/action_order"
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__markdown__reorder_actions" />
             </PreferenceCategory>
@@ -467,7 +467,7 @@
 
             <PreferenceCategory android:title="@string/user_interface">
                 <Preference
-                    android:title="@string/set_todotxt_action_order"
+                    android:title="@string/action_order"
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__todotxt__reorder_actions" />
             </PreferenceCategory>
@@ -481,7 +481,7 @@
 
             <PreferenceCategory android:title="@string/user_interface">
                 <Preference
-                    android:title="@string/set_plaintext_action_order"
+                    android:title="@string/action_order"
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__plaintext__reorder_actions" />
             </PreferenceCategory>

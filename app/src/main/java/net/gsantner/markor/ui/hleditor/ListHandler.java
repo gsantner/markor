@@ -25,7 +25,7 @@ public class ListHandler implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
-        if ( count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n' ) {
+        if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
 
             int iStart = StringUtils.getLineStart(s, start);
             int iEnd = StringUtils.getNextNonWhitespace(s, iStart);
@@ -35,12 +35,11 @@ public class ListHandler implements TextWatcher {
 
             Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
             if (uMatch.find() && previousLine.equals(uMatch.group() + " ")) {
-                sSpan.setSpan(this, iStart , start + 1, Spanned.SPAN_COMPOSING);
-            }
-            else {
+                sSpan.setSpan(this, iStart, start + 1, Spanned.SPAN_COMPOSING);
+            } else {
                 Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
                 if (oMatch.find() && previousLine.equals(oMatch.group(1) + ". ")) {
-                    sSpan.setSpan(this, iStart , start + 1, Spanned.SPAN_COMPOSING);
+                    sSpan.setSpan(this, iStart, start + 1, Spanned.SPAN_COMPOSING);
                 }
             }
         }

@@ -25,9 +25,9 @@ public final class StringUtils {
     public static int getLineStart(CharSequence s, int start, int minRange) {
         int i = start;
         for (; i > minRange; i--) {
-             if (s.charAt(i - 1) == '\n') {
-                 break;
-             }
+            if (s.charAt(i - 1) == '\n') {
+                break;
+            }
         }
 
         return i;
