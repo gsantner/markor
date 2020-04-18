@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ActionOrderActivity">
+
+    <item
+        android:id="@+id/action_reorder_reset"
+        android:icon="@drawable/ic_restore_black_24dp"
+        android:title="@string/load_default_settings"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -10,6 +10,7 @@
 package net.gsantner.markor.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -315,6 +316,14 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__editor_basic_color_scheme_sepia: {
                     _as.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
                     _as.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
+                    break;
+                }
+                case R.string.pref_key__plaintext__reorder_actions:
+                case R.string.pref_key__markdown__reorder_actions:
+                case R.string.pref_key__todotxt__reorder_actions: {
+                    Intent intent = new Intent(getActivity(), ActionOrderActivity.class);
+                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, (keyResId == R.string.pref_key__markdown__reorder_actions) ? R.id.action_format_markdown : (keyResId == R.string.pref_key__todotxt__reorder_actions ? R.id.action_format_todotxt : R.id.action_format_plaintext));
+                    startActivity(intent);
                     break;
                 }
             }

@@ -12,10 +12,10 @@ package net.gsantner.markor.format.markdown;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.util.regex.Matcher;
-import java.util.Arrays;
-
 import net.gsantner.opoc.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.regex.Matcher;
 
 public class MarkdownAutoFormat implements InputFilter {
     @Override
