@@ -62,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d itens selecionados</string>
+    <string name="hide_statusbar_at_this_view">Ocultar a barra de status nesta visualização</string>
     <string name="hide_statusbar">Esconder barra de status</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Caminho</string>
@@ -155,10 +156,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
     <string name="tasks_with_todays_date">Tarefas para hoje</string>
     <string name="append_contexts_and_projects">Inserir contextos e projetos</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa quando estiver usando uma ação de texto apropriado</string>
     <string name="rtl_rendering">Renderização de RTL</string>
     <string name="highlight_line_ending">Realçar o fim da linha</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
     <string name="use_monospace_for_code">Usar Monospace em código</string>
+    <string name="disable_code_block_highlight">Desativar o destaque de blocos de código</string>
     <string name="use_different_fonttype_slow_down">Faça o uso de um tipo de fonte diferente. Alterar o tipo de fonte dinamicamente faz um impacto sobre o desempenho do aplicativo.</string>
     <string name="general">Geral</string>
     <string name="resources">Recursos</string>
@@ -179,6 +182,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulação</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
     <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
+    <string name="unordered_list_character">Caracter de lista não ordenado</string>
+    <string name="character_to_start_items_of_unordered_list_with">Qual personagem usar para denotar listas não ordenadas</string>
+    <string name="unordered_list_char_dash">Traço (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais e off-line, não há suporte para gerenciadores de arquivos que não disponibilizem o caminho completo do arquivo.</string>
     <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
     <string name="configure_in_the_apps_settings">Configure nas configurações do aplicativos</string>
@@ -191,6 +199,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">inferior</string>
     <string name="center">Centro</string>
     <string name="textaction_spacing">Espaçamento do módulo de texto</string>
+    <string name="horizontal_space_between_textactions">Espaço horizontal entre os botões de ação de texto</string>
     <string name="center_text">Texto no centro</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro da tela</string>
     <string name="clipboard">Área de transferência</string>
@@ -280,6 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Notebook é a pasta que o Markor abre através do gerenciador de arquivos quando o app é iniciado. É a pasta padrão dos seus arquivos.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, que você pode customizar a localização nas configurações.</string>
     <string name="todo_is_the_easiest_way_">Gerencie suas tarefas com ToDo. É um arquivo todo.txt com localização padrão &gt;Notebook/todo.txt&lt;, e que pode ter sua localização customizada nas configurações.</string>
+    <string name="navigationbar_color">Cor da barra de navegação</string>
     <string name="black">Preto</string>
     <string name="white">Branco</string>
     <string name="view">Ver</string>
@@ -294,6 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Pasta inicial do app</string>
     <string name="tab_width">Largura da aba</string>
     <string name="amount_of_space_for_tab">Quantidade de espaços para exibir tabulação</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
     <string name="list_in_recent_files">Lista de arquivos recentes</string>
     <string name="reload">Atualizar</string>
     <string name="wrap_words">Ajuste de palavras</string>
@@ -349,4 +360,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Voltar</string>
     <string name="expand_collapse">Expandir / Recolher</string>
     <string name="essential">Essencial</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Acrescentar UUID humano legível a novas tarefas</string>
+    <string name="action_order">Ação pedido</string>
+    <string name="action_reorder_accept">Aceitar novo pedido</string>
+    <string name="load_default_settings">Carregar configurações padrão</string>
+    <string name="drag">Arrastar</string>
 </resources>
