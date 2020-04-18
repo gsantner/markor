@@ -361,4 +361,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Expandir/Recolher</string>
     <string name="essential">Essencial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Acrescentar UUID legível a novas tarefas</string>
+    <string name="action_order">Ação pedido</string>
+    <string name="action_reorder_accept">Aceitar novo pedido</string>
+    <string name="load_default_settings">Carregar configurações padrão</string>
+    <string name="drag">Arrastar</string>
 </resources>
