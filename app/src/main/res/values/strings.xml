@@ -375,7 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Back</string>
     <string name="expand_collapse">Expand / Collapse</string>
     <string name="essential">Essential</string>
-    <string name="user_interface">User interface</string>
     <string name="append_human_readable_uuid_to_new_tasks">Append human readable UUID to new tasks</string>
     <string name="action_order">Action order</string>
     <string name="action_reorder_accept">Accept new order</string>

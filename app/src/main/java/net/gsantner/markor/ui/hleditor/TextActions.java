@@ -18,12 +18,10 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
@@ -47,7 +45,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class TextActions {
     protected HighlightingEditor _hlEditor;
     protected Document _document;
@@ -56,7 +54,6 @@ public abstract class TextActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textActionSidePadding;
-    private int _tabWidth;
 
     public TextActions(Activity activity, Document document) {
         _document = document;
@@ -65,13 +62,12 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
-        _tabWidth = _appSettings.getTabWidth();
     }
 
     /**
      * Derived classes must implement a callback which inherits from ActionCallback
      */
-    protected abstract class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
+    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
     }
 
     ;
@@ -90,8 +86,8 @@ public abstract class TextActions {
      *
      * @return StringRes preference key
      */
-    protected abstract @StringRes
-    int getFormatActionsKey();
+    @StringRes
+    protected abstract int getFormatActionsKey();
 
     /**
      * Derived classes must return a List of ActionItem. One for each action they want to implement.
@@ -214,18 +210,6 @@ public abstract class TextActions {
         }
     }
 
-    public View.OnLongClickListener getLongListenerShowingToastWithText(final String text) {
-        return v -> {
-            try {
-                if (!TextUtils.isEmpty(text)) {
-                    Toast.makeText(_activity, text, Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception ignored) {
-            }
-            return true;
-        };
-    }
-
     protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
         ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
@@ -251,15 +235,13 @@ public abstract class TextActions {
         btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
 
         boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
-        btn.setColorFilter(ContextCompat.getColor(_context,
-                isDarkTheme ? android.R.color.white : R.color.grey));
+        btn.setColorFilter(ContextCompat.getColor(_context, isDarkTheme ? android.R.color.white : R.color.grey));
         barLayout.addView(btn);
     }
 
     protected void setBarVisible(ViewGroup barLayout, boolean visible) {
         if (barLayout.getId() == R.id.document__fragment__edit__text_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
-            ((HorizontalScrollView) barLayout.getParent())
-                    .setVisibility(visible ? View.VISIBLE : View.GONE);
+            ((HorizontalScrollView) barLayout.getParent()).setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
 
