@@ -14,7 +14,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light">밝음</string>
     <string name="dark">어두움</string>
     <string name="delete">삭제</string>
-    <string name="appearance">모양</string>
+    <string name="appearance">외관</string>
     <string name="rename">이름 바꾸기</string>
     <string name="confirm_delete">삭제 확인</string>
     <string name="do_you_really_want_to_delete_this_witharg">%s 항목을 정말로 삭제하시겠습니까?</string>
@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">문서 편집기 글꼴</string>
     <string name="theme">테마</string>
     <string name="open_existing_files_in_view_mode">기존 파일을 열 때 \'읽기 모드\' 사용</string>
-    <string name="about">이 앱에 대해서..</string>
+    <string name="about">앱 정보</string>
     <string name="plaintext">평문</string>
     <string name="file">파일</string>
     <string name="image">이미지</string>
