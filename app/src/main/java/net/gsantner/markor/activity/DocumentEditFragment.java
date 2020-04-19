@@ -509,6 +509,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _hlEditor.enableHighlighterAutoFormat();
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);

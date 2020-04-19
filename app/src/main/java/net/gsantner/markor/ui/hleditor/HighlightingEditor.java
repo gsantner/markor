@@ -107,6 +107,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
+        disableHighlighterAutoFormat();
         _hl = newHighlighter;
         reloadHighlighter();
 
