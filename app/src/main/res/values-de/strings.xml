@@ -78,7 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
     <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
-    <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystem Berechtigung um in Dokumenten zu speichern</string>
+    <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystemberechtigung um Dokumente zu speichern</string>
     <string name="open_with">Öffnen mit</string>
     <string name="sort">Sortieren</string>
     <string name="date">Datum</string>
@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Zeilenende hervorheben</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
     <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
-    <string name="disable_code_block_highlight">Hervorhebung für Code-Blöcke deaktivieren</string>
+    <string name="disable_code_block_highlight">Hervorheben von Code-Blöcken deaktivieren</string>
     <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
     <string name="general">Allgemeines</string>
     <string name="resources">Ressourcen</string>
@@ -183,9 +183,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
-    <string name="character_to_start_items_of_unordered_list_with">Welches Zeichen verwendet werden soll um ungeordnete Listen zu bezeichnen</string>
+    <string name="character_to_start_items_of_unordered_list_with">Zeichen am Anfang von jedem ungeordneten Listen-Element</string>
     <string name="unordered_list_char_dash">Strich (-)</string>
-    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_asterisk">Stern (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbaren Dokumente bearbeiten. Datei-Manager die nicht den vollständigen Dateipfad angeben sind nicht unterstützt.</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
@@ -223,7 +223,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">absteigend</string>
     <string name="ascending">aufsteigend</string>
     <string name="disable_spelling_underline">Rechtschreibungs-Linie deaktivieren</string>
-    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastatur-Vorschläge bleiben, die rote Unterstreichung verschwindet</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturvorschläge bleiben, die rote Unterstreichung verschwindet</string>
     <string name="location">Ort</string>
     <string name="text_lines">Text Zeile</string>
     <string name="text_characters">Text Zeichen</string>
@@ -286,9 +286,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_sdcard">AppData (SD Karte)</string>
     <string name="internal_storage">Interner Speicher</string>
     <string name="open_the_document_from_main_view">Du kannst das Dokument unten in der Hauptansicht, dem Datei-Browser oder aus dem Launcher öffnen. Text der zu Markor geteilt wurde kann angefügt werden.</string>
-    <string name="notebook_is_the_home_of_your_files">Das Notizbuch ist der Ordner den Markor im Datei-Browser beim App-Start ladet. Es ist der Home-Ordner deiner Dateien.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote ist die schnellste Option um Notizen zu machen. Es ist eine Datei im Markdown Format mit dem Standardpfad &gt;Notizbuch/QuickNote.md&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
-    <string name="todo_is_the_easiest_way_">Manage deine Aufgaben mit ToDo. Es ist eine Datei im todo.txt Format mit dem Standardpfad &gt;Notizbuch/todo.txt&lt;, du kann den Pfad in den Einstellungen anpassen.</string>
+    <string name="notebook_is_the_home_of_your_files">Notizbuch ist der Ordner, den Markor beim Starten der App im Dateibrowser lädt. Es ist der Home-Ordner Ihrer Dateien.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote ist die schnellste Option um Notizen zu erstellen. Es ist eine Datei im Markdown-Format mit dem Standardpfad &gt;Notizbuch/QuickNote.md&lt;, du kannst den Pfad in den Einstellungen anpassen.</string>
+    <string name="todo_is_the_easiest_way_">Manage deine Aufgaben mit ToDo. Es ist eine Datei im todo.txt-Format mit dem Standardpfad &gt;Notizbuch/todo.txt&lt;, du kannst den Pfad in den Einstellungen anpassen.</string>
     <string name="navigationbar_color">Farbe der Navigationsleiste</string>
     <string name="black">Schwarz</string>
     <string name="white">Weiß</string>
@@ -361,8 +361,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Erweitern / Einklappen</string>
     <string name="essential">Essenziell</string>
     <string name="append_human_readable_uuid_to_new_tasks">Menschlich lesbare UUID neuen Aufgaben hinzufügen</string>
-    <string name="action_order">Aktionsreihenfolge</string>
-    <string name="action_reorder_accept">Neue Bestellung akzeptieren</string>
+    <string name="action_order">Aktions-Reihenfolge</string>
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
 </resources>
