@@ -361,4 +361,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Expandir / Contraer</string>
     <string name="essential">Esencial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Añadir UUID legible por humanos a nuevas tareas</string>
+    <string name="action_order">Orden de acción</string>
+    <string name="load_default_settings">Cargar ajustes por defecto</string>
+    <string name="drag">Arrastrar</string>
 </resources>

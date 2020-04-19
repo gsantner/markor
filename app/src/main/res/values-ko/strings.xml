@@ -64,7 +64,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d개 항목 선택됨</string>
     <string name="hide_statusbar_at_this_view">해당 화면에서 상태 표시줄 숨기기</string>
     <string name="hide_statusbar">상태 표시줄 숨기기</string>
-    <string name="name">파일 이름</string>
+    <string name="name">이름/제목</string>
     <string name="url_or_path">URL / 경로</string>
     <string name="insert_link">링크 삽입</string>
     <string name="insert_image">이미지 삽입</string>
@@ -82,7 +82,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_with">다음으로 열기:</string>
     <string name="sort">다음으로 정렬:</string>
     <string name="date">날짜</string>
-    <string name="deleteme____1">이름/제목</string>
+    <string name="deleteme____1">파일 이름</string>
     <string name="size">크기</string>
     <string name="reverse_order">역순으로 정렬</string>
     <string name="contribute">기여</string>
