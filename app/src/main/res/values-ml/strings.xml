@@ -136,6 +136,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">മുകൾഭാഗം</string>
     <string name="bottom">കീഴ്ഭാഗം</string>
     <string name="center">നടുക്ക്</string>
+    <string name="open_source_licenses">ഉറവിട ലൈസൻസുകൾ തുറക്കുക</string>
+    <string name="rate_this_app">ഈ അപ്ലിക്കേഷൻ റേറ്റുചെയ്യുക</string>
+    <string name="translate">പരിഭാഷപ്പെടുത്തുക</string>
+    <string name="more_info_and_help">കൂടുതൽ സഹായങ്ങളും വിവരങ്ങളും</string>
+    <string name="report_bugs">പ്രശ്നങ്ങള്‍ റിപ്പോർട്ടുചെയ്യുക</string>
+    <string name="join_community">കമ്മ്യൂണിറ്റിയിൽ ചേരുക</string>
+    <string name="bug_reports_suggest_improvements">ഫീഡ്‌ബാക്ക് നൽകുക, ബഗുകൾ റിപ്പോർട്ടുചെയ്യുക അല്ലെങ്കിൽ മെച്ചപ്പെടുത്തലുകൾ നിർദ്ദേശിക്കുക</string>
+    <string name="help_translating_this_app">ഈ അപ്ലിക്കേഷൻ മറ്റ് ഭാഷകളിലേക്ക് പരിഭാഷപ്പെടുത്തുക</string>
+    <string name="source_code">സോഴ്സ് കോഡ്</string>
+    <string name="project_license">പ്രോജക്ടു് ലൈസൻസ്</string>
+    <string name="project_contribution_info">പ്രോജക്റ്റ് സംഭാവന വിവരങ്ങള്‍</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">ഈ പ്രോജക്റ്റിലേക്ക് എങ്ങനെ സംഭാവന നൽകാം എന്നതിനെക്കുറിച്ചുള്ള കൂടുതൽ വിവരങ്ങൾ</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">പ്രോജക്റ്റിലേക്ക് കോഡ് സംഭാവന ചെയ്യുക. തുടക്കക്കാരെ ഉൾപ്പെടെ എല്ലാവരെയും സ്വാഗതം ചെയ്യുന്നു</string>
+    <string name="project_team">പ്രോജക്റ്റ് ടീം</string>
+    <string name="contributors_public_add_yourself_description">സംഭാവക വിവരം കാണിക്കുക. സംഭാവന ചെയ്തതിനുശേഷം ഒരു ഓപ്റ്റ്-ഇൻ അടിസ്ഥാനത്തിൽ ഇത് ഇവിടെ കാണിക്കുന്നതിന് നൽകുക</string>
+    <string name="error_picture_selection">ചിത്രം തിരഞ്ഞെടുക്കുകയോ സംരക്ഷിക്കുകയോ ചെയ്തിട്ടില്ല.</string>
+    <string name="miscellaneous">പലവക</string>
+    <string name="background">പശ്ചാത്തലം</string>
+    <string name="font">ഫോണ്ട്</string>
+    <string name="close">അടയ്ക്കുക</string>
     <string name="cancel">റദ്ദാക്കുക</string>
     <string name="reload">വീണ്ടും ലോഡ് ചെയ്യുക</string>
 </resources>
