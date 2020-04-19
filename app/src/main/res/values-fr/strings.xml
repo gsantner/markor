@@ -362,7 +362,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essentiel</string>
     <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID lisible par l\'homme aux nouvelles tâches</string>
     <string name="action_order">Ordre des actions</string>
-    <string name="action_reorder_accept">Accepter une nouvelle commande</string>
     <string name="load_default_settings">Charger les paramètres par défaut</string>
     <string name="drag">Glisser</string>
 </resources>
