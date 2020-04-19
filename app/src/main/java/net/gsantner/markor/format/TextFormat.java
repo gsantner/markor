@@ -10,7 +10,6 @@
 package net.gsantner.markor.format;
 
 import android.app.Activity;
-import android.text.TextWatcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
