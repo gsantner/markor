@@ -362,7 +362,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Nødvendig</string>
     <string name="append_human_readable_uuid_to_new_tasks">Legg til menneskelig lesbar UUID til nye oppgaver</string>
     <string name="action_order">Handlingen rekkefølge</string>
-    <string name="action_reorder_accept">Godta ny ordre</string>
     <string name="load_default_settings">Last inn standardinnstillinger</string>
     <string name="drag">Dra</string>
 </resources>
