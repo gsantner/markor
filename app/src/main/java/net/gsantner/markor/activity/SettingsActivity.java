@@ -188,7 +188,18 @@ public class SettingsActivity extends AppActivityBase {
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-            setPreferenceVisible(R.string.pref_key__swipe_to_change_mode, _as.isExperimentalFeaturesEnabled());
+
+            final int[] experimentalKeys = new int[]{
+                    R.string.pref_key__swipe_to_change_mode,
+                    R.string.pref_key__todotxt__hl_delay,
+                    R.string.pref_key__markdown__hl_delay_v2,
+                    R.string.pref_key__is_editor_statusbar_hidden,
+                    R.string.tab_width,
+                    R.string.pref_key__editor_line_spacing,
+            };
+            for (final int keyId : experimentalKeys) {
+                setPreferenceVisible(keyId, _as.isExperimentalFeaturesEnabled());
+            }
         }
 
         @Override
