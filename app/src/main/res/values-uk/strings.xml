@@ -362,7 +362,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Важливе</string>
     <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
     <string name="action_order">Порядок дій</string>
-    <string name="action_reorder_accept">Прийняти нове замовлення</string>
     <string name="load_default_settings">Відкрити типові параметри</string>
     <string name="drag">Тягнути</string>
 </resources>
