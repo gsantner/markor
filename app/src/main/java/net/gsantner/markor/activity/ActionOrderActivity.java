@@ -25,7 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -192,11 +192,11 @@ public class ActionOrderActivity extends AppCompatActivity {
     }
 
     private static class Holder extends RecyclerView.ViewHolder {
-        private final LinearLayout _row;
+        private final RelativeLayout _row;
 
         private Holder(View row) {
             super(row);
-            _row = (LinearLayout) row;
+            _row = (RelativeLayout) row;
         }
 
         private void bindModel(TextActions.ActionItem action) {
