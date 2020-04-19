@@ -11,7 +11,6 @@ package net.gsantner.markor.ui.hleditor;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -45,7 +44,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
-    private Highlighter _hl;
+    private Highlighter _hl = null;
 
     private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
@@ -121,14 +120,14 @@ public class HighlightingEditor extends AppCompatEditText {
     public void enableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{_hl.getAutoFormatter()});
 
-        TextWatcher watcher = _hl.getTextModifier();
+        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
         if (watcher != null) addTextChangedListener(watcher);
     }
 
     public void disableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{});
 
-        TextWatcher watcher = _hl.getTextModifier();
+        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
         if (watcher != null) removeTextChangedListener(watcher);
     }
 
