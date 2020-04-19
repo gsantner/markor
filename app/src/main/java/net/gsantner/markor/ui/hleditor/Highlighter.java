@@ -19,6 +19,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
+import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
@@ -73,6 +74,7 @@ public abstract class Highlighter {
     protected boolean _highlightLinks = true;
     protected final boolean _highlightHexcolor;
     protected final Document _document;
+    private TextWatcher _modifier = null;
 
     public Highlighter(HighlightingEditor editor, Document document) {
         _hlEditor = editor;
@@ -116,6 +118,13 @@ public abstract class Highlighter {
         return "";
     }
 
+    public TextWatcher getTextModifier() {
+        return _modifier;
+    }
+
+    protected void setTextModifier(TextWatcher modifier) {
+        _modifier = modifier;
+    }
 
     //
     // Clear spans

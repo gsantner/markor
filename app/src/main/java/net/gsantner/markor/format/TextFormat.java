@@ -10,6 +10,7 @@
 package net.gsantner.markor.format;
 
 import android.app.Activity;
+import android.text.TextWatcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
@@ -26,6 +27,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.ListHandler;
 import net.gsantner.markor.ui.hleditor.TextActions;
 
 import java.io.File;
@@ -104,6 +106,7 @@ public class TextFormat {
     private TextActions _textActions;
     private Highlighter _highlighter;
     private TextConverter _converter;
+    private TextWatcher _watcher = null;
 
     public TextFormat() {
     }
