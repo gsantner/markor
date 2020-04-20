@@ -62,6 +62,12 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.Light" />
+        <activity android:name=".activity.ActionOrderActivity"
+            android:parentActivityName=".activity.SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity" />
+        </activity>
         <activity android:name="other.writeily.widget.WrWidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

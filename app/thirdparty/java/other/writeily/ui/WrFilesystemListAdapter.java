@@ -123,7 +123,7 @@ public class WrFilesystemListAdapter extends ArrayAdapter<File> implements Filte
             StringBuilder sb = new StringBuilder();
             sb.append(_context.getResources().getQuantityString(R.plurals.documents, documentAmount));
             sb.append(": ");
-            sb.append(Integer.toString(documentAmount));
+            sb.append(documentAmount);
             if (filesAmount != documentAmount) {
                 sb.append(String.format(Locale.ROOT, " / %s: %d", _context.getString(R.string.files), filesAmount));
             }

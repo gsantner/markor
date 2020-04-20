@@ -46,7 +46,7 @@
 
         <PreferenceCategory android:title="@string/miscellaneous">
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:dialogMessage="@string/always_open_files_with_this_app_when_list_contains_file_extension"
                 android:icon="@drawable/ic_open_in_browser_black_24dp"
                 android:key="@string/pref_key__exts_to_always_open_in_this_app"
@@ -416,6 +416,12 @@
                     android:key="@string/pref_key__markdown_show_toc"
                     android:title="@string/table_of_contents" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/textactions">
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__markdown__reorder_actions"
+                    android:title="@string/action_order" />
+            </PreferenceCategory>
 
         </PreferenceScreen>
 
@@ -433,7 +439,7 @@
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_date_range_black_24dp"
-                    android:key="@string/pref_key__todotxt__start_new_tasks_with_huuid"
+                    android:key="@string/pref_key__todotxt__start_new_tasks_with_huuid_v2"
                     android:summary="@string/append_human_readable_uuid_to_new_tasks"
                     android:title="@string/huuid" />
                 <CheckBoxPreference
@@ -442,6 +448,10 @@
                     android:key="@string/pref_key__todotxt__append_contexts_and_projects_on_end_of_task"
                     android:summary="@string/append_contexts_and_projects_on_end_of_task"
                     android:title="@string/append_contexts_and_projects" />
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__todotxt__reorder_actions"
+                    android:title="@string/action_order" />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="@string/syntax_highlighting">
@@ -464,7 +474,23 @@
                     android:summary="@string/category_to_context_project_to_tag"
                     android:title="@string/alternative_naming" />
             </PreferenceCategory>
+
         </PreferenceScreen>
+
+        <!-- To-Do Screen -->
+        <PreferenceScreen
+            android:icon="@drawable/ic_text_fields_black_24dp"
+            android:title="@string/plaintext">
+
+            <PreferenceCategory android:title="@string/textactions">
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__plaintext__reorder_actions"
+                    android:title="@string/action_order" />
+            </PreferenceCategory>
+
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
     <!-- Most important settings -->

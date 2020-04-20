@@ -37,7 +37,7 @@ public class MarkorWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         try {
-            if (url.equals("about:blank")){
+            if (url.equals("about:blank")) {
                 view.reload();
                 return true;
             }

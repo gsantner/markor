@@ -142,7 +142,7 @@ public class WrRenameDialog extends DialogFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (_filenameClash) {
-                    ((AlertDialog) _dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     ((TextView) _dialog.findViewById(R.id.dialog_message)).setText("");
                     _filenameClash = false;
                 }

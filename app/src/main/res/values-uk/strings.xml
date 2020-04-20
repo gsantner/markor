@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
     <string name="use_monospace_for_code">Використовувати моноширинний шрифт для коду</string>
-    <string name="disable_code_block_highlight">Відключити підсвічування для блоків коду</string>
+    <string name="disable_code_block_highlight">Вимкнути підсвічування для блоків коду</string>
     <string name="use_different_fonttype_slow_down">Використовувати різні шрифти. Динамічна зміна шрифту впливає на продуктивність додатку.</string>
     <string name="general">Загальне</string>
     <string name="resources">Ресурси</string>
@@ -361,4 +361,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Розгорнути / Згорнути</string>
     <string name="essential">Важливе</string>
     <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
+    <string name="action_order">Порядок дій</string>
+    <string name="load_default_settings">Відкрити типові параметри</string>
+    <string name="drag">Тягнути</string>
 </resources>

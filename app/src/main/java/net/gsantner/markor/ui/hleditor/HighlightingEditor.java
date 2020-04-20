@@ -69,6 +69,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
+
         addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable e) {
@@ -102,6 +103,9 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
             }
         });
+
+        // This watcher detects and handles termination of lists when last item is empty
+        addTextChangedListener(new ListHandler());
     }
 
     public void setHighlighter(Highlighter newHighlighter) {

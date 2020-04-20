@@ -11,17 +11,17 @@ package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
@@ -31,14 +31,21 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class TextActions {
     protected HighlightingEditor _hlEditor;
     protected Document _document;
@@ -47,7 +54,6 @@ public abstract class TextActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textActionSidePadding;
-    private int _tabWidth;
 
     public TextActions(Activity activity, Document document) {
         _document = document;
@@ -56,21 +62,152 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
-        _tabWidth = _appSettings.getTabWidth();
     }
 
-    public abstract void appendTextActionsToBar(ViewGroup viewGroup);
+    /**
+     * Derived classes must implement a callback which inherits from ActionCallback
+     */
+    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
+    }
 
-    public View.OnLongClickListener getLongListenerShowingToastWithText(final String text) {
-        return v -> {
-            try {
-                if (!TextUtils.isEmpty(text)) {
-                    Toast.makeText(_activity, text, Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception ignored) {
+    ;
+
+    /**
+     * Factory to generate ActionCallback for given keyId
+     *
+     * @param keyId Callback must handle keyId
+     * @return Child class of ActionCallback
+     */
+    protected abstract ActionCallback getActionCallback(@StringRes int keyId);
+
+    /**
+     * Derived classes must return a unique StringRes id.
+     * This is used to extract the appropriate action order preference.
+     *
+     * @return StringRes preference key
+     */
+    @StringRes
+    protected abstract int getFormatActionsKey();
+
+    /**
+     * Derived classes must return a List of ActionItem. One for each action they want to implement.
+     *
+     * @return List of ActionItems
+     */
+    protected abstract List<ActionItem> getActiveActionList();
+
+    /**
+     * Map every string Action identifier -> ActionItem
+     *
+     * @return Map of String key -> Action
+     */
+    public Map<String, ActionItem> getActiveActionMap() {
+        List<ActionItem> actionList = getActiveActionList();
+        List<String> keyList = getActiveActionKeys();
+
+        Map<String, ActionItem> map = new HashMap<String, ActionItem>();
+
+        for (int i = 0; i < actionList.size(); i++) {
+            map.put(keyList.get(i), actionList.get(i));
+        }
+        return map;
+    }
+
+    /**
+     * Get string for every ActionItem.keyId defined by getActiveActionList
+     *
+     * @return List or resource strings
+     */
+    public List<String> getActiveActionKeys() {
+        List<ActionItem> actionList = getActiveActionList();
+        ArrayList<String> keys = new ArrayList<String>();
+
+        Resources res = _activity.getResources();
+        for (ActionItem item : actionList) keys.add(res.getString(item.keyId));
+
+        return keys;
+    }
+
+    /**
+     * Save an action order to preferences.
+     * The Preference is derived from the key returned by getFormatActionsKey
+     * <p>
+     * Keys are joined into a comma separated list before saving.
+     *
+     * @param keys of keys (in order) to save
+     */
+    public void saveActionOrder(List<String> keys) {
+        StringBuilder builder = new StringBuilder();
+        for (String key : keys) builder.append(key).append(',');
+        if (builder.length() > 0 && builder.charAt(builder.length() - 1) == ',') {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        String combinedKeys = builder.toString();
+
+        // Store the keys
+        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
+        String formatKey = _activity.getResources().getString(getFormatActionsKey());
+        settings.edit().putString(formatKey, combinedKeys).apply();
+    }
+
+    /**
+     * Get the ordered list of preference keys.
+     * <p>
+     * This routine does the following:
+     * 1. Extract list of currently defined actions
+     * 2. Extract saved action-order-list (Comma separated) from preferences
+     * 3. Split action order list into list of action keys
+     * 4. Remove action keys which are no longer present in currently defined actions from the preference list
+     * 5. Add new actions which are not in the preference list to the preference list
+     * 6. If changes were made (i.e. actions have been added or removed), re-save the preference list
+     *
+     * @return List of Action Item keys in order specified by preferences
+     */
+    public List<String> getActionOrder() {
+
+        ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());
+        ArrayList<String> prefKeys = definedKeys;
+
+        String formatKey = _activity.getResources().getString(getFormatActionsKey());
+        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
+        String combinedKeys = settings.getString(formatKey, null);
+
+        boolean changed = false;
+        if (combinedKeys != null) {
+            prefKeys = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
+
+            Set<String> prefSet = new HashSet<>(prefKeys);
+            Set<String> defSet = new HashSet<>(definedKeys);
+
+            // Add any defined keys which are not in prefs
+            defSet.removeAll(prefSet);
+            prefKeys.addAll(defSet);
+
+            // Removed any pref keys which are not defined
+            prefSet.removeAll(definedKeys);
+            prefKeys.removeAll(prefSet);
+
+            changed = defSet.size() > 0 || prefSet.size() > 0;
+
+        }
+
+        if (changed) saveActionOrder(prefKeys);
+
+        return prefKeys;
+    }
+
+    public void appendTextActionsToBar(ViewGroup barLayout) {
+        if (barLayout.getChildCount() == 0) {
+            setBarVisible(barLayout, true);
+
+            Map<String, ActionItem> map = getActiveActionMap();
+            List<String> orderedKeys = getActionOrder();
+            for (String key : orderedKeys) {
+                ActionItem action = map.get(key);
+                ActionCallback actionCallback = getActionCallback(action.keyId);
+                appendTextActionToBar(barLayout, action.iconId, action.stringId, actionCallback, actionCallback);
             }
-            return true;
-        };
+        }
     }
 
     protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
@@ -98,66 +235,14 @@ public abstract class TextActions {
         btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
 
         boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
-        btn.setColorFilter(ContextCompat.getColor(_context,
-                isDarkTheme ? android.R.color.white : R.color.grey));
+        btn.setColorFilter(ContextCompat.getColor(_context, isDarkTheme ? android.R.color.white : R.color.grey));
         barLayout.addView(btn);
     }
 
     protected void setBarVisible(ViewGroup barLayout, boolean visible) {
         if (barLayout.getId() == R.id.document__fragment__edit__text_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
-            ((HorizontalScrollView) barLayout.getParent())
-                    .setVisibility(visible ? View.VISIBLE : View.GONE);
+            ((HorizontalScrollView) barLayout.getParent()).setVisibility(visible ? View.VISIBLE : View.GONE);
         }
-    }
-
-    protected int findLineStart(int cursor, String text) {
-        int i = cursor - 1;
-        for (; i >= 0; i--) {
-            if (text.charAt(i) == '\n') {
-                break;
-            }
-        }
-
-        return i + 1;
-    }
-
-    protected int findNextLine(int startIndex, int endIndex, String text) {
-        int index = -1;
-        for (int i = startIndex; i < endIndex; i++) {
-            if (text.charAt(i) == '\n') {
-                index = i + 1;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    protected int findWhitespaceEnd(int startIndex, int endIndex, String text) {
-        int index = endIndex;
-        for (int i = startIndex; i < endIndex; i++) {
-            char c = text.charAt(i);
-            if (c != ' ' && c != '\t') {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    protected int[] getSelection() {
-
-        int selectionStart = _hlEditor.getSelectionStart();
-        int selectionEnd = _hlEditor.getSelectionEnd();
-
-        if (selectionEnd < selectionStart) {
-            selectionEnd = _hlEditor.getSelectionStart();
-            selectionStart = _hlEditor.getSelectionEnd();
-        }
-
-        int[] selection = {selectionStart, selectionEnd};
-        return selection;
     }
 
     public static class TextSelection {
@@ -208,28 +293,31 @@ public abstract class TextActions {
 
         String text = _hlEditor.getText().toString();
 
-        int[] selection = getSelection();
+        int[] selection = StringUtils.getSelection(_hlEditor);
         TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
-        
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
 
-        while (lineStart != -1) {
+        int lineStart = StringUtils.getLineStart(text, textSelection.getSelectionStart());
+
+        while (lineStart <= textSelection.getSelectionEnd()) {
 
             if (ignoreIndent) {
-                lineStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
+                lineStart = StringUtils.getNextNonWhitespace(text, lineStart, textSelection.getSelectionEnd());
             }
 
+            int selEnd = StringUtils.getLineEnd(text, textSelection.getSelectionEnd());
+            String remainingString = text.substring(lineStart, selEnd);
+
             if (replaceString == null) {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                if (remainingString.startsWith(action)) {
                     textSelection.removeText(lineStart, action);
                 } else {
                     textSelection.insertText(lineStart, action);
                 }
             } else {
-                if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(action)) {
+                if (remainingString.startsWith(action)) {
                     textSelection.removeText(lineStart, action);
                     textSelection.insertText(lineStart, replaceString);
-                } else if (text.substring(lineStart, textSelection.getSelectionEnd()).startsWith(replaceString)) {
+                } else if (remainingString.startsWith(replaceString)) {
                     textSelection.removeText(lineStart, replaceString);
                     textSelection.insertText(lineStart, action);
                 } else {
@@ -238,46 +326,8 @@ public abstract class TextActions {
             }
 
             text = _hlEditor.getText().toString();
-
-            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
-        }
-    }
-
-    protected void runIndentLines(Boolean deIndent) {
-
-        String text = _hlEditor.getText().toString();
-
-        int[] selection = getSelection();
-        TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
-
-        int lineStart = findLineStart(textSelection.getSelectionStart(), text);
-
-        char[] chars = new char[_tabWidth];
-        Arrays.fill(chars, ' ');
-        String tabString = new String(chars);
-
-        while (lineStart != -1) {
-
-            if (deIndent) {
-                int textStart = findWhitespaceEnd(lineStart, textSelection.getSelectionEnd(), text);
-                int spaceCount = textStart - lineStart;
-                if (spaceCount >= _tabWidth) {
-                    textSelection.removeText(lineStart, tabString);
-                }
-                else if (spaceCount > 0) {
-                    // Handle case where line is indented by less than tabWidth
-                    for (int i = 0; i < spaceCount; i++) {
-                        textSelection.removeText(lineStart, " ");
-                    }
-                }
-            }
-            else {
-                textSelection.insertText(lineStart, tabString);
-            }
-
-            text = _hlEditor.getText().toString();
-
-            lineStart = findNextLine(lineStart, textSelection.getSelectionEnd(), text);
+            // Get next line
+            lineStart = StringUtils.getLineEnd(text, lineStart, textSelection.getSelectionEnd()) + 1;
         }
     }
 
@@ -399,14 +449,6 @@ public abstract class TextActions {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
                 return true;
             }
-            case "tmaid_common_indent": {
-                runIndentLines(false);
-                return true;
-            }
-            case "tmaid_common_deindent": {
-                runIndentLines(true);
-                return true;
-            }
 
             case "tmaid_common_time_insert_timestamp": {
                 try {
@@ -453,4 +495,25 @@ public abstract class TextActions {
     }
 
     public abstract boolean runAction(final String action, boolean modLongClick, String anotherArg);
+
+    public static class ActionItem {
+        @StringRes
+        public int keyId;
+        @DrawableRes
+        public int iconId;
+        @StringRes
+        public int stringId;
+
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+            keyId = key;
+            iconId = icon;
+            stringId = string;
+        }
+
+        public ActionItem(int[] data) {
+            keyId = data[0];
+            iconId = data[1];
+            stringId = data[2];
+        }
+    }
 }

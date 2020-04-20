@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/start_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/name"
+        android:src="@drawable/ic_format_indent_increase_black_24dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/end_icon"
+        android:layout_toLeftOf="@id/end_icon"
+        android:layout_toEndOf="@id/start_icon"
+        android:layout_toRightOf="@id/start_icon"
+        android:color="@color/primary_text"
+        android:paddingStart="@dimen/appbar_padding_top"
+        android:paddingEnd="@dimen/appbar_padding_top"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+
+    <ImageView
+        android:id="@+id/end_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:alpha="0.3"
+        android:contentDescription="@string/drag"
+        android:maxHeight="32dp"
+        android:src="@drawable/ic_reorder_black_24dp" />
+</RelativeLayout>
