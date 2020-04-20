@@ -147,4 +147,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">வெற்று ஆவணம்</string>
     <string name="break_page_pdf_print">பக்கங்களை பிரித்தெடு (PDF/அச்சடித்தல்)</string>
     <string name="underline">அடிக்கோடு</string>
+    <string name="underline_hex_color_codes">Hex வண்ண குறியீடுகளை அடிக்கோடிடு</string>
+    <string name="tasks_with_todays_date">இன்றைய தேதியை கொண்டிருக்கும் செயல்கள்</string>
+    <string name="general">பொதுவானவை</string>
+    <string name="resources">வளங்கள்</string>
+    <string name="space_between_lines_in_percent">வரிகளுக்கு இடையேயான இடைவெளி சதவீதம்</string>
+    <string name="line_spacing">வரி இடைவெளி</string>
+    <string name="archive_does_move_done_tasks">முடிக்கப்பட்ட செயல்களை அதே கோப்புறையில் உள்ள குறிப்பிட்ட ஆவணத்திற்கு நகர்த்தவும்</string>
 </resources>
