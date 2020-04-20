@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">படம்</string>
     <string name="font_size">எழுத்துரு அளவு</string>
     <string name="render_rtl_language">வலமிருந்து இடமாக இருக்கும் மொழிகளுக்கு ஏற்றவாறு மாற்று</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">பிழை: குறிப்பேட்டின் கோப்பகத்தை உருவாக்க இயலாது</string>
     <string name="last_modified_witharg">கடைசியாக மாற்றம் செய்யப்பட்டது: %s</string>
     <string name="select_this_folder">இந்த கோப்புறையைத் தேர்ந்தெடு</string>
     <string name="select">தேர்ந்தெடு</string>
@@ -61,6 +62,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">பதிவுகளை தேர்ந்தெடுக்கவும்</string>
     <string name="one_item_selected">ஒரு உருப்படி தேர்வு செய்யப்பட்டது</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d உருப்படிகள் தேர்ந்தெடுக்கப்பட்டன</string>
+    <string name="hide_statusbar_at_this_view">நிலமைப்பட்டயை இந்த காட்சி அமைப்பில் மறை</string>
+    <string name="hide_statusbar">நிலைப் பட்டியை மறை</string>
     <string name="name">பெயர்</string>
     <string name="url_or_path">இணைய முகவரி/ கோப்பின் பாதை</string>
     <string name="insert_link">இணைப்பை செருகவும்</string>
