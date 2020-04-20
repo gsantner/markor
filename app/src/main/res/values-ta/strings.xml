@@ -143,4 +143,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">வகைகள்</string>
     <string name="none">ஏதுமில்லை</string>
     <string name="other">மற்றவை</string>
+    <string name="alternative_naming">மாற்று வழி பெயரிடல்</string>
+    <string name="empty_file">வெற்று ஆவணம்</string>
+    <string name="break_page_pdf_print">பக்கங்களை பிரித்தெடு (PDF/அச்சடித்தல்)</string>
+    <string name="underline">அடிக்கோடு</string>
 </resources>
