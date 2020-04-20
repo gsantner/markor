@@ -154,4 +154,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">வரிகளுக்கு இடையேயான இடைவெளி சதவீதம்</string>
     <string name="line_spacing">வரி இடைவெளி</string>
     <string name="archive_does_move_done_tasks">முடிக்கப்பட்ட செயல்களை அதே கோப்புறையில் உள்ள குறிப்பிட்ட ஆவணத்திற்கு நகர்த்தவும்</string>
+    <string name="sort_tasks_by_selected_order">தேர்ந்தெடுக்கப்பட்ட ஒழுங்கின் படி செயல்களை வரிசைப்படுத்து</string>
+    <string name="special_key">சிறப்பு விசை</string>
+    <string name="key_pos_1_document">ஆவணத்தின் ஆரம்பம்</string>
+    <string name="key_pos_end_document">ஆவணத்தின் முடிவு</string>
+    <string name="key_ctrl_a">அனைத்தையும் தேர்வு செய் (Ctrl+A)</string>
+    <string name="key_tab">பட்டியலிடுவோன்</string>
+    <string name="start_on_bottom">கீழிருந்து தொடங்கு</string>
+    <string name="left">இடது</string>
+    <string name="right">வலது</string>
+    <string name="top">மேல்</string>
+    <string name="bottom">கீழ்</string>
+    <string name="font">எழுத்துரு</string>
 </resources>
