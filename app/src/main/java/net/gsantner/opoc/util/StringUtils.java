@@ -1,3 +1,12 @@
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2018-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.opoc.util;
 
 import android.widget.TextView;
@@ -16,9 +25,9 @@ public final class StringUtils {
     public static int getLineStart(CharSequence s, int start, int minRange) {
         int i = start;
         for (; i > minRange; i--) {
-             if (s.charAt(i - 1) == '\n') {
-                 break;
-             }
+            if (s.charAt(i - 1) == '\n') {
+                break;
+            }
         }
 
         return i;

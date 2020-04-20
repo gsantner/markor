@@ -30,7 +30,7 @@ public class MarkdownHighlighterPatternOrderedListTest {
     public void numberItem() {
         Matcher m = pattern.matcher("1. Item");
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("1.");
+        assertThat(m.group()).isEqualTo("1. ");
     }
 
 

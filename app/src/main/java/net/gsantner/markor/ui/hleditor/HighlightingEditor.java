@@ -44,7 +44,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
-    private Highlighter _hl;
+    private Highlighter _hl = null;
 
     private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
@@ -63,7 +63,7 @@ public class HighlightingEditor extends AppCompatEditText {
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
-            setAutoFormat(_hl.getAutoFormatter());
+            enableHighlighterAutoFormat();
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
@@ -103,12 +103,10 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
             }
         });
-
-        // This watcher detects and handles termination of lists when last item is empty
-        addTextChangedListener(new ListHandler());
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
+        disableHighlighterAutoFormat();
         _hl = newHighlighter;
         reloadHighlighter();
 
@@ -119,10 +117,18 @@ public class HighlightingEditor extends AppCompatEditText {
                 .setListener(null);
     }
 
-    private void enableHighlighterAutoFormat() {
-        //if (_hlEnabled) {
-        setAutoFormat(_hl.getAutoFormatter());
-        //}
+    public void enableHighlighterAutoFormat() {
+        setFilters(new InputFilter[]{_hl.getAutoFormatter()});
+
+        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
+        if (watcher != null) addTextChangedListener(watcher);
+    }
+
+    public void disableHighlighterAutoFormat() {
+        setFilters(new InputFilter[]{});
+
+        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
+        if (watcher != null) removeTextChangedListener(watcher);
     }
 
     private void cancelUpdate() {
@@ -198,9 +204,6 @@ public class HighlightingEditor extends AppCompatEditText {
     //
     // Simple getter / setter
     //
-    private void setAutoFormat(InputFilter newAutoFormatter) {
-        setFilters(new InputFilter[]{newAutoFormatter});
-    }
 
     public void setHighlightingEnabled(boolean enable) {
         _hlEnabled = enable;

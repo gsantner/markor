@@ -26,10 +26,10 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Arrays;
 
@@ -55,6 +55,10 @@ public class CommonTextActions {
 
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
+
+    public static final String ACTION_INDENT = "tmaid_common_indent";
+
+    public static final String ACTION_DEINDENT = "tmaid_common_deindent";
 
     private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
@@ -119,10 +123,6 @@ public class CommonTextActions {
                         _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
-                    } else if (callbackPayload.equals(rstr(R.string.indent))) {
-                        runIndentLines(false);
-                    } else if (callbackPayload.equals(rstr(R.string.deindent))) {
-                        runIndentLines(true);
                     }
                 });
                 return true;
@@ -208,6 +208,14 @@ public class CommonTextActions {
                 });
                 return true;
             }
+            case ACTION_INDENT: {
+                runIndentLines(false);
+                return true;
+            }
+            case ACTION_DEINDENT: {
+                runIndentLines(true);
+                return true;
+            }
             default:
                 break;
         }
@@ -239,8 +247,7 @@ public class CommonTextActions {
                     text.delete(lineStart, delEnd);
                     selectionEnd -= delCount;
                 }
-            }
-            else {
+            } else {
                 text.insert(lineStart, tabString);
                 selectionEnd += _tabWidth;
             }

@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">ایجاد پرونده جدید</string>
     <string name="move">بریدن</string>
     <string name="info">اطلاعات</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Googel translator</string>
     <string name="import_from_device">درون‌ریزی از دستگاه</string>
     <string name="import_">درون‌ریزی</string>
     <string name="append_to_witharg">اضافه کردن %s</string>
@@ -46,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (به عنوان متن ساده)</string>
     <string name="document_editor_font">قلم ویرایشگر پرونده</string>
     <string name="theme">پوسته</string>
+    <string name="open_existing_files_in_view_mode">Apri i file esistenti in modalità vista</string>
     <string name="about">درباره مارکور</string>
     <string name="plaintext">متن ساده</string>
     <string name="file">فایل</string>
@@ -60,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">ورودی ها را انتخاب کنید</string>
     <string name="one_item_selected">یک مورد انتخاب شده</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d مورد انتخاب شد</string>
+    <string name="hide_statusbar_at_this_view">Statusleiste in dieser Ansicht ausblenden</string>
     <string name="hide_statusbar">مخفی کردن نوار وضعیت</string>
     <string name="name">نام</string>
     <string name="url_or_path">آدرس(URL) / مسیر</string>
@@ -114,6 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">ایجاد میانبر</string>
     <string name="tried_to_create_shortcut_for_this_notice">ما میانبری به این پرونده در صفحه اصلی تلفن شما ایجاد کردیم؛ اما ممکن است بعضی لانچرها از این قابلیت پشتیبانی نکنند.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">فایل انتخاب شده در پوشه یادداشت های برنامه نیست. آیا می‌خواهید آن را به پوشه کنونی کپی کنید؟ این موجب رونویسی آن روی فایل‌های هم نام موجود خواهد شد.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">El fitxer no es troba a la carpeta actual. Voleu copiar-lo a la carpeta actual? Això sobreescriurà qualsevol fitxer amb el mateix nom.</string>
     <string name="files_and_folders">فایل‌ها و پوشه‌ها</string>
     <string name="document_browser">مرورگر پرونده</string>
     <string name="file_browser">کاوش فایل ها</string>
@@ -144,6 +148,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">هیچ</string>
     <string name="other">سایر موارد</string>
     <string name="alternative_naming">نامگذاری جایگزین</string>
+    <string name="empty_file">Prazna datoteka</string>
+    <string name="break_page_pdf_print">Prekid stranice (PDF/printanje)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">کد های رنگی بر اساس رنگشان زیرخط‌ دار بشوند یا نه</string>
     <string name="underline_hex_color_codes">زیر خط دار کردن کد های رنگی</string>
     <string name="insert_current_date_when_starting_new_task">هنگامی که کار جدید ثبت می‌کنم تاریخ امروز را وارد کن</string>

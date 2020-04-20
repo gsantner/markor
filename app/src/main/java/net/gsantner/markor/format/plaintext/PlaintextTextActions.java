@@ -10,14 +10,17 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
+import android.support.annotation.StringRes;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.view.ViewGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PlaintextTextActions extends TextActions {
 
@@ -25,41 +28,43 @@ public class PlaintextTextActions extends TextActions {
         super(activity, document);
     }
 
-
-    @Override
-    public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (barLayout.getChildCount() == 0) {
-            setBarVisible(barLayout, true);
-
-            // Regular actions
-            for (int[] actions : TMA_ACTIONS) {
-                PlaintextTextActionImpl actionCallback = new PlaintextTextActionImpl(actions[0]);
-                appendTextActionToBar(barLayout, actions[1], actions[2], actionCallback, actionCallback);
-            }
-        }
-    }
-
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         return runCommonTextAction(action);
     }
 
-    //
-    //
-    //
-    private static final int[][] TMA_ACTIONS = {
-            {R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list},
-            {R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list},
-            {R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list},
-            {R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.jump_to_bottom},
-            {R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines},
-            {R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link},
-            {R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach},
-            {R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key},
-            {R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time},
-    };
+    @Override
+    protected ActionCallback getActionCallback(@StringRes int keyId) {
+        return new PlaintextTextActionImpl(keyId);
+    }
 
-    private class PlaintextTextActionImpl implements View.OnClickListener, View.OnLongClickListener {
+    @Override
+    public List<ActionItem> getActiveActionList() {
+
+        final ActionItem[] TMA_ACTIONS = {
+                new ActionItem(R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list),
+                new ActionItem(R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
+                new ActionItem(R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
+                new ActionItem(R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.jump_to_bottom),
+                new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
+                new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+                new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
+                new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+                new ActionItem(R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
+                new ActionItem(R.string.tmaid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
+                new ActionItem(R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
+        };
+
+        return Arrays.asList(TMA_ACTIONS);
+    }
+
+    @Override
+    protected @StringRes
+    int getFormatActionsKey() {
+        return R.string.pref_key__plaintext__action_keys;
+    }
+
+    private class PlaintextTextActionImpl extends ActionCallback {
         private int _action;
 
         PlaintextTextActionImpl(int action) {
