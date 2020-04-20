@@ -127,4 +127,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">தொகுப்பான் அமைப்புகள்</string>
     <string name="remember_last_folder_location_on_startup" needed="false">தொடங்கும் போது கடைசியாக பயன்படுத்திய கோப்புறையின் அமைவிடத்தை நினைவில் கொள்</string>
     <string name="number_of_files_witharg" needed="false">ஆவணங்களின் எண்ணிக்கை: %d</string>
+    <string name="app_wide">செயலி முழுமைக்கும்</string>
+    <string name="main_view">செயலியின் முகப்பு பார்வை</string>
+    <string name="overall_theme_used_in_app">செயலி முழுமைக்கும் பயன்படுத்தப்பட்ட வண்ண அமைப்பு</string>
+    <string name="remember_last_directory">கடைசியாக பயன்படுத்திய கோப்புறையை நினைவில் கொள்</string>
+    <string name="syntax_highlighting">தொடரியல் தனிப்படுத்தல்</string>
+    <string name="highlighting_delay">தனிப்படுத்தலுக்கான இடைவெளி</string>
+    <string name="highlighting_enabled_or_not__appspecific">உள்ளீடு செய்ய பட்ட உறை தனிப்படுத்த வேண்டுமா இல்லையா என்பதை கட்டுப்படுத்துக</string>
+    <string name="control_font_size_in_editor">தொகுப்பியில் எழுத்துருவின் அளவை கட்டுப்படுத்தவும்</string>
+    <string name="load_last_opened_folder_at_startup">கடைசியாக திறந்த கோப்புறையை செயலியின் தொடக்கத்தின் போது ஏற்றவும்</string>
+    <string name="format">வடிவமைப்பு</string>
+    <string name="contexts">சூழமைவு</string>
+    <string name="project">திட்டம்</string>
+    <string name="projects">திட்டங்கள்</string>
+    <string name="categories">வகைகள்</string>
+    <string name="none">ஏதுமில்லை</string>
+    <string name="other">மற்றவை</string>
 </resources>
