@@ -194,8 +194,9 @@ public class SettingsActivity extends AppActivityBase {
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
                     R.string.pref_key__is_editor_statusbar_hidden,
-                    R.string.tab_width,
+                    R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
+                    R.string.pref_key__todotxt__start_new_tasks_with_huuid_v2,
             };
             for (final int keyId : experimentalKeys) {
                 setPreferenceVisible(keyId, _as.isExperimentalFeaturesEnabled());
