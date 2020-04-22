@@ -24,6 +24,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @SuppressWarnings("UnusedReturnValue")
@@ -44,7 +46,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
-    private Highlighter _hl = null;
+    private Highlighter _hl;
+    private Set<TextWatcher> _appliedModifiers; /* Tracks currently applied modifiers */
 
     private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
@@ -103,6 +106,8 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
             }
         });
+
+        _appliedModifiers = new HashSet<>();
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
@@ -120,15 +125,21 @@ public class HighlightingEditor extends AppCompatEditText {
     public void enableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{_hl.getAutoFormatter()});
 
-        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
-        if (watcher != null) addTextChangedListener(watcher);
+        TextWatcher modifier = (_hl != null)? _hl.getTextModifier() : null;
+        if (modifier != null && !_appliedModifiers.contains(modifier)) {
+            addTextChangedListener(modifier);
+            _appliedModifiers.add(modifier);
+        }
     }
 
     public void disableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{});
 
-        TextWatcher watcher = (_hl != null)? _hl.getTextModifier() : null;
-        if (watcher != null) removeTextChangedListener(watcher);
+        TextWatcher modifier = (_hl != null)? _hl.getTextModifier() : null;
+        if (modifier != null) {
+            removeTextChangedListener(modifier);
+            _appliedModifiers.remove(modifier);
+        }
     }
 
     private void cancelUpdate() {
