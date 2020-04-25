@@ -216,8 +216,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
-
-
     }
 
     @Override

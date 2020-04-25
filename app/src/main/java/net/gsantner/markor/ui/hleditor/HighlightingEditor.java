@@ -123,7 +123,7 @@ public class HighlightingEditor extends AppCompatEditText {
     public void enableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{_hl.getAutoFormatter()});
 
-        TextWatcher modifier = (_hl != null)? _hl.getTextModifier() : null;
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
         if (modifier != null && !_appliedModifiers.contains(modifier)) {
             addTextChangedListener(modifier);
             _appliedModifiers.add(modifier);
@@ -133,7 +133,7 @@ public class HighlightingEditor extends AppCompatEditText {
     public void disableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{});
 
-        TextWatcher modifier = (_hl != null)? _hl.getTextModifier() : null;
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
         if (modifier != null) {
             removeTextChangedListener(modifier);
             _appliedModifiers.remove(modifier);
