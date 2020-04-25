@@ -320,14 +320,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         switch (itemId) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
+                    _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.undo();
+                    _hlEditor.enableHighlighterAutoFormat();
                     ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
             }
             case R.id.action_redo: {
                 if (_editTextUndoRedoHelper.getCanRedo()) {
+                    _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.redo();
+                    _hlEditor.enableHighlighterAutoFormat();
                     ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
@@ -505,6 +509,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _hlEditor.enableHighlighterAutoFormat();
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
