@@ -47,7 +47,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
     private Highlighter _hl;
-    private Set<TextWatcher> _appliedModifiers; /* Tracks currently applied modifiers */
+    private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
 
     private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
@@ -106,8 +106,6 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
             }
         });
-
-        _appliedModifiers = new HashSet<>();
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
