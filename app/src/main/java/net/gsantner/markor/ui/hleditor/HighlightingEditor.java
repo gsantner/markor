@@ -258,6 +258,5 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-
     }
 }

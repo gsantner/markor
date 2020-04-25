@@ -34,6 +34,7 @@ public class DocumentIO {
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
+    public static boolean SAVE_IGNORE_EMTPY_NEXT_TIME = false;
 
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
@@ -118,7 +119,7 @@ public class DocumentIO {
     }
 
     public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil) {
-        if (text != null && text.trim().isEmpty() && text.length() < 5) {
+        if (text == null || (!SAVE_IGNORE_EMTPY_NEXT_TIME && text.trim().isEmpty() && text.length() < 5)) {
             return false;
         }
         boolean ret;
@@ -143,7 +144,7 @@ public class DocumentIO {
                 shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
                     try {
                         fos.write(document.getContent().getBytes());
-                    } catch (Exception ex) {
+                    } catch (Exception ignored) {
                     }
                 });
                 ret = true;
