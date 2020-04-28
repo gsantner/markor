@@ -216,8 +216,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
-
-
     }
 
     @Override
@@ -233,7 +231,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_redo).setVisible(appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && getActivity() instanceof DocumentActivity && !_isPreviewVisible);
 
-        final boolean isTextEmpty = !(_document.getContent().isEmpty() || _document.getTitle().isEmpty());
         final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
         final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
         final boolean isExperimentalFeaturesEnabled = appSettings.isExperimentalFeaturesEnabled();
@@ -244,8 +241,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         drawable.mutate().setAlpha(canUndo ? 255 : 40);
         drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).setVisible(!_isPreviewVisible).getIcon();
         drawable.mutate().setAlpha(canRedo ? 255 : 40);
-        drawable = menu.findItem(R.id.action_save).setEnabled(isTextEmpty).getIcon();
-        drawable.mutate().setAlpha(isTextEmpty ? 255 : 40);
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
@@ -293,7 +288,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         int editorpos = _hlEditor.getSelectionStart();
         _hlEditor.setText(_document.getContent());
         editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
-        _hlEditor.setSelection(editorpos < 0 ? 0 : editorpos);
+        _hlEditor.setSelection(Math.max(editorpos, 0));
         Activity activity = getActivity();
         if (activity instanceof DocumentActivity) {
             DocumentActivity da = ((DocumentActivity) activity);
@@ -320,20 +315,26 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         switch (itemId) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
+                    _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.undo();
+                    _hlEditor.enableHighlighterAutoFormat();
                     ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
             }
             case R.id.action_redo: {
                 if (_editTextUndoRedoHelper.getCanRedo()) {
+                    _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.redo();
+                    _hlEditor.enableHighlighterAutoFormat();
                     ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
                 }
                 return true;
             }
             case R.id.action_save: {
+                DocumentIO.SAVE_IGNORE_EMTPY_NEXT_TIME = true;
                 saveDocument();
+                DocumentIO.SAVE_IGNORE_EMTPY_NEXT_TIME = false;
                 return true;
             }
             case R.id.action_reload: {
@@ -474,7 +475,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _hlEditor.postDelayed(() -> {
                 _document.setContent(text.toString());
                 Activity activity = getActivity();
-                if (activity != null && activity instanceof AppCompatActivity) {
+                if (activity instanceof AppCompatActivity) {
                     ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
                 }
             }, HISTORY_DELTA);
@@ -505,6 +506,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _hlEditor.enableHighlighterAutoFormat();
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);

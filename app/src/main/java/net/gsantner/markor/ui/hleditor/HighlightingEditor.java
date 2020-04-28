@@ -24,6 +24,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @SuppressWarnings("UnusedReturnValue")
@@ -45,6 +47,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _hlEnabled = false;
     private boolean _isSpellingRedUnderline;
     private Highlighter _hl;
+    private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
 
     private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
@@ -63,7 +66,7 @@ public class HighlightingEditor extends AppCompatEditText {
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
-            setAutoFormat(_hl.getAutoFormatter());
+            enableHighlighterAutoFormat();
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
@@ -103,12 +106,10 @@ public class HighlightingEditor extends AppCompatEditText {
                 }
             }
         });
-
-        // This watcher detects and handles termination of lists when last item is empty
-        addTextChangedListener(new ListHandler());
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
+        disableHighlighterAutoFormat();
         _hl = newHighlighter;
         reloadHighlighter();
 
@@ -119,10 +120,24 @@ public class HighlightingEditor extends AppCompatEditText {
                 .setListener(null);
     }
 
-    private void enableHighlighterAutoFormat() {
-        //if (_hlEnabled) {
-        setAutoFormat(_hl.getAutoFormatter());
-        //}
+    public void enableHighlighterAutoFormat() {
+        setFilters(new InputFilter[]{_hl.getAutoFormatter()});
+
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
+        if (modifier != null && !_appliedModifiers.contains(modifier)) {
+            addTextChangedListener(modifier);
+            _appliedModifiers.add(modifier);
+        }
+    }
+
+    public void disableHighlighterAutoFormat() {
+        setFilters(new InputFilter[]{});
+
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
+        if (modifier != null) {
+            removeTextChangedListener(modifier);
+            _appliedModifiers.remove(modifier);
+        }
     }
 
     private void cancelUpdate() {
@@ -198,9 +213,6 @@ public class HighlightingEditor extends AppCompatEditText {
     //
     // Simple getter / setter
     //
-    private void setAutoFormat(InputFilter newAutoFormatter) {
-        setFilters(new InputFilter[]{newAutoFormatter});
-    }
 
     public void setHighlightingEnabled(boolean enable) {
         _hlEnabled = enable;
@@ -246,6 +258,5 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-
     }
 }

@@ -29,6 +29,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -281,7 +282,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     public File getCurrentFolder() {
-        return _filesystemViewerAdapter.getCurrentFolder();
+        return _filesystemViewerAdapter != null ? _filesystemViewerAdapter.getCurrentFolder() : null;
     }
 
     @Override
@@ -635,5 +636,13 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
         FileUtils.copyFile(sourceFile, new File(getCurrentFolder().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, getString(R.string.import_) + ": " + sourceFile.getName(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && getCurrentFolder() != null && !TextUtils.isEmpty(getCurrentFolder().getName()) && getToolbar() != null) {
+            getToolbar().setTitle(getCurrentFolder().getName());
+        }
     }
 }
