@@ -100,7 +100,7 @@ public class DocumentIO {
                     Log.e(DocumentIO.class.getName(), "loadDocument:  File " + filePath + " not found.");
                     content = "";
                 } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
-                    Toast.makeText(context, R.string.failed_to_decrypt_document, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
                     Log.e(DocumentIO.class.getName(), "loadDocument:  decrypt failed for File " + filePath + ". " + e.getMessage(), e);
                     content = "";
                 }
@@ -201,7 +201,7 @@ public class DocumentIO {
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(DocumentIO.class.getName(), "loadDocument:  enrypt failed for File " +
                     document.getFile().getAbsolutePath() + ". " + e.getMessage(), e);
-            Toast.makeText(context, R.string.failed_to_encrypt_document, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
             ret = false;
         }
         return ret;
@@ -258,7 +258,7 @@ public class DocumentIO {
         final PasswordStore securityStore = new PasswordStore(context);
         final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
         if (pw == null || pw.length == 0) {
-            final String warningText = context.getString(R.string.no_password_found_warning);
+            final String warningText = context.getString(R.string.no_password_set_cant_encrypt_decrypt_warning);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
             Log.w(DocumentIO.class.getName(), warningText);
             return null;

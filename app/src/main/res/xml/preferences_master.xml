@@ -40,7 +40,7 @@
                 android:defaultValue=""
                 android:icon="@drawable/ic_iconfinder_ic_vpn_key_48px_3669407"
                 android:key="@string/pref_key__default_encryption_password"
-                android:title="@string/document_password"
+                android:title="@string/password_for_file_encryption"
                 android:inputType="textVisiblePassword" />
         </PreferenceCategory>
 
