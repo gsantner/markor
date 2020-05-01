@@ -37,8 +37,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
 public class FileUtils {
     // Used on methods like copyFile(src, dst)
@@ -411,10 +409,7 @@ public class FileUtils {
 
             if (guess == null || guess.isEmpty()) {
                 guess = "*/*";
-                String filename = file.getName();
-                if (filename.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
-                    filename = filename.substring(0, filename.length() - JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION.length());
-                }
+                String filename = file.getName().replace(".jenc", "");
                 int dot = filename.lastIndexOf(".") + 1;
                 if (dot > 0 && dot < filename.length()) {
                     switch (filename.substring(dot)) {
@@ -429,9 +424,6 @@ public class FileUtils {
                             break;
                         case "txt":
                             guess = "text/plain";
-                            break;
-                        default:
-                            guess = "*/*";
                             break;
                     }
                 }
