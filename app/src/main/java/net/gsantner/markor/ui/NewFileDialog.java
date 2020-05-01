@@ -144,13 +144,6 @@ public class NewFileDialog extends DialogFragment {
 
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
-        if (BuildConfig.IS_TEST_BUILD) {
-            fileNameEdit.setText("a");
-            templateSpinner.postDelayed(() -> {
-                templateSpinner.requestFocus();
-                templateSpinner.performClick();
-            }, 100);
-        }
 
         final ShareUtil shareUtil = new ShareUtil(getContext());
         dialogBuilder
