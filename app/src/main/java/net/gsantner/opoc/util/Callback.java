@@ -37,6 +37,10 @@ public class Callback {
         void callback(A arg1, B arg2, C arg3, D arg4, E arg5);
     }
 
+    public interface b0 {
+        boolean callback();
+    }
+
     public interface b1<A> {
         boolean callback(A arg1);
     }
@@ -55,5 +59,29 @@ public class Callback {
 
     public interface b5<A, B, C, D, E> {
         boolean callback(A arg1, B arg2, C arg3, D arg4, E arg5);
+    }
+
+    public interface s0 {
+        String callback();
+    }
+
+    public interface s1<A> {
+        String callback(A arg1);
+    }
+
+    public interface s2<A, B> {
+        String callback(A arg1, B arg2);
+    }
+
+    public interface s3<A, B, C> {
+        String callback(A arg1, B arg2, C arg3);
+    }
+
+    public interface s4<A, B, C, D> {
+        String callback(A arg1, B arg2, C arg3, D arg4);
+    }
+
+    public interface s5<A, B, C, D, E> {
+        String callback(A arg1, B arg2, C arg3, D arg4, E arg5);
     }
 }

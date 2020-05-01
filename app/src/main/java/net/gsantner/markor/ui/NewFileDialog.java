@@ -73,6 +73,7 @@ public class NewFileDialog extends DialogFragment {
         return dialog;
     }
 
+    @SuppressLint("SetTextI18n")
     private AlertDialog.Builder makeDialog(final File basedir, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
@@ -138,12 +139,9 @@ public class NewFileDialog extends DialogFragment {
                 if (!currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
                     fileExtEdit.setText(currentExtention + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 }
-            } else {
-                if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
-                    fileExtEdit.setText(currentExtention.substring(0, currentExtention.length() - JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION.length()));
-                }
+            } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
             }
-
         });
 
         dialogBuilder.setView(root);
