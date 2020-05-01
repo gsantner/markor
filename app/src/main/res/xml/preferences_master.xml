@@ -11,6 +11,7 @@
 --><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:title="@string/settings">
@@ -36,12 +37,6 @@
                 android:key="@string/pref_key__todo_filepath"
                 android:summary="@string/document_to_be_loaded_and_saved_as_witharg"
                 android:title="@string/todo" />
-            <android.support.v7.preference.EditTextPreference
-                android:defaultValue=""
-                android:icon="@drawable/ic_iconfinder_ic_vpn_key_48px_3669407"
-                android:key="@string/pref_key__default_encryption_password"
-                android:title="@string/password_for_file_encryption"
-                android:inputType="textVisiblePassword" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/miscellaneous">
@@ -71,6 +66,14 @@
                 android:key="@string/pref_key__app_start_folder"
                 android:summary="%1$s"
                 android:title="@string/app_start_folder" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/empty_string"
+                android:icon="@drawable/ic_iconfinder_ic_vpn_key_48px_3669407"
+                android:inputType="textPassword"
+                android:key="@string/pref_key__default_encryption_password"
+                android:password="true"
+                android:title="@string/file_encryption_password"
+                tools:ignore="Deprecated" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/features">

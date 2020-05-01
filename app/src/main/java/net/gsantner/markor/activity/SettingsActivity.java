@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
@@ -190,6 +192,9 @@ public class SettingsActivity extends AppActivityBase {
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+            if (_as.hasPasswordBeenSetOnce()) {
+                setDialogMessage(R.string.pref_key__default_encryption_password, getString(R.string.password_already_set_setting_a_new_password_will_overwrite));
+            }
 
 
             final int[] experimentalKeys = new int[]{
@@ -206,6 +211,7 @@ public class SettingsActivity extends AppActivityBase {
             }
         }
 
+        @SuppressLint("ApplySharedPref")
         @Override
         protected void onPreferenceChanged(SharedPreferences prefs, String key) {
             super.onPreferenceChanged(prefs, key);
@@ -222,13 +228,14 @@ public class SettingsActivity extends AppActivityBase {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
-            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                final PasswordStore store = new PasswordStore(this.getActivity());
-                store.storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
+            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !TextUtils.isEmpty(prefs.getString(key, null))) {
+                new PasswordStore(getActivity()).storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
                 // Never delete the password, otherwise you will remove the password in PasswordStore too!
                 // Never remove this line, otherwise the password will be stored unencrypted forever.
                 // Using commit and while to ensure that the asterisk-pw is definitely written.
-                while (!prefs.edit().putString(key, PasswordStore.ASTERISKED_PW).commit()) ;
+                prefs.edit().remove(key).commit();
+                ((EditTextPreference) findPreference(key)).setText("");
+                _as.setPasswordHasBeenSetOnce(true);
             }
         }
 
@@ -372,7 +379,7 @@ public class SettingsActivity extends AppActivityBase {
         public void onPause() {
             super.onPause();
             // Reset Password to ensure it's not stored as plaintext.
-            _as.getDefaultPreferencesEditor().putString(getContext().getString(R.string.pref_key__default_encryption_password), PasswordStore.ASTERISKED_PW).commit();
+            _as.getDefaultPreferencesEditor().remove(getContext().getString(R.string.pref_key__default_encryption_password)).commit();
         }
     }
 }

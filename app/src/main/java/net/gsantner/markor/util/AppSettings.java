@@ -681,4 +681,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return deviceid;
     }
+
+    public boolean hasPasswordBeenSetOnce() {
+        return getBool(R.string.pref_key__default_encryption_password_set_once, false);
+    }
+
+    public void setPasswordHasBeenSetOnce(boolean b) {
+        setBool(R.string.pref_key__default_encryption_password_set_once,b);
+
+    }
 }
