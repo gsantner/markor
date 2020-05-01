@@ -109,6 +109,7 @@
             android:id="@+id/new_file_dialog__encrypt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/encrypt_file_content" />
 
         <TextView
