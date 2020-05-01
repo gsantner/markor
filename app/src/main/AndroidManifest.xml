@@ -517,6 +517,38 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.taskpaper" />
 
+                <!-- Handling of file extension ".adoc" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.adoc" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.adoc" />
+
                 <!-- Handling of file extension ".yml" -->
                 <data
                     android:mimeType="*/*"

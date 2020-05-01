@@ -23,7 +23,7 @@ import java.util.List;
 public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
-    private static final List<String> EXT = Arrays.asList(".txt", ".taskpaper", ".html");
+    private static final List<String> EXT = Arrays.asList(".txt", ".taskpaper", ".html", ".adoc");
 
 
     //########################
