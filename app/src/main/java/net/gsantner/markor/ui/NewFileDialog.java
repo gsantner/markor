@@ -42,7 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
@@ -77,9 +76,8 @@ public class NewFileDialog extends DialogFragment {
     private AlertDialog.Builder makeDialog(final File basedir, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AppSettings appSettings = new AppSettings(inflater.getContext());
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
         root = inflater.inflate(R.layout.new_file_dialog, null);
 
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
@@ -89,9 +87,8 @@ public class NewFileDialog extends DialogFragment {
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                new PasswordStore(inflater.getContext()).loadKey(R.string.pref_key__default_encryption_password) != null) {
-            encryptCheckbox.setChecked(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
+            encryptCheckbox.setChecked(appSettings.hasNewFileDialogEncryptionCheckedPreviously());
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
@@ -142,6 +139,7 @@ public class NewFileDialog extends DialogFragment {
             } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
                 fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
             }
+            appSettings.setNewFileDialogEncryptionCheckedPreviously(isChecked);
         });
 
         dialogBuilder.setView(root);
