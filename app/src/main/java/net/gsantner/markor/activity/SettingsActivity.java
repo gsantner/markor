@@ -192,7 +192,8 @@ public class SettingsActivity extends AppActivityBase {
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-            if (_as.hasPasswordBeenSetOnce()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && _as.hasPasswordBeenSetOnce()) {
+                updateSummary(R.string.pref_key__default_encryption_password, "****");
                 setDialogMessage(R.string.pref_key__default_encryption_password, getString(R.string.password_already_set_setting_a_new_password_will_overwrite));
             }
 
