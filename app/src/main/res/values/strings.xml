@@ -376,12 +376,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Expand / Collapse</string>
     <string name="essential">Essential</string>
     <string name="append_human_readable_uuid_to_new_tasks">Append human readable UUID to new tasks</string>
+    <string name="load_default_settings">Load default settings</string>
+    <string name="drag">Drag</string>
+
     <string name="password_for_file_encryption">Password for file encryption.</string>
     <string name="no_password_set_cant_encrypt_decrypt_warning"><![CDATA[No password set, cannot encrypt or decrypt.\nGo to \'Settings -> General -> Password\' to set a password.]]></string>
     <string name="encrypt_file_content">Encrypt file content</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Could not encrypt file content. The file was not saved.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Could not dencrypt file content. Did you use a wrong password or is the file maybe not encrypted?</string>
     <string name="action_order">Action order</string>
-    <string name="load_default_settings">Load default settings</string>
-    <string name="drag">Drag</string>
+
 </resources>

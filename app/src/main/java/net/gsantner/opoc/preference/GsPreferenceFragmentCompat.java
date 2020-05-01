@@ -72,7 +72,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -119,7 +118,6 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
     }
 
     public synchronized void doUpdatePreferences() {
-        setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
     }
 
     protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {

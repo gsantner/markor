@@ -11,118 +11,118 @@
     #########################################################*/
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/new_file_dialog__root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="0dp">
+    android:id="@+id/new_file_dialog__root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="0dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="0dp">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <EditText
+                android:id="@+id/new_file_dialog__name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:weightSum="100">
-
-            <EditText
-                    android:id="@+id/new_file_dialog__name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="70"
-                    android:hint="@string/my_note"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textSize="15sp" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="70"
+                android:hint="@string/my_note"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp" />
 
 
             <EditText
-                    android:id="@+id/new_file_dialog__ext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_weight="30"
-                    android:gravity="end"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:text=".md"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textSize="15sp" />
+                android:id="@+id/new_file_dialog__ext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_weight="30"
+                android:gravity="end"
+                android:inputType="text"
+                android:lines="1"
+                android:text=".md"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp" />
         </LinearLayout>
 
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/type"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <Spinner
-                android:id="@+id/new_file_dialog__type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:entries="@array/new_file_types" />
+            android:id="@+id/new_file_dialog__type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/new_file_types" />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/template"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/template"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <Spinner
-                android:id="@+id/new_file_dialog__template"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:entries="@array/arr_file_templates" />
+            android:id="@+id/new_file_dialog__template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/arr_file_templates" />
 
         <CheckBox
-                android:id="@+id/new_file_dialog__encrypt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/encrypt_file_content" />
+            android:id="@+id/new_file_dialog__encrypt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/encrypt_file_content" />
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/folder_is_created_without_extension" />
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/folder_is_created_without_extension" />
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/keep_existing_file" />
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/keep_existing_file" />
 
 
     </LinearLayout>

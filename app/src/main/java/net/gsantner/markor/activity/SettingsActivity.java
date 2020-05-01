@@ -189,6 +189,8 @@ public class SettingsActivity extends AppActivityBase {
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+            setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
+
 
             final int[] experimentalKeys = new int[]{
                     R.string.pref_key__swipe_to_change_mode,
@@ -220,8 +222,7 @@ public class SettingsActivity extends AppActivityBase {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
-            } else if (eq(key, R.string.pref_key__default_encryption_password)
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 final PasswordStore store = new PasswordStore(this.getActivity());
                 store.storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
                 // Never delete the password, otherwise you will remove the password in PasswordStore too!
