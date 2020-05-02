@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Eylem sırası</string>
     <string name="load_default_settings">Varsayılan ayarları yükle</string>
     <string name="drag">Sürükle</string>
+    <string name="file_encryption_password">Dosya şifreleme parolası</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Parola ayarlanmadı, şifrelenemiyor veya şifre çözülemiyor.\nParola ayarlamak için Ayarlar -&gt; Genel -&gt; Parola menüsüne gidin.</string>
+    <string name="encrypt_file_content">Dosya içeriğini şifrele</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Dosya içeriği şifrelenemedi. Dosya kaydedilmedi.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Dosya içeriğinin şifresi çözülemedi. Yanl parola mı kullandınız? Dosya geekten Markors AES şifrelemesi ile şifrelenmiş mi?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Parola zaten ayarlanmış. Yeni bir parola belirlemek mevcut parolanın üzerine yazacaktır ve parolayı unutmanız durumunda dosyalara artık erişemeyebilirsiniz.</string>
 </resources>
