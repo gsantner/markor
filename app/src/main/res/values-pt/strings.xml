@@ -365,6 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carregar predefinições</string>
     <string name="drag">Arrastar</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Nenhuma senha definida, não pode criptografar ou descriptografar.\nVá para Configurações -&gt; Geral -&gt; Senha para definir uma senha.</string>
     <string name="encrypt_file_content">Criptografar conteúdo do arquivo</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Não foi possível criptografar o conteúdo do arquivo. O arquivo não foi salvo.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Não foi possível descriptografar o conteúdo do arquivo. Você usou uma senha errada? O arquivo é realmente criptografado com criptografia AES Markors.</string>
