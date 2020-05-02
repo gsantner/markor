@@ -365,6 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Încarcă setările implicite</string>
     <string name="drag">Trage</string>
     <string name="file_encryption_password">Parola de criptare a fișierului</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Nici o parolă, nu se poate cripta sau decripta.\nMergeți la Setări -&gt; General -&gt; Parola pentru a seta o parolă.</string>
     <string name="encrypt_file_content">Criptați conținutul fișierului</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Conținutul fișierului nu a putut fi criptat. Fișierul nu a fost salvat.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Conținutul fișierului nu a putut fi decriptat. Ați folosit o parolă greșită? Este fișierul criptat cu criptarea Markors AES?</string>
