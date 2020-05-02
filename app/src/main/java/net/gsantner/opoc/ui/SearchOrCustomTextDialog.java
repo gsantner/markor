@@ -78,7 +78,7 @@ public class SearchOrCustomTextDialog {
         @StringRes
         public int okButtonText = android.R.string.ok;
         @StringRes
-        public int titleText = android.R.string.untitled;
+        public int titleText = 0;
         @StringRes
         public int searchHintText = android.R.string.search_go;
     }

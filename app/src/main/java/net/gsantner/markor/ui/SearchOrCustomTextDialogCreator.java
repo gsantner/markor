@@ -176,7 +176,6 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add("todo.done.txt");
         availableData.add("archive.txt");
         availableData.add("done.txt");
-        availableData.add(".todo.archive.txt");
         String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
         if (!TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
@@ -187,7 +186,6 @@ public class SearchOrCustomTextDialogCreator {
 
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
-        dopt.titleText = R.string.archive;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
