@@ -153,7 +153,7 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
 
-                    File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
+                    final File f = new File(basedir, fileNameEdit.getText().toString().trim() + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
