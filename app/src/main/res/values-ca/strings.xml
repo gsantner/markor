@@ -368,4 +368,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_password_set_cannot_encrypt_decrypt">No s\'ha definit cap contrasenya, no es pot xifrar ni desxifrar.\nAneu a Configuració -&gt; General -&gt; Contrasenya per definir-ne una.</string>
     <string name="encrypt_file_content">Xifra el contingut del fitxer</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">No s\'ha pogut xifrar el contingut del fitxer. El fitxer no s\'ha desat.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">No s\'ha pogut desxifrar el contingut del fitxer. Heu utilitzat una contrasenya errònia? El fitxer s\'ha xifrat realment amb el xifrat AES del Markor?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">La contrasenya ja està definida. Establir una nova sobreescriurà la contrasenya existent i és possible que ja no pugueu accedir als fitxers en cas que oblideu la contrasenya.</string>
 </resources>
