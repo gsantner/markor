@@ -69,11 +69,9 @@
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_iconfinder_ic_vpn_key_48px_3669407"
-                android:inputType="textPassword"
+                android:inputType="textVisiblePassword"
                 android:key="@string/pref_key__default_encryption_password"
-                android:password="true"
-                android:title="@string/file_encryption_password"
-                tools:ignore="Deprecated" />
+                android:title="@string/file_encryption_password"/>
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/features">
@@ -335,7 +333,7 @@
                 android:summary="@string/js_css"
                 android:title="@string/inject_to_head" />
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue=""
+                android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_add_white_24dp"
                 android:key="@string/pref_key__inject_to_body"
                 android:title="@string/inject_to_body" />
