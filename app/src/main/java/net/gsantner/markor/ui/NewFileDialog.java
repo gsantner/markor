@@ -39,6 +39,7 @@ import net.gsantner.opoc.util.ContextUtils;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 import other.de.stanetz.jpencconverter.PasswordStore;
@@ -88,18 +89,22 @@ public class NewFileDialog extends DialogFragment {
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
-            encryptCheckbox.setChecked(appSettings.hasNewFileDialogEncryptionCheckedPreviously());
+            encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
-
+        fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
 
         fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
 
+        final AtomicBoolean typeSpinnerNoTriggerOnFirst = new AtomicBoolean(true);
         typeSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+            if (typeSpinnerNoTriggerOnFirst.getAndSet(false)) {
+                return;
+            }
             String ext = pos < typeSpinnerToExtension.length ? typeSpinnerToExtension[pos] : "";
 
             if (ext != null) {
@@ -133,7 +138,7 @@ public class NewFileDialog extends DialogFragment {
             } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
                 fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
             }
-            appSettings.setNewFileDialogEncryptionCheckedPreviously(isChecked);
+            appSettings.setNewFileDialogLastUsedEncryption(isChecked);
         });
 
         dialogBuilder.setView(root);
@@ -147,6 +152,7 @@ public class NewFileDialog extends DialogFragment {
                         return;
                     }
 
+                    appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
                     final File f = new File(basedir, fileNameEdit.getText().toString().trim() + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {

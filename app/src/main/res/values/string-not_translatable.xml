@@ -280,5 +280,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__default_encryption_password" translatable="false">pref_key__default_encryption_password</string>
     <string name="empty_string" translatable="false"/>
     <string name="pref_key__default_encryption_password_set_once" translatable="false">pref_key__default_encryption_password_set_once</string>
-    <string name="pref_key__new_file_dialog_encryption_checked_previously" translatable="false">pref_key__new_file_dialog_encryption_checked_previously</string>
+    <string name="pref_key__new_file_dialog_lastused_encryption" translatable="false">pref_key__new_file_dialog_lastused_encryption</string>
+    <string name="pref_key__new_file_dialog_lastused_extension" translatable="false">pref_key__new_file_dialog_lastused_extension</string>
 </resources>
