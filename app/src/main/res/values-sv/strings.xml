@@ -365,6 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Ladda standardinställningar</string>
     <string name="drag">Dra</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Inget lösenord satt, kan inte kryptera eller dekryptera.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
     <string name="encrypt_file_content">Kryptera filens innehåll</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunde inte kryptera filinnehåll. Filen sparades inte.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunde inte dekryptera filens innehåll. Har du använt ett fel lösenord? Är filen verkligen krypterad med Markors AES-kryptering?</string>
