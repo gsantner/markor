@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+
 @SuppressWarnings("WeakerAccess")
 public class PlaintextConverter extends TextConverter {
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
@@ -51,6 +53,7 @@ public class PlaintextConverter extends TextConverter {
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
         AppSettings appSettings = AppSettings.get();
+        filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
         if (!filepath.contains(".")) {
             return appSettings.isExtOpenWithThisApp("");
         }

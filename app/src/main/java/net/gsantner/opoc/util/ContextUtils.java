@@ -935,7 +935,11 @@ public class ContextUtils {
             ContentResolver cr = _context.getContentResolver();
             mimeType = cr.getType(uri);
         } else {
-            String ext = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+            String filename = uri.toString();
+            if (filename.endsWith(".jenc")) {
+                filename = filename.replace(".jenc", "");
+            }
+            String ext = MimeTypeMap.getFileExtensionFromUrl(filename);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
 
             // Try to guess if the recommended methods fail

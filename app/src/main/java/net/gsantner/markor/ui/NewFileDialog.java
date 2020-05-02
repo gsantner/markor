@@ -11,6 +11,7 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,21 +24,24 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
@@ -68,19 +72,26 @@ public class NewFileDialog extends DialogFragment {
         return dialog;
     }
 
+    @SuppressLint("SetTextI18n")
     private AlertDialog.Builder makeDialog(final File basedir, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AppSettings appSettings = new AppSettings(inflater.getContext());
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
         root = inflater.inflate(R.layout.new_file_dialog, null);
 
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
+        final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
+            encryptCheckbox.setChecked(appSettings.hasNewFileDialogEncryptionCheckedPreviously());
+        } else {
+            encryptCheckbox.setVisibility(View.GONE);
+        }
 
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
@@ -102,7 +113,11 @@ public class NewFileDialog extends DialogFragment {
                 }
 
                 if (ext != null) {
-                    fileExtEdit.setText(ext);
+                    if (encryptCheckbox.isChecked()) {
+                        fileExtEdit.setText(ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    } else {
+                        fileExtEdit.setText(ext);
+                    }
                 }
                 if (prefix != null && !fileNameEdit.getText().toString().startsWith(prefix)) {
                     fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -115,15 +130,20 @@ public class NewFileDialog extends DialogFragment {
             }
         });
 
+        encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            final String currentExtention = fileExtEdit.getText().toString();
+            if (isChecked) {
+                if (!currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                    fileExtEdit.setText(currentExtention + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                }
+            } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+            }
+            appSettings.setNewFileDialogEncryptionCheckedPreviously(isChecked);
+        });
+
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
-        if (BuildConfig.IS_TEST_BUILD) {
-            fileNameEdit.setText("a");
-            templateSpinner.postDelayed(() -> {
-                templateSpinner.requestFocus();
-                templateSpinner.performClick();
-            }, 100);
-        }
 
         final ShareUtil shareUtil = new ShareUtil(getContext());
         dialogBuilder
@@ -134,26 +154,17 @@ public class NewFileDialog extends DialogFragment {
                     }
 
                     File f = new File(basedir, fileNameEdit.getText().toString() + fileExtEdit.getText().toString());
-                    String templateContents = getTemplateContent(templateSpinner, basedir);
-                    if (shareUtil.isUnderStorageAccessFolder(f)) {
-                        DocumentFile dof = shareUtil.getDocumentFile(f, false);
-                        if (f.exists() && f.length() < 5 && templateContents != null) {
-                            shareUtil.writeFile(f, false, (fileOpened, fos) -> {
-                                try {
-                                    fos.write(templateContents.getBytes());
-                                } catch (Exception ignored) {
-                                }
-                            });
+                    final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
+                    shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
+                        try {
+                            if (f.exists() && f.length() < 5 && templateContents != null) {
+                                arg_fos.write(templateContents);
+                            }
+                        } catch (Exception ignored) {
                         }
-                        callback(dof != null && dof.canWrite(), f);
-                    } else {
-                        boolean touchOk = FileUtils.touch(f);
-                        if (f.exists() && (f.length() < 5 || BuildConfig.IS_TEST_BUILD) && templateContents != null) {
-                            FileUtils.writeFile(f, templateContents);
-                        }
-                        callback(touchOk || f.exists(), f);
-                    }
-                    dialogInterface.dismiss();
+                        callback(arg_ok || f.exists(), f);
+                        dialogInterface.dismiss();
+                    });
                 })
                 .setNeutralButton(R.string.folder, (dialogInterface, i) -> {
                     if (ez(fileNameEdit)) {
@@ -189,8 +200,9 @@ public class NewFileDialog extends DialogFragment {
     //
     // 2) t = "<cursor>";  | ctrl+shift+v "paste without formatting"
     //
-    private String getTemplateContent(final Spinner templateSpinner, final File basedir) {
+    private byte[] getTemplateContent(final Spinner templateSpinner, final File basedir, final boolean encrypt) {
         String t = null;
+        byte[] bytes = null;
         switch (templateSpinner.getSelectedItemPosition()) {
             case 1: {
                 t = "# Markdown Reference\nAutomatically generate _table of contents_ by checking the option here: `Settings > Format > Markdown`.\n\n## H2 Header\n### H3 header\n#### H4 Header\n##### H5 Header\n###### H6 Header\n\n<!-- --------------- -->\n\n## Format Text\n\n*Italic emphasis* , _Alternative italic emphasis_\n\n**Bold emphasis** , __Alternative bold emphasis__\n\n~~Strikethrough~~\n\nBreak line (two spaces at end of line)  \n\n> Block quote\n\n`Inline code`\n\n```\nCode blocks\nare\nawesome\n```\n\n<!-- --------------- -->\n \n## Lists\n### Ordered & unordered\n\n* Unordered list\n* ...with asterisk/star\n* Test\n\n- Another unordered list\n- ...with hyphen/minus\n- Test\n\n1. Ordered list\n2. Test\n3. Test\n4. Test\n\n- Nested lists\n    * Unordered nested list\n    * Test\n    * Test\n    * Test\n- Ordered nested list\n    1. Test\n    2. Test\n    3. Test\n    4. Test\n- Double-nested unordered list\n    - Test\n    - Unordered\n        - Test a\n        - Test b\n    - Ordered\n        1. Test 1\n        2. Test 2\n\n### Checklist\n* [ ] Salad\n* [x] Potatoes\n\n1. [x] Clean\n2. [ ] Cook\n\n<!-- --------------- -->\n\n## Links\n[Link](https://duckduckgo.com/)\n\n[File in same folder as the document.](markor-markdown-reference.md) Use %20 for spaces!\n\n<!-- --------------- -->\n\n## Tables\n\n| Left aligned | Middle aligned | Right aligned |\n| :--------------- | :------------------: | -----------------: |\n| Test                 | Test                      | Test                    |\n| Test                 | Test                      | Test                    |\n\n÷÷÷÷\n\nShorter | Table | Syntax\n:---: | ---: | :---\nTest | Test | Test\nTest | Test | Test\n\n<!-- Comment: Not visibile in view. Can also span across multiple lines. End with:-->\n\n<!-- --------------- -->\n\n## Math (KaTeX)\nSee [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Markdown`.\n\n### Math inline\n\n$ I = \\frac V R $\n\n### Math block\n\n<div>\n$$\\begin{array}{c} \\nabla \\times \\vec{\\mathbf{B}} -\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{E}}}{\\partial t} & = \\frac{4\\pi}{c}\\vec{\\mathbf{j}} \\nabla \\cdot \\vec{\\mathbf{E}} & = 4 \\pi \\rho \\\\ \\nabla \\times \\vec{\\mathbf{E}}\\, +\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{B}}}{\\partial t} & = \\vec{\\mathbf{0}} \\\\ \\nabla \\cdot \\vec{\\mathbf{B}} & = 0 \\end{array}$$\n</div>\n\n\n$$\\frac{k_t}{k_e} = \\sqrt{2}$$\n\n<!-- --------------- -->\n\n## Format Text (continued)\n\n### Text color\n\n<span style='background-color:#ffcb2e;'>Text with background color / highlight</span>\n\n<span style='color:#3333ff;'>Text foreground color</span>\n\n<span style='text-shadow: 0px 0px 2px #FF0000;'>Text with colored outline</span> / <span style='text-shadow: 0px 0px 2px #0000FF; color: white'>Text with colored outline</span>\n\n\n### Text sub & superscript\n\n<u>Underline</u>\n\nThe <sub>Subway</sub> sandwich was <sup>super</sup>\n\nSuper special characters: ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ⁿ ™ ® ℠\n\n### Text positioning\n<div markdown='1' align='right'>\n\ntext on the **right**\n\n</div>\n\n<div markdown='1' align='center'>\n\ntext in the **center**  \n(one empy line above and below  \nrequired for Markdown support OR markdown='1')\n\n</div>\n\n### Block Text\n\n<div markdown='1' style='text-align: justify; text-justify: inter-word;'>\nlorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. \n</div>\n\n### Dropdown\n\n<details markdown='1'><summary>Click to Expand/Collapse</summary>\n\nExpanded content. Shows up and keeps visible when clicking expand. Hide again by clicking the dropdown button again.\n\n</details>\n\n\n<!-- --------------- -->\n\n## Multimedia\n\n### Images\n![Image](https://gsantner.net/assets/blog/img/markor/markor-v1-7-showcase-3.jpg)\n\n### Videos\n**Youtube** [Welcome to Upper Austria](https://www.youtube.com/watch?v=RJREFH7Lmm8)\n<iframe width='360' height='200' src='https://www.youtube.com/embed/RJREFH7Lmm8'> </iframe>\n\n**Peertube** [Road in the wood](https://open.tube/videos/watch/8116312a-dbbd-43a3-9260-9ea6367c72fc)\n<div><video controls><source src='https://peertube.mastodon.host/download/videos/8116312a-dbbd-43a3-9260-9ea6367c72fc-480.mp4' </source></video></div>\n\n<!-- **Local video** <div><video controls><source src='voice-parrot.mp4' </source></video></div> -->\n\n### Audio & Music\n**Web audio** [Guifrog - Xia Yu](https://www.freemusicarchive.org/music/Guifrog/Xia_Yu)\n<audio controls src='https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Guifrog/Xia_Yu/Guifrog_-_Xia_Yu.mp3'></audio>\n\n**Local audio** Yellowcard - Lights up in the sky\n<audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>\n\n------------------\n\nThis Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 2.\n\n------------------\n\n\n";
@@ -228,6 +240,13 @@ public class NewFileDialog extends DialogFragment {
                 return null; // Empty file template (that doesn't overwrite anything
             }
         }
-        return t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", SttCommander.DATEF_YYYY_MM_DD.format(new Date()));
+        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", SttCommander.DATEF_YYYY_MM_DD.format(new Date()));
+
+        if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            bytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
+        } else {
+            bytes = t.getBytes();
+        }
+        return bytes;
     }
 }

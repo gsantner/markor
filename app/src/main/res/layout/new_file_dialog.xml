@@ -16,12 +16,12 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="0dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:paddingBottom="0dp"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_horizontal_margin">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,17 +105,26 @@
             android:drawSelectorOnTop="true"
             android:entries="@array/arr_file_templates" />
 
+        <CheckBox
+            android:id="@+id/new_file_dialog__encrypt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/encrypt_file_content" />
+
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/folder_is_created_without_extension" />
+
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/keep_existing_file" />
+
 
     </LinearLayout>
 </ScrollView>

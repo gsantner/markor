@@ -681,4 +681,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return deviceid;
     }
+
+    public boolean hasPasswordBeenSetOnce() {
+        return getBool(R.string.pref_key__default_encryption_password_set_once, false);
+    }
+
+    public void setPasswordHasBeenSetOnce(boolean b) {
+        setBool(R.string.pref_key__default_encryption_password_set_once, b);
+
+    }
+
+    public boolean hasNewFileDialogEncryptionCheckedPreviously() {
+        return getBool(R.string.pref_key__new_file_dialog_encryption_checked_previously, false);
+    }
+
+    public void setNewFileDialogEncryptionCheckedPreviously(boolean b) {
+        setBool(R.string.pref_key__new_file_dialog_encryption_checked_previously, b);
+    }
 }

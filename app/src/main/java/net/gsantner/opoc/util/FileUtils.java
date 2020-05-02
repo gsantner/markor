@@ -409,9 +409,10 @@ public class FileUtils {
 
             if (guess == null || guess.isEmpty()) {
                 guess = "*/*";
-                int dot = file.getName().lastIndexOf(".") + 1;
-                if (dot > 0 && dot < file.getName().length()) {
-                    switch (file.getName().substring(dot)) {
+                String filename = file.getName().replace(".jenc", "");
+                int dot = filename.lastIndexOf(".") + 1;
+                if (dot > 0 && dot < filename.length()) {
+                    switch (filename.substring(dot)) {
                         case "md":
                         case "markdown":
                         case "mkd":
