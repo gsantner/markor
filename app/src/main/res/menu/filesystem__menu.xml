@@ -95,7 +95,7 @@
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_go_to_appdata_public"
-                android:icon="@drawable/ic_lock_open_black_24dp"
+                android:icon="@drawable/ic_lock_outline_black_24dp"
                 android:title="@string/appdata_public"
                 app:showAsAction="never" />
             <item
