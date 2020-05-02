@@ -18,7 +18,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">Canvia el nom</string>
     <string name="confirm_delete">Confirma la supressió</string>
     <string name="do_you_really_want_to_delete_this_witharg">Segur que voleu suprimir aquest %s?</string>
-    <string name="confirm_overwrite">Confirma la sobreescriptura</string>
+    <string name="confirm_overwrite">Confirmeu la sobreescriptura</string>
     <string name="file_already_exists_overwerite">El fitxer ja existeix, voleu sobreescriure\'l?</string>
     <string name="browse_filesystem">Navega pel sistema de fitxers</string>
     <string name="title">Títol</string>
