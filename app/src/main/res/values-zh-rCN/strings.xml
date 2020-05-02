@@ -365,6 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
     <string name="file_encryption_password">文件加密密码</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n前往设置 -&gt; 普通-&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">无法加密文件内容。文件未保存。</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。您使用了错误的密码吗？该文件真的是加密的 Markors AES 吗？</string>
