@@ -11,6 +11,7 @@
     #########################################################*/
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/new_file_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,7 +30,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
@@ -40,6 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-14dp"
             android:weightSum="100">
 
             <EditText
@@ -63,11 +65,13 @@
                 android:layout_marginRight="32dp"
                 android:layout_weight="30"
                 android:gravity="end"
-                android:inputType="text"
+                android:hint=".md"
+                android:inputType="text|textNoSuggestions"
                 android:lines="1"
-                android:text=".md"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:ignore="HardcodedText"
+                tools:text=".md" />
         </LinearLayout>
 
 

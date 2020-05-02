@@ -59,7 +59,6 @@
         <item translatable="false">@string/plaintext</item>
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/none</item>
-        <item translatable="false">@string/jekyll_post</item>
     </string-array>
 
     <string-array name="arr_file_templates" translatable="false">
@@ -77,9 +76,7 @@
         <item translatable="false">.md</item>
         <item translatable="false">.txt</item>
         <item translatable="false">.todo.txt</item>
-        <!--suppress CheckTagEmptyBody -->
-        <item translatable="false"></item>
-        <item translatable="false">.md</item>
+        <item translatable="false" />
     </string-array>
 
     <string-array name="pref_arrdisp__files_startup_folder" translatable="false">

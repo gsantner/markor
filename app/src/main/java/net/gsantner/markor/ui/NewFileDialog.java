@@ -19,11 +19,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,12 +32,12 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
+import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
@@ -99,36 +99,30 @@ public class NewFileDialog extends DialogFragment {
         fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
 
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String prefix = null;
-                String ext = i < typeSpinnerToExtension.length ? typeSpinnerToExtension[i] : "";
-                switch (i) {
-                    case 4: {
-                        prefix = new SimpleDateFormat("yyyy-MM-dd-").format(new Date());
-                        break;
-                    }
-                }
+        typeSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+            String ext = pos < typeSpinnerToExtension.length ? typeSpinnerToExtension[pos] : "";
 
-                if (ext != null) {
-                    if (encryptCheckbox.isChecked()) {
-                        fileExtEdit.setText(ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
-                    } else {
-                        fileExtEdit.setText(ext);
-                    }
+            if (ext != null) {
+                if (encryptCheckbox.isChecked()) {
+                    fileExtEdit.setText(ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                } else {
+                    fileExtEdit.setText(ext);
                 }
-                if (prefix != null && !fileNameEdit.getText().toString().startsWith(prefix)) {
-                    fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
-                }
-                fileNameEdit.setSelection(fileNameEdit.length());
             }
+            fileNameEdit.setSelection(fileNameEdit.length());
+        }));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        templateSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+            String prefix = null;
+
+            if (pos == 3) { // Jekyll
+                prefix = SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + "-";
             }
-        });
+            if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
+                fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
+            }
+            fileNameEdit.setSelection(fileNameEdit.length());
+        }));
 
         encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             final String currentExtention = fileExtEdit.getText().toString();
