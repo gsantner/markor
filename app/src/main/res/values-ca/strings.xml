@@ -365,4 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carrega la configuració per defecte</string>
     <string name="drag">Arrossega</string>
     <string name="file_encryption_password">Contrasenya de xifratge del fitxer</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">No s\'ha definit cap contrasenya, no es pot xifrar ni desxifrar.\nAneu a Configuració -&gt; General -&gt; Contrasenya per definir-ne una.</string>
+    <string name="encrypt_file_content">Xifra el contingut del fitxer</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">No s\'ha pogut xifrar el contingut del fitxer. El fitxer no s\'ha desat.</string>
 </resources>
