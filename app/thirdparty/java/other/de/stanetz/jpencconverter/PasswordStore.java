@@ -55,9 +55,6 @@ import javax.crypto.spec.GCMParameterSpec;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class PasswordStore {
 
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    public static final String ASTERISKED_PW = "***";
-
     private static final String LOG_TAG_NAME = "SecurityStore";
     private static final String CIPHER_MODE = "AES/GCM/NoPadding";
 
@@ -100,10 +97,6 @@ public class PasswordStore {
      * @return <code>true</code> if the operation was successful.
      */
     public boolean storeKey(String unencryptedKey, String keyname, SecurityMode securityMode) {
-        if (ASTERISKED_PW.equals(unencryptedKey)) {
-            // Prevent Looping.
-            return true;
-        }
         if (unencryptedKey == null || unencryptedKey.isEmpty()) {
             return clearAllKeys(keyname);
         }
