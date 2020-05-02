@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Objednávka akce</string>
     <string name="load_default_settings">Načíst výchozí nastavení</string>
     <string name="drag">Přetažení</string>
+    <string name="file_encryption_password">Šifrovací heslo souboru</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Není nastaveno žádné heslo, nelze šifrovat ani dešifrovat.\nPřejděte do Nastavení -&gt; Obecné -&gt; Heslo pro nastavení hesla.</string>
+    <string name="encrypt_file_content">Šifrovat obsah souboru</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Nelze šifrovat obsah souboru. Soubor nebyl uložen.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nelze dešifrovat obsah souboru. Použili jste nesprávné heslo? Je soubor opravdu šifrován pomocí Markors AES šifrování?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Heslo je již nastaveno. Nastavení nového hesla přepíše stávající heslo a v případě, že zapomenete heslo, již nebudete moci přistupovat k souborům.</string>
 </resources>

@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
-    <string name="disable_code_block_highlight">禁用高亮显示代码块</string>
+    <string name="disable_code_block_highlight">禁用代码块语法高亮</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
@@ -172,8 +172,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">特殊按键</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
-    <string name="move_text_one_line_up">Move text one line up</string>
-    <string name="move_text_one_line_down">Move text one line up</string>
+    <string name="move_text_one_line_up">上移一行</string>
+    <string name="move_text_one_line_down">下移一行</string>
     <string name="key_pos_1">行首 (Home 键)</string>
     <string name="key_pos_end">行末 (End 键)</string>
     <string name="key_pos_1_document">文首</string>
@@ -183,10 +183,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="unordered_list_character">无序列表字符</string>
-    <string name="character_to_start_items_of_unordered_list_with">哪个字符用来表示无序列表</string>
+    <string name="character_to_start_items_of_unordered_list_with">用于表示无序列表的字符</string>
     <string name="unordered_list_char_dash">破折号 (-)</string>
-    <string name="unordered_list_char_asterisk">小行星(*)</string>
-    <string name="unordered_list_char_plus">+ (+)</string>
+    <string name="unordered_list_char_asterisk">星号 (*)</string>
+    <string name="unordered_list_char_plus">加号 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、脱机可用的文档，不支持不提供完整文件路径的文件管理器。</string>
     <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
     <string name="configure_in_the_apps_settings">在应用设置中设定</string>
@@ -198,8 +198,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">顶端</string>
     <string name="bottom">底端</string>
     <string name="center">居中</string>
-    <string name="textaction_spacing">文本工具按钮宽度</string>
-    <string name="horizontal_space_between_textactions">文本动作按钮之间的水平空间</string>
+    <string name="textaction_spacing">文本操作按钮间距</string>
+    <string name="horizontal_space_between_textactions">文本操作按钮的水平间距</string>
     <string name="center_text">居中文字</string>
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
@@ -304,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">应用起始文件夹</string>
     <string name="tab_width">制表符宽度</string>
     <string name="amount_of_space_for_tab">制表符显示的空格数</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个整数文件。 您想要在编辑器或其他应用中打开它吗？\n\n不要尝试打开二进制文件。 如果您不确定，请与其他应用程序打开。</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个纯文本文件。 您要在编辑器中打开它吗？\n\n请勿尝试打开二进制文件。 如果您不确定，请使用其他应用打开。</string>
     <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
     <string name="wrap_words">折行</string>
@@ -330,7 +330,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">表格</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">多少列？长按表格按钮开始一个表格(插入表头)，短按添加行。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
-    <string name="delete_lines">删除线</string>
+    <string name="delete_lines">删除行</string>
     <string name="unordered_list">无序列表</string>
     <string name="ordered_list">有序列表</string>
     <string name="check_list">复选列表</string>
@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">动作顺序</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
+    <string name="file_encryption_password">文件加密密码</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n前往设置 -&gt; 普通-&gt; 密码来设置密码。</string>
+    <string name="encrypt_file_content">加密文件内容</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">无法加密文件内容。文件未保存。</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。您使用了错误的密码吗？该文件真的是加密的 Markors AES 吗？</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">密码已设置。 设置新密码将覆盖现有密码，如果您忘记密码，您可能无法再访问文件。</string>
 </resources>

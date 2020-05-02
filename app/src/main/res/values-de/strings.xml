@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Aktions-Reihenfolge</string>
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
+    <string name="file_encryption_password">Datei-Verschlüsselungs-Passwort</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Kein Passwort gesetzt, kann nicht verschlüsselt oder entschlüsselt werden.\nGehen Sie zu Einstellungen -&gt; Allgemein -&gt; Passwort, um ein Passwort zu setzen.</string>
+    <string name="encrypt_file_content">Dateiinhalt verschlüsseln</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Dateiinhalt konnte nicht verschlüsselt werden. Die Datei wurde nicht gespeichert.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Konnte Dateiinhalte nicht entschlüsseln. Hast du ein falsches Passwort verwendet? Ist die Datei wirklich mit Markors AES-Verschlüsselung verschlüsselt?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Passwort bereits gesetzt. Ein neues Passwort überschreibt das bestehende Passwort und du kannst möglicherweise nicht mehr auf Dateien zugreifen, falls du das Passwort vergessen.</string>
 </resources>

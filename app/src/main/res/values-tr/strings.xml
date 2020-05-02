@@ -361,4 +361,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Genişlet / Daralt</string>
     <string name="essential">Gerekli</string>
     <string name="append_human_readable_uuid_to_new_tasks">Yeni görevlere insan tarafından okunabilen UUID ekle</string>
+    <string name="action_order">Eylem sırası</string>
+    <string name="load_default_settings">Varsayılan ayarları yükle</string>
+    <string name="drag">Sürükle</string>
 </resources>

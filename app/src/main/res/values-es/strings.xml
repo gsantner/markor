@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Orden de acción</string>
     <string name="load_default_settings">Cargar ajustes por defecto</string>
     <string name="drag">Arrastrar</string>
+    <string name="file_encryption_password">Contraseña del cifrado de archivo</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">No se ha establecido ninguna contraseña, no se puede cifrar o descifrar.\nIr a Ajustes -&gt; General -&gt; Contraseña para establecer una contraseña.</string>
+    <string name="encrypt_file_content">Cifrar contenido de archivo</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">No se pudo cifrar el contenido del archivo. El archivo no fue guardado.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">No se pudo descifrar el contenido del archivo. ¿Ha usado una contraseña incorrecta? ¿Está el archivo realmente cifrado con Markors AES?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Contraseña ya establecida. Establecer una nueva contraseña sobrescribirá la contraseña existente y es posible que ya no pueda acceder a los archivos en caso de que olvide la contraseña.</string>
 </resources>

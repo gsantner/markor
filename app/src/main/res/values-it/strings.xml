@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Ordine delle azioni</string>
     <string name="load_default_settings">Carica impostazioni predefinite</string>
     <string name="drag">Trascina</string>
+    <string name="file_encryption_password">Password di crittografia file</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Nessuna password impostata, impossibile crittografare o decifrare.\nVai a Impostazioni -&gt; Generale -&gt; Password per impostare una password.</string>
+    <string name="encrypt_file_content">Crittografa il contenuto del file</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Impossibile crittografare il contenuto del file. Il file non è stato salvato.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Impossibile decifrare il contenuto del file. Hai usato una password sbagliata? Il file è veramente crittografato con la crittografia AES Markors?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Password già impostata. L\'impostazione di una nuova password sovrascriverà la password esistente e potrebbe non essere più in grado di accedere ai file nel caso in cui si dimentichi la password.</string>
 </resources>

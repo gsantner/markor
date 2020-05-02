@@ -364,4 +364,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Порядок дій</string>
     <string name="load_default_settings">Відкрити типові параметри</string>
     <string name="drag">Тягнути</string>
+    <string name="file_encryption_password">Пароль шифрування файлу</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Не встановлено пароль, не можна шифрувати чи розшифрувати.\nПерейдіть до налаштувань -&gt; Загалом -&gt; Пароль щоб встановити пароль.</string>
+    <string name="encrypt_file_content">Шифрувати вміст файлу</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Не вдалося зашифрувати вміст файлу. Файл не було збережено.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не вдалося розшифрувати вміст файлу. Ви використовуєте неправильний пароль? Чи дійсно зашифрований файл за допомогою шифрування Markors AES?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль вже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви не зможете більше отримати доступ до файлів, якщо ви забудете пароль.</string>
 </resources>
