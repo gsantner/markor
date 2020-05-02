@@ -381,7 +381,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Drag</string>
 
     <string name="file_encryption_password">File encryption password</string>
-    <string name="no_password_set_cant_encrypt_decrypt_warning"><![CDATA[No password set, cannot encrypt or decrypt.\nGo to \'Settings -> General -> Password\' to set a password.]]></string>
+    <string name="no_password_set_cannot_encrypt_decrypt">No password set, cannot encrypt or decrypt.\nGo to Settings -> General -> Password to set a password.</string>
     <string name="encrypt_file_content">Encrypt file content</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Could not encrypt file content. The file was not saved.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Could not decrypt file content. Did you use a wrong password? Is the file really encrypted with Markors AES encryption?</string>

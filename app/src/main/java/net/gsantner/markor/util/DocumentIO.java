@@ -258,7 +258,7 @@ public class DocumentIO {
         final PasswordStore securityStore = new PasswordStore(context);
         final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
         if (pw == null || pw.length == 0) {
-            final String warningText = context.getString(R.string.no_password_set_cant_encrypt_decrypt_warning);
+            final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
             Log.w(DocumentIO.class.getName(), warningText);
             return null;
