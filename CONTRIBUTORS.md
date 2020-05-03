@@ -38,7 +38,7 @@ Where:
 * **[Mark Goldman](https://github.com/goldmanm)**<br/>~° Added sorting for todo.txt, improved wiki
 * **[natanelho](natanelho@gmail.com)**<br/>~° Hebrew translation
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
-* **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to chare multiple files from file browser
+* **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to share multiple files from file browser
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions.
 * **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists.
