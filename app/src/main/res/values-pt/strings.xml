@@ -365,9 +365,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Carregar predefinições</string>
     <string name="drag">Arrastar</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Nenhuma senha definida, não pode criptografar ou descriptografar.\nVá para Configurações -&gt; Geral -&gt; Senha para definir uma senha.</string>
-    <string name="encrypt_file_content">Criptografar conteúdo do arquivo</string>
-    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Não foi possível criptografar o conteúdo do arquivo. O arquivo não foi salvo.</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Não foi possível descriptografar o conteúdo do arquivo. Você usou uma senha errada? O arquivo é realmente criptografado com criptografia AES Markors.</string>
-    <string name="password_already_set_setting_a_new_password_will_overwrite">Senha já definida. Definir uma nova senha irá sobrescrever a senha existente e talvez você não consiga mais acessar os arquivos caso você esqueça a senha.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Palavra-passe não definida, não é possível cifrar e/ou decifrar.\nAceda a Definições - &gt; Geral -&gt; Palavra-passe para a definir.</string>
+    <string name="encrypt_file_content">Cifrar conteúdo do ficheiro</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Não foi possível cifrar o ficheiro. Ficheiro não guardado.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Não foi possível decifrar o ficheiro. Utilizou a palavra-passe correta? O ficheiro foi cifrado com a cifra Markor AES?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">A palavra-passe já está definida. Se definir uma nova palavra-passe a atual será substituída e, caso a perca, já não será possível aceder ao ficheiro.</string>
 </resources>
