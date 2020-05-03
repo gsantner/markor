@@ -348,4 +348,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">நடவடிக்கைகளின் வரிசை</string>
     <string name="load_default_settings">இயல்புநிலை அமைப்புகளை ஏற்றுக</string>
     <string name="drag">இழுக்கவும்</string>
+    <string name="file_encryption_password">ஆவண மறைக்குறியாக்க கடவுச்சொல்</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">எந்த கடவுச்சொல்லும் நிறுவப்படவில்லை, அதனால் மறைக்குறியாக்கவோ அல்லது மறைவிலக்கம் செய்ய முடியாது.\nஅமைப்புகளுக்கு செல்லவும் -&gt; பொது -&gt; கடவுச்சொல் மூலம் கடவுச்சொல்லை நிறுவவும்.</string>
+    <string name="encrypt_file_content">ஆவண உள்ளடக்கத்தை மறைக்குறியாக்கம் செய்</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">ஆவணத்தை உள்ளடக்கத்தை மறைக்குறியாக்கம் செய்ய முடியவில்லை ஏன்னென்றால் ஆவணம் சேமிக்கப்படவில்லை.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ஆவண உள்ளடக்கங்களை மறைவிலக்கம் செய்ய முடியவில்லை. தவறான கடவுச்சொல்லை பயன்படுத்திவிட்டீர்களா? உண்மையாகவே Markor செயலியின் AES மறைக்குறியாக்க முறை கொண்டே இந்த ஆவணம் மறைக்குறியாக்கம் செய்யப்பட்டதா?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">கடவுச்சொல் ஏற்கனவே நிறுவப்பட்டுவிட்டது. புதிய கடவுச்சொல்லை நிறுவுவதன் மூலம் பழைய கடவுச்சொல் நீக்கப்படும் மற்றும் நீங்கள் கடவுச்சொல்லை மறந்துவிட்டீர்கள் என்றால் உங்களால் ஆவணங்களை அணுக முடியாமல் போகலாம்.</string>
 </resources>
