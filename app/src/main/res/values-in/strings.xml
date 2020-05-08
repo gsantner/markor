@@ -85,8 +85,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="deleteme____1">Nama</string>
     <string name="size">Ukuran</string>
     <string name="reverse_order">Urut terbalik</string>
+    <string name="contribute">Ikut serta</string>
     <string name="donate">Donasi</string>
+    <string name="project_page">Laman proyek</string>
     <string name="exit">Keluar</string>
+    <string name="todo_list">Daftar kehendak</string>
+    <string name="sync">Selaraskan</string>
+    <string name="search_or_custom">Cari atau sesuaikan</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Tampilkan bilah dengan tombol praktis di bawah. Aksi teks ini mengubah teks atau menjalankan aksi berdasar teks.</string>
     <string name="load_last_opened_folder_at_startup">Muat folder yang dibuka terakhir</string>
