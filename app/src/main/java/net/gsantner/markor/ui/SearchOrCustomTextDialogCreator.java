@@ -182,6 +182,7 @@ public class SearchOrCustomTextDialogCreator {
             if (!availableData.contains(hl)) {
                 availableData.add(hl);
             }
+            dopt.defaultText = hl;
         }
 
         dopt.data = availableData;

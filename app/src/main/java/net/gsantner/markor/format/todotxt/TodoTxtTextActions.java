@@ -21,6 +21,7 @@ import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.todotxt.SttCommander;
@@ -219,6 +220,8 @@ public class TodoTxtTextActions extends TextActions {
                                 }
                             }
                         }
+                        AppSettings settings = new AppSettings(_activity);
+                        if (settings != null) settings.setLastTodoUsedArchiveFilename(callbackPayload);
                     });
                     return;
                 }
