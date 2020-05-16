@@ -62,6 +62,7 @@ public class SearchOrCustomTextDialog {
         public List<? extends CharSequence> highlightData = new ArrayList<>();
         public List<Integer> iconsForData = new ArrayList<>();
         public String messageText = "";
+        public String defaultText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
@@ -147,6 +148,7 @@ public class SearchOrCustomTextDialog {
         };
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
+        searchEditText.setText(dopt.defaultText);
         searchEditText.setSingleLine(true);
         searchEditText.setMaxLines(1);
         searchEditText.setTextColor(dopt.textColor);
