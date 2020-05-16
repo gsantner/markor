@@ -220,8 +220,7 @@ public class TodoTxtTextActions extends TextActions {
                                 }
                             }
                         }
-                        AppSettings settings = new AppSettings(_activity);
-                        if (settings != null) settings.setLastTodoUsedArchiveFilename(callbackPayload);
+                        new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);
                     });
                     return;
                 }
