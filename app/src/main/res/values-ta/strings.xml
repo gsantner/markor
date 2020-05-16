@@ -131,10 +131,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg" needed="false">ஆவணங்களின் எண்ணிக்கை: %d</string>
     <string name="app_wide">செயலி முழுமைக்கும்</string>
     <string name="main_view">செயலியின் முகப்பு பார்வை</string>
-    <string name="overall_theme_used_in_app">செயலி முழுமைக்கும் பயன்படுத்தப்பட்ட வண்ண அமைப்பு</string>
+    <string name="overall_theme_used_in_app">செயலி முழுமைக்கும் பயன்படுத்தப்பட்ட நிற அழகாக்கம்</string>
     <string name="remember_last_directory">கடைசியாக பயன்படுத்திய கோப்புறையை நினைவில் கொள்</string>
     <string name="syntax_highlighting">தொடரியல் தனிப்படுத்தல்</string>
     <string name="highlighting_delay">தனிப்படுத்தலுக்கான இடைவெளி</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">முன்னிலைப்படுத்தலின் புதுப்பித்தலுக்கான தாமதம் மில்லி விநாடிகளில் உள்ளது. இதை குறைந்த மதிப்பாக வைப்பதன் மூலம் முன்னதாக முன்னிலைப்படுத்த தொடங்கும், ஆனால் இது உங்கள் சாதனத்தின் மின்கலத்தை வேகமாக காலியாக்கும் மற்றும் பழைய சாதனங்களில் செயலியை மெதுவாக்கும்.</string>
     <string name="highlighting_enabled_or_not__appspecific">உள்ளீடு செய்ய பட்ட உறை தனிப்படுத்த வேண்டுமா இல்லையா என்பதை கட்டுப்படுத்துக</string>
     <string name="control_font_size_in_editor">தொகுப்பியில் எழுத்துருவின் அளவை கட்டுப்படுத்தவும்</string>
     <string name="textactions_show_useful_actions_description__appspecific">கீழே கையடக்கமான பொத்தான்களை கொண்ட ஒரு பட்டியை காண்பிக்கவும். இந்த உரை நடவடிக்கைகள் உரையை மாற்றவோ அல்லது உரையில் ஏதேனும் ஒரு நடவடிக்கையை மேற்கொள்ளவும் உதவுகிறது.</string>
@@ -233,6 +234,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">எந்த படத்தையும் எடுக்கவோ, தேர்வோ அல்லது சேமிக்கவோ இல்லை.</string>
     <string name="gallery_picture">காட்சியகத்தில் உள்ள படம்</string>
     <string name="camera_picture">ஒளிப்பட கருவியின் படம்</string>
+    <string name="enable_undo_and_redo_be_patient">செயல்தவிர்த்தல் மற்றும் மீண்டும் செய்தல் போன்றவற்றை செயல்படுத்தவும். இது மேம்பட்ட பயன்பாட்டிற்கு மட்டுமே உகந்தது, முக்கியமானவற்றை அழிக்காமல் இருக்க பொறுமையாக இருக்கவும். திருத்தியை மூடி திறப்பதன் மூலம் வரலாற்றை அழிக்கவும்.</string>
     <string name="description">விவரக்குறிப்பு</string>
     <string name="edit_picture">படத்தை திருத்து</string>
     <string name="math">கணிதம்</string>
@@ -246,6 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">நிறம்</string>
     <string name="zero_width_space">சுழி அகல இடைவெளி</string>
     <string name="basic_color_scheme">அடிப்படை நிற திட்டம்</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">உரை திருத்தியின் முன்புறம் மற்றும் பின்புறத்தின் நிறத்தை மாற்றுகிறது. செயலியின் நிற அழகாக்கதற்கு ஏற்ப சரி செய்து கொள்கிறது அதனால் வெளிச்சமுள்ள மற்றும் இருண்ட நிற அழகாகத்தில் கிடைக்கிறது. தொடரியல் தனிப்படுத்தலுக்கான நிறங்களில் எந்த மாற்றமும் இல்லை.</string>
     <string name="preset">முன்னமைவு</string>
     <string name="foreground">முன்புலம்</string>
     <string name="background">பின்புலம்</string>
@@ -271,13 +274,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">ரத்து செய்</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">இந்த செயலியை மகிழ்ச்சியாக அனுபவிக்கிறீர்களா? மேலும் முன்னேற்றங்களுக்கு மற்றும் பிழை நீக்கங்களுக்கு ஆதரவளிக்க விரும்புகிறீர்களா?\n\nசெயலிகளை உருவாக்குதல் மற்றும் வலைப்பக்கங்களை எழுதுவதற்கு அதிக நேரம் தேவைப்படுகிறது. இந்த செயலி தொடர்ச்சியாக இயங்க, தயவு செய்து ஒரு சிறிய நன்கொடையை வழங்குங்கள்!\n\nஇந்த செயலி ஓய்வு நேரங்களில் உருவாக்கப்படுகிறது, முற்றிலும் இலவசமாக மற்றும் எந்த விளம்பரங்களும் இல்லாமல்!</string>
     <string name="app_start_tab">செயலியின் தொடக்க தாவல்</string>
+    <string name="tab_to_select_at_start">பயன்பாட்டைத் தொடங்கும்போது தேர்ந்தெடுக்க வேண்டிய தாவல்</string>
     <string name="swipe_to_change_mode">பயன்முறையை மாற்ற தேய்</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">திருத்தல் அல்லது காட்சி முறையை மாற்ற தேய்க்கவும் (தற்போதைய முறையின் எதிர்மறை)</string>
     <string name="folder_first">முதலில் கோப்புறை</string>
     <string name="go_to">செல்லுங்கள்</string>
     <string name="appdata_public">செயலித்தரவு (பொது)</string>
     <string name="appdata_private">செயலித்தரவு (தனிப்பட்டவை)</string>
     <string name="appdata_sdcard">செயலித்தரவு (நினைவக அட்டை)</string>
     <string name="internal_storage">அகச் சேமிப்பகம்</string>
+    <string name="notebook_is_the_home_of_your_files">குறிப்புப்புத்தகம் என்பது ஒரு கோப்புறையாகும் Markor ஆவண உலாவியில் இருந்து செயலி தொடங்கும்போது இதை ஏற்றுகிறது. இதுவே உங்கள் ஆவணங்களின் முதன்மை கோப்புறையாகும்.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote என்பது விரைவாக குறிப்புகளை எழுதுவதற்கு ஒரு தேர்வாகும். இது Markdown முறையில் உள்ள ஒரு ஆவணமாகும் இதன் இயல்புநிலை இடமானது &gt;Notebook/QuickNote.md&lt;, நீங்கள் இந்த ஆவணத்திற்கு வேறு ஒரு கோப்பு பாதையை அமைப்புகளில் மாற்ற முடியும்.</string>
     <string name="todo_is_the_easiest_way_">உங்கள் செயல்களை நிர்வகிக்க ToDo வகை ஆவணத்தை பயன்படுத்தவும். அது  todo.txt முறையில் உள்ள ஆவணமாகும் இதன் இயல்புநிலை இடமானது &gt;Notebook/todo.txt&lt;, நீங்கள் இந்த ஆவணத்திற்கு வேறு ஒரு கோப்பு பாதையை அமைப்புகளில் மாற்ற முடியும்.</string>
     <string name="navigationbar_color">வழிநடத்தும் பட்டியின் நிறம்</string>
@@ -294,13 +300,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="please_wait">தயவு செய்து காத்திருக்கவும்</string>
     <string name="app_start_folder">செயலிக்கான தொடக்க கோப்புறை</string>
     <string name="tab_width">தாவல் அகலம்</string>
+    <string name="amount_of_space_for_tab">அட்டவணையாக்கியை காட்சிப்படுத்த தேவையான இடைவெளி எழுத்துக்களின் எண்ணிக்கை</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">தேர்ந்துதெடுக்கப்பட்ட ஆவணமானது ஒரு சாதரண எழுத்துக்கள் கொண்ட ஆவணமாக இருக்கலாம். இதை நீங்கள் தொகுப்பானில் திறக்க விரும்புகிறீர்களா, அல்லது வேறொரு செயலியிலா?\n\nஇருநிலை ஆவணங்களை திறக்காதீர்கள். உங்களால் உறுதி படுத்த முடியவில்லை என்றால், வேறு ஒரு செயலியில் திறக்கவும்.</string>
     <string name="list_in_recent_files">சமீபத்திய கோப்புகளில் பட்டியல்</string>
     <string name="reload">திரும்ப ஏற்று</string>
     <string name="wrap_words">சொற்களை மடக்கு</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">உரை திரை அகலத்திற்குள் பொருந்தவில்லை எனில் ஒரு மென்மையான இடைவெளியை பயன்படுத்தவும் அல்லது கிடைமட்ட சுருளும் முறையை செயல்படுத்து.</string>
     <string name="always_open_with_this_app">எப்போதும் இந்த செயலியை கொண்டு திறக்கவும்</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">இந்த பட்டியலில் உள்ள கோப்பு வகை நீட்சிகள் கொண்ட ஆவணங்களை இந்த செயலியை கொண்டே திறக்கவும். உதாரணமாக நீங்கள் வலை ஆவணங்களையும் மற்றும் எந்த நீட்சிகள் அற்ற ஆவணங்களையும் திருத்த விரும்பினால் \'None, .html, .css , .js\' ஆகியவற்றை பயன்படுத்துங்கள்.</string>
     <string name="template">வார்ப்புரு</string>
     <string name="send_debug_log">Debug பதிவை அனுப்பவும்</string>
+    <string name="help_by_sending_debug_information_to_the_developer">debug தகவலை இந்த செயலியின் நிரலை எழுதுபவர்களுக்கு அனுப்புவதன் மூலம் உதவுங்கள். உங்கள் மின்னஞ்சல் செயலியின் வழியாக தரவானது மின்னஞ்சலாக அனுப்பப்படும் மற்றும் அனுப்புவதற்கு முன்னதாக நீங்கள் அனுப்பப்போகிற தரவை காணலாம். இதை இயக்குவதன் மூலம் மேலே உள்ள பட்டியில் கூடுதலாக \"debug பதிவை அனுப்பவும்\" தேர்வை காணலாம். இது ஒரு மின்னஞ்சல் வரைவை உருவாக்கும்.</string>
     <string name="print_pdf">அச்சிடு / PDF ஆக மாற்று</string>
     <string name="bigger_headings">பெரிய தலைப்புகள்</string>
     <string name="increase_text_size_of_headings_according_to_level">தலைப்புகளின் உரையின் அளவை அது இருக்கும் நிலையின் படி அதிகரிக்கவும் (# h1, ## h2. ### h3…)</string>
@@ -314,6 +324,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">படிக்கிறது</string>
     <string name="read">படி</string>
     <string name="table">அட்டவணை</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">எத்தனை நெடுவரிசைகள்? அட்டவணை பொத்தானை நீண்டு அழுத்துவதன் மூலம் ஒரு அட்டவணையை துவக்கு (தலைப்பை சேர்க்கவும்), குறுகி அழுத்துவதன் மூலம் ஒரு குறுக்குவரிசையை சேர்க்க முடியும்.</string>
     <string name="example_of_a_markdown_table">Markdown முறையில் ஒரு அட்டவணையின் உதாரணம்</string>
     <string name="delete_lines">வரிகளை நீக்கு</string>
     <string name="unordered_list">எண்கள் அல்லாத பட்டியல்</string>
@@ -331,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bold">தடித்த</string>
     <string name="italic">சாய்வெழுத்து</string>
     <string name="strikeout">அடித்திடு</string>
+    <string name="inline_code">இன்லைன் குறியீடு</string>
     <string name="horizontal_line">கிடைமட்ட கோடு</string>
     <string name="toggle_done">செயலின் நிலையை மாற்றவும்</string>
     <string name="link_color">இணைப்பின் நிறம்</string>
@@ -348,4 +360,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">நடவடிக்கைகளின் வரிசை</string>
     <string name="load_default_settings">இயல்புநிலை அமைப்புகளை ஏற்றுக</string>
     <string name="drag">இழுக்கவும்</string>
+    <string name="file_encryption_password">ஆவண மறைக்குறியாக்க கடவுச்சொல்</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">எந்த கடவுச்சொல்லும் நிறுவப்படவில்லை, அதனால் மறைக்குறியாக்கவோ அல்லது மறைவிலக்கம் செய்ய முடியாது.\nஅமைப்புகளுக்கு செல்லவும் -&gt; பொது -&gt; கடவுச்சொல் மூலம் கடவுச்சொல்லை நிறுவவும்.</string>
+    <string name="encrypt_file_content">ஆவண உள்ளடக்கத்தை மறைக்குறியாக்கம் செய்</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">ஆவணத்தை உள்ளடக்கத்தை மறைக்குறியாக்கம் செய்ய முடியவில்லை ஏன்னென்றால் ஆவணம் சேமிக்கப்படவில்லை.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ஆவண உள்ளடக்கங்களை மறைவிலக்கம் செய்ய முடியவில்லை. தவறான கடவுச்சொல்லை பயன்படுத்திவிட்டீர்களா? உண்மையாகவே Markor செயலியின் AES மறைக்குறியாக்க முறை கொண்டே இந்த ஆவணம் மறைக்குறியாக்கம் செய்யப்பட்டதா?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">கடவுச்சொல் ஏற்கனவே நிறுவப்பட்டுவிட்டது. புதிய கடவுச்சொல்லை நிறுவுவதன் மூலம் பழைய கடவுச்சொல் நீக்கப்படும் மற்றும் நீங்கள் கடவுச்சொல்லை மறந்துவிட்டீர்கள் என்றால் உங்களால் ஆவணங்களை அணுக முடியாமல் போகலாம்.</string>
 </resources>

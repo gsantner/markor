@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки синтаксису у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та можуть сповільнити роботу додатку на старіших пристроях.</string>
     <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
     <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками для дій із текстом, що змінюють його або виконують відповідну дію.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками команд тексту, які перетворюють його або виконують відповідну дію.</string>
     <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту директорію після запуску</string>
     <string name="format">Форматування</string>
     <string name="contexts">Контексти</string>
@@ -182,9 +182,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Табуляція</string>
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завантаження документа встановити курсор в кінець</string>
-    <string name="unordered_list_character">Невпорядкований символ списку</string>
-    <string name="character_to_start_items_of_unordered_list_with">Визначає який символ використовувати для позначення невпорядкованих списків</string>
-    <string name="unordered_list_char_dash">Dash (-)</string>
+    <string name="unordered_list_character">Символ для невпорядкованих списків</string>
+    <string name="character_to_start_items_of_unordered_list_with">Визначає символ, який використовується для позначення невпорядкованих списків</string>
+    <string name="unordered_list_char_dash">Тире (-)</string>
     <string name="unordered_list_char_asterisk">Зірочка (*)</string>
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
@@ -242,8 +242,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Формули</string>
     <string name="table_of_contents">Зміст</string>
     <string name="miscellaneous">Різне</string>
-    <string name="textaction">Дія з текстом</string>
-    <string name="textactions">Дії з текстом</string>
+    <string name="textaction">Команда тексту</string>
+    <string name="textactions">Команди тексту</string>
     <string name="prefer_view">Перевага перегляду</string>
     <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
     <string name="popular_documents">Популярні документи</string>
@@ -304,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Стартова директорія програми</string>
     <string name="tab_width">Ширина табуляції</string>
     <string name="amount_of_space_for_tab">Кількість пробілів для відображення табуляції</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Обраний файл може бути текстовим файлом. Відкрити її у редакторі чи інших програмах?\n\nНе відкривайте двійкові файли в інших програмах. Якщо ви не впевнені, відкрийте інший додаток.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Обраний файл може бути текстовим файлом. Відкрити його редактором чи іншою програмою?\n\nНе намагайтесь відкривати двійкові файли. Якщо не впевнені, відкрийте іншим додатком.</string>
     <string name="list_in_recent_files">Показати в нещодавніх документах</string>
     <string name="reload">Перезавантажити</string>
     <string name="wrap_words">Перенесення рядків</string>
@@ -359,15 +359,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Обрано</string>
     <string name="back">Назад</string>
     <string name="expand_collapse">Розгорнути / Згорнути</string>
-    <string name="essential">Важливе</string>
+    <string name="essential">Основні</string>
     <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
-    <string name="action_order">Порядок дій</string>
-    <string name="load_default_settings">Відкрити типові параметри</string>
-    <string name="drag">Тягнути</string>
+    <string name="action_order">Впорядкувати команди</string>
+    <string name="load_default_settings">Встановити типові параметри</string>
+    <string name="drag">Перетягніть</string>
     <string name="file_encryption_password">Пароль шифрування файлу</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Не встановлено пароль, не можна шифрувати чи розшифрувати.\nПерейдіть до налаштувань -&gt; Загалом -&gt; Пароль щоб встановити пароль.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Пароль не встановлено, тому неможливо шифрувати чи розшифровувати.\nПерейдіть до налаштувань -&gt; Загальне -&gt; Пароль щоб встановити пароль.</string>
     <string name="encrypt_file_content">Шифрувати вміст файлу</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Не вдалося зашифрувати вміст файлу. Файл не було збережено.</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не вдалося розшифрувати вміст файлу. Ви використовуєте неправильний пароль? Чи дійсно зашифрований файл за допомогою шифрування Markors AES?</string>
-    <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль вже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви не зможете більше отримати доступ до файлів, якщо ви забудете пароль.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не вдалося розшифрувати вміст файлу. Ви використовуєте неправильний пароль? Файл дійсно було зашифровано з використанням Markor AES?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль вже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви втратите доступ до файлів, якщо забудете пароль.</string>
 </resources>
