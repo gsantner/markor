@@ -30,10 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center|start"
-                android:paddingEnd="0sp"
-                android:paddingLeft="15sp"
-                android:paddingRight="0sp"
                 android:paddingStart="15sp"
+                android:paddingLeft="15sp"
+                android:paddingEnd="0sp"
+                android:paddingRight="0sp"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -44,51 +44,51 @@
             android:id="@+id/widget_todo"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_below="@+id/widget_quicknote"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/widget_quicknote"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="60dp"
             android:layout_marginRight="60dp"
-            android:layout_marginTop="4dp"
             android:background="@drawable/fab_circle"
             android:text="@string/lightning_symbol"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="13sp"
             tools:ignore="RtlHardcoded" />
 
 
         <Button
-            android:id="@+id/widget_linkbox"
+            android:id="@+id/widget_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_below="@+id/widget_new_note"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/widget_new_note"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="4dp"
             android:background="@drawable/fab_circle"
-            android:text="L"
+            android:text="☇"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            tools:ignore="RtlHardcoded" />
+            android:textSize="22sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
         <Button
             android:id="@+id/widget_quicknote"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginTop="14dp"
-            android:layout_toLeftOf="@+id/widget_new_note"
             android:layout_toStartOf="@+id/widget_new_note"
+            android:layout_toLeftOf="@+id/widget_new_note"
             android:background="@drawable/fab_circle"
-            android:rotation="90"
-            android:text="@string/checkmark_symbol"
+            android:text="ⵢ"
             android:textColor="@color/white"
-            android:textSize="30sp"
             android:textStyle="bold"
-            tools:ignore="RtlHardcoded" />
+            android:textSize="18sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
         <Button
             android:id="@+id/widget_new_note"
@@ -96,9 +96,9 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="14dp"
-            android:layout_marginTop="14dp"
             android:background="@drawable/fab_circle"
             android:text="@string/plus"
             android:textColor="@color/white"
@@ -117,9 +117,9 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textStyle="bold"
                 android:textColor="@color/light_grey"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/widget_notes_list"

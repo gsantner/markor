@@ -98,12 +98,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, 0, openQuickNote, 0));
 
-            // Open LinkBox
-            Intent openLinkBox = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_NEW_OUTGOING_CALL)
-                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            views.setOnClickPendingIntent(R.id.widget_linkbox, PendingIntent.getActivity(context, 0, openLinkBox, 0));
+            // Open Favourites
+            Intent openApp = new Intent(context, MainActivity.class)
+                    .setAction(Intent.ACTION_NEW_OUTGOING_CALL);
+            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, 0, openApp, 0));
 
 
             // ListView
