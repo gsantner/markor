@@ -161,6 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Korosta rivin loppu</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Korosta kahden tai useamman välilyönnin sisältävien rivien loput</string>
     <string name="use_monospace_for_code">Käytä koodiin kiinteävälistä fonttia</string>
+    <string name="disable_code_block_highlight">Poista koodilohkojen korostus käytöstä</string>
     <string name="use_different_fonttype_slow_down">Käytä eri kirjasintyyppiä. Sen muuttaminen vaikuttaa dynaamisesti sovelluksen suorituskykyyn.</string>
     <string name="general">Yleiset</string>
     <string name="resources">Resurssit</string>
@@ -181,6 +182,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Sarkain</string>
     <string name="start_on_bottom">Aloita alhaalta</string>
     <string name="start_on_bottom_when_loading_document">Kun asiakirja ladataan, aseta osoitin sen päähän</string>
+    <string name="unordered_list_character">Järjestämättömän listan kirjoitusmerkki</string>
+    <string name="character_to_start_items_of_unordered_list_with">Mitä kirjoitusmerkkiä käytetään kuvaamaan järjestämättömiä listoja</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor voi muokata vain paikallisia, offline-tilassa käytettävissä olevia asiakirjoja, eikä tue tiedostojen hallintaa, jotka eivät tarjoa koko tiedostopolkua.</string>
     <string name="sync_to_local_folder_notice">Huomaa: Synkronointisovellukset voivat sijoittaa tiedostoja mukautettuihin kansioihin. Avaa ne muuttamalla Markorin asiakirjakansio vastaavasti tai toisessa tiedostohallinnassa.</string>
     <string name="configure_in_the_apps_settings">Määritä sovelluksen asetuksissa</string>
