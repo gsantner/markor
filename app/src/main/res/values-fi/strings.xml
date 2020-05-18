@@ -169,7 +169,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_spacing">Riviväli</string>
     <string name="archive_does_move_done_tasks">Siirrä tehdyt tehtävät samassa kansiossa olevaan määritettyyn tiedostoon</string>
     <string name="sort_tasks_by_selected_order">Lajittele tehtävät valitun järjestyksen mukaan</string>
-    <string name="special_key">Erikoisavain</string>
+    <string name="special_key">Erikoisnäppäin</string>
     <string name="key_page_up">Sivu ylös (Page Up)</string>
     <string name="key_page_down">Sivu alas (Page down)</string>
     <string name="move_text_one_line_up">Siirrä tekstiä yksi rivi ylöspäin</string>
@@ -225,6 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Poista oikeinkirjoituksen alleviivaus käytöstä</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Näppäimistöehdotukset pysyvät, punainen alleviivaus katoaa</string>
     <string name="location">Sijainti</string>
+    <string name="keep_existing_file">- Tiedostoja ja kansioita ei ylikirjoiteta</string>
     <string name="app_start_tab">Aloitusvälilehti</string>
     <string name="tab_to_select_at_start">Valittava välilehti sovelluksen käynnistyessä</string>
     <string name="swipe_to_change_mode">Pyyhkäise vaihtaaksesi tilaa</string>
@@ -238,4 +239,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook_is_the_home_of_your_files">Muistiinpanot on kansio, jonka Markor lataa tiedostoselaimeen, kun sovellus käynnistetään. Se on tiedostojesi kotikansio.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
     <string name="todo_is_the_easiest_way_">Hallitse tehtäviäsi ToDo:lla. Se on tiedosto todo.txt-muodossa, jonka oletussijainti on &gt;Notebook/todo.txt&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Salasana on jo asetettu. Uuden salasanan asettaminen ylikirjoittaa olemassa olevan, etkä välttämättä pääse enää käsiksi tiedostoihisi, jos unohdat salasanan.</string>
 </resources>
