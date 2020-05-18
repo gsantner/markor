@@ -184,6 +184,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">Kun asiakirja ladataan, aseta osoitin sen päähän</string>
     <string name="unordered_list_character">Järjestämättömän listan kirjoitusmerkki</string>
     <string name="character_to_start_items_of_unordered_list_with">Mitä kirjoitusmerkkiä käytetään kuvaamaan järjestämättömiä listoja</string>
+    <string name="unordered_list_char_dash">Ajatusviiva (-)</string>
+    <string name="unordered_list_char_asterisk">Asteriski (*)</string>
+    <string name="unordered_list_char_plus">Plussa (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor voi muokata vain paikallisia, offline-tilassa käytettävissä olevia asiakirjoja, eikä tue tiedostojen hallintaa, jotka eivät tarjoa koko tiedostopolkua.</string>
     <string name="sync_to_local_folder_notice">Huomaa: Synkronointisovellukset voivat sijoittaa tiedostoja mukautettuihin kansioihin. Avaa ne muuttamalla Markorin asiakirjakansio vastaavasti tai toisessa tiedostohallinnassa.</string>
     <string name="configure_in_the_apps_settings">Määritä sovelluksen asetuksissa</string>
