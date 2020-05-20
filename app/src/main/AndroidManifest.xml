@@ -581,6 +581,70 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.adoc" />
 
+                <!-- Handling of file extension ".patch" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.patch" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.patch" />
+
+                <!-- Handling of file extension ".diff" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.diff" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.diff" />
+
                 <!-- Handling of file extension ".ldg" -->
                 <data
                     android:mimeType="*/*"
