@@ -43,6 +43,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
@@ -381,6 +383,115 @@ public abstract class TextActions {
                         .insert(_hlEditor.getSelectionEnd(), _action);
                 _hlEditor.setSelection(_hlEditor.getSelectionStart() - _action.length());
             }
+        }
+    }
+
+    //protected void runMarkdownRegexAction(@NonNull String search, @NonNull String replace) {
+    //    runMarkdownRegexAction(search, replace, false);
+    //}
+
+    //protected void runMarkdownRegexAction(@NonNull String search, @NonNull String replace, boolean onlySearch) {
+    //    runMarkdownRegexAction(Pattern.compile(search), replace, false);
+    //}
+
+    //protected void runMarkdownRegexAction(Pattern searchPattern, @NonNull String replace) {
+    //    runMarkdownRegexAction(searchPattern, replace, false);
+    //}
+
+    /**
+     * Set/unset ATX heading level on each selected line
+     *
+     * This routine will make the following conditional changes
+     *
+     * Line is heading of same level as requested -> remove heading
+     * Line is heading of different level that that requested -> add heading of specified level
+     * Line is not heading -> add heading of specified level
+     *
+     * @param level ATX heading level
+     */
+    protected void setHeadingAction(int level) {
+        // Commonmark allows headings of level 1 - 6
+        assert(level >= 1);
+        assert(level <= 6);
+
+        // Commonmark allows up to 3 leading spaces
+        Pattern remover = Pattern.compile(String.format("^(\\s{0,3})#{%d}\\s", level));
+        Pattern replacer = Pattern.compile("^(\\s{0,3})(#{0,6})\\s");
+        Pattern adder = Pattern.compile("^");
+
+        StringBuilder header = new StringBuilder();
+        for (int i = 0; i < level; i++) header.append('#');
+        String headerStr = header.append(' ').toString();
+
+        PatternPair[] patterns = {
+                new PatternPair(remover, "$1"),
+                new PatternPair(replacer, "$1" + headerStr),
+                new PatternPair(adder, headerStr)
+        };
+
+        runMarkdownRegexAction(patterns, true, false);
+    }
+
+    protected class PatternPair {
+        public Pattern search;
+        public String replace;
+
+        public PatternPair(Pattern search, String replace) {
+            this.search = search;
+            this.replace = replace;
+        }
+
+        public PatternPair(String search, String replace) {
+            this.search = Pattern.compile(search);
+            this.replace = replace;
+        }
+    }
+
+    /**
+     * Runs through a sequence of regex search and replace actions on each selected line.
+     *
+     * @param patterns An array of PatternPairs
+     * @param replaceFirst Whether to perform replaceFirst or replaceAll on matching patterns
+     * @param matchAll Whether to stop matching subsequent PatternPairs after first match+replace
+     */
+    protected void runMarkdownRegexAction(PatternPair[] patterns, boolean replaceFirst, boolean matchAll) {
+
+        StringBuilder text = new StringBuilder(_hlEditor.getText());
+        int[] selection = StringUtils.getSelection(_hlEditor);
+
+        int lineStart = StringUtils.getLineStart(text, selection[0]);
+        int selEnd = StringUtils.getLineEnd(text, selection[1]);
+
+        boolean changed = false;
+        while (lineStart <= selEnd && lineStart < text.length()) {
+
+            int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
+            CharSequence line = text.subSequence(lineStart, lineEnd);
+
+            for (int pi = 0; pi < patterns.length; pi++) {
+                PatternPair pattern = patterns[pi];
+                Matcher matcher = pattern.search.matcher(line);
+                if (matcher.find()) {
+
+                    String newLine;
+                    if (replaceFirst) newLine = matcher.replaceFirst(pattern.replace);
+                    else newLine = matcher.replaceAll(pattern.replace);
+
+                    // Update text and selection
+                    text.replace(lineStart, lineEnd, newLine);
+                    selEnd += newLine.length() - line.length();
+
+                    changed = true; // Mark text as changed
+                    if (!matchAll) break; // Exit after first match
+                }
+            }
+
+            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+        }
+
+        if (changed) {
+            _hlEditor.setText(text.toString());
+            _hlEditor.setSelection(selEnd);
         }
     }
 

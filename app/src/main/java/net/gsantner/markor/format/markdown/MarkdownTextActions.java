@@ -94,15 +94,18 @@ public class MarkdownTextActions extends TextActions {
                     break;
                 }
                 case R.string.tmaid_markdown_h1: {
-                    runMarkdownRegularPrefixAction("# ");
+                    setHeadingAction(1);
+                    //runMarkdownRegularPrefixAction("# ");
                     break;
                 }
                 case R.string.tmaid_markdown_h2: {
-                    runMarkdownRegularPrefixAction("## ");
+                    setHeadingAction(2);
+                    //runMarkdownRegularPrefixAction("## ");
                     break;
                 }
                 case R.string.tmaid_markdown_h3: {
-                    runMarkdownRegularPrefixAction("### ");
+                    setHeadingAction(3);
+                    //runMarkdownRegularPrefixAction("### ");
                     break;
                 }
                 /*case R.string.tmaid_common_unordered_list_char: {
