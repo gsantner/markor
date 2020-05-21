@@ -19,7 +19,7 @@
     tools:context="net.gsantner.markor.activity.DocumentEditFragment"
     tools:showIn="@layout/document__activity">
 
-    <ScrollView
+    <net.gsantner.markor.ui.DraggableScrollbarScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
@@ -42,7 +42,7 @@
             android:scrollbars="vertical"
             android:textCursorDrawable="@drawable/cursor_accent"
             tools:ignore="UnusedAttribute" />
-    </ScrollView>
+    </net.gsantner.markor.ui.DraggableScrollbarScrollView>
 
     <HorizontalScrollView
         android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"
