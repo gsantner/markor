@@ -386,18 +386,6 @@ public abstract class TextActions {
         }
     }
 
-    //protected void runMarkdownRegexAction(@NonNull String search, @NonNull String replace) {
-    //    runMarkdownRegexAction(search, replace, false);
-    //}
-
-    //protected void runMarkdownRegexAction(@NonNull String search, @NonNull String replace, boolean onlySearch) {
-    //    runMarkdownRegexAction(Pattern.compile(search), replace, false);
-    //}
-
-    //protected void runMarkdownRegexAction(Pattern searchPattern, @NonNull String replace) {
-    //    runMarkdownRegexAction(searchPattern, replace, false);
-    //}
-
     /**
      * Set/unset ATX heading level on each selected line
      *
@@ -419,11 +407,11 @@ public abstract class TextActions {
         String header = new String(headerChars) + ' ';
 
         ReplacePattern[] patterns = {
-                // Remove extant heading of matching level
+                // Remove extant heading of matching level (preserves leading space)
                 // Commonmark allows up to 3 leading spaces
                 new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
                 // Convert extant heading to requested level
-                new ReplacePattern("^(\\s{0,3})(#{0,6})\\s", "$1" + header),
+                new ReplacePattern("^(\\s{0,3})(#{1,6})\\s", "$1" + header),
                 // Add heading if not a heading
                 new ReplacePattern("^", header),
         };
@@ -466,9 +454,9 @@ public abstract class TextActions {
     }
 
     /**
-     * Runs through a sequence of regex search and replace actions on each selected line.
+     * Runs through a sequence of regex-search-and-replace actions on each selected line.
      *
-     * @param patterns An array of ReplacePatterns
+     * @param patterns An array of ReplacePattern
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
     protected void runMarkdownRegexAction(ReplacePattern[] patterns, boolean matchAll) {
