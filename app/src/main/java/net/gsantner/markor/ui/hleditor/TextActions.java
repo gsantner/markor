@@ -414,47 +414,64 @@ public abstract class TextActions {
         assert(level >= 1);
         assert(level <= 6);
 
-        // Commonmark allows up to 3 leading spaces
-        Pattern remover = Pattern.compile(String.format("^(\\s{0,3})#{%d}\\s", level));
-        Pattern replacer = Pattern.compile("^(\\s{0,3})(#{0,6})\\s");
-        Pattern adder = Pattern.compile("^");
+        char[] headerChars = new char[level];
+        Arrays.fill(headerChars, '#');
+        String header = new String(headerChars) + ' ';
 
-        StringBuilder header = new StringBuilder();
-        for (int i = 0; i < level; i++) header.append('#');
-        String headerStr = header.append(' ').toString();
-
-        PatternPair[] patterns = {
-                new PatternPair(remover, "$1"),
-                new PatternPair(replacer, "$1" + headerStr),
-                new PatternPair(adder, headerStr)
+        ReplacePattern[] patterns = {
+                // Remove extant heading of matching level
+                // Commonmark allows up to 3 leading spaces
+                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
+                // Convert extant heading to requested level
+                new ReplacePattern("^(\\s{0,3})(#{0,6})\\s", "$1" + header),
+                // Add heading if not a heading
+                new ReplacePattern("^", header),
         };
 
-        runMarkdownRegexAction(patterns, true, false);
+        runMarkdownRegexAction(patterns);
     }
 
-    protected class PatternPair {
+    protected class ReplacePattern {
         public Pattern search;
         public String replace;
+        public boolean onlyFirst;
 
-        public PatternPair(Pattern search, String replace) {
+        /**
+         * Construct a ReplacePattern
+         * @param search regex search pattern
+         * @param replace replace string
+         * @param onlyFirst whether to replaceAll or replaceFirst is used
+         */
+        public ReplacePattern(Pattern search, String replace, boolean onlyFirst) {
             this.search = search;
             this.replace = replace;
+            this.onlyFirst = onlyFirst;
         }
 
-        public PatternPair(String search, String replace) {
-            this.search = Pattern.compile(search);
-            this.replace = replace;
+        public ReplacePattern(String search, String replace, boolean onlyFirst) {
+            this(Pattern.compile(search), replace, onlyFirst);
         }
+
+        public ReplacePattern(String search, String replace) {
+            this(Pattern.compile(search), replace);
+        }
+
+        public ReplacePattern(Pattern search, String replace) {
+            this(search, replace, true);
+        }
+    }
+
+    protected void runMarkdownRegexAction(ReplacePattern[] patterns) {
+        runMarkdownRegexAction(patterns, false);
     }
 
     /**
      * Runs through a sequence of regex search and replace actions on each selected line.
      *
-     * @param patterns An array of PatternPairs
-     * @param replaceFirst Whether to perform replaceFirst or replaceAll on matching patterns
-     * @param matchAll Whether to stop matching subsequent PatternPairs after first match+replace
+     * @param patterns An array of ReplacePatterns
+     * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
-    protected void runMarkdownRegexAction(PatternPair[] patterns, boolean replaceFirst, boolean matchAll) {
+    protected void runMarkdownRegexAction(ReplacePattern[] patterns, boolean matchAll) {
 
         StringBuilder text = new StringBuilder(_hlEditor.getText());
         int[] selection = StringUtils.getSelection(_hlEditor);
@@ -463,18 +480,17 @@ public abstract class TextActions {
         int selEnd = StringUtils.getLineEnd(text, selection[1]);
 
         boolean changed = false;
-        while (lineStart <= selEnd && lineStart < text.length()) {
+        while (lineStart <= selEnd && lineStart <= text.length()) {
 
             int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
             CharSequence line = text.subSequence(lineStart, lineEnd);
 
-            for (int pi = 0; pi < patterns.length; pi++) {
-                PatternPair pattern = patterns[pi];
+            for (ReplacePattern pattern : patterns) {
                 Matcher matcher = pattern.search.matcher(line);
                 if (matcher.find()) {
 
                     String newLine;
-                    if (replaceFirst) newLine = matcher.replaceFirst(pattern.replace);
+                    if (pattern.onlyFirst) newLine = matcher.replaceFirst(pattern.replace);
                     else newLine = matcher.replaceAll(pattern.replace);
 
                     // Update text and selection
