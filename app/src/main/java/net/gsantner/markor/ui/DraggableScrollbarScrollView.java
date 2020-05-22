@@ -1,11 +1,10 @@
 package net.gsantner.markor.ui;
 
-import android.widget.ScrollView;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 
 public class DraggableScrollbarScrollView extends ScrollView {
 
@@ -32,7 +31,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
         setLtr();
     }
 
-    private void setLtr(){
+    private void setLtr() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
@@ -51,7 +50,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
                         || !_ltr && getVerticalScrollbarWidth() > ev.getX())) {
             computeThumbHeight();
             awakenScrollBars();
-            float scrollbarStartPos = (float)computeVerticalScrollOffset() / computeVerticalScrollRange() * (getHeight());
+            float scrollbarStartPos = (float) computeVerticalScrollOffset() / computeVerticalScrollRange() * (getHeight());
             if (Math.abs(ev.getY() - scrollbarStartPos) < _thumbHeight) {
                 _isFastScrolling = true;
             }
@@ -67,7 +66,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
             _isFastScrolling = false;
         }
         if (_isFastScrolling && action == MotionEvent.ACTION_MOVE) {
-            smoothScrollTo(0, (int) (((ev.getY() - _thumbHeight / 2) / (getHeight() - _thumbHeight))*(computeVerticalScrollRange() - computeVerticalScrollExtent())));
+            smoothScrollTo(0, (int) (((ev.getY() - _thumbHeight / 2) / (getHeight() - _thumbHeight)) * (computeVerticalScrollRange() - computeVerticalScrollExtent())));
             return true;
         }
         return super.onTouchEvent(ev);
@@ -75,7 +74,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
 
     // Approximate height of thumb
     private void computeThumbHeight() {
-        int height = (int) ((float)computeVerticalScrollExtent() * getHeight() / computeVerticalScrollRange()) ;
+        int height = (int) ((float) computeVerticalScrollExtent() * getHeight() / computeVerticalScrollRange());
         int minHeight = getHeight() / 8;
         if (height < minHeight) {
             height = minHeight;
