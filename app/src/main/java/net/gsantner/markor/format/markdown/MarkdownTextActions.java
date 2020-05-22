@@ -14,6 +14,7 @@ import android.support.annotation.StringRes;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
@@ -177,6 +178,7 @@ public class MarkdownTextActions extends TextActions {
                     _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
                     _hlEditor.setSelection(c + "\n```\n".length());
                     _hlEditor.enableHighlighterAutoFormat();
+                    Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
             }
