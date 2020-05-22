@@ -370,4 +370,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Não foi possível cifrar o ficheiro. Ficheiro não guardado.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Não foi possível decifrar o ficheiro. Utilizou a palavra-passe correta? O ficheiro foi cifrado com a cifra Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">A palavra-passe já está definida. Se definir uma nova palavra-passe a atual será substituída e, caso a perca, já não será possível aceder ao ficheiro.</string>
+    <string name="code_block">Bloco de código</string>
 </resources>
