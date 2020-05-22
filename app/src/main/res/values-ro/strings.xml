@@ -370,4 +370,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Conținutul fișierului nu a putut fi criptat. Fișierul nu a fost salvat.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Conținutul fișierului nu a putut fi decriptat. Ați folosit o parolă greșită? Este fișierul criptat cu criptarea Markors AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Parola este deja setată. Setarea unei noi parole va suprascrie parola existentă și este posibil să nu mai puteți accesa fișiere, în cazul în care uitați parola.</string>
+    <string name="code_block">Bloc cod</string>
 </resources>
