@@ -239,9 +239,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">前景色</string>
     <string name="background">背景</string>
     <string name="type">檔案類型</string>
+    <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
+    <string name="font">字體</string>
+    <string name="enter_or_select_format">輸入或選取格式</string>
+    <string name="pick_date">選擇日期</string>
+    <string name="pick_time">選擇時間</string>
+    <string name="always_use_current_date_and_time">永遠使用實際時間</string>
+    <string name="result">結果</string>
+    <string name="just_time">僅時間</string>
+    <string name="just_date">僅日期</string>
     <string name="last_used">最後使用</string>
+    <string name="my_note">我的筆記</string>
     <string name="close">關閉</string>
     <string name="cancel">取消</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">喜歡這個專案嗎？希望它繼續改善而且問題得到解決嗎？\n\n開發應用程式以及撰寫相關部落格文章都需要很多時間！如果你想要幫忙讓專案可以繼續，請考慮小額捐款！\n\n這個專案是在閒暇時間開發的，完全免費，並且沒有任何廣告！</string>
+    <string name="swipe_to_change_mode">滑動以更改模式</string>
+    <string name="folder_first">資料夾優先</string>
+    <string name="go_to">前往</string>
+    <string name="internal_storage">內部儲存空間</string>
     <string name="reload">重新下載</string>
 </resources>
