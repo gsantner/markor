@@ -257,5 +257,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">資料夾優先</string>
     <string name="go_to">前往</string>
     <string name="internal_storage">內部儲存空間</string>
+    <string name="black">黑色</string>
+    <string name="white">白色</string>
+    <string name="view">檢視</string>
+    <string name="view_mode">檢視模式</string>
+    <string name="edit_mode">編輯模式</string>
+    <string name="mount_storage">掛接儲存裝置</string>
+    <string name="share_into">分享至</string>
+    <string name="favourite">最愛</string>
+    <string name="favourites">最愛列表</string>
+    <string name="please_wait">請稍等</string>
+    <string name="tab_width">製表符寬度</string>
     <string name="reload">重新下載</string>
+    <string name="always_open_with_this_app">永遠使用此應用程式開啟</string>
+    <string name="template">模板</string>
+    <string name="send_debug_log">發送偵錯日誌</string>
+    <string name="attach">附件</string>
+    <string name="copy_file">複製檔案</string>
+    <string name="experimental_features">實驗性功能</string>
+    <string name="tools">工具</string>
 </resources>
