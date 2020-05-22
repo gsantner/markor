@@ -181,6 +181,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Utoljára használt</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="reload">Újratölt</string>
+    <string name="template">Sablon</string>
     <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
@@ -193,10 +194,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="common_color_picker">Színválasztó</string>
     <string name="date_and_time">Dátum és idő</string>
     <string name="jump_to_bottom">Végére ugrás</string>
+    <string name="heading">Címsor</string>
+    <string name="heading_1">Címsor 1</string>
+    <string name="heading_2">Címsor 2</string>
+    <string name="heading_3">Címsor 3</string>
     <string name="bold">Félkövér</string>
     <string name="italic">Dőlt</string>
     <string name="strikeout">Áthúzott</string>
     <string name="inline_code">Kód beszúrása</string>
     <string name="horizontal_line">Vízszintes vonal</string>
     <string name="link_color">Hivatkozás színe</string>
+    <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
+    <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
+    <string name="choose_format">Formátum kiválasztása</string>
+    <string name="selected">Kiválasztott</string>
+    <string name="back">Vissza</string>
+    <string name="expand_collapse">Kibontás / Összecsukás</string>
 </resources>
