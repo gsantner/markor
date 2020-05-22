@@ -108,13 +108,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">%s hozzáadása</string>
     <string name="refresh">Frissítés</string>
     <string name="create_shortcut">Parancsikon létrehozása</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Parancsikon létrehozva. Néhány kezdőképernyő ezt nem támogatja.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
     <string name="projects">Projektek</string>
+    <string name="categories">Kategóriák</string>
     <string name="none">Semmi</string>
+    <string name="other">Egyebek</string>
+    <string name="empty_file">Üres fájl</string>
+    <string name="underline">Aláhúzott</string>
     <string name="general">Általános</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
@@ -161,4 +166,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Csak dátum</string>
     <string name="last_used">Utoljára használt</string>
     <string name="reload">Újratölt</string>
+    <string name="table">Táblázat</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
 </resources>
