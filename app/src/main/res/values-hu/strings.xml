@@ -114,6 +114,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
     <string name="syntax_highlighting">Szintaxis kiemelés</string>
     <string name="highlighting_delay">Kiemelés késleltetése</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
     <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
