@@ -193,4 +193,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="common_color_picker">Színválasztó</string>
     <string name="date_and_time">Dátum és idő</string>
     <string name="jump_to_bottom">Végére ugrás</string>
+    <string name="bold">Félkövér</string>
+    <string name="italic">Dőlt</string>
+    <string name="strikeout">Áthúzott</string>
+    <string name="inline_code">Kód beszúrása</string>
+    <string name="horizontal_line">Vízszintes vonal</string>
+    <string name="link_color">Hivatkozás színe</string>
 </resources>
