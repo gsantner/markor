@@ -112,6 +112,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
+    <string name="syntax_highlighting">Szintaxis kiemelés</string>
+    <string name="highlighting_delay">Kiemelés késleltetése</string>
+    <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
     <string name="projects">Projektek</string>
