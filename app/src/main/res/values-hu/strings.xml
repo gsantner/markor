@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Dokumentum létrehozása</string>
     <string name="move">Mozgatás</string>
     <string name="info">Infó</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet!</string>
     <string name="import_from_device">Importálás az eszközről</string>
     <string name="import_">Importálás</string>
     <string name="append_to_witharg">Hozáfűz ehhez: %s</string>
@@ -58,12 +59,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Bejegyzések kiválasztása</string>
     <string name="one_item_selected">Egy elem kiválasztva</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elem kiválasztva</string>
+    <string name="hide_statusbar">Állapotsor elrejtése</string>
     <string name="name">Név</string>
+    <string name="url_or_path">URL / elérési út</string>
     <string name="insert_link">Link beillesztése</string>
     <string name="insert_image">Kép beillesztése</string>
     <string name="contributors">Hozzájárulók</string>
+    <string name="save_location">Mentési hely</string>
     <string name="licenses">Licenszek</string>
     <string name="changelog">Újdonságok</string>
+    <string name="more_info">További információ</string>
     <string name="show_license_of_the_app">GNU GPLv3+ Licenc</string>
     <string name="show_third_party_licenses">3. személytől származó könyvtárak</string>
     <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
@@ -73,8 +78,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="date">Dátum</string>
     <string name="deleteme____1">Név</string>
     <string name="size">Méret</string>
+    <string name="reverse_order">Fordított sorrend</string>
     <string name="contribute">Közreműködés</string>
     <string name="donate">Adományozás</string>
+    <string name="project_page">Projekt oldala</string>
+    <string name="press_back_again_to_exit">Kilépéshez nyomd meg újra a vissza gombot</string>
     <string name="exit">Kilépés</string>
     <string name="undo">Visszavon</string>
     <string name="redo">Újra</string>
@@ -91,7 +99,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sync">Szinkronizálás</string>
     <string name="search_or_custom">Keresés / Egyéni</string>
     <string name="save">Mentés</string>
+    <string name="update">Frissítés</string>
     <string name="clear">Töröl</string>
+    <string name="due_date">Határidő</string>
+    <string name="current_date">Mai dátum</string>
     <string name="archive">Archivál</string>
     <string name="add_task">Teendő hozzáadása</string>
     <string name="add_x_witharg">%s hozzáadása</string>
