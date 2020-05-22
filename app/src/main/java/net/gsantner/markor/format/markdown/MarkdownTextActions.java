@@ -170,6 +170,15 @@ public class MarkdownTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, callbackInsertTableRow);
                     break;
                 }
+                case R.string.tmaid_markdown_code_inline: {
+                    _hlEditor.disableHighlighterAutoFormat();
+                    final int c = _hlEditor.setSelectionExpandWholeLines();
+                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
+                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
+                    _hlEditor.setSelection(c + "\n```\n".length());
+                    _hlEditor.enableHighlighterAutoFormat();
+                    return true;
+                }
             }
             return false;
         }

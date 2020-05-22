@@ -210,6 +210,24 @@ public class HighlightingEditor extends AppCompatEditText {
         return getSelectionStart();
     }
 
+    // Set selection to fill whole lines
+    // Returns original selectionStart
+    public int setSelectionExpandWholeLines() {
+        final int orig_s = getSelectionStart();
+        final int orig_e = getSelectionEnd();
+
+        setSelection(orig_s);
+        simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+        final int new_s = getSelectionStart();
+
+        setSelection(orig_e);
+        simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
+        final int new_e = getSelectionStart();
+
+        setSelection(new_s, new_e);
+        return orig_s;
+    }
+
     //
     // Simple getter / setter
     //
