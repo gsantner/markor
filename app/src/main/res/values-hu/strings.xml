@@ -181,7 +181,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Utoljára használt</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="reload">Újratölt</string>
+    <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="template">Sablon</string>
+    <string name="send_debug_log">Debug információ küldése</string>
+    <string name="print_pdf">Nyomtatás / PDF</string>
+    <string name="bigger_headings">Nagyobb címsorok</string>
+    <string name="current">Jelenlegi</string>
+    <string name="record_audio">Hang rögzítése</string>
+    <string name="attach">Csatolás</string>
+    <string name="copy_file">Fájl másolása</string>
+    <string name="page">Oldal</string>
+    <string name="experimental_features">Kísérleti funkciók</string>
     <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
