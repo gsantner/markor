@@ -304,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">App-Start Ordner</string>
     <string name="tab_width">Tabulatorbreite</string>
     <string name="amount_of_space_for_tab">Anzahl von Leerzeichen zur Tabulator-Darstellung</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Die ausgewählte Datei kann eine Klartext-Datei sein. Möchten Sie es im Editor oder in einer anderen App öffnen?\n\nVersuchen Sie nicht, binäre Dateien zu öffnen. Wenn Sie sich nicht sicher sind, öffnen Sie mit einer anderen App.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Die ausgewählte Datei kann eine Klartext-Datei sein. Möchtest du es im Editor oder in einer anderen App öffnen?\n\nVersuche nicht, binäre Dateien zu öffnen. Wenn du dir nicht sicher bist, öffne es mit einer anderen App.</string>
     <string name="list_in_recent_files">In zuletzt geöffneten Dateien anzeigen</string>
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>
@@ -365,7 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
     <string name="file_encryption_password">Datei-Verschlüsselungs-Passwort</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Kein Passwort gesetzt, kann nicht verschlüsselt oder entschlüsselt werden.\nGehen Sie zu Einstellungen -&gt; Allgemein -&gt; Passwort, um ein Passwort zu setzen.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Kein Passwort gesetzt, kann nicht verschlüsselt oder entschlüsselt werden.\nGehe zu Einstellungen -&gt; Allgemein -&gt; Passwort, um ein Passwort zu setzen.</string>
     <string name="encrypt_file_content">Dateiinhalt verschlüsseln</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Dateiinhalt konnte nicht verschlüsselt werden. Die Datei wurde nicht gespeichert.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Konnte Dateiinhalte nicht entschlüsseln. Hast du ein falsches Passwort verwendet? Ist die Datei wirklich mit Markors AES-Verschlüsselung verschlüsselt?</string>
