@@ -174,6 +174,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Csak dátum</string>
     <string name="last_used">Utoljára használt</string>
     <string name="reload">Újratölt</string>
+    <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
+    <string name="example_of_a_markdown_table">Példa egy Markdown táblázatra</string>
+    <string name="delete_lines">Sorok törlése</string>
+    <string name="unordered_list">Számozatlan lista</string>
+    <string name="ordered_list">Számozott lista</string>
+    <string name="open_link">Link megnyitása</string>
+    <string name="common_color_picker">Színválasztó</string>
+    <string name="date_and_time">Dátum és idő</string>
+    <string name="jump_to_bottom">Végére ugrás</string>
 </resources>
