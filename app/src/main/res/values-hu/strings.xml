@@ -52,6 +52,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Fájl</string>
     <string name="image">Kép</string>
     <string name="font_size">Betűméret</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Hiba: A jegyzetfüzet mappa létrehozása sikertelen</string>
     <string name="last_modified_witharg">Utoljára módosítva: %s</string>
     <string name="select_this_folder">Mappa választása</string>
     <string name="select">Kiválaszt</string>
@@ -66,6 +67,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Kép beillesztése</string>
     <string name="contributors">Hozzájárulók</string>
     <string name="save_location">Mentési hely</string>
+    <string name="select_storage_folder">Mappa kiválasztása</string>
     <string name="licenses">Licenszek</string>
     <string name="changelog">Újdonságok</string>
     <string name="more_info">További információ</string>
@@ -181,6 +183,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete_lines">Sorok törlése</string>
     <string name="unordered_list">Számozatlan lista</string>
     <string name="ordered_list">Számozott lista</string>
+    <string name="check_list">Jelölőnégyzetes lista</string>
     <string name="open_link">Link megnyitása</string>
     <string name="common_color_picker">Színválasztó</string>
     <string name="date_and_time">Dátum és idő</string>
