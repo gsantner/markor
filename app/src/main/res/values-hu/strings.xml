@@ -111,9 +111,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Frissítés</string>
     <string name="create_shortcut">Parancsikon létrehozása</string>
     <string name="tried_to_create_shortcut_for_this_notice">Parancsikon létrehozva. Néhány kezdőképernyő ezt nem támogatja.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">A fájl nem a jegyzetfüzet mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">A fájl nem a jelenlegi mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
+    <string name="back_to_previous_folder" needed="false">Vissza az előző mappába</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Emlékezés az utolsó megnyitott mappára indításkor</string>
     <string name="syntax_highlighting">Szintaxis kiemelés</string>
     <string name="highlighting_delay">Kiemelés késleltetése</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
@@ -175,6 +179,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Csak idő</string>
     <string name="just_date">Csak dátum</string>
     <string name="last_used">Utoljára használt</string>
+    <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="reload">Újratölt</string>
     <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
