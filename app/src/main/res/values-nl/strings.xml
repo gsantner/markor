@@ -370,4 +370,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kon bestandsinhoud niet versleutelen. Het bestand is niet opgeslagen.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kon bestandsinhoud niet decoderen. Heeft u een verkeerd wachtwoord gebruikt? Is het bestand echt versleuteld met Markors AES encryptie?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Wachtwoord is al ingesteld Een nieuw wachtwoord instellen zal het bestaande wachtwoord overschrijven en u zult mogelijk geen toegang meer hebben tot bestanden indien u het wachtwoord vergeet.</string>
+    <string name="code_block">Code blok</string>
 </resources>
