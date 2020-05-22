@@ -370,4 +370,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunne ikke kryptere filinnholdet. Filen ble ikke lagret.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunne ikke dekryptere filinnhold. Har du brukt et feil passord? Er filen virkelig kryptert med Markors AES kryptering?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Passordet er allerede angitt. Å oppgi et nytt passord vil overskrive det eksisterende passordet, og det kan hende du ikke har tilgang til filer lenger dersom du glemmer passordet.</string>
+    <string name="code_block">Kode blokk</string>
 </resources>
