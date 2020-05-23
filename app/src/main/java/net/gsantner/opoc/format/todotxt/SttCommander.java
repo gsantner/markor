@@ -16,6 +16,7 @@ import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -373,6 +374,24 @@ public class SttCommander {
 
     private static boolean isPatternFindable(String text, Pattern pattern) {
         return pattern.matcher(text).find();
+    }
+
+    // Parse all tasks in (newline separated) tasks
+    public static ArrayList<SttTaskWithParserInfo> parseTasksFromTextWithParserInfo(String text) {
+        final ArrayList<SttTaskWithParserInfo> tasks = new ArrayList<>();
+        final SttCommander stt = SttCommander.get();
+        for (String task : text.split("\n")) {
+            tasks.add(stt.parseTask(task));
+        }
+        return tasks;
+    }
+
+    public static String tasksToString(Collection<? extends SttTaskWithParserInfo> tasks) {
+        final StringBuffer sb = new StringBuffer();
+        for (SttTaskWithParserInfo task : tasks) {
+            sb.append(task.getTaskLine());
+        }
+        return sb.toString();
     }
 
     // Sort tasks array and return it. Changes input array.

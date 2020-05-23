@@ -227,17 +227,9 @@ public class TodoTxtTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
                         @Override
                         public void run() {
-                            super.run();
-                            ArrayList<SttTaskWithParserInfo> tasks = new ArrayList<>();
-                            for (String task : origText.split("\n")) {
-                                tasks.add(sttcmd.parseTask(task));
-                            }
+                            ArrayList<SttTaskWithParserInfo> tasks = SttCommander.parseTasksFromTextWithParserInfo(origText);
                             SttCommander.sortTasks(tasks, orderBy, descending);
-                            ArrayList<String> tasksStrings = new ArrayList<>();
-                            for (SttTaskWithParserInfo task : tasks) {
-                                tasksStrings.add(task.getTaskLine());
-                            }
-                            setEditorTextAsync(TextUtils.join("\n", tasksStrings));
+                            setEditorTextAsync(SttCommander.tasksToString(tasks));
                         }
                     }.start());
                     break;
