@@ -33,7 +33,6 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 //TODO
@@ -233,7 +232,7 @@ public class TodoTxtTextActions extends TextActions {
                             for (String task : origText.split("\n")) {
                                 tasks.add(sttcmd.parseTask(task));
                             }
-                            Collections.sort(tasks, new SttCommander.SttTaskSimpleComparator(orderBy, descending));
+                            SttCommander.sortTasks(tasks, orderBy, descending);
                             ArrayList<String> tasksStrings = new ArrayList<>();
                             for (SttTaskWithParserInfo task : tasks) {
                                 tasksStrings.add(task.getTaskLine());
