@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Satır sonunu vurgula</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>
     <string name="use_monospace_for_code">Kod için monospace kullan</string>
-    <string name="disable_code_block_highlight">Kod blokları için vurgulamayı devre dışı bırak</string>
+    <string name="disable_code_block_highlight">Kod kalıpları için vurgulamayı devre dışı bırak</string>
     <string name="use_different_fonttype_slow_down">Farklı bir yazı tipi türünü kullan. Yazı tipi türünü dinamik olarak değiştirmek, uygulamanın performansını etkiler.</string>
     <string name="general">Genel</string>
     <string name="resources">Kaynaklar</string>
@@ -370,4 +370,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Dosya içeriği şifrelenemedi. Dosya kaydedilmedi.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Dosya içeriğinin şifresi çözülemedi. Yanl parola mı kullandınız? Dosya geekten Markors AES şifrelemesi ile şifrelenmiş mi?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Parola zaten ayarlanmış. Yeni bir parola belirlemek mevcut parolanın üzerine yazacaktır ve parolayı unutmanız durumunda dosyalara artık erişemeyebilirsiniz.</string>
+    <string name="code_block">Kod kalıbı</string>
 </resources>

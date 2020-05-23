@@ -52,6 +52,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Fájl</string>
     <string name="image">Kép</string>
     <string name="font_size">Betűméret</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Hiba: A jegyzetfüzet mappa létrehozása sikertelen</string>
     <string name="last_modified_witharg">Utoljára módosítva: %s</string>
     <string name="select_this_folder">Mappa választása</string>
     <string name="select">Kiválaszt</string>
@@ -59,13 +60,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Bejegyzések kiválasztása</string>
     <string name="one_item_selected">Egy elem kiválasztva</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elem kiválasztva</string>
-    <string name="hide_statusbar">Állapotsor elrejtése</string>
+    <string name="hide_statusbar">Státuszsor elrejtése</string>
     <string name="name">Név</string>
     <string name="url_or_path">URL / elérési út</string>
     <string name="insert_link">Link beillesztése</string>
     <string name="insert_image">Kép beillesztése</string>
     <string name="contributors">Hozzájárulók</string>
     <string name="save_location">Mentési hely</string>
+    <string name="select_storage_folder">Mappa kiválasztása</string>
     <string name="licenses">Licenszek</string>
     <string name="changelog">Újdonságok</string>
     <string name="more_info">További információ</string>
@@ -109,9 +111,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Frissítés</string>
     <string name="create_shortcut">Parancsikon létrehozása</string>
     <string name="tried_to_create_shortcut_for_this_notice">Parancsikon létrehozva. Néhány kezdőképernyő ezt nem támogatja.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">A fájl nem a jegyzetfüzet mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">A fájl nem a jelenlegi mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
+    <string name="back_to_previous_folder" needed="false">Vissza az előző mappába</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Emlékezés az utolsó megnyitott mappára indításkor</string>
+    <string name="syntax_highlighting">Szintaxis kiemelés</string>
+    <string name="highlighting_delay">Kiemelés késleltetése</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
+    <string name="highlighting_enabled_or_not__appspecific">A bevitt szöveg ki legyen-e emelve</string>
+    <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
     <string name="projects">Projektek</string>
@@ -120,6 +131,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Egyebek</string>
     <string name="empty_file">Üres fájl</string>
     <string name="underline">Aláhúzott</string>
+    <string name="highlight_line_ending">Sorvég kiemelése</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
+    <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
     <string name="general">Általános</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
@@ -142,13 +156,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">Csatlakozzon a közösséghez</string>
     <string name="source_code">Forráskód</string>
     <string name="project_license">Projekt licensz</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Adja meg a kódot a projekthez. Mindenkit szívesen látunk, az újonnan jövőket is beleértve.</string>
     <string name="project_team">Projekt csapat</string>
+    <string name="contributors_public_add_yourself_description">A közreműködő információk megjelenítése. Add meg, hogy megjelenjen a közreműködés után, egy beleegyezés alapú módon.</string>
     <string name="descending">csökkenő</string>
     <string name="ascending">növekvő</string>
     <string name="location">Hely</string>
     <string name="directory">Mappa</string>
     <string name="details">Részletek</string>
     <string name="calendar">Naptár</string>
+    <string name="error_picture_selection">Nincs kiválasztott, készített vagy mentett kép.</string>
     <string name="gallery_picture">Galéria</string>
     <string name="camera_picture">Kamera</string>
     <string name="description">Leírás</string>
@@ -156,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">Tartalomjegyzék</string>
     <string name="miscellaneous">Egyéb</string>
     <string name="color">Szín</string>
+    <string name="background">Háttér</string>
     <string name="type">Típus</string>
     <string name="font">Betűtípus</string>
     <string name="enter_or_select_format">Válassz formátumot</string>
@@ -165,7 +183,46 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_time">Csak idő</string>
     <string name="just_date">Csak dátum</string>
     <string name="last_used">Utoljára használt</string>
+    <string name="close">Bezárás</string>
+    <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="reload">Újratölt</string>
+    <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
+    <string name="template">Sablon</string>
+    <string name="send_debug_log">Debug információ küldése</string>
+    <string name="print_pdf">Nyomtatás / PDF</string>
+    <string name="bigger_headings">Nagyobb címsorok</string>
+    <string name="current">Jelenlegi</string>
+    <string name="record_audio">Hang rögzítése</string>
+    <string name="attach">Csatolás</string>
+    <string name="copy_file">Fájl másolása</string>
+    <string name="page">Oldal</string>
+    <string name="experimental_features">Kísérleti funkciók</string>
+    <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
+    <string name="example_of_a_markdown_table">Példa egy Markdown táblázatra</string>
+    <string name="delete_lines">Sorok törlése</string>
+    <string name="unordered_list">Számozatlan lista</string>
+    <string name="ordered_list">Számozott lista</string>
+    <string name="check_list">Jelölőnégyzetes lista</string>
+    <string name="open_link">Link megnyitása</string>
+    <string name="common_color_picker">Színválasztó</string>
+    <string name="date_and_time">Dátum és idő</string>
+    <string name="jump_to_bottom">Végére ugrás</string>
+    <string name="heading">Címsor</string>
+    <string name="heading_1">Címsor 1</string>
+    <string name="heading_2">Címsor 2</string>
+    <string name="heading_3">Címsor 3</string>
+    <string name="bold">Félkövér</string>
+    <string name="italic">Dőlt</string>
+    <string name="strikeout">Áthúzott</string>
+    <string name="inline_code">Kód beszúrása</string>
+    <string name="horizontal_line">Vízszintes vonal</string>
+    <string name="link_color">Hivatkozás színe</string>
+    <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
+    <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
+    <string name="choose_format">Formátum kiválasztása</string>
+    <string name="selected">Kiválasztott</string>
+    <string name="back">Vissza</string>
+    <string name="expand_collapse">Kibontás / Összecsukás</string>
 </resources>
