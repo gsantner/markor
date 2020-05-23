@@ -247,89 +247,107 @@ public abstract class TextActions {
         }
     }
 
-    public static class TextSelection {
+    protected void runRegularPrefixAction(String action) {
+        runRegularPrefixAction(action, null, false);
+    }
 
-        private int _selectionStart;
-        private int _selectionEnd;
-        private Editable _editable;
+    protected void runRegularPrefixAction(String action, Boolean ignoreIndent) {
+        runRegularPrefixAction(action, null, ignoreIndent);
+    }
 
+    protected void runRegularPrefixAction(String action, String replaceString) {
+        runRegularPrefixAction(action, replaceString, false);
+    }
 
-        TextSelection(int start, int end, Editable editable) {
-            _selectionStart = start;
-            _selectionEnd = end;
-            _editable = editable;
+    protected void runRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
+
+        if (replaceString == null) replaceString = "";
+
+        String patternIndent = ignoreIndent ? "(^\\s*)" : "(^)";
+        String replaceIndent = "$1";
+
+        String escapedAction = String.format("\\Q%s\\E", action);
+        String escapedReplace = String.format("(\\Q%s\\E)?", replaceString);
+
+        ReplacePattern[] patterns = {
+                // Replace action with replacement
+                new ReplacePattern(patternIndent + escapedAction, replaceIndent + replaceString),
+                // Replace replacement or nothing with action
+                new ReplacePattern(patternIndent + escapedReplace, replaceIndent + action),
+        };
+
+        runRegexReplaceAction(Arrays.asList(patterns));
+    }
+
+    protected class ReplacePattern {
+        public Pattern searchPattern;
+        public String replacePattern;
+        public boolean replaceAll;
+
+        /**
+         * Construct a ReplacePattern
+         * @param searchPattern regex search pattern
+         * @param replacePattern replace string
+         * @param replaceAll whether to replace all or just the first
+         */
+        public ReplacePattern(Pattern searchPattern, String replacePattern, boolean replaceAll) {
+            this.searchPattern = searchPattern;
+            this.replacePattern = replacePattern;
+            this.replaceAll = replaceAll;
         }
 
-        private void insertText(int location, String text) {
-            _editable.insert(location, text);
-            _selectionEnd += text.length();
+        public ReplacePattern(String searchPattern, String replacePattern, boolean replaceAll) {
+            this(Pattern.compile(searchPattern), replacePattern, replaceAll);
         }
 
-        private void removeText(int location, String text) {
-            _editable.delete(location, location + text.length());
-            _selectionEnd -= text.length();
+        public ReplacePattern(Pattern searchPattern, String replacePattern) {
+            this(searchPattern, replacePattern, false);
         }
 
-        private int getSelectionStart() {
-            return _selectionStart;
-        }
-
-        private int getSelectionEnd() {
-            return _selectionEnd;
+        public ReplacePattern(String searchPattern, String replacePattern) {
+            this(Pattern.compile(searchPattern), replacePattern, false);
         }
     }
 
-    protected void runMarkdownRegularPrefixAction(String action) {
-        runMarkdownRegularPrefixAction(action, null, false);
+    protected void runRegexReplaceAction(List<ReplacePattern> patterns) {
+        runRegexReplaceAction(patterns, false);
     }
 
-    protected void runMarkdownRegularPrefixAction(String action, Boolean ignoreIndent) {
-        runMarkdownRegularPrefixAction(action, null, ignoreIndent);
-    }
+    /**
+     * Runs through a sequence of regex-search-and-replace actions on each selected line.
+     *
+     * @param patterns An array of ReplacePattern
+     * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
+     */
+    protected void runRegexReplaceAction(List<ReplacePattern> patterns, boolean matchAll) {
 
-    protected void runMarkdownRegularPrefixAction(String action, String replaceString) {
-        runMarkdownRegularPrefixAction(action, replaceString, false);
-    }
-
-    protected void runMarkdownRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
-
-        String text = _hlEditor.getText().toString();
-
+        Editable text = _hlEditor.getText();
         int[] selection = StringUtils.getSelection(_hlEditor);
-        TextSelection textSelection = new TextSelection(selection[0], selection[1], _hlEditor.getText());
 
-        int lineStart = StringUtils.getLineStart(text, textSelection.getSelectionStart());
+        int lineStart = StringUtils.getLineStart(text, selection[0]);
+        int selEnd = StringUtils.getLineEnd(text, selection[1]);
 
-        while (lineStart <= textSelection.getSelectionEnd()) {
+        while (lineStart <= selEnd && lineStart <= text.length()) {
 
-            if (ignoreIndent) {
-                lineStart = StringUtils.getNextNonWhitespace(text, lineStart, textSelection.getSelectionEnd());
-            }
+            int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
+            CharSequence line = text.subSequence(lineStart, lineEnd);
 
-            int selEnd = StringUtils.getLineEnd(text, textSelection.getSelectionEnd());
-            String remainingString = text.substring(lineStart, selEnd);
+            for (ReplacePattern pattern : patterns) {
+                Matcher matcher = pattern.searchPattern.matcher(line);
+                if (matcher.find()) {
 
-            if (replaceString == null) {
-                if (remainingString.startsWith(action)) {
-                    textSelection.removeText(lineStart, action);
-                } else {
-                    textSelection.insertText(lineStart, action);
-                }
-            } else {
-                if (remainingString.startsWith(action)) {
-                    textSelection.removeText(lineStart, action);
-                    textSelection.insertText(lineStart, replaceString);
-                } else if (remainingString.startsWith(replaceString)) {
-                    textSelection.removeText(lineStart, replaceString);
-                    textSelection.insertText(lineStart, action);
-                } else {
-                    textSelection.insertText(lineStart, action);
+                    String newLine;
+                    if (pattern.replaceAll) newLine = matcher.replaceAll(pattern.replacePattern);
+                    else newLine = matcher.replaceFirst(pattern.replacePattern);
+
+                    text.replace(lineStart, lineEnd, newLine);
+                    selEnd += newLine.length() - line.length();
+
+                    if (!matchAll) break; // Exit after first match
                 }
             }
 
-            text = _hlEditor.getText().toString();
-            // Get next line
-            lineStart = StringUtils.getLineEnd(text, lineStart, textSelection.getSelectionEnd()) + 1;
+            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
         }
     }
 
@@ -386,119 +404,6 @@ public abstract class TextActions {
         }
     }
 
-    /**
-     * Set/unset ATX heading level on each selected line
-     *
-     * This routine will make the following conditional changes
-     *
-     * Line is heading of same level as requested -> remove heading
-     * Line is heading of different level that that requested -> add heading of specified level
-     * Line is not heading -> add heading of specified level
-     *
-     * @param level ATX heading level
-     */
-    protected void setHeadingAction(int level) {
-        // Commonmark allows headings of level 1 - 6
-        assert(level >= 1);
-        assert(level <= 6);
-
-        char[] headerChars = new char[level];
-        Arrays.fill(headerChars, '#');
-        String header = new String(headerChars) + ' ';
-
-        ReplacePattern[] patterns = {
-                // Remove extant heading of matching level (preserves leading space)
-                // Commonmark allows up to 3 leading spaces
-                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
-                // Convert extant heading to requested level
-                new ReplacePattern("^(\\s{0,3})(#{1,6})\\s", "$1" + header),
-                // Add heading if not a heading
-                new ReplacePattern("^", header),
-        };
-
-        runMarkdownRegexAction(patterns);
-    }
-
-    protected class ReplacePattern {
-        public Pattern search;
-        public String replace;
-        public boolean onlyFirst;
-
-        /**
-         * Construct a ReplacePattern
-         * @param search regex search pattern
-         * @param replace replace string
-         * @param onlyFirst whether to replaceAll or replaceFirst is used
-         */
-        public ReplacePattern(Pattern search, String replace, boolean onlyFirst) {
-            this.search = search;
-            this.replace = replace;
-            this.onlyFirst = onlyFirst;
-        }
-
-        public ReplacePattern(String search, String replace, boolean onlyFirst) {
-            this(Pattern.compile(search), replace, onlyFirst);
-        }
-
-        public ReplacePattern(String search, String replace) {
-            this(Pattern.compile(search), replace);
-        }
-
-        public ReplacePattern(Pattern search, String replace) {
-            this(search, replace, true);
-        }
-    }
-
-    protected void runMarkdownRegexAction(ReplacePattern[] patterns) {
-        runMarkdownRegexAction(patterns, false);
-    }
-
-    /**
-     * Runs through a sequence of regex-search-and-replace actions on each selected line.
-     *
-     * @param patterns An array of ReplacePattern
-     * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
-     */
-    protected void runMarkdownRegexAction(ReplacePattern[] patterns, boolean matchAll) {
-
-        StringBuilder text = new StringBuilder(_hlEditor.getText());
-        int[] selection = StringUtils.getSelection(_hlEditor);
-
-        int lineStart = StringUtils.getLineStart(text, selection[0]);
-        int selEnd = StringUtils.getLineEnd(text, selection[1]);
-
-        boolean changed = false;
-        while (lineStart <= selEnd && lineStart <= text.length()) {
-
-            int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
-            CharSequence line = text.subSequence(lineStart, lineEnd);
-
-            for (ReplacePattern pattern : patterns) {
-                Matcher matcher = pattern.search.matcher(line);
-                if (matcher.find()) {
-
-                    String newLine;
-                    if (pattern.onlyFirst) newLine = matcher.replaceFirst(pattern.replace);
-                    else newLine = matcher.replaceAll(pattern.replace);
-
-                    // Update text and selection
-                    text.replace(lineStart, lineEnd, newLine);
-                    selEnd += newLine.length() - line.length();
-
-                    changed = true; // Mark text as changed
-                    if (!matchAll) break; // Exit after first match
-                }
-            }
-
-            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
-        }
-
-        if (changed) {
-            _hlEditor.setText(text.toString());
-            _hlEditor.setSelection(selEnd);
-        }
-    }
-
     //
     //
     //
@@ -549,15 +454,15 @@ public abstract class TextActions {
     protected boolean runCommonTextAction(String action) {
         switch (action) {
             case "tmaid_common_unordered_list_char": {
-                runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
+                runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
                 return true;
             }
             case "tmaid_common_checkbox_list": {
-                runMarkdownRegularPrefixAction("- [ ] ", "- [x] ", true);
+                runRegularPrefixAction("- [ ] ", "- [x] ", true);
                 return true;
             }
             case "tmaid_common_ordered_list_number": {
-                runMarkdownRegularPrefixAction("1. ", true);
+                runRegularPrefixAction("1. ", true);
                 return true;
             }
             case "tmaid_common_time": {
