@@ -390,6 +390,7 @@ public class SttCommander {
         final StringBuffer sb = new StringBuffer();
         for (SttTaskWithParserInfo task : tasks) {
             sb.append(task.getTaskLine());
+            sb.append("\n");
         }
         return sb.toString();
     }

@@ -14,8 +14,10 @@ import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_DUE_DATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SttCommanderTests {
@@ -80,6 +82,32 @@ public class SttCommanderTests {
         assertThat(task.getKeyValuePairs().get("due")).isEqualTo("2019-10-12");
 
         assertThat(task.getDueDate()).isEqualTo("2019-10-12");
+    }
+
+    private static String getSortedResult(String tasksNewLineSeperated, String orderBy, boolean descending) {
+        ArrayList<SttTaskWithParserInfo> tasks = SttCommander.parseTasksFromTextWithParserInfo(tasksNewLineSeperated);
+        SttCommander.sortTasks(tasks, orderBy, descending);
+        return SttCommander.tasksToString(tasks);
+    }
+
+    private static String j(String... lines) {
+        StringBuffer sb = new StringBuffer();
+        for (String s : lines) {
+            sb.append(s);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void checkSortByDue() {
+        String l1 = DEMO_LINE_1 + " due:2014-06-15";
+        String l2 = DEMO_LINE_1 + " due:2016-05-12";
+        String l3 = DEMO_LINE_1 + " due:2020-05-23";
+        String l123 = j(l1, l2, l3);
+
+        assertThat(getSortedResult(l123, BY_DUE_DATE, false)).isEqualTo(l123);
+        assertThat(getSortedResult(l123, BY_DUE_DATE, true)).isEqualTo(j(l3, l2, l1));
     }
 
     @Test()
