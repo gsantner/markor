@@ -110,23 +110,23 @@ public class MarkdownTextActions extends TextActions {
                     break;
                 }*/
                 case R.string.tmaid_markdown_bold: {
-                    runMarkdownInlineAction("**");
+                    runInlineAction("**");
                     break;
                 }
                 case R.string.tmaid_markdown_italic: {
-                    runMarkdownInlineAction("_");
+                    runInlineAction("_");
                     break;
                 }
                 case R.string.tmaid_markdown_strikeout: {
-                    runMarkdownInlineAction("~~");
+                    runInlineAction("~~");
                     break;
                 }
                 case R.string.tmaid_markdown_code_inline: {
-                    runMarkdownInlineAction("`");
+                    runInlineAction("`");
                     break;
                 }
                 case R.string.tmaid_markdown_horizontal_line: {
-                    runMarkdownInlineAction("----\n");
+                    runInlineAction("----\n");
                     break;
                 }
                 case R.string.tmaid_markdown_table_insert_columns: {

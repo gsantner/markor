@@ -259,19 +259,19 @@ public abstract class TextActions {
         runRegularPrefixAction(action, replaceString, false);
     }
 
-    protected void runRegularPrefixAction(String action, String replaceString, Boolean ignoreIndent) {
+    protected void runRegularPrefixAction(final String action, final String replaceString, final Boolean ignoreIndent) {
 
-        if (replaceString == null) replaceString = "";
+        String replacement = (replaceString == null)? "" : replaceString;
 
         String patternIndent = ignoreIndent ? "(^\\s*)" : "(^)";
         String replaceIndent = "$1";
 
         String escapedAction = String.format("\\Q%s\\E", action);
-        String escapedReplace = String.format("(\\Q%s\\E)?", replaceString);
+        String escapedReplace = String.format("(\\Q%s\\E)?", replacement);
 
         ReplacePattern[] patterns = {
                 // Replace action with replacement
-                new ReplacePattern(patternIndent + escapedAction, replaceIndent + replaceString),
+                new ReplacePattern(patternIndent + escapedAction, replaceIndent + replacement),
                 // Replace replacement or nothing with action
                 new ReplacePattern(patternIndent + escapedReplace, replaceIndent + action),
         };
@@ -319,7 +319,7 @@ public abstract class TextActions {
      * @param patterns An array of ReplacePattern
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
-    protected void runRegexReplaceAction(List<ReplacePattern> patterns, boolean matchAll) {
+    protected void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
 
         Editable text = _hlEditor.getText();
         int[] selection = StringUtils.getSelection(_hlEditor);
@@ -351,7 +351,7 @@ public abstract class TextActions {
         }
     }
 
-    protected void runMarkdownInlineAction(String _action) {
+    protected void runInlineAction(String _action) {
         if (_hlEditor.getText() == null) {
             return;
         }
