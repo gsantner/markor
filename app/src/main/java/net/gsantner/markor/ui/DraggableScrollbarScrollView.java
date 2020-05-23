@@ -15,26 +15,14 @@ public class DraggableScrollbarScrollView extends ScrollView {
 
     public DraggableScrollbarScrollView(Context context) {
         super(context);
-        setSmoothScrollingEnabled(true);
-        setLtr();
     }
 
     public DraggableScrollbarScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setSmoothScrollingEnabled(true);
-        setLtr();
     }
 
     public DraggableScrollbarScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setSmoothScrollingEnabled(true);
-        setLtr();
-    }
-
-    private void setLtr() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
-        }
     }
 
     @Override
@@ -80,6 +68,15 @@ public class DraggableScrollbarScrollView extends ScrollView {
             height = minHeight;
         }
         _thumbHeight = height;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setSmoothScrollingEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
+        }
     }
 
     public void enableFastScroll() {
