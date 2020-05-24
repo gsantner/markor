@@ -53,6 +53,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">Fájl</string>
     <string name="image">Kép</string>
     <string name="font_size">Betűméret</string>
+    <string name="render_rtl_language">Jobbról balra író nyelvekhez</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hiba: A jegyzetfüzet mappa létrehozása sikertelen</string>
     <string name="last_modified_witharg">Utoljára módosítva: %s</string>
     <string name="select_this_folder">Mappa választása</string>
@@ -150,10 +151,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline_hex_color_codes">Hexa színkódok aláhúzása</string>
     <string name="insert_current_date_when_starting_new_task">Új feladat felvételekor a mai dátum beszúrása</string>
     <string name="tasks_with_todays_date">Feladatok a mai dátummal</string>
+    <string name="rtl_rendering">Jobbra igazítás</string>
     <string name="highlight_line_ending">Sorvég kiemelése</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
+    <string name="use_monospace_for_code">Kódhoz azonos szélességű betűtípus használata</string>
     <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
     <string name="general">Általános</string>
+    <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
+    <string name="line_spacing">Sorköz</string>
+    <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
+    <string name="sort_tasks_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
+    <string name="special_key">Speciális billentyű</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
     <string name="key_ctrl_a">Összes kijelölése (Ctrl+A)</string>
