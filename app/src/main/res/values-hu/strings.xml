@@ -128,6 +128,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Szerkesztő beállításai</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Emlékezés az utolsó megnyitott mappára indításkor</string>
     <string name="number_of_files_witharg" needed="false">Fájlok száma: %d</string>
+    <string name="main_view">Alap nézet</string>
     <string name="overall_theme_used_in_app">Az alkalmazás témája</string>
     <string name="remember_last_directory">Utoljára használt mappa megjegyzése</string>
     <string name="syntax_highlighting">Szintaxis kiemelés</string>
@@ -156,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
     <string name="use_monospace_for_code">Kódhoz azonos szélességű betűtípus használata</string>
     <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
+    <string name="use_different_fonttype_slow_down">Másik betűtípus használata. Dinamikus megváltoztatása hatással van a teljesítményre.</string>
     <string name="general">Általános</string>
     <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
     <string name="line_spacing">Sorköz</string>
@@ -213,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Billentyűzetjavaslatok maradnak, piros aláhúzás eltűnik</string>
     <string name="location">Hely</string>
     <string name="directory">Mappa</string>
+    <string name="recently_viewed_documents">Nemrég megnyitott dokumentumok</string>
     <string name="details">Részletek</string>
     <string name="calendar">Naptár</string>
     <string name="warning_disallowed_sd_access">Figyelem! Az appnak nincs joga menteni ezt a fájlt, minden módosítás elveszik. Nincs lehetőség megoldani a problémát, vagy megerősíteni valamit. A rendszer minden hozzáférést elutasít.</string>
@@ -265,10 +268,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">Mappák előre</string>
     <string name="internal_storage">Belső tárhely</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
+    <string name="navigationbar_color">Navigációs sáv színe</string>
+    <string name="black">Fekete</string>
+    <string name="white">Fehér</string>
     <string name="view_mode">Olvasó mód</string>
     <string name="edit_mode">Szerkesztő mód</string>
+    <string name="favourites">Kedvencek</string>
+    <string name="please_wait">Kérlek, várj</string>
+    <string name="tab_width">Tabulátorszélesség</string>
+    <string name="amount_of_space_for_tab">Mennyi szóköz széles a tabulátor</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">A kiválasztott fájl egyszerű szövegfájl lehet. A szerkesztőben nyitod meg, vagy más alkalmazásban?\n\nNe nyiss meg bináris fájlokat! Ha nem vagy biztos benne, nyisd meg mással.</string>
     <string name="reload">Újratölt</string>
+    <string name="wrap_words">Sortörés</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="template">Sablon</string>
     <string name="send_debug_log">Debug információ küldése</string>
@@ -310,5 +321,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Kibontás / Összecsukás</string>
     <string name="action_order">Műveletek sorrendje</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
+    <string name="file_encryption_password">Fájltitkosító jelszó</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
+    <string name="encrypt_file_content">Fájlok titkosítása</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">A fájl titkosítása nem sikerült. A mentés nem történt meg.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Fájl dekódolása nem sikerült. Rossz jelszót használtál? Biztos, hogy a fájl titkosítva van a Markor AES titkosításával?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Már van jelszó beállítva. Új jelszó megadása az előzőt felülírja, és nem biztos hogy hozzá fogsz majd férni az eddig mentett fájlokhoz, ha elfelejted a jelszót.</string>
     <string name="code_block">Kódtömb</string>
 </resources>
