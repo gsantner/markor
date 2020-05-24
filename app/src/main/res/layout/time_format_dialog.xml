@@ -141,7 +141,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
                 android:text="@string/pick_date"
                 android:textAllCaps="false" />
 
@@ -150,17 +149,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
                 android:text="@string/pick_time"
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/always_use_current_datetime_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/always_use_current_date_and_time" />
     </LinearLayout>
 
 </ScrollView>

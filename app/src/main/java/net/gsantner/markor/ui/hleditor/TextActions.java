@@ -10,8 +10,10 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -53,8 +55,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
-
-import butterknife.OnClick;
 
 import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
@@ -483,7 +483,7 @@ public abstract class TextActions {
                             break;
                         }
                         case R.id.action_attach_date: {
-                            DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                            getAndInsertDate();
                             break;
                         }
                         case R.id.action_attach_audio:
@@ -566,12 +566,10 @@ public abstract class TextActions {
             // Add requested offset
             calendar.add(Calendar.DATE, deltaDays);
 
-            DateFragment dateFragment = new DateFragment()
+            DateTimeFragment dateFragment = new DateTimeFragment()
                     .setActivity(_activity)
-                    .setListener(listener)
-                    .setYear(calendar.get(Calendar.YEAR))
-                    .setMonth(calendar.get(Calendar.MONTH))
-                    .setDay(calendar.get(Calendar.DAY_OF_MONTH))
+                    .setDateListener(listener)
+                    .setCalendar(calendar)
                     .setExtra("Advanced", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -587,50 +585,74 @@ public abstract class TextActions {
         }
     }
 
-    public static class DateFragment extends DialogFragment {
+    public static class DateTimeFragment extends DialogFragment {
 
-        private DatePickerDialog.OnDateSetListener listener;
+        private DatePickerDialog.OnDateSetListener dateSetListener;
+        private TimePickerDialog.OnTimeSetListener timeSetListener;
         private Activity activity;
         private String extraText;
         private DialogInterface.OnClickListener extraCallback;
         private int year;
         private int month;
         private int day;
+        private int hour;
+        private int minute;
 
-        public DateFragment() {
+        public DateTimeFragment() {
             super();
-            Calendar calendar = Calendar.getInstance();
-            setYear(calendar.get(Calendar.YEAR));
-            setMonth(calendar.get(Calendar.MONTH));
-            setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            setCalendar(Calendar.getInstance());
         }
 
-        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
-            this.listener = listener;
+        public DateTimeFragment setDateListener(DatePickerDialog.OnDateSetListener listener) {
+            this.dateSetListener = listener;
             return this;
         }
 
-        public DateFragment setActivity(Activity activity) {
+        public DateTimeFragment setTimeListener(TimePickerDialog.OnTimeSetListener listener) {
+            this.timeSetListener = listener;
+            return this;
+        }
+
+        public DateTimeFragment setActivity(Activity activity) {
             this.activity = activity;
             return this;
         }
 
-        private DateFragment setYear(int year) {
+        private DateTimeFragment setYear(int year) {
             this.year = year;
             return this;
         }
 
-        private DateFragment setMonth(int month) {
+        private DateTimeFragment setMonth(int month) {
             this.month = month;
             return this;
         }
 
-        private DateFragment setDay(int day) {
+        private DateTimeFragment setDay(int day) {
             this.day = day;
             return this;
         }
 
-        private DateFragment setExtra(String text, DialogInterface.OnClickListener listener) {
+        private DateTimeFragment setHour(int hour) {
+            this.hour = hour;
+            return this;
+        }
+
+        private DateTimeFragment setMinute(int minute) {
+            this.minute = minute;
+            return this;
+        }
+
+        private DateTimeFragment setCalendar(Calendar calendar) {
+            setYear(calendar.get(Calendar.YEAR));
+            setMonth(calendar.get(Calendar.MONTH));
+            setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            setHour(calendar.get(Calendar.HOUR_OF_DAY));
+            setMinute(calendar.get(Calendar.MINUTE));
+            return this;
+        }
+
+        private DateTimeFragment setExtra(String text, DialogInterface.OnClickListener listener) {
             this.extraText = text;
             this.extraCallback = listener;
             return this;
@@ -638,11 +660,15 @@ public abstract class TextActions {
 
         @Override
         public Dialog onCreateDialog (Bundle savedInstanceState){
-            // Create a new instance of TimePickerDialog and return it
-            DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
-            if (extraText != null && extraCallback != null) {
+
+            AlertDialog dialog = null;
+            if (dateSetListener != null) dialog = new DatePickerDialog(activity, dateSetListener, year, month, day);
+            else if (timeSetListener != null) dialog = new TimePickerDialog(activity, timeSetListener, hour, minute, true);
+
+            if (dialog != null && extraText != null && extraCallback != null) {
                 dialog.setButton(DialogInterface.BUTTON_NEUTRAL, extraText, extraCallback);
             }
+
             return dialog;
         }
     }
