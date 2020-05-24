@@ -257,6 +257,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">jegyzet</string>
     <string name="close">Bezárás</string>
     <string name="cancel">Mégse</string>
+    <string name="do_you_like_this_project_want_donate_to_keep_alive">Tetszik ez a projekt? Szeretnéd segíteni a további fejlesztést és hibajavítást?\n\nAlkalmazások fejlesztése és a hozzájuk kapcsolódó blogbejegyzések írása sok időt vesz igénybe. Ha szeretnéd segíteni a folytatást, kérlek fontold meg az adományozást.\n\nEz a projekt szabadidőnkben készül, teljesen ingyen és reklám nélkül.</string>
+    <string name="app_start_tab">Kezdőlap</string>
+    <string name="tab_to_select_at_start">Az alkalmazás megnyitásakor melyik lap látszódjon</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">A kiválasztott fájl egyszerű szövegfájl lehet. A szerkesztőben nyitod meg, vagy más alkalmazásban?\n\nNe nyiss meg bináris fájlokat! Ha nem vagy biztos benne, nyisd meg mással.</string>
     <string name="reload">Újratölt</string>
