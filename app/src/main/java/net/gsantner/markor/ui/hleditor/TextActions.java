@@ -10,16 +10,22 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
@@ -36,6 +42,7 @@ import net.gsantner.opoc.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,6 +50,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
@@ -514,6 +523,53 @@ public abstract class TextActions {
             keyId = data[0];
             iconId = data[1];
             stringId = data[2];
+        }
+    }
+
+    protected void getAndInsertDate(Editable text, int position) {
+        if (_activity instanceof FragmentActivity) {
+            DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, day);
+                    text.insert(position, DATEF_YYYY_MM_DD.format(calendar.getTime()));
+                }
+            };
+
+            DateFragment dateFragment = new DateFragment();
+            dateFragment.setListener(listener);
+            dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
+        }
+        else {
+            text.insert(position, DATEF_YYYY_MM_DD.format(new Date()));
+        }
+    }
+
+    public static class DateFragment extends DialogFragment {
+
+        private DatePickerDialog.OnDateSetListener listener;
+        private int year;
+        private int month;
+        private int day;
+
+        public DateFragment() {
+            super();
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        @Override
+        public Dialog onCreateDialog (Bundle savedInstanceState){
+            // Create a new instance of TimePickerDialog and return it
+            return new DatePickerDialog(getActivity(), listener, year, month, day);
         }
     }
 }

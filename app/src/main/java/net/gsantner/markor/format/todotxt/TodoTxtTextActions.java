@@ -164,7 +164,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, SttCommander.getToday());
+                    getAndInsertDate(_hlEditor.getText(), origSelectionStart);
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
