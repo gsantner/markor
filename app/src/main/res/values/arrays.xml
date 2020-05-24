@@ -52,6 +52,7 @@
         <item translatable="false">@string/char_punctation_mark_arrows</item>
         <item translatable="false">@string/shrug</item>
         <item translatable="false">@string/continued_overline</item>
+        <item translatable="false">@string/select_current_line</item>
     </string-array>
 
     <string-array name="new_file_types" translatable="false">

@@ -123,6 +123,12 @@ public class CommonTextActions {
                         _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
                     } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
                         _hlEditor.insertOrReplaceTextOnCursor("»«");
+                    } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
+                        Editable text = _hlEditor.getText();
+                        _hlEditor.setSelection(
+                                StringUtils.getLineStart(text, _hlEditor.getSelectionStart()),
+                                StringUtils.getLineEnd(text, _hlEditor.getSelectionEnd())
+                        );
                     }
                 });
                 return true;
