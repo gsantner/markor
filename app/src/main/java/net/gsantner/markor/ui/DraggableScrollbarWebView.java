@@ -12,6 +12,7 @@ public class DraggableScrollbarWebView extends WebView {
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;
     private int _thumbHeight;
+    private int _scrollbarWidth;
 
     public DraggableScrollbarWebView(Context context) {
         super(context);
@@ -34,8 +35,8 @@ public class DraggableScrollbarWebView extends WebView {
             return true;
         }
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN &&
-                (_ltr && getWidth() - getVerticalScrollbarWidth() < ev.getX()
-                        || !_ltr && getVerticalScrollbarWidth() > ev.getX())) {
+                ((_ltr && getWidth() - _scrollbarWidth < ev.getX())
+                        || (!_ltr && _scrollbarWidth > ev.getX()))) {
             computeThumbHeight();
             awakenScrollBars();
             float scrollbarStartPos = (float) computeVerticalScrollOffset() / computeVerticalScrollRange() * (getHeight());
@@ -76,14 +77,14 @@ public class DraggableScrollbarWebView extends WebView {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
+        _scrollbarWidth = getVerticalScrollbarWidth();
     }
 
-    public void enableFastScroll() {
-        _fastScrollEnabled = true;
+    public void set_fastScrollEnabled(boolean _fastScrollEnabled) {
+        this._fastScrollEnabled = _fastScrollEnabled;
     }
 
-    public void disableFastScroll() {
-        _fastScrollEnabled = false;
+    public boolean is_fastScrollEnabled() {
+        return _fastScrollEnabled;
     }
-
 }
