@@ -91,43 +91,43 @@ public class MarkdownTextActions extends TextActions {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    runMarkdownRegularPrefixAction("> ");
+                    runRegularPrefixAction("> ");
                     break;
                 }
                 case R.string.tmaid_markdown_h1: {
-                    runMarkdownRegularPrefixAction("# ");
+                    setHeadingAction(1);
                     break;
                 }
                 case R.string.tmaid_markdown_h2: {
-                    runMarkdownRegularPrefixAction("## ");
+                    setHeadingAction(2);
                     break;
                 }
                 case R.string.tmaid_markdown_h3: {
-                    runMarkdownRegularPrefixAction("### ");
+                    setHeadingAction(3);
                     break;
                 }
                 /*case R.string.tmaid_common_unordered_list_char: {
-                    runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
+                    runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
                     break;
                 }*/
                 case R.string.tmaid_markdown_bold: {
-                    runMarkdownInlineAction("**");
+                    runInlineAction("**");
                     break;
                 }
                 case R.string.tmaid_markdown_italic: {
-                    runMarkdownInlineAction("_");
+                    runInlineAction("_");
                     break;
                 }
                 case R.string.tmaid_markdown_strikeout: {
-                    runMarkdownInlineAction("~~");
+                    runInlineAction("~~");
                     break;
                 }
                 case R.string.tmaid_markdown_code_inline: {
-                    runMarkdownInlineAction("`");
+                    runInlineAction("`");
                     break;
                 }
                 case R.string.tmaid_markdown_horizontal_line: {
-                    runMarkdownInlineAction("----\n");
+                    runInlineAction("----\n");
                     break;
                 }
                 case R.string.tmaid_markdown_table_insert_columns: {
@@ -210,5 +210,39 @@ public class MarkdownTextActions extends TextActions {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
             }
         };
+    }
+
+
+    /**
+     * Set/unset ATX heading level on each selected line
+     *
+     * This routine will make the following conditional changes
+     *
+     * Line is heading of same level as requested -> remove heading
+     * Line is heading of different level that that requested -> add heading of specified level
+     * Line is not heading -> add heading of specified level
+     *
+     * @param level ATX heading level
+     */
+    protected void setHeadingAction(int level) {
+        // Commonmark allows headings of level 1 - 6
+        assert(level >= 1);
+        assert(level <= 6);
+
+        char[] headerChars = new char[level];
+        Arrays.fill(headerChars, '#');
+        String header = new String(headerChars) + ' ';
+
+        ReplacePattern[] patterns = {
+                // Remove extant heading of matching level (preserves leading space)
+                // Commonmark allows up to 3 leading spaces
+                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
+                // Convert extant heading to requested level
+                new ReplacePattern("^(\\s{0,3})(#{1,6})\\s", "$1" + header),
+                // Add heading if not a heading
+                new ReplacePattern("^", header),
+        };
+
+        runRegexReplaceAction(Arrays.asList(patterns));
     }
 }
