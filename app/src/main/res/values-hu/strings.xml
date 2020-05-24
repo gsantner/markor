@@ -180,9 +180,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction_spacing">Műveleti billentyűk távolsága</string>
     <string name="horizontal_space_between_textactions">Vízszintes távolság a szöveget módosító billentyűk között</string>
     <string name="center_text">Középre rendez</string>
+    <string name="edit_text_in_center_of_screen">Szöveg szerkesztése a képernyő közepén</string>
     <string name="clipboard">Vágólap</string>
+    <string name="select_existing_document">Meglévő dokumentum kiválasztása</string>
+    <string name="open_source_licenses">Nyílt forráskódú licenszek</string>
     <string name="rate_this_app">Értékeld az alkalmazást</string>
     <string name="translate">Fordít</string>
+    <string name="more_info_and_help">Több információ és segítség</string>
     <string name="report_bugs">Hibajelentés</string>
     <string name="join_community">Csatlakozzon a közösséghez</string>
     <string name="source_code">Forráskód</string>
@@ -207,6 +211,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Szöveg művelet</string>
     <string name="textactions">Szöveg műveletek</string>
     <string name="color">Szín</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">A szerkesztő háttér- és szövegszínének beállítása. Az alkalmazás témájához alkalmazkodik, sötét és világos módban is elérhető. A szintaxis kiemelő színei ugyanazok maradnak.</string>
     <string name="background">Háttér</string>
     <string name="type">Típus</string>
     <string name="font">Betűtípus</string>
@@ -219,6 +224,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">Utoljára használt</string>
     <string name="close">Bezárás</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">A kiválasztott fájl egyszerű szövegfájl lehet. A szerkesztőben nyitod meg, vagy más alkalmazásban?\n\nNe nyiss meg bináris fájlokat! Ha nem vagy biztos benne, nyisd meg mással.</string>
     <string name="reload">Újratölt</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="template">Sablon</string>
