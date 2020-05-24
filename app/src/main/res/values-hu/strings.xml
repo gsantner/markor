@@ -162,6 +162,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
     <string name="sort_tasks_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
     <string name="special_key">Speciális billentyű</string>
+    <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
+    <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
     <string name="key_ctrl_a">Összes kijelölése (Ctrl+A)</string>
@@ -175,6 +177,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Felső</string>
     <string name="bottom">Alsó</string>
     <string name="center">Középen</string>
+    <string name="textaction_spacing">Műveleti billentyűk távolsága</string>
+    <string name="horizontal_space_between_textactions">Vízszintes távolság a szöveget módosító billentyűk között</string>
     <string name="center_text">Középre rendez</string>
     <string name="clipboard">Vágólap</string>
     <string name="rate_this_app">Értékeld az alkalmazást</string>
@@ -199,6 +203,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Tartalomjegyzék</string>
     <string name="miscellaneous">Egyéb</string>
+    <string name="textaction">Szöveg művelet</string>
+    <string name="textactions">Szöveg műveletek</string>
     <string name="color">Szín</string>
     <string name="background">Háttér</string>
     <string name="type">Típus</string>
@@ -252,4 +258,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Kiválasztott</string>
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
+    <string name="action_order">Műveletek sorrendje</string>
 </resources>
