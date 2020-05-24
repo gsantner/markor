@@ -134,6 +134,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
     <string name="highlighting_enabled_or_not__appspecific">A bevitt szöveg ki legyen-e emelve</string>
     <string name="control_font_size_in_editor">A szerkesztő által használt betűméret beállítása</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Egy sáv megjelenítése alul hasznos gombokkal. Ezek megváltoztatják a szöveget, vagy egy műveletet hajtanak végre rajta.</string>
     <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
@@ -141,8 +142,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="categories">Kategóriák</string>
     <string name="none">Semmi</string>
     <string name="other">Egyebek</string>
+    <string name="alternative_naming">Alternatív elnevezések</string>
     <string name="empty_file">Üres fájl</string>
+    <string name="break_page_pdf_print">Oldaltörés (PDF/Nyomtatás)</string>
     <string name="underline">Aláhúzott</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Alá legyenek-e húzva szín szerint a hexa színkódok</string>
+    <string name="underline_hex_color_codes">Hexa színkódok aláhúzása</string>
+    <string name="insert_current_date_when_starting_new_task">Új feladat felvételekor a mai dátum beszúrása</string>
+    <string name="tasks_with_todays_date">Feladatok a mai dátummal</string>
     <string name="highlight_line_ending">Sorvég kiemelése</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
     <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
