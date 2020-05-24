@@ -43,3 +43,4 @@ Where:
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions.
 * **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists.
 * **[Niels](https://stackoverflow.com/users/432115/niels)**<br>~° Added encryption for textfile contents.
+* **[Helguli](https://github.com/Helguli)**<br>~° Added fast scroll to editor.

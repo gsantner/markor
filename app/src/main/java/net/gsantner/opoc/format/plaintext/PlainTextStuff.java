@@ -98,7 +98,7 @@ public class PlainTextStuff {
     //
     // Format detail: Milliseconds -> first two digits(=Centiseconds); UTC+/- -> a/f instead of last minute digit
     @SuppressLint("ALL")
-    public static String huuid(String hostid4c) {
+    public static String newHuuid(String hostid4c) {
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-hhmm-ssSSS'%STRIP1BEFORE%'-'%UTCOFFSET%'-'%HOSTID%%RAND%'");
         String rnd8c = String.format("%08x", new Random().nextInt());
         hostid4c = ((hostid4c == null ? "" : hostid4c) + "0000").substring(0, 4).replaceAll("[^A-Fa-f0-9]", "0");

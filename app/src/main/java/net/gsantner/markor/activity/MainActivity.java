@@ -113,6 +113,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
+        _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         optShowRate();
 
@@ -541,5 +542,13 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     private void cacheCurrentFolder() {
         FilesystemViewerFragment fragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
         _cachedFolderTitle = (fragment != null) ? fragment.getCurrentFolder().getName() : getResources().getString(R.string.app_name).toLowerCase();
+    }
+
+    private void onToolbarTitleClicked(View v) {
+        Fragment f = _viewPagerAdapter.getItem(_viewPager.getCurrentItem());
+        if (f instanceof DocumentEditFragment) {
+            DocumentEditFragment def = (DocumentEditFragment) f;
+            def.onToolbarTitleClicked(_toolbar);
+        }
     }
 }

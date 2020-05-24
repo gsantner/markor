@@ -71,7 +71,7 @@ public class TodoTxtAutoFormat implements InputFilter {
                 t = SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
             }
             if (AppSettings.get().isTodoNewTaskWithHuuidEnabled()) {
-                t += "huuid:" + PlainTextStuff.huuid(AppSettings.get().getHuuidDeviceId()) + " ";
+                t += "huuid:" + PlainTextStuff.newHuuid(AppSettings.get().getHuuidDeviceId()) + " ";
             }
         }
         return t;

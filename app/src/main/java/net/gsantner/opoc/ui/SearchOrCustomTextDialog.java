@@ -82,6 +82,7 @@ public class SearchOrCustomTextDialog {
         public int titleText = 0;
         @StringRes
         public int searchHintText = android.R.string.search_go;
+        public boolean searchIsRegex = false;
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
@@ -135,7 +136,9 @@ public class SearchOrCustomTextDialog {
                         final String fil = constraint.toString();
 
                         for (final CharSequence str : allItems) {
-                            if ("".equals(fil) || str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()))) {
+                            boolean match_normal = "".equals(fil) || str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
+                            boolean match_regex = dopt.searchIsRegex && (str.toString().matches(fil));
+                            if (match_normal || match_regex) {
                                 resList.add(str);
                             }
                         }
@@ -242,6 +245,9 @@ public class SearchOrCustomTextDialog {
 
         if (dopt.isSearchEnabled) {
             searchEditText.requestFocus();
+        }
+        if (dopt.defaultText != null) {
+            listAdapter.getFilter().filter(searchEditText.getText());
         }
     }
 

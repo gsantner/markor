@@ -23,6 +23,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,8 @@ public class MarkdownTextActions extends TextActions {
 
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        return runCommonTextAction(action);
+        int res = new ContextUtils(_context).getResId(ContextUtils.ResType.STRING, action);
+        return new MarkdownTextActionsImpl(res).onClickImpl(null);
     }
 
     @Override
@@ -87,61 +89,74 @@ public class MarkdownTextActions extends TextActions {
         }
 
         @Override
-        public void onClick(View view) {
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        public void onClick(final View view) {
+            onClickImpl(view);
+        }
+
+        private boolean onClickImpl(final View view) {
+            if (view != null) {
+                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+            }
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    runMarkdownRegularPrefixAction("> ");
-                    break;
+                    runRegularPrefixAction("> ");
+                    return true;
                 }
                 case R.string.tmaid_markdown_h1: {
-                    runMarkdownRegularPrefixAction("# ");
-                    break;
+                    setHeadingAction(1);
+                    return true;
                 }
                 case R.string.tmaid_markdown_h2: {
-                    runMarkdownRegularPrefixAction("## ");
-                    break;
+                    setHeadingAction(2);
+                    return true;
                 }
                 case R.string.tmaid_markdown_h3: {
-                    runMarkdownRegularPrefixAction("### ");
-                    break;
+                    setHeadingAction(3);
+                    return true;
                 }
                 /*case R.string.tmaid_common_unordered_list_char: {
-                    runMarkdownRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
-                    break;
+                    runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
+                    return true;
                 }*/
                 case R.string.tmaid_markdown_bold: {
-                    runMarkdownInlineAction("**");
-                    break;
+                    runInlineAction("**");
+                    return true;
                 }
                 case R.string.tmaid_markdown_italic: {
-                    runMarkdownInlineAction("_");
-                    break;
+                    runInlineAction("_");
+                    return true;
                 }
                 case R.string.tmaid_markdown_strikeout: {
-                    runMarkdownInlineAction("~~");
-                    break;
+                    runInlineAction("~~");
+                    return true;
                 }
                 case R.string.tmaid_markdown_code_inline: {
-                    runMarkdownInlineAction("`");
-                    break;
+                    runInlineAction("`");
+                    return true;
                 }
                 case R.string.tmaid_markdown_horizontal_line: {
-                    runMarkdownInlineAction("----\n");
-                    break;
+                    runInlineAction("----\n");
+                    return true;
                 }
                 case R.string.tmaid_markdown_table_insert_columns: {
                     SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, callbackInsertTableRow);
-                    break;
+                    return true;
                 }
                 case R.string.tmaid_markdown_insert_link:
                 case R.string.tmaid_markdown_insert_image: {
                     AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
-                    break;
+                    return true;
+                }
+                case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
+                    final String origText = _hlEditor.getText().toString();
+                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, callbackPayload -> {
+                        int cursor = origText.indexOf(callbackPayload);
+                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    });
+                    return true;
                 }
                 default: {
-                    runCommonTextAction(_context.getString(_action));
-                    break;
+                    return runCommonTextAction(_context.getString(_action));
                 }
             }
         }
@@ -210,5 +225,39 @@ public class MarkdownTextActions extends TextActions {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
             }
         };
+    }
+
+
+    /**
+     * Set/unset ATX heading level on each selected line
+     * <p>
+     * This routine will make the following conditional changes
+     * <p>
+     * Line is heading of same level as requested -> remove heading
+     * Line is heading of different level that that requested -> add heading of specified level
+     * Line is not heading -> add heading of specified level
+     *
+     * @param level ATX heading level
+     */
+    protected void setHeadingAction(int level) {
+        // Commonmark allows headings of level 1 - 6
+        assert (level >= 1);
+        assert (level <= 6);
+
+        char[] headerChars = new char[level];
+        Arrays.fill(headerChars, '#');
+        String header = new String(headerChars) + ' ';
+
+        ReplacePattern[] patterns = {
+                // Remove extant heading of matching level (preserves leading space)
+                // Commonmark allows up to 3 leading spaces
+                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
+                // Convert extant heading to requested level
+                new ReplacePattern("^(\\s{0,3})(#{1,6})\\s", "$1" + header),
+                // Add heading if not a heading
+                new ReplacePattern("^", header),
+        };
+
+        runRegexReplaceAction(Arrays.asList(patterns));
     }
 }

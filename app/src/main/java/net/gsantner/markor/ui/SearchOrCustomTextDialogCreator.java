@@ -358,9 +358,6 @@ public class SearchOrCustomTextDialogCreator {
 
 
     public static void showSearchDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
-        /*SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = callbackValue -> {*/
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.callback = userCallback;
@@ -368,10 +365,20 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
-        /*};*/
-        /*dopt.titleText = R.string.search_documents;
-        dopt.searchHintText = R.string.search;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);*/
+    }
+
+    public static void showMarkdownHeadlineDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
+        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt2);
+        dopt2.callback = userCallback;
+        dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
+        dopt2.titleText = R.string.table_of_contents;
+        dopt2.searchHintText = R.string.search;
+        dopt2.defaultText = "^[#]+ .*";
+        dopt2.isSearchEnabled = false;
+        dopt2.searchIsRegex = true;
+        dopt2.gravity = Gravity.TOP;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
@@ -383,7 +390,7 @@ public class SearchOrCustomTextDialogCreator {
         List<String> highlightedData = new ArrayList<>();
         String none = activity.getString(R.string.none);
         availableData.add(none);
-        for (int i = ((int) 'A'); i <= ((int) 'Z'); i++) {
+        for (int i = 'A'; i <= ((int) 'Z'); i++) {
             availableData.add(Character.toString((char) i));
         }
         highlightedData.add(none);
