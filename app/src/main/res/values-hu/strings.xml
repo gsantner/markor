@@ -47,6 +47,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (egyszerű szövegként)</string>
     <string name="document_editor_font">Szerkesztő betűtípusa</string>
     <string name="theme">Kinézet</string>
+    <string name="open_existing_files_in_view_mode">A fájlok megnyitása olvasó nézetben</string>
     <string name="about">Névjegy</string>
     <string name="plaintext">Egyszerű szöveg</string>
     <string name="file">Fájl</string>
@@ -60,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Bejegyzések kiválasztása</string>
     <string name="one_item_selected">Egy elem kiválasztva</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d elem kiválasztva</string>
+    <string name="hide_statusbar_at_this_view">Állapotsor elrejtése ebben a nézetben</string>
     <string name="hide_statusbar">Státuszsor elrejtése</string>
     <string name="name">Név</string>
     <string name="url_or_path">URL / elérési út</string>
@@ -75,6 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3. személytől származó könyvtárak</string>
     <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
     <string name="language">Nyelv</string>
+    <string name="error_need_storage_permission_to_save_documents">A dokumentumok mentéséhez szükség van a tárhelyhozzáférésre</string>
     <string name="open_with">Megnyitás ezzel</string>
     <string name="sort">Rendezés</string>
     <string name="date">Dátum</string>
@@ -115,13 +118,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_not_in_current_folder_do_copy__appspecific">A fájl nem a jelenlegi mappában található. Szeretnéd ide másolni? Ha van már ilyen nevű fájl a mappában, felül fog íródni.</string>
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
+    <string name="file_browser">Fájlkezelő</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
+    <string name="special_documents" needed="false">Speciális dokumentumok</string>
+    <string name="keep_screen_on" needed="false">Képernyő ébren tartása</string>
     <string name="back_to_previous_folder" needed="false">Vissza az előző mappába</string>
+    <string name="app_settings" needed="false">Alkalmazásbeállítások</string>
+    <string name="editor_settings" needed="false">Szerkesztő beállításai</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Emlékezés az utolsó megnyitott mappára indításkor</string>
+    <string name="number_of_files_witharg" needed="false">Fájlok száma: %d</string>
+    <string name="overall_theme_used_in_app">Az alkalmazás témája</string>
+    <string name="remember_last_directory">Utoljára használt mappa megjegyzése</string>
     <string name="syntax_highlighting">Szintaxis kiemelés</string>
     <string name="highlighting_delay">Kiemelés késleltetése</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Kiemelés késleltetése ezredmásodpercben. Alacsony érték esetén hamarabb kezdődik a kiemelés, viszont lemeríti az akkumulátort és lassíthatja az alkalmazást régebbi készülékeken.</string>
     <string name="highlighting_enabled_or_not__appspecific">A bevitt szöveg ki legyen-e emelve</string>
+    <string name="control_font_size_in_editor">A szerkesztő által használt betűméret beállítása</string>
     <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
     <string name="project">Projekt</string>
