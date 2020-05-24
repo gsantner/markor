@@ -40,6 +40,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.StringUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
@@ -527,30 +529,60 @@ public abstract class TextActions {
         }
     }
 
-    protected void getAndInsertDate(Editable text, int position) {
+    protected void getAndInsertDate() { getAndInsertDate("",0); }
+
+    protected void getAndInsertDate(String prefix) { getAndInsertDate(prefix, 0); }
+
+    protected void getAndInsertDate(int deltaDays) { getAndInsertDate("", deltaDays); }
+
+    protected void getAndInsertDate(String prefix, int deltaDays) {
+
+        final int[] selection = StringUtils.getSelection(_hlEditor);
+        Editable text = _hlEditor.getText();
+
         if (_activity != null && _activity instanceof FragmentActivity) {
-            DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int day) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(year, month, day);
-                    text.insert(position, DATEF_YYYY_MM_DD.format(calendar.getTime()));
-                }
+
+            DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                String date = prefix + DATEF_YYYY_MM_DD.format(calendar.getTime());
+                text.replace(selection[0], selection[1], date);
             };
 
-            DateFragment dateFragment = new DateFragment();
-            dateFragment.setListener(listener);
+            Calendar calendar = Calendar.getInstance();
+
+            // Parse selection for date use if found
+            try {
+                CharSequence selText = text.subSequence(selection[0], selection[1]);
+                Matcher match = SttCommander.PATTERN_IS_DATE.matcher(selText);
+                if (match.find()) calendar.setTime(DATEF_YYYY_MM_DD.parse(selText.toString()));
+            } catch (ParseException e) {
+                // Regex failed?
+                e.printStackTrace();
+            }
+
+            // Add requested offset
+            calendar.add(Calendar.DATE, deltaDays);
+
+            DateFragment dateFragment = new DateFragment()
+                    .setActivity(_activity)
+                    .setListener(listener)
+                    .setYear(calendar.get(Calendar.YEAR))
+                    .setMonth(calendar.get(Calendar.MONTH))
+                    .setDay(calendar.get(Calendar.DAY_OF_MONTH));
+
             dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
         }
         else {
             // Fallback if a dialog can't be created
-            text.insert(position, SttCommander.getToday());
+            _hlEditor.getText().replace(selection[0], selection[1], SttCommander.getToday());
         }
     }
 
     public static class DateFragment extends DialogFragment {
 
         private DatePickerDialog.OnDateSetListener listener;
+        private Activity activity;
         private int year;
         private int month;
         private int day;
@@ -558,9 +590,9 @@ public abstract class TextActions {
         public DateFragment() {
             super();
             Calendar calendar = Calendar.getInstance();
-            year = calendar.get(Calendar.YEAR);
-            month = calendar.get(Calendar.MONTH);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
+            setYear(calendar.get(Calendar.YEAR));
+            setMonth(calendar.get(Calendar.MONTH));
+            setDay(calendar.get(Calendar.DAY_OF_MONTH));
         }
 
         public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
@@ -568,10 +600,30 @@ public abstract class TextActions {
             return this;
         }
 
+        public DateFragment setActivity(Activity activity) {
+            this.activity = activity;
+            return this;
+        }
+
+        private DateFragment setYear(int year) {
+            this.year = year;
+            return this;
+        }
+
+        private DateFragment setMonth(int month) {
+            this.month = month;
+            return this;
+        }
+
+        private DateFragment setDay(int day) {
+            this.day = day;
+            return this;
+        }
+
         @Override
         public Dialog onCreateDialog (Bundle savedInstanceState){
             // Create a new instance of TimePickerDialog and return it
-            return new DatePickerDialog(getActivity(), listener, year, month, day);
+            return new DatePickerDialog(activity, listener, year, month, day);
         }
     }
 }

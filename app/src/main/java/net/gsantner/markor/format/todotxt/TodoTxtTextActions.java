@@ -29,6 +29,7 @@ import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,8 +92,8 @@ public class TodoTxtTextActions extends TextActions {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
-            final int origSelectionStart = _hlEditor.getSelectionStart();
-            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
+            final int[] selection = StringUtils.getSelection(_hlEditor);
+            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, selection[0]);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
@@ -164,11 +165,11 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    getAndInsertDate(_hlEditor.getText(), origSelectionStart);
+                    getAndInsertDate();
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
-                    removeTasksBetweenIndexes(_hlEditor.getText(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
+                    removeTasksBetweenIndexes(_hlEditor.getText(), selection[0], selection[1]);
                     return;
                 }
                 case R.string.tmaid_todotxt_archive_done_tasks: {
@@ -269,8 +270,8 @@ public class TodoTxtTextActions extends TextActions {
             }
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
-            final int origSelectionStart = _hlEditor.getSelectionStart();
-            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
+            final int[] selection = StringUtils.getSelection(_hlEditor);
+            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, selection[0]);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             switch (_action) {
@@ -298,7 +299,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, " due:" + SttCommander.getDaysFromToday(3));
+                    getAndInsertDate("due:", 3);
                     return true;
                 }
             }
