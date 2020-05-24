@@ -560,47 +560,40 @@ public abstract class TextActions {
         final int[] selection = StringUtils.getSelection(_hlEditor);
         Editable text = _hlEditor.getText();
 
-        if (_activity != null && _activity instanceof FragmentActivity) {
-
-            DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day);
-                String date = prefix + DATEF_YYYY_MM_DD.format(calendar.getTime());
-                text.replace(selection[0], selection[1], date);
-            };
-
+        DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
             Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+            String date = prefix + DATEF_YYYY_MM_DD.format(calendar.getTime());
+            text.replace(selection[0], selection[1], date);
+        };
 
-            // Parse selection for date use if found
-            try {
-                CharSequence selText = text.subSequence(selection[0], selection[1]);
-                Matcher match = SttCommander.PATTERN_IS_DATE.matcher(selText);
-                if (match.find()) calendar.setTime(DATEF_YYYY_MM_DD.parse(selText.toString()));
-            } catch (ParseException e) {
-                // Regex failed?
-                e.printStackTrace();
-            }
+        Calendar calendar = Calendar.getInstance();
 
-            // Add requested offset
-            calendar.add(Calendar.DATE, deltaDays);
-
-            DateTimeFragment dateFragment = new DateTimeFragment()
-                    .setActivity(_activity)
-                    .setDateListener(listener)
-                    .setCalendar(calendar)
-                    .setExtra("Advanced", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
-                        }
-                    });
-
-            dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
+        // Parse selection for date use if found
+        try {
+            CharSequence selText = text.subSequence(selection[0], selection[1]);
+            Matcher match = SttCommander.PATTERN_IS_DATE.matcher(selText);
+            if (match.find()) calendar.setTime(DATEF_YYYY_MM_DD.parse(selText.toString()));
+        } catch (ParseException e) {
+            // Regex failed?
+            e.printStackTrace();
         }
-        else {
-            // Fallback if a dialog can't be created
-            _hlEditor.getText().replace(selection[0], selection[1], SttCommander.getToday());
-        }
+
+        // Add requested offset
+        calendar.add(Calendar.DATE, deltaDays);
+
+        DateTimeFragment dateFragment = new DateTimeFragment()
+                .setActivity(_activity)
+                .setDateListener(listener)
+                .setCalendar(calendar)
+                .setExtra("Advanced", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+                    }
+                });
+
+        dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
     }
 
     public static class DateTimeFragment extends DialogFragment {
