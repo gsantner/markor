@@ -315,7 +315,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                             sep = SttCommander.getToday() + " ";
                         }
                         if (appSettings.isTodoNewTaskWithHuuidEnabled()) {
-                            sep += "huuid:" + PlainTextStuff.huuid(appSettings.getHuuidDeviceId()) + " ";
+                            sep += "huuid:" + PlainTextStuff.newHuuid(appSettings.getHuuidDeviceId()) + " ";
                             sep = sep.replace("\n", "");
                         }
                         appendToExistingDocument(_appSettings.getTodoFile(), sep, false);

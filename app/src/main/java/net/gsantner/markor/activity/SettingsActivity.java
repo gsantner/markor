@@ -205,7 +205,7 @@ public class SettingsActivity extends AppActivityBase {
                     R.string.pref_key__is_editor_statusbar_hidden,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
-                    R.string.pref_key__todotxt__start_new_tasks_with_huuid_v2,
+                    R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3,
                     R.string.pref_key__default_encryption_password,
             };
             for (final int keyId : experimentalKeys) {

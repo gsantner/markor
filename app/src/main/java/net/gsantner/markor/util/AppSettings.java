@@ -670,7 +670,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isTodoNewTaskWithHuuidEnabled() {
-        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_huuid_v2, false);
+        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3, false);
     }
 
     public String getHuuidDeviceId() {
