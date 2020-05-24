@@ -217,6 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_common_accordion" translatable="false">tmaid_common_accordion</string>
     <string name="tmaid_common_indent" translatable="false">tmaid_common_indent</string>
     <string name="tmaid_common_deindent" translatable="false">tmaid_common_deindent</string>
+    <string name="tmaid_common_toolbar_title_clicked_edit_action">tmaid_common_toolbar_title_clicked_edit_action</string>
 
     <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">tmaid_markdown_h1</string>

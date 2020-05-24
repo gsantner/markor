@@ -25,6 +25,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -162,6 +163,7 @@ public class DocumentActivity extends AppActivityBase {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setDisplayShowTitleEnabled(false);
         }
+        _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         _fragManager = getSupportFragmentManager();
 
@@ -340,5 +342,12 @@ public class DocumentActivity extends AppActivityBase {
             setDocument(def.getDocument()); // Apply title again. Document is modified in edit activity
         }
         return ret;
+    }
+
+    private void onToolbarTitleClicked(View v) {
+        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
+            DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
+            def.onToolbarTitleClicked(_toolbar);
+        }
     }
 }
