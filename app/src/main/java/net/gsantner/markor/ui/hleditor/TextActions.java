@@ -37,6 +37,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.format.todotxt.SttCommander;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -527,7 +528,7 @@ public abstract class TextActions {
     }
 
     protected void getAndInsertDate(Editable text, int position) {
-        if (_activity instanceof FragmentActivity) {
+        if (_activity != null && _activity instanceof FragmentActivity) {
             DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -542,7 +543,8 @@ public abstract class TextActions {
             dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
         }
         else {
-            text.insert(position, DATEF_YYYY_MM_DD.format(new Date()));
+            // Fallback if a dialog can't be created
+            text.insert(position, SttCommander.getToday());
         }
     }
 
