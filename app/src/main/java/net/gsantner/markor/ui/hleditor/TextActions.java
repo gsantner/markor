@@ -25,7 +25,6 @@ import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
