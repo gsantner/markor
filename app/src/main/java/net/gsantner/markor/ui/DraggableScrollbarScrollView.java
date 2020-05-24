@@ -81,11 +81,11 @@ public class DraggableScrollbarScrollView extends ScrollView {
         _scrollbarWidth = getVerticalScrollbarWidth();
     }
 
-    public void set_fastScrollEnabled(boolean _fastScrollEnabled) {
+    public void setFastScrollEnabled(boolean _fastScrollEnabled) {
         this._fastScrollEnabled = _fastScrollEnabled;
     }
 
-    public boolean is_fastScrollEnabled() {
+    public boolean isFastScrollEnabled() {
         return _fastScrollEnabled;
     }
 }
