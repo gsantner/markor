@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -52,6 +53,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
+
+import butterknife.OnClick;
 
 import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
@@ -568,7 +571,13 @@ public abstract class TextActions {
                     .setListener(listener)
                     .setYear(calendar.get(Calendar.YEAR))
                     .setMonth(calendar.get(Calendar.MONTH))
-                    .setDay(calendar.get(Calendar.DAY_OF_MONTH));
+                    .setDay(calendar.get(Calendar.DAY_OF_MONTH))
+                    .setExtra("Advanced", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
+                        }
+                    });
 
             dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
         }
@@ -582,6 +591,8 @@ public abstract class TextActions {
 
         private DatePickerDialog.OnDateSetListener listener;
         private Activity activity;
+        private String extraText;
+        private DialogInterface.OnClickListener extraCallback;
         private int year;
         private int month;
         private int day;
@@ -619,10 +630,20 @@ public abstract class TextActions {
             return this;
         }
 
+        private DateFragment setExtra(String text, DialogInterface.OnClickListener listener) {
+            this.extraText = text;
+            this.extraCallback = listener;
+            return this;
+        }
+
         @Override
         public Dialog onCreateDialog (Bundle savedInstanceState){
             // Create a new instance of TimePickerDialog and return it
-            return new DatePickerDialog(activity, listener, year, month, day);
+            DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
+            if (extraText != null && extraCallback != null) {
+                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, extraText, extraCallback);
+            }
+            return dialog;
         }
     }
 }
