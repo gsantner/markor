@@ -11,6 +11,7 @@ package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -172,7 +174,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    getAndInsertDate(null, 0);
+                    updateOrInsertTodoDate(null);
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -306,7 +308,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    getAndInsertDate("due", 3);
+                    updateOrInsertTodoDate("due");
                     return true;
                 }
             }
@@ -331,7 +333,20 @@ public class TodoTxtTextActions extends TextActions {
         }
     }
 
-    protected void getAndInsertDate(final String key, final int deltaDays) {
+    /**
+     * Insert or update a date
+     *
+     * This routine checks the word under the cursor and sees if it matches
+     * the todo.txt date format `tag:YYYY-mm-dd` or plain `YYYY-mm-dd`.
+     * If a date is found, it is parsed and displayed to the user to be updated.
+     *
+     * If no date is found, the user selected date will be inserted at the cursor.
+     * If provided, a key will be inserted before the date.
+     * (key = 'due => date inserted = `due:YYYY-mm-dd`)
+     *
+     * @param key An optional prefix key. optional (use null for no key)
+     */
+    protected void updateOrInsertTodoDate(final String key) {
 
         final int[] selection = StringUtils.getSelection(_hlEditor);
         Editable text = _hlEditor.getText();
@@ -345,25 +360,27 @@ public class TodoTxtTextActions extends TextActions {
         Calendar calendar = Calendar.getInstance();
 
         // Set initial prefix
-        String prefix = (key == null) ? "" : key + (key.endsWith(":") ? "" :  ":");
+        String prefix = "";
 
         // Parse selection for date use if found
         try {
             Matcher match = SttCommander.PATTERN_TAG_DATE.matcher(dateText);
             if (match.find()) {
+                // Use string to set date
                 calendar.setTime(DATEF_YYYY_MM_DD.parse(match.group(2)));
+                // Do not update existing prefix (key)
                 if (match.group(1) != null) prefix = match.group(1);
             } else {
+                // If no match found, limit update to currently selected text
                 dateStart = selection[0];
                 dateEnd = selection[1];
+                // Add prefix key
+                prefix = (key == null) ? "" : key + (key.endsWith(":") ? "" :  ":");
             }
         } catch (ParseException e) {
-            // Regex failed should not be here?
+            // Regex failed?; should not be here
             e.printStackTrace();
         }
-
-        // Add requested offset
-        calendar.add(Calendar.DATE, deltaDays);
 
         final String finalPrefix = prefix;
         final int finalDateStart = dateStart;
