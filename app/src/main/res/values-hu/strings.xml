@@ -112,6 +112,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">Archivál</string>
     <string name="add_task">Teendő hozzáadása</string>
     <string name="add_x_witharg">%s hozzáadása</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">A dokumentum \"%s\" néven lesz megnyitva és mentve</string>
     <string name="refresh">Frissítés</string>
     <string name="create_shortcut">Parancsikon létrehozása</string>
     <string name="tried_to_create_shortcut_for_this_notice">Parancsikon létrehozva. Néhány kezdőképernyő ezt nem támogatja.</string>
@@ -169,6 +170,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Speciális billentyű</string>
     <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
     <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
+    <string name="key_pos_1">Sor eleje (Home)</string>
+    <string name="key_pos_end">Sor vége (End)</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
     <string name="key_pos_end_document">Dokumentum vége</string>
     <string name="key_ctrl_a">Összes kijelölése (Ctrl+A)</string>
@@ -270,6 +273,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Húzd el az ujjad a képernyőn a szerkesztő és olvasó mód közti váltáshoz</string>
     <string name="folder_first">Mappák előre</string>
     <string name="appdata_public">AppData (nyilvános)</string>
+    <string name="appdata_private">AppData (privát)</string>
+    <string name="appdata_sdcard">AppData (SD kártya)</string>
     <string name="internal_storage">Belső tárhely</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="navigationbar_color">Navigációs sáv színe</string>
@@ -278,6 +283,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Megtekintés</string>
     <string name="view_mode">Olvasó mód</string>
     <string name="edit_mode">Szerkesztő mód</string>
+    <string name="share_into">Megoszás ide: </string>
     <string name="favourite">Kedvenc</string>
     <string name="favourites">Kedvencek</string>
     <string name="please_wait">Kérlek, várj</string>
@@ -297,6 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_by_sending_debug_information_to_the_developer">Segíts a fejlesztőknek debug információ küldésével! Az adatok az email alkalmazáson keresztül kerülnek elküldésre, és mindent látsz küldés előtt. Egy \'Debug információ küldése\' menüpont fog megjelenni a felső menüben, az készíti el az emailt.</string>
     <string name="print_pdf">Nyomtatás / PDF</string>
     <string name="bigger_headings">Nagyobb címsorok</string>
+    <string name="increase_text_size_of_headings_according_to_level">Betűméret növelése a címsor száma szerint (# h1, ## h2. ### h3…)</string>
     <string name="current">Jelenlegi</string>
     <string name="record_audio">Hang rögzítése</string>
     <string name="attach">Csatolás</string>
