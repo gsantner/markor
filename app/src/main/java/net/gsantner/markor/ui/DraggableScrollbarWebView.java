@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ScrollView;
+import android.webkit.WebView;
 
-public class DraggableScrollbarScrollView extends ScrollView {
+public class DraggableScrollbarWebView extends WebView {
 
     private boolean _isFastScrolling = false;
     private boolean _fastScrollEnabled = true;
@@ -14,15 +14,15 @@ public class DraggableScrollbarScrollView extends ScrollView {
     private int _thumbHeight;
     private int _scrollbarWidth;
 
-    public DraggableScrollbarScrollView(Context context) {
+    public DraggableScrollbarWebView(Context context) {
         super(context);
     }
 
-    public DraggableScrollbarScrollView(Context context, AttributeSet attrs) {
+    public DraggableScrollbarWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DraggableScrollbarScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DraggableScrollbarWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -55,7 +55,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
             _isFastScrolling = false;
         }
         if (_isFastScrolling && action == MotionEvent.ACTION_MOVE) {
-            smoothScrollTo(0, (int) (((ev.getY() - _thumbHeight / 2) / (getHeight() - _thumbHeight)) * (computeVerticalScrollRange() - computeVerticalScrollExtent())));
+            scrollTo(0, (int) (((ev.getY() - _thumbHeight / 2) / (getHeight() - _thumbHeight)) * (computeVerticalScrollRange() - computeVerticalScrollExtent())));
             return true;
         }
         return super.onTouchEvent(ev);
@@ -74,7 +74,6 @@ public class DraggableScrollbarScrollView extends ScrollView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        setSmoothScrollingEnabled(true);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
