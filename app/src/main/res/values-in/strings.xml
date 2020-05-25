@@ -88,6 +88,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute">Ikut serta</string>
     <string name="donate">Donasi</string>
     <string name="project_page">Laman proyek</string>
+    <string name="press_back_again_to_exit">Tekan \'kembali\' lagi untuk keluar</string>
     <string name="exit">Keluar</string>
     <string name="todo_list">Daftar kehendak</string>
     <string name="sync">Selaraskan</string>
@@ -137,4 +138,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Lain-lain</string>
     <string name="background">Latar Belakang</string>
     <string name="font">Jenis Karakter</string>
+    <string name="code_block">Blok kode</string>
 </resources>
