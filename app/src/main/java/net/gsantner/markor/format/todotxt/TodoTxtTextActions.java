@@ -10,7 +10,9 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -32,9 +34,14 @@ import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+
+import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -165,7 +172,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    getAndInsertDate();
+                    getAndInsertDate(null, 0);
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -299,7 +306,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    getAndInsertDate("due:", 3);
+                    getAndInsertDate("due", 3);
                     return true;
                 }
             }
@@ -322,5 +329,57 @@ public class TodoTxtTextActions extends TextActions {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    protected void getAndInsertDate(final String key, final int deltaDays) {
+
+        final int[] selection = StringUtils.getSelection(_hlEditor);
+        Editable text = _hlEditor.getText();
+
+        // Find region to scan for and insert date
+        int dateStart = StringUtils.getWordStart(text, selection[0]);
+        int dateEnd = StringUtils.getWordEnd(text, selection[1]);
+        if (dateEnd < text.length()) dateEnd += 1;
+        CharSequence dateText = text.subSequence(dateStart, dateEnd);
+
+        Calendar calendar = Calendar.getInstance();
+
+        // Set initial prefix
+        String prefix = (key == null) ? "" : key + (key.endsWith(":") ? "" :  ":");
+
+        // Parse selection for date use if found
+        try {
+            Matcher match = SttCommander.PATTERN_TAG_DATE.matcher(dateText);
+            if (match.find()) {
+                calendar.setTime(DATEF_YYYY_MM_DD.parse(match.group(2)));
+                if (match.group(1) != null) prefix = match.group(1);
+            } else {
+                dateStart = selection[0];
+                dateEnd = selection[1];
+            }
+        } catch (ParseException e) {
+            // Regex failed should not be here?
+            e.printStackTrace();
+        }
+
+        // Add requested offset
+        calendar.add(Calendar.DATE, deltaDays);
+
+        final String finalPrefix = prefix;
+        final int finalDateStart = dateStart;
+        final int finalDateEnd = dateEnd;
+        DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            String date = finalPrefix + DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            text.replace(finalDateStart, finalDateEnd, date);
+        };
+
+        DateFragment dateFragment = new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(calendar);
+
+        dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
     }
 }

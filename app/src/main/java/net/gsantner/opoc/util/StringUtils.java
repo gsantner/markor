@@ -63,6 +63,29 @@ public final class StringUtils {
         return i;
     }
 
+    public static int getWordStart(CharSequence s, int start) {
+        int i = start;
+        for (; i > 0; i--) {
+            char c = s.charAt(i - 1);
+            if (c == ' ' || c == '\n') {
+                break;
+            }
+        }
+        return i;
+    }
+
+    public static int getWordEnd(CharSequence s, int start) {
+        int i = start;
+        final int lastChar = s.length() - 1;
+        for (; i < lastChar; i++) {
+            char c = s.charAt(i + 1);
+            if (c == ' ' || c == '\n') {
+                break;
+            }
+        }
+        return i;
+    }
+
     public static int[] getSelection(TextView text) {
 
         int selectionStart = text.getSelectionStart();

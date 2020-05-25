@@ -62,7 +62,7 @@ public class SttCommander {
     public static final Pattern PATTERN_PRIORITY_F = Pattern.compile("(?:^|\\n)\\(([Ff])\\)\\s");
     public static final Pattern PATTERN_COMPLETION_DATE = Pattern.compile("(?:^|\\n)(?:[Xx] )(" + PT_DATE + ")");
     public static final Pattern PATTERN_CREATION_DATE = Pattern.compile("(?:^|\\n)(?:\\([A-Za-z]\\)\\s)?(?:[Xx] " + PT_DATE + " )?(" + PT_DATE + ")");
-    public static final Pattern PATTERN_IS_DATE = Pattern.compile("^" + PT_DATE + "$");
+    public static final Pattern PATTERN_TAG_DATE = Pattern.compile("^(\\w*:)?(" + PT_DATE + ")$");
 
     // Tasks from inside full text
     public static class SttTasksInTextRange {
