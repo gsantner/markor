@@ -364,4 +364,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Poredak radnji</string>
     <string name="load_default_settings">Učitaj prvobitne postavke</string>
     <string name="drag">Prevucite</string>
+    <string name="file_encryption_password">Lozinka za šifriranje</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Nije zadata lozinka, ne može se šifrirati ni dešifrirati.\nOtvorite Podešavanja -&gt; Opće -&gt; Lozinka da zadate lozinku.</string>
+    <string name="encrypt_file_content">Šifriraj sadržaj datoteke</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Neuspjelo šifriranje sadržaja. Datoteka nije pohranjena.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Neuspjelo dešifriranje sadržaja. Jeste li unijeli pogrešnu lozinku? Je li za šifriranje korišten Markor AES?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Lozinka je već zadana. Definisanjem nove lozinke ona će zamijeniti postojeću i može se dogoditi da ne mognete pristupiti svojim datotekama ako zaboravite lozinku.</string>
+    <string name="code_block">Kōd blok</string>
 </resources>
