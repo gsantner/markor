@@ -99,8 +99,8 @@ public class TodoTxtTextActions extends TextActions {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
-            final int[] selection = StringUtils.getSelection(_hlEditor);
-            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, selection[0]);
+            final int origSelectionStart = _hlEditor.getSelectionStart();
+            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             final Callback.a1<SttTaskWithParserInfo> cbUpdateOrigTask = (updatedTask) -> {
@@ -176,7 +176,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
-                    removeTasksBetweenIndexes(_hlEditor.getText(), selection[0], selection[1]);
+                    removeTasksBetweenIndexes(_hlEditor.getText(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
                     return;
                 }
                 case R.string.tmaid_todotxt_archive_done_tasks: {
@@ -277,8 +277,8 @@ public class TodoTxtTextActions extends TextActions {
             }
             final SttCommander sttcmd = SttCommander.get();
             final String origText = _hlEditor.getText().toString();
-            final int[] selection = StringUtils.getSelection(_hlEditor);
-            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, selection[0]);
+            final int origSelectionStart = _hlEditor.getSelectionStart();
+            final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             switch (_action) {
