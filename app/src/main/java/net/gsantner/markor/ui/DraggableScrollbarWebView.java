@@ -80,8 +80,8 @@ public class DraggableScrollbarWebView extends WebView {
         _scrollbarWidth = getVerticalScrollbarWidth();
     }
 
-    public void setFastScrollEnabled(boolean _fastScrollEnabled) {
-        this._fastScrollEnabled = _fastScrollEnabled;
+    public void setFastScrollEnabled(boolean fastScrollEnabled) {
+        _fastScrollEnabled = fastScrollEnabled;
     }
 
     public boolean isFastScrollEnabled() {
