@@ -94,6 +94,8 @@ public class DatetimeFormatDialog {
         final Button datePickButton = viewRoot.findViewById(R.id.start_datepicker_button);
         final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
         final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
+        final CheckBox alwaysNowCheckBox = viewRoot.findViewById(R.id.always_use_current_datetime_checkbox);
+
 
         // Popup window for ComboBox
         popupWindow.setAdapter(new SimpleAdapter(activity, createAdapterData(locale, PREDEFINED_DATE_TIME_FORMATS),
@@ -103,6 +105,7 @@ public class DatetimeFormatDialog {
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
             formatEditText.setText(PREDEFINED_DATE_TIME_FORMATS[position]);
             popupWindow.dismiss();
+            setToNow(cal, alwaysNowCheckBox.isChecked());
             previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
         });
         popupWindow.setAnchorView(formatEditText);
@@ -127,6 +130,7 @@ public class DatetimeFormatDialog {
             @Override
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
+                    setToNow(cal, alwaysNowCheckBox.isChecked());
                     previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                     final boolean error = previewTextView.getText().toString().isEmpty() && !formatEditText.getText().toString().isEmpty();
                     formatEditText.setError(error ? "^^^!!!  'normal text'" : null);
@@ -161,14 +165,17 @@ public class DatetimeFormatDialog {
 
         // hide buttons when both check box are checked
         View.OnClickListener onOptionsChangedListener = v -> {
-            boolean dateChangeable = !formatInsteadCheckbox.isChecked();
+            boolean dateChangeable = !formatInsteadCheckbox.isChecked() && !alwaysNowCheckBox.isChecked();
             timePickButton.setEnabled(dateChangeable);
             datePickButton.setEnabled(dateChangeable);
             dateHeadline.setEnabled(!formatInsteadCheckbox.isChecked());
+            alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
         };
         formatInsteadCheckbox.setOnClickListener(onOptionsChangedListener);
+        alwaysNowCheckBox.setOnClickListener(onOptionsChangedListener);
 
         callbackInsertTextToEditor.set((selectedFormat) -> {
+            setToNow(cal, alwaysNowCheckBox.isChecked());
             String text = parseDatetimeFormatToString(locale, selectedFormat, cal.getTimeInMillis());
             previewTextView.setText(text);
             hlEditor.insertOrReplaceTextOnCursor(getOutput(
@@ -245,5 +252,14 @@ public class DatetimeFormatDialog {
             pairs.add(pair);
         }
         return pairs;
+    }
+
+    /**
+     * set cal to current time if doIt is set
+     */
+    private static void setToNow(final Calendar cal, boolean doIt) {
+        if (doIt) {
+            cal.setTime(new Date());
+        }
     }
 }
