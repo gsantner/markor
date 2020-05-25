@@ -11,7 +11,6 @@ package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -21,7 +20,6 @@ import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
-import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
