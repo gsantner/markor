@@ -139,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textactions_show_useful_actions_description__appspecific">Egy sáv megjelenítése alul hasznos gombokkal. Ezek megváltoztatják a szöveget, vagy egy műveletet hajtanak végre rajta.</string>
     <string name="load_last_opened_folder_at_startup">Indításkor az utolsó megnyitott mappa betöltése</string>
     <string name="format">Formátum</string>
+    <string name="contexts">Kontextusok</string>
     <string name="project">Projekt</string>
     <string name="projects">Projektek</string>
     <string name="categories">Kategóriák</string>
@@ -152,6 +153,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline_hex_color_codes">Hexa színkódok aláhúzása</string>
     <string name="insert_current_date_when_starting_new_task">Új feladat felvételekor a mai dátum beszúrása</string>
     <string name="tasks_with_todays_date">Feladatok a mai dátummal</string>
+    <string name="append_contexts_and_projects">Kontextusok és projektek hozzáadása</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Kontextusok és projektek hozzáadása a feladathoz a megfelelő műveleti gomb használatával</string>
     <string name="rtl_rendering">Jobbra igazítás</string>
     <string name="highlight_line_ending">Sorvég kiemelése</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
@@ -274,8 +277,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Megtekintés</string>
     <string name="view_mode">Olvasó mód</string>
     <string name="edit_mode">Szerkesztő mód</string>
+    <string name="favourite">Kedvenc</string>
     <string name="favourites">Kedvencek</string>
     <string name="please_wait">Kérlek, várj</string>
+    <string name="app_start_folder">Indítási mappa</string>
     <string name="tab_width">Tabulátorszélesség</string>
     <string name="amount_of_space_for_tab">Mennyi szóköz széles a tabulátor</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">A kiválasztott fájl egyszerű szövegfájl lehet. A szerkesztőben nyitod meg, vagy más alkalmazásban?\n\nNe nyiss meg bináris fájlokat! Ha nem vagy biztos benne, nyisd meg mással.</string>
@@ -283,6 +288,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Újratölt</string>
     <string name="wrap_words">Sortörés</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Sorok törése, ha a szöveg szélesebb a képernyőnél. Egyébként vízszintes görgetés bekapcsolása.</string>
+    <string name="recursive_search_in_current_directory">Keresés az almappákban is. Ha a kulcsszó tartalmaz csillagot (*), reguláris kifejezésnek veszi a kulcsszót.</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="template">Sablon</string>
     <string name="send_debug_log">Debug információ küldése</string>
@@ -317,6 +323,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">Kód beszúrása</string>
     <string name="horizontal_line">Vízszintes vonal</string>
     <string name="link_color">Hivatkozás színe</string>
+    <string name="add_context">Kontextus hozzáadása</string>
     <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
     <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
