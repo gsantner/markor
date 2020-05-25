@@ -269,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Módok közötti váltás kézmozdulattal</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Húzd el az ujjad a képernyőn a szerkesztő és olvasó mód közti váltáshoz</string>
     <string name="folder_first">Mappák előre</string>
+    <string name="appdata_public">AppData (nyilvános)</string>
     <string name="internal_storage">Belső tárhely</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
     <string name="navigationbar_color">Navigációs sáv színe</string>
@@ -290,8 +291,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Sorok törése, ha a szöveg szélesebb a képernyőnél. Egyébként vízszintes görgetés bekapcsolása.</string>
     <string name="recursive_search_in_current_directory">Keresés az almappákban is. Ha a kulcsszó tartalmaz csillagot (*), reguláris kifejezésnek veszi a kulcsszót.</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Mindig ezzel az alkalmazással nyissa meg a fájlt, ha a kiterjesztése szerepel a listában. Például ha webfájlokat és kiterjesztés nélkülieket szeretnél szerkeszteni: \'None, .html, .css , .js\'</string>
     <string name="template">Sablon</string>
     <string name="send_debug_log">Debug információ küldése</string>
+    <string name="help_by_sending_debug_information_to_the_developer">Segíts a fejlesztőknek debug információ küldésével! Az adatok az email alkalmazáson keresztül kerülnek elküldésre, és mindent látsz küldés előtt. Egy \'Debug információ küldése\' menüpont fog megjelenni a felső menüben, az készíti el az emailt.</string>
     <string name="print_pdf">Nyomtatás / PDF</string>
     <string name="bigger_headings">Nagyobb címsorok</string>
     <string name="current">Jelenlegi</string>
