@@ -310,7 +310,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    updateOrInsertTagDate("due", 3);
+                    updateOrAppendDueDate(3);
                     return true;
                 }
             }
@@ -376,16 +376,15 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     /**
-     * This routine searches the current line for a date of in the format 'key:YYYY-mm-dd'.
-     * If found, this date is parsed and presented to the user to be updated.
+     * This routine searches the current line for a due date date 'due:YYYY-mm-dd'.
+     * If found, the due date is parsed and presented to the user to be updated.
      *
-     * If no such date is found, the user is presented with a dialog to enter a date, and
-     * 'key:YYYY-mm-dd' is appended to the line
+     * If no due date is found, the user is presented with a dialog to enter a date, and
+     * 'due:YYYY-mm-dd' is appended to the line
      *
-     * @param key key to search for
      * @param offset if not existing date found, today's date is offset by this amount
      */
-    protected void updateOrInsertTagDate(final String key, final int offset) {
+    protected void updateOrAppendDueDate(final int offset) {
 
         final int[] selection = StringUtils.getSelection(_hlEditor);
         Editable text = _hlEditor.getText();
@@ -394,8 +393,7 @@ public class TodoTxtTextActions extends TextActions {
         final int lineEnd = StringUtils.getLineEnd(text, selection[1]);
         String line = text.subSequence(lineStart, lineEnd).toString();
 
-        Pattern pattern = Pattern.compile("(?:" + key + ":)(" + SttCommander.PT_DATE + ")");
-        Matcher match = pattern.matcher(line);
+        Matcher match = SttCommander.PATTERN_DUE_DATE.matcher(line);
         final boolean found = match.find();
 
         Calendar calendar = Calendar.getInstance();
@@ -411,13 +409,13 @@ public class TodoTxtTextActions extends TextActions {
         DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            String keyDate = String.format("%s:%s", key, DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
+            String tagDate = String.format("due:%s", DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
             String newline;
             if (found) {
-                newline = match.replaceFirst(keyDate);
+                newline = match.replaceFirst(tagDate);
             } else {
                 //Append with space, if needed
-                newline = line + (line.endsWith(" ")? "" : " ") + keyDate;
+                newline = line + (line.endsWith(" ")? "" : " ") + tagDate;
             }
             text.replace(lineStart, lineEnd, newline);
         };
