@@ -11,7 +11,10 @@ package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -172,7 +175,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    updateOrInsertTodoDate(null);
+                    updateOrInsertTodoDate(null, 0);
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -306,7 +309,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    updateOrInsertTodoDate("due");
+                    updateOrInsertTodoDate("due", 3);
                     return true;
                 }
             }
@@ -334,7 +337,7 @@ public class TodoTxtTextActions extends TextActions {
     /**
      * Insert or update a date
      *
-     * This routine checks the word under the cursor and sees if it matches
+     * This routine checks if the word under the cursor matches.
      * the todo.txt date format `tag:YYYY-mm-dd` or plain `YYYY-mm-dd`.
      * If a date is found, it is parsed and displayed to the user to be updated.
      *
@@ -342,9 +345,10 @@ public class TodoTxtTextActions extends TextActions {
      * If provided, a key will be inserted before the date.
      * (key = 'due => date inserted = `due:YYYY-mm-dd`)
      *
-     * @param key An optional prefix key. optional (use null for no key)
+     * @param key   An optional prefix key (null = no key)
+     * @param delta An amount to offset the current date by
      */
-    protected void updateOrInsertTodoDate(final String key) {
+    protected void updateOrInsertTodoDate(final String key, int delta) {
 
         final int[] selection = StringUtils.getSelection(_hlEditor);
         Editable text = _hlEditor.getText();
@@ -360,7 +364,7 @@ public class TodoTxtTextActions extends TextActions {
         // Set initial prefix
         String prefix = "";
 
-        // Parse selection for date use if found
+        // Parse selection for date
         try {
             Matcher match = SttCommander.PATTERN_TAG_DATE.matcher(dateText);
             if (match.find()) {
@@ -374,6 +378,7 @@ public class TodoTxtTextActions extends TextActions {
                 dateEnd = selection[1];
                 // Add prefix key
                 prefix = (key == null) ? "" : key + (key.endsWith(":") ? "" :  ":");
+                calendar.add(Calendar.DAY_OF_MONTH, delta);
             }
         } catch (ParseException e) {
             // Regex failed?; should not be here
@@ -396,5 +401,59 @@ public class TodoTxtTextActions extends TextActions {
                 .setCalendar(calendar);
 
         dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
+    }
+
+    /**
+     * A DialogFragment to manage showing a DatePicker
+     */
+    public static class DateFragment extends DialogFragment {
+
+        private DatePickerDialog.OnDateSetListener listener;
+        private Activity activity;
+        private int year;
+        private int month;
+        private int day;
+
+        public DateFragment() {
+            super();
+            setCalendar(Calendar.getInstance());
+        }
+
+        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        public DateFragment setActivity(Activity activity) {
+            this.activity = activity;
+            return this;
+        }
+
+        public DateFragment setYear(int year) {
+            this.year = year;
+            return this;
+        }
+
+        public DateFragment setMonth(int month) {
+            this.month = month;
+            return this;
+        }
+
+        public DateFragment setDay(int day) {
+            this.day = day;
+            return this;
+        }
+
+        public DateFragment setCalendar(Calendar calendar) {
+            setYear(calendar.get(Calendar.YEAR));
+            setMonth(calendar.get(Calendar.MONTH));
+            setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            return this;
+        }
+
+        @Override
+        public Dialog onCreateDialog (Bundle savedInstanceState){
+            return new DatePickerDialog(activity, listener, year, month, day);
+        }
     }
 }

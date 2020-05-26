@@ -10,15 +10,11 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
@@ -40,7 +36,6 @@ import net.gsantner.opoc.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -541,59 +536,4 @@ public abstract class TextActions {
             stringId = data[2];
         }
     }
-
-    /**
-     * A DialogFragment to manage showing a DatePicker
-     */
-    public static class DateFragment extends DialogFragment {
-
-        private DatePickerDialog.OnDateSetListener listener;
-        private Activity activity;
-        private int year;
-        private int month;
-        private int day;
-
-        public DateFragment() {
-            super();
-            setCalendar(Calendar.getInstance());
-        }
-
-        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
-            this.listener = listener;
-            return this;
-        }
-
-        public DateFragment setActivity(Activity activity) {
-            this.activity = activity;
-            return this;
-        }
-
-        public DateFragment setYear(int year) {
-            this.year = year;
-            return this;
-        }
-
-        public DateFragment setMonth(int month) {
-            this.month = month;
-            return this;
-        }
-
-        public DateFragment setDay(int day) {
-            this.day = day;
-            return this;
-        }
-
-        public DateFragment setCalendar(Calendar calendar) {
-            setYear(calendar.get(Calendar.YEAR));
-            setMonth(calendar.get(Calendar.MONTH));
-            setDay(calendar.get(Calendar.DAY_OF_MONTH));
-            return this;
-        }
-
-        @Override
-        public Dialog onCreateDialog (Bundle savedInstanceState){
-            return new DatePickerDialog(activity, listener, year, month, day);
-        }
-    }
 }
-
