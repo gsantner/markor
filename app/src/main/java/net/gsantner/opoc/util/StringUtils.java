@@ -76,9 +76,8 @@ public final class StringUtils {
 
     public static int getWordEnd(CharSequence s, int start) {
         int i = start;
-        final int lastChar = s.length() - 1;
-        for (; i < lastChar; i++) {
-            char c = s.charAt(i + 1);
+        for (; i < s.length(); i++) {
+            char c = s.charAt(i);
             if (c == ' ' || c == '\n') {
                 break;
             }

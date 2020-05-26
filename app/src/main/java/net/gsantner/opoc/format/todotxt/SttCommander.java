@@ -36,7 +36,7 @@ public class SttCommander {
     //
     public static final Pattern TODOTXT_FILE_PATTERN = Pattern.compile("(?i)(^todo[-.]?.*)|(.*[-.]todo\\.((txt)|(text))$)");
     public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
-    private static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
+    public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
 
     public static final Pattern PATTERN_DESCRIPTION = Pattern.compile("(?:^|\\n)" +
             "(?:" +
@@ -62,7 +62,7 @@ public class SttCommander {
     public static final Pattern PATTERN_PRIORITY_F = Pattern.compile("(?:^|\\n)\\(([Ff])\\)\\s");
     public static final Pattern PATTERN_COMPLETION_DATE = Pattern.compile("(?:^|\\n)(?:[Xx] )(" + PT_DATE + ")");
     public static final Pattern PATTERN_CREATION_DATE = Pattern.compile("(?:^|\\n)(?:\\([A-Za-z]\\)\\s)?(?:[Xx] " + PT_DATE + " )?(" + PT_DATE + ")");
-    public static final Pattern PATTERN_TAG_DATE = Pattern.compile("^(\\w*:)?(" + PT_DATE + ")$");
+    public static final Pattern PATTERN_IS_DATE = Pattern.compile(PT_DATE);
 
     // Tasks from inside full text
     public static class SttTasksInTextRange {

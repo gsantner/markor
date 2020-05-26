@@ -43,6 +43,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static net.gsantner.opoc.format.todotxt.SttCommander.DATEF_YYYY_MM_DD;
 
@@ -175,7 +176,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    updateOrInsertTodoDate(null, 0);
+                    updateOrInsertSelectedDate();
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -309,7 +310,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    updateOrInsertTodoDate("due", 3);
+                    updateOrInsertTagDate("due", 3);
                     return true;
                 }
             }
@@ -337,62 +338,88 @@ public class TodoTxtTextActions extends TextActions {
     /**
      * Insert or update a date
      *
-     * This routine checks if the word under the cursor matches.
-     * the todo.txt date format `tag:YYYY-mm-dd` or plain `YYYY-mm-dd`.
-     * If a date is found, it is parsed and displayed to the user to be updated.
+     * This routine checks if the highlighted text matches the date format (`YYYY-mm-dd`).
+     * If a date is found, it is parsed, and displayed to the user to be updated.
      *
      * If no date is found, the user selected date will be inserted at the cursor.
-     * If provided, a key will be inserted before the date.
-     * (key = 'due => date inserted = `due:YYYY-mm-dd`)
-     *
-     * @param key   An optional prefix key (null = no key)
-     * @param delta An amount to offset the current date by
      */
-    protected void updateOrInsertTodoDate(final String key, int delta) {
+    protected void updateOrInsertSelectedDate() {
 
         final int[] selection = StringUtils.getSelection(_hlEditor);
-        Editable text = _hlEditor.getText();
-
-        // Find region to scan for and insert date
-        int dateStart = StringUtils.getWordStart(text, selection[0]);
-        int dateEnd = StringUtils.getWordEnd(text, selection[1]);
-        if (dateEnd < text.length()) dateEnd += 1;
-        CharSequence dateText = text.subSequence(dateStart, dateEnd);
+        final Editable text = _hlEditor.getText();
+        final CharSequence dateText = text.subSequence(selection[0], selection[1]);
 
         Calendar calendar = Calendar.getInstance();
 
-        // Set initial prefix
-        String prefix = "";
-
         // Parse selection for date
         try {
-            Matcher match = SttCommander.PATTERN_TAG_DATE.matcher(dateText);
-            if (match.find()) {
-                // Use string to set date
-                calendar.setTime(DATEF_YYYY_MM_DD.parse(match.group(2)));
-                // Do not update existing prefix (key)
-                if (match.group(1) != null) prefix = match.group(1);
-            } else {
-                // If no match found, limit update to currently selected text
-                dateStart = selection[0];
-                dateEnd = selection[1];
-                // Add prefix key
-                prefix = (key == null) ? "" : key + (key.endsWith(":") ? "" :  ":");
-                calendar.add(Calendar.DAY_OF_MONTH, delta);
-            }
+            final Matcher match = SttCommander.PATTERN_IS_DATE.matcher(dateText);
+            if (match.find()) calendar.setTime(DATEF_YYYY_MM_DD.parse(match.group(0)));
         } catch (ParseException e) {
             // Regex failed?; should not be here
             e.printStackTrace();
         }
 
-        final String finalPrefix = prefix;
-        final int finalDateStart = dateStart;
-        final int finalDateEnd = dateEnd;
         DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            String date = finalPrefix + DATEF_YYYY_MM_DD.format(fmtCal.getTime());
-            text.replace(finalDateStart, finalDateEnd, date);
+            String date = DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            text.replace(selection[0], selection[1], date);
+        };
+
+        DateFragment dateFragment = new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(calendar);
+
+        dateFragment.show(((FragmentActivity) _activity).getSupportFragmentManager(), "dateFragment");
+    }
+
+    /**
+     * This routine searches the current line for a date of in the format 'key:YYYY-mm-dd'.
+     * If found, this date is parsed and presented to the user to be updated.
+     *
+     * If no such date is found, the user is presented with a dialog to enter a date, and
+     * 'key:YYYY-mm-dd' is appended to the line
+     *
+     * @param key key to search for
+     * @param offset if not existing date found, today's date is offset by this amount
+     */
+    protected void updateOrInsertTagDate(final String key, final int offset) {
+
+        final int[] selection = StringUtils.getSelection(_hlEditor);
+        Editable text = _hlEditor.getText();
+
+        final int lineStart = StringUtils.getLineStart(text, selection[0]);
+        final int lineEnd = StringUtils.getLineEnd(text, selection[1]);
+        String line = text.subSequence(lineStart, lineEnd).toString();
+
+        Pattern pattern = Pattern.compile("(?:" + key + ":)(" + SttCommander.PT_DATE + ")");
+        Matcher match = pattern.matcher(line);
+        final boolean found = match.find();
+
+        Calendar calendar = Calendar.getInstance();
+        // Parse selection for date
+        try {
+            if (found) calendar.setTime(DATEF_YYYY_MM_DD.parse(match.group(0)));
+            else calendar.add(Calendar.DAY_OF_MONTH, offset);
+        } catch (ParseException e) {
+            // Regex failed?; should not be here
+            e.printStackTrace();
+        }
+
+        DatePickerDialog.OnDateSetListener listener = (view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            String keyDate = String.format("%s:%s", key, DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
+            String newline;
+            if (found) {
+                newline = match.replaceFirst(keyDate);
+            } else {
+                //Append with space, if needed
+                newline = line + (line.endsWith(" ")? "" : " ") + keyDate;
+            }
+            text.replace(lineStart, lineEnd, newline);
         };
 
         DateFragment dateFragment = new DateFragment()
