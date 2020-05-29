@@ -275,8 +275,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Zavřít</string>
     <string name="cancel">Zrušit</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
-    <string name="app_start_tab">App start tab</string>
-    <string name="tab_to_select_at_start">Při spuštění aplikace se zobrazí volba</string>
+    <string name="app_start_tab">Záložka po spuštění aplikace</string>
+    <string name="tab_to_select_at_start">Po startu aplikace se zobrazí tato záložka</string>
     <string name="swipe_to_change_mode">Swipe na změnu módu</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Přechod na změnu režimu pro úpravu nebo zobrazení (naproti současnému režimu)</string>
     <string name="folder_first">Složky první</string>
@@ -285,9 +285,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (soukromá)</string>
     <string name="appdata_sdcard">AppData (SD karta)</string>
     <string name="internal_storage">Vnitřní úložiště</string>
-    <string name="open_the_document_from_main_view">Dokument můžete otevřít z hlavního pohledu na spodní, prohlížeč souborů nebo praní, a také je možné připojit text sdílený do Markoru.</string>
-    <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna, je to domácí složka vašich souborů.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost psát si poznámky. Je to soubor ve formátu Markdown s výchozí polohou &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní souborovou cestu v nastavení.</string>
+    <string name="open_the_document_from_main_view">Dokument můžete otevřít z hlavního zobrazení dole, z prohlížeče souborů nebo launcheru. Je zde také možnost připojit sdílený text do aplikace Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">Notebook je složka, kterou Markor načítá v prohlížeči souborů, když je aplikace spuštěna. Je to domácí složka vašich souborů.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote je nejrychlejší možnost pro psaní poznámek. Je to soubor ve formátu Markdown s výchozí pozicí &gt;Notebook/QuickNote.md&lt;, můžete nastavit vlastní cestu k souboru v nastaveních.</string>
     <string name="todo_is_the_easiest_way_">Řídit své úkoly s ToDo. Je to soubor ve formátu todo.txt s výchozí polohou &gt;Notebook/todo.txt&lt;, můžete nastavit nastavení na vlastní filedráhu.</string>
     <string name="navigationbar_color">Barva navigačního panelu</string>
     <string name="black">Černá</string>
