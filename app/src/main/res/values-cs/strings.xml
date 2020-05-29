@@ -272,7 +272,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Pouze datum</string>
     <string name="last_used">Poslední použité</string>
     <string name="my_note">Moje poznámka</string>
-    <string name="close">Konec</string>
+    <string name="close">Zavřít</string>
     <string name="cancel">Zrušit</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
     <string name="app_start_tab">App start tab</string>
