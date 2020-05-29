@@ -109,25 +109,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clear">Vymazat</string>
     <string name="due_date">Termín dokončení</string>
     <string name="current_date">Aktuální datum</string>
-    <string name="archive">Archiv</string>
+    <string name="archive">Archivovat</string>
     <string name="add_task">Přidat úkol</string>
     <string name="add_x_witharg">Přidat %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokument, který má být nahrán a uložen jako \"%s\"</string>
-    <string name="refresh">Přehled</string>
-    <string name="create_shortcut">Vytvořit zkratku</string>
+    <string name="refresh">Obnovit</string>
+    <string name="create_shortcut">Vytvořit zástupce</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v notebook adresáři aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v adresáři pro notebook této aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v současné složce, chcete jej zkopírovat do stávající složky, která přepíše stávající soubor se stejným jménem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
     <string name="file_browser">Správce souborů</string>
     <string name="create_note" needed="false">Vytvořit poznámku</string>
     <string name="special_documents" needed="false">Speciální dokumenty</string>
-    <string name="keep_screen_on" needed="false">Udržet obrazovku zapnutou</string>
+    <string name="keep_screen_on" needed="false">Udržovat obrazovku zapnutou</string>
     <string name="back_to_previous_folder" needed="false">Zpět do předchozí složky</string>
     <string name="app_settings" needed="false">Nastavení aplikace</string>
     <string name="editor_settings" needed="false">Nastavení editoru</string>
-    <string name="remember_last_folder_location_on_startup" needed="false">Pamatujte poslední umístění složky při startu</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Při startu si pamatovat poslední adresář</string>
     <string name="number_of_files_witharg" needed="false">Počet souborů: %d</string>
     <string name="app_wide">Celo-aplikační</string>
     <string name="main_view">Hlavní pohled</string>
