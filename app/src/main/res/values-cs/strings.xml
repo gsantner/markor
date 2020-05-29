@@ -182,8 +182,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulátor</string>
     <string name="start_on_bottom">Začněme u dna</string>
     <string name="start_on_bottom_when_loading_document">Po načtení dokumentu kurzor polohy na jeho konci</string>
-    <string name="unordered_list_character">Neuspořádaný znak seznamu</string>
-    <string name="character_to_start_items_of_unordered_list_with">Jaký znak lze použít k označení neuspořádaných seznamů</string>
+    <string name="unordered_list_character">Znak nečíslovaného seznamu</string>
+    <string name="character_to_start_items_of_unordered_list_with">Jaký znak se použije k označení nečíslovaných seznamů</string>
     <string name="unordered_list_char_dash">Pomlčka (-)</string>
     <string name="unordered_list_char_asterisk">Hvězdička (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
@@ -307,7 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Vybraný soubor může být prostý soubor. Chcete jej otevřít v editoru nebo v jiné aplikaci?\n\nNepokoušejte se otevírat binární soubory. Pokud si nejste jistí, otevřete se s jinou aplikací.</string>
     <string name="list_in_recent_files">Seznam v nedávných spisech</string>
     <string name="reload">Aktualizovat</string>
-    <string name="wrap_words">Zapisovat slova</string>
+    <string name="wrap_words">Zalamování slov</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkká přestávka, pokud text není vhodný pro šířku obrazovky.</string>
     <string name="recursive_search_in_current_directory">V aktuálním adresáři se používá rekursivní vyhledávání, kde je vyhledávání v klášteře (*) regex, jinak zkontrolujte, zda je dotaz obsažen.</string>
     <string name="always_open_with_this_app">Vždy otevřené s touto aplikací</string>
@@ -331,7 +331,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Kolik sloupců? Tisk tlačítka na stůl dlouho pro spuštění tabulky (vložte hlavičku), stiskněte krátký pro přidání řádku.</string>
     <string name="example_of_a_markdown_table">Příklad Markdown tabulky</string>
     <string name="delete_lines">Odstranit řádky</string>
-    <string name="unordered_list">Neuspořádaný seznam</string>
+    <string name="unordered_list">Nečíslovaný seznam</string>
     <string name="ordered_list">Seřazený seznam</string>
     <string name="check_list">Seznam šeků</string>
     <string name="open_link">Otevřít odkaz</string>
