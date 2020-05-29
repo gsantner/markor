@@ -250,9 +250,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">Barva</string>
     <string name="zero_width_space">Mezera s nulovou šířkou</string>
     <string name="basic_color_scheme">Základní barevný režim</string>
-    <string name="background_foreground_color_in_editor_works_dark_light">Změní barvu pozadí a popředí textového editoru. Upraví téma aplikace dostupné světlé a tmavé téma. Zvýraznění syntaxe zůstává stejné.</string>
-    <string name="preset">Preset</string>
-    <string name="foreground">Les</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Změní barvu pozadí a popředí textového editoru. Přizpůsobí se tématu aplikace, je tedy dostupné světlé a tmavé. Zvýraznění syntaxe zůstává stejné.</string>
+    <string name="preset">Předvolba</string>
+    <string name="foreground">Popředí</string>
     <string name="background">Pozadí</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Nastavit záložku nebo barvu textu?</string>
     <string name="type">Typ</string>
