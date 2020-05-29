@@ -106,8 +106,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_or_custom">Hledat / Vlastní</string>
     <string name="save">Uložit</string>
     <string name="update">Aktualizace</string>
-    <string name="clear">Jasně</string>
-    <string name="due_date">Náležité datum</string>
+    <string name="clear">Vymazat</string>
+    <string name="due_date">Termín dokončení</string>
     <string name="current_date">Aktuální datum</string>
     <string name="archive">Archiv</string>
     <string name="add_task">Přidat úkol</string>
