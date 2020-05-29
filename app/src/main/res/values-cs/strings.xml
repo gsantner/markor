@@ -21,7 +21,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="confirm_overwrite">Potvrdit přepsání</string>
     <string name="file_already_exists_overwerite">Soubor již existuje, přepsat?</string>
     <string name="browse_filesystem">Procházet souborový systém</string>
-    <string name="title">Titulek</string>
+    <string name="title">Název</string>
     <string name="empty_directory">Prázdný adresář</string>
     <string name="enter_name_of_folder">Zadejte jméno vašeho adresáře</string>
     <string name="create_folder">Vytvořit složku</string>
@@ -61,7 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Vytvoøit</string>
     <string name="select_entries">Vyberte položky</string>
     <string name="one_item_selected">Jedna položka vybrána</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d items selected</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">vybráno %d položek</string>
     <string name="hide_statusbar_at_this_view">Skrýt stavovou lištu v tomto zobrazení</string>
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="name">Název</string>
@@ -78,7 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
     <string name="language_change_restart_description">Pokud chcete změnit jazyk této aplikace, bude vyžadován její restart</string>
     <string name="language">Jazyk</string>
-    <string name="error_need_storage_permission_to_save_documents">Potřebujeme povolení úložiště pro ukládání dokumentů</string>
+    <string name="error_need_storage_permission_to_save_documents">Pro ukládání dokumentů je třeba oprávnění úložiště</string>
     <string name="open_with">Otevřít s</string>
     <string name="sort">Řadit podle</string>
     <string name="date">Datum</string>
@@ -117,7 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Vytvořit zástupce</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v adresáři pro notebook této aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v současné složce, chcete jej zkopírovat do stávající složky, která přepíše stávající soubor se stejným jménem.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v aktuální složce. Chcete jej zkopírovat do aktuální složky? Tímto bude přepsán jakýkoliv existující soubor se stejným názvem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
     <string name="file_browser">Správce souborů</string>
@@ -137,7 +137,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
-    <string name="control_font_size_in_editor">Ovládat velikost písma použitého v editoru</string>
+    <string name="control_font_size_in_editor">Nastavení velikost písma použitého v editoru</string>
     <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Ta změní text nebo spustí akci založenou na textu.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
     <string name="format">Formát</string>
@@ -149,17 +149,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Ostatní</string>
     <string name="alternative_naming">Alternativní pojmenování</string>
     <string name="empty_file">Prázdný soubor</string>
-    <string name="break_page_pdf_print">Stránka Break (PDF/Printing)</string>
+    <string name="break_page_pdf_print">Zalomení stránky (PDF/tisk)</string>
     <string name="underline">Podtržení</string>
-    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Zda podtrhnout hex barevné kódy barvou</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Podtrhovat hex kódy barev odpovídající barvou</string>
     <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
     <string name="tasks_with_todays_date">Úkoly s dnešním datem</string>
     <string name="append_contexts_and_projects">Připojit kontexty a projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Připojit kontexty a projekty na konec úkolu při použití příslušné textové akce</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Použití příslušné textové akce přidá na konec úkolu kontexty a projekty</string>
     <string name="rtl_rendering">vykreslování RTL</string>
     <string name="highlight_line_ending">Zvýraznit konec řádku</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit mezery na koncích řádků, které obsahují dvě nebo více mezer</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit řádky, které končí dvěma nebo více mezerami</string>
     <string name="use_monospace_for_code">Použít monospace font pro kód</string>
     <string name="disable_code_block_highlight">Zakázat zvýraznění pro bloky kódu</string>
     <string name="use_different_fonttype_slow_down">Používat jiný typ písma, změna dynamicky ovlivní výkon aplikace.</string>
@@ -198,10 +198,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bůh</string>
     <string name="center">Centrum</string>
-    <string name="textaction_spacing">Rozestupy v textu</string>
-    <string name="horizontal_space_between_textactions">Vodorovný prostor mezi textovými tlačítky</string>
+    <string name="textaction_spacing">Rozestupy mezi textovými moduly</string>
+    <string name="horizontal_space_between_textactions">Vodorovný prostor mezi tlačítky textových modulů</string>
     <string name="center_text">Center</string>
-    <string name="edit_text_in_center_of_screen">Upravit text v centru obrazovky</string>
+    <string name="edit_text_in_center_of_screen">Editovat text uprostřed obrazovky</string>
     <string name="clipboard">Kličková deska</string>
     <string name="select_existing_document">Vyberte existující dokument</string>
     <string name="open_source_licenses">Otevřené zdrojové licence</string>
