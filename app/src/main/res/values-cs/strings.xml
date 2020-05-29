@@ -254,7 +254,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">Předvolba</string>
     <string name="foreground">Popředí</string>
     <string name="background">Pozadí</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Nastavit záložku nebo barvu textu?</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Nastavit barvu popředí nebo pozadí textu? Je možné i vložení hex kódu barvy.</string>
     <string name="type">Typ</string>
     <string name="folder">Folder</string>
     <string name="folder_is_created_without_extension">- složky jsou vytvořeny bez rozšíření souboru</string>
