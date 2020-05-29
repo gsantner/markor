@@ -135,10 +135,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Pamatuj si poslední adresář</string>
     <string name="syntax_highlighting">Zvýraznění syntaxe</string>
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodlevy v milisekundách pro znovu-zvýraznění, nižší hodnota začne zvýrazňovat dříve, ale bude odčerpávat baterii a může zpomalit aplikaci na starších zařízeních.</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
     <string name="control_font_size_in_editor">Ovládat velikost písma použitého v editoru</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit lištu s praktickými tlačítky na dně. Tato akce textu změní text nebo spustí akci založenou na textu.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Ta změní text nebo spustí akci založenou na textu.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
     <string name="format">Formát</string>
     <string name="contexts">Kontext</string>
