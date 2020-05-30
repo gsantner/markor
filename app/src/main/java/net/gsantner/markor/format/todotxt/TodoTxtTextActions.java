@@ -170,21 +170,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    String dueDateString = origTask.getDueDate();
-                    Calendar dueDate = parseDateString(dueDateString, Calendar.getInstance());
-
-                    DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
-                        Calendar fmtCal = Calendar.getInstance();
-                        fmtCal.set(year, month, day);
-                        origTask.setDueDate(SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
-                        cbUpdateOrigTask.callback(origTask);
-                    };
-
-                    new DateFragment()
-                            .setActivity(_activity)
-                            .setListener(listener)
-                            .setCalendar(dueDate)
-                            .show(((FragmentActivity) _activity).getSupportFragmentManager(), "due");
+                    setKeyDate(origTask, "due", 3);
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -318,7 +304,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, " due:" + SttCommander.getDaysFromToday(3));
+                    setKeyDate(origTask, "t", 3);
                     return true;
                 }
             }
@@ -355,6 +341,43 @@ public class TodoTxtTextActions extends TextActions {
         } catch (ParseException e) {
             return fallback;
         }
+    }
+
+    private void setKeyDate(final SttTaskWithParserInfo origTask, final String key, final int offset) {
+        String dateString = origTask.getKeyValuePair(key, null);
+        Calendar calendar = parseDateString(dateString, Calendar.getInstance());
+        if (dateString == null) calendar.add(Calendar.DAY_OF_MONTH, offset);
+        setKeyDate(calendar, key);
+    }
+
+    private void setKeyDate(final String initDate, final String tag) {
+        setKeyDate(parseDateString(initDate, Calendar.getInstance()), tag);
+    }
+
+    private void setKeyDate(final Calendar initDate, final String tag) {
+
+        final String tagColon = tag + (tag.endsWith(":") ? "" : ":");
+        String tagDatePattern = tagColon + SttCommander.PT_DATE;
+
+        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            final String newDue = tagColon + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            ReplacePattern[] patterns = {
+                    // Replace due date
+                    new ReplacePattern(tagDatePattern, newDue),
+                    // Add due date to end if nothing to replace
+                    new ReplacePattern("(\\s)?$", " " + newDue),
+            };
+            runRegexReplaceAction(Arrays.asList(patterns));
+        };
+
+        new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(initDate)
+                .setTitle(tagColon)
+                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }
 
     /**
