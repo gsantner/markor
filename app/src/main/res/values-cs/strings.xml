@@ -22,8 +22,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_already_exists_overwerite">Soubor již existuje, přepsat?</string>
     <string name="browse_filesystem">Procházet souborový systém</string>
     <string name="title">Název</string>
-    <string name="empty_directory">Prázdný adresář</string>
-    <string name="enter_name_of_folder">Zadejte jméno vašeho adresáře</string>
+    <string name="empty_directory">Prázdná složka</string>
+    <string name="enter_name_of_folder">Zadejte jméno vaší složky</string>
     <string name="create_folder">Vytvořit složku</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="move">Přesunout</string>
@@ -116,7 +116,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Obnovit</string>
     <string name="create_shortcut">Vytvořit zástupce</string>
     <string name="tried_to_create_shortcut_for_this_notice">Pokusili jsme se vytvořit zástupce na ploše. Poznámka: některé launchery to nemusí podporovat.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn v adresáři pro notebook této aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Vybraný soubor není umístěn ve složce pro notebook této aplikace. Chcete ho zkopírovat do aktuální složky? Tato akce přepíše jakýkoli existující soubor se stejným názvem.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Soubor není umístěn v aktuální složce. Chcete jej zkopírovat do aktuální složky? Tímto bude přepsán jakýkoliv existující soubor se stejným názvem.</string>
     <string name="files_and_folders">Soubory a složky</string>
     <string name="document_browser">prohlížeč dokumentů</string>
@@ -127,12 +127,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back_to_previous_folder" needed="false">Zpět do předchozí složky</string>
     <string name="app_settings" needed="false">Nastavení aplikace</string>
     <string name="editor_settings" needed="false">Nastavení editoru</string>
-    <string name="remember_last_folder_location_on_startup" needed="false">Při startu si pamatovat poslední adresář</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Při startu si pamatovat poslední složku</string>
     <string name="number_of_files_witharg" needed="false">Počet souborů: %d</string>
     <string name="app_wide">Celo-aplikační</string>
     <string name="main_view">Hlavní pohled</string>
     <string name="overall_theme_used_in_app">Celkové téma použité v aplikaci</string>
-    <string name="remember_last_directory">Pamatuj si poslední adresář</string>
+    <string name="remember_last_directory">Pamatuj si poslední složku</string>
     <string name="syntax_highlighting">Zvýraznění syntaxe</string>
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
