@@ -91,47 +91,6 @@ public class TodoTxtTextActions extends TextActions {
             _action = action;
         }
 
-        private class TaskUpdater {
-
-            final SttCommander sttcmd;
-            final String origText;
-            final int origSelectionStart;
-            final SttTaskWithParserInfo origTask;
-
-            public TaskUpdater(
-                    final SttCommander sttcmd,
-                    final String origText,
-                    final int origSelectionStart,
-                    final SttTaskWithParserInfo origTask) {
-                this.sttcmd = sttcmd;
-                this.origText = origText;
-                this.origSelectionStart = origSelectionStart;
-                this.origTask = origTask;
-            }
-
-            public void updateTask(SttTaskWithParserInfo updatedTask) {
-                if (updatedTask == null) return;
-
-                SttCommander.SttTasksInTextRange rangeInfo = sttcmd.findTasksBetweenIndex(
-                        origText, origTask.getLineOffsetInText(), origTask.getLineOffsetInText());
-
-                Editable editable = _hlEditor.getText();
-                rangeInfo.startIndex = Math.max(rangeInfo.startIndex, 0);
-                rangeInfo.endIndex = Math.max(rangeInfo.endIndex, 0);
-
-                sttcmd.regenerateTaskLine(updatedTask);
-                String newTaskLine = updatedTask.getTaskLine();
-                if (origText.charAt(rangeInfo.endIndex) == '\n') newTaskLine += '\n';
-
-                try {
-                    editable.replace(rangeInfo.startIndex, rangeInfo.endIndex, newTaskLine);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
@@ -175,14 +134,14 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_toggle_done: {
                     origTask.setDone(!origTask.isDone());
                     origTask.setCompletionDate(SttCommander.getToday());
-                    updater.updateTask(origTask);
+                    cbUpdateOrigTask.callback(origTask);
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
-                        updater.updateTask(origTask);
+                        cbUpdateOrigTask.callback(origTask);
                         if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
@@ -194,7 +153,7 @@ public class TodoTxtTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
-                        updater.updateTask(origTask);
+                        cbUpdateOrigTask.callback(origTask);
                         if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
@@ -206,7 +165,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_priority: {
                     SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, origTask.getPriority(), (callbackPayload) -> {
                         origTask.setPriority((callbackPayload.length() == 1) ? callbackPayload.charAt(0) : SttTask.PRIORITY_NONE);
-                        updater.updateTask(origTask);
+                        cbUpdateOrigTask.callback(origTask);
                     });
                     return;
                 }
@@ -218,7 +177,7 @@ public class TodoTxtTextActions extends TextActions {
                         Calendar fmtCal = Calendar.getInstance();
                         fmtCal.set(year, month, day);
                         origTask.setDueDate(SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
-                        updater.updateTask(origTask);
+                        cbUpdateOrigTask.callback(origTask);
                     };
 
                     new DateFragment()
@@ -333,8 +292,6 @@ public class TodoTxtTextActions extends TextActions {
             final int origSelectionStart = _hlEditor.getSelectionStart();
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-
-            TaskUpdater updater = new TaskUpdater(sttcmd, origText, origSelectionStart, origTask);
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
