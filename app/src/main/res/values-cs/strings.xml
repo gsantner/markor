@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language_change_restart_description">Pokud chcete změnit jazyk této aplikace, bude vyžadován její restart</string>
     <string name="language">Jazyk</string>
     <string name="error_need_storage_permission_to_save_documents">Pro ukládání dokumentů je třeba oprávnění úložiště</string>
-    <string name="open_with">Otevřít s</string>
+    <string name="open_with">Otevřít pomocí</string>
     <string name="sort">Řadit podle</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Název</string>
@@ -95,7 +95,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">Více</string>
     <string name="notebook">Notebook</string>
     <string name="help">Nápověda</string>
-    <string name="todo_list">To-Do List</string>
+    <string name="todo_list">Seznam úkolů</string>
     <string name="task">Úkol</string>
     <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
@@ -305,12 +305,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tab_width">Šířka tabulátoru</string>
     <string name="amount_of_space_for_tab">Počet mezer jako zobrazení tabulátoru</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Vybraný soubor může být prostý soubor. Chcete jej otevřít v editoru nebo v jiné aplikaci?\n\nNepokoušejte se otevírat binární soubory. Pokud si nejste jistí, otevřete soubor jinou aplikací.</string>
-    <string name="list_in_recent_files">Seznam posledních souborů</string>
+    <string name="list_in_recent_files">Zobrazit v posledních souborech</string>
     <string name="reload">Obnovit</string>
     <string name="wrap_words">Zalamování slov</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
     <string name="recursive_search_in_current_directory">V aktuální složce se používá rekursivní vyhledávání. Pokud dotaz obsahuje hvězdičku (*), použije se regex. Jinak se kontroluje výskyt hledaného výrazu.</string>
-    <string name="always_open_with_this_app">Vždy otvírat s touto aplikací</string>
+    <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
     <string name="template">Šablona</string>
     <string name="send_debug_log">Odeslat protokol ladění</string>
@@ -365,10 +365,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">Načíst výchozí nastavení</string>
     <string name="drag">Přetažení</string>
     <string name="file_encryption_password">Heslo pro zašifrování souboru</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Není nastaveno žádné heslo, nelze šifrovat ani dešifrovat.\nPřejděte do Nastavení -&gt; Obecné -&gt; Heslo pro nastavení hesla.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Není nastaveno žádné heslo, nelze šifrovat ani dešifrovat.\nPřejděte do Nastavení -&gt; Obecné -&gt; Heslo pro zašifrování souboru.</string>
     <string name="encrypt_file_content">Šifrovat obsah souboru</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Nelze zašifrovat obsah souboru. Soubor nebyl uložen.</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nelze dešifrovat obsah souboru. Použili jste nesprávné heslo? Je soubor opravdu šifrován pomocí Markors AES šifrování?</string>
-    <string name="password_already_set_setting_a_new_password_will_overwrite">Heslo je již nastaveno. Nastavení nového hesla přepíše stávající heslo a v případě, že zapomenete heslo, již nebudete moci přistupovat k souborům.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nelze dešifrovat obsah souboru. Použito nesprávné heslo? Je soubor opravdu šifrován pomocí AES šifrování programu Markor?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Heslo je již nastaveno. Zadáním nového hesla se přepíše stávající heslo a v případě, že ho zapomenete, již možná nebudete moci přistupovat k souborům.</string>
     <string name="code_block">Blok kódu</string>
 </resources>
