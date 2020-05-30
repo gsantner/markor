@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
     <string name="control_font_size_in_editor">Nastavení velikost písma použitého v editoru</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Ta změní text nebo spustí akci založenou na textu.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Tlačítka spouští jednotlivé textové moduly.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
     <string name="format">Formát</string>
     <string name="contexts">Kontext</string>
@@ -156,7 +156,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
     <string name="tasks_with_todays_date">Úkoly s dnešním datem</string>
     <string name="append_contexts_and_projects">Připojit kontexty a projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Použití příslušné textové akce přidá na konec úkolu kontexty a projekty</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Použití příslušného textového modulu přidá na konec úkolu kontexty a projekty</string>
     <string name="rtl_rendering">vykreslování RTL</string>
     <string name="highlight_line_ending">Zvýraznit konec řádku</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit řádky, které končí dvěma nebo více mezerami</string>
@@ -188,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Hvězdička (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
-    <string name="sync_to_local_folder_notice">Poznámka: Synchronizační aplikace mohou ukládat soubory do vlastních složek. Otevřete je tím, že změníte složku s dokumenty Markor, nebo pomocí správce souborů.</string>
+    <string name="sync_to_local_folder_notice">Poznámka: Synchronizační aplikace mohou ukládat soubory do vlastních složek. Otevřete je tím, že změníte v aplikaci Markor umístění složky s dokumenty, nebo pomocí správce souborů.</string>
     <string name="configure_in_the_apps_settings">Nastavte v nastavení aplikace</string>
     <string name="vertical_alignment">Vertikální vyrovnání</string>
     <string name="horizontal_alignment">Vodorovné zarovnání</string>
@@ -208,7 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">Ohodnoťte tuto aplikaci</string>
     <string name="translate">Přeložit</string>
     <string name="more_info_and_help">Více informací a pomoc</string>
-    <string name="report_bugs">Nahlásit chybu</string>
+    <string name="report_bugs">Nahlásit chyby</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Více informací o daru vývojáři, nebo o přispění k tomuto projektu.</string>
     <string name="join_community">Připojte se ke komunitě</string>
     <string name="bug_reports_suggest_improvements">Dejte nám zpětnou vazbu, nahlašte chyby nebo navrhněte vylepšení</string>
@@ -309,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Obnovit</string>
     <string name="wrap_words">Zalamování slov</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
-    <string name="recursive_search_in_current_directory">V aktuálním adresáři se používá rekursivní vyhledávání. Pokud dotaz obsahuje hvězdičku (*), použije se regex. Jinak se kontroluje výskyt hledaného výrazu.</string>
+    <string name="recursive_search_in_current_directory">V aktuální složce se používá rekursivní vyhledávání. Pokud dotaz obsahuje hvězdičku (*), použije se regex. Jinak se kontroluje výskyt hledaného výrazu.</string>
     <string name="always_open_with_this_app">Vždy otvírat s touto aplikací</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
     <string name="template">Šablona</string>
