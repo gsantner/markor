@@ -325,8 +325,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">Stránka</string>
     <string name="experimental_features">Experimentální funkce</string>
     <string name="tools">Nástroje</string>
-    <string name="reading">Přečtěte</string>
-    <string name="read">Přečtěte</string>
+    <string name="reading">Čtení</string>
+    <string name="read">Číst</string>
     <string name="table">Tabulka</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Kolik sloupců? Stiskněte tlačítko dlouze pro začátek tabulky (vložení záhlaví), stiskněte krátce pro přidání řádku.</string>
     <string name="example_of_a_markdown_table">Příklad tabulky Markdown</string>
