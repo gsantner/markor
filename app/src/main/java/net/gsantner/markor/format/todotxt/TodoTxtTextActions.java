@@ -10,7 +10,11 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -31,8 +35,10 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 //TODO
@@ -85,6 +91,47 @@ public class TodoTxtTextActions extends TextActions {
             _action = action;
         }
 
+        private class TaskUpdater {
+
+            final SttCommander sttcmd;
+            final String origText;
+            final int origSelectionStart;
+            final SttTaskWithParserInfo origTask;
+
+            public TaskUpdater(
+                    final SttCommander sttcmd,
+                    final String origText,
+                    final int origSelectionStart,
+                    final SttTaskWithParserInfo origTask) {
+                this.sttcmd = sttcmd;
+                this.origText = origText;
+                this.origSelectionStart = origSelectionStart;
+                this.origTask = origTask;
+            }
+
+            public void updateTask(SttTaskWithParserInfo updatedTask) {
+                if (updatedTask == null) return;
+
+                SttCommander.SttTasksInTextRange rangeInfo = sttcmd.findTasksBetweenIndex(
+                        origText, origTask.getLineOffsetInText(), origTask.getLineOffsetInText());
+
+                Editable editable = _hlEditor.getText();
+                rangeInfo.startIndex = Math.max(rangeInfo.startIndex, 0);
+                rangeInfo.endIndex = Math.max(rangeInfo.endIndex, 0);
+
+                sttcmd.regenerateTaskLine(updatedTask);
+                String newTaskLine = updatedTask.getTaskLine();
+                if (origText.charAt(rangeInfo.endIndex) == '\n') newTaskLine += '\n';
+
+                try {
+                    editable.replace(rangeInfo.startIndex, rangeInfo.endIndex, newTaskLine);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
@@ -128,14 +175,14 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_toggle_done: {
                     origTask.setDone(!origTask.isDone());
                     origTask.setCompletionDate(SttCommander.getToday());
-                    cbUpdateOrigTask.callback(origTask);
+                    updater.updateTask(origTask);
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertContext(origTask, callbackPayload, offsetInLine);
-                        cbUpdateOrigTask.callback(origTask);
+                        updater.updateTask(origTask);
                         if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
@@ -147,7 +194,7 @@ public class TodoTxtTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, sttcmd.parseProjects(origText), origTask.getProjects(), (callbackPayload) -> {
                         int offsetInLine = _appSettings.isTodoAppendProConOnEndEnabled() ? origTask.getTaskLine().length() : origTask.getCursorOffsetInLine();
                         sttcmd.insertProject(origTask, callbackPayload, offsetInLine);
-                        cbUpdateOrigTask.callback(origTask);
+                        updater.updateTask(origTask);
                         if (_appSettings.isTodoAppendProConOnEndEnabled()) {
                             int cursor = _hlEditor.getSelectionStart() - callbackPayload.length() - 2;
                             _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
@@ -159,12 +206,26 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_priority: {
                     SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, origTask.getPriority(), (callbackPayload) -> {
                         origTask.setPriority((callbackPayload.length() == 1) ? callbackPayload.charAt(0) : SttTask.PRIORITY_NONE);
-                        cbUpdateOrigTask.callback(origTask);
+                        updater.updateTask(origTask);
                     });
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, SttCommander.getToday());
+                    String dueDateString = origTask.getDueDate();
+                    Calendar dueDate = parseDateString(dueDateString, Calendar.getInstance());
+
+                    DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+                        Calendar fmtCal = Calendar.getInstance();
+                        fmtCal.set(year, month, day);
+                        origTask.setDueDate(SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime()));
+                        updater.updateTask(origTask);
+                    };
+
+                    new DateFragment()
+                            .setActivity(_activity)
+                            .setListener(listener)
+                            .setCalendar(dueDate)
+                            .show(((FragmentActivity) _activity).getSupportFragmentManager(), "due");
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -273,6 +334,8 @@ public class TodoTxtTextActions extends TextActions {
             final SttTaskWithParserInfo origTask = sttcmd.parseTask(origText, origSelectionStart);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
+            TaskUpdater updater = new TaskUpdater(sttcmd, origText, origSelectionStart, origTask);
+
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
                     SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, sttcmd.parseContexts(origText), origTask.getContexts(), origText, (callbackPayload) -> {
@@ -320,6 +383,83 @@ public class TodoTxtTextActions extends TextActions {
             return found.tasks;
         } else {
             return new ArrayList<>();
+        }
+    }
+
+    private static Calendar parseDateString(String dateString, Calendar fallback) {
+        if (dateString == null || dateString.length() != SttCommander.DATEF_YYYY_MM_DD_LEN) {
+            return fallback;
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(SttCommander.DATEF_YYYY_MM_DD.parse(dateString));
+            return calendar;
+        } catch (ParseException e) {
+            return fallback;
+        }
+    }
+
+    /**
+     * A DialogFragment to manage showing a DatePicker
+     * Must be public and have default constructor.
+     */
+    public static class DateFragment extends DialogFragment {
+
+        private DatePickerDialog.OnDateSetListener listener;
+        private Activity activity;
+        private int year;
+        private int month;
+        private int day;
+        private CharSequence title;
+
+        public DateFragment() {
+            super();
+            setCalendar(Calendar.getInstance());
+        }
+
+        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        public DateFragment setActivity(Activity activity) {
+            this.activity = activity;
+            return this;
+        }
+
+        public DateFragment setYear(int year) {
+            this.year = year;
+            return this;
+        }
+
+        public DateFragment setMonth(int month) {
+            this.month = month;
+            return this;
+        }
+
+        public DateFragment setDay(int day) {
+            this.day = day;
+            return this;
+        }
+
+        public DateFragment setTitle(CharSequence title) {
+            this.title = title;
+            return this;
+        }
+
+        public DateFragment setCalendar(Calendar calendar) {
+            setYear(calendar.get(Calendar.YEAR));
+            setMonth(calendar.get(Calendar.MONTH));
+            setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            return this;
+        }
+
+        @Override
+        public DatePickerDialog onCreateDialog (Bundle savedInstanceState){
+            DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
+            if (title != null) dialog.setTitle(title);
+            return dialog;
         }
     }
 }
