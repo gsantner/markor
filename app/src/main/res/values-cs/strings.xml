@@ -345,10 +345,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Nadpis 3</string>
     <string name="bold">Tučné</string>
     <string name="italic">Kurzíva</string>
-    <string name="strikeout">Přeškrtnuto</string>
+    <string name="strikeout">Přeškrtnuté</string>
     <string name="inline_code">Inline kód</string>
     <string name="horizontal_line">Vodorovná čára</string>
-    <string name="toggle_done">Zaškrtnout</string>
+    <string name="toggle_done">Přepnout zaškrtávátko</string>
     <string name="link_color">Barva odkazu</string>
     <string name="add_context">Přidat kontext</string>
     <string name="add_project">Přidat projekt</string>
