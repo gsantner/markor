@@ -11,7 +11,10 @@ package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +22,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
@@ -170,7 +175,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setKeyDate(origTask, "due", 3);
+                    setKeyDate(origTask, "due", 3, getContext().getString(R.string.set_due_date));
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -304,7 +309,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setKeyDate(origTask, "t", 3);
+                    setKeyDate(origTask, "t", 3, getContext().getString(R.string.set_threshold_date));
                     return true;
                 }
             }
@@ -343,26 +348,27 @@ public class TodoTxtTextActions extends TextActions {
         }
     }
 
-    private void setKeyDate(final SttTaskWithParserInfo origTask, final String key, final int offset) {
+    private void setKeyDate(
+            final SttTaskWithParserInfo origTask,
+            final String key,
+            final int offset,
+            final String message
+    ) {
         String dateString = origTask.getKeyValuePair(key, null);
         Calendar calendar = parseDateString(dateString, Calendar.getInstance());
         if (dateString == null) calendar.add(Calendar.DAY_OF_MONTH, offset);
-        setKeyDate(calendar, key);
+        setKeyDate(calendar, key, message);
     }
 
-    private void setKeyDate(final String initDate, final String tag) {
-        setKeyDate(parseDateString(initDate, Calendar.getInstance()), tag);
-    }
+    private void setKeyDate(final Calendar initDate, final String key, final String message) {
 
-    private void setKeyDate(final Calendar initDate, final String tag) {
-
-        final String tagColon = tag + (tag.endsWith(":") ? "" : ":");
-        String tagDatePattern = tagColon + SttCommander.PT_DATE;
+        final String keyColon = key + (key.endsWith(":") ? "" : ":");
+        String tagDatePattern = keyColon + SttCommander.PT_DATE;
 
         DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDue = tagColon + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDue = keyColon + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
             ReplacePattern[] patterns = {
                     // Replace due date
                     new ReplacePattern(tagDatePattern, newDue),
@@ -376,7 +382,7 @@ public class TodoTxtTextActions extends TextActions {
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setTitle(tagColon)
+                .setMessage(message)
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }
 
@@ -391,7 +397,7 @@ public class TodoTxtTextActions extends TextActions {
         private int year;
         private int month;
         private int day;
-        private CharSequence title;
+        private String message;
 
         public DateFragment() {
             super();
@@ -423,8 +429,8 @@ public class TodoTxtTextActions extends TextActions {
             return this;
         }
 
-        public DateFragment setTitle(CharSequence title) {
-            this.title = title;
+        public DateFragment setMessage(String message) {
+            this.message = message;
             return this;
         }
 
@@ -436,9 +442,9 @@ public class TodoTxtTextActions extends TextActions {
         }
 
         @Override
-        public DatePickerDialog onCreateDialog (Bundle savedInstanceState){
+        public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
             DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
-            if (title != null) dialog.setTitle(title);
+            if (message != null) dialog.setMessage(message);
             return dialog;
         }
     }
