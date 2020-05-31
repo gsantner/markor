@@ -357,6 +357,7 @@ public class TodoTxtTextActions extends TextActions {
 
     private void setKeyDate(final Calendar initDate, final String key, final String message) {
 
+        // Add colon if required
         final String keyColon = key + (key.endsWith(":") ? "" : ":");
         String tagDatePattern = keyColon + SttCommander.PT_DATE;
 
@@ -367,8 +368,8 @@ public class TodoTxtTextActions extends TextActions {
             ReplacePattern[] patterns = {
                     // Replace due date
                     new ReplacePattern(tagDatePattern, newDue),
-                    // Add due date to end if nothing to replace
-                    new ReplacePattern("(\\s)?$", " " + newDue),
+                    // Add due date to end if none already exists. Will correctly handle trailing whitespace.
+                    new ReplacePattern("(\\s)*$", " " + newDue),
             };
             runRegexReplaceAction(Arrays.asList(patterns));
         };
