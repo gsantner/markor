@@ -351,7 +351,10 @@ public class TodoTxtTextActions extends TextActions {
     ) {
         String dateString = origTask.getKeyValuePair(key, null);
         Calendar calendar = parseDateString(dateString, Calendar.getInstance());
-        if (dateString == null) calendar.add(Calendar.DAY_OF_MONTH, offset);
+        if (dateString == null) {
+            // Add offset if not updating existing date
+            calendar.add(Calendar.DAY_OF_MONTH, offset);
+        }
         setKeyDate(calendar, key, message);
     }
 
@@ -442,7 +445,9 @@ public class TodoTxtTextActions extends TextActions {
             super.onCreateDialog(savedInstanceState);
 
             DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
-            if (message != null) dialog.setMessage(message);
+            if (message != null) {
+                dialog.setMessage(message);
+            }
             return dialog;
         }
     }
