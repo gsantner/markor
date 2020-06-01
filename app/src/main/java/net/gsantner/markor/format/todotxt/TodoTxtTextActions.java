@@ -391,12 +391,12 @@ public class TodoTxtTextActions extends TextActions {
      */
     public static class DateFragment extends DialogFragment {
 
-        private DatePickerDialog.OnDateSetListener listener;
-        private Activity activity;
-        private int year;
-        private int month;
-        private int day;
-        private String message;
+        private DatePickerDialog.OnDateSetListener _listener;
+        private Activity _activity;
+        private int _year;
+        private int _month;
+        private int _day;
+        private String _message;
 
         public DateFragment() {
             super();
@@ -404,32 +404,32 @@ public class TodoTxtTextActions extends TextActions {
         }
 
         public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
-            this.listener = listener;
+            _listener = listener;
             return this;
         }
 
         public DateFragment setActivity(Activity activity) {
-            this.activity = activity;
+            _activity = activity;
             return this;
         }
 
         public DateFragment setYear(int year) {
-            this.year = year;
+            _year = year;
             return this;
         }
 
         public DateFragment setMonth(int month) {
-            this.month = month;
+            _month = month;
             return this;
         }
 
         public DateFragment setDay(int day) {
-            this.day = day;
+            _day = day;
             return this;
         }
 
         public DateFragment setMessage(String message) {
-            this.message = message;
+            _message = message;
             return this;
         }
 
@@ -444,9 +444,9 @@ public class TodoTxtTextActions extends TextActions {
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
 
-            DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
-            if (message != null) {
-                dialog.setMessage(message);
+            DatePickerDialog dialog = new DatePickerDialog(_activity, _listener, _year, _month, _day);
+            if (_message != null) {
+                dialog.setMessage(_message);
             }
             return dialog;
         }
