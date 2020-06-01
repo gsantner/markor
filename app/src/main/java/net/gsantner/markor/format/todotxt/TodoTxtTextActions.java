@@ -439,6 +439,8 @@ public class TodoTxtTextActions extends TextActions {
 
         @Override
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
+            super.onCreateDialog(savedInstanceState);
+
             DatePickerDialog dialog = new DatePickerDialog(activity, listener, year, month, day);
             if (message != null) dialog.setMessage(message);
             return dialog;
