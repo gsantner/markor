@@ -180,12 +180,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         protected void afterOnCreate(Bundle savedInstances, Context context) {
             super.afterOnCreate(savedInstances, context);
-            if (getArguments() != null) {
-                _sharedText = getArguments().getString(EXTRA_TEXT, "");
-
-            }
             if (savedInstances != null) {
                 _sharedText = savedInstances.getString(EXTRA_TEXT, _sharedText);
+            } else if (getArguments() != null) {
+                _sharedText = getArguments().getString(EXTRA_TEXT, "");
             }
             doUpdatePreferences();
         }

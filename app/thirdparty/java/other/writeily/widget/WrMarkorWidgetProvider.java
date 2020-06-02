@@ -83,7 +83,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
             // Open Markor
             Intent goToMain = new Intent(context, MainActivity.class);
-            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, 0, goToMain, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, 0, goToMain, PendingIntent.FLAG_CANCEL_CURRENT));
 
 
             // Open To-do
