@@ -1,4 +1,6 @@
 # vim: sw=2 ts=2 noexpandtab:
+commit_message: "[ci skip] Crowdin translation bot: New translations for %language%"
+append_commit_message: false
 files:
   - source: /app/src/main/res/values/strings.xml
     translation: /app/src/main/res/values-%android_code%/%original_file_name%
