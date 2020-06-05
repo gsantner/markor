@@ -66,10 +66,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             sharedText = tmp + sharedText;
         }
 
-        try {
-            f.workingDir = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        Object intentFile = intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        if (intentFile != null && intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false)) {
+            f.workingDir = (File) intentFile;
         }
 
         args.putString(EXTRA_SHARED_TEXT, sharedText);
@@ -180,10 +179,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @Override
         protected void afterOnCreate(Bundle savedInstances, Context context) {
             super.afterOnCreate(savedInstances, context);
+            if (getArguments() != null) {
+                _sharedText = getArguments().getString(EXTRA_TEXT, "");
+            }
             if (savedInstances != null) {
                 _sharedText = savedInstances.getString(EXTRA_TEXT, _sharedText);
-            } else if (getArguments() != null) {
-                _sharedText = getArguments().getString(EXTRA_TEXT, "");
             }
             doUpdatePreferences();
         }
@@ -214,7 +214,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
-            String currentContent = TextUtils.isEmpty(document.getContent().trim()) ? "" : (document.getContent().trim() + "\n");
+            String trimmedContent = document.getContent().trim();
+            String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
             DocumentIO.saveDocument(document, currentContent + seperator + _sharedText, new ShareUtil(getContext()), getContext());
             if (showEditor) {
                 showInDocumentActivity(document);

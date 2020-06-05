@@ -11,10 +11,12 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -153,10 +155,6 @@ public class DocumentActivity extends AppActivityBase {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
-        Intent receivingIntent = getIntent();
-        String intentAction = receivingIntent.getAction();
-        File file = (File) receivingIntent.getSerializableExtra(DocumentIO.EXTRA_PATH);
-
         setSupportActionBar(_toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -167,33 +165,59 @@ public class DocumentActivity extends AppActivityBase {
 
         _fragManager = getSupportFragmentManager();
 
+        Intent receivingIntent = getIntent();
+        handleLaunchingIntent(receivingIntent);
+    }
 
-        boolean fileIsFolder = receivingIntent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-        if ((Intent.ACTION_VIEW.equals(intentAction) || Intent.ACTION_EDIT.equals(intentAction)) || Intent.ACTION_SEND.equals(intentAction)) {
-            if (Intent.ACTION_SEND.equals(intentAction) && receivingIntent.hasExtra(Intent.EXTRA_TEXT)) {
-                showShareInto(receivingIntent);
-            } else {
-                file = new ShareUtil(getApplicationContext()).extractFileFromIntent(receivingIntent);
-                if (file == null && receivingIntent.getData() != null && receivingIntent.getData().toString().startsWith("content://")) {
-                    String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
-                            + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                            + getString(R.string.sync_to_local_folder_notice_paths, getString(R.string.configure_in_the_apps_settings));
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleLaunchingIntent(intent);
+    }
 
-                    new AlertDialog.Builder(this)
-                            .setMessage(Html.fromHtml(msg.replace("\n", "<br/>")))
-                            .setNegativeButton(R.string.more_info, (dialogInterface, i) -> _contextUtils.openWebpageInExternalBrowser("https://github.com/gsantner/markor/issues/197"))
-                            .setPositiveButton(android.R.string.ok, null)
-                            .setOnDismissListener((dialogInterface) -> finish())
-                            .create().show();
-                }
+    private void handleLaunchingIntent(Intent intent) {
+        String intentAction = intent.getAction();
+        Uri intentData = intent.getData();
+
+        File file = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        boolean fileIsFolder = intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+
+        boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
+        boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
+        boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
+
+        if (intentIsSend) {
+            showShareInto(intent);
+        } else if (intentIsView || intentIsEdit) {
+            file = new ShareUtil(getApplicationContext()).extractFileFromIntent(intent);
+            if (file == null && intentData != null && intentData.toString().startsWith("content://")) {
+
+                final String notSupportedMessage = (
+                        getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
+                                + getString(R.string.sync_to_local_folder_notice) + "\n\n"
+                                + getString(R.string.sync_to_local_folder_notice_paths,
+                                getString(R.string.configure_in_the_apps_settings))
+                ).replace("\n", "<br/>");
+
+                DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
+                    _contextUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
+                };
+
+                new AlertDialog.Builder(this)
+                        .setMessage(Html.fromHtml(notSupportedMessage))
+                        .setNegativeButton(R.string.more_info, listener)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .setOnDismissListener((dialogInterface) -> finish())
+                        .create().show();
             }
         }
 
-        if (file != null) {
-            boolean preview = receivingIntent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() && file.exists() && file.isFile() || file.getName().startsWith("index.");
+        if (!intentIsSend && file != null) {
+            boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+                    || _appSettings.isPreviewFirst() && file.exists() && file.isFile()
+                    || file.getName().startsWith("index.");
+
             showTextEditor(null, file, fileIsFolder, preview);
         }
-
     }
 
     private final RectF point = new RectF(0, 0, 0, 0);
@@ -238,7 +262,6 @@ public class DocumentActivity extends AppActivityBase {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
     }
-
 
     public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
         return showTextEditor(document, file, fileIsFolder, false);
@@ -304,20 +327,15 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
-        GsFragmentBase currentTop = (GsFragmentBase) _fragManager.findFragmentById(R.id.document__placeholder_fragment);
 
-        if (currentTop == null || !currentTop.getFragmentTag().equals(fragment.getFragmentTag())) {
-            _fragManager.beginTransaction()
-                    //.addToBackStack(null)
-                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
-                    .commit();
-        } else {
-            fragment = currentTop;
-        }
+        // Replace regardless of current state as document or paths may be different
+        _fragManager.beginTransaction()
+                .replace(R.id.document__placeholder_fragment, fragment, fragment.getTag())
+                .commit();
+
         supportInvalidateOptionsMenu();
         return fragment;
     }
-
 
     public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
         FragmentManager fmgr = getSupportFragmentManager();

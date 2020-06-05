@@ -132,7 +132,7 @@
         <activity
             android:name=".activity.DocumentActivity"
             android:label="@string/app_name"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:maxRecents="5"
             android:parentActivityName=".activity.MainActivity"
             android:taskAffinity=".activity.DocumentActivity"
