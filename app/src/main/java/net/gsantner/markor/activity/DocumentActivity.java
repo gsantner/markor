@@ -165,8 +165,7 @@ public class DocumentActivity extends AppActivityBase {
 
         _fragManager = getSupportFragmentManager();
 
-        Intent receivingIntent = getIntent();
-        handleLaunchingIntent(receivingIntent);
+        handleLaunchingIntent(getIntent());
     }
 
     @Override
@@ -175,6 +174,8 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     private void handleLaunchingIntent(Intent intent) {
+        if (intent == null) return;
+
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
@@ -185,29 +186,12 @@ public class DocumentActivity extends AppActivityBase {
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
         boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
-        if (intentIsSend) {
+        if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
             showShareInto(intent);
         } else if (intentIsView || intentIsEdit) {
             file = new ShareUtil(getApplicationContext()).extractFileFromIntent(intent);
             if (file == null && intentData != null && intentData.toString().startsWith("content://")) {
-
-                final String notSupportedMessage = (
-                        getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
-                                + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                                + getString(R.string.sync_to_local_folder_notice_paths,
-                                getString(R.string.configure_in_the_apps_settings))
-                ).replace("\n", "<br/>");
-
-                DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
-                    _contextUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
-                };
-
-                new AlertDialog.Builder(this)
-                        .setMessage(Html.fromHtml(notSupportedMessage))
-                        .setNegativeButton(R.string.more_info, listener)
-                        .setPositiveButton(android.R.string.ok, null)
-                        .setOnDismissListener((dialogInterface) -> finish())
-                        .create().show();
+                showNotSupportedMessage();
             }
         }
 
@@ -218,6 +202,27 @@ public class DocumentActivity extends AppActivityBase {
 
             showTextEditor(null, file, fileIsFolder, preview);
         }
+    }
+
+    private void showNotSupportedMessage() {
+
+        final String notSupportedMessage = (
+                getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
+                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
+                        + getString(R.string.sync_to_local_folder_notice_paths,
+                        getString(R.string.configure_in_the_apps_settings))
+        ).replace("\n", "<br/>");
+
+        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
+            _contextUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
+        };
+
+        new AlertDialog.Builder(this)
+                .setMessage(Html.fromHtml(notSupportedMessage))
+                .setNegativeButton(R.string.more_info, listener)
+                .setPositiveButton(android.R.string.ok, null)
+                .setOnDismissListener((dialogInterface) -> finish())
+                .create().show();
     }
 
     private final RectF point = new RectF(0, 0, 0, 0);
