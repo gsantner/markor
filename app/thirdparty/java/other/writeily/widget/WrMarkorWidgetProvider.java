@@ -121,9 +121,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
             Intent openNoteIntent = new Intent(context, DocumentActivity.class);
-            PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, nextCode(),
-                    openNoteIntent, 0);
-            views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
+            views.setPendingIntentTemplate(R.id.widget_notes_list, PendingIntent.getActivity(context, nextCode(), openNoteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
