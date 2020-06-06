@@ -189,7 +189,8 @@ public class DocumentActivity extends AppActivityBase {
 
         if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
             showShareInto(intent);
-        } else if (intentIsView || intentIsEdit) {
+        } else if (file == null && (intentIsView || intentIsEdit)) {
+            // No EXTRA_PATH and view of open intent
             file = new ShareUtil(getApplicationContext()).extractFileFromIntent(intent);
             if (file == null && intentData != null && intentData.toString().startsWith("content://")) {
                 showNotSupportedMessage();

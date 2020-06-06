@@ -92,14 +92,14 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Open To-do
             AppSettings appSettings = new AppSettings(context);
             Intent openTodo = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_SEND)
+                    .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, nextCode(), openTodo, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open QuickNote
             Intent openQuickNote = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_VIEW)
+                    .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, nextCode(), openQuickNote, PendingIntent.FLAG_UPDATE_CURRENT));
