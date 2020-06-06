@@ -43,6 +43,7 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -273,11 +274,22 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     public GsFragmentBase showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
-        GsFragmentBase frag;
-        if (document != null) {
-            frag = showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
-        } else {
-            frag = showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true).setPreviewFlag(preview));
+
+        GsFragmentBase frag = getCurrentVisibleFragment();
+        boolean sameDocumentRequested = false;
+        if (frag!= null && DocumentEditFragment.FRAGMENT_TAG.equals(frag.getFragmentTag())) {
+            String currentPath = ((DocumentEditFragment) frag).getDocument().getFile().getPath();
+            File reqFile = (document != null)? document.getFile() : file;
+            String reqPath = (reqFile != null)? reqFile.getPath() : "";
+            sameDocumentRequested = reqPath.equals(currentPath);
+        }
+
+        if (!sameDocumentRequested) {
+            if (document != null) {
+                frag = showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
+            } else {
+                frag = showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true).setPreviewFlag(preview));
+            }
         }
         return frag;
     }
@@ -333,12 +345,14 @@ public class DocumentActivity extends AppActivityBase {
 
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
 
-        // Replace regardless of current state as document or paths may be different
-        _fragManager.beginTransaction()
-                .replace(R.id.document__placeholder_fragment, fragment, fragment.getTag())
-                .commit();
+        if (fragment != getCurrentVisibleFragment()) {
 
-        supportInvalidateOptionsMenu();
+            _fragManager.beginTransaction()
+                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getTag())
+                    .commit();
+
+            supportInvalidateOptionsMenu();
+        }
         return fragment;
     }
 
