@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.HorizontalScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
+import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -103,6 +105,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @BindView(R.id.document__fragment_view_webview)
     WebView _webView;
+
+    @BindView(R.id.document__fragment__edit__content_editor__scrolling_parent)
+    DraggableScrollbarScrollView _primaryScrollView;
 
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
@@ -522,11 +527,27 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings as = AppSettings.get();
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), as.getFontFamily(), Typeface.NORMAL));
-        _hlEditor.setHorizontallyScrolling(!as.isEditorLineBreakingEnabled() && !isInMainActivity);
+        setHorizontalScrollMode(!as.isEditorLineBreakingEnabled() && !isInMainActivity);
 
         _hlEditor.setBackgroundColor(as.getEditorBackgroundColor());
         _hlEditor.setTextColor(as.getEditorForegroundColor());
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(as.getEditorTextactionBarColor());
+    }
+
+    private void setHorizontalScrollMode(boolean enable) {
+        _hlEditor.setHorizontallyScrolling(enable);
+        Context context = getContext();
+
+        if (context != null && _hlEditor != null) {
+            _primaryScrollView.removeAllViews();
+            if (enable) {
+                HorizontalScrollView hsView = new HorizontalScrollView(context);
+                _primaryScrollView.addView(hsView);
+                hsView.addView(_hlEditor);
+            } else {
+                _primaryScrollView.addView(_hlEditor);
+            }
+        }
     }
 
     @Override
