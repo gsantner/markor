@@ -536,8 +536,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void setHorizontalScrollMode(boolean enable) {
         _hlEditor.setHorizontallyScrolling(enable);
-        Context context = getContext();
 
+        Context context = getContext();
         if (context != null && _hlEditor != null) {
             _primaryScrollView.removeAllViews();
             if (enable) {
