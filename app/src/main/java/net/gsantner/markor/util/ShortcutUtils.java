@@ -62,7 +62,7 @@ public class ShortcutUtils {
 
             // Create the to-do shortcut
             Intent intent = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_VIEW)
+                    .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, appSettings.getTodoFile().getAbsolutePath())
                     .setType("text/plain");
 
@@ -76,7 +76,7 @@ public class ShortcutUtils {
 
             // Create the QuickNote shortcut
             intent = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_VIEW)
+                    .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, appSettings.getQuickNoteFile().getAbsolutePath())
                     .setType("text/plain");
 

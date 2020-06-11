@@ -83,11 +83,11 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(DocumentIO.EXTRA_PATH, directoryF)
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true)
                     .putExtra(Intent.EXTRA_TEXT, "");
-            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, nextCode(), newDocumentIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, nextCode(), newDocumentIntent, 0));
 
             // Open Markor
             Intent goToMain = new Intent(context, MainActivity.class);
-            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, nextCode(), goToMain, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, nextCode(), goToMain, 0));
 
             // Open To-do
             AppSettings appSettings = new AppSettings(context);
@@ -95,19 +95,19 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, nextCode(), openTodo, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, nextCode(), openTodo, 0));
 
             // Open QuickNote
             Intent openQuickNote = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, nextCode(), openQuickNote, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, nextCode(), openQuickNote, 0));
 
             // Open Favourites
             Intent openApp = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW);
-            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, nextCode(), openApp, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, nextCode(), openApp, 0));
 
 
             // ListView
@@ -121,7 +121,9 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
             Intent openNoteIntent = new Intent(context, DocumentActivity.class);
-            views.setPendingIntentTemplate(R.id.widget_notes_list, PendingIntent.getActivity(context, nextCode(), openNoteIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+            PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, nextCode(),
+                    openNoteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);

@@ -26,6 +26,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -164,13 +165,12 @@ public class DocumentActivity extends AppActivityBase {
         _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         _fragManager = getSupportFragmentManager();
-
-        handleLaunchingIntent(getIntent());
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        handleLaunchingIntent(intent);
+    protected void onStart() {
+        super.onStart();
+        handleLaunchingIntent(getIntent());
     }
 
     private void handleLaunchingIntent(Intent intent) {
@@ -200,6 +200,8 @@ public class DocumentActivity extends AppActivityBase {
             boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || _appSettings.isPreviewFirst() && file.exists() && file.isFile()
                     || file.getName().startsWith("index.");
+
+            Log.d("Intent", file.getPath());
 
             showTextEditor(null, file, fileIsFolder, preview);
         }
@@ -277,11 +279,10 @@ public class DocumentActivity extends AppActivityBase {
 
         GsFragmentBase frag = getCurrentVisibleFragment();
         boolean sameDocumentRequested = false;
-        if (frag != null && DocumentEditFragment.FRAGMENT_TAG.equals(frag.getFragmentTag())) {
-            String currentPath = ((DocumentEditFragment) frag).getDocument().getFile().getPath();
+        if (frag instanceof DocumentEditFragment) {
             File reqFile = (document != null) ? document.getFile() : file;
             String reqPath = (reqFile != null) ? reqFile.getPath() : "";
-            sameDocumentRequested = reqPath.equals(currentPath);
+            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) frag).getPath());
         }
 
         if (!sameDocumentRequested) {
