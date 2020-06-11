@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -371,7 +370,7 @@ public class TodoTxtTextActions extends TextActions {
     private void setDueDate(SttTaskWithParserInfo task, int offset) {
         String dueString = task.getDueDate();
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
-        initDate.add(Calendar.DAY_OF_MONTH, dueString == null? offset : 0);
+        initDate.add(Calendar.DAY_OF_MONTH, dueString == null ? offset : 0);
 
         DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
