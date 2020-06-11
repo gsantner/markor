@@ -164,12 +164,13 @@ public class DocumentActivity extends AppActivityBase {
         _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         _fragManager = getSupportFragmentManager();
+
+        handleLaunchingIntent(getIntent());
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        handleLaunchingIntent(getIntent());
+    public void onNewIntent(Intent intent) {
+        handleLaunchingIntent(intent);
     }
 
     private void handleLaunchingIntent(Intent intent) {

@@ -83,26 +83,28 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(DocumentIO.EXTRA_PATH, directoryF)
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true)
                     .putExtra(Intent.EXTRA_TEXT, "");
-            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, nextCode(), newDocumentIntent, 0));
+            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, nextCode(), newDocumentIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open Markor
             Intent goToMain = new Intent(context, MainActivity.class);
-            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, nextCode(), goToMain, 0));
+            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, nextCode(), goToMain, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open To-do
             AppSettings appSettings = new AppSettings(context);
             Intent openTodo = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_EDIT)
+                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, nextCode(), openTodo, 0));
+             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, nextCode(), openTodo, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open QuickNote
             Intent openQuickNote = new Intent(context, DocumentActivity.class)
                     .setAction(Intent.ACTION_EDIT)
+                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
                     .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, nextCode(), openQuickNote, 0));
+            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, nextCode(), openQuickNote, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open Favourites
             Intent openApp = new Intent(context, MainActivity.class)
