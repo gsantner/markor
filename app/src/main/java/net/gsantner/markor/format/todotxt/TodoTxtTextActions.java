@@ -33,6 +33,7 @@ import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.text.ParseException;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -170,7 +172,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setKeyDate(origTask, "due", 3, getContext().getString(R.string.set_due_date));
+                    setDate();
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -304,7 +306,8 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setKeyDate(origTask, "t", 3, getContext().getString(R.string.set_threshold_date));
+
+                    setDueDate(origTask, 3);
                     return true;
                 }
             }
@@ -343,29 +346,40 @@ public class TodoTxtTextActions extends TextActions {
         }
     }
 
-    private void setKeyDate(final SttTaskWithParserInfo origTask, final String key, final int offset, final String message) {
-        String dateString = origTask.getKeyValuePair(key, null);
-        Calendar calendar = parseDateString(dateString, Calendar.getInstance());
-        if (dateString == null) {
-            // Add offset if not updating existing date
-            calendar.add(Calendar.DAY_OF_MONTH, offset);
-        }
-        setKeyDate(calendar, key, message);
-    }
-
-    private void setKeyDate(final Calendar initDate, final String key, final String message) {
-
-        // Add colon if required
-        final String keyColon = key + (key.endsWith(":") ? "" : ":");
-        String tagDatePattern = keyColon + SttCommander.PT_DATE;
+    private void setDate() {
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final Editable text = _hlEditor.getText();
+        final String selStr = text.subSequence(sel[0], sel[1]).toString();
+        Calendar initDate = parseDateString(selStr, Calendar.getInstance());
 
         DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDue = keyColon + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDate = SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            text.replace(sel[0], sel[1], newDate);
+        };
+
+        new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(initDate)
+                .setMessage(getContext().getString(R.string.insert_replace_date))
+                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
+    }
+
+
+    private void setDueDate(SttTaskWithParserInfo task, int offset) {
+        String dueString = task.getDueDate();
+        Calendar initDate = parseDateString(dueString, Calendar.getInstance());
+        initDate.add(Calendar.DAY_OF_MONTH, dueString == null? offset : 0);
+
+        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            final String newDue = "due:" + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
             ReplacePattern[] patterns = {
                     // Replace due date
-                    new ReplacePattern(tagDatePattern, newDue),
+                    new ReplacePattern(SttCommander.PATTERN_DUE_DATE, newDue),
                     // Add due date to end if none already exists. Will correctly handle trailing whitespace.
                     new ReplacePattern("(\\s)*$", " " + newDue),
             };
@@ -376,7 +390,7 @@ public class TodoTxtTextActions extends TextActions {
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(message)
+                .setMessage(getContext().getString(R.string.due_date))
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }
 

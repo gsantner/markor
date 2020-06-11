@@ -128,7 +128,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Document browser</string>
     <string name="file_browser">File browser</string>
     <string name="set_due_date">Set due date</string>
-    <string name="set_threshold_date">Set threshold date</string>
+    <string name="insert_replace_date">Insert date</string>
 
     <string name="create_note" needed="false">Create Note</string>
     <string name="special_documents" needed="false">Special documents</string>
