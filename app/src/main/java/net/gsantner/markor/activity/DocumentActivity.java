@@ -43,7 +43,6 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -278,10 +277,10 @@ public class DocumentActivity extends AppActivityBase {
 
         GsFragmentBase frag = getCurrentVisibleFragment();
         boolean sameDocumentRequested = false;
-        if (frag!= null && DocumentEditFragment.FRAGMENT_TAG.equals(frag.getFragmentTag())) {
+        if (frag != null && DocumentEditFragment.FRAGMENT_TAG.equals(frag.getFragmentTag())) {
             String currentPath = ((DocumentEditFragment) frag).getDocument().getFile().getPath();
-            File reqFile = (document != null)? document.getFile() : file;
-            String reqPath = (reqFile != null)? reqFile.getPath() : "";
+            File reqFile = (document != null) ? document.getFile() : file;
+            String reqPath = (reqFile != null) ? reqFile.getPath() : "";
             sameDocumentRequested = reqPath.equals(currentPath);
         }
 

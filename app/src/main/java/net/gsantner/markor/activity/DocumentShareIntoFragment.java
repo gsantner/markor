@@ -262,7 +262,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            File dir = (workingDir == null)? _appSettings.getNotebookDirectory() : workingDir;
+            File dir = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
             NewFileDialog dialog = NewFileDialog.newInstance(dir, (ok, f) -> {
                 if (ok && f.isFile()) {
                     appendToExistingDocument(f, "", true);

@@ -261,7 +261,7 @@ public abstract class TextActions {
 
     protected void runRegularPrefixAction(final String action, final String replaceString, final Boolean ignoreIndent) {
 
-        String replacement = (replaceString == null)? "" : replaceString;
+        String replacement = (replaceString == null) ? "" : replaceString;
 
         String patternIndent = ignoreIndent ? "(^\\s*)" : "(^)";
         String replaceIndent = "$1";
@@ -286,9 +286,10 @@ public abstract class TextActions {
 
         /**
          * Construct a ReplacePattern
-         * @param searchPattern regex search pattern
+         *
+         * @param searchPattern  regex search pattern
          * @param replacePattern replace string
-         * @param replaceAll whether to replace all or just the first
+         * @param replaceAll     whether to replace all or just the first
          */
         public ReplacePattern(Pattern searchPattern, String replacePattern, boolean replaceAll) {
             this.searchPattern = searchPattern;
