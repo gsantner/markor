@@ -202,7 +202,7 @@ public class DocumentActivity extends AppActivityBase {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (_appSettings.isSwipeToChangeMode() && getCurrentVisibleFragment() instanceof DocumentEditFragment) {
+        if (_appSettings.isSwipeToChangeMode() && _appSettings.isEditorLineBreakingEnabled() && getCurrentVisibleFragment() instanceof DocumentEditFragment) {
             try {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
