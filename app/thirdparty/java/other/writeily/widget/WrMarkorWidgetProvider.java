@@ -111,10 +111,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
 
             // ListView
-            Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
-                    .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-                    .putExtra(DocumentIO.EXTRA_PATH, directoryF)
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
+            Intent notesListIntent = new Intent(context, WrFilesWidgetService.class);
+            notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            notesListIntent.putExtra(DocumentIO.EXTRA_PATH, directoryF);
+            notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);

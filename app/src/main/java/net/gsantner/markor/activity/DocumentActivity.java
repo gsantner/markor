@@ -26,7 +26,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -201,8 +200,6 @@ public class DocumentActivity extends AppActivityBase {
                     || _appSettings.isPreviewFirst() && file.exists() && file.isFile()
                     || file.getName().startsWith("index.");
 
-            Log.d("Intent", file.getPath());
-
             showTextEditor(null, file, fileIsFolder, preview);
         }
     }
@@ -349,7 +346,7 @@ public class DocumentActivity extends AppActivityBase {
         if (fragment != getCurrentVisibleFragment()) {
 
             _fragManager.beginTransaction()
-                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getTag())
+                    .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
                     .commit();
 
             supportInvalidateOptionsMenu();
