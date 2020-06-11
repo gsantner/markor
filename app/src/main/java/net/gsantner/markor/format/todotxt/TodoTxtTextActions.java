@@ -343,12 +343,7 @@ public class TodoTxtTextActions extends TextActions {
         }
     }
 
-    private void setKeyDate(
-            final SttTaskWithParserInfo origTask,
-            final String key,
-            final int offset,
-            final String message
-    ) {
+    private void setKeyDate(final SttTaskWithParserInfo origTask, final String key, final int offset, final String message) {
         String dateString = origTask.getKeyValuePair(key, null);
         Calendar calendar = parseDateString(dateString, Calendar.getInstance());
         if (dateString == null) {
