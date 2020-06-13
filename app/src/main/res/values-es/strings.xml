@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Navegador de documentos</string>
     <string name="file_browser">Explorador de archivos</string>
     <string name="set_due_date">Fecha límite</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Insertar fecha</string>
     <string name="create_note" needed="false">Crear nota</string>
     <string name="special_documents" needed="false">Documentos especiales</string>
     <string name="keep_screen_on" needed="false">Mantener pantalla encendida</string>
