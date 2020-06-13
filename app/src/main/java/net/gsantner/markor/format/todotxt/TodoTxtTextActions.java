@@ -10,7 +10,11 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -29,10 +33,13 @@ import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 //TODO
@@ -164,7 +171,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, SttCommander.getToday());
+                    setDate();
                     return;
                 }
                 case R.string.tmaid_common_delete_lines: {
@@ -298,7 +305,8 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    _hlEditor.getText().insert(origSelectionStart, " due:" + SttCommander.getDaysFromToday(3));
+
+                    setDueDate(origTask, 3);
                     return true;
                 }
             }
@@ -320,6 +328,135 @@ public class TodoTxtTextActions extends TextActions {
             return found.tasks;
         } else {
             return new ArrayList<>();
+        }
+    }
+
+    private static Calendar parseDateString(String dateString, Calendar fallback) {
+        if (dateString == null || dateString.length() != SttCommander.DATEF_YYYY_MM_DD_LEN) {
+            return fallback;
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(SttCommander.DATEF_YYYY_MM_DD.parse(dateString));
+            return calendar;
+        } catch (ParseException e) {
+            return fallback;
+        }
+    }
+
+    private void setDate() {
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final Editable text = _hlEditor.getText();
+        final String selStr = text.subSequence(sel[0], sel[1]).toString();
+        Calendar initDate = parseDateString(selStr, Calendar.getInstance());
+
+        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            final String newDate = SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            text.replace(sel[0], sel[1], newDate);
+        };
+
+        new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(initDate)
+                .setMessage(getContext().getString(R.string.insert_replace_date))
+                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
+    }
+
+
+    private void setDueDate(SttTaskWithParserInfo task, int offset) {
+        String dueString = task.getDueDate();
+        Calendar initDate = parseDateString(dueString, Calendar.getInstance());
+        initDate.add(Calendar.DAY_OF_MONTH, dueString == null ? offset : 0);
+
+        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+            Calendar fmtCal = Calendar.getInstance();
+            fmtCal.set(year, month, day);
+            final String newDue = "due:" + SttCommander.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            ReplacePattern[] patterns = {
+                    // Replace due date
+                    new ReplacePattern(SttCommander.PATTERN_DUE_DATE, newDue),
+                    // Add due date to end if none already exists. Will correctly handle trailing whitespace.
+                    new ReplacePattern("(\\s)*$", " " + newDue),
+            };
+            runRegexReplaceAction(Arrays.asList(patterns));
+        };
+
+        new DateFragment()
+                .setActivity(_activity)
+                .setListener(listener)
+                .setCalendar(initDate)
+                .setMessage(getContext().getString(R.string.due_date))
+                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
+    }
+
+    /**
+     * A DialogFragment to manage showing a DatePicker
+     * Must be public and have default constructor.
+     */
+    public static class DateFragment extends DialogFragment {
+
+        private DatePickerDialog.OnDateSetListener _listener;
+        private Activity _activity;
+        private int _year;
+        private int _month;
+        private int _day;
+        private String _message;
+
+        public DateFragment() {
+            super();
+            setCalendar(Calendar.getInstance());
+        }
+
+        public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
+            _listener = listener;
+            return this;
+        }
+
+        public DateFragment setActivity(Activity activity) {
+            _activity = activity;
+            return this;
+        }
+
+        public DateFragment setYear(int year) {
+            _year = year;
+            return this;
+        }
+
+        public DateFragment setMonth(int month) {
+            _month = month;
+            return this;
+        }
+
+        public DateFragment setDay(int day) {
+            _day = day;
+            return this;
+        }
+
+        public DateFragment setMessage(String message) {
+            _message = message;
+            return this;
+        }
+
+        public DateFragment setCalendar(Calendar calendar) {
+            setYear(calendar.get(Calendar.YEAR));
+            setMonth(calendar.get(Calendar.MONTH));
+            setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            return this;
+        }
+
+        @Override
+        public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
+            super.onCreateDialog(savedInstanceState);
+
+            DatePickerDialog dialog = new DatePickerDialog(_activity, _listener, _year, _month, _day);
+            if (_message != null) {
+                dialog.setMessage(_message);
+            }
+            return dialog;
         }
     }
 }
