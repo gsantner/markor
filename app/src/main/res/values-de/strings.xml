@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Dokumenten-Browser</string>
     <string name="file_browser">Dateimanager</string>
     <string name="set_due_date">Enddatum festlegen</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Datum einfügen</string>
     <string name="create_note" needed="false">Notiz erstellen</string>
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
     <string name="keep_screen_on" needed="false">Bildschirm nicht ausschalten</string>
