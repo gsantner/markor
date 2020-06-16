@@ -20,7 +20,6 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.DocumentOpener;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.util.AppSettings;
