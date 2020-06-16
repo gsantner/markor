@@ -14,11 +14,12 @@ import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.DocumentOpener;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
 import java.io.File;
@@ -61,30 +62,28 @@ public class ShortcutUtils {
             final AppSettings appSettings = new AppSettings(context);
 
             // Create the to-do shortcut
-            Intent intent = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_VIEW)
-                    .putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, appSettings.getTodoFile().getAbsolutePath())
-                    .setType("text/plain");
+            Intent openTodo = new Intent(context, DocumentOpener.class)
+                    .setAction(Intent.ACTION_EDIT)
+                    .setData(Uri.fromFile(appSettings.getTodoFile()));
 
             ShortcutInfo shortcutToDo = new ShortcutInfo.Builder(context, ID_TO_DO)
                     .setShortLabel(createShortLabel(context.getString(R.string.todo)))
                     .setLongLabel(createLongLabel(context.getString(R.string.todo)))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_todo))
-                    .setIntent(intent)
+                    .setIntent(openTodo)
                     .build();
             newShortcuts.add(shortcutToDo);
 
             // Create the QuickNote shortcut
-            intent = new Intent(context, DocumentActivity.class)
-                    .setAction(Intent.ACTION_VIEW)
-                    .putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, appSettings.getQuickNoteFile().getAbsolutePath())
-                    .setType("text/plain");
+            Intent openQuickNote = new Intent(context, DocumentOpener.class)
+                    .setAction(Intent.ACTION_EDIT)
+                    .setData(Uri.fromFile(appSettings.getQuickNoteFile()));
 
             ShortcutInfo shortcutQuickNote = new ShortcutInfo.Builder(context, ID_QUICK_NOTE)
                     .setShortLabel(createShortLabel(context.getString(R.string.quicknote)))
                     .setLongLabel(createLongLabel(context.getString(R.string.quicknote)))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_quicknote))
-                    .setIntent(intent)
+                    .setIntent(openQuickNote)
                     .build();
             newShortcuts.add(shortcutQuickNote);
 
@@ -99,10 +98,9 @@ public class ShortcutUtils {
 
                 File file = new File(filePath);
 
-                intent = new Intent(context, DocumentActivity.class)
-                        .setAction(Intent.ACTION_VIEW)
-                        .putExtra(DocumentActivity.EXTRA_LAUNCHER_SHORTCUT_PATH, file.getAbsolutePath())
-                        .setType("text/plain");
+                Intent openFile = new Intent(context, DocumentOpener.class)
+                        .setAction(Intent.ACTION_EDIT)
+                        .setData(Uri.fromFile(file));
 
                 String name = MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll("");
 
@@ -110,7 +108,7 @@ public class ShortcutUtils {
                         .setShortLabel(createShortLabel(name))
                         .setLongLabel(createLongLabel(name))
                         .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_file))
-                        .setIntent(intent)
+                        .setIntent(openFile)
                         .build());
             }
 
