@@ -81,6 +81,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             Intent openShare = new Intent(context, DocumentOpener.class)
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(DocumentIO.EXTRA_PATH, directoryF)
+                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, 0));
 
