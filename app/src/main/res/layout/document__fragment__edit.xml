@@ -29,8 +29,8 @@
 
         <net.gsantner.markor.ui.hleditor.HighlightingEditor
             android:id="@+id/document__fragment__edit__highlighting_editor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
@@ -39,6 +39,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="120dp"
+            android:scrollbars="vertical"
             android:textCursorDrawable="@drawable/cursor_accent"
             tools:ignore="UnusedAttribute" />
 

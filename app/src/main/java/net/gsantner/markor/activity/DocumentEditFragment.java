@@ -542,8 +542,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _primaryScrollView.removeAllViews();
             if (enable) {
                 HorizontalScrollView hsView = new HorizontalScrollView(context);
-                _primaryScrollView.addView(hsView);
+                hsView.setFillViewport(true);
                 hsView.addView(_hlEditor);
+                _primaryScrollView.addView(hsView);
             } else {
                 _primaryScrollView.addView(_hlEditor);
             }
