@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Filar och mappar</string>
     <string name="document_browser">Dokumentbläddrare</string>
     <string name="file_browser">Filhanterare</string>
+    <string name="set_due_date">Ange förfallodatum</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Skapa anteckning</string>
     <string name="special_documents" needed="false">Specialdokument</string>
     <string name="keep_screen_on" needed="false">Håll skärmen påslagen</string>

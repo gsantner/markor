@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fitxers i carpetes</string>
     <string name="document_browser">Navegador de documents</string>
     <string name="file_browser">Gestor de fitxers</string>
+    <string name="set_due_date">Fixa la data de venciment</string>
+    <string name="insert_replace_date">Insereix una data</string>
     <string name="create_note" needed="false">Crea una nota</string>
     <string name="special_documents" needed="false">Documents especials</string>
     <string name="keep_screen_on" needed="false">Mantén la pantalla encesa</string>

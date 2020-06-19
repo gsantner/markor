@@ -28,4 +28,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">নতুন ডকুমেন্ট তৈরি করুন</string>
     <string name="move">সরান</string>
     <string name="info">তথ্য</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">ফাইল/ফোল্ডার আগেই আছে! অনুগ্রহ করে অন্য নাম ব্যবহার করো</string>
+    <string name="import_from_device">ডিভাইস থেকে আমদানি করো</string>
+    <string name="import_">আমদানি করো</string>
+    <string name="select_folder">ফোল্ডার নির্বাচন করো</string>
+    <string name="edit">সম্পাদনা</string>
+    <string name="search_documents">নথি খোঁজো</string>
+    <string name="share_to_arrow">&#8230; এর সাথে শেয়ার করো</string>
+    <string name="share">শেয়ার</string>
+    <string name="search">অনুসন্ধান</string>
+    <string name="display_converted_markup">পরিবর্তিত মার্কআপ ব্যবহার করো</string>
+    <string name="editor">সম্পাদক</string>
+    <string name="folders">ফোল্ডার</string>
+    <string name="files">ফাইল</string>
+    <string name="document">নথি</string>
+    <string name="documents">নথিসমূহ</string>
 </resources>
