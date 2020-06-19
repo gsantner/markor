@@ -40,7 +40,6 @@
         android:title="@string/calendar" />
 
     <PreferenceCategory
-        android:key="@string/pref_key__favourite_files"
         android:title="@string/file_browser" />
 
     <Preference

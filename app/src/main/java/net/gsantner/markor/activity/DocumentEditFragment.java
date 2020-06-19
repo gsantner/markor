@@ -726,6 +726,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return _document;
     }
 
+    public String getPath() {
+        String path = null;
+        if (_document != null) {
+            File file = _document.getFile();
+            if (file != null) {
+                path = file.getPath();
+            }
+        }
+        return path;
+    }
+
     public WebView getWebview() {
         return _webView;
     }

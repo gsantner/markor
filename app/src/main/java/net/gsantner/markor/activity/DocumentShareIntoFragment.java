@@ -48,6 +48,7 @@ import butterknife.OnTextChanged;
 public class DocumentShareIntoFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
+    private File workingDir;
 
     public static DocumentShareIntoFragment newInstance(Intent intent) {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
@@ -63,6 +64,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 tmp += " ";
             }
             sharedText = tmp + sharedText;
+        }
+
+        Object intentFile = intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        if (intentFile != null && intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false)) {
+            f.workingDir = (File) intentFile;
         }
 
         args.putString(EXTRA_SHARED_TEXT, sharedText);
@@ -96,6 +102,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
             _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
+            _shareIntoImportOptionsFragment.setWorkingDir(workingDir);
             t.replace(R.id.document__share_into__fragment__placeholder_fragment, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
@@ -133,6 +140,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
         private static final String SEP_RULER = "\n---\n";
+        private File workingDir;
 
         @Override
         public boolean isDividerVisible() {
@@ -147,6 +155,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             return f;
         }
 
+        public void setWorkingDir(File dir) {
+            workingDir = dir;
+        }
 
         private String _sharedText = "";
 
@@ -170,7 +181,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             super.afterOnCreate(savedInstances, context);
             if (getArguments() != null) {
                 _sharedText = getArguments().getString(EXTRA_TEXT, "");
-
             }
             if (savedInstances != null) {
                 _sharedText = savedInstances.getString(EXTRA_TEXT, _sharedText);
@@ -204,7 +214,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
-            String currentContent = TextUtils.isEmpty(document.getContent().trim()) ? "" : (document.getContent().trim() + "\n");
+            String trimmedContent = document.getContent().trim();
+            String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
             DocumentIO.saveDocument(document, currentContent + seperator + _sharedText, new ShareUtil(getContext()), getContext());
             if (showEditor) {
                 showInDocumentActivity(document);
@@ -251,7 +262,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            NewFileDialog dialog = NewFileDialog.newInstance(_appSettings.getNotebookDirectory(), (ok, f) -> {
+            File dir = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
+            NewFileDialog dialog = NewFileDialog.newInstance(dir, (ok, f) -> {
                 if (ok && f.isFile()) {
                     appendToExistingDocument(f, "", true);
                 }
