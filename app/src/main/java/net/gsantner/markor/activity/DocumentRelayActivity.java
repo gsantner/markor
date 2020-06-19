@@ -8,7 +8,7 @@ import android.os.Bundle;
  * This Activity exists solely to launch DocumentActivity with the correct intent
  * it is necessary as widget and shortcut intents do not respect MultipleTask etc
  */
-public class DocumentOpener extends Activity {
+public class DocumentRelayActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

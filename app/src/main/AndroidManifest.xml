@@ -129,7 +129,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DocumentOpener"
+            android:name=".activity.DocumentRelayActivity"
             android:theme="@android:style/Theme.NoDisplay"
             android:launchMode="singleTop"
             />
