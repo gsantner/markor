@@ -245,7 +245,7 @@ public class CommonTextActions {
                 int spaceCount = textStart - lineStart;
                 int delCount = Math.min(_tabWidth, spaceCount);
                 int delEnd = lineStart + delCount;
-                if (delCount > 0 && delEnd < text.length()) {
+                if (delCount > 0 && delEnd <= text.length()) {
                     text.delete(lineStart, delEnd);
                     selectionEnd -= delCount;
                 }
