@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
     <string name="file_browser">文件浏览器</string>
+    <string name="set_due_date">设置截止日期</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">新建笔记</string>
     <string name="special_documents" needed="false">指定文档</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>

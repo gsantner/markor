@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Documentos e cartellas</string>
     <string name="document_browser">Esploradore de documentos</string>
     <string name="file_browser">Esploradore de documentos</string>
+    <string name="set_due_date">Imposta sa data de iscadèntzia</string>
+    <string name="insert_replace_date">Inserta sa data</string>
     <string name="create_note" needed="false">Crea una nota</string>
     <string name="special_documents" needed="false">Documentos ispetziales</string>
     <string name="keep_screen_on" needed="false">Mantene s\'ischermu allutu</string>

@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">ファイルとフォルダー</string>
     <string name="document_browser">ドキュメントブラウザー</string>
     <string name="file_browser">ファイルブラウザー</string>
+    <string name="set_due_date">期日を設定</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">ノートを作成</string>
     <string name="special_documents" needed="false">特別なドキュメント</string>
     <string name="keep_screen_on" needed="false">画面をオンのままにする</string>

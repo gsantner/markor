@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Bestanden en mappen</string>
     <string name="document_browser">Document verkenner</string>
     <string name="file_browser">Bestandsbrowser</string>
+    <string name="set_due_date">Vervaldatum instellen</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Maak notitie</string>
     <string name="special_documents" needed="false">Speciale documenten</string>
     <string name="keep_screen_on" needed="false">Scherm aanlaten</string>

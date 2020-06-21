@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Файлы и папки</string>
     <string name="document_browser">Обозреватель документов</string>
     <string name="file_browser">Обозреватель файлов</string>
+    <string name="set_due_date">Установить срок выполнения</string>
+    <string name="insert_replace_date">Вставить дату</string>
     <string name="create_note" needed="false">Создать заметку</string>
     <string name="special_documents" needed="false">Особые документы</string>
     <string name="keep_screen_on" needed="false">Не отключать экран</string>

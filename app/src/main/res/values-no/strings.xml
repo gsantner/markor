@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Filer og mapper</string>
     <string name="document_browser">Dokument nettleser</string>
     <string name="file_browser">Filens nettleser</string>
+    <string name="set_due_date">Angi forfallsdato</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Opprett notat</string>
     <string name="special_documents" needed="false">Spesielle dokumenter</string>
     <string name="keep_screen_on" needed="false">Behold skjermen på</string>

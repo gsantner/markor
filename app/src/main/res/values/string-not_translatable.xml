@@ -15,7 +15,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
     <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
+
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
+    <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/issues/197</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/page/supportme.html?project=markor&source=inapp_supdon]]></string>
     <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
