@@ -352,7 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="horizontal_line">水平线</string>
     <string name="toggle_done">切换完成</string>
     <string name="link_color">链接颜色</string>
-    <string name="add_context">添加上下文内容</string>
+    <string name="add_context">添加内容</string>
     <string name="add_project">添加项目</string>
     <string name="archive_completed_tasks">存档已完成的任务</string>
     <string name="sort_alphabetically">按字母顺序排序</string>
