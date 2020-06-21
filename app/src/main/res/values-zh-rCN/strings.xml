@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
-    <string name="disable_code_block_highlight">禁用代码块语法高亮</string>
+    <string name="disable_code_block_highlight">禁用代码高亮</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
@@ -186,7 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="unordered_list_character">无序列表字符</string>
     <string name="character_to_start_items_of_unordered_list_with">用于表示无序列表的字符</string>
-    <string name="unordered_list_char_dash">破折号 (-)</string>
+    <string name="unordered_list_char_dash">连词符 (-)</string>
     <string name="unordered_list_char_asterisk">星号 (*)</string>
     <string name="unordered_list_char_plus">加号 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、脱机可用的文档，不支持不提供完整文件路径的文件管理器。</string>
