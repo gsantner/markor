@@ -24,6 +24,7 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,13 +33,13 @@ import java.util.regex.Pattern;
 
 public class MarkdownTextActions extends TextActions {
 
-    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("(^\\s*)(\\d+\\.\\s)");
-    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("(^)(\\s{0,3}#{1,6}\\s)");
-    private static final Pattern PREFIX_QUOTE = Pattern.compile("(^)(>\\s)");
-    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("(^\\s*)((:?-|\\*)\\s\\[(:?x|X)]\\s)");
-    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("(^\\s*)((:?-|\\*)\\s\\[\\s]\\s)");
-    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("(^\\s*)((:?-|\\*)\\s)");
-    private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("(^\\s*)");
+    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)(\\d+\\.\\s)");
+    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3}#{1,6}\\s)");
+    private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
+    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s\\[(:?x|X)]\\s)");
+    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s\\[\\s]\\s)");
+    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s)");
+    private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
     private static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
@@ -46,6 +47,7 @@ public class MarkdownTextActions extends TextActions {
             PREFIX_QUOTE,
             PREFIX_CHECKED_LIST,
             PREFIX_UNCHECKED_LIST,
+            // Unordered has to be after checked list
             PREFIX_UNORDERED_LIST,
             PREFIX_LEADING_SPACE,
     };
@@ -119,7 +121,6 @@ public class MarkdownTextActions extends TextActions {
             }
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    // runQuotePrefixAction();
                     runPrefixReplaceAction(PREFIX_QUOTE, ">$1 ", "");
                     return true;
                 }
@@ -136,17 +137,16 @@ public class MarkdownTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_common_unordered_list_char: {
-                    //runUnorderedListPrefixAction();
-                    final String listPrefix = "$1" + _appSettings.getUnorderedListCharacter() + " ";
+                    final String listChar = _appSettings.getUnorderedListCharacter();
+                    final String listPrefix = "$1" + listChar + " ";
                     runPrefixReplaceAction(PREFIX_UNORDERED_LIST, listPrefix, "$1");
                     return true;
                 }
                 case R.string.tmaid_common_checkbox_list: {
-                    //runChecklistPrefixAction();
                     final String listChar = _appSettings.getUnorderedListCharacter();
                     final String uncheck = "$1" + listChar + " [ ] ";
                     final String check = "$1" + listChar + " [x] ";
-                    runPrefixReplaceAction(PREFIX_UNCHECKED_LIST, uncheck,check);
+                    runPrefixReplaceAction(PREFIX_UNCHECKED_LIST, uncheck, check);
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
@@ -275,90 +275,19 @@ public class MarkdownTextActions extends TextActions {
      * @param level ATX heading level
      */
     private void setHeadingAction(int level) {
-        // Commonmark allows headings of level 1 - 6
-        assert (level >= 1);
-        assert (level <= 6);
 
-        char[] headingChars = new char[level];
-        Arrays.fill(headingChars, '#');
-        String heading = new String(headingChars) + ' ';
+        List<ReplacePattern> patterns = new ArrayList<>();
 
-        ReplacePattern[] patterns = {
-                // Remove extant heading of matching level (preserves leading space)
-                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
-                // Convert extant heading to requested level (keep indent)
-                new ReplacePattern(PREFIX_ATX_HEADING, "$1" + heading),
-                // Replace other prefixes with heading
-                new ReplacePattern(PREFIX_CHECKED_LIST, heading),
-                new ReplacePattern(PREFIX_UNCHECKED_LIST, heading),
-                new ReplacePattern(PREFIX_ORDERED_LIST, heading),
-                new ReplacePattern(PREFIX_QUOTE, heading),
-                new ReplacePattern(PREFIX_UNORDERED_LIST, heading),
-                // Add heading if not a heading
-                new ReplacePattern("^", heading),
-        };
+        String heading = StringUtils.repeatChars('#', level) + " ";
 
-        runRegexReplaceAction(Arrays.asList(patterns));
+        // Replace this exact heading level with nothing
+        patterns.add(new ReplacePattern("^(\\s{0,3})" + heading, "$1"));
+        for (final Pattern pp : PREFIX_PATTERNS) {
+            patterns.add(new ReplacePattern(pp, "##$1 "));
+        }
+
+        runRegexReplaceAction(patterns);
     }
-
-    private void runQuotePrefixAction() {
-        final String quote = "> ";
-        ReplacePattern[] patterns = {
-                new ReplacePattern(PREFIX_ATX_HEADING, quote),
-                new ReplacePattern(PREFIX_CHECKED_LIST, quote),
-                new ReplacePattern(PREFIX_UNCHECKED_LIST, quote),
-                new ReplacePattern(PREFIX_ORDERED_LIST, quote),
-                new ReplacePattern(PREFIX_QUOTE, ""),
-                new ReplacePattern(PREFIX_UNORDERED_LIST, quote),
-                new ReplacePattern("^", quote),
-        };
-        runRegexReplaceAction(Arrays.asList(patterns));
-    }
-
-    private void runUnorderedListPrefixAction() {
-        final String listPrefix = "$1" + _appSettings.getUnorderedListCharacter() + " ";
-        ReplacePattern[] patterns = {
-                new ReplacePattern(PREFIX_ATX_HEADING, listPrefix),
-                new ReplacePattern(PREFIX_CHECKED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_UNCHECKED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_ORDERED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_QUOTE, listPrefix),
-                new ReplacePattern(PREFIX_UNORDERED_LIST, "$1"),
-                new ReplacePattern(PREFIX_LEADING_SPACE, listPrefix),
-        };
-        runRegexReplaceAction(Arrays.asList(patterns));
-    }
-
-    private void runOrderedListPrefixAction() {
-        final String listPrefix = "$11. ";
-        ReplacePattern[] patterns = {
-                new ReplacePattern(PREFIX_ATX_HEADING, listPrefix),
-                new ReplacePattern(PREFIX_CHECKED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_UNCHECKED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_UNORDERED_LIST, listPrefix),
-                new ReplacePattern(PREFIX_QUOTE, listPrefix),
-                new ReplacePattern(PREFIX_ORDERED_LIST, "$1"),
-                new ReplacePattern(PREFIX_LEADING_SPACE, listPrefix),
-        };
-        runRegexReplaceAction(Arrays.asList(patterns));
-    }
-
-    private void runChecklistPrefixAction() {
-        final String listChar = _appSettings.getUnorderedListCharacter();
-        final String uncheck = "$1" + listChar + " [ ] ";
-        final String check = "$1" + listChar + " [x] ";
-        ReplacePattern[] patterns = {
-                new ReplacePattern(PREFIX_CHECKED_LIST, check),
-                new ReplacePattern(PREFIX_UNCHECKED_LIST, uncheck),
-                new ReplacePattern(PREFIX_ATX_HEADING, uncheck),
-                new ReplacePattern(PREFIX_UNORDERED_LIST, uncheck),
-                new ReplacePattern(PREFIX_QUOTE, uncheck),
-                new ReplacePattern(PREFIX_ORDERED_LIST, uncheck),
-                new ReplacePattern(PREFIX_LEADING_SPACE, uncheck),
-        };
-        runRegexReplaceAction(Arrays.asList(patterns));
-    }
-
 
     private void runPrefixReplaceAction(final Pattern actionPattern, final String action, final String alt) {
 

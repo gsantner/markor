@@ -11,6 +11,8 @@ package net.gsantner.opoc.util;
 
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public final class StringUtils {
 
     // Suppress default constructor for noninstantiability
@@ -75,6 +77,12 @@ public final class StringUtils {
 
         int[] selection = {selectionStart, selectionEnd};
         return selection;
+    }
+
+    public static String repeatChars(Character character, int count) {
+        char[] stringChars = new char[count];
+        Arrays.fill(stringChars, character);
+        return new String(stringChars);
     }
 
 }

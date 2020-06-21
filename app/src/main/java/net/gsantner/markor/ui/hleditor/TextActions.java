@@ -18,7 +18,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -337,8 +336,6 @@ public abstract class TextActions {
             for (ReplacePattern pattern : patterns) {
                 Matcher matcher = pattern.searchPattern.matcher(line);
                 if (matcher.find()) {
-
-                    Log.d("Pattern", pattern.searchPattern.toString() + "; " + matcher.group() + "; " + pattern.replacePattern);
 
                     String newLine;
                     if (pattern.replaceAll) newLine = matcher.replaceAll(pattern.replacePattern);
