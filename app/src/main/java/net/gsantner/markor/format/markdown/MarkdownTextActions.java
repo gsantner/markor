@@ -34,11 +34,11 @@ import java.util.regex.Pattern;
 public class MarkdownTextActions extends TextActions {
 
     private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)(\\d+\\.\\s)");
-    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3}#{1,6}\\s)");
+    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
     private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
-    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s\\[(:?x|X)]\\s)");
-    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s\\[\\s]\\s)");
-    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*)\\s)");
+    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[(:?x|X)]\\s)");
+    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[\\s]\\s)");
+    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s)");
     private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
     private static final Pattern[] PREFIX_PATTERNS = {
@@ -47,7 +47,7 @@ public class MarkdownTextActions extends TextActions {
             PREFIX_QUOTE,
             PREFIX_CHECKED_LIST,
             PREFIX_UNCHECKED_LIST,
-            // Unordered has to be after checked list
+            // Unordered has to be after checked list. Otherwise checklist will match as an unordered list.
             PREFIX_UNORDERED_LIST,
             PREFIX_LEADING_SPACE,
     };
@@ -278,12 +278,17 @@ public class MarkdownTextActions extends TextActions {
 
         List<ReplacePattern> patterns = new ArrayList<>();
 
-        String heading = StringUtils.repeatChars('#', level) + " ";
+        String heading = StringUtils.repeatChars('#', level);
 
         // Replace this exact heading level with nothing
-        patterns.add(new ReplacePattern("^(\\s{0,3})" + heading, "$1"));
+        patterns.add(new ReplacePattern("^(\\s{0,3})" + heading + " ", "$1"));
+
+        // Replace other headings with commonmark-compatible leading space
+        patterns.add(new ReplacePattern(PREFIX_ATX_HEADING, "$1" + heading + " "));
+
+        // Replace all other prefixes with heading
         for (final Pattern pp : PREFIX_PATTERNS) {
-            patterns.add(new ReplacePattern(pp, "##$1 "));
+            patterns.add(new ReplacePattern(pp, heading + "$1 "));
         }
 
         runRegexReplaceAction(patterns);
@@ -293,6 +298,7 @@ public class MarkdownTextActions extends TextActions {
 
         List<ReplacePattern> patterns = new ArrayList<>();
 
+        // Replace prefixes with action (or alt if prefix is specified action)
         for (final Pattern pp : PREFIX_PATTERNS) {
             patterns.add(new ReplacePattern(pp, pp == actionPattern ? alt : action));
         }

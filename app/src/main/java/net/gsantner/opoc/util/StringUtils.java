@@ -79,7 +79,7 @@ public final class StringUtils {
         return selection;
     }
 
-    public static String repeatChars(Character character, int count) {
+    public static String repeatChars(char character, int count) {
         char[] stringChars = new char[count];
         Arrays.fill(stringChars, character);
         return new String(stringChars);
