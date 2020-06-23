@@ -11,6 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
+import android.text.Editable;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,11 +30,12 @@ import net.gsantner.opoc.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownTextActions extends TextActions {
 
-    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)(\\d+\\.\\s)");
+    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+)(\\.|\\))(\\s+))");
     private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
     private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
     private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[(:?x|X)]\\s)");
@@ -231,6 +233,9 @@ public class MarkdownTextActions extends TextActions {
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
+                case R.string.tmaid_common_ordered_list_number: {
+                    renumberOrderedList();
+                }
             }
             return false;
         }
@@ -304,5 +309,114 @@ public class MarkdownTextActions extends TextActions {
         }
 
         runRegexReplaceAction(patterns);
+    }
+
+    private void renumberOrderedList() {
+
+        final int MAX_INDENT_LEVEL = 5;
+        final int MIN_INDENT_DIFF = 2;
+
+        int[] levelCounts = new int[MAX_INDENT_LEVEL + 1];
+        Arrays.fill(levelCounts, 1);
+
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        Editable text = _hlEditor.getText();
+
+        // Top of list
+        final OrderedLine firstLine = getOrderedListStart(sel[0]);
+
+        if (firstLine != null && firstLine.isOrderedList && firstLine.lineEnd < text.length()) {
+            levelCounts[0] = firstLine.listValue;
+            int currentIndent = firstLine.indent;
+            int indentLevel = 0;
+            int position = firstLine.lineEnd + 1;
+            do {
+
+                OrderedLine line = new OrderedLine(text, position);
+                // Do not process list levels 'higher' than first line
+                if (line.indent < firstLine.indent) {
+                    break;
+                }
+
+                if (line.isOrderedList) {
+                    // Perform update if is an ordered list
+
+                    // Handle changing indent levels
+                    int indentDiff = line.indent - currentIndent;
+                    if (indentDiff >= MIN_INDENT_DIFF) {
+                        indentLevel = Math.min(indentLevel + 1, MAX_INDENT_LEVEL);
+                        levelCounts[indentLevel] = 0;
+                    } else if (indentDiff <= -MIN_INDENT_DIFF) {
+                        indentLevel = Math.max(indentLevel - 1, 0);
+                    }
+                    currentIndent = line.indent;
+
+                    // Set value
+                    String newNum = Integer.toString(++levelCounts[indentLevel]);
+                    text.replace(line.numStart, line.numEnd, newNum);
+
+                    final int lenDiff = newNum.length() - (line.numEnd - line.numStart);
+                    position = line.lineEnd + lenDiff + 1;
+
+                } else if (line.isEmpty || line.indent >= firstLine.indent) {
+                    // Check next line if empty or indented
+                    position = line.lineEnd + 1;
+                } else {
+                    // Otherwise finish the update
+                    break;
+                }
+            } while (position <= text.length());
+        }
+    }
+
+    private static class OrderedLine {
+
+        private static final int NUM_GROUP = 3;
+
+        public final int lineStart, lineEnd;
+        public final CharSequence line;
+        public final boolean isOrderedList;
+        public final boolean isEmpty;
+        public final int indent;
+        public final int numStart, numEnd;
+        public final int listValue;
+
+        public OrderedLine(CharSequence text, int position) {
+
+            lineStart = StringUtils.getLineStart(text, position);
+            lineEnd = StringUtils.getLineEnd(text, position);
+            line = text.subSequence(lineStart, lineEnd);
+            indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
+
+            // Either blank or pure whitespace
+            isEmpty = (lineEnd - lineStart) == indent;
+
+            Matcher match = PREFIX_ORDERED_LIST.matcher(line);
+            isOrderedList = match.find();
+            if (isOrderedList) {
+                numStart = match.start(NUM_GROUP) + lineStart;
+                numEnd = match.end(NUM_GROUP) + lineStart;
+                listValue = Integer.parseInt(match.group(NUM_GROUP));
+            } else {
+                numStart = numEnd = listValue = -1;
+            }
+        }
+    }
+
+    private OrderedLine getOrderedListStart(final int searchStart) {
+
+        CharSequence text = _hlEditor.getText();
+        int position = searchStart;
+
+        OrderedLine line, lastOrdered = null;
+        do {
+            line = new OrderedLine(text, position);
+            if (line.isOrderedList) {
+                lastOrdered = line;
+            }
+            position = line.lineStart - 1;
+        } while((line.indent > 0 | line.isEmpty | line.isOrderedList) && position >= 0);
+
+        return lastOrdered;
     }
 }
