@@ -14,7 +14,6 @@ import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 
 public class MarkdownAutoFormat implements InputFilter {
@@ -50,10 +49,7 @@ public class MarkdownAutoFormat implements InputFilter {
         int iEnd = StringUtils.getNextNonWhitespace(dest, istart);
 
         // Construct whitespace
-        int indentSize = iEnd - istart;
-        char[] indentChars = new char[indentSize];
-        Arrays.fill(indentChars, ' ');
-        String indentString = new String(indentChars);
+        String indentString = StringUtils.repeatChars(' ', iEnd - istart);
 
         String previousLine = dest.toString().substring(iEnd, dend);
 

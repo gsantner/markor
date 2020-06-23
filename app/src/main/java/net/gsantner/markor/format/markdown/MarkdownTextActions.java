@@ -24,11 +24,33 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MarkdownTextActions extends TextActions {
+
+    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)(\\d+\\.\\s)");
+    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
+    private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
+    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[(:?x|X)]\\s)");
+    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[\\s]\\s)");
+    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s)");
+    private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
+
+    private static final Pattern[] PREFIX_PATTERNS = {
+            PREFIX_ORDERED_LIST,
+            PREFIX_ATX_HEADING,
+            PREFIX_QUOTE,
+            PREFIX_CHECKED_LIST,
+            PREFIX_UNCHECKED_LIST,
+            // Unordered has to be after checked list. Otherwise checklist will match as an unordered list.
+            PREFIX_UNORDERED_LIST,
+            PREFIX_LEADING_SPACE,
+    };
 
     public MarkdownTextActions(Activity activity, Document document) {
         super(activity, document);
@@ -99,7 +121,7 @@ public class MarkdownTextActions extends TextActions {
             }
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    runRegularPrefixAction("> ");
+                    runPrefixReplaceAction(PREFIX_QUOTE, ">$1 ", "");
                     return true;
                 }
                 case R.string.tmaid_markdown_h1: {
@@ -114,10 +136,23 @@ public class MarkdownTextActions extends TextActions {
                     setHeadingAction(3);
                     return true;
                 }
-                /*case R.string.tmaid_common_unordered_list_char: {
-                    runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ");
+                case R.string.tmaid_common_unordered_list_char: {
+                    final String listChar = _appSettings.getUnorderedListCharacter();
+                    final String listPrefix = "$1" + listChar + " ";
+                    runPrefixReplaceAction(PREFIX_UNORDERED_LIST, listPrefix, "$1");
                     return true;
-                }*/
+                }
+                case R.string.tmaid_common_checkbox_list: {
+                    final String listChar = _appSettings.getUnorderedListCharacter();
+                    final String uncheck = "$1" + listChar + " [ ] ";
+                    final String check = "$1" + listChar + " [x] ";
+                    runPrefixReplaceAction(PREFIX_UNCHECKED_LIST, uncheck, check);
+                    return true;
+                }
+                case R.string.tmaid_common_ordered_list_number: {
+                    runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
+                    return true;
+                }
                 case R.string.tmaid_markdown_bold: {
                     runInlineAction("**");
                     return true;
@@ -239,25 +274,35 @@ public class MarkdownTextActions extends TextActions {
      *
      * @param level ATX heading level
      */
-    protected void setHeadingAction(int level) {
-        // Commonmark allows headings of level 1 - 6
-        assert (level >= 1);
-        assert (level <= 6);
+    private void setHeadingAction(int level) {
 
-        char[] headerChars = new char[level];
-        Arrays.fill(headerChars, '#');
-        String header = new String(headerChars) + ' ';
+        List<ReplacePattern> patterns = new ArrayList<>();
 
-        ReplacePattern[] patterns = {
-                // Remove extant heading of matching level (preserves leading space)
-                // Commonmark allows up to 3 leading spaces
-                new ReplacePattern(String.format("^(\\s{0,3})#{%d}\\s", level), "$1"),
-                // Convert extant heading to requested level
-                new ReplacePattern("^(\\s{0,3})(#{1,6})\\s", "$1" + header),
-                // Add heading if not a heading
-                new ReplacePattern("^", header),
-        };
+        String heading = StringUtils.repeatChars('#', level);
 
-        runRegexReplaceAction(Arrays.asList(patterns));
+        // Replace this exact heading level with nothing
+        patterns.add(new ReplacePattern("^(\\s{0,3})" + heading + " ", "$1"));
+
+        // Replace other headings with commonmark-compatible leading space
+        patterns.add(new ReplacePattern(PREFIX_ATX_HEADING, "$1" + heading + " "));
+
+        // Replace all other prefixes with heading
+        for (final Pattern pp : PREFIX_PATTERNS) {
+            patterns.add(new ReplacePattern(pp, heading + "$1 "));
+        }
+
+        runRegexReplaceAction(patterns);
+    }
+
+    private void runPrefixReplaceAction(final Pattern actionPattern, final String action, final String alt) {
+
+        List<ReplacePattern> patterns = new ArrayList<>();
+
+        // Replace prefixes with action (or alt if prefix is specified action)
+        for (final Pattern pp : PREFIX_PATTERNS) {
+            patterns.add(new ReplacePattern(pp, pp == actionPattern ? alt : action));
+        }
+
+        runRegexReplaceAction(patterns);
     }
 }

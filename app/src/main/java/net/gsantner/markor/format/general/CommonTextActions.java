@@ -31,8 +31,6 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.Arrays;
-
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
@@ -234,9 +232,7 @@ public class CommonTextActions {
 
         int lineStart = StringUtils.getLineStart(text, selectionStart);
 
-        char[] tabChars = new char[_tabWidth];
-        Arrays.fill(tabChars, ' ');
-        String tabString = new String(tabChars);
+        String tabString = StringUtils.repeatChars(' ', _tabWidth);
 
         while (lineStart <= selectionEnd) {
 
@@ -245,7 +241,7 @@ public class CommonTextActions {
                 int spaceCount = textStart - lineStart;
                 int delCount = Math.min(_tabWidth, spaceCount);
                 int delEnd = lineStart + delCount;
-                if (delCount > 0 && delEnd < text.length()) {
+                if (delCount > 0 && delEnd <= text.length()) {
                     text.delete(lineStart, delEnd);
                     selectionEnd -= delCount;
                 }
