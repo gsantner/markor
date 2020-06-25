@@ -311,112 +311,134 @@ public class MarkdownTextActions extends TextActions {
         runRegexReplaceAction(patterns);
     }
 
-    private void renumberOrderedList() {
-
-        final int MAX_INDENT_LEVEL = 5;
-        final int MIN_INDENT_DIFF = 2;
-
-        int[] levelCounts = new int[MAX_INDENT_LEVEL + 1];
-        Arrays.fill(levelCounts, 1);
-
-        final int[] sel = StringUtils.getSelection(_hlEditor);
-        Editable text = _hlEditor.getText();
-
-        // Top of list
-        final OrderedLine firstLine = getOrderedListStart(sel[0]);
-
-        if (firstLine != null && firstLine.isOrderedList && firstLine.lineEnd < text.length()) {
-            levelCounts[0] = firstLine.listValue;
-            int currentIndent = firstLine.indent;
-            int indentLevel = 0;
-            int position = firstLine.lineEnd + 1;
-            do {
-
-                OrderedLine line = new OrderedLine(text, position);
-                // Do not process list levels 'higher' than first line
-                if (line.indent < firstLine.indent) {
-                    break;
-                }
-
-                if (line.isOrderedList) {
-                    // Perform update if is an ordered list
-
-                    // Handle changing indent levels
-                    int indentDiff = line.indent - currentIndent;
-                    if (indentDiff >= MIN_INDENT_DIFF) {
-                        indentLevel = Math.min(indentLevel + 1, MAX_INDENT_LEVEL);
-                        levelCounts[indentLevel] = 0;
-                    } else if (indentDiff <= -MIN_INDENT_DIFF) {
-                        indentLevel = Math.max(indentLevel - 1, 0);
-                    }
-                    currentIndent = line.indent;
-
-                    // Set value
-                    String newNum = Integer.toString(++levelCounts[indentLevel]);
-                    text.replace(line.numStart, line.numEnd, newNum);
-
-                    final int lenDiff = newNum.length() - (line.numEnd - line.numStart);
-                    position = line.lineEnd + lenDiff + 1;
-
-                } else if (line.isEmpty || line.indent >= firstLine.indent) {
-                    // Check next line if empty or indented
-                    position = line.lineEnd + 1;
-                } else {
-                    // Otherwise finish the update
-                    break;
-                }
-            } while (position <= text.length());
-        }
-    }
-
-    private static class OrderedLine {
-
-        private static final int NUM_GROUP = 3;
+    /**
+     * Class to parse a line of text and extract useful information
+     */
+    private static class OrderedListLine {
+        private static final int VALUE_GROUP = 3;
+        private static final int DELIM_GROUP = 4;
+        private static final int INDENT_DELTA = 2;
 
         public final int lineStart, lineEnd;
         public final CharSequence line;
         public final boolean isOrderedList;
+        public final char delimiter;
         public final boolean isEmpty;
         public final int indent;
         public final int numStart, numEnd;
-        public final int listValue;
+        public final int value;
+        public final Matcher match;
 
-        public OrderedLine(CharSequence text, int position) {
+        public OrderedListLine(CharSequence text, int position) {
 
             lineStart = StringUtils.getLineStart(text, position);
             lineEnd = StringUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd);
             indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
-
-            // Either blank or pure whitespace
             isEmpty = (lineEnd - lineStart) == indent;
 
-            Matcher match = PREFIX_ORDERED_LIST.matcher(line);
+            match = PREFIX_ORDERED_LIST.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
-                numStart = match.start(NUM_GROUP) + lineStart;
-                numEnd = match.end(NUM_GROUP) + lineStart;
-                listValue = Integer.parseInt(match.group(NUM_GROUP));
+                delimiter = match.group(DELIM_GROUP).charAt(0);
+                numStart = match.start(VALUE_GROUP) + lineStart;
+                numEnd = match.end(VALUE_GROUP) + lineStart;
+                value = Integer.parseInt(match.group(VALUE_GROUP));
             } else {
-                numStart = numEnd = listValue = -1;
+                numStart = numEnd = value = -1;
+                delimiter = 0;
             }
+        }
+
+        public boolean isChild(final OrderedListLine line) {
+            return line.isEmpty || line.indent > (indent + INDENT_DELTA);
+        }
+
+        public boolean isParent(final OrderedListLine line) {
+            return !line.isEmpty && line.indent < (indent - INDENT_DELTA);
+        }
+
+        public boolean isMatchingList(final OrderedListLine line) {
+            final boolean bothOrderedlists = isOrderedList && line.isOrderedList;
+            final boolean sameIndent = Math.abs(indent - line.indent) <= INDENT_DELTA;
+            final boolean sameDelimiter = delimiter == line.delimiter;
+            return bothOrderedlists && sameIndent && sameDelimiter;
         }
     }
 
-    private OrderedLine getOrderedListStart(final int searchStart) {
+    /**
+     * Walks to the top of the current list at the current level
+     *
+     * This function will not walk to parent levels!
+     *
+     * @param searchStart position to start search at
+     * @return OrderedLine corresponding to top of the list
+     */
+    private OrderedListLine getOrderedListStart(final int searchStart) {
 
         CharSequence text = _hlEditor.getText();
-        int position = searchStart;
+        int position = Math.max(Math.min(searchStart, text.length() - 1), 0);
 
-        OrderedLine line, lastOrdered = null;
+        OrderedListLine line, listStart = null, startLine = null;
+
         do {
-            line = new OrderedLine(text, position);
-            if (line.isOrderedList) {
-                lastOrdered = line;
-            }
-            position = line.lineStart - 1;
-        } while((line.indent > 0 | line.isEmpty | line.isOrderedList) && position >= 0);
+            line = new OrderedListLine(text, position);
 
-        return lastOrdered;
+            if (startLine == null) {
+                startLine = line;
+                if (!startLine.isOrderedList) {
+                    break;
+                }
+            }
+
+            if (startLine.isMatchingList(line)) {
+                listStart = line;
+            }
+
+            position = line.lineStart - 1;
+
+        } while(position > 0 && (startLine.isMatchingList(line) || startLine.isChild(line)));
+
+        return listStart == null ? line : listStart;
+    }
+
+
+    /**
+     * This function will first walk up to the top of the current list level
+     * and then walk down to the end of the current list level.
+     *
+     * Sub-lists and other children will be skipped.
+     */
+    private void renumberOrderedList() {
+
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        Editable text = _hlEditor.getText();
+
+        // Top of list
+        final OrderedListLine firstLine = getOrderedListStart(sel[0]);
+
+        if (firstLine.isOrderedList && firstLine.lineEnd < text.length()) {
+            int number = firstLine.value;
+
+            int position = firstLine.lineEnd + 1;
+            while (position >= 0 && position < text.length()) {
+
+                final OrderedListLine line = new OrderedListLine(text, position);
+
+                if (firstLine.isMatchingList(line)) {
+
+                    String newNum = Integer.toString(++number);
+                    text.replace(line.numStart, line.numEnd, newNum);
+
+                    final int lenDiff = newNum.length() - (line.numEnd - line.numStart);
+                    position = line.lineEnd + lenDiff + 1;
+
+                } else if (firstLine.isChild(line)) {
+                    position = line.lineEnd + 1;
+                } else {
+                    break;
+                }
+            }
+        }
     }
 }

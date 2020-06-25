@@ -31,6 +31,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">ফাইল/ফোল্ডার আগেই আছে! অনুগ্রহ করে অন্য নাম ব্যবহার করো</string>
     <string name="import_from_device">ডিভাইস থেকে আমদানি করো</string>
     <string name="import_">আমদানি করো</string>
+    <string name="append_to_witharg">যুক্ত করো %s</string>
     <string name="select_folder">ফোল্ডার নির্বাচন করো</string>
     <string name="edit">সম্পাদনা</string>
     <string name="search_documents">নথি খোঁজো</string>
@@ -43,4 +44,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files">ফাইল</string>
     <string name="document">নথি</string>
     <string name="documents">নথিসমূহ</string>
+    <string name="html_as_plaintext">এইচটিএমএল (সাধারণ লেখায়)</string>
+    <string name="document_editor_font">নথি সম্পাদনার ফন্ট</string>
+    <string name="theme">থিম</string>
+    <string name="open_existing_files_in_view_mode">বিদ্যমান ফাইল দর্শক মোডে খুলো</string>
+    <string name="about">সম্পর্কে</string>
+    <string name="plaintext">সাধারণ লেখা</string>
+    <string name="file">ফাইল</string>
+    <string name="image">ছবি</string>
+    <string name="font_size">ফন্টের আকার</string>
+    <string name="render_rtl_language">ডান থেকে বামের ভাষার জন্য প্রক্রিয়া করো</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">ত্রুটি: নোটবই এর ডাইরেক্টরি তৈরি করা যায়নি</string>
+    <string name="last_modified_witharg">শেষ পরিবর্তিত: %s</string>
+    <string name="select_this_folder">ফোল্ডার নির্বাচন করো</string>
+    <string name="select">নির্বাচন</string>
+    <string name="create">তৈরি</string>
+    <string name="select_entries">প্রদত্ত তথ্য নির্বাচন করো</string>
+    <string name="one_item_selected">একটা বস্তু নির্বাচিত</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%dটি বস্তু নির্বাচিত</string>
+    <string name="hide_statusbar_at_this_view">এই জায়গায় স্ট্যাটাস বার (অবস্থা নির্দেশক অংশ) লোকাও</string>
+    <string name="hide_statusbar">স্ট্যাটাস বার লোকাও</string>
 </resources>
