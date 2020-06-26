@@ -153,6 +153,9 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
+                    if (_appSettings.isMarkdownAutoUpdateList()) {
+                        renumberOrderedList();
+                    }
                     return true;
                 }
                 case R.string.tmaid_markdown_bold: {
@@ -426,13 +429,15 @@ public class MarkdownTextActions extends TextActions {
                 final OrderedListLine line = new OrderedListLine(text, position);
 
                 if (firstLine.isMatchingList(line)) {
-
-                    String newNum = Integer.toString(++number);
-                    text.replace(line.numStart, line.numEnd, newNum);
-
-                    final int lenDiff = newNum.length() - (line.numEnd - line.numStart);
-                    position = line.lineEnd + lenDiff + 1;
-
+                    number += 1;
+                    if (line.value != number) {
+                        String newNum = Integer.toString(number);
+                        text.replace(line.numStart, line.numEnd, newNum);
+                        final int lenDiff = newNum.length() - (line.numEnd - line.numStart);
+                        position = line.lineEnd + lenDiff + 1;
+                    } else {
+                        position = line.lineEnd + 1;
+                    }
                 } else if (firstLine.isChild(line)) {
                     position = line.lineEnd + 1;
                 } else {

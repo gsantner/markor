@@ -403,6 +403,12 @@
                     android:icon="@drawable/ic_code_black_24dp"
                     android:key="@string/pref_key__markdown__disable_code_block_highlight"
                     android:title="@string/disable_code_block_highlight" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_format_list_numbered_black_24dp"
+                    android:key="@string/pref_key__markdown__auto_renumber_ordered_list"
+                    android:title="@string/auto_renumber_ordered_list"
+                    android:summary="@string/auto_renumber_ordered_list_slowdown"/>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/view_mode">
                 <CheckBoxPreference
