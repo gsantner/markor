@@ -412,7 +412,7 @@ public class MarkdownTextActions extends TextActions {
      *
      * Sub-lists and other children will be skipped.
      */
-    private void renumberOrderedList() {
+    public void renumberOrderedList() {
 
         final int[] sel = StringUtils.getSelection(_hlEditor);
         Editable text = _hlEditor.getText();

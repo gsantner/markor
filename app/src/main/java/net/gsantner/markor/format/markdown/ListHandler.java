@@ -14,15 +14,22 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.regex.Matcher;
 
-public class EmptyListRemover implements TextWatcher {
+public class ListHandler implements TextWatcher {
+    private MarkdownTextActions _actions = null;
+
+
+    public ListHandler(MarkdownTextActions actions){
+        super();
+        _actions = actions;
+    }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
         if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
@@ -52,6 +59,9 @@ public class EmptyListRemover implements TextWatcher {
             if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
                 e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }
+        }
+        if (_actions != null) {
+            _actions.renumberOrderedList();
         }
     }
 
