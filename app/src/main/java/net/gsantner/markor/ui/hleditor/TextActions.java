@@ -320,7 +320,7 @@ public abstract class TextActions {
      * @param patterns An array of ReplacePattern
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
-    protected void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
+     protected void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
 
         Editable text = _hlEditor.getText();
         int[] selection = StringUtils.getSelection(_hlEditor);

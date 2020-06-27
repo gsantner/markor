@@ -123,26 +123,20 @@ public class HighlightingEditor extends AppCompatEditText {
     public void enableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{_hl.getAutoFormatter()});
 
-        if (_hl != null) {
-            for (TextWatcher modifier : _hl.getTextModifiers()) {
-                if (modifier != null && !_appliedModifiers.contains(modifier)) {
-                    addTextChangedListener(modifier);
-                    _appliedModifiers.add(modifier);
-                }
-            }
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
+        if (modifier != null && !_appliedModifiers.contains(modifier)) {
+            addTextChangedListener(modifier);
+            _appliedModifiers.add(modifier);
         }
     }
 
     public void disableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{});
 
-        if (_hl != null) {
-            for (TextWatcher modifier : _hl.getTextModifiers()) {
-                if (modifier != null) {
-                    removeTextChangedListener(modifier);
-                    _appliedModifiers.remove(modifier);
-                }
-            }
+        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
+        if (modifier != null) {
+            removeTextChangedListener(modifier);
+            _appliedModifiers.remove(modifier);
         }
     }
 
