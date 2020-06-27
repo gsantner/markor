@@ -7,7 +7,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.ui.hleditor;
+package net.gsantner.markor.format.markdown;
 
 import android.text.Editable;
 import android.text.Spannable;
@@ -19,7 +19,7 @@ import net.gsantner.opoc.util.StringUtils;
 
 import java.util.regex.Matcher;
 
-public class ListHandler implements TextWatcher {
+public class EmptyListRemover implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -48,10 +48,9 @@ public class ListHandler implements TextWatcher {
     @Override
     public void afterTextChanged(Editable e) {
         // Deletes spans marked for deletion
-        Spannable eSpan = (Spannable) e;
-        for (Object span : eSpan.getSpans(0, e.length(), this.getClass())) {
-            if ((eSpan.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
-                e.delete(eSpan.getSpanStart(span), eSpan.getSpanEnd(span));
+        for (Object span : e.getSpans(0, e.length(), this.getClass())) {
+            if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
+                e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }
         }
     }

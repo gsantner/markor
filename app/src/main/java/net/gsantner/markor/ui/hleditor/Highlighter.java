@@ -43,6 +43,8 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.NanoProfiler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,7 +76,7 @@ public abstract class Highlighter {
     protected boolean _highlightLinks = true;
     protected final boolean _highlightHexcolor;
     protected final Document _document;
-    private TextWatcher _modifier = null;
+    private List<TextWatcher> _modifiers = new ArrayList<>();
 
     public Highlighter(HighlightingEditor editor, Document document) {
         _hlEditor = editor;
@@ -118,12 +120,16 @@ public abstract class Highlighter {
         return "";
     }
 
-    public TextWatcher getTextModifier() {
-        return _modifier;
+    public List<TextWatcher> getTextModifiers() {
+        return _modifiers;
     }
 
-    protected void setTextModifier(TextWatcher modifier) {
-        _modifier = modifier;
+    protected void addTextModifier(@NonNull TextWatcher modifier) {
+        _modifiers.add(modifier);
+    }
+
+    protected void clearTextModifiers() {
+        _modifiers.clear();
     }
 
     //
