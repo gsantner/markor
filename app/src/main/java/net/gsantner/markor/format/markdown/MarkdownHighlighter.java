@@ -44,11 +44,7 @@ public class MarkdownHighlighter extends Highlighter {
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
         _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
-        clearTextModifiers();
-        addTextModifier(new EmptyListRemover());
-        if (_appSettings.isMarkdownAutoUpdateList()) {
-            //addTextModifier(new OrderedListRenumberer());
-        }
+        setTextModifier(new EmptyListRemover());
     }
 
     @Override
