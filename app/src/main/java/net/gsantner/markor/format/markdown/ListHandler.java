@@ -67,7 +67,7 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_runReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            MarkdownTextActions.renumberOrderedList(e, reorderPosition);
+            MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
         }
     }
 
