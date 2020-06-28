@@ -38,9 +38,9 @@ public class MarkdownTextActions extends TextActions {
     private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+)(\\.|\\))(\\s+))");
     private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
     private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
-    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[(:?x|X)]\\s)");
-    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[\\s]\\s)");
-    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s)");
+    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s\\[(x|X)]\\s)");
+    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s\\[\\s]\\s)");
+    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s)");
     private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
     private static final Pattern[] PREFIX_PATTERNS = {
@@ -314,33 +314,50 @@ public class MarkdownTextActions extends TextActions {
         runRegexReplaceAction(patterns);
     }
 
-    /**
-     * Class to parse a line of text and extract useful information
-     */
-    private static class OrderedListLine {
-        private static final int VALUE_GROUP = 3;
-        private static final int DELIM_GROUP = 4;
-        private static final int INDENT_DELTA = 2;
+
+    private static class ListLine {
+
+        protected static final int INDENT_DELTA = 2;
 
         public final int lineStart, lineEnd;
-        public final CharSequence line;
-        public final boolean isOrderedList;
-        public final char delimiter;
-        public final boolean isEmpty;
+        public final String line;
         public final int indent;
-        public final int numStart, numEnd;
-        public final int value;
-        public final Matcher match;
+        public final boolean isEmpty;
 
-        public OrderedListLine(CharSequence text, int position) {
+        public ListLine(CharSequence text, int position) {
 
             lineStart = StringUtils.getLineStart(text, position);
             lineEnd = StringUtils.getLineEnd(text, position);
-            line = text.subSequence(lineStart, lineEnd);
+            line = text.subSequence(lineStart, lineEnd).toString();
             indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
             isEmpty = (lineEnd - lineStart) == indent;
+        }
 
-            match = PREFIX_ORDERED_LIST.matcher(line);
+        public boolean isChild(final ListLine line) {
+            return line.isEmpty || line.indent > (indent + INDENT_DELTA);
+        }
+
+        public boolean isParent(final ListLine line) {
+            return !line.isEmpty && line.indent < (indent - INDENT_DELTA);
+        }
+    }
+
+    /**
+     * Class to parse a line of text and extract useful information
+     */
+    private static class OrderedListLine extends ListLine {
+        private static final int VALUE_GROUP = 3;
+        private static final int DELIM_GROUP = 4;
+
+        public final boolean isOrderedList;
+        public final char delimiter;
+        public final int numStart, numEnd;
+        public final int value;
+
+        public OrderedListLine(CharSequence text, int position) {
+            super(text, position);
+
+            final Matcher match = PREFIX_ORDERED_LIST.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
@@ -353,19 +370,52 @@ public class MarkdownTextActions extends TextActions {
             }
         }
 
-        public boolean isChild(final OrderedListLine line) {
-            return line.isEmpty || line.indent > (indent + INDENT_DELTA);
-        }
-
-        public boolean isParent(final OrderedListLine line) {
-            return !line.isEmpty && line.indent < (indent - INDENT_DELTA);
-        }
-
         public boolean isMatchingList(final OrderedListLine line) {
             final boolean bothOrderedlists = isOrderedList && line.isOrderedList;
-            final boolean sameIndent = Math.abs(indent - line.indent) <= INDENT_DELTA;
+            final boolean sameIndent = Math.abs(indent - line.indent) <= ListLine.INDENT_DELTA;
             final boolean sameDelimiter = delimiter == line.delimiter;
             return bothOrderedlists && sameIndent && sameDelimiter;
+        }
+    }
+
+    private static class UnOrderedListLine extends ListLine {
+        private static final int CHECK_GROUP = 4;
+        private static final int LIST_LEADER_GROUP = 3;
+        private static final int FULL_GROUP = 2;
+
+        public final boolean isUnorderedList;
+        public final boolean isCheckboxList;
+        public final boolean isChecked;
+        public final char checkChar;
+        public final char listChar;
+        public final int groupStart, groupEnd;
+
+        public UnOrderedListLine(CharSequence text, int position) {
+            super(text, position);
+
+            final Matcher ucMatch = PREFIX_UNCHECKED_LIST.matcher(line);
+            final Matcher cMatch = PREFIX_CHECKED_LIST.matcher(line);
+            final Matcher uMatch = PREFIX_UNORDERED_LIST.matcher(line);
+
+            isUnorderedList = uMatch.find(); // Will also catch other unordered list types
+            isCheckboxList = ucMatch.find() || cMatch.find();
+            isChecked = cMatch.find() && !ucMatch.find();
+
+            if (isChecked) {
+                checkChar = cMatch.group(CHECK_GROUP).charAt(0);
+            } else {
+                checkChar = 0;
+            }
+
+            if (isUnorderedList) {
+                listChar = uMatch.group(LIST_LEADER_GROUP).charAt(0);
+                Matcher match = isCheckboxList ? (isChecked ? cMatch : ucMatch) : uMatch;
+                groupStart = lineStart + match.start(FULL_GROUP);
+                groupEnd = lineStart + match.end(FULL_GROUP);
+            } else {
+                listChar = 0;
+                groupStart = groupEnd = -1;
+            }
         }
     }
 
