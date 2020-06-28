@@ -347,6 +347,7 @@ public abstract class TextActions {
                     if (!matchAll) break; // Exit after first match
                 }
             }
+
             lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
         }
     }
