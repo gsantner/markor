@@ -90,9 +90,8 @@ public class TextFormat {
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(CONVERTER_MARKDOWN);
-                MarkdownTextActions mta = new MarkdownTextActions(activity, document);
-                format.setTextActions(mta);
-                format.setHighlighter(new MarkdownHighlighter(hlEditor, document, mta));
+                format.setTextActions(new MarkdownTextActions(activity, document));
+                format.setHighlighter(new MarkdownHighlighter(hlEditor, document));
                 break;
             }
         }

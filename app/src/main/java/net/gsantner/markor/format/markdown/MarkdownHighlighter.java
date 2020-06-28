@@ -35,7 +35,7 @@ public class MarkdownHighlighter extends Highlighter {
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
     private static final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
 
-    public MarkdownHighlighter(HighlightingEditor hlEditor, Document document, MarkdownTextActions actions) {
+    public MarkdownHighlighter(HighlightingEditor hlEditor, Document document) {
         super(hlEditor, document);
         _highlightLinks = false;
         _fontType = _appSettings.getFontFamily();
@@ -44,7 +44,7 @@ public class MarkdownHighlighter extends Highlighter {
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
         _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
-        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList() ? actions : null));
+        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList()));
     }
 
     @Override

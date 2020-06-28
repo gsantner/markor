@@ -19,17 +19,19 @@ import net.gsantner.opoc.util.StringUtils;
 import java.util.regex.Matcher;
 
 public class ListHandler implements TextWatcher {
-    private MarkdownTextActions _actions = null;
+    private boolean _runReorder = false;
+    private int reorderPosition = -1;
 
 
-    public ListHandler(MarkdownTextActions actions){
+    public ListHandler(final boolean runReorder) {
         super();
-        _actions = actions;
+        _runReorder = runReorder;
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+        reorderPosition = -1;
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
         if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
@@ -45,8 +47,12 @@ public class ListHandler implements TextWatcher {
                 sSpan.setSpan(this, iStart, start + 1, Spanned.SPAN_COMPOSING);
             } else {
                 Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
-                if (oMatch.find() && previousLine.equals(oMatch.group(1) + ". ")) {
-                    sSpan.setSpan(this, iStart, start + 1, Spanned.SPAN_COMPOSING);
+                if (oMatch.find()) {
+                    if (previousLine.equals(oMatch.group(1) + ". ")) {
+                        sSpan.setSpan(this, iStart, start + 1, Spanned.SPAN_COMPOSING);
+                    } else {
+                        reorderPosition = start;
+                    }
                 }
             }
         }
@@ -60,8 +66,8 @@ public class ListHandler implements TextWatcher {
                 e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }
         }
-        if (_actions != null) {
-            _actions.renumberOrderedList();
+        if (_runReorder && reorderPosition > 0 && reorderPosition < e.length()) {
+            MarkdownTextActions.renumberOrderedList(e, reorderPosition);
         }
     }
 

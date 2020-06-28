@@ -154,7 +154,7 @@ public class MarkdownTextActions extends TextActions {
                 case R.string.tmaid_common_ordered_list_number: {
                     runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
                     if (_appSettings.isMarkdownAutoUpdateList()) {
-                        renumberOrderedList();
+                        renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                     }
                     return true;
                 }
@@ -237,7 +237,7 @@ public class MarkdownTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
-                    renumberOrderedList();
+                    renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                 }
             }
             return false;
@@ -371,15 +371,14 @@ public class MarkdownTextActions extends TextActions {
 
     /**
      * Walks to the top of the current list at the current level
-     *
+     * <p>
      * This function will not walk to parent levels!
      *
      * @param searchStart position to start search at
      * @return OrderedLine corresponding to top of the list
      */
-    private OrderedListLine getOrderedListStart(final int searchStart) {
+    private static OrderedListLine getOrderedListStart(Editable text, final int searchStart) {
 
-        CharSequence text = _hlEditor.getText();
         int position = Math.max(Math.min(searchStart, text.length() - 1), 0);
 
         OrderedListLine line, listStart = null, startLine = null;
@@ -400,7 +399,7 @@ public class MarkdownTextActions extends TextActions {
 
             position = line.lineStart - 1;
 
-        } while(position > 0 && (startLine.isMatchingList(line) || startLine.isChild(line)));
+        } while (position > 0 && (startLine.isMatchingList(line) || startLine.isChild(line)));
 
         return listStart == null ? line : listStart;
     }
@@ -409,16 +408,13 @@ public class MarkdownTextActions extends TextActions {
     /**
      * This function will first walk up to the top of the current list level
      * and then walk down to the end of the current list level.
-     *
+     * <p>
      * Sub-lists and other children will be skipped.
      */
-    public void renumberOrderedList() {
-
-        final int[] sel = StringUtils.getSelection(_hlEditor);
-        Editable text = _hlEditor.getText();
+    public static void renumberOrderedList(Editable text, int cursorPosition) {
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(sel[0]);
+        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition);
 
         if (firstLine.isOrderedList && firstLine.lineEnd < text.length()) {
             int number = firstLine.value;
