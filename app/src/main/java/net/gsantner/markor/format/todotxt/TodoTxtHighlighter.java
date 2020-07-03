@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.SpannableString;
 
 import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;
@@ -31,72 +32,75 @@ public class TodoTxtHighlighter extends Highlighter {
 
     @Override
     protected Editable run(final Editable editable) {
-        try {
-            clearSpans(editable);
 
+        try {
             if (editable.length() == 0) {
                 return editable;
             }
 
+            SpannableString editString = new SpannableString(editable.toString());
+
             _profiler.start(true, "Todo.Txt Highlighting");
-            generalHighlightRun(editable);
+            generalHighlightRun(editString);
             _profiler.restart("Paragraph top padding");
-            createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
+            createParagraphStyleSpanForMatches(editString, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
                     (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
 
 
             _profiler.restart("Context");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CONTEXT.getPattern(), colors.getContextColor());
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.CONTEXT.getPattern(), colors.getContextColor());
             _profiler.restart("Category");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PROJECT.getPattern(), colors.getCategoryColor());
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PROJECT.getPattern(), colors.getCategoryColor());
             _profiler.restart("KeyValue");
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.ITALIC);
+            createStyleSpanForMatches(editString, TodoTxtHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.ITALIC);
 
             // Priorities
             _profiler.restart("Priority Bold");
-            createStyleSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_ANY.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_ANY.getPattern(), Typeface.BOLD);
             _profiler.restart("Priority A");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_A.getPattern(), colors.getPriorityColor(1));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_A.getPattern(), colors.getPriorityColor(1));
             _profiler.restart("Priority B");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_B.getPattern(), colors.getPriorityColor(2));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_B.getPattern(), colors.getPriorityColor(2));
             _profiler.restart("Priority C");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_C.getPattern(), colors.getPriorityColor(3));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_C.getPattern(), colors.getPriorityColor(3));
             _profiler.restart("Priority D");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_D.getPattern(), colors.getPriorityColor(4));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_D.getPattern(), colors.getPriorityColor(4));
             _profiler.restart("Priority E");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_E.getPattern(), colors.getPriorityColor(5));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_E.getPattern(), colors.getPriorityColor(5));
             _profiler.restart("Priority F");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.PRIORITY_F.getPattern(), colors.getPriorityColor(6));
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.PRIORITY_F.getPattern(), colors.getPriorityColor(6));
 
             // Date: Match Creation date before completition date
             _profiler.restart("Date Color");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DUE_DATE.getPattern(), colors.getPriorityColor(1), 1);
-            //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CREATION_DATE.getPattern(), 0xff00ff00);
-            //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.COMPLETION_DATE.getPattern(), 0xff0000ff);
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.DUE_DATE.getPattern(), colors.getPriorityColor(1), 1);
+            //createColorSpanForMatches(editString, TodoTxtHighlighterPattern.CREATION_DATE.getPattern(), 0xff00ff00);
+            //createColorSpanForMatches(editString, TodoTxtHighlighterPattern.COMPLETION_DATE.getPattern(), 0xff0000ff);
 
 
             // Paragraph divider
             _profiler.restart("Paragraph divider");
-            createParagraphStyleSpanForMatches(editable, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
+            createParagraphStyleSpanForMatches(editString, TodoTxtHighlighterPattern.LINE_OF_TEXT.getPattern(),
                     (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(_hlEditor.getCurrentTextColor(), 0.8f, _hlEditor.getTextSize() / 2f));
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             _profiler.restart("Done BgColor");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern(), colors.getDoneColor());
+            createColorSpanForMatches(editString, TodoTxtHighlighterPattern.DONE.getPattern(), colors.getDoneColor());
             _profiler.restart("done Strike");
-            createSpanWithStrikeThroughForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern());
+            createSpanWithStrikeThroughForMatches(editString, TodoTxtHighlighterPattern.DONE.getPattern());
 
             // Fix for paragraph padding and horizontal rule
             /*
             nprofiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINESTART.getPattern(), 0.8f);
+            createRelativeSizeSpanForMatches(editString, TodoTxtHighlighterPattern.LINESTART.getPattern(), 0.8f);
             nprofiler.restart("Single line fix 2");
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINESTART.getPattern(), 1.2f);*/
+            createRelativeSizeSpanForMatches(editString, TodoTxtHighlighterPattern.LINESTART.getPattern(), 1.2f);*/
             _profiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(editable, TodoTxtHighlighterPattern.LINESTART.getPattern(), 1.00001f);
+            //createRelativeSizeSpanForMatches(editString, TodoTxtHighlighterPattern.LINESTART.getPattern(), 1.00001f);
             _profiler.end();
             _profiler.printProfilingGroup();
+
+            editable.replace(0, editable.length(), editString);
         } catch (Exception ex) {
             // Ignoring errors
         }

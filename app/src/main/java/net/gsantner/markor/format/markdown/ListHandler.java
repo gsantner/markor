@@ -19,19 +19,21 @@ import net.gsantner.opoc.util.StringUtils;
 import java.util.regex.Matcher;
 
 public class ListHandler implements TextWatcher {
-    private boolean _runReorder = false;
-    private int reorderPosition = -1;
+    private final boolean _reorderEnabled;
+    private int reorderPosition;
+    private boolean triggerReorder = false;
 
 
-    public ListHandler(final boolean runReorder) {
+
+    public ListHandler(final boolean reorderEnabled) {
         super();
-        _runReorder = runReorder;
+        _reorderEnabled = reorderEnabled;
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        reorderPosition = -1;
+        triggerReorder |= containsNewline(s, start, count);
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
         if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
@@ -66,14 +68,25 @@ public class ListHandler implements TextWatcher {
                 e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }
         }
-        if (_runReorder && reorderPosition > 0 && reorderPosition < e.length()) {
+        if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
             MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
         }
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Not used
+         triggerReorder = containsNewline(s, start, count);
+         reorderPosition = start;
+    }
+
+    private boolean containsNewline(CharSequence s, int start, int count) {
+        final int end = start + count;
+        for (int i = start; i < end; i ++) {
+            if (s.charAt(i) == '\n') {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

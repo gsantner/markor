@@ -81,7 +81,7 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
 
-    private static class ListLine {
+    public static class ListLine {
 
         protected static final int INDENT_DELTA = 2;
 
@@ -89,6 +89,7 @@ public class MarkdownAutoFormat implements InputFilter {
         public final String line;
         public final int indent;
         public final boolean isEmpty;
+        public final boolean isTopLevel;
 
         public ListLine(CharSequence text, int position) {
 
@@ -97,6 +98,7 @@ public class MarkdownAutoFormat implements InputFilter {
             line = text.subSequence(lineStart, lineEnd).toString();
             indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
             isEmpty = (lineEnd - lineStart) == indent;
+            isTopLevel = indent <= INDENT_DELTA;
         }
 
         public boolean isChild(final ListLine line) {
@@ -106,12 +108,16 @@ public class MarkdownAutoFormat implements InputFilter {
         public boolean isParent(final ListLine line) {
             return !line.isEmpty && line.indent < (indent - INDENT_DELTA);
         }
+
+        public boolean isSibling(final ListLine line) {
+            return !line.isEmpty && Math.abs(line.indent - indent) < INDENT_DELTA;
+        }
     }
 
     /**
      * Class to parse a line of text and extract useful information
      */
-    private static class OrderedListLine extends ListLine {
+    public static class OrderedListLine extends ListLine {
         private static final int VALUE_GROUP = 3;
         private static final int DELIM_GROUP = 4;
 
@@ -144,7 +150,7 @@ public class MarkdownAutoFormat implements InputFilter {
         }
     }
 
-    private static class UnOrderedListLine extends ListLine {
+    public static class UnOrderedListLine extends ListLine {
         private static final int CHECK_GROUP = 4;
         private static final int LIST_LEADER_GROUP = 3;
         private static final int FULL_GROUP = 2;
@@ -163,15 +169,10 @@ public class MarkdownAutoFormat implements InputFilter {
             final Matcher cMatch = MarkdownTextActions.PREFIX_CHECKED_LIST.matcher(line);
             final Matcher uMatch = MarkdownTextActions.PREFIX_UNORDERED_LIST.matcher(line);
 
-            isUnorderedList = uMatch.find(); // Will also catch other unordered list types
-            isCheckboxList = ucMatch.find() || cMatch.find();
-            isChecked = cMatch.find() && !ucMatch.find();
-
-            if (isChecked) {
-                checkChar = cMatch.group(CHECK_GROUP).charAt(0);
-            } else {
-                checkChar = 0;
-            }
+            isUnorderedList = uMatch.find(); // Will also detect other unordered list types
+            isChecked = cMatch.find();
+            isCheckboxList = isChecked || ucMatch.find();
+            checkChar = isChecked ? cMatch.group(CHECK_GROUP).charAt(0) : 0;
 
             if (isUnorderedList) {
                 listChar = uMatch.group(LIST_LEADER_GROUP).charAt(0);
@@ -186,9 +187,7 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
     /**
-     * Walks to the top of the current list at the current level
-     * <p>
-     * This function will not walk to parent levels!
+     * Walks to the top of the current list
      *
      * @param searchStart position to start search at
      * @return OrderedLine corresponding to top of the list
@@ -220,11 +219,65 @@ public class MarkdownAutoFormat implements InputFilter {
         return listStart == null ? line : listStart;
     }
 
+    private static OrderedListLine walkUpCurrentList(Editable text, OrderedListLine line) {
+        int position = line.lineStart - 1;
+        if (position > 0 && line.isOrderedList) {
+            OrderedListLine prevLine;
+
+            do {
+                prevLine = line;
+                line = new OrderedListLine(text, position);
+                position = line.lineStart - 1;
+            } while (position > 0 && prevLine.isMatchingList(line));
+
+            return line.isOrderedList ? line : prevLine;
+        }
+        return line;
+    }
+
+    private static OrderedListLine findOrderedParent(Editable text, ListLine line) {
+        int position = line.lineStart - 1;
+        if (position > 0) {
+            OrderedListLine prevLine;
+
+            do {
+                prevLine = line;
+                line = new OrderedListLine(text, position);
+                position = line.lineStart - 1;
+            } while (position > 0 && prevLine.isMatchingList(line));
+
+            return line.isOrderedList ? line : prevLine;
+        }
+        return line;
+    }
+
+    private static OrderedListLine getOrderedListStart2(Editable text, final int searchStart) {
+
+        int position = Math.max(Math.min(searchStart, text.length() - 1), 0);
+        OrderedListLine lastOrdered = new OrderedListLine(text, position);
+
+        // Walk up until I encounter a non-ordered parent
+        if (lastOrdered.isOrderedList) {
+            OrderedListLine line = lastOrdered, prevLine = lastOrdered;
+
+            OrderedListLine curTop = walkUpCurrentList(text, line);
+
+            position = line.lineStart - 1;
+            while (position > 0 && (!line.isTopLevel || line.isOrderedList)) {
+                line = new OrderedListLine(text, position);
+                position = line.lineStart - 1;
+                if (line.isOrderedList) {
+                    lastOrdered = line;
+                }
+            }
+        }
+        return lastOrdered;
+    }
 
     /**
-     * This function will first walk up to the top of the current list level
-     * and then walk down to the end of the current list level.
-     * <p>
+     * This function will first walk up to the top of the current list
+     * and then walk down to the end, renumbering ordered list items along the way
+     *
      * Sub-lists and other children will be skipped.
      */
     public static void renumberOrderedList(Editable text, int cursorPosition) {

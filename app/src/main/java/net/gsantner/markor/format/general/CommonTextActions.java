@@ -209,11 +209,11 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_INDENT: {
-                runIndentLines(false);
+                runIndentLines(_hlEditor, _tabWidth, false);
                 return true;
             }
             case ACTION_DEINDENT: {
-                runIndentLines(true);
+                runIndentLines(_hlEditor, _tabWidth, true);
                 return true;
             }
             default:
@@ -222,24 +222,24 @@ public class CommonTextActions {
         return false;
     }
 
-    protected void runIndentLines(Boolean deIndent) {
+    public static void runIndentLines(HighlightingEditor hlEditor, final int tabWidth, final Boolean deIndent) {
 
-        Editable text = _hlEditor.getText();
+        Editable text = hlEditor.getText();
 
-        int[] selection = StringUtils.getSelection(_hlEditor);
+        int[] selection = StringUtils.getSelection(hlEditor);
         int selectionStart = selection[0];
         int selectionEnd = selection[1];
 
         int lineStart = StringUtils.getLineStart(text, selectionStart);
 
-        String tabString = StringUtils.repeatChars(' ', _tabWidth);
+        String tabString = StringUtils.repeatChars(' ', tabWidth);
 
         while (lineStart <= selectionEnd) {
 
             if (deIndent) {
                 int textStart = StringUtils.getNextNonWhitespace(text, lineStart, selectionEnd);
                 int spaceCount = textStart - lineStart;
-                int delCount = Math.min(_tabWidth, spaceCount);
+                int delCount = Math.min(tabWidth, spaceCount);
                 int delEnd = lineStart + delCount;
                 if (delCount > 0 && delEnd <= text.length()) {
                     text.delete(lineStart, delEnd);
@@ -247,10 +247,10 @@ public class CommonTextActions {
                 }
             } else {
                 text.insert(lineStart, tabString);
-                selectionEnd += _tabWidth;
+                selectionEnd += tabWidth;
             }
 
-            text = _hlEditor.getText();
+            text = hlEditor.getText();
             // Get next line
             lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
         }
