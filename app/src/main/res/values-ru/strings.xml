@@ -64,7 +64,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d элемента выбрано</string>
     <string name="hide_statusbar_at_this_view">Скрывать строку состояния в этом режиме</string>
     <string name="hide_statusbar">Скрыть строку состояния</string>
-    <string name="name">По имени</string>
+    <string name="name">Имя</string>
     <string name="url_or_path">URL/путь</string>
     <string name="insert_link">Вставить ссылку</string>
     <string name="insert_image">Вставить изображение</string>
@@ -186,8 +186,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">После загрузки ставить курсор в конец документа</string>
     <string name="unordered_list_character">Символ неупорядоченного списка</string>
     <string name="character_to_start_items_of_unordered_list_with">Какой символ использовать для обозначения неупорядоченных списков</string>
-    <string name="unordered_list_char_dash">Тире (-)</string>
-    <string name="unordered_list_char_asterisk">Астериск (*)</string>
+    <string name="unordered_list_char_dash">Дефис-минус (-)</string>
+    <string name="unordered_list_char_asterisk">Звёздочка (*)</string>
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
     <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
@@ -195,14 +195,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
     <string name="default_">По умолчанию</string>
-    <string name="left">Выровнить по левому краю</string>
-    <string name="right">Выровнить по правому краю</string>
-    <string name="top">Выровнить по верхнему краю</string>
+    <string name="left">По левому краю</string>
+    <string name="right">По правому краю</string>
+    <string name="top">По верхнему краю</string>
     <string name="bottom">Подвал</string>
     <string name="center">Центр</string>
     <string name="textaction_spacing">Расстояние между операциями</string>
     <string name="horizontal_space_between_textactions">Горизонтальное пространство между текстовыми кнопками действий</string>
-    <string name="center_text">Текст по центру</string>
+    <string name="center_text">Центрировать текст</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
