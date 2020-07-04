@@ -224,6 +224,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">இறங்கு வரிசை</string>
     <string name="ascending">ஏறுவரிசை</string>
     <string name="disable_spelling_underline">எழுத்து பிழைகளை அடிகோடிடுவதை முடக்கவும்</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">விசைப்பலகை பரிந்துரைகள் இருக்கும், சிவப்பு அடிக்கோடு மறைந்துவிடும்</string>
     <string name="location">இடம்</string>
     <string name="text_lines">உரை வரிகள்</string>
     <string name="text_characters">உரை எழுத்துக்கள்</string>
