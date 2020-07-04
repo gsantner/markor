@@ -286,6 +286,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">செயலித்தரவு (தனிப்பட்டவை)</string>
     <string name="appdata_sdcard">செயலித்தரவு (நினைவக அட்டை)</string>
     <string name="internal_storage">அகச் சேமிப்பகம்</string>
+    <string name="open_the_document_from_main_view">கீழேயுள்ள பிரதான பார்வை, கோப்பு உலாவி அல்லது துவக்கியிலிருந்து ஆவணத்தைத் திறக்கலாம். பகிரப்பட்ட உரையை சேர்ப்பதற்கும் Markor ல் ஒரு விருப்ப தேர்வு உள்ளது.</string>
     <string name="notebook_is_the_home_of_your_files">குறிப்புப்புத்தகம் என்பது ஒரு கோப்புறையாகும் Markor ஆவண உலாவியில் இருந்து செயலி தொடங்கும்போது இதை ஏற்றுகிறது. இதுவே உங்கள் ஆவணங்களின் முதன்மை கோப்புறையாகும்.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote என்பது விரைவாக குறிப்புகளை எழுதுவதற்கு ஒரு தேர்வாகும். இது Markdown முறையில் உள்ள ஒரு ஆவணமாகும் இதன் இயல்புநிலை இடமானது &gt;Notebook/QuickNote.md&lt;, நீங்கள் இந்த ஆவணத்திற்கு வேறு ஒரு கோப்பு பாதையை அமைப்புகளில் மாற்ற முடியும்.</string>
     <string name="todo_is_the_easiest_way_">உங்கள் செயல்களை நிர்வகிக்க ToDo வகை ஆவணத்தை பயன்படுத்தவும். அது  todo.txt முறையில் உள்ள ஆவணமாகும் இதன் இயல்புநிலை இடமானது &gt;Notebook/todo.txt&lt;, நீங்கள் இந்த ஆவணத்திற்கு வேறு ஒரு கோப்பு பாதையை அமைப்புகளில் மாற்ற முடியும்.</string>
