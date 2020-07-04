@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">கோப்பு மற்றும் கோப்புறைகள்</string>
     <string name="document_browser">ஆவணங்களின் உலாவி</string>
     <string name="file_browser">கோப்பு உலாவி</string>
+    <string name="set_due_date">முடிவு தேதி</string>
+    <string name="insert_replace_date">தேதியை சொருகு</string>
     <string name="create_note" needed="false">குறிப்பை உருவாக்கு</string>
     <string name="special_documents" needed="false">சிறப்பு கோப்புகள்</string>
     <string name="keep_screen_on" needed="false">திரையை இயக்கத்தில் வைத்திரு</string>
