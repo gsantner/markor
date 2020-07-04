@@ -311,6 +311,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">திரும்ப ஏற்று</string>
     <string name="wrap_words">சொற்களை மடக்கு</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">உரை திரை அகலத்திற்குள் பொருந்தவில்லை எனில் ஒரு மென்மையான இடைவெளியை பயன்படுத்தவும் அல்லது கிடைமட்ட சுருளும் முறையை செயல்படுத்து.</string>
+    <string name="recursive_search_in_current_directory">தற்போதைய கோப்புறையில் சுழற்சி முறையில் தேடல். வினவலில் நட்சித்திர குறி (*) இருந்தால் regex தேடல் முறை பயன்படுத்தப்பட்டுள்ளது, இல்லையெனில் வினவல் உள்ளதா என சரிபார்க்கவும்.</string>
     <string name="always_open_with_this_app">எப்போதும் இந்த செயலியை கொண்டு திறக்கவும்</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">இந்த பட்டியலில் உள்ள கோப்பு வகை நீட்சிகள் கொண்ட ஆவணங்களை இந்த செயலியை கொண்டே திறக்கவும். உதாரணமாக நீங்கள் வலை ஆவணங்களையும் மற்றும் எந்த நீட்சிகள் அற்ற ஆவணங்களையும் திருத்த விரும்பினால் \'None, .html, .css , .js\' ஆகியவற்றை பயன்படுத்துங்கள்.</string>
     <string name="template">வார்ப்புரு</string>
