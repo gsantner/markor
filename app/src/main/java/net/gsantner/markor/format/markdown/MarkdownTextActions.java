@@ -193,6 +193,14 @@ public class MarkdownTextActions extends TextActions {
                     });
                     return true;
                 }
+                case R.string.tmaid_common_indent:
+                case R.string.tmaid_common_deindent: {
+                    runCommonTextAction(_context.getString(_action));
+                    if (_appSettings.isMarkdownAutoUpdateList()) {
+                        MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+                    }
+                    return true;
+                }
                 default: {
                     return runCommonTextAction(_context.getString(_action));
                 }
