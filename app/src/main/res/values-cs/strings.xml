@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">prohlížeč dokumentů</string>
     <string name="file_browser">Správce souborů</string>
     <string name="set_due_date">Nastavit termín dokončení</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Vložit datum</string>
     <string name="create_note" needed="false">Vytvořit poznámku</string>
     <string name="special_documents" needed="false">Speciální dokumenty</string>
     <string name="keep_screen_on" needed="false">Udržovat obrazovku zapnutou</string>
