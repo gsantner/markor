@@ -16,10 +16,12 @@ import android.text.Spanned;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.EmptyStackException;
+import java.util.Stack;
 import java.util.regex.Matcher;
 
 public class MarkdownAutoFormat implements InputFilter {
+
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
@@ -82,7 +84,6 @@ public class MarkdownAutoFormat implements InputFilter {
         }
     }
 
-
     public static class ListLine {
         protected static final int INDENT_DELTA = 2;
 
@@ -116,16 +117,6 @@ public class MarkdownAutoFormat implements InputFilter {
         public boolean isSiblingLevelOf(final ListLine line) {
             return !line.isEmpty && Math.abs(line.indent - indent) < INDENT_DELTA;
         }
-
-        public ListLine getParent() {
-            int position = lineStart;
-            ListLine line;
-            do {
-                line = new ListLine(text, position);
-                position = line.lineStart - 1;
-            } while (position > 0 && !isChildLevelOf(line) && !line.isTopLevel);
-            return line;
-        }
     }
 
     /**
@@ -157,27 +148,38 @@ public class MarkdownAutoFormat implements InputFilter {
         }
 
         public boolean isMatchingList(final OrderedListLine line) {
-            final boolean bothOrderedlists = isOrderedList && line.isOrderedList;
-            final boolean sameIndent = Math.abs(indent - line.indent) <= ListLine.INDENT_DELTA;
-            final boolean sameDelimiter = delimiter == line.delimiter;
-            return bothOrderedlists && sameIndent && sameDelimiter;
+            return isOrderedList && line.isOrderedList && delimiter == line.delimiter && Math.abs(indent - line.indent) <= INDENT_DELTA;
         }
 
-        public OrderedListLine getListStart() {
-            int position = lineStart;
-            OrderedListLine line, start = this;
-            boolean parent, matching;
+        public OrderedListLine getLevelStart() {
+            OrderedListLine listStart = this;
 
-            do {
-                line = new OrderedListLine(text, position);
-                position = line.lineStart - 1;
-                matching = isMatchingList(line);
-                parent = isParentLevelOf(line);
-                if (matching) {
-                    start = line;
-                }
-            } while (position > 0 && (matching || parent));
-            return start;
+            if (lineStart > INDENT_DELTA) {
+                boolean matching;
+                OrderedListLine line = this;
+                do {
+                    int position = line.lineStart - 1;
+                    line = new OrderedListLine(text, position);
+                    matching = isMatchingList(line);
+                    if (matching) {
+                        listStart = line;
+                    }
+                } while (line.lineStart > INDENT_DELTA && (matching || isParentLevelOf(line)));
+            }
+
+            return listStart;
+        }
+
+        public OrderedListLine getParent() {
+            OrderedListLine line = this;
+            if (!isTopLevel && lineStart > INDENT_DELTA) {
+                int position = lineStart - 1;
+                do {
+                    line = new OrderedListLine(text, position);
+                    position = line.lineStart - 1;
+                } while (position > 0 && !line.isParentLevelOf(this));
+            }
+            return line;
         }
     }
 
@@ -232,13 +234,13 @@ public class MarkdownAutoFormat implements InputFilter {
             OrderedListLine line, parent = listStart;
             do {
                 line = parent;
-                parent = new OrderedListLine(text, line.getParent().lineStart);
+                parent = line.getParent();
                 if (parent.isOrderedList) {
                     listStart = parent;
                 }
             } while(!line.isTopLevel && line != parent);
 
-            listStart = listStart.getListStart();
+            listStart = listStart.getLevelStart();
         }
         return listStart;
     }
@@ -253,76 +255,70 @@ public class MarkdownAutoFormat implements InputFilter {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition);
+        int position = firstLine.lineEnd + 1;
 
-        if (firstLine.isOrderedList && firstLine.lineEnd < text.length()) {
+        if (firstLine.isOrderedList && position < text.length()) {
+            // Stack represents
+            final Stack<OrderedListLine> levels = new Stack<>();
+            levels.push(firstLine);
 
-            OrderedListLine[] levels = new OrderedListLine[10];
-            Arrays.fill(levels, null);
-            int currentLevel = 0;
-            levels[currentLevel] = firstLine;
+            OrderedListLine line = firstLine;
 
-            OrderedListLine line = firstLine, prevOrderedLine = firstLine;
-            int position = line.lineEnd + 1;
+            try {
+                // Loop to end of list
+                do {
+                    int delta = 0;
+                    line = new OrderedListLine(text, position);
 
-            // Loop to end of list
-            do {
-                int delta = 0;
-                if (line.isOrderedList) {
-                    prevOrderedLine = line;
-                }
-                line = new OrderedListLine(text, position);
-
-                if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
-                    // List is over
-                    break;
-                }
-
-                if (line.isOrderedList) {
-                    // Indented
-                    if (prevOrderedLine.isParentLevelOf(line)) {
-                        currentLevel++;
-                        levels[currentLevel] = line;
+                   if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
+                        // List is over
+                        break;
                     }
-                    // Dedented
-                    else if (prevOrderedLine.isChildLevelOf(line)) {
-                        // Determine level dedented to
-                        currentLevel = -1;
-                        for (int li = 0 ; li < levels.length; li++) {
-                            if (levels[li] != null && levels[li].isSiblingLevelOf(line)) {
-                                currentLevel = li;
-                                break;
+
+                    if (line.isOrderedList) {
+                        if (line.isChildLevelOf(levels.peek())) {
+                            levels.push(line);
+                        }
+                        else if (line.isParentLevelOf(levels.peek())) {
+                            while (levels.peek().isChildLevelOf(line)) {
+                                levels.pop();
                             }
                         }
-                        // Not valid level; exit
-                        if (currentLevel < 0) {
-                            break;
-                        }
-                    }
-                    // Sibling; check for restart
-                    else if (!prevOrderedLine.isMatchingList(line)) {
-                        levels[currentLevel] = line;
-                    }
-                }
-                // If not an Ordered List and not empty restart the appropriate levels
-                else if (!line.isEmpty) {
-                    // Null out
-                    for (int li = 0 ; li < levels.length; li++) {
-                        if (levels[li] != null && !levels[li].isParentLevelOf(line)) {
-                            levels[li] = null;
-                        }
-                    }
-                }
 
-                if (line.isOrderedList) {
-                    if (levels[currentLevel] != null && levels[currentLevel] != line) {
-                        String number = Integer.toString(levels[currentLevel].value + 1);
-                        text.replace(line.numStart, line.numEnd, number);
-                        delta = number.length() - (line.numEnd - line.numStart);
+                        // Restart if bullet does not match list at this level
+                        if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
+                            levels.pop();
+                            levels.push(line);
+                        }
                     }
-                    levels[currentLevel] = new OrderedListLine(text, line.lineStart);
-                }
-                position = line.lineEnd + delta + 1;
-            } while(position < text.length() && position > 0);
+                    // Non-ordered non-empty line
+                    else if (!line.isEmpty) {
+                        while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                            levels.pop();
+                        }
+                    }
+
+                    // Update numbering if needed
+                    if (line.isOrderedList) {
+                        // Will not renumber if this line is the head
+                        if (levels.peek() != line) {
+                            String number = Integer.toString(levels.peek().value + 1);
+                            text.replace(line.numStart, line.numEnd, number);
+                            delta = number.length() - (line.numEnd - line.numStart);
+
+                            // Re-create line as it has changed
+                            line = new OrderedListLine(text, line.lineStart);
+                        }
+                        levels.pop();
+                        levels.push(line);
+                    }
+                    position = line.lineEnd + delta + 1;
+                } while (position < text.length() && position > 0);
+            }
+            catch (EmptyStackException ignored) {
+                // Usually means that indents and de-indents did not match up
+                ignored.printStackTrace();
+            }
         }
     }
 }

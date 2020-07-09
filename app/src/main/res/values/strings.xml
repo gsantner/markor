@@ -174,7 +174,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Highlight spaces at the end of lines containing two or more spaces</string>
     <string name="use_monospace_for_code">Use monospace font for code</string>
     <string name="disable_code_block_highlight">Disable highlighting for code blocks</string>
-    <string name="auto_renumber_ordered_list">Renumber ordered lists as they are updated</string>
+    <string name="auto_renumber_ordered_list">Auto-renumber ordered lists</string>
     <string name="auto_renumber_ordered_list_slowdown">This option may impact app performance.</string>
     <string name="use_different_fonttype_slow_down">Make use of a different font type. Changing it dynamically impacts app performance.</string>
     <string name="general">General</string>
