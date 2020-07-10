@@ -105,16 +105,17 @@ public class MarkdownAutoFormat implements InputFilter {
             isTopLevel = indent <= INDENT_DELTA;
         }
 
+        // Empty lines are children of any line level
         public boolean isParentLevelOf(final ListLine line) {
-            return line.isEmpty || line.indent > (indent + INDENT_DELTA);
+            return line.isEmpty || (!isEmpty && (line.indent - indent) > INDENT_DELTA);
         }
 
         public boolean isChildLevelOf(final ListLine line) {
-            return !line.isEmpty && line.indent < (indent - INDENT_DELTA);
+            return isEmpty || (!line.isEmpty && (indent - line.indent) > INDENT_DELTA);
         }
 
         public boolean isSiblingLevelOf(final ListLine line) {
-            return !line.isEmpty && Math.abs(line.indent - indent) < INDENT_DELTA;
+            return !isParentLevelOf(line) && !isChildLevelOf(line);
         }
     }
 
@@ -170,7 +171,7 @@ public class MarkdownAutoFormat implements InputFilter {
         }
 
         public OrderedListLine getParent() {
-            OrderedListLine line = this;
+            OrderedListLine line = null;
             if (!isTopLevel && lineStart > INDENT_DELTA) {
                 int position = lineStart - 1;
                 do {
@@ -231,14 +232,13 @@ public class MarkdownAutoFormat implements InputFilter {
         OrderedListLine listStart = new OrderedListLine(text, position);
 
         if (listStart.isOrderedList) {
-            OrderedListLine line, parent = listStart;
+            OrderedListLine line = listStart;
             do {
-                line = parent;
-                parent = line.getParent();
-                if (parent.isOrderedList) {
-                    listStart = parent;
+                line = line.getParent();
+                if (line != null && line.isOrderedList) {
+                    listStart = line;
                 }
-            } while (!line.isTopLevel && line != parent);
+            } while (line != null);
 
             listStart = listStart.getLevelStart();
         }
@@ -267,7 +267,6 @@ public class MarkdownAutoFormat implements InputFilter {
             try {
                 // Loop to end of list
                 do {
-                    int delta = 0;
                     line = new OrderedListLine(text, position);
 
                     if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
@@ -306,7 +305,6 @@ public class MarkdownAutoFormat implements InputFilter {
                         if (levels.peek() != line) {
                             String number = Integer.toString(levels.peek().value + 1);
                             text.replace(line.numStart, line.numEnd, number);
-                            delta = number.length() - (line.numEnd - line.numStart);
 
                             // Re-create line as it has changed
                             line = new OrderedListLine(text, line.lineStart);
@@ -316,7 +314,7 @@ public class MarkdownAutoFormat implements InputFilter {
                         levels.push(line);
                     }
 
-                    position = line.lineEnd + delta + 1;
+                    position = line.lineEnd + 1;
                 } while (position < text.length() && position > 0);
 
             } catch (EmptyStackException ignored) {
