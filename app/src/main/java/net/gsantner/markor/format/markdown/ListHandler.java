@@ -24,7 +24,6 @@ public class ListHandler implements TextWatcher {
     private boolean triggerReorder = false;
 
 
-
     public ListHandler(final boolean reorderEnabled) {
         super();
         _reorderEnabled = reorderEnabled;
@@ -75,13 +74,13 @@ public class ListHandler implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-         triggerReorder = containsNewline(s, start, count);
-         reorderPosition = start;
+        triggerReorder = containsNewline(s, start, count);
+        reorderPosition = start;
     }
 
     private boolean containsNewline(CharSequence s, int start, int count) {
         final int end = start + count;
-        for (int i = start; i < end; i ++) {
+        for (int i = start; i < end; i++) {
             if (s.charAt(i) == '\n') {
                 return true;
             }

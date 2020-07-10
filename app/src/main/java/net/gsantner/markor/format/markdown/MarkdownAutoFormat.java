@@ -15,7 +15,6 @@ import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -222,9 +221,10 @@ public class MarkdownAutoFormat implements InputFilter {
 
     /**
      * Find the topmost orderd list item which is a parent of the current
-     * @param text
-     * @param position
-     * @return
+     *
+     * @param text Editable
+     * @param position Position within current line
+     * @return OrderedListLine corresponding to top of current list
      */
     private static OrderedListLine getOrderedListStart(final Editable text, int position) {
         position = Math.max(Math.min(position, text.length() - 1), 0);
@@ -238,7 +238,7 @@ public class MarkdownAutoFormat implements InputFilter {
                 if (parent.isOrderedList) {
                     listStart = parent;
                 }
-            } while(!line.isTopLevel && line != parent);
+            } while (!line.isTopLevel && line != parent);
 
             listStart = listStart.getLevelStart();
         }
@@ -248,7 +248,7 @@ public class MarkdownAutoFormat implements InputFilter {
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
-     *
+     * <p>
      * Sub-lists and other children will be skipped.
      */
     public static void renumberOrderedList(Editable text, int cursorPosition) {
@@ -270,15 +270,17 @@ public class MarkdownAutoFormat implements InputFilter {
                     int delta = 0;
                     line = new OrderedListLine(text, position);
 
-                   if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
+                    if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
                         // List is over
                         break;
                     }
 
                     if (line.isOrderedList) {
+                        // Indented. Add level
                         if (line.isChildLevelOf(levels.peek())) {
                             levels.push(line);
                         }
+                        // Dedented. Remove appropriate number of levels
                         else if (line.isParentLevelOf(levels.peek())) {
                             while (levels.peek().isChildLevelOf(line)) {
                                 levels.pop();
@@ -291,7 +293,7 @@ public class MarkdownAutoFormat implements InputFilter {
                             levels.push(line);
                         }
                     }
-                    // Non-ordered non-empty line
+                    // Non-ordered non-empty line. Pop back to parent level
                     else if (!line.isEmpty) {
                         while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
                             levels.pop();
@@ -309,13 +311,15 @@ public class MarkdownAutoFormat implements InputFilter {
                             // Re-create line as it has changed
                             line = new OrderedListLine(text, line.lineStart);
                         }
+
                         levels.pop();
                         levels.push(line);
                     }
+
                     position = line.lineEnd + delta + 1;
                 } while (position < text.length() && position > 0);
-            }
-            catch (EmptyStackException ignored) {
+
+            } catch (EmptyStackException ignored) {
                 // Usually means that indents and de-indents did not match up
                 ignored.printStackTrace();
             }
