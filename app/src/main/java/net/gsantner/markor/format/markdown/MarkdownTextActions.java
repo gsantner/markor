@@ -151,9 +151,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
-                    if (_appSettings.isMarkdownAutoUpdateList()) {
-                        MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
-                    }
+                    runRenumberOrderedListIfRequired();
                     return true;
                 }
                 case R.string.tmaid_markdown_bold: {
@@ -196,9 +194,7 @@ public class MarkdownTextActions extends TextActions {
                 case R.string.tmaid_common_indent:
                 case R.string.tmaid_common_deindent: {
                     runCommonTextAction(_context.getString(_action));
-                    if (_appSettings.isMarkdownAutoUpdateList()) {
-                        MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
-                    }
+                    runRenumberOrderedListIfRequired();
                     return true;
                 }
                 default: {
@@ -318,5 +314,11 @@ public class MarkdownTextActions extends TextActions {
         }
 
         runRegexReplaceAction(patterns);
+    }
+
+    private void runRenumberOrderedListIfRequired() {
+        if (_appSettings.isMarkdownAutoUpdateList()) {
+            MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+        }
     }
 }
