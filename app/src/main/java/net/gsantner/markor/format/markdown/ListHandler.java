@@ -32,7 +32,7 @@ public class ListHandler implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        triggerReorder |= containsNewline(s, start, count);
+        triggerReorder = triggerReorder || containsNewline(s, start, count);
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
         if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
