@@ -172,7 +172,7 @@ public class MarkdownAutoFormat implements InputFilter {
 
         public OrderedListLine getParent() {
             OrderedListLine line = null;
-            if (!isTopLevel && lineStart > INDENT_DELTA) {
+            if (isEmpty || (!isTopLevel && lineStart > INDENT_DELTA)) {
                 int position = lineStart - 1;
                 do {
                     line = new OrderedListLine(text, position);
@@ -231,17 +231,18 @@ public class MarkdownAutoFormat implements InputFilter {
         position = Math.max(Math.min(position, text.length() - 1), 0);
         OrderedListLine listStart = new OrderedListLine(text, position);
 
-        if (listStart.isOrderedList) {
-            OrderedListLine line = listStart;
-            do {
-                line = line.getParent();
-                if (line != null && line.isOrderedList) {
-                    listStart = line;
-                }
-            } while (line != null);
+        OrderedListLine line = listStart;
+        do {
+            line = line.getParent();
+            if (line != null && line.isOrderedList) {
+                listStart = line;
+            }
+        } while (line != null);
 
+        if (listStart.isOrderedList || listStart.isEmpty) {
             listStart = listStart.getLevelStart();
         }
+
         return listStart;
     }
 
