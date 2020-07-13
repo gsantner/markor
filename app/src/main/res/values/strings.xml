@@ -351,7 +351,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="example_of_a_markdown_table">Example of a Markdown table</string>
     <string name="delete_lines">Delete lines</string>
     <string name="unordered_list">Unordered list</string>
-    <string name="ordered_list">Renumber ordered list</string>
+    <string name="ordered_list">Ordered list</string>
     <string name="check_list">Check list</string>
     <string name="open_link">Open link</string>
     <string name="common_color_picker">Color picker</string>
