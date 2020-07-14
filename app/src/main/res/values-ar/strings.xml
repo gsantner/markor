@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">تظليل مسافاتين او اكثر في نهاية السطر</string>
     <string name="use_monospace_for_code">استخدام خط أحادي المسافة للشفرات البرمجية</string>
     <string name="disable_code_block_highlight">تعطيل تسليط الضوء على الكتل البرمجية</string>
+    <string name="auto_renumber_ordered_list">إعادة الترقيم التلقائي للقوائم</string>
+    <string name="auto_renumber_ordered_list_slowdown">هذا الخيار قد يؤثر على أداء التطبيق.</string>
     <string name="use_different_fonttype_slow_down">استخدام خط آخر. تغييره بفاعلية يؤثر على أداء التطبيق.</string>
     <string name="general">عام</string>
     <string name="resources">الموارد</string>
