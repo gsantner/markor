@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Destaca espais al final de línies que contenen dos o més espais</string>
     <string name="use_monospace_for_code">Utilitza lletra monoespacial per a codi</string>
     <string name="disable_code_block_highlight">Desactiva el ressaltat per als blocs de codi</string>
+    <string name="auto_renumber_ordered_list">Renumera automàticament les llistes ordenades</string>
+    <string name="auto_renumber_ordered_list_slowdown">Aquesta opció pot afectar al rendiment de l\'aplicació.</string>
     <string name="use_different_fonttype_slow_down">Utilitza una font diferent. La modificació de l\'aplicació afecta dinàmicament el rendiment de l\'aplicació.</string>
     <string name="general">General</string>
     <string name="resources">Recursos</string>
