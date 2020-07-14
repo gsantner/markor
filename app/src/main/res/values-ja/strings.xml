@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
     <string name="use_monospace_for_code">コードは等幅フォントを使用</string>
     <string name="disable_code_block_highlight">コードブロックのハイライト表示を無効にする</string>
+    <string name="auto_renumber_ordered_list">自動番号付けリスト</string>
+    <string name="auto_renumber_ordered_list_slowdown">このオプションはアプリのパフォーマンスに影響を与える可能性があります。</string>
     <string name="use_different_fonttype_slow_down">異なるフォントの種類を使用します。動的に変更するとアプリのパフォーマンスに影響します。</string>
     <string name="general">一般</string>
     <string name="resources">リソース</string>
