@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
     <string name="use_monospace_for_code">Usa un font monospace per il codice</string>
     <string name="disable_code_block_highlight">Disabilita evidenziazione per i blocchi di codice</string>
+    <string name="auto_renumber_ordered_list">Rinumerazione automatica delle liste ordinate</string>
+    <string name="auto_renumber_ordered_list_slowdown">Questa opzione potrebbe influire sulle prestazioni dell\'app.</string>
     <string name="use_different_fonttype_slow_down">Utilizza più tipi di font per il codice. Tale opzione può conseguire un impatto sulle prestazioni dell\'applicazione.</string>
     <string name="general">Generali</string>
     <string name="resources">Risorse</string>
