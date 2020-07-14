@@ -1134,7 +1134,9 @@ public boolean canWriteFile(final File file, final boolean isDir) {
         try {
             FileOutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            if ((!file.exists() || file.length() < MIN_OVERWRITE_LENGTH) && file.getParentFile().canWrite()) {
+            final boolean existingEmptyFile = file.canWrite() && file.length() < MIN_OVERWRITE_LENGTH;
+            final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile().canWrite();
+            if (existingEmptyFile || nonExistingCreatableFile) {
                 if (isDirectory) {
                     file.mkdirs();
                 } else {
