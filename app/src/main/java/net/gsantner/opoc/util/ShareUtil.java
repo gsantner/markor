@@ -1032,7 +1032,7 @@ public class ShareUtil {
      * @param isDir Wether or not the given file parameter is a directory
      * @return Wether or not the file can be written
      */
-public boolean canWriteFile(final File file, final boolean isDir) {
+    public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
