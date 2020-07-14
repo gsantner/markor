@@ -1136,7 +1136,7 @@ public class ShareUtil {
                 if (isDirectory) {
                     file.mkdirs();
                 } else {
-                    fileOutputStream = new FileOutputStream(file);
+                    fileOutputStream = new FileOutputStream(file, true);
                 }
             } else {
                 DocumentFile dof = getDocumentFile(file, isDirectory);
