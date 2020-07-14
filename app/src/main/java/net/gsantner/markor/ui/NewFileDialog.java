@@ -157,7 +157,7 @@ public class NewFileDialog extends DialogFragment {
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
-                            if (f.exists() && f.length() < 5 && templateContents != null) {
+                            if (f.exists() && f.length() < ShareUtil.MIN_OVERWRITE_LENGTH && templateContents != null) {
                                 arg_fos.write(templateContents);
                             }
                         } catch (Exception ignored) {

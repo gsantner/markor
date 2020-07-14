@@ -149,7 +149,7 @@ public class DocumentIO {
     }
 
     public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil, Context context) {
-        if (text == null || (!SAVE_IGNORE_EMTPY_NEXT_TIME && text.trim().isEmpty() && text.length() < 5)) {
+        if (text == null || (!SAVE_IGNORE_EMTPY_NEXT_TIME && text.trim().isEmpty() && text.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
             return false;
         }
         boolean ret;

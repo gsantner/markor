@@ -90,6 +90,8 @@ public class ShareUtil {
     public final static int REQUEST_PICK_PICTURE = 50002;
     public final static int REQUEST_SAF = 50003;
 
+    public final static int MIN_OVERWRITE_LENGTH = 5;
+
     protected static String _lastCameraPictureFilepath;
 
     protected Context _context;
@@ -1030,7 +1032,7 @@ public class ShareUtil {
      * @param isDir Wether or not the given file parameter is a directory
      * @return Wether or not the file can be written
      */
-    public boolean canWriteFile(final File file, final boolean isDir) {
+public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
@@ -1132,11 +1134,11 @@ public class ShareUtil {
         try {
             FileOutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            if (file.canWrite() || (!file.exists() && file.getParentFile().canWrite())) {
+            if ((!file.exists() || file.length() < MIN_OVERWRITE_LENGTH) && file.getParentFile().canWrite()) {
                 if (isDirectory) {
                     file.mkdirs();
                 } else {
-                    fileOutputStream = new FileOutputStream(file, true);
+                    fileOutputStream = new FileOutputStream(file);
                 }
             } else {
                 DocumentFile dof = getDocumentFile(file, isDirectory);
