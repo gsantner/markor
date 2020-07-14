@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Destacar espaços no final das linhas que possuem dois ou mais espaços</string>
     <string name="use_monospace_for_code">Utilizar letra monoespaçada para código</string>
     <string name="disable_code_block_highlight">Desativar destaque para blocos de código</string>
+    <string name="auto_renumber_ordered_list">Lista de auto-renomar ordenada</string>
+    <string name="auto_renumber_ordered_list_slowdown">Esta opção pode afetar o desempenho do aplicativo.</string>
     <string name="use_different_fonttype_slow_down">Utiliza um tipo de letra diferente. A alteração desta opção pode degradar o desempenho.</string>
     <string name="general">Geral</string>
     <string name="resources">Recursos</string>
