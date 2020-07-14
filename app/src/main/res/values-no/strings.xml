@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Framhev mellomrom ved linjeslutt for linjer som inneholder to eller flere mellomrom</string>
     <string name="use_monospace_for_code">Bruk monospace skrift for kode</string>
     <string name="disable_code_block_highlight">Deaktiver utheving for kodeklosser</string>
+    <string name="auto_renumber_ordered_list">Automatisk omdirigering sorterte lister</string>
+    <string name="auto_renumber_ordered_list_slowdown">Dette alternativet kan påvirke appens ytelse.</string>
     <string name="use_different_fonttype_slow_down">Bruk annen skrifttype. Endring har dynamisk innvirkning på programytelse.</string>
     <string name="general">Generelt</string>
     <string name="resources">Ressurser</string>
