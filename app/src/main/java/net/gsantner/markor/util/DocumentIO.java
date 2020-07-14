@@ -45,7 +45,7 @@ public class DocumentIO {
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
-    public static boolean SAVE_IGNORE_EMTPY_NEXT_TIME = true;
+    public static boolean SAVE_IGNORE_EMTPY_NEXT_TIME = false;
 
     public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
