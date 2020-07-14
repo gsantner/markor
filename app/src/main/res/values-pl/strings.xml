@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
     <string name="use_monospace_for_code">Użyj czionki monospace dla kodu</string>
     <string name="disable_code_block_highlight">Wyłącz podświetlanie bloków kodu</string>
+    <string name="auto_renumber_ordered_list">Automatycznie zmieniaj numerację list uporządkowanych</string>
+    <string name="auto_renumber_ordered_list_slowdown">Ta opcja może mieć wpływ na wydajność aplikacji.</string>
     <string name="use_different_fonttype_slow_down">Użyj innego rodzaju czcionki. Dynamiczne zmienianie rodzaju czcionki ma wpływ na wydajność aplikacji.</string>
     <string name="general">Ogólne</string>
     <string name="resources">Zasoby</string>
