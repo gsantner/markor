@@ -18,7 +18,7 @@ public enum MarkdownHighlighterPattern {
     HEADING_SIMPLE(Pattern.compile("(?m)^(#{1,6}\\s.*$)")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
     LIST_UNORDERED(Pattern.compile("(\\n|^)\\s{0,16}([*+-])( \\[[ xX]\\])?(?= )")),
-    LIST_ORDERED(Pattern.compile("(?m)^\\s{0,16}\\d+\\.\\s")),
+    LIST_ORDERED(Pattern.compile("(?m)^\\s{0,16}(\\d+)(:?\\.|\\))\\s")),
     QUOTATION(Pattern.compile("(\\n|^)>")),
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
     CODE(Pattern.compile("(?m)(`(?!`)(.*?)`)|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)")),

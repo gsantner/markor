@@ -33,13 +33,13 @@ import java.util.regex.Pattern;
 
 public class MarkdownTextActions extends TextActions {
 
-    private static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)(\\d+\\.\\s)");
-    private static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
-    private static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
-    private static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[(:?x|X)]\\s)");
-    private static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s\\[\\s]\\s)");
-    private static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((:?-|\\*|\\+)\\s)");
-    private static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
+    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+)(\\.|\\))(\\s+))");
+    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(\\s{0,3})(#{1,6}\\s)");
+    public static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
+    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s\\[(x|X)]\\s)");
+    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s\\[\\s]\\s)");
+    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s)");
+    public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
     private static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
@@ -151,6 +151,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
+                    runRenumberOrderedListIfRequired();
                     return true;
                 }
                 case R.string.tmaid_markdown_bold: {
@@ -188,6 +189,12 @@ public class MarkdownTextActions extends TextActions {
                         int cursor = origText.indexOf(callbackPayload);
                         _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                     });
+                    return true;
+                }
+                case R.string.tmaid_common_indent:
+                case R.string.tmaid_common_deindent: {
+                    runCommonTextAction(_context.getString(_action));
+                    runRenumberOrderedListIfRequired();
                     return true;
                 }
                 default: {
@@ -230,6 +237,9 @@ public class MarkdownTextActions extends TextActions {
                     _hlEditor.enableHighlighterAutoFormat();
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
+                }
+                case R.string.tmaid_common_ordered_list_number: {
+                    MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                 }
             }
             return false;
@@ -304,5 +314,11 @@ public class MarkdownTextActions extends TextActions {
         }
 
         runRegexReplaceAction(patterns);
+    }
+
+    private void runRenumberOrderedListIfRequired() {
+        if (_appSettings.isMarkdownAutoUpdateList()) {
+            MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+        }
     }
 }

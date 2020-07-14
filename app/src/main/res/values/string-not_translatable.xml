@@ -123,6 +123,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
     <string name="pref_key__markdown__monospace_some_parts" translatable="false">pref_key__markdown__monospace_some_parts</string>
     <string name="pref_key__markdown__disable_code_block_highlight" translatable="false">pref_key__markdown__disable_code_block_highlight</string>
+    <string name="pref_key__markdown__auto_renumber_ordered_list" translatable="false">pref_key__markdown__auto_renumber_ordered_list</string>
     <string name="pref_key__markdown__reorder_actions" translatable="false">pref_key__markdown__reorder_actions</string>
     <string name="pref_key__todotxt__reorder_actions" translatable="false">pref_key__todotxt__reorder_actions</string>
     <string name="pref_key__plaintext__reorder_actions" translatable="false">pref_key__plaintext__reorder_actions</string>
