@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк с двумя и более пробелами</string>
     <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
     <string name="disable_code_block_highlight">Отключить подсветку блоков кода</string>
+    <string name="auto_renumber_ordered_list">Автоматическое обновление упорядоченных списков</string>
+    <string name="auto_renumber_ordered_list_slowdown">Этот параметр может повлиять на производительность приложений.</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
     <string name="general">Общие</string>
     <string name="resources">Ресурсы</string>
