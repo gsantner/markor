@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.format.markdown;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -24,10 +25,7 @@ public class MarkdownAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (start < source.length()
-                    && dstart <= dest.length()
-                    && isNewLine(source, start, end)) {
-
+            if (start < source.length() && dstart <= dest.length() && isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -40,47 +38,26 @@ public class MarkdownAutoFormat implements InputFilter {
         return ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n'));
     }
 
+    @SuppressLint("DefaultLocale")
     private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
         int iStart = StringUtils.getLineStart(dest, dstart);
 
-        // append white space of previous line and new indent
-        return source + createIndentForNextLine(dest, dend, iStart);
-    }
+        final String result;
 
-    private String createIndentForNextLine(Spanned dest, int dend, int istart) {
+        final OrderedListLine oLine = new OrderedListLine(dest, dstart);
+        final UnOrderedListLine uLine = new UnOrderedListLine(dest, dstart);
+        final String indent = source + StringUtils.repeatChars(' ', oLine.indent);
 
-        // Determine leading whitespace
-        int iEnd = StringUtils.getNextNonWhitespace(dest, istart);
-
-        // Construct whitespace
-        String indentString = StringUtils.repeatChars(' ', iEnd - istart);
-
-        String previousLine = dest.toString().substring(iEnd, dend);
-
-        Matcher uMatch = MarkdownHighlighterPattern.LIST_UNORDERED.pattern.matcher(previousLine);
-        if (uMatch.find()) {
-            String bullet = uMatch.group() + " ";
-            boolean emptyList = previousLine.equals(bullet);
-            return indentString + (emptyList ? "" : bullet);
+        if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd) {
+            result = indent + String.format("%d%c ", oLine.value + 1, oLine.delimiter);
+        } else if (uLine.isUnorderedList && uLine.lineEnd != uLine.groupEnd) {
+            final String checkString = uLine.isCheckboxList ? "[ ] " : "";
+            result = indent + String.format("%c %s", uLine.listChar, checkString);
+        } else {
+            result = indent;
         }
 
-        Matcher oMatch = MarkdownHighlighterPattern.LIST_ORDERED.pattern.matcher(previousLine);
-        if (oMatch.find()) {
-            boolean emptyList = previousLine.equals(oMatch.group(1) + ". ");
-            return indentString + (emptyList ? "" : addNumericListItemIfNeeded(oMatch.group(1)));
-        }
-
-        return indentString;
-    }
-
-    private String addNumericListItemIfNeeded(String itemNumStr) {
-        try {
-            int nextC = Integer.parseInt(itemNumStr) + 1;
-            return nextC + ". ";
-        } catch (NumberFormatException e) {
-            // This should never ever happen
-            return "";
-        }
+        return result;
     }
 
     public static class ListLine {
@@ -123,12 +100,14 @@ public class MarkdownAutoFormat implements InputFilter {
      * Class to parse a line of text and extract useful information
      */
     public static class OrderedListLine extends ListLine {
+        private static final int FULL_GROUP = 2;
         private static final int VALUE_GROUP = 3;
         private static final int DELIM_GROUP = 4;
 
         public final boolean isOrderedList;
         public final char delimiter;
         public final int numStart, numEnd;
+        public final int groupStart, groupEnd;
         public final int value;
 
         public OrderedListLine(CharSequence text, int position) {
@@ -141,8 +120,10 @@ public class MarkdownAutoFormat implements InputFilter {
                 numStart = match.start(VALUE_GROUP) + lineStart;
                 numEnd = match.end(VALUE_GROUP) + lineStart;
                 value = Integer.parseInt(match.group(VALUE_GROUP));
+                groupStart = lineStart + match.start(FULL_GROUP);
+                groupEnd = lineStart + match.end(FULL_GROUP);
             } else {
-                numStart = numEnd = value = -1;
+                groupEnd = groupStart = numStart = numEnd = value = -1;
                 delimiter = 0;
             }
         }
