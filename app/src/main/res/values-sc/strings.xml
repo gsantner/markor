@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidèntzia sos ispatzios a s\'acabu de sas lìnias chi cuntenint duos o prus ispàtzios</string>
     <string name="use_monospace_for_code">Imprea unu caràtere a ispàtziu sìngulu pro su còdighe</string>
     <string name="disable_code_block_highlight">Disabìlita s\'evidentziatzione pro sos blocos de còdighe</string>
+    <string name="auto_renumber_ordered_list">Torra a numerare automaticamente sas listas ordinadas</string>
+    <string name="auto_renumber_ordered_list_slowdown">Custa optzione diat pòdere influentzare sas prestatziones de s\'aplicatzione.</string>
     <string name="use_different_fonttype_slow_down">Imprea una casta diferente de caràtere. Mudare dinamicamente sa casta de caràtere impatat sas prestatziones de s\'aplicatzione.</string>
     <string name="general">Generales</string>
     <string name="resources">Risursas</string>
