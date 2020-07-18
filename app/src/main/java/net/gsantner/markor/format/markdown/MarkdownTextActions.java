@@ -191,7 +191,11 @@ public class MarkdownTextActions extends TextActions {
                     });
                     return true;
                 }
-                case R.string.tmaid_common_indent:
+                case R.string.tmaid_common_indent: {
+                    if (_appSettings.isMarkdownAutoUpdateList()) {
+                        runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$0", "$11$4 ");
+                    }
+                }
                 case R.string.tmaid_common_deindent: {
                     runCommonTextAction(_context.getString(_action));
                     runRenumberOrderedListIfRequired();

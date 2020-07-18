@@ -11,6 +11,8 @@ package net.gsantner.opoc.util;
 
 import android.widget.TextView;
 
+import com.vladsch.flexmark.util.sequence.CharSubSequence;
+
 import java.util.Arrays;
 
 public final class StringUtils {
@@ -75,8 +77,7 @@ public final class StringUtils {
             selectionStart = text.getSelectionEnd();
         }
 
-        int[] selection = {selectionStart, selectionEnd};
-        return selection;
+        return new int[] {selectionStart, selectionEnd};
     }
 
     public static String repeatChars(char character, int count) {
@@ -85,4 +86,57 @@ public final class StringUtils {
         return new String(stringChars);
     }
 
+    /**
+     * Convert a char index to a line index + offset from end of line
+     * @param s text to parse
+     * @param p position in text
+     * @return int[2] where index 0 is line and index 1 is position from end of line
+     */
+    public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
+        p = Math.min(Math.max(p, 0), s.length());
+        final int line = countChar(s, '\n', 0, p);
+        final int offset = getLineEnd(s, p) - p;
+
+        return new int[]{line, offset};
+    }
+
+    public static int getIndexFromLineOffset(final CharSequence s, final int[] le) {
+        return getIndexFromLineOffset(s, le[0], le[1]);
+
+    }
+
+    /**
+     * Convert a line index and offset from end of line to absolute position
+     * @param s text to parse
+     * @param l line index
+     * @param e offset from end of line
+     * @return index in s
+     */
+    public static int getIndexFromLineOffset(final CharSequence s, final int l, final int e) {
+        int i = 0, count = 0;
+        for (; i < s.length(); i++) {
+            if (s.charAt(i) == '\n') {
+                count++;
+            }
+            if (count == l) {
+                break;
+            }
+        }
+        if (i < s.length()) {
+            return getLineEnd(s, i + 1) - e;
+        }
+        return i;
+    }
+
+    public static int countChar(final CharSequence s, final char c, int start, int end) {
+        int count = 0;
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
