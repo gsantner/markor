@@ -128,6 +128,14 @@ public final class StringUtils {
         return i;
     }
 
+    /**
+     * Count instances of char 'c' between start and end
+     * @param s Sequence to count in
+     * @param c Char to count
+     * @param start start of section to count within
+     * @param end end of section to count within
+     * @return number of instances of c in c between start and end
+     */
     public static int countChar(final CharSequence s, final char c, int start, int end) {
         int count = 0;
         start = Math.max(0, start);
