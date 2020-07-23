@@ -147,4 +147,8 @@ public final class StringUtils {
         }
         return count;
     }
+
+    public static boolean isNewLine(CharSequence source, int start, int end) {
+        return ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n'));
+    }
 }
