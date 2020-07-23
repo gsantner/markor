@@ -26,7 +26,7 @@ public class MarkdownAutoFormat implements InputFilter {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
             if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
-                return autoIndent(source, dest, dstart, dend);
+                return autoIndent(source, dest, dstart);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
@@ -35,7 +35,8 @@ public class MarkdownAutoFormat implements InputFilter {
     }
 
     @SuppressLint("DefaultLocale")
-    private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
+    private CharSequence autoIndent(final CharSequence source, final Spanned dest, final int dstart) {
+
         final String checkSymbol = "[ ] ";
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart);
@@ -199,7 +200,7 @@ public class MarkdownAutoFormat implements InputFilter {
     /**
      * Find the topmost orderd list item which is a parent of the current
      *
-     * @param text Editable
+     * @param text     Editable
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
