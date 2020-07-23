@@ -282,9 +282,12 @@ public class MarkdownAutoFormat implements InputFilter {
 
                     // Update numbering if needed
                     if (line.isOrderedList) {
-                        // Will not renumber if this line is the head
-                        if (levels.peek() != line) {
-                            String number = Integer.toString(levels.peek().value + 1);
+
+                        // Restart numbering if list changes
+                        final OrderedListLine peek = levels.peek();
+                        final int newValue = (line == peek) ? 1 : peek.value + 1;
+                        if (newValue != line.value) {
+                            String number = Integer.toString(newValue);
                             text.replace(line.numStart, line.numEnd, number);
 
                             // Re-create line as it has changed

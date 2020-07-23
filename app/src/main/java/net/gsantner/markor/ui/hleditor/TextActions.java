@@ -339,12 +339,19 @@ public abstract class TextActions {
                 Matcher matcher = pattern.searchPattern.matcher(line);
                 if (matcher.find()) {
 
-                    String newLine;
-                    if (pattern.replaceAll) newLine = matcher.replaceAll(pattern.replacePattern);
-                    else newLine = matcher.replaceFirst(pattern.replacePattern);
+                    // Optimization. Don't replace if the replace pattern is the pattern itself.
+                    if (!pattern.replacePattern.equals("$0")) {
 
-                    text.replace(lineStart, lineEnd, newLine);
-                    selEnd += newLine.length() - line.length();
+                        final String newLine;
+                        if (pattern.replaceAll) {
+                            newLine = matcher.replaceAll(pattern.replacePattern);
+                        } else {
+                            newLine = matcher.replaceFirst(pattern.replacePattern);
+                        }
+
+                        text.replace(lineStart, lineEnd, newLine);
+                        selEnd += newLine.length() - line.length();
+                    }
 
                     if (!matchAll) break; // Exit after first match
                 }
