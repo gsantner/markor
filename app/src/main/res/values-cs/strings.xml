@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit řádky, které končí dvěma nebo více mezerami</string>
     <string name="use_monospace_for_code">Použít monospace font pro kód</string>
     <string name="disable_code_block_highlight">Zakázat zvýraznění pro bloky kódu</string>
+    <string name="auto_renumber_ordered_list">Automaticky přečíslovat seznamy objednávek</string>
+    <string name="auto_renumber_ordered_list_slowdown">Tato možnost může ovlivnit výkon aplikace.</string>
     <string name="use_different_fonttype_slow_down">Používat jiný typ písma, změna dynamicky ovlivní výkon aplikace.</string>
     <string name="general">Obecné</string>
     <string name="resources">Zdroje</string>

@@ -121,8 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Arquivos e pastas</string>
     <string name="document_browser">Navegador de documentos</string>
     <string name="file_browser">Gerenciador de arquivos</string>
-    <string name="set_due_date">Definir data limite</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="set_due_date">Definir data de vencimento</string>
+    <string name="insert_replace_date">Insira data</string>
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter a tela ligada</string>
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso em milissegundos para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
     <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com ações úteis para inserir módulos comuns de texto</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com botões úteis abaixo. Eles podem modificar o texto ou executar uma ação baseada no texto.</string>
     <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
     <string name="format">Formatar</string>
     <string name="contexts">Contextos</string>
@@ -151,7 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Outros</string>
     <string name="alternative_naming">Nomes alternativos</string>
     <string name="empty_file">Arquivo vazio</string>
-    <string name="break_page_pdf_print">Quebra de página (PDF/Impressão)</string>
+    <string name="break_page_pdf_print">Quebrar página (PDF/Impressão)</string>
     <string name="underline">Sublinhado</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
     <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
     <string name="use_monospace_for_code">Usar Monospace em código</string>
     <string name="disable_code_block_highlight">Desativar o destaque de blocos de código</string>
+    <string name="auto_renumber_ordered_list">Lista de auto-renomar ordenada</string>
+    <string name="auto_renumber_ordered_list_slowdown">Esta opção pode afetar o desempenho do aplicativo.</string>
     <string name="use_different_fonttype_slow_down">Faça o uso de um tipo de fonte diferente. Alterar o tipo de fonte dinamicamente faz um impacto sobre o desempenho do aplicativo.</string>
     <string name="general">Geral</string>
     <string name="resources">Recursos</string>

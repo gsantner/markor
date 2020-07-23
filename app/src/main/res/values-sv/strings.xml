@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
     <string name="use_monospace_for_code">Monospace för kod</string>
     <string name="disable_code_block_highlight">Inaktivera markering för kodblock</string>
+    <string name="auto_renumber_ordered_list">Auto-döpta beställda listor</string>
+    <string name="auto_renumber_ordered_list_slowdown">Det här alternativet kan påverka appens prestanda.</string>
     <string name="use_different_fonttype_slow_down">Använd typsnitt med fast bredd för kod. Att ändra typsnitt dynamiskt påverkar appens prestanda.</string>
     <string name="general">Generella</string>
     <string name="resources">Resurser</string>

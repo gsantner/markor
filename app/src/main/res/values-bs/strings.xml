@@ -164,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Markiraj bjeline na kraju redova u kojima se nalaze dvije ili više bjelina</string>
     <string name="use_monospace_for_code">Koristi monospace font za kōd</string>
     <string name="disable_code_block_highlight">Isključi isticanje za kōd</string>
+    <string name="auto_renumber_ordered_list">Automatski uskladi brojeve u nabrajanjima</string>
+    <string name="auto_renumber_ordered_list_slowdown">Ova opcija može utjecati na performanse aplikacije.</string>
     <string name="use_different_fonttype_slow_down">Koristi različite vrste slova. Dinamične izmjene odrazit će se na performanse programa.</string>
     <string name="general">Opće</string>
     <string name="resources">Resursi</string>
