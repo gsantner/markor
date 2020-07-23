@@ -44,6 +44,7 @@
         android:usesCleartextTraffic="true"
         android:appCategory="productivity"
         android:isGame="false"
+        android:resizeableActivity="true"
         android:theme="@style/AppTheme.Light"
         tools:targetApi="o">
         <activity
