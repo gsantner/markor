@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -53,6 +54,7 @@ import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
 import net.gsantner.opoc.util.AndroidSupportMeWrapper;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,6 +86,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     private SectionsPagerAdapter _viewPagerAdapter;
 
     private boolean _doubleBackToExitPressedOnce;
+    private int initialBottomNavY = 0;
     private MenuItem _lastBottomMenuItem;
 
     private AppSettings _appSettings;
@@ -151,6 +154,23 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
             }
         }, 1);
+
+        // Auto-hide bottomnav when software keyboard is shown
+        final Callback.i1<View> getBottomNavY = view -> {
+            int[] v = new int[2];
+            _bottomNav.getLocationInWindow(v);
+            return v[1];
+        };
+        _viewPager.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (initialBottomNavY < 100) {
+                initialBottomNavY = getBottomNavY.callback(_bottomNav);
+            }
+            boolean swkb = initialBottomNavY - 150 > getBottomNavY.callback(_bottomNav);
+            _bottomNav.setVisibility(swkb ? View.INVISIBLE : View.VISIBLE);
+            CoordinatorLayout.LayoutParams p = new CoordinatorLayout.LayoutParams(_viewPager.getLayoutParams());
+            p.bottomMargin = (int) _contextUtils.convertDpToPx(swkb ? 0 : 56);
+            _viewPager.setLayoutParams(p);
+        });
     }
 
     private void optShowRate() {

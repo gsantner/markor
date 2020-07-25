@@ -84,4 +84,28 @@ public class Callback {
     public interface s5<A, B, C, D, E> {
         String callback(A arg1, B arg2, C arg3, D arg4, E arg5);
     }
+
+    public interface i0 {
+        int callback();
+    }
+
+    public interface i1<A> {
+        int callback(A arg1);
+    }
+
+    public interface i2<A, B> {
+        int callback(A arg1, B arg2);
+    }
+
+    public interface i3<A, B, C> {
+        int callback(A arg1, B arg2, C arg3);
+    }
+
+    public interface i4<A, B, C, D> {
+        int callback(A arg1, B arg2, C arg3, D arg4);
+    }
+
+    public interface i5<A, B, C, D, E> {
+        int callback(A arg1, B arg2, C arg3, D arg4, E arg5);
+    }
 }
