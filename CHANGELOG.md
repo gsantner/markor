@@ -7,8 +7,6 @@
 - Accessibility improvements & Talkback support
 - Allow http protocol on Android>=9
 - Telegram file edit support
-- Add accordion dropdown markdown button
-- Yellow icon for favourite files
 - Markdown: Normal sized headers by default, increases performance
 - Disable highlighting on big files to improve edit performance
 - Don't sort non-document files in third group
@@ -30,7 +28,6 @@
 - Vertical Scrollbar now draggable at view & edit mode
 - todo.txt: Date&Time selection dialogs
 - Markdown: Auto update ordered list numbers
-- Auto hide bottom navigation at main view when keyboard is visible
 
 
 ### v2.2 [Blog Post](https://gsantner.net/blog/2019/10/27/markor-v2.2-markdown-presentations-voicenotes-audiorecord-tables.html?source=changelog)

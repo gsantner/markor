@@ -56,10 +56,10 @@
             android:layout_above="@+id/bottom_navigation_bar"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="32dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="@string/create_new_file_or_folder"
+            android:layout_marginRight="32dp"
             android:src="@drawable/ic_add_white_24dp"
+            android:contentDescription="@string/create_new_file_or_folder"
             tools:elevation="2dp"
             tools:ignore="RtlHardcoded" />
 

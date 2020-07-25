@@ -34,7 +34,7 @@
             android:background="@android:color/transparent"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
-            android:inputType="textFilter|textMultiLine|textCapSentences"
+            android:inputType="textMultiLine|textCapSentences"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
