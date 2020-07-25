@@ -90,6 +90,8 @@ public class ShareUtil {
     public final static int REQUEST_PICK_PICTURE = 50002;
     public final static int REQUEST_SAF = 50003;
 
+    public final static int MIN_OVERWRITE_LENGTH = 5;
+
     protected static String _lastCameraPictureFilepath;
 
     protected Context _context;
@@ -1132,7 +1134,9 @@ public class ShareUtil {
         try {
             FileOutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            if (file.canWrite() || (!file.exists() && file.getParentFile().canWrite())) {
+            final boolean existingEmptyFile = file.canWrite() && file.length() < MIN_OVERWRITE_LENGTH;
+            final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile().canWrite();
+            if (existingEmptyFile || nonExistingCreatableFile) {
                 if (isDirectory) {
                     file.mkdirs();
                 } else {
@@ -1144,7 +1148,7 @@ public class ShareUtil {
                     if (isDirectory) {
                         // Nothing to do
                     } else {
-                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "w");
+                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "rw");
                         fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
                     }
                 }
