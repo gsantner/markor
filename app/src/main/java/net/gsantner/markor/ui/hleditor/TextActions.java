@@ -324,6 +324,8 @@ public abstract class TextActions {
 
         Editable text = _hlEditor.getText();
         int[] selection = StringUtils.getSelection(_hlEditor);
+        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
+        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
 
         int lineStart = StringUtils.getLineStart(text, selection[0]);
         int selEnd = StringUtils.getLineEnd(text, selection[1]);
@@ -337,12 +339,19 @@ public abstract class TextActions {
                 Matcher matcher = pattern.searchPattern.matcher(line);
                 if (matcher.find()) {
 
-                    String newLine;
-                    if (pattern.replaceAll) newLine = matcher.replaceAll(pattern.replacePattern);
-                    else newLine = matcher.replaceFirst(pattern.replacePattern);
+                    // Optimization. Don't replace if the replace pattern is the pattern itself.
+                    if (!pattern.replacePattern.equals("$0")) {
 
-                    text.replace(lineStart, lineEnd, newLine);
-                    selEnd += newLine.length() - line.length();
+                        final String newLine;
+                        if (pattern.replaceAll) {
+                            newLine = matcher.replaceAll(pattern.replacePattern);
+                        } else {
+                            newLine = matcher.replaceFirst(pattern.replacePattern);
+                        }
+
+                        text.replace(lineStart, lineEnd, newLine);
+                        selEnd += newLine.length() - line.length();
+                    }
 
                     if (!matchAll) break; // Exit after first match
                 }
@@ -350,6 +359,10 @@ public abstract class TextActions {
 
             lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
         }
+
+        _hlEditor.setSelection(
+                StringUtils.getIndexFromLineOffset(text, lStart),
+                StringUtils.getIndexFromLineOffset(text, lEnd));
     }
 
     protected void runInlineAction(String _action) {

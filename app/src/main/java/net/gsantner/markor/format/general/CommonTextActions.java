@@ -227,6 +227,9 @@ public class CommonTextActions {
         Editable text = _hlEditor.getText();
 
         int[] selection = StringUtils.getSelection(_hlEditor);
+        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
+        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
+
         int selectionStart = selection[0];
         int selectionEnd = selection[1];
 
@@ -254,6 +257,10 @@ public class CommonTextActions {
             // Get next line
             lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
         }
+
+        _hlEditor.setSelection(
+                StringUtils.getIndexFromLineOffset(text, lStart),
+                StringUtils.getIndexFromLineOffset(text, lEnd));
     }
 
     public void moveLineBy1(boolean up) {
