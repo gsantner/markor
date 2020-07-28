@@ -149,7 +149,7 @@ public class MarkdownAutoFormat implements InputFilter {
 
         public OrderedListLine getParent() {
             OrderedListLine line = null;
-            if (isEmpty || (!isTopLevel && lineStart > INDENT_DELTA)) {
+            if ((lineStart > 0) && (isEmpty || !isTopLevel)) {
                 int position = lineStart - 1;
                 do {
                     line = new OrderedListLine(text, position);
