@@ -22,6 +22,10 @@ public final class StringUtils {
         throw new AssertionError();
     }
 
+    public static boolean isValidIndex(final CharSequence s, final int i) {
+        return s != null && i < s.length();
+    }
+
     public static int getLineStart(CharSequence s, int start) {
         return getLineStart(s, start, 0);
     }
@@ -29,7 +33,7 @@ public final class StringUtils {
     public static int getLineStart(CharSequence s, int start, int minRange) {
         int i = start;
         for (; i > minRange; i--) {
-            if (s.charAt(i - 1) == '\n') {
+            if (isValidIndex(s, i-1) && s.charAt(i - 1) == '\n') {
                 break;
             }
         }
@@ -44,7 +48,7 @@ public final class StringUtils {
     public static int getLineEnd(CharSequence s, int start, int maxRange) {
         int i = start;
         for (; i < maxRange && i < s.length(); i++) {
-            if (s.charAt(i) == '\n') {
+            if (isValidIndex(s, i) && s.charAt(i) == '\n') {
                 break;
             }
         }
@@ -58,7 +62,7 @@ public final class StringUtils {
 
     public static int getNextNonWhitespace(CharSequence s, int start, int maxRange) {
         int i = start;
-        for (; i < maxRange && i < s.length(); i++) {
+        for (; i < maxRange && i < s.length() && isValidIndex(s, i); i++) {
             char c = s.charAt(i);
             if (c != ' ' && c != '\t') {
                 break;
@@ -114,7 +118,7 @@ public final class StringUtils {
      */
     public static int getIndexFromLineOffset(final CharSequence s, final int l, final int e) {
         int i = 0, count = 0;
-        for (; i < s.length(); i++) {
+        for (; i < s.length() && isValidIndex(s, i); i++) {
             if (s.charAt(i) == '\n') {
                 count++;
             }
@@ -140,7 +144,7 @@ public final class StringUtils {
         int count = 0;
         start = Math.max(0, start);
         end = Math.min(end, s.length());
-        for (int i = start; i < end; i++) {
+        for (int i = start; i < end && isValidIndex(s, i); i++) {
             if (s.charAt(i) == c) {
                 count++;
             }
@@ -149,6 +153,6 @@ public final class StringUtils {
     }
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
-        return ((source.charAt(start) == '\n') || (source.charAt(end - 1) == '\n'));
+        return (isValidIndex(source, start) && source.charAt(start) == '\n') || (isValidIndex(source, end -1) && source.charAt(end - 1) == '\n');
     }
 }
