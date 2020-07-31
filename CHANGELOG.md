@@ -28,6 +28,7 @@
 - Vertical Scrollbar now draggable at view & edit mode
 - todo.txt: Date&Time selection dialogs
 - Markdown: Auto update ordered list numbers
+- Markdown: Correctly insert or remove list item on press enter
 
 
 ### v2.2 [Blog Post](https://gsantner.net/blog/2019/10/27/markor-v2.2-markdown-presentations-voicenotes-audiorecord-tables.html?source=changelog)
