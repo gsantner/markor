@@ -16,13 +16,11 @@ import android.text.TextWatcher;
 
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.regex.Matcher;
-
 public class ListHandler implements TextWatcher {
     private final boolean _reorderEnabled;
     private int reorderPosition;
     private boolean triggerReorder = false;
-
+    private Integer beforeLineEnd = null;
 
     public ListHandler(final boolean reorderEnabled) {
         super();
@@ -35,21 +33,22 @@ public class ListHandler implements TextWatcher {
         triggerReorder = triggerReorder || containsNewline(s, start, count);
 
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
-        if (count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
+        if (beforeLineEnd != null && count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
 
             final Spannable sSpan = (Spannable) s;
 
             final MarkdownAutoFormat.OrderedListLine oMatch = new MarkdownAutoFormat.OrderedListLine(s, start);
             final MarkdownAutoFormat.UnOrderedListLine uMatch = new MarkdownAutoFormat.UnOrderedListLine(s, start);
 
-            if (oMatch.isOrderedList && oMatch.lineEnd == oMatch.groupEnd) {
+            if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
                 sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
-            } else if (uMatch.isUnorderedList && uMatch.lineEnd == uMatch.groupEnd) {
+            } else if (uMatch.isUnorderedList && beforeLineEnd == uMatch.groupEnd) {
                 sSpan.setSpan(this, uMatch.lineStart, uMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
             } else {
                 reorderPosition = start;
             }
         }
+        beforeLineEnd = null;
     }
 
     @Override
@@ -69,6 +68,8 @@ public class ListHandler implements TextWatcher {
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         triggerReorder = containsNewline(s, start, count);
         reorderPosition = start;
+
+        beforeLineEnd = StringUtils.getLineEnd(s, start);
     }
 
     private boolean containsNewline(CharSequence s, int start, int count) {
