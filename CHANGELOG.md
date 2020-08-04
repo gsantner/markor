@@ -1,3 +1,6 @@
+### Recent changes
+- Markdown: Correctly insert or remove list item on press enter at empty list item
+
 ### v2.3 [Blog Post](https://gsantner.net/blog/2020/07/25/markor-v2.3-outline-action-custom-order-todotxt-markdown-plaintext.html?source=changelog)
 - Add action to Move current selected line(s)/cursor text up/down
 - Add settings option for View-Mode link color
