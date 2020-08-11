@@ -10,15 +10,15 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Mga Tanawin</string>
-    <string name="light">Liwanag</string>
+    <string name="settings">Pagsasaayos</string>
+    <string name="light">Maliwanag</string>
     <string name="dark">Madilim</string>
     <string name="delete">Burahin</string>
     <string name="appearance">Hitsura</string>
     <string name="rename">I-rename</string>
-    <string name="confirm_delete">Tiyakin Alisin</string>
+    <string name="confirm_delete">Kumpirmahing buburahin</string>
     <string name="do_you_really_want_to_delete_this_witharg">Sigurado ka bang gusto mong burahin ang %s?</string>
-    <string name="confirm_overwrite">Tiyaking I-o-overwrite</string>
+    <string name="confirm_overwrite">Kumpirmahing Io-overwrite</string>
     <string name="file_already_exists_overwerite">Mayroon nang ganitong file, i-overwrite?</string>
     <string name="browse_filesystem">Mag-browse sa filesystem</string>
     <string name="title">Pamagat</string>
