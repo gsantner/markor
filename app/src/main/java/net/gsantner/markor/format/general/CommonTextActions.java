@@ -25,6 +25,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
@@ -55,7 +56,6 @@ public class CommonTextActions {
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
     public static final String ACTION_INDENT = "tmaid_common_indent";
-
     public static final String ACTION_DEINDENT = "tmaid_common_deindent";
 
     private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
@@ -138,10 +138,11 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_DELETE_LINES: {
-                int[] indexes = PlainTextStuff.getNeighbourLineEndings(_hlEditor.getText().toString(), _hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
-                if (indexes != null) {
-                    _hlEditor.getText().delete(indexes[0], indexes[1]);
-                }
+                final int[] sel = StringUtils.getLineSelection(_hlEditor);
+                final Editable text = _hlEditor.getText();
+                final boolean lastLine = sel[1] == text.length();
+                final boolean firstLine = sel[0] == 0;
+                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + ( lastLine ? 0 : 1));
                 return true;
             }
             case ACTION_END_LINE_WITH_TWO_SPACES: {
@@ -162,7 +163,6 @@ public class CommonTextActions {
                 });
                 return true;
             }
-
             case ACTION_JUMP_BOTTOM_TOP: {
                 int pos = _hlEditor.getSelectionStart();
                 _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
@@ -224,75 +224,50 @@ public class CommonTextActions {
 
     protected void runIndentLines(Boolean deIndent) {
 
-        Editable text = _hlEditor.getText();
-
-        int[] selection = StringUtils.getSelection(_hlEditor);
-        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
-        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
-
-        int selectionStart = selection[0];
-        int selectionEnd = selection[1];
-
-        int lineStart = StringUtils.getLineStart(text, selectionStart);
-
-        String tabString = StringUtils.repeatChars(' ', _tabWidth);
-
-        while (lineStart <= selectionEnd) {
-
-            if (deIndent) {
-                int textStart = StringUtils.getNextNonWhitespace(text, lineStart, selectionEnd);
-                int spaceCount = textStart - lineStart;
-                int delCount = Math.min(_tabWidth, spaceCount);
-                int delEnd = lineStart + delCount;
-                if (delCount > 0 && delEnd <= text.length()) {
-                    text.delete(lineStart, delEnd);
-                    selectionEnd -= delCount;
-                }
-            } else {
-                text.insert(lineStart, tabString);
-                selectionEnd += _tabWidth;
-            }
-
-            text = _hlEditor.getText();
-            // Get next line
-            lineStart = StringUtils.getLineEnd(text, lineStart, selectionEnd) + 1;
+        if (deIndent) {
+            final String leadingIndentPattern = String.format("^\\s{1,%d}", _tabWidth);
+            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
+        } else {
+            final String tabString = StringUtils.repeatChars(' ', _tabWidth);
+            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
         }
-
-        _hlEditor.setSelection(
-                StringUtils.getIndexFromLineOffset(text, lStart),
-                StringUtils.getIndexFromLineOffset(text, lEnd));
     }
 
-    public void moveLineBy1(boolean up) {
-        selectWholeLine(true);
-        selectWholeLine(false);
-        String lineToMove = _hlEditor.getText().toString().substring(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd());
-        if (!lineToMove.endsWith(LINE_SEPARATOR)) {
-            lineToMove += LINE_SEPARATOR;
-        }
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DEL);
-        _hlEditor.simulateKeyPress(up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
-        _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), lineToMove);
-    }
+    public void moveLineBy1(final boolean up) {
 
-    public void selectWholeLine(boolean toStart) {
-        final String content = _hlEditor.getText().toString();
-        if (_hlEditor.getSelectionStart() == content.length()) {
-            _hlEditor.setSelection(_hlEditor.getSelectionStart() - 1, _hlEditor.getSelectionEnd());
-        }
-        if (_hlEditor.getSelectionEnd() == content.length()) {
-            _hlEditor.setSelection(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd() - 1);
-        }
+        final Editable text = _hlEditor.getText();
 
-        int i = (toStart ? _hlEditor.getSelectionStart() : _hlEditor.getSelectionEnd());
-        for (; i > 0 && i < content.length(); i = toStart ? (i - 1) : (i + 1)) {
-            if (content.charAt(i) == '\n' || content.charAt(i) == '\r') {
-                i = toStart ? i + 1 : i + 1;
-                break;
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final int lineStart = StringUtils.getLineStart(text, sel[0]);
+        final int lineEnd = StringUtils.getLineEnd(text, sel[1]);
+
+        if ((up && lineStart > 0) || (!up && lineEnd < text.length())) {
+
+            final CharSequence line = text.subSequence(lineStart, lineEnd);
+
+            final int altStart = up ? StringUtils.getLineStart(text, lineStart - 1) : lineEnd + 1;
+            final int altEnd = StringUtils.getLineEnd(text, altStart);
+            final CharSequence altLine = text.subSequence(altStart, altEnd);
+
+            // Prevents changes in text from triggering list prefix insert etc
+            try {
+                _hlEditor.disableHighlighterAutoFormat();
+
+                final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
+                final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+
+                final String newPair = String.format("%s\n%s", up ? line : altLine, up ? altLine : line);
+                text.replace(Math.min(lineStart, altStart), Math.max(altEnd, lineEnd), newPair);
+
+                selStart[0] += up ? -1 : 1;
+                selEnd[0] += up ? -1 : 1;
+                _hlEditor.setSelection(
+                        StringUtils.getIndexFromLineOffset(text, selStart),
+                        StringUtils.getIndexFromLineOffset(text, selEnd));
+
+            } finally {
+                _hlEditor.enableHighlighterAutoFormat();
             }
         }
-        _hlEditor.setSelection(toStart ? i : _hlEditor.getSelectionStart(), toStart ? _hlEditor.getSelectionEnd() : i);
     }
-
 }

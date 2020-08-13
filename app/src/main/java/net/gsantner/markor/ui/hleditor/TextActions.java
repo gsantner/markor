@@ -20,6 +20,7 @@ import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
@@ -36,6 +37,7 @@ import net.gsantner.opoc.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -279,7 +281,7 @@ public abstract class TextActions {
         runRegexReplaceAction(Arrays.asList(patterns));
     }
 
-    protected class ReplacePattern {
+    public static class ReplacePattern {
         public Pattern searchPattern;
         public String replacePattern;
         public boolean replaceAll;
@@ -310,8 +312,28 @@ public abstract class TextActions {
         }
     }
 
-    protected void runRegexReplaceAction(List<ReplacePattern> patterns) {
+    public void runRegexReplaceAction(ReplacePattern ... patterns) {
+        runRegexReplaceAction(Arrays.asList(patterns), false);
+    }
+
+    public void runRegexReplaceAction(List<ReplacePattern> patterns) {
         runRegexReplaceAction(patterns, false);
+    }
+
+    public void runRegexReplaceAction(final String pattern, final String replace) {
+        runRegexReplaceAction(Arrays.asList(new ReplacePattern(pattern, replace)), false);
+    }
+
+    public void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
+        runRegexReplaceAction(_hlEditor, patterns, matchAll);
+    }
+
+    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern pattern) {
+        runRegexReplaceAction(editor, pattern, false);
+    }
+
+    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern pattern, final boolean matchAll) {
+        runRegexReplaceAction(editor, Collections.singletonList(pattern), matchAll);
     }
 
     /**
@@ -320,10 +342,10 @@ public abstract class TextActions {
      * @param patterns An array of ReplacePattern
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
-    protected void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
+    public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
 
-        Editable text = _hlEditor.getText();
-        int[] selection = StringUtils.getSelection(_hlEditor);
+        Editable text = editor.getText();
+        int[] selection = StringUtils.getSelection(editor);
         final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
         final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
 
@@ -341,14 +363,12 @@ public abstract class TextActions {
 
                     // Optimization. Don't replace if the replace pattern is the pattern itself.
                     if (!pattern.replacePattern.equals("$0")) {
-
                         final String newLine;
                         if (pattern.replaceAll) {
                             newLine = matcher.replaceAll(pattern.replacePattern);
                         } else {
                             newLine = matcher.replaceFirst(pattern.replacePattern);
                         }
-
                         text.replace(lineStart, lineEnd, newLine);
                         selEnd += newLine.length() - line.length();
                     }
@@ -360,7 +380,7 @@ public abstract class TextActions {
             lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
         }
 
-        _hlEditor.setSelection(
+        editor.setSelection(
                 StringUtils.getIndexFromLineOffset(text, lStart),
                 StringUtils.getIndexFromLineOffset(text, lEnd));
     }
