@@ -142,16 +142,18 @@ public final class StringUtils {
     public static int getIndexFromLineOffset(final CharSequence s, final int l, final int e) {
         int i = 0, count = 0;
         if (s != null) {
-            for (; i < s.length(); i++) {
-                if (s.charAt(i) == '\n') {
-                    count++;
-                }
-                if (count == l) {
-                    break;
+            if (l > 0) {
+                for (; i < s.length(); i++) {
+                    if (s.charAt(i) == '\n') {
+                        count++;
+                    }
+                    if (count == l) {
+                        break;
+                    }
                 }
             }
             if (i < s.length() - 1) {
-                final int start = i + 1;
+                final int start = (l == 0) ? 0 : i + 1;
                 final int end = getLineEnd(s, start);
                 // Prevent selection from moving to previous line
                 return end - Math.min(e, end - start);

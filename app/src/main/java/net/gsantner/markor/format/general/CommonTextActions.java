@@ -83,6 +83,13 @@ public class CommonTextActions {
         final String origText = _hlEditor.getText().toString();
         switch (action) {
             case ACTION_SPECIAL_KEY: {
+
+                // Needed to prevent selection from being overwritten on refocus
+                final int[] sel = StringUtils.getSelection(_hlEditor);
+                _hlEditor.clearFocus();
+                _hlEditor.requestFocus();
+                _hlEditor.setSelection(sel[0], sel[1]);
+
                 SearchOrCustomTextDialogCreator.showSpecialKeyDialog(_activity, (callbackPayload) -> {
                     if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                         _hlEditor.requestFocus();
@@ -223,7 +230,6 @@ public class CommonTextActions {
     }
 
     protected void runIndentLines(Boolean deIndent) {
-
         if (deIndent) {
             final String leadingIndentPattern = String.format("^\\s{1,%d}", _tabWidth);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
@@ -249,8 +255,8 @@ public class CommonTextActions {
             final int altEnd = StringUtils.getLineEnd(text, altStart);
             final CharSequence altLine = text.subSequence(altStart, altEnd);
 
-            // Prevents changes in text from triggering list prefix insert etc
             try {
+                // Prevents changes in text from triggering list prefix insert etc
                 _hlEditor.disableHighlighterAutoFormat();
 
                 final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
@@ -263,7 +269,8 @@ public class CommonTextActions {
                 selEnd[0] += up ? -1 : 1;
                 _hlEditor.setSelection(
                         StringUtils.getIndexFromLineOffset(text, selStart),
-                        StringUtils.getIndexFromLineOffset(text, selEnd));
+                        StringUtils.getIndexFromLineOffset(text, selEnd)
+                );
 
             } finally {
                 _hlEditor.enableHighlighterAutoFormat();
