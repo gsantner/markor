@@ -158,6 +158,9 @@ public class CommonTextActions {
             case ACTION_SEARCH: {
                 SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, callbackPayload -> {
                     int cursor = origText.indexOf(callbackPayload);
+                    if (!_hlEditor.hasFocus()) {
+                        _hlEditor.requestFocus();
+                    }
                     _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
                 });
                 return true;
