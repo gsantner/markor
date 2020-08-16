@@ -18,7 +18,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">Byt namn</string>
     <string name="confirm_delete">Bekräfta radering</string>
     <string name="do_you_really_want_to_delete_this_witharg">Vill du verkligen radera den här %s?</string>
-    <string name="confirm_overwrite">Skriva över?</string>
+    <string name="confirm_overwrite">Bekräfta överskrivning</string>
     <string name="file_already_exists_overwerite">Filen finns redan, skriva över?</string>
     <string name="browse_filesystem">Bläddra i filsystemet</string>
     <string name="title">Titel</string>
@@ -134,13 +134,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_wide">Global</string>
     <string name="main_view">Huvudvy</string>
     <string name="overall_theme_used_in_app">Appens övergripande tema</string>
-    <string name="remember_last_directory">Ladda </string>
+    <string name="remember_last_directory">Kom ihåg senaste katalogen</string>
     <string name="syntax_highlighting">Syntaxfärgning</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
-    <string name="highlighting_enabled_or_not__appspecific">Ska inskriven text vara syntaxfärgad?</string>
+    <string name="highlighting_enabled_or_not__appspecific">Kontrollera huruvida den angivna texten borde markeras eller inte</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Visa verktyg för att infoga vanliga textmoduler</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Visa en stapel med praktiska knappar längst ned. De här textåtgärderna ändrar texten eller kör en åtgärd som baseras på texten.</string>
     <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
     <string name="format">Format</string>
     <string name="contexts">Kontexter</string>
@@ -225,7 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">Projektlag</string>
     <string name="contributors_public_add_yourself_description">Visa bidragsinformation. Lämna information för att synas här, om du vill, efter bidragande</string>
     <string name="descending">fallande ordning</string>
-    <string name="ascending">Stigande ordning</string>
+    <string name="ascending">stigande</string>
     <string name="disable_spelling_underline">Stäng av stavningsunderstrykning</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tangentbordsförslag förblir, röda understrykningar försvinner</string>
     <string name="location">Plats</string>
