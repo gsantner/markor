@@ -311,8 +311,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Le fichier sélectionné peut être un fichier en texte clair. Voulez-vous l\'ouvrir dans l\'éditeur ou dans une autre application ?\n\nN\'essayez pas d\'ouvrir des fichiers binaires. Si vous n\'êtes pas sûr, ouvrez avec une autre application.</string>
     <string name="list_in_recent_files">Lister dans les fichiers récents</string>
     <string name="reload">Rafraîchir</string>
-    <string name="wrap_words">Mots erronés</string>
-    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pause douce si le texte ne correspond pas à la largeur de l\'écran. L\'option Else permet le défilement horizontal.</string>
+    <string name="wrap_words">Retour à la ligne</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Afficher la suite du texte à la ligne suivante s\'il dépasse la largeur de l\'écran, plutôt que d\'utiliser le défilement horizontal.</string>
     <string name="recursive_search_in_current_directory">Recherche récursive dans le répertoire courant. Lorsque la requête contient un astérisque (*) la recherche regex est utilisée, sinon vérifie si la recherche est présente.</string>
     <string name="always_open_with_this_app">Toujours ouvrir avec cette application</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Toujours ouvrir avec cette application les fichiers dont l\'extension est contenue dans la liste. Utilisez \'None\', \'.html\', \'.css\', \'.js\' par exemple si vous voulez éditer des fichiers web ainsi que les fichiers sans extension.</string>

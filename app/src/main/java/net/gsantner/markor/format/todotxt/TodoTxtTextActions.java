@@ -362,7 +362,6 @@ public class TodoTxtTextActions extends TextActions {
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(getContext().getString(R.string.insert_replace_date))
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }
 
