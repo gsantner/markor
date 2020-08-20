@@ -102,8 +102,7 @@ public class ShortcutUtils {
                         .setAction(Intent.ACTION_EDIT)
                         .setData(Uri.fromFile(file));
 
-                String name = MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll("");
-
+                final String name = file.getName();
                 newShortcuts.add(new ShortcutInfo.Builder(context, ID_PREFIX + name)
                         .setShortLabel(createShortLabel(name))
                         .setLongLabel(createLongLabel(name))
