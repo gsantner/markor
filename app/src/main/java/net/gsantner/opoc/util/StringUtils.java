@@ -11,7 +11,10 @@ package net.gsantner.opoc.util;
 
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import java.util.Arrays;
+import java.util.Collections;
 
 public final class StringUtils {
 
@@ -83,7 +86,7 @@ public final class StringUtils {
         return i;
     }
 
-    public static int[] getSelection(TextView text) {
+    public static int[] getSelection(final TextView text) {
 
         int selectionStart = text.getSelectionStart();
         int selectionEnd = text.getSelectionEnd();
@@ -93,7 +96,16 @@ public final class StringUtils {
             selectionStart = text.getSelectionEnd();
         }
 
-        return new int[] {selectionStart, selectionEnd};
+        return new int[]{selectionStart, selectionEnd};
+    }
+
+    public static int[] getLineSelection(final TextView text) {
+        final int[] sel = getSelection(text);
+        final CharSequence s = text.getText();
+        return new int[]{
+                getLineStart(s, sel[0]),
+                getLineEnd(s, sel[1])
+        };
     }
 
     public static String repeatChars(char character, int count) {
@@ -130,16 +142,21 @@ public final class StringUtils {
     public static int getIndexFromLineOffset(final CharSequence s, final int l, final int e) {
         int i = 0, count = 0;
         if (s != null) {
-            for (; i < s.length(); i++) {
-                if (s.charAt(i) == '\n') {
-                    count++;
-                }
-                if (count == l) {
-                    break;
+            if (l > 0) {
+                for (; i < s.length(); i++) {
+                    if (s.charAt(i) == '\n') {
+                        count++;
+                    }
+                    if (count == l) {
+                        break;
+                    }
                 }
             }
-            if (i < s.length()) {
-                return getLineEnd(s, i + 1) - e;
+            if (i < s.length() - 1) {
+                final int start = (l == 0) ? 0 : i + 1;
+                final int end = getLineEnd(s, start);
+                // Prevent selection from moving to previous line
+                return end - Math.min(e, end - start);
             }
         }
         return i;
@@ -169,5 +186,11 @@ public final class StringUtils {
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
+    }
+
+    public static <T> ArrayList<T> toArrayList(T[] array) {
+        ArrayList<T> list = new ArrayList<>();
+        Collections.addAll(list, array);
+        return list;
     }
 }
