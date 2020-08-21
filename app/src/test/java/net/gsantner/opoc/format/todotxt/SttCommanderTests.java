@@ -28,21 +28,6 @@ public class SttCommanderTests {
     private String DEMO_LINE_2 = "x 2019-10-14 " + DEMO_LINE_1 + " due:2019-10-12 kvp:kvpvalue";
     private String DEMO_LINE_MULTIPLE = DEMO_LINE_1 + "\n" + DEMO_LINE_1 + "\n" + DEMO_LINE_1;
 
-    private static String getSortedResult(String tasksNewLineSeperated, String orderBy, boolean descending) {
-        ArrayList<SttTaskWithParserInfo> tasks = SttCommander.parseTasksFromTextWithParserInfo(tasksNewLineSeperated);
-        SttCommander.sortTasks(tasks, orderBy, descending);
-        return SttCommander.tasksToString(tasks);
-    }
-
-    private static String j(String... lines) {
-        StringBuffer sb = new StringBuffer();
-        for (String s : lines) {
-            sb.append(s);
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
     private SttTaskWithParserInfo task(String taskLine) {
         return sttcmd.parseTask(taskLine);
     }
@@ -76,6 +61,7 @@ public class SttCommanderTests {
         assertThat(task.getProjects().contains("app")).isEqualTo(true);
     }
 
+
     @Test()
     public void checkDone() {
         SttTaskWithParserInfo task = task(DEMO_LINE_2);
@@ -96,6 +82,21 @@ public class SttCommanderTests {
         assertThat(task.getKeyValuePairs().get("due")).isEqualTo("2019-10-12");
 
         assertThat(task.getDueDate()).isEqualTo("2019-10-12");
+    }
+
+    private static String getSortedResult(String tasksNewLineSeperated, String orderBy, boolean descending) {
+        ArrayList<SttTaskWithParserInfo> tasks = SttCommander.parseTasksFromTextWithParserInfo(tasksNewLineSeperated);
+        SttCommander.sortTasks(tasks, orderBy, descending);
+        return SttCommander.tasksToString(tasks);
+    }
+
+    private static String j(String... lines) {
+        StringBuffer sb = new StringBuffer();
+        for (String s : lines) {
+            sb.append(s);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     @Test

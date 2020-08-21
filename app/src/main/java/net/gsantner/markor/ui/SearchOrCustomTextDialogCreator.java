@@ -25,7 +25,6 @@ import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 
@@ -37,13 +36,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_CONTEXT;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_CREATION_DATE;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_DESCRIPTION;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_DUE_DATE;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_LINE;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_PRIORITY;
-import static net.gsantner.opoc.format.todotxt.SttTask.SttTaskSimpleComparator.BY_PROJECT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DUE_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
 
 public class SearchOrCustomTextDialogCreator {
     private static boolean isTodoTxtAlternativeNaming(Context context) {

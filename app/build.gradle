@@ -41,23 +41,16 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-
         flavorAtest {
             applicationId "net.gsantner.markor_test"
             versionCode = Integer.parseInt(new Date().format('yyMMdd'))
             versionName = new Date().format('yyMMdd')
             buildConfigField "boolean", "IS_TEST_BUILD", "true"
-
-            vectorDrawables.useSupportLibrary = true
         }
         flavorDefault {
-
-            vectorDrawables.useSupportLibrary = true
         }
         flavorGplay {
             buildConfigField "boolean", "IS_GPLAY_BUILD", "true"
-
-            vectorDrawables.useSupportLibrary = true
         }
     }
 
