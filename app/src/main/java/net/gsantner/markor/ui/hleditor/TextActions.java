@@ -327,8 +327,8 @@ public abstract class TextActions {
         runRegexReplaceAction(_hlEditor, patterns, matchAll);
     }
 
-    public void runRegexReplaceAction(final EditText editor, final ReplacePattern ... patterns) {
-        runRegexReplaceAction(Arrays.asList(patterns), false);
+    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern ... patterns) {
+        runRegexReplaceAction(editor, Arrays.asList(patterns), false);
     }
 
     /**
