@@ -482,12 +482,6 @@ public abstract class TextActions {
 
     protected boolean runCommonTextAction(String action) {
         switch (action) {
-            case "tmaid_common_next_line": {
-                // Go to end of line, works with wrapped lines too
-                _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[1]));
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
-                return true;
-            }
             case "tmaid_common_unordered_list_char": {
                 runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
                 return true;
