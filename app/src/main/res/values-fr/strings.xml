@@ -352,9 +352,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">Barré</string>
     <string name="inline_code">Code en ligne</string>
     <string name="horizontal_line">Ligne horizontale</string>
-    <string name="toggle_done">Basculer terminé</string>
+    <string name="toggle_done">Clicker terminé</string>
     <string name="link_color">Couleur du lien</string>
-    <string name="add_context">Ajouter contexte</string>
+    <string name="add_context">Ajouter un contexte</string>
     <string name="add_project">Ajouter un projet</string>
     <string name="archive_completed_tasks">Archiver les tâches terminées</string>
     <string name="sort_alphabetically">Trier par ordre alphabétique</string>
