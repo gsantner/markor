@@ -90,7 +90,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_page">Laman proyek</string>
     <string name="press_back_again_to_exit">Tekan \'kembali\' lagi untuk keluar</string>
     <string name="exit">Keluar</string>
+    <string name="undo">Batal</string>
+    <string name="redo">Kembalikan</string>
+    <string name="more">Selengkapnya</string>
+    <string name="notebook">Catatan</string>
+    <string name="help">Bantuan</string>
     <string name="todo_list">Daftar kehendak</string>
+    <string name="task">Tugas</string>
+    <string name="category">Kategori</string>
     <string name="sync">Selaraskan</string>
     <string name="search_or_custom">Cari atau sesuaikan</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
