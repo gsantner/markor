@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Explorateur de documents</string>
     <string name="file_browser">Explorateur de fichiers</string>
     <string name="set_due_date">Définir la date d\'échéance</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Insérer la date</string>
     <string name="create_note" needed="false">Nouvelle note</string>
     <string name="special_documents" needed="false">Documents spéciaux</string>
     <string name="keep_screen_on" needed="false">Garder l\'écran allumé</string>
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
     <string name="control_font_size_in_editor">Fixe la taille de la police de caractères utilisée dans l\'éditeur</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre d\'outils de texte couramment utilisés</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre avec des boutons pratiques en bas. Ces actions de texte modifient le texte ou exécutent une action basée sur le texte.</string>
     <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
     <string name="format">Format</string>
     <string name="contexts">Contextes</string>
@@ -176,8 +176,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Touches spéciales</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
-    <string name="move_text_one_line_up">Déplacer un texte vers le haut</string>
-    <string name="move_text_one_line_down">Déplacer le texte vers le bas</string>
+    <string name="move_text_one_line_up">Déplacer le texte une ligne vers le haut</string>
+    <string name="move_text_one_line_down">Déplacer le texte une ligne vers le bas</string>
     <string name="key_pos_1">Début de ligne</string>
     <string name="key_pos_end">Fin de ligne</string>
     <string name="key_pos_1_document">Début de document</string>
