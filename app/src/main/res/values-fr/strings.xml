@@ -364,11 +364,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Retour</string>
     <string name="expand_collapse">Développer / Réduire</string>
     <string name="essential">Essentiel</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID lisible par l\'homme aux nouvelles tâches</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID intelligible aux nouvelles tâches</string>
     <string name="action_order">Ordre des actions</string>
     <string name="load_default_settings">Charger les paramètres par défaut</string>
     <string name="drag">Glisser</string>
-    <string name="file_encryption_password">Mot de passe de cryptage du fichier</string>
+    <string name="file_encryption_password">Mot de passe de chiffrement de fichier</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Aucun mot de passe défini, ne peut pas chiffrer ou déchiffrer.\nAllez dans Paramètres -&gt; Général -&gt; Mot de passe pour définir un mot de passe.</string>
     <string name="encrypt_file_content">Chiffrer le contenu du fichier</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Impossible de chiffrer le contenu du fichier. Le fichier n\'a pas été enregistré.</string>
