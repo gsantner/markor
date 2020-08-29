@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.format.todotxt;
 
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskParserInfoExtension;
 import net.gsantner.opoc.format.todotxt.extension.SttTaskWithParserInfo;
 
@@ -227,8 +228,8 @@ public class SttCommander {
         String tmp;
         if (task.isDone()) {
             sb.append("x ");
-            if (!nz(task.getCompletionDate())) {
-            //    task.setCompletionDate(getToday());
+            if (!nz(task.getCompletionDate()) && AppSettings.get().isTodoShowCompletionDateEnabled()) {
+                task.setCompletionDate(getToday());
             }
             sb.append(task.getCompletionDate());
             sb.append(" ");
