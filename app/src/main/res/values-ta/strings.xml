@@ -373,4 +373,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ஆவண உள்ளடக்கங்களை மறைவிலக்கம் செய்ய முடியவில்லை. தவறான கடவுச்சொல்லை பயன்படுத்திவிட்டீர்களா? உண்மையாகவே Markor செயலியின் AES மறைக்குறியாக்க முறை கொண்டே இந்த ஆவணம் மறைக்குறியாக்கம் செய்யப்பட்டதா?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">கடவுச்சொல் ஏற்கனவே நிறுவப்பட்டுவிட்டது. புதிய கடவுச்சொல்லை நிறுவுவதன் மூலம் பழைய கடவுச்சொல் நீக்கப்படும் மற்றும் நீங்கள் கடவுச்சொல்லை மறந்துவிட்டீர்கள் என்றால் உங்களால் ஆவணங்களை அணுக முடியாமல் போகலாம்.</string>
     <string name="code_block">நிரல் தொகுதி</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

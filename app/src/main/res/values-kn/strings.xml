@@ -15,4 +15,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="search">ಹುಡುಕಿ</string>
     <string name="reload">ಮತ್ತೋಮ್ಮೆ ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

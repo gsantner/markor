@@ -110,4 +110,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">Cancelar</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gústache este proxecto? Queres que siga mellorando e resolvendo os problemas?\n\nDesenvolver aplicacións e escribir a documentación leva moito tempo! Se queres apoiar ao proxecto para que continúe, por favor, considera facer unha pequena doazón!\n\nEste proxecto desenvólvese no tempo libre, ofrécese libre e gratuitamente e sen publicidade!</string>
     <string name="reload">Actualizar</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

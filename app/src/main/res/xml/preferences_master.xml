@@ -440,6 +440,12 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
+                    android:key="@string/pref_key__todotxt__show_completion_date_for_task"
+                    android:summary="@string/showing_completion_date_for_a_todo"
+                    android:title="@string/show_completion_date" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:icon="@drawable/ic_date_range_black_24dp"
                     android:key="@string/pref_key__todotxt__start_new_tasks_with_todays_date"
                     android:summary="@string/insert_current_date_when_starting_new_task"
                     android:title="@string/tasks_with_todays_date" />

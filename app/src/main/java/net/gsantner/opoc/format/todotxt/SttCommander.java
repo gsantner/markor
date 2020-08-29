@@ -228,7 +228,7 @@ public class SttCommander {
         if (task.isDone()) {
             sb.append("x ");
             if (!nz(task.getCompletionDate())) {
-                task.setCompletionDate(getToday());
+            //    task.setCompletionDate(getToday());
             }
             sb.append(task.getCompletionDate());
             sb.append(" ");

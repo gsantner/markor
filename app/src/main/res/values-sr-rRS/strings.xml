@@ -31,4 +31,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Ostalo</string>
     <string name="background">Pozadina</string>
     <string name="favourite">Omiljeno</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

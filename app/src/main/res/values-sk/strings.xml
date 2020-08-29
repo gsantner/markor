@@ -19,4 +19,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>
     <string name="always_open_with_this_app">Vzdycky otvaraj touto aplikaciou</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vzdycky otvaraj subory touto aplikaciou</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

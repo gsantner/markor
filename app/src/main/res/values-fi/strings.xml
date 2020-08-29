@@ -240,4 +240,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote on nopein vaihtoehto muistiinpanojen kirjoittamiseen. Se on tiedosto Markdown-muodossa, jonka oletussijainti on &gt;Notebook/QuickNote.md&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
     <string name="todo_is_the_easiest_way_">Hallitse tehtäviäsi ToDo:lla. Se on tiedosto todo.txt-muodossa, jonka oletussijainti on &gt;Notebook/todo.txt&lt;, voit määrittää mukautetun tiedostopolun asetuksissa.</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Salasana on jo asetettu. Uuden salasanan asettaminen ylikirjoittaa olemassa olevan, etkä välttämättä pääse enää käsiksi tiedostoihisi, jos unohdat salasanan.</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

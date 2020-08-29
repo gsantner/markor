@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Konnte Dateiinhalte nicht entschlüsseln. Hast du ein falsches Passwort verwendet? Ist die Datei wirklich mit Markors AES-Verschlüsselung verschlüsselt?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Passwort bereits gesetzt. Ein neues Passwort überschreibt das bestehende Passwort und du kannst möglicherweise nicht mehr auf Dateien zugreifen, falls du das Passwort vergessen.</string>
     <string name="code_block">Code-Block</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

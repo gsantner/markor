@@ -276,4 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_file">複製檔案</string>
     <string name="experimental_features">實驗性功能</string>
     <string name="tools">工具</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

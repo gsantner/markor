@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">No s\'ha pogut desxifrar el contingut del fitxer. Heu utilitzat una contrasenya errònia? El fitxer s\'ha xifrat realment amb el xifrat AES del Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">La contrasenya ja està definida. Establir una nova sobreescriurà la contrasenya existent i és possible que ja no pugueu accedir als fitxers en cas que oblideu la contrasenya.</string>
     <string name="code_block">Bloc de codi</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

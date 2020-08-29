@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。您使用了错误的密码吗？该文件真的是加密的 Markors AES 吗？</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">密码已设置。 设置新密码将覆盖现有密码，如果您忘记密码，您可能无法再访问文件。</string>
     <string name="code_block">代码块</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

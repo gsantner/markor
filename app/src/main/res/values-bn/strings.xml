@@ -64,4 +64,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%dটি বস্তু নির্বাচিত</string>
     <string name="hide_statusbar_at_this_view">এই জায়গায় স্ট্যাটাস বার (অবস্থা নির্দেশক অংশ) লোকাও</string>
     <string name="hide_statusbar">স্ট্যাটাস বার লোকাও</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

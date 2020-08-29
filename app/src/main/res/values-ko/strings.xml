@@ -361,4 +361,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">확장 / 축소</string>
     <string name="essential">필수</string>
     <string name="append_human_readable_uuid_to_new_tasks">인간이 인식할 수 있는 UUID를 새 할 일에 추가</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

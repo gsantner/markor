@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не вдалося розшифрувати вміст файлу. Ви використовуєте неправильний пароль? Файл дійсно було зашифровано з використанням Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль вже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви втратите доступ до файлів, якщо забудете пароль.</string>
     <string name="code_block">Блок коду</string>
+    <string name="show_completion_date">Show completion date</string>
+    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>
