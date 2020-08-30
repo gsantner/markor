@@ -228,7 +228,7 @@ public class SttCommander {
         String tmp;
         if (task.isDone()) {
             sb.append("x ");
-            if (!nz(task.getCompletionDate()) && AppSettings.get().isInsertCompletionDateEnabled()) {
+            if (!nz(task.getCompletionDate()) && AppSettings.get().isTodoAddCompletionDateEnabled()) {
                 task.setCompletionDate(getToday());
             }
             sb.append(task.getCompletionDate());

@@ -440,9 +440,9 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
-                    android:key="@string/pref_key__todotxt__show_completion_date_for_task"
-                    android:summary="@string/insert_completion_date_for_a_todo"
-                    android:title="@string/insert_completion_date" />
+                    android:key="@string/pref_key__todotxt__add_completion_date_for_todos"
+                    android:summary="@string/add_completion_date_for_todos_when_marking_them_as_done"
+                    android:title="@string/add_completion_date" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
