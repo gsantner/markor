@@ -34,10 +34,11 @@ public class TodoTxtAutoFormat implements InputFilter {
 
     private CharSequence autoIndent(CharSequence source) {
         String t = "";
-        if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
+        final AppSettings settings = AppSettings.get();
+        if (settings.isTodoStartTasksWithTodaysDateEnabled()) {
             t += TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
         }
-        if (AppSettings.get().isTodoNewTaskWithHuuidEnabled()) {
+        if (settings.isTodoNewTaskWithHuuidEnabled()) {
             t += "huuid:" + PlainTextStuff.newHuuid(AppSettings.get().getHuuidDeviceId()) + " ";
         }
         return source + t;
