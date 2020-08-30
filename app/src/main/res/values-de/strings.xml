@@ -185,7 +185,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Unten beginnen</string>
-    <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
     <string name="character_to_start_items_of_unordered_list_with">Zeichen am Anfang von jedem ungeordneten Listen-Element</string>
     <string name="unordered_list_char_dash">Strich (-)</string>
