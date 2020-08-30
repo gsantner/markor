@@ -166,7 +166,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_code_block_highlight">Hervorheben von Code-Blöcken deaktivieren</string>
     <string name="auto_renumber_ordered_list">Sortierte Listen automatisch umbenennen</string>
     <string name="auto_renumber_ordered_list_slowdown">Diese Option kann die Leistung der App beeinflussen.</string>
-    <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
+    <string name="use_different_fonttype_slow_down">Verwenden einer anderen Schriftart. Dynamische Änderungen der Schriftart beeinträchtigen die Leistung der App.</string>
     <string name="general">Allgemeines</string>
     <string name="resources">Ressourcen</string>
     <string name="space_between_lines_in_percent">Abstand zwischen Zeilen in Prozent</string>
