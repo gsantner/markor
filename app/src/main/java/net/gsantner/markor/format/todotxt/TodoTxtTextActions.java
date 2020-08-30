@@ -100,7 +100,10 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_toggle_done: {
-                    final String replaceDone = String.format("x %s ", TodoTxtTask.getToday());
+                    String replaceDone = "x ";
+                    if (AppSettings.get().isTodoAddCompletionDateEnabled()) {
+                        replaceDone += TodoTxtTask.getToday() + " ";
+                    }
                     runRegexReplaceAction(
                             new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, replaceDone),
                             new ReplacePattern(TodoTxtTask.PATTERN_COMPLETION_DATE, ""),

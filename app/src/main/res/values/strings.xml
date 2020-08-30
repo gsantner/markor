@@ -391,5 +391,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Could not decrypt file content. Did you use a wrong password? Is the file really encrypted with Markors AES encryption?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Password already set. Setting a new password will overwrite the existing password and you may not be able to access files anymore in case you forget the password.</string>
     <string name="code_block">Code block</string>
+    <string name="add_completion_date">Add completion date</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Add completion date for todos when marking them as done</string>
 
 </resources>
