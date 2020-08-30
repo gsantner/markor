@@ -141,7 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
-    <string name="load_last_opened_folder_at_startup">Lade den zuletzt geöffneten Ordner beim Starten</string>
+    <string name="load_last_opened_folder_at_startup">Beim App-Start den zuletzt geöffneten Ordner laden</string>
     <string name="format">Format</string>
     <string name="contexts">Kontexte</string>
     <string name="project">Projekt</string>
@@ -155,7 +155,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Unterstreichen</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
     <string name="underline_hex_color_codes">Hex-Farb-Codes unterstreichen</string>
-    <string name="insert_current_date_when_starting_new_task">Das aktuelle Datum einfügen wenn eine neue Aufgabe begonnen wird</string>
+    <string name="insert_current_date_when_starting_new_task">Das aktuelle Datum einfügen, wenn eine neue Aufgabe begonnen wird</string>
     <string name="tasks_with_todays_date">Aufgaben mit heutigem Datum</string>
     <string name="append_contexts_and_projects">Kontexte und Projekte anfügen</string>
     <string name="append_contexts_and_projects_on_end_of_task">Kontexte und Projekte am Ende einer Aufgabe anhängen, wenn die entsprechende Textaktion verwendet wird</string>
