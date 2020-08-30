@@ -134,7 +134,9 @@ public class TodoTxtTextActions extends TextActions {
             switch (_action) {
                 case R.string.tmaid_todotxt_toggle_done: {
                     origTask.setDone(!origTask.isDone());
-                    origTask.setCompletionDate(SttCommander.getToday());
+                    if (AppSettings.get().isTodoAddCompletionDateEnabled()) {
+                        origTask.setCompletionDate(SttCommander.getToday());
+                    }
                     cbUpdateOrigTask.callback(origTask);
                     return;
                 }

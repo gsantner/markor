@@ -71,7 +71,7 @@
                 android:icon="@drawable/ic_lock_outline_black_24dp"
                 android:inputType="textVisiblePassword"
                 android:key="@string/pref_key__default_encryption_password"
-                android:title="@string/file_encryption_password"/>
+                android:title="@string/file_encryption_password" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/features">
@@ -437,6 +437,12 @@
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="@string/todo_txt">
             <PreferenceCategory android:title="@string/textactions">
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:icon="@drawable/ic_date_range_black_24dp"
+                    android:key="@string/pref_key__todotxt__add_completion_date_for_todos"
+                    android:summary="@string/add_completion_date_for_todos_when_marking_them_as_done"
+                    android:title="@string/add_completion_date" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
