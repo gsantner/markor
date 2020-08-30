@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_contexts_and_projects_on_end_of_task">Kontexte und Projekte am Ende einer Aufgabe anhängen, wenn die entsprechende Textaktion verwendet wird</string>
     <string name="rtl_rendering">RTL Rendering</string>
     <string name="highlight_line_ending">Zeilenende hervorheben</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen, die mit zwei oder mehr Leerzeichen enden</string>
     <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
     <string name="disable_code_block_highlight">Hervorheben von Code-Blöcken deaktivieren</string>
     <string name="auto_renumber_ordered_list">Sortierte Listen automatisch umbenennen</string>
