@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nie można odszyfrować zawartości pliku. Czy użyłeś złego hasła? Czy plik jest naprawdę zaszyfrowany szyfrowaniem Markors AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Hasło już ustawione. Ustawienie nowego hasła nadpisze istniejące hasło i może nie mieć już dostępu do plików, jeśli zapomnisz hasła.</string>
     <string name="code_block">Blok kodu</string>
+    <string name="add_completion_date">Dodaj datę zakończenia</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Dodaj datę zakończenia dla zadań przy oznaczaniu ich jako wykonane</string>
 </resources>
