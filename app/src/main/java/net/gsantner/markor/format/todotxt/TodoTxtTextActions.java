@@ -105,8 +105,11 @@ public class TodoTxtTextActions extends TextActions {
                         replaceDone += TodoTxtTask.getToday() + " ";
                     }
                     runRegexReplaceAction(
+                            // If task starts with a priority, replace priority with 'x ...'
                             new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, replaceDone),
+                            // else if task stars with 'x + (completion date)?' replace with "" (i.e. remove done)
                             new ReplacePattern(TodoTxtTask.PATTERN_COMPLETION_DATE, ""),
+                            // else replace task start with 'x ...'
                             new ReplacePattern("^", replaceDone)
                     );
                     trimLeadingWhiteSpace();
