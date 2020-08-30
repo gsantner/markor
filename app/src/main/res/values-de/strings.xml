@@ -249,7 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Text Aktion</string>
     <string name="textactions">Text Aktionen</string>
     <string name="prefer_view">Ansichts-Modus bevorzugen</string>
-    <string name="no_calendar_app_is_installed">Es ist keine Kalender App installiert!</string>
+    <string name="no_calendar_app_is_installed">Es ist keine Kalender-App installiert!</string>
     <string name="popular_documents">Beliebte Dokumente</string>
     <string name="color">Farbe</string>
     <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
