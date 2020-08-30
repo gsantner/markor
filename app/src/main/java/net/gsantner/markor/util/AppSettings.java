@@ -265,7 +265,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
     }
 
-    public boolean isTodoShowCompletionDateEnabled() {
+    public boolean isInsertCompletionDateEnabled() {
         return getBool(R.string.pref_key__todotxt__show_completion_date_for_task, true);
     }
 

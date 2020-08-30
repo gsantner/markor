@@ -392,6 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="password_already_set_setting_a_new_password_will_overwrite">Password already set. Setting a new password will overwrite the existing password and you may not be able to access files anymore in case you forget the password.</string>
     <string name="code_block">Code block</string>
     <string name="insert_completion_date">Insert completion date</string>
-    <string name="insert_completion_date_for_a_todo">Insert completion date for todos</string>
+    <string name="insert_completion_date_for_a_todo">Insert completion date for todos when marking them as done</string>
 
 </resources>
