@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nelze dešifrovat obsah souboru. Použito nesprávné heslo? Je soubor opravdu šifrován pomocí AES šifrování programu Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Heslo je již nastaveno. Zadáním nového hesla se přepíše stávající heslo a v případě, že ho zapomenete, již možná nebudete moci přistupovat k souborům.</string>
     <string name="code_block">Blok kódu</string>
+    <string name="add_completion_date">Přidat datum dokončení</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Přidat datum dokončení úloh při označení jako hotové</string>
 </resources>
