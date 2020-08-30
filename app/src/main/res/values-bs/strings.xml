@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Neuspjelo dešifriranje sadržaja. Jeste li unijeli pogrešnu lozinku? Je li za šifriranje korišten Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Lozinka je već zadana. Definisanjem nove lozinke ona će zamijeniti postojeću i može se dogoditi da ne mognete pristupiti svojim datotekama ako zaboravite lozinku.</string>
     <string name="code_block">Kōd blok</string>
+    <string name="add_completion_date">Dodaj datum završetka</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Dodaj datum završetka za zadatke kad su označeni kao završeni</string>
 </resources>
