@@ -26,6 +26,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Sluit</string>
     <string name="cancel">Kanselleer</string>
     <string name="reload">Herlaai</string>
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

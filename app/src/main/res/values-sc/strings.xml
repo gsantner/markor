@@ -375,6 +375,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Detzifradura de su cuntenutu de su documentu fallida. As impreadu una crae isballiada? Su documentu est tzifradu cun sa critografia AES de Markor a beru?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Crae giai impostada. Impostende una crae noa as a subraiscrìere sa crae chi b\'est e dias pòdere no èssere prus in gradu de atzèdere a sos documentos, s\'in casu mai as a ismentigare sa crae.</string>
     <string name="code_block">Blocu de còdighe</string>
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

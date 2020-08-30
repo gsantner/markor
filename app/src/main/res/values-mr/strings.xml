@@ -10,6 +10,5 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
+
 </resources>

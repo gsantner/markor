@@ -375,6 +375,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Não foi possível decifrar o ficheiro. Utilizou a palavra-passe correta? O ficheiro foi cifrado com a cifra Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">A palavra-passe já está definida. Se definir uma nova palavra-passe a atual será substituída e, caso a perca, já não será possível aceder ao ficheiro.</string>
     <string name="code_block">Bloco de código</string>
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

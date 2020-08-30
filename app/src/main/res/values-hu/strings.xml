@@ -351,6 +351,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Fájl dekódolása nem sikerült. Rossz jelszót használtál? Biztos, hogy a fájl titkosítva van a Markor AES titkosításával?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Már van jelszó beállítva. Új jelszó megadása az előzőt felülírja, és nem biztos hogy hozzá fogsz majd férni az eddig mentett fájlokhoz, ha elfelejted a jelszót.</string>
     <string name="code_block">Kódtömb</string>
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>

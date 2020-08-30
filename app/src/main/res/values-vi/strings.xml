@@ -85,6 +85,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
     <string name="line_spacing">Line Spacing</string>
     <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
-    <string name="show_completion_date">Show completion date</string>
-    <string name="showing_completion_date_for_a_todo">Show completion date for todos</string>
 </resources>
