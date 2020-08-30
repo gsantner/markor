@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunde inte dekryptera filens innehåll. Har du använt ett fel lösenord? Är filen verkligen krypterad med Markors AES-kryptering?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Lösenord har redan angetts Att sätta ett nytt lösenord kommer att skriva över det befintliga lösenordet och du kanske inte kommer åt filer längre om du glömmer lösenordet.</string>
     <string name="code_block">Kod block</string>
+    <string name="add_completion_date">Lägg till slutdatum</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för todos när de markeras som gjort</string>
 </resources>
