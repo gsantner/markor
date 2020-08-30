@@ -95,7 +95,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">Mehr</string>
     <string name="notebook">Notizbuch</string>
     <string name="help">Hilfe</string>
-    <string name="todo_list">To-Do Liste</string>
+    <string name="todo_list">To-Do-Liste</string>
     <string name="task">Aufgabe</string>
     <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
@@ -115,7 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_to_be_loaded_and_saved_as_witharg">Jenes Dokument, welches als \"%s\" geladen und gespeichert wird</string>
     <string name="refresh">Aktualisieren</string>
     <string name="create_shortcut">Verknüpfung erstellen</string>
-    <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht, eine Verknüpfung auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Die Datei ist nicht im aktuellen Ordner vorhanden. Möchtest du sie in den aktuellen Ordner kopieren? Dies überschreibt eine vorhandene Datei mit dem gleichen Namen.</string>
     <string name="files_and_folders">Dateien und Ordner</string>
