@@ -376,5 +376,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль вже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви втратите доступ до файлів, якщо забудете пароль.</string>
     <string name="code_block">Блок коду</string>
     <string name="add_completion_date">Додати дату завершення</string>
-    <string name="add_completion_date_for_todos_when_marking_them_as_done">Додати дату завершення для позначки їх як виконано</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Додати дату виконання завдань</string>
 </resources>
