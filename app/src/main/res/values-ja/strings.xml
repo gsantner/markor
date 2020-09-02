@@ -248,7 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">その他</string>
     <string name="textaction">テキスト操作</string>
     <string name="textactions">テキスト操作</string>
-    <string name="prefer_view">お好みビュー</string>
+    <string name="prefer_view">表示を優先</string>
     <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
     <string name="popular_documents">人気のあるドキュメント</string>
     <string name="color">色</string>
