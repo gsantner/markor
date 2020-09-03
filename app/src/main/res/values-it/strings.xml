@@ -376,5 +376,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="password_already_set_setting_a_new_password_will_overwrite">Password già impostata. Impostare una nuova password sovrascriverà la password esistente e potresti non essere più in grado di accedere ai file nel caso in cui dimentichi la password.</string>
     <string name="code_block">Blocco di codice</string>
     <string name="add_completion_date">Aggiungi data di completamento</string>
-    <string name="add_completion_date_for_todos_when_marking_them_as_done">Aggiungi data di completamento per i todo contrassegnati come completati</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Aggiungi data di completamento per i todo quando contrassegnati come completati</string>
 </resources>
