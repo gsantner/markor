@@ -1,6 +1,9 @@
 language: android
 jdk: oraclejdk8
 
+git:
+  depth: false
+
 addons:
   sonarcloud:
     organization: "meloneatingbot"
