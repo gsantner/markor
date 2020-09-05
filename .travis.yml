@@ -1,6 +1,12 @@
 language: android
 jdk: oraclejdk8
 
+addons:
+  sonarcloud:
+    organization: "meloneatingbot"
+    token:
+      secure: "TWh+UW/o6jN5oopG6TAZJInhmzeusI0Oi1KVnSe71RHt6uLmVEgDiRx4axL4QRAs57eY3Xf94gpK1rtzb5YwQ7ku1YhPBr/F1P4ZfbcFn+FckMz/nLFC5sqVUGXDipzHivcwPCQF1Kd2+gE+SzK93z4SmdW1fqvxXziIE9+Vy7R1qSlJbAu7HUdp7FPpxtOoTl+3j3bpz0PJKlpV23ePBhy26cMz6bR8sQXd60uWYSAR7R4XcVtUNa7bOvSsGFgpcxeJHRnqm1Ma12g+7I3XQCdRwkDHqRi6FCu/I1Y8AAdYKErlYff02L5F3z2N1qENaWPS0R+NtTppzDMl0b1OV8tH2CwZhykGF2CTjPrFocTCD2TU8aYjPzHCsHE70NDefSlHkXKUxo/liI/4Z7wF2TYD0+F5p7PjGhPx7GMBluUWPhl97iL/P8NRRfvwb0dbfp0inSQ9TEjMGtQHeBsU5IPt6LeRZt3taSDp8vUoxTtx92nt6poomhlc1GfnhwuwdNYfzKpd9gMotclxVCYXNOTfOPUimGIkoVrNVwqEUk5ptsnPFhUmCAlLAnrlY6qlvZlqzHuDWYItBFn7a5PGLWhy6j55mm9tlZcpDZy4PcNtBUixBnkwovMAJYw6es0qBUyta5z1ZLYdbYrjs0tzx3+v4N9vf8XFRfhvlrVrl44=" # encrypted value of your token
+
 before_cache:
   # Do not cache a few Gradle files/directories (see https://docs.travis-ci.com/user/languages/java/#Caching)
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -45,5 +51,6 @@ env:
     - TASK="clean build check -x lint --stacktrace"
 #    - TASK="clean lintFlavorDefaultDebug --stacktrace"
     - TASK="clean testFlavorDefaultDebugUnitTest -x lint --stacktrace"
+    - TASK="sonarqube"
 
 script: "./gradlew --no-daemon --parallel $TASK"
