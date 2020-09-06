@@ -24,7 +24,7 @@
 Markor is a TextEditor for Android. This project aims to make an editor that is versatile, flexible, and lightweight. Markor utilizes simple markup formats like Markdown and todo.txt for note-taking and list management. Markor is versatile at working with text; it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Created files are interoptable with any other plaintext software on any platform. Markor is using open formats and is free software, openly developed and accepts community contributions.
 
 ## Features
-📝 Create notes and manage your to-do list using simple markup formats
+📝 Create notes and manage your to-do list using simple markup formats.
 <br/>🌲 Work completely offline -- whenever, wherever
 <br/>👌 Compatible with any other plaintext software on any platform -- edit with notepad or vim, filter with grep, convert to PDF or create a zip archive
 <br/>
