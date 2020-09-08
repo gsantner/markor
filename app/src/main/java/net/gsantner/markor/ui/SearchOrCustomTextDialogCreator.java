@@ -25,7 +25,6 @@ import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.todotxt.SttTask;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 
@@ -37,13 +36,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_CONTEXT;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_CREATION_DATE;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_DESCRIPTION;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_DUE_DATE;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_LINE;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_PRIORITY;
-import static net.gsantner.opoc.format.todotxt.SttCommander.SttTaskSimpleComparator.BY_PROJECT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DUE_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
 
 public class SearchOrCustomTextDialogCreator {
     private static boolean isTodoTxtAlternativeNaming(Context context) {
@@ -220,8 +219,14 @@ public class SearchOrCustomTextDialogCreator {
 
         dopt.callback = arg1 -> {
             appSettings.setString(optLastSelected, arg1);
-            String[] values = arg1.replace(o_context, BY_CONTEXT).replace(o_project, BY_PROJECT).replace(o_prio, BY_PRIORITY)
-                    .replace(o_date, BY_CREATION_DATE).replace(o_textline, BY_LINE).replace(o_description, BY_DESCRIPTION).replace(o_duedate, BY_DUE_DATE)
+            String[] values = arg1
+                    .replace(o_context, BY_CONTEXT)
+                    .replace(o_project, BY_PROJECT)
+                    .replace(o_prio, BY_PRIORITY)
+                    .replace(o_date, BY_CREATION_DATE)
+                    .replace(o_textline, BY_LINE)
+                    .replace(o_description, BY_DESCRIPTION)
+                    .replace(o_duedate, BY_DUE_DATE)
                     .split(" ");
             callback.callback(values[0], values[1].contains(d_desc.replace(" ", "")));
         };
@@ -254,26 +259,24 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttContextDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
+    public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         sortUniqNonEmpty(availableData, "home", "shop");
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
-        dopt.highlightData = highlightedData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttContextListDialog(Activity activity, List<String> availableData, List<String> highlightedData, String fullText, Callback.a1<String> userCallback) {
-        showSttContextDialog(activity, availableData, highlightedData, callbackValue -> {
+    public static void showSttContextListDialog(Activity activity, List<String> availableData, String fullText, Callback.a1<String> userCallback) {
+        showSttContextDialog(activity, availableData, callbackValue -> {
             SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt);
             dopt.callback = userCallback;
             dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
-            dopt.highlightData = highlightedData;
             dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
             dopt.searchHintText = R.string.search;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -329,13 +332,12 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttProjectDialog(Activity activity, List<String> availableData, List<String> highlightedData, Callback.a1<String> callback) {
+    public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         sortUniqNonEmpty(availableData, "music", "video");
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = availableData;
-        dopt.highlightData = highlightedData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
@@ -343,13 +345,12 @@ public class SearchOrCustomTextDialogCreator {
     }
 
 
-    public static void showSttProjectListDialog(Activity activity, List<String> availableData, List<String> highlightedData, String fullText, Callback.a1<String> userCallback) {
-        showSttProjectDialog(activity, availableData, highlightedData, callbackValue -> {
+    public static void showSttProjectListDialog(Activity activity, List<String> availableData, String fullText, Callback.a1<String> userCallback) {
+        showSttProjectDialog(activity, availableData, callbackValue -> {
             SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt);
             dopt.callback = userCallback;
             dopt.data = filterContains(new ArrayList<>(Arrays.asList(fullText.split("\n"))), callbackValue);
-            dopt.highlightData = highlightedData;
             dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
             dopt.searchHintText = R.string.search;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -394,7 +395,7 @@ public class SearchOrCustomTextDialogCreator {
             availableData.add(Character.toString((char) i));
         }
         highlightedData.add(none);
-        if (selectedPriority != SttTask.PRIORITY_NONE) {
+        if (selectedPriority != 0) {
             highlightedData.add(Character.toString(selectedPriority));
         }
 

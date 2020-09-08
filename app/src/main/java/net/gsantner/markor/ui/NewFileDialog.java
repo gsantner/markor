@@ -31,7 +31,7 @@ import android.widget.Spinner;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.format.todotxt.SttCommander;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -121,7 +121,7 @@ public class NewFileDialog extends DialogFragment {
             String prefix = null;
 
             if (pos == 3) { // Jekyll
-                prefix = SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + "-";
+                prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
                 fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -240,7 +240,7 @@ public class NewFileDialog extends DialogFragment {
                 return null; // Empty file template (that doesn't overwrite anything
             }
         }
-        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", SttCommander.DATEF_YYYY_MM_DD.format(new Date()));
+        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             bytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));

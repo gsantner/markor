@@ -13,7 +13,6 @@ import android.content.Context;
 import android.support.v4.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverter;
-import net.gsantner.opoc.format.todotxt.SttCommander;
 
 import java.io.File;
 
@@ -51,6 +50,6 @@ public class TodoTxtTextConverter extends TextConverter {
 
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        return SttCommander.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+        return TodoTxtTask.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
     }
 }

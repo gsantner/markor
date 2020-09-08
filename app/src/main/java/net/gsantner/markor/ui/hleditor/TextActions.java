@@ -18,6 +18,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -73,8 +74,6 @@ public abstract class TextActions {
      */
     protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
     }
-
-    ;
 
     /**
      * Factory to generate ActionCallback for given keyId
@@ -282,9 +281,9 @@ public abstract class TextActions {
     }
 
     public static class ReplacePattern {
-        public Pattern searchPattern;
-        public String replacePattern;
-        public boolean replaceAll;
+        public final Pattern searchPattern;
+        public final String replacePattern;
+        public final boolean replaceAll;
 
         /**
          * Construct a ReplacePattern
@@ -312,11 +311,11 @@ public abstract class TextActions {
         }
     }
 
-    public void runRegexReplaceAction(ReplacePattern ... patterns) {
+    public void runRegexReplaceAction(final ReplacePattern ... patterns) {
         runRegexReplaceAction(Arrays.asList(patterns), false);
     }
 
-    public void runRegexReplaceAction(List<ReplacePattern> patterns) {
+    public void runRegexReplaceAction(final List<ReplacePattern> patterns) {
         runRegexReplaceAction(patterns, false);
     }
 
@@ -328,12 +327,8 @@ public abstract class TextActions {
         runRegexReplaceAction(_hlEditor, patterns, matchAll);
     }
 
-    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern pattern) {
-        runRegexReplaceAction(editor, pattern, false);
-    }
-
-    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern pattern, final boolean matchAll) {
-        runRegexReplaceAction(editor, Collections.singletonList(pattern), matchAll);
+    public static void runRegexReplaceAction(final EditText editor, final ReplacePattern ... patterns) {
+        runRegexReplaceAction(editor, Arrays.asList(patterns), false);
     }
 
     /**
