@@ -811,6 +811,39 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.yaml" />
 
+                <!-- Handling of file extension ".xlf" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.xlf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.xlf" />
+
+
                 <!-- Handling of file extension ".toml" -->
                 <data
                     android:mimeType="*/*"
