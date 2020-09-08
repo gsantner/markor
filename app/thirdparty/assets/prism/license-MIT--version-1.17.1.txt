@@ -24,5 +24,12 @@
  1968  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-typescript.js
  1969  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-dark.min.css
  1970  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-tomorrow.min.css
+ 1971  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-elixir.js
+ 1972  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-haskell.js
+ 1973  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-kotlin.js
+ 1974  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-perl.js
+ 1975  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-r.js
+ 1976  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-ruby.js
+ 1977  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-scala.js
+ 1978  wget https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-swift.js
  2003  history | grep wget | grep prism | xclip
-
