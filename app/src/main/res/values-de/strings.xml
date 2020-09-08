@@ -75,8 +75,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Änderungen</string>
     <string name="more_info">Mehr Informationen</string>
     <string name="show_license_of_the_app">Lizenzen der App anzeigen</string>
-    <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
-    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
+    <string name="show_third_party_licenses">Drittanbieter-Lizenzen anzeigen</string>
+    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich, um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
     <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystemberechtigung um Dokumente zu speichern</string>
     <string name="open_with">Öffnen mit</string>
@@ -95,7 +95,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">Mehr</string>
     <string name="notebook">Notizbuch</string>
     <string name="help">Hilfe</string>
-    <string name="todo_list">To-Do Liste</string>
+    <string name="todo_list">To-Do-Liste</string>
     <string name="task">Aufgabe</string>
     <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
@@ -115,7 +115,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_to_be_loaded_and_saved_as_witharg">Jenes Dokument, welches als \"%s\" geladen und gespeichert wird</string>
     <string name="refresh">Aktualisieren</string>
     <string name="create_shortcut">Verknüpfung erstellen</string>
-    <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht eine Verknüpfungen auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Es wurde versucht, eine Verknüpfung auf deinem Homescreen anzulegen. Beachte, dass nicht alle Launcher dies unterstützen.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Die ausgewählte Datei befindet sich nicht im Notizbuch-Ordner. Möchtest du sie in den aktuellen Ordner kopieren? Bestehende Dateien werden überschrieben.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Die Datei ist nicht im aktuellen Ordner vorhanden. Möchtest du sie in den aktuellen Ordner kopieren? Dies überschreibt eine vorhandene Datei mit dem gleichen Namen.</string>
     <string name="files_and_folders">Dateien und Ordner</string>
@@ -127,21 +127,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
     <string name="keep_screen_on" needed="false">Bildschirm nicht ausschalten</string>
     <string name="back_to_previous_folder" needed="false">Zurück zum vorherigen Ordner</string>
-    <string name="app_settings" needed="false">App Einstellungen</string>
-    <string name="editor_settings" needed="false">Editor Einstellungen</string>
+    <string name="app_settings" needed="false">App-Einstellungen</string>
+    <string name="editor_settings" needed="false">Editor-Einstellungen</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Letzten Ordner merken</string>
     <string name="number_of_files_witharg" needed="false">Anzahl der Dateien: %d</string>
     <string name="app_wide">Global</string>
     <string name="main_view">Hauptansicht</string>
     <string name="overall_theme_used_in_app">Das global in dieser App verwendete Thema ändern</string>
     <string name="remember_last_directory">Letzten Ordner merken</string>
-    <string name="syntax_highlighting">Syntax Highlighting</string>
-    <string name="highlighting_delay">Highlighting Verzögerung</string>
+    <string name="syntax_highlighting">Syntax-Highlighting</string>
+    <string name="highlighting_delay">Highlighting-Verzögerung</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
-    <string name="load_last_opened_folder_at_startup">Lade den zuletzt geöffneten Ordner beim Starten</string>
+    <string name="load_last_opened_folder_at_startup">Beim App-Start den zuletzt geöffneten Ordner laden</string>
     <string name="format">Format</string>
     <string name="contexts">Kontexte</string>
     <string name="project">Projekt</string>
@@ -155,18 +155,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Unterstreichen</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ob Hex-Farb-Codes farbig unterstrichen werden sollen</string>
     <string name="underline_hex_color_codes">Hex-Farb-Codes unterstreichen</string>
-    <string name="insert_current_date_when_starting_new_task">Das aktuelle Datum einfügen wenn eine neue Aufgabe begonnen wird</string>
+    <string name="insert_current_date_when_starting_new_task">Das aktuelle Datum einfügen, wenn eine neue Aufgabe begonnen wird</string>
     <string name="tasks_with_todays_date">Aufgaben mit heutigem Datum</string>
     <string name="append_contexts_and_projects">Kontexte und Projekte anfügen</string>
     <string name="append_contexts_and_projects_on_end_of_task">Kontexte und Projekte am Ende einer Aufgabe anhängen, wenn die entsprechende Textaktion verwendet wird</string>
     <string name="rtl_rendering">RTL Rendering</string>
     <string name="highlight_line_ending">Zeilenende hervorheben</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Hervorheben jener Zeilen die mit zwei oder mehr Leerzeichen enden</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Leerzeichen am Zeilenende hervorheben, wenn es zwei oder mehr sind</string>
     <string name="use_monospace_for_code">Monospace Schriftart für Code</string>
     <string name="disable_code_block_highlight">Hervorheben von Code-Blöcken deaktivieren</string>
     <string name="auto_renumber_ordered_list">Sortierte Listen automatisch umbenennen</string>
     <string name="auto_renumber_ordered_list_slowdown">Diese Option kann die Leistung der App beeinflussen.</string>
-    <string name="use_different_fonttype_slow_down">Verwenden eines anderen Font Typs. Die dynamische Veränderung des Font Types beinflusst die Performance der App.</string>
+    <string name="use_different_fonttype_slow_down">Verwenden einer anderen Schriftart. Dynamische Änderungen der Schriftart beeinträchtigen die Leistung der App.</string>
     <string name="general">Allgemeines</string>
     <string name="resources">Ressourcen</string>
     <string name="space_between_lines_in_percent">Abstand zwischen Zeilen in Prozent</string>
@@ -185,13 +185,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Alles auswählen (Strg + A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Unten beginnen</string>
-    <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde den Cursor ganz unten platzieren</string>
+    <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
     <string name="character_to_start_items_of_unordered_list_with">Zeichen am Anfang von jedem ungeordneten Listen-Element</string>
     <string name="unordered_list_char_dash">Strich (-)</string>
     <string name="unordered_list_char_asterisk">Stern (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbaren Dokumente bearbeiten. Datei-Manager die nicht den vollständigen Dateipfad angeben sind nicht unterstützt.</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbare Dokumente bearbeiten und unterstützt keine Datei-Manager, die nicht den vollständigen Dateipfad angeben.</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
     <string name="vertical_alignment">Vertikale Anordnung</string>
@@ -208,7 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
     <string name="select_existing_document">Bestehendes Dokument auswählen</string>
-    <string name="open_source_licenses">Open Source Lizenzen</string>
+    <string name="open_source_licenses">Open-Source-Lizenzen</string>
     <string name="rate_this_app">App bewerten</string>
     <string name="translate">Übersetzen</string>
     <string name="more_info_and_help">Mehr Infos und Hilfe zu dieser App</string>
@@ -218,7 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bug_reports_suggest_improvements">Feedback geben, Fehler melden, Verbesserungen vorschlagen</string>
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
     <string name="source_code">Quellcode</string>
-    <string name="project_license">Projekt Lizenz</string>
+    <string name="project_license">Projektlizenz</string>
     <string name="project_contribution_info">Projekt-Unterstützungs-Info</string>
     <string name="more_info_on_how_to_contribute_to_this_project">Weitere Informationen dazu, wie dieses Projekt unterstützt werden kann</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
@@ -249,7 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textaction">Text Aktion</string>
     <string name="textactions">Text Aktionen</string>
     <string name="prefer_view">Ansichts-Modus bevorzugen</string>
-    <string name="no_calendar_app_is_installed">Es ist keine Kalender App installiert!</string>
+    <string name="no_calendar_app_is_installed">Es ist keine Kalender-App installiert!</string>
     <string name="popular_documents">Beliebte Dokumente</string>
     <string name="color">Farbe</string>
     <string name="zero_width_space">Breitenloses Zeichen (Zero-width space)</string>
@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Konnte Dateiinhalte nicht entschlüsseln. Hast du ein falsches Passwort verwendet? Ist die Datei wirklich mit Markors AES-Verschlüsselung verschlüsselt?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Passwort bereits gesetzt. Ein neues Passwort überschreibt das bestehende Passwort und du kannst möglicherweise nicht mehr auf Dateien zugreifen, falls du das Passwort vergessen.</string>
     <string name="code_block">Code-Block</string>
+    <string name="add_completion_date">Fertigstellungsdatum hinzufügen</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Bei Erledigung von Aufgaben Abschlussdatum ergänzen</string>
 </resources>
