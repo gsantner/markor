@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">ドキュメントブラウザー</string>
     <string name="file_browser">ファイルブラウザー</string>
     <string name="set_due_date">期日を設定</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">日付を挿入</string>
     <string name="create_note" needed="false">ノートを作成</string>
     <string name="special_documents" needed="false">特別なドキュメント</string>
     <string name="keep_screen_on" needed="false">画面をオンのままにする</string>
@@ -282,7 +282,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_tab">アプリ開始タブ</string>
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
     <string name="swipe_to_change_mode">スワイプしてモードを変更</string>
-    <string name="swipe_to_change_to_edit_or_view_mode">スワイプして編集と表示モードを変更します (現在のモードを反対に)</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">スワイプして編集モードまたは表示モード (現在のモードの反対) に変更します</string>
     <string name="folder_first">フォルダを上に表示</string>
     <string name="go_to">移動</string>
     <string name="appdata_public">AppData (公開)</string>
