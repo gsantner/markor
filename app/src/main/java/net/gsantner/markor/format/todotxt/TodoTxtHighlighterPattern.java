@@ -12,28 +12,26 @@ package net.gsantner.markor.format.todotxt;
 
 import android.util.Patterns;
 
-import net.gsantner.opoc.format.todotxt.SttCommander;
-
 import java.util.regex.Pattern;
 
 // See for format description: https://github.com/todotxt/todo.txt/blob/master/README.md
 public enum TodoTxtHighlighterPattern {
 
-    CONTEXT(SttCommander.PATTERN_CONTEXTS),
-    PROJECT(SttCommander.PATTERN_PROJECTS), // Project = Category
-    DONE(SttCommander.PATTERN_DONE),
-    DATE(SttCommander.PATTERN_DATE),
-    COMPLETION_DATE(SttCommander.PATTERN_COMPLETION_DATE),
-    CREATION_DATE(SttCommander.PATTERN_CREATION_DATE),
-    PATTERN_KEY_VALUE(SttCommander.PATTERN_KEY_VALUE_PAIRS__TAG_ONLY),
-    PRIORITY_ANY(SttCommander.PATTERN_PRIORITY_ANY),
-    PRIORITY_A(SttCommander.PATTERN_PRIORITY_A),
-    PRIORITY_B(SttCommander.PATTERN_PRIORITY_B),
-    PRIORITY_C(SttCommander.PATTERN_PRIORITY_C),
-    PRIORITY_D(SttCommander.PATTERN_PRIORITY_D),
-    PRIORITY_E(SttCommander.PATTERN_PRIORITY_E),
-    PRIORITY_F(SttCommander.PATTERN_PRIORITY_F),
-    DUE_DATE(SttCommander.PATTERN_DUE_DATE),
+    CONTEXT(TodoTxtTask.PATTERN_CONTEXTS),
+    PROJECT(TodoTxtTask.PATTERN_PROJECTS), // Project = Category
+    DONE(TodoTxtTask.PATTERN_DONE),
+    DATE(TodoTxtTask.PATTERN_DATE),
+    COMPLETION_DATE(TodoTxtTask.PATTERN_COMPLETION_DATE),
+    CREATION_DATE(TodoTxtTask.PATTERN_CREATION_DATE),
+    PATTERN_KEY_VALUE(TodoTxtTask.PATTERN_KEY_VALUE_PAIRS__TAG_ONLY),
+    PRIORITY_ANY(TodoTxtTask.PATTERN_PRIORITY_ANY),
+    PRIORITY_A(TodoTxtTask.PATTERN_PRIORITY_A),
+    PRIORITY_B(TodoTxtTask.PATTERN_PRIORITY_B),
+    PRIORITY_C(TodoTxtTask.PATTERN_PRIORITY_C),
+    PRIORITY_D(TodoTxtTask.PATTERN_PRIORITY_D),
+    PRIORITY_E(TodoTxtTask.PATTERN_PRIORITY_E),
+    PRIORITY_F(TodoTxtTask.PATTERN_PRIORITY_F),
+    DUE_DATE(TodoTxtTask.PATTERN_DUE_DATE),
 
     LINK(Patterns.WEB_URL),
     NEWLINE_CHARACTER(Pattern.compile("(\\n|^)")),

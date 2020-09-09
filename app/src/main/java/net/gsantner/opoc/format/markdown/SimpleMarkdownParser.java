@@ -125,6 +125,20 @@ public class SimpleMarkdownParser {
             return text;
         }
     };
+    public final static SmpFilter FILTER_H_TO_SUP = new SmpFilter() {
+        @Override
+        public String filter(String text) {
+            text = text
+                    .replace("<h1>", "<sup><sup><sup>")
+                    .replace("</h1>", "</sup></sup></sup>")
+                    .replace("<h2>", "<sup><sup>")
+                    .replace("</h2>", "</sup></sup>")
+                    .replace("<h3>", "<sup>")
+                    .replace("</h3>", "</sup>")
+            ;
+            return text;
+        }
+    };
     public final static SmpFilter FILTER_NONE = new SmpFilter() {
         @Override
         public String filter(String text) {

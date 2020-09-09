@@ -14,66 +14,33 @@ import android.text.Spanned;
 
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
-import net.gsantner.opoc.format.todotxt.SttCommander;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Date;
 
 public class TodoTxtAutoFormat implements InputFilter {
 
     @Override
-    public CharSequence filter(
-            CharSequence source,
-            int start,
-            int end,
-            Spanned dest,
-            int dstart,
-            int dend) {
-        if (end - start == 1 &&
-                start < source.length() &&
-                dstart <= dest.length()) {
-            char newChar = source.charAt(start);
-
-            if (newChar == '\n') {
-                return autoIndent(
-                        source,
-                        dest,
-                        dstart,
-                        dend);
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        try {
+            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+                return autoIndent(source);
             }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            e.printStackTrace();
         }
-
         return source;
     }
 
-    private CharSequence autoIndent(CharSequence source, Spanned dest, int dstart, int dend) {
-        int istart = findLineBreakPosition(dest, dstart);
-
-        // append white space of previous line and new indent
-        return source + createIndentForNextLine(dest, dend, istart);
-    }
-
-    private int findLineBreakPosition(Spanned dest, int dstart) {
-        int istart = dstart - 1;
-
-        for (; istart > -1; --istart) {
-            char c = dest.charAt(istart);
-
-            if (c == '\n')
-                break;
-        }
-        return istart;
-    }
-
-    private String createIndentForNextLine(Spanned dest, int dend, int istart) {
+    private CharSequence autoIndent(CharSequence source) {
         String t = "";
-        if (dend == 0 || (dend == dest.length() || dend == dest.length() - 1) || (dest.charAt(dend) == '\n')) {
-            if (AppSettings.get().isTodoStartTasksWithTodaysDateEnabled()) {
-                t = SttCommander.DATEF_YYYY_MM_DD.format(new Date()) + " ";
-            }
-            if (AppSettings.get().isTodoNewTaskWithHuuidEnabled()) {
-                t += "huuid:" + PlainTextStuff.newHuuid(AppSettings.get().getHuuidDeviceId()) + " ";
-            }
+        final AppSettings settings = AppSettings.get();
+        if (settings.isTodoStartTasksWithTodaysDateEnabled()) {
+            t += TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
         }
-        return t;
+        if (settings.isTodoNewTaskWithHuuidEnabled()) {
+            t += "huuid:" + PlainTextStuff.newHuuid(AppSettings.get().getHuuidDeviceId()) + " ";
+        }
+        return source + t;
     }
 }

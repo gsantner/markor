@@ -375,4 +375,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Impossible de déchiffrer le contenu du fichier. Avez-vous utilisé un mauvais mot de passe ? Le fichier est-il vraiment chiffré avec le chiffrement AES de Markors ?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Mot de passe déjà défini. Définir un nouveau mot de passe écrasera le mot de passe existant et vous risquez de ne plus pouvoir accéder aux fichiers en cas d\'oubli du mot de passe.</string>
     <string name="code_block">Bloc de code</string>
+    <string name="add_completion_date">Ajouter une date de fin</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Ajouter une date de fin pour les todos lorsque vous les marquez comme terminées</string>
 </resources>

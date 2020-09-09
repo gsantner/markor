@@ -35,7 +35,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
-import net.gsantner.opoc.format.todotxt.SttCommander;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
@@ -324,7 +324,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
-                            sep = SttCommander.getToday() + " ";
+                            sep = TodoTxtTask.getToday() + " ";
                         }
                         if (appSettings.isTodoNewTaskWithHuuidEnabled()) {
                             sep += "huuid:" + PlainTextStuff.newHuuid(appSettings.getHuuidDeviceId()) + " ";

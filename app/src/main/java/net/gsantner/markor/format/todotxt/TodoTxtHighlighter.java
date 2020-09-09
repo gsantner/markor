@@ -38,6 +38,8 @@ public class TodoTxtHighlighter extends Highlighter {
                 return editable;
             }
 
+            final boolean isDarkBg = _appSettings.isDarkThemeEnabled();
+
             _profiler.start(true, "Todo.Txt Highlighting");
             generalHighlightRun(editable);
             _profiler.restart("Paragraph top padding");
@@ -70,7 +72,7 @@ public class TodoTxtHighlighter extends Highlighter {
 
             // Date: Match Creation date before completition date
             _profiler.restart("Date Color");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor());
+            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DATE.getPattern(), colors.getDateColor(isDarkBg));
             createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DUE_DATE.getPattern(), colors.getPriorityColor(1), 1);
             //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.CREATION_DATE.getPattern(), 0xff00ff00);
             //createColorSpanForMatches(editable, TodoTxtHighlighterPattern.COMPLETION_DATE.getPattern(), 0xff0000ff);
@@ -83,7 +85,7 @@ public class TodoTxtHighlighter extends Highlighter {
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             _profiler.restart("Done BgColor");
-            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern(), colors.getDoneColor());
+            createColorSpanForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern(), colors.getDoneColor(isDarkBg));
             _profiler.restart("done Strike");
             createSpanWithStrikeThroughForMatches(editable, TodoTxtHighlighterPattern.DONE.getPattern());
 
