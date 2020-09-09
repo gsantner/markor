@@ -389,7 +389,7 @@ public class SearchOrCustomTextDialogCreator {
 
         List<String> availableData = new ArrayList<>();
         List<String> highlightedData = new ArrayList<>();
-        String none = activity.getString(R.string.none);
+        final String none = activity.getString(R.string.none);
         availableData.add(none);
         for (int i = 'A'; i <= ((int) 'Z'); i++) {
             availableData.add(Character.toString((char) i));
