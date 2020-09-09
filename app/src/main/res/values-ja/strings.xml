@@ -243,7 +243,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enable_undo_and_redo_be_patient">操作の、元に戻す、繰り返しを有効にします。高度な使用にのみ適しています。重要なものを削除しないように気をつけてください。履歴を消去するにはエディターを閉じてから開いてください。</string>
     <string name="description">説明</string>
     <string name="edit_picture">画像を編集</string>
-    <string name="math">計算</string>
+    <string name="math">数式</string>
     <string name="table_of_contents">目次</string>
     <string name="miscellaneous">その他</string>
     <string name="textaction">テキスト操作</string>
