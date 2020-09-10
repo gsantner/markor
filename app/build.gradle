@@ -142,7 +142,7 @@ dependencies {
 
     // Tool libraries
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
-    implementation 'commons-io:commons-io:2.7'
+    implementation 'commons-io:commons-io:2.8.0'
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
