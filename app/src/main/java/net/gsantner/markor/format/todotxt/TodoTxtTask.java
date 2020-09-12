@@ -44,7 +44,7 @@ public class TodoTxtTask {
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)((?:[a-z]+):(?:[a-z0-9_-]+))");
-    public static final Pattern PATTERN_DUE_DATE = Pattern.compile("(?:due:)(" + PT_DATE + ")");
+    public static final Pattern PATTERN_DUE_DATE = Pattern.compile("(^|\\s)(due:)(" + PT_DATE + ")(\\s|$)");
     public static final Pattern PATTERN_PRIORITY_ANY = Pattern.compile("(?:^|\\n)\\(([A-Za-z])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_A = Pattern.compile("(?:^|\\n)\\(([Aa])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_B = Pattern.compile("(?:^|\\n)\\(([Bb])\\)\\s");
@@ -207,7 +207,7 @@ public class TodoTxtTask {
 
     public String getDueDate(final String defaultValue) {
         if (dueDate == null) {
-            dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, defaultValue);
+            dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, 3, defaultValue);
         }
         return dueDate;
     }
@@ -234,11 +234,14 @@ public class TodoTxtTask {
         return ret.toArray(new String[0]);
     }
 
-    private static String parseOneValueOrDefault(String text, Pattern pattern, String defaultValue) {
+    private static String parseOneValueOrDefault(final String text, final Pattern pattern, final String defaultValue) {
+        return parseOneValueOrDefault(text, pattern, 1, defaultValue);
+    }
+
+    private static String parseOneValueOrDefault(final String text, final Pattern pattern, final int group, final String defaultValue) {
         for (Matcher m = pattern.matcher(text); m.find(); ) {
-            // group / group(0) => everything, including non-capturing. group 1 = first capturing group
-            if (m.groupCount() > 0) {
-                return m.group(1);
+            if (m.groupCount() > group) {
+                return m.group(group);
             }
         }
         return defaultValue;

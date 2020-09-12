@@ -11,6 +11,7 @@ package net.gsantner.markor.format.todotxt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
@@ -305,7 +306,7 @@ public class TodoTxtTextActions extends TextActions {
         _hlEditor.insertOrReplaceTextOnCursor(thing);
     }
 
-    private static Calendar parseDateString(String dateString, Calendar fallback) {
+    private static Calendar parseDateString(final String dateString, final Calendar fallback) {
         if (dateString == null || dateString.length() != TodoTxtTask.DATEF_YYYY_MM_DD_LEN) {
             return fallback;
         }
@@ -341,27 +342,33 @@ public class TodoTxtTextActions extends TextActions {
 
 
     private void setDueDate(final int offset) {
-        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor)[0].getDueDate(TodoTxtTask.getToday());
+        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor)[0].getDueDate();
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
         initDate.add(Calendar.DAY_OF_MONTH, (dueString == null || dueString.isEmpty()) ? offset : 0);
 
-        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+        final DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
             final String newDue = "due:" + TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
             runRegexReplaceAction(
                     // Replace due date
-                    new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, newDue),
+                    new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$1" + newDue + "$4"),
                     // Add due date to end if none already exists. Will correctly handle trailing whitespace.
                     new ReplacePattern("(\\s)*$", " " + newDue)
             );
+        };
+
+        final DatePickerDialog.OnClickListener clear = (dialog, which) -> {
+            runRegexReplaceAction(new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$4"));
         };
 
         new DateFragment()
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(getContext().getString(R.string.due_date))
+                .setMessage(_context.getString(R.string.due_date))
+                .setExtraLebel(_context.getString(R.string.clear))
+                .setExtraListener(clear)
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }
 
@@ -372,6 +379,9 @@ public class TodoTxtTextActions extends TextActions {
     public static class DateFragment extends DialogFragment {
 
         private DatePickerDialog.OnDateSetListener _listener;
+        private DatePickerDialog.OnClickListener _extraListener;
+        private String _extraLabel;
+
         private Activity _activity;
         private int _year;
         private int _month;
@@ -385,6 +395,16 @@ public class TodoTxtTextActions extends TextActions {
 
         public DateFragment setListener(DatePickerDialog.OnDateSetListener listener) {
             _listener = listener;
+            return this;
+        }
+
+        public DateFragment setExtraListener(DatePickerDialog.OnClickListener listener) {
+            _extraListener = listener;
+            return this;
+        }
+
+        public DateFragment setExtraLebel(String label) {
+            _extraLabel = label;
             return this;
         }
 
@@ -425,9 +445,15 @@ public class TodoTxtTextActions extends TextActions {
             super.onCreateDialog(savedInstanceState);
 
             DatePickerDialog dialog = new DatePickerDialog(_activity, _listener, _year, _month, _day);
-            if (_message != null) {
+
+            if (_message != null && !_message.isEmpty()) {
                 dialog.setMessage(_message);
             }
+
+            if (_extraListener != null && _extraLabel != null && !_extraLabel.isEmpty()) {
+                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, _extraLabel, _extraListener);
+            }
+
             return dialog;
         }
     }
