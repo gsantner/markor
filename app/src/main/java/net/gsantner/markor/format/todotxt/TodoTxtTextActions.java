@@ -340,10 +340,10 @@ public class TodoTxtTextActions extends TextActions {
     }
 
 
-    private void setDueDate(int offset) {
+    private void setDueDate(final int offset) {
         final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor)[0].getDueDate(TodoTxtTask.getToday());
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
-        initDate.add(Calendar.DAY_OF_MONTH, dueString == null ? offset : 0);
+        initDate.add(Calendar.DAY_OF_MONTH, (dueString == null || dueString.isEmpty()) ? offset : 0);
 
         DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
