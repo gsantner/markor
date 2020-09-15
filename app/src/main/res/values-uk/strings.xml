@@ -165,7 +165,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_monospace_for_code">Використовувати моноширинний шрифт для коду</string>
     <string name="disable_code_block_highlight">Вимкнути підсвічування для блоків коду</string>
     <string name="auto_renumber_ordered_list">Автоматична зміна нумерованих списків</string>
-    <string name="auto_renumber_ordered_list_slowdown">Цей параметр може вплинути на продуктивність додатку.</string>
+    <string name="auto_renumber_ordered_list_slowdown">Цей параметр може вплинути на продуктивність програми.</string>
     <string name="use_different_fonttype_slow_down">Використовувати різні шрифти. Динамічна зміна шрифту впливає на продуктивність додатку.</string>
     <string name="general">Загальне</string>
     <string name="resources">Ресурси</string>
