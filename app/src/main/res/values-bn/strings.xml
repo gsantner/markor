@@ -86,4 +86,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute">অবদান</string>
     <string name="donate">দান করুন</string>
     <string name="press_back_again_to_exit">বাহির হতে \'পিছন\' আবার ক্লিক করুন</string>
+    <string name="exit">প্রস্থান</string>
+    <string name="undo">পূর্বাবস্থায় ফিরুন</string>
+    <string name="redo">পুনরায় করুন</string>
+    <string name="more">আরো</string>
+    <string name="notebook">নোটবই</string>
+    <string name="help">সাহায্য</string>
+    <string name="todo_list">করণীয় তালিকা</string>
+    <string name="task">কার্য</string>
+    <string name="category">শ্রেণী</string>
+    <string name="context">প্রসঙ্গ</string>
+    <string name="list">তালিকা</string>
+    <string name="priority">অগ্রাধিকার</string>
+    <string name="history">ইতিহাস</string>
+    <string name="sync">সমন্বয়</string>
+    <string name="save">সংরক্ষণ করুন</string>
+    <string name="update">হালনাগাদ</string>
+    <string name="clear">পরিষ্কার করুন</string>
+    <string name="current_date">বর্তমান তারিখ</string>
+    <string name="add_task">কার্য সংযোজন করুন</string>
+    <string name="add_x_witharg">%s সংযোজন করুন</string>
 </resources>
