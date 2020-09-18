@@ -64,4 +64,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%dটি বস্তু নির্বাচিত</string>
     <string name="hide_statusbar_at_this_view">এই জায়গায় স্ট্যাটাস বার (অবস্থা নির্দেশক অংশ) লোকাও</string>
     <string name="hide_statusbar">স্ট্যাটাস বার লোকাও</string>
+    <string name="name">নাম</string>
+    <string name="insert_link">লিঙ্ক সন্নিবেশিত করুন</string>
+    <string name="insert_image">ছবি সন্নিবেশিত করুন</string>
+    <string name="contributors">অবদানকারীরা</string>
+    <string name="save_location">অবস্থান সংরক্ষণ করুন</string>
 </resources>
