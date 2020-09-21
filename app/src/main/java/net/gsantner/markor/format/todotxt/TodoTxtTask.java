@@ -44,7 +44,7 @@ public class TodoTxtTask {
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS = Pattern.compile("(?i)((?:[a-z]+):(?:[a-z0-9_-]+))");
-    public static final Pattern PATTERN_DUE_DATE = Pattern.compile("(?:due:)(" + PT_DATE + ")");
+    public static final Pattern PATTERN_DUE_DATE = Pattern.compile("(^|\\s)(due:)(" + PT_DATE + ")(\\s|$)");
     public static final Pattern PATTERN_PRIORITY_ANY = Pattern.compile("(?:^|\\n)\\(([A-Za-z])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_A = Pattern.compile("(?:^|\\n)\\(([Aa])\\)\\s");
     public static final Pattern PATTERN_PRIORITY_B = Pattern.compile("(?:^|\\n)\\(([Bb])\\)\\s");
@@ -166,7 +166,7 @@ public class TodoTxtTask {
 
     public char getPriority() {
         if (priority == null) {
-            String ret = parseOneValueOrDefault(line, PATTERN_PRIORITY_ANY, "");
+            final String ret = parseOneValueOrDefault(line, PATTERN_PRIORITY_ANY, "");
             if (ret.length() == 1) {
                 priority = ret.charAt(0);
             } else {
@@ -207,7 +207,7 @@ public class TodoTxtTask {
 
     public String getDueDate(final String defaultValue) {
         if (dueDate == null) {
-            dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, defaultValue);
+            dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, 3, defaultValue);
         }
         return dueDate;
     }
@@ -234,20 +234,22 @@ public class TodoTxtTask {
         return ret.toArray(new String[0]);
     }
 
-    private static String parseOneValueOrDefault(String text, Pattern pattern, String defaultValue) {
-        for (Matcher m = pattern.matcher(text); m.find(); ) {
-            // group / group(0) => everything, including non-capturing. group 1 = first capturing group
-            if (m.groupCount() > 0) {
-                return m.group(1);
+    private static String parseOneValueOrDefault(final String text, final Pattern pattern, final String defaultValue) {
+        return parseOneValueOrDefault(text, pattern, 1, defaultValue);
+    }
+
+    private static String parseOneValueOrDefault(final String text, final Pattern pattern, final int group, final String defaultValue) {
+        for (final Matcher m = pattern.matcher(text); m.find(); ) {
+            if (m.groupCount() >= group) {  // Groups are 1-indexed
+                return m.group(group);
             }
         }
         return defaultValue;
     }
 
-    private static boolean isPatternFindable(String text, Pattern pattern) {
+    private static boolean isPatternFindable(final String text, final Pattern pattern) {
         return pattern.matcher(text).find();
     }
-
 
     // Sort tasks array and return it. Changes input array.
     public static List<TodoTxtTask> sortTasks(List<TodoTxtTask> tasks, final String orderBy, final boolean descending) {
@@ -274,6 +276,11 @@ public class TodoTxtTask {
 
         @Override
         public int compare(final TodoTxtTask x, final TodoTxtTask y) {
+
+            // Always push done tasks to the bottom. Note ascending is small -> big.
+            final int doneCompare = Integer.compare(x.isDone()? 1 : 0, y.isDone()? 1 : 0);
+            if (doneCompare != 0) return doneCompare;
+
             int difference;
             switch (_orderBy) {
                 case BY_PRIORITY: {
@@ -305,7 +312,7 @@ public class TodoTxtTask {
                     break;
                 }
                 default: {
-                    return 0;
+                    difference = 0;
                 }
             }
 
@@ -329,6 +336,10 @@ public class TodoTxtTask {
             return Integer.compare(xi, yi);
         }
 
+        private int compareDone(final TodoTxtTask a, TodoTxtTask b) {
+            return Integer.compare(a.isDone()? 1 : 0, b.isDone()? 1 : 0);
+        }
+
         private int compare(final char x, final char y) {
             return compare(Character.toString(x), Character.toString(y));
         }
@@ -344,7 +355,7 @@ public class TodoTxtTask {
         }
 
         private int compare(final String x, final String y) {
-            int n = compareNull(x, y);
+            final int n = compareNull(x, y);
             if (n != 0) {
                 return n;
             } else {
