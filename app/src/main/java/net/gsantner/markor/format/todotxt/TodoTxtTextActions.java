@@ -47,6 +47,23 @@ public class TodoTxtTextActions extends TextActions {
 
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
+        if (action == CommonTextActions.ACTION_SEARCH ) {
+            final String origText = _hlEditor.getText().toString();
+
+            SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText,
+                    spannable -> {
+                        TodoTxtHighlighter hl = (TodoTxtHighlighter) _hlEditor.getHighlighter();
+                        hl.basicHighlights(spannable, true);
+                    },
+                    (callbackPayload) -> {
+                        int cursor = origText.indexOf(callbackPayload);
+                        if (!_hlEditor.hasFocus()) {
+                            _hlEditor.requestFocus();
+                        }
+                _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+            });
+            return true;
+        }
         return runCommonTextAction(action);
     }
 

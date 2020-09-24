@@ -24,6 +24,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -38,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -69,6 +72,8 @@ public class SearchOrCustomTextDialog {
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = 0;
+        public boolean searchIsRegex = false;
+        public Callback.a1<Spannable> highlighter;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -82,7 +87,6 @@ public class SearchOrCustomTextDialog {
         public int titleText = 0;
         @StringRes
         public int searchHintText = android.R.string.search_go;
-        public boolean searchIsRegex = false;
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
@@ -100,6 +104,7 @@ public class SearchOrCustomTextDialog {
                 TextView textView = (TextView) super.getView(pos, convertView, parent);
                 String text = textView.getText().toString();
 
+
                 int posInOriginalList = dopt.data.indexOf(text);
                 if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size() && dopt.iconsForData.get(posInOriginalList) != 0) {
                     textView.setCompoundDrawablesWithIntrinsicBounds(dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
@@ -114,6 +119,12 @@ public class SearchOrCustomTextDialog {
                 boolean hl = dopt.highlightData.contains(text);
                 textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);
                 textView.setTypeface(null, hl ? Typeface.BOLD : Typeface.NORMAL);
+
+                if (dopt.highlighter != null) {
+                    Spannable s = new SpannableString(textView.getText());
+                    dopt.highlighter.callback(s);
+                    textView.setText(s);
+                }
 
                 return textView;
             }

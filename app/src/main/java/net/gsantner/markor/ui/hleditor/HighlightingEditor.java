@@ -120,6 +120,10 @@ public class HighlightingEditor extends AppCompatEditText {
                 .setListener(null);
     }
 
+    public Highlighter getHighlighter() {
+        return _hl;
+    }
+
     public void enableHighlighterAutoFormat() {
         setFilters(new InputFilter[]{_hl.getAutoFormatter()});
 
