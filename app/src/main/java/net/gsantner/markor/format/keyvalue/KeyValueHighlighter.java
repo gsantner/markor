@@ -38,7 +38,6 @@ public class KeyValueHighlighter extends Highlighter {
             _profiler.start(true, "KeyValue Highlighting");
             generalHighlightRun(spannable);
 
-
             _profiler.restart("KeyValue: Generic key-value");
             createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.BOLD);
             createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE_QUOTED.getPattern(), Typeface.BOLD);
@@ -60,7 +59,6 @@ public class KeyValueHighlighter extends Highlighter {
                 createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_CSV.getPattern(), Typeface.BOLD);
             }
             */
-
 
             _profiler.end();
             _profiler.printProfilingGroup();

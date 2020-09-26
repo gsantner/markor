@@ -377,9 +377,9 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
-        dopt2.defaultText = "^[#]+ .*";
-        dopt2.isSearchEnabled = false;
-        dopt2.searchIsRegex = true;
+        dopt2.extraFilter = "^\\s{0,2}#{1,6}";
+        dopt2.isSearchEnabled = true;
+        dopt2.searchIsRegex = false;
         dopt2.gravity = Gravity.TOP;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }

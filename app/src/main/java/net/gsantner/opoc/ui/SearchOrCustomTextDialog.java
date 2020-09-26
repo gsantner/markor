@@ -40,7 +40,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -74,6 +73,7 @@ public class SearchOrCustomTextDialog {
         public int searchInputType = 0;
         public boolean searchIsRegex = false;
         public Callback.a1<Spannable> highlighter;
+        public String extraFilter = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -103,7 +103,6 @@ public class SearchOrCustomTextDialog {
             public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
                 TextView textView = (TextView) super.getView(pos, convertView, parent);
                 String text = textView.getText().toString();
-
 
                 int posInOriginalList = dopt.data.indexOf(text);
                 if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size() && dopt.iconsForData.get(posInOriginalList) != 0) {
@@ -145,11 +144,13 @@ public class SearchOrCustomTextDialog {
                         final FilterResults res = new FilterResults();
                         final ArrayList<CharSequence> resList = new ArrayList<>();
                         final String fil = constraint.toString();
-
+                        final Pattern extra = dopt.extraFilter == null ? null : Pattern.compile(dopt.extraFilter);
+                        final boolean emptySearch = fil.isEmpty();
                         for (final CharSequence str : allItems) {
-                            boolean match_normal = "".equals(fil) || str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
-                            boolean match_regex = dopt.searchIsRegex && (str.toString().matches(fil));
-                            if (match_normal || match_regex) {
+                            final boolean matchExtra = (extra == null) || extra.matcher(str).find();
+                            final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
+                            final boolean matchRegex = dopt.searchIsRegex && (str.toString().matches(fil));
+                            if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
                                 resList.add(str);
                             }
                         }

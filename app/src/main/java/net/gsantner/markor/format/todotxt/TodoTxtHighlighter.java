@@ -21,6 +21,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class TodoTxtHighlighter extends Highlighter {
             createParagraphStyleSpanForMatches(spannable, LINE_OF_TEXT,
                     (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
 
-            basicHighlights(spannable, false);
+            basicTodoTxtHighlights(spannable, false, colors, _appSettings.isDarkThemeEnabled(), _profiler);
 
             // Paragraph divider
             _profiler.restart("Paragraph divider");
@@ -76,7 +77,26 @@ public class TodoTxtHighlighter extends Highlighter {
         return spannable;
     }
 
-    public Spannable basicHighlights(final Spannable spannable, final boolean clear) {
+    private static class ProfileCaller {
+        final NanoProfiler _profiler;
+        public ProfileCaller(final NanoProfiler profiler) {
+            _profiler = profiler;
+        }
+        public void restart(final String ... optionalText) {
+            if (_profiler != null) {
+                _profiler.restart(optionalText);
+            }
+        }
+    }
+
+    public static Spannable basicTodoTxtHighlights(
+            final Spannable spannable,
+            final boolean clear,
+            final TodoTxtHighlighterColors colors,
+            final boolean isDarkBg,
+            // Can be null
+            final NanoProfiler profiler
+    ) {
         try {
             if (clear) {
                 clearSpans(spannable);
@@ -86,7 +106,7 @@ public class TodoTxtHighlighter extends Highlighter {
                 return spannable;
             }
 
-            final boolean isDarkBg = _appSettings.isDarkThemeEnabled();
+            ProfileCaller _profiler = new ProfileCaller(profiler);
 
             _profiler.restart("Context");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CONTEXTS, colors.getContextColor());
@@ -115,8 +135,6 @@ public class TodoTxtHighlighter extends Highlighter {
             _profiler.restart("Date Color");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DATE, colors.getDateColor(isDarkBg));
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DUE_DATE, colors.getPriorityColor(1), 2, 3);
-            //createColorSpanForMatches(spannable, TodoTxtTask.CREATION_DATE, 0xff00ff00);
-            //createColorSpanForMatches(spannable, TodoTxtTask.COMPLETION_DATE, 0xff0000ff);
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             _profiler.restart("Done BgColor");
@@ -124,16 +142,6 @@ public class TodoTxtHighlighter extends Highlighter {
             _profiler.restart("done Strike");
             createSpanWithStrikeThroughForMatches(spannable, TodoTxtTask.PATTERN_DONE);
 
-            // Fix for paragraph padding and horizontal rule
-            /*
-            nprofiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 0.8f);
-            nprofiler.restart("Single line fix 2");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 1.2f);*/
-            _profiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 1.00001f);
-            _profiler.end();
-            _profiler.printProfilingGroup();
         } catch (Exception ex) {
             // Ignoring errors
         }

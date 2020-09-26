@@ -130,7 +130,7 @@ public abstract class Highlighter {
     // Clear spans
     //
 
-    protected void clearSpans(Spannable spannable) {
+    protected static void clearSpans(Spannable spannable) {
         clearCharacterSpanType(spannable, TextAppearanceSpan.class);
         clearCharacterSpanType(spannable, ForegroundColorSpan.class);
         clearCharacterSpanType(spannable, BackgroundColorSpan.class);
@@ -142,7 +142,7 @@ public abstract class Highlighter {
         clearParagraphSpanType(spannable, LineHeightSpan.class);
     }
 
-    private <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
+    private static <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
         CharacterStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
@@ -150,7 +150,7 @@ public abstract class Highlighter {
         }
     }
 
-    private <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
+    private static <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
         ParagraphStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
@@ -179,7 +179,7 @@ public abstract class Highlighter {
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatches(final Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatches(final Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -206,7 +206,7 @@ public abstract class Highlighter {
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatchesP(final Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatchesP(final Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -232,7 +232,7 @@ public abstract class Highlighter {
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatchesM(final Spannable spannable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatchesM(final Spannable spannable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -249,31 +249,31 @@ public abstract class Highlighter {
         }
     }
 
-    protected void createStyleSpanForMatches(final Spannable spannable, final Pattern pattern, final int style, int... groupsToMatch) {
+    protected static void createStyleSpanForMatches(final Spannable spannable, final Pattern pattern, final int style, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
 
-    protected void createColorSpanForMatches(final Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
+    protected static void createColorSpanForMatches(final Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createColorBackgroundSpan(Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
+    protected static void createColorBackgroundSpan(Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createSpanWithStrikeThroughForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
+    protected static void createSpanWithStrikeThroughForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new StrikethroughSpan(), groupsToMatch);
     }
 
-    protected void createTypefaceSpanForMatches(Spannable spannable, Pattern pattern, final String typeface, int... groupsToMatch) {
+    protected static void createTypefaceSpanForMatches(Spannable spannable, Pattern pattern, final String typeface, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new TypefaceSpan(typeface), groupsToMatch);
     }
 
-    protected void createRelativeSizeSpanForMatches(Spannable spannable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
+    protected static void createRelativeSizeSpanForMatches(Spannable spannable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
     }
 
-    protected void createReplacementSpanForMatches(final Spannable spannable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
+    protected static void createReplacementSpanForMatches(final Spannable spannable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
         createSpanForMatchesM(spannable, pattern, (matcher, iM) -> new ReplacementSpan() {
             @Override
             public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
@@ -286,19 +286,19 @@ public abstract class Highlighter {
         }, groupsToMatch);
     }
 
-    protected void createMonospaceSpanForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
+    protected static void createMonospaceSpanForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
         createTypefaceSpanForMatches(spannable, pattern, "monospace", groupsToMatch);
     }
 
-    protected void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
+    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
-    protected void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
+    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, creator, groupsToMatch);
     }
 
-    protected void createParagraphStyleSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
+    protected static void createParagraphStyleSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
         createSpanForMatchesP(spannable, pattern, creator, groupsToMatch);
     }
 }
