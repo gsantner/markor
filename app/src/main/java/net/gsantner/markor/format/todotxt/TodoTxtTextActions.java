@@ -54,19 +54,19 @@ public class TodoTxtTextActions extends TextActions {
                     (spannable) -> {
                         TodoTxtHighlighter.basicTodoTxtHighlights(
                                 spannable,
-                               true,
+                                true,
                                 new TodoTxtHighlighterColors(),
                                 _appSettings.isDarkThemeEnabled(),
                                 null
                         );
                     },
-                    (callbackPayload) -> {
-                        int cursor = origText.indexOf(callbackPayload);
+                    (text, line) -> {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
-                _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
-            });
+                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, line, 0));
+                    }
+            );
             return true;
         }
         return runCommonTextAction(action);

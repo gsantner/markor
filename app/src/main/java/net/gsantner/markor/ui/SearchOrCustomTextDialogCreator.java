@@ -24,7 +24,6 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -359,22 +358,23 @@ public class SearchOrCustomTextDialogCreator {
     }
 
 
-    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<Spannable> highlighter, Callback.a1<String> userCallback) {
+    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<Spannable> highlighter, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.callback = userCallback;
-        dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
+        dopt2.withPositionCallback = userCallback;
+        dopt2.data = Arrays.asList(fullText.split("\n", -1)); // Do not ignore empty lines
+        dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
-    public static void showMarkdownHeadlineDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
+    public static void showMarkdownHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.callback = userCallback;
-        dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
+        dopt2.withPositionCallback = userCallback;
+        dopt2.data = Arrays.asList(fullText.split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
         dopt2.extraFilter = "^\\s{0,2}#{1,6}";
