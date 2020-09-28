@@ -54,7 +54,7 @@ public class TodoTxtTextActions extends TextActions {
                     (spannable) -> {
                         TodoTxtHighlighter.basicTodoTxtHighlights(
                                 spannable,
-                               true,
+                                true,
                                 new TodoTxtHighlighterColors(),
                                 _appSettings.isDarkThemeEnabled(),
                                 null
