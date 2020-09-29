@@ -169,7 +169,8 @@ public class CommonTextActions {
                             if (!_hlEditor.hasFocus()) {
                                 _hlEditor.requestFocus();
                             }
-                            _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, line, 0));
+                            // Go to beginning of line #line
+                            _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, line, 0)));
                 });
                 return true;
             }
