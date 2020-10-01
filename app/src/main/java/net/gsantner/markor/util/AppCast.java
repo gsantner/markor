@@ -47,7 +47,6 @@ public class AppCast {
     public static IntentFilter getLocalBroadcastFilter() {
         IntentFilter intentFilter = new IntentFilter();
         String[] BROADCAST_ACTIONS = {
-                VIEW_FOLDER_CHANGED.ACTION,
                 CREATE_FOLDER.ACTION
         };
         for (String action : BROADCAST_ACTIONS) {
@@ -59,16 +58,6 @@ public class AppCast {
     //########################
     //## Actions
     //########################
-    public static class VIEW_FOLDER_CHANGED extends PathExtra {
-        public static final String ACTION = "VIEW_FOLDER_CHANGED";
-        public static final String EXTRA_FORCE_RELOAD = "EXTRA_FORCE_RELOAD";
-
-        public static void send(Context c, String path, boolean forceReload) {
-            Intent intent = getIntentWithPathExtra(ACTION, path);
-            intent.putExtra(EXTRA_FORCE_RELOAD, forceReload);
-            sendBroadcast(c, intent);
-        }
-    }
 
     public static class CREATE_FOLDER extends PathExtra {
         public static final String ACTION = "CREATE_FOLDER";

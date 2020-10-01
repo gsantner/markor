@@ -256,7 +256,6 @@ public class SettingsActivity extends AppActivityBase {
                                 AppSettings as = AppSettings.get();
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
-                                as.setLastOpenedDirectory(as.getNotebookDirectoryAsStr());
                                 doUpdatePreferences();
                             }
 

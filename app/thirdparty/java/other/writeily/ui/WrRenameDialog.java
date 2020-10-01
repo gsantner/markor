@@ -92,7 +92,6 @@ public class WrRenameDialog extends DialogFragment {
             }
 
             if (renamed || !filenameChanged) {
-                AppCast.VIEW_FOLDER_CHANGED.send(getContext(), file.getParent(), true);
                 if (_callback != null) {
                     _callback.callback(file);
                 }
