@@ -714,4 +714,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public void setNewFileDialogLastUsedExtension(String v) {
         setString(R.string.pref_key__new_file_dialog_lastused_extension, v);
     }
+
+    public int getNewFileDialogLastUsedType() {
+        return getInt(R.string.pref_key__new_file_dialog_lastused_type, 0);
+    }
+
+    public void setNewFileDialogLastUsedType(int i) {
+        setInt(R.string.pref_key__new_file_dialog_lastused_type, i);
+    }
 }
