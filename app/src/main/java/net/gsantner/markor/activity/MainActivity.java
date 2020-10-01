@@ -296,6 +296,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         // Exit confirmed with 2xBack
         if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookDirectory());
             return;
         }
 
