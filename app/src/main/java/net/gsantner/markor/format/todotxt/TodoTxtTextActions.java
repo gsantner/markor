@@ -29,6 +29,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.NanoProfiler;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class TodoTxtTextActions extends TextActions {
                     (spannable) -> {
                         TodoTxtHighlighter.basicTodoTxtHighlights(
                                 spannable,
-                               true,
+                                true,
                                 new TodoTxtHighlighterColors(),
                                 _appSettings.isDarkThemeEnabled(),
                                 null
@@ -65,8 +66,9 @@ public class TodoTxtTextActions extends TextActions {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
-                _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
-            });
+                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    }
+            );
             return true;
         }
         return runCommonTextAction(action);

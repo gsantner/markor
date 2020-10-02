@@ -15,6 +15,8 @@ import android.text.Spannable;
 import android.text.InputFilter;
 import android.util.Patterns;
 
+import net.gsantner.markor.BuildConfig;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;
 import net.gsantner.markor.model.Document;
@@ -77,25 +79,12 @@ public class TodoTxtHighlighter extends Highlighter {
         return spannable;
     }
 
-    private static class ProfileCaller {
-        final NanoProfiler _profiler;
-        public ProfileCaller(final NanoProfiler profiler) {
-            _profiler = profiler;
-        }
-        public void restart(final String ... optionalText) {
-            if (_profiler != null) {
-                _profiler.restart(optionalText);
-            }
-        }
-    }
-
     public static Spannable basicTodoTxtHighlights(
             final Spannable spannable,
             final boolean clear,
             final TodoTxtHighlighterColors colors,
             final boolean isDarkBg,
-            // Can be null
-            final NanoProfiler profiler
+            NanoProfiler profiler
     ) {
         try {
             if (clear) {
@@ -106,40 +95,42 @@ public class TodoTxtHighlighter extends Highlighter {
                 return spannable;
             }
 
-            ProfileCaller _profiler = new ProfileCaller(profiler);
+            if (profiler == null) {
+                profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD || MainActivity.IS_DEBUG_ENABLED);
+            }
 
-            _profiler.restart("Context");
+            profiler.restart("Context");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CONTEXTS, colors.getContextColor());
-            _profiler.restart("Category");
+            profiler.restart("Category");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PROJECTS, colors.getCategoryColor());
-            _profiler.restart("KeyValue");
+            profiler.restart("KeyValue");
             createStyleSpanForMatches(spannable, TodoTxtTask.PATTERN_KEY_VALUE_PAIRS, Typeface.ITALIC);
 
             // Priorities
-            _profiler.restart("Priority Bold");
+            profiler.restart("Priority Bold");
             createStyleSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_ANY, Typeface.BOLD);
-            _profiler.restart("Priority A");
+            profiler.restart("Priority A");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_A, colors.getPriorityColor(1));
-            _profiler.restart("Priority B");
+            profiler.restart("Priority B");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_B, colors.getPriorityColor(2));
-            _profiler.restart("Priority C");
+            profiler.restart("Priority C");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_C, colors.getPriorityColor(3));
-            _profiler.restart("Priority D");
+            profiler.restart("Priority D");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_D, colors.getPriorityColor(4));
-            _profiler.restart("Priority E");
+            profiler.restart("Priority E");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_E, colors.getPriorityColor(5));
-            _profiler.restart("Priority F");
+            profiler.restart("Priority F");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_F, colors.getPriorityColor(6));
 
             // Date: Match Creation date before completition date
-            _profiler.restart("Date Color");
+            profiler.restart("Date Color");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DATE, colors.getDateColor(isDarkBg));
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DUE_DATE, colors.getPriorityColor(1), 2, 3);
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
-            _profiler.restart("Done BgColor");
+            profiler.restart("Done BgColor");
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, colors.getDoneColor(isDarkBg));
-            _profiler.restart("done Strike");
+            profiler.restart("done Strike");
             createSpanWithStrikeThroughForMatches(spannable, TodoTxtTask.PATTERN_DONE);
 
         } catch (Exception ex) {
