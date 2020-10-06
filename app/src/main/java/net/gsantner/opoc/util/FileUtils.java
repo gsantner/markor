@@ -489,4 +489,16 @@ public class FileUtils {
         ret[2] = (int) (diff / 1000) % 60; // sec
         return ret;
     }
+
+    public static String getHumanReadableByteCountSI(final long bytes) {
+        if (bytes < 1000) {
+            return String.format(Locale.getDefault(), "%d%s", bytes, "B");
+        } else if (bytes < 1000000) {
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000f), "KB");
+        } else if (bytes < 1000000000) {
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000f), "GB");
+        } else {
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000f), "TB");
+        }
+    }
 }

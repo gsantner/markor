@@ -26,6 +26,7 @@ import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -39,6 +40,8 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -189,6 +192,11 @@ public class SettingsActivity extends AppActivityBase {
             updateSummary(R.string.pref_key__exts_to_always_open_in_this_app, _appSettings.getString(R.string.pref_key__exts_to_always_open_in_this_app, ""));
             updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
+            if (_appSettings.getString(R.string.pref_key__file_description_format, "").equals("")) {
+                updateSummary(R.string.pref_key__file_description_format, getString(R.string.default_));
+            } else {
+                updateSummary(R.string.pref_key__file_description_format, _appSettings.getString(R.string.pref_key__file_description_format, ""));
+            }
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
@@ -238,6 +246,13 @@ public class SettingsActivity extends AppActivityBase {
                 prefs.edit().remove(key).commit();
                 ((EditTextPreference) findPreference(key)).setText("");
                 _as.setPasswordHasBeenSetOnce(true);
+            } else if (eq(key, R.string.pref_key__file_description_format)) {
+                try {
+                    new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(getContext(), e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
+                    prefs.edit().putString(key, "").commit();
+                }
             }
         }
 
