@@ -68,6 +68,12 @@
                 android:title="@string/app_start_folder" />
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="@string/empty_string"
+                android:dialogMessage="@string/file_description_format_dialog"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:key="@string/pref_key__file_description_format"
+                android:title="@string/file_description_format" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_lock_outline_black_24dp"
                 android:inputType="textVisiblePassword"
                 android:key="@string/pref_key__default_encryption_password"

@@ -32,10 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -75,6 +77,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
+    private AppSettings _appSettings;
 
     //########################
     //## Methods
@@ -92,6 +95,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
         _recyclerView = recyclerView;
+        _appSettings = new AppSettings(context);
 
         ContextUtils cu = new ContextUtils(context);
         if (_dopt.primaryColor == 0) {
@@ -164,7 +168,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         }
 
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
-        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
+                ? descriptionFile.getAbsolutePath() : getFormattedFileDescription(file, _appSettings.getFileDescriptionFormat()));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
@@ -190,6 +195,28 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.itemRoot.setTag(new TagContainer(file, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
+    }
+
+    public String getFormattedFileDescription(File file, String format) {
+        if (format.equals("")) {
+            return DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
+        } else {
+            format = format.replaceAll("FS(?=([^']*'[^']*')*[^']*$)", '\'' + getHumanReadableByteCountSI(file.length()) + '\'');
+
+            return new SimpleDateFormat(format, Locale.getDefault()).format(file.lastModified());
+        }
+    }
+
+    public String getHumanReadableByteCountSI(long bytes) {
+        if (bytes < 1000) {
+            return String.format(Locale.getDefault(), "%d%s", bytes, R.string.bytes_abbreviated);
+        } else if (bytes < 1000000) {
+            return String.format(Locale.getDefault(), "%f.2%s", (bytes / 1000f), R.string.kilobytes_abbreviated);
+        } else if (bytes < 1000000000) {
+            return String.format(Locale.getDefault(), "%f.2%s", (bytes / 1000000f), R.string.gigabytes_abbreviated);
+        } else {
+            return String.format(Locale.getDefault(), "%f.2%s", (bytes / 1000000000f), R.string.terabytes_abbreviated);
+        }
     }
 
     public Bundle saveInstanceState(Bundle outState) {
