@@ -11,7 +11,6 @@
 --><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:title="@string/settings">
@@ -66,12 +65,6 @@
                 android:key="@string/pref_key__app_start_folder"
                 android:summary="%1$s"
                 android:title="@string/app_start_folder" />
-            <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/empty_string"
-                android:dialogMessage="@string/file_description_format_dialog"
-                android:icon="@android:drawable/ic_menu_info_details"
-                android:key="@string/pref_key__file_description_format"
-                android:title="@string/file_description_format" />
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_lock_outline_black_24dp"
@@ -226,6 +219,15 @@
 
             </PreferenceScreen>
 
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/file_browser">
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/empty_string"
+                android:dialogMessage="@string/file_description_format_dialog"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:key="@string/pref_key__file_description_format"
+                android:title="@string/file_description_format" />
         </PreferenceCategory>
 
     </PreferenceScreen>

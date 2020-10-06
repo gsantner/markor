@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
@@ -170,7 +171,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
-                ? descriptionFile.getAbsolutePath() : getFormattedFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
+                ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
@@ -198,12 +199,11 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.itemRoot.setOnLongClickListener(this);
     }
 
-    public String getFormattedFileDescription(File file, String format) {
-        if (format.equals("")) {
+    public String formatFileDescription(final File file, String format) {
+        if (TextUtils.isEmpty(format)) {
             return DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
         } else {
             format = format.replaceAll("FS(?=([^']*'[^']*')*[^']*$)", '\'' + FileUtils.getHumanReadableByteCountSI(file.length()) + '\'');
-
             return new SimpleDateFormat(format, Locale.getDefault()).format(file.lastModified());
         }
     }

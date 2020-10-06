@@ -250,7 +250,7 @@ public class SettingsActivity extends AppActivityBase {
                 try {
                     new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());
                 } catch (IllegalArgumentException e) {
-                    Toast.makeText(getContext(), e.getLocalizedMessage() + getString(R.string.error_file_description_format), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                     prefs.edit().putString(key, "").commit();
                 }
             }
