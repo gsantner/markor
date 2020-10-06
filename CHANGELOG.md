@@ -1,8 +1,19 @@
 ### Recent changes
 - 
 
-### v2.4 [Blog Post](https://gsantner.net/blog/2020/10/02/markor-v2.4-something.html?source=changelog)
+### v2.4 [Blog Post](https://gsantner.net/blog/2020/xx/yy/markor-v2.4-something.html?source=changelog)
 - Markdown: Correctly insert or remove list item on press enter at empty list item
+- Remove title from todo.txt date dialog, better usable on small devices
+- Fix search sometimes not working when chaging from view to edit mode
+- Rework Indent & Move lines Actions
+- Add settings option to control todo.txt completition date auto insert
+- All new todo.txt support in Markor
+- Add many languages to view-mode code highlighting
+- Add xlf format (plaintext)
+- Remove colored highlighting from changelog dialog
+- Add search to Markdown edit-mode outline/TOC dialog
+- New file dialog remember type selection
+- Better preserve current open folder across device rotation & reboot
 
 ### v2.3 [Blog Post](https://gsantner.net/blog/2020/07/25/markor-v2.3-outline-action-custom-order-todotxt-markdown-plaintext.html?source=changelog)
 - Add action to Move current selected line(s)/cursor text up/down
