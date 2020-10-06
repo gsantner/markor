@@ -11,8 +11,8 @@ package net.gsantner.markor.format.keyvalue;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Spannable;
 import android.text.InputFilter;
+import android.text.Spannable;
 
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.model.Document;

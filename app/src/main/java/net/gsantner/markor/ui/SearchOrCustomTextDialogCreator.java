@@ -24,7 +24,6 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
