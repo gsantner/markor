@@ -358,13 +358,14 @@ public class SearchOrCustomTextDialogCreator {
     }
 
 
-    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<String> userCallback) {
+    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<Spannable> highlighter, Callback.a1<String> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.callback = userCallback;
         dopt2.data = filterEmpty(new ArrayList<>(Arrays.asList(fullText.split("\n"))));
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
+        dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 

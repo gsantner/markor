@@ -10,8 +10,8 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.content.Context;
-import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
 
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
@@ -23,23 +23,23 @@ public class PlaintextHighlighter extends Highlighter {
     }
 
     @Override
-    protected Editable run(final Editable editable) {
+    protected Spannable run(final Spannable spannable) {
         try {
-            clearSpans(editable);
+            clearSpans(spannable);
 
-            if (editable.length() == 0) {
-                return editable;
+            if (spannable.length() == 0) {
+                return spannable;
             }
 
             _profiler.start(true, "Plaintext Highlighting");
-            generalHighlightRun(editable);
+            generalHighlightRun(spannable);
             _profiler.end();
             _profiler.printProfilingGroup();
         } catch (Exception ex) {
             // Ignoring errors
         }
 
-        return editable;
+        return spannable;
     }
 
     @Override

@@ -11,8 +11,8 @@ package net.gsantner.markor.format.keyvalue;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
 
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.model.Document;
@@ -27,40 +27,38 @@ public class KeyValueHighlighter extends Highlighter {
     }
 
     @Override
-    protected Editable run(final Editable editable) {
+    protected Spannable run(final Spannable spannable) {
         try {
-            clearSpans(editable);
+            clearSpans(spannable);
 
-            if (editable.length() == 0) {
-                return editable;
+            if (spannable.length() == 0) {
+                return spannable;
             }
 
             _profiler.start(true, "KeyValue Highlighting");
-            generalHighlightRun(editable);
-
+            generalHighlightRun(spannable);
 
             _profiler.restart("KeyValue: Generic key-value");
-            createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.BOLD);
-            createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE_QUOTED.getPattern(), Typeface.BOLD);
-            createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_UNORDERED_LIST.getPattern(), 0xffef6D00);
+            createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_KEY_VALUE_QUOTED.getPattern(), Typeface.BOLD);
+            createColorSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_UNORDERED_LIST.getPattern(), 0xffef6D00);
             _profiler.restart("KeyValue: vcard");
-            createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_VCARD_KEY.getPattern(), Typeface.BOLD);
+            createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_VCARD_KEY.getPattern(), Typeface.BOLD);
             _profiler.restart("KeyValue: ini");
-            createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_KEY.getPattern(), Typeface.BOLD);
-            createRelativeSizeSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 1.25f);
-            createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 0xffef6D00);
-            createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_INI_COMMENT.getPattern(), 0xff88b04b);
+            createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_INI_KEY.getPattern(), Typeface.BOLD);
+            createRelativeSizeSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 1.25f);
+            createColorSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_INI_HEADER.getPattern(), 0xffef6D00);
+            createColorSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_INI_COMMENT.getPattern(), 0xff88b04b);
             _profiler.restart("KeyValue: comment");
-            createColorSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_COMMENT.getPattern(), 0xff88b04b);
+            createColorSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_COMMENT.getPattern(), 0xff88b04b);
 
             /*
             // Too expensive
             if (getFilepath().toLowerCase().endsWith(".csv")) {
                 _profiler.restart("KeyValue: csv");
-                createStyleSpanForMatches(editable, KeyValueHighlighterPattern.PATTERN_CSV.getPattern(), Typeface.BOLD);
+                createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_CSV.getPattern(), Typeface.BOLD);
             }
             */
-
 
             _profiler.end();
             _profiler.printProfilingGroup();
@@ -68,7 +66,7 @@ public class KeyValueHighlighter extends Highlighter {
             // Ignoring errors
         }
 
-        return editable;
+        return spannable;
     }
 
     @Override

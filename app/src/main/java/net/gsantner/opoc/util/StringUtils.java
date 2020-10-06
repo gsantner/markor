@@ -12,7 +12,6 @@ package net.gsantner.opoc.util;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -23,7 +22,7 @@ public final class StringUtils {
         throw new AssertionError();
     }
 
-    public static boolean isValidIndex(final CharSequence s, final int ... indices) {
+    public static boolean isValidIndex(final CharSequence s, final int... indices) {
         if (s != null && indices.length > 0) {
             for (final int i : indices) {
                 if (i < 0 || i >= s.length()) {
@@ -116,6 +115,7 @@ public final class StringUtils {
 
     /**
      * Convert a char index to a line index + offset from end of line
+     *
      * @param s text to parse
      * @param p position in text
      * @return int[2] where index 0 is line and index 1 is position from end of line
@@ -134,6 +134,7 @@ public final class StringUtils {
 
     /**
      * Convert a line index and offset from end of line to absolute position
+     *
      * @param s text to parse
      * @param l line index
      * @param e offset from end of line
@@ -164,10 +165,11 @@ public final class StringUtils {
 
     /**
      * Count instances of char 'c' between start and end
-     * @param s Sequence to count in
-     * @param c Char to count
+     *
+     * @param s     Sequence to count in
+     * @param c     Char to count
      * @param start start of section to count within
-     * @param end end of section to count within
+     * @param end   end of section to count within
      * @return number of instances of c in c between start and end
      */
     public static int countChar(final CharSequence s, final char c, int start, int end) {

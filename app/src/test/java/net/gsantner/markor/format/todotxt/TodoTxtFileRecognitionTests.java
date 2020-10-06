@@ -10,8 +10,6 @@
 #########################################################*/
 package net.gsantner.markor.format.todotxt;
 
-import net.gsantner.markor.format.todotxt.TodoTxtTask;
-
 import org.junit.Test;
 
 import java.util.regex.Pattern;

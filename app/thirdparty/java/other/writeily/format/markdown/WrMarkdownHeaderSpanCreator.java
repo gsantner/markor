@@ -12,7 +12,7 @@ package other.writeily.format.markdown;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.text.Editable;
+import android.text.Spannable;
 import android.text.ParcelableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
@@ -31,13 +31,13 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     private static final float SIZE_STEP = 0.20f;
 
     protected MarkdownHighlighter _highlighter;
-    private final Editable _editable;
+    private final Spannable _spannable;
     private final int _color;
     private final boolean _dynmicTextSize;
 
-    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Editable editable, int color, boolean dynamicTextSize) {
+    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
-        _editable = editable;
+        _spannable = spannable;
         _color = color;
         _dynmicTextSize = dynamicTextSize;
     }
@@ -61,7 +61,7 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     }
 
     private char[] extractMatchingRange(Matcher m) {
-        return _editable.subSequence(m.start(), m.end()).toString().trim().toCharArray();
+        return _spannable.subSequence(m.start(), m.end()).toString().trim().toCharArray();
     }
 
     private Float calculateProportionBasedOnHeaderType(final char[] charSequence) {

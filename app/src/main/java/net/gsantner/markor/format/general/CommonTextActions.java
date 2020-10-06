@@ -149,7 +149,7 @@ public class CommonTextActions {
                 final Editable text = _hlEditor.getText();
                 final boolean lastLine = sel[1] == text.length();
                 final boolean firstLine = sel[0] == 0;
-                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + ( lastLine ? 0 : 1));
+                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
                 return true;
             }
             case ACTION_END_LINE_WITH_TWO_SPACES: {
@@ -164,7 +164,7 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, callbackPayload -> {
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, null, callbackPayload -> {
                     int cursor = origText.indexOf(callbackPayload);
                     if (!_hlEditor.hasFocus()) {
                         _hlEditor.requestFocus();

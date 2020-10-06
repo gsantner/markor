@@ -15,7 +15,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
@@ -54,7 +53,7 @@ public abstract class Highlighter {
 
     protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD || MainActivity.IS_DEBUG_ENABLED);
 
-    protected abstract Editable run(final Editable editable);
+    protected abstract Spannable run(final Spannable spannable);
 
     public abstract InputFilter getAutoFormatter();
 
@@ -89,25 +88,25 @@ public abstract class Highlighter {
         return _highlightingFactorBasedOnFilesize;
     }
 
-    public void generalHighlightRun(final Editable editable) {
-        final String text = editable.toString();
+    public void generalHighlightRun(final Spannable spannable) {
+        final String text = spannable.toString();
         _highlightingFactorBasedOnFilesize = Math.max(1, Math.min(Math.max(text.length() - 9000, 10000) / 10000, 4));
         _profiler.restart("General Highlighter");
         if (_preCalcTabWidth > 0) {
             _profiler.restart("Tabulator width");
-            createReplacementSpanForMatches(editable, Pattern.compile("\t"), _preCalcTabWidth);
+            createReplacementSpanForMatches(spannable, Pattern.compile("\t"), _preCalcTabWidth);
         }
         if (_highlightLinks && (text.contains("http://") || text.contains("https://"))) {
             _profiler.restart("Link Color");
-            createColorSpanForMatches(editable, Patterns.WEB_URL, 0xff1ea3fd);
+            createColorSpanForMatches(spannable, Patterns.WEB_URL, 0xff1ea3fd);
             _profiler.restart("Link Size");
-            createRelativeSizeSpanForMatches(editable, Patterns.WEB_URL, 0.7f);
+            createRelativeSizeSpanForMatches(spannable, Patterns.WEB_URL, 0.7f);
             _profiler.restart("Link Italic");
-            createStyleSpanForMatches(editable, Patterns.WEB_URL, Typeface.ITALIC);
+            createStyleSpanForMatches(spannable, Patterns.WEB_URL, Typeface.ITALIC);
         }
         if (_highlightHexcolor) {
             _profiler.restart("RGB Color underline");
-            createColoredUnderlineSpanForMatches(editable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
+            createColoredUnderlineSpanForMatches(spannable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
         }
     }
 
@@ -130,31 +129,31 @@ public abstract class Highlighter {
     // Clear spans
     //
 
-    protected void clearSpans(Editable editable) {
-        clearCharacterSpanType(editable, TextAppearanceSpan.class);
-        clearCharacterSpanType(editable, ForegroundColorSpan.class);
-        clearCharacterSpanType(editable, BackgroundColorSpan.class);
-        clearCharacterSpanType(editable, StrikethroughSpan.class);
-        clearCharacterSpanType(editable, RelativeSizeSpan.class);
-        clearCharacterSpanType(editable, StyleSpan.class);
-        clearCharacterSpanType(editable, ColorUnderlineSpan.class);
-        clearParagraphSpanType(editable, LineBackgroundSpan.class);
-        clearParagraphSpanType(editable, LineHeightSpan.class);
+    protected static void clearSpans(Spannable spannable) {
+        clearCharacterSpanType(spannable, TextAppearanceSpan.class);
+        clearCharacterSpanType(spannable, ForegroundColorSpan.class);
+        clearCharacterSpanType(spannable, BackgroundColorSpan.class);
+        clearCharacterSpanType(spannable, StrikethroughSpan.class);
+        clearCharacterSpanType(spannable, RelativeSizeSpan.class);
+        clearCharacterSpanType(spannable, StyleSpan.class);
+        clearCharacterSpanType(spannable, ColorUnderlineSpan.class);
+        clearParagraphSpanType(spannable, LineBackgroundSpan.class);
+        clearParagraphSpanType(spannable, LineHeightSpan.class);
     }
 
-    private <T extends CharacterStyle> void clearCharacterSpanType(Editable editable, Class<T> spanType) {
-        CharacterStyle[] spans = editable.getSpans(0, editable.length(), spanType);
+    private static <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
+        CharacterStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
-            editable.removeSpan(spans[n]);
+            spannable.removeSpan(spans[n]);
         }
     }
 
-    private <T extends ParagraphStyle> void clearParagraphSpanType(Editable editable, Class<T> spanType) {
-        ParagraphStyle[] spans = editable.getSpans(0, editable.length(), spanType);
+    private static <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
+        ParagraphStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
-            editable.removeSpan(spans[n]);
+            spannable.removeSpan(spans[n]);
         }
     }
 
@@ -174,22 +173,22 @@ public abstract class Highlighter {
      * Create Span for isMatching in ParcelableSpan's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-     * @param editable      Text editable
+     * @param spannable     Text spannable
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatches(final Editable editable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatches(final Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
         int i = 0;
-        for (Matcher m = pattern.matcher(editable); m.find(); i++) {
+        for (Matcher m = pattern.matcher(spannable); m.find(); i++) {
             ParcelableSpan span = creator.create(m, i);
             if (span != null) {
                 for (int g : groupsToMatch) {
                     if (g == 0 || g <= m.groupCount()) {
-                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -201,22 +200,22 @@ public abstract class Highlighter {
      * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-     * @param editable      Text editable
+     * @param spannable     Text spannable
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatchesP(final Editable editable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatchesP(final Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
         int i = 0;
-        for (Matcher m = pattern.matcher(editable); m.find(); i++) {
+        for (Matcher m = pattern.matcher(spannable); m.find(); i++) {
             ParagraphStyle span = creator.create(m, i);
             if (span != null) {
                 for (int g : groupsToMatch) {
                     if (g == 0 || g <= m.groupCount()) {
-                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
@@ -227,54 +226,54 @@ public abstract class Highlighter {
      * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-     * @param editable      Text editable
+     * @param spannable     Text spannable
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
      */
-    protected void createSpanForMatchesM(final Editable editable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
+    protected static void createSpanForMatchesM(final Spannable spannable, final Pattern pattern, final SpanCreator creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
         int i = 0;
-        for (Matcher m = pattern.matcher(editable); m.find(); i++) {
+        for (Matcher m = pattern.matcher(spannable); m.find(); i++) {
             Object span = creator.create(m, i);
             if (span != null) {
                 for (int g : groupsToMatch) {
                     if (g == 0 || g <= m.groupCount()) {
-                        editable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(span, m.start(g), m.end(g), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
             }
         }
     }
 
-    protected void createStyleSpanForMatches(final Editable editable, final Pattern pattern, final int style, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new StyleSpan(style));
+    protected static void createStyleSpanForMatches(final Spannable spannable, final Pattern pattern, final int style, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new StyleSpan(style));
     }
 
-    protected void createColorSpanForMatches(final Editable editable, final Pattern pattern, final int color, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
+    protected static void createColorSpanForMatches(final Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createColorBackgroundSpan(Editable editable, final Pattern pattern, final int color, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
+    protected static void createColorBackgroundSpan(Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
     }
 
-    protected void createSpanWithStrikeThroughForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new StrikethroughSpan(), groupsToMatch);
+    protected static void createSpanWithStrikeThroughForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new StrikethroughSpan(), groupsToMatch);
     }
 
-    protected void createTypefaceSpanForMatches(Editable editable, Pattern pattern, final String typeface, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new TypefaceSpan(typeface), groupsToMatch);
+    protected static void createTypefaceSpanForMatches(Spannable spannable, Pattern pattern, final String typeface, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new TypefaceSpan(typeface), groupsToMatch);
     }
 
-    protected void createRelativeSizeSpanForMatches(Editable editable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
+    protected static void createRelativeSizeSpanForMatches(Spannable spannable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
     }
 
-    protected void createReplacementSpanForMatches(final Editable editable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
-        createSpanForMatchesM(editable, pattern, (matcher, iM) -> new ReplacementSpan() {
+    protected static void createReplacementSpanForMatches(final Spannable spannable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
+        createSpanForMatchesM(spannable, pattern, (matcher, iM) -> new ReplacementSpan() {
             @Override
             public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
                 return charWidth;
@@ -286,19 +285,19 @@ public abstract class Highlighter {
         }, groupsToMatch);
     }
 
-    protected void createMonospaceSpanForMatches(Editable editable, final Pattern pattern, int... groupsToMatch) {
-        createTypefaceSpanForMatches(editable, pattern, "monospace", groupsToMatch);
+    protected static void createMonospaceSpanForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
+        createTypefaceSpanForMatches(spannable, pattern, "monospace", groupsToMatch);
     }
 
-    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
+    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
-    protected void createColoredUnderlineSpanForMatches(Editable editable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
-        createSpanForMatches(editable, pattern, creator, groupsToMatch);
+    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParcelableSpanCreator creator, int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, creator, groupsToMatch);
     }
 
-    protected void createParagraphStyleSpanForMatches(Editable editable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
-        createSpanForMatchesP(editable, pattern, creator, groupsToMatch);
+    protected static void createParagraphStyleSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
+        createSpanForMatchesP(spannable, pattern, creator, groupsToMatch);
     }
 }
