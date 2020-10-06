@@ -11,7 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Editable;
+import android.text.Spannable;
 import android.text.InputFilter;
 
 import net.gsantner.markor.model.Document;
@@ -48,48 +48,48 @@ public class MarkdownHighlighter extends Highlighter {
     }
 
     @Override
-    protected Editable run(final Editable editable) {
+    protected Spannable run(final Spannable spannable) {
         try {
-            clearSpans(editable);
+            clearSpans(spannable);
 
-            if (editable.length() == 0) {
-                return editable;
+            if (spannable.length() == 0) {
+                return spannable;
             }
 
             _profiler.start(true, "Markdown Highlighting");
-            generalHighlightRun(editable);
+            generalHighlightRun(spannable);
 
             _profiler.restart("Heading");
             if (_highlightBiggerHeadings) {
-                createHeaderSpanForMatches(editable, MarkdownHighlighterPattern.HEADING, MD_COLOR_HEADING);
+                createHeaderSpanForMatches(spannable, MarkdownHighlighterPattern.HEADING, MD_COLOR_HEADING);
             } else {
-                createColorSpanForMatches(editable, MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
+                createColorSpanForMatches(spannable, MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
             }
             _profiler.restart("Link");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
+            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
             _profiler.restart("List");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
+            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
             _profiler.restart("OrderedList");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
+            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
             if (_highlightLineEnding) {
                 _profiler.restart("Double space ending - bgcolor");
-                createColorBackgroundSpan(editable, MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
+                createColorBackgroundSpan(spannable, MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
             }
             _profiler.restart("Bold");
-            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.BOLD.pattern, Typeface.BOLD);
+            createStyleSpanForMatches(spannable, MarkdownHighlighterPattern.BOLD.pattern, Typeface.BOLD);
             _profiler.restart("Italics");
-            createStyleSpanForMatches(editable, MarkdownHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
+            createStyleSpanForMatches(spannable, MarkdownHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
             _profiler.restart("Quotation");
-            createColorSpanForMatches(editable, MarkdownHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
+            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
             _profiler.restart("Strikethrough");
-            createSpanWithStrikeThroughForMatches(editable, MarkdownHighlighterPattern.STRIKETHROUGH.pattern);
+            createSpanWithStrikeThroughForMatches(spannable, MarkdownHighlighterPattern.STRIKETHROUGH.pattern);
             if (_highlightCodeChangeFont) {
                 _profiler.restart("Code - Font [MonoSpace]");
-                createMonospaceSpanForMatches(editable, MarkdownHighlighterPattern.CODE.pattern);
+                createMonospaceSpanForMatches(spannable, MarkdownHighlighterPattern.CODE.pattern);
             }
             _profiler.restart("Code - bgcolor");
             if (!_highlightDisableCodeBlock) {
-                createColorBackgroundSpan(editable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+                createColorBackgroundSpan(spannable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
             }
 
             _profiler.end();
@@ -98,11 +98,11 @@ public class MarkdownHighlighter extends Highlighter {
             // Ignoring errors
         }
 
-        return editable;
+        return spannable;
     }
 
-    private void createHeaderSpanForMatches(Editable editable, MarkdownHighlighterPattern pattern, int headerColor) {
-        createSpanForMatches(editable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, editable, headerColor, _highlightBiggerHeadings));
+    private void createHeaderSpanForMatches(Spannable spannable, MarkdownHighlighterPattern pattern, int headerColor) {
+        createSpanForMatches(spannable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, spannable, headerColor, _highlightBiggerHeadings));
     }
 
     @Override

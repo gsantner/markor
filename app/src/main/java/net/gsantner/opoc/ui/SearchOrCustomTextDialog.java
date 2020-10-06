@@ -24,6 +24,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -70,6 +72,7 @@ public class SearchOrCustomTextDialog {
         public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = 0;
         public boolean searchIsRegex = false;
+        public Callback.a1<Spannable> highlighter;
         public String extraFilter = null;
 
         @ColorInt
@@ -115,6 +118,12 @@ public class SearchOrCustomTextDialog {
                 boolean hl = dopt.highlightData.contains(text);
                 textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);
                 textView.setTypeface(null, hl ? Typeface.BOLD : Typeface.NORMAL);
+
+                if (dopt.highlighter != null) {
+                    Spannable s = new SpannableString(textView.getText());
+                    dopt.highlighter.callback(s);
+                    textView.setText(s);
+                }
 
                 return textView;
             }
