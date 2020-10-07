@@ -10,8 +10,8 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.content.Context;
-import android.text.Spannable;
 import android.text.InputFilter;
+import android.text.Spannable;
 
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;

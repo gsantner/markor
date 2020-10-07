@@ -11,6 +11,7 @@
 package net.gsantner.opoc.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
@@ -33,9 +35,11 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -75,6 +79,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final RecyclerView _recyclerView;
+    private final SharedPreferences _prefApp;
 
     //########################
     //## Methods
@@ -92,6 +97,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _context = context.getApplicationContext();
         loadFolder(options.rootFolder);
         _recyclerView = recyclerView;
+        _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 
         ContextUtils cu = new ContextUtils(context);
         if (_dopt.primaryColor == 0) {
@@ -164,7 +170,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         }
 
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
-        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..") ? descriptionFile.getAbsolutePath() : DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
+                ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
@@ -190,6 +197,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         holder.itemRoot.setTag(new TagContainer(file, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
+    }
+
+    public String formatFileDescription(final File file, String format) {
+        if (TextUtils.isEmpty(format)) {
+            return DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
+        } else {
+            format = format.replaceAll("FS(?=([^']*'[^']*')*[^']*$)", '\'' + FileUtils.getHumanReadableByteCountSI(file.length()) + '\'');
+            return new SimpleDateFormat(format, Locale.getDefault()).format(file.lastModified());
+        }
     }
 
     public Bundle saveInstanceState(Bundle outState) {

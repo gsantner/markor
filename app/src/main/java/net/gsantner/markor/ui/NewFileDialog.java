@@ -29,9 +29,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -115,7 +115,9 @@ public class NewFileDialog extends DialogFragment {
                 }
             }
             fileNameEdit.setSelection(fileNameEdit.length());
+            appSettings.setNewFileDialogLastUsedType(typeSpinner.getSelectedItemPosition());
         }));
+        typeSpinner.setSelection(appSettings.getNewFileDialogLastUsedType());
 
         templateSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
             String prefix = null;

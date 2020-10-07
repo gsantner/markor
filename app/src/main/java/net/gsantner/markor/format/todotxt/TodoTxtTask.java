@@ -278,7 +278,7 @@ public class TodoTxtTask {
         public int compare(final TodoTxtTask x, final TodoTxtTask y) {
 
             // Always push done tasks to the bottom. Note ascending is small -> big.
-            final int doneCompare = Integer.compare(x.isDone()? 1 : 0, y.isDone()? 1 : 0);
+            final int doneCompare = Integer.compare(x.isDone() ? 1 : 0, y.isDone() ? 1 : 0);
             if (doneCompare != 0) return doneCompare;
 
             int difference;
@@ -337,7 +337,7 @@ public class TodoTxtTask {
         }
 
         private int compareDone(final TodoTxtTask a, TodoTxtTask b) {
-            return Integer.compare(a.isDone()? 1 : 0, b.isDone()? 1 : 0);
+            return Integer.compare(a.isDone() ? 1 : 0, b.isDone() ? 1 : 0);
         }
 
         private int compare(final char x, final char y) {

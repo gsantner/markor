@@ -149,7 +149,7 @@ public class CommonTextActions {
                 final Editable text = _hlEditor.getText();
                 final boolean lastLine = sel[1] == text.length();
                 final boolean firstLine = sel[0] == 0;
-                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + ( lastLine ? 0 : 1));
+                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
                 return true;
             }
             case ACTION_END_LINE_WITH_TWO_SPACES: {
@@ -165,13 +165,14 @@ public class CommonTextActions {
             }
             case ACTION_SEARCH: {
                 SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, null,
-                        (text, line) -> {
-                            if (!_hlEditor.hasFocus()) {
-                                _hlEditor.requestFocus();
-                            }
-                            // Go to beginning of line #line
-                            _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, line, 0)));
-                });
+                    (text, line) -> {
+                        if (!_hlEditor.hasFocus()) {
+                            _hlEditor.requestFocus();
+                        }
+                        // Go to beginning of line #line
+                        _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, line, 0)));
+                    }
+                );
                 return true;
             }
             case ACTION_JUMP_BOTTOM_TOP: {

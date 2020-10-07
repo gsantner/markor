@@ -179,14 +179,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__todotxt__hl_delay, 870);
     }
 
-    public String getLastOpenedDirectory() {
-        return getString(R.string.pref_key__last_opened_directory, getNotebookDirectoryAsStr());
-    }
-
-    public void setLastOpenedDirectory(String value) {
-        setString(R.string.pref_key__last_opened_directory, value);
-    }
-
     public boolean isRenderRtl() {
         return getBool(R.string.pref_key__is_render_rtl, false);
     }
@@ -713,5 +705,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void setNewFileDialogLastUsedExtension(String v) {
         setString(R.string.pref_key__new_file_dialog_lastused_extension, v);
+    }
+
+    public int getNewFileDialogLastUsedType() {
+        return getInt(R.string.pref_key__new_file_dialog_lastused_type, 0);
+    }
+
+    public void setNewFileDialogLastUsedType(int i) {
+        setInt(R.string.pref_key__new_file_dialog_lastused_type, i);
+    }
+
+    public void setFileBrowserLastBrowsedFolder(File f) {
+        setString(R.string.pref_key__file_browser_last_browsed_folder, f.getAbsolutePath());
+    }
+
+    public File getFileBrowserLastBrowsedFolder() {
+        return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookDirectoryAsStr()));
     }
 }

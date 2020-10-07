@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentRelayActivity;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
 import java.io.File;
 import java.util.ArrayList;

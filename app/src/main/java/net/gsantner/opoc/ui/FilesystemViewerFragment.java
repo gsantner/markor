@@ -643,6 +643,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && getCurrentFolder() != null && !TextUtils.isEmpty(getCurrentFolder().getName()) && getToolbar() != null) {
             getToolbar().setTitle(getCurrentFolder().getName());
+            reloadCurrentFolder();
         }
     }
 }

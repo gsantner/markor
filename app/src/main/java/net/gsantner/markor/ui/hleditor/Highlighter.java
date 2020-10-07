@@ -15,7 +15,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.text.Spannable;
 import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
@@ -174,7 +173,11 @@ public abstract class Highlighter {
      * Create Span for isMatching in ParcelableSpan's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
+<<<<<<< HEAD
      * @param spannable      Text spannable
+=======
+     * @param spannable     Text spannable
+>>>>>>> master
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
@@ -201,7 +204,7 @@ public abstract class Highlighter {
      * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-     * @param spannable      Text spannable
+     * @param spannable     Text spannable
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
@@ -227,7 +230,7 @@ public abstract class Highlighter {
      * Create Span for isMatching in paragraph's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-     * @param spannable      Text spannable
+     * @param spannable     Text spannable
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
