@@ -173,11 +173,7 @@ public abstract class Highlighter {
      * Create Span for isMatching in ParcelableSpan's. Note that this will highlight the full matched pattern
      * (including optionals) if no group parameters are given.
      *
-<<<<<<< HEAD
-     * @param spannable      Text spannable
-=======
      * @param spannable     Text spannable
->>>>>>> master
      * @param pattern       The pattern to match
      * @param creator       A ParcelableSpanCreator for ParcelableSpan
      * @param groupsToMatch (optional) groups to be matched, indexes start at 1.
