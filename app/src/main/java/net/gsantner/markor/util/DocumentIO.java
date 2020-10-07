@@ -127,8 +127,8 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_KEYVALUE);
             } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
-            } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {
-                document.setFormat(TextFormat.FORMAT_PLAIN);
+            } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {  // TODO: check if the text file header corresponds to a zim wiki file
+                document.setFormat(TextFormat.FORMAT_ZIMWIKI);
             } else {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
             }

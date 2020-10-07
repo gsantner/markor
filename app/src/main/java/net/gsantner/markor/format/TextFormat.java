@@ -23,6 +23,7 @@ import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
+import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
@@ -37,6 +38,7 @@ public class TextFormat {
     public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
     public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
+    public static final int FORMAT_ZIMWIKI = R.id.action_format_zimwiki;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
@@ -84,6 +86,12 @@ public class TextFormat {
             case FORMAT_KEYVALUE: {
                 format.setConverter(CONVERTER_KEYVALUE);
                 format.setHighlighter(new KeyValueHighlighter(hlEditor, document));
+                format.setTextActions(new PlaintextTextActions(activity, document));
+                break;
+            }
+            case FORMAT_ZIMWIKI: {
+                format.setConverter(CONVERTER_MARKDOWN); // FIXME: only temporary - should use zim wiki converter
+                format.setHighlighter(new ZimWikiHighlighter(hlEditor, document));
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
