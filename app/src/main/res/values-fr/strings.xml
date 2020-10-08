@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Bloc de code</string>
     <string name="add_completion_date">Ajouter une date de fin</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Ajouter une date de fin pour les todos lorsque vous les marquez comme terminées</string>
+    <string name="file_description_format">Format de la description du fichier</string>
+    <string name="file_description_format_dialog">Format pour la description sous chaque fichier dans le navigateur de fichiers. Suit les règles SimpleDateFormat d\'Android, avec l\'ajout de FS pour afficher la taille du fichier. Laissez vide pour utiliser le format par défaut pour votre locale.\n\nExemple d\'entrée :\nFS yyyy MMM dd hhh:mm:ss aa\nFormat de sortie :\n30KB 2020 20 11:24:52 PM</string>
+    <string name="loading_default_value">Chargement de la valeur par défaut</string>
 </resources>

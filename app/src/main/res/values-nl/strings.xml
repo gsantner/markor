@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Code blok</string>
     <string name="add_completion_date">Voeg voltooiingsdatum toe</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Voeg voltooiingsdatum voor todos toe bij het markeren als voltooid</string>
+    <string name="file_description_format">Bestand beschrijving formaat</string>
+    <string name="file_description_format_dialog">Formaat voor de beschrijving onder elk bestand in de browser. Volgt Android\'s SimpleDateFormaty-regels, met toevoeging van FS voor het tonen van bestandsgrootte. Laat leeg om het standaardformaat voor uw taal te gebruiken.\n\nVoorbeeld invoer:\nFS yyyy MMM dd hhh:mm:ss aa\nOutput formaat:\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="loading_default_value">Standaardwaarde wordt geladen</string>
 </resources>
