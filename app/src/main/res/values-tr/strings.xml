@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Kod kalıbı</string>
     <string name="add_completion_date">Tamamlanma tarihi ekle</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Tamamlandı olarak işaretlerken yapılacak işler için tamamlanma tarihi ekleyin</string>
+    <string name="file_description_format">Dosya açıklama biçimi</string>
+    <string name="file_description_format_dialog">Dosya tarayıcısında her dosyanın altındaki açıklamanın biçimi. Dosya boyutunu göstermek için FS\'nin eklenmesiyle Android\'in SimpleDateFormat kurallarına uyar. Yerel ayarınız için varsayılan biçimi kullanmak için boş bırakın.\n\nÖrnek giriş:\nFS yyyy MMM dd hh:mm:ss aa\nçıktı biçimi:\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="loading_default_value">Varsayılan değer yükleniyor</string>
 </resources>

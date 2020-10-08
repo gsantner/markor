@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Kod block</string>
     <string name="add_completion_date">Lägg till slutdatum</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för todos när de markeras som gjort</string>
+    <string name="file_description_format">Filens beskrivningsformat</string>
+    <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filwebbläsaren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din lokal.\n\nExempel input:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdataformat:\n30KB 2020 Mar 20 11:24:52</string>
+    <string name="loading_default_value">Laddar standardvärde</string>
 </resources>

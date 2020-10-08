@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Bloc cod</string>
     <string name="add_completion_date">Adăugare dată finalizare</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Adaugă data finalizării pentru todos când le marchezi ca terminate</string>
+    <string name="file_description_format">Format descriere fișier</string>
+    <string name="file_description_format_dialog">Format pentru descrierea sub fiecare fișier în browser-ul de fișiere. Urmează regulile SimpleDateFormat ale Androidului, cu adăugarea SF pentru afișarea dimensiunii fișierului. Lăsați necompletat pentru a utiliza formatul implicit pentru localizarea dvs.\n\nExemplu de intrare:\nFS yyyy MMM dd hh:mm:ss aa\nFormat de ieșire:\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="loading_default_value">Se încarcă valoarea implicită</string>
 </resources>

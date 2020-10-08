@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Блок кода</string>
     <string name="add_completion_date">Добавить дату завершения</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Добавить дату завершения для задач при помечении их как выполненных</string>
+    <string name="file_description_format">Формат описания файла</string>
+    <string name="file_description_format_dialog">Формат описания для каждого файла в обозревателе. Следуйте правилам SimpleDateFormat Android, добавив FS для отображения размера файла. Оставьте пустым, чтобы использовать формат по умолчанию для вашей локали.\n\nПример ввода:\nFS yyyy MMM dd hh:mm:ss aa\nФормат вывода:\n30KB 2020 Мар 20 11:24:52 PM</string>
+    <string name="loading_default_value">Загрузка значения по умолчанию</string>
 </resources>
