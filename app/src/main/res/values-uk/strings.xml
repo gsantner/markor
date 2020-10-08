@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Блок коду</string>
     <string name="add_completion_date">Додати дату завершення</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Додати дату виконання завдань</string>
+    <string name="file_description_format">Формат опису файлу</string>
+    <string name="file_description_format_dialog">Формат для опису під кожним файлом у браузері. Спостерігає правила SimpleDateFormat з додатком FS для відображення розміру файлу. Залиште порожнім, щоб використовувати типовий формат вашої локалі.\n\nПриклад введення:\nFS yyyy MMM dd h:mm:ss\nформат виведення продукту:\n30КБ 2020 Mar 20:24:2452 PM</string>
+    <string name="loading_default_value">Завантаження значень за замовчуванням</string>
 </resources>
