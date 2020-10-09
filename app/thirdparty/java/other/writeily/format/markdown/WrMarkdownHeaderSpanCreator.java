@@ -20,6 +20,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
+import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.SpanCreator;
 
 import java.util.regex.Matcher;
@@ -30,12 +31,12 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;
 
-    protected MarkdownHighlighter _highlighter;
+    protected Highlighter _highlighter;
     private final Spannable _spannable;
     private final int _color;
     private final boolean _dynmicTextSize;
 
-    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
+    public WrMarkdownHeaderSpanCreator(Highlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
         _spannable = spannable;
         _color = color;
@@ -47,7 +48,7 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
             final char[] charSequence = extractMatchingRange(m);
             float proportion = calculateProportionBasedOnHeaderType(charSequence);
             Float size = calculateAdjustedSize(proportion);
-            return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, size.byteValue(),
+            return new TextAppearanceSpan(_highlighter.getFontType(), Typeface.BOLD, size.byteValue(),
                     ColorStateList.valueOf(_color), null);
         } else {
             return new ForegroundColorSpan(_color);
@@ -56,7 +57,7 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
 
     private float calculateAdjustedSize(Float proportion) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                _highlighter._fontSize * proportion,
+                _highlighter.getFontSize() * proportion,
                 DISPLAY_METRICS);
     }
 

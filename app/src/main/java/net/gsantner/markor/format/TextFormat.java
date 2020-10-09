@@ -23,6 +23,9 @@ import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
+import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
+import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
+import net.gsantner.markor.format.zimwiki.ZimWikiTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
@@ -33,12 +36,14 @@ import java.util.Locale;
 
 public class TextFormat {
     public static final int FORMAT_UNKNOWN = 0;
+    public static final int FORMAT_ZIMWIKI = R.id.action_format_zimwiki;
     public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
     public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
     public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
+    public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter(CONVERTER_MARKDOWN);
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
@@ -87,6 +92,13 @@ public class TextFormat {
                 format.setTextActions(new PlaintextTextActions(activity, document));
                 break;
             }
+
+            case FORMAT_ZIMWIKI: {
+                format.setConverter(CONVERTER_ZIMWIKI);
+                format.setHighlighter(new ZimWikiHighlighter(hlEditor, document));
+                format.setTextActions(new ZimWikiTextActions(activity, document));
+            }
+
             default:
             case FORMAT_MARKDOWN: {
                 format.setConverter(CONVERTER_MARKDOWN);

@@ -7,7 +7,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.format.markdown;
+package net.gsantner.markor.format.zimwiki;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,13 +15,12 @@ import android.text.InputFilter;
 import android.text.Spannable;
 
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
-public class MarkdownHighlighter extends Highlighter {
+public class ZimWikiHighlighter extends net.gsantner.markor.ui.hleditor.Highlighter {
     private final boolean _highlightLineEnding;
     private final boolean _highlightCodeChangeFont;
     private final boolean _highlightBiggerHeadings;
@@ -33,7 +32,7 @@ public class MarkdownHighlighter extends Highlighter {
     private static final int MD_COLOR_QUOTE = 0xff88b04c;
     private static final int MD_COLOR_CODEBLOCK = 0xff8c8c8c;
 
-    public MarkdownHighlighter(HighlightingEditor hlEditor, Document document) {
+    public ZimWikiHighlighter(HighlightingEditor hlEditor, Document document) {
         super(hlEditor, document);
         _highlightLinks = false;
         _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
@@ -56,36 +55,32 @@ public class MarkdownHighlighter extends Highlighter {
             generalHighlightRun(spannable);
 
             _profiler.restart("Heading");
-            if (_highlightBiggerHeadings) {
-                createHeaderSpanForMatches(spannable, MarkdownHighlighterPattern.HEADING, MD_COLOR_HEADING);
-            } else {
-                createColorSpanForMatches(spannable, MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
-            }
+            createHeaderSpanForMatches(spannable, ZimWikiHighlighterPattern.HEADING, MD_COLOR_HEADING);
             _profiler.restart("Link");
-            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
             _profiler.restart("List");
-            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
             _profiler.restart("OrderedList");
-            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
             if (_highlightLineEnding) {
                 _profiler.restart("Double space ending - bgcolor");
-                createColorBackgroundSpan(spannable, MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
+                createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
             }
             _profiler.restart("Bold");
-            createStyleSpanForMatches(spannable, MarkdownHighlighterPattern.BOLD.pattern, Typeface.BOLD);
+            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.BOLD.pattern, Typeface.BOLD);
             _profiler.restart("Italics");
-            createStyleSpanForMatches(spannable, MarkdownHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
+            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
             _profiler.restart("Quotation");
-            createColorSpanForMatches(spannable, MarkdownHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
             _profiler.restart("Strikethrough");
-            createSpanWithStrikeThroughForMatches(spannable, MarkdownHighlighterPattern.STRIKETHROUGH.pattern);
+            createSpanWithStrikeThroughForMatches(spannable, ZimWikiHighlighterPattern.STRIKETHROUGH.pattern);
             if (_highlightCodeChangeFont) {
                 _profiler.restart("Code - Font [MonoSpace]");
-                createMonospaceSpanForMatches(spannable, MarkdownHighlighterPattern.CODE.pattern);
+                createMonospaceSpanForMatches(spannable, ZimWikiHighlighterPattern.CODE.pattern);
             }
             _profiler.restart("Code - bgcolor");
             if (!_highlightDisableCodeBlock) {
-                createColorBackgroundSpan(spannable, MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+                createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
             }
 
             _profiler.end();
@@ -97,13 +92,13 @@ public class MarkdownHighlighter extends Highlighter {
         return spannable;
     }
 
-    private void createHeaderSpanForMatches(Spannable spannable, MarkdownHighlighterPattern pattern, int headerColor) {
+    private void createHeaderSpanForMatches(Spannable spannable, ZimWikiHighlighterPattern pattern, int headerColor) {
         createSpanForMatches(spannable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, spannable, headerColor, _highlightBiggerHeadings));
     }
 
     @Override
     public InputFilter getAutoFormatter() {
-        return new MarkdownAutoFormat();
+        return new ZimWikiAutoFormat();
     }
 
     @Override
