@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +23,7 @@ public class ZimWikiHighlighterPatternBoldTest {
 
     @Before
     public void before() {
-        pattern = ZimWikiHighlighterPattern.BOLD.pattern;
+        pattern = ZimWikiHighlighterPattern.STRONG.pattern;
     }
 
     @Test

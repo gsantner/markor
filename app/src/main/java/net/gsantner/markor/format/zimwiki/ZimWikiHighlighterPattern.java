@@ -12,21 +12,23 @@ package net.gsantner.markor.format.zimwiki;
 import java.util.regex.Pattern;
 
 public enum ZimWikiHighlighterPattern {
-    ACTION_IMAGE_PATTERN(Pattern.compile("(?m)\\{\\{(.*?)\\}\\}")),
-    ACTION_LINK_PATTERN(Pattern.compile("(?m)\\[\\[(.*?)|(.*?)\\]\\]")),
-    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(\\*\\*([^*]*?)\\*\\*)(?=(\\n|$|\\s))")),
-    CODE(Pattern.compile("(?m)('(?!')(.*?)')|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)")),
-    DOUBLESPACE_LINE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n")),
-    HEADING(Pattern.compile("(^(={2,6})\\s[^=]+\\s\\1$)")),
-    ITALICS(Pattern.compile("(//[^/]*?//)")),
-    LINK(Pattern.compile("\\[\\[([^\\]]+)\\]|([^\\)]+)\\]\\]")),
+    HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
+    LINK(Pattern.compile("(\\[\\[(?!\\[)(.*?)\\|(.+?\\]*)\\]\\])")),
     LINKSUB(Pattern.compile("\\[\\[\\+([^\\]]+)\\]\\]")),
     LINKTOP(Pattern.compile("\\[\\[:([^\\]]+)\\]\\]")),
+    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
     LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?\\]|\\([ xX*>]?\\)) ")),
-    LIST_ORDERED(Pattern.compile("^\t*([0-9a-zA-Z]+\\.) ")),
+    LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
     LIST_UNORDERED(Pattern.compile("^\t*(\\*)(?= )")),
-    QUOTATION(Pattern.compile("^>")),
-    STRIKETHROUGH(Pattern.compile("~~([^~]+)~~"));
+    EMPHASIS(Pattern.compile("(//(?!/)(.*?)(?<!:)//)")),
+    STRONG(Pattern.compile("(\\*\\*(?!\\*)(.*?)\\*\\*)")),
+    MARK(Pattern.compile("(__(?!_)(.*?)__)")),
+    STRIKE(Pattern.compile("(~~(?!~)(.+?)~~)")),
+    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
+    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
+    VERBATIM(Pattern.compile("(''(?!').+?'')")),
+    // TODO Table
+    ;
 
 
     public final Pattern pattern;

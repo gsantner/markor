@@ -56,31 +56,31 @@ public class ZimWikiHighlighter extends net.gsantner.markor.ui.hleditor.Highligh
 
             _profiler.restart("Heading");
             createHeaderSpanForMatches(spannable, ZimWikiHighlighterPattern.HEADING, MD_COLOR_HEADING);
+            _profiler.restart("LinkSub");
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINKSUB.pattern, MD_COLOR_LINK);
+            _profiler.restart("LinkTop");
+            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINKTOP.pattern, MD_COLOR_LINK);
             _profiler.restart("Link");
             createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
             _profiler.restart("List");
             createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
             _profiler.restart("OrderedList");
             createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
-            if (_highlightLineEnding) {
-                _profiler.restart("Double space ending - bgcolor");
-                createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
-            }
             _profiler.restart("Bold");
-            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.BOLD.pattern, Typeface.BOLD);
+            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.STRONG.pattern, Typeface.BOLD);
             _profiler.restart("Italics");
-            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
-            _profiler.restart("Quotation");
-            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
+            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.EMPHASIS.pattern, Typeface.ITALIC);
+            _profiler.restart("Underline");
+            createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.MARK.pattern, MD_COLOR_QUOTE); // TODO yellow background
             _profiler.restart("Strikethrough");
-            createSpanWithStrikeThroughForMatches(spannable, ZimWikiHighlighterPattern.STRIKETHROUGH.pattern);
+            createSpanWithStrikeThroughForMatches(spannable, ZimWikiHighlighterPattern.STRIKE.pattern);
             if (_highlightCodeChangeFont) {
-                _profiler.restart("Code - Font [MonoSpace]");
-                createMonospaceSpanForMatches(spannable, ZimWikiHighlighterPattern.CODE.pattern);
+                _profiler.restart("Verbatim - Font [MonoSpace]");
+                createMonospaceSpanForMatches(spannable, ZimWikiHighlighterPattern.VERBATIM.pattern);
             }
-            _profiler.restart("Code - bgcolor");
+            _profiler.restart("Verbatim - bgcolor");
             if (!_highlightDisableCodeBlock) {
-                createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+                createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.VERBATIM.pattern, MD_COLOR_CODEBLOCK);
             }
 
             _profiler.end();

@@ -13,10 +13,7 @@ import android.content.Context;
 
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.regex.Matcher;
 
 /**
@@ -42,53 +39,78 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        // TODO Why is this never called yet?
         StringBuffer converted = new StringBuffer();
+        int lineno = 0;
         Matcher matcher;
         for (String line : markup.split("\\n\\r?")) {
+            boolean skipLine = false;
+            switch (++lineno) {
+                case 1:
+                    skipLine = line.matches("^Content-Type: text/x-zim-wiki$");
+                    break;
+                case 2:
+                    skipLine = line.matches("^Wiki-Format: zim \\d+\\.\\d+$");
+                    break;
+                case 3:
+                    skipLine = line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+.:\\d+]*");
+                    break;
+                case 4:
+                    skipLine = line.isEmpty();
+                    break;
+            }
+            if (skipLine)
+                continue;
+
             for (ZimWikiHighlighterPattern pattern : ZimWikiHighlighterPattern.values()) {
+                String target;
                 matcher = pattern.pattern.matcher(line);
+                boolean found = false;
                 while (matcher.find()) {
+                    found = true;
                     switch (pattern) {
-                        case ITALICS:
+                        case EMPHASIS:
                             matcher.appendReplacement(converted, //
-                                    matcher.group().replaceAll("^//|//$", "*"));
+                                    matcher.group().replaceAll("^/+|/+$", "*"));
                             break;
                         case LINK:
+                            String[] sides = matcher.group() //
+                                    .replaceAll("^\\[+", "") //
+                                    .replaceAll("\\]+$", "") //
+                                    .split("\\|");
                             matcher.appendReplacement(converted, //
-                                    matcher.group() //
-                                            .replaceAll("^\\[\\[", "[") //
-                                            .replaceAll("|", "](") //
-                                            .replaceAll("\\]\\]$", ")"));
+                                    String.format("[%s](%s)", sides[1], sides[0]));
                             break;
                         case LINKTOP:
-                            matcher.appendReplacement(converted,
-                                    matcher.group() //
-                                            .replaceAll("^\\[\\[", "[") //
-                                            .replaceAll("\\]\\]$", "](") //
-                                            + "file://" // TODO
-                                            + ")");
+                            target = matcher.group() //
+                                    .replaceAll("^\\[+", "") //
+                                    .replaceAll("\\]+$", "");
+                            matcher.appendReplacement(converted, //
+                                    String.format("[%s](file://%s/%s)", //
+                                            target, //
+                                            file.getParentFile().getAbsoluteFile(), //
+                                            target));
                             break;
                         case LINKSUB:
-                            matcher.appendReplacement(converted,
-                                    matcher.group() //
-                                            .replaceAll("^\\[\\[", "[") //
-                                            .replaceAll("\\]\\]$", "](") //
-                                            + "file://" // TODO
-                                            + ")");
+                            target = matcher.group() //
+                                    .replaceAll("^\\[+", "") //
+                                    .replaceAll("\\]+$", "");
+                            matcher.appendReplacement(converted, //
+                                    String.format("[%s](file://%s)", target, target));
                         case LIST_ORDERED:
                             matcher.appendReplacement(converted, //
                                     matcher.group().replaceAll("[0-9a-zA-Z]+\\.", "1."));
                             break;
                         case HEADING:
                             // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
-                            int markdownLevel = 5 - matcher.group().replaceAll("[^=]", "").length() / 2;
+                            int markdownLevel = 0;
+                            while (matcher.group().charAt(markdownLevel) == '=')
+                                markdownLevel++;
 
                             // Maximum header level is 5, and has two equal signs
-                            markdownLevel = markdownLevel > 5 ? 5 : markdownLevel;
+                            markdownLevel = 7 - (markdownLevel >= 6 ? 6 : markdownLevel);
 
                             String hashes = " ";
-                            for (int iHash = 0; iHash == markdownLevel; iHash++)
+                            for (int iHash = 0; iHash < markdownLevel; iHash++)
                                 hashes = "#" + hashes;
 
                             matcher.appendReplacement(converted, //
@@ -97,71 +119,32 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                         case LIST_CHECK:
                             matcher.appendReplacement(converted, "- " + matcher.group());
                             break;
-                        case QUOTATION: // TODO
+                        case VERBATIM:
+                            matcher.appendReplacement(converted, "`" + matcher.group() + "`");
+                            break;
                         case LIST_UNORDERED:
-                        case STRIKETHROUGH:
-                        case BOLD:
+                        case STRIKE:
+                        case STRONG:
                         default:
                             line = line;
                             break;
                     }
+                    if (found)
+                        matcher.appendTail(converted);
                 }
-                matcher.appendTail(converted);
+                converted.append('\n');
             }
-            converted.append('\n');
         }
 
         return converter.convertMarkup(converted.toString(), context, isExportInLightMode, file);
     }
 
     /**
-     * Checks the first three lines of a legit markdown file to contain typical Zim-Wiki header lines.
-     *
      * @param filepath of a file
-     * @return true if the file is a markdown file and the zim-wiki header is present, otherwise false.
+     * @return true if the file extension is .txt; false otherwise
      */
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        if (!converter.isFileOutOfThisFormat(filepath))
-            return false;
-
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(filepath));
-            String line;
-            int lineno = 0;
-            while ((line = reader.readLine()) != null) {
-                switch (++lineno) {
-                    case 1:
-                        if (!line.matches("^Content-Type: text/x-zim-wiki\\n\\r?$"))
-                            return false;
-                        break;
-                    case 2:
-                        if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+\\n\\r?$"))
-                            return false;
-                        break;
-                    case 3:
-                        if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+\\n\\r?$]"))
-                            return false;
-                        break;
-                    case 4:
-                        if (!line.isEmpty())
-                            return true;
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            // TODO no file
-            return false;
-        }
-        if (reader != null) {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                // TODO fails closing
-            }
-        }
-
-        return true;
+        return filepath.matches("(?i)^.+\\.txt$");
     }
 }
