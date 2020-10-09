@@ -118,13 +118,13 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                             break;
                         case HEADING:
                             // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
-                            int markdownLevel = 5 - matcher.group().replaceAll("[^=]", "").length()/2;
+                            int markdownLevel = 5 - matcher.group().replaceAll("[^=]", "").length() / 2;
 
                             // Maximum header level is 5, and has two equal signs
                             markdownLevel = markdownLevel > 5 ? 5 : markdownLevel;
 
                             String hashes = " ";
-                            for(int iHash=0; iHash == markdownLevel; iHash++)
+                            for (int iHash = 0; iHash == markdownLevel; iHash++)
                                 hashes = "#" + hashes;
 
                             matcher.appendReplacement(converted, //
