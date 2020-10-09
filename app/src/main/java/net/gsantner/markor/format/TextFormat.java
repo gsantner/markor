@@ -47,7 +47,7 @@ public class TextFormat {
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
-    private final static TextConverter[] CONVERTERS = new TextConverter[]{CONVERTER_ZIMWIKI, CONVERTER_MARKDOWN, CONVERTER_TODOTXT, CONVERTER_KEYVALUE, CONVERTER_PLAINTEXT};
+    private final static TextConverter[] CONVERTERS = new TextConverter[]{CONVERTER_MARKDOWN, CONVERTER_TODOTXT, CONVERTER_ZIMWIKI, CONVERTER_KEYVALUE, CONVERTER_PLAINTEXT};
 
     // Either pass file or null and absolutePath
     public static boolean isTextFile(File file, String... absolutePath) {
