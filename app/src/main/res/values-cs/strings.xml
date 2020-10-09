@@ -377,4 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Blok kódu</string>
     <string name="add_completion_date">Přidat datum dokončení</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Přidat datum dokončení úloh při označení jako hotové</string>
+    <string name="file_description_format">Formát popisu souboru</string>
+    <string name="file_description_format_dialog">Formát pro popis každého souboru v prohlížeči souborů. Postupujte podle pravidel SimpleDateFormat Android s přidáním FS pro zobrazení velikosti souboru. Ponechte prázdné pro použití výchozího formátu pro vaše locale.\n\nPříklad vstupu:\nFS yyyy MMM dd hh:mm:ss aa\nVýstupní formát:\n30KB 2020 bře 20 11:24:52</string>
+    <string name="loading_default_value">Načítání výchozí hodnoty</string>
 </resources>
