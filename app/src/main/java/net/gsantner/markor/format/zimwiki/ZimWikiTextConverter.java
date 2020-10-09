@@ -10,50 +10,14 @@
 package net.gsantner.markor.format.zimwiki;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
-import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
-import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiImageType;
-import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
-import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
-import com.vladsch.flexmark.ext.ins.InsExtension;
-import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
-import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
-import com.vladsch.flexmark.ext.tables.TablesExtension;
-import com.vladsch.flexmark.ext.toc.SimTocExtension;
-import com.vladsch.flexmark.ext.toc.TocExtension;
-import com.vladsch.flexmark.ext.toc.internal.TocOptions;
-import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
-import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.options.MutableDataSet;
-
-import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.util.AppSettings;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 /**
  * Wrapper class around MarkdownTextConverter
@@ -64,7 +28,7 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
     private static MarkdownTextConverter converter;
 
     public ZimWikiTextConverter(MarkdownTextConverter converter) {
-        this.converter = converter;
+        ZimWikiTextConverter.converter = converter;
     }
 
     /**
