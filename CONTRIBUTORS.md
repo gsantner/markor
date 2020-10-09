@@ -45,3 +45,4 @@ Where:
 * **[Niels](https://stackoverflow.com/users/432115/niels)**<br>~° Added encryption for textfile contents.
 * **[Helguli](https://github.com/Helguli)**<br>~° Added fast scroll to editor.
 * **[Patricia Heimfarth](https://github.com/PatriciaHeimfarth)**<br>~° Added checkbox for todo completion date
+* **[Peter Schwede](https://github.com/pschwede)**<br>~° Added Zim-Wiki support.
