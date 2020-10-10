@@ -13,7 +13,10 @@ import android.content.Context;
 
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Matcher;
 
 /**
@@ -176,6 +179,45 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      */
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        return filepath.matches("(?i)^.+\\.txt$");
+        if (!filepath.matches("(?i)^.+\\.txt$"))
+            return false;
+
+        boolean result = true;
+        File file = new File(filepath);
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String line;
+            int lineno = 0;
+            while ((line = reader.readLine()) != null && lineno < 4) {
+                switch (++lineno) {
+                    case 1:
+                        if (!line.matches("^Content-Type: text/x-zim-wiki$"))
+                            result = false;
+                        break;
+                    case 2:
+                        if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+$"))
+                            result = false;
+                        break;
+                    case 3:
+                        if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+$"))
+                            result = false;
+                        break;
+                    case 4:
+                        if (!line.isEmpty())
+                            result = false;
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            // dunno
+        }
+        try {
+            if (reader != null)
+                reader.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return result;
     }
 }

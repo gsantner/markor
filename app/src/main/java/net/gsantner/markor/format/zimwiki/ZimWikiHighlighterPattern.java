@@ -25,6 +25,7 @@ public enum ZimWikiHighlighterPattern {
     SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
     SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
     VERBATIM(Pattern.compile("(''(?!').+?'')")),
+    VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')")),
     // TODO Table
     ;
 
