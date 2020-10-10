@@ -165,12 +165,12 @@ public class CommonTextActions {
             }
             case ACTION_SEARCH: {
                 SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText, null,
-                    (text, line) -> {
+                    (text, lineNr) -> {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
                         // Go to beginning of line #line
-                        _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, line, 0)));
+                        _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, lineNr, 0)));
                     }
                 );
                 return true;

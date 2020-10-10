@@ -185,8 +185,8 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
                     final String origText = _hlEditor.getText().toString();
-                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, (text, line) -> {
-                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, line, 0));
+                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, (text, lineNr) -> {
+                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                     });
                     return true;
                 }
