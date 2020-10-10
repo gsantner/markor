@@ -56,10 +56,6 @@ public class ZimWikiHighlighter extends net.gsantner.markor.ui.hleditor.Highligh
 
             _profiler.restart("Heading");
             createHeaderSpanForMatches(spannable, ZimWikiHighlighterPattern.HEADING, MD_COLOR_HEADING);
-            _profiler.restart("LinkSub");
-            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINKSUB.pattern, MD_COLOR_LINK);
-            _profiler.restart("LinkTop");
-            createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINKTOP.pattern, MD_COLOR_LINK);
             _profiler.restart("Link");
             createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
             _profiler.restart("List");

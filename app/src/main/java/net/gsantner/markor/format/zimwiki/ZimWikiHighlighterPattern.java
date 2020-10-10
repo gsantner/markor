@@ -13,9 +13,7 @@ import java.util.regex.Pattern;
 
 public enum ZimWikiHighlighterPattern {
     HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
-    LINK(Pattern.compile("(\\[\\[(?!\\[)(.*?)\\|(.+?\\]*)\\]\\])")),
-    LINKSUB(Pattern.compile("\\[\\[\\+([^\\]]+)\\]\\]")),
-    LINKTOP(Pattern.compile("\\[\\[:([^\\]]+)\\]\\]")),
+    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)\\]\\])")),
     IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
     LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?\\]|\\([ xX*>]?\\)) ")),
     LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
