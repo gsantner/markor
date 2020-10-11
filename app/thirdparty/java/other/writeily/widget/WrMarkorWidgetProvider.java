@@ -52,11 +52,6 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // Handling widget color scheme
-        handleWidgetScheme(
-                context,
-                new RemoteViews(context.getPackageName(), R.layout.widget_layout),
-                new AppSettings(context).isDarkThemeEnabled());
 
         final int N = appWidgetIds.length;
 
@@ -128,12 +123,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
     }
 
     public static void handleWidgetScheme(Context context, RemoteViews remoteViews, Boolean enabled) {
-        if (!enabled) {
+        if (enabled) {
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
-            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.dark__primary_text));
         } else {
             remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
-            remoteViews.setTextColor(R.id.widget_note_title, context.getResources().getColor(R.color.light__primary_text));
         }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         appWidgetManager.updateAppWidget(new ComponentName(context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);

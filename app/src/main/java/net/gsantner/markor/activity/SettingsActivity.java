@@ -231,6 +231,11 @@ public class SettingsActivity extends AppActivityBase {
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 restartActivity();
                 _as.setRecreateMainRequired(true);
+                // Handling widget color scheme
+                WrMarkorWidgetProvider.handleWidgetScheme(
+                        getContext(),
+                        new RemoteViews(getContext().getPackageName(), R.layout.widget_layout),
+                        new AppSettings(getContext()).isDarkThemeEnabled());
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
@@ -373,11 +378,6 @@ public class SettingsActivity extends AppActivityBase {
                 }
             }
 
-            // Handling widget color scheme
-            WrMarkorWidgetProvider.handleWidgetScheme(
-                    getContext(),
-                    new RemoteViews(getContext().getPackageName(), R.layout.widget_layout),
-                    new AppSettings(getContext()).isDarkThemeEnabled());
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
                 _as.setRecreateMainRequired(true);
