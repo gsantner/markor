@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/end_icon"
         android:layout_toLeftOf="@id/end_icon"
-        android:layout_centerVertical="true"
-        android:text="@string/enable_action" />
+        android:layout_marginRight="25dp"
+        android:layout_centerVertical="true" />
 
     <ImageView
         android:id="@+id/end_icon"
