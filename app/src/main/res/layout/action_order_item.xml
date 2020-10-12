@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/end_icon"
         android:layout_toLeftOf="@id/end_icon"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="20dp"
         android:layout_centerVertical="true" />
 
     <ImageView

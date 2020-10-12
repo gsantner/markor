@@ -212,8 +212,6 @@ public class ActionOrderActivity extends AppCompatActivity {
     private static class Holder extends RecyclerView.ViewHolder {
         private final RelativeLayout _row;
         private Switch _enabled;
-        private Set<String> _disabled;
-        private String _key;
 
         private Holder(View row) {
             super(row);
@@ -221,9 +219,11 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         private void bindModel(TextActions.ActionItem action) {
+            _enabled = (Switch) _row.getChildAt(2);
+            _enabled.setOnCheckedChangeListener(null);
+
             ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
             ((TextView) _row.getChildAt(1)).setText(action.stringId);
-            _enabled = (Switch) _row.getChildAt(2);
         }
 
         public void setHighlight() {
@@ -238,15 +238,13 @@ public class ActionOrderActivity extends AppCompatActivity {
             return _enabled.isChecked();
         }
 
-        public void setEnabled(final String key, final Set<String> disabled) {
-            _disabled = disabled;
-            _key = key;
-            _enabled.setChecked(!_disabled.contains(key));
+        public void setEnabled(final String key, final Set<String> disabledSet) {
+            _enabled.setChecked(!disabledSet.contains(key));
             _enabled.setOnCheckedChangeListener((button, isChecked) -> {
                if (isChecked) {
-                  _disabled.remove(key);
+                  disabledSet.remove(key);
                } else {
-                   _disabled.add(key);
+                   disabledSet.add(key);
                }
             });
         }
