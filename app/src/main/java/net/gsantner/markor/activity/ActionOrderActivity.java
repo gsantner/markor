@@ -197,10 +197,8 @@ public class ActionOrderActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
-            TextActions.ActionItem item = _actions.get(order.get(position));
-            holder.bindModel(item);
-            String key = _keys.get(position);
-            holder.setEnabled(key, _disabled);
+            final int index = order.get(position);
+            holder.bindModel(_actions.get(index), _keys.get(index), _disabled);
         }
 
         @Override
@@ -218,12 +216,21 @@ public class ActionOrderActivity extends AppCompatActivity {
             _row = (RelativeLayout) row;
         }
 
-        private void bindModel(TextActions.ActionItem action) {
-            _enabled = (Switch) _row.getChildAt(2);
+        private void bindModel(final TextActions.ActionItem action, final String key, final Set<String> disabled) {
+            _enabled = (Switch) _row.findViewById(R.id.enabled_switch);
             _enabled.setOnCheckedChangeListener(null);
 
-            ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
-            ((TextView) _row.getChildAt(1)).setText(action.stringId);
+            _enabled.setChecked(!disabled.contains(key));
+            _enabled.setOnCheckedChangeListener((button, isChecked) -> {
+                if (isChecked) {
+                    disabled.remove(key);
+                } else {
+                    disabled.add(key);
+                }
+            });
+
+            ((ImageView) _row.findViewById(R.id.start_icon)).setImageResource(action.iconId);
+            ((TextView) _row.findViewById(R.id.action_text)).setText(action.stringId);
         }
 
         public void setHighlight() {
@@ -236,17 +243,6 @@ public class ActionOrderActivity extends AppCompatActivity {
 
         public boolean getEnabled() {
             return _enabled.isChecked();
-        }
-
-        public void setEnabled(final String key, final Set<String> disabledSet) {
-            _enabled.setChecked(!disabledSet.contains(key));
-            _enabled.setOnCheckedChangeListener((button, isChecked) -> {
-               if (isChecked) {
-                  disabledSet.remove(key);
-               } else {
-                   disabledSet.add(key);
-               }
-            });
         }
     }
 
