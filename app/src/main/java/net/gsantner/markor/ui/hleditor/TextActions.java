@@ -103,13 +103,12 @@ public abstract class TextActions {
     protected abstract List<ActionItem> getActiveActionList();
 
     /**
-     * Derived classes may return a List of keyId strings.
      * These will not be added to the actions list.
      *
      * @return List of keyId strings.
      */
     public List<String> getDisabledActions() {
-        return Collections.emptyList();
+        return loadActionPreference(DISABLED_SUFFIX);
     }
 
     /**
@@ -153,7 +152,7 @@ public abstract class TextActions {
      * @param keys of keys (in order) to save
      */
     public void saveDisabledActions(final List<String> keys) {
-        saveActionPreference(DISABLED_SUFFIX, TextUtils.join(",", keys));
+        saveActionPreference(DISABLED_SUFFIX, keys);
     }
 
     /**
@@ -165,13 +164,24 @@ public abstract class TextActions {
      * @param keys of keys (in order) to save
      */
     public void saveActionOrder(final List<String> keys) {
-        saveActionPreference(ORDER_SUFFIX, TextUtils.join(",", keys));
+        saveActionPreference(ORDER_SUFFIX, keys);
     }
 
-    private void saveActionPreference(final String suffix, final String value) {
+    private void saveActionPreference(final String suffix, final List<String> values) {
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
-        settings.edit().putString(formatKey, value).apply();
+        settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
+    }
+
+    private List<String> loadActionPreference(final String suffix) {
+        String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
+        SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        String combinedKeys = settings.getString(formatKey, null);
+        List<String> values = Collections.EMPTY_LIST;
+        if (combinedKeys != null) {
+            values = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
+        }
+        return values;
     }
 
     /**
@@ -190,32 +200,22 @@ public abstract class TextActions {
     public List<String> getActionOrder() {
 
         ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());
-        ArrayList<String> prefKeys = definedKeys;
+        List<String> prefKeys = new ArrayList<>(loadActionPreference(ORDER_SUFFIX));
 
-        String formatKey = _activity.getResources().getString(getFormatActionsKey());
-        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
-        String combinedKeys = settings.getString(formatKey, null);
+        Set<String> prefSet = new HashSet<>(prefKeys);
+        Set<String> defSet = new HashSet<>(definedKeys);
 
-        boolean changed = false;
-        if (combinedKeys != null) {
-            prefKeys = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
+        // Add any defined keys which are not in prefs
+        defSet.removeAll(prefSet);
+        prefKeys.addAll(defSet);
 
-            Set<String> prefSet = new HashSet<>(prefKeys);
-            Set<String> defSet = new HashSet<>(definedKeys);
+        // Remove any pref keys which are not defined
+        prefSet.removeAll(definedKeys);
+        prefKeys.removeAll(prefSet);
 
-            // Add any defined keys which are not in prefs
-            defSet.removeAll(prefSet);
-            prefKeys.addAll(defSet);
-
-            // Removed any pref keys which are not defined
-            prefSet.removeAll(definedKeys);
-            prefKeys.removeAll(prefSet);
-
-            changed = defSet.size() > 0 || prefSet.size() > 0;
-
+        if (defSet.size() > 0 || prefSet.size() > 0) {
+            saveActionOrder(prefKeys);
         }
-
-        if (changed) saveActionOrder(prefKeys);
 
         return prefKeys;
     }

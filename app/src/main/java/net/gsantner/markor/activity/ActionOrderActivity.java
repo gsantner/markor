@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +37,7 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -83,7 +83,7 @@ public class ActionOrderActivity extends AppCompatActivity {
         _recycler.addItemDecoration(new DividerItemDecoration(_recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
-        _adapter = new OrderAdapter(_actions, _disabled);
+        _adapter = new OrderAdapter(_actions, _keys, _disabled);
 
         final ItemTouchHelper.Callback callback = new ReorderCallback(_adapter);
         final ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -131,15 +131,11 @@ public class ActionOrderActivity extends AppCompatActivity {
         final ArrayList<String> disabledKeys = new ArrayList<>();
 
         for (final int i : _adapter.order) {
-            final String key = _keys.get(i);
-            reorderedKeys.add(key);
-            if ( !(((Holder) _recycler.findViewHolderForAdapterPosition(i)).getEnabled()) ) {
-                disabledKeys.add(key);
-            }
+            reorderedKeys.add(_keys.get(i));
         }
 
         _textActions.saveActionOrder(reorderedKeys);
-        _textActions.saveDisabledActions(disabledKeys);
+        _textActions.saveDisabledActions(new ArrayList<>(_adapter._disabled));
     }
 
     @Override
@@ -177,21 +173,20 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private class OrderAdapter extends RecyclerView.Adapter<Holder> {
         private final List<TextActions.ActionItem> _actions;
+        private final List<String> _keys;
         private final Set<String> _disabled;
         private final List<Integer> order;
-        private final Resources _res;
 
-        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> disabled) {
+        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> keys, List<String> disabled) {
             super();
             _actions = actions;
+            _keys = keys;
             _disabled = new HashSet<>(disabled);
 
             order = new ArrayList<>();
             for (int i = 0; i < _actions.size(); i++) {
                 order.add(i);
             }
-
-            _res = getResources();
         }
 
         @NonNull
@@ -204,7 +199,8 @@ public class ActionOrderActivity extends AppCompatActivity {
         public void onBindViewHolder(Holder holder, int position) {
             TextActions.ActionItem item = _actions.get(order.get(position));
             holder.bindModel(item);
-            holder.setEnabled(!_disabled.contains(_res.getString(item.keyId)));
+            String key = _keys.get(position);
+            holder.setEnabled(key, _disabled);
         }
 
         @Override
@@ -216,6 +212,8 @@ public class ActionOrderActivity extends AppCompatActivity {
     private static class Holder extends RecyclerView.ViewHolder {
         private final RelativeLayout _row;
         private Switch _enabled;
+        private Set<String> _disabled;
+        private String _key;
 
         private Holder(View row) {
             super(row);
@@ -240,8 +238,17 @@ public class ActionOrderActivity extends AppCompatActivity {
             return _enabled.isChecked();
         }
 
-        public void setEnabled(boolean checked) {
-            _enabled.setChecked(checked);
+        public void setEnabled(final String key, final Set<String> disabled) {
+            _disabled = disabled;
+            _key = key;
+            _enabled.setChecked(!_disabled.contains(key));
+            _enabled.setOnCheckedChangeListener((button, isChecked) -> {
+               if (isChecked) {
+                  _disabled.remove(key);
+               } else {
+                   _disabled.add(key);
+               }
+            });
         }
     }
 
