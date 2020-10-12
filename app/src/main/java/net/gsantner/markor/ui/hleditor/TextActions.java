@@ -61,7 +61,7 @@ public abstract class TextActions {
     private int _textActionSidePadding;
 
     private static final String ACTION_ORDER_PREF_NAME = "action_order";
-    private static final String ORDER_SUFFIX = "";
+    private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
     public TextActions(Activity activity, Document document) {
@@ -201,6 +201,11 @@ public abstract class TextActions {
 
         ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());
         List<String> prefKeys = new ArrayList<>(loadActionPreference(ORDER_SUFFIX));
+
+        // Handle the case where order was stored without suffix. i.e. before this release.
+        if (prefKeys.size() == 0) {
+            prefKeys = new ArrayList<>(loadActionPreference(""));
+        }
 
         Set<String> prefSet = new HashSet<>(prefKeys);
         Set<String> defSet = new HashSet<>(definedKeys);
