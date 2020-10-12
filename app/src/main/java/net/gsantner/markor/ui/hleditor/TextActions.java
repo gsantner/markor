@@ -167,7 +167,11 @@ public abstract class TextActions {
         saveActionPreference(ORDER_SUFFIX, keys);
     }
 
-    private void saveActionPreference(final String suffix, final List<String> values) {
+    private void saveActionPreference(final String suffix, List<String> values) {
+        // Remove any values not in current actions
+        values = new ArrayList<>(values);
+        values.retainAll(getActiveActionKeys());
+
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
         settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
