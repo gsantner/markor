@@ -71,6 +71,12 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             FilesystemViewerFragment.sortFolder(files);
         }
         _widgetFilesList = files.toArray(new File[files.size()]);
+
+        // Handling widget color scheme
+        WrMarkorWidgetProvider.handleWidgetScheme(
+                _context,
+                new RemoteViews(_context.getPackageName(), R.layout.widget_layout),
+                new AppSettings(_context).isDarkThemeEnabled());
     }
 
     @Override
