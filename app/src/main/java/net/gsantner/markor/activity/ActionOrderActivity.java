@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -38,8 +40,10 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
 
@@ -47,10 +51,12 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     public static final String EXTRA_FORMAT_KEY = "FORMAT_KEY";
 
-    private Adapter _adapter;
-    private ArrayList<String> _keys;
-    private ArrayList<TextActions.ActionItem> _actions;
+    private OrderAdapter _adapter;
+    private List<String> _keys;
+    private List<String> _disabled;
+    private List<TextActions.ActionItem> _actions;
     private TextActions _textActions;
+    private RecyclerView _recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +78,19 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         // Set up recyclerview
-        final RecyclerView recycler = findViewById(R.id.action_order_activity_recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
+        _recycler = findViewById(R.id.action_order_activity_recycler);
+        _recycler.setLayoutManager(new LinearLayoutManager(this));
+        _recycler.addItemDecoration(new DividerItemDecoration(_recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
-        _adapter = new Adapter(_actions);
+        _adapter = new OrderAdapter(_actions, _disabled);
 
         final ItemTouchHelper.Callback callback = new ReorderCallback(_adapter);
         final ItemTouchHelper helper = new ItemTouchHelper(callback);
-        helper.attachToRecyclerView(recycler);
+        helper.attachToRecyclerView(_recycler);
 
-        recycler.setHasFixedSize(true);
-        recycler.setAdapter(_adapter);
+        _recycler.setHasFixedSize(true);
+        _recycler.setAdapter(_adapter);
     }
 
     @Override
@@ -122,10 +128,18 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private void saveNewOrder() {
         final ArrayList<String> reorderedKeys = new ArrayList<>();
-        for (int i : _adapter.order) {
-            reorderedKeys.add(_keys.get(i));
+        final ArrayList<String> disabledKeys = new ArrayList<>();
+
+        for (final int i : _adapter.order) {
+            final String key = _keys.get(i);
+            reorderedKeys.add(key);
+            if ( !(((Holder) _recycler.findViewHolderForAdapterPosition(i)).getEnabled()) ) {
+                disabledKeys.add(key);
+            }
         }
+
         _textActions.saveActionOrder(reorderedKeys);
+        _textActions.saveDisabledActions(disabledKeys);
     }
 
     @Override
@@ -152,26 +166,32 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         final Map<String, TextActions.ActionItem> actionMap = _textActions.getActiveActionMap();
-        _keys = new ArrayList<>(_textActions.getActionOrder());
-        _actions = new ArrayList<>();
+        _keys = _textActions.getActionOrder();
+        _disabled = _textActions.getDisabledActions();
 
-        for (String key : _keys) {
+        _actions = new ArrayList<>();
+        for (final String key : _keys) {
             _actions.add(actionMap.get(key));
         }
     }
 
-    private class Adapter extends RecyclerView.Adapter<Holder> {
+    private class OrderAdapter extends RecyclerView.Adapter<Holder> {
         private final List<TextActions.ActionItem> _actions;
-        private final ArrayList<Integer> order;
+        private final Set<String> _disabled;
+        private final List<Integer> order;
+        private final Resources _res;
 
-        private Adapter(List<TextActions.ActionItem> actions) {
+        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> disabled) {
             super();
             _actions = actions;
+            _disabled = new HashSet<>(disabled);
 
             order = new ArrayList<>();
             for (int i = 0; i < _actions.size(); i++) {
                 order.add(i);
             }
+
+            _res = getResources();
         }
 
         @NonNull
@@ -182,7 +202,9 @@ public class ActionOrderActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
-            holder.bindModel(_actions.get(order.get(position)));
+            TextActions.ActionItem item = _actions.get(order.get(position));
+            holder.bindModel(item);
+            holder.setEnabled(!_disabled.contains(_res.getString(item.keyId)));
         }
 
         @Override
@@ -193,6 +215,7 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private static class Holder extends RecyclerView.ViewHolder {
         private final RelativeLayout _row;
+        private Switch _enabled;
 
         private Holder(View row) {
             super(row);
@@ -202,21 +225,30 @@ public class ActionOrderActivity extends AppCompatActivity {
         private void bindModel(TextActions.ActionItem action) {
             ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
             ((TextView) _row.getChildAt(1)).setText(action.stringId);
+            _enabled = (Switch) _row.getChildAt(2);
         }
 
-        private void setHighlight() {
+        public void setHighlight() {
             _row.setAlpha(0.5f);
         }
 
-        private void unsetHighlight() {
+        public void unsetHighlight() {
             _row.setAlpha(1.0f);
+        }
+
+        public boolean getEnabled() {
+            return _enabled.isChecked();
+        }
+
+        public void setEnabled(boolean checked) {
+            _enabled.setChecked(checked);
         }
     }
 
     private class ReorderCallback extends ItemTouchHelper.SimpleCallback {
-        private final Adapter _adapter;
+        private final OrderAdapter _adapter;
 
-        private ReorderCallback(Adapter adapter) {
+        private ReorderCallback(OrderAdapter adapter) {
             super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
             _adapter = adapter;
         }
@@ -253,5 +285,3 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 }
-
-

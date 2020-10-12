@@ -18,6 +18,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ import net.gsantner.opoc.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,6 +60,10 @@ public abstract class TextActions {
     protected ActivityUtils _au;
     private int _textActionSidePadding;
 
+    private static final String ACTION_ORDER_PREF_NAME = "action_order";
+    private static final String ORDER_SUFFIX = "";
+    private static final String DISABLED_SUFFIX = "_disabled";
+
     public TextActions(Activity activity, Document document) {
         _document = document;
         _activity = activity;
@@ -70,8 +76,7 @@ public abstract class TextActions {
     /**
      * Derived classes must implement a callback which inherits from ActionCallback
      */
-    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
-    }
+    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {};
 
     /**
      * Factory to generate ActionCallback for given keyId
@@ -96,6 +101,16 @@ public abstract class TextActions {
      * @return List of ActionItems
      */
     protected abstract List<ActionItem> getActiveActionList();
+
+    /**
+     * Derived classes may return a List of keyId strings.
+     * These will not be added to the actions list.
+     *
+     * @return List of keyId strings.
+     */
+    public List<String> getDisabledActions() {
+        return Collections.emptyList();
+    }
 
     /**
      * Map every string Action identifier -> ActionItem
@@ -137,18 +152,26 @@ public abstract class TextActions {
      *
      * @param keys of keys (in order) to save
      */
-    public void saveActionOrder(List<String> keys) {
-        StringBuilder builder = new StringBuilder();
-        for (String key : keys) builder.append(key).append(',');
-        if (builder.length() > 0 && builder.charAt(builder.length() - 1) == ',') {
-            builder.deleteCharAt(builder.length() - 1);
-        }
-        String combinedKeys = builder.toString();
+    public void saveDisabledActions(final List<String> keys) {
+        saveActionPreference(DISABLED_SUFFIX, TextUtils.join(",", keys));
+    }
 
-        // Store the keys
-        SharedPreferences settings = _activity.getSharedPreferences("action_order", Context.MODE_PRIVATE);
-        String formatKey = _activity.getResources().getString(getFormatActionsKey());
-        settings.edit().putString(formatKey, combinedKeys).apply();
+    /**
+     * Save an action order to preferences.
+     * The Preference is derived from the key returned by getFormatActionsKey
+     * <p>
+     * Keys are joined into a comma separated list before saving.
+     *
+     * @param keys of keys (in order) to save
+     */
+    public void saveActionOrder(final List<String> keys) {
+        saveActionPreference(ORDER_SUFFIX, TextUtils.join(",", keys));
+    }
+
+    private void saveActionPreference(final String suffix, final String value) {
+        SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
+        settings.edit().putString(formatKey, value).apply();
     }
 
     /**
@@ -197,16 +220,20 @@ public abstract class TextActions {
         return prefKeys;
     }
 
+
     public void appendTextActionsToBar(ViewGroup barLayout) {
         if (barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
 
-            Map<String, ActionItem> map = getActiveActionMap();
-            List<String> orderedKeys = getActionOrder();
-            for (String key : orderedKeys) {
-                ActionItem action = map.get(key);
-                ActionCallback actionCallback = getActionCallback(action.keyId);
-                appendTextActionToBar(barLayout, action.iconId, action.stringId, actionCallback, actionCallback);
+            final Map<String, ActionItem> map = getActiveActionMap();
+            final List<String> orderedKeys = getActionOrder();
+            final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
+            for (final String key : orderedKeys) {
+                if (!disabledKeys.contains(key)) {
+                    final ActionItem action = map.get(key);
+                    final ActionCallback actionCallback = getActionCallback(action.keyId);
+                    appendTextActionToBar(barLayout, action.iconId, action.stringId, actionCallback, actionCallback);
+                }
             }
         }
     }

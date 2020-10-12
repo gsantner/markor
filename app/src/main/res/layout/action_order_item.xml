@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/enable_switch"
-        android:layout_toLeftOf="@id/enable_switch"
+        android:layout_toStartOf="@id/enabled"
+        android:layout_toLeftOf="@id/enabled"
         android:layout_toEndOf="@id/start_icon"
         android:layout_toRightOf="@id/start_icon"
         android:color="@color/primary_text"
@@ -29,11 +29,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
     <Switch
-        android:id="@+id/enable_switch"
+        android:id="@+id/enabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/end_icon"
         android:layout_toLeftOf="@id/end_icon"
+        android:layout_centerVertical="true"
         android:text="@string/enable_action" />
 
     <ImageView
