@@ -517,8 +517,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 .appendTextActionsToBar(_textActionsBar);
         if (_textActionsBar.getChildCount() == 0) {
             _textActionsBar.setVisibility(View.GONE);
+            ((HorizontalScrollView) _textActionsBar.getParent()).setVisibility(View.GONE);
         } else {
             _textActionsBar.setVisibility(View.VISIBLE);
+            ((HorizontalScrollView) _textActionsBar.getParent()).setVisibility(View.VISIBLE);
         }
     }
 
