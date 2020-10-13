@@ -12,12 +12,14 @@ package net.gsantner.markor.format.zimwiki;
 import android.content.Context;
 
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Wrapper class around MarkdownTextConverter
@@ -26,6 +28,30 @@ import java.util.regex.Matcher;
 public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConverter {
 
     private static MarkdownTextConverter converter;
+
+    private enum ZimWikiPatterns {
+        HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
+        LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?]*)]])")),
+        IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)}})")),
+        LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?]|\\([ xX*>]?\\)) ")),
+        LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
+        LIST_UNORDERED(Pattern.compile("^\t*(\\*)(?= )")),
+        EMPHASIS(Pattern.compile("(//(?!/)(.*?)(?<!:)//)")),
+        STRONG(Pattern.compile("(\\*\\*(?!\\*)(.*?)\\*\\*)")),
+        MARK(Pattern.compile("(__(?!_)(.*?)__)")),
+        STRIKE(Pattern.compile("(~~(?!~)(.+?)~~)")),
+        SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)})")),
+        SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)})")),
+        VERBATIM(Pattern.compile("(''(?!').+?'')")),
+        VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')"));
+        // TODO Table
+
+        private Pattern pattern;
+
+        ZimWikiPatterns(Pattern pattern) {
+            this.pattern = pattern;
+        }
+    }
 
     public ZimWikiTextConverter(MarkdownTextConverter converter) {
         ZimWikiTextConverter.converter = converter;
@@ -36,41 +62,23 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      *
      * @param markup              Markup text
      * @param context             Android Context
-     * @param isExportInLightMode
-     * @param file
+     * @param isExportInLightMode True if the light theme is to apply.
+     * @param file                The file to convert.
      * @return HTML text
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        StringBuffer result = new StringBuffer();
-        int lineno = 0;
+        StringBuilder result = new StringBuilder();
+        int lineNr = 0;
         Matcher matcher;
         for (String line : markup.split("\\n\\r?")) {
-            boolean skipLine = false;
-            switch (++lineno) {
-                case 1:
-                    skipLine = line.matches("^Content-Type: text/x-zim-wiki$");
-                    break;
-                case 2:
-                    skipLine = line.matches("^Wiki-Format: zim \\d+\\.\\d+$");
-                    break;
-                case 3:
-                    skipLine = line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+.:\\d+]*");
-                    break;
-                case 4:
-                    skipLine = line.isEmpty();
-                    break;
-            }
-            if (skipLine)
+            if (!checkHeader(++lineNr, line))
                 continue;
 
-            for (ZimWikiHighlighterPattern pattern : ZimWikiHighlighterPattern.values()) {
-                String target;
+            for (ZimWikiPatterns pattern : ZimWikiPatterns.values()) {
                 matcher = pattern.pattern.matcher(line);
-                boolean found = false;
                 while (matcher.find()) {
                     StringBuffer converted = new StringBuffer();
-                    found = true;
                     switch (pattern) {
                         case EMPHASIS:
                             matcher.appendReplacement(converted,
@@ -96,12 +104,12 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                         case SUBSCRIPT:
                             matcher.appendReplacement(converted,
                                     String.format("<sub>%s</sub>",
-                                            matcher.group().replaceAll("^_\\{|\\}$", "")));
+                                            matcher.group().replaceAll("^_\\{|}$", "")));
                             break;
                         case SUPERSCRIPT:
                             matcher.appendReplacement(converted,
                                     String.format("<sup>%s</sup>",
-                                            matcher.group().replaceAll("^\\^\\{|\\}$", "")));
+                                            matcher.group().replaceAll("^\\^\\{|}$", "")));
                             break;
                         case LIST_UNORDERED:
                         case STRIKE:
@@ -109,10 +117,8 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                         default:
                             break;
                     }
-                    if (found) {
-                        matcher.appendTail(converted);
-                        line = converted.toString();
-                    }
+                    matcher.appendTail(converted);
+                    line = converted.toString();
                 }
             }
             result.append(String.format("%s%n", line));
@@ -121,9 +127,6 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
         return converter.convertMarkup(result.toString(), context, isExportInLightMode, file);
     }
 
-    /**
-     *
-     */
     private String convertHeading(String group) {
         // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
         int markdownLevel = 0;
@@ -131,46 +134,69 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
             markdownLevel++;
 
         // Maximum header level is 5, and has two equal signs
-        markdownLevel = 7 - (markdownLevel >= 6 ? 6 : markdownLevel);
+        markdownLevel = 7 - Math.min(6, markdownLevel);
 
-        String hashes = " ";
-        for (int iHash = 0; iHash < markdownLevel; iHash++)
-            hashes = "#" + hashes;
-
-        return hashes + group.replaceAll("^=+\\s*|\\s*=+$", "");
+        return String.format("%s %s",
+                StringUtils.repeatChars('#', markdownLevel),
+                group.replaceAll("^=+\\s*|\\s*=+$", ""));
     }
 
-    /**
-     *
-     */
     private String convertLink(String group, Context context, File file) {
         String[] pair = group //
                 .replaceAll("^\\[+", "") //
-                .replaceAll("\\]+$", "") //
+                .replaceAll("]+$", "") //
                 .split("\\|");
 
-        String fullPath = "";
+        StringBuilder fullPath = new StringBuilder();
         if (pair[0].charAt(0) == '+') {
-            fullPath = "file://" //
-                    + context.getFilesDir().getAbsolutePath() //
-                    + File.separator //
-                    + pair[0].substring(1) //
-                    + ".txt";
+            fullPath.append("file://");
+            fullPath.append(context.getFilesDir().getAbsolutePath());
+            fullPath.append(File.separator);
+            fullPath.append(pair[0].substring(1));
+            fullPath.append(".txt");
         } else if (pair[0].matches("^[a-z]://.+$")) {
-            fullPath = pair[0];
+            fullPath.append(pair[0]);
         } else {
-            fullPath = "file://";
+            fullPath.append("file://");
             if (pair[0].charAt(0) == ':')
-                fullPath += context.getFilesDir().getAbsolutePath();
+                fullPath.append(context.getFilesDir().getAbsolutePath());
             else
-                fullPath += file.getParentFile().getAbsolutePath();
+                fullPath.append(file.getParentFile().getAbsolutePath());
             for (String token : pair[0].split(":")) {
-                fullPath += File.separator + token;
+                fullPath.append(File.separator);
+                fullPath.append(token);
             }
-            fullPath += ".txt";
-            fullPath = fullPath.replaceAll(" ", "%20"); // TODO proper URL encoding
+            fullPath.append(".txt");
         }
-        return String.format("[%s](%s)", pair[pair.length - 1], fullPath);
+        // TODO proper URL encoding
+        return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
+    }
+
+    /**
+     * @param lineNr The line number. First line has number 0.
+     * @param line   A line.
+     * @return True iff given line number and line of Zim-Wiki header is valid.
+     */
+    private boolean checkHeader(int lineNr, String line) {
+        switch (++lineNr) {
+            case 1:
+                if (!line.matches("^Content-Type: text/x-zim-wiki$"))
+                    return false;
+                break;
+            case 2:
+                if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+$"))
+                    return false;
+                break;
+            case 3:
+                if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+$"))
+                    return false;
+                break;
+            case 4:
+                if (!line.isEmpty())
+                    return false;
+                break;
+        }
+        return true;
     }
 
     /**
@@ -189,25 +215,8 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
             reader = new BufferedReader(new FileReader(file));
             String line;
             int lineno = 0;
-            while ((line = reader.readLine()) != null && lineno < 4) {
-                switch (++lineno) {
-                    case 1:
-                        if (!line.matches("^Content-Type: text/x-zim-wiki$"))
-                            result = false;
-                        break;
-                    case 2:
-                        if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+$"))
-                            result = false;
-                        break;
-                    case 3:
-                        if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+$"))
-                            result = false;
-                        break;
-                    case 4:
-                        if (!line.isEmpty())
-                            result = false;
-                        break;
-                }
+            while ((line = reader.readLine()) != null && ++lineno < 4) {
+                result &= checkHeader(lineno, line);
             }
         } catch (IOException e) {
             // dunno
