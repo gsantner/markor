@@ -1,34 +1,25 @@
-/*#######################################################
- *
- *   Maintained by Gregor Santner, 2018-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
-#########################################################*/
 package net.gsantner.markor.format.zimwiki;
+
+import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 
 import java.util.regex.Pattern;
 
 public enum ZimWikiHighlighterPattern {
-    HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
-    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)\\]\\])")),
-    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
-    LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?\\]|\\([ xX*>]?\\)) ")),
-    LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
-    LIST_UNORDERED(Pattern.compile("^\t*(\\*)(?= )")),
-    EMPHASIS(Pattern.compile("(//(?!/)(.*?)(?<!:)//)")),
-    STRONG(Pattern.compile("(\\*\\*(?!\\*)(.*?)\\*\\*)")),
-    MARK(Pattern.compile("(__(?!_)(.*?)__)")),
-    STRIKE(Pattern.compile("(~~(?!~)(.+?)~~)")),
-    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
-    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
-    VERBATIM(Pattern.compile("(''(?!').+?'')")),
-    VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')")),
-    // TODO Table
-    ;
 
+    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(\\*{2})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))(/{2})(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    MARKED(Pattern.compile("(?<=(\\n|^|\\s))(_{2})(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+    STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
+    HEADING(Pattern.compile("(?<=(\\n|^|\\s))(==+)[ \\t]+\\S.*?[ \\t]=*(?=(\\n|$|\\s))")),
+    PREFORMATTED_INLINE(Pattern.compile("''(?!')(.+?)''")),
+    PREFORMATTED_MULTILINE(Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])")),
+    LIST_UNORDERED(Pattern.compile("(?<=((\n|^)\\s{0,16}))\\*(?= )")),
+    LIST_ORDERED(Pattern.compile("(?<=((\n|^)(\\s{0,16})))(\\d+|[a-z])(\\.)(?= )")),
+    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)]\\])")),
+    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
+    LIST_CHECK(Pattern.compile("(?<=(\\n|^))\t*(\\[[ xX*>]?]|\\([ xX*>]?\\))(?= )")),
+    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
+    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})"));
 
     public final Pattern pattern;
 

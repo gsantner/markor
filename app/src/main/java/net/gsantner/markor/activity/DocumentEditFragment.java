@@ -412,7 +412,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_format_keyvalue:
             case R.id.action_format_todotxt:
             case R.id.action_format_plaintext:
-            case R.id.action_format_markdown: {
+            case R.id.action_format_markdown:
+            case R.id.action_format_zimwiki: {
                 if (_document != null) {
                     _document.setFormat(item.getItemId());
                     applyTextFormat(item.getItemId());
