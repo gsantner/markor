@@ -29,6 +29,8 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.ReplacementSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+import android.text.style.SubscriptSpan;
+import android.text.style.SuperscriptSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 import android.util.Patterns;
@@ -299,5 +301,13 @@ public abstract class Highlighter {
 
     protected static void createParagraphStyleSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator.ParagraphStyleCreator creator, int... groupsToMatch) {
         createSpanForMatchesP(spannable, pattern, creator, groupsToMatch);
+    }
+
+    protected static void createSuperscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new SuperscriptSpan(), groupsToMatch);
+    }
+
+    protected static void createSubscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
+        createSpanForMatches(spannable, pattern, (matcher, iM) -> new SubscriptSpan(), groupsToMatch);
     }
 }

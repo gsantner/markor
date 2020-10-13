@@ -2,7 +2,6 @@ package net.gsantner.markor.format.zimwiki;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spannable;
 
@@ -19,6 +18,8 @@ public class ZimWikiHighlighter extends Highlighter {
     private static final int MARKED_BACKGROUND_COLOR = 0xffffff00;
     private static final int UNORDERED_LIST_BULLET_COLOR = 0xffdaa521;
     private static final int ORDERED_LIST_NUMBER_COLOR = 0xffdaa521;
+    private static final int LINK_COLOR = 0xff0000ff;
+    private static final int CHECKLIST_COLOR = UNORDERED_LIST_BULLET_COLOR;  // TODO: use different colors for different check states
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
@@ -58,11 +59,26 @@ public class ZimWikiHighlighter extends Highlighter {
         _profiler.restart("Preformatted (monospaced) inline");
         createMonospaceSpanForMatches(spannable, ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern);
 
+        _profiler.restart("Preformatted (monospaced) multiline");
+        createMonospaceSpanForMatches(spannable, ZimWikiHighlighterPattern.PREFORMATTED_MULTILINE.pattern); // TODO: also indent a bit
+
         _profiler.restart("Unordered list");
         createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_UNORDERED.pattern, UNORDERED_LIST_BULLET_COLOR);
 
         _profiler.restart("Ordered list");
         createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_ORDERED.pattern, ORDERED_LIST_NUMBER_COLOR);
+
+        _profiler.restart("Link");
+        createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LINK.pattern, LINK_COLOR);
+
+        _profiler.restart("Superscript");
+        createSuperscriptStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.SUPERSCRIPT.pattern);
+
+        _profiler.restart("Subscript");
+        createSubscriptStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.SUBSCRIPT.pattern);
+
+        _profiler.restart("Checklist");
+        createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_CHECK.pattern, CHECKLIST_COLOR);
 
         _profiler.end();
         _profiler.printProfilingGroup();

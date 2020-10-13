@@ -12,9 +12,14 @@ public enum ZimWikiHighlighterPattern {
     STRIKETHROUGH(Pattern.compile("~{2}(.*?)\\S~{2}")),
     HEADING(Pattern.compile("(?<=(\\n|^|\\s))(==+)[ \\t]+\\S.*?[ \\t]=*(?=(\\n|$|\\s))")),
     PREFORMATTED_INLINE(Pattern.compile("''(?!')(.+?)''")),
-
+    PREFORMATTED_MULTILINE(Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])")),
     LIST_UNORDERED(Pattern.compile("(?<=((\n|^)\\s{0,16}))\\*(?= )")),
-    LIST_ORDERED(Pattern.compile("(?<=((\n|^)(\\s{0,16})))(\\d+|[a-z])(\\.)(?= )"));
+    LIST_ORDERED(Pattern.compile("(?<=((\n|^)(\\s{0,16})))(\\d+|[a-z])(\\.)(?= )")),
+    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)]\\])")),
+    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
+    LIST_CHECK(Pattern.compile("(?<=(\\n|^))\t*(\\[[ xX*>]?]|\\([ xX*>]?\\))(?= )")),
+    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
+    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})"));
 
     public final Pattern pattern;
 
