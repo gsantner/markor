@@ -31,8 +31,8 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
 
     private enum ZimWikiPatterns {
         HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
-        LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?]*)]])")),
-        IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)}})")),
+        LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)\\]\\])")),
+        IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
         LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?]|\\([ xX*>]?\\)) ")),
         LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
         LIST_UNORDERED(Pattern.compile("^\t*(\\*)(?= )")),
@@ -40,8 +40,8 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
         STRONG(Pattern.compile("(\\*\\*(?!\\*)(.*?)\\*\\*)")),
         MARK(Pattern.compile("(__(?!_)(.*?)__)")),
         STRIKE(Pattern.compile("(~~(?!~)(.+?)~~)")),
-        SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)})")),
-        SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)})")),
+        SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
+        SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
         VERBATIM(Pattern.compile("(''(?!').+?'')")),
         VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')"));
         // TODO Table
@@ -104,12 +104,12 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                         case SUBSCRIPT:
                             matcher.appendReplacement(converted,
                                     String.format("<sub>%s</sub>",
-                                            matcher.group().replaceAll("^_\\{|}$", "")));
+                                            matcher.group().replaceAll("^_\\{|\\}$", "")));
                             break;
                         case SUPERSCRIPT:
                             matcher.appendReplacement(converted,
                                     String.format("<sup>%s</sup>",
-                                            matcher.group().replaceAll("^\\^\\{|}$", "")));
+                                            matcher.group().replaceAll("^\\^\\{|\\}$", "")));
                             break;
                         case LIST_UNORDERED:
                         case STRIKE:

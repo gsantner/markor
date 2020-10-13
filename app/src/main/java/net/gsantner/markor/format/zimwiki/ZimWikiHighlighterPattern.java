@@ -15,11 +15,11 @@ public enum ZimWikiHighlighterPattern {
     PREFORMATTED_MULTILINE(Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])")),
     LIST_UNORDERED(Pattern.compile("(?<=((\n|^)\\s{0,16}))\\*(?= )")),
     LIST_ORDERED(Pattern.compile("(?<=((\n|^)(\\s{0,16})))(\\d+|[a-z])(\\.)(?= )")),
-    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?]*)]])")),
-    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)}})")),
+    LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)]\\])")),
+    IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
     LIST_CHECK(Pattern.compile("(?<=(\\n|^))\t*(\\[[ xX*>]?]|\\([ xX*>]?\\))(?= )")),
-    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)})")),
-    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)})"));
+    SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
+    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})"));
 
     public final Pattern pattern;
 
