@@ -11,8 +11,12 @@ import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
+import other.writeily.format.zimwiki.WrZimWikiHeaderSpanCreator;
+
 public class ZimWikiHighlighter extends Highlighter {
     private final boolean _highlightBiggerHeadings;
+    public final String _fontType;
+    public final Integer _fontSize;
 
     private static final int COLOR_HEADING = 0xff4e9a06;
     private static final int MARKED_BACKGROUND_COLOR = 0xffffff00;
@@ -23,7 +27,9 @@ public class ZimWikiHighlighter extends Highlighter {
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
-        _highlightBiggerHeadings = false;   // TODO(WIP): introduce an option for zim wiki bigger headings
+        _highlightBiggerHeadings = true;   // TODO(WIP): introduce an option for zim wiki bigger headings
+        _fontType = _appSettings.getFontFamily();
+        _fontSize = _appSettings.getFontSize();
     }
 
     @Override
@@ -39,7 +45,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
         _profiler.restart("Heading");
         if (_highlightBiggerHeadings) {
-            // TODO: resize text according to heading level
+            createHeaderSpanForMatches(spannable, ZimWikiHighlighterPattern.HEADING, COLOR_HEADING);
         } else {
             createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.HEADING.pattern, COLOR_HEADING);
         }
@@ -84,6 +90,10 @@ public class ZimWikiHighlighter extends Highlighter {
         _profiler.printProfilingGroup();
 
         return spannable;
+    }
+
+    private void createHeaderSpanForMatches(Spannable spannable, ZimWikiHighlighterPattern pattern, int headerColor) {
+        createSpanForMatches(spannable, pattern.pattern, new WrZimWikiHeaderSpanCreator(this, spannable, headerColor, _highlightBiggerHeadings));
     }
 
     @Override

@@ -9,55 +9,35 @@
 ###########################################################*/
 package other.writeily.format.markdown;
 
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.text.Spannable;
 import android.text.ParcelableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
+import android.text.Spannable;
 
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
 import net.gsantner.markor.ui.hleditor.SpanCreator;
 
 import java.util.regex.Matcher;
 
+import other.writeily.format.WrProportionalHeaderSpanCreator;
+
 public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
     private static final Character POUND_SIGN = '#';
-    private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;
 
     protected MarkdownHighlighter _highlighter;
     private final Spannable _spannable;
-    private final int _color;
-    private final boolean _dynmicTextSize;
+    private final WrProportionalHeaderSpanCreator _spanCreator;
 
     public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
         _spannable = spannable;
-        _color = color;
-        _dynmicTextSize = dynamicTextSize;
+        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter._fontType, highlighter._fontSize, color, dynamicTextSize);
     }
 
     public ParcelableSpan create(Matcher m, int iM) {
-        if (_dynmicTextSize) {
-            final char[] charSequence = extractMatchingRange(m);
-            float proportion = calculateProportionBasedOnHeaderType(charSequence);
-            Float size = calculateAdjustedSize(proportion);
-            return new TextAppearanceSpan(_highlighter._fontType, Typeface.BOLD, size.byteValue(),
-                    ColorStateList.valueOf(_color), null);
-        } else {
-            return new ForegroundColorSpan(_color);
-        }
-    }
-
-    private float calculateAdjustedSize(Float proportion) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                _highlighter._fontSize * proportion,
-                DISPLAY_METRICS);
+        final char[] charSequence = extractMatchingRange(m);
+        float proportion = calculateProportionBasedOnHeaderType(charSequence);
+        return _spanCreator.createHeaderSpan(proportion);
     }
 
     private char[] extractMatchingRange(Matcher m) {
