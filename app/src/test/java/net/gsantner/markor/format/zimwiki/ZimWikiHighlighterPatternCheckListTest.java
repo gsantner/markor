@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
-
 import org.junit.Before;
 import org.junit.Test;
 
