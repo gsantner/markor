@@ -60,12 +60,11 @@ public class TodoTxtTextActions extends TextActions {
                                 null
                         );
                     },
-                    (callbackPayload) -> {
-                        int cursor = origText.indexOf(callbackPayload);
+                    (text, lineNr) -> {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
-                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                     }
             );
             return true;
