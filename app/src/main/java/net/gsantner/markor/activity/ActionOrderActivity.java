@@ -37,7 +37,6 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.opoc.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -128,7 +127,6 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private void saveNewOrder() {
         final ArrayList<String> reorderedKeys = new ArrayList<>();
-        final ArrayList<String> disabledKeys = new ArrayList<>();
 
         for (final int i : _adapter.order) {
             reorderedKeys.add(_keys.get(i));
@@ -171,42 +169,6 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 
-    private class OrderAdapter extends RecyclerView.Adapter<Holder> {
-        private final List<TextActions.ActionItem> _actions;
-        private final List<String> _keys;
-        private final Set<String> _disabled;
-        private final List<Integer> order;
-
-        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> keys, List<String> disabled) {
-            super();
-            _actions = actions;
-            _keys = keys;
-            _disabled = new HashSet<>(disabled);
-
-            order = new ArrayList<>();
-            for (int i = 0; i < _actions.size(); i++) {
-                order.add(i);
-            }
-        }
-
-        @NonNull
-        @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new Holder(getLayoutInflater().inflate(R.layout.action_order_item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(Holder holder, int position) {
-            final int index = order.get(position);
-            holder.bindModel(_actions.get(index), _keys.get(index), _disabled);
-        }
-
-        @Override
-        public int getItemCount() {
-            return _actions.size();
-        }
-    }
-
     private static class Holder extends RecyclerView.ViewHolder {
         private final RelativeLayout _row;
         private Switch _enabled;
@@ -240,9 +202,41 @@ public class ActionOrderActivity extends AppCompatActivity {
         public void unsetHighlight() {
             _row.setAlpha(1.0f);
         }
+    }
 
-        public boolean getEnabled() {
-            return _enabled.isChecked();
+    private class OrderAdapter extends RecyclerView.Adapter<Holder> {
+        private final List<TextActions.ActionItem> _actions;
+        private final List<String> _keys;
+        private final Set<String> _disabled;
+        private final List<Integer> order;
+
+        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> keys, List<String> disabled) {
+            super();
+            _actions = actions;
+            _keys = keys;
+            _disabled = new HashSet<>(disabled);
+
+            order = new ArrayList<>();
+            for (int i = 0; i < _actions.size(); i++) {
+                order.add(i);
+            }
+        }
+
+        @NonNull
+        @Override
+        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new Holder(getLayoutInflater().inflate(R.layout.action_order_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(Holder holder, int position) {
+            final int index = order.get(position);
+            holder.bindModel(_actions.get(index), _keys.get(index), _disabled);
+        }
+
+        @Override
+        public int getItemCount() {
+            return _actions.size();
         }
     }
 
