@@ -55,7 +55,6 @@ public class ActionOrderActivity extends AppCompatActivity {
     private List<String> _disabled;
     private List<TextActions.ActionItem> _actions;
     private TextActions _textActions;
-    private RecyclerView _recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +76,19 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         // Set up recyclerview
-        _recycler = findViewById(R.id.action_order_activity_recycler);
-        _recycler.setLayoutManager(new LinearLayoutManager(this));
-        _recycler.addItemDecoration(new DividerItemDecoration(_recycler.getContext(), DividerItemDecoration.VERTICAL));
+        final RecyclerView recycler = findViewById(R.id.action_order_activity_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
         _adapter = new OrderAdapter(_actions, _keys, _disabled);
 
         final ItemTouchHelper.Callback callback = new ReorderCallback(_adapter);
         final ItemTouchHelper helper = new ItemTouchHelper(callback);
-        helper.attachToRecyclerView(_recycler);
+        helper.attachToRecyclerView(recycler);
 
-        _recycler.setHasFixedSize(true);
-        _recycler.setAdapter(_adapter);
+        recycler.setHasFixedSize(true);
+        recycler.setAdapter(_adapter);
     }
 
     @Override
@@ -171,7 +170,6 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private static class Holder extends RecyclerView.ViewHolder {
         private final RelativeLayout _row;
-        private Switch _enabled;
 
         private Holder(View row) {
             super(row);
@@ -179,11 +177,11 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         private void bindModel(final TextActions.ActionItem action, final String key, final Set<String> disabled) {
-            _enabled = (Switch) _row.findViewById(R.id.enabled_switch);
-            _enabled.setOnCheckedChangeListener(null);
+            final Switch enabled = _row.findViewById(R.id.enabled_switch);
+            enabled.setOnCheckedChangeListener(null);
 
-            _enabled.setChecked(!disabled.contains(key));
-            _enabled.setOnCheckedChangeListener((button, isChecked) -> {
+            enabled.setChecked(!disabled.contains(key));
+            enabled.setOnCheckedChangeListener((button, isChecked) -> {
                 if (isChecked) {
                     disabled.remove(key);
                 } else {
