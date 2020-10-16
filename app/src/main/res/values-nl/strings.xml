@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essentieel</string>
     <string name="append_human_readable_uuid_to_new_tasks">Mensen leesbare UUID toevoegen aan nieuwe taken</string>
     <string name="action_order">Actie bestelling</string>
+    <string name="toggle_action_visibility">Actie zichtbaarheid in-/uitschakelen</string>
     <string name="load_default_settings">Laad standaardinstellingen</string>
     <string name="drag">Sleep</string>
     <string name="file_encryption_password">Wachtwoord voor bestandsversleuteling</string>
