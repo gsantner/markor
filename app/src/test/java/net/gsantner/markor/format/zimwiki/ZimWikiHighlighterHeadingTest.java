@@ -35,8 +35,6 @@ public class ZimWikiHighlighterHeadingTest {
         assertThat(matcher.find()).isFalse();
     }
 
-    // TODO: is a heading with more than 6 "="s valid?
-
     private void findAndAssertEqualHeading(String expectedHeading) {
         Matcher matcher = pattern.matcher(expectedHeading);
         assertThat(matcher.find()).isTrue();

@@ -236,6 +236,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
     <string name="tmaid_markdown_table_insert_columns" translatable="false">tmaid_markdown_table_insert_columns</string>
 
+    <string name="tmaid_zimwiki_mark" translatable="false">tmaid_zimwiki_mark</string>
+
     <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
     <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
     <string name="tmaid_todotxt_add_project" translatable="false">tmaid_todotxt_add_project</string>

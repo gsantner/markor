@@ -12,7 +12,7 @@ package other.writeily.format.markdown;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
 
-import net.gsantner.markor.format.markdown.MarkdownHighlighter;
+import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.SpanCreator;
 
 import java.util.regex.Matcher;
@@ -24,14 +24,14 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;
 
-    protected MarkdownHighlighter _highlighter;
+    protected Highlighter _highlighter;
     private final Spannable _spannable;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrMarkdownHeaderSpanCreator(MarkdownHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
+    public WrMarkdownHeaderSpanCreator(Highlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
         _spannable = spannable;
-        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter._fontType, highlighter._fontSize, color, dynamicTextSize);
+        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter.getFontType(), highlighter.getFontSize(), color, dynamicTextSize);
     }
 
     public ParcelableSpan create(Matcher m, int iM) {
