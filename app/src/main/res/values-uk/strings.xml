@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Основні</string>
     <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
     <string name="action_order">Впорядкувати команди</string>
+    <string name="toggle_action_visibility">Перемкнути видимість дії</string>
     <string name="load_default_settings">Встановити типові параметри</string>
     <string name="drag">Перетягніть</string>
     <string name="file_encryption_password">Пароль шифрування файлу</string>
