@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Væsentlig</string>
     <string name="append_human_readable_uuid_to_new_tasks">Tilføj læsbar UUUID til nye opgaver</string>
     <string name="action_order">Handlings rækkefølge</string>
+    <string name="toggle_action_visibility">Slå synlighed for handling til</string>
     <string name="load_default_settings">Indlæs standardindstillinger</string>
     <string name="drag">Træk</string>
     <string name="file_encryption_password">Fil kryptering adgangskode</string>
