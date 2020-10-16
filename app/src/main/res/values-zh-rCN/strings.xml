@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">基本的</string>
     <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
     <string name="action_order">动作顺序</string>
+    <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
     <string name="file_encryption_password">文件加密密码</string>
