@@ -23,7 +23,7 @@ public class ZimWikiHighlighterPatternItalicTest {
 
     @Before
     public void before() {
-        pattern = ZimWikiHighlighterPattern.EMPHASIS.pattern;
+        pattern = ZimWikiHighlighterPattern.ITALICS.pattern;
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ZimWikiHighlighterPatternItalicTest {
     }*/
 
     @Test
-    public void italicStarWithExtraTrailingSlashShouldMatch() {
+    public void italicSlashWithExtraTrailingSlashShouldMatch() {
         Matcher m = pattern.matcher("//italic///");
         assertThat(m.find()).isTrue();
         assertThat(m.group()).isEqualTo("//italic//");

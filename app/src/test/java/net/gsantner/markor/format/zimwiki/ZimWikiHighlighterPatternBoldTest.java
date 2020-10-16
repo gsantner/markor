@@ -23,7 +23,7 @@ public class ZimWikiHighlighterPatternBoldTest {
 
     @Before
     public void before() {
-        pattern = ZimWikiHighlighterPattern.STRONG.pattern;
+        pattern = ZimWikiHighlighterPattern.BOLD.pattern;
     }
 
     @Test
@@ -50,38 +50,8 @@ public class ZimWikiHighlighterPatternBoldTest {
     }
 
     @Test
-    public void mixedUnderlineAndStarShouldNotMatch() {
-        Matcher m = pattern.matcher("__bold**");
-        assertThat(m.find()).isFalse();
-    }
-
-    @Test
-    public void mixedStarAndUnderlineShouldNotMatch2() {
-        Matcher m = pattern.matcher("**bold__");
-        assertThat(m.find()).isFalse();
-    }
-
-    @Test
-    public void mixedStarAndUnderlineOnSameSideShouldNotMatch() {
-        Matcher m = pattern.matcher("_*bold*_");
-        assertThat(m.find()).isFalse();
-    }
-
-    @Test
-    public void italicUnderlineShouldNotMatch() {
-        Matcher m = pattern.matcher("_italic_");
-        assertThat(m.find()).isFalse();
-    }
-
-    @Test
-    public void italicStarShouldNotMatch() {
-        Matcher m = pattern.matcher("*italic*");
-        assertThat(m.find()).isFalse();
-    }
-
-    @Test
-    public void italicsStarWithTwoStartCharactersShouldNotMatch() {
-        Matcher m = pattern.matcher("**italic*");
+    public void boldWithOnlyOneStarAtTheEndShouldNotMatch() {
+        Matcher m = pattern.matcher("**not bold*");
         assertThat(m.find()).isFalse();
     }
 

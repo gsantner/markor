@@ -23,7 +23,7 @@ public class ZimWikiHighlighterPatternStrikethroughTest {
 
     @Before
     public void before() {
-        pattern = ZimWikiHighlighterPattern.STRIKE.pattern;
+        pattern = ZimWikiHighlighterPattern.STRIKETHROUGH.pattern;
     }
 
     @Test

@@ -50,7 +50,7 @@ public class ZimWikiHighlighterPatternListTest {
     public void starItemIndentedShouldMatch() {
         Matcher m = pattern.matcher("\t* Item");
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("\t*");
+        assertThat(m.group()).isEqualTo("*");
     }
 
     @Test

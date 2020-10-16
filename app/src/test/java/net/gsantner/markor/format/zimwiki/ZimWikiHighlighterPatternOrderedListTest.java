@@ -30,20 +30,20 @@ public class ZimWikiHighlighterPatternOrderedListTest {
     public void numberItem() {
         Matcher m = pattern.matcher("1. Item");
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("1. ");
+        assertThat(m.group()).isEqualTo("1.");
     }
 
     @Test
     public void letterItem() {
         Matcher m = pattern.matcher("b. Item");
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("b. ");
+        assertThat(m.group()).isEqualTo("b.");
     }
 
     @Test
     public void capitalItem() {
         Matcher m = pattern.matcher("C. Item");
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("C. ");
+        assertThat(m.group()).isEqualTo("C.");
     }
 }
