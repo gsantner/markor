@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">必須</string>
     <string name="append_human_readable_uuid_to_new_tasks">人間が読めるUUIDを新しいタスクに追加</string>
     <string name="action_order">操作の順序</string>
+    <string name="toggle_action_visibility">アクションの表示を切り替える</string>
     <string name="load_default_settings">デフォルトの設定を読み込む</string>
     <string name="drag">ドラッグ</string>
     <string name="file_encryption_password">ファイルの暗号化パスワード</string>
