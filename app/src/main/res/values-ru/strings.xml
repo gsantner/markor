@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Основное</string>
     <string name="append_human_readable_uuid_to_new_tasks">Добавить пользовательский UUID к новым задачам</string>
     <string name="action_order">Порядок действий</string>
+    <string name="toggle_action_visibility">Вкл/выкл видимость действия</string>
     <string name="load_default_settings">Загрузить настройки по умолчанию</string>
     <string name="drag">Перетащите</string>
     <string name="file_encryption_password">Пароль шифрования файла</string>
