@@ -266,6 +266,11 @@ public abstract class Highlighter {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
     }
 
+//    protected static void createColorSpanForMatchesWithSecondColorContained(Spannable spannable, final Pattern basePattern, final int baseColor,
+//                                                                   final int containedGroup, final Pattern containedPattern, final int secondColor, final int groupToMatchForSecondColor, final ) {
+//
+//    }
+
     protected static void createColorBackgroundSpan(Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
     }
@@ -318,4 +323,5 @@ public abstract class Highlighter {
     protected static void createSubscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new SubscriptSpan(), groupsToMatch);
     }
+
 }

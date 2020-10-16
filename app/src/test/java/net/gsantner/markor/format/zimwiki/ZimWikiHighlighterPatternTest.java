@@ -151,7 +151,7 @@ public class ZimWikiHighlighterPatternTest {
 
     @Test
     public void checkListOverMultipleLines() {
-        pattern = ZimWikiHighlighterPattern.LIST_CHECK.pattern;
+        pattern = ZimWikiHighlighterPattern.CHECKLIST.pattern;
         Matcher matcher = pattern.matcher("Some text before...\n" +
                 "[ ] unchecked item\n" +
                 "[*] checked item\n" +

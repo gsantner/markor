@@ -15,9 +15,18 @@ public enum ZimWikiHighlighterPattern {
     LIST_ORDERED(Pattern.compile("(?<=((\n|^)(\\s{0,16})))(\\d+|[a-zA-Z])(\\.)(?= )")),
     LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)]\\])")),
     IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
-    LIST_CHECK(Pattern.compile("(?<=(\\n|^))\t*(\\[[ xX*>]?]|\\([ xX*>]?\\))(?= )")),
+    CHECKLIST(Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*>])(])(?= )")),
+    CHECKLIST_UNCHECKED(Pattern.compile("(?<=(\\n|^))\t*(\\[)( )(])(?= )")),
+    CHECKLIST_CHECKED(Pattern.compile("(?<=(\\n|^))\t*(\\[)(\\*)(])(?= )")),
+    CHECKLIST_CROSSED(Pattern.compile("(?<=(\\n|^))\t*(\\[)(x)(])(?= )")),
+    CHECKLIST_ARROW(Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )")),
     SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
     SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})"));
+
+    // groups for matching individual parts of the checklist regex
+    public static final int CHECKBOX_LEFT_BRACKET_GROUP = 2;
+    public static final int CHECKBOX_SYMBOL_GROUP = 3;
+    public static final int CHECKBOX_RIGHT_BRACKET_GROUP = 4;
 
     public final Pattern pattern;
 

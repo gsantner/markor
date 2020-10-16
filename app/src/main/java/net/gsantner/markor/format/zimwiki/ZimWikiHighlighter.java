@@ -11,6 +11,8 @@ import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 
+import java.util.regex.Pattern;
+
 import other.writeily.format.zimwiki.WrZimWikiHeaderSpanCreator;
 
 public class ZimWikiHighlighter extends Highlighter {
@@ -23,7 +25,10 @@ public class ZimWikiHighlighter extends Highlighter {
     private static final int UNORDERED_LIST_BULLET_COLOR = 0xffdaa521;
     private static final int ORDERED_LIST_NUMBER_COLOR = 0xffdaa521;
     private static final int LINK_COLOR = 0xff0000ff;
-    private static final int CHECKLIST_COLOR = UNORDERED_LIST_BULLET_COLOR;  // TODO: use different colors for different check states
+    private static final int CHECKLIST_BASE_COLOR = UNORDERED_LIST_BULLET_COLOR;
+    private static final int CHECKLIST_CHECKED_COLOR = 0xff54a309;
+    private static final int CHECKLIST_CROSSED_COLOR = 0xffa90000;
+    private static final int CHECKLIST_ARROW_COLOR = CHECKLIST_BASE_COLOR;
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
@@ -84,7 +89,7 @@ public class ZimWikiHighlighter extends Highlighter {
         createSubscriptStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.SUBSCRIPT.pattern);
 
         _profiler.restart("Checklist");
-        createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.LIST_CHECK.pattern, CHECKLIST_COLOR);
+        createCheckboxSpansForAllCheckStates(spannable);
 
         _profiler.end();
         _profiler.printProfilingGroup();
@@ -94,6 +99,22 @@ public class ZimWikiHighlighter extends Highlighter {
 
     private void createHeaderSpanForMatches(Spannable spannable, ZimWikiHighlighterPattern pattern, int headerColor) {
         createSpanForMatches(spannable, pattern.pattern, new WrZimWikiHeaderSpanCreator(this, spannable, headerColor, _highlightBiggerHeadings));
+    }
+
+    private void createCheckboxSpansForAllCheckStates(Spannable spannable) {
+        createCheckboxSpanWithDifferentColors(spannable, ZimWikiHighlighterPattern.CHECKLIST_UNCHECKED.pattern, 0xffffffff);
+        createCheckboxSpanWithDifferentColors(spannable, ZimWikiHighlighterPattern.CHECKLIST_CHECKED.pattern, CHECKLIST_CHECKED_COLOR);
+        createCheckboxSpanWithDifferentColors(spannable, ZimWikiHighlighterPattern.CHECKLIST_CROSSED.pattern, CHECKLIST_CROSSED_COLOR);
+        createCheckboxSpanWithDifferentColors(spannable, ZimWikiHighlighterPattern.CHECKLIST_ARROW.pattern, CHECKLIST_ARROW_COLOR);
+    }
+
+    private void createCheckboxSpanWithDifferentColors(Spannable spannable, Pattern checkboxPattern, int symbolColor) {
+        createColorSpanForMatches(spannable, checkboxPattern,
+                CHECKLIST_BASE_COLOR, ZimWikiHighlighterPattern.CHECKBOX_LEFT_BRACKET_GROUP);
+        createColorSpanForMatches(spannable, checkboxPattern,
+                symbolColor, ZimWikiHighlighterPattern.CHECKBOX_SYMBOL_GROUP);
+        createColorSpanForMatches(spannable, checkboxPattern,
+                CHECKLIST_BASE_COLOR, ZimWikiHighlighterPattern.CHECKBOX_RIGHT_BRACKET_GROUP);
     }
 
     @Override
