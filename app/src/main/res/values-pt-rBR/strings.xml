@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essencial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Acrescentar UUID humano legível a novas tarefas</string>
     <string name="action_order">Ação pedido</string>
+    <string name="toggle_action_visibility">Alternar visibilidade da ação</string>
     <string name="load_default_settings">Carregar configurações padrão</string>
     <string name="drag">Arrastar</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
