@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Esențial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Adaugă UUID lizibil uman la sarcini noi</string>
     <string name="action_order">Ordin de acțiune</string>
+    <string name="toggle_action_visibility">Comută vizibilitatea acțiunii</string>
     <string name="load_default_settings">Încarcă setările implicite</string>
     <string name="drag">Trage</string>
     <string name="file_encryption_password">Parola de criptare a fișierului</string>
