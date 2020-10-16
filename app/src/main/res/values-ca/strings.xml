@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essencial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Afegeix UUID llegible per humans a les noves tasques</string>
     <string name="action_order">Ordre d\'acció</string>
+    <string name="toggle_action_visibility">Canvia la visibilitat de l\'acció</string>
     <string name="load_default_settings">Carrega la configuració per defecte</string>
     <string name="drag">Arrossega</string>
     <string name="file_encryption_password">Contrasenya de xifratge del fitxer</string>
