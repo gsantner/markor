@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Viktig</string>
     <string name="append_human_readable_uuid_to_new_tasks">Lägg till läsbar UUID för nya uppgifter</string>
     <string name="action_order">Åtgärd order</string>
+    <string name="toggle_action_visibility">Växla åtgärdens synlighet</string>
     <string name="load_default_settings">Ladda standardinställningar</string>
     <string name="drag">Dra</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
