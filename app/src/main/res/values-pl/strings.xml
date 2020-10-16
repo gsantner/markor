@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Zasadnicze</string>
     <string name="append_human_readable_uuid_to_new_tasks">Dołącz czytelny dla człowieka UUID do nowych zadań</string>
     <string name="action_order">Kolejność działań</string>
+    <string name="toggle_action_visibility">Przełącz widoczność akcji</string>
     <string name="load_default_settings">Załaduj domyślne ustawienia</string>
     <string name="drag">Przeciągnij</string>
     <string name="file_encryption_password">Hasło szyfrowania plików</string>
