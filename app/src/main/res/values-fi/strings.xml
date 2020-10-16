@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Olennainen</string>
     <string name="append_human_readable_uuid_to_new_tasks">Lisää ihmisen luettavissa oleva UUID uusiin tehtäviin</string>
     <string name="action_order">Toiminnon järjestys</string>
+    <string name="toggle_action_visibility">Vaihda toiminnan näkyvyyttä</string>
     <string name="load_default_settings">Lataa oletusasetukset</string>
     <string name="drag">Vedä</string>
     <string name="file_encryption_password">Tiedoston salauksen salasana</string>
