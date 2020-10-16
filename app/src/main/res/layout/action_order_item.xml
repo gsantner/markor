@@ -15,18 +15,29 @@
         android:src="@drawable/ic_format_indent_increase_black_24dp" />
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/action_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/end_icon"
-        android:layout_toLeftOf="@id/end_icon"
+        android:layout_toStartOf="@id/enabled_switch"
+        android:layout_toLeftOf="@id/enabled_switch"
         android:layout_toEndOf="@id/start_icon"
         android:layout_toRightOf="@id/start_icon"
         android:color="@color/primary_text"
         android:paddingStart="@dimen/appbar_padding_top"
         android:paddingEnd="@dimen/appbar_padding_top"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+
+    <Switch
+        android:id="@+id/enabled_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/end_icon"
+        android:layout_toLeftOf="@id/end_icon"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_centerVertical="true"
+        android:tooltipText="@string/toggle_action_visibility"/>
 
     <ImageView
         android:id="@+id/end_icon"

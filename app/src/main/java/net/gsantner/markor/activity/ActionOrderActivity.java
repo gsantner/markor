@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -38,8 +39,10 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
 
@@ -47,9 +50,10 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     public static final String EXTRA_FORMAT_KEY = "FORMAT_KEY";
 
-    private Adapter _adapter;
-    private ArrayList<String> _keys;
-    private ArrayList<TextActions.ActionItem> _actions;
+    private OrderAdapter _adapter;
+    private List<String> _keys;
+    private List<String> _disabled;
+    private List<TextActions.ActionItem> _actions;
     private TextActions _textActions;
 
     @Override
@@ -77,7 +81,7 @@ public class ActionOrderActivity extends AppCompatActivity {
         recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
 
         extractActionData();
-        _adapter = new Adapter(_actions);
+        _adapter = new OrderAdapter(_actions, _keys, _disabled);
 
         final ItemTouchHelper.Callback callback = new ReorderCallback(_adapter);
         final ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -122,10 +126,13 @@ public class ActionOrderActivity extends AppCompatActivity {
 
     private void saveNewOrder() {
         final ArrayList<String> reorderedKeys = new ArrayList<>();
-        for (int i : _adapter.order) {
+
+        for (final int i : _adapter.order) {
             reorderedKeys.add(_keys.get(i));
         }
+
         _textActions.saveActionOrder(reorderedKeys);
+        _textActions.saveDisabledActions(new ArrayList<>(_adapter._disabled));
     }
 
     @Override
@@ -152,21 +159,60 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
 
         final Map<String, TextActions.ActionItem> actionMap = _textActions.getActiveActionMap();
-        _keys = new ArrayList<>(_textActions.getActionOrder());
-        _actions = new ArrayList<>();
+        _keys = _textActions.getActionOrder();
+        _disabled = _textActions.getDisabledActions();
 
-        for (String key : _keys) {
+        _actions = new ArrayList<>();
+        for (final String key : _keys) {
             _actions.add(actionMap.get(key));
         }
     }
 
-    private class Adapter extends RecyclerView.Adapter<Holder> {
-        private final List<TextActions.ActionItem> _actions;
-        private final ArrayList<Integer> order;
+    private static class Holder extends RecyclerView.ViewHolder {
+        private final RelativeLayout _row;
 
-        private Adapter(List<TextActions.ActionItem> actions) {
+        private Holder(View row) {
+            super(row);
+            _row = (RelativeLayout) row;
+        }
+
+        private void bindModel(final TextActions.ActionItem action, final String key, final Set<String> disabled) {
+            final Switch enabled = _row.findViewById(R.id.enabled_switch);
+            enabled.setOnCheckedChangeListener(null);
+
+            enabled.setChecked(!disabled.contains(key));
+            enabled.setOnCheckedChangeListener((button, isChecked) -> {
+                if (isChecked) {
+                    disabled.remove(key);
+                } else {
+                    disabled.add(key);
+                }
+            });
+
+            ((ImageView) _row.findViewById(R.id.start_icon)).setImageResource(action.iconId);
+            ((TextView) _row.findViewById(R.id.action_text)).setText(action.stringId);
+        }
+
+        public void setHighlight() {
+            _row.setAlpha(0.5f);
+        }
+
+        public void unsetHighlight() {
+            _row.setAlpha(1.0f);
+        }
+    }
+
+    private class OrderAdapter extends RecyclerView.Adapter<Holder> {
+        private final List<TextActions.ActionItem> _actions;
+        private final List<String> _keys;
+        private final Set<String> _disabled;
+        private final List<Integer> order;
+
+        private OrderAdapter(List<TextActions.ActionItem> actions, List<String> keys, List<String> disabled) {
             super();
             _actions = actions;
+            _keys = keys;
+            _disabled = new HashSet<>(disabled);
 
             order = new ArrayList<>();
             for (int i = 0; i < _actions.size(); i++) {
@@ -182,7 +228,8 @@ public class ActionOrderActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
-            holder.bindModel(_actions.get(order.get(position)));
+            final int index = order.get(position);
+            holder.bindModel(_actions.get(index), _keys.get(index), _disabled);
         }
 
         @Override
@@ -191,32 +238,10 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 
-    private static class Holder extends RecyclerView.ViewHolder {
-        private final RelativeLayout _row;
-
-        private Holder(View row) {
-            super(row);
-            _row = (RelativeLayout) row;
-        }
-
-        private void bindModel(TextActions.ActionItem action) {
-            ((ImageView) _row.getChildAt(0)).setImageResource(action.iconId);
-            ((TextView) _row.getChildAt(1)).setText(action.stringId);
-        }
-
-        private void setHighlight() {
-            _row.setAlpha(0.5f);
-        }
-
-        private void unsetHighlight() {
-            _row.setAlpha(1.0f);
-        }
-    }
-
     private class ReorderCallback extends ItemTouchHelper.SimpleCallback {
-        private final Adapter _adapter;
+        private final OrderAdapter _adapter;
 
-        private ReorderCallback(Adapter adapter) {
+        private ReorderCallback(OrderAdapter adapter) {
             super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
             _adapter = adapter;
         }
@@ -253,5 +278,3 @@ public class ActionOrderActivity extends AppCompatActivity {
         }
     }
 }
-
-
