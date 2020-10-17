@@ -535,7 +535,7 @@ public abstract class TextActions {
 
             case "tmaid_common_time_insert_timestamp": {
                 try {
-                    _hlEditor.insertOrReplaceTextOnCursor(new SimpleDateFormat(_appSettings.getString(DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat", ""), Locale.getDefault()).format(new Date()).replace("\\n", "\n"));
+                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
                 } catch (Exception ignored) {
                 }
                 return true;
