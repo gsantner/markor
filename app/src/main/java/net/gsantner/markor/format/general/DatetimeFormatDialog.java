@@ -11,10 +11,14 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.os.ConfigurationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,6 +37,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +46,34 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DatetimeFormatDialog {
+
+    private static final String DATETIME_SETTINGS = "datetime_dialog_settings";
+    private static final String RECENT_FORMATS_STRING = "recent_formats_string";
+    private static final String RECENT_FORMATS_SPLITS = "recent_formats_splits";
+
+    private final static String[] PREDEFINED_DATE_TIME_FORMATS = {
+            "hh:mm",
+            "yyyy-MM-dd",
+            "dd.MM.yyyy",
+            "dd-MM-yyyy",
+            "MM/dd/yyyy",
+            "yyyy/MM/dd",
+            "MMM yyyy",
+            "hh:mm:ss",
+            "HH:mm:ss",
+            "dd hh:mm",
+            "dd-MM-yyyy hh:mm",
+            "dd-MM-yyyy hh:mm:ss.s",
+            "dd-MM-yyyy HH:mm",
+            "dd-MM-yyyy HH:mm:ss.s",
+            "dd-MM-yy",
+            "MM/dd/yy",
+            "dd.MM.yy",
+            "yy/MM/dd",
+            "dd hh:mm:ss",
+            "'[W'w']' EEEE, dd.MM.yyyy",
+            "'\\n[W'w']' EEEE, dd.MM.yyyy'\\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\\n'",
+    };
 
     /**
      * @param activity {@link Activity} from which is {@link DatetimeFormatDialog} called
@@ -57,30 +90,6 @@ public class DatetimeFormatDialog {
         final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
         final String LAST_USED_PREF = DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat";
 
-        final String[] PREDEFINED_DATE_TIME_FORMATS = new String[]{
-                "hh:mm",
-                "yyyy-MM-dd",
-                "dd.MM.yyyy",
-                "dd-MM-yyyy",
-                "MM/dd/yyyy",
-                "yyyy/MM/dd",
-                "MMM yyyy",
-                "hh:mm:ss",
-                "HH:mm:ss",
-                "dd hh:mm",
-                "dd-MM-yyyy hh:mm",
-                "dd-MM-yyyy hh:mm:ss.s",
-                "dd-MM-yyyy HH:mm",
-                "dd-MM-yyyy HH:mm:ss.s",
-                "dd-MM-yy",
-                "MM/dd/yy",
-                "dd.MM.yy",
-                "yy/MM/dd",
-                "dd hh:mm:ss",
-                "'[W'w']' EEEE, dd.MM.yyyy",
-                "'\\n[W'w']' EEEE, dd.MM.yyyy'\\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\\n'",
-        };
-
         final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.SECOND, 0);
@@ -95,7 +104,6 @@ public class DatetimeFormatDialog {
         final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
         final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
         final CheckBox alwaysNowCheckBox = viewRoot.findViewById(R.id.always_use_current_datetime_checkbox);
-
 
         // Popup window for ComboBox
         popupWindow.setAdapter(new SimpleAdapter(activity, createAdapterData(locale, PREDEFINED_DATE_TIME_FORMATS),
@@ -238,18 +246,17 @@ public class DatetimeFormatDialog {
 
     /**
      * @param locale  {@link Locale} locale
-     * @param formats {@link String...} contains all default _datetime formats with preview
      * @return {@link List} of mapped pairs ->> format + preview
      */
-    private static List<Map<String, String>> createAdapterData(final Locale locale, final String[] formats) {
-        List<Map<String, String>> pairs = new ArrayList<>();
+    private static List<Pair<String, String>> createAdapterData(final Locale locale) {
+        List<Pair<String, String>> pairs = new ArrayList<>();
         String[] formatAndParsed = expandFormatsWithValues(locale, formats);
 
         for (int i = 0; i < formatAndParsed.length; i++) {
-            Map<String, String> pair = new HashMap<>(2);
+            Pair<String, String> pair = new HashMap<>(2);
             pair.put("format", formatAndParsed[i++]);
             pair.put("date", formatAndParsed[i]);
-            pairs.add(pair);
+            pairs.add(Pair.create());
         }
         return pairs;
     }
@@ -261,5 +268,45 @@ public class DatetimeFormatDialog {
         if (doIt) {
             cal.setTime(new Date());
         }
+    }
+
+    private List<String> getRecentFormats(final Activity activity) {
+        final SharedPreferences settings = activity.getSharedPreferences(DATETIME_SETTINGS, Context.MODE_PRIVATE);
+        final String combined = settings.getString(RECENT_FORMATS_STRING, null);
+        final String splits = settings.getString(RECENT_FORMATS_SPLITS, null);
+
+        // Split the
+        List<String> formats = Collections.emptyList();
+        try {
+            if (combined != null && splits != null) {
+                List<String> _formats = new ArrayList<>();
+                int prev = 0;
+                for (final String s : splits.split(",")) {
+                    int val = Integer.parseInt(s);
+                    if (val < prev || val >= combined.length()) {
+                        throw new NumberFormatException("Malformatted splits");
+                    }
+                    formats.add(combined.substring(prev, val));
+                    prev = val;
+                }
+                formats = _formats;
+            }
+        }
+        catch (NumberFormatException e) {
+            // Do nothing, return empty list
+        }
+        return formats;
+    }
+
+    private void saveRecentFormats(final Activity activity, final List<String> formats) {
+
+        final List<String> splits = new ArrayList<>();
+        for (final String s : formats) {
+            splits.add(Integer.toString(s.length()));
+        }
+
+        final SharedPreferences.Editor edit = activity.getSharedPreferences(DATETIME_SETTINGS, Context.MODE_PRIVATE).edit();
+        edit.putString(RECENT_FORMATS_STRING, TextUtils.join("", formats)).apply();
+        edit.putString(RECENT_FORMATS_SPLITS, TextUtils.join(",", splits)).apply();
     }
 }

@@ -181,7 +181,7 @@ public abstract class TextActions {
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
-        List<String> values = Collections.EMPTY_LIST;
+        List<String> values = Collections.emptyList();
         if (combinedKeys != null) {
             values = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
         }
