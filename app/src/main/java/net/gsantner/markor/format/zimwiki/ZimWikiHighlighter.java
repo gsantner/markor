@@ -33,7 +33,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
-        _highlightBiggerHeadings = true;   // TODO(WIP): introduce an option for zim wiki bigger headings
+        _highlightBiggerHeadings = _appSettings.isZimWikiBiggerHeadings();
         _fontType = _appSettings.getFontFamily();
         _fontSize = _appSettings.getFontSize();
     }
