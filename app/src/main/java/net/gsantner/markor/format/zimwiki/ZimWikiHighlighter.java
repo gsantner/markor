@@ -29,6 +29,7 @@ public class ZimWikiHighlighter extends Highlighter {
     private static final int CHECKLIST_CHECKED_COLOR = 0xff54a309;
     private static final int CHECKLIST_CROSSED_COLOR = 0xffa90000;
     private static final int CHECKLIST_ARROW_COLOR = CHECKLIST_BASE_COLOR;
+    private static final int ZIMHEADER_COLOR = 0xff808080;
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
@@ -90,6 +91,9 @@ public class ZimWikiHighlighter extends Highlighter {
 
         _profiler.restart("Checklist");
         createCheckboxSpansForAllCheckStates(spannable);
+
+        _profiler.restart("Zim Header");
+        createColorSpanForMatches(spannable, ZimWikiHighlighterPattern.ZIMHEADER.pattern, ZIMHEADER_COLOR);
 
         _profiler.end();
         _profiler.printProfilingGroup();
