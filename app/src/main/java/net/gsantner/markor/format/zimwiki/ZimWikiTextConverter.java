@@ -200,6 +200,7 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
     }
 
     /**
+     * NOTE: This method only works if the full file path is specified.
      * @param filepath of a file
      * @return true if the file extension is .txt; false otherwise
      */

@@ -25,6 +25,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.zimwiki.ZimWikiHighlighterPattern;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -35,6 +36,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 import other.de.stanetz.jpencconverter.PasswordStore;
@@ -127,7 +130,7 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_KEYVALUE);
             } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
-            } else if (fnlower.endsWith(".txt") || fnlower.endsWith(".zim")) {  // TODO: check if the text file header corresponds to a zim wiki file
+            } else if (isZimWikiFile(fnlower, document)) {
                 document.setFormat(TextFormat.FORMAT_ZIMWIKI);
             } else {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
@@ -146,6 +149,16 @@ public class DocumentIO {
             AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + "). Language >" + Locale.getDefault().toString() + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
         return document;
+    }
+
+    private static boolean isZimWikiFile(String filename, Document document) {
+        return filename.endsWith(".txt") && containsZimWikiHeader(document);
+    }
+
+    private static boolean containsZimWikiHeader(Document document) {
+        Pattern headerPattern = ZimWikiHighlighterPattern.ZIMHEADER.pattern;
+        Matcher headerMatcher = headerPattern.matcher(document.getContent());
+        return headerMatcher.find();
     }
 
     public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil, Context context) {

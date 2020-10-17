@@ -21,7 +21,10 @@ public enum ZimWikiHighlighterPattern {
     CHECKLIST_CROSSED(Pattern.compile("(?<=(\\n|^))\t*(\\[)(x)(])(?= )")),
     CHECKLIST_ARROW(Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )")),
     SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
-    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})"));
+    SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
+    ZIMHEADER(Pattern.compile("^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
+            "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
+            "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+"));
 
     // groups for matching individual parts of the checklist regex
     public static final int CHECKBOX_LEFT_BRACKET_GROUP = 2;
