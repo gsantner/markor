@@ -236,7 +236,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
     <string name="tmaid_markdown_table_insert_columns" translatable="false">tmaid_markdown_table_insert_columns</string>
 
+    <string name="tmaid_zimwiki_h1">tmaid_zimwiki_h1</string>
+    <string name="tmaid_zimwiki_h2">tmaid_zimwiki_h2</string>
+    <string name="tmaid_zimwiki_h3">tmaid_zimwiki_h3</string>
+    <string name="tmaid_zimwiki_h4">tmaid_zimwiki_h4</string>
+    <string name="tmaid_zimwiki_h5">tmaid_zimwiki_h5</string>
+    <string name="tmaid_zimwiki_bold">tmaid_zimwiki_bold</string>
+    <string name="tmaid_zimwiki_italic">tmaid_zimwiki_italic</string>
     <string name="tmaid_zimwiki_mark" translatable="false">tmaid_zimwiki_mark</string>
+    <string name="tmaid_zimwiki_strikeout">tmaid_zimwiki_strikeout</string>
+    <string name="tmaid_zimwiki_code_inline">tmaid_zimwiki_code_inline</string>
+    <string name="tmaid_zimwiki_insert_link">tmaid_zimwiki_insert_link</string>
+    <string name="tmaid_zimwiki_insert_image" translatable="false">tmaid_zimwiki_insert_image</string>
 
     <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
     <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
