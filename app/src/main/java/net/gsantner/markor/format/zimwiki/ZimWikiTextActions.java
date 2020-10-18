@@ -51,8 +51,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             PREFIX_LEADING_SPACE,
     };
 
+    private final ZimWikiReplacePatternGenerator replacePatternGenerator;
+
     public ZimWikiTextActions(Activity activity, Document document) {
         super(activity, document);
+        replacePatternGenerator = new ZimWikiReplacePatternGenerator();
     }
 
     @Override
@@ -274,32 +277,26 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
 
     /**
-     * Set/unset ATX heading level on each selected line
+     * Set/unset heading level for the line (the lower the level, the higher the count of equal signs)
      * <p>
      * This routine will make the following conditional changes
      * <p>
      * Line is heading of same level as requested -> remove heading
-     * Line is heading of different level that that requested -> add heading of specified level
+     * Line is heading of different level that that requested -> replace with requested heading
      * Line is not heading -> add heading of specified level
      *
-     * @param level ATX heading level
+     * @param level heading level
      */
     private void setHeadingAction(int level) {
 
         List<ReplacePattern> patterns = new ArrayList<>();
 
-        String heading = StringUtils.repeatChars('#', level);
+        final int numberOfEqualSigns = 7-level;
+        String headingChars = StringUtils.repeatChars('=', numberOfEqualSigns);
 
-        // Replace this exact heading level with nothing
-        patterns.add(new ReplacePattern("^(\\s{0,3})" + heading + " ", "$1"));
-
-        // Replace other headings with commonmark-compatible leading space
-        patterns.add(new ReplacePattern(PREFIX_ATX_HEADING, "$1" + heading + " "));
-
-        // Replace all other prefixes with heading
-        for (final Pattern pp : PREFIX_PATTERNS) {
-            patterns.add(new ReplacePattern(pp, heading + "$1 "));
-        }
+        patterns.add(replacePatternGenerator.removeHeadingCharsForExactHeadingLevel(headingChars));
+        patterns.add(replacePatternGenerator.replaceDifferentHeadingLevelWithThisLevel(headingChars));
+        patterns.add(replacePatternGenerator.createHeadingIfNoneThere(headingChars));
 
         runRegexReplaceAction(patterns);
     }
