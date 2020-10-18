@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -108,7 +109,14 @@ public abstract class TextActions {
      * @return List of keyId strings.
      */
     public List<String> getDisabledActions() {
-        return loadActionPreference(DISABLED_SUFFIX);
+        List<String> disabled = new ArrayList<>(loadActionPreference(DISABLED_SUFFIX));
+
+        // New actions not in the order list are default - disabled
+        Set<String> newActions = new HashSet<>(getActiveActionKeys());
+        newActions.removeAll(loadActionPreference(ORDER_SUFFIX));
+        disabled.addAll(newActions);
+
+        return disabled;
     }
 
     /**
