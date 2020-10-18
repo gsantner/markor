@@ -19,7 +19,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -109,17 +108,7 @@ public abstract class TextActions {
      * @return List of keyId strings.
      */
     public List<String> getDisabledActions() {
-        final List<String> disabled = new ArrayList<>(loadActionPreference(DISABLED_SUFFIX));
-
-        // New actions are default - disabled for existing users
-        final List<String> existingOrder = loadActionPreference(ORDER_SUFFIX);
-        if (existingOrder.size() > 0) {
-            final Set<String> newActions = new HashSet<>(getActiveActionKeys());
-            newActions.removeAll(existingOrder);
-            disabled.addAll(newActions);
-        }
-
-        return disabled;
+        return loadActionPreference(DISABLED_SUFFIX);
     }
 
     /**
