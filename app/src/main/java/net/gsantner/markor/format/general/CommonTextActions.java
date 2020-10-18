@@ -60,7 +60,7 @@ public class CommonTextActions {
 
     public static final String ACTION_MOVE_UP = "tmaid_common_move_text_one_line_up";
     public static final String ACTION_MOVE_DOWN = "tmaid_common_move_text_one_line_down";
-    public static final String ACTION_NEXT_LINE = "tmaid_common_next_line";
+    public static final String ACTION_NEW_LINE_BELOW = "tmaid_common_new_line_below";
 
     private static final String LINE_SEPARATOR = TextUtils.isEmpty(System.getProperty("line.separator")) ? "\n" : System.getProperty("line.separator");
 
@@ -146,7 +146,7 @@ public class CommonTextActions {
                 moveLineBy1(false);
                 return true;
             }
-            case ACTION_NEXT_LINE: {
+            case ACTION_NEW_LINE_BELOW: {
                 // Go to end of line, works with wrapped lines too
                 _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[1]));
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
