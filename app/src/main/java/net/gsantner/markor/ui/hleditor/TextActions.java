@@ -109,12 +109,15 @@ public abstract class TextActions {
      * @return List of keyId strings.
      */
     public List<String> getDisabledActions() {
-        List<String> disabled = new ArrayList<>(loadActionPreference(DISABLED_SUFFIX));
+        final List<String> disabled = new ArrayList<>(loadActionPreference(DISABLED_SUFFIX));
 
-        // New actions not in the order list are default - disabled
-        Set<String> newActions = new HashSet<>(getActiveActionKeys());
-        newActions.removeAll(loadActionPreference(ORDER_SUFFIX));
-        disabled.addAll(newActions);
+        // New actions are default - disabled for existing users
+        final List<String> existingOrder = loadActionPreference(ORDER_SUFFIX);
+        if (existingOrder.size() > 0) {
+            final Set<String> newActions = new HashSet<>(getActiveActionKeys());
+            newActions.removeAll(existingOrder);
+            disabled.addAll(newActions);
+        }
 
         return disabled;
     }
