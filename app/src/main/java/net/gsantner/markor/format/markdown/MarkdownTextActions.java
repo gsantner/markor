@@ -193,6 +193,8 @@ public class MarkdownTextActions extends TextActions {
                     });
                     return true;
                 }
+                case R.string.tmaid_common_move_text_one_line_up:
+                case R.string.tmaid_common_move_text_one_line_down:
                 case R.string.tmaid_common_indent:
                 case R.string.tmaid_common_deindent: {
                     runCommonTextAction(_context.getString(_action));
