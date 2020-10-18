@@ -722,8 +722,4 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public File getFileBrowserLastBrowsedFolder() {
         return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookDirectoryAsStr()));
     }
-
-    public int getDateDialogRecentCount() {
-        return 5;
-    }
 }

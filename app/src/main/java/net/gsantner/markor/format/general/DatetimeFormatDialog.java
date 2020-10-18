@@ -49,8 +49,10 @@ import java.util.concurrent.atomic.AtomicReference;
 public class DatetimeFormatDialog {
 
     private static final String DATETIME_SETTINGS = "datetime_dialog_settings";
-    private static final String RECENT_FORMATS_STRING = "recenttempFormats_string";
-    private static final String RECENT_FORMATS_LENGTHS = "recenttempFormats_splits";
+    private static final String RECENT_FORMATS_STRING = "recent_formats_string";
+    private static final String RECENT_FORMATS_LENGTHS = "recent_formats_lengths";
+
+    private static final int MAX_RECENT_FORMATS = 5;
 
     private final static String[] PREDEFINED_DATE_TIME_FORMATS = {
             "hh:mm",
@@ -207,7 +209,7 @@ public class DatetimeFormatDialog {
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, (dlgI, which) -> {
                     final String current = formatEditText.getText().toString();
-                    saveRecentFormats(activity, recentFormats, current, as.getDateDialogRecentCount());
+                    saveRecentFormats(activity, recentFormats, current);
                     callbackInsertTextToEditor.get().callback(current);
                 });
 
@@ -325,16 +327,15 @@ public class DatetimeFormatDialog {
      * @param activity     Activity in order to get settings
      * @param formats      List of recently used formats
      * @param newFormat    New format, will be inserted at the head of formats if it is not null or empty
-     * @param maxRecents   Recent formats count will be limited to this number
      */
-    private static void saveRecentFormats(final Activity activity, final List<String> formats, final String newFormat, final int maxRecents) {
+    private static void saveRecentFormats(final Activity activity, final List<String> formats, final String newFormat) {
 
         List<String> tempFormats = new ArrayList<>(formats);
         if (newFormat != null && newFormat.trim().length() > 0) {
             tempFormats.add(0, newFormat);
         }
 
-        tempFormats = tempFormats.subList(0, Math.min(tempFormats.size(), maxRecents));
+        tempFormats = tempFormats.subList(0, Math.min(tempFormats.size(), MAX_RECENT_FORMATS));
 
         final List<String> lengths = new ArrayList<>();
         for (final String s : tempFormats) {
