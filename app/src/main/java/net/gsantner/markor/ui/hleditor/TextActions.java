@@ -181,7 +181,7 @@ public abstract class TextActions {
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
-        List<String> values = Collections.EMPTY_LIST;
+        List<String> values = Collections.emptyList();
         if (combinedKeys != null) {
             values = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
         }
@@ -535,7 +535,7 @@ public abstract class TextActions {
 
             case "tmaid_common_time_insert_timestamp": {
                 try {
-                    _hlEditor.insertOrReplaceTextOnCursor(new SimpleDateFormat(_appSettings.getString(DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat", ""), Locale.getDefault()).format(new Date()).replace("\\n", "\n"));
+                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
                 } catch (Exception ignored) {
                 }
                 return true;
