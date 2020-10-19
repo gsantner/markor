@@ -516,11 +516,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
-        if (_textActionsBar.getChildCount() == 0) {
-            _textActionsBar.setVisibility(View.GONE);
-        } else {
-            _textActionsBar.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setupAppearancePreferences(View fragmentView) {

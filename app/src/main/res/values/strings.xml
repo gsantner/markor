@@ -384,6 +384,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essential</string>
     <string name="append_human_readable_uuid_to_new_tasks">Append human readable UUID to new tasks</string>
     <string name="action_order">Action order</string>
+    <string name="toggle_action_visibility">Toggle action visibility</string>
     <string name="load_default_settings">Load default settings</string>
     <string name="drag">Drag</string>
 

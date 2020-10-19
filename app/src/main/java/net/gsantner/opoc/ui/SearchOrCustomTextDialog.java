@@ -11,12 +11,14 @@
 package net.gsantner.opoc.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -28,8 +30,10 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -60,9 +64,10 @@ public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
         public Callback.a1<String> callback;
-        public List<? extends CharSequence> data = new ArrayList<>();
-        public List<? extends CharSequence> highlightData = new ArrayList<>();
-        public List<Integer> iconsForData = new ArrayList<>();
+        public Callback.a2<String, Integer> withPositionCallback;
+        public List<? extends CharSequence> data;
+        public List<? extends CharSequence> highlightData;
+        public List<Integer> iconsForData;
         public String messageText = "";
         public String defaultText = "";
         public boolean isSearchEnabled = true;
@@ -89,78 +94,106 @@ public class SearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
     }
 
+    private static class WithPositionAdapter extends ArrayAdapter<Pair<String, Integer>> {
+
+        final LayoutInflater mInflater;
+        final @LayoutRes int mLayout;
+        final DialogOptions dopt;
+        final List<Pair<String, Integer>> filteredItems;
+        final Pattern extraPattern;
+
+        WithPositionAdapter(Context context, @LayoutRes int layout, List<Pair<String, Integer>> filteredItems, DialogOptions dopt) {
+            super(context, layout, filteredItems);
+            mInflater = LayoutInflater.from(context);
+            mLayout = layout;
+            this.dopt = dopt;
+            this.filteredItems = filteredItems;
+            extraPattern = dopt.extraFilter == null ? null : Pattern.compile(dopt.extraFilter);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
+            final Pair<String, Integer> item = (Pair<String, Integer>) getItem(pos);
+            final String text = item.first;
+            final int posInOriginalList = item.second;
+
+            final TextView textView;
+            if (convertView == null) {
+                textView = (TextView) mInflater.inflate(mLayout, parent, false);
+            } else {
+                textView = (TextView) convertView;
+            }
+
+            if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size() && dopt.iconsForData.get(posInOriginalList) != 0) {
+                textView.setCompoundDrawablesWithIntrinsicBounds(dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
+                textView.setCompoundDrawablePadding(32);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    textView.setCompoundDrawableTintList(ColorStateList.valueOf(dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
+                }
+            } else {
+                textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }
+
+            if (dopt.highlightData != null) {
+                final boolean hl = dopt.highlightData.contains(text);
+                textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);
+                textView.setTypeface(null, hl ? Typeface.BOLD : Typeface.NORMAL);
+            }
+
+            if (dopt.highlighter != null) {
+                Spannable s = new SpannableString(text);
+                dopt.highlighter.callback(s);
+                textView.setText(s);
+            } else {
+                textView.setText(text);
+            }
+
+            return textView;
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @SuppressWarnings("unchecked")
+                @Override
+                protected void publishResults(final CharSequence constraint, final FilterResults results) {
+                    filteredItems.clear();
+                    filteredItems.addAll((List<Pair<String, Integer>>) results.values);
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                protected FilterResults performFiltering(final CharSequence constraint) {
+                    final FilterResults res = new FilterResults();
+                    final ArrayList<Pair<CharSequence, Integer>> resList = new ArrayList<>();
+                    final String fil = constraint.toString();
+                    final boolean emptySearch = fil.isEmpty();
+                    for (int i = 0; i < dopt.data.size(); i++) {
+                        final CharSequence str = dopt.data.get(i);
+                        final boolean matchExtra = (extraPattern == null) || extraPattern.matcher(str).find();
+                        final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
+                        final boolean matchRegex = dopt.searchIsRegex && (str.toString().matches(fil));
+                        if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
+                            resList.add(new Pair<>(str, i));
+                        }
+                    }
+                    res.values = resList;
+                    res.count = resList.size();
+                    return res;
+                }
+            };
+        }
+    }
+
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
         final List<CharSequence> allItems = new ArrayList<>(dopt.data);
-        final List<CharSequence> filteredItems = new ArrayList<>(allItems);
+        final List<Pair<String, Integer>> filteredItems = new ArrayList<>();
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-
-        final ArrayAdapter<CharSequence> listAdapter = new ArrayAdapter<CharSequence>(activity, android.R.layout.simple_list_item_1, filteredItems) {
-            @NonNull
-            @Override
-            public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-                TextView textView = (TextView) super.getView(pos, convertView, parent);
-                String text = textView.getText().toString();
-
-                int posInOriginalList = dopt.data.indexOf(text);
-                if (posInOriginalList >= 0 && dopt.iconsForData != null && posInOriginalList < dopt.iconsForData.size() && dopt.iconsForData.get(posInOriginalList) != 0) {
-                    textView.setCompoundDrawablesWithIntrinsicBounds(dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
-                    textView.setCompoundDrawablePadding(32);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        textView.setCompoundDrawableTintList(ColorStateList.valueOf(dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
-                    }
-                } else {
-                    textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                }
-
-                boolean hl = dopt.highlightData.contains(text);
-                textView.setTextColor(hl ? dopt.highlightColor : dopt.textColor);
-                textView.setTypeface(null, hl ? Typeface.BOLD : Typeface.NORMAL);
-
-                if (dopt.highlighter != null) {
-                    Spannable s = new SpannableString(textView.getText());
-                    dopt.highlighter.callback(s);
-                    textView.setText(s);
-                }
-
-                return textView;
-            }
-
-            @Override
-            public Filter getFilter() {
-                return new Filter() {
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    protected void publishResults(final CharSequence constraint, final FilterResults results) {
-                        filteredItems.clear();
-                        filteredItems.addAll((List<String>) results.values);
-                        notifyDataSetChanged();
-                    }
-
-                    @Override
-                    protected FilterResults performFiltering(final CharSequence constraint) {
-                        final FilterResults res = new FilterResults();
-                        final ArrayList<CharSequence> resList = new ArrayList<>();
-                        final String fil = constraint.toString();
-                        final Pattern extra = dopt.extraFilter == null ? null : Pattern.compile(dopt.extraFilter);
-                        final boolean emptySearch = fil.isEmpty();
-                        for (final CharSequence str : allItems) {
-                            final boolean matchExtra = (extra == null) || extra.matcher(str).find();
-                            final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
-                            final boolean matchRegex = dopt.searchIsRegex && (str.toString().matches(fil));
-                            if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
-                                resList.add(str);
-                            }
-                        }
-                        res.values = resList;
-                        res.count = resList.size();
-                        return res;
-                    }
-                };
-            }
-        };
+        final WithPositionAdapter listAdapter = new WithPositionAdapter(activity, android.R.layout.simple_list_item_1, filteredItems, dopt);
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setText(dopt.defaultText);
@@ -191,24 +224,29 @@ public class SearchOrCustomTextDialog {
         listView.setAdapter(listAdapter);
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+
         if (dopt.isSearchEnabled) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int px = (int) (new ContextUtils(listView.getContext()).convertDpToPx(8));
             lp.setMargins(px, px / 2, px, px / 2);
             linearLayout.addView(searchEditText, lp);
         }
+
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
         linearLayout.addView(listView, layoutParams);
         if (!TextUtils.isEmpty(dopt.messageText)) {
             dialogBuilder.setMessage(dopt.messageText);
         }
+
         dialogBuilder.setView(linearLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
+
         if (dopt.titleText != 0) {
             dialogBuilder.setTitle(dopt.titleText);
         }
+
         if (dopt.isSearchEnabled) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 dialogInterface.dismiss();
@@ -222,7 +260,11 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             dialog.dismiss();
             if (dopt.callback != null) {
-                dopt.callback.callback(filteredItems.get(position).toString());
+                dopt.callback.callback(filteredItems.get(position).first);
+            }
+            if (dopt.withPositionCallback != null) {
+                final Pair<String, Integer> item = filteredItems.get(position);
+                dopt.withPositionCallback.callback(item.first, item.second);
             }
         });
 
@@ -236,7 +278,6 @@ public class SearchOrCustomTextDialog {
             }
             return false;
         });
-
 
         Window w;
         if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
