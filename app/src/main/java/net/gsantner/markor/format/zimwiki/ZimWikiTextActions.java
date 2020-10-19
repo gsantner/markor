@@ -192,9 +192,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
                     // TODO: adapt to zim wiki
                     final String origText = _hlEditor.getText().toString();
-                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, callbackPayload -> {
-                        int cursor = origText.indexOf(callbackPayload);
-                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, (text, lineNr) -> {
+                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                     });
                     return true;
                 }
