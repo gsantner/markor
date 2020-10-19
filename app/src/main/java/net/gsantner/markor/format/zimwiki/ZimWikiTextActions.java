@@ -84,8 +84,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_zimwiki_h1, R.drawable.format_header_1, R.string.heading_1),
                 new ActionItem(R.string.tmaid_zimwiki_h2, R.drawable.format_header_2, R.string.heading_2),
                 new ActionItem(R.string.tmaid_zimwiki_h3, R.drawable.format_header_3, R.string.heading_3),
-                new ActionItem(R.string.tmaid_zimwiki_h4, R.drawable.ic_info_black_24dp, R.string.heading_4),   // TODO: add h4 icon
-                new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.ic_info_black_24dp, R.string.heading_5),   // TODO: add h5 icon
+                new ActionItem(R.string.tmaid_zimwiki_h4, R.drawable.format_header_4, R.string.heading_4),
+                new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.format_header_5, R.string.heading_5),
                 new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
                 new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
                 new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
