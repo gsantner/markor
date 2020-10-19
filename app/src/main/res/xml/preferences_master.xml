@@ -500,7 +500,7 @@
 
         <!-- ZimWiki screen -->
         <PreferenceScreen
-            android:icon="@drawable/ic_edit_black_24dp"
+            android:icon="@drawable/fountain_pen"
             android:title="@string/zim_wiki">
 
             <PreferenceCategory android:title="@string/syntax_highlighting">
