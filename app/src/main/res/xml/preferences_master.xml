@@ -511,6 +511,12 @@
                     android:summary="@string/increase_text_size_of_headings_according_to_level"
                     android:title="@string/bigger_headings" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/textactions">
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__zimwiki__reorder_actions"
+                    android:title="@string/action_order" />
+            </PreferenceCategory>
         </PreferenceScreen>
 
         <!-- Plaintext Screen -->

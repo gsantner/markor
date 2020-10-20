@@ -67,13 +67,13 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
     @Override
     protected @StringRes
     int getFormatActionsKey() {
-        return R.string.pref_key__markdown__action_keys;
+        return R.string.pref_key__zimwiki__action_keys;
     }
 
     @Override
     public List<ActionItem> getActiveActionList() {
 
-        final ActionItem[] TMA_ACTIONS = {
+        final ActionItem[] ZIMWIKI_ACTIONS = {
                 new ActionItem(R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list),
                 new ActionItem(R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
                 new ActionItem(R.string.tmaid_zimwiki_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold),
@@ -98,7 +98,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 // TODO: insert link, insert image
         };
 
-        return Arrays.asList(TMA_ACTIONS);
+        return Arrays.asList(ZIMWIKI_ACTIONS);
     }
 
     private class ZimWikiTextActionsImpl extends ActionCallback {

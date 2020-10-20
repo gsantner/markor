@@ -33,6 +33,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.markdown.MarkdownTextActions;
 import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
+import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
@@ -155,6 +156,9 @@ public class ActionOrderActivity extends AppCompatActivity {
                 break;
             case R.id.action_format_plaintext:
                 _textActions = new PlaintextTextActions(this, null);
+                break;
+            case R.id.action_format_zimwiki:
+                _textActions = new ZimWikiTextActions(this, null);
                 break;
         }
 

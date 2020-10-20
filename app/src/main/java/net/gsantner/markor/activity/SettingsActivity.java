@@ -370,9 +370,10 @@ public class SettingsActivity extends AppActivityBase {
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
                 case R.string.pref_key__markdown__reorder_actions:
+                case R.string.pref_key__zimwiki__reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {
                     Intent intent = new Intent(getActivity(), ActionOrderActivity.class);
-                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, (keyResId == R.string.pref_key__markdown__reorder_actions) ? R.id.action_format_markdown : (keyResId == R.string.pref_key__todotxt__reorder_actions ? R.id.action_format_todotxt : R.id.action_format_plaintext));
+                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, getActionForPreference(keyResId));
                     startActivity(intent);
                     break;
                 }
@@ -383,6 +384,20 @@ public class SettingsActivity extends AppActivityBase {
                 restartActivity();
             }
             return null;
+        }
+
+        private int getActionForPreference(int preference) {
+            switch (preference) {
+                case R.string.pref_key__markdown__reorder_actions:
+                    return R.id.action_format_markdown;
+                case R.string.pref_key__todotxt__reorder_actions:
+                    return R.id.action_format_todotxt;
+                case R.string.pref_key__plaintext__reorder_actions:
+                    return R.id.action_format_plaintext;
+                case R.string.pref_key__zimwiki__reorder_actions:
+                default:
+                    return R.id.action_format_zimwiki;
+            }
         }
 
         @Override
