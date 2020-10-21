@@ -165,19 +165,23 @@ public class SearchOrCustomTextDialog {
 
                 @Override
                 protected FilterResults performFiltering(final CharSequence constraint) {
-                    final FilterResults res = new FilterResults();
                     final ArrayList<Pair<CharSequence, Integer>> resList = new ArrayList<>();
-                    final String fil = constraint.toString();
-                    final boolean emptySearch = fil.isEmpty();
-                    for (int i = 0; i < dopt.data.size(); i++) {
-                        final CharSequence str = dopt.data.get(i);
-                        final boolean matchExtra = (extraPattern == null) || extraPattern.matcher(str).find();
-                        final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
-                        final boolean matchRegex = dopt.searchIsRegex && (str.toString().matches(fil));
-                        if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
-                            resList.add(new Pair<>(str, i));
+
+                    if (dopt.data != null) {
+                        final String fil = constraint.toString();
+                        final boolean emptySearch = fil.isEmpty();
+                        for (int i = 0; i < dopt.data.size(); i++) {
+                            final CharSequence str = dopt.data.get(i);
+                            final boolean matchExtra = (extraPattern == null) || extraPattern.matcher(str).find();
+                            final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
+                            final boolean matchRegex = dopt.searchIsRegex && (str.toString().matches(fil));
+                            if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
+                                resList.add(new Pair<>(str, i));
+                            }
                         }
                     }
+
+                    final FilterResults res = new FilterResults();
                     res.values = resList;
                     res.count = resList.size();
                     return res;
@@ -187,7 +191,6 @@ public class SearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final List<CharSequence> allItems = new ArrayList<>(dopt.data);
         final List<Pair<String, Integer>> filteredItems = new ArrayList<>();
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
