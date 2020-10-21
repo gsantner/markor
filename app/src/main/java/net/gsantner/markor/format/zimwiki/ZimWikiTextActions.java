@@ -23,39 +23,11 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
-    // TODO: adapt these to zim wiki
-    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((\\*)\\s)");
-    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+|[a-zA-z])(\\.)(\\s+))");
-
-
-    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)(\\[\\s]\\s)");
-    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)(\\[(\\*)]\\s)");
-    public static final Pattern PREFIX_CROSSED_LIST = Pattern.compile("^(\\s*)(\\[(x)]\\s)");
-    public static final Pattern PREFIX_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(>)]\\s)");
-
-//    public static final Pattern PREFIX_ANY_OR_LEADING_SPACE = Pattern.compile("^(\\s*)\\s")
-
-    // TODO: long press should delete the list
-
-    public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
-
-    public static final Pattern[] PREFIX_PATTERNS = {
-            PREFIX_ORDERED_LIST,
-            PREFIX_CHECKED_LIST,
-            PREFIX_UNCHECKED_LIST,
-            PREFIX_CROSSED_LIST,
-            PREFIX_ARROW_LIST,
-            // Unordered has to be after checked list. Otherwise checklist will match as an unordered list.
-            PREFIX_UNORDERED_LIST,
-            PREFIX_LEADING_SPACE,
-    };
 
     private final ZimWikiReplacePatternGenerator replacePatternGenerator;
 
@@ -130,30 +102,27 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             }
             switch (_action) {
                 case R.string.tmaid_zimwiki_h1: {
-                    setHeadingAction(1);
+                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(1));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h2: {
-                    setHeadingAction(2);
+                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(2));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h3: {
-                    setHeadingAction(3);
+                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(3));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h4: {
-                    setHeadingAction(4);
+                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(4));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h5: {
-                    setHeadingAction(5);
+                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(5));
                     return true;
                 }
                 case R.string.tmaid_common_unordered_list_char: {
-                    // TODO: adapt to zim wiki
-                    final String listChar = "*";
-                    final String listPrefix = "$1" + listChar + " ";
-                    runPrefixReplaceAction(PREFIX_UNORDERED_LIST, listPrefix, "$1");
+                    runRegexReplaceAction(replacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix());
                     return true;
                 }
                 case R.string.tmaid_common_checkbox_list: {
@@ -161,8 +130,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
+                    runRegexReplaceAction(replacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
                     // TODO: adapt to zim wiki
-                    runPrefixReplaceAction(PREFIX_ORDERED_LIST, "$11. ", "$1");
                     runRenumberOrderedListIfRequired();
                     return true;
                 }
@@ -250,50 +219,14 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
-                    // TODO: adapt to zim wiki - delete list item (instead of toggling to next state)
+                    // TODO: adapt to zim wiki
                     ZimWikiAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                 }
+
+                // TODO: long press checklist action should delete the checkbox prefix
             }
             return false;
         }
-    }
-
-
-    /**
-     * Set/unset heading level for the line (the lower the level, the higher the count of equal signs)
-     * <p>
-     * This routine will make the following conditional changes
-     * <p>
-     * Line is heading of same level as requested -> remove heading
-     * Line is heading of different level that that requested -> replace with requested heading
-     * Line is not heading -> add heading of specified level
-     *
-     * @param level heading level
-     */
-    private void setHeadingAction(int level) {
-
-        List<ReplacePattern> patterns = new ArrayList<>();
-
-        final int numberOfEqualSigns = 7-level;
-        String headingChars = StringUtils.repeatChars('=', numberOfEqualSigns);
-
-        patterns.add(replacePatternGenerator.removeHeadingCharsForExactHeadingLevel(headingChars));
-        patterns.add(replacePatternGenerator.replaceDifferentHeadingLevelWithThisLevel(headingChars));
-        patterns.add(replacePatternGenerator.createHeadingIfNoneThere(headingChars));
-
-        runRegexReplaceAction(patterns);
-    }
-
-    private void runPrefixReplaceAction(final Pattern actionPattern, final String action, final String alt) {
-
-        List<ReplacePattern> patterns = new ArrayList<>();
-
-        // Replace prefixes with action (or alt if prefix is specified action)
-        for (final Pattern pp : PREFIX_PATTERNS) {
-            patterns.add(new ReplacePattern(pp, pp == actionPattern ? alt : action));
-        }
-
-        runRegexReplaceAction(patterns);
     }
 
     private void runRenumberOrderedListIfRequired() {

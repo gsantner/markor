@@ -10,80 +10,107 @@ import java.util.regex.Matcher;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ZimWikiReplacePatternGeneratorTest {
-    private TextActions.ReplacePattern replacePattern;
+    private List<TextActions.ReplacePattern> replacePatterns;
     private String result;
     private final ZimWikiReplacePatternGenerator replacePatternGenerator = new ZimWikiReplacePatternGenerator();
 
     @Test
+    public void createHeadingsWithSpecifiedLevel() {
+    }
+    @Test
     public void removeHeadingCharsForExactHeadingLevel() {
-        String headingChars = "===";
-        replacePattern = replacePatternGenerator.removeHeadingCharsForExactHeadingLevel(headingChars);
+        setLevelFourHeadingAction();
         assertCorrectReplacement("=== Heading ===","Heading");
     }
 
     @Test
     public void replaceDifferentLevelHeadings() {
-        String newHeadingChars = "===";
-        replacePattern = replacePatternGenerator.replaceDifferentHeadingLevelWithThisLevel(newHeadingChars);
+        setLevelFourHeadingAction();
         assertCorrectReplacement("==== Heading ====", "=== Heading ===");
     }
 
     @Test
     public void createEmptyHeading() {
-        String newHeadingChars = "===";
-        replacePattern = replacePatternGenerator.createHeadingIfNoneThere(newHeadingChars);
+        setLevelFourHeadingAction();
         assertCorrectReplacement("", "===  ===");
     }
 
     @Test
     public void addHeadingCharactersToText() {
-        String newHeadingChars = "===";
-        replacePattern = replacePatternGenerator.createHeadingIfNoneThere(newHeadingChars);
+        setLevelFourHeadingAction();
         assertCorrectReplacement("Heading", "=== Heading ===");
+    }
+
+    private void setLevelFourHeadingAction() {
+        int headingLevel = 4;
+        replacePatterns = replacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel);
     }
 
     @Test
     public void toggleFromUncheckedToCheckedBox() {
+        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
         String uncheckedItem = "[ ] some item";
-        String result = replaceWithFirstMatchingPattern(replacePatternGenerator.replaceWithNextStateCheckbox(), uncheckedItem);
-        assertThat(result).isEqualTo("[*] some item");
+        assertCorrectReplacement(uncheckedItem, "[*] some item");
     }
 
     @Test
     public void toggleCheckBoxInCorrectOrder() {
+        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
         String[] orderedCheckboxStates = {" ", "*", "x", ">"};
         // create checkbox
         String currentLine = "some item";
-        currentLine = replaceWithFirstMatchingPattern(replacePatternGenerator.replaceWithNextStateCheckbox(), currentLine);
+        currentLine = replaceWithFirstMatchingPattern(replacePatterns, currentLine);
         for (int i = 0; i<orderedCheckboxStates.length+1; i++) {
             assertThat(currentLine).isEqualTo("["+orderedCheckboxStates[i%orderedCheckboxStates.length]+"] some item");
-            currentLine = replaceWithFirstMatchingPattern(replacePatternGenerator.replaceWithNextStateCheckbox(), currentLine);
+            currentLine = replaceWithFirstMatchingPattern(replacePatterns, currentLine);
         }
     }
 
     @Test
     public void replaceNonChecklistPrefixesWithUncheckedBox() {
+        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
         String[] otherPrefixes = {"1.", "a.", "*"};
         for (String otherPrefix : otherPrefixes) {
             String itemWithOtherPrefix = otherPrefix + " some item";
-            String result = replaceWithFirstMatchingPattern(replacePatternGenerator.replaceWithNextStateCheckbox(), itemWithOtherPrefix);
-            assertThat(result).isEqualTo("[ ] some item");
+            assertCorrectReplacement(itemWithOtherPrefix, "[ ] some item");
         }
     }
 
     @Test
-    public void keepsWhitespaceWhenAddingCheckbox() {
+    public void keepWhitespaceWhenAddingCheckbox() {
+        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
         String original = " some item";
-        String result = replaceWithFirstMatchingPattern(replacePatternGenerator.replaceWithNextStateCheckbox(), original);
-        assertThat(result).isEqualTo(" [ ] some item");
+        assertCorrectReplacement(original, " [ ] some item");
     }
 
+    @Test
+    public void changePrefixToUnorderedListOrRemoveItAlreadyPresent() {
+        replacePatterns = replacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix();
+        String[] otherPrefixes = {"1.", "2.", "a.", "[ ]", "[x]"};
+        for (String otherPrefix : otherPrefixes) {
+            String originalLine = otherPrefix + " some item";
+            assertCorrectReplacement(originalLine, "* some item");
+        }
+        assertCorrectReplacement("* some item", "some item");
+    }
+
+    @Test
+    public void changePrefixToOrderedListOrRemoveItAlreadyPresent() {
+        replacePatterns = replacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
+        String[] otherPrefixes = {"[>]", "*", "[ ]"};
+        for (String otherPrefix : otherPrefixes) {
+            String originalLine = otherPrefix + " some item";
+            assertCorrectReplacement(originalLine, "1. some item");
+        }
+        String[] orderedListPrefixes = {"1.", "a.", "2."};
+        for (String orderedListPrefix : orderedListPrefixes) {
+            String originalLine = orderedListPrefix + " some item";
+            assertCorrectReplacement(originalLine, "some item");
+        }
+    }
 
     private void assertCorrectReplacement(String original, String expectedReplacement) {
-        Matcher matcher = replacePattern.searchPattern.matcher(original);
-        assertThat(matcher.find()).isTrue();
-        System.out.println("Matched: "+matcher.group());
-        result = matcher.replaceFirst(replacePattern.replacePattern);
+        result = replaceWithFirstMatchingPattern(replacePatterns, original);
         assertThat(result).isEqualTo(expectedReplacement);
     }
 

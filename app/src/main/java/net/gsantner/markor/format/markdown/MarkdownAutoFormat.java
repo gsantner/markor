@@ -109,7 +109,7 @@ public class MarkdownAutoFormat implements InputFilter {
         public OrderedListLine(CharSequence text, int position) {
             super(text, position);
 
-            final Matcher match = MarkdownTextActions.PREFIX_ORDERED_LIST.matcher(line);
+            final Matcher match = MarkdownReplacePatternGenerator.PREFIX_ORDERED_LIST.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
@@ -175,9 +175,9 @@ public class MarkdownAutoFormat implements InputFilter {
         public UnOrderedListLine(CharSequence text, int position) {
             super(text, position);
 
-            final Matcher ucMatch = MarkdownTextActions.PREFIX_UNCHECKED_LIST.matcher(line);
-            final Matcher cMatch = MarkdownTextActions.PREFIX_CHECKED_LIST.matcher(line);
-            final Matcher uMatch = MarkdownTextActions.PREFIX_UNORDERED_LIST.matcher(line);
+            final Matcher ucMatch = MarkdownReplacePatternGenerator.PREFIX_UNCHECKED_LIST.matcher(line);
+            final Matcher cMatch = MarkdownReplacePatternGenerator.PREFIX_CHECKED_LIST.matcher(line);
+            final Matcher uMatch = MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST.matcher(line);
 
             isUnorderedList = uMatch.find(); // Will also detect other unordered list types
             isChecked = cMatch.find();

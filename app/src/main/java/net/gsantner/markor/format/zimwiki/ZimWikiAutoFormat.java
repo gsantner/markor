@@ -111,7 +111,7 @@ public class ZimWikiAutoFormat implements InputFilter {
         public OrderedListLine(CharSequence text, int position) {
             super(text, position);
 
-            final Matcher match = ZimWikiTextActions.PREFIX_ORDERED_LIST.matcher(line);
+            final Matcher match = ZimWikiReplacePatternGenerator.PREFIX_ORDERED_LIST.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
@@ -177,9 +177,9 @@ public class ZimWikiAutoFormat implements InputFilter {
         public UnOrderedListLine(CharSequence text, int position) {
             super(text, position);
 
-            final Matcher ucMatch = ZimWikiTextActions.PREFIX_UNCHECKED_LIST.matcher(line);
-            final Matcher cMatch = ZimWikiTextActions.PREFIX_CHECKED_LIST.matcher(line);
-            final Matcher uMatch = ZimWikiTextActions.PREFIX_UNORDERED_LIST.matcher(line);
+            final Matcher ucMatch = ZimWikiReplacePatternGenerator.PREFIX_UNCHECKED_LIST.matcher(line);
+            final Matcher cMatch = ZimWikiReplacePatternGenerator.PREFIX_CHECKED_LIST.matcher(line);
+            final Matcher uMatch = ZimWikiReplacePatternGenerator.PREFIX_UNORDERED_LIST.matcher(line);
 
             isUnorderedList = uMatch.find(); // Will also detect other unordered list types
             isChecked = cMatch.find();
