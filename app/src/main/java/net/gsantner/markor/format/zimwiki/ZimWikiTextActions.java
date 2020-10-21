@@ -31,16 +31,27 @@ import java.util.regex.Pattern;
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
     // TODO: adapt these to zim wiki
-    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+)([.)])(\\s+))");
-    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)(([-*+])\\s\\[([xX])]\\s)");
-    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)(([-*+])\\s\\[\\s]\\s)");
-    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)(([-*+])\\s)");
+    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((\\*)\\s)");
+    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+|[a-zA-z])(\\.)(\\s+))");
+
+
+    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)(\\[\\s]\\s)");
+    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)(\\[(\\*)]\\s)");
+    public static final Pattern PREFIX_CROSSED_LIST = Pattern.compile("^(\\s*)(\\[(x)]\\s)");
+    public static final Pattern PREFIX_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(>)]\\s)");
+
+//    public static final Pattern PREFIX_ANY_OR_LEADING_SPACE = Pattern.compile("^(\\s*)\\s")
+
+    // TODO: long press should delete the list
+
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
-    private static final Pattern[] PREFIX_PATTERNS = {
+    public static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
             PREFIX_CHECKED_LIST,
             PREFIX_UNCHECKED_LIST,
+            PREFIX_CROSSED_LIST,
+            PREFIX_ARROW_LIST,
             // Unordered has to be after checked list. Otherwise checklist will match as an unordered list.
             PREFIX_UNORDERED_LIST,
             PREFIX_LEADING_SPACE,
@@ -140,17 +151,13 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 }
                 case R.string.tmaid_common_unordered_list_char: {
                     // TODO: adapt to zim wiki
-                    final String listChar = _appSettings.getUnorderedListCharacter();
+                    final String listChar = "*";
                     final String listPrefix = "$1" + listChar + " ";
                     runPrefixReplaceAction(PREFIX_UNORDERED_LIST, listPrefix, "$1");
                     return true;
                 }
                 case R.string.tmaid_common_checkbox_list: {
-                    // TODO: adapt to zim wiki
-                    final String listChar = _appSettings.getUnorderedListCharacter();
-                    final String uncheck = "$1" + listChar + " [ ] ";
-                    final String check = "$1" + listChar + " [x] ";
-                    runPrefixReplaceAction(PREFIX_UNCHECKED_LIST, uncheck, check);
+                    runRegexReplaceAction(replacePatternGenerator.replaceWithNextStateCheckbox());
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
@@ -243,7 +250,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
-                    // TODO: adapt to zim wiki
+                    // TODO: adapt to zim wiki - delete list item (instead of toggling to next state)
                     ZimWikiAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                 }
             }

@@ -20,6 +20,8 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
+// TODO: adapt to zim wiki
+//  unordered lists must alternate between numbers and letters
 public class ZimWikiAutoFormat implements InputFilter {
 
     @Override
