@@ -174,8 +174,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_indent:
+                    runRegexReplaceAction(replacePatternGenerator.indentOneTab());
+                    return true;
                 case R.string.tmaid_common_deindent: {
-                    runCommonTextAction(_context.getString(_action));
+                    runRegexReplaceAction(replacePatternGenerator.deindentOneTab());
                     runRenumberOrderedListIfRequired();
                     return true;
                 }

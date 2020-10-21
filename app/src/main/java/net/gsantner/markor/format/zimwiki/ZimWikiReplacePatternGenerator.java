@@ -6,6 +6,7 @@ import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -108,4 +109,13 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
         return replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);
     }
 
+    public List<TextActions.ReplacePattern> deindentOneTab() {
+        final Pattern leadingTabIndentPattern = Pattern.compile("^\t");
+        return Collections.singletonList(new TextActions.ReplacePattern(leadingTabIndentPattern, ""));
+    }
+
+    public List<TextActions.ReplacePattern> indentOneTab() {
+        final Pattern lineStart = Pattern.compile("^");
+        return Collections.singletonList(new TextActions.ReplacePattern(lineStart, "\t"));
+    }
 }
