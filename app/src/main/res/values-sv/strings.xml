@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Sida ned (Page down)</string>
     <string name="move_text_one_line_up">Flytta text en rad upp</string>
     <string name="move_text_one_line_down">Flytta text en rad nedåt</string>
+    <string name="start_new_line_below">Starta ny rad nedan</string>
     <string name="key_pos_1">Början av rad (Pos home)</string>
     <string name="key_pos_end">Slutet av rad (Pos end)</string>
     <string name="key_pos_1_document">Dokumentets början</string>
