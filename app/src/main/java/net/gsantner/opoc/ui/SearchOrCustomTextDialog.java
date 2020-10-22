@@ -187,7 +187,6 @@ public class SearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final List<CharSequence> allItems = new ArrayList<>(dopt.data);
         final List<Pair<String, Integer>> filteredItems = new ArrayList<>();
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
