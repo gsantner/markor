@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Sivu alas (Page down)</string>
     <string name="move_text_one_line_up">Siirrä tekstiä yksi rivi ylöspäin</string>
     <string name="move_text_one_line_down">Siirrä tekstiä yksi rivi alaspäin</string>
+    <string name="start_new_line_below">Aloita uusi rivi alla</string>
     <string name="key_pos_1">Rivin alku (Pos Home)</string>
     <string name="key_pos_end">Rivin loppu (Pos End)</string>
     <string name="key_pos_1_document">Asiakirjan alku</string>
