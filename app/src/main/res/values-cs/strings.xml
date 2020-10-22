@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Page Down (Page Down)</string>
     <string name="move_text_one_line_up">Přesunout text o jeden řádek nahoru</string>
     <string name="move_text_one_line_down">Přesunout text o jeden řádek dolů</string>
+    <string name="start_new_line_below">Začít nový řádek níže</string>
     <string name="key_pos_1">Line Start (Pos Home)</string>
     <string name="key_pos_end">Line End (Pos End)</string>
     <string name="key_pos_1_document">Začátek dokumentace</string>
