@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
     <string name="move_text_one_line_up">Sposta il testo una riga in su</string>
     <string name="move_text_one_line_down">Sposta il testo una riga in giù</string>
+    <string name="start_new_line_below">Inizia la nuova riga sotto</string>
     <string name="key_pos_1">Inizio della linea (tasto Home)</string>
     <string name="key_pos_end">Fine della linea (tasto End)</string>
     <string name="key_pos_1_document">Inizio del documento</string>
