@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Página abaixo (Page Down)</string>
     <string name="move_text_one_line_up">Mover texto uma linha acima</string>
     <string name="move_text_one_line_down">Mover texto uma linha abaixo</string>
+    <string name="start_new_line_below">Iniciar nova linha abaixo</string>
     <string name="key_pos_1">Início de linha (Home)</string>
     <string name="key_pos_end">Fim de linha (End)</string>
     <string name="key_pos_1_document">Início do documento</string>
