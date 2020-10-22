@@ -69,7 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">リンクを挿入</string>
     <string name="insert_image">画像を挿入</string>
     <string name="contributors">貢献者</string>
-    <string name="save_location">場所を保存</string>
+    <string name="save_location">保存場所</string>
     <string name="select_storage_folder">ストレージのフォルダーを選択</string>
     <string name="licenses">ライセンス</string>
     <string name="changelog">変更履歴</string>
@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_need_storage_permission_to_save_documents">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
     <string name="open_with">開く…</string>
     <string name="sort">並べ替え</string>
-    <string name="date">日付順に並べ替え</string>
+    <string name="date">日付</string>
     <string name="deleteme____1">名前順に並び替え</string>
     <string name="size">サイズ</string>
     <string name="reverse_order">逆順</string>
@@ -91,7 +91,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="press_back_again_to_exit">もう一度戻るを押すと終了します</string>
     <string name="exit">終了</string>
     <string name="undo">元に戻す</string>
-    <string name="redo">繰り返し</string>
+    <string name="redo">やり直し</string>
     <string name="more">さらに</string>
     <string name="notebook">ノート</string>
     <string name="help">ヘルプ</string>
@@ -112,7 +112,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">アーカイブ</string>
     <string name="add_task">タスクを追加</string>
     <string name="add_x_witharg">%s を追加</string>
-    <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントをクイックノートとして読み込みおよび保存します \"%s\"</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントを読み込んで、\"%s\"として保存します。</string>
     <string name="refresh">更新</string>
     <string name="create_shortcut">ショートカットを作成</string>
     <string name="tried_to_create_shortcut_for_this_notice">編集中のこのドキュメントに対して、ホーム画面にショートカットを追加します。 一部のランチャーはこの機能をサポートしていません。</string>
@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">ページ下移動 (Page Down)</string>
     <string name="move_text_one_line_up">テキストを１行上に移動</string>
     <string name="move_text_one_line_down">テキストを１行下に移動</string>
+    <string name="start_new_line_below">以下の新しい行を開始します</string>
     <string name="key_pos_1">行の先頭 (Pos Home)</string>
     <string name="key_pos_end">行の末尾 (Pos End)</string>
     <string name="key_pos_1_document">ドキュメントの始め</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">必須</string>
     <string name="append_human_readable_uuid_to_new_tasks">人間が読めるUUIDを新しいタスクに追加</string>
     <string name="action_order">操作の順序</string>
+    <string name="toggle_action_visibility">アクションの表示を切り替える</string>
     <string name="load_default_settings">デフォルトの設定を読み込む</string>
     <string name="drag">ドラッグ</string>
     <string name="file_encryption_password">ファイルの暗号化パスワード</string>

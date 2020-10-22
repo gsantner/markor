@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Pagină în jos (Pagina Jos)</string>
     <string name="move_text_one_line_up">Mutați textul cu o linie în sus</string>
     <string name="move_text_one_line_down">Mutați textul cu o linie în jos</string>
+    <string name="start_new_line_below">Pornește linia nouă de mai jos</string>
     <string name="key_pos_1">Pornire linie (Paca pos)</string>
     <string name="key_pos_end">Sfârșit linie (Pos Sfârșit)</string>
     <string name="key_pos_1_document">Pornire document</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Esențial</string>
     <string name="append_human_readable_uuid_to_new_tasks">Adaugă UUID lizibil uman la sarcini noi</string>
     <string name="action_order">Ordin de acțiune</string>
+    <string name="toggle_action_visibility">Comută vizibilitatea acțiunii</string>
     <string name="load_default_settings">Încarcă setările implicite</string>
     <string name="drag">Trage</string>
     <string name="file_encryption_password">Parola de criptare a fișierului</string>

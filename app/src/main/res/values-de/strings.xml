@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Nächste Seite (Bild↓)</string>
     <string name="move_text_one_line_up">Text eine Zeile nach oben verschieben</string>
     <string name="move_text_one_line_down">Text eine Zeile nach unten verschieben</string>
+    <string name="start_new_line_below">Neue Zeile unten starten</string>
     <string name="key_pos_1">Zeilen-Start (Pos 1)</string>
     <string name="key_pos_end">Zeilen-Ende (Ende)</string>
     <string name="key_pos_1_document">Dokumenten Beginn</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essenziell</string>
     <string name="append_human_readable_uuid_to_new_tasks">Menschlich lesbare UUID neuen Aufgaben hinzufügen</string>
     <string name="action_order">Aktions-Reihenfolge</string>
+    <string name="toggle_action_visibility">Sichtbarkeit der Aktion umschalten</string>
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
     <string name="file_encryption_password">Datei-Verschlüsselungs-Passwort</string>
