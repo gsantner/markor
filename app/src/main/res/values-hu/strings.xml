@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Dokumentum létrehozása</string>
     <string name="move">Mozgatás</string>
     <string name="info">Infó</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet!</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet</string>
     <string name="import_from_device">Importálás az eszközről</string>
     <string name="import_">Importálás</string>
     <string name="append_to_witharg">Hozáfűz ehhez: %s</string>
@@ -121,7 +121,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="file_browser">Fájlkezelő</string>
-    <string name="set_due_date">Esedékesség</string>
+    <string name="set_due_date">Határidő beállítása</string>
     <string name="insert_replace_date">Dátum beszúrása</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
     <string name="special_documents" needed="false">Speciális dokumentumok</string>
@@ -350,9 +350,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Kiválasztott</string>
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
-    <string name="essential">Szükséges</string>
+    <string name="essential">Alapvető</string>
     <string name="append_human_readable_uuid_to_new_tasks">Ember által olvasható UUID hozzárendelése új feladatokhoz</string>
     <string name="action_order">Műveletek sorrendje</string>
+    <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
@@ -363,4 +364,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Kódtömb</string>
     <string name="add_completion_date">Teljesítés dátuma</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">A teljesítés dátumának beszúrása amikor késznek vannak jelölve</string>
+    <string name="loading_default_value">Alapértelmezett érték betöltése</string>
 </resources>
