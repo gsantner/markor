@@ -30,6 +30,7 @@ import android.widget.Spinner;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.format.zimwiki.ZimWikiFileContentsCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
@@ -155,12 +156,24 @@ public class NewFileDialog extends DialogFragment {
                     }
 
                     appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
-                    final File f = new File(basedir, fileNameEdit.getText().toString().trim() + fileExtEdit.getText().toString().trim());
+                    boolean isNewZimWikiFile = typeSpinner.getSelectedItemPosition() == 3;
+                    // zim uses underscores in the filename to represent spaces in the page title
+                    final String fileNameWithoutExtension = isNewZimWikiFile ? fileNameEdit.getText().toString().trim().replace(' ', '_')
+                            : fileNameEdit.getText().toString().trim();
+                    final String fileExtension = fileExtEdit.getText().toString().trim();
+                    final File f = new File(basedir, fileNameWithoutExtension + fileExtension);
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
-                            if (f.exists() && f.length() < ShareUtil.MIN_OVERWRITE_LENGTH && templateContents != null) {
+                            boolean isAllowedToWrite = f.exists() && f.length() < ShareUtil.MIN_OVERWRITE_LENGTH;
+                            if (isAllowedToWrite && templateContents != null) {
                                 arg_fos.write(templateContents);
+                            } else {
+                                if (isAllowedToWrite && isNewZimWikiFile) {
+                                    String headerAndTitleContents = ZimWikiFileContentsCreator.createZimWikiHeaderAndTitleContents(fileNameWithoutExtension, new Date(), getResources().getString(R.string.created));
+                                    arg_fos.write(getBytesFromStringContents(encryptCheckbox.isChecked(), headerAndTitleContents));
+                                }
+
                             }
                         } catch (Exception ignored) {
                         }
@@ -243,11 +256,16 @@ public class NewFileDialog extends DialogFragment {
             }
         }
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
+        bytes = getBytesFromStringContents(encrypt, t);
+        return bytes;
+    }
 
+    private byte[] getBytesFromStringContents(final boolean encrypt, final String stringContents) {
+        byte[] bytes;
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            bytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
+            bytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(stringContents, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
         } else {
-            bytes = t.getBytes();
+            bytes = stringContents.getBytes();
         }
         return bytes;
     }
