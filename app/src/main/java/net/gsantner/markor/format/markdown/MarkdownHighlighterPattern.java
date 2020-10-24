@@ -12,8 +12,9 @@ package net.gsantner.markor.format.markdown;
 import java.util.regex.Pattern;
 
 public enum MarkdownHighlighterPattern {
-    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(([*_]){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
-    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s))")),
+
+    BOLD(Pattern.compile("(?<=(\\n|^|\\s))(([*_]){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|.|:|;|-|\\)|]|}))")),
+    ITALICS(Pattern.compile("(?<=(\\n|^|\\s))([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|.|:|;|-|\\)|]|}))")),
     HEADING(Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))")),
     HEADING_SIMPLE(Pattern.compile("(?m)^(#{1,6}\\s.*$)")),
     LINK(Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)")),
@@ -25,7 +26,6 @@ public enum MarkdownHighlighterPattern {
     DOUBLESPACE_LINE_ENDING(Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n")),
     ACTION_LINK_PATTERN(Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)")),
     ACTION_IMAGE_PATTERN(Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)"));
-
 
     public final Pattern pattern;
 
