@@ -277,11 +277,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Módok közötti váltás kézmozdulattal</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Húzd el az ujjad a képernyőn a szerkesztő és olvasó mód közti váltáshoz</string>
     <string name="folder_first">Mappák előre</string>
+    <string name="go_to">Ugrás</string>
     <string name="appdata_public">AppData (nyilvános)</string>
     <string name="appdata_private">AppData (privát)</string>
     <string name="appdata_sdcard">AppData (SD kártya)</string>
     <string name="internal_storage">Belső tárhely</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">A QuickNote az ötletek gyors leírására szolgál Markdown formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/QuickNote.md&lt; helyen található, de helye beállításokban testreszabható.</string>
+    <string name="todo_is_the_easiest_way_">A ToDo-val kezelheted a feladataidat \"todo.txt\" formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/todo.txt&lt; helyen található, de helye beállításokban testreszabható.</string>
     <string name="navigationbar_color">Navigációs sáv színe</string>
     <string name="black">Fekete</string>
     <string name="white">Fehér</string>
@@ -347,6 +350,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Kiválasztott</string>
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
+    <string name="essential">Szükséges</string>
     <string name="append_human_readable_uuid_to_new_tasks">Ember által olvasható UUID hozzárendelése új feladatokhoz</string>
     <string name="action_order">Műveletek sorrendje</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
