@@ -121,6 +121,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="file_browser">Fájlkezelő</string>
+    <string name="set_due_date">Esedékesség</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
     <string name="special_documents" needed="false">Speciális dokumentumok</string>
     <string name="keep_screen_on" needed="false">Képernyő ébren tartása</string>
@@ -161,6 +162,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
     <string name="use_monospace_for_code">Kódhoz azonos szélességű betűtípus használata</string>
     <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
+    <string name="auto_renumber_ordered_list_slowdown">Ez az opció befolyásolhatja az app teljesítményét.</string>
     <string name="use_different_fonttype_slow_down">Másik betűtípus használata. Dinamikus megváltoztatása hatással van a teljesítményre.</string>
     <string name="general">Általános</string>
     <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
