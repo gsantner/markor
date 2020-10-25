@@ -224,6 +224,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Helyesírás-ellenőrzés kikapcsolása</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Billentyűzetjavaslatok maradnak, piros aláhúzás eltűnik</string>
     <string name="location">Hely</string>
+    <string name="text_lines">Sorok szövege</string>
     <string name="text_characters">Szöveges karakterek</string>
     <string name="directory">Mappa</string>
     <string name="recently_viewed_documents">Nemrég megnyitott dokumentumok</string>
@@ -343,6 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_done">Teljesítve</string>
     <string name="link_color">Hivatkozás színe</string>
     <string name="add_context">Kontextus hozzáadása</string>
+    <string name="add_project">Projekt hozzáadása</string>
     <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
     <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
