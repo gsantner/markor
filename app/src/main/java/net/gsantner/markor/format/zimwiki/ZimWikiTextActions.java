@@ -62,13 +62,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_zimwiki_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold),
                 new ActionItem(R.string.tmaid_zimwiki_strikeout, R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
                 new ActionItem(R.string.tmaid_zimwiki_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
-                new ActionItem(R.string.tmaid_zimwiki_mark, R.drawable.ic_format_underlined_black_24dp, R.string.marked),
+                new ActionItem(R.string.tmaid_zimwiki_highlight, R.drawable.ic_format_underlined_black_24dp, R.string.highlighted),
                 new ActionItem(R.string.tmaid_zimwiki_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code),
                 new ActionItem(R.string.tmaid_zimwiki_h1, R.drawable.format_header_1, R.string.heading_1),
                 new ActionItem(R.string.tmaid_zimwiki_h2, R.drawable.format_header_2, R.string.heading_2),
                 new ActionItem(R.string.tmaid_zimwiki_h3, R.drawable.format_header_3, R.string.heading_3),
-                new ActionItem(R.string.tmaid_zimwiki_h4, R.drawable.format_header_4, R.string.heading_4),
-                new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.format_header_5, R.string.heading_5),
                 new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
                 new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
                 new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
@@ -78,6 +76,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_common_accordion, R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion),
                 new ActionItem(R.string.tmaid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
                 new ActionItem(R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
+                new ActionItem(R.string.tmaid_zimwiki_h4, R.drawable.format_header_4, R.string.heading_4),
+                new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.format_header_5, R.string.heading_5),
                 // TODO: insert link, insert image
         };
 
@@ -143,7 +143,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     runInlineAction("//");
                     return true;
                 }
-                case R.string.tmaid_zimwiki_mark: {
+                case R.string.tmaid_zimwiki_highlight: {
                     runInlineAction("__");
                     return true;
                 }

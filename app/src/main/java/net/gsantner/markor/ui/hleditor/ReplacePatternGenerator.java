@@ -23,9 +23,7 @@ public abstract class ReplacePatternGenerator {
         return replacePatterns;
     }
 
-    protected List<TextActions.ReplacePattern> replaceOtherPrefixWithSelectedOrRemovePrefix(
-            final Pattern[] allPrefixPatterns,
-            final Pattern selectedPrefixPattern, final String selectedPrefixReplacement) {
+    protected List<TextActions.ReplacePattern> replaceOtherPrefixWithSelectedOrRemovePrefix(final Pattern[] allPrefixPatterns, final Pattern selectedPrefixPattern, final String selectedPrefixReplacement) {
         String removePrefixReplacement = "$1";  // only keep whitespaces before prefix
         return replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(allPrefixPatterns,
                 selectedPrefixPattern, selectedPrefixReplacement, removePrefixReplacement);

@@ -51,6 +51,12 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
         List<TextActions.ReplacePattern> patterns = new ArrayList<>();
 
         final int numberOfEqualSigns = 7-level;
+
+        boolean isValidZimWikiHeading = numberOfEqualSigns >= 2 && numberOfEqualSigns <= 6;
+        if (!isValidZimWikiHeading) {
+            return patterns;
+        }
+
         String headingChars = StringUtils.repeatChars('=', numberOfEqualSigns);
 
         patterns.add(removeHeadingCharsForExactHeadingLevel(headingChars));

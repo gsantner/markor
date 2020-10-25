@@ -46,10 +46,10 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
         VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')"));
         // TODO Table
 
-        private Pattern pattern;
+        private Pattern _pattern;
 
         ZimWikiPatterns(Pattern pattern) {
-            this.pattern = pattern;
+            _pattern = pattern;
         }
     }
 
@@ -76,46 +76,55 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
                 continue;
 
             for (ZimWikiPatterns pattern : ZimWikiPatterns.values()) {
-                matcher = pattern.pattern.matcher(line);
+                matcher = pattern._pattern.matcher(line);
                 while (matcher.find()) {
                     StringBuffer converted = new StringBuffer();
                     switch (pattern) {
-                        case EMPHASIS:
+                        case EMPHASIS: {
                             matcher.appendReplacement(converted,
                                     matcher.group().replaceAll("^/+|/+$", "*"));
                             break;
-                        case LINK:
+                        }
+                        case LINK: {
                             matcher.appendReplacement(converted,
                                     convertLink(matcher.group(), context, file));
                             break;
-                        case LIST_ORDERED:
+                        }
+                        case LIST_ORDERED: {
                             matcher.appendReplacement(converted,
                                     matcher.group().replaceAll("[0-9a-zA-Z]+\\.", "1."));
                             break;
-                        case HEADING:
+                        }
+                        case HEADING: {
                             matcher.appendReplacement(converted, convertHeading(matcher.group()));
                             break;
-                        case LIST_CHECK:
+                        }
+                        case LIST_CHECK: {
                             matcher.appendReplacement(converted, "- " + matcher.group());
                             break;
-                        case VERBATIM:
+                        }
+                        case VERBATIM: {
                             matcher.appendReplacement(converted, "`" + matcher.group() + "`");
                             break;
-                        case SUBSCRIPT:
+                        }
+                        case SUBSCRIPT: {
                             matcher.appendReplacement(converted,
                                     String.format("<sub>%s</sub>",
                                             matcher.group().replaceAll("^_\\{|\\}$", "")));
                             break;
-                        case SUPERSCRIPT:
+                        }
+                        case SUPERSCRIPT: {
                             matcher.appendReplacement(converted,
                                     String.format("<sup>%s</sup>",
                                             matcher.group().replaceAll("^\\^\\{|\\}$", "")));
                             break;
+                        }
                         case LIST_UNORDERED:
                         case STRIKE:
                         case STRONG:
-                        default:
+                        default: {
                             break;
+                        }
                     }
                     matcher.appendTail(converted);
                     line = converted.toString();
@@ -179,22 +188,26 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      */
     private boolean checkHeader(int lineNr, String line) {
         switch (++lineNr) {
-            case 1:
+            case 1: {
                 if (!line.matches("^Content-Type: text/x-zim-wiki$"))
                     return false;
                 break;
-            case 2:
+            }
+            case 2: {
                 if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+$"))
                     return false;
                 break;
-            case 3:
+            }
+            case 3: {
                 if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+$"))
                     return false;
                 break;
-            case 4:
+            }
+            case 4: {
                 if (!line.isEmpty())
                     return false;
                 break;
+            }
         }
         return true;
     }
@@ -206,8 +219,9 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      */
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        if (!filepath.matches("(?i)^.+\\.txt$"))
+        if (!filepath.matches("(?i)^.+\\.txt$")) {
             return false;
+        }
 
         boolean result = true;
         File file = new File(filepath);
@@ -223,8 +237,9 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
             // dunno
         }
         try {
-            if (reader != null)
+            if (reader != null) {
                 reader.close();
+            }
         } catch (IOException e) {
             return false;
         }

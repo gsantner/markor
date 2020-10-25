@@ -388,15 +388,19 @@ public class SettingsActivity extends AppActivityBase {
 
         private int getActionForPreference(int preference) {
             switch (preference) {
-                case R.string.pref_key__markdown__reorder_actions:
+                case R.string.pref_key__markdown__reorder_actions: {
                     return R.id.action_format_markdown;
-                case R.string.pref_key__todotxt__reorder_actions:
+                }
+                case R.string.pref_key__todotxt__reorder_actions: {
                     return R.id.action_format_todotxt;
-                case R.string.pref_key__plaintext__reorder_actions:
-                    return R.id.action_format_plaintext;
-                case R.string.pref_key__zimwiki__reorder_actions:
-                default:
+                }
+                case R.string.pref_key__zimwiki__reorder_actions: {
                     return R.id.action_format_zimwiki;
+                }
+                case R.string.pref_key__plaintext__reorder_actions:
+                default: {
+                    return R.id.action_format_plaintext;
+                }
             }
         }
 

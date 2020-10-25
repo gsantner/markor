@@ -367,7 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">Heading 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
-    <string name="marked">Marked</string>
+    <string name="highlighted">Highlighted</string>
     <string name="strikeout">Strike out</string>
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontal line</string>
