@@ -201,11 +201,10 @@ public class TodoTxtTextActions extends TextActions {
                             if (todoFile != null && (todoFile.getParentFile().exists() || todoFile.getParentFile().mkdirs())) {
                                 File doneFile = new File(todoFile.getParentFile(), callbackPayload);
                                 String doneFileContents = "";
-
                                 if (doneFile.exists() && doneFile.canRead()) {
                                     doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
-                                    doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
                                 }
+                                doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
                                 // Write to do done file
                                 if (DocumentIO.saveDocument(new Document(doneFile), doneFileContents, new ShareUtil(_activity), getContext())) {
