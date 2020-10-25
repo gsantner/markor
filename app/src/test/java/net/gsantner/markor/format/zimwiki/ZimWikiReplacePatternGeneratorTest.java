@@ -19,13 +19,13 @@ public class ZimWikiReplacePatternGeneratorTest {
     @Test
     public void removeHeadingCharsForExactHeadingLevel() {
         setLevelFourHeadingAction();
-        assertCorrectReplacement("=== Heading ===","Heading");
+        assertCorrectReplacement("=== My Heading ===","My Heading");
     }
 
     @Test
     public void replaceDifferentLevelHeadings() {
         setLevelFourHeadingAction();
-        assertCorrectReplacement("==== Heading ====", "=== Heading ===");
+        assertCorrectReplacement("==== My Heading ====", "=== My Heading ===");
     }
 
     @Test
@@ -37,7 +37,13 @@ public class ZimWikiReplacePatternGeneratorTest {
     @Test
     public void addHeadingCharactersToText() {
         setLevelFourHeadingAction();
-        assertCorrectReplacement("Heading", "=== Heading ===");
+        assertCorrectReplacement("My Heading", "=== My Heading ===");
+    }
+
+    @Test
+    public void addHeadingCharactersAroundMockHeading() {
+        setLevelFourHeadingAction();
+        assertCorrectReplacement("= My Heading =", "=== = My Heading = ===");
     }
 
     private void setLevelFourHeadingAction() {

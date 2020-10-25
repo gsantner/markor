@@ -68,12 +68,12 @@ public class ZimWikiReplacePatternGenerator {
 
     private static TextActions.ReplacePattern removeHeadingCharsForExactHeadingLevel(String headingChars) {
         return new TextActions.ReplacePattern(
-                "^\\s{0,3}" + headingChars + "[ \\t](.*?)[ \\t]" + headingChars + "\\w*",
+                "^\\s{0,3}" + headingChars + "[ \\t](.*)[ \\t]" + headingChars + "\\w*",
                 "$1");
     }
 
     private static TextActions.ReplacePattern replaceDifferentHeadingLevelWithThisLevel(String headingChars) {
-        return new TextActions.ReplacePattern("^\\s{0,3}={0,6}([ \\t].*?[ \\t])={0,6}",
+        return new TextActions.ReplacePattern("^\\s{0,3}={2,6}([ \\t].*[ \\t])={2,6}",
                 headingChars+"$1"+headingChars);
     }
 
