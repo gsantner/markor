@@ -28,12 +28,8 @@ import java.util.List;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
-
-    private final ZimWikiReplacePatternGenerator replacePatternGenerator;
-
     public ZimWikiTextActions(Activity activity, Document document) {
         super(activity, document);
-        replacePatternGenerator = new ZimWikiReplacePatternGenerator();
     }
 
     @Override
@@ -102,35 +98,35 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             }
             switch (_action) {
                 case R.string.tmaid_zimwiki_h1: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h2: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h3: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h4: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(4));
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h5: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(5));
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
                     return true;
                 }
                 case R.string.tmaid_common_unordered_list_char: {
-                    runRegexReplaceAction(replacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix());
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix());
                     return true;
                 }
                 case R.string.tmaid_common_checkbox_list: {
-                    runRegexReplaceAction(replacePatternGenerator.replaceWithNextStateCheckbox());
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.replaceWithNextStateCheckbox());
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
-                    runRegexReplaceAction(replacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
                     // TODO: adapt to zim wiki
                     runRenumberOrderedListIfRequired();
                     return true;
@@ -174,10 +170,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_indent:
-                    runRegexReplaceAction(replacePatternGenerator.indentOneTab());
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.indentOneTab());
                     return true;
                 case R.string.tmaid_common_deindent: {
-                    runRegexReplaceAction(replacePatternGenerator.deindentOneTab());
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.deindentOneTab());
                     runRenumberOrderedListIfRequired();
                     return true;
                 }

@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ZimWikiReplacePatternGeneratorTest {
     private List<TextActions.ReplacePattern> replacePatterns;
     private String result;
-    private final ZimWikiReplacePatternGenerator replacePatternGenerator = new ZimWikiReplacePatternGenerator();
 
     @Test
     public void createHeadingsWithSpecifiedLevel() {
@@ -43,19 +42,19 @@ public class ZimWikiReplacePatternGeneratorTest {
 
     private void setLevelFourHeadingAction() {
         int headingLevel = 4;
-        replacePatterns = replacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel);
+        replacePatterns = ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel);
     }
 
     @Test
     public void toggleFromUncheckedToCheckedBox() {
-        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithNextStateCheckbox();
         String uncheckedItem = "[ ] some item";
         assertCorrectReplacement(uncheckedItem, "[*] some item");
     }
 
     @Test
     public void toggleCheckBoxInCorrectOrder() {
-        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithNextStateCheckbox();
         String[] orderedCheckboxStates = {" ", "*", "x", ">"};
         // create checkbox
         String currentLine = "some item";
@@ -68,7 +67,7 @@ public class ZimWikiReplacePatternGeneratorTest {
 
     @Test
     public void replaceNonChecklistPrefixesWithUncheckedBox() {
-        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithNextStateCheckbox();
         String[] otherPrefixes = {"1.", "a.", "*"};
         for (String otherPrefix : otherPrefixes) {
             String itemWithOtherPrefix = otherPrefix + " some item";
@@ -78,14 +77,14 @@ public class ZimWikiReplacePatternGeneratorTest {
 
     @Test
     public void keepWhitespaceWhenAddingCheckbox() {
-        replacePatterns = replacePatternGenerator.replaceWithNextStateCheckbox();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithNextStateCheckbox();
         String original = " some item";
         assertCorrectReplacement(original, " [ ] some item");
     }
 
     @Test
     public void changePrefixToUnorderedListOrRemoveItAlreadyPresent() {
-        replacePatterns = replacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix();
         String[] otherPrefixes = {"1.", "2.", "a.", "[ ]", "[x]"};
         for (String otherPrefix : otherPrefixes) {
             String originalLine = otherPrefix + " some item";
@@ -96,7 +95,7 @@ public class ZimWikiReplacePatternGeneratorTest {
 
     @Test
     public void changePrefixToOrderedListOrRemoveItAlreadyPresent() {
-        replacePatterns = replacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
+        replacePatterns = ZimWikiReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
         String[] otherPrefixes = {"[>]", "*", "[ ]"};
         for (String otherPrefix : otherPrefixes) {
             String originalLine = otherPrefix + " some item";

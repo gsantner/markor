@@ -31,11 +31,8 @@ import java.util.List;
 
 public class MarkdownTextActions extends TextActions {
 
-    private final MarkdownReplacePatternGenerator replacePatternGenerator;
-
     public MarkdownTextActions(Activity activity, Document document) {
         super(activity, document);
-        replacePatternGenerator = new MarkdownReplacePatternGenerator();
     }
 
     @Override
@@ -106,33 +103,33 @@ public class MarkdownTextActions extends TextActions {
             }
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    runRegexReplaceAction(replacePatternGenerator.toogleQuote());
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toogleQuote());
                     return true;
                 }
                 case R.string.tmaid_markdown_h1: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
                     return true;
                 }
                 case R.string.tmaid_markdown_h2: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
                     return true;
                 }
                 case R.string.tmaid_markdown_h3: {
-                    runRegexReplaceAction(replacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
                     return true;
                 }
                 case R.string.tmaid_common_unordered_list_char: {
                     final String listChar = _appSettings.getUnorderedListCharacter();
-                    runRegexReplaceAction(replacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
                     return true;
                 }
                 case R.string.tmaid_common_checkbox_list: {
                     final String listChar = _appSettings.getUnorderedListCharacter();
-                    runRegexReplaceAction(replacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
                     return true;
                 }
                 case R.string.tmaid_common_ordered_list_number: {
-                    runRegexReplaceAction(replacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
                     runRenumberOrderedListIfRequired();
                     return true;
                 }

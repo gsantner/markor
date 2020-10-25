@@ -1,6 +1,6 @@
 package net.gsantner.markor.format.zimwiki;
 
-import net.gsantner.markor.ui.hleditor.ReplacePatternGenerator;
+import net.gsantner.markor.ui.hleditor.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
+public class ZimWikiReplacePatternGenerator {
     public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((\\*)\\s)");
     public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^(\\s*)((\\d+|[a-zA-z])(\\.)(\\s+))");
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)(\\[\\s]\\s)");
@@ -47,7 +47,7 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
      *
      * @param level heading level
      */
-    public List<TextActions.ReplacePattern> setOrUnsetHeadingWithLevel(int level) {
+    public static List<TextActions.ReplacePattern> setOrUnsetHeadingWithLevel(int level) {
         List<TextActions.ReplacePattern> patterns = new ArrayList<>();
 
         final int numberOfEqualSigns = 7-level;
@@ -66,23 +66,23 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
         return patterns;
     }
 
-    private TextActions.ReplacePattern removeHeadingCharsForExactHeadingLevel(String headingChars) {
+    private static TextActions.ReplacePattern removeHeadingCharsForExactHeadingLevel(String headingChars) {
         return new TextActions.ReplacePattern(
                 "^\\s{0,3}" + headingChars + "[ \\t](.*?)[ \\t]" + headingChars + "\\w*",
                 "$1");
     }
 
-    private TextActions.ReplacePattern replaceDifferentHeadingLevelWithThisLevel(String headingChars) {
+    private static TextActions.ReplacePattern replaceDifferentHeadingLevelWithThisLevel(String headingChars) {
         return new TextActions.ReplacePattern("^\\s{0,3}={0,6}([ \\t].*?[ \\t])={0,6}",
                 headingChars+"$1"+headingChars);
     }
 
-    private TextActions.ReplacePattern createHeadingIfNoneThere(String headingChars) {
+    private static TextActions.ReplacePattern createHeadingIfNoneThere(String headingChars) {
         return new TextActions.ReplacePattern("^\\s*?(\\S?.*)\\s*",
                 headingChars+" $1 "+headingChars);
     }
 
-    public List<TextActions.ReplacePattern> replaceWithNextStateCheckbox() {
+    public static List<TextActions.ReplacePattern> replaceWithNextStateCheckbox() {
         List<TextActions.ReplacePattern> replacePatterns = new ArrayList<>();
 
         // toggle order: no checkbox -> unchecked -> checked -> crossed -> arrow -> unchecked -> ...
@@ -91,7 +91,7 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
         return replacePatterns;
     }
 
-    private List<TextActions.ReplacePattern> toggleCheckboxToNextState() {
+    private static List<TextActions.ReplacePattern> toggleCheckboxToNextState() {
         return Arrays.asList(
                 new TextActions.ReplacePattern(PREFIX_UNCHECKED_LIST, checkedReplacement),
                 new TextActions.ReplacePattern(PREFIX_CHECKED_LIST, crossedReplacement),
@@ -99,7 +99,7 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
                 new TextActions.ReplacePattern(PREFIX_ARROW_LIST, uncheckedReplacement));
     }
 
-    private List<TextActions.ReplacePattern> replaceOtherPrefixesWithUncheckedBox() {
+    private static List<TextActions.ReplacePattern> replaceOtherPrefixesWithUncheckedBox() {
         List<TextActions.ReplacePattern> replacePatterns = new ArrayList<>();
         for (final Pattern otherPattern : PREFIX_PATTERNS) {
             replacePatterns.add(new TextActions.ReplacePattern(otherPattern, uncheckedReplacement));
@@ -107,21 +107,19 @@ public class ZimWikiReplacePatternGenerator extends ReplacePatternGenerator {
         return replacePatterns;
     }
 
-    public List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix() {
-        return replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
+    public static List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix() {
+        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
-    public List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
-        return replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);
+    public static List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
+        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);
     }
 
-    public List<TextActions.ReplacePattern> deindentOneTab() {
-        final Pattern leadingTabIndentPattern = Pattern.compile("^\t");
-        return Collections.singletonList(new TextActions.ReplacePattern(leadingTabIndentPattern, ""));
+    public static List<TextActions.ReplacePattern> deindentOneTab() {
+        return Collections.singletonList(new TextActions.ReplacePattern("^\t", ""));
     }
 
-    public List<TextActions.ReplacePattern> indentOneTab() {
-        final Pattern lineStart = Pattern.compile("^");
-        return Collections.singletonList(new TextActions.ReplacePattern(lineStart, "\t"));
+    public static List<TextActions.ReplacePattern> indentOneTab() {
+        return Collections.singletonList(new TextActions.ReplacePattern("^", "\t"));
     }
 }

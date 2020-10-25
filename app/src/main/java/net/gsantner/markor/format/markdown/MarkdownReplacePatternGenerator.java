@@ -1,6 +1,6 @@
 package net.gsantner.markor.format.markdown;
 
-import net.gsantner.markor.ui.hleditor.ReplacePatternGenerator;
+import net.gsantner.markor.ui.hleditor.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class MarkdownReplacePatternGenerator extends ReplacePatternGenerator {
+public class MarkdownReplacePatternGenerator {
 
     // TODO: write tests
 
@@ -44,7 +44,7 @@ public class MarkdownReplacePatternGenerator extends ReplacePatternGenerator {
      *
      * @param level ATX heading level
      */
-    public List<TextActions.ReplacePattern> setOrUnsetHeadingWithLevel(int level) {
+    public static List<TextActions.ReplacePattern> setOrUnsetHeadingWithLevel(int level) {
 
         List<TextActions.ReplacePattern> patterns = new ArrayList<>();
 
@@ -64,22 +64,22 @@ public class MarkdownReplacePatternGenerator extends ReplacePatternGenerator {
         return patterns;
     }
 
-    public List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix(String listChar) {
+    public static List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix(String listChar) {
         final String unorderedListReplacement = "$1" + listChar + " ";
-        return replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
+        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
-    public List<TextActions.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(String listChar) {
+    public static List<TextActions.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(String listChar) {
         final String unchecked = "$1" + listChar + " [ ] ";
         final String checked = "$1" + listChar + " [x] ";
-        return replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_UNCHECKED_LIST, unchecked, checked);
+        return ReplacePatternGeneratorHelper.replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_UNCHECKED_LIST, unchecked, checked);
     }
 
-    public List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
-        return replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, ORDERED_LIST_REPLACEMENT);
+    public static List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
+        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, ORDERED_LIST_REPLACEMENT);
     }
 
-    public List<TextActions.ReplacePattern> toogleQuote() {
-        return replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_QUOTE, ">$1 ", "");
+    public static List<TextActions.ReplacePattern> toogleQuote() {
+        return ReplacePatternGeneratorHelper.replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_QUOTE, ">$1 ", "");
     }
 }
