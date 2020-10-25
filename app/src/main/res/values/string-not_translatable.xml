@@ -208,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
 
     <string name="tmaid_common_delete_lines" translatable="false">tmaid_common_delete_lines</string>
+    <string name="tmaid_common_new_line_below" translatable="false">tmaid_common_new_line_below</string>
     <string name="tmaid_common_attach_something" translatable="false">tmaid_common_attach_something</string>
     <string name="tmaid_common_unordered_list_char" translatable="false">tmaid_common_unordered_list_char</string>
     <string name="tmaid_common_ordered_list_number" translatable="false">tmaid_common_ordered_list_number</string>
@@ -221,7 +222,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_common_accordion" translatable="false">tmaid_common_accordion</string>
     <string name="tmaid_common_indent" translatable="false">tmaid_common_indent</string>
     <string name="tmaid_common_deindent" translatable="false">tmaid_common_deindent</string>
-    <string name="tmaid_common_toolbar_title_clicked_edit_action">tmaid_common_toolbar_title_clicked_edit_action</string>
+    <string name="tmaid_common_toolbar_title_clicked_edit_action" translatable="false">tmaid_common_toolbar_title_clicked_edit_action</string>
+    <string name="tmaid_common_move_text_one_line_up" translatable="false">tmaid_common_move_text_one_line_up</string>
+    <string name="tmaid_common_move_text_one_line_down" translatable="false">tmaid_common_move_text_one_line_down</string>
 
     <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">tmaid_markdown_h1</string>

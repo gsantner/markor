@@ -214,7 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_contribute_to_this_project">Több információ arról, hogyan járulhatsz hozzá a projekthez</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Adja meg a kódot a projekthez. Mindenkit szívesen látunk, az újonnan jövőket is beleértve.</string>
     <string name="project_team">Projekt csapat</string>
-    <string name="contributors_public_add_yourself_description">A közreműködő információk megjelenítése. Add meg, hogy megjelenjen a közreműködés után, egy beleegyezés alapú módon.</string>
+    <string name="contributors_public_add_yourself_description">A közreműködők információinak megjelenítése. Hozzájárulásod után itt fog megjelenni, ha megadod.</string>
     <string name="descending">csökkenő</string>
     <string name="ascending">növekvő</string>
     <string name="disable_spelling_underline">Helyesírás-ellenőrzés kikapcsolása</string>

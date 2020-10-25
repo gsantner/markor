@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Gerekli</string>
     <string name="append_human_readable_uuid_to_new_tasks">Yeni görevlere insan tarafından okunabilen UUID ekle</string>
     <string name="action_order">Eylem sırası</string>
+    <string name="toggle_action_visibility">Eylem görünürlüğünü değiştir</string>
     <string name="load_default_settings">Varsayılan ayarları yükle</string>
     <string name="drag">Sürükle</string>
     <string name="file_encryption_password">Dosya şifreleme parolası</string>

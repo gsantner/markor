@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essentziale</string>
     <string name="append_human_readable_uuid_to_new_tasks">Annanghe un\'UUID chi podet èssere lèghidu a sas fainas noas</string>
     <string name="action_order">Òrdine de atzione</string>
+    <string name="toggle_action_visibility">Allughe/istuda sa visibilidade de s\'atzione</string>
     <string name="load_default_settings">Càrriga sas impostatziones predefinidas</string>
     <string name="drag">Trìsina</string>
     <string name="file_encryption_password">Crae de tzifradura de su documentu</string>

@@ -366,6 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Neophodno</string>
     <string name="append_human_readable_uuid_to_new_tasks">Dodaj čitljiv UUID u novim zadacima</string>
     <string name="action_order">Poredak radnji</string>
+    <string name="toggle_action_visibility">Promijeni vidljivost akcije</string>
     <string name="load_default_settings">Učitaj prvobitne postavke</string>
     <string name="drag">Prevucite</string>
     <string name="file_encryption_password">Lozinka za šifriranje</string>

@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Side ned (ned)</string>
     <string name="move_text_one_line_up">Flytt teksten en linje opp</string>
     <string name="move_text_one_line_down">Flytt teksten en linje ned</string>
+    <string name="start_new_line_below">Start ny linje under</string>
     <string name="key_pos_1">Linjestart (Pos Home)</string>
     <string name="key_pos_end">Linjeslutt (Pos End)</string>
     <string name="key_pos_1_document">Dokument start</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Nødvendig</string>
     <string name="append_human_readable_uuid_to_new_tasks">Legg til menneskelig lesbar UUID til nye oppgaver</string>
     <string name="action_order">Handlingen rekkefølge</string>
+    <string name="toggle_action_visibility">Vis/skjul handlingen</string>
     <string name="load_default_settings">Last inn standardinnstillinger</string>
     <string name="drag">Dra</string>
     <string name="file_encryption_password">Fil krypteringspassord</string>

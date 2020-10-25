@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">下一页 (Page Down)</string>
     <string name="move_text_one_line_up">上移一行</string>
     <string name="move_text_one_line_down">下移一行</string>
+    <string name="start_new_line_below">在下方开始新行</string>
     <string name="key_pos_1">行首 (Home 键)</string>
     <string name="key_pos_end">行末 (End 键)</string>
     <string name="key_pos_1_document">文首</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">基本的</string>
     <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
     <string name="action_order">动作顺序</string>
+    <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
     <string name="file_encryption_password">文件加密密码</string>

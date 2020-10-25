@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">До сторінки нижче (Page Down)</string>
     <string name="move_text_one_line_up">Перемістити текст на один рядок вище</string>
     <string name="move_text_one_line_down">Перемістити текст на один рядок нижче</string>
+    <string name="start_new_line_below">Запускати новий рядок нижче</string>
     <string name="key_pos_1">До початку рядка (Home)</string>
     <string name="key_pos_end">В кінець рядка (End)</string>
     <string name="key_pos_1_document">Початок документа</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Основні</string>
     <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
     <string name="action_order">Впорядкувати команди</string>
+    <string name="toggle_action_visibility">Перемкнути видимість дії</string>
     <string name="load_default_settings">Встановити типові параметри</string>
     <string name="drag">Перетягніть</string>
     <string name="file_encryption_password">Пароль шифрування файлу</string>

@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Page suivante</string>
     <string name="move_text_one_line_up">Déplacer le texte une ligne vers le haut</string>
     <string name="move_text_one_line_down">Déplacer le texte une ligne vers le bas</string>
+    <string name="start_new_line_below">Commencer une nouvelle ligne ci-dessous</string>
     <string name="key_pos_1">Début de ligne</string>
     <string name="key_pos_end">Fin de ligne</string>
     <string name="key_pos_1_document">Début de document</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">Essentiel</string>
     <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID intelligible aux nouvelles tâches</string>
     <string name="action_order">Ordre des actions</string>
+    <string name="toggle_action_visibility">Activer/désactiver la visibilité de l\'action</string>
     <string name="load_default_settings">Charger les paramètres par défaut</string>
     <string name="drag">Glisser</string>
     <string name="file_encryption_password">Mot de passe de chiffrement de fichier</string>

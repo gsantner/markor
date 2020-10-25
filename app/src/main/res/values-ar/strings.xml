@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">صفحة لأسفل</string>
     <string name="move_text_one_line_up">نقل النص سطر واحد لأعلى</string>
     <string name="move_text_one_line_down">نقل النص سطر واحد للأسفل</string>
+    <string name="start_new_line_below">بدء سطر جديد أدناه</string>
     <string name="key_pos_1">بداية السطر</string>
     <string name="key_pos_end">نهاية السطر</string>
     <string name="key_pos_1_document">بداية المستند</string>
@@ -366,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="essential">جوهري</string>
     <string name="append_human_readable_uuid_to_new_tasks">إلحاق UUID مقروء بشر إلى مهام جديدة</string>
     <string name="action_order">أمر العمل</string>
+    <string name="toggle_action_visibility">تبديل رؤية الإجراء</string>
     <string name="load_default_settings">تحميل الإعدادات الافتراضية</string>
     <string name="drag">اسحب</string>
     <string name="file_encryption_password">كلمة مرور تشفير الملف</string>
