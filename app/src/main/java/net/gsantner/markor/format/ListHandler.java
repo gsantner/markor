@@ -7,7 +7,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.format.markdown;
+package net.gsantner.markor.format;
 
 import android.text.Editable;
 import android.text.Spannable;
