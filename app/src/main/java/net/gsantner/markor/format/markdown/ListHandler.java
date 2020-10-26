@@ -14,6 +14,7 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 
+import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.opoc.util.StringUtils;
 
 public class ListHandler implements TextWatcher {
@@ -37,8 +38,8 @@ public class ListHandler implements TextWatcher {
 
             final Spannable sSpan = (Spannable) s;
 
-            final MarkdownAutoFormat.OrderedListLine oMatch = new MarkdownAutoFormat.OrderedListLine(s, start);
-            final MarkdownAutoFormat.UnOrderedListLine uMatch = new MarkdownAutoFormat.UnOrderedListLine(s, start);
+            final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start);
+            final AutoFormatter.UnOrderedListLine uMatch = new AutoFormatter.UnOrderedListLine(s, start);
 
             if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
                 sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
@@ -60,7 +61,7 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
+            AutoFormatter.renumberOrderedList(e, reorderPosition);
         }
     }
 
