@@ -17,20 +17,23 @@ import net.gsantner.markor.format.AutoFormatter;
 import java.util.regex.Pattern;
 
 public class MarkdownAutoFormat implements InputFilter {
-    public static final Pattern CHECKBOX_LIST_PATTERN = Pattern.compile("^(\\s*)(([-*+]\\s\\[)[\\sxX](]\\s))");
+    public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^(\\s*)(([-*+]\\s\\[)[\\sxX](]\\s))");
 
     private final AutoFormatter _autoFormatter;
 
     public MarkdownAutoFormat() {
-        _autoFormatter = new AutoFormatter(
-                MarkdownReplacePatternGenerator.PREFIX_ORDERED_LIST,
-                MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST,
-                MarkdownReplacePatternGenerator.PREFIX_UNCHECKED_LIST,
-                MarkdownReplacePatternGenerator.PREFIX_CHECKED_LIST);
+        _autoFormatter = new AutoFormatter(getPrefixPatterns());
     }
 
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         return _autoFormatter.filter(source, start, end, dest, dstart, dend);
+    }
+
+    public static AutoFormatter.PrefixPatterns getPrefixPatterns() {
+        return new AutoFormatter.PrefixPatterns(
+                MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST,
+                PREFIX_CHECKBOX_LIST,
+                MarkdownReplacePatternGenerator.PREFIX_ORDERED_LIST);
     }
 }

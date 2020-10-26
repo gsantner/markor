@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
-import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
-import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.EmptyStackException;
@@ -15,18 +13,7 @@ import java.util.regex.Pattern;
 
 public class AutoFormatter {
 
-    private Pattern _prefixOrderedList;
-    private int _orderedListFullGroup;
-    private int _orderedListValueGroup;
-    private int _orderedListdelimGroup;
-
-    private Pattern _prefixUnorderedList;
-
-
-    private Pattern _prefixUncheckedList;
-
-    private Pattern _prefixCheckedList;
-
+    private final PrefixPatterns _prefixPatterns;
 
     private CharSequence _source;
     private int _start;
@@ -35,28 +22,8 @@ public class AutoFormatter {
     private int _dstart;
     private int _dend;
 
-    public AutoFormatter(Pattern prefixOrderedList, Pattern prefixUnorderedList, Pattern prefixUncheckedList, Pattern prefixCheckedList) {
-        _prefixOrderedList = prefixOrderedList;
-        _prefixUnorderedList = prefixUnorderedList;
-        _prefixUncheckedList = prefixUncheckedList;
-        _prefixCheckedList = prefixCheckedList;
-    }
-
-    public void setUnorderedListPatternWithGroups() {
-        // TODO
-    }
-    public void setChecklistPatternWithGroups() {
-        // TODO
-    }
-    public void setOrderedListPatternWithGroups(Pattern prefixOrderedList, int fullGroup, int valueGroup, int delimGroup) {
-        _prefixOrderedList = prefixOrderedList;
-//        _orderedListFullGroup = fullGroup;
-//        _orderedListValueGroup = valueGroup;
-//        _orderedListdelimGroup = delimGroup;
-
-    }
-    public void setIndentDelta() {
-        // TODO
+    public AutoFormatter(PrefixPatterns prefixPatterns) {
+        _prefixPatterns = prefixPatterns;
     }
 
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -85,8 +52,8 @@ public class AutoFormatter {
     @SuppressLint("DefaultLocale")
     private CharSequence autoIndent() {
 
-        final OrderedListLine oLine = new OrderedListLine(_dest, _dstart);
-        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart);
+        final OrderedListLine oLine = new OrderedListLine(_dest, _dstart, _prefixPatterns);
+        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart, _prefixPatterns);
         final String indent = _source + StringUtils.repeatChars(' ', oLine.indent);
 
         final String result;
@@ -100,6 +67,18 @@ public class AutoFormatter {
         }
 
         return result;
+    }
+
+    public static class PrefixPatterns {
+        public final Pattern prefixUnorderedList;
+        public final Pattern prefixCheckBoxList;
+        public final Pattern prefixOrderedList;
+
+        public PrefixPatterns(Pattern prefixUnorderedList, Pattern prefixCheckBoxList, Pattern prefixOrderedList) {
+            this.prefixUnorderedList = prefixUnorderedList;
+            this.prefixCheckBoxList = prefixCheckBoxList;
+            this.prefixOrderedList = prefixOrderedList;
+        }
     }
 
     public static class ListLine {
@@ -147,16 +126,19 @@ public class AutoFormatter {
         private static final int VALUE_GROUP = 3;
         private static final int DELIM_GROUP = 4;
 
+        private final PrefixPatterns prefixPatterns;
+
         public final boolean isOrderedList;
         public final char delimiter;
         public final int numStart, numEnd;
         public final int groupStart, groupEnd;
         public final String value;
 
-        public OrderedListLine(CharSequence text, int position) {
+        public OrderedListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
             super(text, position);
+            this.prefixPatterns = prefixPatterns;
 
-            final Matcher match = MarkdownReplacePatternGenerator.PREFIX_ORDERED_LIST.matcher(line);
+            final Matcher match = prefixPatterns.prefixOrderedList.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
@@ -184,7 +166,7 @@ public class AutoFormatter {
                 OrderedListLine line = this;
                 do {
                     int position = line.lineStart - 1;
-                    line = new OrderedListLine(text, position);
+                    line = new OrderedListLine(text, position, prefixPatterns);
                     matching = isMatchingList(line);
                     if (matching) {
                         listStart = line;
@@ -200,7 +182,7 @@ public class AutoFormatter {
             if ((lineStart > 0) && (isEmpty || !isTopLevel)) {
                 int position = lineStart - 1;
                 do {
-                    line = new OrderedListLine(text, position);
+                    line = new OrderedListLine(text, position, prefixPatterns);
                     position = line.lineStart - 1;
                 } while (position > 0 && !line.isParentLevelOf(this));
             }
@@ -216,15 +198,18 @@ public class AutoFormatter {
         private static final int CHECKBOX_PREFIX_LEFT_GROUP = 3;
         private static final int CHECKBOX_PREFIX_RIGHT_GROUP = 4;
 
+        private final PrefixPatterns prefixPatterns;
+
         public final boolean isUnorderedOrCheckList;
         public final String newItemPrefix;
         public final int groupStart, groupEnd;
 
-        public UnOrderedOrCheckListLine(CharSequence text, int position) {
+        public UnOrderedOrCheckListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
             super(text, position);
+            this.prefixPatterns = prefixPatterns;
 
-            final Matcher checklistMatcher = MarkdownAutoFormat.CHECKBOX_LIST_PATTERN.matcher(line);
-            final Matcher unorderedListMatcher = MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST.matcher(line);
+            final Matcher checklistMatcher = prefixPatterns.prefixCheckBoxList.matcher(line);
+            final Matcher unorderedListMatcher = prefixPatterns.prefixUnorderedList.matcher(line);
 
             final boolean isChecklist = checklistMatcher.find();
             isUnorderedOrCheckList = isChecklist || unorderedListMatcher.find();  // prefer checklist pattern to avoid spurious unordered list match
@@ -251,9 +236,9 @@ public class AutoFormatter {
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
-    private static OrderedListLine getOrderedListStart(final Editable text, int position) {
+    private static OrderedListLine getOrderedListStart(final Editable text, int position, final PrefixPatterns prefixPatterns) {
         position = Math.max(Math.min(position, text.length() - 1), 0);
-        OrderedListLine listStart = new OrderedListLine(text, position);
+        OrderedListLine listStart = new OrderedListLine(text, position, prefixPatterns);
 
         OrderedListLine line = listStart;
         do {
@@ -276,10 +261,10 @@ public class AutoFormatter {
      * <p>
      * Sub-lists and other children will be skipped.
      */
-    public static void renumberOrderedList(Editable text, int cursorPosition) {
+    public static void renumberOrderedList(Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition);
+        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
         int position = firstLine.lineEnd + 1;
 
         if (firstLine.isOrderedList && position < text.length()) {
@@ -292,7 +277,7 @@ public class AutoFormatter {
             try {
                 // Loop to end of list
                 do {
-                    line = new OrderedListLine(text, position);
+                    line = new OrderedListLine(text, position, prefixPatterns);
 
                     if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
                         // List is over
@@ -334,7 +319,7 @@ public class AutoFormatter {
                             text.replace(line.numStart, line.numEnd, newValue);
 
                             // Re-create line as it has changed
-                            line = new OrderedListLine(text, line.lineStart);
+                            line = new OrderedListLine(text, line.lineStart, prefixPatterns);
                         }
 
                         levels.pop();

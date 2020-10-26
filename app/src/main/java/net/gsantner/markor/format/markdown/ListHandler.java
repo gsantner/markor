@@ -23,9 +23,12 @@ public class ListHandler implements TextWatcher {
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
 
-    public ListHandler(final boolean reorderEnabled) {
+    private final AutoFormatter.PrefixPatterns _prefixPatterns;
+
+    public ListHandler(final boolean reorderEnabled, final AutoFormatter.PrefixPatterns prefixPatterns) {
         super();
         _reorderEnabled = reorderEnabled;
+        _prefixPatterns = prefixPatterns;
     }
 
     @Override
@@ -38,8 +41,8 @@ public class ListHandler implements TextWatcher {
 
             final Spannable sSpan = (Spannable) s;
 
-            final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start);
-            final AutoFormatter.UnOrderedOrCheckListLine uMatch = new AutoFormatter.UnOrderedOrCheckListLine(s, start);
+            final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start, _prefixPatterns);
+            final AutoFormatter.UnOrderedOrCheckListLine uMatch = new AutoFormatter.UnOrderedOrCheckListLine(s, start, _prefixPatterns);
 
             if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
                 sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
@@ -61,7 +64,7 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            AutoFormatter.renumberOrderedList(e, reorderPosition);
+            AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
         }
     }
 
