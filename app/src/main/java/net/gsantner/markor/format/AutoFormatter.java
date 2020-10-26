@@ -91,7 +91,7 @@ public class AutoFormatter {
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && _dend >= oLine.groupEnd) {
-            result = indent + String.format("%d%c ", oLine.value + 1, oLine.delimiter);
+            result = indent + String.format("%s%c ", getNextOrderedValue(oLine.value), oLine.delimiter);
         } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && _dend >= uLine.groupEnd) {
             String itemPrefix = uLine.newItemPrefix;
             result = indent + itemPrefix;
@@ -151,7 +151,7 @@ public class AutoFormatter {
         public final char delimiter;
         public final int numStart, numEnd;
         public final int groupStart, groupEnd;
-        public final int value;
+        public final String value;
 
         public OrderedListLine(CharSequence text, int position) {
             super(text, position);
@@ -162,11 +162,12 @@ public class AutoFormatter {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
                 numStart = match.start(VALUE_GROUP) + lineStart;
                 numEnd = match.end(VALUE_GROUP) + lineStart;
-                value = Integer.parseInt(match.group(VALUE_GROUP));
+                value = match.group(VALUE_GROUP);
                 groupStart = lineStart + match.start(FULL_GROUP);
                 groupEnd = lineStart + match.end(FULL_GROUP);
             } else {
-                groupEnd = groupStart = numStart = numEnd = value = -1;
+                groupEnd = groupStart = numStart = numEnd = -1;
+                value = "";
                 delimiter = 0;
             }
         }
@@ -328,10 +329,9 @@ public class AutoFormatter {
 
                         // Restart numbering if list changes
                         final OrderedListLine peek = levels.peek();
-                        final int newValue = (line == peek) ? 1 : peek.value + 1;
-                        if (newValue != line.value) {
-                            String number = Integer.toString(newValue);
-                            text.replace(line.numStart, line.numEnd, number);
+                        final String newValue = (line == peek) ? "1" : getNextOrderedValue(peek.value);
+                        if (!newValue.equals(line.value)) {
+                            text.replace(line.numStart, line.numEnd, newValue);
 
                             // Re-create line as it has changed
                             line = new OrderedListLine(text, line.lineStart);
@@ -349,5 +349,24 @@ public class AutoFormatter {
                 ignored.printStackTrace();
             }
         }
+    }
+
+    private static String getNextOrderedValue(String currentValue) {
+        final Pattern numberPattern = Pattern.compile("\\d+");
+        final Pattern lowercaseLetterPattern = Pattern.compile("[a-z]");
+        final Pattern capitalLetterPattern = Pattern.compile("[A-z]");
+
+        if (numberPattern.matcher(currentValue).find()) {
+            int intValue = Integer.parseInt(currentValue);
+            return Integer.toString(intValue + 1);
+        } else {
+            char charValue = currentValue.charAt(0);
+            if (lowercaseLetterPattern.matcher(currentValue).find()) {
+                return charValue < 'z' ? ""+(char)(charValue+1) : ""+'a';
+            } else if (capitalLetterPattern.matcher(currentValue).find()){
+                return charValue < 'Z' ? ""+(char)(charValue+1) : ""+'A';
+            }
+        }
+        return "0";
     }
 }
