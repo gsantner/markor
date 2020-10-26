@@ -39,11 +39,11 @@ public class ListHandler implements TextWatcher {
             final Spannable sSpan = (Spannable) s;
 
             final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start);
-            final AutoFormatter.UnOrderedListLine uMatch = new AutoFormatter.UnOrderedListLine(s, start);
+            final AutoFormatter.UnOrderedOrCheckListLine uMatch = new AutoFormatter.UnOrderedOrCheckListLine(s, start);
 
             if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
                 sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
-            } else if (uMatch.isUnorderedList && beforeLineEnd == uMatch.groupEnd) {
+            } else if (uMatch.isUnorderedOrCheckList && beforeLineEnd == uMatch.groupEnd) {
                 sSpan.setSpan(this, uMatch.lineStart, uMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
             } else {
                 reorderPosition = start;

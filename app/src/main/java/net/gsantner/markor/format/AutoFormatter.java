@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
+import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -33,7 +34,6 @@ public class AutoFormatter {
     private Spanned _dest;
     private int _dstart;
     private int _dend;
-
 
     public AutoFormatter(Pattern prefixOrderedList, Pattern prefixUnorderedList, Pattern prefixUncheckedList, Pattern prefixCheckedList) {
         _prefixOrderedList = prefixOrderedList;
@@ -85,19 +85,16 @@ public class AutoFormatter {
     @SuppressLint("DefaultLocale")
     private CharSequence autoIndent() {
 
-        final String checkSymbol = "[ ] ";
-
         final OrderedListLine oLine = new OrderedListLine(_dest, _dstart);
-        final UnOrderedListLine uLine = new UnOrderedListLine(_dest, _dstart);
+        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart);
         final String indent = _source + StringUtils.repeatChars(' ', oLine.indent);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && _dend >= oLine.groupEnd) {
             result = indent + String.format("%d%c ", oLine.value + 1, oLine.delimiter);
-        } else if (uLine.isUnorderedList && uLine.lineEnd != uLine.groupEnd && _dend >= uLine.groupEnd) {
-            final String checkString = uLine.isCheckboxList ? checkSymbol : "";
-            // TODO: for zim wiki, no list char is used
-            result = indent + String.format("%c %s", uLine.listChar, checkString);
+        } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && _dend >= uLine.groupEnd) {
+            String itemPrefix = uLine.newItemPrefix;
+            result = indent + itemPrefix;
         } else {
             result = indent;
         }
@@ -210,40 +207,37 @@ public class AutoFormatter {
         }
     }
 
-    public static class UnOrderedListLine extends ListLine {
-        private static final int CHECK_GROUP = 4;
-        private static final int LIST_LEADER_GROUP = 3;
-        private static final int FULL_GROUP = 2;
+    /**
+     * Detects "real" unordered lists and checklists (both are treated as unordered lists).
+     */
+    public static class UnOrderedOrCheckListLine extends ListLine {
+        private static final int FULL_ITEM_PREFIX_GROUP = 2;
+        private static final int CHECKBOX_PREFIX_LEFT_GROUP = 3;
+        private static final int CHECKBOX_PREFIX_RIGHT_GROUP = 4;
 
-        public final boolean isUnorderedList;
-        public final boolean isCheckboxList;
-        public final boolean isChecked;
-        public final char checkChar;
-        public final char listChar;
+        public final boolean isUnorderedOrCheckList;
+        public final String newItemPrefix;
         public final int groupStart, groupEnd;
 
-        public UnOrderedListLine(CharSequence text, int position) {
+        public UnOrderedOrCheckListLine(CharSequence text, int position) {
             super(text, position);
 
-            // TODO: parametrize prefix patterns and groups
-            final Matcher ucMatch = MarkdownReplacePatternGenerator.PREFIX_UNCHECKED_LIST.matcher(line);
-            final Matcher cMatch = MarkdownReplacePatternGenerator.PREFIX_CHECKED_LIST.matcher(line);
-            final Matcher uMatch = MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST.matcher(line);
+            final Matcher checklistMatcher = MarkdownAutoFormat.CHECKBOX_LIST_PATTERN.matcher(line);
+            final Matcher unorderedListMatcher = MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST.matcher(line);
 
-            isUnorderedList = uMatch.find(); // Will also detect other unordered list types
-            isChecked = cMatch.find();
-            isCheckboxList = isChecked || ucMatch.find();
-            checkChar = isChecked ? cMatch.group(CHECK_GROUP).charAt(0) : 0;
+            final boolean isChecklist = checklistMatcher.find();
+            isUnorderedOrCheckList = isChecklist || unorderedListMatcher.find();  // prefer checklist pattern to avoid spurious unordered list match
+            final Matcher matcher = isChecklist ? checklistMatcher : unorderedListMatcher;
 
-            if (isUnorderedList) {
-                // TODO: zim does not use this for checklists
-                listChar = uMatch.group(LIST_LEADER_GROUP).charAt(0);
-                final Matcher match = isCheckboxList ? (isChecked ? cMatch : ucMatch) : uMatch;
-                groupStart = lineStart + match.start(FULL_GROUP);
-                groupEnd = lineStart + match.end(FULL_GROUP);
+            if (isUnorderedOrCheckList) {
+                groupStart = lineStart + matcher.start(FULL_ITEM_PREFIX_GROUP);
+                groupEnd = lineStart + matcher.end(FULL_ITEM_PREFIX_GROUP);
+                String emptyCheckboxContent = " ";
+                newItemPrefix = isChecklist ? matcher.group(CHECKBOX_PREFIX_LEFT_GROUP)+emptyCheckboxContent+matcher.group(CHECKBOX_PREFIX_RIGHT_GROUP)
+                        : matcher.group(FULL_ITEM_PREFIX_GROUP);
             } else {
-                listChar = 0;
                 groupStart = groupEnd = -1;
+                newItemPrefix = "";
             }
         }
     }

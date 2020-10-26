@@ -14,7 +14,11 @@ import android.text.Spanned;
 
 import net.gsantner.markor.format.AutoFormatter;
 
+import java.util.regex.Pattern;
+
 public class MarkdownAutoFormat implements InputFilter {
+    public static final Pattern CHECKBOX_LIST_PATTERN = Pattern.compile("^(\\s*)(([-*+]\\s\\[)[\\sxX](]\\s))");
+
     private final AutoFormatter _autoFormatter;
 
     public MarkdownAutoFormat() {
