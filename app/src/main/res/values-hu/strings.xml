@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Dokumentum létrehozása</string>
     <string name="move">Mozgatás</string>
     <string name="info">Infó</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet!</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet</string>
     <string name="import_from_device">Importálás az eszközről</string>
     <string name="import_">Importálás</string>
     <string name="append_to_witharg">Hozáfűz ehhez: %s</string>
@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Fájlok és mappák</string>
     <string name="document_browser">Dokumentum böngésző</string>
     <string name="file_browser">Fájlkezelő</string>
+    <string name="set_due_date">Határidő beállítása</string>
+    <string name="insert_replace_date">Dátum beszúrása</string>
     <string name="create_note" needed="false">Jegyzet létrehozása</string>
     <string name="special_documents" needed="false">Speciális dokumentumok</string>
     <string name="keep_screen_on" needed="false">Képernyő ébren tartása</string>
@@ -161,6 +163,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
     <string name="use_monospace_for_code">Kódhoz azonos szélességű betűtípus használata</string>
     <string name="disable_code_block_highlight">Kódtömbök kiemelésének kikapcsolása</string>
+    <string name="auto_renumber_ordered_list">Listák automatikus számozása</string>
+    <string name="auto_renumber_ordered_list_slowdown">Ez az opció befolyásolhatja az app teljesítményét.</string>
     <string name="use_different_fonttype_slow_down">Másik betűtípus használata. Dinamikus megváltoztatása hatással van a teljesítményre.</string>
     <string name="general">Általános</string>
     <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
@@ -220,6 +224,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Helyesírás-ellenőrzés kikapcsolása</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Billentyűzetjavaslatok maradnak, piros aláhúzás eltűnik</string>
     <string name="location">Hely</string>
+    <string name="text_lines">Sorok szövege</string>
+    <string name="text_characters">Szöveges karakterek</string>
     <string name="directory">Mappa</string>
     <string name="recently_viewed_documents">Nemrég megnyitott dokumentumok</string>
     <string name="details">Részletek</string>
@@ -272,11 +278,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_mode">Módok közötti váltás kézmozdulattal</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Húzd el az ujjad a képernyőn a szerkesztő és olvasó mód közti váltáshoz</string>
     <string name="folder_first">Mappák előre</string>
+    <string name="go_to">Ugrás</string>
     <string name="appdata_public">AppData (nyilvános)</string>
     <string name="appdata_private">AppData (privát)</string>
     <string name="appdata_sdcard">AppData (SD kártya)</string>
     <string name="internal_storage">Belső tárhely</string>
     <string name="notebook_is_the_home_of_your_files">A jegyzetfüzet az a mappa, amit Markor megnyit induláskor. A szövegfájlok helye.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">A QuickNote az ötletek gyors leírására szolgál Markdown formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/QuickNote.md&lt; helyen található, de helye beállításokban testreszabható.</string>
+    <string name="todo_is_the_easiest_way_">A ToDo-val kezelheted a feladataidat \"todo.txt\" formátumban. Alapértelmezetten a &gt;Jegyzetfüzet/todo.txt&lt; helyen található, de helye beállításokban testreszabható.</string>
     <string name="navigationbar_color">Navigációs sáv színe</string>
     <string name="black">Fekete</string>
     <string name="white">Fehér</string>
@@ -332,8 +341,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">Áthúzott</string>
     <string name="inline_code">Kód beszúrása</string>
     <string name="horizontal_line">Vízszintes vonal</string>
+    <string name="toggle_done">Teljesítve</string>
     <string name="link_color">Hivatkozás színe</string>
     <string name="add_context">Kontextus hozzáadása</string>
+    <string name="add_project">Projekt hozzáadása</string>
     <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
     <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
@@ -341,8 +352,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">Kiválasztott</string>
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
+    <string name="essential">Alapvető</string>
     <string name="append_human_readable_uuid_to_new_tasks">Ember által olvasható UUID hozzárendelése új feladatokhoz</string>
     <string name="action_order">Műveletek sorrendje</string>
+    <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
@@ -351,4 +364,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Fájl dekódolása nem sikerült. Rossz jelszót használtál? Biztos, hogy a fájl titkosítva van a Markor AES titkosításával?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Már van jelszó beállítva. Új jelszó megadása az előzőt felülírja, és nem biztos hogy hozzá fogsz majd férni az eddig mentett fájlokhoz, ha elfelejted a jelszót.</string>
     <string name="code_block">Kódtömb</string>
+    <string name="add_completion_date">Teljesítés dátuma</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">A teljesítés dátumának beszúrása amikor késznek vannak jelölve</string>
+    <string name="loading_default_value">Alapértelmezett érték betöltése</string>
 </resources>
