@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class AutoFormatter {
 
     private final PrefixPatterns _prefixPatterns;
+    private final char _indentCharacter;
 
     private CharSequence _source;
     private int _start;
@@ -22,8 +23,9 @@ public class AutoFormatter {
     private int _dstart;
     private int _dend;
 
-    public AutoFormatter(PrefixPatterns prefixPatterns) {
+    public AutoFormatter(PrefixPatterns prefixPatterns, char indentCharacter) {
         _prefixPatterns = prefixPatterns;
+        _indentCharacter = indentCharacter;
     }
 
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -54,7 +56,7 @@ public class AutoFormatter {
 
         final OrderedListLine oLine = new OrderedListLine(_dest, _dstart, _prefixPatterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart, _prefixPatterns);
-        final String indent = _source + StringUtils.repeatChars(' ', oLine.indent);
+        final String indent = _source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && _dend >= oLine.groupEnd) {

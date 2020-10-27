@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.Spannable;
 
-import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
+import net.gsantner.markor.format.ListHandler;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
@@ -36,6 +36,7 @@ public class ZimWikiHighlighter extends Highlighter {
         _highlightBiggerHeadings = _appSettings.isZimWikiBiggerHeadings();
         _fontType = _appSettings.getFontFamily();
         _fontSize = _appSettings.getFontSize();
+        setTextModifier(new ListHandler(true, ZimWikiAutoFormat.getPrefixPatterns()));  // TODO: introduce a setting for enabling/disabling reordering
     }
 
     @Override
@@ -123,7 +124,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
     @Override
     public InputFilter getAutoFormatter() {
-        return new MarkdownAutoFormat(); // TODO: adapt to ZimWiki
+        return new ZimWikiAutoFormat();
     }
 
     @Override

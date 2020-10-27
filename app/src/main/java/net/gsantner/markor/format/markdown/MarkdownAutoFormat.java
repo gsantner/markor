@@ -22,9 +22,10 @@ public class MarkdownAutoFormat implements InputFilter {
     private final AutoFormatter _autoFormatter;
 
     public MarkdownAutoFormat() {
-        _autoFormatter = new AutoFormatter(getPrefixPatterns());
+        _autoFormatter = new AutoFormatter(getPrefixPatterns(), ' ');
     }
 
+    // TODO: write tests
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         return _autoFormatter.filter(source, start, end, dest, dstart, dend);

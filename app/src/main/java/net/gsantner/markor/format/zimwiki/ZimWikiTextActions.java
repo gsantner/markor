@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
@@ -218,7 +219,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     // TODO: adapt to zim wiki
-                    ZimWikiAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+                    AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
                 }
 
                 // TODO: long press checklist action should delete the checkbox prefix
@@ -229,7 +230,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
     private void runRenumberOrderedListIfRequired() {
         if (_appSettings.isMarkdownAutoUpdateList()) {
-            ZimWikiAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+            AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
         }
     }
 }
