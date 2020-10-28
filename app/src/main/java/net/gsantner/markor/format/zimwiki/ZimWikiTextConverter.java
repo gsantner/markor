@@ -34,31 +34,8 @@ public class ZimWikiTextConverter extends TextConverter {
     private String _currentLine;
 
     private static MarkdownTextConverter converter;
-    private StringBuffer _convertedLine;
 
-    private enum ZimWikiPatterns {
-        HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
-        LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)\\]\\])")),
-        IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
-        LIST_CHECK(Pattern.compile("^\t*(\\[[ xX*>]?]|\\([ xX*>]?\\)) ")),
-        LIST_ORDERED(Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ")),
-        LIST_UNORDERED(Pattern.compile("^\t*(\\*)(?= )")),
-        EMPHASIS(Pattern.compile("(//(?!/)(.*?)(?<!:)//)")),
-        STRONG(Pattern.compile("(\\*\\*(?!\\*)(.*?)\\*\\*)")),
-        MARK(Pattern.compile("(__(?!_)(.*?)__)")),
-        STRIKE(Pattern.compile("(~~(?!~)(.+?)~~)")),
-        SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
-        SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
-        VERBATIM(Pattern.compile("(''(?!').+?'')")),
-        VERBATIM_BLOCK(Pattern.compile("(?m)('''(?!''')(.+?)''')"));
-        // TODO Table
-
-        private Pattern _pattern;
-
-        ZimWikiPatterns(Pattern pattern) {
-            _pattern = pattern;
-        }
-    }
+    private static final Pattern LIST_ORDERED_LETTERS = Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ");
 
     public ZimWikiTextConverter(MarkdownTextConverter converter) {
         ZimWikiTextConverter.converter = converter;
@@ -92,15 +69,15 @@ public class ZimWikiTextConverter extends TextConverter {
 
     private String getMarkdownEquivalentLine(String zimWikiLine) {
         _currentLine = zimWikiLine;
-        replaceAllMatchesInLinePartially(ZimWikiPatterns.EMPHASIS._pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLinePartially(ZimWikiPatterns.LIST_ORDERED._pattern, "[0-9a-zA-Z]+\\.", "1.");
-        replaceAllMatchesInLine(ZimWikiPatterns.HEADING._pattern, this::convertHeading);
-        replaceAllMatchesInLine(ZimWikiPatterns.LINK._pattern, fullMatch -> convertLink(fullMatch, _context, _file));
-        replaceAllMatchesInLine(ZimWikiPatterns.LIST_CHECK._pattern, fullMatch -> "- "+fullMatch);
-        replaceAllMatchesInLine(ZimWikiPatterns.VERBATIM._pattern, fullMatch -> "`" + fullMatch + "`");
-        replaceAllMatchesInLine(ZimWikiPatterns.SUPERSCRIPT._pattern, fullMatch -> String.format("<sup>%s</sup>",
+        replaceAllMatchesInLinePartially(ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
+        replaceAllMatchesInLinePartially(LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.CHECKLIST.pattern, fullMatch -> "- "+fullMatch);  // TODO: replace checked and arrow state
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`" + fullMatch + "`"); // FIXME
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
-        replaceAllMatchesInLine(ZimWikiPatterns.SUBSCRIPT._pattern, fullMatch -> String.format("<sub>%s</sub>",
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
         return _currentLine;
     }
@@ -122,12 +99,12 @@ public class ZimWikiTextConverter extends TextConverter {
 
     private String convertHeading(String group) {
         // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
-        int markdownLevel = 0;
-        while (group.charAt(markdownLevel) == '=')
-            markdownLevel++;
+        int equalSignsCount = 0;
+        while (group.charAt(equalSignsCount) == '=')
+            equalSignsCount++;
 
         // Maximum header level is 5, and has two equal signs
-        markdownLevel = 7 - Math.min(6, markdownLevel);
+        int markdownLevel = 7 - Math.min(6, equalSignsCount);
 
         return String.format("%s %s",
                 StringUtils.repeatChars('#', markdownLevel),
