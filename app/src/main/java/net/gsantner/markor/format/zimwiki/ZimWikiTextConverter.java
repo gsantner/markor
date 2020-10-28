@@ -54,18 +54,18 @@ public class ZimWikiTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         _context = context;
         _file = file;
-        StringBuilder result = new StringBuilder();
-        int lineNr = 0;
-        for (String line : markup.split("\\r\\n|\\r|\\n")) {
-            if (!checkHeader(++lineNr, line))
-                continue;
+
+        String contentWithoutHeader = markup.replaceFirst(ZimWikiHighlighterPattern.ZIMHEADER.pattern.toString(), "");
+        StringBuilder markdownContent = new StringBuilder();
+
+        for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
             String markdownEquivalentLine = getMarkdownEquivalentLine(line);
-            result.append(markdownEquivalentLine);
-            result.append("  "); // line breaks must be made explicit in markdown by two spaces
-            result.append(String.format("%n"));
+            markdownContent.append(markdownEquivalentLine);
+            markdownContent.append("  "); // line breaks must be made explicit in markdown by two spaces
+            markdownContent.append(String.format("%n"));
         }
 
-        return _markdownConverter.convertMarkup(result.toString(), context, isExportInLightMode, file);
+        return _markdownConverter.convertMarkup(markdownContent.toString(), context, isExportInLightMode, file);
     }
 
     private String getMarkdownEquivalentLine(String zimWikiLine) {
@@ -172,40 +172,9 @@ public class ZimWikiTextConverter extends TextConverter {
     }
 
     /**
-     * @param lineNr The line number. First line has number 0.
-     * @param line   A line.
-     * @return True iff given line number and line of Zim-Wiki header is valid.
-     */
-    private boolean checkHeader(int lineNr, String line) {
-        switch (++lineNr) {
-            case 1: {
-                if (!line.matches("^Content-Type: text/x-zim-wiki$"))
-                    return false;
-                break;
-            }
-            case 2: {
-                if (!line.matches("^Wiki-Format: zim \\d+\\.\\d+$"))
-                    return false;
-                break;
-            }
-            case 3: {
-                if (!line.matches("^Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+$"))
-                    return false;
-                break;
-            }
-            case 4: {
-                if (!line.isEmpty())
-                    return false;
-                break;
-            }
-        }
-        return true;
-    }
-
-    /**
      * NOTE: This method only works if the full file path is specified.
      * @param filepath of a file
-     * @return true if the file extension is .txt; false otherwise
+     * @return true if the file extension is .txt and the file contains a zim header; false otherwise
      */
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
@@ -213,26 +182,22 @@ public class ZimWikiTextConverter extends TextConverter {
             return false;
         }
 
-        boolean result = true;
         File file = new File(filepath);
-        BufferedReader reader = null;
+        boolean hasZimHeader = false;
         try {
-            reader = new BufferedReader(new FileReader(file));
-            String line;
-            int lineno = 0;
-            while ((line = reader.readLine()) != null && ++lineno < 4) {
-                result &= checkHeader(lineno, line);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder firstLinesOfFile = new StringBuilder();
+            for (int lineNumber=0; lineNumber<4; lineNumber++) {
+                String line = reader.readLine();
+                if (line!=null) {
+                    firstLinesOfFile.append(line + String.format("%n"));
+                }
             }
+            hasZimHeader = ZimWikiHighlighterPattern.ZIMHEADER.pattern.matcher(firstLinesOfFile).find();
+            reader.close();
         } catch (IOException e) {
-            // dunno
+            e.printStackTrace();
         }
-        try {
-            if (reader != null) {
-                reader.close();
-            }
-        } catch (IOException e) {
-            return false;
-        }
-        return result;
+        return hasZimHeader;
     }
 }
