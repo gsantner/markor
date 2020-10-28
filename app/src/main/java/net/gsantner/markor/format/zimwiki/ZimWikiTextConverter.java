@@ -73,12 +73,13 @@ public class ZimWikiTextConverter extends TextConverter {
         replaceAllMatchesInLinePartially(LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.CHECKLIST.pattern, fullMatch -> "- "+fullMatch);  // TODO: replace checked and arrow state
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.CHECKLIST.pattern, this::convertChecklist);
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`" + fullMatch + "`"); // FIXME
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
+        // strikethrough syntax is the same as for zim
         return _currentLine;
     }
 
@@ -95,6 +96,17 @@ public class ZimWikiTextConverter extends TextConverter {
         }
         matcher.appendTail(replacedLine);
         _currentLine = replacedLine.toString();
+    }
+
+    private String convertChecklist(String fullMatch) {
+        // TODO: convert to more than two checkstates
+        Matcher matcher = Pattern.compile("\\[([ *x>])]").matcher(fullMatch);
+        matcher.find();
+        String checkboxContent = matcher.group(1);
+        if ("*".equals(checkboxContent)) {
+            return matcher.replaceFirst("- [x]");
+        }
+        return matcher.replaceFirst("- [ ]");
     }
 
     private String convertHeading(String group) {
