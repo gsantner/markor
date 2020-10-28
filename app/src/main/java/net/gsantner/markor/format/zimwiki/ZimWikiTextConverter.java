@@ -16,6 +16,8 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.opoc.util.StringUtils;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -90,6 +92,7 @@ public class ZimWikiTextConverter extends TextConverter {
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.IMAGE.pattern, this::convertImage);
 
         return _currentLine;
     }
@@ -110,6 +113,20 @@ public class ZimWikiTextConverter extends TextConverter {
         _currentLine = replacedLine.toString();
     }
 
+    private String convertHeading(String group) {
+        // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
+        int equalSignsCount = 0;
+        while (group.charAt(equalSignsCount) == '=')
+            equalSignsCount++;
+
+        // Maximum header level is 5, and has two equal signs
+        int markdownLevel = 7 - Math.min(6, equalSignsCount);
+
+        return String.format("%s %s",
+                StringUtils.repeatChars('#', markdownLevel),
+                group.replaceAll("^=+\\s*|\\s*=+$", ""));
+    }
+
     private String convertMarked(String fullMatch) {
         String content = fullMatch.substring(2, fullMatch.length()-2);
         return "<span style=\"background-color: yellow\">"+content+"</span>";
@@ -124,20 +141,6 @@ public class ZimWikiTextConverter extends TextConverter {
             return matcher.replaceFirst("- [x]");
         }
         return matcher.replaceFirst("- [ ]");
-    }
-
-    private String convertHeading(String group) {
-        // Header level 1 has 6 equal signs (=)x6; while MD's top level is one hash (#)
-        int equalSignsCount = 0;
-        while (group.charAt(equalSignsCount) == '=')
-            equalSignsCount++;
-
-        // Maximum header level is 5, and has two equal signs
-        int markdownLevel = 7 - Math.min(6, equalSignsCount);
-
-        return String.format("%s %s",
-                StringUtils.repeatChars('#', markdownLevel),
-                group.replaceAll("^=+\\s*|\\s*=+$", ""));
     }
 
     private String convertLink(String group, Context context, File file) {
@@ -169,6 +172,14 @@ public class ZimWikiTextConverter extends TextConverter {
         }
         // TODO proper URL encoding
         return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
+    }
+
+    private String convertImage(String fullMatch) {
+        String imagePathFromPageFolder = fullMatch.substring(2, fullMatch.length()-2);
+        String currentPageFileName = _file.getName();
+        String currentPageFolderName = currentPageFileName.replaceFirst(".txt$", "");
+        String markdownPathToImage = FilenameUtils.concat(currentPageFolderName, imagePathFromPageFolder);
+        return "![" + _file.getName() + "](" + markdownPathToImage + ")";
     }
 
     /**
