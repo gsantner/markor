@@ -136,7 +136,7 @@ public class ZimWikiTextConverter extends TextConverter {
             fullPath.append(File.separator);
             fullPath.append(pair[0].substring(1));
             fullPath.append(".txt");
-        } else if (pair[0].matches("^[a-z]://.+$")) {
+        } else if (pair[0].matches("^[a-z]+://.+$")) {
             fullPath.append(pair[0]);
         } else {
             fullPath.append("file://");
