@@ -1,0 +1,11 @@
+[Notebook]
+version=0.4
+name=Zim-Sample-Notebook
+interwiki=
+home=Home
+icon=
+document_root=
+shared=True
+endofline=unix
+disable_trash=False
+

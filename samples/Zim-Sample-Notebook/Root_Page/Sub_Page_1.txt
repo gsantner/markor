@@ -1,0 +1,8 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-28T20:55:30+01:00
+
+====== Sub Page 1 ======
+Created Mittwoch 28 Oktober 2020
+
+[[:Root Page|Absolute link to the root page]]
