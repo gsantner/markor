@@ -9,8 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
+import android.arch.core.util.Function;
 import android.content.Context;
 
+import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -25,9 +27,14 @@ import java.util.regex.Pattern;
  * Wrapper class around MarkdownTextConverter
  */
 @SuppressWarnings("WeakerAccess")
-public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConverter {
+public class ZimWikiTextConverter extends TextConverter {
+
+    private Context _context;
+    private File _file;
+    private String _currentLine;
 
     private static MarkdownTextConverter converter;
+    private StringBuffer _convertedLine;
 
     private enum ZimWikiPatterns {
         HEADING(Pattern.compile("^(==+\\s+\\S.*?\\s*=*)$")),
@@ -68,72 +75,49 @@ public class ZimWikiTextConverter extends net.gsantner.markor.format.TextConvert
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+        _context = context;
+        _file = file;
         StringBuilder result = new StringBuilder();
         int lineNr = 0;
-        Matcher matcher;
         for (String line : markup.split("\\n\\r?")) {
             if (!checkHeader(++lineNr, line))
                 continue;
-
-            for (ZimWikiPatterns pattern : ZimWikiPatterns.values()) {
-                matcher = pattern._pattern.matcher(line);
-                while (matcher.find()) {
-                    StringBuffer converted = new StringBuffer();
-                    switch (pattern) {
-                        case EMPHASIS: {
-                            matcher.appendReplacement(converted,
-                                    matcher.group().replaceAll("^/+|/+$", "*"));
-                            break;
-                        }
-                        case LINK: {
-                            matcher.appendReplacement(converted,
-                                    convertLink(matcher.group(), context, file));
-                            break;
-                        }
-                        case LIST_ORDERED: {
-                            matcher.appendReplacement(converted,
-                                    matcher.group().replaceAll("[0-9a-zA-Z]+\\.", "1."));
-                            break;
-                        }
-                        case HEADING: {
-                            matcher.appendReplacement(converted, convertHeading(matcher.group()));
-                            break;
-                        }
-                        case LIST_CHECK: {
-                            matcher.appendReplacement(converted, "- " + matcher.group());
-                            break;
-                        }
-                        case VERBATIM: {
-                            matcher.appendReplacement(converted, "`" + matcher.group() + "`");
-                            break;
-                        }
-                        case SUBSCRIPT: {
-                            matcher.appendReplacement(converted,
-                                    String.format("<sub>%s</sub>",
-                                            matcher.group().replaceAll("^_\\{|\\}$", "")));
-                            break;
-                        }
-                        case SUPERSCRIPT: {
-                            matcher.appendReplacement(converted,
-                                    String.format("<sup>%s</sup>",
-                                            matcher.group().replaceAll("^\\^\\{|\\}$", "")));
-                            break;
-                        }
-                        case LIST_UNORDERED:
-                        case STRIKE:
-                        case STRONG:
-                        default: {
-                            break;
-                        }
-                    }
-                    matcher.appendTail(converted);
-                    line = converted.toString();
-                }
-            }
-            result.append(String.format("%s%n", line));
+            String markdownEquivalentLine = getMarkdownEquivalentLine(line);
+            result.append(markdownEquivalentLine);
+            result.append(String.format("%n"));
         }
 
         return converter.convertMarkup(result.toString(), context, isExportInLightMode, file);
+    }
+
+    private String getMarkdownEquivalentLine(String zimWikiLine) {
+        _currentLine = zimWikiLine;
+        replaceAllMatchesInLinePartially(ZimWikiPatterns.EMPHASIS._pattern, "^/+|/+$", "*");
+        replaceAllMatchesInLinePartially(ZimWikiPatterns.LIST_ORDERED._pattern, "[0-9a-zA-Z]+\\.", "1.");
+        replaceAllMatchesInLine(ZimWikiPatterns.HEADING._pattern, this::convertHeading);
+        replaceAllMatchesInLine(ZimWikiPatterns.LINK._pattern, fullMatch -> convertLink(fullMatch, _context, _file));
+        replaceAllMatchesInLine(ZimWikiPatterns.LIST_CHECK._pattern, fullMatch -> "- "+fullMatch);
+        replaceAllMatchesInLine(ZimWikiPatterns.VERBATIM._pattern, fullMatch -> "`" + fullMatch + "`");
+        replaceAllMatchesInLine(ZimWikiPatterns.SUPERSCRIPT._pattern, fullMatch -> String.format("<sup>%s</sup>",
+                fullMatch.replaceAll("^\\^\\{|\\}$", "")));
+        replaceAllMatchesInLine(ZimWikiPatterns.SUBSCRIPT._pattern, fullMatch -> String.format("<sub>%s</sub>",
+                fullMatch.replaceAll("^_\\{|\\}$", "")));
+        return _currentLine;
+    }
+
+    private void replaceAllMatchesInLinePartially(Pattern zimPattern, String matchPartToBeReplaced, String replacementForMatchPart) {
+        replaceAllMatchesInLine(zimPattern, fullMatch -> fullMatch.replaceAll(matchPartToBeReplaced, replacementForMatchPart));
+    }
+
+    private void replaceAllMatchesInLine(Pattern zimPattern, Function<String, String> replaceMatchWithMarkdown) {
+        Matcher matcher = zimPattern.matcher(_currentLine);
+        StringBuffer replacedLine = new StringBuffer();
+        while (matcher.find()) {
+            String fullMatch = matcher.group();
+            matcher.appendReplacement(replacedLine, replaceMatchWithMarkdown.apply(fullMatch));
+        }
+        matcher.appendTail(replacedLine);
+        _currentLine = replacedLine.toString();
     }
 
     private String convertHeading(String group) {
