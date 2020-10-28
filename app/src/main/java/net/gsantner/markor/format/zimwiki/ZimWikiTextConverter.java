@@ -33,12 +33,12 @@ public class ZimWikiTextConverter extends TextConverter {
     private File _file;
     private String _currentLine;
 
-    private static MarkdownTextConverter converter;
+    private final MarkdownTextConverter _markdownConverter;
 
     private static final Pattern LIST_ORDERED_LETTERS = Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ");
 
-    public ZimWikiTextConverter(MarkdownTextConverter converter) {
-        ZimWikiTextConverter.converter = converter;
+    public ZimWikiTextConverter(MarkdownTextConverter markdownConverter) {
+        _markdownConverter = markdownConverter;
     }
 
     /**
@@ -56,30 +56,41 @@ public class ZimWikiTextConverter extends TextConverter {
         _file = file;
         StringBuilder result = new StringBuilder();
         int lineNr = 0;
-        for (String line : markup.split("\\n\\r?")) {
+        for (String line : markup.split("\\r\\n|\\r|\\n")) {
             if (!checkHeader(++lineNr, line))
                 continue;
             String markdownEquivalentLine = getMarkdownEquivalentLine(line);
             result.append(markdownEquivalentLine);
+            result.append("  "); // line breaks must be made explicit in markdown by two spaces
             result.append(String.format("%n"));
         }
 
-        return converter.convertMarkup(result.toString(), context, isExportInLightMode, file);
+        return _markdownConverter.convertMarkup(result.toString(), context, isExportInLightMode, file);
     }
 
     private String getMarkdownEquivalentLine(String zimWikiLine) {
         _currentLine = zimWikiLine;
-        replaceAllMatchesInLinePartially(ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLinePartially(LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");
+
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
+
+        // bold syntax is the same as for markdown
+        replaceAllMatchesInLinePartially(ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.MARKED.pattern, this::convertMarked);
+        // strikethrough syntax is the same as for markdown
+
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
+        replaceAllMatchesInLine(Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
+
+        // unordered list syntax is compatible with markdown
+        replaceAllMatchesInLinePartially(LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.CHECKLIST.pattern, this::convertChecklist);
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`" + fullMatch + "`"); // FIXME
+
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
-        // strikethrough syntax is the same as for zim
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
+
         return _currentLine;
     }
 
@@ -92,10 +103,16 @@ public class ZimWikiTextConverter extends TextConverter {
         StringBuffer replacedLine = new StringBuffer();
         while (matcher.find()) {
             String fullMatch = matcher.group();
-            matcher.appendReplacement(replacedLine, replaceMatchWithMarkdown.apply(fullMatch));
+            String replacementForMatch = replaceMatchWithMarkdown.apply(fullMatch);
+            matcher.appendReplacement(replacedLine, replacementForMatch);
         }
         matcher.appendTail(replacedLine);
         _currentLine = replacedLine.toString();
+    }
+
+    private String convertMarked(String fullMatch) {
+        String content = fullMatch.substring(2, fullMatch.length()-2);
+        return "<span style=\"background-color: yellow\">"+content+"</span>";
     }
 
     private String convertChecklist(String fullMatch) {
