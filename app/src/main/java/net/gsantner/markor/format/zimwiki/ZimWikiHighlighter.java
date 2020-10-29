@@ -42,6 +42,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
+        _highlightLinks = false;
         _highlightBiggerHeadings = _appSettings.isZimWikiBiggerHeadings();
         _fontType = _appSettings.getFontFamily();
         _fontSize = _appSettings.getFontSize();
