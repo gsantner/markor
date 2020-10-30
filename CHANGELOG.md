@@ -1,7 +1,7 @@
-### Recent changes
-- 
+### Upcoming
+- To be updated
 
-### v2.4 [Blog Post](https://gsantner.net/blog/2020/xx/yy/markor-v2.4-something.html?source=changelog)
+### v2.4 [Blog Post](https://gsantner.net/blog/2020/10/30/markor-v2.4-todotxt-source-code-syntax-highlighting.html?source=changelog)
 - Markdown: Correctly insert or remove list item on press enter at empty list item
 - Remove title from todo.txt date dialog, better usable on small devices
 - Fix search sometimes not working when chaging from view to edit mode
@@ -14,6 +14,17 @@
 - Add search to Markdown edit-mode outline/TOC dialog
 - New file dialog remember type selection
 - Better preserve current open folder across device rotation & reboot
+- todo.txt: Long press sort to sort by most recent used method
+- Markdown: Improve bold/italic syntax highlighting with punctuations
+- todo.txt: Create done file again when not exists
+- Add Actions: Move line up & down, start new line
+- Insert Date/Time text action: List of recent time formats
+- Control visibility of text actions
+- Edit-Mode Search: Open selected position instead of first match
+- File browser: Add settings option to customize file description format
+- todo.txt: Syntax highlighting in edit-mode search dialog
+- Save last used folder to settings, use info for titlebar
+- New File Dialog: Remember type selection
 
 ### v2.3 [Blog Post](https://gsantner.net/blog/2020/07/25/markor-v2.3-outline-action-custom-order-todotxt-markdown-plaintext.html?source=changelog)
 - Add action to Move current selected line(s)/cursor text up/down
