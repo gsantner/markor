@@ -22,6 +22,7 @@ import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -40,6 +41,8 @@ import java.util.List;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
+
+    private static final String LAST_SORT_ORDER_KEY = TodoTxtTextActions.class.getCanonicalName() + "_last_sort_order_key";
 
     public TodoTxtTextActions(Activity activity, Document document) {
         super(activity, document);
@@ -79,7 +82,6 @@ public class TodoTxtTextActions extends TextActions {
 
     @Override
     public List<ActionItem> getActiveActionList() {
-
 
         final int projectIcon = _appSettings.isTodoTxtAlternativeNaming() ? R.drawable.ic_local_offer_black_24dp : R.drawable.ic_baseline_add_24;
 
@@ -228,6 +230,7 @@ public class TodoTxtTextActions extends TextActions {
                             List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor));
                             TodoTxtTask.sortTasks(tasks, orderBy, descending);
                             setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                            new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
                         }
                     }.start());
                     break;
@@ -274,6 +277,15 @@ public class TodoTxtTextActions extends TextActions {
 
                 case R.string.tmaid_common_open_link_browser: {
                     commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
+                    return true;
+                }
+                case R.string.tmaid_todotxt_sort_todo: {
+                    final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
+                    if (last != null && last.size() == 2) {
+                        List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor));
+                        TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
+                        setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                    }
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
