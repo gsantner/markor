@@ -24,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:lines="1"
-            android:text="@string/format"
+            android:text="@string/search_and_replace"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <RelativeLayout
@@ -39,7 +39,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_toStartOf="@+id/recent_show_spinner"
                 android:layout_toLeftOf="@+id/recent_show_spinner"
-                android:hint="@string/enter_or_select_format"
+                android:hint="@string/text_to_search"
+                android:importantForAutofill="no"
+                android:inputType="textFilter"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/replace_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@+id/recent_show_spinner"
+                android:layout_toLeftOf="@+id/recent_show_spinner"
+                android:layout_below="@id/search_input"
+                android:hint="@string/text_to_replace"
                 android:importantForAutofill="no"
                 android:inputType="textFilter"
                 tools:targetApi="o" />
@@ -50,88 +64,41 @@
                 style="@style/Base.Widget.AppCompat.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
                 android:layout_marginTop="8dp"
                 android:inputType="none" />
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/formatted_example"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/time_format_just_date"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:focusable="true"
-                android:text="@string/just_date"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/time_format_just_time"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:focusable="true"
-                android:text="@string/just_time"
-                android:textAllCaps="false" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/time_format_last_used"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:focusable="true"
-                android:text="@string/last_used"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/time_format_yyyy_mm_dd"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:focusable="true"
-                android:text="yyyy-MM-dd"
-                android:textAllCaps="false"
-                tools:ignore="HardcodedText" />
-        </LinearLayout>
-
 
         <CheckBox
             android:id="@+id/use_regex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/get_format_instead_date_or_time" />
+            android:text="@string/use_regex" />
+
 
         <TextView
-            android:id="@+id/date_headline"
-            android:layout_width="wrap_content"
+            android:id="@+id/match_count_or_error"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:layout_marginTop="8dp"
+            android:text="" />
 
+        <TextView
+            android:id="@+id/replace_instance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:layout_marginTop="16dp"
+            android:lines="4"
+            android:maxLines="8"
+            android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:ignore="ButtonStyle">
@@ -141,8 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
-                android:text="@string/pick_date"
+                android:text="@string/replace_first"
                 android:textAllCaps="false" />
 
             <Button
@@ -150,17 +116,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
-                android:text="@string/pick_time"
+                android:text="@string/replace_all"
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/always_use_current_datetime_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/always_use_current_date_and_time" />
     </LinearLayout>
 
 </ScrollView>

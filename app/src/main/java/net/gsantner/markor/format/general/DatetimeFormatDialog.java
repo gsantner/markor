@@ -100,11 +100,11 @@ public class DatetimeFormatDialog {
         final AtomicReference<Callback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
-        final EditText formatEditText = viewRoot.findViewById(R.id.datetime_format_input);
+        final EditText formatEditText = viewRoot.findViewById(R.id.search_input);
         final TextView previewTextView = viewRoot.findViewById(R.id.formatted_example);
-        final Button datePickButton = viewRoot.findViewById(R.id.start_datepicker_button);
-        final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
-        final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
+        final Button datePickButton = viewRoot.findViewById(R.id.replace_first);
+        final Button timePickButton = viewRoot.findViewById(R.id.replace_all);
+        final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.use_regex);
         final CheckBox alwaysNowCheckBox = viewRoot.findViewById(R.id.always_use_current_datetime_checkbox);
 
         final List<String> recentFormats = getRecentFormats(activity);
@@ -125,7 +125,7 @@ public class DatetimeFormatDialog {
 
         popupWindow.setAnchorView(formatEditText);
         popupWindow.setModal(true);
-        viewRoot.findViewById(R.id.datetime_format_input_show_spinner).setOnClickListener(v -> popupWindow.show());
+        viewRoot.findViewById(R.id.recent_show_spinner).setOnClickListener(v -> popupWindow.show());
 
         // monitor format input at combobox and update resulting value
         formatEditText.addTextChangedListener(new TextWatcher() {
