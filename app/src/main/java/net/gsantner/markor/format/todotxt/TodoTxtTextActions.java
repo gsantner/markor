@@ -53,7 +53,7 @@ public class TodoTxtTextActions extends TextActions {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
             final String origText = _hlEditor.getText().toString();
 
-            SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText,
+            SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor,
                     (spannable) -> {
                         TodoTxtHighlighter.basicTodoTxtHighlights(
                                 spannable,

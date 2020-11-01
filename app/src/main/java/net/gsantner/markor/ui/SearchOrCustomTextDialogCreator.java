@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -22,6 +23,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -196,8 +198,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.highlightData = highlightedData;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
+   }
 
     public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
@@ -358,15 +359,17 @@ public class SearchOrCustomTextDialogCreator {
     }
 
 
-    public static void showSearchDialog(Activity activity, String fullText, Callback.a1<Spannable> highlighter, Callback.a2<String, Integer> userCallback) {
+    public static void showSearchDialog(Activity activity, TextView text, Callback.a1<Spannable> highlighter, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.withPositionCallback = userCallback;
-        dopt2.data = Arrays.asList(fullText.split("\n", -1)); // Do not ignore empty lines
+        dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1)); // Do not ignore empty lines
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         dopt2.highlighter = highlighter;
+        dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, text);
+        dopt2.neutralButtonText = activity.getResources().getString(R.string.replace);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 

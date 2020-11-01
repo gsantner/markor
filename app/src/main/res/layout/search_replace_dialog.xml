@@ -86,6 +86,7 @@
             android:layout_marginTop="8dp"
             android:text="" />
 
+        <!--
         <TextView
             android:id="@+id/replace_instance"
             android:layout_width="match_parent"
@@ -95,6 +96,7 @@
             android:lines="4"
             android:maxLines="8"
             android:text="" />
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"

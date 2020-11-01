@@ -80,6 +80,9 @@ public class SearchOrCustomTextDialog {
         public Callback.a1<Spannable> highlighter;
         public String extraFilter = null;
 
+        public String neutralButtonText = null;
+        public Callback.a0 neutralButtonCallback = null;
+
         @ColorInt
         public int textColor = 0xFF000000;
         @ColorInt
@@ -245,6 +248,12 @@ public class SearchOrCustomTextDialog {
         dialogBuilder.setView(linearLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
+
+        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != null) {
+            dialogBuilder.setNeutralButton(dopt.neutralButtonText, (dialogInterface, i) -> {
+                dopt.neutralButtonCallback.callback();
+            });
+        }
 
         if (dopt.titleText != 0) {
             dialogBuilder.setTitle(dopt.titleText);
