@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -40,45 +41,46 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class SearchReplaceDialog {
+
     private static final String SEARCH_REPLACE_SETTINGS = "search_replace_dialog_settings";
     private static final String RECENT_SEARCH_REPLACE_STRING = "recent_search_replace";
     private static final int MAX_RECENT_SEARCH_REPLACE = 10;
 
+    private final EditText searchText;
+    private final EditText replaceText;
+    private final CheckBox regexCheckBox;
+    private final CheckBox multilineCheckBox;
+    private final TextView matchState;
+    private final Button replaceFirst;
+    private final Button replaceAll;
+
     public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
-
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
 
-        final EditText searchText = viewRoot.findViewById(R.id.search_input);
-        final EditText replaceText = viewRoot.findViewById(R.id.replace_input);
-        final CheckBox regexCheckBox = viewRoot.findViewById(R.id.use_regex);
-        final TextView matchState = viewRoot.findViewById(R.id.match_count_or_error);
-        final Button replaceFirst = viewRoot.findViewById(R.id.replace_first);
-        final Button replaceAll = viewRoot.findViewById(R.id.replace_all);
+        searchText = viewRoot.findViewById(R.id.search_input);
+        replaceText = viewRoot.findViewById(R.id.replace_input);
+        regexCheckBox = viewRoot.findViewById(R.id.use_regex);
+        multilineCheckBox = viewRoot.findViewById(R.id.multiline);
+        matchState = viewRoot.findViewById(R.id.match_count_or_error);
+        replaceFirst = viewRoot.findViewById(R.id.replace_first);
+        replaceAll = viewRoot.findViewById(R.id.replace_all);
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
 
         final List<ReplaceGroup> replaceGroups = getRecentReplaces(activity);
 
         // Popup window for ComboBox
-        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, R.layout.search_replace_recent_layout, replaceGroups) {
+        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_1, replaceGroups) {
             @NonNull
             @Override
             public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
-                final View root = super.getView(pos, view, parent);
-
+                final TextView root = (TextView) super.getView(pos, view, parent);
                 final ReplaceGroup rg = getItem(pos);
 
-                final TextView searchView = root.findViewById(R.id.search_replace_recent_search);
-                final TextView replaceView = root.findViewById(R.id.search_replace_recent_replace);
-                final TextView regexView = root.findViewById(R.id.search_replace_recent_regex);
-
                 final Resources res = activity.getResources();
-
-                searchView.setText(res.getString(R.string.recent_text_to_search_label, rg._search));
-                replaceView.setText(res.getString(R.string.recent_text_to_replace_label, rg._replace));
-                regexView.setText(res.getString(R.string.recent_is_regex_label, rg._isRegex));
+                root.setText(res.getString(R.string.search_replace_recent_format, rg._search, rg._replace, rg._isRegex, rg._isMultiline));
 
                 return root;
             }
@@ -111,7 +113,7 @@ public class SearchReplaceDialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                onChange(text, res, searchText, replaceText, regexCheckBox, matchState, replaceFirst, replaceAll);
+                onChange(text, res, searchText, replaceText, regexCheckBox, multilineCheckBox, matchState, replaceFirst, replaceAll);
             }
         };
 
@@ -119,18 +121,18 @@ public class SearchReplaceDialog {
         replaceText.addTextChangedListener(textWatcher);
 
         regexCheckBox.setOnClickListener(
-                v -> onChange(text, res, searchText, replaceText, regexCheckBox, matchState, replaceFirst, replaceAll)
+                v -> onChange(text, res, searchText, replaceText, regexCheckBox, multilineCheckBox, matchState, replaceFirst, replaceAll)
         );
 
         replaceFirst.setOnClickListener(button -> {
-            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), false);
-            saveRecentReplace(activity, replaceGroups, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked()));
+            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked(), false);
+            saveRecentReplace(activity, replaceGroups, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
             dialog.get().dismiss();
         });
 
         replaceAll.setOnClickListener(button -> {
-            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), true);
-            saveRecentReplace(activity, replaceGroups, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked()));
+            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked(), true);
+            saveRecentReplace(activity, replaceGroups, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
             dialog.get().dismiss();
         });
 
@@ -155,9 +157,10 @@ public class SearchReplaceDialog {
             final CharSequence search,
             final CharSequence replace,
             final boolean regex,
+            final boolean multiline,
             final boolean replaceAll)
     {
-        final String replacement = replaceSel(text, search, replace, regex, replaceAll);
+        final String replacement = replaceSel(text, search, replace, regex, multiline, replaceAll);
         final int[] sel = getReplaceSel(text);
         text.getEditableText().replace(sel[0], sel[1], replacement);
     }
@@ -167,9 +170,10 @@ public class SearchReplaceDialog {
             final CharSequence search,
             final CharSequence replace,
             final boolean regex,
+            final boolean multiline,
             final boolean replaceAll)
     {
-        final Pattern sp = makePattern(search, regex);
+        final Pattern sp = makePattern(search, regex, multiline);
         final int[] sel = getReplaceSel(text);
         final CharSequence section = text.getText().subSequence(sel[0], sel[1]);
 
@@ -181,9 +185,13 @@ public class SearchReplaceDialog {
     }
 
 
-    private static Pattern makePattern(final CharSequence searchPattern, boolean useRegex) {
+    private static Pattern makePattern(final CharSequence searchPattern, boolean useRegex, boolean multiline) {
         if (useRegex) {
-            return Pattern.compile(searchPattern.toString());
+            if (multiline) {
+                return Pattern.compile(searchPattern.toString(), Pattern.MULTILINE);
+            } else {
+                return Pattern.compile(searchPattern.toString());
+            }
         } else {
             return Pattern.compile(searchPattern.toString(), Pattern.LITERAL);
         }
@@ -195,6 +203,7 @@ public class SearchReplaceDialog {
             final EditText search,
             final EditText replace,
             final CheckBox regex,
+            final CheckBox multiline,
             final TextView state,
             final Button replaceFirst,
             final Button replaceAll)
@@ -203,7 +212,7 @@ public class SearchReplaceDialog {
         int count = 0;
         try {
 
-            final Pattern sp = makePattern(search.getText().toString(), regex.isChecked());
+            final Pattern sp = makePattern(search.getText().toString(), regex.isChecked(), multiline.isChecked());
 
             // Determine count
             final int[] sel = getReplaceSel(text);
@@ -213,7 +222,7 @@ public class SearchReplaceDialog {
 
             // Run a replace to check if it works
             if (count > 0) {
-                replaceSel(text, search.getText(), replace.getText(), regex.isChecked(), false);
+                replaceSel(text, search.getText(), replace.getText(), regex.isChecked(), multiline.isChecked(), false);
             }
 
         } catch (PatternSyntaxException e) {
@@ -223,6 +232,8 @@ public class SearchReplaceDialog {
         final boolean enabled = (count > 0) && !error;
         replaceFirst.setEnabled(enabled);
         replaceAll.setEnabled(enabled);
+
+        multiline.setEnabled(regex.isChecked());
 
         if (error) {
             state.setText(res.getString(R.string.search_replace_pattern_error_message));
@@ -246,14 +257,19 @@ public class SearchReplaceDialog {
         return recents;
     }
 
-    private static void saveRecentReplace(final Activity activity, final List<ReplaceGroup> replaces, final ReplaceGroup newReplace) {
-        List<ReplaceGroup> tempReplaces = new ArrayList<ReplaceGroup>(replaces);
+    private static void saveRecentReplace(
+            final Activity activity,
+            final List<ReplaceGroup> replaces,
+            final CharSequence search,
+            final CharSequence replace,
+            final boolean isRegex,
+            final boolean isMultiline)
+    {
+        List<ReplaceGroup> tempReplaces = new ArrayList<>(replaces);
+        tempReplaces.add(0, new ReplaceGroup(search, replace, isRegex, isMultiline));
 
-        if (newReplace != null) {
-            tempReplaces.add(0, newReplace);
-        }
-
-        tempReplaces = tempReplaces.subList(0, Math.min(tempReplaces.size(), MAX_RECENT_SEARCH_REPLACE));
+        // De-duplicate
+        tempReplaces = new ArrayList<>(new LinkedHashSet<>(tempReplaces.subList(0, Math.min(tempReplaces.size(), MAX_RECENT_SEARCH_REPLACE))));
 
         final JSONArray array = new JSONArray();
         for (final ReplaceGroup rg : tempReplaces) {
@@ -265,15 +281,21 @@ public class SearchReplaceDialog {
     }
 
     private static class ReplaceGroup {
-        public CharSequence _search = "";
-        public CharSequence _replace = "";
-        public boolean _isRegex = false;
+        final public CharSequence _search;
+        final public CharSequence _replace;
+        final public boolean _isRegex;
+        final public boolean _isMultiline;
 
-
-        public ReplaceGroup(final CharSequence search, final CharSequence replace, final boolean isRegex) {
+        public ReplaceGroup(
+                final CharSequence search,
+                final CharSequence replace,
+                final boolean isRegex,
+                final boolean isMultiline
+        ) {
             _search = search;
             _replace = replace;
             _isRegex = isRegex;
+            _isMultiline = isMultiline;
         }
 
         public static ReplaceGroup fromJson(JSONObject obj) {
@@ -281,9 +303,10 @@ public class SearchReplaceDialog {
                 return new ReplaceGroup(
                         obj.getString("search"),
                         obj.getString("replace"),
-                        obj.getBoolean("isRegex"));
+                        obj.getBoolean("isRegex"),
+                        obj.getBoolean("isMultiline"));
             } catch (JSONException e) {
-                return null;
+                return new ReplaceGroup("", "", false, false);
             }
         }
 
@@ -293,6 +316,7 @@ public class SearchReplaceDialog {
                 obj.put("search", _search);
                 obj.put("replace", _replace);
                 obj.put("isRegex", _isRegex);
+                obj.put("isMultiline", _isMultiline);
             } catch (JSONException e) {
                 // Do nothing
             }

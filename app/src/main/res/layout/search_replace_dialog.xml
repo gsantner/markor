@@ -72,44 +72,65 @@
                 android:inputType="none" />
         </RelativeLayout>
 
-        <CheckBox
-            android:id="@+id/use_regex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/use_regex" />
-
-
-        <TextView
-            android:id="@+id/match_count_or_error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="ButtonStyle">
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/replace_first"
-                android:layout_width="0dp"
+            <CheckBox
+                android:id="@+id/use_regex"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/replace_first"
-                android:textAllCaps="false" />
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/use_regex" />
 
-            <Button
-                android:id="@+id/replace_all"
-                android:layout_width="0dp"
+            <CheckBox
+                android:id="@+id/multiline"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/replace_all"
-                android:textAllCaps="false" />
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/use_regex" />
         </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/match_count_or_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="ButtonStyle">
+
+        <Button
+            android:id="@+id/replace_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/replace_first"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/replace_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/replace_all"
+            android:textAllCaps="false" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
+
+    </ScrollView>
