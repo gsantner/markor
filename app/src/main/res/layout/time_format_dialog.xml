@@ -32,20 +32,20 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/search_input"
+                android:id="@+id/datetime_format_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_toStartOf="@+id/recent_show_spinner"
-                android:layout_toLeftOf="@+id/recent_show_spinner"
+                android:layout_toStartOf="@+id/datetime_format_input_show_spinner"
+                android:layout_toLeftOf="@+id/datetime_format_input_show_spinner"
                 android:hint="@string/enter_or_select_format"
                 android:importantForAutofill="no"
                 android:inputType="textFilter"
                 tools:targetApi="o" />
 
             <TextView
-                android:id="@+id/recent_show_spinner"
+                android:id="@+id/datetime_format_input_show_spinner"
                 android:contentDescription="@string/choose_format"
                 style="@style/Base.Widget.AppCompat.Spinner"
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
 
 
         <CheckBox
-            android:id="@+id/use_regex"
+            android:id="@+id/get_format_instead_date_or_time_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/get_format_instead_date_or_time" />
@@ -137,7 +137,7 @@
             tools:ignore="ButtonStyle">
 
             <Button
-                android:id="@+id/replace_first"
+                android:id="@+id/start_datepicker_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -146,7 +146,7 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/replace_all"
+                android:id="@+id/start_timepicker_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
