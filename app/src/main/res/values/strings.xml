@@ -401,10 +401,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_first">Replace First</string>
     <string name="replace_all">Replace All</string>
     <string name="use_regex">Use Regex</string>
-    <string name="text_to_replace">Text to replace</string>
-    <string name="text_to_search">Text to search</string>
-    <string name="search_and_replace">Search and Replace</string>
+    <string name="text_to_replace">Replace with</string>
+    <string name="text_to_search">Search for</string>
+    <string name="recent_text_to_replace_label">Replace with: %s</string>
+    <string name="recent_text_to_search_label">Search for: %s</string>
+    <string name="recent_is_regex_label">Regex: %b</string>
+    <string name="search_and_replace">Search / Replace</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="search_replace_count_message">Found %d matches</string>
-    <string name="replace">Search / Replace</string>
 </resources>

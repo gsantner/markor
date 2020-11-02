@@ -8,11 +8,17 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,6 +28,10 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.StringUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -30,6 +40,9 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class SearchReplaceDialog {
+    private static final String SEARCH_REPLACE_SETTINGS = "search_replace_dialog_settings";
+    private static final String RECENT_SEARCH_REPLACE_STRING = "recent_search_replace";
+    private static final int MAX_RECENT_SEARCH_REPLACE = 10;
 
     public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -46,16 +59,37 @@ public class SearchReplaceDialog {
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
 
-        final List<RecentReplace> recentReplaces = getRecentReplaces(activity);
+        final List<ReplaceGroup> replaceGroups = getRecentReplaces(activity);
 
-        // TODO: Popup window for ComboBox
-        // popupWindow.setAdapter(new);
+        // Popup window for ComboBox
+        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, R.layout.search_replace_recent_layout, replaceGroups) {
+            @NonNull
+            @Override
+            public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
+                final View root = super.getView(pos, view, parent);
+
+                final ReplaceGroup rg = getItem(pos);
+
+                final TextView searchView = root.findViewById(R.id.search_replace_recent_search);
+                final TextView replaceView = root.findViewById(R.id.search_replace_recent_replace);
+                final TextView regexView = root.findViewById(R.id.search_replace_recent_regex);
+
+                final Resources res = activity.getResources();
+
+                searchView.setText(res.getString(R.string.recent_text_to_search_label, rg._search));
+                replaceView.setText(res.getString(R.string.recent_text_to_replace_label, rg._replace));
+                regexView.setText(res.getString(R.string.recent_is_regex_label, rg._isRegex));
+
+                return root;
+            }
+        });
 
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
-            final RecentReplace r = recentReplaces.get(position);
-            searchText.setText(r.search);
-            replaceText.setText(r.replace);
-            regexCheckBox.setChecked(r.isRegex);
+            final ReplaceGroup r = replaceGroups.get(position);
+            searchText.setText(r._search);
+            replaceText.setText(r._replace);
+            regexCheckBox.setChecked(r._isRegex);
+            popupWindow.dismiss();
         });
 
         popupWindow.setAnchorView(replaceText);
@@ -90,11 +124,13 @@ public class SearchReplaceDialog {
 
         replaceFirst.setOnClickListener(button -> {
             performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), false);
+            saveRecentReplace(activity, replaceGroups, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked()));
             dialog.get().dismiss();
         });
 
         replaceAll.setOnClickListener(button -> {
             performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), true);
+            saveRecentReplace(activity, replaceGroups, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked()));
             dialog.get().dismiss();
         });
 
@@ -195,16 +231,72 @@ public class SearchReplaceDialog {
         }
     }
 
-    private static List<RecentReplace> getRecentReplaces(final Activity activity) {
-        return new ArrayList<>();
+    private static List<ReplaceGroup> getRecentReplaces(final Activity activity) {
+        final List<ReplaceGroup> recents = new ArrayList<>();
+        try {
+            final SharedPreferences settings = activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE);
+            final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
+            final JSONArray array = new JSONArray(jsonString);
+            for (int i = 0; i < array.length(); i++) {
+                recents.add(ReplaceGroup.fromJson(array.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            // Do nothing
+        }
+        return recents;
     }
 
-    private static void saveRecentReplace(final Activity activity, final List<RecentReplace> replaces, final RecentReplace newReplace) {
+    private static void saveRecentReplace(final Activity activity, final List<ReplaceGroup> replaces, final ReplaceGroup newReplace) {
+        List<ReplaceGroup> tempReplaces = new ArrayList<ReplaceGroup>(replaces);
+
+        if (newReplace != null) {
+            tempReplaces.add(0, newReplace);
+        }
+
+        tempReplaces = tempReplaces.subList(0, Math.min(tempReplaces.size(), MAX_RECENT_SEARCH_REPLACE));
+
+        final JSONArray array = new JSONArray();
+        for (final ReplaceGroup rg : tempReplaces) {
+            array.put(rg.toJson());
+        }
+
+        final SharedPreferences.Editor edit = activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE).edit();
+        edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 
-    private static class RecentReplace {
-        public String search;
-        public String replace;
-        public boolean isRegex;
+    private static class ReplaceGroup {
+        public CharSequence _search = "";
+        public CharSequence _replace = "";
+        public boolean _isRegex = false;
+
+
+        public ReplaceGroup(final CharSequence search, final CharSequence replace, final boolean isRegex) {
+            _search = search;
+            _replace = replace;
+            _isRegex = isRegex;
+        }
+
+        public static ReplaceGroup fromJson(JSONObject obj) {
+            try {
+                return new ReplaceGroup(
+                        obj.getString("search"),
+                        obj.getString("replace"),
+                        obj.getBoolean("isRegex"));
+            } catch (JSONException e) {
+                return null;
+            }
+        }
+
+        public JSONObject toJson() {
+            final JSONObject obj = new JSONObject();
+            try {
+                obj.put("search", _search);
+                obj.put("replace", _replace);
+                obj.put("isRegex", _isRegex);
+            } catch (JSONException e) {
+                // Do nothing
+            }
+            return obj;
+        }
     }
 }

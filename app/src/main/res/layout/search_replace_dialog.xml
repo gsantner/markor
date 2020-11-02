@@ -86,18 +86,6 @@
             android:layout_marginTop="8dp"
             android:text="" />
 
-        <!--
-        <TextView
-            android:id="@+id/replace_instance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:layout_marginTop="16dp"
-            android:lines="4"
-            android:maxLines="8"
-            android:text="" />
-        -->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
