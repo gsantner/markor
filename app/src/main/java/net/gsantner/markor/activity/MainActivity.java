@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -26,11 +27,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.pixplicity.generate.Rate;
 
@@ -54,6 +57,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -65,6 +69,7 @@ import butterknife.OnPageChange;
 public class MainActivity extends AppActivityBase implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
+    public static boolean onResume = false;
 
     @BindView(R.id.toolbar)
     public Toolbar _toolbar;
@@ -89,6 +94,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     @SuppressLint("SdCardPath")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        onResume = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setExitTransition(null);
         }
@@ -129,6 +135,16 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
+
+        Intent startIntent = getIntent();
+        if(startIntent!=null && startIntent.getIntExtra("type", 4) != 4){
+            _viewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    _viewPager.setCurrentItem(startIntent.getIntExtra("type", 0));
+                }
+            }, 100);
+        }
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
@@ -175,7 +191,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             }
         }
         return false;
-
     }
 
     @Override
@@ -191,8 +206,19 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     @Override
     protected void onResume() {
+        if(onResume) {
+            finish();
+            Intent saveIntent = new Intent(MainActivity.this, MainActivity.class);
+            saveIntent.putExtra("type", _viewPager.getCurrentItem());
+            startActivity(saveIntent);
+        }
+        onResume = false;
         new AndroidSupportMeWrapper(this).mainOnResume();
+        _appSettings = new AppSettings(this);
+
+        getApplicationContext().setTheme(R.style.AppTheme_Dark);
         super.onResume();
+        Log.d("SAMOO","444");
         IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD || _appSettings.isDebugLogEnabled();
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
@@ -208,9 +234,12 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
-                ? R.color.dark__background : R.color.light__background);
-        _viewPager.getRootView().setBackgroundColor(color);
+//        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
+//                ? R.color.dark__background : R.color.light__background);
+//        _viewPager.getRootView().setBackgroundColor(color);
+//        _viewPager.getContext().setTheme(R.style.AppTheme_Dark);
+
+
 
         if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -362,6 +391,13 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
             title = "> " + file.getName();
         }
         return title;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onPause() {
+        onResume = true;
+        super.onPause();
     }
 
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)

@@ -26,6 +26,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,6 +51,9 @@ import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends AppActivityBase {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
+    public static boolean onResume = false;
+    public static File originalPath;
+    public static boolean originalFileIsFolder;
 
     @BindView(R.id.document__placeholder_fragment)
     FrameLayout _fragPlaceholder;
@@ -130,7 +134,14 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     @Override
+    protected void onPause() {
+        onResume = true;
+        super.onPause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        onResume = false;
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
@@ -142,6 +153,7 @@ public class DocumentActivity extends AppActivityBase {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         if (nextLaunchTransparentBg) {
             getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
@@ -174,7 +186,9 @@ public class DocumentActivity extends AppActivityBase {
         Uri intentData = intent.getData();
 
         File file = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        originalPath = file;
         boolean fileIsFolder = intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+        originalFileIsFolder = fileIsFolder;
 
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
@@ -300,6 +314,16 @@ public class DocumentActivity extends AppActivityBase {
 
     @Override
     protected void onResume() {
+        if(onResume){
+            finish();
+            Intent saveIntent = new Intent(DocumentActivity.this, DocumentActivity.class);
+            if (originalPath != null) {
+                saveIntent.putExtra(DocumentIO.EXTRA_PATH, originalPath);
+            }
+            saveIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, originalFileIsFolder);
+            startActivity(saveIntent);
+        }
+        onResume = false;
         super.onResume();
         if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
