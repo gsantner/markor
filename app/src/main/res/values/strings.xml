@@ -400,7 +400,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="loading_default_value">Loading default value</string>
     <string name="replace_first">Replace First</string>
     <string name="replace_all">Replace All</string>
-    <string name="use_regex">Use Regex</string>
+    <string name="use_regex">Use regex</string>
     <string name="text_to_replace">Replace with</string>
     <string name="text_to_search">Search for</string>
     <string name="search_replace_recent_strings">Search pattern: %s, Replace plattern: %s</string>

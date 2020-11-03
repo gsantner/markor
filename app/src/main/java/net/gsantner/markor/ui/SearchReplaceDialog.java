@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -36,7 +35,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,11 +71,6 @@ public class SearchReplaceDialog {
         _activity = activity;
         _text = text;
 
-        // final AlertDialog.Builder builder = new AlertDialog.Builder(activity, isDarkDialog
-        //         ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
-        //         : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
-        // );
-
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
@@ -104,7 +97,7 @@ public class SearchReplaceDialog {
         recentReplaces = loadRecentReplaces();
 
         // Popup window for ComboBox
-        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_expandable_list_item_2, android.R.id.text1, recentReplaces) {
+        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_2, android.R.id.text1, recentReplaces) {
             @NonNull
             @Override
             public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
@@ -127,6 +120,8 @@ public class SearchReplaceDialog {
             searchText.setText(r._search);
             replaceText.setText(r._replace);
             regexCheckBox.setChecked(r._isRegex);
+            multilineCheckBox.setChecked(r._isMultiline);
+            updateUI();
             popupWindow.dismiss();
         });
 
