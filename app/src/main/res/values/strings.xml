@@ -398,15 +398,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">File description format</string>
     <string name="file_description_format_dialog">Format for the description under each file in the file browser. Follows Android\'s SimpleDateFormat rules, with the addition of FS for showing file size. Leave blank to use the default format for your locale.\n\nExample input:\nFS yyyy MMM dd hh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Loading default value</string>
+    <string name="search_and_replace">Search / Replace</string>
+    <string name="use_regex">Use regex</string>
+    <string name="multiline_regex">Multiline regex</string>
+    <string name="text_to_search">Search for</string>
+    <string name="text_to_replace">Replace with</string>
     <string name="replace_first">Replace First</string>
     <string name="replace_all">Replace All</string>
-    <string name="use_regex">Use regex</string>
-    <string name="text_to_replace">Replace with</string>
-    <string name="text_to_search">Search for</string>
-    <string name="search_replace_recent_strings">Search pattern: %s, Replace plattern: %s</string>
-    <string name="search_replace_recent_options">Use regex: %b, Multiline regex: %b</string>
-    <string name="search_and_replace">Search / Replace</string>
-    <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="search_replace_count_message">Found %d matches</string>
-    <string name="multiline_regex">Multiline regex</string>
+    <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
+    <string name="search_replace_recent_format">Search pattern: %s\nReplace plattern: %s\nUse regex: %b, Multiline regex: %b\n</string>
 </resources>

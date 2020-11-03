@@ -28,6 +28,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <RelativeLayout
+            android:id="@+id/search_replace_text_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

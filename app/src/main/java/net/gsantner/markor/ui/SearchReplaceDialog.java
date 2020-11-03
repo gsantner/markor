@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import net.gsantner.opoc.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -71,8 +73,8 @@ public class SearchReplaceDialog {
         _activity = activity;
         _text = text;
 
+        final Resources res = activity.getResources();
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
 
@@ -84,6 +86,8 @@ public class SearchReplaceDialog {
         replaceFirst = viewRoot.findViewById(R.id.replace_first);
         replaceAll = viewRoot.findViewById(R.id.replace_all);
 
+        recentReplaces = loadRecentReplaces();
+
         // Set region for replace
         sel = StringUtils.getSelection(_text);
         // no selection, replace with all
@@ -94,24 +98,18 @@ public class SearchReplaceDialog {
         region = _text.getText().subSequence(sel[0], sel[1]);
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
-        recentReplaces = loadRecentReplaces();
 
         // Popup window for ComboBox
-        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_2, android.R.id.text1, recentReplaces) {
+        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_1, recentReplaces) {
             @NonNull
             @Override
             public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
-                final View root = super.getView(pos, view, parent);
+                final TextView textView = (TextView) super.getView(pos, view, parent);
 
-                final TextView text1 = root.findViewById(android.R.id.text1);
-                final TextView text2 = root.findViewById(android.R.id.text2);
                 final ReplaceGroup rg = getItem(pos);
+                textView.setText(res.getString(R.string.search_replace_recent_format, rg._search, rg._replace, rg._isRegex, rg._isMultiline));
 
-                final Resources res = activity.getResources();
-                text1.setText(res.getString(R.string.search_replace_recent_strings, rg._search, rg._replace));
-                text2.setText(res.getString(R.string.search_replace_recent_options, rg._isRegex, rg._isMultiline));
-
-                return root;
+                return textView;
             }
         });
 
@@ -125,11 +123,9 @@ public class SearchReplaceDialog {
             popupWindow.dismiss();
         });
 
-        popupWindow.setAnchorView(replaceText);
+        popupWindow.setAnchorView(viewRoot.findViewById(R.id.search_replace_text_group));
         popupWindow.setModal(true);
         viewRoot.findViewById(R.id.recent_show_spinner).setOnClickListener(v -> popupWindow.show());
-
-        final Resources res = activity.getResources();
 
         final TextWatcher textWatcher = new TextWatcher() {
             @Override
