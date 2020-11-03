@@ -33,6 +33,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
 import android.util.Log;
 
 @SuppressWarnings("SameParameterValue")
@@ -667,7 +668,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__editor_unordered_list_character, "-");
     }
 
-    public String getCursorPosition(){
+    public String getCursorPosition() {
         return getString(R.string.pref_key__editor_cursor_position, "-");
     }
 
