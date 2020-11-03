@@ -22,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
@@ -32,7 +31,6 @@ import net.gsantner.opoc.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -40,7 +38,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 public class SearchReplaceDialog {
 
@@ -106,8 +103,15 @@ public class SearchReplaceDialog {
             public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
                 final TextView textView = (TextView) super.getView(pos, view, parent);
 
-                final ReplaceGroup rg = getItem(pos);
-                textView.setText(res.getString(R.string.search_replace_recent_format, rg._search, rg._replace, rg._isRegex, rg._isMultiline));
+                if (pos >= 0 && pos < recentReplaces.size()) {
+                    final ReplaceGroup rg = recentReplaces.get(pos);
+                    final String desc = String.format("%s: %s\n%s: %s\n%s: %b, %s: %b\n",
+                            res.getString(R.string.search_for), rg._search,
+                            res.getString(R.string.replace_with), rg._replace,
+                            res.getString(R.string.use_regex), rg._isRegex,
+                            res.getString(R.string.multiline_regex), rg._isMultiline);
+                    textView.setText(desc);
+                }
 
                 return textView;
             }

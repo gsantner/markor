@@ -40,7 +40,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_toStartOf="@+id/recent_show_spinner"
                 android:layout_toLeftOf="@+id/recent_show_spinner"
-                android:hint="@string/text_to_search"
+                android:hint="@string/search_for"
                 android:importantForAutofill="no"
                 android:inputType="textFilter"
                 tools:targetApi="o" />
@@ -54,7 +54,7 @@
                 android:layout_toStartOf="@+id/recent_show_spinner"
                 android:layout_toLeftOf="@+id/recent_show_spinner"
                 android:layout_below="@id/search_input"
-                android:hint="@string/text_to_replace"
+                android:hint="@string/replace_with"
                 android:importantForAutofill="no"
                 android:inputType="textFilter"
                 tools:targetApi="o" />

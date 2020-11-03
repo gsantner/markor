@@ -401,11 +401,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Search / Replace</string>
     <string name="use_regex">Use regex</string>
     <string name="multiline_regex">Multiline regex</string>
-    <string name="text_to_search">Search for</string>
-    <string name="text_to_replace">Replace with</string>
+    <string name="search_for">Search for</string>
+    <string name="replace_with">Replace with</string>
     <string name="replace_first">Replace First</string>
     <string name="replace_all">Replace All</string>
     <string name="search_replace_count_message">Found %d matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
-    <string name="search_replace_recent_format">Search pattern: %s\nReplace plattern: %s\nUse regex: %b, Multiline regex: %b\n</string>
 </resources>
