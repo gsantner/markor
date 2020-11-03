@@ -368,7 +368,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         dopt2.highlighter = highlighter;
-        dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, text, dopt2.isDarkDialog);
+        dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, text);
         dopt2.neutralButtonText = activity.getResources().getString(R.string.search_and_replace);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }

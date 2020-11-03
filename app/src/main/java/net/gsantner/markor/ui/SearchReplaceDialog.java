@@ -64,11 +64,11 @@ public class SearchReplaceDialog {
 
     private final List<ReplaceGroup> recentReplaces;
 
-    public static void showSearchReplaceDialog(final Activity activity, final TextView text, final boolean isDarkDialog) {
-        new SearchReplaceDialog(activity, text, isDarkDialog);
+    public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
+        new SearchReplaceDialog(activity, text);
     }
 
-    private SearchReplaceDialog(final Activity activity, final TextView text, final boolean isDarkDialog) {
+    private SearchReplaceDialog(final Activity activity, final TextView text) {
 
         _activity = activity;
         _text = text;
