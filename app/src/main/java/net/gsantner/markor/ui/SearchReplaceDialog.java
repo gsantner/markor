@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,8 +56,30 @@ public class SearchReplaceDialog {
     private final Button replaceFirst;
     private final Button replaceAll;
 
-    public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
+    private final Activity _activity;
+    private final TextView _text;
+
+    private final int[] sel;
+    private final CharSequence region;
+
+    private final List<ReplaceGroup> recentReplaces;
+
+    public static void showSearchReplaceDialog(final Activity activity, final TextView text, final boolean isDarkDialog) {
+        new SearchReplaceDialog(activity, text, isDarkDialog);
+    }
+
+    private SearchReplaceDialog(final Activity activity, final TextView text, final boolean isDarkDialog) {
+
+        _activity = activity;
+        _text = text;
+
+        // final AlertDialog.Builder builder = new AlertDialog.Builder(activity, isDarkDialog
+        //         ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
+        //         : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
+        // );
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
 
@@ -67,27 +91,39 @@ public class SearchReplaceDialog {
         replaceFirst = viewRoot.findViewById(R.id.replace_first);
         replaceAll = viewRoot.findViewById(R.id.replace_all);
 
-        final ListPopupWindow popupWindow = new ListPopupWindow(activity);
+        // Set region for replace
+        sel = StringUtils.getSelection(_text);
+        // no selection, replace with all
+        if (sel[0] == sel[1]) {
+            sel[0] = 0;
+            sel[1] = text.length();
+        }
+        region = _text.getText().subSequence(sel[0], sel[1]);
 
-        final List<ReplaceGroup> replaceGroups = getRecentReplaces(activity);
+        final ListPopupWindow popupWindow = new ListPopupWindow(activity);
+        recentReplaces = loadRecentReplaces();
 
         // Popup window for ComboBox
-        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_list_item_1, replaceGroups) {
+        popupWindow.setAdapter(new ArrayAdapter<ReplaceGroup>(activity, android.R.layout.simple_expandable_list_item_2, android.R.id.text1, recentReplaces) {
             @NonNull
             @Override
             public View getView(int pos, @Nullable View view, @NonNull ViewGroup parent) {
-                final TextView root = (TextView) super.getView(pos, view, parent);
+                final View root = super.getView(pos, view, parent);
+
+                final TextView text1 = root.findViewById(android.R.id.text1);
+                final TextView text2 = root.findViewById(android.R.id.text2);
                 final ReplaceGroup rg = getItem(pos);
 
                 final Resources res = activity.getResources();
-                root.setText(res.getString(R.string.search_replace_recent_format, rg._search, rg._replace, rg._isRegex, rg._isMultiline));
+                text1.setText(res.getString(R.string.search_replace_recent_strings, rg._search, rg._replace));
+                text2.setText(res.getString(R.string.search_replace_recent_options, rg._isRegex, rg._isMultiline));
 
                 return root;
             }
         });
 
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
-            final ReplaceGroup r = replaceGroups.get(position);
+            final ReplaceGroup r = recentReplaces.get(position);
             searchText.setText(r._search);
             replaceText.setText(r._replace);
             regexCheckBox.setChecked(r._isRegex);
@@ -113,7 +149,7 @@ public class SearchReplaceDialog {
 
             @Override
             public void afterTextChanged(Editable s) {
-                onChange(text, res, searchText, replaceText, regexCheckBox, multilineCheckBox, matchState, replaceFirst, replaceAll);
+                updateUI();
             }
         };
 
@@ -121,131 +157,101 @@ public class SearchReplaceDialog {
         replaceText.addTextChangedListener(textWatcher);
 
         regexCheckBox.setOnClickListener(
-                v -> onChange(text, res, searchText, replaceText, regexCheckBox, multilineCheckBox, matchState, replaceFirst, replaceAll)
+                v -> updateUI()
+        );
+
+        multilineCheckBox.setOnClickListener(
+                v -> updateUI()
         );
 
         replaceFirst.setOnClickListener(button -> {
-            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked(), false);
-            saveRecentReplace(activity, replaceGroups, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
+            performReplace(false);
+            saveRecentReplace();
             dialog.get().dismiss();
         });
 
         replaceAll.setOnClickListener(button -> {
-            performReplace(text, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked(), true);
-            saveRecentReplace(activity, replaceGroups, searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
+            performReplace(true);
+            saveRecentReplace();
             dialog.get().dismiss();
         });
+
+        updateUI();
 
         builder.setView(viewRoot).setNegativeButton(R.string.cancel, null);
         dialog.set(builder.show());
     }
 
-    private static int[] getReplaceSel(final TextView text) {
-        int[] sel = StringUtils.getSelection(text);
-
-        // no selection, replace with all
-        if (sel[0] == sel[1]) {
-            sel[0] = 0;
-            sel[1] = text.length();
-        }
-
-        return sel;
+    private void performReplace(final boolean replaceAll) {
+        final String replacement = getReplacement(replaceAll);
+        _text.getEditableText().replace(sel[0], sel[1], replacement);
     }
 
-    private static void performReplace(
-            final TextView text,
-            final CharSequence search,
-            final CharSequence replace,
-            final boolean regex,
-            final boolean multiline,
-            final boolean replaceAll)
-    {
-        final String replacement = replaceSel(text, search, replace, regex, multiline, replaceAll);
-        final int[] sel = getReplaceSel(text);
-        text.getEditableText().replace(sel[0], sel[1], replacement);
-    }
-
-    private static String replaceSel(
-            final TextView text,
-            final CharSequence search,
-            final CharSequence replace,
-            final boolean regex,
-            final boolean multiline,
-            final boolean replaceAll)
-    {
-        final Pattern sp = makePattern(search, regex, multiline);
-        final int[] sel = getReplaceSel(text);
-        final CharSequence section = text.getText().subSequence(sel[0], sel[1]);
+    private String getReplacement(final boolean replaceAll) {
+        final Pattern sp = makePattern();
 
         if (replaceAll) {
-            return sp.matcher(section).replaceAll(replace.toString());
+            return sp.matcher(region).replaceAll(replaceText.getText().toString());
         } else {
-            return sp.matcher(section).replaceFirst(replace.toString());
+            return sp.matcher(region).replaceFirst(replaceText.getText().toString());
         }
     }
 
-
-    private static Pattern makePattern(final CharSequence searchPattern, boolean useRegex, boolean multiline) {
-        if (useRegex) {
-            if (multiline) {
-                return Pattern.compile(searchPattern.toString(), Pattern.MULTILINE);
+    private Pattern makePattern() {
+        if (regexCheckBox.isChecked()) {
+            if (multilineCheckBox.isChecked()) {
+                return Pattern.compile(searchText.getText().toString(), Pattern.MULTILINE);
             } else {
-                return Pattern.compile(searchPattern.toString());
+                return Pattern.compile(searchText.getText().toString());
             }
         } else {
-            return Pattern.compile(searchPattern.toString(), Pattern.LITERAL);
+            return Pattern.compile(searchText.getText().toString(), Pattern.LITERAL);
         }
     }
 
-    private static void onChange(
-            final TextView text,
-            final Resources res,
-            final EditText search,
-            final EditText replace,
-            final CheckBox regex,
-            final CheckBox multiline,
-            final TextView state,
-            final Button replaceFirst,
-            final Button replaceAll)
-    {
+    private void updateUI() {
         boolean error = false;
         int count = 0;
-        try {
 
-            final Pattern sp = makePattern(search.getText().toString(), regex.isChecked(), multiline.isChecked());
+        if (searchText.length() > 0) {
+            try {
 
-            // Determine count
-            final int[] sel = getReplaceSel(text);
-            final CharSequence section = text.getText().subSequence(sel[0], sel[1]);
-            final Matcher match = sp.matcher(section);
-            while (match.find()) count++;
+                final Pattern sp = makePattern();
 
-            // Run a replace to check if it works
-            if (count > 0) {
-                replaceSel(text, search.getText(), replace.getText(), regex.isChecked(), multiline.isChecked(), false);
+                // Determine count
+                final CharSequence section = _text.getText().subSequence(sel[0], sel[1]);
+                final Matcher match = sp.matcher(section);
+                while (match.find()) count++;
+
+                // Run a replace to check if it works
+                if (count > 0) {
+                    getReplacement(false);
+                }
+
+            } catch (PatternSyntaxException e) {
+                error = true;
             }
-
-        } catch (PatternSyntaxException e) {
-            error = true;
         }
 
         final boolean enabled = (count > 0) && !error;
         replaceFirst.setEnabled(enabled);
         replaceAll.setEnabled(enabled);
 
-        multiline.setEnabled(regex.isChecked());
+        multilineCheckBox.setEnabled(regexCheckBox.isChecked());
+
+        final Resources res = _activity.getResources();
 
         if (error) {
-            state.setText(res.getString(R.string.search_replace_pattern_error_message));
+            matchState.setText(res.getString(R.string.search_replace_pattern_error_message));
         } else {
-            state.setText(String.format(res.getString(R.string.search_replace_count_message), count));
+            matchState.setText(String.format(res.getString(R.string.search_replace_count_message), count));
         }
     }
 
-    private static List<ReplaceGroup> getRecentReplaces(final Activity activity) {
+    private List<ReplaceGroup> loadRecentReplaces() {
         final List<ReplaceGroup> recents = new ArrayList<>();
         try {
-            final SharedPreferences settings = activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE);
+            final SharedPreferences settings = _activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE);
             final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
             final JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
@@ -257,16 +263,9 @@ public class SearchReplaceDialog {
         return recents;
     }
 
-    private static void saveRecentReplace(
-            final Activity activity,
-            final List<ReplaceGroup> replaces,
-            final CharSequence search,
-            final CharSequence replace,
-            final boolean isRegex,
-            final boolean isMultiline)
-    {
-        List<ReplaceGroup> tempReplaces = new ArrayList<>(replaces);
-        tempReplaces.add(0, new ReplaceGroup(search, replace, isRegex, isMultiline));
+    private void saveRecentReplace() {
+        List<ReplaceGroup> tempReplaces = new ArrayList<>(recentReplaces);
+        tempReplaces.add(0, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked()));
 
         // De-duplicate
         tempReplaces = new ArrayList<>(new LinkedHashSet<>(tempReplaces.subList(0, Math.min(tempReplaces.size(), MAX_RECENT_SEARCH_REPLACE))));
@@ -276,7 +275,7 @@ public class SearchReplaceDialog {
             array.put(rg.toJson());
         }
 
-        final SharedPreferences.Editor edit = activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE).edit();
+        final SharedPreferences.Editor edit = _activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE).edit();
         edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 

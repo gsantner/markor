@@ -76,7 +76,8 @@
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="ButtonStyle">
 
             <CheckBox
                 android:id="@+id/use_regex"
@@ -96,11 +97,10 @@
                 android:paddingLeft="8dp"
                 android:paddingEnd="8dp"
                 android:paddingRight="8dp"
-                android:text="@string/use_regex" />
+                android:text="@string/multiline_regex" />
         </LinearLayout>
 
-
-    <TextView
+        <TextView
         android:id="@+id/match_count_or_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

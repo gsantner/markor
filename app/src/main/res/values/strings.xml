@@ -408,4 +408,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Search / Replace</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="search_replace_count_message">Found %d matches</string>
+    <string name="multiline_regex">Multiline regex</string>
 </resources>
