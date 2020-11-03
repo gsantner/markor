@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -656,17 +657,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         AppSettings as = new AppSettings(getContext());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!as.isPreviewFirst()) {
-                    _hlEditor.requestFocus();
+            if (as.getCursorPosition() != null) {
+                if (as.getCursorPosition().equals("End of document")) {
+                    if (!as.isPreviewFirst()) {
+                        _hlEditor.requestFocus();
+                    }
+                    _hlEditor.setSelection(_hlEditor.length());
                 }
-                _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
-            } else if (as.isEditorStartOnBotttom()) {
-                if (!as.isPreviewFirst()) {
-                    _hlEditor.requestFocus();
+                if (as.getCursorPosition().equals("Start of document")) {
+                    if (!as.isPreviewFirst()) {
+                        _hlEditor.requestFocus();
+                    }
+                    _hlEditor.setSelection(0);
                 }
-                _hlEditor.setSelection(_hlEditor.length());
+                if (as.getCursorPosition().equals("Last position in document")) {
+                    if (_document != null && _document.getFile() != null && (lastPos = as.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
+                        if (!as.isPreviewFirst()) {
+                            _hlEditor.requestFocus();
+                        }
+                        _hlEditor.setSelection(lastPos);
+                        _hlEditor.scrollTo(0, as.getLastEditPositionScroll(_document.getFile()));
+                    }
+                }
             }
         }
     }

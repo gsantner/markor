@@ -33,6 +33,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import android.util.Log;
 
 @SuppressWarnings("SameParameterValue")
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -279,10 +280,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getLastTodoUsedArchiveFilename() {
         return getString(R.string.pref_key__todotxt__last_used_archive_filename, "todo.archive.txt");
-    }
-
-    public boolean isEditorStartOnBotttom() {
-        return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
     }
 
     public boolean isEditorStartEditingInCenter() {
@@ -668,6 +665,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getUnorderedListCharacter() {
         return getString(R.string.pref_key__editor_unordered_list_character, "-");
+    }
+
+    public String getCursorPosition(){
+        return getString(R.string.pref_key__editor_cursor_position, "-");
     }
 
     public boolean isTodoNewTaskWithHuuidEnabled() {

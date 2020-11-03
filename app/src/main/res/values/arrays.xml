@@ -106,6 +106,12 @@
         <item translatable="false">@string/unordered_list_char_plus</item>
     </string-array>
 
+    <string-array name="pref_arr__cursor_position" translatable="false">
+        <item translatable="false">@string/cursor_start</item>
+        <item translatable="false">@string/cursor_end</item>
+        <item translatable="false">@string/cursor_last</item>
+    </string-array>
+
     <string-array name="pref_arrkeys__unordered_list_character" translatable="false">
         <item translatable="false">-</item>
         <item translatable="false">*</item>

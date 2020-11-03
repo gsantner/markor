@@ -296,15 +296,18 @@
                 android:key="@string/pref_key__editor_start_editing_in_center"
                 android:summary="@string/edit_text_in_center_of_screen"
                 android:title="@string/center_text" />
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
-                android:key="@string/pref_key__editor_start_editing_on_bottom"
-                android:summary="@string/start_on_bottom_when_loading_document"
-                android:title="@string/start_on_bottom" />
             <ListPreference
                 android:defaultValue="-"
-                android:dialogTitle="@string/theme"
+                android:dialogTitle="@string/set_cursor_position_title"
+                android:entries="@array/pref_arr__cursor_position"
+                android:entryValues="@array/pref_arr__cursor_position"
+                android:icon="@drawable/ic_cursor_position"
+                android:key="@string/pref_key__editor_cursor_position"
+                android:summary="@string/set_cursor_position"
+                android:title="@string/set_cursor_position_title" />
+            <ListPreference
+                android:defaultValue="-"
+                android:dialogTitle="Test"
                 android:entries="@array/pref_arrdisp__unordered_list_character"
                 android:entryValues="@array/pref_arrkeys__unordered_list_character"
                 android:icon="@drawable/ic_list_black_24dp"
