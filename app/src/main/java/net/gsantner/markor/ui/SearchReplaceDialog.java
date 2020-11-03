@@ -239,8 +239,7 @@ public class SearchReplaceDialog {
         if (error) {
             matchState.setText(res.getString(R.string.search_replace_pattern_error_message));
         } else {
-            final String displayCount = String.format("%s: %d", res.getString(R.string.found_matches), count);
-            matchState.setText(displayCount);
+            matchState.setText(String.format(res.getConfiguration().locale, "%s: %d", res.getString(R.string.found_matches), count));
         }
     }
 
