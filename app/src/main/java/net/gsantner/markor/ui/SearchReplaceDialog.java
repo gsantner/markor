@@ -239,7 +239,8 @@ public class SearchReplaceDialog {
         if (error) {
             matchState.setText(res.getString(R.string.search_replace_pattern_error_message));
         } else {
-            matchState.setText(String.format(res.getString(R.string.search_replace_count_message), count));
+            final String displayCount = String.format("%s: %d", res.getString(R.string.found_matches), count);
+            matchState.setText(displayCount);
         }
     }
 

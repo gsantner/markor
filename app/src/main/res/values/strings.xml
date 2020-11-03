@@ -405,6 +405,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Replace with</string>
     <string name="replace_first">Replace First</string>
     <string name="replace_all">Replace All</string>
-    <string name="search_replace_count_message">Found %d matches</string>
+    <string name="found_matches">Found matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
 </resources>
