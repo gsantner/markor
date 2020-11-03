@@ -219,7 +219,7 @@ public class SearchReplaceDialog {
                     getReplacement(false);
                 }
 
-            } catch (PatternSyntaxException e) {
+            } catch (IllegalArgumentException e) {
                 error = true;
             }
         }
