@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -198,6 +197,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.highlightData = highlightedData;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
    }
 
     public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
