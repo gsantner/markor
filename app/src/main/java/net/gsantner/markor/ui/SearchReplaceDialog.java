@@ -33,8 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -259,14 +260,27 @@ public class SearchReplaceDialog {
     }
 
     private void saveRecentReplace() {
-        List<ReplaceGroup> tempReplaces = new ArrayList<>(recentReplaces);
-        tempReplaces.add(0, new ReplaceGroup(searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked()));
+        final ArrayList<ReplaceGroup> newReplaces = new ArrayList<>();
+        final Set<String> dedupSet = new HashSet<>();
 
-        // De-duplicate
-        tempReplaces = new ArrayList<>(new LinkedHashSet<>(tempReplaces.subList(0, Math.min(tempReplaces.size(), MAX_RECENT_SEARCH_REPLACE))));
+        final ReplaceGroup newReplace = new ReplaceGroup(
+                searchText.getText(), replaceText.getText(), regexCheckBox.isChecked(), multilineCheckBox.isChecked());
+
+        newReplaces.add(newReplace);
+        dedupSet.add(newReplace.key());
+
+        // -1 as we have just added the newReplace
+        final int addCount = Math.min(recentReplaces.size(), MAX_RECENT_SEARCH_REPLACE - 1);
+        for (int i = 0; i < addCount; i++) {
+            final ReplaceGroup rg = recentReplaces.get(i);
+            if (!dedupSet.contains(rg.key())) {
+                newReplaces.add(rg);
+                dedupSet.add(rg.key());
+            }
+        }
 
         final JSONArray array = new JSONArray();
-        for (final ReplaceGroup rg : tempReplaces) {
+        for (final ReplaceGroup rg: newReplaces) {
             array.put(rg.toJson());
         }
 
@@ -274,7 +288,7 @@ public class SearchReplaceDialog {
         edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 
-    private static class ReplaceGroup implements Comparable<ReplaceGroup> {
+    private static class ReplaceGroup {
         final public CharSequence _search;
         final public CharSequence _replace;
         final public boolean _isRegex;
@@ -282,16 +296,6 @@ public class SearchReplaceDialog {
 
         public String key() {
             return String.format("%s%s%b%b", _search, _replace, _isRegex, _isMultiline);
-        }
-
-        @Override
-        public int hashCode() {
-            return key().hashCode();
-        }
-
-        @Override
-        public int compareTo(ReplaceGroup that){
-            return key().compareTo(that.key());
         }
 
         public ReplaceGroup(
