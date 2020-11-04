@@ -274,11 +274,25 @@ public class SearchReplaceDialog {
         edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 
-    private static class ReplaceGroup {
+    private static class ReplaceGroup implements Comparable<ReplaceGroup> {
         final public CharSequence _search;
         final public CharSequence _replace;
         final public boolean _isRegex;
         final public boolean _isMultiline;
+
+        public String key() {
+            return String.format("%s%s%b%b", _search, _replace, _isRegex, _isMultiline);
+        }
+
+        @Override
+        public int hashCode() {
+            return key().hashCode();
+        }
+
+        @Override
+        public int compareTo(ReplaceGroup that){
+            return key().compareTo(that.key());
+        }
 
         public ReplaceGroup(
                 final CharSequence search,
