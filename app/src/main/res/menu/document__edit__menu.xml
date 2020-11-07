@@ -68,6 +68,7 @@
         android:title="@string/view"
         android:visible="false"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_preview"
         android:icon="@drawable/ic_visibility_black_24dp"
@@ -79,21 +80,31 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit_mode"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
         app:showAsAction="always" />
+
     <item android:id="@+id/action_search_view"
         android:title="@string/search"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
+
     <item
         android:id="@+id/action_save"
         android:icon="@drawable/ic_save_black_24dp"
         android:title="@string/save"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_wrap_words"
+        android:icon="@drawable/ic_baseline_wrap_text_24"
+        android:title="@string/wrap_words"
+        app:showAsAction="never"
+        android:checkable="true"/>
 
     <item
         android:id="@+id/submenu_share"
