@@ -195,4 +195,50 @@ public final class StringUtils {
         Collections.addAll(list, array);
         return list;
     }
+
+    /**
+     * Convert escape sequences in string to escaped special characters
+     *
+     * For example, convert
+     *
+     * A\tB -> A    B
+     *
+     * A\nB -> A
+     *         B
+     *
+     * @param input Input string
+     * @return String with escaped sequences converted
+     * @throws IllegalArgumentException if an invalid escape sequence is found in the string
+     */
+    public static String unescapeString(final String input) throws IllegalArgumentException {
+        final StringBuilder builder = new StringBuilder();
+        boolean isEscaped = false;
+        for (int i = 0; i < input.length(); i++) {
+            char current = input.charAt(i);
+            if (isEscaped) {
+                if (current == 't') {
+                    builder.append('\t');
+                } else if (current == 'b') {
+                    builder.append('\b');
+                } else if (current == 'r') {
+                    builder.append('\r');
+                } else if (current == 'n') {
+                    builder.append('\n');
+                } else if (current == 'f') {
+                    builder.append('\f');
+                } else if (current == '\\' || current == '\'' || current == '"') {
+                    builder.append(current);
+                } else {
+                    throw new IllegalArgumentException("Illegal escape sequence.");
+                }
+                isEscaped = false;
+            } else if (current == '\\') {
+                isEscaped = true;
+            } else {
+                builder.append(current);
+            }
+        }
+
+        return builder.toString();
+    }
 }

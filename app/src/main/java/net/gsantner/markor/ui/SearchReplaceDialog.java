@@ -179,17 +179,21 @@ public class SearchReplaceDialog {
     }
 
     private void performReplace(final boolean replaceAll) {
-        final String replacement = getReplacement(replaceAll);
-        _text.getEditableText().replace(sel[0], sel[1], replacement);
+        try {
+            final String replacement = getReplacement(replaceAll);
+            _text.getEditableText().replace(sel[0], sel[1], replacement);
+        } catch (IllegalArgumentException e) {
+            // Do not perform replacement
+        }
     }
 
     private String getReplacement(final boolean replaceAll) {
         final Pattern sp = makePattern();
 
         if (replaceAll) {
-            return sp.matcher(region).replaceAll(replaceText.getText().toString());
+            return sp.matcher(region).replaceAll(getReplacePattern());
         } else {
-            return sp.matcher(region).replaceFirst(replaceText.getText().toString());
+            return sp.matcher(region).replaceFirst(getReplacePattern());
         }
     }
 
@@ -202,6 +206,14 @@ public class SearchReplaceDialog {
             }
         } else {
             return Pattern.compile(searchText.getText().toString(), Pattern.LITERAL);
+        }
+    }
+
+    private String getReplacePattern() {
+        if (regexCheckBox.isChecked()) {
+            return StringUtils.unescapeString(replaceText.getText().toString());
+        } else {
+            return replaceText.getText().toString();
         }
     }
 
