@@ -210,11 +210,7 @@ public class SearchReplaceDialog {
     }
 
     private String getReplacePattern() {
-        if (regexCheckBox.isChecked()) {
-            return StringUtils.unescapeString(replaceText.getText().toString());
-        } else {
-            return replaceText.getText().toString();
-        }
+        return StringUtils.unescapeString(replaceText.getText().toString());
     }
 
     private void updateUI() {

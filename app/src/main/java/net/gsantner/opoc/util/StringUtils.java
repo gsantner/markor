@@ -208,9 +208,8 @@ public final class StringUtils {
      *
      * @param input Input string
      * @return String with escaped sequences converted
-     * @throws IllegalArgumentException if an invalid escape sequence is found in the string
      */
-    public static String unescapeString(final String input) throws IllegalArgumentException {
+    public static String unescapeString(final String input) {
         final StringBuilder builder = new StringBuilder();
         boolean isEscaped = false;
         for (int i = 0; i < input.length(); i++) {
@@ -226,10 +225,10 @@ public final class StringUtils {
                     builder.append('\n');
                 } else if (current == 'f') {
                     builder.append('\f');
-                } else if (current == '\\' || current == '\'' || current == '"') {
-                    builder.append(current);
                 } else {
-                    throw new IllegalArgumentException("Illegal escape sequence.");
+                    // Replace anything else with the literal pattern
+                    builder.append('\\');
+                    builder.append(current);
                 }
                 isEscaped = false;
             } else if (current == '\\') {
@@ -237,6 +236,11 @@ public final class StringUtils {
             } else {
                 builder.append(current);
             }
+        }
+
+        // Handle trailing slash
+        if (isEscaped) {
+            builder.append('\\');
         }
 
         return builder.toString();
