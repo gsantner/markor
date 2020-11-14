@@ -209,17 +209,16 @@ public class SearchReplaceDialog {
         if (replaceAll) {
             return sp.matcher(region).replaceAll(getReplacePattern());
         } else {
-            // Not performing in a selected region
+            final Matcher match = sp.matcher(region);
+            // Handle case
             if (cursorPosition > 0 && cursorPosition < region.length()) {
-                final CharSequence before = region.subSequence(0, cursorPosition);
-                final CharSequence after = region.subSequence(cursorPosition, region.length());
-                final Matcher match = sp.matcher(after);
-                if (match.find()) {
-                    return before + match.replaceFirst(getReplacePattern());
+                if (match.find(cursorPosition)) {
+                    final CharSequence before = region.subSequence(0, cursorPosition);
+                    final CharSequence after = region.subSequence(cursorPosition, region.length());
+                    return before + sp.matcher(after).replaceFirst(getReplacePattern());
                 }
             }
-            // If match after not found, just match and replace whole region
-            return sp.matcher(region).replaceFirst(getReplacePattern());
+            return match.replaceFirst(getReplacePattern());
         }
     }
 
