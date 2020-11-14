@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -208,8 +209,8 @@ public abstract class TextActions {
             prefKeys = new ArrayList<>(loadActionPreference(""));
         }
 
-        Set<String> prefSet = new HashSet<>(prefKeys);
-        Set<String> defSet = new HashSet<>(definedKeys);
+        Set<String> prefSet = new LinkedHashSet<>(prefKeys);
+        Set<String> defSet = new LinkedHashSet<>(definedKeys);
 
         // Add any defined keys which are not in prefs
         defSet.removeAll(prefSet);
