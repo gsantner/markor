@@ -9,4 +9,23 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Подесувања</string>
+    <string name="light">Светло</string>
+    <string name="dark">Темно</string>
+    <string name="delete">Избриши</string>
+    <string name="appearance">Изглед</string>
+    <string name="rename">Преименувај</string>
+    <string name="confirm_delete">Потврди избришување</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Дали сте сигурни дека сакате да го избришете %s?</string>
+    <string name="confirm_overwrite">Потврди препишување</string>
+    <string name="file_already_exists_overwerite">Фајлот веќе постои, препиши?</string>
+    <string name="browse_filesystem">Прелистајте фајл систем</string>
+    <string name="title">Наслов</string>
+    <string name="empty_directory">Празен директориум</string>
+    <string name="enter_name_of_folder">Пишете го името на директориумот</string>
+    <string name="create_folder">Создај директориум</string>
+    <string name="create_new_document">Создај нов документ</string>
+    <string name="move">Премести</string>
+    <string name="info">Инфо</string>
+</resources>
