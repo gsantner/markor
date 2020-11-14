@@ -28,4 +28,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Создај нов документ</string>
     <string name="move">Премести</string>
     <string name="info">Инфо</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Фајл/директориум веќе постои! Одберете друго име</string>
+    <string name="import_from_device">Увезете од други уреди</string>
+    <string name="import_">Увези</string>
+    <string name="append_to_witharg">Додај во %s</string>
+    <string name="select_folder">Избери директориум</string>
+    <string name="edit">Уреди</string>
+    <string name="search_documents">Пребарај документи</string>
+    <string name="share_to_arrow">Сподели со&#8230;</string>
+    <string name="share">Сподели</string>
+    <string name="search">Пребарај</string>
+    <string name="files">Фајлови</string>
+    <string name="document">Документ</string>
+    <string name="documents">Документи</string>
+    <string name="name">Име</string>
 </resources>
