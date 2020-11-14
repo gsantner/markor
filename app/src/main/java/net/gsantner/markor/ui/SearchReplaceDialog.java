@@ -58,13 +58,14 @@ public class SearchReplaceDialog {
     private final TextView _text;
 
     private final int[] sel;
+    private final int cursorPosition;
     private final CharSequence region;
 
     private static final ReplaceGroup[] DEFAULT_GROUPS = {
             // Delete trailing spaces
             new ReplaceGroup("[^\\S\\n\\r]+$", "", true, true),
             // Delete empty lines
-            new ReplaceGroup("\\n\\s*?\\n", "\\n", true, false),
+            new ReplaceGroup("\\n\\s*\\n", "\\n", true, false),
             // Uncheck all checkboxes (Markdown)
             new ReplaceGroup("^(\\s+[-\\*]) \\[\\c\\]", "$1 [ ]", true, true),
             // Check all checkboxes (Markdown)
@@ -101,9 +102,13 @@ public class SearchReplaceDialog {
         sel = StringUtils.getSelection(_text);
         // no selection, replace with all
         if (sel[0] == sel[1]) {
+            cursorPosition = sel[0];
             sel[0] = 0;
             sel[1] = text.length();
+        } else {
+            cursorPosition = -1;
         }
+
         region = _text.getText().subSequence(sel[0], sel[1]);
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
@@ -204,6 +209,16 @@ public class SearchReplaceDialog {
         if (replaceAll) {
             return sp.matcher(region).replaceAll(getReplacePattern());
         } else {
+            // Not performing in a selected region
+            if (cursorPosition > 0 && cursorPosition < region.length()) {
+                final CharSequence before = region.subSequence(0, cursorPosition);
+                final CharSequence after = region.subSequence(cursorPosition, region.length());
+                final Matcher match = sp.matcher(after);
+                if (match.find()) {
+                    return before + match.replaceFirst(getReplacePattern());
+                }
+            }
+            // If match after not found, just match and replace whole region
             return sp.matcher(region).replaceFirst(getReplacePattern());
         }
     }
@@ -362,7 +377,7 @@ public class SearchReplaceDialog {
             final JSONObject obj = new JSONObject();
             try {
                 obj.put(SEARCH_KEY, _search);
-                obj.put(SEARCH_KEY, _replace);
+                obj.put(REPLACE_KEY, _replace);
                 obj.put(REGEX_KEY, _isRegex);
                 obj.put(MULTILINE_KEY, _isMultiline);
             } catch (JSONException e) {
