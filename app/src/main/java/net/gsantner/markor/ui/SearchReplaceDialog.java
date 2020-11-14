@@ -60,6 +60,17 @@ public class SearchReplaceDialog {
     private final int[] sel;
     private final CharSequence region;
 
+    private static final ReplaceGroup[] DEFAULT_GROUPS = {
+            // Delete trailing spaces
+            new ReplaceGroup("[^\\S\\n\\r]+$", "", true, true),
+            // Delete empty lines
+            new ReplaceGroup("\\n\\s*?\\n", "\\n", true, false),
+            // Uncheck all checkboxes (Markdown)
+            new ReplaceGroup("^(\\s+[-\\*]) \\[\\c\\]", "$1 [ ]", true, true),
+            // Check all checkboxes (Markdown)
+            new ReplaceGroup("^(\\s+[-\\*]) \\[\\s\\]", "$1 [x]", true, true),
+    };
+
     private final List<ReplaceGroup> recentReplaces;
 
     public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
@@ -261,6 +272,13 @@ public class SearchReplaceDialog {
             for (int i = 0; i < array.length(); i++) {
                 recents.add(ReplaceGroup.fromJson(array.getJSONObject(i)));
             }
+
+            // Append recents if not already in group.
+            for (final ReplaceGroup rg : DEFAULT_GROUPS) {
+                if (!recents.contains(rg)) {
+                    recents.add(rg);
+                }
+            }
         } catch (JSONException e) {
             // Do nothing
         }
@@ -302,8 +320,18 @@ public class SearchReplaceDialog {
         final public boolean _isRegex;
         final public boolean _isMultiline;
 
+        private final static String SEARCH_KEY = "search";
+        private final static String REPLACE_KEY = "replace";
+        private final static String REGEX_KEY = "regex";
+        private final static String MULTILINE_KEY = "multiline";
+
         public String key() {
             return String.format("%s%s%b%b", _search, _replace, _isRegex, _isMultiline);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return (other instanceof ReplaceGroup && this.key().equals(((ReplaceGroup) other).key()));
         }
 
         public ReplaceGroup(
@@ -321,10 +349,10 @@ public class SearchReplaceDialog {
         public static ReplaceGroup fromJson(JSONObject obj) {
             try {
                 return new ReplaceGroup(
-                        obj.getString("search"),
-                        obj.getString("replace"),
-                        obj.getBoolean("isRegex"),
-                        obj.getBoolean("isMultiline"));
+                        obj.getString(SEARCH_KEY),
+                        obj.getString(REPLACE_KEY),
+                        obj.getBoolean(REGEX_KEY),
+                        obj.getBoolean(MULTILINE_KEY));
             } catch (JSONException e) {
                 return new ReplaceGroup("", "", false, false);
             }
@@ -333,10 +361,10 @@ public class SearchReplaceDialog {
         public JSONObject toJson() {
             final JSONObject obj = new JSONObject();
             try {
-                obj.put("search", _search);
-                obj.put("replace", _replace);
-                obj.put("isRegex", _isRegex);
-                obj.put("isMultiline", _isMultiline);
+                obj.put(SEARCH_KEY, _search);
+                obj.put(SEARCH_KEY, _replace);
+                obj.put(REGEX_KEY, _isRegex);
+                obj.put(MULTILINE_KEY, _isMultiline);
             } catch (JSONException e) {
                 // Do nothing
             }
