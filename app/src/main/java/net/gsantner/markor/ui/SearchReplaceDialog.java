@@ -78,7 +78,7 @@ public class SearchReplaceDialog {
 
         searchText = viewRoot.findViewById(R.id.search_input);
         replaceText = viewRoot.findViewById(R.id.replace_input);
-        regexCheckBox = viewRoot.findViewById(R.id.use_regex);
+        regexCheckBox = viewRoot.findViewById(R.id.enable_regex);
         multilineCheckBox = viewRoot.findViewById(R.id.multiline);
         matchState = viewRoot.findViewById(R.id.match_count_or_error);
         replaceFirst = viewRoot.findViewById(R.id.replace_first);
@@ -109,8 +109,8 @@ public class SearchReplaceDialog {
                     final String desc = String.format("%s: %s\n%s: %s\n%s: %b, %s: %b\n",
                             res.getString(R.string.search_for), rg._search,
                             res.getString(R.string.replace_with), rg._replace,
-                            res.getString(R.string.use_regex), rg._isRegex,
-                            res.getString(R.string.multiline_regex), rg._isMultiline);
+                            res.getString(R.string.regex), rg._isRegex,
+                            res.getString(R.string.multiline), rg._isMultiline);
                     textView.setText(desc);
                 }
 
@@ -248,7 +248,7 @@ public class SearchReplaceDialog {
         if (error) {
             matchState.setText(res.getString(R.string.search_replace_pattern_error_message));
         } else {
-            matchState.setText(String.format(res.getConfiguration().locale, "%s: %d", res.getString(R.string.found_matches), count));
+            matchState.setText(String.format(res.getConfiguration().locale, "%s: %d", res.getString(R.string.matches), count));
         }
     }
 
