@@ -33,7 +33,7 @@ public class ZimWikiHighlighter extends Highlighter {
     private static final int MARKED_BACKGROUND_COLOR = 0xffffff00;
     private static final int UNORDERED_LIST_BULLET_COLOR = 0xffdaa521;
     private static final int ORDERED_LIST_NUMBER_COLOR = 0xffdaa521;
-    private static final int LINK_COLOR = 0xff0000ff;
+    private static final int LINK_COLOR = 0xff1ea3fd;// 0xff0000ff;
     private static final int CHECKLIST_BASE_COLOR = UNORDERED_LIST_BULLET_COLOR;
     private static final int CHECKLIST_CHECKED_COLOR = 0xff54a309;
     private static final int CHECKLIST_CROSSED_COLOR = 0xffa90000;
