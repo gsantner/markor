@@ -25,10 +25,11 @@ public class ZimWikiReplacePatternGeneratorTest {
     @Test
     public void createHeadingsWithSpecifiedLevel() {
     }
+
     @Test
     public void removeHeadingCharsForExactHeadingLevel() {
         setLevelFourHeadingAction();
-        assertCorrectReplacement("=== My Heading ===","My Heading");
+        assertCorrectReplacement("=== My Heading ===", "My Heading");
     }
 
     @Test
@@ -74,8 +75,8 @@ public class ZimWikiReplacePatternGeneratorTest {
         // create checkbox
         String currentLine = "some item";
         currentLine = replaceWithFirstMatchingPattern(replacePatterns, currentLine);
-        for (int i = 0; i<orderedCheckboxStates.length+1; i++) {
-            assertThat(currentLine).isEqualTo("["+orderedCheckboxStates[i%orderedCheckboxStates.length]+"] some item");
+        for (int i = 0; i < orderedCheckboxStates.length + 1; i++) {
+            assertThat(currentLine).isEqualTo("[" + orderedCheckboxStates[i % orderedCheckboxStates.length] + "] some item");
             currentLine = replaceWithFirstMatchingPattern(replacePatterns, currentLine);
         }
     }
@@ -129,7 +130,7 @@ public class ZimWikiReplacePatternGeneratorTest {
     }
 
     private String replaceWithFirstMatchingPattern(List<TextActions.ReplacePattern> replacePatterns, String input) {
-        for(TextActions.ReplacePattern replacePattern : replacePatterns) {
+        for (TextActions.ReplacePattern replacePattern : replacePatterns) {
             Matcher matcher = replacePattern.searchPattern.matcher(input);
             if (matcher.find()) {
                 return matcher.replaceFirst(replacePattern.replacePattern);

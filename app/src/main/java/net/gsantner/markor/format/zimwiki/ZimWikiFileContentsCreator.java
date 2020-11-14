@@ -19,10 +19,10 @@ public class ZimWikiFileContentsCreator {
         String headerWikiFormatLine = "Wiki-Format: zim 0.6";
         SimpleDateFormat headerDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ROOT);
         String creationDateFormatted = headerDateFormat.format(creationDate);
-        String headerCreationDateLine = "Creation-Date: "+creationDateFormatted;
+        String headerCreationDateLine = "Creation-Date: " + creationDateFormatted;
         String title = fileNameWithoutExtension.trim().replaceAll("_", " ");
         String titleLine = "====== " + title + " ======";
-        SimpleDateFormat creationDateLineFormat = new SimpleDateFormat("'"+creationDateLinePrefix+"'"+" EEEE dd MMMM yyyy", Locale.getDefault());
+        SimpleDateFormat creationDateLineFormat = new SimpleDateFormat("'" + creationDateLinePrefix + "'" + " EEEE dd MMMM yyyy", Locale.getDefault());
         String creationDateLine = creationDateLineFormat.format(creationDate);
 
         String contents = headerContentTypeLine + "\n"

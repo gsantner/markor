@@ -62,7 +62,7 @@ public class ZimWikiHighlighterPatternCheckListTest {
 
     private void assertCorrectCheckboxWithInnerSymbol(Matcher m, String symbol) {
         assertThat(m.find()).isTrue();
-        assertThat(m.group()).isEqualTo("["+symbol+"]");
+        assertThat(m.group()).isEqualTo("[" + symbol + "]");
         assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_LEFT_BRACKET_GROUP)).isEqualTo("[");
         assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_SYMBOL_GROUP)).isEqualTo(symbol);
         assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_RIGHT_BRACKET_GROUP)).isEqualTo("]");

@@ -36,8 +36,8 @@ public class ZimWikiHighlighterPatternTest {
     }
 
     @Test
-    public void markedWordInSentence() {
-        pattern = ZimWikiHighlighterPattern.MARKED.pattern;
+    public void highlightedWordInSentence() {
+        pattern = ZimWikiHighlighterPattern.HIGHLIGHTED.pattern;
         Matcher matcher = pattern.matcher("The following __word__ is marked (highlighted).");
         assertThat(matcher.find()).isTrue();
         assertThat(matcher.group()).isEqualTo("__word__");
@@ -77,7 +77,7 @@ public class ZimWikiHighlighterPatternTest {
     public void unorderedListHighlightings() {
         pattern = ZimWikiHighlighterPattern.LIST_UNORDERED.pattern;
         Matcher matcher = pattern.matcher("some text...\n* first item\n\t* item 11\n* item 2");
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             assertThat(matcher.find());
             assertThat(matcher.group()).isEqualTo("*");
         }

@@ -59,7 +59,7 @@ public class ZimWikiReplacePatternGenerator {
     public static List<TextActions.ReplacePattern> setOrUnsetHeadingWithLevel(int level) {
         List<TextActions.ReplacePattern> patterns = new ArrayList<>();
 
-        final int numberOfEqualSigns = 7-level;
+        final int numberOfEqualSigns = 7 - level;
 
         boolean isValidZimWikiHeading = numberOfEqualSigns >= 2 && numberOfEqualSigns <= 6;
         if (!isValidZimWikiHeading) {
@@ -83,12 +83,12 @@ public class ZimWikiReplacePatternGenerator {
 
     private static TextActions.ReplacePattern replaceDifferentHeadingLevelWithThisLevel(String headingChars) {
         return new TextActions.ReplacePattern("^\\s{0,3}={2,6}([ \\t].*[ \\t])={2,6}",
-                headingChars+"$1"+headingChars);
+                headingChars + "$1" + headingChars);
     }
 
     private static TextActions.ReplacePattern createHeadingIfNoneThere(String headingChars) {
         return new TextActions.ReplacePattern("^\\s*?(\\S?.*)\\s*",
-                headingChars+" $1 "+headingChars);
+                headingChars + " $1 " + headingChars);
     }
 
     public static List<TextActions.ReplacePattern> replaceWithNextStateCheckbox() {

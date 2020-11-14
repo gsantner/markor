@@ -61,7 +61,7 @@ public class ZimWikiTextConverter extends TextConverter {
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
-            String markdownEquivalentLine = getMarkdownEquivalentLine(line);
+            String markdownEquivalentLine = getMarkdownEquivalentLine(line, isExportInLightMode);
             markdownContent.append(markdownEquivalentLine);
             markdownContent.append("  "); // line breaks must be made explicit in markdown by two spaces
             markdownContent.append(String.format("%n"));
@@ -70,14 +70,14 @@ public class ZimWikiTextConverter extends TextConverter {
         return _markdownConverter.convertMarkup(markdownContent.toString(), context, isExportInLightMode, file);
     }
 
-    private String getMarkdownEquivalentLine(String zimWikiLine) {
+    private String getMarkdownEquivalentLine(String zimWikiLine, final boolean isExportInLightMode) {
         _currentLine = zimWikiLine;
 
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
 
         // bold syntax is the same as for markdown
         replaceAllMatchesInLinePartially(ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.MARKED.pattern, this::convertMarked);
+        replaceAllMatchesInLine(ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
         // strikethrough syntax is the same as for markdown
 
         replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
@@ -127,9 +127,9 @@ public class ZimWikiTextConverter extends TextConverter {
                 group.replaceAll("^=+\\s*|\\s*=+$", ""));
     }
 
-    private String convertMarked(String fullMatch) {
-        String content = fullMatch.substring(2, fullMatch.length()-2);
-        return "<span style=\"background-color: yellow\">"+content+"</span>";
+    private String convertHighlighted(String fullMatch, final boolean isExportInLightMode) {
+        String content = fullMatch.substring(2, fullMatch.length() - 2);
+        return "<span style=\"background-color: " + (isExportInLightMode ? "#ffff00" : "#FFA062") + "\">" + content + "</span>";
     }
 
     private String convertChecklist(String fullMatch) {
@@ -175,7 +175,7 @@ public class ZimWikiTextConverter extends TextConverter {
     }
 
     private String convertImage(String fullMatch) {
-        String imagePathFromPageFolder = fullMatch.substring(2, fullMatch.length()-2);
+        String imagePathFromPageFolder = fullMatch.substring(2, fullMatch.length() - 2);
         String currentPageFileName = _file.getName();
         String currentPageFolderName = currentPageFileName.replaceFirst(".txt$", "");
         String markdownPathToImage = FilenameUtils.concat(currentPageFolderName, imagePathFromPageFolder);
@@ -184,6 +184,7 @@ public class ZimWikiTextConverter extends TextConverter {
 
     /**
      * NOTE: This method only works if the full file path is specified.
+     *
      * @param filepath of a file
      * @return true if the file extension is .txt and the file contains a zim header; false otherwise
      */
@@ -198,9 +199,9 @@ public class ZimWikiTextConverter extends TextConverter {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder firstLinesOfFile = new StringBuilder();
-            for (int lineNumber=0; lineNumber<4; lineNumber++) {
+            for (int lineNumber = 0; lineNumber < 4; lineNumber++) {
                 String line = reader.readLine();
-                if (line!=null) {
+                if (line != null) {
                     firstLinesOfFile.append(line + String.format("%n"));
                 }
             }
