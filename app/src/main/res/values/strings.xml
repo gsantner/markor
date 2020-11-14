@@ -399,12 +399,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format_dialog">Format for the description under each file in the file browser. Follows Android\'s SimpleDateFormat rules, with the addition of FS for showing file size. Leave blank to use the default format for your locale.\n\nExample input:\nFS yyyy MMM dd hh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Loading default value</string>
     <string name="search_and_replace">Search / Replace</string>
-    <string name="use_regex">Use regex</string>
-    <string name="multiline_regex">Multiline regex</string>
     <string name="search_for">Search for</string>
     <string name="replace_with">Replace with</string>
-    <string name="replace_first">Replace First</string>
-    <string name="replace_all">Replace All</string>
-    <string name="found_matches">Found matches</string>
+    <string name="replace_first">Replace first</string>
+    <string name="replace_all">Replace all</string>
+    <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
 </resources>

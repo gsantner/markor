@@ -56,4 +56,5 @@ files:
         kn: kn # Kannada (Asian)
         ta: ta # Tamil (Asian)
         sq: sq # Albanian
+        mk: mk # Macedonian
     translate_attributes: 0
