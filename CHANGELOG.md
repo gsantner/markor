@@ -1,5 +1,5 @@
-### Upcoming
-- To be updated
+### Recent changes
+- Improve license dialog readability
 
 ### v2.4 [Blog Post](https://gsantner.net/blog/2020/10/30/markor-v2.4-todotxt-source-code-syntax-highlighting.html?source=changelog)
 - Markdown: Correctly insert or remove list item on press enter at empty list item
