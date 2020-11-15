@@ -67,7 +67,7 @@ public class SearchReplaceDialog {
             // Delete empty lines
             new ReplaceGroup("\\n\\s*\\n", "\\n", true, false),
             // Uncheck all checkboxes (Markdown)
-            new ReplaceGroup("^(\\s*[-\\*]) \\[\\c\\]", "$1 [ ]", true, true),
+            new ReplaceGroup("^(\\s*[-\\*]) \\[[xX]\\]", "$1 [ ]", true, true),
             // Check all checkboxes (Markdown)
             new ReplaceGroup("^(\\s*[-\\*]) \\[\\s\\]", "$1 [x]", true, true),
     };
