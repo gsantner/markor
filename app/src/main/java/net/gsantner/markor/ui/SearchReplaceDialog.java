@@ -198,7 +198,7 @@ public class SearchReplaceDialog {
         try {
             final String replacement = getReplacement(replaceAll);
             _text.getEditableText().replace(sel[0], sel[1], replacement);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             // Do not perform replacement
         }
     }
@@ -257,7 +257,7 @@ public class SearchReplaceDialog {
                     getReplacement(false);
                 }
 
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                 error = true;
             }
         }
@@ -279,22 +279,25 @@ public class SearchReplaceDialog {
 
     private List<ReplaceGroup> loadRecentReplaces() {
         final List<ReplaceGroup> recents = new ArrayList<>();
+
         try {
             final SharedPreferences settings = _activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE);
             final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
-            final JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++) {
-                recents.add(ReplaceGroup.fromJson(array.getJSONObject(i)));
-            }
-
-            // Append recents if not already in group.
-            for (final ReplaceGroup rg : DEFAULT_GROUPS) {
-                if (!recents.contains(rg)) {
-                    recents.add(rg);
+            if (jsonString.length() > 0) {
+                final JSONArray array = new JSONArray(jsonString);
+                for (int i = 0; i < array.length(); i++) {
+                    recents.add(ReplaceGroup.fromJson(array.getJSONObject(i)));
                 }
             }
         } catch (JSONException e) {
             // Do nothing
+        }
+
+        // Append recents if not already in group.
+        for (final ReplaceGroup rg : DEFAULT_GROUPS) {
+            if (!recents.contains(rg)) {
+                recents.add(rg);
+            }
         }
         return recents;
     }
