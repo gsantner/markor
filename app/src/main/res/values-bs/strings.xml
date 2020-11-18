@@ -178,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Sljedeća stranica (Page Down)</string>
     <string name="move_text_one_line_up">Pomjeri tekst gore za jedan red</string>
     <string name="move_text_one_line_down">Pomjeri tekst dolje za jedan red</string>
+    <string name="start_new_line_below">Započni novi red ispod</string>
     <string name="key_pos_1">Početak reda (Pos Home)</string>
     <string name="key_pos_end">Kraj reda (Pos End)</string>
     <string name="key_pos_1_document">Početak dokumenta</string>
