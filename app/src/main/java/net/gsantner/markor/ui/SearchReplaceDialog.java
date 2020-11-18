@@ -55,9 +55,9 @@ public class SearchReplaceDialog {
     private final Button replaceAll;
 
     private final Activity _activity;
-    private final TextView _text;
+    private final Editable _edit;
 
-    private final int[] sel;
+    private final int[] _sel;
     private final int cursorPosition;
     private final CharSequence region;
 
@@ -74,14 +74,36 @@ public class SearchReplaceDialog {
 
     private final List<ReplaceGroup> recentReplaces;
 
-    public static void showSearchReplaceDialog(final Activity activity, final TextView text) {
-        new SearchReplaceDialog(activity, text);
+    public static void showSearchReplaceDialog(final Activity activity, final Editable edit, final int[] sel) {
+        new SearchReplaceDialog(activity, edit, sel);
     }
 
-    private SearchReplaceDialog(final Activity activity, final TextView text) {
+    private SearchReplaceDialog(final Activity activity, final Editable edit, final int[] sel) {
 
         _activity = activity;
-        _text = text;
+        _edit = edit;
+
+        if (sel != null && sel.length == 2) {
+            final int start = Math.min(Math.max(0, Math.min(sel[0], sel[1])), _edit.length());
+            final int end = Math.min(Math.max(0, Math.max(sel[0], sel[1])), _edit.length());
+
+            if (start == end) {
+                _sel = new int[] {0, edit.length()};
+                cursorPosition = start;
+            } else {
+                cursorPosition = -1;
+                _sel = new int[] {start, -1};
+            }
+        } else {
+            _sel = new int[] {0, edit.length()};
+            cursorPosition = -1;
+        }
+
+        if (_sel[0] != 0 || _sel[1] != _edit.length()) {
+            region = _edit.subSequence(_sel[0], _sel[1]);
+        } else {
+            region = _edit;
+        }
 
         final Resources res = activity.getResources();
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -97,19 +119,6 @@ public class SearchReplaceDialog {
         replaceAll = viewRoot.findViewById(R.id.replace_all);
 
         recentReplaces = loadRecentReplaces();
-
-        // Set region for replace
-        sel = StringUtils.getSelection(_text);
-        // no selection, replace with all
-        if (sel[0] == sel[1]) {
-            cursorPosition = sel[0];
-            sel[0] = 0;
-            sel[1] = text.length();
-        } else {
-            cursorPosition = -1;
-        }
-
-        region = _text.getText().subSequence(sel[0], sel[1]);
 
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
 
@@ -197,7 +206,7 @@ public class SearchReplaceDialog {
     private void performReplace(final boolean replaceAll) {
         try {
             final String replacement = getReplacement(replaceAll);
-            _text.getEditableText().replace(sel[0], sel[1], replacement);
+            _edit.replace(_sel[0], _sel[1], replacement);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             // Do not perform replacement
         }
@@ -248,8 +257,7 @@ public class SearchReplaceDialog {
                 final Pattern sp = makePattern();
 
                 // Determine count
-                final CharSequence section = _text.getText().subSequence(sel[0], sel[1]);
-                final Matcher match = sp.matcher(section);
+                final Matcher match = sp.matcher(region);
                 while (match.find()) count++;
 
                 // Run a replace to check if it works

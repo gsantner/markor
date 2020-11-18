@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -359,16 +360,16 @@ public class SearchOrCustomTextDialogCreator {
     }
 
 
-    public static void showSearchDialog(Activity activity, TextView text, Callback.a1<Spannable> highlighter, Callback.a2<String, Integer> userCallback) {
+    public static void showSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Spannable> highlighter, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.withPositionCallback = userCallback;
-        dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1)); // Do not ignore empty lines
+        dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         dopt2.highlighter = highlighter;
-        dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, text);
+        dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, edit, sel);
         dopt2.neutralButtonText = activity.getResources().getString(R.string.search_and_replace);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }

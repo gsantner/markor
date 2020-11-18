@@ -182,7 +182,7 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor, null, (text, lineNr) -> {
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), null, (text, lineNr) -> {
                     if (!_hlEditor.hasFocus()) {
                         _hlEditor.requestFocus();
                     }
