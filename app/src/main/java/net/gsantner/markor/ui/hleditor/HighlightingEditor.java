@@ -276,7 +276,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
-        super.onSelectionChanged(selStart, selEnd);
+        // super.onSelectionChanged triggers some accessibility service code.
+        // This appears to cause an exception with larger files
+        // Possible android bug? Commenting out.
+
+        // super.onSelectionChanged(selStart, selEnd);
+
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
