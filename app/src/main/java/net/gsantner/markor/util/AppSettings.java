@@ -335,6 +335,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
     private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
+    private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
 
     public void setLastEditPosition(File file, int pos, int scrolloffset) {
         if (file == null || !file.exists()) {
@@ -353,6 +354,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentWrapState(final String path) {
         // Use global setting as default
         return getBool(PREF_PREFIX_WRAP_STATE + path, isEditorLineBreakingEnabled());
+    }
+
+    public void setDocumentHighlightState(final String path, final boolean state) {
+        setBool(PREF_PREFIX_HIGHLIGHT_STATE + path, state);
+    }
+
+    public boolean getDocumentHighlightState(final String path) {
+        // Use global setting as default
+        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled());
     }
 
     public int getLastEditPositionChar(File file) {

@@ -107,6 +107,13 @@
         android:checkable="true"/>
 
     <item
+        android:id="@+id/action_enable_highlighting"
+        android:icon="@drawable/ic_format_color_fill_black_24dp"
+        android:title="@string/syntax_highlighting"
+        app:showAsAction="never"
+        android:checkable="true"/>
+
+    <item
         android:id="@+id/submenu_share"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"

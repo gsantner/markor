@@ -67,7 +67,9 @@ public class HighlightingEditor extends AppCompatEditText {
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
             enableHighlighterAutoFormat();
-            setHighlightingEnabled(as.isHighlightingEnabled());
+
+            // Will be enabled by the DocumentEditFragment, if necessary
+            setHighlightingEnabled(false);
         }
 
         _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
@@ -236,7 +238,21 @@ public class HighlightingEditor extends AppCompatEditText {
     // Simple getter / setter
     //
 
-    public void setHighlightingEnabled(boolean enable) {
+    public void setHighlightingEnabled(final boolean enable) {
+        // Set or reset upon toggle
+        try {
+            if (_hlEnabled && !enable) {
+                Highlighter.clearSpans(getText());
+            } else if (!_hlEnabled && enable && _hl != null) {
+                _hl.run(getText());
+            }
+        } catch (Exception e) {
+            // In no case ever let highlighting crash the editor
+            e.printStackTrace();
+        } catch (Error e) {
+            e.printStackTrace();
+        }
+
         _hlEnabled = enable;
     }
 

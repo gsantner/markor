@@ -78,7 +78,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private final AppSettings _appSettings;
     private MenuItem actionWrapWords;
+    private MenuItem actionHighlight;
     private HorizontalScrollView hsView;
+
+    private boolean wrapText;
+    private boolean highlightText;
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -187,6 +191,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
+
+        setupAppearancePreferences(view);
     }
 
     @Override
@@ -225,6 +231,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
+
+        // Set initial wrap state
+        initDocState();
     }
 
     @Override
@@ -289,9 +298,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
+
+        actionHighlight = menu.findItem(R.id.action_enable_highlighting);
         actionWrapWords = menu.findItem(R.id.action_wrap_words);
-        boolean checked = _appSettings.getDocumentWrapState(getPath())
-        actionWrapWords.setChecked(checked);
+        setToggleState();
     }
 
     public void loadDocumentIntoUi() {
@@ -473,16 +483,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_wrap_words: {
-                if (actionWrapWords != null) {
-                    actionWrapWords.setChecked(!actionWrapWords.isChecked());
-                    _appSettings.setDocumentWrapState(getPath(), actionWrapWords.isChecked());
-                    setHorizontalScrollMode();
-                }
+                wrapText = !wrapText;
+                setHorizontalScrollMode(wrapText);
+                setToggleState();
+                return true;
+            }
+            case R.id.action_enable_highlighting: {
+                highlightText = !highlightText;
+                _hlEditor.setHighlightingEnabled(highlightText);
+                setToggleState();
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private long _lastChangedThreadStart = 0;
 
@@ -532,19 +547,36 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void setupAppearancePreferences(View fragmentView) {
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-        setHorizontalScrollMode();
+        initDocState();
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
 
-    private void setHorizontalScrollMode() {
-        final boolean wrap = _appSettings.getDocumentWrapState(getPath());
 
-        if (actionWrapWords != null && actionWrapWords.isChecked() != wrap) {
-            actionWrapWords.setChecked(wrap);
+    private void initDocState() {
+        final boolean inMainActivity = getActivity() instanceof MainActivity;
+        wrapText = inMainActivity || _appSettings.getDocumentWrapState(getPath());
+
+        highlightText = _appSettings.getDocumentHighlightState(getPath());
+
+        setToggleState();
+
+        setHorizontalScrollMode(wrapText);
+        _hlEditor.setHighlightingEnabled(highlightText);
+    }
+
+    private void setToggleState() {
+        if (actionWrapWords != null) {
+            actionWrapWords.setChecked(wrapText);
         }
+        if (actionHighlight != null) {
+            actionHighlight.setChecked(highlightText);
+        }
+    }
+
+    private void setHorizontalScrollMode(final boolean wrap) {
 
         final Context context = getContext();
         if (context != null && _hlEditor != null) {
@@ -599,6 +631,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             if (_document != null && _document.getFile() != null) {
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
+                _appSettings.setDocumentWrapState(getPath(), wrapText);
+                _appSettings.setDocumentHighlightState(getPath(), highlightText);
 	        }
         }
         return ret;
@@ -657,7 +691,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         if (isVisibleToUser) {
-            setHorizontalScrollMode();
+            initDocState();
         }
     }
 
