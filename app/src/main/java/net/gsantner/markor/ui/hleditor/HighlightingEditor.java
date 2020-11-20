@@ -17,6 +17,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.accessibility.AccessibilityEvent;
 
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
@@ -45,21 +46,14 @@ public class HighlightingEditor extends AppCompatEditText {
     private final boolean _isDeviceGoodHardware;
     private boolean _modified = true;
     private boolean _hlEnabled = false;
-    private boolean _isSpellingRedUnderline;
+    private boolean _accessibilityEnabled = true;
+    private final boolean _isSpellingRedUnderline;
     private Highlighter _hl;
     private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
 
-    private OnTextChangedListener _onTextChangedListener = null;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
     private final Handler _updateHandler = new Handler();
-    private final Runnable _updateRunnable = () -> {
-        Editable e = getText();
-        if (_onTextChangedListener != null) {
-            _onTextChangedListener.onTextChanged(e.toString());
-        }
-        highlightWithoutChange(e);
-    };
-
+    private final Runnable _updateRunnable;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -67,13 +61,12 @@ public class HighlightingEditor extends AppCompatEditText {
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
             enableHighlighterAutoFormat();
-
-            // Will be enabled by the DocumentEditFragment, if necessary
-            setHighlightingEnabled(false);
+            setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
         _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
+        _updateRunnable = () -> { highlightWithoutChange(); };
 
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,22 +145,44 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void reloadHighlighter() {
         enableHighlighterAutoFormat();
-        highlightWithoutChange(getText());
+        highlightWithoutChange();
     }
 
-    private void highlightWithoutChange(Editable editable) {
-        if (_hlEnabled && editable.length() <= (_isDeviceGoodHardware ? 100000 : 35000)) {
+    // This allows us to disable sending of accessibility events when highlighting is being
+    // performed. Sending of many accessibility events can cause performance issues and crashes.
+    // Blocking accessibility during _highlighting_ should have no impact on users.
+    @Override
+    public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
+        if (_accessibilityEnabled && getText().length() < 10000) {
+            super.sendAccessibilityEventUnchecked(event);
+        }
+    }
+
+    @Override
+    public void sendAccessibilityEvent(int eventType) {
+        if (_accessibilityEnabled && getText().length() < 10000) {
+            super.sendAccessibilityEvent(eventType);
+        }
+    }
+
+    private void highlightWithoutChange() {
+        final Editable editable = getText();
+        final boolean isFileShortEnough = editable.length() <= (_isDeviceGoodHardware ? 100000 : 35000);
+        if (isFileShortEnough && _hlEnabled) {
             _modified = false;
             try {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
+                _accessibilityEnabled = false;
                 _hl.run(editable);
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();
             } catch (Error e) {
                 e.printStackTrace();
+            } finally {
+                _accessibilityEnabled = true;
             }
             if (MainActivity.IS_DEBUG_ENABLED) {
                 AppSettings.appendDebugLog(_hl._profiler.resetDebugText());
@@ -239,21 +254,13 @@ public class HighlightingEditor extends AppCompatEditText {
     //
 
     public void setHighlightingEnabled(final boolean enable) {
-        // Set or reset upon toggle
-        try {
-            if (_hlEnabled && !enable) {
-                Highlighter.clearSpans(getText());
-            } else if (!_hlEnabled && enable && _hl != null) {
-                _hl.run(getText());
-            }
-        } catch (Exception e) {
-            // In no case ever let highlighting crash the editor
-            e.printStackTrace();
-        } catch (Error e) {
-            e.printStackTrace();
+        if (_hlEnabled && !enable) {
+            _hlEnabled = false;
+            Highlighter.clearSpans(getText());
+        } else if (!_hlEnabled && enable && _hl != null) {
+            _hlEnabled = true;
+            highlightWithoutChange();
         }
-
-        _hlEnabled = enable;
     }
 
 
