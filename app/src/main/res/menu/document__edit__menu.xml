@@ -99,19 +99,28 @@
         android:title="@string/save"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_wrap_words"
-        android:icon="@drawable/ic_baseline_wrap_text_24"
-        android:title="@string/wrap_words"
-        app:showAsAction="never"
-        android:checkable="true"/>
 
     <item
-        android:id="@+id/action_enable_highlighting"
-        android:icon="@drawable/ic_format_color_fill_black_24dp"
-        android:title="@string/syntax_highlighting"
-        app:showAsAction="never"
-        android:checkable="true"/>
+        android:id="@+id/submenu_toggles"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="@string/options"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_wrap_words"
+                android:icon="@drawable/ic_baseline_wrap_text_24"
+                android:title="@string/wrap_words"
+                app:showAsAction="never"
+                android:checkable="true"/>
+
+            <item
+                android:id="@+id/action_enable_highlighting"
+                android:icon="@drawable/ic_format_color_fill_black_24dp"
+                android:title="@string/syntax_highlighting"
+                app:showAsAction="never"
+                android:checkable="true"/>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/submenu_share"

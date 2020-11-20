@@ -298,7 +298,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
-
         actionHighlight = menu.findItem(R.id.action_enable_highlighting);
         actionWrapWords = menu.findItem(R.id.action_wrap_words);
         setToggleState();
