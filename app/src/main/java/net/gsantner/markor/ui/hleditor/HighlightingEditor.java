@@ -148,19 +148,31 @@ public class HighlightingEditor extends AppCompatEditText {
         highlightWithoutChange();
     }
 
+    final int MAX_ACCESSIBILITY_TEXT = 500;
+
     // This allows us to disable sending of accessibility events when highlighting is being
     // performed. Sending of many accessibility events can cause performance issues and crashes.
     // Blocking accessibility during _highlighting_ should have no impact on users.
+    // Additionaly the accessibility messages can send a very large amount of text on each
     @Override
     public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
-        if (_accessibilityEnabled && getText().length() < 10000) {
+        if (_accessibilityEnabled) {
+            final CharSequence text = event.getBeforeText();
+            if (text != null && text.length() > (2 * MAX_ACCESSIBILITY_TEXT)) {
+                final int from = event.getFromIndex();
+                final int newStart = Math.max(from - MAX_ACCESSIBILITY_TEXT, 0);
+                final int neededAfter = Math.max(Math.max(MAX_ACCESSIBILITY_TEXT, event.getAddedCount()), event.getRemovedCount());
+                final int newEnd = Math.min(from + neededAfter, text.length());
+                event.setBeforeText(text.subSequence(newStart, newEnd));
+                event.setFromIndex(from - newStart);
+            }
             super.sendAccessibilityEventUnchecked(event);
         }
     }
 
     @Override
     public void sendAccessibilityEvent(int eventType) {
-        if (_accessibilityEnabled && getText().length() < 10000) {
+        if (_accessibilityEnabled) {
             super.sendAccessibilityEvent(eventType);
         }
     }

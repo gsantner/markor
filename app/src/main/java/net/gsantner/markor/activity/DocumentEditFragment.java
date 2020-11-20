@@ -76,7 +76,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
-    private final AppSettings _appSettings;
+    private AppSettings _appSettings;
     private MenuItem actionWrapWords;
     private MenuItem actionHighlight;
     private HorizontalScrollView hsView;
@@ -129,7 +129,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public DocumentEditFragment() {
         super();
-        _appSettings = AppSettings.get();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        _appSettings = new AppSettings(getContext());
     }
 
     @Override
