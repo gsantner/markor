@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Поиск / Замена</string>
     <string name="search_for">Искать</string>
     <string name="replace_with">Заменить на</string>
-    <string name="replace_first">Сначала замените</string>
+    <string name="replace_once">Заменить один раз</string>
     <string name="replace_all">Заменить все</string>
     <string name="matches">Совпадения</string>
     <string name="search_replace_pattern_error_message">Поиск или замена шаблона.</string>
