@@ -157,15 +157,17 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
         if (_accessibilityEnabled) {
-            final CharSequence text = event.getBeforeText();
-            if (text != null && text.length() > (2 * MAX_ACCESSIBILITY_TEXT)) {
-                final int from = event.getFromIndex();
-                final int newStart = Math.max(from - MAX_ACCESSIBILITY_TEXT, 0);
-                final int neededAfter = Math.max(Math.max(MAX_ACCESSIBILITY_TEXT, event.getAddedCount()), event.getRemovedCount());
-                final int newEnd = Math.min(from + neededAfter, text.length());
-                event.setBeforeText(text.subSequence(newStart, newEnd));
-                event.setFromIndex(from - newStart);
-            }
+            // final CharSequence text = event.getBeforeText();
+            // if (text != null && text.length() > (2 * MAX_ACCESSIBILITY_TEXT)) {
+            //     final int from = event.getFromIndex();
+            //     final int newStart = Math.max(from - MAX_ACCESSIBILITY_TEXT, 0);
+            //     final int neededAfter = Math.max(Math.max(MAX_ACCESSIBILITY_TEXT, event.getAddedCount()), event.getRemovedCount());
+            //     final int newEnd = Math.min(from + neededAfter, text.length());
+            //     event.setBeforeText(text.subSequence(newStart, newEnd));
+            //     event.setFromIndex(from - newStart);
+            // }
+            event.setBeforeText("");
+            event.setContentDescription("");
             super.sendAccessibilityEventUnchecked(event);
         }
     }
