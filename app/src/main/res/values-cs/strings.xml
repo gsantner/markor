@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Hledat / nahradit</string>
     <string name="search_for">Hledat</string>
     <string name="replace_with">Nahradit pomocí</string>
-    <string name="replace_once">Nahradit jednou</string>
+    <string name="replace_once">Nahradit (1)</string>
     <string name="replace_all">Nahradit vše</string>
     <string name="matches">Zápasy</string>
     <string name="search_replace_pattern_error_message">Chyba při hledání nebo nahrazení vzoru.</string>
