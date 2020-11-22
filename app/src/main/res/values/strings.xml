@@ -401,7 +401,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Search / Replace</string>
     <string name="search_for">Search for</string>
     <string name="replace_with">Replace with</string>
-    <string name="replace_first">Replace first</string>
+    <string name="replace_once">Replace (1)</string>
     <string name="replace_all">Replace all</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
