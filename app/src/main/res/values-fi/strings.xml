@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Haku / Korvaa</string>
     <string name="search_for">Etsi sivustolta</string>
     <string name="replace_with">Korvaa sovelluksella</string>
-    <string name="replace_first">Korvaa ensin</string>
+    <string name="replace_once">Korvaa kerran</string>
     <string name="replace_all">Korvaa kaikki</string>
     <string name="matches">Ottelut</string>
     <string name="search_replace_pattern_error_message">Etsi tai korvaa kuvion virhe.</string>
