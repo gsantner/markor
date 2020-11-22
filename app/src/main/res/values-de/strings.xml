@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formatierung der Dateibeschreibung</string>
     <string name="file_description_format_dialog">Formatierung der Beschreibung unter jeder Datei im Dateibrowser. Folgt den SimpleDateFormat-Regeln von Android mit Ergänzung von FS zur Anzeige der Dateigröße. Leer lassen, wenn das Standardformat für Ihr Gebietsschema verwendet werden soll.\n\nBeispieleingabe:\nFS yyyy MMM dd hh:mm:ss aa\nAusgabeformat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Standardwert wird geladen</string>
+    <string name="search_and_replace">Suchen / Ersetzen</string>
+    <string name="search_for">Suche nach</string>
+    <string name="replace_with">Ersetzen mit</string>
+    <string name="replace_first">Ersetze zuerst</string>
+    <string name="replace_all">Alle ersetzen</string>
+    <string name="matches">Matches</string>
+    <string name="search_replace_pattern_error_message">Fehler beim Suchen oder Ersetzen von Muster.</string>
 </resources>
