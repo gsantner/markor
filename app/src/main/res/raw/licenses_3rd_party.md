@@ -1,11 +1,16 @@
-## The MIT License (MIT)
-* **writeily and writeily-pro**
+**The MIT License (MIT)**  
+* KaTex
+~° Copyright KaTex authors
+
+* writeily and writeily-pro
 ~° Copyright (c) 2014 Jeff Martin  
 ~° Copyright (c) 2015 Pedro Lafuente   
-~° Markor was initally forked of writeily-pro, but most parts were completly rewritten. Parts that were not modified or not rewitten from scratch are placed in the thirdparty directory and licensed under MIT.
+~° Markor was initally forked from writeily-pro
+~° but most parts were completly rewritten.
+~° Parts that were not modified / rewitten
+~° from scratch are placed in the
+~° thirdparty directory and MIT licensed.
 
-* **KaTex**
-~° Copyright KaTex authors
 
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,25 +33,26 @@ SOFTWARE.</small>
 `---------------`
   
   
-## Apache License
+**Apache License**  
 Version 2.0, January 2004  
 
-* **Material design icons**
+
+* Material design icons
 ~° Copyright Google
 
-* **Android support library / appcompat**
+* Android support library / appcompat
 ~° Copyright (C) 2011 The Android Open Source Project
 
-* **adapter-kit**
+* adapter-kit
 ~° Copyright 2013 Mobs & Geeks
 
-* **Butterknife**
+* Butterknife
 ~° Copyright 2013 Jake Wharton
 
-* **Commons IO**
+* Commons IO
 ~° Copyright Apache Foundation
 
-* **gene-rate**
+* gene-rate
 ~° Copyright 2017 Pixplicity
 
 `---------------`  
@@ -64,10 +70,10 @@ limitations under the License.</small>
 `---------------`
   
   
-## BSD 2-clause "Simplified"
-<!--* **commonmark-java**
-~° Copyright (c) 2015-2016, Atlassian Pty Ltd-->
-* **flexmark-java**
+**BSD 2-clause "Simplified"**  
+&nbsp;
+
+* flexmark-java
 ~° Copyright (c) 2015-2016 Atlassian and others
 ~° Copyright (c) 2016-2018, Vladimir Schneider
 

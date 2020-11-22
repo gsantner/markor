@@ -51,9 +51,9 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            final String origText = _hlEditor.getText().toString();
+            final Editable edit = _hlEditor.getText();
 
-            SearchOrCustomTextDialogCreator.showSearchDialog(_activity, origText,
+            SearchOrCustomTextDialogCreator.showSearchDialog(_activity, edit, StringUtils.getSelection(_hlEditor),
                     (spannable) -> {
                         TodoTxtHighlighter.basicTodoTxtHighlights(
                                 spannable,
@@ -67,7 +67,7 @@ public class TodoTxtTextActions extends TextActions {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
-                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
+                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(edit, lineNr, 0));
                     }
             );
             return true;

@@ -12,6 +12,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Поставке</string>
     <string name="appearance">Izgled</string>
+    <string name="title">Наслов</string>
+    <string name="empty_directory">Празан директоријум</string>
+    <string name="enter_name_of_folder">Унесите име вашег директоријум</string>
+    <string name="create_folder">Креирај директоријум</string>
+    <string name="create_new_document">Креирај нови документ</string>
+    <string name="move">Премести</string>
+    <string name="info">Инфо</string>
     <string name="share">Подели</string>
     <string name="search">тражи</string>
     <string name="editor">Uređivač</string>
