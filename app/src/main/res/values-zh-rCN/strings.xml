@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">搜索/替换</string>
     <string name="search_for">搜索</string>
     <string name="replace_with">替换为</string>
-    <string name="replace_first">替换前</string>
+    <string name="replace_once">替换一次</string>
     <string name="replace_all">全部替换</string>
     <string name="matches">比赛</string>
     <string name="search_replace_pattern_error_message">搜索或替换图案错误。</string>
