@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Filens beskrivningsformat</string>
     <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filwebbläsaren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din lokal.\n\nExempel input:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdataformat:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Laddar standardvärde</string>
+    <string name="search_and_replace">Sök / Ersätt</string>
+    <string name="search_for">Sök efter</string>
+    <string name="replace_with">Ersätt med</string>
+    <string name="replace_first">Ersätt först</string>
+    <string name="replace_all">Ersätt alla</string>
+    <string name="matches">Matchningar</string>
+    <string name="search_replace_pattern_error_message">Sök eller ersätt mönsterfel.</string>
 </resources>
