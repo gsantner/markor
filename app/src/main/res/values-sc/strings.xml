@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formadu de descritzione de su documentu</string>
     <string name="file_description_format_dialog">Formadu pro sa descritzione in suta de cada documentu in s\'esploradore de documentos. Sighit sas règulas SimpleDateFormat de Android, cun s\'annànghida de FS pro ammustrare sa mannària de sos documentos.Lassa·lu bòidu pro impreare su formadu predefinidu pro sa limba tua..\n\nEsèmpiu de intrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormadu de essida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Carrighende su valore predefinidu</string>
+    <string name="search_and_replace">Chirca / Remplasa</string>
+    <string name="search_for">Chirca</string>
+    <string name="replace_with">Remplasa cun</string>
+    <string name="replace_once">Remplasa (1)</string>
+    <string name="replace_all">Remplasa totu</string>
+    <string name="matches">Currispondèntzias</string>
+    <string name="search_replace_pattern_error_message">Faddina de chirca o de remplasamentu.</string>
 </resources>
