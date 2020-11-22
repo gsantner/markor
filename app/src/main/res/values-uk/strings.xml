@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Пошук / заміна</string>
     <string name="search_for">Шукати</string>
     <string name="replace_with">Замінити на</string>
-    <string name="replace_once">Замінити один раз</string>
+    <string name="replace_once">Замінити (1)</string>
     <string name="replace_all">Замінити всі</string>
     <string name="matches">Матчі</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
