@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Buscar / Reemplazar</string>
     <string name="search_for">Buscar por</string>
     <string name="replace_with">Reemplazar con</string>
-    <string name="replace_first">Reemplazar primero</string>
+    <string name="replace_once">Reemplazar una vez</string>
     <string name="replace_all">Reemplazar todo</string>
     <string name="matches">Partidas</string>
     <string name="search_replace_pattern_error_message">Error de búsqueda o reemplazo.</string>
