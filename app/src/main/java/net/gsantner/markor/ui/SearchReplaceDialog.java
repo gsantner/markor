@@ -115,7 +115,7 @@ public class SearchReplaceDialog {
         regexCheckBox = viewRoot.findViewById(R.id.enable_regex);
         multilineCheckBox = viewRoot.findViewById(R.id.multiline);
         matchState = viewRoot.findViewById(R.id.match_count_or_error);
-        replaceFirst = viewRoot.findViewById(R.id.replace_first);
+        replaceFirst = viewRoot.findViewById(R.id.replace_once);
         replaceAll = viewRoot.findViewById(R.id.replace_all);
 
         recentReplaces = loadRecentReplaces();
