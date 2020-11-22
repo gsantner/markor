@@ -80,7 +80,6 @@ public class SearchOrCustomTextDialog {
         public Callback.a1<Spannable> highlighter;
         public String extraFilter = null;
 
-        public String neutralButtonText = null;
         public Callback.a0 neutralButtonCallback = null;
 
         @ColorInt
@@ -89,6 +88,8 @@ public class SearchOrCustomTextDialog {
         public int highlightColor = 0xFF00FF00;
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
+        @StringRes
+        public int neutralButtonText = 0;
         @StringRes
         public int okButtonText = android.R.string.ok;
         @StringRes
@@ -249,7 +250,7 @@ public class SearchOrCustomTextDialog {
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
-        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != null) {
+        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
             dialogBuilder.setNeutralButton(dopt.neutralButtonText, (dialogInterface, i) -> {
                 dopt.neutralButtonCallback.callback();
             });
