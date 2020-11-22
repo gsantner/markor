@@ -16,9 +16,7 @@ import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
@@ -231,14 +229,7 @@ public class MarkdownAutoFormat implements InputFilter {
      * <p>
      * Sub-lists and other children will be skipped.
      */
-    public static void renumberOrderedList(final Editable text, final int cursorPosition) {
-
-        // Changes are recorded and applied at one go in order to
-        // a. Minimize change events being created
-        // b. Make undo atomic
-        final List<Integer> starts = new ArrayList<>();
-        final List<Integer> ends = new ArrayList<>();
-        final List<String> replaces = new ArrayList<>();
+    public static void renumberOrderedList(Editable text, int cursorPosition) {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition);
@@ -289,15 +280,15 @@ public class MarkdownAutoFormat implements InputFilter {
                     // Update numbering if needed
                     if (line.isOrderedList) {
 
-                        // Restart numbering if list level changes
+                        // Restart numbering if list changes
                         final OrderedListLine peek = levels.peek();
                         final int newValue = (line == peek) ? 1 : peek.value + 1;
                         if (newValue != line.value) {
+                            String number = Integer.toString(newValue);
+                            text.replace(line.numStart, line.numEnd, number);
 
-                            // Apply recorded changes
-                            replaces.add(Integer.toString(newValue));
-                            starts.add(line.numStart);
-                            ends.add(line.numEnd);
+                            // Re-create line as it has changed
+                            line = new OrderedListLine(text, line.lineStart);
                         }
 
                         levels.pop();
@@ -306,30 +297,6 @@ public class MarkdownAutoFormat implements InputFilter {
 
                     position = line.lineEnd + 1;
                 } while (position < text.length() && position > 0);
-
-                // Apply recorded changes
-                if (replaces.size() == 1) {
-                    text.replace(starts.get(0), ends.get(0), replaces.get(0));
-                } else if (replaces.size() > 1) {
-                    int changeStart = text.length();
-                    int changeEnd = 0;
-                    for (int i = 0; i < replaces.size(); i++) {
-                        changeStart = Math.min(changeStart, starts.get(i));
-                        changeEnd = Math.max(changeEnd, ends.get(i));
-                    }
-                    final StringBuilder builder = new StringBuilder(text.subSequence(changeStart, changeEnd));
-                    // Converts index in editable -> index in stringbuilder
-                    int offset = changeStart;
-
-                    for (int i = 0; i < replaces.size(); i++) {
-                        final int start = starts.get(i), end = ends.get(i);
-                        builder.replace(start - offset, end - offset, replaces.get(i));
-                        // Update offset based on size of replace vs replaced size
-                        offset -= replaces.size() - (end - start);
-                    }
-
-                    text.replace(changeStart, changeEnd, builder.toString());
-                }
 
             } catch (EmptyStackException ignored) {
                 // Usually means that indents and de-indents did not match up
