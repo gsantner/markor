@@ -385,7 +385,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Sök / Ersätt</string>
     <string name="search_for">Sök efter</string>
     <string name="replace_with">Ersätt med</string>
-    <string name="replace_first">Ersätt först</string>
     <string name="replace_all">Ersätt alla</string>
     <string name="matches">Matchningar</string>
     <string name="search_replace_pattern_error_message">Sök eller ersätt mönsterfel.</string>
