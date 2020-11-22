@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Формат опису файлу</string>
     <string name="file_description_format_dialog">Формат для опису під кожним файлом у браузері. Слідуйте правилам SimpleDateFormat з додатком FS для відображення розміру файлу. Залиште порожнім, аби використовувати типовий формат вашої локалі.\n\nПриклад введення:\nFS yyyy MMM dd h:mm:ss\nформат виведення продукту:\n30КБ 2020 Mar 20:24:2452 PM</string>
     <string name="loading_default_value">Завантаження типових значень</string>
+    <string name="search_and_replace">Пошук / заміна</string>
+    <string name="search_for">Шукати</string>
+    <string name="replace_with">Замінити на</string>
+    <string name="replace_first">Замінити перший</string>
+    <string name="replace_all">Замінити всі</string>
+    <string name="matches">Матчі</string>
+    <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
 </resources>
