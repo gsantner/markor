@@ -178,7 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Siguiente página (Page Down)</string>
     <string name="move_text_one_line_up">Mover texto una línea arriba</string>
     <string name="move_text_one_line_down">Mover texto una línea hacia abajo</string>
-    <string name="start_new_line_below">Empezar nueva línea debajo</string>
+    <string name="start_new_line_below">Empezar nueva línea a continuación</string>
     <string name="key_pos_1">Inicio de línea (Pos Home)</string>
     <string name="key_pos_end">Fin de línea (Pos End)</string>
     <string name="key_pos_1_document">Inicio de documento</string>
@@ -380,13 +380,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">Añadir fecha de finalización</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Añadir fecha de finalización para las tareas al marcarlas como realizadas</string>
     <string name="file_description_format">Formato de descripción de archivo</string>
-    <string name="file_description_format_dialog">Formato para la descripción bajo cada archivo en el navegador de archivos. Sigue las reglas de SimpleDateFormat, con la adición de FS para mostrar el tamaño del archivo. Deje en blanco para usar el formato predeterminado para su locale.\n\nEjemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de salida:\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="file_description_format_dialog">Formato para la descripción bajo cada archivo en el navegador de archivos. Siga las reglas de SimpleDateFormat, con la adición de FS para mostrar el tamaño del archivo. Deje en blanco para usar el formato predeterminado para su ubicación.\n\nEjemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de salida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Cargando valor por defecto</string>
     <string name="search_and_replace">Buscar / Reemplazar</string>
     <string name="search_for">Buscar por</string>
-    <string name="replace_with">Reemplazar con</string>
+    <string name="replace_with">Reemplazar por</string>
     <string name="replace_once">Reemplazar (1)</string>
     <string name="replace_all">Reemplazar todo</string>
-    <string name="matches">Partidas</string>
-    <string name="search_replace_pattern_error_message">Error de búsqueda o reemplazo.</string>
+    <string name="matches">Coincidencias</string>
+    <string name="search_replace_pattern_error_message">Error de patrón de búsqueda o reemplazo.</string>
 </resources>
