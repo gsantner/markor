@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">البحث / استبدال</string>
     <string name="search_for">البحث عن</string>
     <string name="replace_with">استبدل بـ</string>
-    <string name="replace_first">استبدال أولاً</string>
+    <string name="replace_once">استبدال مرة واحدة</string>
     <string name="replace_all">استبدال الكل</string>
     <string name="matches">مباراة</string>
     <string name="search_replace_pattern_error_message">البحث أو استبدال خطأ النقش.</string>
