@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Navigatore dei documenti</string>
     <string name="file_browser">Esploratore dei file</string>
     <string name="set_due_date">Imposta data di scadenza</string>
-    <string name="insert_replace_date">Inserisci data</string>
+    <string name="insert_replace_date">Insert date</string>
     <string name="create_note" needed="false">Crea nota</string>
     <string name="special_documents" needed="false">Documenti speciali</string>
     <string name="keep_screen_on" needed="false">Mantieni lo schermo acceso</string>
@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
     <string name="use_monospace_for_code">Usa un font monospace per il codice</string>
-    <string name="disable_code_block_highlight">Disabilita evidenziazione per i blocchi di codice</string>
+    <string name="disable_code_block_highlight">Disabilita evidenziazione per blocchi di codice</string>
     <string name="auto_renumber_ordered_list">Rinumerazione automatica delle liste ordinate</string>
     <string name="auto_renumber_ordered_list_slowdown">Questa opzione potrebbe influire sulle prestazioni dell\'app.</string>
     <string name="use_different_fonttype_slow_down">Utilizza più tipi di font per il codice. Tale opzione può conseguire un impatto sulle prestazioni dell\'applicazione.</string>
