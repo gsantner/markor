@@ -131,6 +131,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_settings" needed="false">Szerkesztő beállításai</string>
     <string name="remember_last_folder_location_on_startup" needed="false">Emlékezés az utolsó megnyitott mappára indításkor</string>
     <string name="number_of_files_witharg" needed="false">Fájlok száma: %d</string>
+    <string name="app_wide">Alkalmazásszintű</string>
     <string name="main_view">Alap nézet</string>
     <string name="overall_theme_used_in_app">Az alkalmazás témája</string>
     <string name="remember_last_directory">Utoljára használt mappa megjegyzése</string>
@@ -172,6 +173,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
     <string name="sort_tasks_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
     <string name="special_key">Speciális billentyű</string>
+    <string name="key_page_up">Feljebb (Page Up)</string>
+    <string name="key_page_down">Lejjebb (Page Down)</string>
     <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
     <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
     <string name="key_pos_1">Sor eleje (Home)</string>
@@ -367,4 +370,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">Teljesítés dátuma</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">A teljesítés dátumának beszúrása amikor késznek vannak jelölve</string>
     <string name="loading_default_value">Alapértelmezett érték betöltése</string>
+    <string name="search_and_replace">Keresés / Csere</string>
+    <string name="search_for">Keresés</string>
+    <string name="replace_with">Csere erre</string>
+    <string name="replace_once">Csere (1)</string>
+    <string name="replace_all">Összes cseréje</string>
+    <string name="matches">Találatok</string>
 </resources>
