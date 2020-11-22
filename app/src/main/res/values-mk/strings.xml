@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+A project by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Подесувања</string>
+    <string name="light">Светло</string>
+    <string name="dark">Темно</string>
+    <string name="delete">Избриши</string>
+    <string name="appearance">Изглед</string>
+    <string name="rename">Преименувај</string>
+    <string name="confirm_delete">Потврди избришување</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Дали сте сигурни дека сакате да го избришете %s?</string>
+    <string name="confirm_overwrite">Потврди препишување</string>
+    <string name="file_already_exists_overwerite">Фајлот веќе постои, препиши?</string>
+    <string name="browse_filesystem">Прелистајте фајл систем</string>
+    <string name="title">Наслов</string>
+    <string name="empty_directory">Празен директориум</string>
+    <string name="enter_name_of_folder">Пишете го името на директориумот</string>
+    <string name="create_folder">Создај директориум</string>
+    <string name="create_new_document">Создај нов документ</string>
+    <string name="move">Премести</string>
+    <string name="info">Инфо</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Фајл/директориум веќе постои! Одберете друго име</string>
+    <string name="import_from_device">Увезете од други уреди</string>
+    <string name="import_">Увези</string>
+    <string name="append_to_witharg">Додај во %s</string>
+    <string name="select_folder">Избери директориум</string>
+    <string name="edit">Уреди</string>
+    <string name="search_documents">Пребарај документи</string>
+    <string name="share_to_arrow">Сподели со&#8230;</string>
+    <string name="share">Сподели</string>
+    <string name="search">Пребарај</string>
+    <string name="files">Фајлови</string>
+    <string name="document">Документ</string>
+    <string name="documents">Документи</string>
+    <string name="name">Име</string>
+</resources>
