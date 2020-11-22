@@ -103,7 +103,7 @@
     <item
         android:id="@+id/submenu_toggles"
         android:icon="@drawable/ic_check_black_24dp"
-        android:title="@string/options"
+        android:title="@string/file_settings"
         app:showAsAction="never">
         <menu>
             <item
