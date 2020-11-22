@@ -385,7 +385,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Căutare / Înlocuire</string>
     <string name="search_for">Caută după</string>
     <string name="replace_with">Înlocuiți cu</string>
-    <string name="replace_once">Înlocuiește o dată</string>
     <string name="replace_all">Înlocuiește tot</string>
     <string name="matches">Meciuri</string>
     <string name="search_replace_pattern_error_message">Eroare de căutare sau înlocuire.</string>
