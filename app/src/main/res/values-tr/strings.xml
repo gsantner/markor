@@ -385,6 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Ara / Değiştir</string>
     <string name="search_for">Bunun için ara</string>
     <string name="replace_with">Şununla değiştir</string>
+    <string name="replace_once">Değiştir (1)</string>
     <string name="replace_all">Tümünü değiştir</string>
     <string name="matches">Eşleşmeler</string>
     <string name="search_replace_pattern_error_message">Desen hatasını arayın veya değiştirin.</string>
