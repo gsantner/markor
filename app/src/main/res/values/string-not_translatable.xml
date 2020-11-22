@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_black_or_white" translatable="false">Black or White</string>
     <string name="editor_basic_color_scheme_amoled" translatable="false">AMOLED</string>
     <string name="editor_basic_color_scheme_solarized" translatable="false">Solarized</string>
+    <string name="editor_basic_color_scheme_nord" translatable="false">Nord</string>
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">Gruvbox</string>
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
     <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
@@ -199,6 +200,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_basic_color_scheme__bg_dark" translatable="false">pref_key__editor_basic_color_scheme__bg_dark</string>
     <string name="pref_key__editor_basic_color_scheme__fg_dark" translatable="false">pref_key__editor_basic_color_scheme__fg_dark</string>
     <string name="pref_key__editor_basic_color_scheme_solarized" translatable="false">pref_key__editor_basic_color_scheme_solarized</string>
+    <string name="pref_key__editor_basic_color_scheme_nord" translatable="false">pref_key__editor_basic_color_scheme_nord</string>
     <string name="pref_key__editor_basic_color_scheme_blackorwhite" translatable="false">pref_key__editor_basic_color_scheme_blackorwhite</string>
     <string name="pref_key__editor_basic_color_scheme_amoled" translatable="false">pref_key__editor_basic_color_scheme_amoled</string>
     <string name="pref_key__editor_basic_color_scheme_markor" translatable="false">pref_key__editor_basic_color_scheme_markor</string>
