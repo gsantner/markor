@@ -42,4 +42,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document">Документ</string>
     <string name="documents">Документи</string>
     <string name="name">Име</string>
+    <string name="deleteme____1">Име</string>
 </resources>
