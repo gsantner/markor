@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">検索/置換</string>
     <string name="search_for">検索テキスト</string>
     <string name="replace_with">置換テキスト</string>
-    <string name="replace_first">最初に置換</string>
+    <string name="replace_once">1回置き換え</string>
     <string name="replace_all">すべて置換</string>
     <string name="matches">一致</string>
     <string name="search_replace_pattern_error_message">検索または置換パターンエラー。</string>
