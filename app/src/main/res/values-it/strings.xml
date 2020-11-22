@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formato descrizione file</string>
     <string name="file_description_format_dialog">Formato per la descrizione sotto ogni file nel file browser. Segue le regole SimpleDateFormat di Android, con l\'aggiunta di FS per mostrare le dimensioni del file. Lasciare vuoto per usare il formato predefinito per il tuo locale.\n\nEsempio di input:\nFS yyyy MMM dd hh:mm:ss aa\nFormato di output:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Caricamento valore predefinito</string>
+    <string name="search_and_replace">Cerca / Sostituisci</string>
+    <string name="search_for">Cerca per</string>
+    <string name="replace_with">Sostituisci con</string>
+    <string name="replace_first">Sostituisci prima</string>
+    <string name="replace_all">Sostituisci tutti</string>
+    <string name="matches">Partite</string>
+    <string name="search_replace_pattern_error_message">Errore di ricerca o sostituzione.</string>
 </resources>
