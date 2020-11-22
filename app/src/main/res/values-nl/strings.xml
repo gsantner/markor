@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Zoeken / vervangen</string>
     <string name="search_for">Zoeken naar</string>
     <string name="replace_with">Vervangen door</string>
-    <string name="replace_once">Eenmalig vervangen</string>
+    <string name="replace_once">Vervang (1)</string>
     <string name="replace_all">Vervang alles</string>
     <string name="matches">Overeenkomsten</string>
     <string name="search_replace_pattern_error_message">Zoek of vervang patroon fout.</string>
