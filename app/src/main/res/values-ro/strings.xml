@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format descriere fișier</string>
     <string name="file_description_format_dialog">Format pentru descrierea sub fiecare fișier în browser-ul de fișiere. Urmează regulile SimpleDateFormat ale Androidului, cu adăugarea SF pentru afișarea dimensiunii fișierului. Lăsați necompletat pentru a utiliza formatul implicit pentru localizarea dvs.\n\nExemplu de intrare:\nFS yyyy MMM dd hh:mm:ss aa\nFormat de ieșire:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Se încarcă valoarea implicită</string>
+    <string name="search_and_replace">Căutare / Înlocuire</string>
+    <string name="search_for">Caută după</string>
+    <string name="replace_with">Înlocuiți cu</string>
+    <string name="replace_first">Înlocuiți primul</string>
+    <string name="replace_all">Înlocuiește tot</string>
+    <string name="matches">Meciuri</string>
+    <string name="search_replace_pattern_error_message">Eroare de căutare sau înlocuire.</string>
 </resources>
