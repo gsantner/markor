@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_and_replace">Søk / erstatt</string>
     <string name="search_for">Søk etter</string>
     <string name="replace_with">Erstatt med</string>
-    <string name="replace_first">Erstatt først</string>
+    <string name="replace_once">Erstatt en gang</string>
     <string name="replace_all">Erstatt alle</string>
     <string name="matches">Treff</string>
     <string name="search_replace_pattern_error_message">Søk eller erstatt mønsterfeil.</string>
