@@ -148,32 +148,17 @@ public class HighlightingEditor extends AppCompatEditText {
         highlightWithoutChange();
     }
 
-    final int MAX_ACCESSIBILITY_TEXT = 500;
-
-    // This allows us to disable sending of accessibility events when highlighting is being
-    // performed. Sending of many accessibility events can cause performance issues and crashes.
-    // Blocking accessibility during _highlighting_ should have no impact on users.
-    // Additionaly the accessibility messages can send a very large amount of text on each
-    @Override
-    public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
-        if (_accessibilityEnabled) {
-            final CharSequence text = event.getBeforeText();
-            if (text != null && text.length() > (2 * MAX_ACCESSIBILITY_TEXT)) {
-                final int from = event.getFromIndex();
-                final int newStart = Math.max(from - MAX_ACCESSIBILITY_TEXT, 0);
-                final int neededAfter = Math.max(Math.max(MAX_ACCESSIBILITY_TEXT, event.getAddedCount()), event.getRemovedCount());
-                final int newEnd = Math.min(from + neededAfter, text.length());
-                event.setBeforeText(text.subSequence(newStart, newEnd));
-                event.setFromIndex(from - newStart);
-            }
-            super.sendAccessibilityEventUnchecked(event);
-        }
+    public void enableAccessibilityTrigger(final boolean enable) {
+        _accessibilityEnabled = enable;
     }
 
+    // Accessibility code is blocked during rapid update events
+    // such as highlighting and some actions.
+    // This prevents errors and potential crashes.
     @Override
-    public void sendAccessibilityEvent(int eventType) {
-        if (_accessibilityEnabled) {
-            super.sendAccessibilityEvent(eventType);
+    public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
+        if (_accessibilityEnabled && length() < 10000) {
+            super.sendAccessibilityEventUnchecked(event);
         }
     }
 
@@ -186,7 +171,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
-                _accessibilityEnabled = false;
+                enableAccessibilityTrigger(false);
                 _hl.run(editable);
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
@@ -194,7 +179,7 @@ public class HighlightingEditor extends AppCompatEditText {
             } catch (Error e) {
                 e.printStackTrace();
             } finally {
-                _accessibilityEnabled = true;
+                enableAccessibilityTrigger(true);
             }
             if (MainActivity.IS_DEBUG_ENABLED) {
                 AppSettings.appendDebugLog(_hl._profiler.resetDebugText());

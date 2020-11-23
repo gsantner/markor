@@ -371,45 +371,55 @@ public abstract class TextActions {
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
 
-        Editable text = editor.getText();
-        int[] selection = StringUtils.getSelection(editor);
-        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
-        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
-
-        int lineStart = StringUtils.getLineStart(text, selection[0]);
-        int selEnd = StringUtils.getLineEnd(text, selection[1]);
-
-        while (lineStart <= selEnd && lineStart <= text.length()) {
-
-            int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
-            CharSequence line = text.subSequence(lineStart, lineEnd);
-
-            for (ReplacePattern pattern : patterns) {
-                Matcher matcher = pattern.searchPattern.matcher(line);
-                if (matcher.find()) {
-
-                    // Optimization. Don't replace if the replace pattern is the pattern itself.
-                    if (!pattern.replacePattern.equals("$0")) {
-                        final String newLine;
-                        if (pattern.replaceAll) {
-                            newLine = matcher.replaceAll(pattern.replacePattern);
-                        } else {
-                            newLine = matcher.replaceFirst(pattern.replacePattern);
-                        }
-                        text.replace(lineStart, lineEnd, newLine);
-                        selEnd += newLine.length() - line.length();
-                    }
-
-                    if (!matchAll) break; // Exit after first match
-                }
+        try {
+            if (editor instanceof HighlightingEditor) {
+                ((HighlightingEditor) editor).enableAccessibilityTrigger(false);
             }
 
-            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
-        }
+            Editable text = editor.getText();
+            int[] selection = StringUtils.getSelection(editor);
+            final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
+            final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
 
-        editor.setSelection(
-                StringUtils.getIndexFromLineOffset(text, lStart),
-                StringUtils.getIndexFromLineOffset(text, lEnd));
+            int lineStart = StringUtils.getLineStart(text, selection[0]);
+            int selEnd = StringUtils.getLineEnd(text, selection[1]);
+
+            while (lineStart <= selEnd && lineStart <= text.length()) {
+
+                int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
+                CharSequence line = text.subSequence(lineStart, lineEnd);
+
+                for (ReplacePattern pattern : patterns) {
+                    Matcher matcher = pattern.searchPattern.matcher(line);
+                    if (matcher.find()) {
+
+                        // Optimization. Don't replace if the replace pattern is the pattern itself.
+                        if (!pattern.replacePattern.equals("$0")) {
+                            final String newLine;
+                            if (pattern.replaceAll) {
+                                newLine = matcher.replaceAll(pattern.replacePattern);
+                            } else {
+                                newLine = matcher.replaceFirst(pattern.replacePattern);
+                            }
+                            text.replace(lineStart, lineEnd, newLine);
+                            selEnd += newLine.length() - line.length();
+                        }
+
+                        if (!matchAll) break; // Exit after first match
+                    }
+                }
+
+                lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+            }
+
+            editor.setSelection(
+                    StringUtils.getIndexFromLineOffset(text, lStart),
+                    StringUtils.getIndexFromLineOffset(text, lEnd));
+        } finally {
+            if (editor instanceof HighlightingEditor) {
+                ((HighlightingEditor) editor).enableAccessibilityTrigger(true);
+            }
+        }
     }
 
     protected void runInlineAction(String _action) {

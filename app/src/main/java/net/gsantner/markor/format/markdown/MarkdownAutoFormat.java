@@ -229,7 +229,7 @@ public class MarkdownAutoFormat implements InputFilter {
      * <p>
      * Sub-lists and other children will be skipped.
      */
-    public static void renumberOrderedList(Editable text, int cursorPosition) {
+    public static void renumberOrderedList(final Editable text, final int cursorPosition) {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition);
