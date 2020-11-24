@@ -17,6 +17,7 @@ import android.view.View;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 
 import java.util.Arrays;
@@ -77,27 +78,48 @@ public class PlaintextTextActions extends TextActions {
         @Override
         public void onClick(View view) {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-            runAction(_context.getString(_action), false, null);
+            switch (_action) {
+                case R.string.tmaid_common_indent: {
+                    runIndentLines(false);
+                    return;
+                }
+                case R.string.tmaid_common_deindent: {
+                    runIndentLines(true);
+                    return;
+                }
+                default: {
+                    runCommonTextAction(_context.getString(_action));
+                }
+            }
         }
 
         @Override
         public boolean onLongClick(View v) {
-            String action = _context.getString(_action);
-            switch (action) {
-                case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                    action = CommonTextActions.ACTION_SEARCH;
-                    break;
+            switch (_action) {
+                case R.string.tmaid_common_deindent :
+                case R.string.tmaid_common_indent : {
+                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, getPath());
+                    return true;
                 }
-                case CommonTextActions.ACTION_SPECIAL_KEY: {
-                    action = CommonTextActions.ACTION_JUMP_BOTTOM_TOP;
-                    break;
-                }
-                case "tmaid_common_time": {
-                    action = "tmaid_common_time_insert_timestamp";
-                    break;
+                default: {
+                    String action = _context.getString(_action);
+                    switch (action) {
+                        case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
+                            action = CommonTextActions.ACTION_SEARCH;
+                            break;
+                        }
+                        case CommonTextActions.ACTION_SPECIAL_KEY: {
+                            action = CommonTextActions.ACTION_JUMP_BOTTOM_TOP;
+                            break;
+                        }
+                        case "tmaid_common_time": {
+                            action = "tmaid_common_time_insert_timestamp";
+                            break;
+                        }
+                    }
+                    return runAction(action, true, null);
                 }
             }
-            return runAction(action, true, null);
         }
     }
 }
