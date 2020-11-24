@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -387,16 +388,12 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
-    public static void showIndentSizeDialog(final Activity activity, final String path) {
+    public static void showIndentSizeDialog(final Activity activity, final int indent, final Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        final AppSettings settings = new AppSettings(activity);
-        dopt.callback = (size) -> {
-            settings.setDocumentIndentSize(path, Integer.parseInt(size));
-        };
-
+        dopt.callback = callback;
         dopt.data = Arrays.asList("1", "2", "4", "8");
-        dopt.highlightData = Arrays.asList(Integer.toString(settings.getDocumentIndentSize(path)));
+        dopt.highlightData = Arrays.asList(Integer.toString(indent));
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;

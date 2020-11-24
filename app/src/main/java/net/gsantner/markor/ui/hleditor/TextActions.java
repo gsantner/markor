@@ -58,6 +58,7 @@ public abstract class TextActions {
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private int _textActionSidePadding;
+    protected int _indent;
 
     private static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
@@ -70,6 +71,7 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _indent = _appSettings.getDocumentIndentSize(getPath());
     }
 
     public String getPath() {
@@ -534,12 +536,11 @@ public abstract class TextActions {
     }
 
     protected void runIndentLines(final boolean deIndent) {
-        final int indent = _appSettings.getDocumentIndentSize(getPath());
         if (deIndent) {
-            final String leadingIndentPattern = String.format("^\\s{1,%d}", indent);
+            final String leadingIndentPattern = String.format("^\\s{1,%d}", _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
         } else {
-            final String tabString = StringUtils.repeatChars(' ', indent);
+            final String tabString = StringUtils.repeatChars(' ', _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
         }
     }

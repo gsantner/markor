@@ -98,7 +98,10 @@ public class PlaintextTextActions extends TextActions {
             switch (_action) {
                 case R.string.tmaid_common_deindent :
                 case R.string.tmaid_common_indent : {
-                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, getPath());
+                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
+                        _indent = Integer.parseInt(size);
+                        _appSettings.setDocumentIndentSize(getPath(), _indent);
+                    });
                     return true;
                 }
                 default: {
