@@ -122,7 +122,6 @@ public class TodoTxtTextActions extends TextActions {
         @Override
         public void onClick(View view) {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-            final String origText = _hlEditor.getText().toString();
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
             final TodoTxtTask[] selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
 

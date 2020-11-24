@@ -35,6 +35,7 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.StringUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,6 +70,16 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+    }
+
+    public String getPath() {
+        if (_document != null) {
+            File file = _document.getFile();
+            if (file != null) {
+                return file.getPath();
+            }
+        }
+        return null;
     }
 
     /**
@@ -520,6 +531,17 @@ public abstract class TextActions {
      */
     public void setEditorTextAsync(final String text) {
         _activity.runOnUiThread(() -> _hlEditor.setText(text));
+    }
+
+    protected void runIndentLines(final boolean deIndent) {
+        final int indent = _appSettings.getDocumentIndentSize(getPath());
+        if (deIndent) {
+            final String leadingIndentPattern = String.format("^\\s{1,%d}", indent);
+            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
+        } else {
+            final String tabString = StringUtils.repeatChars(' ', indent);
+            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
+        }
     }
 
     protected boolean runCommonTextAction(String action) {

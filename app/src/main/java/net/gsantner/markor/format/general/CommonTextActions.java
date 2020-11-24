@@ -22,7 +22,9 @@ import com.flask.colorpicker.Utils;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -31,6 +33,8 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
+
+import java.io.File;
 
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
@@ -55,9 +59,6 @@ public class CommonTextActions {
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
-    public static final String ACTION_INDENT = "tmaid_common_indent";
-    public static final String ACTION_DEINDENT = "tmaid_common_deindent";
-
     public static final String ACTION_MOVE_UP = "tmaid_common_move_text_one_line_up";
     public static final String ACTION_MOVE_DOWN = "tmaid_common_move_text_one_line_down";
     public static final String ACTION_NEW_LINE_BELOW = "tmaid_common_new_line_below";
@@ -67,15 +68,9 @@ public class CommonTextActions {
     private final Activity _activity;
     private final HighlightingEditor _hlEditor;
 
-    private int _tabWidth;
-
-    public CommonTextActions(Activity activity, HighlightingEditor hlEditor) {
+    public CommonTextActions(final Activity activity, final HighlightingEditor hlEditor) {
         _activity = activity;
         _hlEditor = hlEditor;
-
-        Context context = activity != null ? activity : _hlEditor.getContext();
-        AppSettings settings = new AppSettings(context);
-        _tabWidth = settings.getTabWidth();
     }
 
     private String rstr(@StringRes int resKey) {
@@ -236,28 +231,10 @@ public class CommonTextActions {
                 });
                 return true;
             }
-            case ACTION_INDENT: {
-                runIndentLines(false);
-                return true;
-            }
-            case ACTION_DEINDENT: {
-                runIndentLines(true);
-                return true;
-            }
             default:
                 break;
         }
         return false;
-    }
-
-    protected void runIndentLines(Boolean deIndent) {
-        if (deIndent) {
-            final String leadingIndentPattern = String.format("^\\s{1,%d}", _tabWidth);
-            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
-        } else {
-            final String tabString = StringUtils.repeatChars(' ', _tabWidth);
-            TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
-        }
     }
 
     public void moveLineBy1(final boolean up) {
