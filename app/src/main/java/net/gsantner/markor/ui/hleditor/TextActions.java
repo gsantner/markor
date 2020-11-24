@@ -373,7 +373,7 @@ public abstract class TextActions {
 
         try {
             if (editor instanceof HighlightingEditor) {
-                ((HighlightingEditor) editor).enableAccessibilityTrigger(false);
+                ((HighlightingEditor) editor).enableUpdaters(false);
             }
 
             Editable text = editor.getText();
@@ -417,7 +417,7 @@ public abstract class TextActions {
                     StringUtils.getIndexFromLineOffset(text, lEnd));
         } finally {
             if (editor instanceof HighlightingEditor) {
-                ((HighlightingEditor) editor).enableAccessibilityTrigger(true);
+                ((HighlightingEditor) editor).enableUpdaters(true);
             }
         }
     }

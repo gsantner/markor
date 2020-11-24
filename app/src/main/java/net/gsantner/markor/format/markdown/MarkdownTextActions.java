@@ -233,12 +233,15 @@ public class MarkdownTextActions extends TextActions {
                     break;
                 }
                 case R.string.tmaid_markdown_code_inline: {
-                    _hlEditor.disableHighlighterAutoFormat();
-                    final int c = _hlEditor.setSelectionExpandWholeLines();
-                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
-                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
-                    _hlEditor.setSelection(c + "\n```\n".length());
-                    _hlEditor.enableHighlighterAutoFormat();
+                    try {
+                        _hlEditor.enableHighlighterAutoFormat(false);
+                        final int c = _hlEditor.setSelectionExpandWholeLines();
+                        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
+                        _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
+                        _hlEditor.setSelection(c + "\n```\n".length());
+                    } finally {
+                        _hlEditor.enableHighlighterAutoFormat(true);
+                    }
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }

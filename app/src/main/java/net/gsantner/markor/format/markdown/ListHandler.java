@@ -9,22 +9,26 @@
 #########################################################*/
 package net.gsantner.markor.format.markdown;
 
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
 public class ListHandler implements TextWatcher {
     private final boolean _reorderEnabled;
     private int reorderPosition;
     private boolean triggerReorder = false;
+    private final Callback.a1<Boolean> _enableUpdaters;
     private Integer beforeLineEnd = null;
 
-    public ListHandler(final boolean reorderEnabled) {
+    public ListHandler(final boolean reorderEnabled, final Callback.a1<Boolean> enableUpdaters) {
         super();
         _reorderEnabled = reorderEnabled;
+        _enableUpdaters = enableUpdaters;
     }
 
     @Override
@@ -60,7 +64,16 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
+            try {
+                if (_enableUpdaters != null) {
+                    _enableUpdaters.callback(false);
+                }
+                MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
+            } finally {
+                if (_enableUpdaters != null) {
+                    _enableUpdaters.callback(true);
+                }
+            }
         }
     }
 

@@ -60,7 +60,7 @@ public class HighlightingEditor extends AppCompatEditText {
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
-            enableHighlighterAutoFormat();
+            enableHighlighterAutoFormat(true);
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
@@ -104,9 +104,10 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void setHighlighter(Highlighter newHighlighter) {
-        disableHighlighterAutoFormat();
+        enableHighlighterAutoFormat(false);
         _hl = newHighlighter;
-        reloadHighlighter();
+        enableHighlighterAutoFormat(true);
+        highlightWithoutChange();
 
         // Alpha in animation
         setAlpha(0.3f);
@@ -119,23 +120,21 @@ public class HighlightingEditor extends AppCompatEditText {
         return _hl;
     }
 
-    public void enableHighlighterAutoFormat() {
-        setFilters(new InputFilter[]{_hl.getAutoFormatter()});
+    public void enableHighlighterAutoFormat(final boolean enable) {
+        final TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
 
-        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
-        if (modifier != null && !_appliedModifiers.contains(modifier)) {
-            addTextChangedListener(modifier);
-            _appliedModifiers.add(modifier);
-        }
-    }
-
-    public void disableHighlighterAutoFormat() {
-        setFilters(new InputFilter[]{});
-
-        TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
-        if (modifier != null) {
-            removeTextChangedListener(modifier);
-            _appliedModifiers.remove(modifier);
+        if (enable) {
+            setFilters(new InputFilter[]{_hl.getAutoFormatter()});
+            if (modifier != null && !_appliedModifiers.contains(modifier)) {
+                addTextChangedListener(modifier);
+                _appliedModifiers.add(modifier);
+            }
+        } else {
+            setFilters(new InputFilter[]{});
+            if (modifier != null) {
+                removeTextChangedListener(modifier);
+                _appliedModifiers.remove(modifier);
+            }
         }
     }
 
@@ -143,13 +142,15 @@ public class HighlightingEditor extends AppCompatEditText {
         _updateHandler.removeCallbacks(_updateRunnable);
     }
 
-    public void reloadHighlighter() {
-        enableHighlighterAutoFormat();
-        highlightWithoutChange();
-    }
+    public void enableUpdaters(final boolean enable) {
+        if (enable) {
+            _accessibilityEnabled = true;
+            enableHighlighterAutoFormat(true);
 
-    public void enableAccessibilityTrigger(final boolean enable) {
-        _accessibilityEnabled = enable;
+        } else {
+            _accessibilityEnabled = false;
+            enableHighlighterAutoFormat(false);
+        }
     }
 
     // Accessibility code is blocked during rapid update events
@@ -171,7 +172,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
-                enableAccessibilityTrigger(false);
+                enableUpdaters(false);
                 _hl.run(editable);
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
@@ -179,7 +180,7 @@ public class HighlightingEditor extends AppCompatEditText {
             } catch (Error e) {
                 e.printStackTrace();
             } finally {
-                enableAccessibilityTrigger(true);
+                enableUpdaters(true);
             }
             if (MainActivity.IS_DEBUG_ENABLED) {
                 AppSettings.appendDebugLog(_hl._profiler.resetDebugText());

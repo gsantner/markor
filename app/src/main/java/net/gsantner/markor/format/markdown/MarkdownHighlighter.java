@@ -44,7 +44,7 @@ public class MarkdownHighlighter extends Highlighter {
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
         _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
-        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList()));
+        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList(), hlEditor::enableUpdaters));
     }
 
     @Override
