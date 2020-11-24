@@ -22,13 +22,11 @@ public class ListHandler implements TextWatcher {
     private final boolean _reorderEnabled;
     private int reorderPosition;
     private boolean triggerReorder = false;
-    private final Callback.a1<Boolean> _enableUpdaters;
     private Integer beforeLineEnd = null;
 
-    public ListHandler(final boolean reorderEnabled, final Callback.a1<Boolean> enableUpdaters) {
+    public ListHandler(final boolean reorderEnabled) {
         super();
         _reorderEnabled = reorderEnabled;
-        _enableUpdaters = enableUpdaters;
     }
 
     @Override
@@ -64,16 +62,7 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            try {
-                if (_enableUpdaters != null) {
-                    _enableUpdaters.callback(false);
-                }
-                MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
-            } finally {
-                if (_enableUpdaters != null) {
-                    _enableUpdaters.callback(true);
-                }
-            }
+            MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
         }
     }
 

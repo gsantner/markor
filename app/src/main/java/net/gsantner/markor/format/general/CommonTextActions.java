@@ -255,7 +255,7 @@ public class CommonTextActions {
 
             try {
                 // Prevents changes in text from triggering list prefix insert etc
-                _hlEditor.enableHighlighterAutoFormat(false);
+                _hlEditor.disableHighlighterAutoFormat();
 
                 final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
                 final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
@@ -271,7 +271,7 @@ public class CommonTextActions {
                 );
 
             } finally {
-                _hlEditor.enableHighlighterAutoFormat(true);
+                _hlEditor.enableHighlighterAutoFormat();
             }
         }
     }
