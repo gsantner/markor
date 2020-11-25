@@ -81,6 +81,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MenuItem actionHighlight;
     private HorizontalScrollView hsView;
 
+    // Wrap text setting and wrap text state are separated as the wrap text state may depend on
+    // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
+    // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
+    // Toggling the wrap state option will set and save the new value, but the file will always
+    // open wrapped in the main activity.
+    private boolean wrapTextSetting;
     private boolean wrapText;
     private boolean highlightText;
 
@@ -488,6 +494,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
+                wrapTextSetting = wrapText;
                 setHorizontalScrollMode(wrapText);
                 setToggleState();
                 return true;
@@ -561,7 +568,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
-        wrapText = inMainActivity || _appSettings.getDocumentWrapState(getPath());
+        wrapTextSetting = _appSettings.getDocumentWrapState(getPath());
+        wrapText = inMainActivity || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(getPath());
 
@@ -635,7 +643,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             if (_document != null && _document.getFile() != null) {
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                _appSettings.setDocumentWrapState(getPath(), wrapText);
+                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 _appSettings.setDocumentHighlightState(getPath(), highlightText);
 	        }
         }
