@@ -36,7 +36,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow">شئیر برائے &#8230;</string>
     <string name="share">شئیر</string>
     <string name="search">تلاش</string>
+    <string name="editor">ایڈیٹر</string>
+    <string name="folders">فولڈر</string>
+    <string name="files">فائلیں</string>
+    <string name="document">دستاویز</string>
+    <string name="documents">دستاویزات</string>
     <string name="theme">تھیم</string>
+    <string name="about">کے بارے میں</string>
+    <string name="plaintext">پلین ٹیکسٹ</string>
     <string name="file">فائل</string>
     <string name="image">تصویر</string>
     <string name="font_size">فانٹ سائز</string>
@@ -44,4 +51,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">اس فولڈر کو منتخب کریں</string>
     <string name="select">منتخب کریں</string>
     <string name="create">بنائیں</string>
+    <string name="name">نام</string>
+    <string name="licenses">لائسنس</string>
+    <string name="deleteme____1">نام</string>
+    <string name="size">سائز</string>
+    <string name="exit">بند کریں</string>
+    <string name="help">مدد</string>
+    <string name="list">فہرست</string>
 </resources>
