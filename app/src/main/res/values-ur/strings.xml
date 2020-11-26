@@ -9,4 +9,39 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">ترتیبات</string>
+    <string name="light">روشن</string>
+    <string name="dark">کالا</string>
+    <string name="delete">حذف کریں</string>
+    <string name="appearance">شکل و صورت</string>
+    <string name="rename">نام تبدیل کریں</string>
+    <string name="confirm_delete">حذف کی تصدیق کریں</string>
+    <string name="do_you_really_want_to_delete_this_witharg">کیا آپ واقعی %s کو حذف کرنا چاہتے ہیں؟</string>
+    <string name="file_already_exists_overwerite">فائل پہلے سے موجود ہے، اس کے اوپر ہی لکھ دوں؟</string>
+    <string name="browse_filesystem">فائل سسٹم بھرولیں</string>
+    <string name="title">نام</string>
+    <string name="empty_directory">خالی فولڈر</string>
+    <string name="enter_name_of_folder">اپنے فولڈر کا نام لکھیں</string>
+    <string name="create_folder">فولڈر بنائیں</string>
+    <string name="create_new_document">نیا ڈاکومنٹ بنائیں</string>
+    <string name="move">منتقل کریں</string>
+    <string name="info">معلومات</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">اس نام کی فائل یا فولڈر پہلے سے موجود ہے، کوئی اور نام چنیں</string>
+    <string name="import_from_device">دیگر ڈیوائس سے امپورٹ کریں</string>
+    <string name="import_">درآمد کریں</string>
+    <string name="select_folder">فولڈر منتخب کریں</string>
+    <string name="edit">ترمیم کریں</string>
+    <string name="search_documents">ڈاکومنٹس میں تلاش</string>
+    <string name="share_to_arrow">شئیر برائے &#8230;</string>
+    <string name="share">شئیر</string>
+    <string name="search">تلاش</string>
+    <string name="theme">تھیم</string>
+    <string name="file">فائل</string>
+    <string name="image">تصویر</string>
+    <string name="font_size">فانٹ سائز</string>
+    <string name="last_modified_witharg">آخری بار %s کو تبدیل کیا گیا</string>
+    <string name="select_this_folder">اس فولڈر کو منتخب کریں</string>
+    <string name="select">منتخب کریں</string>
+    <string name="create">بنائیں</string>
+</resources>
