@@ -38,8 +38,21 @@ public class ZimWikiHighlighterHeadingTest {
     }
 
     @Test
-    public void invalidHeading() {
+    public void emptyHeading() {
+        String heading = "===  ===";
+        findAndAssertEqualHeading(heading);
+    }
+
+    @Test
+    public void invalidHeadingTooFewEqualSigns() {
         String invalidHeading = "= this is not a valid heading =";
+        Matcher matcher = pattern.matcher(invalidHeading);
+        assertThat(matcher.find()).isFalse();
+    }
+
+    @Test
+    public void invalidHeadingUnequalCountOfEqualSigns() {
+        String invalidHeading = "=== three signs on the left but only two on the right ==";
         Matcher matcher = pattern.matcher(invalidHeading);
         assertThat(matcher.find()).isFalse();
     }
