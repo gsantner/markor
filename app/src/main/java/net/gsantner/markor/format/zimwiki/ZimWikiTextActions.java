@@ -207,12 +207,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_zimwiki_code_inline: {
-                    // TODO: adapt to zim wiki
                     _hlEditor.disableHighlighterAutoFormat();
                     final int c = _hlEditor.setSelectionExpandWholeLines();
-                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
-                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
-                    _hlEditor.setSelection(c + "\n```\n".length());
+                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n'''\n");
+                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n'''\n");
+                    _hlEditor.setSelection(c + "\n'''\n".length());
                     _hlEditor.enableHighlighterAutoFormat();
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
