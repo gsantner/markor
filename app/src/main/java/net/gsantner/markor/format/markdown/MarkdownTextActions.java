@@ -104,7 +104,7 @@ public class MarkdownTextActions extends TextActions {
             }
             switch (_action) {
                 case R.string.tmaid_markdown_quote: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toogleQuote());
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleQuote());
                     return true;
                 }
                 case R.string.tmaid_markdown_h1: {

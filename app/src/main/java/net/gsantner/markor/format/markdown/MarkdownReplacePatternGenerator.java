@@ -75,20 +75,20 @@ public class MarkdownReplacePatternGenerator {
 
     public static List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix(String listChar) {
         final String unorderedListReplacement = "$1" + listChar + " ";
-        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
+        return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
     public static List<TextActions.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(String listChar) {
         final String unchecked = "$1" + listChar + " [ ] ";
         final String checked = "$1" + listChar + " [x] ";
-        return ReplacePatternGeneratorHelper.replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_UNCHECKED_LIST, unchecked, checked);
+        return ReplacePatternGeneratorHelper.replaceWithTargetPatternOrAlternative(PREFIX_PATTERNS, PREFIX_UNCHECKED_LIST, unchecked, checked);
     }
 
     public static List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
-        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, ORDERED_LIST_REPLACEMENT);
+        return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, ORDERED_LIST_REPLACEMENT);
     }
 
-    public static List<TextActions.ReplacePattern> toogleQuote() {
-        return ReplacePatternGeneratorHelper.replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(PREFIX_PATTERNS, PREFIX_QUOTE, ">$1 ", "");
+    public static List<TextActions.ReplacePattern> toggleQuote() {
+        return ReplacePatternGeneratorHelper.replaceWithTargetPatternOrAlternative(PREFIX_PATTERNS, PREFIX_QUOTE, ">$1 ", "");
     }
 }

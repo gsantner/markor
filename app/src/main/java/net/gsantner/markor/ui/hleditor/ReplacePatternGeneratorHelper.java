@@ -14,27 +14,40 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class ReplacePatternGeneratorHelper {
-    public static List<TextActions.ReplacePattern> replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(
-            final Pattern[] allSearchPatterns,
-            final Pattern selectedSearchPattern, final String selectedReplacement,
+    /**
+     * Constructs a list of replacement patterns for strings which match the replaceable patterns so that:
+     * 1. Strings which do not match the targeted pattern are replaced in such a way
+     * that the targeted pattern is achieved.
+     * 2. Strings which already match the targeted pattern are replaced in such a way that an
+     * alternative pattern is achieved.
+     */
+    public static List<TextActions.ReplacePattern> replaceWithTargetPatternOrAlternative(
+            final Pattern[] replaceablePatterns,
+            final Pattern targetPattern, final String targetReplacement,
             final String alternativeReplacement
     ) {
         List<TextActions.ReplacePattern> replacePatterns = new ArrayList<>();
-        for (final Pattern searchPattern : allSearchPatterns) {
+        for (final Pattern replaceablePattern : replaceablePatterns) {
             String replacement;
-            if (!searchPattern.equals(selectedSearchPattern)) {
-                replacement = selectedReplacement;
+            if (!replaceablePattern.equals(targetPattern)) {
+                replacement = targetReplacement;
             } else {
                 replacement = alternativeReplacement;
             }
-            replacePatterns.add(new TextActions.ReplacePattern(searchPattern, replacement));
+            replacePatterns.add(new TextActions.ReplacePattern(replaceablePattern, replacement));
         }
         return replacePatterns;
     }
 
-    public static List<TextActions.ReplacePattern> replaceOtherPrefixWithSelectedOrRemovePrefix(final Pattern[] allPrefixPatterns, final Pattern selectedPrefixPattern, final String selectedPrefixReplacement) {
+    /**
+     * Constructs a list of prefix replacement patterns for strings which match the replaceable patterns so that:
+     * 1. Strings which contain prefixes which are different from the targeted one are replaced in such
+     * a way that the targeted prefix is achieved.
+     * 2. In Strings which already contain the targeted prefix, this prefix is removed.
+     */
+    public static List<TextActions.ReplacePattern> replaceWithTargetPrefixOrRemove(final Pattern[] replaceablePrefixPatterns, final Pattern targetPrefixPattern, final String targetPrefixReplacement) {
         String removePrefixReplacement = "$1";  // only keep whitespaces before prefix
-        return replaceNonSelectedPatternsWithSelectedOrReplaceWithAlternative(allPrefixPatterns,
-                selectedPrefixPattern, selectedPrefixReplacement, removePrefixReplacement);
+        return replaceWithTargetPatternOrAlternative(replaceablePrefixPatterns,
+                targetPrefixPattern, targetPrefixReplacement, removePrefixReplacement);
     }
 }

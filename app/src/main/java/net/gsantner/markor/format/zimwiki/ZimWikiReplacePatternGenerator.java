@@ -117,11 +117,11 @@ public class ZimWikiReplacePatternGenerator {
     }
 
     public static List<TextActions.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix() {
-        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
+        return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
     public static List<TextActions.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix() {
-        return ReplacePatternGeneratorHelper.replaceOtherPrefixWithSelectedOrRemovePrefix(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);
+        return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);
     }
 
     public static List<TextActions.ReplacePattern> deindentOneTab() {
