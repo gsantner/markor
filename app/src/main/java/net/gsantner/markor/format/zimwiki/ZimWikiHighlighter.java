@@ -30,11 +30,10 @@ public class ZimWikiHighlighter extends Highlighter {
     public final Integer _fontSize;
 
     private static final int COLOR_HEADING = 0xff4e9a06;
-    private static final int HIGHLIGHT_BACKGROUND_COLOR_LIGHT_MODE = 0xffffff00;
-    private static final int HIGHLIGHT_BACKGROUND_COLOR_DARK_MODE = 0xffFFA062;
+    private static final int HIGHLIGHT_BACKGROUND_COLOR = 0xffFFA062;   // zim original color: 0xffffff00
     private static final int UNORDERED_LIST_BULLET_COLOR = 0xffdaa521;
     private static final int ORDERED_LIST_NUMBER_COLOR = 0xffdaa521;
-    private static final int LINK_COLOR = 0xff1ea3fd;// 0xff0000ff;
+    private static final int LINK_COLOR = 0xff1ea3fd; // zim original color: 0xff0000ff
     private static final int CHECKLIST_BASE_COLOR = UNORDERED_LIST_BULLET_COLOR;
     private static final int CHECKLIST_CHECKED_COLOR = 0xff54a309;
     private static final int CHECKLIST_CROSSED_COLOR = 0xffa90000;
@@ -75,7 +74,7 @@ public class ZimWikiHighlighter extends Highlighter {
         createStyleSpanForMatches(spannable, ZimWikiHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
 
         _profiler.restart("Marked (highlighted)");
-        createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, _appSettings.isDarkThemeEnabled() ? HIGHLIGHT_BACKGROUND_COLOR_DARK_MODE : HIGHLIGHT_BACKGROUND_COLOR_LIGHT_MODE);
+        createColorBackgroundSpan(spannable, ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, HIGHLIGHT_BACKGROUND_COLOR);
 
         _profiler.restart("Strikethrough");
         createSpanWithStrikeThroughForMatches(spannable, ZimWikiHighlighterPattern.STRIKETHROUGH.pattern);
