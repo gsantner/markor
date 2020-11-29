@@ -358,6 +358,11 @@ public class SettingsActivity extends AppActivityBase {
                     _as.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
                     break;
                 }
+                case R.string.pref_key__editor_basic_color_scheme_nord: {
+                    _as.setEditorBasicColor(true, R.color.nord_fg_dark, R.color.nord_bg_dark);
+                    _as.setEditorBasicColor(false, R.color.nord_fg_light, R.color.nord_bg_light);
+                    break;
+                }
                 case R.string.pref_key__editor_basic_color_scheme_greenscale: {
                     _as.setEditorBasicColor(true, R.color.green_dark, R.color.black);
                     _as.setEditorBasicColor(false, R.color.green_light, R.color.white);

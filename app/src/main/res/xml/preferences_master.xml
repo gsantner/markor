@@ -214,7 +214,10 @@
                         android:icon="@drawable/ic_palette_black_24dp"
                         android:key="@string/pref_key__editor_basic_color_scheme_sepia"
                         android:title="@string/editor_basic_color_scheme_sepia" />
-
+                    <Preference
+                        android:icon="@drawable/ic_palette_black_24dp"
+                        android:key="@string/pref_key__editor_basic_color_scheme_nord"
+                        android:title="@string/editor_basic_color_scheme_nord" />
                 </PreferenceCategory>
 
             </PreferenceScreen>

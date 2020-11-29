@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:ignore="ButtonStyle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:paddingBottom="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/search_and_replace"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <RelativeLayout
+            android:id="@+id/search_replace_text_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@+id/recent_show_spinner"
+                android:layout_toLeftOf="@+id/recent_show_spinner"
+                android:hint="@string/search_for"
+                android:importantForAutofill="no"
+                android:inputType="textFilter"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/replace_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@+id/recent_show_spinner"
+                android:layout_toLeftOf="@+id/recent_show_spinner"
+                android:layout_below="@id/search_input"
+                android:hint="@string/replace_with"
+                android:importantForAutofill="no"
+                android:inputType="textFilter"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/recent_show_spinner"
+                android:contentDescription="@string/choose_format"
+                style="@style/Base.Widget.AppCompat.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:inputType="none" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="ButtonStyle">
+
+            <CheckBox
+                android:id="@+id/enable_regex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/regex" />
+
+            <CheckBox
+                android:id="@+id/multiline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/multiline" />
+        </LinearLayout>
+
+        <TextView
+        android:id="@+id/match_count_or_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="ButtonStyle">
+
+        <Button
+            android:id="@+id/replace_once"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/replace_once"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/replace_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/replace_all"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</LinearLayout>
+
+    </ScrollView>
