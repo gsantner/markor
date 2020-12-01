@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">ファイル説明の形式</string>
     <string name="file_description_format_dialog">ファイルブラウザの各ファイルの下の説明のためのフォーマット。ファイルサイズを表示するためのFSの追加で、AndroidのSimpleDateFormatルールに従います。 ロケールにデフォルトの形式を使用するには、空白のままにしてください。\n\n入力例:\nFS yyyyMMM dd hhh:mm:ss aa\n出力形式:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">既定値を読み込み中</string>
+    <string name="search_and_replace">検索/置換</string>
+    <string name="search_for">検索テキスト</string>
+    <string name="replace_with">置換テキスト</string>
+    <string name="replace_once">置換 (1)</string>
+    <string name="replace_all">すべて置換</string>
+    <string name="matches">一致</string>
+    <string name="search_replace_pattern_error_message">検索または置換パターンエラー。</string>
 </resources>

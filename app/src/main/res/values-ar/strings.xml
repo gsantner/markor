@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">تنسيق وصف الملف</string>
     <string name="file_description_format_dialog">تنسيق الوصف تحت كل ملف في متصفح الملفات. يتبع قواعد SimpleDateFormat الخاصة بالأندرويد، مع إضافة FS لعرض حجم الملف. اتركه فارغاً لاستخدام التنسيق الافتراضي للغة الخاصة بك.\n\nمثال المدخلات:\nFS yyyy MMM dd hh:mm:ss aa\nتنسيق المخرج:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">تحميل القيمة الافتراضية</string>
+    <string name="search_and_replace">البحث / استبدال</string>
+    <string name="search_for">البحث عن</string>
+    <string name="replace_with">استبدل بـ</string>
+    <string name="replace_once">استبدال (1)</string>
+    <string name="replace_all">استبدال الكل</string>
+    <string name="matches">مباراة</string>
+    <string name="search_replace_pattern_error_message">البحث أو استبدال خطأ النقش.</string>
 </resources>

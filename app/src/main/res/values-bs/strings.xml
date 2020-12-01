@@ -382,4 +382,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format opisa datoteke</string>
     <string name="file_description_format_dialog">Format za opis ispod svake datoteke u pregledniku datoteka. Slijedi Androidova SimpleDateFormat pravila, s dodatkom FS za prikazivanje veličine datoteke. Ostavite prazno da biste koristili predefinisani format za Vaše područje.\n\nPrimjer:\nFS yyyy MMM dd hh:mm:ss aa\nRezultat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Učitavam predefinisane vrijednosti</string>
+    <string name="search_and_replace">Traži / zamijeni</string>
+    <string name="search_for">Traži</string>
+    <string name="replace_with">Zamijeni sa</string>
+    <string name="replace_once">Zamijeni (1)</string>
+    <string name="replace_all">Zamijeni sve</string>
+    <string name="matches">Pronađeno</string>
 </resources>

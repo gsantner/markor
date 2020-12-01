@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Dosya açıklama biçimi</string>
     <string name="file_description_format_dialog">Dosya tarayıcısında her dosyanın altındaki açıklamanın biçimi. Dosya boyutunu göstermek için FS\'nin eklenmesiyle Android\'in SimpleDateFormat kurallarına uyar. Yerel ayarınız için varsayılan biçimi kullanmak için boş bırakın.\n\nÖrnek giriş:\nFS yyyy MMM dd hh:mm:ss aa\nçıktı biçimi:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Varsayılan değer yükleniyor</string>
+    <string name="search_and_replace">Ara / Değiştir</string>
+    <string name="search_for">Bunun için ara</string>
+    <string name="replace_with">Şununla değiştir</string>
+    <string name="replace_once">Değiştir (1)</string>
+    <string name="replace_all">Tümünü değiştir</string>
+    <string name="matches">Eşleşmeler</string>
+    <string name="search_replace_pattern_error_message">Desen hatasını arayın veya değiştirin.</string>
 </resources>
