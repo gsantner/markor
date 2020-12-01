@@ -378,7 +378,7 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__zimwiki__reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {
                     Intent intent = new Intent(getActivity(), ActionOrderActivity.class);
-                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, getActionForPreference(keyResId));
+                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, getPreferenceReorderId(keyResId));
                     startActivity(intent);
                     break;
                 }
@@ -391,8 +391,8 @@ public class SettingsActivity extends AppActivityBase {
             return null;
         }
 
-        private int getActionForPreference(int preference) {
-            switch (preference) {
+        private int getPreferenceReorderId(final int keyResId) {
+            switch (keyResId) {
                 case R.string.pref_key__markdown__reorder_actions: {
                     return R.id.action_format_markdown;
                 }
