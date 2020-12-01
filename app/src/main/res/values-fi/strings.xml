@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Tiedoston kuvauksen muoto</string>
     <string name="file_description_format_dialog">Muotoile kuvauksen alla jokaisen tiedoston tiedostoselain. Follows Android SimpleDateFormat säännöt, lisäämällä FS näytetään tiedoston koko. Jätä tyhjäksi käyttääksesi paikallista oletusmuotoa. @ title: group\n\nEsimerkkisyöte:\nFS yyyy MMM dd hh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Ladataan oletusarvoa</string>
+    <string name="search_and_replace">Haku / Korvaa</string>
+    <string name="search_for">Etsi sivustolta</string>
+    <string name="replace_with">Korvaa sovelluksella</string>
+    <string name="replace_once">Korvaa (1)</string>
+    <string name="replace_all">Korvaa kaikki</string>
+    <string name="matches">Ottelut</string>
+    <string name="search_replace_pattern_error_message">Etsi tai korvaa kuvion virhe.</string>
 </resources>
