@@ -13,7 +13,7 @@ import android.arch.core.util.Function;
 import android.content.Context;
 
 import net.gsantner.markor.format.TextConverter;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.util.StringUtils;
 
 import org.apache.commons.io.FilenameUtils;
@@ -22,26 +22,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Wrapper class around MarkdownTextConverter
+ * Make use of MarkdownConverter by converting Zim syntax to Markdown
  */
 @SuppressWarnings("WeakerAccess")
 public class ZimWikiTextConverter extends TextConverter {
-
-    private Context _context;
-    private File _file;
-    private String _currentLine;
-
-    private final MarkdownTextConverter _markdownConverter;
-
     private static final Pattern LIST_ORDERED_LETTERS = Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ");
-
-    public ZimWikiTextConverter(MarkdownTextConverter markdownConverter) {
-        _markdownConverter = markdownConverter;
-    }
 
     /**
      * First, convert zim-wiki to regular Markor markdown. Then, calls the regular converter.
@@ -54,55 +44,53 @@ public class ZimWikiTextConverter extends TextConverter {
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        _context = context;
-        _file = file;
-
         String contentWithoutHeader = markup.replaceFirst(ZimWikiHighlighterPattern.ZIMHEADER.pattern.toString(), "");
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
-            String markdownEquivalentLine = getMarkdownEquivalentLine(line, isExportInLightMode);
+            String markdownEquivalentLine = getMarkdownEquivalentLine(context, file, line, isExportInLightMode);
             markdownContent.append(markdownEquivalentLine);
             markdownContent.append("  "); // line breaks must be made explicit in markdown by two spaces
             markdownContent.append(String.format("%n"));
         }
 
-        return _markdownConverter.convertMarkup(markdownContent.toString(), context, isExportInLightMode, file);
+        return TextFormat.CONVERTER_MARKDOWN.convertMarkup(markdownContent.toString(), context, isExportInLightMode, file);
     }
 
-    private String getMarkdownEquivalentLine(String zimWikiLine, final boolean isExportInLightMode) {
-        _currentLine = zimWikiLine;
+    private String getMarkdownEquivalentLine(final Context context, final File file, String zimWikiLine, final boolean isExportInLightMode) {
+        final AtomicReference<String> currentLine = new AtomicReference<>(zimWikiLine);
 
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
+        // Headings
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
 
         // bold syntax is the same as for markdown
-        replaceAllMatchesInLinePartially(ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
+        replaceAllMatchesInLinePartially(currentLine, ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
         // strikethrough syntax is the same as for markdown
 
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
-        replaceAllMatchesInLine(Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
+        replaceAllMatchesInLine(currentLine, Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
 
         // unordered list syntax is compatible with markdown
-        replaceAllMatchesInLinePartially(LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.CHECKLIST.pattern, this::convertChecklist);
+        replaceAllMatchesInLinePartially(currentLine, LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.CHECKLIST.pattern, this::convertChecklist);
 
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, _context, _file));
-        replaceAllMatchesInLine(ZimWikiHighlighterPattern.IMAGE.pattern, this::convertImage);
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, context, file));
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.IMAGE.pattern, fullMatch -> convertImage(file, fullMatch));
 
-        return _currentLine;
+        return currentLine.getAndSet("");
     }
 
-    private void replaceAllMatchesInLinePartially(Pattern zimPattern, String matchPartToBeReplaced, String replacementForMatchPart) {
-        replaceAllMatchesInLine(zimPattern, fullMatch -> fullMatch.replaceAll(matchPartToBeReplaced, replacementForMatchPart));
+    private void replaceAllMatchesInLinePartially(final AtomicReference<String> currentLine, Pattern zimPattern, String matchPartToBeReplaced, String replacementForMatchPart) {
+        replaceAllMatchesInLine(currentLine, zimPattern, fullMatch -> fullMatch.replaceAll(matchPartToBeReplaced, replacementForMatchPart));
     }
 
-    private void replaceAllMatchesInLine(Pattern zimPattern, Function<String, String> replaceMatchWithMarkdown) {
-        Matcher matcher = zimPattern.matcher(_currentLine);
+    private void replaceAllMatchesInLine(final AtomicReference<String> currentLine, Pattern zimPattern, Function<String, String> replaceMatchWithMarkdown) {
+        Matcher matcher = zimPattern.matcher(currentLine.get());
         StringBuffer replacedLine = new StringBuffer();
         while (matcher.find()) {
             String fullMatch = matcher.group();
@@ -110,7 +98,7 @@ public class ZimWikiTextConverter extends TextConverter {
             matcher.appendReplacement(replacedLine, replacementForMatch);
         }
         matcher.appendTail(replacedLine);
-        _currentLine = replacedLine.toString();
+        currentLine.set(replacedLine.toString());
     }
 
     private String convertHeading(String group) {
@@ -174,12 +162,12 @@ public class ZimWikiTextConverter extends TextConverter {
         return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
     }
 
-    private String convertImage(String fullMatch) {
+    private String convertImage(File file, String fullMatch) {
         String imagePathFromPageFolder = fullMatch.substring(2, fullMatch.length() - 2);
-        String currentPageFileName = _file.getName();
+        String currentPageFileName = file.getName();
         String currentPageFolderName = currentPageFileName.replaceFirst(".txt$", "");
         String markdownPathToImage = FilenameUtils.concat(currentPageFolderName, imagePathFromPageFolder);
-        return "![" + _file.getName() + "](" + markdownPathToImage + ")";
+        return "![" + file.getName() + "](" + markdownPathToImage + ")";
     }
 
     /**

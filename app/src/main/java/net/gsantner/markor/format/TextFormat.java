@@ -43,7 +43,7 @@ public class TextFormat {
     public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
-    public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter(CONVERTER_MARKDOWN);
+    public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
