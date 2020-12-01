@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class ZimWikiFileContentsCreator {
+public class ZimWikiFileContentsGenerator {
     public static String createZimWikiHeaderAndTitleContents(String fileNameWithoutExtension, Date creationDate, String creationDateLinePrefix) {
         String headerContentTypeLine = "Content-Type: text/x-zim-wiki";
         String headerWikiFormatLine = "Wiki-Format: zim 0.6";

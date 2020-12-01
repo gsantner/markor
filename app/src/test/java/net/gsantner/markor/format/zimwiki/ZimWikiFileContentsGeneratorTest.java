@@ -18,7 +18,7 @@ import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ZimWikiFileContentsCreatorTest {
+public class ZimWikiFileContentsGeneratorTest {
     @Test
     public void createsCorrectContentsForNewZimWikiFiles() {
         Locale.setDefault(Locale.ENGLISH);
@@ -32,7 +32,7 @@ public class ZimWikiFileContentsCreatorTest {
                 "\n" +
                 "====== My new wiki page ======\n" +
                 "Created Thursday 24 December 2020\n";
-        String actual = ZimWikiFileContentsCreator.createZimWikiHeaderAndTitleContents("My_new_wiki_page", date, "Created");
+        String actual = ZimWikiFileContentsGenerator.createZimWikiHeaderAndTitleContents("My_new_wiki_page", date, "Created");
         assertThat(actual).isEqualTo(expected);
     }
 }
