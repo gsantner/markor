@@ -380,7 +380,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (path == null || path.trim().length() == 0) {
+        if (_default || path == null || path.trim().length() == 0) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
