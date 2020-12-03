@@ -249,13 +249,4 @@ public final class StringUtils {
         return builder.toString();
     }
 
-    public static String getPath(final Document document) {
-        if (document != null) {
-            final File file = document.getFile();
-            if (file != null) {
-                return file.getPath();
-            }
-        }
-        return null;
-    }
 }

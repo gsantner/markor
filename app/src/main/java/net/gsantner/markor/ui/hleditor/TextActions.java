@@ -35,7 +35,6 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.StringUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,7 +74,7 @@ public abstract class TextActions {
     }
 
     public String getPath() {
-        return StringUtils.getPath(_document);
+        return Document.getPath(_document);
     }
 
     /**

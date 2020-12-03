@@ -60,7 +60,6 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
-import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -795,7 +794,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public String getPath() {
-        return StringUtils.getPath(_document);
+        return Document.getPath(_document);
     }
 
     public WebView getWebview() {
