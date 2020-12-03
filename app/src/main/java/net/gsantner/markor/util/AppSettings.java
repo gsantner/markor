@@ -336,6 +336,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
+    private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
 
     public void setLastEditPosition(File file, int pos, int scrolloffset) {
@@ -369,6 +370,20 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             return _default;
         } else {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
+        }
+    }
+
+    public void setDocumentPreviewState(final String path, final boolean state) {
+        setBool(PREF_PREFIX_PREVIEW_STATE + path, state);
+    }
+
+    public boolean getDocumentPreviewState(final String path) {
+        // Use global setting as default
+        final boolean _default = isPreviewFirst();
+        if (path == null || path.trim().length() == 0) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
         }
     }
 

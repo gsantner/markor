@@ -75,13 +75,7 @@ public abstract class TextActions {
     }
 
     public String getPath() {
-        if (_document != null) {
-            File file = _document.getFile();
-            if (file != null) {
-                return file.getPath();
-            }
-        }
-        return null;
+        return StringUtils.getPath(_document);
     }
 
     /**

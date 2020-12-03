@@ -39,6 +39,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 
@@ -275,11 +276,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
                 a.setDocument(document);
-                if (_appSettings.isPreviewFirst()) {
-                    a.showTextEditor(document, null, false, true);
-                } else {
-                    a.showTextEditor(document, null, false);
-                }
+                a.showTextEditor(document, null, false, _appSettings.getDocumentPreviewState(StringUtils.getPath(document)));
             }
         }
 

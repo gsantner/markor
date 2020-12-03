@@ -60,6 +60,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -153,7 +154,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //applyTextFormat(TextFormat.FORMAT_PLAIN);
-        setupAppearancePreferences(view);
         _shareUtil = new ShareUtil(view.getContext());
 
         _webViewClient = new MarkorWebViewClient(getActivity());
@@ -190,6 +190,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
+        setupAppearancePreferences(view);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
@@ -202,8 +203,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
-
-        setupAppearancePreferences(view);
     }
 
     @Override
@@ -618,7 +617,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onBackPressed() {
-        boolean preview = getActivity().getIntent().getBooleanExtra(DocumentActivity.EXTRA_DO_PREVIEW, false) || _appSettings.isPreviewFirst() || _document.getFile().getName().startsWith("index.");
+        final boolean preview = (
+                getActivity().getIntent().getBooleanExtra(DocumentActivity.EXTRA_DO_PREVIEW, false)
+                        || _appSettings.getDocumentPreviewState(getPath())
+                        || _document.getFile().getName().startsWith("index."));
         saveDocument();
         if (_isPreviewVisible && !preview) {
             setDocumentViewVisibility(false);
@@ -645,6 +647,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
                 _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 _appSettings.setDocumentHighlightState(getPath(), highlightText);
+                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
 	        }
         }
         return ret;
@@ -723,16 +726,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onFragmentFirstTimeVisible() {
+        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
             if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!_appSettings.isPreviewFirst()) {
+                if (!initPreview) {
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(lastPos);
                 _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
             } else if (_appSettings.isEditorStartOnBotttom()) {
-                if (!_appSettings.isPreviewFirst()) {
+                if (!initPreview) {
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(_hlEditor.length());
@@ -791,14 +795,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public String getPath() {
-        String path = null;
-        if (_document != null) {
-            File file = _document.getFile();
-            if (file != null) {
-                path = file.getPath();
-            }
-        }
-        return path;
+        return StringUtils.getPath(_document);
     }
 
     public WebView getWebview() {
