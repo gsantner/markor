@@ -47,12 +47,14 @@ import other.de.stanetz.jpencconverter.PasswordStore;
 public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
     public static final String EXTRA_DIR = "EXTRA_DIR";
+    public static final String EXTRA_ALLOW_CREATE_DIR = "EXTRA_ALLOW_CREATE_DIR";
     private Callback.a2<Boolean, File> callback;
 
-    public static NewFileDialog newInstance(File sourceFile, Callback.a2<Boolean, File> callback) {
+    public static NewFileDialog newInstance(final File sourceFile, final boolean allowCreateDir, final Callback.a2<Boolean, File> callback) {
         NewFileDialog dialog = new NewFileDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DIR, sourceFile);
+        args.putSerializable(EXTRA_ALLOW_CREATE_DIR, allowCreateDir);
         dialog.setArguments(args);
         dialog.callback = callback;
         return dialog;
@@ -62,9 +64,10 @@ public class NewFileDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final File file = (File) getArguments().getSerializable(EXTRA_DIR);
+        final boolean allowCreateDir = getArguments().getBoolean(EXTRA_ALLOW_CREATE_DIR);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        AlertDialog.Builder dialogBuilder = makeDialog(file, inflater);
+        AlertDialog.Builder dialogBuilder = makeDialog(file, allowCreateDir, inflater);
         AlertDialog dialog = dialogBuilder.show();
         Window w;
         if ((w = dialog.getWindow()) != null) {
@@ -74,7 +77,7 @@ public class NewFileDialog extends DialogFragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private AlertDialog.Builder makeDialog(final File basedir, LayoutInflater inflater) {
+    private AlertDialog.Builder makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
         final AppSettings appSettings = new AppSettings(inflater.getContext());
@@ -181,6 +184,10 @@ public class NewFileDialog extends DialogFragment {
                     }
                     dialogInterface.dismiss();
                 });
+
+        if (!allowCreateDir) {
+            dialogBuilder.setNeutralButton("", null);
+        }
 
         return dialogBuilder;
     }
