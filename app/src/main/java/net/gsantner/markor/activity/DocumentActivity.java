@@ -81,9 +81,11 @@ public class DocumentActivity extends AppActivityBase {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new AppSettings(activity).isMultiWindowEnabled()) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        } else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
-        activity.startActivity(intent);
         nextLaunchTransparentBg = (activity instanceof MainActivity);
+        activity.startActivity(intent);
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -165,6 +167,12 @@ public class DocumentActivity extends AppActivityBase {
         _fragManager = getSupportFragmentManager();
 
         handleLaunchingIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleLaunchingIntent(intent);
     }
 
     private void handleLaunchingIntent(Intent intent) {

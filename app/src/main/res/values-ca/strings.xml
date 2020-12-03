@@ -382,4 +382,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format de descripció del fitxer</string>
     <string name="file_description_format_dialog">Format per a la descripció sota cada arxiu en el navegador d\'arxius. Segueix les regles de SimpleDateFormat, amb l\'addició de FS per mostrar la mida del fitxer. Deixeu-lo en blanc per utilitzar el format per defecte de la vostra configuració regional.\n\nExemple d\'entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormat de sortida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">S\'està carregant el valor per defecte</string>
+    <string name="search_and_replace">Cercar / Reemplaça</string>
+    <string name="search_for">Cerca per</string>
+    <string name="replace_with">Reemplaça per</string>
+    <string name="replace_once">Reemplaça (1)</string>
+    <string name="replace_all">Reemplaça-ho tot</string>
+    <string name="matches">Coincidències</string>
+    <string name="search_replace_pattern_error_message">Error amb el patró de cerca o reemplaçament.</string>
 </resources>
