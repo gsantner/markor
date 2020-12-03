@@ -323,12 +323,14 @@
         android:summary="@string/display_converted_markup"
         android:title="@string/view_mode">
 
+        <!--
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_visibility_black_24dp"
             android:key="@string/pref_key__is_preview_first"
             android:summary="@string/open_existing_files_in_view_mode"
             android:title="@string/prefer_view" />
+            -->
         <CheckBoxPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_arrow_back_white_24dp"
