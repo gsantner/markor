@@ -271,7 +271,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                         return;
                     }
 
-                    NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), (ok, f) -> {
+                    NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
                                 DocumentActivity.launch(MainActivity.this, f, false, false, null);
