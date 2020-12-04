@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-28T20:55:39+01:00
+
+====== Sub Sub Page 1-1 ======
+Created Mittwoch 28 Oktober 2020
+
+To link relatively to any page **up** in the hierarchy which **shares a parent with the current page** or **that is a sibling** from the current page, do not use a preceding character:
+[[Root Page|Relative link to the root page]]
+[[Sub Page 1:Sub Sub Page 1-2|Relative Link to Sub Sub Page 1-2 (which shares Sub Page 1 as a parent)]]

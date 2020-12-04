@@ -1,0 +1,102 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2020-10-28T20:54:42+01:00
+
+====== Root Page ======
+Created Mittwoch 28 Oktober 2020
+
+This zim wiki sample notebook was created for the [[https://gsantner.net/project/markor?source=zimwikiref|Markor]] project by [[https://gsantner.net|Gregor Santner]] and is licensed under [[https://creativecommons.org/publicdomain/zero/1.0/legalcode|Creative Commons Zero 1.0]] (public domain). File revision 1.
+
+===== Zim Notebook Structure =====
+
+In the same directory as this page, there is a text file named "notebook.zim". It specifies that this is the root of the notebook.
+The text file for each page has a ".txt" file ending. The file name corresponds to the page title, but space characters (" ") are represented as underlines ("_").
+All files and pages which are children of this page are located in a folder named according to the page file.
+
+Example: This page is stored as a text file with the name "Root_Page.txt" in the root of the notebook. Subpages and files relative to this page are located in a folder named "Root_Page", which is also in the root of the notebook.
+
+===== Headings (this is H2) =====
+
+==== Heading Level 3 ====
+
+=== Heading Level 4 ===
+
+== Heading Level 5 ==
+
+===== Basic Syntax Elements =====
+
+**Bold**
+//italics//
+__marked (yellow Background)__
+~~striked~~
+
+You can combine those styles:
+//**this is italic and bold**//
+//**This is italic and bold (and Zim will automatically swap the stars with the slashes if you edit it)**//
+**__This is marked yellow and bold__**
+
+This is ''preformatted text'' inline.
+
+'''
+This is a preformatted text block.
+It spans multiple lines.
+And it's visually indented.
+'''
+
+We also have _{subscript} and ^{superscript}.
+
+===== Lists =====
+
+==== Unordered Lists ====
+
+* Unordered List
+* second item
+	* Sub-Item
+		* Subsub-Item
+			* and one more sub
+* Back to first indent level
+
+==== Ordered Lists ====
+
+1. ordered list
+2. second item
+	a. item 2a
+		1. Item 2a1
+		2. Item 2a2
+	b. item 2b
+		1. 2b1
+			a. 2b1a
+3. an so on...
+
+==== Checklists ====
+
+[ ] Checklist
+[ ] unchecked item
+[*] checked item
+[x] crossed item
+[>] Item marked with a yellow left-to-right-arrow
+[ ] another unchecked item
+
+===== Links =====
+
+This is an embedded web link: [[https://github.com/gsantner/markor|Markor on Github]]
+
+To link relatively **down** the hierarchy to a sub page from the current page, use a "+" in front of the path to the page:
+[[+Sub Page 1|Sub-page link to Sub Page 1]]
+[[+Sub Page 1:Sub Sub Page 1-1|Sub-page link to Sub Sub Page 1-1]]
+
+To link absolutely to any page in the notebook, use ":", followed by the notebook root page:
+[[:Root Page:Sub Page 1|Absolute link to Sub Page 1]]
+
+For relative links that go **up** in the hierarchy, see the information [[+Sub Page 1:Sub Sub Page 1-1|on this page]].
+
+If you don't need a different text displayed for the underlying link and just want the link to be visible, there is no need for the "|" delimiter. Just use double square brackets around the link:
+[[+Sub Page 1]]
+
+Directly inserted URLs will be displayed as links automatically and don't need any brackets:
+https://github.com/gsantner/markor
+
+===== Images =====
+
+The following image belongs to the current page and is located in the folder for "Root Page":
+{{./flowerfield.jpg}}

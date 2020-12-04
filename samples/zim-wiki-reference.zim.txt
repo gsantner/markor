@@ -65,4 +65,4 @@ Links inside the Zim Wiki project can be made by simply using the [[Page Name]] 
 This my also contain some hierarchy information, like [[Folder:Subfolder:Document Name]]
 
 
-This zim wiki reference file was created for the [[https://gsantner.net/project/markor?source=markdownref|Markor]] project by [[https://gsantner.net|Gregor Santner]] and is licensed [[https://creativecommons.org/publicdomain/zero/1.0/legalcode|Creative Commons Zero 1.0]] (public domain). File revision 1.
+This zim wiki reference file was created for the [[https://gsantner.net/project/markor?source=zimwikiref|Markor]] project by [[https://gsantner.net|Gregor Santner]] and is licensed [[https://creativecommons.org/publicdomain/zero/1.0/legalcode|Creative Commons Zero 1.0]] (public domain). File revision 1.
