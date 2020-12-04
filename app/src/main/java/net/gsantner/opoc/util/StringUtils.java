@@ -201,13 +201,13 @@ public final class StringUtils {
 
     /**
      * Convert escape sequences in string to escaped special characters
-     *
+     * <p>
      * For example, convert
-     *
+     * <p>
      * A\tB -> A    B
-     *
+     * <p>
      * A\nB -> A
-     *         B
+     * B
      *
      * @param input Input string
      * @return String with escaped sequences converted

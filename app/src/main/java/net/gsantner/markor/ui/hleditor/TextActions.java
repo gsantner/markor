@@ -80,7 +80,8 @@ public abstract class TextActions {
     /**
      * Derived classes must implement a callback which inherits from ActionCallback
      */
-    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {};
+    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
+    }
 
     /**
      * Factory to generate ActionCallback for given keyId
