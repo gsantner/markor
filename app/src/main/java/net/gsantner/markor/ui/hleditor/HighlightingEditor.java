@@ -66,7 +66,9 @@ public class HighlightingEditor extends AppCompatEditText {
 
         _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
-        _updateRunnable = () -> { highlightWithoutChange(); };
+        _updateRunnable = () -> {
+            highlightWithoutChange();
+        };
 
         addTextChangedListener(new TextWatcher() {
             @Override

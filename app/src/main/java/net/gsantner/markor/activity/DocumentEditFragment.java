@@ -507,7 +507,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return super.onOptionsItemSelected(item);
     }
 
-
     private long _lastChangedThreadStart = 0;
 
     @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
@@ -647,7 +646,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 _appSettings.setDocumentHighlightState(getPath(), highlightText);
                 _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
-	        }
+            }
         }
         return ret;
     }

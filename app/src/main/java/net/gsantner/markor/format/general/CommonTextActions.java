@@ -10,7 +10,6 @@
 package net.gsantner.markor.format.general;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.text.Editable;
@@ -22,19 +21,13 @@ import com.flask.colorpicker.Utils;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
-import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
-
-import java.io.File;
 
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {

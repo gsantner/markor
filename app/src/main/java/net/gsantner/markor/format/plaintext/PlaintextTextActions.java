@@ -96,8 +96,8 @@ public class PlaintextTextActions extends TextActions {
         @Override
         public boolean onLongClick(View v) {
             switch (_action) {
-                case R.string.tmaid_common_deindent :
-                case R.string.tmaid_common_indent : {
+                case R.string.tmaid_common_deindent:
+                case R.string.tmaid_common_indent: {
                     SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
                         _indent = Integer.parseInt(size);
                         _appSettings.setDocumentIndentSize(getPath(), _indent);

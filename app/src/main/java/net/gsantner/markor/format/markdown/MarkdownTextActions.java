@@ -253,8 +253,8 @@ public class MarkdownTextActions extends TextActions {
                 case R.string.tmaid_common_ordered_list_number: {
                     MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
                 }
-                case R.string.tmaid_common_deindent :
-                case R.string.tmaid_common_indent : {
+                case R.string.tmaid_common_deindent:
+                case R.string.tmaid_common_indent: {
                     SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
                         _indent = Integer.parseInt(size);
                         _appSettings.setDocumentIndentSize(getPath(), _indent);

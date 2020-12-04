@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.telecom.Call;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;

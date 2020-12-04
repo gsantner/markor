@@ -11,9 +11,6 @@ package net.gsantner.opoc.util;
 
 import android.widget.TextView;
 
-import net.gsantner.markor.model.Document;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -248,5 +245,4 @@ public final class StringUtils {
 
         return builder.toString();
     }
-
 }
