@@ -200,4 +200,15 @@ public class ZimWikiTextConverter extends TextConverter {
         }
         return hasZimHeader;
     }
+
+    /*
+    public static boolean isZimWikiFile(String filename, Document document) {
+        return filename.endsWith(".txt") && containsZimWikiHeader(document);
+    }
+
+    private static boolean containsZimWikiHeader(Document document) {
+        Pattern headerPattern = ZimWikiHighlighterPattern.ZIMHEADER.pattern;
+        Matcher headerMatcher = headerPattern.matcher(document.getContent());
+        return headerMatcher.find();
+    }*/
 }
