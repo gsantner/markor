@@ -14,7 +14,6 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 
-import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.opoc.util.StringUtils;
 
 public class ListHandler implements TextWatcher {

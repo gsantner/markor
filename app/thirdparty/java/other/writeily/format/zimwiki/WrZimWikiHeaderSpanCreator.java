@@ -23,7 +23,7 @@ public class WrZimWikiHeaderSpanCreator implements SpanCreator.ParcelableSpanCre
     private static final Character EQUAL_SIGN = '=';
     private static final float STANDARD_PROPORTION_MAX = 1.60f;
     private static final float STANDARD_PROPORTION_MIN = 1.00f;
-    private static final float SIZE_STEP = (STANDARD_PROPORTION_MAX-STANDARD_PROPORTION_MIN)/5f;
+    private static final float SIZE_STEP = (STANDARD_PROPORTION_MAX - STANDARD_PROPORTION_MIN) / 5f;
 
     protected ZimWikiHighlighter _highlighter;
     private final Spannable _spannable;
@@ -49,7 +49,7 @@ public class WrZimWikiHeaderSpanCreator implements SpanCreator.ParcelableSpanCre
         float proportion = STANDARD_PROPORTION_MIN;
         int i = 1;  // start with second char (H5 level)
         // one level bigger for each '='
-        while (EQUAL_SIGN.equals(headingSequence[i]) && proportion<STANDARD_PROPORTION_MAX) {
+        while (EQUAL_SIGN.equals(headingSequence[i]) && proportion < STANDARD_PROPORTION_MAX) {
             proportion += SIZE_STEP;
             i++;
         }

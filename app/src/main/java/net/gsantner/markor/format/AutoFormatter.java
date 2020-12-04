@@ -230,7 +230,7 @@ public class AutoFormatter {
                 groupStart = lineStart + matcher.start(FULL_ITEM_PREFIX_GROUP);
                 groupEnd = lineStart + matcher.end(FULL_ITEM_PREFIX_GROUP);
                 String emptyCheckboxContent = " ";
-                newItemPrefix = isChecklist ? matcher.group(CHECKBOX_PREFIX_LEFT_GROUP)+emptyCheckboxContent+matcher.group(CHECKBOX_PREFIX_RIGHT_GROUP)
+                newItemPrefix = isChecklist ? matcher.group(CHECKBOX_PREFIX_LEFT_GROUP) + emptyCheckboxContent + matcher.group(CHECKBOX_PREFIX_RIGHT_GROUP)
                         : matcher.group(FULL_ITEM_PREFIX_GROUP);
             } else {
                 groupStart = groupEnd = -1;
@@ -358,9 +358,9 @@ public class AutoFormatter {
         } else {
             char charValue = currentValue.charAt(0);
             if (lowercaseLetterPattern.matcher(currentValue).find()) {
-                return charValue < 'z' ? ""+(char)(charValue+1) : ""+'a';
-            } else if (capitalLetterPattern.matcher(currentValue).find()){
-                return charValue < 'Z' ? ""+(char)(charValue+1) : ""+'A';
+                return charValue < 'z' ? "" + (char) (charValue + 1) : "" + 'a';
+            } else if (capitalLetterPattern.matcher(currentValue).find()) {
+                return charValue < 'Z' ? "" + (char) (charValue + 1) : "" + 'A';
             }
         }
         return "0";
