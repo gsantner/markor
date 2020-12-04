@@ -130,7 +130,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     }
 
     public boolean isFileWriteable(File file, boolean isGoUp) {
-        return file != null && (canWrite(file) || isGoUp || _virtualMapping.keySet().contains(file));
+        return file != null && (canWrite(file) || isGoUp || _virtualMapping.containsKey(file));
     }
 
     @Override
@@ -144,7 +144,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         new ContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
         final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         final String filename = file_pre.getName();
-        if (_virtualMapping.keySet().contains(file_pre)) {
+        if (_virtualMapping.containsKey(file_pre)) {
             file_pre = _virtualMapping.get(file_pre);
         }
         final File file = file_pre;
@@ -321,7 +321,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                 TagContainer data = (TagContainer) view.getTag();
                 if (data != null && data.file != null) {
                     File file = data.file;
-                    if (_virtualMapping.keySet().contains(file)) {
+                    if (_virtualMapping.containsKey(file)) {
                         file = _virtualMapping.get(data.file);
                     }
                     if (areItemsSelected()) {

@@ -619,7 +619,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             String message = getString(R.string.file_already_exists_overwerite) + "\n[" + file.getName() + "]";
             // Ask if overwriting is okay
             WrConfirmDialog d = WrConfirmDialog.newInstance(
-                    getString(R.string.confirm_overwrite), message, file, (WrConfirmDialog.ConfirmDialogCallback) (confirmed, data) -> {
+                    getString(R.string.confirm_overwrite), message, file, (confirmed, data) -> {
                         if (confirmed) {
                             importFileToCurrentDirectory(getActivity(), file);
                         }

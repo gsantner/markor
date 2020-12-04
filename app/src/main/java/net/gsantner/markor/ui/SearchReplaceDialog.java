@@ -88,14 +88,14 @@ public class SearchReplaceDialog {
             final int end = Math.min(Math.max(0, Math.max(sel[0], sel[1])), _edit.length());
 
             if (start == end) {
-                _sel = new int[] {0, edit.length()};
+                _sel = new int[]{0, edit.length()};
                 cursorPosition = start;
             } else {
                 cursorPosition = -1;
-                _sel = new int[] {start, -1};
+                _sel = new int[]{start, -1};
             }
         } else {
-            _sel = new int[] {0, edit.length()};
+            _sel = new int[]{0, edit.length()};
             cursorPosition = -1;
         }
 
@@ -331,7 +331,7 @@ public class SearchReplaceDialog {
         }
 
         final JSONArray array = new JSONArray();
-        for (final ReplaceGroup rg: newReplaces) {
+        for (final ReplaceGroup rg : newReplaces) {
             array.put(rg.toJson());
         }
 

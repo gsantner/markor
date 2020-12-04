@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
@@ -93,7 +92,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     public RemoteViews getViewAt(int position) {
         RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
-        if(new AppSettings(_context).isDarkThemeEnabled())
+        if (new AppSettings(_context).isDarkThemeEnabled())
             rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.dark__primary_text));
         else
             rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.light__primary_text));

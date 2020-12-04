@@ -23,7 +23,6 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -199,7 +198,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-   }
+    }
 
     public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
