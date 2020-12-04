@@ -24,8 +24,11 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
@@ -231,5 +234,24 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         if (_appSettings.isMarkdownAutoUpdateList()) {
             AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
         }
+    }
+
+    public static String createZimWikiHeaderAndTitleContents(String fileNameWithoutExtension, Date creationDate, String creationDateLinePrefix) {
+        String headerContentTypeLine = "Content-Type: text/x-zim-wiki";
+        String headerWikiFormatLine = "Wiki-Format: zim 0.6";
+        SimpleDateFormat headerDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ROOT);
+        String creationDateFormatted = headerDateFormat.format(creationDate);
+        String headerCreationDateLine = "Creation-Date: " + creationDateFormatted;
+        String title = fileNameWithoutExtension.trim().replaceAll("_", " ");
+        String titleLine = "====== " + title + " ======";
+        SimpleDateFormat creationDateLineFormat = new SimpleDateFormat("'" + creationDateLinePrefix + "'" + " EEEE dd MMMM yyyy", Locale.getDefault());
+        String creationDateLine = creationDateLineFormat.format(creationDate);
+
+        String contents = headerContentTypeLine + "\n"
+                + headerWikiFormatLine + "\n"
+                + headerCreationDateLine + "\n\n"
+                + titleLine + "\n"
+                + creationDateLine + "\n";
+        return contents;
     }
 }

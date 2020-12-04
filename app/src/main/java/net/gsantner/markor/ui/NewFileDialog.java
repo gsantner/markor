@@ -30,7 +30,7 @@ import android.widget.Spinner;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
-import net.gsantner.markor.format.zimwiki.ZimWikiFileContentsGenerator;
+import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
@@ -242,7 +242,7 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             case 7: {
-                t = ZimWikiFileContentsGenerator.createZimWikiHeaderAndTitleContents(filename.replaceAll("(\\.((zim)|(txt)))*$", "").trim().replace(' ', '_'), new Date(), getResources().getString(R.string.created));
+                t = ZimWikiTextActions.createZimWikiHeaderAndTitleContents(filename.replaceAll("(\\.((zim)|(txt)))*$", "").trim().replace(' ', '_'), new Date(), getResources().getString(R.string.created));
                 break;
             }
             case 8: {

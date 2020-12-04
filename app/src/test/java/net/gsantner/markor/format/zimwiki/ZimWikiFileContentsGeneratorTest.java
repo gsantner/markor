@@ -32,7 +32,7 @@ public class ZimWikiFileContentsGeneratorTest {
                 "\n" +
                 "====== My new wiki page ======\n" +
                 "Created Thursday 24 December 2020\n";
-        String actual = ZimWikiFileContentsGenerator.createZimWikiHeaderAndTitleContents("My_new_wiki_page", date, "Created");
+        String actual = ZimWikiTextActions.createZimWikiHeaderAndTitleContents("My_new_wiki_page", date, "Created");
         assertThat(actual).isEqualTo(expected);
     }
 }
