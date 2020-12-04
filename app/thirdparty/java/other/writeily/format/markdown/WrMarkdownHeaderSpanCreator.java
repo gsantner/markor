@@ -31,7 +31,7 @@ public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     public WrMarkdownHeaderSpanCreator(Highlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
         _highlighter = highlighter;
         _spannable = spannable;
-        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter.getFontType(), highlighter.getFontSize(), color, dynamicTextSize);
+        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter.getAppSettings().getFontFamily(), highlighter.getAppSettings().getFontSize(), color, dynamicTextSize);
     }
 
     public ParcelableSpan create(Matcher m, int iM) {

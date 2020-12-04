@@ -86,14 +86,6 @@ public abstract class Highlighter {
         _document = document;
     }
 
-    public int getFontSize() {
-        return _appSettings.getFontSize();
-    }
-
-    public String getFontType() {
-        return _appSettings.getFontFamily();
-    }
-
     public float getHighlightingFactorBasedOnFilesize() {
         return _highlightingFactorBasedOnFilesize;
     }
@@ -125,6 +117,10 @@ public abstract class Highlighter {
             return _document.getFile().getAbsolutePath();
         }
         return "";
+    }
+
+    public AppSettings getAppSettings(){
+        return _appSettings;
     }
 
     public TextWatcher getTextModifier() {
