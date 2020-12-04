@@ -101,7 +101,8 @@ public class SearchOrCustomTextDialog {
     private static class WithPositionAdapter extends ArrayAdapter<Pair<String, Integer>> {
 
         final LayoutInflater mInflater;
-        final @LayoutRes int mLayout;
+        final @LayoutRes
+        int mLayout;
         final DialogOptions dopt;
         final List<Pair<String, Integer>> filteredItems;
         final Pattern extraPattern;
@@ -118,7 +119,7 @@ public class SearchOrCustomTextDialog {
         @NonNull
         @Override
         public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-            final Pair<String, Integer> item = (Pair<String, Integer>) getItem(pos);
+            final Pair<String, Integer> item = getItem(pos);
             final String text = item.first;
             final int posInOriginalList = item.second;
 

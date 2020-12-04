@@ -164,7 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
     <string name="use_monospace_for_code">Використовувати моноширинний шрифт для коду</string>
     <string name="disable_code_block_highlight">Вимкнути підсвічування для блоків коду</string>
-    <string name="auto_renumber_ordered_list">Автозміна нумерованих списків</string>
+    <string name="auto_renumber_ordered_list">Автоматична зміна нумерованих списків</string>
     <string name="auto_renumber_ordered_list_slowdown">Цей параметр може вплинути на продуктивність програми.</string>
     <string name="use_different_fonttype_slow_down">Використовувати різні шрифти. Динамічна зміна шрифту впливає на продуктивність додатку.</string>
     <string name="general">Загальне</string>
@@ -188,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Починати внизу</string>
     <string name="start_on_bottom_when_loading_document">Після завантаження документа встановити курсор в кінець</string>
     <string name="unordered_list_character">Символ для невпорядкованих списків</string>
-    <string name="character_to_start_items_of_unordered_list_with">Визначає символ, який використовується для позначення невпорядкованих списків</string>
+    <string name="character_to_start_items_of_unordered_list_with">Визначає символ для позначення невпорядкованих списків</string>
     <string name="unordered_list_char_dash">Тире (-)</string>
     <string name="unordered_list_char_asterisk">Зірочка (*)</string>
     <string name="unordered_list_char_plus">Плюс (+)</string>
@@ -386,7 +386,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_for">Шукати</string>
     <string name="replace_with">Замінити на</string>
     <string name="replace_once">Замінити (1)</string>
-    <string name="replace_all">Замінити всі</string>
-    <string name="matches">Матчі</string>
+    <string name="replace_all">Замінити всe</string>
+    <string name="matches">Збіги</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
 </resources>

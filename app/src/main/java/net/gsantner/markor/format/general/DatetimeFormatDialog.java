@@ -257,8 +257,8 @@ public class DatetimeFormatDialog {
     /**
      * Create data for adapter.
      *
-     * @param locale   Locale for generating date-time strings
-     * @param formats  List of formats to generate format-time pair maps for
+     * @param locale  Locale for generating date-time strings
+     * @param formats List of formats to generate format-time pair maps for
      * @return List of format-pair maps
      */
     private static List<Map<String, String>> createAdapterData(final Locale locale, final List<String> formats) {
@@ -287,15 +287,15 @@ public class DatetimeFormatDialog {
 
     /**
      * Load recent formats from settings.
-     *
+     * <p>
      * As formats can contain any character, it is not possible to store an array as as a
      * delimited string. Instead, formats are stored as 2 stings
      * a. A String of concatenated format strings
      * b. A String of comma separated lengths
-     *
+     * <p>
      * The lengths string is used to split the concatenated string.
      *
-     * @param activity  Activity in order to get settings
+     * @param activity Activity in order to get settings
      * @return List of Strings representing recently used formats
      */
     private static List<String> getRecentFormats(final Activity activity) {
@@ -314,8 +314,7 @@ public class DatetimeFormatDialog {
                     prev = val;
                 }
             }
-        }
-        catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return Collections.emptyList();
         }
         return formats;
@@ -324,9 +323,10 @@ public class DatetimeFormatDialog {
 
     /**
      * Save recently used formats, inserting new format if necessary
-     * @param activity     Activity in order to get settings
-     * @param formats      List of recently used formats
-     * @param newFormat    New format, will be inserted at the head of formats if it is not null or empty
+     *
+     * @param activity  Activity in order to get settings
+     * @param formats   List of recently used formats
+     * @param newFormat New format, will be inserted at the head of formats if it is not null or empty
      */
     private static void saveRecentFormats(final Activity activity, final List<String> formats, final String newFormat) {
 
@@ -350,7 +350,7 @@ public class DatetimeFormatDialog {
     /**
      * Get a date string for the most recently used format
      *
-     * @param activity   Activity in order to get settings
+     * @param activity Activity in order to get settings
      * @return String    representing current date / time in last used format
      */
     public static String getMostRecentDate(final Activity activity) {

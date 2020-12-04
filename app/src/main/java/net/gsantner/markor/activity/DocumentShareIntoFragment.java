@@ -262,13 +262,22 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            File dir = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
-            NewFileDialog dialog = NewFileDialog.newInstance(dir, (ok, f) -> {
-                if (ok && f.isFile()) {
-                    appendToExistingDocument(f, "", true);
+            FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                @Override
+                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
                 }
-            });
-            dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+
+                @Override
+                public void onFsViewerSelected(String request, File dir) {
+                    NewFileDialog dialog = NewFileDialog.newInstance(dir, false, (ok, f) -> {
+                        if (ok && f.isFile()) {
+                            appendToExistingDocument(f, "", true);
+                        }
+                    });
+                    dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                }
+            }, getFragmentManager(), getActivity());
         }
 
         private void showInDocumentActivity(Document document) {
