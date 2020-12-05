@@ -25,7 +25,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.HEADING.pattern;
+            pattern = ZimWikiHighlighter.Patterns.HEADING.pattern;
         }
 
         @Test
@@ -72,7 +72,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.BOLD.pattern;
+            pattern = ZimWikiHighlighter.Patterns.BOLD.pattern;
         }
 
         @Test
@@ -125,38 +125,38 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void uncheckedItem() {
-            pattern = ZimWikiHighlighterPattern.CHECKLIST_UNCHECKED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.CHECKLIST_UNCHECKED.pattern;
             Matcher m = pattern.matcher("[ ] Unchecked Item");
             assertCorrectCheckboxWithInnerSymbol(m, " ");
         }
 
         @Test
         public void checkedItem() {
-            pattern = ZimWikiHighlighterPattern.CHECKLIST_CHECKED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.CHECKLIST_CHECKED.pattern;
             Matcher m = pattern.matcher("[*] Checked Item");
             assertCorrectCheckboxWithInnerSymbol(m, "*");
         }
 
         @Test
         public void crossedItem() {
-            pattern = ZimWikiHighlighterPattern.CHECKLIST_CROSSED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.CHECKLIST_CROSSED.pattern;
             Matcher m = pattern.matcher("[x] Crossed Item");
             assertCorrectCheckboxWithInnerSymbol(m, "x");
         }
 
         @Test
         public void itemWithArrow() {
-            pattern = ZimWikiHighlighterPattern.CHECKLIST_ARROW.pattern;
+            pattern = ZimWikiHighlighter.Patterns.CHECKLIST_ARROW.pattern;
             Matcher m = pattern.matcher("[>] Marked Item with a yellow arrow");
             assertCorrectCheckboxWithInnerSymbol(m, ">");
         }
 
         @Test
         public void roundBracesDoNotMatch() {
-            Pattern[] checklistPatterns = {ZimWikiHighlighterPattern.CHECKLIST.pattern,
-                    ZimWikiHighlighterPattern.CHECKLIST_CHECKED.pattern,
-                    ZimWikiHighlighterPattern.CHECKLIST_CROSSED.pattern,
-                    ZimWikiHighlighterPattern.CHECKLIST_ARROW.pattern};
+            Pattern[] checklistPatterns = {ZimWikiHighlighter.Patterns.CHECKLIST.pattern,
+                    ZimWikiHighlighter.Patterns.CHECKLIST_CHECKED.pattern,
+                    ZimWikiHighlighter.Patterns.CHECKLIST_CROSSED.pattern,
+                    ZimWikiHighlighter.Patterns.CHECKLIST_ARROW.pattern};
             for (Pattern checklistPattern : checklistPatterns) {
                 Matcher m = checklistPattern.matcher("( ) invalid item");
                 assertThat(m.find()).isFalse();
@@ -166,9 +166,9 @@ public class ZimWikiHighlighterTests {
         private void assertCorrectCheckboxWithInnerSymbol(Matcher m, String symbol) {
             assertThat(m.find()).isTrue();
             assertThat(m.group()).isEqualTo("[" + symbol + "]");
-            assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_LEFT_BRACKET_GROUP)).isEqualTo("[");
-            assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_SYMBOL_GROUP)).isEqualTo(symbol);
-            assertThat(m.group(ZimWikiHighlighterPattern.CHECKBOX_RIGHT_BRACKET_GROUP)).isEqualTo("]");
+            assertThat(m.group(ZimWikiHighlighter.Patterns.CHECKBOX_LEFT_BRACKET_GROUP)).isEqualTo("[");
+            assertThat(m.group(ZimWikiHighlighter.Patterns.CHECKBOX_SYMBOL_GROUP)).isEqualTo(symbol);
+            assertThat(m.group(ZimWikiHighlighter.Patterns.CHECKBOX_RIGHT_BRACKET_GROUP)).isEqualTo("]");
         }
     }
 
@@ -179,7 +179,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.ITALICS.pattern;
+            pattern = ZimWikiHighlighter.Patterns.ITALICS.pattern;
         }
 
         @Test
@@ -295,7 +295,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.LIST_UNORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_UNORDERED.pattern;
         }
 
         @Test
@@ -364,7 +364,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.LIST_ORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_ORDERED.pattern;
         }
 
         @Test
@@ -396,7 +396,7 @@ public class ZimWikiHighlighterTests {
 
         @Before
         public void before() {
-            pattern = ZimWikiHighlighterPattern.STRIKETHROUGH.pattern;
+            pattern = ZimWikiHighlighter.Patterns.STRIKETHROUGH.pattern;
         }
 
         @Test
@@ -456,7 +456,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void boldWordInSentence() {
-            pattern = ZimWikiHighlighterPattern.BOLD.pattern;
+            pattern = ZimWikiHighlighter.Patterns.BOLD.pattern;
             Matcher matcher = pattern.matcher("The following **word** is bold.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("**word**");
@@ -464,7 +464,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void italicsWordInSentence() {
-            pattern = ZimWikiHighlighterPattern.ITALICS.pattern;
+            pattern = ZimWikiHighlighter.Patterns.ITALICS.pattern;
             Matcher matcher = pattern.matcher("The following //word// is in italics.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("//word//");
@@ -472,7 +472,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void highlightedWordInSentence() {
-            pattern = ZimWikiHighlighterPattern.HIGHLIGHTED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.HIGHLIGHTED.pattern;
             Matcher matcher = pattern.matcher("The following __word__ is marked (highlighted).");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("__word__");
@@ -480,7 +480,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void struckThroughWordInSentence() {
-            pattern = ZimWikiHighlighterPattern.STRIKETHROUGH.pattern;
+            pattern = ZimWikiHighlighter.Patterns.STRIKETHROUGH.pattern;
             Matcher matcher = pattern.matcher("The following ~~word~~ is struck through.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("~~word~~");
@@ -488,7 +488,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void preformattedWordInSentence() {
-            pattern = ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern;
+            pattern = ZimWikiHighlighter.Patterns.PREFORMATTED_INLINE.pattern;
             Matcher matcher = pattern.matcher("The following ''word'' is struck through.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("''word''");
@@ -496,7 +496,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void preformattedTextBlock() {
-            pattern = ZimWikiHighlighterPattern.PREFORMATTED_MULTILINE.pattern;
+            pattern = ZimWikiHighlighter.Patterns.PREFORMATTED_MULTILINE.pattern;
             Matcher matcher = pattern.matcher("Some text before\n" +
                     "'''\n" +
                     "some\n" +
@@ -510,7 +510,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void unorderedListHighlightings() {
-            pattern = ZimWikiHighlighterPattern.LIST_UNORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_UNORDERED.pattern;
             Matcher matcher = pattern.matcher("some text...\n* first item\n\t* item 11\n* item 2");
             for (int i = 0; i < 3; i++) {
                 assertThat(matcher.find());
@@ -521,7 +521,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void orderedListHighlightingsNumbers() {
-            pattern = ZimWikiHighlighterPattern.LIST_ORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_ORDERED.pattern;
             Matcher matcher = pattern.matcher("\n1. first item\n\t2. second item\n");
             String[] expectedMatches = {"1.", "2."};
             for (String expectedMatch : expectedMatches) {
@@ -532,7 +532,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void orderedListHighlightingsCharacters() {
-            pattern = ZimWikiHighlighterPattern.LIST_ORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_ORDERED.pattern;
             Matcher matcher = pattern.matcher("\na. first item\nb. second item\n");
             String[] expectedMatches = {"a.", "b."};
             for (String expectedMatch : expectedMatches) {
@@ -543,7 +543,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void orderedListHighlightingsNumbersAndCharacters() {
-            pattern = ZimWikiHighlighterPattern.LIST_ORDERED.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LIST_ORDERED.pattern;
             Matcher matcher = pattern.matcher("\n1. first item\n2. second item\n\ta. item 2a\n\tb. item 2b\n");
             String[] expectedMatches = {"1.", "2.", "a.", "b."};
             for (String expectedMatch : expectedMatches) {
@@ -554,7 +554,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void webLinkInSentence() {
-            pattern = ZimWikiHighlighterPattern.LINK.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LINK.pattern;
             Matcher matcher = pattern.matcher("Visit [[https://github.com/gsantner/markor|Markor on Github]] now!");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("[[https://github.com/gsantner/markor|Markor on Github]]");
@@ -562,7 +562,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void crossWikiLink() {
-            pattern = ZimWikiHighlighterPattern.LINK.pattern;
+            pattern = ZimWikiHighlighter.Patterns.LINK.pattern;
             Matcher matcher = pattern.matcher("Go to another page [[Page Name]] in the same notebook.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("[[Page Name]]");
@@ -570,7 +570,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void linkToLocalImage() {
-            pattern = ZimWikiHighlighterPattern.IMAGE.pattern;
+            pattern = ZimWikiHighlighter.Patterns.IMAGE.pattern;
             Matcher matcher = pattern.matcher("Some text.\nSome more text.\n{{.pasted_image.png}}\nMore text.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("{{.pasted_image.png}}");
@@ -578,7 +578,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void superscriptTextInSentence() {
-            pattern = ZimWikiHighlighterPattern.SUPERSCRIPT.pattern;
+            pattern = ZimWikiHighlighter.Patterns.SUPERSCRIPT.pattern;
             Matcher matcher = pattern.matcher("We also have _{subscript} and ^{superscript}.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("^{superscript}");
@@ -586,7 +586,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void subscriptTextInSentence() {
-            pattern = ZimWikiHighlighterPattern.SUBSCRIPT.pattern;
+            pattern = ZimWikiHighlighter.Patterns.SUBSCRIPT.pattern;
             Matcher matcher = pattern.matcher("We also have _{subscript} and ^{superscript}.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("_{subscript}");
@@ -595,7 +595,7 @@ public class ZimWikiHighlighterTests {
 
         @Test
         public void checkListOverMultipleLines() {
-            pattern = ZimWikiHighlighterPattern.CHECKLIST.pattern;
+            pattern = ZimWikiHighlighter.Patterns.CHECKLIST.pattern;
             Matcher matcher = pattern.matcher("Some text before...\n" +
                     "[ ] unchecked item\n" +
                     "[*] checked item\n" +

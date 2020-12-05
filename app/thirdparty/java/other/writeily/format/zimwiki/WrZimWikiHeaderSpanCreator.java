@@ -29,10 +29,10 @@ public class WrZimWikiHeaderSpanCreator implements SpanCreator.ParcelableSpanCre
     private final Spannable _spannable;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrZimWikiHeaderSpanCreator(ZimWikiHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
+    public WrZimWikiHeaderSpanCreator(ZimWikiHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize, final String fontType, final int fontSize) {
         _highlighter = highlighter;
         _spannable = spannable;
-        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter._fontType, highlighter._fontSize, color, dynamicTextSize);
+        _spanCreator = new WrProportionalHeaderSpanCreator(fontType, fontSize, color, dynamicTextSize);
     }
 
     public ParcelableSpan create(Matcher m, int iM) {

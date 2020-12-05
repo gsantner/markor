@@ -44,7 +44,7 @@ public class ZimWikiTextConverter extends TextConverter {
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        String contentWithoutHeader = markup.replaceFirst(ZimWikiHighlighterPattern.ZIMHEADER.pattern.toString(), "");
+        String contentWithoutHeader = markup.replaceFirst(ZimWikiHighlighter.Patterns.ZIMHEADER.pattern.toString(), "");
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
@@ -61,26 +61,26 @@ public class ZimWikiTextConverter extends TextConverter {
         final AtomicReference<String> currentLine = new AtomicReference<>(zimWikiLine);
 
         // Headings
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.HEADING.pattern, this::convertHeading);
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.HEADING.pattern, this::convertHeading);
 
         // bold syntax is the same as for markdown
-        replaceAllMatchesInLinePartially(currentLine, ZimWikiHighlighterPattern.ITALICS.pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
+        replaceAllMatchesInLinePartially(currentLine, ZimWikiHighlighter.Patterns.ITALICS.pattern, "^/+|/+$", "*");
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
         // strikethrough syntax is the same as for markdown
 
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
         replaceAllMatchesInLine(currentLine, Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
 
         // unordered list syntax is compatible with markdown
         replaceAllMatchesInLinePartially(currentLine, LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.CHECKLIST.pattern, this::convertChecklist);
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.CHECKLIST.pattern, this::convertChecklist);
 
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.LINK.pattern, fullMatch -> convertLink(fullMatch, context, file));
-        replaceAllMatchesInLine(currentLine, ZimWikiHighlighterPattern.IMAGE.pattern, fullMatch -> convertImage(file, fullMatch));
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.LINK.pattern, fullMatch -> convertLink(fullMatch, context, file));
+        replaceAllMatchesInLine(currentLine, ZimWikiHighlighter.Patterns.IMAGE.pattern, fullMatch -> convertImage(file, fullMatch));
 
         return currentLine.getAndSet("");
     }
@@ -193,7 +193,7 @@ public class ZimWikiTextConverter extends TextConverter {
                     firstLinesOfFile.append(line + String.format("%n"));
                 }
             }
-            hasZimHeader = ZimWikiHighlighterPattern.ZIMHEADER.pattern.matcher(firstLinesOfFile).find();
+            hasZimHeader = ZimWikiHighlighter.Patterns.ZIMHEADER.pattern.matcher(firstLinesOfFile).find();
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
