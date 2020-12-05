@@ -382,6 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Fil beskrivelse format</string>
     <string name="file_description_format_dialog">Format for beskrivelsen under hver fil i filbrowseren. Følger Androids SimpleDateFormat regler, med tilføjelsen af FS for at vise filstørrelse. Lad stå tomt for at bruge standardformatet for din landestandard.\n\nEksempel input:\nFS yyyy MMM dd hhh:mm:ss aa\nOutput format:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Indlæser standardværdi</string>
+    <string name="file_settings">Fil indstillinger</string>
     <string name="search_and_replace">Søg / Erstat</string>
     <string name="search_for">Søg efter</string>
     <string name="replace_with">Erstat med</string>

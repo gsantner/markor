@@ -382,6 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formát popisu souboru</string>
     <string name="file_description_format_dialog">Formát pro popis každého souboru v prohlížeči souborů. Postupujte podle pravidel SimpleDateFormat Android s přidáním FS pro zobrazení velikosti souboru. Ponechte prázdné pro použití výchozího formátu pro vaše locale.\n\nPříklad vstupu:\nFS yyyy MMM dd hh:mm:ss aa\nVýstupní formát:\n30KB 2020 bře 20 11:24:52</string>
     <string name="loading_default_value">Načítání výchozí hodnoty</string>
+    <string name="file_settings">Nastavení souboru</string>
     <string name="search_and_replace">Hledat / nahradit</string>
     <string name="search_for">Hledat</string>
     <string name="replace_with">Nahradit pomocí</string>

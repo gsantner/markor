@@ -52,10 +52,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">منتخب کریں</string>
     <string name="create">بنائیں</string>
     <string name="name">نام</string>
-    <string name="licenses">لائسنس</string>
+    <string name="contributors">معاونین</string>
+    <string name="licenses">لائسینسز</string>
+    <string name="changelog">لاگ تبدیل کریں</string>
+    <string name="show_license_of_the_app">ایپ کا لائسینس دکھائیں</string>
+    <string name="show_third_party_licenses">تھرڈ پارٹی لائسینسز دکھائیں</string>
+    <string name="language_change_restart_description">ایپ کی زبان تبدیل کریں. یہ تبدیلی دیکھنے کیلئے ایپ ری سٹارٹ کریں</string>
+    <string name="language">زبان</string>
     <string name="deleteme____1">نام</string>
     <string name="size">سائز</string>
+    <string name="donate">عطیہ کریں</string>
     <string name="exit">بند کریں</string>
     <string name="help">مدد</string>
     <string name="list">فہرست</string>
+    <string name="other">دیگر</string>
+    <string name="error_picture_selection">کوئی تصویر سیلیکٹ، کھنچی یا محفوظ نہیں کی گئی.</string>
+    <string name="miscellaneous">منفرق مضامین</string>
+    <string name="background">پس منظر</string>
+    <string name="font">فونٹ</string>
 </resources>
