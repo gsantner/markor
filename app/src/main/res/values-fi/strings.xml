@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Otsake 1</string>
     <string name="heading_2">Otsake 2</string>
     <string name="heading_3">Otsake 3</string>
+    <string name="heading_4">Otsake 4</string>
+    <string name="heading_5">Otsake 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">Korostettu</string>
     <string name="strikeout">Yliviivattu</string>
     <string name="inline_code">Sisäinen koodi</string>
     <string name="horizontal_line">Vaakasuora viiva</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Vaihda toiminnan näkyvyyttä</string>
     <string name="load_default_settings">Lataa oletusasetukset</string>
     <string name="drag">Vedä</string>
+    <string name="created">Luotu</string>
     <string name="file_encryption_password">Tiedoston salauksen salasana</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Salasanaa ei ole asetettu, salattu tai salauksen purku.\nMene Asetukset -&gt; Yleiset -&gt; Salasana salasanan asettamiseksi.</string>
     <string name="encrypt_file_content">Salaa tiedoston sisältö</string>
