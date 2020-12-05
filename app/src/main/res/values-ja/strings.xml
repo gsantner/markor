@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">見出し 1</string>
     <string name="heading_2">見出し 2</string>
     <string name="heading_3">見出し 3</string>
+    <string name="heading_4">見出し 4</string>
+    <string name="heading_5">見出し 5</string>
     <string name="bold">太字</string>
     <string name="italic">斜体</string>
+    <string name="highlighted">強調表示</string>
     <string name="strikeout">取り消し線</string>
     <string name="inline_code">インラインコード</string>
     <string name="horizontal_line">水平線</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">アクションの表示を切り替える</string>
     <string name="load_default_settings">デフォルトの設定を読み込む</string>
     <string name="drag">ドラッグ</string>
+    <string name="created">作成済み</string>
     <string name="file_encryption_password">ファイルの暗号化パスワード</string>
     <string name="no_password_set_cannot_encrypt_decrypt">パスワードが設定されていません。暗号化、復号化できません。\n設定 -&gt; 全般 -&gt; パスワードに移動して、パスワードを設定してください。</string>
     <string name="encrypt_file_content">ファイルの内容を暗号化する</string>
