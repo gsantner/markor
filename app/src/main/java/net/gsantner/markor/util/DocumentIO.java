@@ -127,7 +127,7 @@ public class DocumentIO {
                 document.setFormat(TextFormat.FORMAT_KEYVALUE);
             } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
                 document.setFormat(TextFormat.FORMAT_MARKDOWN);
-            } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(document.getFile().getAbsolutePath())) {
+            } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(filePath.getAbsolutePath())) {
                 document.setFormat(TextFormat.FORMAT_ZIMWIKI);
             } else {
                 document.setFormat(TextFormat.FORMAT_PLAIN);
