@@ -363,8 +363,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Heading 1</string>
     <string name="heading_2">Heading 2</string>
     <string name="heading_3">Heading 3</string>
+    <string name="heading_4">Heading 4</string>
+    <string name="heading_5">Heading 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">Highlighted</string>
     <string name="strikeout">Strike out</string>
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontal line</string>
@@ -385,6 +388,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Toggle action visibility</string>
     <string name="load_default_settings">Load default settings</string>
     <string name="drag">Drag</string>
+    <string name="created">Created</string>
 
     <string name="file_encryption_password">File encryption password</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No password set, cannot encrypt or decrypt.\nGo to Settings -> General -> Password to set a password.</string>
