@@ -51,6 +51,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">اس فولڈر کو منتخب کریں</string>
     <string name="select">منتخب کریں</string>
     <string name="create">بنائیں</string>
+    <string name="hide_statusbar">اسٹیٹس بار چھپائیں</string>
     <string name="name">نام</string>
     <string name="contributors">معاونین</string>
     <string name="licenses">لائسینسز</string>
