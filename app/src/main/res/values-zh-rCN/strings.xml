@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">标题 5</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
+    <string name="highlighted">高亮</string>
     <string name="strikeout">删除线</string>
     <string name="inline_code">行内代码</string>
     <string name="horizontal_line">水平线</string>
@@ -372,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
+    <string name="created">已创建</string>
     <string name="file_encryption_password">文件加密密码</string>
     <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n前往设置 -&gt; 普通-&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
