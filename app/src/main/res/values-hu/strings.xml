@@ -363,6 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Műveletek sorrendje</string>
     <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
+    <string name="created">Létrehozva</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
     <string name="encrypt_file_content">Fájlok titkosítása</string>
