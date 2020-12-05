@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Titre 1</string>
     <string name="heading_2">Titre 2</string>
     <string name="heading_3">Titre 3</string>
+    <string name="heading_4">Titre 4</string>
+    <string name="heading_5">Titre 5</string>
     <string name="bold">Gras</string>
     <string name="italic">Italique</string>
+    <string name="highlighted">Surligné</string>
     <string name="strikeout">Barré</string>
     <string name="inline_code">Code en ligne</string>
     <string name="horizontal_line">Ligne horizontale</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Activer/désactiver la visibilité de l\'action</string>
     <string name="load_default_settings">Charger les paramètres par défaut</string>
     <string name="drag">Glisser</string>
+    <string name="created">Créé</string>
     <string name="file_encryption_password">Mot de passe de chiffrement de fichier</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Aucun mot de passe défini, ne peut pas chiffrer ou déchiffrer.\nAllez dans Paramètres -&gt; Général -&gt; Mot de passe pour définir un mot de passe.</string>
     <string name="encrypt_file_content">Chiffrer le contenu du fichier</string>
