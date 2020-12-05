@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Заголовок 1</string>
     <string name="heading_2">Заголовок 2</string>
     <string name="heading_3">Заголовок 3</string>
+    <string name="heading_4">Заголовок 4</string>
+    <string name="heading_5">Заголовок 5</string>
     <string name="bold">Жирний</string>
     <string name="italic">Курсив</string>
+    <string name="highlighted">Виділено</string>
     <string name="strikeout">Перекреслений</string>
     <string name="inline_code">Вбудований код</string>
     <string name="horizontal_line">Горизонтальна лінія</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Перемкнути видимість дії</string>
     <string name="load_default_settings">Встановити типові параметри</string>
     <string name="drag">Перетягніть</string>
+    <string name="created">Створений</string>
     <string name="file_encryption_password">Пароль шифрування файлу</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Пароль не встановлено, тому неможливо шифрувати чи розшифровувати.\nПерейдіть до налаштувань -&gt; Загальне -&gt; Пароль щоб встановити пароль.</string>
     <string name="encrypt_file_content">Шифрувати вміст файлу</string>

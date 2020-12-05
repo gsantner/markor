@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">العنوان 1</string>
     <string name="heading_2">العنوان 2</string>
     <string name="heading_3">العنوان 3</string>
+    <string name="heading_4">العنوان 4</string>
+    <string name="heading_5">العنوان 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">بارز</string>
     <string name="strikeout">ضرب</string>
     <string name="inline_code">كود مضمن</string>
     <string name="horizontal_line">خط أفقي</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">تبديل رؤية الإجراء</string>
     <string name="load_default_settings">تحميل الإعدادات الافتراضية</string>
     <string name="drag">اسحب</string>
+    <string name="created">أنشئ</string>
     <string name="file_encryption_password">كلمة مرور تشفير الملف</string>
     <string name="no_password_set_cannot_encrypt_decrypt">لا توجد مجموعة كلمة مرور، لا يمكن تشفير أو فك تشفير.\nانتقل إلى الإعدادات -&gt; عام -&gt; كلمة مرور لتعيين كلمة مرور.</string>
     <string name="encrypt_file_content">تشفير محتوى الملف</string>

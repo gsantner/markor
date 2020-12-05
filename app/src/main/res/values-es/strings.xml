@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Título 1</string>
     <string name="heading_2">Título 2</string>
     <string name="heading_3">Título 3</string>
+    <string name="heading_4">Título 4</string>
+    <string name="heading_5">Título 5</string>
     <string name="bold">Negrita</string>
     <string name="italic">Cursiva</string>
+    <string name="highlighted">Resaltado</string>
     <string name="strikeout">Tachar</string>
     <string name="inline_code">Código en línea</string>
     <string name="horizontal_line">Línea horizontal</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Alternar visibilidad de acción</string>
     <string name="load_default_settings">Cargar ajustes por defecto</string>
     <string name="drag">Arrastrar</string>
+    <string name="created">Creado</string>
     <string name="file_encryption_password">Contraseña del cifrado de archivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No se ha establecido ninguna contraseña, no se puede cifrar o descifrar.\nVaya a Ajustes -&gt; General -&gt; Contraseña para establecer una contraseña.</string>
     <string name="encrypt_file_content">Cifrar contenido del archivo</string>
