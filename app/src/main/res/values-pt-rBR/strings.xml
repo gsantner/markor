@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">Cabeçalho 5</string>
     <string name="bold">Negrito</string>
     <string name="italic">Itálico</string>
+    <string name="highlighted">Destacado</string>
     <string name="strikeout">Rasurado</string>
     <string name="inline_code">Código em linha</string>
     <string name="horizontal_line">Linha horizontal</string>
@@ -372,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Alternar visibilidade da ação</string>
     <string name="load_default_settings">Carregar configurações padrão</string>
     <string name="drag">Arrastar</string>
+    <string name="created">Criado</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nenhuma senha definida, não pode criptografar ou descriptografar.\nVá para Configurações -&gt; Geral -&gt; Senha para definir uma senha.</string>
     <string name="encrypt_file_content">Criptografar conteúdo do arquivo</string>
