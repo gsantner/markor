@@ -348,6 +348,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Başlık 1</string>
     <string name="heading_2">Başlık 2</string>
     <string name="heading_3">Başlık 3</string>
+    <string name="heading_4">Başlık 4</string>
+    <string name="heading_5">Başlık 5</string>
     <string name="bold">Kalın</string>
     <string name="italic">İtalik</string>
     <string name="strikeout">Üstü çizili</string>
