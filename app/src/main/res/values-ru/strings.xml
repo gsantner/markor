@@ -382,6 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Формат описания файла</string>
     <string name="file_description_format_dialog">Формат описания для каждого файла в обозревателе. Следуйте правилам SimpleDateFormat Android, добавив FS для отображения размера файла. Оставьте пустым, чтобы использовать формат по умолчанию для вашей локали.\n\nПример ввода:\nFS yyyy MMM dd hh:mm:ss aa\nФормат вывода:\n30KB 2020 Мар 20 11:24:52 PM</string>
     <string name="loading_default_value">Загрузка значения по умолчанию</string>
+    <string name="file_settings">Настройки файла</string>
     <string name="search_and_replace">Поиск / Замена</string>
     <string name="search_for">Искать</string>
     <string name="replace_with">Заменить на</string>
