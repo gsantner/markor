@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Überschrift 1</string>
     <string name="heading_2">Überschrift 2</string>
     <string name="heading_3">Überschrift 3</string>
+    <string name="heading_4">Überschrift 4</string>
+    <string name="heading_5">Überschrift 5</string>
     <string name="bold">Fett</string>
     <string name="italic">Kursiv</string>
+    <string name="highlighted">Hervorgehoben</string>
     <string name="strikeout">Durchstreichen</string>
     <string name="inline_code">Inline-Code</string>
     <string name="horizontal_line">Horizontale Linie</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Sichtbarkeit der Aktion umschalten</string>
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
+    <string name="created">Erstellt</string>
     <string name="file_encryption_password">Datei-Verschlüsselungs-Passwort</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Kein Passwort gesetzt, kann nicht verschlüsselt oder entschlüsselt werden.\nGehe zu Einstellungen -&gt; Allgemein -&gt; Passwort, um ein Passwort zu setzen.</string>
     <string name="encrypt_file_content">Dateiinhalt verschlüsseln</string>

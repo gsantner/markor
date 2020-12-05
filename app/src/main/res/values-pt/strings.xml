@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Título 1</string>
     <string name="heading_2">Título 2</string>
     <string name="heading_3">Título 3</string>
+    <string name="heading_4">Título 4</string>
+    <string name="heading_5">Título 5</string>
     <string name="bold">Negrito</string>
     <string name="italic">Itálico</string>
+    <string name="highlighted">Destacado</string>
     <string name="strikeout">Rasurado</string>
     <string name="inline_code">Código em linha</string>
     <string name="horizontal_line">Linha horizontal</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Alternar visibilidade da ação</string>
     <string name="load_default_settings">Carregar predefinições</string>
     <string name="drag">Arrastar</string>
+    <string name="created">Criado</string>
     <string name="file_encryption_password">Senha de criptografia de arquivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Palavra-passe não definida, não é possível cifrar e/ou decifrar.\nAceda a Definições - &gt; Geral -&gt; Palavra-passe para a definir.</string>
     <string name="encrypt_file_content">Cifrar conteúdo do ficheiro</string>

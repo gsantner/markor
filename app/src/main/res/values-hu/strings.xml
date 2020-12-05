@@ -339,8 +339,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Címsor 1</string>
     <string name="heading_2">Címsor 2</string>
     <string name="heading_3">Címsor 3</string>
+    <string name="heading_4">Címsor 4</string>
+    <string name="heading_5">Címsor 5</string>
     <string name="bold">Félkövér</string>
     <string name="italic">Dőlt</string>
+    <string name="highlighted">Kiemelt</string>
     <string name="strikeout">Áthúzott</string>
     <string name="inline_code">Kód beszúrása</string>
     <string name="horizontal_line">Vízszintes vonal</string>
@@ -360,6 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Műveletek sorrendje</string>
     <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
+    <string name="created">Létrehozva</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
     <string name="encrypt_file_content">Fájlok titkosítása</string>

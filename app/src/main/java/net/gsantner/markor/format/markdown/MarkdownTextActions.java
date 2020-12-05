@@ -215,7 +215,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_markdown_table_insert_columns: {
                     SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, callbackInsertTableRow);
-                    break;
+                    return true;
                 }
                 case R.string.tmaid_markdown_code_inline: {
                     _hlEditor.disableHighlighterAutoFormat();
@@ -229,6 +229,7 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], MarkdownAutoFormat.getPrefixPatterns());
+                    return true;
                 }
                 case R.string.tmaid_common_deindent:
                 case R.string.tmaid_common_indent: {

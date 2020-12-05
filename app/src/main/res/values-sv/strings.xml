@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Rubrik 1</string>
     <string name="heading_2">Rubrik 2</string>
     <string name="heading_3">Rubrik 3</string>
+    <string name="heading_4">Rubrik 4</string>
+    <string name="heading_5">Rubrik 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">Markerad</string>
     <string name="strikeout">Slå ut</string>
     <string name="inline_code">Infogad kod</string>
     <string name="horizontal_line">Horisontell linje</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Växla åtgärdens synlighet</string>
     <string name="load_default_settings">Ladda standardinställningar</string>
     <string name="drag">Dra</string>
+    <string name="created">Skapad</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Inget lösenord satt, kan inte kryptera eller dekryptera.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
     <string name="encrypt_file_content">Kryptera filens innehåll</string>
@@ -382,6 +386,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Filens beskrivningsformat</string>
     <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filwebbläsaren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din lokal.\n\nExempel input:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdataformat:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Laddar standardvärde</string>
+    <string name="file_settings">Fil inställningar</string>
     <string name="search_and_replace">Sök / Ersätt</string>
     <string name="search_for">Sök efter</string>
     <string name="replace_with">Ersätt med</string>

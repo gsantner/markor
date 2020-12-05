@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Dział 1</string>
     <string name="heading_2">Dział 2</string>
     <string name="heading_3">Dział 3</string>
+    <string name="heading_4">Dział 4</string>
+    <string name="heading_5">Dział 5</string>
     <string name="bold">Pogrubiony</string>
     <string name="italic">Kursywa</string>
+    <string name="highlighted">Wyróżniony</string>
     <string name="strikeout">Uderzenie</string>
     <string name="inline_code">Kod liniowy</string>
     <string name="horizontal_line">Linia pozioma</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Przełącz widoczność akcji</string>
     <string name="load_default_settings">Załaduj domyślne ustawienia</string>
     <string name="drag">Przeciągnij</string>
+    <string name="created">Utworzono</string>
     <string name="file_encryption_password">Hasło szyfrowania plików</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nie ustawiono hasła, nie można zaszyfrować ani odszyfrować.\nPrzejdź do Ustawień -&gt; Ogólne -&gt; Hasło aby ustawić hasło.</string>
     <string name="encrypt_file_content">Zaszyfruj zawartość pliku</string>

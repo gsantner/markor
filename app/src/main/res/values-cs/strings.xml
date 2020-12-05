@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Nadpis 1</string>
     <string name="heading_2">Nadpis 2</string>
     <string name="heading_3">Nadpis 3</string>
+    <string name="heading_4">Nadpis 4</string>
+    <string name="heading_5">Nadpis 5</string>
     <string name="bold">Tučné</string>
     <string name="italic">Kurzíva</string>
+    <string name="highlighted">Zvýrazněné</string>
     <string name="strikeout">Přeškrtnuté</string>
     <string name="inline_code">Inline kód</string>
     <string name="horizontal_line">Vodorovná čára</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Přepnout viditelnost akce</string>
     <string name="load_default_settings">Načíst výchozí nastavení</string>
     <string name="drag">Přetažení</string>
+    <string name="created">Vytvořeno</string>
     <string name="file_encryption_password">Heslo pro zašifrování souboru</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Není nastaveno žádné heslo, nelze šifrovat ani dešifrovat.\nPřejděte do Nastavení -&gt; Obecné -&gt; Heslo pro zašifrování souboru.</string>
     <string name="encrypt_file_content">Šifrovat obsah souboru</string>

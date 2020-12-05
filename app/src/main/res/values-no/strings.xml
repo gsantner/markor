@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Overskrift 1</string>
     <string name="heading_2">Overskrift 2</string>
     <string name="heading_3">Overskrift 3</string>
+    <string name="heading_4">Overskrift 4</string>
+    <string name="heading_5">Overskrift 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">Uthevet</string>
     <string name="strikeout">Slag ut</string>
     <string name="inline_code">Inline kode</string>
     <string name="horizontal_line">Liggende linje</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Vis/skjul handlingen</string>
     <string name="load_default_settings">Last inn standardinnstillinger</string>
     <string name="drag">Dra</string>
+    <string name="created">Opprettet</string>
     <string name="file_encryption_password">Fil krypteringspassord</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Ingen passordinnstilling kan ikke kryptere eller dekryptere.\nGå til Innstillinger -&gt; Generelt -&gt; Passord for å angi et passord.</string>
     <string name="encrypt_file_content">Krypter filinnhold</string>
