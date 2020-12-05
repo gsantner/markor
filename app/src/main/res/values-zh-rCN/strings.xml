@@ -348,6 +348,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">标题 1</string>
     <string name="heading_2">标题 2</string>
     <string name="heading_3">标题 3</string>
+    <string name="heading_4">标题 4</string>
+    <string name="heading_5">标题 5</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
     <string name="strikeout">删除线</string>
