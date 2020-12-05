@@ -382,6 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">文件描述格式</string>
     <string name="file_description_format_dialog">文件浏览器中每个文件下的描述格式。关注Android的SimpleDateFormat 规则，并添加用于显示文件大小的 FS 留空以使用您的本地化默认格式。\n\n示例输入：\nFS yyyy MMM dd hh:mm:ss aa\n输出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">加载默认值</string>
+    <string name="file_settings">文件设置</string>
     <string name="search_and_replace">搜索/替换</string>
     <string name="search_for">搜索</string>
     <string name="replace_with">替换为</string>
