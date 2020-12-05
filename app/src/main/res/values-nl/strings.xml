@@ -382,6 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Bestand beschrijving formaat</string>
     <string name="file_description_format_dialog">Formaat voor de beschrijving onder elk bestand in de browser. Volgt Android\'s SimpleDateFormaty-regels, met toevoeging van FS voor het tonen van bestandsgrootte. Laat leeg om het standaardformaat voor uw taal te gebruiken.\n\nVoorbeeld invoer:\nFS yyyy MMM dd hhh:mm:ss aa\nOutput formaat:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Standaardwaarde wordt geladen</string>
+    <string name="file_settings">Bestand instellingen</string>
     <string name="search_and_replace">Zoeken / vervangen</string>
     <string name="search_for">Zoeken naar</string>
     <string name="replace_with">Vervangen door</string>
