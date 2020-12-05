@@ -226,6 +226,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">最近檔案</string>
     <string name="details">細節</string>
     <string name="calendar">日曆</string>
+    <string name="error_picture_selection">無相片被選擇、拍攝，或儲存</string>
     <string name="camera_picture">相機圖片</string>
     <string name="description">詳情</string>
     <string name="edit_picture">編輯圖片</string>
@@ -264,7 +265,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">編輯模式</string>
     <string name="mount_storage">掛接儲存裝置</string>
     <string name="share_into">分享至</string>
-    <string name="favourite">最愛</string>
+    <string name="favourite">新增至我的最愛</string>
     <string name="favourites">最愛列表</string>
     <string name="please_wait">請稍等</string>
     <string name="tab_width">製表符寬度</string>
