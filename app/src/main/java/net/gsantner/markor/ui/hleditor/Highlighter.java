@@ -129,7 +129,7 @@ public abstract class Highlighter {
     // Clear spans
     //
 
-    protected static void clearSpans(Spannable spannable) {
+    public static void clearSpans(Spannable spannable) {
         clearCharacterSpanType(spannable, TextAppearanceSpan.class);
         clearCharacterSpanType(spannable, ForegroundColorSpan.class);
         clearCharacterSpanType(spannable, BackgroundColorSpan.class);

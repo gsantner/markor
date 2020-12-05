@@ -39,6 +39,16 @@ public class Document implements Serializable {
         _file = file;
     }
 
+    public static String getPath(final Document document) {
+        if (document != null) {
+            final File file = document.getFile();
+            if (file != null) {
+                return file.getPath();
+            }
+        }
+        return null;
+    }
+
     public synchronized Document cloneDocument() {
         return fromDocumentToDocument(this, new Document());
     }

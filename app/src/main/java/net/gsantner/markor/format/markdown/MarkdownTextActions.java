@@ -194,10 +194,18 @@ public class MarkdownTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_common_move_text_one_line_up:
-                case R.string.tmaid_common_move_text_one_line_down:
-                case R.string.tmaid_common_indent:
-                case R.string.tmaid_common_deindent: {
+                case R.string.tmaid_common_move_text_one_line_down: {
                     runCommonTextAction(_context.getString(_action));
+                    runRenumberOrderedListIfRequired();
+                    return true;
+                }
+                case R.string.tmaid_common_indent: {
+                    runIndentLines(false);
+                    runRenumberOrderedListIfRequired();
+                    return true;
+                }
+                case R.string.tmaid_common_deindent: {
+                    runIndentLines(true);
                     runRenumberOrderedListIfRequired();
                     return true;
                 }
@@ -244,6 +252,14 @@ public class MarkdownTextActions extends TextActions {
                 }
                 case R.string.tmaid_common_ordered_list_number: {
                     MarkdownAutoFormat.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0]);
+                }
+                case R.string.tmaid_common_deindent:
+                case R.string.tmaid_common_indent: {
+                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
+                        _indent = Integer.parseInt(size);
+                        _appSettings.setDocumentIndentSize(getPath(), _indent);
+                    });
+                    return true;
                 }
             }
             return false;
