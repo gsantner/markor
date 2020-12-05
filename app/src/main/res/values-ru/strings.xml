@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Заголовок 1</string>
     <string name="heading_2">Заголовок 2</string>
     <string name="heading_3">Заголовок 3</string>
+    <string name="heading_4">Заголовок 4</string>
+    <string name="heading_5">Заголовок 5</string>
     <string name="bold">Жирный</string>
     <string name="italic">Курсив</string>
+    <string name="highlighted">Выделено</string>
     <string name="strikeout">Перечеркнутый</string>
     <string name="inline_code">Встроенный код</string>
     <string name="horizontal_line">Горизонтальная линия</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Вкл/выкл видимость действия</string>
     <string name="load_default_settings">Загрузить настройки по умолчанию</string>
     <string name="drag">Перетащите</string>
+    <string name="created">Создано</string>
     <string name="file_encryption_password">Пароль шифрования файла</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Пароль не установлен, не могу зашифровать или расшифровать.\nПерейдите в Настройки -&gt; Общие -&gt; Пароль для установки пароля.</string>
     <string name="encrypt_file_content">Шифровать содержимое файла</string>
