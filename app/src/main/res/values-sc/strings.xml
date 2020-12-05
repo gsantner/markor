@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">Tìtulu 5</string>
     <string name="bold">Grussitu</string>
     <string name="italic">Cursivu</string>
+    <string name="highlighted">Evidentziadu</string>
     <string name="strikeout">Istangadu</string>
     <string name="inline_code">Còdighe in lìnia</string>
     <string name="horizontal_line">Riga orizontale</string>
@@ -372,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Allughe/istuda sa visibilidade de s\'atzione</string>
     <string name="load_default_settings">Càrriga sas impostatziones predefinidas</string>
     <string name="drag">Trìsina</string>
+    <string name="created">Creadu</string>
     <string name="file_encryption_password">Crae de tzifradura de su documentu</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Peruna crae de tzifradura impostada, non si podet tzifrare o detzifrare.\nBae a sas Impostatziones -&gt; Generales -&gt; Crae pro impostare una crae.</string>
     <string name="encrypt_file_content">Tzifra su cuntenutu de su documentu</string>
@@ -384,6 +386,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Formadu de descritzione de su documentu</string>
     <string name="file_description_format_dialog">Formadu pro sa descritzione in suta de cada documentu in s\'esploradore de documentos. Sighit sas règulas SimpleDateFormat de Android, cun s\'annànghida de FS pro ammustrare sa mannària de sos documentos.Lassa·lu bòidu pro impreare su formadu predefinidu pro sa limba tua..\n\nEsèmpiu de intrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormadu de essida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Carrighende su valore predefinidu</string>
+    <string name="file_settings">Impostatziones de su documentu</string>
     <string name="search_and_replace">Chirca / Remplasa</string>
     <string name="search_for">Chirca</string>
     <string name="replace_with">Remplasa cun</string>
