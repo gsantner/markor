@@ -79,7 +79,6 @@ public class SearchOrCustomTextDialogCreator {
         addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
         addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
 
-
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
@@ -385,6 +384,19 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.searchIsRegex = false;
         dopt2.gravity = Gravity.TOP;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+    }
+
+    public static void showIndentSizeDialog(final Activity activity, final int indent, final Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+        dopt.data = Arrays.asList("1", "2", "4", "8");
+        dopt.highlightData = Arrays.asList(Integer.toString(indent));
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.titleText = R.string.indent;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {

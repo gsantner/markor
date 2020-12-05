@@ -199,8 +199,8 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
-                    || _appSettings.isPreviewFirst() && file.exists() && file.isFile()
+            final boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+                    || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index.");
 
             showTextEditor(null, file, fileIsFolder, preview);
