@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Kop 1</string>
     <string name="heading_2">Hoofding 2</string>
     <string name="heading_3">Kop 3</string>
+    <string name="heading_4">Titel 4</string>
+    <string name="heading_5">Titel 5</string>
     <string name="bold">Vet</string>
     <string name="italic">Cursief</string>
+    <string name="highlighted">Gemarkeerd</string>
     <string name="strikeout">Aanvallen</string>
     <string name="inline_code">Inline code</string>
     <string name="horizontal_line">Horizontale lijn</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Actie zichtbaarheid in-/uitschakelen</string>
     <string name="load_default_settings">Laad standaardinstellingen</string>
     <string name="drag">Sleep</string>
+    <string name="created">Aangemaakt</string>
     <string name="file_encryption_password">Wachtwoord voor bestandsversleuteling</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Geen wachtwoord ingesteld, kan niet versleutelen of decoderen.\nGa naar Instellingen -&gt; Algemeen -&gt; Wachtwoord om een wachtwoord in te stellen.</string>
     <string name="encrypt_file_content">Versleutel bestandsinhoud</string>
