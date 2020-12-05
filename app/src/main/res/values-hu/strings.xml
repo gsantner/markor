@@ -343,6 +343,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">Címsor 5</string>
     <string name="bold">Félkövér</string>
     <string name="italic">Dőlt</string>
+    <string name="highlighted">Kiemelt</string>
     <string name="strikeout">Áthúzott</string>
     <string name="inline_code">Kód beszúrása</string>
     <string name="horizontal_line">Vízszintes vonal</string>
