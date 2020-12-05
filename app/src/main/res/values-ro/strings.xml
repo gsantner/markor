@@ -348,8 +348,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Rubrica 1</string>
     <string name="heading_2">Rubrica 2</string>
     <string name="heading_3">Rubrica 3</string>
+    <string name="heading_4">Rubrica 4</string>
+    <string name="heading_5">Rubrica 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
+    <string name="highlighted">Evident</string>
     <string name="strikeout">Lovitură afară</string>
     <string name="inline_code">Cod integrat</string>
     <string name="horizontal_line">Linie orizontală</string>
@@ -370,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Comută vizibilitatea acțiunii</string>
     <string name="load_default_settings">Încarcă setările implicite</string>
     <string name="drag">Trage</string>
+    <string name="created">Creat</string>
     <string name="file_encryption_password">Parola de criptare a fișierului</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nici o parolă, nu se poate cripta sau decripta.\nMergeți la Setări -&gt; General -&gt; Parola pentru a seta o parolă.</string>
     <string name="encrypt_file_content">Criptați conținutul fișierului</string>
