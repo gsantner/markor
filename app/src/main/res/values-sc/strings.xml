@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Ischerta una cartella</string>
     <string name="edit">Èdita</string>
     <string name="search_documents">Chirca documentos</string>
-    <string name="share_to_arrow">Cumpartzi cun…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Cumpartzi cun…</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>
     <string name="display_converted_markup">Ammustra su markup cunvertidu</string>

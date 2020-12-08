@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">கோப்புறையைத் தேர்வு செய்</string>
     <string name="edit">திருத்து</string>
     <string name="search_documents">கோப்புகளை தேடு</string>
-    <string name="share_to_arrow">&#8230; ல் பகிரவும்</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; ல் பகிரவும்</string>
     <string name="share">பகிர்</string>
     <string name="search">தேடு</string>
     <string name="display_converted_markup">Markup க்கு திரை மாற்றப்பட்டுள்ளது</string>

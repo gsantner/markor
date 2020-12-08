@@ -32,7 +32,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">फोल्डर का चयन करें</string>
     <string name="edit">संपादित करें</string>
     <string name="search_documents">नोट खोजें</string>
-    <string name="share_to_arrow">साझा करें &#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">साझा करें &#8230;</string>
     <string name="share">बांटे</string>
     <string name="search">खोजें</string>
     <string name="editor">संपादक</string>

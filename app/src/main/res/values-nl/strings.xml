@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Selecteer mappen</string>
     <string name="edit">Bewerken</string>
     <string name="search_documents">Zoek notities</string>
-    <string name="share_to_arrow">Delen met…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Delen met…</string>
     <string name="share">Delen</string>
     <string name="search">Zoeken</string>
     <string name="display_converted_markup">Toon geconverteerd opmaak</string>

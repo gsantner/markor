@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Selecionar pastas</string>
     <string name="edit">Editar</string>
     <string name="search_documents">Procurar notas</string>
-    <string name="share_to_arrow">Compartilhar com…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Compartilhar com…</string>
     <string name="share">Compartilhar</string>
     <string name="search">Pesquisar</string>
     <string name="display_converted_markup">Mostrar \"markup\" convertido</string>

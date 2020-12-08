@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Pumili ng Folder</string>
     <string name="edit">Baguhin</string>
     <string name="search_documents">Maghanap sa mga dokumento</string>
-    <string name="share_to_arrow">Ibahagi sa&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Ibahagi sa&#8230;</string>
     <string name="share">Ibahagi</string>
     <string name="search">Hanapin</string>
     <string name="display_converted_markup">Ipakita ang na-convert na markup</string>

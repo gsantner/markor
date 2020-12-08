@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">ফোল্ডার নির্বাচন করো</string>
     <string name="edit">সম্পাদনা</string>
     <string name="search_documents">নথি খোঁজো</string>
-    <string name="share_to_arrow">&#8230; এর সাথে শেয়ার করো</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; এর সাথে শেয়ার করো</string>
     <string name="share">শেয়ার</string>
     <string name="search">অনুসন্ধান</string>
     <string name="display_converted_markup">পরিবর্তিত মার্কআপ ব্যবহার করো</string>
