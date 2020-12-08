@@ -7,7 +7,17 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'ci skip') && (!contains(github.event_name, 'pull_request') || (contains(github.event_name, 'pull_request') && github.event.pull_request.head.repo.full_name != github.repository))"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+
+    - name: "Checkout: Code"
+      uses: actions/checkout@v2
+
+
+    - name: "Checkout: Code (PR)"
+      uses: actions/checkout@v2
+      if: "contains(github.event_name, 'pull_request')"
+      with:
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
 
     - name: "Setup: Java"
       uses: actions/setup-java@v1
