@@ -17,32 +17,38 @@ all: $(DIST_DIR) lint test build
 $(DIST_DIR):
 	mkdir -p ${DIST_DIR}
 
-.NOTPARALLEL: gradle
+.NOTPARALLEL: gradle gradle-check-error
 gradle: env-ANDROID_SDK_ROOT
 	mkdir -p $(DIST_DIR)/log/
 	chmod +x gradlew
-	./gradlew --no-daemon --parallel --stacktrace $A  2>&1 | tee "$(DIST_DIR)/log/gradle$L.log"
+	./gradlew --no-daemon --parallel --stacktrace $A  2>&1 | tee "$(DIST_DIR)/log/gradle.log"
 	@echo "-----------------------------------------------------------------------------------"
-	cat "$(DIST_DIR)/log/gradle$L.log" | grep "BUILD" | tail -n1 | grep -q "BUILD SUCCESSFUL in"
+
+gradle-check-error:
+	mv  "$(DIST_DIR)/log/gradle.log" "$(DIST_DIR)/log/gradle$A.log"
+	cat "$(DIST_DIR)/log/gradle$A.log" | grep "BUILD " | tail -n1 | grep -q "BUILD SUCCESSFUL in"
 
 build:
 	rm -f $(DIST_DIR)/*.apk
-	$(MAKE) L="-build" A="clean assembleFlavorAtest -x lint" gradle
+	$(MAKE) A="clean assembleFlavorAtest -x lint" gradle
 	find app -type f -iname '*.apk' | grep -v 'unsigned.apk' | xargs cp -R -t $(DIST_DIR)/
+	$(MAKE) A="-build" gradle-check-error
 
 lint:
-	rm -Rf $(DIST_DIR)/*lint*
+	rm -Rf $(DIST_DIR)/lint
 	mkdir -p $(DIST_DIR)/lint/
-	$(MAKE) L="-lint" A="lintFlavorDefaultDebug" gradle
+	$(MAKE) A="lintFlavorDefaultDebug" gradle
 	find app -type f -iname 'lint-results-*' | xargs cp -R -t $(DIST_DIR)/lint
+	$(MAKE) A="-lint" gradle-check-error
 
 test:
-	rm -Rf $(DIST_DIR)/unittest $(DIST_DIR)/*UnitTest*
-	$(MAKE) L="-unittest" A="testFlavorDefaultDebugUnitTest -x lint" gradle
+	rm -Rf $(DIST_DIR)/tests
+	$(MAKE) A="testFlavorDefaultDebugUnitTest -x lint" gradle
 	find app -type d -iname 'testFlavorDefaultDebugUnitTest' | xargs cp -R -t $(DIST_DIR)/
 	mv ${DIST_DIR}/testFlavorDefaultDebugUnitTest $(DIST_DIR)/tests
+	$(MAKE) A="-test" gradle-check-error
 
 clean:
 	$(MAKE) A="clean" gradle
-	rm -Rf $(DIST_DIR) app/build
+	rm -Rf $(DIST_DIR) app/build app/flavor*
 	$(MAKE) $(DIST_DIR)
