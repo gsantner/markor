@@ -10,7 +10,7 @@ env-%:
 DIST_DIR = dist
 MOVE = mv
 
-all: $(DIST_DIR) build test lint
+all: $(DIST_DIR) lint test build
 
 ####################################################################################
 
@@ -44,5 +44,5 @@ test:
 
 clean:
 	$(MAKE) A="clean" gradle
-	rm -Rf $(DIST_DIR)
+	rm -Rf $(DIST_DIR) app/build
 	$(MAKE) $(DIST_DIR)

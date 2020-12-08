@@ -195,11 +195,13 @@
             <item
                 android:visible="false"
                 android:id="@+id/action_load_epub"
-                android:title="Convert &amp; load epub" />
+                android:title="Convert &amp; load epub"
+                tools:ignore="HardcodedText" />
             <item
                 android:visible="false"
                 android:id="@+id/action_speed_read"
-                android:title="Speed Read" />
+                android:title="Speed Read"
+                tools:ignore="HardcodedText" />
         </menu>
     </item>
     <item

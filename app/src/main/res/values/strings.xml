@@ -36,7 +36,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit">Edit</string>
 
     <string name="search_documents">Search documents</string>
-    <string name="share_to_arrow">Share to&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="display_converted_markup">Display converted markup</string>
