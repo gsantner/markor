@@ -1,0 +1,55 @@
+name: "CI"
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'ci skip') && ((github.event_name != 'pull_request') || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository))"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "Setup: Java"
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: "Cache: Gradle"
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle
+          .gradle
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.*') }}
+
+    - name: "Build: Project with make"
+      run: make clean all
+
+    - name: "Build: List dist files"
+      run: find dist -type f -maxdepth 2
+
+    - name: "Artifacts: All"
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: "all"
+        path: dist
+        retention-days: 5
+
+    - name: "Artifacts: Android APK"
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: "android-apk"
+        path: |
+          dist/*.apk
+
+    - name: "Test: JUnit report"
+      uses: mikepenz/action-junit-report@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report_paths: 'dist/tests/TEST-*.xml'
+        check_name: "JUnit"
+
+    - name: "Test: Android Lint"
+      uses: yutailang0119/action-android-lint@v1.0.2
+      with:
+        xml_path: 'dist/lint/lint-results-flavorDefaultDebug.xml'
