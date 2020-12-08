@@ -80,6 +80,7 @@ hs_err_pid*
 # Generated files
 bin/
 gen/
+dist/
 
 # Local configuration file (sdk path, etc)
 local.properties
