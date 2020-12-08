@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">ഫോൾഡർ തിരഞ്ഞെടുക്കുക</string>
     <string name="edit">എഡിറ്റ്‌</string>
     <string name="search_documents">ഡോക്യൂമെന്റസ് പരതുക</string>
-    <string name="share_to_arrow">&#8230; ലേക്ക് പങ്കുവെക്കുക</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; ലേക്ക് പങ്കുവെക്കുക</string>
     <string name="share">പങ്കുവയ്ക്കുക</string>
     <string name="search">തിരയുക</string>
     <string name="display_converted_markup">മാർക്ക് അപ് പരിവർത്തനം വന്നത് കാണിക്കുക</string>
