@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Seleccionar carpeta</string>
     <string name="edit">Editar</string>
     <string name="search_documents">Buscar documentos</string>
-    <string name="share_to_arrow">Compartir con...</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Compartir con...</string>
     <string name="share">Compartir</string>
     <string name="search">Búsqueda</string>
     <string name="display_converted_markup">Mostrar markup transformada</string>
@@ -189,7 +189,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">Al abrir un documento, posicionar el cursor al final del documento</string>
     <string name="unordered_list_character">Carácter para lista desordenada</string>
     <string name="character_to_start_items_of_unordered_list_with">Qué carácter usar para denotar listas no ordenadas</string>
-    <string name="unordered_list_char_dash">Guión (-)</string>
+    <string name="unordered_list_char_dash">Guion (-)</string>
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
@@ -230,7 +230,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Deshabilitar subrayado de errores de ortografía</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Mantener sugerencias, elimina subrayado rojo</string>
     <string name="location">Ubicación</string>
-    <string name="text_lines">Lineas</string>
+    <string name="text_lines">Líneas</string>
     <string name="text_characters">Caracteres</string>
     <string name="text_words">Palabras de texto</string>
     <string name="directory">Directorio</string>

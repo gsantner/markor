@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">انتخاب پوشه</string>
     <string name="edit">ویرایش</string>
     <string name="search_documents">جستجو پرونده‌ها</string>
-    <string name="share_to_arrow">به اشتراک‌گذاری با...</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">به اشتراک‌گذاری با...</string>
     <string name="share">به اشتراک‌گذاری</string>
     <string name="search">جستجو</string>
     <string name="display_converted_markup">نمایش کد های تغییر یافته</string>

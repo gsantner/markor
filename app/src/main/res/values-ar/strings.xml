@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">اختر مجلدا</string>
     <string name="edit">تعديل</string>
     <string name="search_documents">بحث في المستندات</string>
-    <string name="share_to_arrow">مشاركة مع…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">مشاركة مع…</string>
     <string name="share">مشاركة</string>
     <string name="search">بحث</string>
     <string name="display_converted_markup">عرض النصوص المنسقة</string>

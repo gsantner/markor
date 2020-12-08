@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Mappa választása</string>
     <string name="edit">Szerkesztés</string>
     <string name="search_documents">Dokumentumok keresése</string>
-    <string name="share_to_arrow">Megoszás ide: &#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Megoszás ide: &#8230;</string>
     <string name="share">Megosztás</string>
     <string name="search">Keresés</string>
     <string name="display_converted_markup">Átalakított markup megjelenítése</string>
@@ -373,7 +373,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Kódtömb</string>
     <string name="add_completion_date">Teljesítés dátuma</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">A teljesítés dátumának beszúrása amikor késznek vannak jelölve</string>
+    <string name="file_description_format">Fájl leírásának formátuma</string>
+    <string name="file_description_format_dialog">A fájlok alatt található leírás formátuma a fájlböngészőben. Az Android \"SimpleDateFormat\" szabályait követi, azzal a kiegészítéssel, hogy az FS mutatja a fájlméretet. Hagyd üresen az alapértelmezett formátum használatához.\n\nPélda bemenet:\nFS yyyy MMM dd hh:mm:ss aa\nKimenet:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Alapértelmezett érték betöltése</string>
+    <string name="file_settings">Fájl beállítások</string>
     <string name="search_and_replace">Keresés / Csere</string>
     <string name="search_for">Keresés</string>
     <string name="replace_with">Csere erre</string>

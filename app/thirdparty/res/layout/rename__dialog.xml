@@ -10,6 +10,7 @@
 ###########################################################*/
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -33,5 +34,7 @@
         android:paddingTop="30dp"
         android:textColor="@color/dark_grey"
         android:textColorHint="@color/light_grey"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:importantForAutofill="no"
+        tools:ignore="TextFields" />
 </LinearLayout>

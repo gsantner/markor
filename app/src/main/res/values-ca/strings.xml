@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Seleccioneu una carpeta</string>
     <string name="edit">Edita</string>
     <string name="search_documents">Cerca documents</string>
-    <string name="share_to_arrow">Comparteix amb&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Comparteix amb&#8230;</string>
     <string name="share">Comparteix</string>
     <string name="search">Cerca</string>
     <string name="display_converted_markup">Mostra el «markup» convertit</string>

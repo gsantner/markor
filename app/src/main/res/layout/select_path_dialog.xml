@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/description"
             android:inputType="textMultiLine"
-            android:maxLines="3" />
+            android:maxLines="3"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/ui__select_path_dialog__url"
@@ -38,7 +39,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/url_or_path"
             android:inputType="textUri|textMultiLine"
-            android:maxLines="3" />
+            android:maxLines="3"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/ui__select_path_dialog__browse_filesystem"

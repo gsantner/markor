@@ -35,10 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ui__filesystem_dialog__title"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -46,10 +46,10 @@
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:src="@android:drawable/star_big_on"
             tools:ignore="ContentDescription" />
 
@@ -57,10 +57,10 @@
             android:id="@+id/ui__filesystem_dialog__search_button"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:scaleType="fitEnd"
             android:src="@android:drawable/ic_menu_search"
             tools:ignore="ContentDescription" />
@@ -69,15 +69,17 @@
             android:id="@+id/ui__filesystem_dialog__search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="Search...."
+            android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="14sp"
             android:visibility="gone"
-            tools:hint="Search..." />
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

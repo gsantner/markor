@@ -209,6 +209,7 @@ public class NewFileDialog extends DialogFragment {
     //
     // 2) t = "<cursor>";  | ctrl+shift+v "paste without formatting"
     //
+    @SuppressLint("TrulyRandom")
     private byte[] getTemplateContent(final Spinner templateSpinner, final File basedir, final boolean encrypt) {
         String t = null;
         byte[] bytes = null;

@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">فولڈر منتخب کریں</string>
     <string name="edit">ترمیم کریں</string>
     <string name="search_documents">ڈاکومنٹس میں تلاش</string>
-    <string name="share_to_arrow">شئیر برائے &#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">شئیر برائے &#8230;</string>
     <string name="share">شئیر</string>
     <string name="search">تلاش</string>
     <string name="editor">ایڈیٹر</string>

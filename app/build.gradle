@@ -96,8 +96,7 @@ android {
     }
 
     lintOptions {
-        disable 'MissingTranslation'
-        disable 'InvalidPackage'
+        disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
         abortOnError false
     }
 }
@@ -141,6 +140,7 @@ dependencies {
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
 
     // Tool libraries
+    //noinspection AnnotationProcessorOnCompilePath
     implementation "com.jakewharton:butterknife:${version_library_butterknife}"
     implementation 'commons-io:commons-io:2.7'
     if (enable_plugin_kotlin) {

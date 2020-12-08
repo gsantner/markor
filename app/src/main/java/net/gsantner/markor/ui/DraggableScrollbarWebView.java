@@ -1,11 +1,13 @@
 package net.gsantner.markor.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 
+@SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarWebView extends WebView {
 
     private boolean _isFastScrolling = false;

@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Valitse kansio</string>
     <string name="edit">Muokkaa</string>
     <string name="search_documents">Etsi dokumentteja</string>
-    <string name="share_to_arrow">Jaa kohteeseen&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Jaa kohteeseen&#8230;</string>
     <string name="share">Jaa</string>
     <string name="search">Hae</string>
     <string name="display_converted_markup">Näytä muunnettu merkintä</string>

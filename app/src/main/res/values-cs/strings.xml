@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Vybrat složku</string>
     <string name="edit">Upravit</string>
     <string name="search_documents">Hledat v dokumentech</string>
-    <string name="share_to_arrow">Sdílet do&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Sdílet do&#8230;</string>
     <string name="share">Sdílet</string>
     <string name="search">Hledat</string>
     <string name="display_converted_markup">Zobrazit převedené značky</string>

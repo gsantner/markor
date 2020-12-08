@@ -59,6 +59,13 @@ allprojects {
     tasks.matching { task -> task.name.matches('.*generate.*Resources') }.all {
         task -> task.dependsOn copyRepoFiles
     }
+
+    tasks.matching {it instanceof Test}.all { // Enable unit test output, html+xml output
+        testLogging.events "passed", "skipped", "failed", "standardOut", "standardError"
+        testLogging.showStandardStreams = true
+        reports.junitXml.enabled = true
+        reports.html.enabled = true
+    }
 }
 
 task clean(type: Delete) {

@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">폴더 선택</string>
     <string name="edit">편집</string>
     <string name="search_documents">문서 찾기</string>
-    <string name="share_to_arrow">&#8230; 에 공유</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; 에 공유</string>
     <string name="share">공유</string>
     <string name="search">검색</string>
     <string name="display_converted_markup">변환된 마크업 표시</string>
