@@ -26,9 +26,11 @@ jobs:
       run: make clean all
 
     - name: "Build: List dist files"
+      if: always()
       run: find dist -type f -maxdepth 2
 
     - name: "Artifacts: All"
+      if: always()
       uses: actions/upload-artifact@v2.2.1
       with:
         name: "all"
@@ -43,6 +45,7 @@ jobs:
           dist/*.apk
 
     - name: "Test: JUnit report"
+      if: always()
       uses: mikepenz/action-junit-report@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,6 +53,7 @@ jobs:
         check_name: "JUnit"
 
     - name: "Test: Android Lint"
+      if: always()
       uses: yutailang0119/action-android-lint@v1.0.2
       with:
         xml_path: 'dist/lint/lint-results-flavorDefaultDebug.xml'

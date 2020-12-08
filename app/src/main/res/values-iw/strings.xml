@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">בחר תיקיה</string>
     <string name="edit">ערוך</string>
     <string name="search_documents">חפש במסמכים</string>
-    <string name="share_to_arrow">שתף ל&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">שתף ל&#8230;</string>
     <string name="share">שתף</string>
     <string name="search">חפש</string>
     <string name="display_converted_markup">הצג markup מומר</string>

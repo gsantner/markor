@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Velg mappe</string>
     <string name="edit">Rediger</string>
     <string name="search_documents">Søk i dokumenter</string>
-    <string name="share_to_arrow">Del med&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Del med&#8230;</string>
     <string name="share">Del</string>
     <string name="search">Søk</string>
     <string name="display_converted_markup">Vis konvertert markup</string>

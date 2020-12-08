@@ -34,7 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Seleccionar cartafol</string>
     <string name="edit">Editar</string>
     <string name="search_documents">Buscar documentos</string>
-    <string name="share_to_arrow">Compartir &#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Compartir &#8230;</string>
     <string name="share">Compartir</string>
     <string name="search">Buscar</string>
     <string name="display_converted_markup">Amosar markup convertido</string>

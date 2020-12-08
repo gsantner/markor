@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Pilih folder</string>
     <string name="edit">Ubah</string>
     <string name="search_documents">Cari dokumen</string>
-    <string name="share_to_arrow">Bagikan ke&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Bagikan ke&#8230;</string>
     <string name="share">Bagikan</string>
     <string name="search">Cari</string>
     <string name="display_converted_markup">Tampilkan markup terkonversi</string>

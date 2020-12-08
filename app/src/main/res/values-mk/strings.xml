@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Избери директориум</string>
     <string name="edit">Уреди</string>
     <string name="search_documents">Пребарај документи</string>
-    <string name="share_to_arrow">Сподели со&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Сподели со&#8230;</string>
     <string name="share">Сподели</string>
     <string name="search">Пребарај</string>
     <string name="files">Фајлови</string>
