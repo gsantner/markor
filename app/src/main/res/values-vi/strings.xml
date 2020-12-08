@@ -34,7 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Chọn thư mục</string>
     <string name="edit">Chỉnh sửa</string>
     <string name="search_documents">Tìm kiếm tài liệu</string>
-    <string name="share_to_arrow">Chia sẻ về&#8230;</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Chia sẻ về&#8230;</string>
     <string name="share">Chia sẻ</string>
     <string name="search">Tìm kiếm</string>
     <string name="display_converted_markup">Màn hình hiển thị chuyển đổi đánh dấu</string>
