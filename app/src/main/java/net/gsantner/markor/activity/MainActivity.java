@@ -191,7 +191,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
     @Override
     protected void onResume() {
-        new AndroidSupportMeWrapper(this).mainOnResume();
+        //new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
         IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD || _appSettings.isDebugLogEnabled();
         if (_appSettings.isRecreateMainRequired()) {
