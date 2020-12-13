@@ -27,14 +27,21 @@ public class ZimWikiFileTests {
         @Test
         public void createsCorrectContentsForNewZimWikiFiles() {
             Locale.setDefault(Locale.ENGLISH);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2020, Calendar.DECEMBER, 24, 18, 0, 30);
+            calendar.setTimeZone(TimeZone.getTimeZone("GMT+01:00"));
+            Date date = calendar.getTime();
             String expected = "Content-Type: text/x-zim-wiki\n" +
                     "Wiki-Format: zim 0.6\n" +
                     "Creation-Date: 2020-12-24T18:00:30+01:00\n" +
                     "\n" +
                     "====== My new wiki page ======\n" +
                     "Created Thursday 24 December 2020\n";
-            String actual = ZimWikiTextActions.createZimWikiHeaderAndTitleContents("My_new_wiki_page", new Date(), "Created");
-            assertThat(actual.replaceAll("Creat.*\n", "Creat\n")).isEqualTo(expected.replaceAll("Creat.*\n", "Creat\n"));
+            // TODO: replace logic should not be necessary - find out why time and time zone is not created correctly in the test
+            String actual = ZimWikiTextActions.createZimWikiHeaderAndTitleContents("My_new_wiki_page", date, "Created");
+            String actualReplaced = actual.replaceAll("(?m)T1[78]:00:30.+$", "");
+            String expectedReplaced = expected.replaceAll("(?m)T1[78]:00:30.+$", "");
+            assertThat(actualReplaced).isEqualTo(expectedReplaced);
         }
     }
 
