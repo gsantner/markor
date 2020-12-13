@@ -127,6 +127,8 @@ public class NewFileDialog extends DialogFragment {
 
             if (pos == 3) { // Jekyll
                 prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
+            } else if (pos == 8) { //ZettelKasten
+                prefix = TodoTxtTask.DATEF_YYYYMMDDHHmm.format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
                 fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -243,6 +245,10 @@ public class NewFileDialog extends DialogFragment {
                 if (basedir != null && new File(basedir.getParentFile(), ".notabledir").exists()) {
                     t = t.replace("created:", "modified:");
                 }
+                break;
+            }
+            case 8: {
+                t = "source:\ncategory:\ntag:\n";
                 break;
             }
             default:
