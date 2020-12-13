@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
@@ -102,23 +103,23 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             }
             switch (_action) {
                 case R.string.tmaid_zimwiki_h1: {
-                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                    toggleHeading(1);
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h2: {
-                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                    toggleHeading(2);
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h3: {
-                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                    toggleHeading(3);
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h4: {
-                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
+                    toggleHeading(4);
                     return true;
                 }
                 case R.string.tmaid_zimwiki_h5: {
-                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
+                    toggleHeading(5);
                     return true;
                 }
                 case R.string.tmaid_common_unordered_list_char: {
@@ -184,6 +185,19 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 default: {
                     return runCommonTextAction(_context.getString(_action));
                 }
+            }
+        }
+
+        private void toggleHeading(int headingLevel) {
+            final CharSequence text = _hlEditor.getText();
+            runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel));
+
+            final int[] lineSelection = StringUtils.getLineSelection(_hlEditor);
+            Matcher m = ZimWikiHighlighter.Patterns.HEADING.pattern.matcher(text.subSequence(lineSelection[0], lineSelection[1]));
+            if (m.find()) {
+                final int afterHeadingTextOffset = m.end(3);
+                final int lineStart = StringUtils.getLineStart(text, StringUtils.getSelection(_hlEditor)[0]);
+                _hlEditor.setSelection(lineStart+afterHeadingTextOffset);
             }
         }
 
