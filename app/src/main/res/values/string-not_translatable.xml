@@ -286,8 +286,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__md_jekyll_post" translatable="false">2029-01-01-jekyll-post.md</string>
     <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
-    <string name="file_template__zim_wiki_reference" translatable="false">zim-wiki-reference.zim.txt</string>
-    <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.zim.txt</string>
+    <string name="file_template__zim_wiki_reference" translatable="false">zim-wiki-reference.txt</string>
+    <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
     <string name="key_value" translatable="false">Key - Value</string>

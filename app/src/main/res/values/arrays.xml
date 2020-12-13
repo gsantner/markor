@@ -79,7 +79,7 @@
         <item translatable="false">.md</item>
         <item translatable="false">.txt</item>
         <item translatable="false">.todo.txt</item>
-        <item translatable="false">.zim.txt</item>
+        <item translatable="false">.txt</item>
         <item translatable="false" />
     </string-array>
 
