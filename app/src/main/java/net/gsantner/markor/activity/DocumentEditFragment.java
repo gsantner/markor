@@ -556,7 +556,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private void setupAppearancePreferences(View fragmentView) {
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-        initDocState();
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
