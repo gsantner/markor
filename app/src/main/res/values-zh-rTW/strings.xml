@@ -121,6 +121,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
     <string name="file_browser">檔案瀏覽器</string>
+    <string name="set_due_date">設定到期日</string>
+    <string name="insert_replace_date">插入日期</string>
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
@@ -162,6 +164,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
     <string name="use_monospace_for_code">程式碼使用 Monospace</string>
     <string name="disable_code_block_highlight">停用代碼語法突顯</string>
+    <string name="auto_renumber_ordered_list">編號清單自動重新編號</string>
+    <string name="auto_renumber_ordered_list_slowdown">此設定可能影響應用程式效能</string>
     <string name="use_different_fonttype_slow_down">動態地變更字型將影響程式效能</string>
     <string name="general">平常</string>
     <string name="resources">來源</string>
@@ -174,6 +178,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">往下頁 (Page Down)</string>
     <string name="move_text_one_line_up">移動文字上一行</string>
     <string name="move_text_one_line_down">移動文字下一行</string>
+    <string name="start_new_line_below">在底下開始新的一行</string>
     <string name="key_pos_1">起始行 (Pos Home)</string>
     <string name="key_pos_end">行末 (Pos End)</string>
     <string name="key_pos_1_document">文件起頭</string>
@@ -227,6 +232,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">細節</string>
     <string name="calendar">日曆</string>
     <string name="error_picture_selection">無相片被選擇、拍攝，或儲存</string>
+    <string name="gallery_picture">相簿圖片</string>
     <string name="camera_picture">相機圖片</string>
     <string name="description">詳情</string>
     <string name="edit_picture">編輯圖片</string>
@@ -240,6 +246,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="foreground">前景色</string>
     <string name="background">背景</string>
     <string name="type">檔案類型</string>
+    <string name="folder">資料夾</string>
     <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
     <string name="font">字體</string>
     <string name="enter_or_select_format">輸入或選取格式</string>
