@@ -166,7 +166,8 @@ public class NewFileDialog extends DialogFragment {
                     }
 
                     appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
-                    final File f = new File(basedir, fileNameEdit.getText().toString().trim() + fileExtEdit.getText().toString().trim());
+                    final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
+                    final File f = new File(basedir, usedFilename.trim() + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
@@ -183,7 +184,8 @@ public class NewFileDialog extends DialogFragment {
                     if (ez(fileNameEdit)) {
                         return;
                     }
-                    File f = new File(basedir, fileNameEdit.getText().toString());
+                    final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
+                    File f = new File(basedir, usedFoldername);
                     if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
                         callback(dof != null && dof.exists(), f);
@@ -202,6 +204,14 @@ public class NewFileDialog extends DialogFragment {
 
     private boolean ez(EditText et) {
         return et.getText().toString().isEmpty();
+    }
+
+    private String getFileNameWithoutExtension(String typedFilename, int selectedTemplatePos) {
+        if (selectedTemplatePos == 7) {
+            // zim wiki files always use underscores instead of spaces
+            return typedFilename.trim().replace(' ', '_');
+        }
+        return typedFilename;
     }
 
     private void callback(boolean ok, File file) {
