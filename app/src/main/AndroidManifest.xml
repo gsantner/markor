@@ -46,7 +46,8 @@
         android:isGame="false"
         android:resizeableActivity="true"
         android:theme="@style/AppTheme.Light"
-        tools:targetApi="o">
+        tools:targetApi="o"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
