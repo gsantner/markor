@@ -39,7 +39,9 @@ import net.gsantner.opoc.util.ContextUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
@@ -131,6 +133,9 @@ public class NewFileDialog extends DialogFragment {
 
             if (pos == 3) { // Jekyll
                 prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
+            } else if (pos == 8) { //ZettelKasten
+                SimpleDateFormat date_YYYYMMDDHHmm = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT);
+                prefix = date_YYYYMMDDHHmm.format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
                 fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -251,6 +256,10 @@ public class NewFileDialog extends DialogFragment {
                 if (basedir != null && new File(basedir.getParentFile(), ".notabledir").exists()) {
                     t = t.replace("created:", "modified:");
                 }
+                break;
+            }
+            case 8: {
+                t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }
             default:
