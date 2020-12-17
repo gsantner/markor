@@ -251,7 +251,7 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             case 8: {
-                t = "source:\ncategory:\ntag:\n";
+                t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }
             default:
