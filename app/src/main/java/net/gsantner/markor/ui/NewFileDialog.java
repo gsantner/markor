@@ -133,9 +133,8 @@ public class NewFileDialog extends DialogFragment {
 
             if (pos == 3) { // Jekyll
                 prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
-            } else if (pos == 8) { //ZettelKasten
-                SimpleDateFormat date_YYYYMMDDHHmm = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT);
-                prefix = date_YYYYMMDDHHmm.format(new Date()) + "-";
+            } else if (pos == 9) { //ZettelKasten
+                prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
                 fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -258,7 +257,7 @@ public class NewFileDialog extends DialogFragment {
                 }
                 break;
             }
-            case 8: {
+            case 9: {
                 t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }

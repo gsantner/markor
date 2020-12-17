@@ -73,6 +73,7 @@
         <item translatable="false">@string/file_template__zim_wiki_reference</item>
         <item translatable="false">@string/file_template__zim_wiki_empty</item>
         <item translatable="false">@string/file_template__md_hugo_post_front_matter</item>
+        <item translatable="false">@string/file_template__md_zettelkasten</item>
     </string-array>
 
     <string-array name="new_file_types__file_extension" translatable="false">
