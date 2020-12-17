@@ -197,7 +197,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             if (m.find()) {
                 final int afterHeadingTextOffset = m.end(3);
                 final int lineStart = StringUtils.getLineStart(text, StringUtils.getSelection(_hlEditor)[0]);
-                _hlEditor.setSelection(lineStart+afterHeadingTextOffset);
+                _hlEditor.setSelection(lineStart + afterHeadingTextOffset);
             }
         }
 

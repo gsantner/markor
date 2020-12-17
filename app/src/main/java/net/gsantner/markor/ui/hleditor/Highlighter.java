@@ -119,7 +119,7 @@ public abstract class Highlighter {
         return "";
     }
 
-    public AppSettings getAppSettings(){
+    public AppSettings getAppSettings() {
         return _appSettings;
     }
 
