@@ -183,6 +183,9 @@
             <item
                 android:id="@+id/action_format_keyvalue"
                 android:title="@string/key_value" />
+            <item
+                android:id="@+id/action_format_zimwiki"
+                android:title="@string/zim_wiki" />
         </menu>
     </item>
     <item

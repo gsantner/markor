@@ -7,7 +7,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.format.markdown;
+package net.gsantner.markor.format;
 
 import android.text.Editable;
 import android.text.Spannable;
@@ -22,9 +22,12 @@ public class ListHandler implements TextWatcher {
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
 
-    public ListHandler(final boolean reorderEnabled) {
+    private final AutoFormatter.PrefixPatterns _prefixPatterns;
+
+    public ListHandler(final boolean reorderEnabled, final AutoFormatter.PrefixPatterns prefixPatterns) {
         super();
         _reorderEnabled = reorderEnabled;
+        _prefixPatterns = prefixPatterns;
     }
 
     @Override
@@ -37,12 +40,12 @@ public class ListHandler implements TextWatcher {
 
             final Spannable sSpan = (Spannable) s;
 
-            final MarkdownAutoFormat.OrderedListLine oMatch = new MarkdownAutoFormat.OrderedListLine(s, start);
-            final MarkdownAutoFormat.UnOrderedListLine uMatch = new MarkdownAutoFormat.UnOrderedListLine(s, start);
+            final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start, _prefixPatterns);
+            final AutoFormatter.UnOrderedOrCheckListLine uMatch = new AutoFormatter.UnOrderedOrCheckListLine(s, start, _prefixPatterns);
 
             if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
                 sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
-            } else if (uMatch.isUnorderedList && beforeLineEnd == uMatch.groupEnd) {
+            } else if (uMatch.isUnorderedOrCheckList && beforeLineEnd == uMatch.groupEnd) {
                 sSpan.setSpan(this, uMatch.lineStart, uMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
             } else {
                 reorderPosition = start;
@@ -60,7 +63,7 @@ public class ListHandler implements TextWatcher {
             }
         }
         if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            MarkdownAutoFormat.renumberOrderedList(e, reorderPosition);
+            AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
         }
     }
 

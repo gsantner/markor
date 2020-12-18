@@ -30,6 +30,7 @@ import android.widget.Spinner;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
@@ -107,6 +108,9 @@ public class NewFileDialog extends DialogFragment {
 
         final AtomicBoolean typeSpinnerNoTriggerOnFirst = new AtomicBoolean(true);
         typeSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+            if (pos == 3) { // Zim
+                templateSpinner.setSelection(7); // Zim empty
+            }
             if (typeSpinnerNoTriggerOnFirst.getAndSet(false)) {
                 return;
             }
@@ -129,9 +133,8 @@ public class NewFileDialog extends DialogFragment {
 
             if (pos == 3) { // Jekyll
                 prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
-            } else if (pos == 8) { //ZettelKasten
-                SimpleDateFormat date_YYYYMMDDHHmm = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT);
-                prefix = date_YYYYMMDDHHmm.format(new Date()) + "-";
+            } else if (pos == 9) { //ZettelKasten
+                prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
                 fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
@@ -163,8 +166,9 @@ public class NewFileDialog extends DialogFragment {
                     }
 
                     appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
-                    final File f = new File(basedir, fileNameEdit.getText().toString().trim() + fileExtEdit.getText().toString().trim());
-                    final byte[] templateContents = getTemplateContent(templateSpinner, basedir, encryptCheckbox.isChecked());
+                    final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
+                    final File f = new File(basedir, usedFilename.trim() + fileExtEdit.getText().toString().trim());
+                    final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
                             if (f.exists() && f.length() < ShareUtil.MIN_OVERWRITE_LENGTH && templateContents != null) {
@@ -180,7 +184,8 @@ public class NewFileDialog extends DialogFragment {
                     if (ez(fileNameEdit)) {
                         return;
                     }
-                    File f = new File(basedir, fileNameEdit.getText().toString());
+                    final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
+                    File f = new File(basedir, usedFoldername);
                     if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
                         callback(dof != null && dof.exists(), f);
@@ -201,6 +206,14 @@ public class NewFileDialog extends DialogFragment {
         return et.getText().toString().isEmpty();
     }
 
+    private String getFileNameWithoutExtension(String typedFilename, int selectedTemplatePos) {
+        if (selectedTemplatePos == 7) {
+            // zim wiki files always use underscores instead of spaces
+            return typedFilename.trim().replace(' ', '_');
+        }
+        return typedFilename;
+    }
+
     private void callback(boolean ok, File file) {
         try {
             callback.callback(ok, file);
@@ -215,7 +228,7 @@ public class NewFileDialog extends DialogFragment {
     // 2) t = "<cursor>";  | ctrl+shift+v "paste without formatting"
     //
     @SuppressLint("TrulyRandom")
-    private byte[] getTemplateContent(final Spinner templateSpinner, final File basedir, final boolean encrypt) {
+    private byte[] getTemplateContent(final Spinner templateSpinner, final File basedir, final String filename, final boolean encrypt) {
         String t = null;
         byte[] bytes = null;
         switch (templateSpinner.getSelectedItemPosition()) {
@@ -244,13 +257,17 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             case 7: {
+                t = ZimWikiTextActions.createZimWikiHeaderAndTitleContents(filename.replaceAll("(\\.((zim)|(txt)))*$", "").trim().replace(' ', '_'), new Date(), getResources().getString(R.string.created));
+                break;
+            }
+            case 8: {
                 t = "---\ntags: []\ncreated: '{{ template.timestamp_date_yyyy_mm_dd }}'\ntitle: ''\n---\n\n";
                 if (basedir != null && new File(basedir.getParentFile(), ".notabledir").exists()) {
                     t = t.replace("created:", "modified:");
                 }
                 break;
             }
-            case 8: {
+            case 9: {
                 t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }

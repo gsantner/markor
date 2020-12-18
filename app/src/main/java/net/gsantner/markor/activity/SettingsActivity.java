@@ -375,9 +375,10 @@ public class SettingsActivity extends AppActivityBase {
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
                 case R.string.pref_key__markdown__reorder_actions:
+                case R.string.pref_key__zimwiki__reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {
                     Intent intent = new Intent(getActivity(), ActionOrderActivity.class);
-                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, (keyResId == R.string.pref_key__markdown__reorder_actions) ? R.id.action_format_markdown : (keyResId == R.string.pref_key__todotxt__reorder_actions ? R.id.action_format_todotxt : R.id.action_format_plaintext));
+                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, (keyResId == R.string.pref_key__markdown__reorder_actions) ? R.id.action_format_markdown : (keyResId == R.string.pref_key__todotxt__reorder_actions ? R.id.action_format_todotxt : (keyResId == R.string.pref_key__zimwiki__reorder_actions ? R.id.action_format_zimwiki : R.id.action_format_plaintext)));
                     startActivity(intent);
                     break;
                 }

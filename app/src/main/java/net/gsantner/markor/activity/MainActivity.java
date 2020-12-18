@@ -48,7 +48,6 @@ import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
-import net.gsantner.opoc.util.AndroidSupportMeWrapper;
 
 import java.io.File;
 import java.io.IOException;

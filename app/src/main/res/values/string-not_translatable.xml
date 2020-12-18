@@ -243,6 +243,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
     <string name="tmaid_markdown_table_insert_columns" translatable="false">tmaid_markdown_table_insert_columns</string>
 
+    <string name="tmaid_zimwiki_h1" translatable="false">tmaid_zimwiki_h1</string>
+    <string name="tmaid_zimwiki_h2" translatable="false">tmaid_zimwiki_h2</string>
+    <string name="tmaid_zimwiki_h3" translatable="false">tmaid_zimwiki_h3</string>
+    <string name="tmaid_zimwiki_h4" translatable="false">tmaid_zimwiki_h4</string>
+    <string name="tmaid_zimwiki_h5" translatable="false">tmaid_zimwiki_h5</string>
+    <string name="tmaid_zimwiki_bold" translatable="false">tmaid_zimwiki_bold</string>
+    <string name="tmaid_zimwiki_italic" translatable="false">tmaid_zimwiki_italic</string>
+    <string name="tmaid_zimwiki_highlight" translatable="false">tmaid_zimwiki_highlight</string>
+    <string name="tmaid_zimwiki_strikeout" translatable="false">tmaid_zimwiki_strikeout</string>
+    <string name="tmaid_zimwiki_code_inline" translatable="false">tmaid_zimwiki_code_inline</string>
+    <string name="tmaid_zimwiki_insert_link" translatable="false">tmaid_zimwiki_insert_link</string>
+    <string name="tmaid_zimwiki_insert_image" translatable="false">tmaid_zimwiki_insert_image</string>
+
     <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
     <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
     <string name="tmaid_todotxt_add_project" translatable="false">tmaid_todotxt_add_project</string>
@@ -271,9 +284,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="features" translatable="false">Features</string>
     <string name="file_template__md_markor_markdown_reference" translatable="false">markor-markdown-reference.md</string>
     <string name="file_template__md_jekyll_post" translatable="false">2029-01-01-jekyll-post.md</string>
+    <string name="file_template__md_zettelkasten" translatable="false">202901012359-zettelkasten.md</string>
     <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
     <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
-    <string name="file_template__txt_zim_wiki" translatable="false">zim-wiki.txt</string>
+    <string name="file_template__zim_wiki_reference" translatable="false">zim-wiki-reference.txt</string>
+    <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
     <string name="key_value" translatable="false">Key - Value</string>
@@ -298,4 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__file_browser_last_browsed_folder" translatable="false">pref_key__file_browser_last_browsed_folder</string>
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
+    <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
+    <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
+    <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
 </resources>

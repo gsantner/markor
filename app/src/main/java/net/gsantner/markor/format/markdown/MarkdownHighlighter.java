@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.Spannable;
 
+import net.gsantner.markor.format.ListHandler;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
@@ -22,8 +23,6 @@ import net.gsantner.markor.util.AppSettings;
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
 public class MarkdownHighlighter extends Highlighter {
-    public final String _fontType;
-    public final Integer _fontSize;
     private final boolean _highlightLineEnding;
     private final boolean _highlightCodeChangeFont;
     private final boolean _highlightBiggerHeadings;
@@ -38,13 +37,11 @@ public class MarkdownHighlighter extends Highlighter {
     public MarkdownHighlighter(HighlightingEditor hlEditor, Document document) {
         super(hlEditor, document);
         _highlightLinks = false;
-        _fontType = _appSettings.getFontFamily();
-        _fontSize = _appSettings.getFontSize();
         _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
         _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
         _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
-        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList()));
+        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList(), MarkdownAutoFormat.getPrefixPatterns()));
     }
 
     @Override
