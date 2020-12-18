@@ -92,7 +92,7 @@ public class SearchReplaceDialog {
                 cursorPosition = start;
             } else {
                 cursorPosition = -1;
-                _sel = new int[]{start, -1};
+                _sel = new int[]{start, end};
             }
         } else {
             _sel = new int[]{0, edit.length()};
