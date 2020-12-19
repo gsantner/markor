@@ -20,7 +20,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">Ești sigur că vrei să ștergi acest %s?</string>
     <string name="confirm_overwrite">Confirmați Înlocuirea</string>
     <string name="file_already_exists_overwerite">Fișierul există deja, înlocuiți?</string>
-    <string name="browse_filesystem">Răsfoiţi sistemul de fişiere</string>
+    <string name="browse_filesystem">Răsfoiți sistemul de fișiere</string>
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
     <string name="enter_name_of_folder">Introduceți numele dosarului dvs.</string>
