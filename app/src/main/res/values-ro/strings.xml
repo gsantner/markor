@@ -245,7 +245,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descriere</string>
     <string name="edit_picture">Editare imagine</string>
     <string name="math">Matematică</string>
-    <string name="table_of_contents">Tabelul conținutului</string>
+    <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Acțiune text</string>
     <string name="textactions">Acțiuni text</string>
@@ -258,7 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background_foreground_color_in_editor_works_dark_light">Schimbă culoarea de fundal și cea din prim-plan a editorului de text. Ajustează tema aplicației astfel disponibilă în tema deschisă și întunecată. Culorile de evidențiere a sintaxei rămân aceleași.</string>
     <string name="preset">Preset</string>
     <string name="foreground">prim-plan</string>
-    <string name="background">Context</string>
+    <string name="background">Fundal</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Setați culoarea în prim-plan sau de fundal a textului? Introducerea codului de culoare hexazecimală este de asemenea posibilă.</string>
     <string name="type">Tip</string>
     <string name="folder">Dosar</string>
@@ -345,11 +345,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jump_to_bottom">Salt la jos</string>
     <string name="quote">Ofertă</string>
     <string name="heading">Titlu</string>
-    <string name="heading_1">Rubrica 1</string>
-    <string name="heading_2">Rubrica 2</string>
-    <string name="heading_3">Rubrica 3</string>
-    <string name="heading_4">Rubrica 4</string>
-    <string name="heading_5">Rubrica 5</string>
+    <string name="heading_1">Titlu1</string>
+    <string name="heading_2">Subtitlu 2</string>
+    <string name="heading_3">Subtitlu 3</string>
+    <string name="heading_4">Subtitlu 4</string>
+    <string name="heading_5">Subtitlu 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Evident</string>
