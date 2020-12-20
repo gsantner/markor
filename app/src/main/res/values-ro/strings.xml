@@ -20,7 +20,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">Ești sigur că vrei să ștergi acest %s?</string>
     <string name="confirm_overwrite">Confirmați Înlocuirea</string>
     <string name="file_already_exists_overwerite">Fișierul există deja, înlocuiți?</string>
-    <string name="browse_filesystem">Răsfoiţi sistemul de fişiere</string>
+    <string name="browse_filesystem">Răsfoiți sistemul de fișiere</string>
     <string name="title">Titlu</string>
     <string name="empty_directory">Golește dosarul</string>
     <string name="enter_name_of_folder">Introduceți numele dosarului dvs.</string>
@@ -95,7 +95,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">Mai multe</string>
     <string name="notebook">Caiet</string>
     <string name="help">Ajutor</string>
-    <string name="todo_list">Listă de Fapte</string>
+    <string name="todo_list">Listă de sarcini</string>
     <string name="task">Sarcină</string>
     <string name="category">Categorie</string>
     <string name="context">Context</string>
@@ -122,10 +122,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Browser de documente</string>
     <string name="file_browser">Browser de fișiere</string>
     <string name="set_due_date">Setați data scadentă</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Introduceți data</string>
     <string name="create_note" needed="false">Creează o notă</string>
     <string name="special_documents" needed="false">Documente speciale</string>
-    <string name="keep_screen_on" needed="false">Păstraţi ecranul pornit</string>
+    <string name="keep_screen_on" needed="false">Păstrați ecranul pornit</string>
     <string name="back_to_previous_folder" needed="false">Înapoi la dosarul anterior</string>
     <string name="app_settings" needed="false">Setări aplicație</string>
     <string name="editor_settings" needed="false">Setări editor</string>
@@ -151,17 +151,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Altele</string>
     <string name="alternative_naming">Denumire alternativă</string>
     <string name="empty_file">Fișier gol</string>
-    <string name="break_page_pdf_print">Pauză pagină (PDF/Tipărire)</string>
+    <string name="break_page_pdf_print">Întrerupere pagină (PDF/Tipărire)</string>
     <string name="underline">Subliniere</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Dacă se subliniază codurile hexazecimale în funcție de culoare</string>
     <string name="underline_hex_color_codes">Subliniază codurile de culoare Hex</string>
     <string name="insert_current_date_when_starting_new_task">Introduceți data curentă când porniți o nouă sarcină</string>
     <string name="tasks_with_todays_date">Sarcini cu data de azi</string>
-    <string name="append_contexts_and_projects">Anexă contexte și proiecte</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Să adauge contexte și proiecte la sfârșitul unei sarcini atunci când se utilizează textul corespunzător</string>
+    <string name="append_contexts_and_projects">Atașează contexte și proiecte</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Adăugare contexte și proiecte la sfârșitul unei sarcini atunci când se utilizează textul corespunzător</string>
     <string name="rtl_rendering">RTL rendering</string>
-    <string name="highlight_line_ending">Evidențiere linie terminată</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">Evidenţiază spaţiile la capătul liniilor care conţin două sau mai multe spaţii</string>
+    <string name="highlight_line_ending">Evidențiere sfârșitul liniei</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Evidențiază spațiile la capătul liniilor care conțin două sau mai multe spații</string>
     <string name="use_monospace_for_code">Folosește fontul monospațiu pentru cod</string>
     <string name="disable_code_block_highlight">Dezactivează evidențierea pentru blocuri de cod</string>
     <string name="auto_renumber_ordered_list">Auto-renumărare liste ordonate</string>
@@ -188,8 +188,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Pornire jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, cursorul de poziție la sfârșit</string>
     <string name="unordered_list_character">Caracter listă neordonat</string>
-    <string name="character_to_start_items_of_unordered_list_with">Care caracter folosit pentru a indica liste neordonate</string>
-    <string name="unordered_list_char_dash">Clasa (-)</string>
+    <string name="character_to_start_items_of_unordered_list_with">Ce caracter trebuie folosit pentru a indica liste neordonate</string>
+    <string name="unordered_list_char_dash">Liniuță (-)</string>
     <string name="unordered_list_char_asterisk">Asterisc (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor poate edita doar documentele locale disponibile offline şi nu acceptă manageri de fişiere care nu oferă calea completă a fişierelor.</string>
@@ -208,7 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="center_text">Text centru</string>
     <string name="edit_text_in_center_of_screen">Editează textul în centrul ecranului</string>
     <string name="clipboard">Clipboard</string>
-    <string name="select_existing_document">Selectaţi documentul existent</string>
+    <string name="select_existing_document">Selectați documentul existent</string>
     <string name="open_source_licenses">Licențe Open Source</string>
     <string name="rate_this_app">Evaluează această aplicație</string>
     <string name="translate">Traducere</string>
@@ -245,7 +245,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descriere</string>
     <string name="edit_picture">Editare imagine</string>
     <string name="math">Matematică</string>
-    <string name="table_of_contents">Tabelul conținutului</string>
+    <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Acțiune text</string>
     <string name="textactions">Acțiuni text</string>
@@ -258,7 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="background_foreground_color_in_editor_works_dark_light">Schimbă culoarea de fundal și cea din prim-plan a editorului de text. Ajustează tema aplicației astfel disponibilă în tema deschisă și întunecată. Culorile de evidențiere a sintaxei rămân aceleași.</string>
     <string name="preset">Preset</string>
     <string name="foreground">prim-plan</string>
-    <string name="background">Context</string>
+    <string name="background">Fundal</string>
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Setați culoarea în prim-plan sau de fundal a textului? Introducerea codului de culoare hexazecimală este de asemenea posibilă.</string>
     <string name="type">Tip</string>
     <string name="folder">Dosar</string>
@@ -345,11 +345,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jump_to_bottom">Salt la jos</string>
     <string name="quote">Ofertă</string>
     <string name="heading">Titlu</string>
-    <string name="heading_1">Rubrica 1</string>
-    <string name="heading_2">Rubrica 2</string>
-    <string name="heading_3">Rubrica 3</string>
-    <string name="heading_4">Rubrica 4</string>
-    <string name="heading_5">Rubrica 5</string>
+    <string name="heading_1">Titlu1</string>
+    <string name="heading_2">Subtitlu 2</string>
+    <string name="heading_3">Subtitlu 3</string>
+    <string name="heading_4">Subtitlu 4</string>
+    <string name="heading_5">Subtitlu 5</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Evident</string>

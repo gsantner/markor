@@ -373,7 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Sichtbarkeit der Aktion umschalten</string>
     <string name="load_default_settings">Standardeinstellungen laden</string>
     <string name="drag">Ziehen</string>
-    <string name="created">Erstellt</string>
+    <string name="created">Angelegt</string>
     <string name="file_encryption_password">Datei-Verschlüsselungs-Passwort</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Kein Passwort gesetzt, kann nicht verschlüsselt oder entschlüsselt werden.\nGehe zu Einstellungen -&gt; Allgemein -&gt; Passwort, um ein Passwort zu setzen.</string>
     <string name="encrypt_file_content">Dateiinhalt verschlüsseln</string>
