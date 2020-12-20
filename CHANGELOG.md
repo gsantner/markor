@@ -1,5 +1,17 @@
 ### Recent changes
-- Improve license dialog readability
+- 
+
+### v2.5 [Blog Post](https://gsantner.net/blog/2020/12/20/markor-v2.5-zimwiki-searchreplace-githubactions-zettelkasten.html?source=changelog)
+- Add Zim Wiki format and template #1098
+- Add search & replace (simple|regex, replace once|all) #1112
+- Add settings for current file to toolbar #1129
+- Fix file sometimes not opens from launcher shortcut #1139
+- Use GitHub Actions for CI/CD #1151
+- Add template for Zettelkasten #1156
+- Add Nord editor color scheme #1134
+- Allow to select folder when create new file via share into Markor #1138
+- Improve license dialog readability #1119
+- General improvements, fixes and translations
 
 ### v2.4 [Blog Post](https://gsantner.net/blog/2020/10/30/markor-v2.4-todotxt-source-code-syntax-highlighting.html?source=changelog)
 - Markdown: Correctly insert or remove list item on press enter at empty list item
