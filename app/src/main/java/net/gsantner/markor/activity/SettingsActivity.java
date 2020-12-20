@@ -215,6 +215,7 @@ public class SettingsActivity extends AppActivityBase {
                     R.string.pref_key__editor_line_spacing,
                     R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3,
                     R.string.pref_key__default_encryption_password,
+                    R.string.pref_key__is_debug_log_enabled,
             };
             for (final int keyId : experimentalKeys) {
                 setPreferenceVisible(keyId, _as.isExperimentalFeaturesEnabled());

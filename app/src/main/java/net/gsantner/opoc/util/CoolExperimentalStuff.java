@@ -62,7 +62,7 @@ public class CoolExperimentalStuff {
     }
 
 
-    public static void showSpeedReadDialog(final Activity activity, String text) {
+    public static void showSpeedReadDialog(final Activity activity, final String text) {
         ////////////////////////////////////
         // Init
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();

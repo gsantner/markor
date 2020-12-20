@@ -278,10 +278,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
-
-        menu.findItem(R.id.submenu_tools).setVisible(isExperimentalFeaturesEnabled);
         menu.findItem(R.id.action_load_epub).setVisible(isExperimentalFeaturesEnabled);
-        menu.findItem(R.id.action_speed_read).setVisible(isExperimentalFeaturesEnabled);
 
         // SearchView (View Mode)
         _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();

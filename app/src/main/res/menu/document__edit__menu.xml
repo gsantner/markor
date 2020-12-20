@@ -87,11 +87,12 @@
         android:title="@string/search"
         app:showAsAction="always" />
 
-    <item android:id="@+id/action_search_view"
-        android:title="@string/search"
+    <item
+        android:id="@+id/action_search_view"
         android:icon="@drawable/ic_search_black_24dp"
-        app:showAsAction="always"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_save"
@@ -108,17 +109,48 @@
         <menu>
             <item
                 android:id="@+id/action_wrap_words"
+                android:checkable="true"
                 android:icon="@drawable/ic_baseline_wrap_text_24"
                 android:title="@string/wrap_words"
-                app:showAsAction="never"
-                android:checkable="true"/>
+                app:showAsAction="never" />
 
             <item
                 android:id="@+id/action_enable_highlighting"
+                android:checkable="true"
                 android:icon="@drawable/ic_format_color_fill_black_24dp"
                 android:title="@string/syntax_highlighting"
-                app:showAsAction="never"
-                android:checkable="true"/>
+                app:showAsAction="never" />
+
+            <!-- Format menu -->
+            <item
+                android:id="@+id/submenu_format_selection"
+                android:icon="@drawable/ic_format_shapes_black_24dp"
+                android:title="@string/format"
+                app:showAsAction="never">
+                <menu>
+                    <item
+                        android:id="@+id/action_format_keyvalue"
+                        android:icon="@drawable/ic_file_white_24dp"
+                        android:title="@string/key_value" />
+                    <item
+                        android:id="@+id/action_format_plaintext"
+                        android:icon="@drawable/ic_file_white_24dp"
+                        android:title="@string/plaintext" />
+                    <item
+                        android:id="@+id/action_format_markdown"
+                        android:icon="@drawable/gs_markdown_black_24dp"
+                        android:title="@string/markdown" />
+                    <item
+                        android:id="@+id/action_format_todotxt"
+                        android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+                        android:title="@string/todo_txt" />
+                    <item
+                        android:id="@+id/action_format_zimwiki"
+                        android:icon="@drawable/fountain_pen"
+                        android:title="@string/zim_wiki" />
+                </menu>
+            </item>
+
         </menu>
     </item>
 
@@ -166,56 +198,33 @@
     </item>
 
     <item
-        android:id="@+id/submenu_format_selection"
-        android:icon="@drawable/ic_format_shapes_black_24dp"
-        android:title="@string/format"
-        app:showAsAction="never">
-        <menu>
-            <item
-                android:id="@+id/action_format_markdown"
-                android:title="@string/markdown" />
-            <item
-                android:id="@+id/action_format_plaintext"
-                android:title="@string/plaintext" />
-            <item
-                android:id="@+id/action_format_todotxt"
-                android:title="@string/todo_txt" />
-            <item
-                android:id="@+id/action_format_keyvalue"
-                android:title="@string/key_value" />
-            <item
-                android:id="@+id/action_format_zimwiki"
-                android:title="@string/zim_wiki" />
-        </menu>
-    </item>
-    <item
-        android:visible="false"
         android:id="@+id/submenu_tools"
         android:icon="@drawable/ic_format_shapes_black_24dp"
         android:title="@string/tools"
         app:showAsAction="never">
         <menu>
             <item
-                android:visible="false"
                 android:id="@+id/action_load_epub"
+                android:icon="@drawable/ic_file_white_24dp"
                 android:title="Convert &amp; load epub"
+                android:visible="false"
                 tools:ignore="HardcodedText" />
             <item
-                android:visible="false"
                 android:id="@+id/action_speed_read"
+                android:icon="@drawable/ic_lightning_black_24dp"
                 android:title="Speed Read"
                 tools:ignore="HardcodedText" />
+            <item
+                android:id="@+id/action_send_debug_log"
+                android:icon="@drawable/ic_bug_report_black_24dp"
+                android:title="@string/send_debug_log"
+                android:visible="false"
+                app:showAsAction="never" />
         </menu>
     </item>
     <item
         android:id="@+id/action_reload"
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_send_debug_log"
-        android:icon="@drawable/ic_bug_report_black_24dp"
-        android:title="@string/send_debug_log"
-        android:visible="false"
         app:showAsAction="never" />
 </menu>
