@@ -22,7 +22,7 @@ import android.view.accessibility.AccessibilityEvent;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 import java.util.HashSet;
@@ -43,13 +43,13 @@ public class HighlightingEditor extends AppCompatEditText {
         void onTextChanged(String text);
     }
 
-    private final boolean _isDeviceGoodHardware;
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private Highlighter _hl;
     private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
+    private Callback.a0 _beforeHighlightCallback = null;
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
     private final Handler _updateHandler = new Handler();
@@ -64,7 +64,6 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
-        _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         _updateRunnable = () -> {
             highlightWithoutChange();
@@ -156,10 +155,17 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    public void setBeforeHighlightCallback(final Callback.a0 callback) {
+        _beforeHighlightCallback = callback;
+    }
+
     private void highlightWithoutChange() {
-        final Editable editable = getText();
-        final boolean isFileShortEnough = editable.length() <= (_isDeviceGoodHardware ? 100000 : 35000);
-        if (isFileShortEnough && _hlEnabled) {
+        if (_beforeHighlightCallback != null) {
+            _beforeHighlightCallback.callback();
+        }
+
+        if (_hlEnabled) {
+            final Editable editable = getText();
             _modified = false;
             try {
                 if (MainActivity.IS_DEBUG_ENABLED) {

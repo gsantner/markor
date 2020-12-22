@@ -336,6 +336,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
+    private static final String PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED = "PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
 
@@ -394,6 +395,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentHighlightState(final String path) {
         // Use global setting as default
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled());
+    }
+
+    public void setDocumentHighlightSizeChecked(final String path, final boolean state) {
+        setBool(PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED + path, state);
+    }
+
+    public boolean getDocumentHighlightSizeChecked(final String path) {
+        return getBool(PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED + path, false);
     }
 
     public int getLastEditPositionChar(File file) {

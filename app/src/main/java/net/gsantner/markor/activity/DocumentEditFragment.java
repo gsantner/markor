@@ -89,6 +89,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapTextSetting;
     private boolean wrapText;
     private boolean highlightText;
+    private boolean hlSizeTested;
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -106,7 +107,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         f.setArguments(args);
         return f;
     }
-
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
@@ -562,10 +562,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
-        wrapTextSetting = _appSettings.getDocumentWrapState(getPath());
+        final String path = getPath();
+        wrapTextSetting = _appSettings.getDocumentWrapState(path);
         wrapText = inMainActivity || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(getPath());
+        highlightText = _appSettings.getDocumentHighlightState(path);
+        hlSizeTested = _appSettings.getDocumentHighlightSizeChecked(path);
+        _hlEditor.setBeforeHighlightCallback(this::checkFileSizeHighlight);
 
         setToggleState();
 
@@ -780,6 +783,22 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     };
 
+    private void checkFileSizeHighlight() {
+        if (!hlSizeTested) {
+            if (_hlEditor != null) {
+                if (_hlEditor.length() > (_appSettings.isDeviceGoodHardware ? 100000 : 35000)) {
+                    hlSizeTested = true;
+                    _appSettings.setDocumentHighlightSizeChecked(getPath(), true);
+
+                    highlightText = false;
+                    _hlEditor.setHighlightingEnabled(highlightText);
+                    setToggleState();
+                }
+            }
+        }
+    }
+
+
     //
     //
     //
@@ -807,4 +826,5 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }
+
 }
