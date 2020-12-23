@@ -1,3 +1,16 @@
+##############################################################################################################################
+# # Cleanup:
+#const sleep = ms => () => new Promise((resolve, reject) => window.setTimeout(resolve, ms));
+#Promise.resolve()
+#.then(() => {  document.getElementsByClassName("details-overlay details-reset position-relative d-inline-block ")[3].children[0].click();  })
+#.then(sleep(500))
+#.then(() => {  document.getElementsByClassName("dropdown-item btn-link menu-item-danger")[0].click();  })
+#.then(sleep(1000))
+#.then(() => {  document.getElementsByClassName("btn btn-block btn-danger")[0].click();});
+#
+# while [ 1 ] ; do sleep 4; xdotool key Up; sleep 0.1; xdotool key Return; done
+##############################################################################################################################
+
 name: "CI"
 
 on: [push, pull_request]
