@@ -53,17 +53,3 @@ jobs:
         name: "android-apk"
         path: |
           dist/*.apk
-
-    - name: "Test: JUnit report"
-      if: always()
-      uses: mikepenz/action-junit-report@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        report_paths: 'dist/tests/TEST-*.xml'
-        check_name: "JUnit"
-
-    - name: "Test: Android Lint"
-      if: always()
-      uses: yutailang0119/action-android-lint@v1.0.2
-      with:
-        xml_path: 'dist/lint/lint-results-flavorDefaultDebug.xml'
