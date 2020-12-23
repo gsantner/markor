@@ -89,7 +89,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapTextSetting;
     private boolean wrapText;
     private boolean highlightText;
-    private boolean hlSizeTested;
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -567,8 +566,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapText = inMainActivity || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path);
-        hlSizeTested = _appSettings.getDocumentHighlightSizeChecked(path);
-        _hlEditor.setBeforeHighlightCallback(this::checkFileSizeHighlight);
+        // Check and disable highlighting if file size is large
+        if (!_appSettings.getDocumentHighlightSizeChecked(path)) {
+            if (_hlEditor.length() > (_appSettings.isDeviceGoodHardware ? 100000 : 35000)) {
+                _appSettings.setDocumentHighlightSizeChecked(getPath(), true);
+                highlightText = false;
+            }
+        }
 
         setToggleState();
 
@@ -782,22 +786,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return false;
         }
     };
-
-    private void checkFileSizeHighlight() {
-        if (!hlSizeTested) {
-            if (_hlEditor != null) {
-                if (_hlEditor.length() > (_appSettings.isDeviceGoodHardware ? 100000 : 35000)) {
-                    hlSizeTested = true;
-                    _appSettings.setDocumentHighlightSizeChecked(getPath(), true);
-
-                    highlightText = false;
-                    _hlEditor.setHighlightingEnabled(highlightText);
-                    setToggleState();
-                }
-            }
-        }
-    }
-
 
     //
     //
