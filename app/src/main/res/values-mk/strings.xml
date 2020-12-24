@@ -39,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">Сподели</string>
     <string name="search">Пребарај</string>
     <string name="editor">Едитор</string>
+    <string name="folders">Директориуми</string>
     <string name="files">Фајлови</string>
     <string name="document">Документ</string>
     <string name="documents">Документи</string>
@@ -62,11 +63,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">Внеси Линк</string>
     <string name="insert_image">Внеси слика</string>
     <string name="contributors">Соработници</string>
+    <string name="save_location">Локација за зачувување</string>
+    <string name="select_storage_folder">Избери директориум за податоци</string>
     <string name="licenses">Лиценци</string>
     <string name="changelog">Листа на промени</string>
     <string name="more_info">Повеќе информации</string>
     <string name="show_license_of_the_app">Покажи лиценца на апликацијата</string>
     <string name="language">Јазик</string>
+    <string name="open_with">Отвори со</string>
     <string name="sort">Подреди по</string>
     <string name="date">Датум</string>
     <string name="deleteme____1">Име</string>
@@ -89,10 +93,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sync">Синхронизирај</string>
     <string name="save">Зачувај</string>
     <string name="update">Ажурирај</string>
+    <string name="clear">Избриши</string>
+    <string name="archive">Архивирај</string>
     <string name="add_task">Додади задача</string>
     <string name="add_x_witharg">Додади %s</string>
     <string name="refresh">Освежи</string>
     <string name="create_shortcut">Креирај кратенка</string>
+    <string name="insert_replace_date">Внеси датум</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексти</string>
     <string name="project">Проект</string>
