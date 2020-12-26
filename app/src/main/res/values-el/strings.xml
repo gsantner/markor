@@ -239,4 +239,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Εσωτερικός αποθηκευτικός χώρος</string>
     <string name="open_the_document_from_main_view">Μπορείτε να ανοίξετε το έγγραφο από την κύρια προβολή στο κάτω μέρος, τον περιηγητή αρχείων ή τον εκκινητή. Υπάρχει επίσης μια επιλογή για την προσθήκη κειμένου που κοινοποιήθηκε στο Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Σημειωματάριο είναι ο φάκελος που το Markor φορτώνει στο πρόγραμμα περιήγησης αρχείων όταν ξεκινά η εφαρμογή. Είναι ο αρχικός φάκελος των αρχείων σας.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">Το QuickNote είναι η ταχύτερη επιλογή για εγγραφή σημειώσεων. Είναι ένα αρχείο σε μορφή Markdown με την προεπιλεγμένη τοποθεσία &gt;Notebook/QuickNote. d&lt;, μπορείτε να ορίσετε ένα προσαρμοσμένο αρχείο στις ρυθμίσεις.</string>
+    <string name="todo_is_the_easiest_way_">Διαχειριστείτε τις εργασίες σας με ToDo. Είναι ένα αρχείο σε μορφή todo.txt με την προεπιλεγμένη τοποθεσία &gt;Notebook/todo. xt&lt;, μπορείτε να ορίσετε μία διαδρομή στις ρυθμίσεις.</string>
+    <string name="navigationbar_color">Χρώμα μπάρας πλοήγησης</string>
+    <string name="black">Μαύρο</string>
+    <string name="white">Λευκό</string>
+    <string name="view">Προβολή</string>
+    <string name="view_mode">Λειτουργία προβολής</string>
+    <string name="edit_mode">Λειτουργία επεξεργασίας</string>
+    <string name="mount_storage">Προσάρτηση αποθ. χώρος</string>
+    <string name="application_needs_access_to_storage_mount_it">Απαιτείται άδεια για πρόσβαση σε αυτόν τον χώρο αποθήκευσης. Τοποθετήστε τον αποθηκευτικό χώρο για να δώσετε πρόσβαση. Επιβεβαιώστε αυτό το παράθυρο διαλόγου για να εμφανιστεί ένα αναδυόμενο παράθυρο. Επιλέξτε εκεί τον αποθηκευτικό χώρο και πατήστε την επιλογή.</string>
+    <string name="share_into">Κοινή χρήση σε</string>
+    <string name="favourite">Αγαπημένο</string>
+    <string name="favourites">Αγαπημένα</string>
+    <string name="please_wait">Παρακαλώ περιμένετε</string>
+    <string name="app_start_folder">Φάκελος έναρξης εφαρμογής</string>
 </resources>
