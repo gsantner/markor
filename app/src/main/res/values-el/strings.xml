@@ -227,6 +227,39 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">Εμφάνιση πληροφοριών συνεισφέροντος. Δώστε το να εμφανίζεται εδώ σε βάση opt-in μετά τη συμβολή</string>
     <string name="descending">φθίνουσα</string>
     <string name="ascending">αύξουσα</string>
+    <string name="disable_spelling_underline">Απενεργοποίηση ορθογραφικού ελέγχου υπογράμμισης</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Διατήρηση προτάσεων πληκτρολογίου, η κόκκινη υπογράμμιση εξαφανίζεται</string>
+    <string name="location">Τοποθεσία</string>
+    <string name="text_lines">Γραμμές Κειμένου</string>
+    <string name="text_characters">Χαρακτήρες Κειμένου</string>
+    <string name="text_words">Λέξεις Κειμένου</string>
+    <string name="directory">Κατάλογος</string>
+    <string name="recently_viewed_documents">Έγγραφα που προβλήθηκαν πρόσφατα</string>
+    <string name="details">Λεπτομέρειες</string>
+    <string name="calendar">Ημερολόγιο</string>
+    <string name="warning_disallowed_sd_access">Προειδοποίηση! Η εφαρμογή δεν έχει την άδεια να αποθηκεύσει αυτό το αρχείο, όλες οι αλλαγές θα χαθούν. Δεν υπάρχει καμία δυνατότητα να επιλύσετε το πρόβλημα ή να επιβεβαιώσετε κάτι, το Android αρνείται οποιαδήποτε πρόσβαση εδώ.</string>
+    <string name="error_picture_selection">Δεν επιλέχθηκε εικόνα, λήφθηκε ή αποθηκεύτηκε.</string>
+    <string name="gallery_picture">Εικόνα συλλογής</string>
+    <string name="camera_picture">Εικόνα φωτογραφικής</string>
+    <string name="enable_undo_and_redo_be_patient">Ενεργοποιήστε τις ενέργειες αναίρεσης και επανάληψης. Κατάλληλο μόνο για προχωρημένη χρήση, να είστε υπομονετικοί για να μην διαγράψετε κάτι σημαντικό. Κλείστε και ανοίξτε τον επεξεργαστή για να καθαρίσετε το ιστορικό.</string>
+    <string name="description">Περιγραφή</string>
+    <string name="edit_picture">Επεξεργασία εικόνας</string>
+    <string name="math">Μαθηματικά</string>
+    <string name="table_of_contents">Πίνακας περιεχομένων</string>
+    <string name="miscellaneous">Διάφορα</string>
+    <string name="textaction">Ενέργεια κειμένου</string>
+    <string name="textactions">Ενέργειες κειμένου</string>
+    <string name="prefer_view">Προτιμώμενη προβολή</string>
+    <string name="no_calendar_app_is_installed">Δεν υπάρχει εγκατεστημένη εφαρμογή ημερολογίου!</string>
+    <string name="popular_documents">Δημοφιλή έγγραφα</string>
+    <string name="color">Χρώμα</string>
+    <string name="zero_width_space">Χώρος μηδενικού πλάτους</string>
+    <string name="basic_color_scheme">Σχέδιο βασικών χρωμάτων</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Αλλάζει το χρώμα φόντου και προσκηνίου του επεξεργαστή κειμένου. Ρυθμίζει το θέμα της εφαρμογής και είναι διαθέσιμο σε ανοιχτό και σκούρο θέμα. Τα χρώματα επισήμανσης 
+ παραμένουν τα ίδια.</string>
+    <string name="preset">Προρυθμισμένο</string>
+    <string name="foreground">Προσκήνιο</string>
+    <string name="background">Υπόβαθρο</string>
     <string name="close">Κλείσιμο</string>
     <string name="cancel">Ακύρωση</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Σας αρέσει αυτό το έργο? Θέλετε να υποστηρίξετε περαιτέρω βελτιώσεις και διορθώσεις σφαλμάτων?\n\nΗ ανάπτυξη εφαρμογών και η εγγραφή σχετικών δημοσιεύσεων ιστολογίου απαιτούν πολύ χρόνο! Αν θέλετε να βοηθήσετε το έργο να συνεχιστεί, παρακαλώ σκεφτείτε μια μικρή δωρεά!\n\nΑυτό το έργο αναπτύσσεται στον ελεύθερο χρόνο, εντελώς δωρεάν και χωρίς διαφημίσεις!</string>
@@ -280,4 +313,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Αδυναμία κρυπτογράφησης περιεχομένου αρχείου. Το αρχείο δεν αποθηκεύτηκε.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Δεν ήταν δυνατή η αποκρυπτογράφηση περιεχομένου αρχείου. Χρησιμοποιείτε λάθος κωδικό πρόσβασης? Είναι το αρχείο πραγματικά κρυπτογραφημένο με κρυπτογράφηση Markors AES;</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Ο κωδικός πρόσβασης έχει ήδη οριστεί. Ο ορισμός νέου κωδικού πρόσβασης θα αντικαταστήσει τον υπάρχοντα κωδικό πρόσβασης και ενδέχεται να μην μπορείτε να έχετε πρόσβαση σε αρχεία πια σε περίπτωση που ξεχάσετε τον κωδικό πρόσβασης.</string>
+    <string name="code_block">Μπλοκ κώδικα</string>
 </resources>
