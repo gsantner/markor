@@ -193,4 +193,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Αστερίσκος (*)</string>
     <string name="unordered_list_char_plus">Συν (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Το Markor μπορεί να επεξεργαστεί μόνο τοπικά, offline διαθέσιμα έγγραφα και δεν υποστηρίζει διαχειριστές αρχείων που δεν παρέχουν την πλήρη διαδρομή αρχείου.</string>
+    <string name="sync_to_local_folder_notice">Σημείωση: Οι εφαρμογές συγχρονισμού μπορούν να τοποθετούν αρχεία σε προσαρμοσμένους φακέλους. Ανοίξτε τα αλλάζοντας αναλόγως το φάκελο εγγράφων του Markor, ή σε άλλο διαχειριστή αρχείων.</string>
+    <string name="configure_in_the_apps_settings">Ρύθμιση παραμέτρων στις ρυθμίσεις της εφαρμογής</string>
+    <string name="vertical_alignment">Κατακόρυφη στοίχιση</string>
+    <string name="horizontal_alignment">Οριζόντια στοίχιση</string>
+    <string name="default_">Προεπιλογή</string>
+    <string name="left">Αριστερά</string>
+    <string name="right">Δεξιά</string>
+    <string name="top">Πάνω</string>
+    <string name="bottom">Κάτω</string>
+    <string name="center">Κέντρο</string>
+    <string name="textaction_spacing">Ενέργεια κειμένου</string>
+    <string name="horizontal_space_between_textactions">Οριζόντιο κενό μεταξύ των κουμπιών ενεργειών κειμένου</string>
+    <string name="center_text">Κεντραρισμένο κείμενο</string>
+    <string name="edit_text_in_center_of_screen">Επεξεργασία κειμένου στο κέντρο της οθόνης</string>
+    <string name="clipboard">Πρόχειρο</string>
+    <string name="select_existing_document">Επιλέξτε υπάρχον έγγραφο</string>
+    <string name="open_source_licenses">Άδειες Ανοιχτού Κώδικα</string>
+    <string name="rate_this_app">Βαθμολογήστε αυτήν την εφαρμογή</string>
+    <string name="translate">Μετάφραση</string>
 </resources>
