@@ -143,4 +143,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="textactions_show_useful_actions_description__appspecific">Εμφάνιση μιας γραμμής με εύχρηστα κουμπιά στο κάτω μέρος. Αυτές οι ενέργειες κειμένου τροποποιούν το κείμενο ή τρέχουν μια ενέργεια βασισμένη στο κείμενο.</string>
     <string name="load_last_opened_folder_at_startup">Φόρτωση του τελευταίου ανοιγμένου φακέλου κατά την εκκίνηση</string>
     <string name="format">Μορφή</string>
+    <string name="contexts">Συγκείμενο</string>
+    <string name="project">Έργο</string>
+    <string name="projects">Έργα</string>
+    <string name="categories">Κατηγορίες</string>
+    <string name="none">Κανένα</string>
+    <string name="other">Άλλο</string>
+    <string name="alternative_naming">Εναλλακτική ονομασία</string>
+    <string name="empty_file">Κενό αρχείο</string>
+    <string name="break_page_pdf_print">Σελίδα διακοπής (PDF/Εκτύπωση)</string>
+    <string name="underline">Με υπογράμμιση</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Αν θα υπογραμμιστεί ο δεκαεξαδικός κωδικός χρώματος σύμφωνα με το χρώμα</string>
+    <string name="underline_hex_color_codes">Υπογράμμιση Δεκαεξαδικούς Κωδικούς Χρωμάτων</string>
+    <string name="insert_current_date_when_starting_new_task">Εισάγετε την τρέχουσα ημερομηνία κατά την έναρξη μιας νέας εργασίας</string>
+    <string name="tasks_with_todays_date">Εργασίες με τη σημερινή ημερομηνία</string>
+    <string name="append_contexts_and_projects">Προσάρτηση συγκειμένων και έργων</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Προσάρτηση συγκειμένων και έργων στο τέλος μιας εργασίας κατά τη χρήση της κατάλληλης ενέργειας κειμένου</string>
+    <string name="rtl_rendering">Δεξιά-προς-αριστερή προβολή</string>
 </resources>
