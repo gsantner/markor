@@ -254,4 +254,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">Αγαπημένα</string>
     <string name="please_wait">Παρακαλώ περιμένετε</string>
     <string name="app_start_folder">Φάκελος έναρξης εφαρμογής</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Το επιλεγμένο αρχείο μπορεί να είναι ένα απλό αρχείο κειμένου. Θέλετε να το ανοίξετε στον επεξεργαστή, ή σε άλλη εφαρμογή?\n\nΜην προσπαθήσετε να ανοίξετε δυαδικά αρχεία. Αν δεν είστε σίγουροι, ανοίξτε με άλλη εφαρμογή.</string>
+    <string name="list_in_recent_files">Λίστα σε πρόσφατα αρχεία</string>
+    <string name="reload">Επαναφόρτωση</string>
+    <string name="wrap_words">Αναδίπλωση λέξεων</string>
+    <string name="recursive_search_in_current_directory">Αναδρομική αναζήτηση στον τρέχοντα κατάλογο. Όταν το ερώτημα περιέχει έναν αστερίσκο (*) χρησιμοποιείται η αναζήτηση regex, αλλιώς ελέγξτε αν το ερώτημα περιέχεται.</string>
+    <string name="always_open_with_this_app">Πάντα άνοιγμα με αυτήν την εφαρμογή</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Πάντα να ανοίγετε αρχεία με αυτήν την εφαρμογή, όταν η λίστα περιέχει την επέκταση αρχείου. Χρησιμοποιήστε \'Κανένα, .html, . ss , .js\' για παράδειγμα, αν θέλετε να επεξεργαστείτε τα αρχεία web και αυτά χωρίς επέκταση αρχείου.</string>
+    <string name="template">Πρότυπο</string>
+    <string name="send_debug_log">Αποστολή Καταγραφής Αποσφαλμάτωσης</string>
 </resources>
