@@ -110,4 +110,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Ημερομηνία λήξης</string>
     <string name="current_date">Τρέχουσα ημερομηνία</string>
     <string name="archive">Αρχειοθέτηση</string>
+    <string name="add_task">Προσθήκη εργασίας</string>
+    <string name="add_x_witharg">Προσθήκη %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Έγγραφο που θα φορτωθεί και θα αποθηκευτεί ως \"%s\"</string>
+    <string name="refresh">Ανανέωση</string>
+    <string name="create_shortcut">Δημιουργία συντόμευσης</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Προσπάθησε να δημιουργήσει μια συντόμευση στην αρχική οθόνη. Σημειώστε ότι ορισμένοι εκκινητές ενδέχεται να μην το υποστηρίξουν.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Το επιλεγμένο αρχείο δεν βρίσκεται στον κατάλογο σημειωματάριων της εφαρμογής. Θέλετε να το αντιγράψετε στον τρέχοντα φάκελο? Αυτό θα αντικαταστήσει οποιοδήποτε υπάρχον αρχείο με το ίδιο όνομα.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Το αρχείο δεν βρίσκεται στον τρέχοντα φάκελο. Θέλετε να το αντιγράψετε στον τρέχοντα φάκελο? Αυτό θα αντικαταστήσει οποιοδήποτε υπάρχον αρχείο με το ίδιο όνομα.</string>
+    <string name="files_and_folders">Αρχεία και φάκελοι</string>
+    <string name="document_browser">Περιηγητής εγγράφων</string>
+    <string name="file_browser">Περιηγητής αρχείων</string>
+    <string name="set_due_date">Ορισμός ημερομηνίας λήξης</string>
+    <string name="insert_replace_date">Εισαγωγή ημερομηνίας</string>
+    <string name="create_note" needed="false">Δημιουργία Σημείωσης</string>
+    <string name="special_documents" needed="false">Ειδικά έγγραφα</string>
+    <string name="keep_screen_on" needed="false">Διατήρηση της οθόνης ενεργής</string>
+    <string name="back_to_previous_folder" needed="false">Επιστροφή στον προηγούμενο φάκελο</string>
 </resources>
