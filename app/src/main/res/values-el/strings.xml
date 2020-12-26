@@ -127,4 +127,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_documents" needed="false">Ειδικά έγγραφα</string>
     <string name="keep_screen_on" needed="false">Διατήρηση της οθόνης ενεργής</string>
     <string name="back_to_previous_folder" needed="false">Επιστροφή στον προηγούμενο φάκελο</string>
+    <string name="app_settings" needed="false">Ρυθμίσεις εφαρμογής</string>
+    <string name="editor_settings" needed="false">Ρυθμίσεις Επεξεργαστή</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Απομνημόνευση της τελευταίας τοποθεσίας φακέλου κατά την εκκίνηση</string>
+    <string name="number_of_files_witharg" needed="false">Αριθμός αρχείων: %d</string>
+    <string name="app_wide">Εύρος Εφαρμογής</string>
+    <string name="main_view">Κύρια Προβολή</string>
+    <string name="overall_theme_used_in_app">Το γενικό θέμα που χρησιμοποιείται στην εφαρμογή</string>
+    <string name="remember_last_directory">Απομνημόνευση τελευταίου φακέλου</string>
+    <string name="syntax_highlighting">Επισήμανση σύνταξης</string>
+    <string name="highlighting_delay">Καθυστέρηση επισήμανσης</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Καθυστέρηση σε χιλιοστά του δευτερολέπτου για ανανέωση της επισήμανσης. Μια χαμηλότερη τιμή θα ξεκινήσει την επισήμανση νωρίτερα, αλλά θα εξαντλήσει την μπαταρία σας και ενδέχεται να επιβραδύνει την εφαρμογή σε παλαιότερες συσκευές.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Ελέγχει αν το εισαχθέν κείμενο πρέπει να επισημανθεί ή όχι</string>
+    <string name="control_font_size_in_editor">Έλεγχος του μεγέθους γραμματοσειράς που χρησιμοποιείται στον επεξεργαστή</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Εμφάνιση μιας γραμμής με εύχρηστα κουμπιά στο κάτω μέρος. Αυτές οι ενέργειες κειμένου τροποποιούν το κείμενο ή τρέχουν μια ενέργεια βασισμένη στο κείμενο.</string>
+    <string name="load_last_opened_folder_at_startup">Φόρτωση του τελευταίου ανοιγμένου φακέλου κατά την εκκίνηση</string>
+    <string name="format">Μορφή</string>
 </resources>
