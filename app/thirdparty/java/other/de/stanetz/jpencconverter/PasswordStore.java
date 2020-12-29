@@ -26,7 +26,6 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.util.Objects;
@@ -52,7 +51,7 @@ import javax.crypto.spec.GCMParameterSpec;
  * cryptographic modes.
  */
 @SuppressWarnings("CharsetObjectCanBeUsed")
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class PasswordStore {
 
     private static final String LOG_TAG_NAME = "SecurityStore";
@@ -79,12 +78,8 @@ public class PasswordStore {
     @SuppressLint("HardwareIds")
     public PasswordStore(Context context) {
         this._context = Objects.requireNonNull(context, "The context must be set.");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE); //api 23+
-            _deviceIsProtected = keyguardManager.isDeviceSecure();
-        } else {
-            _deviceIsProtected = false;
-        }
+        final KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE); //api 23+
+        _deviceIsProtected = keyguardManager.isDeviceSecure();
         this._preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -115,19 +110,9 @@ public class PasswordStore {
                 usedSecurityMode = securityMode;
             }
             final Cipher cipher = Cipher.getInstance(CIPHER_MODE);
-            final byte[] iv;
-            final byte[] crypteKey;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                cipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyname, usedSecurityMode));
-                iv = cipher.getIV();
-            } else {
-                iv = new byte[128];
-                new SecureRandom().nextBytes(iv);
-                final String warningText = "You have an old Android-Device. The password will be saved unsafe.";
-                Toast.makeText(_context, warningText, Toast.LENGTH_LONG).show();
-                Log.w(LOG_TAG_NAME, warningText);
-            }
-            crypteKey = cipher.doFinal(unencryptedKey.getBytes("UTF-8"));
+            cipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyname, usedSecurityMode));
+            final byte[] iv = cipher.getIV();
+            final byte[] crypteKey = cipher.doFinal(unencryptedKey.getBytes("UTF-8"));
 
             final SharedPreferences.Editor editor = _preferences.edit();
             editor.putString(keyname + KEY_SUFFIX_KEY, Base64.encodeToString(crypteKey, Base64.DEFAULT));
@@ -210,7 +195,6 @@ public class PasswordStore {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @NonNull
     private SecretKey createSecretKey(String keyname, SecurityMode securityMode) throws NoSuchAlgorithmException,
             NoSuchProviderException, InvalidAlgorithmParameterException {

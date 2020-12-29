@@ -62,7 +62,7 @@ public class DocumentIO {
         return loadDocument(context, bundle, existingDocument);
     }
 
-    @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
     public static synchronized Document loadDocument(Context context, Bundle arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
             return existingDocument;
@@ -253,7 +253,7 @@ public class DocumentIO {
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPassword(Context context) {
         final PasswordStore securityStore = new PasswordStore(context);
         final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
@@ -267,7 +267,7 @@ public class DocumentIO {
     }
 
     private static boolean isEncryptedFile(File file) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
 }
