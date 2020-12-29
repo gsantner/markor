@@ -62,7 +62,7 @@ public class DocumentIO {
         return loadDocument(context, bundle, existingDocument);
     }
 
-    @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
     public static synchronized Document loadDocument(Context context, Bundle arguments, @Nullable Document existingDocument) {
         if (existingDocument != null) {
             return existingDocument;
@@ -182,7 +182,7 @@ public class DocumentIO {
         try {
             final byte[] contentAsBytes;
             if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
             } else {
                 contentAsBytes = document.getContent().getBytes();
             }
@@ -253,7 +253,7 @@ public class DocumentIO {
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPassword(Context context) {
         final PasswordStore securityStore = new PasswordStore(context);
         final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
@@ -267,7 +267,7 @@ public class DocumentIO {
     }
 
     private static boolean isEncryptedFile(File file) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
 }
