@@ -107,6 +107,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
+
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
 
