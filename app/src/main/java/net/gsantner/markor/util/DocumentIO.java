@@ -182,7 +182,7 @@ public class DocumentIO {
         try {
             final byte[] contentAsBytes;
             if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
             } else {
                 contentAsBytes = document.getContent().getBytes();
             }

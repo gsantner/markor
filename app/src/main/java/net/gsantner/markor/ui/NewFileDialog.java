@@ -278,8 +278,8 @@ public class NewFileDialog extends DialogFragment {
         }
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
-        if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            bytes = new JavaPasswordbasedCryption(JavaPasswordbasedCryption.Version.V001, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
+        if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
         } else {
             bytes = t.getBytes();
         }
