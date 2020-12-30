@@ -565,15 +565,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapTextSetting = _appSettings.getDocumentWrapState(path);
         wrapText = inMainActivity || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(path);
-        // Check and disable highlighting if file size is large
-        if (!_appSettings.getDocumentHighlightSizeChecked(path)) {
-            if (_hlEditor.length() > (_appSettings.isDeviceGoodHardware ? 100000 : 35000)) {
-                _appSettings.setDocumentHighlightSizeChecked(getPath(), true);
-                highlightText = false;
-            }
-        }
-
+        highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         setToggleState();
 
         setHorizontalScrollMode(wrapText);

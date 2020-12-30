@@ -25,7 +25,11 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -392,17 +396,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setBool(PREF_PREFIX_HIGHLIGHT_STATE + path, state);
     }
 
-    public boolean getDocumentHighlightState(final String path) {
-        // Use global setting as default
-        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled());
-    }
-
-    public void setDocumentHighlightSizeChecked(final String path, final boolean state) {
-        setBool(PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED + path, state);
-    }
-
-    public boolean getDocumentHighlightSizeChecked(final String path) {
-        return getBool(PREF_PREFIX_HIGHLIGHT_SIZE_CHECKED + path, false);
+    public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
+        final boolean lengthOk = chars != null && chars.length() < (isDeviceGoodHardware ? 100000 : 35000);
+        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled() && lengthOk);
     }
 
     public int getLastEditPositionChar(File file) {
