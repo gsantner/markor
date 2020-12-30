@@ -393,7 +393,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
         final boolean lengthOk = chars != null && chars.length() < (isDeviceGoodHardware ? 100000 : 35000);
-        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled() && lengthOk);
+        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
     }
 
     public int getLastEditPositionChar(File file) {
