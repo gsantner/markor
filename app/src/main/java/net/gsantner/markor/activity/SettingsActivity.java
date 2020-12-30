@@ -200,7 +200,7 @@ public class SettingsActivity extends AppActivityBase {
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && _as.hasPasswordBeenSetOnce()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && _as.hasPasswordBeenSetOnce()) {
                 updateSummary(R.string.pref_key__default_encryption_password, "****");
                 setDialogMessage(R.string.pref_key__default_encryption_password, getString(R.string.password_already_set_setting_a_new_password_will_overwrite));
             }
@@ -244,7 +244,7 @@ public class SettingsActivity extends AppActivityBase {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
-            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !TextUtils.isEmpty(prefs.getString(key, null))) {
+            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !TextUtils.isEmpty(prefs.getString(key, null))) {
                 new PasswordStore(getActivity()).storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
                 // Never delete the password, otherwise you will remove the password in PasswordStore too!
                 // Never remove this line, otherwise the password will be stored unencrypted forever.
