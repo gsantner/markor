@@ -107,6 +107,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
+
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
 
@@ -806,5 +807,4 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }
-
 }

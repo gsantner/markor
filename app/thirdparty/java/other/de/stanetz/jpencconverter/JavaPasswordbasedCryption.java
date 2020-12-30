@@ -34,8 +34,8 @@ import javax.crypto.spec.SecretKeySpec;
  * </ul>
  * This Class need Android KitKat to run om android devices.
  */
-// COPIED FROM https://gitlab.com/opensource21/jpencconverter/-/blob/v0.1.0/src/main/java/de/stanetz/jpencconverter/cryption/JavaPasswordbasedCryption.java
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+// COPIED FROM https://gitlab.com/opensource21/jpencconverter/-/blob/v0.2.0/src/main/java/de/stanetz/jpencconverter/cryption/JavaPasswordbasedCryption.java
+@RequiresApi(api = Build.VERSION_CODES.M)
 @SuppressWarnings("unused")
 public class JavaPasswordbasedCryption {
 
@@ -48,6 +48,16 @@ public class JavaPasswordbasedCryption {
     private final Random random;
 
     /**
+     * Create a new Instance of the given android api version.
+     *
+     * @param random     strongest SecureRandom.getInstanceStrong(), which could be very slow.  A compromise could be SecureRandom.getInstance("SHA1PRNG") or new SecureRandom.
+     * @param apiVersion the android api-version which is used to search for the best version.
+     */
+    public JavaPasswordbasedCryption(int apiVersion, Random random) {
+        this(getVersionForAndroid(apiVersion), random);
+    }
+
+    /**
      * Create a new Instance of the given version.
      *
      * @param random  strongest SecureRandom.getInstanceStrong(), which could be very slow.  A compromise could be SecureRandom.getInstance("SHA1PRNG") or new SecureRandom.
@@ -58,13 +68,24 @@ public class JavaPasswordbasedCryption {
         this.random = random;
     }
 
+
+    private static Version getVersionForAndroid(int apiVersion) {
+        if (apiVersion >= 26) {
+            return Version.V001;
+        } else if (apiVersion >= 23) {
+            return Version.U001;
+        } else {
+            throw new IllegalArgumentException("Minimal API-Version is 23, so " + apiVersion + " isn't supported");
+        }
+    }
+
     /**
      * Extract the version from encrypted bytes.
      *
      * @param encryptedText the encrypted bytes.
      * @return the used version.
      */
-    private static Version getVersion(byte[] encryptedText) {
+    public static Version getVersion(byte[] encryptedText) {
         final byte[] versionBytes = Arrays.copyOfRange(encryptedText, 0, Version.NAME_LENGTH);
         return Version.valueOf(new String(versionBytes, StandardCharsets.US_ASCII));
     }
@@ -72,7 +93,7 @@ public class JavaPasswordbasedCryption {
     /**
      * Decrypt the text.
      *
-     * @param encryptedText encrypeted text as bytes.
+     * @param encryptedText encrypted text as bytes.
      * @param password      the password <b>Warning!</b> the array will be filled with 0!
      * @return decrypted text.
      */
@@ -101,7 +122,7 @@ public class JavaPasswordbasedCryption {
      * @return encrypted-bytes.
      * @throws EncryptionFailedException when something goes wrong.
      */
-    private byte[] encryptBytes(byte[] decryptedBytes, char[] password) throws EncryptionFailedException {
+    public byte[] encryptBytes(byte[] decryptedBytes, char[] password) throws EncryptionFailedException {
         try {
             final byte[] salt = getRandomBytes(version.keySaltLength);
             final byte[] nonce = getRandomBytes(version.nonceLenth);
@@ -140,10 +161,10 @@ public class JavaPasswordbasedCryption {
      * @return the decrypted bytes.
      * @throws EncryptionFailedException when something goes wrong.
      */
-    private byte[] decryptBytes(byte[] encrypted, char[] password) throws EncryptionFailedException {
+    public byte[] decryptBytes(byte[] encrypted, char[] password) throws EncryptionFailedException {
         try {
             final Version currentVersion = getVersion(encrypted);
-            if (!currentVersion.equals(version)) {
+            if (currentVersion != version) {
                 throw new IllegalArgumentException("The current version " + currentVersion.name() + " differs from configured version " + version.name());
             }
             int from = Version.NAME_LENGTH;
@@ -176,7 +197,7 @@ public class JavaPasswordbasedCryption {
 
     private Cipher getCipher(SecretKey key, int encryptMode, byte[] nonce) throws
             NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
-        if (version == Version.V001) {
+        if (version == Version.V001 || version == Version.U001) {
             Cipher cipher = Cipher.getInstance(version.cipher);
             GCMParameterSpec spec = new GCMParameterSpec(16 * 8, nonce);
             cipher.init(encryptMode, key, spec);
@@ -208,9 +229,18 @@ public class JavaPasswordbasedCryption {
 
     /**
      * Version of encryption.
+     * Version which starts with an U are Versions which are unsecure compared to a V-Version.
      */
     public enum Version {
-        V001("PBKDF2WithHmacSHA512", 10000, 256, "AES", 64, "AES/GCM/NoPadding", 32);
+        V001("PBKDF2WithHmacSHA512", 10000, 256, "AES", 64, "AES/GCM/NoPadding", 32),
+
+        /**
+         * Weaker version of V001. Needed for old android-devices.
+         *
+         * @deprecated please use {@link #V001} if possible.
+         */
+        @Deprecated
+        U001("PBKDF2WithHmacSHA1", 10000, 256, "AES", 64, "AES/GCM/NoPadding", 32);
 
         /**
          * Define the length of the Versionnames.
