@@ -199,7 +199,7 @@ public class DocumentIO {
                 ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-            Log.e(DocumentIO.class.getName(), "loadDocument:  enrypt failed for File " +
+            Log.e(DocumentIO.class.getName(), "writeContent:  enrypt failed for File " +
                     document.getFile().getAbsolutePath() + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
             ret = false;
