@@ -38,18 +38,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Сподели со&#8230;</string>
     <string name="share">Сподели</string>
     <string name="search">Пребарај</string>
+    <string name="display_converted_markup">Покажи конвертиран маркап</string>
     <string name="editor">Едитор</string>
     <string name="folders">Директориуми</string>
     <string name="files">Фајлови</string>
     <string name="document">Документ</string>
     <string name="documents">Документи</string>
     <string name="html_as_plaintext">HTML (како обичен текст)</string>
+    <string name="document_editor_font">Документ Уредувачки Фонт</string>
     <string name="theme">Тема</string>
     <string name="about">За</string>
     <string name="plaintext">Обичен текст</string>
     <string name="file">Фајл</string>
     <string name="image">Слика</string>
     <string name="font_size">Големина на Фонт</string>
+    <string name="render_rtl_language">Рендерирај за десно-на-лево јазици</string>
     <string name="last_modified_witharg">Последна измена: %s</string>
     <string name="select_this_folder">Избери директориум</string>
     <string name="select">Избери</string>
