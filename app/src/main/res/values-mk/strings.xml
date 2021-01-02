@@ -53,6 +53,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">Слика</string>
     <string name="font_size">Големина на Фонт</string>
     <string name="render_rtl_language">Рендерирај за десно-на-лево јазици</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Грешка: Неможе да се креира директориум за тетратка</string>
     <string name="last_modified_witharg">Последна измена: %s</string>
     <string name="select_this_folder">Избери директориум</string>
     <string name="select">Избери</string>
@@ -72,6 +73,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Листа на промени</string>
     <string name="more_info">Повеќе информации</string>
     <string name="show_license_of_the_app">Покажи лиценца на апликацијата</string>
+    <string name="show_third_party_licenses">Покажи лиценци од трети лица</string>
+    <string name="language_change_restart_description">Смени јазик на апликацијата. Рестартирај ја апликацијата за промените да се видат</string>
     <string name="language">Јазик</string>
     <string name="open_with">Отвори со</string>
     <string name="sort">Подреди по</string>
@@ -81,6 +84,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">Спротивно</string>
     <string name="contribute">Придонеси</string>
     <string name="donate">Донирај</string>
+    <string name="press_back_again_to_exit">Кликни ’Назад’ повторно за излез</string>
     <string name="exit">Излез</string>
     <string name="undo">Поврати</string>
     <string name="redo">Повтори</string>
@@ -103,6 +107,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Освежи</string>
     <string name="create_shortcut">Креирај кратенка</string>
     <string name="insert_replace_date">Внеси датум</string>
+    <string name="main_view">Главен приказ</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексти</string>
     <string name="project">Проект</string>
