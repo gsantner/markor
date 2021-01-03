@@ -562,11 +562,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
-        wrapTextSetting = _appSettings.getDocumentWrapState(getPath());
+        final String path = getPath();
+        wrapTextSetting = _appSettings.getDocumentWrapState(path);
         wrapText = inMainActivity || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(getPath());
-
+        highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         setToggleState();
 
         setHorizontalScrollMode(wrapText);
