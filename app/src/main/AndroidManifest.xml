@@ -137,6 +137,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.openeditor.OpenShareIntoActivity"
+            android:enabled="false"
+            android:icon="@drawable/ic_launcher_share_into"
+            android:label="@string/share_into"
+            android:noHistory="true"
+            android:taskAffinity=".activity.MainActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.DocumentRelayActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoDisplay" />
