@@ -34,9 +34,9 @@ import javax.crypto.spec.SecretKeySpec;
  * </ul>
  * This Class need Android KitKat to run om android devices.
  */
-// COPIED FROM https://gitlab.com/opensource21/jpencconverter/-/blob/v0.2.0/src/main/java/de/stanetz/jpencconverter/cryption/JavaPasswordbasedCryption.java
+// COPIED FROM https://gitlab.com/opensource21/jpencconverter/-/blob/v0.2.1/src/main/java/de/stanetz/jpencconverter/cryption/JavaPasswordbasedCryption.java
+@SuppressWarnings("deprecation")
 @RequiresApi(api = Build.VERSION_CODES.M)
-@SuppressWarnings("unused")
 public class JavaPasswordbasedCryption {
 
     /**
@@ -97,7 +97,7 @@ public class JavaPasswordbasedCryption {
      * @param password      the password <b>Warning!</b> the array will be filled with 0!
      * @return decrypted text.
      */
-    public static String getDecyptedText(byte[] encryptedText, char[] password) {
+    public static String getDecryptedText(byte[] encryptedText, char[] password) {
         return new JavaPasswordbasedCryption(getVersion(encryptedText), null).decrypt(encryptedText, password);
     }
 
@@ -231,6 +231,7 @@ public class JavaPasswordbasedCryption {
      * Version of encryption.
      * Version which starts with an U are Versions which are unsecure compared to a V-Version.
      */
+    @SuppressWarnings("DeprecatedIsStillUsed")
     public enum Version {
         V001("PBKDF2WithHmacSHA512", 10000, 256, "AES", 64, "AES/GCM/NoPadding", 32),
 
