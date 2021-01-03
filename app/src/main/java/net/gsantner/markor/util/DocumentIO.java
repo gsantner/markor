@@ -91,11 +91,11 @@ public class DocumentIO {
             String content;
             if (isEncryptedFile(filePath) && getPassword(context) != null) {
                 try {
-                    final byte[] encyptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
-                    if (encyptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
-                        content = JavaPasswordbasedCryption.getDecyptedText(encyptedContext, getPassword(context));
+                    final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
+                    if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
+                        content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, getPassword(context));
                     } else {
-                        content = new String(encyptedContext, StandardCharsets.UTF_8);
+                        content = new String(encryptedContext, StandardCharsets.UTF_8);
                     }
                 } catch (FileNotFoundException e) {
                     Log.e(DocumentIO.class.getName(), "loadDocument:  File " + filePath + " not found.");
@@ -199,7 +199,7 @@ public class DocumentIO {
                 ret = FileUtils.writeFile(document.getFile(), contentAsBytes);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-            Log.e(DocumentIO.class.getName(), "loadDocument:  enrypt failed for File " +
+            Log.e(DocumentIO.class.getName(), "writeContent:  encrypt failed for File " +
                     document.getFile().getAbsolutePath() + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
             ret = false;

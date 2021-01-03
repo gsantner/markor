@@ -42,7 +42,7 @@ public class JavaPasswordbasedCryptionTest {
 
     private void convenientTest(String password, String text) {
         final byte[] encrypt = testee.encrypt(text, password.toCharArray());
-        final String decrypt = JavaPasswordbasedCryption.getDecyptedText(encrypt, password.toCharArray());
+        final String decrypt = JavaPasswordbasedCryption.getDecryptedText(encrypt, password.toCharArray());
         assertEquals(text, decrypt);
     }
 
