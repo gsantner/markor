@@ -43,7 +43,6 @@ public class HighlightingEditor extends AppCompatEditText {
         void onTextChanged(String text);
     }
 
-    private final boolean _isDeviceGoodHardware;
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _accessibilityEnabled = true;
@@ -64,7 +63,6 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
-        _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         _updateRunnable = () -> {
             highlightWithoutChange();
