@@ -43,7 +43,7 @@ public class Document implements Serializable {
         if (document != null) {
             final File file = document.getFile();
             if (file != null) {
-                return file.getPath();
+                return file.getAbsolutePath();
             }
         }
         return null;

@@ -339,14 +339,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
 
-    public void setLastEditPosition(File file, int pos, int scrolloffset) {
-        if (file == null || !file.exists()) {
-            return;
-        }
-        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
-            setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
-            setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
-        }
+    public void setLastEditPosition(final String path, int pos, int scrolloffset) {
+        setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
+        setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
@@ -396,21 +391,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled());
     }
 
-    public int getLastEditPositionChar(File file) {
-        if (file == null || !file.exists()) {
-            return -1;
-        }
-        if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
-            return -2;
-        }
-        return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
+    public int getLastEditPositionChar(final String path) {
+        return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, -3, _prefCache);
     }
 
-    public int getLastEditPositionScroll(File file) {
-        if (file == null || !file.exists()) {
-            return 0;
-        }
-        return getInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), 0, _prefCache);
+    public int getLastEditPositionScroll(final String path) {
+        return getInt(PREF_PREFIX_EDIT_POS_SCROLL + path, 0, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {

@@ -31,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
@@ -60,6 +61,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -90,6 +92,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapText;
     private boolean highlightText;
 
+    private boolean _firstStart = true;
+
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
@@ -106,7 +110,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         f.setArguments(args);
         return f;
     }
-
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
@@ -177,12 +180,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _document = loadDocument();
         loadDocumentIntoUi();
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()) {
-                _hlEditor.setSelection(cursor);
-            }
-        }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
@@ -208,10 +205,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onResume() {
         super.onResume();
         checkReloadDisk(false);
-        int cursor = _hlEditor.getSelectionStart();
-        cursor = Math.max(0, cursor);
-        cursor = Math.min(_hlEditor.length(), cursor);
-        _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         if (_document != null && _document.getFile() != null) {
@@ -241,8 +234,39 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
 
-        // Set initial wrap state
         initDocState();
+        final String path = getPath();
+
+        // Set the initial editing position
+        if (_firstStart && _hlEditor != null && !(getActivity() instanceof MainActivity) && _hlEditor.length() > 0) {
+            _firstStart = false;
+            if (_appSettings.isEditorStartOnBotttom()) {
+                // _hlEditor.scrollTo(0, _hlEditor.getBottom());
+                _hlEditor.setSelection(_hlEditor.length());
+            } else {
+                final int lastPos = _appSettings.getLastEditPositionChar(path);
+                if (lastPos >= 0 && lastPos <= _hlEditor.length()) {
+                    _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
+                    _hlEditor.setSelection(lastPos);
+                }
+            }
+        }
+
+        if (_savedInstanceState != null && _savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
+            final int cursor = _savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
+            if (cursor >= 0 && cursor < _hlEditor.length()) {
+                _hlEditor.setSelection(cursor);
+            }
+        } else if (_hlEditor.hasSelection()) {
+            int[] sel = StringUtils.getSelection(_hlEditor);
+            sel[0] = Math.min(Math.max(0, sel[0]), _hlEditor.length());
+            sel[1] = Math.min(Math.max(0, sel[1]), _hlEditor.length());
+            _hlEditor.setSelection(sel[0], sel[1]);
+        }
+
+        if (!_appSettings.getDocumentPreviewState(path)) {
+            _hlEditor.requestFocus();
+        }
     }
 
     @Override
@@ -561,11 +585,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
 
     private void initDocState() {
+        final String path = getPath();
         final boolean inMainActivity = getActivity() instanceof MainActivity;
-        wrapTextSetting = _appSettings.getDocumentWrapState(getPath());
+        wrapTextSetting = _appSettings.getDocumentWrapState(path);
         wrapText = inMainActivity || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(getPath());
+        highlightText = _appSettings.getDocumentHighlightState(path);
 
         setToggleState();
 
@@ -639,10 +664,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
-                _appSettings.setDocumentHighlightState(getPath(), highlightText);
-                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
+                final String path = getPath();
+                _appSettings.setLastEditPosition(path, _hlEditor.getSelectionStart(), _hlEditor.getTop());
+                _appSettings.setDocumentWrapState(path, wrapTextSetting);
+                _appSettings.setDocumentHighlightState(path, highlightText);
+                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
             }
         }
         return ret;
@@ -716,26 +742,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _document = cmp;
             loadDocument();
             loadDocumentIntoUi();
-        }
-    }
-
-    @Override
-    public void onFragmentFirstTimeVisible() {
-        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
-        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
-            int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
-            } else if (_appSettings.isEditorStartOnBotttom()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(_hlEditor.length());
-            }
         }
     }
 

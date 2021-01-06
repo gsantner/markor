@@ -67,6 +67,7 @@ public abstract class GsFragmentBase extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        _savedInstanceState = savedInstanceState;
         view.postDelayed(() -> {
             synchronized (_fragmentFirstTimeVisibleSync) {
                 if (getUserVisibleHint() && isVisible() && _fragmentFirstTimeVisible) {
