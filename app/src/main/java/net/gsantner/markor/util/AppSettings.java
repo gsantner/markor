@@ -340,28 +340,36 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
 
     public void setLastEditPosition(final String path, int pos, int scrolloffset) {
-        setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
-        setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
+        if (path != null && !path.trim().isEmpty()) {
+            setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
+            setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
+        }
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        if (path != null && !path.trim().isEmpty()) {
+            setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        }
     }
 
     public boolean getDocumentWrapState(final String path) {
-        // Use global setting as default
-        return getBool(PREF_PREFIX_WRAP_STATE + path, isEditorLineBreakingEnabled());
+        final boolean _default = isEditorLineBreakingEnabled();
+        if (path == null || path.trim().isEmpty()) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
+        }
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
-        if (path != null || path.trim().length() > 0) {
+        if (path != null && !path.trim().isEmpty()) {
             setInt(PREF_PREFIX_INDENT_SIZE + path, size);
         }
     }
 
     public int getDocumentIndentSize(final String path) {
         final int _default = 4;
-        if (path == null || path.trim().length() == 0) {
+        if (path == null || path.trim().isEmpty()) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
@@ -369,13 +377,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentPreviewState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_PREVIEW_STATE + path, state);
+        if (path != null && !path.trim().isEmpty()) {
+            setBool(PREF_PREFIX_PREVIEW_STATE + path, state);
+        }
     }
 
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (_default || path == null || path.trim().length() == 0) {
+        if (_default || path == null || path.trim().isEmpty()) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
@@ -383,20 +393,36 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentHighlightState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_HIGHLIGHT_STATE + path, state);
+        if (path != null && !path.trim().isEmpty()) {
+            setBool(PREF_PREFIX_HIGHLIGHT_STATE + path, state);
+        }
     }
 
     public boolean getDocumentHighlightState(final String path) {
-        // Use global setting as default
-        return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, isHighlightingEnabled());
+        final boolean _default = isHighlightingEnabled();
+        if (path == null || path.trim().isEmpty()) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, _default);
+        }
     }
 
     public int getLastEditPositionChar(final String path) {
-        return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, -3, _prefCache);
+        final int _default = -3;
+        if (path == null || path.trim().isEmpty()) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, _default, _prefCache);
+        }
     }
 
     public int getLastEditPositionScroll(final String path) {
-        return getInt(PREF_PREFIX_EDIT_POS_SCROLL + path, 0, _prefCache);
+        final int _default = 0;
+        if (path == null || path.trim().isEmpty()) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_EDIT_POS_SCROLL + path, _default, _prefCache);
+        }
     }
 
     private List<String> getPopularDocumentsSorted() {
