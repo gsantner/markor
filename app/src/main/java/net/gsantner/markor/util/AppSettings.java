@@ -339,89 +339,95 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
 
+    private boolean pathOk(final String path) {
+        return (path != null && !path.trim().isEmpty());
+    }
+
     public void setLastEditPosition(final String path, int pos, int scrolloffset) {
-        if (path != null && !path.trim().isEmpty()) {
+        if (pathOk(path)) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
         }
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
-        if (path != null && !path.trim().isEmpty()) {
+        if (pathOk(path)) {
             setBool(PREF_PREFIX_WRAP_STATE + path, state);
         }
     }
 
     public boolean getDocumentWrapState(final String path) {
         final boolean _default = isEditorLineBreakingEnabled();
-        if (path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (pathOk(path)) {
             return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
+        } else {
+            return _default;
         }
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
-        if (path != null && !path.trim().isEmpty()) {
+        if (pathOk(path)) {
             setInt(PREF_PREFIX_INDENT_SIZE + path, size);
         }
     }
 
     public int getDocumentIndentSize(final String path) {
         final int _default = 4;
-        if (path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (pathOk(path)) {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
+        } else {
+            return _default;
         }
     }
 
     public void setDocumentPreviewState(final String path, final boolean state) {
-        if (path != null && !path.trim().isEmpty()) {
+        if (pathOk(path)) {
             setBool(PREF_PREFIX_PREVIEW_STATE + path, state);
         }
     }
 
     public boolean getDocumentPreviewState(final String path) {
-        // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (_default || path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (_default) {
+            // Always open as preview, independent of path, if setting set
+            return true;
+        } else if (pathOk(path)) {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
+        } else {
+            return _default;
         }
     }
 
     public void setDocumentHighlightState(final String path, final boolean state) {
-        if (path != null && !path.trim().isEmpty()) {
+        if (pathOk(path)) {
             setBool(PREF_PREFIX_HIGHLIGHT_STATE + path, state);
         }
     }
 
     public boolean getDocumentHighlightState(final String path) {
         final boolean _default = isHighlightingEnabled();
-        if (path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (pathOk(path)) {
             return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, _default);
+        } else {
+            return _default;
         }
     }
 
     public int getLastEditPositionChar(final String path) {
         final int _default = -3;
-        if (path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (pathOk(path)) {
             return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, _default, _prefCache);
+        } else {
+            return _default;
         }
     }
 
     public int getLastEditPositionScroll(final String path) {
         final int _default = 0;
-        if (path == null || path.trim().isEmpty()) {
-            return _default;
-        } else {
+        if (pathOk(path)) {
             return getInt(PREF_PREFIX_EDIT_POS_SCROLL + path, _default, _prefCache);
+        } else {
+            return _default;
         }
     }
 
