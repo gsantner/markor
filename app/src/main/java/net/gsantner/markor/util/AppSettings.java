@@ -38,7 +38,7 @@ import java.util.Random;
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
-    public static Boolean isDeviceGoodHardware = null;
+    public static Boolean _isDeviceGoodHardware = null;
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
@@ -46,9 +46,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
-        if (isDeviceGoodHardware == null) {
+        if (_isDeviceGoodHardware == null) {
             ContextUtils cu = new ContextUtils(_context);
-            isDeviceGoodHardware = cu.isDeviceGoodHardware();
+            _isDeviceGoodHardware = cu.isDeviceGoodHardware();
             cu.freeContextRef();
         }
     }
@@ -344,7 +344,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setLastEditPosition(final String path, int pos, int scrolloffset) {
-        if (pathOk(path)) {
+        // Includes hack to prevent last edit from being set for quicknote and todo
+        if (pathOk(path) && !getTodoFile().equals(path) && !getQuickNoteFile().equals(path)) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
         }
@@ -404,10 +405,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public boolean getDocumentHighlightState(final String path) {
+    public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
         final boolean _default = isHighlightingEnabled();
         if (pathOk(path)) {
-            return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, _default);
+            final boolean lengthOk = chars != null && chars.length() < (_isDeviceGoodHardware ? 100000 : 35000);
+            return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && _default);
         } else {
             return _default;
         }

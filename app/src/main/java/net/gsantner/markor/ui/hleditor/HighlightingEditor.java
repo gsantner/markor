@@ -43,7 +43,6 @@ public class HighlightingEditor extends AppCompatEditText {
         void onTextChanged(String text);
     }
 
-    private final boolean _isDeviceGoodHardware;
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _accessibilityEnabled = true;
@@ -64,7 +63,6 @@ public class HighlightingEditor extends AppCompatEditText {
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
 
-        _isDeviceGoodHardware = new ContextUtils(context).isDeviceGoodHardware();
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         _updateRunnable = () -> {
             highlightWithoutChange();
@@ -157,16 +155,14 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void highlightWithoutChange() {
-        final Editable editable = getText();
-        final boolean isFileShortEnough = editable.length() <= (_isDeviceGoodHardware ? 100000 : 35000);
-        if (isFileShortEnough && _hlEnabled) {
+        if (_hlEnabled) {
             _modified = false;
             try {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
                 _accessibilityEnabled = false;
-                _hl.run(editable);
+                _hl.run(getText());
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();

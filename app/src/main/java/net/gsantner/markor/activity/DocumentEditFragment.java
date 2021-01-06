@@ -180,6 +180,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _document = loadDocument();
         loadDocumentIntoUi();
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
+            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
+            if (cursor >= 0 && cursor < _hlEditor.length()) {
+                _hlEditor.setSelection(cursor);
+            }
+        }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
@@ -204,7 +210,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onResume() {
         super.onResume();
+
         checkReloadDisk(false);
+        int cursor = _hlEditor.getSelectionStart();
+        cursor = Math.max(0, cursor);
+        cursor = Math.min(_hlEditor.length(), cursor);
+        _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         if (_document != null && _document.getFile() != null) {
@@ -235,37 +246,27 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         initDocState();
-        final String path = getPath();
 
-        // Set the initial editing position
-        if (_firstStart && _hlEditor != null && !(getActivity() instanceof MainActivity) && _hlEditor.length() > 0) {
+        if (_firstStart) {
+            // Run once in first onResume
             _firstStart = false;
-            if (_appSettings.isEditorStartOnBotttom()) {
-                // _hlEditor.scrollTo(0, _hlEditor.getBottom());
-                _hlEditor.setSelection(_hlEditor.length());
-            } else {
+            if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
+                final String path = getPath();
+                final boolean initPreview = _appSettings.getDocumentPreviewState(path);
                 final int lastPos = _appSettings.getLastEditPositionChar(path);
                 if (lastPos >= 0 && lastPos <= _hlEditor.length()) {
-                    _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
+                    if (!initPreview) {
+                        _hlEditor.requestFocus();
+                    }
                     _hlEditor.setSelection(lastPos);
+                    _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
+                } else if (_appSettings.isEditorStartOnBotttom()) {
+                    if (!initPreview) {
+                        _hlEditor.requestFocus();
+                    }
+                    _hlEditor.setSelection(_hlEditor.length());
                 }
             }
-        }
-
-        if (_savedInstanceState != null && _savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            final int cursor = _savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()) {
-                _hlEditor.setSelection(cursor);
-            }
-        } else if (_hlEditor.hasSelection()) {
-            int[] sel = StringUtils.getSelection(_hlEditor);
-            sel[0] = Math.min(Math.max(0, sel[0]), _hlEditor.length());
-            sel[1] = Math.min(Math.max(0, sel[1]), _hlEditor.length());
-            _hlEditor.setSelection(sel[0], sel[1]);
-        }
-
-        if (!_appSettings.getDocumentPreviewState(path)) {
-            _hlEditor.requestFocus();
         }
     }
 
@@ -583,15 +584,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
 
-
     private void initDocState() {
-        final String path = getPath();
         final boolean inMainActivity = getActivity() instanceof MainActivity;
+        final String path = getPath();
         wrapTextSetting = _appSettings.getDocumentWrapState(path);
         wrapText = inMainActivity || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(path);
-
+        highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         setToggleState();
 
         setHorizontalScrollMode(wrapText);

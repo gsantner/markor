@@ -13,6 +13,7 @@ import android.app.Activity;
 
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 
 public class ActivityUtils extends net.gsantner.opoc.util.ActivityUtils {
 
@@ -23,5 +24,6 @@ public class ActivityUtils extends net.gsantner.opoc.util.ActivityUtils {
     public void applySpecialLaunchersVisibility(boolean extraLaunchersEnabled) {
         setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
         setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenShareIntoActivity.class, extraLaunchersEnabled);
     }
 }
