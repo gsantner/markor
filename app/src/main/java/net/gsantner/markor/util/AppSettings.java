@@ -417,6 +417,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public int getLastEditPositionChar(final String path) {
         final int _default = -3;
+        if (!(new File(path).exists())) {
+            return -1;
+        }
+        if (getTodoFile().equals(path) || getQuickNoteFile().equals(path)) {
+            return -2;
+        }
         if (pathOk(path)) {
             return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, _default, _prefCache);
         } else {
