@@ -245,24 +245,27 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         initDocState();
 
-        if (_firstStart) {
-            // Run once in first onResume
+        // Run once in first onResume if visible. Should always be visible here
+        if (_firstStart && getUserVisibleHint()) {
             _firstStart = false;
-            if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
-                final String path = getPath();
-                final boolean initPreview = _appSettings.getDocumentPreviewState(path);
+            // 1. Start on bottom if that is the setting or if quicknote file
+            // 2. Do not set focus or set cursor for todo file
+            // 3. If other file and save cursor position exists, start there
+            final String path = getPath();
+            final File file = new File(path);
+            if (_appSettings.isEditorStartOnBotttom() || file.equals(_appSettings.getQuickNoteFile())) {
+                if (!_appSettings.getDocumentPreviewState(path)) {
+                    _hlEditor.requestFocus();
+                }
+                _hlEditor.setSelection(_hlEditor.length());
+            } else if (!file.equals(_appSettings.getTodoFile())) {
                 final int lastPos = _appSettings.getLastEditPositionChar(path);
                 if (lastPos >= 0 && lastPos <= _hlEditor.length()) {
-                    if (!initPreview) {
+                    if (!_appSettings.getDocumentPreviewState(path)) {
                         _hlEditor.requestFocus();
                     }
                     _hlEditor.setSelection(lastPos);
                     _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
-                } else if (_appSettings.isEditorStartOnBotttom()) {
-                    if (!initPreview) {
-                        _hlEditor.requestFocus();
-                    }
-                    _hlEditor.setSelection(_hlEditor.length());
                 }
             }
         }

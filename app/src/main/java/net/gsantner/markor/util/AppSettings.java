@@ -26,6 +26,8 @@ import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -345,7 +347,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void setLastEditPosition(final String path, int pos, int scrolloffset) {
         // Includes hack to prevent last edit from being set for quicknote and todo
-        if (pathOk(path) && !getTodoFile().equals(path) && !getQuickNoteFile().equals(path)) {
+        if (pathOk(path)) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + path, scrolloffset, _prefCache);
         }
@@ -416,13 +418,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getLastEditPositionChar(final String path) {
-        final int _default = -3;
-        if (!(new File(path).exists())) {
-            return -1;
-        }
-        if (getTodoFile().equals(path) || getQuickNoteFile().equals(path)) {
-            return -2;
-        }
+        final int _default = -1;
         if (pathOk(path)) {
             return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, _default, _prefCache);
         } else {
