@@ -157,14 +157,18 @@ public class MarkdownTextConverter extends TextConverter {
         // Table of contents
         final String parentFolderName = file != null && file.getParentFile() != null && !TextUtils.isEmpty(file.getParentFile().getName()) ? file.getParentFile().getName() : "";
         final boolean isInBlogFolder = parentFolderName.equals("_posts") || parentFolderName.equals("blog") || parentFolderName.equals("post");
-        if (!enablePresentationBeamer && !markup.contains("[TOC]: #") && (isInBlogFolder || appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
-            final String tocToken = "[TOC]: # ''\n  \n";
-            if (markup.startsWith("---")) {
-                markup = markup.replaceFirst("[\n][-]{3,}[\n]{2}", "\n---\n" + tocToken + "\n");
+        if (!enablePresentationBeamer) {
+            if (!markup.contains("[TOC]: #") && (isInBlogFolder || appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
+                final String tocToken = "[TOC]: # ''\n  \n";
+                if (markup.startsWith("---") && !markup.contains("[TOC]")) {
+                    markup = markup.replaceFirst("[\n][-]{3,}[\n]{2}", "\n---\n" + tocToken + "\n");
+                }
+
+                if (!markup.contains("[TOC]")) {
+                    markup = tocToken + markup;
+                }
             }
-            if (!markup.contains(tocToken)) {
-                markup = tocToken + markup;
-            }
+
             head += CSS_TOC_STYLE;
             options.set(TocExtension.LEVELS, TocOptions.getLevels(1, 2, 3))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
