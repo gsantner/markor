@@ -67,7 +67,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -257,7 +259,7 @@ public class ContextUtils {
      * Send a {@link Intent#ACTION_VIEW} Intent with given paramter
      * If the parameter is an string a browser will get triggered
      */
-    public void openWebpageInExternalBrowser(final String url) {
+    public ContextUtils openWebpageInExternalBrowser(final String url) {
         try {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -266,6 +268,7 @@ public class ContextUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
@@ -1023,6 +1026,12 @@ public class ContextUtils {
         final ConnectivityManager connectivityManager = (ConnectivityManager) _context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         return wifiInfo != null && (doEnabledCheckOnly ? wifiInfo.isAvailable() : wifiInfo.isConnected());
+    }
+
+    // Returns if the device is currently in portrait orientation (landscape=false)
+    public boolean isDeviceOrientationPortrait() {
+        final int rotation = ((WindowManager) _context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+        return (rotation == Surface.ROTATION_0) || (rotation == Surface.ROTATION_180);
     }
 }
 

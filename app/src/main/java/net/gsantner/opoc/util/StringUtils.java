@@ -9,12 +9,14 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.util.Base64;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+@SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class StringUtils {
 
     // Suppress default constructor for noninstantiability
@@ -244,5 +246,33 @@ public final class StringUtils {
         }
 
         return builder.toString();
+    }
+
+    public static String toBase64(final String s) {
+        try {
+            return toBase64(s.getBytes("UTF-8"));
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String toBase64(final byte[] bytes) {
+        try {
+            return Base64.encodeToString(bytes, Base64.DEFAULT);
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    public static byte[] fromBase64(final byte[] bytes) {
+        return Base64.decode(bytes, Base64.DEFAULT);
+    }
+
+    public static String fromBase64ToString(final String s) {
+        try {
+            return new String(fromBase64(s.getBytes("UTF-8")), "UTF-8");
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

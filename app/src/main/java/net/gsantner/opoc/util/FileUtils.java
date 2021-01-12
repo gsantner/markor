@@ -501,4 +501,11 @@ public class FileUtils {
             return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000f), "TB");
         }
     }
+
+    public static File join(File file, String... childSegments) {
+        for (final String s : childSegments != null ? childSegments : new String[0]) {
+            file = new File(file, s);
+        }
+        return file;
+    }
 }

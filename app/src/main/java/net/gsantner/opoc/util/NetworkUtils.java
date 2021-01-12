@@ -221,4 +221,14 @@ public class NetworkUtils {
 
         return result;
     }
+
+    public static void httpGetAsync(final String url, final Callback.a1<String> callback) {
+        new Thread(() -> {
+            try {
+                String c = NetworkUtils.performCall(url, GET);
+                callback.callback(c);
+            } catch (Exception ignored) {
+            }
+        }).start();
+    }
 }
