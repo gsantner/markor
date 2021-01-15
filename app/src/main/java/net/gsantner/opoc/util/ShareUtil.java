@@ -1148,7 +1148,7 @@ public class ShareUtil {
                     if (isDirectory) {
                         // Nothing to do
                     } else {
-                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "rw");
+                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "rwt");
                         fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
                     }
                 }
