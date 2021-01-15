@@ -251,10 +251,16 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
     }
 
     public static String createZimWikiHeaderAndTitleContents(String fileNameWithoutExtension, Date creationDate, String creationDateLinePrefix) {
+        String creationDateFormatted;
+        try {
+            creationDateFormatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ROOT).format(creationDate);
+        } catch (Exception e) {
+            creationDateFormatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ", Locale.ROOT).format(creationDate);
+            creationDateFormatted = (!creationDateFormatted.contains("+")) ? creationDateFormatted : (creationDateFormatted.substring(0, 22) + ":" + creationDateFormatted.substring(22));
+        }
+
         String headerContentTypeLine = "Content-Type: text/x-zim-wiki";
         String headerWikiFormatLine = "Wiki-Format: zim 0.6";
-        SimpleDateFormat headerDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ROOT);
-        String creationDateFormatted = headerDateFormat.format(creationDate);
         String headerCreationDateLine = "Creation-Date: " + creationDateFormatted;
         String title = fileNameWithoutExtension.trim().replaceAll("_", " ");
         String titleLine = "====== " + title + " ======";
