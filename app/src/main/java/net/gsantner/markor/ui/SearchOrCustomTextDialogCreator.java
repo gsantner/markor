@@ -25,6 +25,7 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -373,13 +374,22 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showMarkdownHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
+        showHeadlineDialog("^\\s{0,2}#{1,6}", activity, fullText, userCallback);
+    }
+
+    public static void showZimWikiHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
+        showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), activity, fullText, userCallback);
+    }
+
+    private static void showHeadlineDialog(String headlineFilterPattern,
+                                           Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.withPositionCallback = userCallback;
         dopt2.data = Arrays.asList(fullText.split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
-        dopt2.extraFilter = "^\\s{0,2}#{1,6}";
+        dopt2.extraFilter = headlineFilterPattern;
         dopt2.isSearchEnabled = true;
         dopt2.searchIsRegex = false;
         dopt2.gravity = Gravity.TOP;
