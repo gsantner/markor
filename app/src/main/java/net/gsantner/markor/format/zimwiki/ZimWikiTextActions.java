@@ -167,9 +167,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
-                    // TODO: adapt to zim wiki
                     final String origText = _hlEditor.getText().toString();
-                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, (text, lineNr) -> {
+                    SearchOrCustomTextDialogCreator.showZimWikiHeadlineDialog(_activity, origText, (text, lineNr) -> {
                         _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                     });
                     return true;
