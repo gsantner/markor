@@ -84,6 +84,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reverse_order">Спротивно</string>
     <string name="contribute">Придонеси</string>
     <string name="donate">Донирај</string>
+    <string name="project_page">Проектна страна</string>
     <string name="press_back_again_to_exit">Кликни ’Назад’ повторно за излез</string>
     <string name="exit">Излез</string>
     <string name="undo">Поврати</string>
@@ -101,11 +102,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save">Зачувај</string>
     <string name="update">Ажурирај</string>
     <string name="clear">Избриши</string>
+    <string name="due_date">Доставна дата</string>
+    <string name="current_date">Сегашна дата</string>
     <string name="archive">Архивирај</string>
     <string name="add_task">Додади задача</string>
     <string name="add_x_witharg">Додади %s</string>
     <string name="refresh">Освежи</string>
     <string name="create_shortcut">Креирај кратенка</string>
+    <string name="files_and_folders">Фајлови и директориуми</string>
+    <string name="document_browser">Гледач на документи</string>
+    <string name="file_browser">Фајл прегледувач</string>
     <string name="insert_replace_date">Внеси датум</string>
     <string name="main_view">Главен приказ</string>
     <string name="format">Формат</string>
