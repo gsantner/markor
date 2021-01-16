@@ -113,6 +113,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Гледач на документи</string>
     <string name="file_browser">Фајл прегледувач</string>
     <string name="insert_replace_date">Внеси датум</string>
+    <string name="app_settings" needed="false">Нагодувања на апликација</string>
+    <string name="editor_settings" needed="false">Нагодувања на Едитор</string>
+    <string name="number_of_files_witharg" needed="false">Број на фајлови: %d</string>
     <string name="main_view">Главен приказ</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексти</string>
