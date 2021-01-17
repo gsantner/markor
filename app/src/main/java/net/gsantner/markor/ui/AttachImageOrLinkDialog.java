@@ -54,12 +54,14 @@ public class AttachImageOrLinkDialog {
         switch (action) {
             default:
             case FILE_OR_LINK_ACTION: {
-                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
+                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" :
+                        textFormatId == TextFormat.FORMAT_ZIMWIKI ? "[[{{ template.link }}|{{ template.title }}]]" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 actionTitle = R.string.insert_link;
                 break;
             }
             case IMAGE_ACTION: {
-                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
+                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" :
+                        textFormatId == TextFormat.FORMAT_ZIMWIKI ? "{{{{ template.link }}}}" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 actionTitle = R.string.insert_image;
                 break;
             }
@@ -70,6 +72,10 @@ public class AttachImageOrLinkDialog {
             }
 
         }
+
+        // TODO: extract current directory for zim as base dir
+        //  create a folder according to the current file name
+        //  put the newly created image/file there
 
         // Extract filepath if using Markdown
         if (textFormatId == TextFormat.FORMAT_MARKDOWN) {
@@ -118,6 +124,7 @@ public class AttachImageOrLinkDialog {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
+                // TODO: "current" dir needs to be treated different for zim wiki...
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
                     text = FileUtils.relativePath(currentWorkingFile, file);
