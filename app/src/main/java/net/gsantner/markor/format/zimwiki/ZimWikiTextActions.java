@@ -80,6 +80,9 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.format_header_5, R.string.heading_5),
                 new ActionItem(R.string.tmaid_zimwiki_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
                 new ActionItem(R.string.tmaid_zimwiki_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
+                new ActionItem(R.string.tmaid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
+                new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
+                new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
         };
 
         return Arrays.asList(ZIMWIKI_ACTIONS);
