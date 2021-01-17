@@ -29,6 +29,8 @@ import java.util.regex.Matcher;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
+    public final static int AUDIO_ACTION=4, IMAGE_ACTION=2, FILE_OR_LINK_ACTION=3;
+
     @SuppressWarnings("RedundantCast")
     public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
         final AppSettings _appSettings = new AppSettings(activity.getApplicationContext());
@@ -43,25 +45,25 @@ public class AttachImageOrLinkDialog {
         final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
         final int startCursorPos = _hlEditor.getSelectionStart();
-        buttonAudioRecord.setVisibility(action == 4 ? View.VISIBLE : View.GONE);
-        buttonPictureCamera.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
-        buttonPictureGallery.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
-        buttonPictureEdit.setVisibility(action == 2 ? View.VISIBLE : View.GONE);
+        buttonAudioRecord.setVisibility(action == AUDIO_ACTION ? View.VISIBLE : View.GONE);
+        buttonPictureCamera.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
+        buttonPictureGallery.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
+        buttonPictureEdit.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
         final int actionTitle;
         final String formatTemplate;
         switch (action) {
             default:
-            case 3: { // file / link
+            case FILE_OR_LINK_ACTION: {
                 formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 actionTitle = R.string.insert_link;
                 break;
             }
-            case 2: { // image
+            case IMAGE_ACTION: {
                 formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 actionTitle = R.string.insert_image;
                 break;
             }
-            case 4: { // audio
+            case AUDIO_ACTION: {
                 formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
                 actionTitle = R.string.audio;
                 break;
@@ -97,7 +99,7 @@ public class AttachImageOrLinkDialog {
                 }
 
                 final String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-                Matcher m = (action == 3 ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
+                Matcher m = (action == FILE_OR_LINK_ACTION ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
                 if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                     int stat = lineStartidx + m.start();
                     int en = lineStartidx + m.end();
@@ -171,7 +173,7 @@ public class AttachImageOrLinkDialog {
         buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) activity;
-                Function<File, Boolean> f = action == 4 ? FilesystemViewerCreator.IsMimeAudio : (action == 3 ? null : FilesystemViewerCreator.IsMimeImage);
+                Function<File, Boolean> f = action == AUDIO_ACTION ? FilesystemViewerCreator.IsMimeAudio : (action == FILE_OR_LINK_ACTION ? null : FilesystemViewerCreator.IsMimeImage);
                 FilesystemViewerCreator.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
             }
         });
