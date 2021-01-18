@@ -333,7 +333,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Leser</string>
     <string name="read">Les</string>
     <string name="table">Tabell</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Hvor mange kolonner? Trykk på tabellknappen for å starte en tabell (sett inn topptekst), trykk kort for å legge til en rad.</string>
     <string name="example_of_a_markdown_table">Eksempel på \"Markdown\"-tabell</string>
     <string name="delete_lines">Slett linjer</string>
     <string name="unordered_list">Uordnet liste</string>
