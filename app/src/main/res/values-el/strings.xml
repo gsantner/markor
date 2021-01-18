@@ -334,7 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Ανάγνωση</string>
     <string name="read">Ανάγνωση</string>
     <string name="table">Πίνακας</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Πόσες στήλες? Πατήστε το κουμπί του πίνακα παρατεταμένα για να ξεκινήσετε έναν πίνακα (εισαγωγή κεφαλίδας), πατήστε σύντομα για να προσθέσετε μια γραμμή.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Πόσες στήλες? Πατήστε το κουμπί του πίνακα για να ξεκινήσετε έναν πίνακα (εισαγωγή κεφαλίδας), πατήστε σύντομη για να προσθέσετε μια γραμμή.</string>
     <string name="example_of_a_markdown_table">Παράδειγμα πίνακα Markdown</string>
     <string name="delete_lines">Διαγραφή γραμμών</string>
     <string name="unordered_list">Μη ταξινομημένη λίστα</string>
