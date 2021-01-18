@@ -333,7 +333,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">S\'està llegint</string>
     <string name="read">Llegit</string>
     <string name="table">Taula</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Quantes columnes? Mantingueu premut el botó taula per iniciar una taula (inserir un encapçalament), premeu-lo per afegir una fila.</string>
     <string name="example_of_a_markdown_table">Exemple d\'una taula Markdown</string>
     <string name="delete_lines">Suprimeix les línies</string>
     <string name="unordered_list">Llista no ordenada</string>
