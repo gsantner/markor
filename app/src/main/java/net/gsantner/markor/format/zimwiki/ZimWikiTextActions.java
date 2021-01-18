@@ -215,11 +215,16 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
-                case R.string.tmaid_zimwiki_insert_image: {
-                    // TODO: adapt to zim wiki
+                case R.string.tmaid_zimwiki_insert_link: {
                     int pos = _hlEditor.getSelectionStart();
-                    _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
-                    _hlEditor.setSelection(pos + 48);
+                    _hlEditor.getText().insert(pos, "[[]]");
+                    _hlEditor.setSelection(pos + 2);
+                    return true;
+                }
+                case R.string.tmaid_zimwiki_insert_image: {
+                    int pos = _hlEditor.getSelectionStart();
+                    _hlEditor.getText().insert(pos, "{{}}");
+                    _hlEditor.setSelection(pos + 2);
                     return true;
                 }
                 case R.string.tmaid_common_time: {
@@ -239,9 +244,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 case R.string.tmaid_common_ordered_list_number: {
                     // TODO: adapt to zim wiki
                     AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
+                    return true;
                 }
-
-                // TODO: long press checklist action should delete the checkbox prefix
             }
             return false;
         }
