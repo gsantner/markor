@@ -121,6 +121,13 @@ public class AttachImageOrLinkDialog {
         final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file) {
+
+                if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
+                    copyFileToZimPageFolder(file, currentWorkingFile, activity);
+                    inputPathUrl.setText("./"+file.getName());
+                    return;
+                }
+
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
@@ -213,6 +220,9 @@ public class AttachImageOrLinkDialog {
                         String url = inputPathUrl.getText().toString().trim().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
                         url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
                         String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
+                        if (textFormatId==TextFormat.FORMAT_ZIMWIKI && newText.endsWith("|]]")) {
+                            newText = newText.replaceFirst("\\|]]$", "]]");
+                        }
                         if (_hlEditor.hasSelection()) {
                             _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
                             _hlEditor.setSelection(_hlEditor.getSelectionStart());
@@ -223,6 +233,28 @@ public class AttachImageOrLinkDialog {
                     }
                 });
         return builder.show();
+    }
+
+    private static void copyFileToZimPageFolder(File fileToBeCopied, File currentWorkingFile, Activity activity) {
+        File targetCopyFolder = new File(currentWorkingFile.getParentFile(), currentWorkingFile.getName().replace(".txt", ""));
+        targetCopyFolder.mkdir();
+        File targetCopy = new File(targetCopyFolder, fileToBeCopied.getName());
+        new ShareUtil(activity).writeFile(targetCopy, false, (opened, outputStream) -> {
+            if (opened) {
+                FileUtils.copyFile(fileToBeCopied, outputStream);
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.file_copied)
+                        .setMessage(R.string.file_copied_to_zim_page_folder)
+                        .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
+                        .show();
+            } else {
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.file_not_copied)
+                        .setMessage(R.string.file_could_not_be_copied_to_zim_page_folder)
+                        .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
+                        .show();
+            }
+        });
     }
 
     public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final Callback.a2<Boolean, File> copyFileFinishedCallback) {

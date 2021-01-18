@@ -410,4 +410,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Replace all</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
+    <string name="file_copied">File Copied</string>
+    <string name="file_copied_to_zim_page_folder">The file has been copied to the folder corresponding to this zim page.</string>
+    <string name="file_not_copied">File Not Copied</string>
+    <string name="file_could_not_be_copied_to_zim_page_folder">The file could not be copied to the folder corresponding to this zim page. (A file with the same name might already exist.)</string>
 </resources>
