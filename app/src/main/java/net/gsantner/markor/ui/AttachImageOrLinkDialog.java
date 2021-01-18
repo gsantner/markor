@@ -120,7 +120,7 @@ public class AttachImageOrLinkDialog {
             public void onFsViewerSelected(final String request, final File file) {
 
                 if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
-                    copyFileToZimPageFolder(file, currentWorkingFile, activity);
+                    ZimPageFilePathUtil.copyFileToZimPageFolder(file, currentWorkingFile, activity);
                     inputPathUrl.setText("./"+file.getName());
                     return;
                 }
@@ -234,23 +234,6 @@ public class AttachImageOrLinkDialog {
                     }
                 });
         return builder.show();
-    }
-
-    private static void copyFileToZimPageFolder(File fileToBeCopied, File currentWorkingFile, Activity activity) {
-        File targetCopy = new File(ZimPageFilePathUtil.getZimPageFolderOrCreate(currentWorkingFile), fileToBeCopied.getName());
-        new ShareUtil(activity).writeFile(targetCopy, false, (opened, outputStream) -> {
-            if (opened) {
-                FileUtils.copyFile(fileToBeCopied, outputStream);
-                new AlertDialog.Builder(activity)
-                        .setTitle(R.string.file_copied)
-                        .setMessage(R.string.file_copied_to_zim_page_folder)
-                        .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
-                        .show();
-            } else {
-                // if an image is directly created/edited in the page folder, no further copying necessary
-                // files with the same name won't be overwritten
-            }
-        });
     }
 
     public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final Callback.a2<Boolean, File> copyFileFinishedCallback) {
