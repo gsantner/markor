@@ -333,7 +333,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Čitam</string>
     <string name="read">Čitaj</string>
     <string name="table">Tabela</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Koliko kolona? Pritisnite i držite dugme za tabelu da započnete tabelu (unesete zaglavlje), a kratkim pritiskom dodajte red.</string>
     <string name="example_of_a_markdown_table">Primjer Markdown tabele</string>
     <string name="delete_lines">Izbriši linije</string>
     <string name="unordered_list">Nenumerisani popis</string>
