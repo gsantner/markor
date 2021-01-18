@@ -16,6 +16,7 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
+import net.gsantner.markor.format.zimwiki.ZimPageFilePathUtil;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
@@ -180,7 +181,9 @@ public class AttachImageOrLinkDialog {
                     fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
                 },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
-        final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
+        final File targetFolder = currentWorkingFile != null ?
+                (textFormatId==TextFormat.FORMAT_ZIMWIKI ? ZimPageFilePathUtil.getZimPageFolderOrCreate(currentWorkingFile) : currentWorkingFile.getParentFile()) :
+                _appSettings.getNotebookDirectory();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
@@ -197,6 +200,9 @@ public class AttachImageOrLinkDialog {
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");
+            if (textFormatId==TextFormat.FORMAT_ZIMWIKI) {
+                filepath = ZimPageFilePathUtil.getFileToRelativeZimLink(filepath, currentWorkingFile).getPath();
+            }
             if (!filepath.startsWith("/")) {
                 filepath = new File(currentWorkingFile.getParent(), filepath).getAbsolutePath();
             }
@@ -236,9 +242,7 @@ public class AttachImageOrLinkDialog {
     }
 
     private static void copyFileToZimPageFolder(File fileToBeCopied, File currentWorkingFile, Activity activity) {
-        File targetCopyFolder = new File(currentWorkingFile.getParentFile(), currentWorkingFile.getName().replace(".txt", ""));
-        targetCopyFolder.mkdir();
-        File targetCopy = new File(targetCopyFolder, fileToBeCopied.getName());
+        File targetCopy = new File(ZimPageFilePathUtil.getZimPageFolderOrCreate(currentWorkingFile), fileToBeCopied.getName());
         new ShareUtil(activity).writeFile(targetCopy, false, (opened, outputStream) -> {
             if (opened) {
                 FileUtils.copyFile(fileToBeCopied, outputStream);
@@ -248,11 +252,8 @@ public class AttachImageOrLinkDialog {
                         .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
                         .show();
             } else {
-                new AlertDialog.Builder(activity)
-                        .setTitle(R.string.file_not_copied)
-                        .setMessage(R.string.file_could_not_be_copied_to_zim_page_folder)
-                        .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
-                        .show();
+                // if an image is directly created/edited in the page folder, no further copying necessary
+                // files with the same name won't be overwritten
             }
         });
     }
