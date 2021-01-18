@@ -74,10 +74,6 @@ public class AttachImageOrLinkDialog {
 
         }
 
-        // TODO: extract current directory for zim as base dir
-        //  create a folder according to the current file name
-        //  put the newly created image/file there
-
         // Extract filepath if using Markdown
         if (textFormatId == TextFormat.FORMAT_MARKDOWN) {
             if (_hlEditor.hasSelection()) {
@@ -132,7 +128,6 @@ public class AttachImageOrLinkDialog {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
-                // TODO: "current" dir needs to be treated different for zim wiki...
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
                     text = FileUtils.relativePath(currentWorkingFile, file);
