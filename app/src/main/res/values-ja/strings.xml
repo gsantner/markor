@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">読み込み中</string>
     <string name="read">読み込み</string>
     <string name="table">表</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">列はいくつですか? 表ボタンを長押しすると、表を開始し (ヘッダーを挿入)、短く押すと行を追加します。</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">何列ですか? テーブルボタンを長押ししてテーブルを開始(ヘッダーを挿入)、短く押して行を追加します。</string>
     <string name="example_of_a_markdown_table">マークダウン表の例</string>
     <string name="delete_lines">行を削除</string>
     <string name="unordered_list">箇条書き</string>
