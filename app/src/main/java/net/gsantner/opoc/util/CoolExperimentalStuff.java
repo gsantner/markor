@@ -1,3 +1,13 @@
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2020-
+ *   https://gsantner.net/
+ *
+ *   License: Apache 2.0 / Commercial
+ *  https://github.com/gsantner/opoc/#licensing
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
@@ -22,7 +32,6 @@ import java.io.File;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
-// License Public domain/CC0 for now
 // Just some experimental code
 public class CoolExperimentalStuff {
 
