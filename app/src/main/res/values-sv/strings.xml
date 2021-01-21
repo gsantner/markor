@@ -392,6 +392,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Ersätt med</string>
     <string name="replace_once">Ersätt (1)</string>
     <string name="replace_all">Ersätt alla</string>
-    <string name="matches">Matchningar</string>
+    <string name="matches">Träffar</string>
     <string name="search_replace_pattern_error_message">Sök eller ersätt mönsterfel.</string>
 </resources>
