@@ -333,6 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Leghidura</string>
     <string name="read">Leghe</string>
     <string name="table">Tabella</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Cantas colonnas? Incarca su butone de sa tabella a longu pro creare una tabella (insertare s\'intestatzione), pro pagu pro annànghere una riga.</string>
     <string name="example_of_a_markdown_table">Esèmpiu de una tabella Markdown</string>
     <string name="delete_lines">Iscantzella sas rigas</string>
     <string name="unordered_list">Lista disordinada</string>
