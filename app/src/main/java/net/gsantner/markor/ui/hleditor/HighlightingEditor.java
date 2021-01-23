@@ -174,7 +174,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
-                _accessibilityEnabled = false;
+                setAccessibilityEnabled(false);
                 _hl.run(getText());
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
@@ -182,7 +182,7 @@ public class HighlightingEditor extends AppCompatEditText {
             } catch (Error e) {
                 e.printStackTrace();
             } finally {
-                _accessibilityEnabled = true;
+                setAccessibilityEnabled(true);
             }
             if (MainActivity.IS_DEBUG_ENABLED) {
                 AppSettings.appendDebugLog(_hl._profiler.resetDebugText());
