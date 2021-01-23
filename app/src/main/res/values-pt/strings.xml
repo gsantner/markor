@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Leitura</string>
     <string name="read">Ler</string>
     <string name="table">Tabela</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Quantas colunas? Toque longo no botão da tabela para criar uma tabela e toque curto para adicionar uma linha.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Quantas colunas? Pressione o botão de tabela para iniciar uma tabela (inserir cabeçalho), pressione a tecla curta para adicionar uma linha.</string>
     <string name="example_of_a_markdown_table">Exemplo de tabela Markdown</string>
     <string name="delete_lines">Apagar linhas</string>
     <string name="unordered_list">Lista desordenada</string>

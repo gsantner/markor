@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Čtení</string>
     <string name="read">Číst</string>
     <string name="table">Tabulka</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Kolik sloupců? Stiskněte tlačítko dlouze pro začátek tabulky (vložení záhlaví), stiskněte krátce pro přidání řádku.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Kolik sloupců? Stiskněte tlačítko tabulky dlouhé pro spuštění tabulky (vložte záhlaví), stiskněte zkratku pro přidání řádku.</string>
     <string name="example_of_a_markdown_table">Příklad tabulky Markdown</string>
     <string name="delete_lines">Odstranit řádky</string>
     <string name="unordered_list">Nečíslovaný seznam</string>

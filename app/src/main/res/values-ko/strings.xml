@@ -328,7 +328,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">읽기</string>
     <string name="read">읽기</string>
     <string name="table">표</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">열 개수를 지정하세요. 표 버튼을 길게 눌러 표를 만들고(헤더 삽입), 표 버튼을 짧게 눌러 행을 추가하세요.</string>
     <string name="example_of_a_markdown_table">마크다운 표의 예시</string>
     <string name="delete_lines">줄 삭제</string>
     <string name="unordered_list">순서대로 정렬되지 않은 목록</string>
