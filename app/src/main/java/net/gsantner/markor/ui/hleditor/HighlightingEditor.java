@@ -10,19 +10,21 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -151,6 +153,17 @@ public class HighlightingEditor extends AppCompatEditText {
     public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
         if (_accessibilityEnabled && length() < 10000) {
             super.sendAccessibilityEventUnchecked(event);
+        }
+    }
+
+    // Hleditor will report that it is not autofillable under certain circumstances
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int getAutofillType() {
+        if (_accessibilityEnabled && length() < 10000) {
+            return super.getAutofillType();
+        } else {
+            return View.AUTOFILL_TYPE_NONE;
         }
     }
 
@@ -290,5 +303,13 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
+    }
+
+    public void setAccessibilityEnabled(final boolean enabled) {
+        _accessibilityEnabled = enabled;
+    }
+
+    public boolean getAccessibilityEnabled() {
+        return _accessibilityEnabled;
     }
 }

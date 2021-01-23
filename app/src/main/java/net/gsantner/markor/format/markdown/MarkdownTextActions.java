@@ -272,7 +272,7 @@ public class MarkdownTextActions extends TextActions {
 
     private void runRenumberOrderedListIfRequired() {
         if (_appSettings.isMarkdownAutoUpdateList()) {
-            AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], MarkdownAutoFormat.getPrefixPatterns());
+            AutoFormatter.renumberOrderedList(_hlEditor, StringUtils.getSelection(_hlEditor)[0], MarkdownAutoFormat.getPrefixPatterns());
         }
     }
 }
