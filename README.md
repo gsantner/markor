@@ -1,7 +1,7 @@
 [![Translate](https://img.shields.io/badge/translate-crowdin-green.svg)](https://crowdin.com/project/markor/invite)
 [![Donate say thanks](https://img.shields.io/badge/donate-say%20thanks-red.svg)](https://gsantner.net/page/supportme.html?project=markor&source=readme)
 [![Chat - Matrix](https://img.shields.io/badge/chat-matrix-blue.svg)](https://matrix.to/#/#markor:matrix.org) [![Chat - FreeNode IRC](https://img.shields.io/badge/chat-irc-blue.svg)](https://kiwiirc.com/client/irc.freenode.net/?nick=markor-anon|?#markor) ![](https://r.gsantner.net/matomo/piwik.php?action_name=readme&idsite=2&rec=1&urlref=https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FREADME.md&_cvar=%7B%221%22%3A%5B%22source%22%2C%22readme%22%5D%2C%222%22%3A%5B%22project%22%2C%22markor%22%5D%2C%223%22%3A%5B%22packageid%22%2C%22net.gsantner.markor%22%5D%2C%224%22%3A%5B%22referrer%22%2C%22https%3A%2F%2Fgithub.com%2Fgsantner%2Fmarkor%2FREADME.md%22%5D%7D)
-[![Build Status](https://travis-ci.org/gsantner/markor.svg?branch=master)](https://travis-ci.org/gsantner/markor)
+[![CI](https://github.com/gsantner/markor/workflows/CI/badge.svg)](https://github.com/gsantner/markor/actions)
 [![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/gsantner/markor/total.svg?logo=github&logoColor=lime)](https://github.com/gsantner/markor/releases)
 [![Codacy Code quality](https://img.shields.io/codacy/grade/aff869c440bc48b7bd64680e97cbc453)](https://www.codacy.com/app/gsantner/markor)
