@@ -98,7 +98,7 @@ Test | Test | Test
 
 <!-- Comment: Not visibile in view. Can also span across multiple lines. End with:-->
 
-<!-- --------------- -->
+<!-- ------------- -->
 
 ## Math (KaTeX)
 See [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Markdown`.
@@ -116,7 +116,7 @@ $$\begin{array}{c} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\v
 
 $$\frac{k_t}{k_e} = \sqrt{2}$$
 
-<!-- --------------- -->
+<!-- ------------- -->
 
 ## Format Text (continued)
 
@@ -167,7 +167,14 @@ Expanded content. Shows up and keeps visible when clicking expand. Hide again by
 </details>
 
 
-<!-- --------------- -->
+### Break page
+To break the page (/start a new page), put the div below into a own line.
+Relevant for creating printable pages from the document (Print / PDF).
+
+<div style='page-break-after: always'></div>
+
+
+<!-- ------------- -->
 
 ## Multimedia
 
