@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Citire</string>
     <string name="read">Citește</string>
     <string name="table">Tabel</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Cât de multe coloane? Apăsați butonul de tabel pentru a porni un tabel (insert header), apăsați scurt pentru a adăuga un rând.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Câte coloane? Apăsați butonul de tabel lung pentru a porni un tabel (insert header), apăsați scurt pentru a adăuga un rând.</string>
     <string name="example_of_a_markdown_table">Exemplu de tabel Markdown</string>
     <string name="delete_lines">Ștergeți liniile</string>
     <string name="unordered_list">Listă neordonată</string>
@@ -345,7 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jump_to_bottom">Salt la jos</string>
     <string name="quote">Ofertă</string>
     <string name="heading">Titlu</string>
-    <string name="heading_1">Titlu1</string>
+    <string name="heading_1">Subtitlu 1</string>
     <string name="heading_2">Subtitlu 2</string>
     <string name="heading_3">Subtitlu 3</string>
     <string name="heading_4">Subtitlu 4</string>

@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">قراءة</string>
     <string name="read">قراءة</string>
     <string name="table">الجدول</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">كم من الأعمدة؟ اضغط على زر الجدول لمدة طويلة لبدء الجدول (أدخل الرأس)، اضغط باختصار لإضافة صف.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">كم عدد الأعمدة؟ اضغط على زر الجدول لمدة طويلة لبدء الجدول (أدخل الرأس)، اضغط باختصار لإضافة صف.</string>
     <string name="example_of_a_markdown_table">مثال على جدول Markdown</string>
     <string name="delete_lines">حذف الأسطر</string>
     <string name="unordered_list">قائمة غير مرتبة</string>
