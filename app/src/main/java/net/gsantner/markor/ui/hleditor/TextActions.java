@@ -431,7 +431,6 @@ public abstract class TextActions {
         editor.setSelection(
                 StringUtils.getIndexFromLineOffset(text, lStart),
                 StringUtils.getIndexFromLineOffset(text, lEnd));
-
     }
 
     protected void runInlineAction(String _action) {
