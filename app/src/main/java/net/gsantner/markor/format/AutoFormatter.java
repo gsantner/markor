@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.EmptyStackException;
@@ -266,13 +267,23 @@ public class AutoFormatter {
         return listStart;
     }
 
+    // Wrap renumberOrderedList with an accessibility update disable
+    public static void renumberOrderedList(final HighlightingEditor editor, int cursorPosition, final PrefixPatterns prefixPatterns) {
+        try {
+            editor.setAccessibilityEnabled(false);
+            renumberOrderedList(editor.getText(), cursorPosition, prefixPatterns);
+        } finally {
+            editor.setAccessibilityEnabled(true);
+        }
+    }
+
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
      * <p>
      * Sub-lists and other children will be skipped.
      */
-    public static void renumberOrderedList(Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
+    public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
