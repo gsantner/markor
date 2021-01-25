@@ -177,6 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Lejjebb (Page Down)</string>
     <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
     <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
+    <string name="start_new_line_below">Új sor kezdése a jelenlegi alatt</string>
     <string name="key_pos_1">Sor eleje (Home)</string>
     <string name="key_pos_end">Sor vége (End)</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
@@ -384,4 +385,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_once">Csere (1)</string>
     <string name="replace_all">Összes cseréje</string>
     <string name="matches">Találatok</string>
+    <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
 </resources>
