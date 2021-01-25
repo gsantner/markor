@@ -372,13 +372,27 @@ public abstract class TextActions {
 
     /**
      * Runs through a sequence of regex-search-and-replace actions on each selected line.
+     * This function wraps _runRegexReplaceAction with a call to disable text trackers
      *
      * @param patterns An array of ReplacePattern
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
+        try {
+            if (editor instanceof HighlightingEditor) {
+                ((HighlightingEditor) editor).setAccessibilityEnabled(false);
+            }
+            _runRegexReplaceAction(editor, patterns, matchAll);
+        } finally {
+            if (editor instanceof HighlightingEditor) {
+                ((HighlightingEditor) editor).setAccessibilityEnabled(true);
+            }
+        }
+    }
 
-        Editable text = editor.getText();
+    private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
+
+        final Editable text = editor.getText();
         int[] selection = StringUtils.getSelection(editor);
         final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
         final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
