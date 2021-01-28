@@ -21,7 +21,12 @@
 </a>
 </div><br/>
 
-Markor is a TextEditor for Android. This project aims to make an editor that is versatile, flexible, and lightweight. Markor utilizes simple markup formats like Markdown and todo.txt for note-taking and list management. Markor is versatile at working with text; it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Created files are interoptable with any other plaintext software on any platform. Markor is using open formats and is free software, openly developed and accepts community contributions.
+Markor is a TextEditor for Android.
+This project aims to make an editor that is versatile, flexible, and lightweight.
+Markor utilizes simple markup formats like Markdown and todo.txt for note-taking and list management.
+It is versatile at working with text; it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots more.
+Created files are interoperable with any other plaintext software on any platform.
+Markor is openly developed free software that accepts community contributions.
 
 ## Features
 📝 Create notes and manage your to-do list using simple markup formats
@@ -47,8 +52,8 @@ Markor is a TextEditor for Android. This project aims to make an editor that is 
 <br/>🔒 Can encrypt your textfiles with AES256. You need to set a password at the settings and use Android device with version Marshmallow or newer. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) to encrypt/decrypt easily on desktop. Be aware that only the text is encrypted not pictures or attachments.
 
 ### Privacy<a name="privacy"></a>
-The app doesn't use an internet connection unless external resources (e.g. display image by URL) are referenced in user generated content. 
-The app is working completly offline, no internet connection required! No personal data will be requested or shared with the author or third parties (i.e. calendar or contacts).
+Markor does not use your internet connection unless external resources (e.g. display image by URL) are referenced in user generated content. 
+No personal data will be requested or shared with the author or third parties (i.e. calendar or contacts).
 Files can be shared to other apps from inside the app by pressing the share button.
 Files are stored locally in a user selectable folder, defaulting to the device public documents folder.
 
