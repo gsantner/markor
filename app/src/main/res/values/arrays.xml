@@ -60,6 +60,7 @@
         <item translatable="false">@string/plaintext</item>
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/zim_wiki</item>
+        <item translatable="false">@string/orgmode</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
@@ -81,6 +82,7 @@
         <item translatable="false">.txt</item>
         <item translatable="false">.todo.txt</item>
         <item translatable="false">.txt</item>
+        <item translatable="false">.org</item>
         <item translatable="false" />
     </string-array>
 
