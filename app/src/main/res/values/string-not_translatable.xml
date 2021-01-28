@@ -34,6 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_html__mime_html" translatable="false">HTML</string>
     <string name="pdf" translatable="false">PDF</string>
     <string name="markdown" translatable="false">Markdown</string>
+    <string name="orgmode" translatable="false">Org</string>
 
     <string name="community" translatable="false">Community</string>
     <string name="default_font_family" translatable="false">sans-serif-regular</string>

@@ -148,6 +148,10 @@
                         android:id="@+id/action_format_zimwiki"
                         android:icon="@drawable/fountain_pen"
                         android:title="@string/zim_wiki" />
+                    <item
+                        android:id="@+id/action_format_org"
+                        android:icon="@drawable/gs_markdown_black_24dp"
+                        android:title="@string/orgmode" />
                 </menu>
             </item>
 

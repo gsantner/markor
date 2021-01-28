@@ -377,6 +377,10 @@ public class SearchOrCustomTextDialogCreator {
         showHeadlineDialog("^\\s{0,2}#{1,6}", activity, fullText, userCallback);
     }
 
+    public static void showOrgHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
+        showHeadlineDialog("^\\*+", activity, fullText, userCallback);
+    }
+
     public static void showZimWikiHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
         showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), activity, fullText, userCallback);
     }
