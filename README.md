@@ -1,25 +1,25 @@
-[![Translate](https://img.shields.io/badge/translate-crowdin-green.svg)](https://crowdin.com/project/markor/invite)
-[![Donate say thanks](https://img.shields.io/badge/donate-say%20thanks-red.svg)](https://gsantner.net/page/supportme.html?project=markor&source=readme)
-[![Chat - Matrix](https://img.shields.io/badge/chat-matrix-blue.svg)](https://matrix.to/#/#markor:matrix.org)
-[![CI](https://github.com/gsantner/markor/workflows/CI/badge.svg)](https://github.com/gsantner/markor/actions)
-[![GitHub release](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
+[![GitHub releases](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/gsantner/markor/total.svg?logo=github&logoColor=lime)](https://github.com/gsantner/markor/releases)
-[![Codacy Code quality](https://img.shields.io/codacy/grade/aff869c440bc48b7bd64680e97cbc453)](https://www.codacy.com/app/gsantner/markor)
+[![Translate on Crowdin](https://img.shields.io/badge/translate-crowdin-green.svg)](https://crowdin.com/project/markor/invite)
+[![Donate - say thanks](https://img.shields.io/badge/donate-say%20thanks-red.svg)](https://gsantner.net/page/supportme.html?project=markor&source=readme)
+[![Chat on Matrix](https://img.shields.io/badge/chat-matrix-blue.svg)](https://matrix.to/#/#markor:matrix.org)
+[![GitHub CI](https://github.com/gsantner/markor/workflows/CI/badge.svg)](https://github.com/gsantner/markor/actions)
+[![Codacy code quality](https://img.shields.io/codacy/grade/aff869c440bc48b7bd64680e97cbc453)](https://www.codacy.com/app/gsantner/markor)
 
 
 # Markor
-<img src="/app/src/main/ic_launcher-web.png" align="left" width="100" hspace="10" vspace="10">
+<img src="/app/src/main/ic_launcher-web.png" align="left" width="128" hspace="10" vspace="10">
 <b>Text editor - Notes &amp; ToDo (for Android)</b>.
 <br/>Simple and lightweight, supporting Markdown and todo.txt<br/><br/>
 
 <div style="display:flex;" >
 <a href="https://f-droid.org/repository/browse/?fdid=net.gsantner.markor">
-    <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">
+    <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="64">
 </a>
 <a href="https://play.google.com/store/apps/details?id=net.gsantner.markor">
-    <img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+    <img alt="Get it on Google Play" height="64" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 </a>
-</div></br>
+</div><br/>
 
 Markor is a TextEditor for Android. This project aims to make an editor that is versatile, flexible, and lightweight. Markor utilizes simple markup formats like Markdown and todo.txt for note-taking and list management. Markor is versatile at working with text; it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots of more. Created files are interoptable with any other plaintext software on any platform. Markor is using open formats and is free software, openly developed and accepts community contributions.
 
