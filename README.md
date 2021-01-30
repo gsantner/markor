@@ -52,7 +52,8 @@ Markor is openly developed free software that accepts community contributions.
 <br/>🔒 Can encrypt your textfiles with AES256. You need to set a password at the settings and use Android device with version Marshmallow or newer. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) to encrypt/decrypt easily on desktop. Be aware that only the text is encrypted not pictures or attachments.
 
 ### Privacy<a name="privacy"></a>
-Markor does not use your internet connection unless external resources (e.g. display image by URL) are referenced in user generated content. 
+Markor does not use your internet connection unless external resources (e.g. display image by URL) are referenced in user generated content.
+The app is working completly offline, no internet connection required!
 No personal data will be requested or shared with the author or third parties (i.e. calendar or contacts).
 Files can be shared to other apps from inside the app by pressing the share button.
 Files are stored locally in a user selectable folder, defaulting to the device public documents folder.
@@ -96,7 +97,7 @@ The project uses [AOSP Java Code Style](https://source.android.com/source/code-s
 #### Resources
 * Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt)
 * F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
-* Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme) | [Dev Console](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AppDashboardPlace:p=net.gsantner.markor) | [Recent Crashes](https://play.google.com/apps/publish/?p=net.gsantner.markor&#AndroidMetricsErrorsPlace:p=net.gsantner.markor&appVersion=PRODUCTION&lastReportedRange=LAST_60_DAYS)
+* Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme)  
 * Further download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases](https://github.com/gsantner/markor/releases)
 
 ## Licensing
