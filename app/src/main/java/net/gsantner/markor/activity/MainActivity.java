@@ -429,38 +429,29 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         }
 
         @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            GsFragmentBase fragment = (GsFragmentBase) super.instantiateItem(container, position);
+            _fragCache.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
         public Fragment getItem(int pos) {
-            GsFragmentBase fragment = _fragCache.get(pos);
             switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
                 default:
                 case R.id.nav_notebook: {
-                    if (fragment == null) {
-                        fragment = FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
-                    }
-                    break;
+                    return FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
                 }
                 case R.id.nav_quicknote: {
-                    if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, false);
-                    }
-                    break;
+                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, false);
                 }
                 case R.id.nav_todo: {
-                    if (fragment == null) {
-                        fragment = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
-                    }
-                    break;
+                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
                 }
                 case R.id.nav_more: {
-                    if (fragment == null) {
-                        fragment = MoreFragment.newInstance();
-                    }
-                    break;
+                    return MoreFragment.newInstance();
                 }
             }
-
-            _fragCache.put(pos, fragment);
-            return fragment;
         }
 
         @Override

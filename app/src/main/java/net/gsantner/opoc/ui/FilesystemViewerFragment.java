@@ -74,9 +74,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     public static final int SORT_BY_FILESIZE = 2;
 
     public static FilesystemViewerFragment newInstance(FilesystemViewerData.Options options) {
-        FilesystemViewerFragment f = new FilesystemViewerFragment();
-        options.listener.onFsViewerConfig(options);
-        return f;
+        return new FilesystemViewerFragment();
     }
 
     //########################
@@ -154,6 +152,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void setDialogOptions(FilesystemViewerData.Options options) {
         _dopt = options;
         _callback = _dopt.listener;
+        if (_callback != null) {
+            _callback.onFsViewerConfig(_dopt); // Configure every time
+        }
         _dopt.listener = this;
         checkOptions();
     }
