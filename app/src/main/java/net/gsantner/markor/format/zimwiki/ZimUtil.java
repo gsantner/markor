@@ -16,11 +16,6 @@ public class ZimUtil {
         new ShareUtil(activity).writeFile(targetCopy, false, (opened, outputStream) -> {
             if (opened) {
                 FileUtils.copyFile(fileToBeCopied, outputStream);
-                new AlertDialog.Builder(activity)
-                        .setTitle(R.string.file_copied)
-                        .setMessage(R.string.file_copied_to_zim_page_folder)
-                        .setNegativeButton(R.string.close, ((dialogInterface, i) -> dialogInterface.dismiss()))
-                        .show();
             } else {
                 // if an image has been directly created/edited in the page folder, no further copying necessary
                 // files with the same name won't be overwritten
