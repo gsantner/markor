@@ -30,7 +30,7 @@ import java.util.regex.Matcher;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
-    public final static int AUDIO_ACTION=4, IMAGE_ACTION=2, FILE_OR_LINK_ACTION=3;
+    public final static int AUDIO_ACTION = 4, IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3;
 
     @SuppressWarnings("RedundantCast")
     public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
@@ -121,7 +121,7 @@ public class AttachImageOrLinkDialog {
 
                 if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
                     ZimUtil.copyFileToZimPageFolder(file, currentWorkingFile, activity);
-                    inputPathUrl.setText("./"+file.getName());
+                    inputPathUrl.setText("./" + file.getName());
                     return;
                 }
 
@@ -177,7 +177,7 @@ public class AttachImageOrLinkDialog {
                 },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
         final File targetFolder = currentWorkingFile != null ?
-                (textFormatId==TextFormat.FORMAT_ZIMWIKI ? ZimUtil.getZimPageFolderOrCreate(currentWorkingFile) : currentWorkingFile.getParentFile()) :
+                (textFormatId == TextFormat.FORMAT_ZIMWIKI ? ZimUtil.getZimPageFolderOrCreate(currentWorkingFile) : currentWorkingFile.getParentFile()) :
                 _appSettings.getNotebookDirectory();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
@@ -195,7 +195,7 @@ public class AttachImageOrLinkDialog {
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");
-            if (textFormatId==TextFormat.FORMAT_ZIMWIKI) {
+            if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
                 filepath = ZimUtil.getFileToRelativeZimLink(filepath, currentWorkingFile).getPath();
             }
             if (!filepath.startsWith("/")) {
@@ -221,7 +221,7 @@ public class AttachImageOrLinkDialog {
                         String url = inputPathUrl.getText().toString().trim().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
                         url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
                         String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
-                        if (textFormatId==TextFormat.FORMAT_ZIMWIKI && newText.endsWith("|]]")) {
+                        if (textFormatId == TextFormat.FORMAT_ZIMWIKI && newText.endsWith("|]]")) {
                             newText = newText.replaceFirst("\\|]]$", "]]");
                         }
                         if (_hlEditor.hasSelection()) {

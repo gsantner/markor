@@ -1,9 +1,7 @@
 package net.gsantner.markor.format.zimwiki;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 
-import net.gsantner.markor.R;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
 
