@@ -644,9 +644,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil, getContext());
             updateLauncherWidgets();
 
-            final String path = getPath();
-            if (path != null) {
-                _appSettings.setLastEditPosition(path, _hlEditor.getSelectionStart(), _hlEditor.getTop());
+            if (_document != null && _document.getFile() != null) {
+                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
+                final String path = getPath();
                 _appSettings.setDocumentWrapState(path, wrapTextSetting);
                 _appSettings.setDocumentHighlightState(path, highlightText);
                 _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
@@ -732,13 +732,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
-            final String path = getPath();
-            if (path != null && (lastPos = _appSettings.getLastEditPositionChar(path)) >= 0 && lastPos <= _hlEditor.length()) {
+            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
+                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();

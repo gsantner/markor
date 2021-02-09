@@ -21,7 +21,6 @@ import android.support.v4.util.Pair;
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
@@ -121,7 +120,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
     }
 
-    public void setQuickNoteFile(File file) {
+    public void setQuickNoteFile(final File file) {
         setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
@@ -341,8 +340,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
 
-    public void setLastEditPosition(final String path, int pos, int scrolloffset) {
-        final File file = new File(path);
+    public void setLastEditPosition(File file, int pos, int scrolloffset) {
+        if (file == null || !file.exists()) {
+            return;
+        }
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
@@ -410,9 +411,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
     }
 
-    public int getLastEditPositionChar(final String path) {
-        final File file = new File(path);
-        if (!file.exists()) {
+    public int getLastEditPositionChar(File file) {
+        if (file == null || !file.exists()) {
             return -1;
         }
         if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
@@ -421,9 +421,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
     }
 
-    public int getLastEditPositionScroll(final String path) {
-        final File file = new File(path);
-        if (!file.exists()) {
+    public int getLastEditPositionScroll(File file) {
+        if (file == null || !file.exists()) {
             return 0;
         }
         return getInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), 0, _prefCache);
