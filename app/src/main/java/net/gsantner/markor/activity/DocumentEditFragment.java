@@ -202,6 +202,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
+
+        // Do not need to send contents to accessibility
+        _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
     }
 
     @Override

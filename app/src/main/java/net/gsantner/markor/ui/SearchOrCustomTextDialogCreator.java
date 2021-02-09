@@ -124,7 +124,7 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
             dopt.callback = callback;
-            dopt.isSearchEnabled = false;
+            dopt.isSearchEnabled = true;
             dopt.data = searchResults;
             dopt.cancelButtonText = R.string.close;
             dopt.titleText = R.string.select;
@@ -140,7 +140,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.search;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
-
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();

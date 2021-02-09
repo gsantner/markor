@@ -61,6 +61,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Избери елемент(и)</string>
     <string name="one_item_selected">Еден елемент избран</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d елементи избрани</string>
+    <string name="hide_statusbar_at_this_view">Сокриј го статус барот во овој преглед</string>
     <string name="hide_statusbar">Сокриј ја лентата за статус</string>
     <string name="name">Име</string>
     <string name="url_or_path">URL / Рута</string>
@@ -76,6 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Покажи лиценци од трети лица</string>
     <string name="language_change_restart_description">Смени јазик на апликацијата. Рестартирај ја апликацијата за промените да се видат</string>
     <string name="language">Јазик</string>
+    <string name="error_need_storage_permission_to_save_documents">Треба дозвола за складување за да се сочуваат документи</string>
     <string name="open_with">Отвори со</string>
     <string name="sort">Подреди по</string>
     <string name="date">Датум</string>
@@ -113,6 +115,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Гледач на документи</string>
     <string name="file_browser">Фајл прегледувач</string>
     <string name="insert_replace_date">Внеси датум</string>
+    <string name="create_note" needed="false">Креирај Забелешка</string>
+    <string name="special_documents" needed="false">Специјални документи</string>
+    <string name="keep_screen_on" needed="false">Чувајте го екранот уклучен</string>
+    <string name="back_to_previous_folder" needed="false">Назад до претходниот директориум</string>
     <string name="app_settings" needed="false">Нагодувања на апликација</string>
     <string name="editor_settings" needed="false">Нагодувања на Едитор</string>
     <string name="number_of_files_witharg" needed="false">Број на фајлови: %d</string>

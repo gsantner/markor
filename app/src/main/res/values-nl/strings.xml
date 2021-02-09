@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Lezen</string>
     <string name="read">Lees</string>
     <string name="table">Tabel</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Hoeveel kolommen? Druk lang op tabel knop om een tabel te starten (voeg header toe), druk op de korte balk om een rij toe te voegen.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Hoeveel kolommen? Druk op tafelknop lang om een tabel te starten (voeg koptekst in), druk kort om een rij toe te voegen.</string>
     <string name="example_of_a_markdown_table">Voorbeeld van een Markdown tabel</string>
     <string name="delete_lines">Verwijder regels</string>
     <string name="unordered_list">Ongeordende lijst</string>

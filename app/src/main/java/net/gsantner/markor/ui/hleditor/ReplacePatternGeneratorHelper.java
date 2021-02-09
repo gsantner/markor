@@ -26,9 +26,9 @@ public class ReplacePatternGeneratorHelper {
             final Pattern targetPattern, final String targetReplacement,
             final String alternativeReplacement
     ) {
-        List<TextActions.ReplacePattern> replacePatterns = new ArrayList<>();
+        final List<TextActions.ReplacePattern> replacePatterns = new ArrayList<>();
         for (final Pattern replaceablePattern : replaceablePatterns) {
-            String replacement;
+            final String replacement;
             if (!replaceablePattern.equals(targetPattern)) {
                 replacement = targetReplacement;
             } else {

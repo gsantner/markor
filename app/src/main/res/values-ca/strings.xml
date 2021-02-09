@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">S\'està llegint</string>
     <string name="read">Llegit</string>
     <string name="table">Taula</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Quantes columnes? Mantingueu premut el botó taula per iniciar una taula (inserir un encapçalament), premeu-lo per afegir una fila.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Quantes columnes? Mantingueu premut el botó taula per iniciar una taula (insereix un encapçalament), premeu-lo per afegir una fila.</string>
     <string name="example_of_a_markdown_table">Exemple d\'una taula Markdown</string>
     <string name="delete_lines">Suprimeix les línies</string>
     <string name="unordered_list">Llista no ordenada</string>
@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">Títol 5</string>
     <string name="bold">Negreta</string>
     <string name="italic">Cursiva</string>
+    <string name="highlighted">Destacat</string>
     <string name="strikeout">Ratlla</string>
     <string name="inline_code">Codi en línia</string>
     <string name="horizontal_line">Línia horitzontal</string>
@@ -372,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="toggle_action_visibility">Canvia la visibilitat de l\'acció</string>
     <string name="load_default_settings">Carrega la configuració per defecte</string>
     <string name="drag">Arrossega</string>
+    <string name="created">Creat</string>
     <string name="file_encryption_password">Contrasenya de xifratge del fitxer</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No s\'ha definit cap contrasenya, no es pot xifrar ni desxifrar.\nAneu a Configuració -&gt; General -&gt; Contrasenya per definir-ne una.</string>
     <string name="encrypt_file_content">Xifra el contingut del fitxer</string>
@@ -384,6 +386,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format de descripció del fitxer</string>
     <string name="file_description_format_dialog">Format per a la descripció sota cada arxiu en el navegador d\'arxius. Segueix les regles de SimpleDateFormat, amb l\'addició de FS per mostrar la mida del fitxer. Deixeu-lo en blanc per utilitzar el format per defecte de la vostra configuració regional.\n\nExemple d\'entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormat de sortida:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">S\'està carregant el valor per defecte</string>
+    <string name="file_settings">Configuració dels fitxers</string>
     <string name="search_and_replace">Cercar / Reemplaça</string>
     <string name="search_for">Cerca per</string>
     <string name="replace_with">Reemplaça per</string>

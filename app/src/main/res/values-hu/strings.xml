@@ -177,6 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">Lejjebb (Page Down)</string>
     <string name="move_text_one_line_up">Szöveg mozgatása a felső sorba</string>
     <string name="move_text_one_line_down">Szöveg mozgatása az alsó sorba</string>
+    <string name="start_new_line_below">Új sor kezdése a jelenlegi alatt</string>
     <string name="key_pos_1">Sor eleje (Home)</string>
     <string name="key_pos_end">Sor vége (End)</string>
     <string name="key_pos_1_document">Dokumentum eleje</string>
@@ -192,6 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plusz (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor csak helyi offline dokumentumok szerkesztésére képes, és nem támogat fájlkezelőket, amelyek nem adják meg a teljes elérési utat.</string>
     <string name="sync_to_local_folder_notice">Megjegyzés: A szinkronizációs appok egyedi mappába tehetik a fájlokat. Nyisd meg őket a Markor mappájának megváltoztatásával, vagy egy fájlkezelőn keresztül.</string>
+    <string name="configure_in_the_apps_settings">Testreszabható a beállításokban</string>
     <string name="vertical_alignment">Függőleges igazítás</string>
     <string name="horizontal_alignment">Vízszintes igazítás</string>
     <string name="default_">Alapértelmezett</string>
@@ -324,7 +326,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="experimental_features">Kísérleti funkciók</string>
     <string name="tools">Eszközök</string>
     <string name="table">Táblázat</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc beszúrásához) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
     <string name="example_of_a_markdown_table">Példa egy Markdown táblázatra</string>
     <string name="delete_lines">Sorok törlése</string>
     <string name="unordered_list">Számozatlan lista</string>
@@ -383,4 +385,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_once">Csere (1)</string>
     <string name="replace_all">Összes cseréje</string>
     <string name="matches">Találatok</string>
+    <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
 </resources>

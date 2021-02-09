@@ -333,7 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">Luetaan</string>
     <string name="read">Lue</string>
     <string name="table">Taulukko</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">Kuinka paljon saraketta? Paina pöytäpainiketta pitkään aloittaaksesi taulukon (aseta otsikko), paina lyhyttä lisätäksesi rivi.</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">Kuinka monta saraketta? Paina pöytäpainiketta pitkään aloittaaksesi taulukon (aseta otsikko), paina lyhyttä lisätäksesi rivin.</string>
     <string name="example_of_a_markdown_table">Esimerkki Markdown-taulukosta</string>
     <string name="delete_lines">Poista rivit</string>
     <string name="unordered_list">Järjestämätön lista</string>

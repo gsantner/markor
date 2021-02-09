@@ -18,6 +18,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -257,7 +258,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
     private void runRenumberOrderedListIfRequired() {
         if (_appSettings.isMarkdownAutoUpdateList()) {
-            AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
+            AutoFormatter.renumberOrderedList(_hlEditor, StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
         }
     }
 

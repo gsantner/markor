@@ -21,7 +21,6 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -178,27 +177,22 @@ public class ZimWikiTextConverter extends TextConverter {
      */
     @Override
     public boolean isFileOutOfThisFormat(String filepath) {
-        if (!filepath.matches("(?i)^.+\\.txt$")) {
-            return false;
-        }
-
-        File file = new File(filepath);
-        boolean hasZimHeader = false;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuilder firstLinesOfFile = new StringBuilder();
-            for (int lineNumber = 0; lineNumber < 4; lineNumber++) {
-                String line = reader.readLine();
-                if (line != null) {
-                    firstLinesOfFile.append(line + String.format("%n"));
+        if (filepath.matches("(?i)^.+\\.txt$")) {
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader(new File(filepath)));
+                return ZimWikiHighlighter.Patterns.ZIMHEADER_CONTENT_TYPE_ONLY.pattern.matcher(reader.readLine()).find();
+            } catch (Exception ignored) {
+            } finally {
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (Exception ignored) {
                 }
             }
-            hasZimHeader = ZimWikiHighlighter.Patterns.ZIMHEADER.pattern.matcher(firstLinesOfFile).find();
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return hasZimHeader;
+        return false;
     }
 
     /*

@@ -11,8 +11,10 @@
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,6 +38,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+
+import java.util.List;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "rawtypes", "UnusedReturnValue"})
@@ -323,5 +327,21 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
             }
         } catch (Exception ignored) {
         }
+    }
+
+    // Make activity/app not show up in the recents history - call before finish / System.exit
+    public ActivityUtils removeActivityFromHistory() {
+        try {
+            ActivityManager am = (ActivityManager) _activity.getSystemService(Context.ACTIVITY_SERVICE);
+            if (am != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                List<ActivityManager.AppTask> tasks = am.getAppTasks();
+                if (tasks != null && !tasks.isEmpty()) {
+                    tasks.get(0).setExcludeFromRecents(true);
+                }
+            }
+
+        } catch (Exception ignored) {
+        }
+        return this;
     }
 }

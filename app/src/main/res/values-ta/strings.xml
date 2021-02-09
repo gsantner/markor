@@ -330,7 +330,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">படிக்கிறது</string>
     <string name="read">படி</string>
     <string name="table">அட்டவணை</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">எத்தனை நெடுவரிசைகள்? அட்டவணை பொத்தானை நீண்டு அழுத்துவதன் மூலம் ஒரு அட்டவணையை துவக்கு (தலைப்பை சேர்க்கவும்), குறுகி அழுத்துவதன் மூலம் ஒரு குறுக்குவரிசையை சேர்க்க முடியும்.</string>
     <string name="example_of_a_markdown_table">Markdown முறையில் ஒரு அட்டவணையின் உதாரணம்</string>
     <string name="delete_lines">வரிகளை நீக்கு</string>
     <string name="unordered_list">எண்கள் அல்லாத பட்டியல்</string>
