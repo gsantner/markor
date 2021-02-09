@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import net.gsantner.markor.activity.DocumentRelayActivity;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 
 public class OpenShareIntoActivity extends OpenEditorActivity {

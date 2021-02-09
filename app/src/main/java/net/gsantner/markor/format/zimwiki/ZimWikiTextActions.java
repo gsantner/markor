@@ -18,7 +18,6 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.format.general.CommonTextActions;
-import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
