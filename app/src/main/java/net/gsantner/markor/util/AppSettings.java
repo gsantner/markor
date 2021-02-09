@@ -21,6 +21,7 @@ import android.support.v4.util.Pair;
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
@@ -338,11 +339,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
+    private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
 
-    public void setLastEditPosition(File file, int pos, int scrolloffset) {
-        if (file == null || !file.exists()) {
-            return;
-        }
+    public void setLastEditPosition(final String path, int pos, int scrolloffset) {
+        final File file = new File(path);
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
@@ -356,6 +356,20 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentWrapState(final String path) {
         // Use global setting as default
         return getBool(PREF_PREFIX_WRAP_STATE + path, isEditorLineBreakingEnabled());
+    }
+
+    public void setDocumentFormat(final String path, final int format) {
+        if (path != null || path.trim().length() > 0) {
+            setInt(PREF_PREFIX_FILE_FORMAT + path, format);
+        }
+    }
+
+    public int getDocumentFormat(final String path, final int _default) {
+        if (path == null || path.trim().length() == 0) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
+        }
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
@@ -396,8 +410,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
     }
 
-    public int getLastEditPositionChar(File file) {
-        if (file == null || !file.exists()) {
+    public int getLastEditPositionChar(final String path) {
+        final File file = new File(path);
+        if (!file.exists()) {
             return -1;
         }
         if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
@@ -406,8 +421,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
     }
 
-    public int getLastEditPositionScroll(File file) {
-        if (file == null || !file.exists()) {
+    public int getLastEditPositionScroll(final String path) {
+        final File file = new File(path);
+        if (!file.exists()) {
             return 0;
         }
         return getInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), 0, _prefCache);

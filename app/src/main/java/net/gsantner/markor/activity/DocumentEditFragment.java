@@ -323,6 +323,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
+        // At this stage the document format has been determined from extension etc
+        // Here we replace it with the last saved format.
+        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
@@ -641,11 +644,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil, getContext());
             updateLauncherWidgets();
 
-            if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
-                _appSettings.setDocumentHighlightState(getPath(), highlightText);
-                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
+            final String path = getPath();
+            if (path != null) {
+                _appSettings.setLastEditPosition(path, _hlEditor.getSelectionStart(), _hlEditor.getTop());
+                _appSettings.setDocumentWrapState(path, wrapTextSetting);
+                _appSettings.setDocumentHighlightState(path, highlightText);
+                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
+                _appSettings.setDocumentFormat(path, _document.getFormat());
             }
         }
         return ret;
@@ -727,12 +732,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
+            final String path = getPath();
+            if (path != null && (lastPos = _appSettings.getLastEditPositionChar(path)) >= 0 && lastPos <= _hlEditor.length()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
+                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(path));
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();
