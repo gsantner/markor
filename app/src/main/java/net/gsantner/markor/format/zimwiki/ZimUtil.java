@@ -9,7 +9,7 @@ import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
-public class ZimPageFilePathUtil {
+public class ZimUtil {
 
     public static void copyFileToZimPageFolder(File fileToBeCopied, File currentWorkingFile, Activity activity) {
         File targetCopy = new File(getZimPageFolderOrCreate(currentWorkingFile), fileToBeCopied.getName());
