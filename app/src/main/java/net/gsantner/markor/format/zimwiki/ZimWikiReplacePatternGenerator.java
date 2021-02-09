@@ -100,6 +100,11 @@ public class ZimWikiReplacePatternGenerator {
         return replacePatterns;
     }
 
+    public static List<TextActions.ReplacePattern> removeCheckbox() {
+        Pattern anyCheckboxItem = Pattern.compile("^(\\s*)(\\[([ x*>])]\\s)");
+        return Collections.singletonList(new TextActions.ReplacePattern(anyCheckboxItem, "$1"));
+    }
+
     private static List<TextActions.ReplacePattern> toggleCheckboxToNextState() {
         return Arrays.asList(
                 new TextActions.ReplacePattern(PREFIX_UNCHECKED_LIST, checkedReplacement),

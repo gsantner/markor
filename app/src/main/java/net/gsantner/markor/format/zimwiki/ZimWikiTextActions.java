@@ -204,6 +204,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         @Override
         public boolean onLongClick(View view) {
             switch (_action) {
+                case R.string.tmaid_common_checkbox_list: {
+                    runRegexReplaceAction(ZimWikiReplacePatternGenerator.removeCheckbox());
+                    return true;
+                }
                 case R.string.tmaid_common_open_link_browser: {
                     new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
                     return true;

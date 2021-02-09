@@ -104,6 +104,17 @@ public class ZimWikiReplacePatternGeneratorTests {
         }
 
         @Test
+        public void removeCheckboxForAllCheckStates() {
+            replacePatterns = ZimWikiReplacePatternGenerator.removeCheckbox();
+            String[] originals = {"\t\t[x] bla", "\t\t[ ] bla", "\t\t[*] bla", "\t\t[>] bla"};
+            for (String original : originals) {
+                assertCorrectReplacement(original, "\t\tbla");
+            }
+            // if no checkbox is there, nothing should be replaced
+            assertCorrectReplacement("\t\tbla", null);
+        }
+
+        @Test
         public void changePrefixToUnorderedListOrRemoveItAlreadyPresent() {
             replacePatterns = ZimWikiReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix();
             String[] otherPrefixes = {"1.", "2.", "a.", "[ ]", "[x]"};
