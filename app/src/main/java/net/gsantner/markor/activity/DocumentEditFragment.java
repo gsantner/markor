@@ -29,6 +29,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -63,6 +64,8 @@ import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -132,6 +135,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private boolean _firstFileLoad = true;
+    private Map<Integer, MenuItem>_formatMap = new HashMap<>();
 
     public DocumentEditFragment() {
         super();
@@ -310,6 +314,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         actionHighlight = menu.findItem(R.id.action_enable_highlighting);
         actionWrapWords = menu.findItem(R.id.action_wrap_words);
         setToggleState();
+
+        final SubMenu formats = menu.findItem(R.id.submenu_format_selection).getSubMenu();
+        for (int i = 0; i < formats.size(); i++) {
+            final int id = formats.getItem(i).getItemId();
+            _formatMap.put(id, menu.findItem(id));
+        }
+        _formatMap.get(_document.getFormat()).setChecked(true);
     }
 
     public void loadDocumentIntoUi() {
@@ -440,8 +451,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {
                 if (_document != null) {
-                    _document.setFormat(item.getItemId());
-                    applyTextFormat(item.getItemId());
+                    _document.setFormat(itemId);
+                    applyTextFormat(itemId);
                 }
                 return true;
             }
@@ -546,7 +557,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return document;
     }
 
-    public void applyTextFormat(int textFormatId) {
+    public void applyTextFormat(final int textFormatId) {
+        // Checkable = single => only one is checked
+        final MenuItem formatItem = _formatMap.get(textFormatId);
+        if (formatItem != null) formatItem.setChecked(true);
+
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
