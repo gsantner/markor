@@ -24,13 +24,14 @@ import net.gsantner.opoc.ui.AudioRecordOmDialog;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GashMap;
 
 import java.io.File;
 import java.util.regex.Matcher;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachImageOrLinkDialog {
-    public final static int AUDIO_ACTION = 4, IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3;
+    public final static int IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3, AUDIO_ACTION = 4;
 
     @SuppressWarnings("RedundantCast")
     public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
@@ -55,15 +56,19 @@ public class AttachImageOrLinkDialog {
         switch (action) {
             default:
             case FILE_OR_LINK_ACTION: {
-                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "[{{ template.title }}]({{ template.link }})" :
-                        textFormatId == TextFormat.FORMAT_ZIMWIKI ? "[[{{ template.link }}|{{ template.title }}]]" : "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 actionTitle = R.string.insert_link;
+                formatTemplate = new GashMap<Integer, String>().load(
+                        TextFormat.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
+                        TextFormat.FORMAT_ZIMWIKI, "[[{{ template.link }}|{{ template.title }}]]"
+                ).getOrDefault(textFormatId, "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 break;
             }
             case IMAGE_ACTION: {
-                formatTemplate = (textFormatId == TextFormat.FORMAT_MARKDOWN ? "![{{ template.title }}]({{ template.link }})" :
-                        textFormatId == TextFormat.FORMAT_ZIMWIKI ? "{{{{ template.link }}}}" : "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 actionTitle = R.string.insert_image;
+                formatTemplate = new GashMap<Integer, String>().load(
+                        TextFormat.FORMAT_MARKDOWN, "![{{ template.title }}]({{ template.link }})",
+                        TextFormat.FORMAT_ZIMWIKI, "{{{{ template.link }}}}"
+                ).getOrDefault(textFormatId, "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 break;
             }
             case AUDIO_ACTION: {
