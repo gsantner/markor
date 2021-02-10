@@ -70,7 +70,6 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_zimwiki_h3, R.drawable.format_header_3, R.string.heading_3),
                 new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
                 new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
-                new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
                 new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
                 new ActionItem(R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
@@ -79,7 +78,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.tmaid_zimwiki_h4, R.drawable.format_header_4, R.string.heading_4),
                 new ActionItem(R.string.tmaid_zimwiki_h5, R.drawable.format_header_5, R.string.heading_5),
-                // TODO: insert link, insert image
+                new ActionItem(R.string.tmaid_zimwiki_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
+                new ActionItem(R.string.tmaid_zimwiki_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
+                new ActionItem(R.string.tmaid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
+                new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
+                new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
         };
 
         return Arrays.asList(ZIMWIKI_ACTIONS);
@@ -161,9 +164,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 //                    return true;
 //                }
                 case R.string.tmaid_zimwiki_insert_link:
+                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                    return true;
                 case R.string.tmaid_zimwiki_insert_image: {
-                    // TODO: adapt to zim wiki
-                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_zimwiki_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.IMAGE_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
                     return true;
                 }
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
@@ -215,11 +219,16 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
-                case R.string.tmaid_zimwiki_insert_image: {
-                    // TODO: adapt to zim wiki
+                case R.string.tmaid_zimwiki_insert_link: {
                     int pos = _hlEditor.getSelectionStart();
-                    _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
-                    _hlEditor.setSelection(pos + 48);
+                    _hlEditor.getText().insert(pos, "[[]]");
+                    _hlEditor.setSelection(pos + 2);
+                    return true;
+                }
+                case R.string.tmaid_zimwiki_insert_image: {
+                    int pos = _hlEditor.getSelectionStart();
+                    _hlEditor.getText().insert(pos, "{{}}");
+                    _hlEditor.setSelection(pos + 2);
                     return true;
                 }
                 case R.string.tmaid_common_time: {
@@ -239,9 +248,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 case R.string.tmaid_common_ordered_list_number: {
                     // TODO: adapt to zim wiki
                     AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
+                    return true;
                 }
-
-                // TODO: long press checklist action should delete the checkbox prefix
             }
             return false;
         }
