@@ -16,7 +16,6 @@ import android.widget.EditText;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
-import net.gsantner.markor.format.zimwiki.ZimUtil;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
@@ -123,13 +122,6 @@ public class AttachImageOrLinkDialog {
         final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file) {
-
-                if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
-                    ZimUtil.copyFileToZimPageFolder(file, currentWorkingFile, activity);
-                    inputPathUrl.setText("./" + file.getName());
-                    return;
-                }
-
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
@@ -181,9 +173,7 @@ public class AttachImageOrLinkDialog {
                     fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
                 },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
-        final File targetFolder = currentWorkingFile != null ?
-                (textFormatId == TextFormat.FORMAT_ZIMWIKI ? ZimUtil.getZimPageFolderOrCreate(currentWorkingFile) : currentWorkingFile.getParentFile()) :
-                _appSettings.getNotebookDirectory();
+        final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
 
@@ -200,9 +190,6 @@ public class AttachImageOrLinkDialog {
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");
-            if (textFormatId == TextFormat.FORMAT_ZIMWIKI) {
-                filepath = ZimUtil.getFileToRelativeZimLink(filepath, currentWorkingFile).getPath();
-            }
             if (!filepath.startsWith("/")) {
                 filepath = new File(currentWorkingFile.getParent(), filepath).getAbsolutePath();
             }
