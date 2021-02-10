@@ -351,22 +351,28 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        if (isPathOk(path)) {
+            setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        }
     }
 
     public boolean getDocumentWrapState(final String path) {
-        // Use global setting as default
-        return getBool(PREF_PREFIX_WRAP_STATE + path, isEditorLineBreakingEnabled());
+        final boolean _default = isEditorLineBreakingEnabled();
+        if (!isPathOk(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
+        }
     }
 
     public void setDocumentFormat(final String path, final int format) {
-        if (path != null || path.trim().length() > 0) {
+        if (isPathOk(path)) {
             setInt(PREF_PREFIX_FILE_FORMAT + path, format);
         }
     }
 
     public int getDocumentFormat(final String path, final int _default) {
-        if (path == null || path.trim().length() == 0) {
+        if (!isPathOk(path)) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
@@ -374,14 +380,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
-        if (path != null || path.trim().length() > 0) {
+        if (isPathOk(path)) {
             setInt(PREF_PREFIX_INDENT_SIZE + path, size);
         }
     }
 
     public int getDocumentIndentSize(final String path) {
         final int _default = 4;
-        if (path == null || path.trim().length() == 0) {
+        if (!isPathOk(path)) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
@@ -395,11 +401,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (_default || path == null || path.trim().length() == 0) {
+        if (_default || !isPathOk(path)) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
         }
+    }
+
+    private static boolean isPathOk(final String path) {
+        return (path != null && !path.trim().isEmpty() && (new File(path)).exists());
     }
 
     public void setDocumentHighlightState(final String path, final boolean state) {
