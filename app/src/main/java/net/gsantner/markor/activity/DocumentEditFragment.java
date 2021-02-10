@@ -320,7 +320,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             final int id = formats.getItem(i).getItemId();
             _formatMap.put(id, menu.findItem(id));
         }
-        _formatMap.get(_document.getFormat()).setChecked(true);
+        setFormatToggle();
     }
 
     public void loadDocumentIntoUi() {
@@ -558,10 +558,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void applyTextFormat(final int textFormatId) {
-        // Checkable = single => only one is checked
-        final MenuItem formatItem = _formatMap.get(textFormatId);
-        if (formatItem != null) formatItem.setChecked(true);
-
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
@@ -569,6 +565,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
+
+        setFormatToggle();
+    }
+
+    private void setFormatToggle() {
+        final MenuItem formatItem = _formatMap.get(_document.getFormat());
+        if (formatItem != null) {
+            formatItem.setChecked(true);
+        }
     }
 
     private void setupAppearancePreferences(View fragmentView) {
