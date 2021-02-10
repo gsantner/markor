@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
@@ -351,14 +351,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
-        if (isPathOk(path)) {
+        if (fexists(path)) {
             setBool(PREF_PREFIX_WRAP_STATE + path, state);
         }
     }
 
     public boolean getDocumentWrapState(final String path) {
         final boolean _default = isEditorLineBreakingEnabled();
-        if (!isPathOk(path)) {
+        if (!fexists(path)) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
@@ -366,13 +366,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentFormat(final String path, final int format) {
-        if (isPathOk(path)) {
+        if (fexists(path)) {
             setInt(PREF_PREFIX_FILE_FORMAT + path, format);
         }
     }
 
     public int getDocumentFormat(final String path, final int _default) {
-        if (!isPathOk(path)) {
+        if (!fexists(path)) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
@@ -380,14 +380,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
-        if (isPathOk(path)) {
+        if (fexists(path)) {
             setInt(PREF_PREFIX_INDENT_SIZE + path, size);
         }
     }
 
     public int getDocumentIndentSize(final String path) {
         final int _default = 4;
-        if (!isPathOk(path)) {
+        if (!fexists(path)) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
@@ -401,15 +401,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (_default || !isPathOk(path)) {
+        if (_default || !fexists(path)) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
         }
-    }
-
-    private static boolean isPathOk(final String path) {
-        return (path != null && !path.trim().isEmpty() && (new File(path)).exists());
     }
 
     public void setDocumentHighlightState(final String path, final boolean state) {
