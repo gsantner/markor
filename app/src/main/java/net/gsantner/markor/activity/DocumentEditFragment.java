@@ -320,7 +320,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             final int id = formats.getItem(i).getItemId();
             _formatMap.put(id, menu.findItem(id));
         }
-        setFormatToggle();
+        setFormatRadioButton();
     }
 
     public void loadDocumentIntoUi() {
@@ -566,10 +566,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
 
-        setFormatToggle();
+        setFormatRadioButton();
     }
 
-    private void setFormatToggle() {
+    private void setFormatRadioButton() {
         final MenuItem formatItem = _formatMap.get(_document.getFormat());
         if (formatItem != null) {
             formatItem.setChecked(true);
