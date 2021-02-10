@@ -25,6 +25,7 @@ import android.view.accessibility.AccessibilityEvent;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -234,19 +235,13 @@ public class HighlightingEditor extends AppCompatEditText {
     // Set selection to fill whole lines
     // Returns original selectionStart
     public int setSelectionExpandWholeLines() {
-        final int orig_s = getSelectionStart();
-        final int orig_e = getSelectionEnd();
-
-        setSelection(orig_s);
-        simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
-        final int new_s = getSelectionStart();
-
-        setSelection(orig_e);
-        simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
-        final int new_e = getSelectionStart();
-
-        setSelection(new_s, new_e);
-        return orig_s;
+        final int[] sel = StringUtils.getSelection(this);
+        final CharSequence text = getText();
+        setSelection(
+                StringUtils.getLineStart(text, sel[0]),
+                StringUtils.getLineEnd(text, sel[1])
+        );
+        return sel[0];
     }
 
     //
