@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">பக்கம் கீழ் (கீழ்நோக்கி நகர்த்து)</string>
     <string name="move_text_one_line_up">உரையை ஒரு வரி மேல் நோக்கி நகர்த்து</string>
     <string name="move_text_one_line_down">உரையை ஒரு வரி கீழ் நோக்கி நகர்த்து</string>
+    <string name="start_new_line_below">கீழே புதிய வரியை தொடங்கவும்</string>
     <string name="key_pos_1">வரி தொடக்கம் (துவக்க இடம்)</string>
     <string name="key_pos_end">வரி முடிவு (முடியும் இடம்)</string>
     <string name="key_pos_1_document">ஆவணத்தின் ஆரம்பம்</string>

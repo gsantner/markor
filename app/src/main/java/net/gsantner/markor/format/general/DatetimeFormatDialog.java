@@ -330,20 +330,24 @@ public class DatetimeFormatDialog {
      */
     private static void saveRecentFormats(final Activity activity, final List<String> formats, final String newFormat) {
 
-        List<String> tempFormats = new ArrayList<>(formats);
-        if (newFormat != null && newFormat.trim().length() > 0) {
-            tempFormats.add(0, newFormat);
+        final LinkedHashSet<String> formatSet = new LinkedHashSet<>();
+        if (newFormat != null && !newFormat.trim().isEmpty()) {
+            formatSet.add(newFormat);
+        }
+        for (final String format : formats) {
+            formatSet.add(format);
+            if (formatSet.size() >= MAX_RECENT_FORMATS) {
+                break;
+            }
         }
 
-        tempFormats = tempFormats.subList(0, Math.min(tempFormats.size(), MAX_RECENT_FORMATS));
-
         final List<String> lengths = new ArrayList<>();
-        for (final String s : tempFormats) {
+        for (final String s : formatSet) {
             lengths.add(Integer.toString(s.length()));
         }
 
         final SharedPreferences.Editor edit = activity.getSharedPreferences(DATETIME_SETTINGS, Context.MODE_PRIVATE).edit();
-        edit.putString(RECENT_FORMATS_STRING, TextUtils.join("", tempFormats)).apply();
+        edit.putString(RECENT_FORMATS_STRING, TextUtils.join("", formatSet)).apply();
         edit.putString(RECENT_FORMATS_LENGTHS, TextUtils.join(",", lengths)).apply();
     }
 
