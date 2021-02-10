@@ -46,6 +46,7 @@ public class ZimWikiHighlighter extends Highlighter {
         CHECKLIST_ARROW(Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )")),
         SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
         SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
+        ZIMHEADER_CONTENT_TYPE_ONLY(Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki")),
         ZIMHEADER(Pattern.compile("^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
                 "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
                 "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+"));
