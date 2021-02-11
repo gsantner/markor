@@ -48,6 +48,7 @@ import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
+import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -502,6 +503,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
                 setToggleState();
+                return true;
+            }
+            case R.id.action_info: {
+                if (_document != null && _document.getFile() != null) {
+                    saveDocument(); // In order to have the correct info displayed
+                    FileInfoDialog.show(_document.getFile(), getFragmentManager());
+                }
                 return true;
             }
         }
