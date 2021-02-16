@@ -585,6 +585,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                 dopt.titleText = R.string.move;
                 dopt.rootFolder = _appSettings.getNotebookDirectory();
+                dopt.startFolder = getCurrentFolder();
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }

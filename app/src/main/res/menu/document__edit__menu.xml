@@ -225,6 +225,11 @@
         </menu>
     </item>
     <item
+        android:id="@+id/action_info"
+        android:title="@string/info"
+        android:icon="@drawable/ic_info_black_24dp"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_reload"
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"
