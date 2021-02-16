@@ -3,6 +3,7 @@ package net.gsantner.markor.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
@@ -14,7 +15,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;
     private int _thumbHeight;
-    private int _scrollbarWidth;
+    private int _grabWidth;
 
     public DraggableScrollbarScrollView(Context context) {
         super(context);
@@ -37,8 +38,8 @@ public class DraggableScrollbarScrollView extends ScrollView {
             return true;
         }
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN &&
-                ((_ltr && getWidth() - _scrollbarWidth < ev.getX())
-                        || (!_ltr && _scrollbarWidth > ev.getX()))) {
+                ((_ltr && getWidth() - _grabWidth < ev.getX())
+                        || (!_ltr && _grabWidth > ev.getX()))) {
             computeThumbHeight();
             awakenScrollBars();
             float scrollbarStartPos = (float) computeVerticalScrollOffset() / computeVerticalScrollRange() * (getHeight());
@@ -80,7 +81,8 @@ public class DraggableScrollbarScrollView extends ScrollView {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
-        _scrollbarWidth = getVerticalScrollbarWidth();
+        final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        _grabWidth = (int) (2.0 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
     }
 
     public void setFastScrollEnabled(boolean fastScrollEnabled) {
