@@ -3,6 +3,7 @@ package net.gsantner.markor.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -79,7 +80,8 @@ public class DraggableScrollbarWebView extends WebView {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
-        _scrollbarWidth = getVerticalScrollbarWidth();
+        final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        _scrollbarWidth = (int) (2.0 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
     }
 
     public void setFastScrollEnabled(boolean fastScrollEnabled) {
