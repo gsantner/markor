@@ -15,7 +15,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;
     private int _thumbHeight;
-    private int _scrollbarWidth;
+    private int _grabWidth;
 
     public DraggableScrollbarScrollView(Context context) {
         super(context);
@@ -38,8 +38,8 @@ public class DraggableScrollbarScrollView extends ScrollView {
             return true;
         }
         if (ev.getActionMasked() == MotionEvent.ACTION_DOWN &&
-                ((_ltr && getWidth() - _scrollbarWidth < ev.getX())
-                        || (!_ltr && _scrollbarWidth > ev.getX()))) {
+                ((_ltr && getWidth() - _grabWidth < ev.getX())
+                        || (!_ltr && _grabWidth > ev.getX()))) {
             computeThumbHeight();
             awakenScrollBars();
             float scrollbarStartPos = (float) computeVerticalScrollOffset() / computeVerticalScrollRange() * (getHeight());
@@ -82,7 +82,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
         final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        _scrollbarWidth = (int) (2.0 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
+        _grabWidth = (int) (2.0 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
     }
 
     public void setFastScrollEnabled(boolean fastScrollEnabled) {
