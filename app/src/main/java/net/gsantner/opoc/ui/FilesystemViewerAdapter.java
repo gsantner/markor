@@ -95,7 +95,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         _adapterDataFiltered = new ArrayList<>();
         _currentSelection = new HashSet<>();
         _context = context.getApplicationContext();
-        loadFolder(options.rootFolder);
+        loadFolder((options.startFolder != null) ? options.startFolder : options.rootFolder);
         _recyclerView = recyclerView;
         _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 

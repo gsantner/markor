@@ -41,7 +41,8 @@ public class FilesystemViewerData {
         public SelectionListener listener = new SelectionListenerAdapter();
         public File
                 rootFolder = Environment.getExternalStorageDirectory(),
-                mountedStorageFolder = null;
+                mountedStorageFolder = null,
+                startFolder = null;
         public String requestId = "show_dialog";
 
         // Dialog type
