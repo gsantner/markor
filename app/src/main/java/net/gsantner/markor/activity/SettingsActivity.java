@@ -382,6 +382,14 @@ public class SettingsActivity extends AppActivityBase {
                     startActivity(intent);
                     break;
                 }
+                case R.string.pref_key__backup_settings: {
+                    BackupRestoreHelper.backupConfig(getContext(), getFragmentManager());
+                    break;
+                }
+                case R.string.pref_key__restore_settings: {
+                    BackupRestoreHelper.restoreConfig(getContext(), getFragmentManager());
+                    break;
+                }
             }
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
