@@ -233,6 +233,19 @@
                 android:title="@string/file_description_format" />
         </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/backup_restore">
+            <Preference
+                android:icon="@drawable/ic_save_black_24dp"
+                android:key="@string/pref_key__backup_settings"
+                android:title="@string/backup_settings"
+                android:summary="@string/backup_save_summary" />
+            <Preference
+                android:icon="@drawable/ic_restore_black_24dp"
+                android:key="@string/pref_key__restore_settings"
+                android:title="@string/restore_settings"
+                android:summary="@string/restore_backup_summary" />
+        </PreferenceCategory>
+
     </PreferenceScreen>
 
     <!-- Editor screen -->
@@ -555,19 +568,6 @@
             android:key="@string/pref_key__language"
             android:summary="@string/language_change_restart_description"
             android:title="@string/language" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/backup_restore">
-        <Preference
-            android:icon="@drawable/ic_save_black_24dp"
-            android:key="@string/pref_key__backup_settings"
-            android:title="@string/backup_settings"
-            android:summary="@string/backup_save_summary" />
-        <Preference
-            android:icon="@drawable/ic_restore_black_24dp"
-            android:key="@string/pref_key__restore_settings"
-            android:title="@string/restore_settings"
-            android:summary="@string/restore_backup_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen> <!-- Screen -->
