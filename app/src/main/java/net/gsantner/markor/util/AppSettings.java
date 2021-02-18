@@ -281,7 +281,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__todotxt__last_used_archive_filename, "todo.archive.txt");
     }
 
-    public boolean isEditorStartOnBotttom() {
+    public boolean isEditorStartOnBottom() {
         return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
     }
 
@@ -343,9 +343,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (file == null || !file.exists()) {
             return;
         }
-        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
+        if (!isEditorStartOnBottom()) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
             setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
+        } else {
+            setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -2, _prefCache);
+            setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), -2, _prefCache);
         }
     }
 
@@ -399,9 +402,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public int getLastEditPositionChar(File file) {
         if (file == null || !file.exists()) {
             return -1;
-        }
-        if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
-            return -2;
         }
         return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
     }
