@@ -17,8 +17,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -28,25 +26,50 @@ public class BackupRestoreHelper {
     private static final String SAVE_NAME = "markor_settings_backup%s.zip";
     private static final int BUFFER_SIZE = 2048;
 
-    private static String[] BACKUP_PATHS = {
-            "shared_prefs/action_order.xml",
-            "shared_prefs/app.xml",
-            "shared_prefs/datetime_dialog_settings.xml",
-            "shared_prefs/search_replace_dialog_settings.xml",
-            "shared_prefs/%PACKAGENAME%_preferences.xml"
+    private static String[] EXCLUDE_PATTERNS = {
+            "cache.xml",
+            "pirate.xml",
+            "WebViewChromiumPrefs.xml"
     };
 
-    private static List<File> getBackupFiles(final Context context) throws PackageManager.NameNotFoundException {
-        final PackageManager packageManager = context.getPackageManager();
-        final PackageInfo p = packageManager.getPackageInfo(context.getPackageName(), 0);
-        final File dataDir = new File(p.applicationInfo.dataDir);
-        final String packageName = p.applicationInfo.packageName;
-        final List<File> files = new ArrayList<File>();
-        for (final String path : BACKUP_PATHS) {
-            files.add(new File(dataDir, path.replace("%PACKAGENAME%", packageName)));
+    private static String[] INCLUDE_PATTERNS = {
+            ".*\\.xml"
+    };
+
+    private static boolean includeFile(final File f) {
+        return includeFile(f.getPath());
+    }
+
+    private static boolean includeFile(final String string) {
+
+        boolean excluded = false;
+        for (final String pattern : EXCLUDE_PATTERNS) {
+            if (matchPattern(string, pattern)) {
+                excluded = true;
+                break;
+            }
         }
 
-        return files;
+        boolean included = false;
+        for (final String pattern : INCLUDE_PATTERNS) {
+            if (matchPattern(string, pattern)) {
+                included = true;
+                break;
+            }
+        }
+
+        return included && !excluded;
+    }
+
+    private static boolean matchPattern(final String string, final String pattern) {
+        final boolean isRegex = pattern.contains("*");
+        return ((isRegex && string.matches(pattern)) || (!isRegex && string.contains(pattern)));
+    }
+
+    private static File getPrefDir(final Context context) throws PackageManager.NameNotFoundException {
+        final PackageManager packageManager = context.getPackageManager();
+        final PackageInfo p = packageManager.getPackageInfo(context.getPackageName(), 0);
+        return new File(p.applicationInfo.dataDir, "shared_prefs");
     }
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -86,13 +109,14 @@ public class BackupRestoreHelper {
             final FileOutputStream fos = new FileOutputStream(saveLoc);
             final BufferedOutputStream bos = new BufferedOutputStream(fos);
             final ZipOutputStream zos = new ZipOutputStream(bos);
+            final File[] files = getPrefDir(context).listFiles();
 
-            for (final File f : getBackupFiles(context)) {
-                if (!f.exists()) {
-                   throw new RuntimeException(String.format("%s does not exist", f.getName()));
+            for (final File f : files) {
+                if (includeFile(f)) {
+                    addFileToZip(zos, f);
                 }
-                addFileToZip(zos, f);
             }
+
             Toast.makeText(context, context.getString(R.string.toast_backup_success, saveLoc.getName()), Toast.LENGTH_SHORT).show();
             zos.flush();
             zos.close();
@@ -129,8 +153,32 @@ public class BackupRestoreHelper {
     }
     public static void loadAndRestoreBackup(final Context context, final File zipFile) {
         try {
-            for (final File backup : getBackupFiles(context)) {
-                extractFileFromZip(zipFile, backup);
+            final ZipInputStream inZip = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
+            final byte data[] = new byte[BUFFER_SIZE];
+            final File destDir = getPrefDir(context);
+
+            ZipEntry ze;
+            while ((ze = inZip.getNextEntry()) != null) {
+                final String name = ze.getName();
+                if (includeFile(name)) {
+                    final File dest = new File(destDir, name);
+
+                    // delete old file first
+                    if (dest.exists()) {
+                        if (!dest.delete()) {
+                            throw new Exception("Could not delete " + dest.getPath());
+                        }
+                    }
+
+                    final FileOutputStream outStream = new FileOutputStream(dest);
+                    int count = 0;
+                    while ((count = inZip.read(data)) != -1) {
+                        outStream.write(data, 0, count);
+                    }
+
+                    outStream.close();
+                    inZip.closeEntry();
+                }
             }
             Toast.makeText(context, R.string.toast_restore_success, Toast.LENGTH_SHORT).show();
             System.exit(0);
@@ -151,35 +199,5 @@ public class BackupRestoreHelper {
             outZip.write(data, 0, count);
         }
         inputStream.close();
-    }
-
-    public static boolean extractFileFromZip(final File source, final File backup) throws Exception {
-        final ZipInputStream inZip = new ZipInputStream(new BufferedInputStream(new FileInputStream(source)));
-        final byte data[] = new byte[BUFFER_SIZE];
-        boolean found = false;
-        final String name = backup.getName();
-
-        ZipEntry ze;
-        while ((ze = inZip.getNextEntry()) != null) {
-            if (ze.getName().equals(name)) {
-                found = true;
-                // delete old file first
-                if (backup.exists()) {
-                    if (!backup.delete()) {
-                        throw new Exception("Could not delete " + backup.getPath());
-                    }
-                }
-
-                FileOutputStream outFile = new FileOutputStream(backup);
-                int count = 0;
-                while ((count = inZip.read(data)) != -1) {
-                    outFile.write(data, 0, count);
-                }
-
-                outFile.close();
-                inZip.closeEntry();
-            }
-        }
-        return found;
     }
 }
