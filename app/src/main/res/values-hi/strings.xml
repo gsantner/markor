@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">लिंक सम्मिलित करें</string>
     <string name="insert_image">चित्र डालें</string>
     <string name="contributors">योगदानकर्ता</string>
+    <string name="save_location">स्थान संरक्षण</string>
     <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
     <string name="licenses">लाइसेंस</string>
     <string name="changelog">परिवर्तन खाता</string>
