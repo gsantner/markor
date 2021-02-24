@@ -81,8 +81,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
     private AppSettings _appSettings;
-    private MenuItem actionWrapWords;
-    private MenuItem actionHighlight;
     private HorizontalScrollView hsView;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -136,7 +134,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private boolean _firstFileLoad = true;
-    private Map<Integer, MenuItem>_formatMap = new HashMap<>();
+    private Map<Integer, MenuItem> _formatMap = new HashMap<>();
 
     public DocumentEditFragment() {
         super();
@@ -312,8 +310,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
-        actionHighlight = menu.findItem(R.id.action_enable_highlighting);
-        actionWrapWords = menu.findItem(R.id.action_wrap_words);
         setToggleState();
 
         final SubMenu formats = menu.findItem(R.id.submenu_format_selection).getSubMenu();
@@ -608,11 +604,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setToggleState() {
-        if (actionWrapWords != null) {
-            actionWrapWords.setChecked(wrapText);
+        MenuItem mi;
+        if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
+            mi.setChecked(wrapText);
         }
-        if (actionHighlight != null) {
-            actionHighlight.setChecked(highlightText);
+        if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
+            mi.setChecked(highlightText);
         }
     }
 
