@@ -81,7 +81,7 @@ public class BackupRestoreHelper {
                         @Override
                         public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select_backup_file_location;
+                            dopt.titleText = R.string.select_folder;
                         }
 
                         @Override
@@ -137,7 +137,7 @@ public class BackupRestoreHelper {
                         @Override
                         public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select_backup_file_location;
+                            dopt.titleText = R.string.select;
                         }
 
                         @Override
@@ -180,7 +180,6 @@ public class BackupRestoreHelper {
                     inZip.closeEntry();
                 }
             }
-            Toast.makeText(context, R.string.toast_restore_success, Toast.LENGTH_SHORT).show();
             System.exit(0);
         } catch (Exception e) {
             Toast.makeText(context, R.string.toast_restore_error, Toast.LENGTH_SHORT).show();

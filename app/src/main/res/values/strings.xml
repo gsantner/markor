@@ -413,10 +413,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup_restore">Backup / Restore Settings</string>
     <string name="backup_settings">Backup settings</string>
     <string name="restore_settings">Restore settings</string>
-    <string name="select_backup_file_location">Select backup location</string>
     <string name="toast_backup_error">Creation of backup file failed</string>
     <string name="backup_save_summary">Export all settings as a zip file</string>
     <string name="restore_backup_summary">Import settings from zip file. Upon success, Markor will exit.</string>
-    <string name="toast_restore_success">Settings successfully restored. Exiting Markor.</string>
     <string name="toast_restore_error">Settings restore failed</string>
 </resources>
