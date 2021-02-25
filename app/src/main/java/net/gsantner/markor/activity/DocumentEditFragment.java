@@ -29,6 +29,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -70,6 +71,7 @@ import butterknife.OnTextChanged;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
+@SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
@@ -78,8 +80,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
     private AppSettings _appSettings;
-    private MenuItem actionWrapWords;
-    private MenuItem actionHighlight;
     private HorizontalScrollView hsView;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -308,9 +308,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
-        actionHighlight = menu.findItem(R.id.action_enable_highlighting);
-        actionWrapWords = menu.findItem(R.id.action_wrap_words);
-        setToggleState();
+        updateMenuToggleStates(_document.getFormat());
     }
 
     public void loadDocumentIntoUi() {
@@ -324,6 +322,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
+        // At this stage the document format has been determined from extension etc
+        // Here we replace it with the last saved format.
+        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
@@ -333,7 +334,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item == null) {
@@ -438,8 +438,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_format_plaintext:
             case R.id.action_format_markdown: {
                 if (_document != null) {
-                    _document.setFormat(item.getItemId());
-                    applyTextFormat(item.getItemId());
+                    _document.setFormat(itemId);
+                    applyTextFormat(itemId);
                 }
                 return true;
             }
@@ -496,13 +496,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
                 setHorizontalScrollMode(wrapText);
-                setToggleState();
+                updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
-                setToggleState();
+                updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_info: {
@@ -551,7 +551,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return document;
     }
 
-    public void applyTextFormat(int textFormatId) {
+    public void applyTextFormat(final int textFormatId) {
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
@@ -559,6 +559,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
+
+        updateMenuToggleStates(textFormatId);
     }
 
     private void setupAppearancePreferences(View fragmentView) {
@@ -578,18 +580,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapText = inMainActivity || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
-        setToggleState();
+        updateMenuToggleStates(0);
 
         setHorizontalScrollMode(wrapText);
         _hlEditor.setHighlightingEnabled(highlightText);
     }
 
-    private void setToggleState() {
-        if (actionWrapWords != null) {
-            actionWrapWords.setChecked(wrapText);
+    private void updateMenuToggleStates(final int selectedFormatActionId) {
+        MenuItem mi;
+        SubMenu su;
+        if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
+            mi.setChecked(wrapText);
         }
-        if (actionHighlight != null) {
-            actionHighlight.setChecked(highlightText);
+        if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
+            mi.setChecked(highlightText);
+        }
+
+        if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
+            for (int i = 0; i < su.size(); i++) {
+                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
+                    mi.setChecked(true);
+                }
+            }
         }
     }
 
@@ -651,9 +663,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             if (_document != null && _document.getFile() != null) {
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
-                _appSettings.setDocumentHighlightState(getPath(), highlightText);
-                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
+                final String path = getPath();
+                _appSettings.setDocumentWrapState(path, wrapTextSetting);
+                _appSettings.setDocumentHighlightState(path, highlightText);
+                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
+                _appSettings.setDocumentFormat(path, _document.getFormat());
             }
         }
         return ret;

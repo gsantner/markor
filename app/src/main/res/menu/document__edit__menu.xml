@@ -128,29 +128,31 @@
                 android:title="@string/format"
                 app:showAsAction="never">
                 <menu>
-                    <item
-                        android:id="@+id/action_format_keyvalue"
-                        android:icon="@drawable/ic_file_white_24dp"
-                        android:title="@string/key_value" />
-                    <item
-                        android:id="@+id/action_format_plaintext"
-                        android:icon="@drawable/ic_file_white_24dp"
-                        android:title="@string/plaintext" />
-                    <item
-                        android:id="@+id/action_format_markdown"
-                        android:icon="@drawable/gs_markdown_black_24dp"
-                        android:title="@string/markdown" />
-                    <item
-                        android:id="@+id/action_format_todotxt"
-                        android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-                        android:title="@string/todo_txt" />
-                    <item
-                        android:id="@+id/action_format_zimwiki"
-                        android:icon="@drawable/fountain_pen"
-                        android:title="@string/zim_wiki" />
+                    <group android:id="@+id/action_format_group"
+                        android:checkableBehavior="single">
+                        <item
+                            android:id="@+id/action_format_keyvalue"
+                            android:icon="@drawable/ic_file_white_24dp"
+                            android:title="@string/key_value" />
+                        <item
+                            android:id="@+id/action_format_plaintext"
+                            android:icon="@drawable/ic_file_white_24dp"
+                            android:title="@string/plaintext" />
+                        <item
+                            android:id="@+id/action_format_markdown"
+                            android:icon="@drawable/gs_markdown_black_24dp"
+                            android:title="@string/markdown" />
+                        <item
+                            android:id="@+id/action_format_todotxt"
+                            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
+                            android:title="@string/todo_txt" />
+                        <item
+                            android:id="@+id/action_format_zimwiki"
+                            android:icon="@drawable/fountain_pen"
+                            android:title="@string/zim_wiki" />
+                    </group>
                 </menu>
             </item>
-
         </menu>
     </item>
 
