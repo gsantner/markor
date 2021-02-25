@@ -1,4 +1,4 @@
-package net.gsantner.markor.activity;
+package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.BufferedInputStream;
@@ -117,7 +116,7 @@ public class BackupRestoreHelper {
                 }
             }
 
-            Toast.makeText(context, context.getString(R.string.toast_backup_success, saveLoc.getName()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
             zos.flush();
             zos.close();
         } catch (Exception e) {
@@ -151,6 +150,7 @@ public class BackupRestoreHelper {
         }
 
     }
+
     public static void loadAndRestoreBackup(final Context context, final File zipFile) {
         try {
             final ZipInputStream inZip = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
