@@ -42,6 +42,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -587,5 +588,13 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     public static synchronized void appendDebugLog(String text) {
         _debugLog += "[" + new Date().toString() + "] " + text + "\n";
+    }
+
+    public static boolean ne(final String str) {
+        return str != null && !str.trim().isEmpty();
+    }
+
+    public static boolean fexists(final String fp) {
+        return ne(fp) && (new File(fp)).exists();
     }
 }
