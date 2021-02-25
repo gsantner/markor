@@ -65,14 +65,13 @@ import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
+@SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
@@ -134,7 +133,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private boolean _firstFileLoad = true;
-    private Map<Integer, MenuItem> _formatMap = new HashMap<>();
 
     public DocumentEditFragment() {
         super();
@@ -310,14 +308,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
-        setToggleState();
-
-        final SubMenu formats = menu.findItem(R.id.submenu_format_selection).getSubMenu();
-        for (int i = 0; i < formats.size(); i++) {
-            final int id = formats.getItem(i).getItemId();
-            _formatMap.put(id, menu.findItem(id));
-        }
-        setFormatRadioButton(_document.getFormat());
+        updateMenuToggleStates(_document.getFormat());
     }
 
     public void loadDocumentIntoUi() {
@@ -343,7 +334,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item == null) {
@@ -506,13 +496,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
                 setHorizontalScrollMode(wrapText);
-                setToggleState();
+                updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
-                setToggleState();
+                updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_info: {
@@ -570,14 +560,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
 
-        setFormatRadioButton(textFormatId);
-    }
-
-    private void setFormatRadioButton(final int formatId) {
-        final MenuItem formatItem = _formatMap.get(formatId);
-        if (formatItem != null) {
-            formatItem.setChecked(true);
-        }
+        updateMenuToggleStates(textFormatId);
     }
 
     private void setupAppearancePreferences(View fragmentView) {
@@ -597,19 +580,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapText = inMainActivity || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
-        setToggleState();
+        updateMenuToggleStates(0);
 
         setHorizontalScrollMode(wrapText);
         _hlEditor.setHighlightingEnabled(highlightText);
     }
 
-    private void setToggleState() {
+    private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
+        SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
             mi.setChecked(wrapText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
             mi.setChecked(highlightText);
+        }
+
+        if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
+            for (int i = 0; i < su.size(); i++) {
+                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
+                    mi.setChecked(true);
+                }
+            }
         }
     }
 
