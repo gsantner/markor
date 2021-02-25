@@ -124,7 +124,7 @@ public class BackupRestoreHelper {
             if (saveLoc.exists()) {
                 saveLoc.delete();
             }
-            Toast.makeText(context, R.string.toast_backup_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.creation_of_backup_zip_file_failed, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -182,7 +182,7 @@ public class BackupRestoreHelper {
             }
             System.exit(0);
         } catch (Exception e) {
-            Toast.makeText(context, R.string.toast_restore_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.could_not_restore_from_backup, Toast.LENGTH_SHORT).show();
         }
     }
 
