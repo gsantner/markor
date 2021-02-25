@@ -223,7 +223,8 @@ public class SettingsActivity extends AppActivityBase {
         }
 
         @SuppressLint("ApplySharedPref")
-        @Override
+        @Overrid                prefs.edit().remove(key).commit();
+                ((EditTextPreference) findPreference(key)).setText("");e
         protected void onPreferenceChanged(SharedPreferences prefs, String key) {
             super.onPreferenceChanged(prefs, key);
             if (eq(key, R.string.pref_key__language)) {
