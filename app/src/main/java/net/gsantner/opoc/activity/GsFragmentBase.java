@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.gsantner.opoc.ui.MenuItemIdDummy;
 import net.gsantner.opoc.util.ContextUtils;
 
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public abstract class GsFragmentBase extends Fragment {
 
     protected ContextUtils _cu;
     protected Bundle _savedInstanceState = null;
-    protected Menu _fragmentMenu;
+    protected Menu _fragmentMenu = new MenuItemIdDummy.Menu();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

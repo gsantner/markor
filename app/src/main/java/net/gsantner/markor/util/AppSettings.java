@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
@@ -120,7 +120,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
     }
 
-    public void setQuickNoteFile(File file) {
+    public void setQuickNoteFile(final File file) {
         setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
@@ -338,6 +338,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
+    private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
 
     public void setLastEditPosition(File file, int pos, int scrolloffset) {
         if (file == null || !file.exists()) {
@@ -350,23 +351,43 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setDocumentWrapState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        if (fexists(path)) {
+            setBool(PREF_PREFIX_WRAP_STATE + path, state);
+        }
     }
 
     public boolean getDocumentWrapState(final String path) {
-        // Use global setting as default
-        return getBool(PREF_PREFIX_WRAP_STATE + path, isEditorLineBreakingEnabled());
+        final boolean _default = isEditorLineBreakingEnabled();
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
+        }
+    }
+
+    public void setDocumentFormat(final String path, final int format) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_FILE_FORMAT + path, format);
+        }
+    }
+
+    public int getDocumentFormat(final String path, final int _default) {
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
+        }
     }
 
     public void setDocumentIndentSize(final String path, final int size) {
-        if (path != null || path.trim().length() > 0) {
+        if (fexists(path)) {
             setInt(PREF_PREFIX_INDENT_SIZE + path, size);
         }
     }
 
     public int getDocumentIndentSize(final String path) {
         final int _default = 4;
-        if (path == null || path.trim().length() == 0) {
+        if (!fexists(path)) {
             return _default;
         } else {
             return getInt(PREF_PREFIX_INDENT_SIZE + path, _default);
@@ -380,7 +401,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
         final boolean _default = isPreviewFirst();
-        if (_default || path == null || path.trim().length() == 0) {
+        if (_default || !fexists(path)) {
             return _default;
         } else {
             return getBool(PREF_PREFIX_PREVIEW_STATE + path, _default);
