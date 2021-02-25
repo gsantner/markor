@@ -238,12 +238,12 @@
                 android:icon="@drawable/ic_save_black_24dp"
                 android:key="@string/pref_key__backup_settings"
                 android:title="@string/backup_settings"
-                android:summary="@string/backup_save_summary" />
+                android:summary="@string/export_all_settings_as_a_zip_file" />
             <Preference
                 android:icon="@drawable/ic_restore_black_24dp"
                 android:key="@string/pref_key__restore_settings"
                 android:title="@string/restore_settings"
-                android:summary="@string/restore_backup_summary" />
+                android:summary="@string/import_settings_from_backup_zip_file" />
         </PreferenceCategory>
 
     </PreferenceScreen>

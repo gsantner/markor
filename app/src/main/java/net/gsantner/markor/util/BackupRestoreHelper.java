@@ -1,4 +1,4 @@
-package net.gsantner.markor.activity;
+package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.BufferedInputStream;
@@ -82,7 +81,7 @@ public class BackupRestoreHelper {
                         @Override
                         public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select_backup_file_location;
+                            dopt.titleText = R.string.select_folder;
                         }
 
                         @Override
@@ -117,7 +116,7 @@ public class BackupRestoreHelper {
                 }
             }
 
-            Toast.makeText(context, context.getString(R.string.toast_backup_success, saveLoc.getName()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
             zos.flush();
             zos.close();
         } catch (Exception e) {
@@ -125,7 +124,7 @@ public class BackupRestoreHelper {
             if (saveLoc.exists()) {
                 saveLoc.delete();
             }
-            Toast.makeText(context, R.string.toast_backup_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.creation_of_backup_zip_file_failed, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,7 +137,7 @@ public class BackupRestoreHelper {
                         @Override
                         public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select_backup_file_location;
+                            dopt.titleText = R.string.select;
                         }
 
                         @Override
@@ -151,6 +150,7 @@ public class BackupRestoreHelper {
         }
 
     }
+
     public static void loadAndRestoreBackup(final Context context, final File zipFile) {
         try {
             final ZipInputStream inZip = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
@@ -180,10 +180,9 @@ public class BackupRestoreHelper {
                     inZip.closeEntry();
                 }
             }
-            Toast.makeText(context, R.string.toast_restore_success, Toast.LENGTH_SHORT).show();
             System.exit(0);
         } catch (Exception e) {
-            Toast.makeText(context, R.string.toast_restore_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.could_not_restore_from_backup, Toast.LENGTH_SHORT).show();
         }
     }
 
