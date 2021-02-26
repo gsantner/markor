@@ -456,12 +456,13 @@ public class SearchOrCustomTextDialogCreator {
             dopt.titleText = R.string.file_encryption_password;
             final boolean setOnce = as.hasPasswordBeenSetOnce();
             dopt.messageText = setOnce ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
-            dopt.searchHintText = as.hasPasswordBeenSetOnce() ? R.string.empty_string : R.string.hidden_password;
+            dopt.searchHintText = setOnce ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
                 if (!TextUtils.isEmpty(password)) {
-                    final String key = activity.getString(R.string.pref_key__default_encryption_password);
+                    final String key = activity.getString(R.string.pref_key__encryption_password);
                     new PasswordStore(activity).storeKey(password, key, PasswordStore.SecurityMode.NONE);
                     as.setPasswordHasBeenSetOnce(true);
+                    Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }
             };
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);

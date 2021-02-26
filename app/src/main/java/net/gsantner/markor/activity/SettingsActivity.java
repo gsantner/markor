@@ -200,9 +200,9 @@ public class SettingsActivity extends AppActivityBase {
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
 
-            setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
+            setPreferenceVisible(R.string.pref_key__encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && _as.hasPasswordBeenSetOnce()) {
-                updateSummary(R.string.pref_key__default_encryption_password, "****");
+                updateSummary(R.string.pref_key__encryption_password, getString(R.string.hidden_password));
             }
 
 
@@ -374,7 +374,7 @@ public class SettingsActivity extends AppActivityBase {
                     startActivity(intent);
                     break;
                 }
-                case R.string.pref_key__default_encryption_password: {
+                case R.string.pref_key__encryption_password: {
                     SearchOrCustomTextDialogCreator.showSetPasswordDialog(getActivity());
                     break;
                 }

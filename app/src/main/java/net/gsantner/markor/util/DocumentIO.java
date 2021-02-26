@@ -256,7 +256,7 @@ public class DocumentIO {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPassword(Context context) {
         final PasswordStore securityStore = new PasswordStore(context);
-        final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
+        final char[] pw = securityStore.loadKey(R.string.pref_key__encryption_password);
         if (pw == null || pw.length == 0) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
