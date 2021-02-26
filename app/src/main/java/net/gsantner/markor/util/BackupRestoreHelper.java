@@ -1,20 +1,14 @@
 package net.gsantner.markor.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
-import android.util.Pair;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.BufferedInputStream;
@@ -22,8 +16,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -42,10 +34,6 @@ public class BackupRestoreHelper {
 
     private static final String[] INCLUDE_PATTERNS = {
             ".*\\.xml"
-    };
-
-    private static final String[][] excludeStringKeys = {
-            {"app", "pref_key__default_encryption_password"}
     };
 
     private static boolean includeFile(final File f) {
@@ -76,41 +64,6 @@ public class BackupRestoreHelper {
     private static boolean matchPattern(final String string, final String pattern) {
         final boolean isRegex = pattern.contains("*");
         return ((isRegex && string.matches(pattern)) || (!isRegex && string.contains(pattern)));
-    }
-
-    @SuppressLint("ApplySharedPref")
-    private static Map<Integer, String> removeExcludedPreferences(final Context context) {
-        final Map<Integer, String> map = new HashMap<>();
-        for (int i = 0; i < excludeStringKeys.length; i++){
-            final String[] p = excludeStringKeys[i];
-            final String file = p[0], key = p[1];
-            final SharedPreferences sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
-            final SharedPreferences.Editor se = sp.edit();
-            final String value = sp.getString(key, null);
-            if (!TextUtils.isEmpty(value)) {
-                map.put(i, value);
-                se.putString(key, "");
-                // Commit writes this change to disk immediately
-                se.commit();
-            }
-        }
-        return map;
-    }
-
-    private static void restoreExcludedPreferences(final Context context, final Map<Integer, String> excludeMap) {
-        for (int i = 0; i < excludeStringKeys.length; i++){
-            final String[] p = excludeStringKeys[i];
-            final String file = p[0], key = p[1];
-            final SharedPreferences sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
-            final SharedPreferences.Editor se = sp.edit();
-            try {
-                final String value = excludeMap.get(i);
-                if (value != null) {
-                    se.putString(key, value);
-                    se.apply();
-                }
-            } catch (NullPointerException ignored) {}; // Missing key
-        }
     }
 
     private static File getPrefDir(final Context context) throws PackageManager.NameNotFoundException {

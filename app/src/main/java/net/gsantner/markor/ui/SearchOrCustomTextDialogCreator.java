@@ -11,7 +11,9 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -23,6 +25,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
@@ -37,6 +40,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import other.de.stanetz.jpencconverter.PasswordStore;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -440,6 +445,27 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 475;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showSetPasswordDialog(final Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final AppSettings as = new AppSettings(activity.getApplicationContext());
+            final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+            baseConf(activity, dopt);
+            dopt.isSearchEnabled = true;
+            dopt.titleText = R.string.file_encryption_password;
+            final boolean setOnce = as.hasPasswordBeenSetOnce();
+            dopt.messageText = setOnce ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
+            dopt.searchHintText = as.hasPasswordBeenSetOnce() ? R.string.empty_string : R.string.hidden_password;
+            dopt.callback = password -> {
+                if (!TextUtils.isEmpty(password)) {
+                    final String key = activity.getString(R.string.pref_key__default_encryption_password);
+                    new PasswordStore(activity).storeKey(password, key, PasswordStore.SecurityMode.NONE);
+                    as.setPasswordHasBeenSetOnce(true);
+                }
+            };
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        }
     }
 
     private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {

@@ -318,4 +318,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
     <string name="pref_key__restore_settings">pref_key__restore_settings</string>
     <string name="pref_key__backup_settings">pref_key__backup_settings</string>
+    <string name="hidden_password">****</string>
 </resources>
