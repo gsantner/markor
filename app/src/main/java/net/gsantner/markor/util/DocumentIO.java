@@ -28,8 +28,6 @@ import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,7 +37,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document

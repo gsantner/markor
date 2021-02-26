@@ -18,8 +18,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.util.Pair;
-import android.util.Log;
-import android.widget.Toast;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
