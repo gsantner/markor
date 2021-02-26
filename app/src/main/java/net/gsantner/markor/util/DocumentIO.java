@@ -28,6 +28,8 @@ import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.FileUtils;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -89,11 +91,12 @@ public class DocumentIO {
             // Extract content and title
             document.setTitle(filePath.getName());
             String content;
-            if (isEncryptedFile(filePath) && getPassword(context) != null) {
+            final char[] pw;
+            if (isEncryptedFile(filePath) && (pw = getPasswordWithWarning(context)) != null) {
                 try {
                     final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
                     if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
-                        content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, getPassword(context));
+                        content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
                     } else {
                         content = new String(encryptedContext, StandardCharsets.UTF_8);
                     }
@@ -180,9 +183,10 @@ public class DocumentIO {
             document.getFile().getParentFile().mkdirs();
         }
         try {
+            final char[] pw;
             final byte[] contentAsBytes;
-            if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
+            if (isEncryptedFile(document.getFile()) && (pw = getPasswordWithWarning(context)) != null) {
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), pw);
             } else {
                 contentAsBytes = document.getContent().getBytes();
             }
@@ -254,16 +258,15 @@ public class DocumentIO {
     };
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private static char[] getPassword(Context context) {
-        final PasswordStore securityStore = new PasswordStore(context);
-        final char[] pw = securityStore.loadKey(R.string.pref_key__encryption_password);
-        if (pw == null || pw.length == 0) {
+    private static char[] getPasswordWithWarning(final Context context) {
+        final String pw = new AppSettings(context).getPassword();
+        if (TextUtils.isEmpty(pw)) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
             Log.w(DocumentIO.class.getName(), warningText);
             return null;
         }
-        return pw;
+        return pw.toCharArray();
     }
 
     private static boolean isEncryptedFile(File file) {

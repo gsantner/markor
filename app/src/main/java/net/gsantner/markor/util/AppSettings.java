@@ -16,7 +16,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.RequiresApi;
 import android.support.v4.util.Pair;
+import android.util.Log;
+import android.widget.Toast;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -33,6 +36,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import other.de.stanetz.jpencconverter.PasswordStore;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
@@ -759,12 +764,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return deviceid;
     }
 
-    public boolean hasPasswordBeenSetOnce() {
-        return getBool(R.string.pref_key__default_encryption_password_set_once, false);
-    }
-
-    public void setPasswordHasBeenSetOnce(boolean b) {
-        setBool(R.string.pref_key__default_encryption_password_set_once, b);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public String getPassword() {
+        final char[] pass = new PasswordStore(getContext()).loadKey(R.string.pref_key__encryption_password);
+        return (pass == null)? null : new String(pass);
     }
 
     public boolean getNewFileDialogLastUsedEncryption() {
