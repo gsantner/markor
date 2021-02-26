@@ -67,7 +67,7 @@
                 android:title="@string/app_start_folder" />
             <Preference
                 android:icon="@drawable/ic_lock_outline_black_24dp"
-                android:key="@string/pref_key__default_encryption_password"
+                android:key="@string/pref_key__encryption_password"
                 android:title="@string/file_encryption_password" />
         </PreferenceCategory>
 
