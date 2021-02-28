@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Korvaa kaikki</string>
     <string name="matches">Ottelut</string>
     <string name="search_replace_pattern_error_message">Etsi tai korvaa kuvion virhe.</string>
+    <string name="newline_is_new_paragraph">Uusi kohta = uusi kohta</string>
 </resources>
