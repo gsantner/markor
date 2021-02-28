@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Vervang alles</string>
     <string name="matches">Overeenkomsten</string>
     <string name="search_replace_pattern_error_message">Zoek of vervang patroon fout.</string>
+    <string name="newline_is_new_paragraph">Nieuwregel = nieuwe alinea</string>
 </resources>
