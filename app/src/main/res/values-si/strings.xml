@@ -9,4 +9,55 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">සැකසුම්</string>
+    <string name="dark">අඳුරු</string>
+    <string name="info">තොරතුරු</string>
+    <string name="select_folder">බහාලුම තොරන්න</string>
+    <string name="edit">සංස්කරණය</string>
+    <string name="share">බෙදාගන්න</string>
+    <string name="search">සොයන්න</string>
+    <string name="folders">බහාලුම්</string>
+    <string name="files">ගොනු</string>
+    <string name="document">ලේඛනය</string>
+    <string name="documents">ලේඛන</string>
+    <string name="theme">තේමාව</string>
+    <string name="about">පිලිබඳව</string>
+    <string name="file">ගොනුව</string>
+    <string name="image">පින්තූරය</string>
+    <string name="select">තෝරන්න</string>
+    <string name="create">සාදන්න</string>
+    <string name="language">භාෂාව</string>
+    <string name="date">දිනය</string>
+    <string name="deleteme____1">නම</string>
+    <string name="size">ප්‍රමාණය</string>
+    <string name="donate">පරිත්‍යාග</string>
+    <string name="undo">පෙරසේ</string>
+    <string name="redo">පසුසේ</string>
+    <string name="help">උපකාර</string>
+    <string name="list">ලැයිස්තුව</string>
+    <string name="save">සුරකින්න</string>
+    <string name="project">ව්‍යාපෘතිය</string>
+    <string name="projects">ව්‍යාපෘති</string>
+    <string name="other">වෙනත්</string>
+    <string name="resources">සම්පත්</string>
+    <string name="left">වම</string>
+    <string name="right">දකුණ</string>
+    <string name="bottom">පහළ</string>
+    <string name="center">මැද</string>
+    <string name="translate">පරිවර්තනය</string>
+    <string name="report_bugs">දෝෂ වාර්තා කරන්න</string>
+    <string name="location">ස්ථානය</string>
+    <string name="details">විස්තර</string>
+    <string name="calendar">දින දර්ශනය</string>
+    <string name="color">වර්ණය</string>
+    <string name="folder">බහාලුම</string>
+    <string name="close">වසන්න</string>
+    <string name="cancel">අවලංගු</string>
+    <string name="black">කළු</string>
+    <string name="white">සුදු</string>
+    <string name="current">වර්තමාන</string>
+    <string name="tools">මෙවලම්</string>
+    <string name="table">වගුව</string>
+    <string name="back">ආපසු</string>
+</resources>
