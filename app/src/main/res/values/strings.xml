@@ -410,4 +410,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Replace all</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
+    <string name="newline_is_new_paragraph">Newline = new paragraph</string>
 </resources>
