@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Remplacer tout</string>
     <string name="matches">Matchs</string>
     <string name="search_replace_pattern_error_message">Erreur de recherche ou de remplacement.</string>
+    <string name="newline_is_new_paragraph">Newline = nouveau paragraphe</string>
 </resources>
