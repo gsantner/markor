@@ -92,7 +92,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">離開</string>
     <string name="undo">恢復</string>
     <string name="redo">重做</string>
-    <string name="more">再來</string>
+    <string name="more">更多</string>
     <string name="notebook">筆記本</string>
     <string name="help">幫助</string>
     <string name="todo_list">待辦清單</string>
