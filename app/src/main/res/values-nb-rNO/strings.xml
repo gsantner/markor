@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Erstatt alle</string>
     <string name="matches">Treff</string>
     <string name="search_replace_pattern_error_message">Søk eller erstatt mønsterfeil.</string>
+    <string name="newline_is_new_paragraph">Ny = ny avsnitt</string>
 </resources>
