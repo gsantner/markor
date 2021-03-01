@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Reemplaça-ho tot</string>
     <string name="matches">Coincidències</string>
     <string name="search_replace_pattern_error_message">Error amb el patró de cerca o reemplaçament.</string>
+    <string name="newline_is_new_paragraph">Nova línia = paràgraf nou</string>
 </resources>
