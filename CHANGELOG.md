@@ -1,6 +1,37 @@
 ### Recent changes
 - 
 
+### v2.6 [Blog Post](https://gsantner.net/blog/2021/02/28/markor-v2.6-per-file-settings-zim-wiki-markdown-newline-paragraph.html?source=changelog)
+- Markdown: Add settings option for newlines to start new paragraphs, #1260 by @gsantner
+- Editor/Viewer: Remember last used file format, show current selected format, #1226 by @harshad1
+- Editor/Viewer: Back arrow (top menu) finish activity, #1165 by @gsantner
+- Editor: Per-file option to enable/disable syntax highlighting, #1168 by @harshad1
+- Share-Into: Add launcher, #1184 by @gsantner
+- Markdown: Apply Markor Table of Content config for custom `[TOC]: #` too, #1189 by @gsantner
+- Editor: Improve writing to sdcard, #1192 by @gsantner
+- Zim: Support file generation on `Android<7/Java=6`, #1194 by @gsantner
+- Zim: Editor: Support Table of contents (top menu), #1186 by @fredericjacob
+- Markdown: Math/KaTex: Improve \\ line breaks usage, #1196 by @radanovicnik
+- ShareInto: Add space after formatted link - messengers then show correct link preview, by @gsantner
+- Markdown: Add break page example to Markdown reference, by @gsantner
+- Editor: Prevent Android accessibility & autofill to produce errors, #1204 by @harshad1
+- Main page: Reduce friction when app was running in background for a while, #1210 by @harshad1
+- Search: Add input field to filter search results, #1222 by @harshad1
+- Markdown: Don't start new list item when reaching file end and toggling, #1213 by @harshad1
+- Zim: Simplify Zim format detection, #1227 by @gsantner
+- Zim: Add more text actions (links, images, checkbox, ..), #1195 by @fredericjacob
+- All formats: Date/Time dialog don't add entry twice to history, #1229 by @harshad1
+- Editor/Viewer: Increase scrollbar width, #1241 by @harshad1
+- File browser: File move start from current folder, #1234 by @harshad1
+- Editor/Viwer: Add file info option (document top menu), #1233 by @harshad1
+- Viewer: Privacy: Opt-out of Android WebView's internal metrics, #1181 by @gsantner
+- Markdown: Support Notable's special home brewed syntax for attachments, #1252 by @gsantner
+- Dependencies: Add source code of colorpicker and build subproject, by @gsantner
+- Optimize image assets, by @gsantner
+- DevOps: Improvements to GitHub Actions CI/CD configuration, by @gsantner
+- Improve encryption wording & usage, #1171 #1179 by @opensource21
+
+
 ### v2.5 [Blog Post](https://gsantner.net/blog/2020/12/20/markor-v2.5-zimwiki-searchreplace-githubactions-zettelkasten.html?source=changelog)
 - Add Zim Wiki format and template #1098
 - Add search & replace (simple|regex, replace once|all) #1112

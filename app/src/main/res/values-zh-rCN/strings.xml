@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">全部替换</string>
     <string name="matches">比赛</string>
     <string name="search_replace_pattern_error_message">搜索或替换图案错误。</string>
+    <string name="newline_is_new_paragraph">新行 = 新段</string>
 </resources>

@@ -57,4 +57,5 @@ files:
         ta: ta # Tamil (Asian)
         sq: sq # Albanian
         mk: mk # Macedonian
+        si-LK: si # Sinhala (Sri Lanka)
     translate_attributes: 0

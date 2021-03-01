@@ -190,6 +190,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown_render_math, false);
     }
 
+    public boolean isMarkdownNewlineNewparagraphEnabled() {
+        return getBool(R.string.pref_key__markdown_newline_newparagraph, false);
+    }
+
     public boolean isMarkdownTableOfContentsEnabled() {
         return getBool(R.string.pref_key__markdown_show_toc, false);
     }

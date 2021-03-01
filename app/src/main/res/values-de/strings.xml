@@ -121,7 +121,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files_and_folders">Dateien und Ordner</string>
     <string name="document_browser">Dokumenten-Browser</string>
     <string name="file_browser">Dateimanager</string>
-    <string name="set_due_date">Enddatum festlegen</string>
+    <string name="set_due_date">Fälligkeitsdatum festlegen</string>
     <string name="insert_replace_date">Datum einfügen</string>
     <string name="create_note" needed="false">Notiz erstellen</string>
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
@@ -188,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">Unten beginnen</string>
     <string name="start_on_bottom_when_loading_document">Nachdem ein Dokument geladen wurde, den Cursor ganz unten platzieren</string>
     <string name="unordered_list_character">Unsortiertes Listenzeichen</string>
-    <string name="character_to_start_items_of_unordered_list_with">Zeichen am Anfang von jedem ungeordneten Listen-Element</string>
+    <string name="character_to_start_items_of_unordered_list_with">Zeichen vor jedem Element in ungeordneten Listen</string>
     <string name="unordered_list_char_dash">Strich (-)</string>
     <string name="unordered_list_char_asterisk">Stern (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Alle ersetzen</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Fehler beim Suchen oder Ersetzen von Muster.</string>
+    <string name="newline_is_new_paragraph">Newline = neuer Absatz</string>
 </resources>

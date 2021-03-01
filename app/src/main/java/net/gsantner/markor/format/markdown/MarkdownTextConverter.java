@@ -195,6 +195,10 @@ public class MarkdownTextConverter extends TextConverter {
         // Notable: They use a home brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
         markup = markup.replace("](@attachment/", "](../attachements/");
 
+        if (appSettings.isMarkdownNewlineNewparagraphEnabled()) {
+            markup = markup.replace("\n", "  \n");
+        }
+
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
@@ -219,7 +223,6 @@ public class MarkdownTextConverter extends TextConverter {
                 converted = converted.replace(HTML_PRESENTATION_BEAMER_SLIDE_START_DIV.replace("NO", Integer.toString(c - 1)), "</div></div> <!-- Final presentation slide -->");
             }
         }
-
 
         // Deliver result
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);

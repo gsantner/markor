@@ -236,12 +236,12 @@
                 android:icon="@drawable/ic_save_black_24dp"
                 android:key="@string/pref_key__backup_settings"
                 android:title="@string/backup_settings"
-                android:summary="@string/export_all_settings_as_a_zip_file" />
+                android:summary="@string/export_settings_description" />
             <Preference
                 android:icon="@drawable/ic_restore_black_24dp"
                 android:key="@string/pref_key__restore_settings"
                 android:title="@string/restore_settings"
-                android:summary="@string/import_settings_from_backup_zip_file" />
+                android:summary="@string/import_settings_description" />
         </PreferenceCategory>
 
     </PreferenceScreen>
@@ -420,6 +420,11 @@
                     android:key="@string/pref_key__markdown__monospace_some_parts"
                     android:summary="@string/use_different_fonttype_slow_down"
                     android:title="@string/use_monospace_for_code" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_baseline_keyboard_return_24"
+                    android:key="@string/pref_key__markdown_newline_newparagraph"
+                    android:title="@string/newline_is_new_paragraph" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_code_black_24dp"

@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Substituir tudo</string>
     <string name="matches">Ocorrências</string>
     <string name="search_replace_pattern_error_message">Erro ao pesquisar ou substituir.</string>
+    <string name="newline_is_new_paragraph">Nova linha = novo parágrafo</string>
 </resources>

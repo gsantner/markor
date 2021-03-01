@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Nahradit vše</string>
     <string name="matches">Zápasy</string>
     <string name="search_replace_pattern_error_message">Chyba při hledání nebo nahrazení vzoru.</string>
+    <string name="newline_is_new_paragraph">Nový řádek = nový odstavec</string>
 </resources>

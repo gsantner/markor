@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">استبدال الكل</string>
     <string name="matches">مباراة</string>
     <string name="search_replace_pattern_error_message">البحث أو استبدال خطأ النقش.</string>
+    <string name="newline_is_new_paragraph">الخط الجديد = فقرة جديدة</string>
 </resources>

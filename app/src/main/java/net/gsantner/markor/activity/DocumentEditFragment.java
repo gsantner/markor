@@ -149,7 +149,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -205,7 +205,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         // Do not need to send contents to accessibility
-        _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
     }
 
     @Override
@@ -412,6 +414,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _document.getContent(), null)) {
                         Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
+                }
+                return true;
+            }
+            case android.R.id.home: {
+                if (saveDocument() && getActivity() != null) {
+                    getActivity().onBackPressed();
                 }
                 return true;
             }
