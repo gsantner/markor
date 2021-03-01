@@ -413,7 +413,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup_restore">Backup / Restore Settings</string>
     <string name="backup_settings">Backup settings</string>
     <string name="restore_settings">Restore settings</string>
-    <string name="creation_of_backup_zip_file_failed">Creation of backup zip file failed</string>
+    <string name="creation_of_backup_failed">Creation of backup failed</string>
     <string name="export_all_settings_as_a_zip_file">Export all settings as a zip file</string>
     <string name="import_settings_from_backup_zip_file">Import settings from backup zip file. Upon success, Markor will exit.</string>
     <string name="could_not_restore_from_backup">Could not restore from backup</string>

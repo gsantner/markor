@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class DatetimeFormatDialog {
 
-    private static final String DATETIME_SETTINGS = "datetime_dialog_settings";
+    public static final String DATETIME_SETTINGS = "datetime_dialog_settings";
     private static final String RECENT_FORMATS_STRING = "recent_formats_string";
     private static final String RECENT_FORMATS_LENGTHS = "recent_formats_lengths";
 

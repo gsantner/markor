@@ -2,74 +2,56 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
+import android.util.JsonReader;
+import android.util.Log;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.SearchReplaceDialog;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.FileUtils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BackupRestoreHelper {
 
-    private static final String SAVE_NAME = "markor_settings_backup%s.zip";
+    private static final String SAVE_NAME = "markor_settings_backup%s.json";
     private static final int BUFFER_SIZE = 2048;
 
-    private static final String[] EXCLUDE_PATTERNS = {
-            "cache.xml",
-            "pirate.xml",
-            "WebViewChromiumPrefs.xml",
-            "AndroidSupportMeWrapper.LocalSettingsImpl.xml"
+    private static final String[] PREF_NAMES = {
+            null, // Default pref
+            AppSettings.SHARED_PREF_APP,
+            DatetimeFormatDialog.DATETIME_SETTINGS,
+            TextActions.ACTION_ORDER_PREF_NAME,
+            SearchReplaceDialog.SEARCH_REPLACE_SETTINGS
     };
 
-    private static final String[] INCLUDE_PATTERNS = {
-            ".*\\.xml"
+    private static final String[] PREF_EXCLUDE_PATTERNS = {
+            "password"
     };
-
-    private static boolean includeFile(final File f) {
-        return includeFile(f.getPath());
-    }
-
-    private static boolean includeFile(final String string) {
-
-        boolean excluded = false;
-        for (final String pattern : EXCLUDE_PATTERNS) {
-            if (matchPattern(string, pattern)) {
-                excluded = true;
-                break;
-            }
-        }
-
-        boolean included = false;
-        for (final String pattern : INCLUDE_PATTERNS) {
-            if (matchPattern(string, pattern)) {
-                included = true;
-                break;
-            }
-        }
-
-        return included && !excluded;
-    }
 
     private static boolean matchPattern(final String string, final String pattern) {
         final boolean isRegex = pattern.contains("*");
         return ((isRegex && string.matches(pattern)) || (!isRegex && string.contains(pattern)));
-    }
-
-    private static File getPrefDir(final Context context) throws PackageManager.NameNotFoundException {
-        final PackageManager packageManager = context.getPackageManager();
-        final PackageInfo p = packageManager.getPackageInfo(context.getPackageName(), 0);
-        return new File(p.applicationInfo.dataDir, "shared_prefs");
     }
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -104,28 +86,68 @@ public class BackupRestoreHelper {
         return file;
     }
 
+    public static String getPrefName(final Context context, final String raw) {
+        if (TextUtils.isEmpty(raw)) {
+            return context.getPackageName() + "_preferences";
+        } else {
+            return raw;
+        }
+    }
+
+    public static boolean includeKey(final String key) {
+        for (final String ep : PREF_EXCLUDE_PATTERNS) {
+            if (key.matches(ep)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
         try {
-            final FileOutputStream fos = new FileOutputStream(saveLoc);
-            final BufferedOutputStream bos = new BufferedOutputStream(fos);
-            final ZipOutputStream zos = new ZipOutputStream(bos);
-            final File[] files = getPrefDir(context).listFiles();
-
-            for (final File f : files) {
-                if (includeFile(f)) {
-                    addFileToZip(zos, f);
+            final JSONObject json = new JSONObject();
+            for (final String _pref : PREF_NAMES) {
+                final String pref = getPrefName(context, _pref);
+                final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);
+                final Map<String, ?> map = sp.getAll();
+                final JSONObject prefSon = new JSONObject();
+                for (final String key : map.keySet()) {
+                    if (includeKey(key)) {
+                        final Object value = map.get(key);
+                        if (
+                            (value instanceof Integer) ||
+                            (value instanceof Float) ||
+                            (value instanceof String) ||
+                            (value instanceof Boolean)
+                        ) {
+                            prefSon.put(key, value);
+                        } else if (value instanceof Set) {
+                            final JSONArray lsa = new JSONArray();
+                            for (final String s : sp.getStringSet(key, new HashSet<>())) {
+                                lsa.put(s);
+                            }
+                            prefSon.put(key, lsa);
+                        } else {
+                            Log.w("backup", "Unhandled backup type");
+                        }
+                    }
+                }
+                if (prefSon.length() > 0) {
+                    json.put(pref, prefSon);
                 }
             }
-
+            final FileWriter file = new FileWriter(saveLoc);
+            file.write(json.toString(4));
+            file.flush();
+            file.close();
             Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
-            zos.flush();
-            zos.close();
         } catch (Exception e) {
             // Attempt to delete file if it exists
             if (saveLoc.exists()) {
                 saveLoc.delete();
             }
-            Toast.makeText(context, R.string.creation_of_backup_zip_file_failed, Toast.LENGTH_SHORT).show();
+            Log.e("backup", e.getMessage());
+            Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -146,58 +168,53 @@ public class BackupRestoreHelper {
                             loadAndRestoreBackup(context, file);
                         }
                     }, manager, activity,
-                    input -> input != null && input.exists() && input.toString().trim().toLowerCase().endsWith(".zip")
+                    input -> input != null && input.exists() && input.toString().trim().toLowerCase().endsWith(".json")
             );
         }
 
     }
 
-    public static void loadAndRestoreBackup(final Context context, final File zipFile) {
+    public static void loadAndRestoreBackup(final Context context, final File jsonFile) {
         try {
-            final ZipInputStream inZip = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
-            final byte data[] = new byte[BUFFER_SIZE];
-            final File destDir = getPrefDir(context);
+            final JSONObject json = new JSONObject(FileUtils.readTextFileFast(jsonFile));
+            final List<SharedPreferences.Editor> editors = new ArrayList<>();
+            for (Iterator<String> it = json.keys(); it.hasNext(); ) {
+                final String prefName = it.next();
+                final SharedPreferences sp = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor edit = sp.edit();
 
-            ZipEntry ze;
-            while ((ze = inZip.getNextEntry()) != null) {
-                final String name = ze.getName();
-                if (includeFile(name)) {
-                    final File dest = new File(destDir, name);
-
-                    // delete old file first
-                    if (dest.exists()) {
-                        if (!dest.delete()) {
-                            throw new Exception("Could not delete " + dest.getPath());
+                final JSONObject prefJson = json.getJSONObject(prefName);
+                for (Iterator<String> pit = prefJson.keys(); pit.hasNext(); ) {
+                    final String key = pit.next();
+                    if (includeKey(key)) {
+                        final Object value = prefJson.get(key);
+                        if (value instanceof Integer) {
+                            edit.putInt(key, (Integer) value);
+                        } else if (value instanceof Float) {
+                            edit.putFloat(key, (Float) value);
+                        } else if (value instanceof String) {
+                            edit.putString(key, (String) value);
+                        } else if (value instanceof Boolean) {
+                            edit.putBoolean(key, (Boolean) value);
+                        } else if (value instanceof JSONArray) {
+                            final Set<String> ss = new HashSet<>();
+                            for (int i = 0; i < ((JSONArray) value).length(); i++) {
+                                ss.add(((JSONArray) value).getString(i));
+                            }
+                            edit.putStringSet(key, ss);
+                        } else {
+                            Log.w("backup", "Unhandled backup type");
                         }
                     }
-
-                    final FileOutputStream outStream = new FileOutputStream(dest);
-                    int count = 0;
-                    while ((count = inZip.read(data)) != -1) {
-                        outStream.write(data, 0, count);
-                    }
-
-                    outStream.close();
-                    inZip.closeEntry();
                 }
+                editors.add(edit);
+            }
+            for (final SharedPreferences.Editor edit : editors) {
+                edit.apply();
             }
             System.exit(0);
         } catch (Exception e) {
             Toast.makeText(context, R.string.could_not_restore_from_backup, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public static void addFileToZip(final ZipOutputStream outZip, final File file) throws Exception {
-        final byte data[] = new byte[BUFFER_SIZE];
-        final FileInputStream fi = new FileInputStream(file);
-        final BufferedInputStream inputStream = new BufferedInputStream(fi, BUFFER_SIZE);
-        final String name = file.getName();
-        final ZipEntry entry = new ZipEntry(name);
-        outZip.putNextEntry(entry);
-        int count;
-        while ((count = inputStream.read(data, 0, BUFFER_SIZE)) != -1) {
-            outZip.write(data, 0, count);
-        }
-        inputStream.close();
     }
 }

@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
 
 public class SearchReplaceDialog {
 
-    private static final String SEARCH_REPLACE_SETTINGS = "search_replace_dialog_settings";
+    public static final String SEARCH_REPLACE_SETTINGS = "search_replace_dialog_settings";
     private static final String RECENT_SEARCH_REPLACE_STRING = "recent_search_replace";
     private static final int MAX_RECENT_SEARCH_REPLACE = 10;
 
