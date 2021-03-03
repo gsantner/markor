@@ -1,5 +1,5 @@
 ### Recent changes
-- 
+- Markdown: Suport superscript^2^ syntax, #1268 by @gsantner
 
 ### v2.6 [Blog Post](https://gsantner.net/blog/2021/02/28/markor-v2.6-per-file-settings-zim-wiki-markdown-newline-paragraph.html?source=changelog)
 - Markdown: Add settings option for newlines to start new paragraphs, #1260 by @gsantner

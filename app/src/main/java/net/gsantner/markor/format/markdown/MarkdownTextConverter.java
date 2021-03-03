@@ -31,6 +31,7 @@ import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -102,6 +103,7 @@ public class MarkdownTextConverter extends TextConverter {
             InsExtension.create(),
             JekyllTagExtension.create(),
             JekyllFrontMatterExtension.create(),
+            SuperscriptExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Extensions#superscript
             TablesExtension.create(),
             TaskListExtension.create(),
             EmojiExtension.create(),
