@@ -394,4 +394,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Tümünü değiştir</string>
     <string name="matches">Eşleşmeler</string>
     <string name="search_replace_pattern_error_message">Desen hatasını arayın veya değiştirin.</string>
+    <string name="newline_is_new_paragraph">Yenisatır = yeni paragraf</string>
 </resources>
