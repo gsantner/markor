@@ -393,5 +393,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_once">Zamijeni (1)</string>
     <string name="replace_all">Zamijeni sve</string>
     <string name="matches">Pronađeno</string>
+    <string name="search_replace_pattern_error_message">Greška u formi pretrage ili zamjene.</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
 </resources>
