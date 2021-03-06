@@ -132,7 +132,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
-        // private static final String SEP_RULER = "\n---\n";
+        private static final String SEP_RULER = "\n---\n";
         private File workingDir;
 
         @Override
@@ -247,7 +247,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file) {
-                    appendToExistingDocument(file, "\n", true);
+                    appendToExistingDocument(file, _sharedText.length() > 200 ? SEP_RULER : "\n" , true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -313,7 +313,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "\n", false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
                         close = true;
                     }
                     break;
@@ -357,7 +357,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), "\n", true);
+                    appendToExistingDocument(new File(preference.getKey()), _sharedText.length() > 200 ? SEP_RULER : "\n", true);
                     close = false;
                 }
             }
