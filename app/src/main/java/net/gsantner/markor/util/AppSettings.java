@@ -802,4 +802,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public File getFileBrowserLastBrowsedFolder() {
         return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookDirectoryAsStr()));
     }
+
+    public boolean getSetWebViewFulldrawing(boolean... setValue) {
+        final String k = "getSetWebViewFulldrawing";
+        if (setValue != null && setValue.length == 1) {
+            setBool(k, setValue[0]);
+            return setValue[0];
+        }
+        return getBool(k, false);
+    }
 }

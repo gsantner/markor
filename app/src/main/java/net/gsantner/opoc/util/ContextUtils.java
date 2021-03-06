@@ -78,7 +78,6 @@ import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -746,43 +745,26 @@ public class ContextUtils {
     }
 
     /**
-     * Write the given {@link Bitmap} to {@code imageFile}, in {@link CompressFormat#JPEG} format
-     */
-    public boolean writeImageToFileJpeg(final File imageFile, final Bitmap image) {
-        return writeImageToFile(imageFile, image, Bitmap.CompressFormat.JPEG, 95);
-    }
-
-    /**
      * Write the given {@link Bitmap} to filesystem
      *
      * @param targetFile The file to be written in
-     * @param image      The image as android {@link Bitmap}
-     * @param format     One format of {@link CompressFormat}, null will determine based on filename
-     * @param quality    Quality level, defaults to 95
+     * @param image      Android {@link Bitmap}
      * @return True if writing was successful
      */
-    public boolean writeImageToFile(final File targetFile, final Bitmap image, CompressFormat format, Integer quality) {
+    public boolean writeImageToFile(final File targetFile, final Bitmap image, Integer... a0quality) {
+        final int quality = (a0quality != null && a0quality.length > 0 && a0quality[0] >= 0 && a0quality[0] <= 100) ? a0quality[0] : 70;
+        final String lc = targetFile.getAbsolutePath().toLowerCase(Locale.ROOT);
+        final CompressFormat format = lc.endsWith(".webp") ? CompressFormat.WEBP : (lc.endsWith(".png") ? CompressFormat.PNG : CompressFormat.JPEG);
+
+        boolean ok = false;
         File folder = new File(targetFile.getParent());
-        if (quality == null || quality < 0 || quality > 100) {
-            quality = 95;
-        }
-        if (format == null) {
-            format = CompressFormat.JPEG;
-            String lc = targetFile.getAbsolutePath().toLowerCase(Locale.ROOT);
-            if (lc.endsWith(".png")) {
-                format = CompressFormat.PNG;
-            }
-            if (lc.endsWith(".webp")) {
-                format = CompressFormat.WEBP;
-            }
-        }
         if (folder.exists() || folder.mkdirs()) {
             FileOutputStream stream = null;
             try {
-                stream = new FileOutputStream(targetFile); // overwrites this image every time
+                stream = new FileOutputStream(targetFile);
                 image.compress(format, quality, stream);
-                return true;
-            } catch (FileNotFoundException ignored) {
+                ok = true;
+            } catch (Exception ignored) {
             } finally {
                 try {
                     if (stream != null) {
@@ -792,7 +774,11 @@ public class ContextUtils {
                 }
             }
         }
-        return false;
+        try {
+            image.recycle();
+        } catch (Exception ignored) {
+        }
+        return ok;
     }
 
     /**
