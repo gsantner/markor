@@ -41,8 +41,6 @@ import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -203,14 +201,14 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
         }
 
-        private void appendToExistingDocument(File file, String seperator, boolean showEditor) {
+        private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             Bundle args = new Bundle();
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
             String trimmedContent = document.getContent().trim();
             String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            DocumentIO.saveDocument(document, currentContent + seperator + _sharedText, new ShareUtil(getContext()), getContext());
+            DocumentIO.saveDocument(document, currentContent + separator + _sharedText, new ShareUtil(getContext()), getContext());
             if (showEditor) {
                 showInDocumentActivity(document);
             }
@@ -248,7 +246,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file) {
-                    appendToExistingDocument(file, getSeperator(_sharedText), true);
+                    appendToExistingDocument(file, getSeparator(_sharedText), true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -314,7 +312,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), getSeperator(_sharedText), false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), getSeparator(_sharedText), false);
                         close = true;
                     }
                     break;
@@ -358,7 +356,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), getSeperator(_sharedText), true);
+                    appendToExistingDocument(new File(preference.getKey()), getSeparator(_sharedText), true);
                     close = false;
                 }
             }
@@ -423,7 +421,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         return formattedLink;
     }
 
-    private static String getSeperator(final String s) {
+    private static String getSeparator(final String s) {
         int length = 0;
         if (!TextUtils.isEmpty(s)) {
             length = s.length();
