@@ -1,2 +1,2 @@
-include ':app'
 include(':app:thirdparty-lib-src:QuadFlask-colorpicker')
+include ':app'

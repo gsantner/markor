@@ -142,6 +142,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _appSettings = new AppSettings(getContext());
+        if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WebView.enableSlowWholeDocumentDraw();
+        }
     }
 
     @Override
@@ -423,8 +426,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 }
                 return true;
             }
+            case R.id.action_share_screenshot:
             case R.id.action_share_image:
             case R.id.action_share_pdf: {
+                _appSettings.getSetWebViewFulldrawing(true);
                 if (saveDocument()) {
                     _nextConvertToPrintMode = true;
                     setDocumentViewVisibility(true);
@@ -432,8 +437,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             _shareUtil.printOrCreatePdfFromWebview(_webView, _document, _document.getContent().contains("beamer\n"));
-                        } else if (item.getItemId() == R.id.action_share_image) {
-                            _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView), Bitmap.CompressFormat.JPEG);
+                        } else if (item.getItemId() != R.id.action_share_pdf) {
+                            _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
                         }
                     }, 7000);
                 }
