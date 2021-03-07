@@ -3,11 +3,8 @@ package net.gsantner.markor.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,11 +27,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class BackupRestoreHelper {
 
     private static final String SAVE_NAME = "markor_settings_backup%s.json";
-    private static final int BUFFER_SIZE = 2048;
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
@@ -45,14 +41,9 @@ public class BackupRestoreHelper {
             SearchReplaceDialog.SEARCH_REPLACE_SETTINGS
     };
 
-    private static final String[] PREF_EXCLUDE_PATTERNS = {
-            "password"
+    private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
+            Pattern.compile("^pref_key__.*encryption_password.*", Pattern.MULTILINE),
     };
-
-    private static boolean matchPattern(final String string, final String pattern) {
-        final boolean isRegex = pattern.contains("*");
-        return ((isRegex && string.matches(pattern)) || (!isRegex && string.contains(pattern)));
-    }
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
 
@@ -95,8 +86,8 @@ public class BackupRestoreHelper {
     }
 
     public static boolean includeKey(final String key) {
-        for (final String ep : PREF_EXCLUDE_PATTERNS) {
-            if (key.matches(ep)) {
+        for (final Pattern ep : PREF_EXCLUDE_PATTERNS) {
+            if (ep.matcher(key).matches()) {
                 return false;
             }
         }
