@@ -41,6 +41,8 @@ import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -132,7 +134,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
-        private static final String SEP_RULER = "\n---\n";
         private File workingDir;
 
         @Override
@@ -247,7 +248,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file) {
-                    appendToExistingDocument(file, _sharedText.length() > 200 ? SEP_RULER : "\n" , true);
+                    appendToExistingDocument(file, getSeperator(_sharedText), true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -313,7 +314,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), getSeperator(_sharedText), false);
                         close = true;
                     }
                     break;
@@ -357,7 +358,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), _sharedText.length() > 200 ? SEP_RULER : "\n", true);
+                    appendToExistingDocument(new File(preference.getKey()), getSeperator(_sharedText), true);
                     close = false;
                 }
             }
@@ -398,7 +399,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
      * @param link Link url
      * @return formatted URL of format [text](url)
      */
-    private static String formatLink(String text, String link){
+    private static String formatLink(String text, String link) {
         link = link == null ? "" : link;
         text = text == null ? "" : text;
 
@@ -406,7 +407,11 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final Matcher linkMatch = Patterns.WEB_URL.matcher(link.trim());
         if (linkMatch.matches() && !link.trim().matches("\\s") && !text.trim().matches("\\s")) {
             // Get a resonable default text if one is not present. group 4 is the domain name
-            text = TextUtils.isEmpty(text)? linkMatch.group(4).replaceAll("\\.$", "") : text;
+            try {
+                text = TextUtils.isEmpty(text) ? linkMatch.group(4).replaceAll("\\.$", "") : text;
+            } catch (IllegalStateException | IndexOutOfBoundsException e) {
+                text = "";
+            }
 
             formattedLink = String.format("[%s](%s )",
                     text.trim().replace("[", "\\[").replace("]", "\\]"),
@@ -416,6 +421,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             formattedLink = text + " " + link;
         }
         return formattedLink;
+    }
+
+    private static String getSeperator(final String s) {
+        int length = 0;
+        if (!TextUtils.isEmpty(s)) {
+            length = s.length();
+            final Matcher match = Pattern.compile("\\[(.*)(?<!\\\\)\\]\\(.*(?<!\\\\)\\)").matcher(s);
+            if (match.matches()) {
+                length = match.group(1).length();
+            }
+        }
+        return (length > 400) ? "\n----\n" : "\n";
     }
 
 }
