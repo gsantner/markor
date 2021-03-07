@@ -421,10 +421,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         return formattedLink;
     }
 
+    /**
+     * Get separator for use with appendToExistingDocument
+     * If a small amount of text is being inserted, a newline is a sufficient separator.
+     * If a larger amount of text is being inserted, a horizontal line `----` is added as well
+     * @param s String to be inserted
+     * @return Separator to be used
+     */
     private static String getSeparator(final String s) {
         int length = 0;
         if (!TextUtils.isEmpty(s)) {
             length = s.length();
+            // Detect if string to be inserted is a formatted link. If so, only count characters in the description
             final Matcher match = Pattern.compile("\\[(.*)(?<!\\\\)\\]\\(.*(?<!\\\\)\\)").matcher(s);
             if (match.matches()) {
                 length = match.group(1).length();
