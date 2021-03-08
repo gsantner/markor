@@ -61,6 +61,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_copy_selected_items"
+        android:icon="@drawable/ic_base"
+        android:title="@string/copy"
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_share_files"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"
