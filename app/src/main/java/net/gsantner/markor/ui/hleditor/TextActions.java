@@ -424,8 +424,8 @@ public abstract class TextActions {
                         final CharSequence oldRegion = line.subSequence(matchStart, matchEnd);
                         // Have to create a new matcher, unfortunately, as replace does not respect region
                         final Matcher replacer = pattern.searchPattern.matcher(oldRegion);
-                        // Replace first vs all handled in matchStart -> matchEnd search
-                        final String newRegion = replacer.replaceAll(pattern.replacePattern);
+                        // final String newRegion = pattern.replaceAll ? replacer.replaceAll(pattern.replacePattern) : replacer.replaceFirst(pattern.replacePattern);
+                        final String newRegion = pattern.replaceAll ? replacer.replaceAll(pattern.replacePattern) : replacer.replaceFirst(pattern.replacePattern);
                         text.replace(matchStart + lineStart, matchEnd + lineStart, newRegion);
                         // Change effective selection based on update
                         selEnd += newRegion.length() - oldRegion.length();
