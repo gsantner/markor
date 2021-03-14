@@ -442,6 +442,28 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showCopyMoveConflictDialog(final Activity activity, final String name, final Callback.a2<String, Integer> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.withPositionCallback = callback;
+        dopt.data = Arrays.asList(
+                activity.getString(R.string.keep_both),
+                activity.getString(R.string.skip),
+                activity.getString(R.string.overwrite),
+                activity.getString(R.string.keep_both_all),
+                activity.getString(R.string.overwrite_all),
+                activity.getString(R.string.skip_all)
+        );
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.titleText = R.string.copy_move_conflict;
+        dopt.messageText = activity.getString(R.string.copy_move_conflict_message, name);
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {
         Set<String> uniq = new HashSet<>(data);
         if (plus != null) {

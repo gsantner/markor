@@ -412,4 +412,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
+    <string name="keep_both">Keep both</string>
+    <string name="skip">Skip</string>
+    <string name="overwrite">Overwrite</string>
+    <string name="keep_both_all">Keep both (all)</string>
+    <string name="skip_all">Skip (all)</string>
+    <string name="overwrite_all">Overwrite (all)</string>
+    <string name="copy_move_conflict">File conflict</string>
+    <string name="copy_move_conflict_message">%s already exists</string>
 </resources>
