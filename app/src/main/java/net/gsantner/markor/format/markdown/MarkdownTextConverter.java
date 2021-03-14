@@ -28,6 +28,7 @@ import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.toc.SimTocExtension;
 import com.vladsch.flexmark.ext.toc.TocExtension;
 import com.vladsch.flexmark.ext.toc.internal.TocOptions;
+import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
@@ -114,6 +115,7 @@ public class MarkdownTextConverter extends TextConverter {
             SimTocExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Table-of-Contents-Extension
             WikiLinkExtension.create(),           // https://github.com/vsch/flexmark-java/wiki/Extensions#wikilinks
             YamlFrontMatterExtension.create(),
+            TypographicExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Typographic-Extension
             GitLabExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Extensions#gitlab-flavoured-markdown
             FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
     );
