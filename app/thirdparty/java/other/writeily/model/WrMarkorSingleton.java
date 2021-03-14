@@ -61,11 +61,10 @@ public class WrMarkorSingleton {
         if (!dest.exists()) {
             boolean renameSuccess;
             try {
-                // renameSuccess = file.renameTo(dest);
+                renameSuccess = file.renameTo(dest);
             } catch (Exception e) {
                 renameSuccess = false;
             }
-            renameSuccess = false;
             return (renameSuccess || (copyFile(file, dest) && deleteFile(file, context)));
         }
         return false;
