@@ -131,6 +131,7 @@ dependencies {
     implementation "com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:${version_library_flexmark}"
     implementation "com.vladsch.flexmark:flexmark-ext-yaml-front-matter:${version_library_flexmark}"
     implementation "com.vladsch.flexmark:flexmark-ext-footnotes:${version_library_flexmark}"
+    implementation "com.vladsch.flexmark:flexmark-ext-gitlab:${version_library_flexmark}"
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
