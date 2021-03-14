@@ -162,7 +162,7 @@ public class WrMarkorSingleton {
                 } else if (resolution == ConflictResollution.ASK) {
                     // Put the file back in
                     files.push(file);
-                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(activity, file.getName(), (name, option) -> {
+                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(activity, file.getName(), files.size() > 1, (name, option) -> {
                         ConflictResollution res = ConflictResollution.ASK;
                         if (option == 0 || option == 3) {
                             res = ConflictResollution.KEEP_BOTH;
@@ -173,7 +173,7 @@ public class WrMarkorSingleton {
                         }
                         _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
                     });
-                    return;
+                    return; // Process will be continued by callback
                 }
                 resolution = preserveResolution ? resolution : ConflictResollution.ASK;
             } else {

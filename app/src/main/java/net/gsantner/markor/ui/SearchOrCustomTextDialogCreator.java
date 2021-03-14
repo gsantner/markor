@@ -442,22 +442,23 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showCopyMoveConflictDialog(final Activity activity, final String name, final Callback.a2<String, Integer> callback) {
+    public static void showCopyMoveConflictDialog(final Activity activity, final String name, final boolean multiple, final Callback.a2<String, Integer> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.withPositionCallback = callback;
-        dopt.data = Arrays.asList(
-                activity.getString(R.string.keep_both),
-                activity.getString(R.string.skip),
-                activity.getString(R.string.overwrite),
-                activity.getString(R.string.keep_both_all),
-                activity.getString(R.string.overwrite_all),
-                activity.getString(R.string.skip_all)
-        );
+        List<String> data = new ArrayList<>();
+        data.add(activity.getString(R.string.keep_both));
+        data.add(activity.getString(R.string.skip));
+        data.add(activity.getString(R.string.overwrite));
+        if (multiple) {
+            data.add(activity.getString(R.string.keep_both_all));
+            data.add(activity.getString(R.string.overwrite_all));
+            data.add(activity.getString(R.string.skip_all);
+        }
+        dopt.data = data;
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.titleText = R.string.copy_move_conflict;
         dopt.messageText = activity.getString(R.string.copy_move_conflict_message, name);
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
