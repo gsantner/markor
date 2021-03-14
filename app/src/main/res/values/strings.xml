@@ -418,5 +418,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_both_all">Keep both (all)</string>
     <string name="skip_all">Skip (all)</string>
     <string name="overwrite_all">Overwrite (all)</string>
-    <string name="copy_move_conflict_message">%s already exists</string>
+    <string name="copy_move_conflict_message">\'%s\' already exists in %s</string>
 </resources>

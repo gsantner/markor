@@ -61,10 +61,11 @@ public class WrMarkorSingleton {
         if (!dest.exists()) {
             boolean renameSuccess;
             try {
-                renameSuccess = file.renameTo(dest);
+                // renameSuccess = file.renameTo(dest);
             } catch (Exception e) {
                 renameSuccess = false;
             }
+            renameSuccess = false;
             return (renameSuccess || (copyFile(file, dest) && deleteFile(file, context)));
         }
         return false;
@@ -162,7 +163,8 @@ public class WrMarkorSingleton {
                 } else if (resolution == ConflictResollution.ASK) {
                     // Put the file back in
                     files.push(file);
-                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(activity, file.getName(), files.size() > 1, (name, option) -> {
+                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
+                            activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
                         ConflictResollution res = ConflictResollution.ASK;
                         if (option == 0 || option == 3) {
                             res = ConflictResollution.KEEP_BOTH;
