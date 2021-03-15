@@ -19,6 +19,7 @@
  */
 package net.gsantner.opoc.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -578,6 +579,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            private FilesystemViewerData.Options _dopt;
+
             @Override
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
@@ -588,9 +591,26 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
             @Override
             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
-                dopt.titleText = R.string.move;
-                dopt.rootFolder = _appSettings.getNotebookDirectory();
-                dopt.startFolder = getCurrentFolder();
+                _dopt = dopt;
+                _dopt.titleText = isMove ? R.string.move : R.string.copy;
+                _dopt.rootFolder = _appSettings.getNotebookDirectory();
+                _dopt.startFolder = getCurrentFolder();
+
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
+                if (_dopt.listener instanceof FilesystemViewerDialog) {
+                    final TextView title = ((FilesystemViewerDialog) _dopt.listener)._dialogTitle;
+                    if (title != null) {
+                        title.setText(
+                                getActivity().getString(isMove ? R.string.move : R.string.copy)
+                                + " → "
+                                + adapter.getCurrentFolder().getName()
+                        );
+                    }
+                }
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }

@@ -16,7 +16,6 @@ import android.support.v4.provider.DocumentFile;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 
 import org.apache.commons.io.IOUtils;
 
@@ -24,15 +23,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 @SuppressWarnings("all")
