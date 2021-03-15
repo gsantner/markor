@@ -12,6 +12,7 @@ package other.writeily.model;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
+import android.widget.Toast;
 
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -144,11 +145,18 @@ public class WrMarkorSingleton {
 
     public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove) {
         if (destDir.isDirectory()) {
-            final Stack<File> _files = new Stack<>();
-            _files.addAll(files);
-            _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResollution.ASK, false);
+            boolean allSane = true;
+            for (final File f : files) {
+                allSane &= saneMoveOrCopy(f, new File(destDir, f.getName()));
+            }
+            if (allSane) {
+                final Stack<File> _files = new Stack<>();
+                _files.addAll(files);
+                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResollution.ASK, false);
+                return;
+            }
         }
-
+        // Toast.makeText(activity, "✗", Toast.LENGTH_SHORT).show();
     }
 
     private void _moveOrCopySelected(
