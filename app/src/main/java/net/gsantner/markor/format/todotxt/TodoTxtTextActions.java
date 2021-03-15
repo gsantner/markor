@@ -388,7 +388,7 @@ public class TodoTxtTextActions extends TextActions {
                     // Replace due date
                     new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$1" + newDue + "$4"),
                     // Add due date to end if none already exists. Will correctly handle trailing whitespace.
-                    new ReplacePattern("(\\s)*$", " " + newDue)
+                    new ReplacePattern("\\s*$", " " + newDue)
             );
         };
 
