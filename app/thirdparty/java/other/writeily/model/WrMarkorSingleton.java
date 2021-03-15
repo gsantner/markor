@@ -52,8 +52,22 @@ public class WrMarkorSingleton {
         WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
+    private boolean saneMoveOrCopy(final File file, final File dest) {
+        /* Rules:
+         * 1. Don't move a file to the same location, no point
+         * 2. Don't move a folder to itself
+         * 3. Don't move a folder into its children
+         */
+
+        return (file != null &&
+                dest != null &&
+                !file.equals(dest) &&
+                // dest is file's child
+                !dest.toPath().startsWith(file.toPath()));
+    }
+
     public boolean moveFile(final File file, final File dest, final Context context) {
-        if (!dest.exists()) {
+        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
             boolean renameSuccess;
             try {
                 renameSuccess = file.renameTo(dest);
@@ -65,10 +79,11 @@ public class WrMarkorSingleton {
         return false;
     }
 
+
     public boolean copyFile(final File file, final File dest) {
-        FileInputStream input = null;
-        FileOutputStream output = null;
-        if (!dest.exists()) {
+        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
+            FileInputStream input = null;
+            FileOutputStream output = null;
             try {
                 if (file.isDirectory()) {
                     if (dest.mkdir()) {
