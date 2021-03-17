@@ -9,4 +9,21 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Agordoj</string>
+    <string name="light">Hela</string>
+    <string name="dark">Malhela</string>
+    <string name="delete">Forigi</string>
+    <string name="appearance">Aspekto</string>
+    <string name="rename">Alinomi</string>
+    <string name="title">Titolo</string>
+    <string name="empty_directory">Malplena dosierujo</string>
+    <string name="enter_name_of_folder">Entajpu la nomon de via dosierujo</string>
+    <string name="create_folder">Krei Dosierujon</string>
+    <string name="create_new_document">Krei novan dokumenton</string>
+    <string name="move">Movi</string>
+    <string name="info">Informo</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Dosiero/dosierujo jam ekzistas! Bonvolu uzi malsaman nomon</string>
+    <string name="import_from_device">Enporti el aparato</string>
+    <string name="import_">Enporti</string>
+</resources>
