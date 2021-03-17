@@ -62,4 +62,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">Aldoni %s</string>
     <string name="files_and_folders">Dosieroj kaj dosierujoj</string>
     <string name="document_browser">Dokumenta foliumilo</string>
+    <string name="file_browser">Dosiera foliumilo</string>
+    <string name="set_due_date">Agordi limdaton</string>
+    <string name="create_note" needed="false">Krei Noton</string>
+    <string name="app_settings" needed="false">Aplikaĵaj Agordoj</string>
+    <string name="editor_settings" needed="false">Redaktilaj Agordoj</string>
+    <string name="main_view">Ĉefa Vido</string>
+    <string name="format">Formato</string>
+    <string name="contexts">Kuntekstoj</string>
+    <string name="project">Projekto</string>
+    <string name="projects">Projektoj</string>
+    <string name="categories">Kategorioj</string>
+    <string name="none">Nenia</string>
+    <string name="other">Aliaj</string>
+    <string name="key_tab">Tabo</string>
+    <string name="unordered_list_char_dash">Streketo (-)</string>
+    <string name="unordered_list_char_asterisk">Steleto (*)</string>
+    <string name="unordered_list_char_plus">Pluso (+)</string>
+    <string name="clipboard">Tondujo</string>
+    <string name="translate">Traduku</string>
+    <string name="source_code">Fontkodo</string>
 </resources>
