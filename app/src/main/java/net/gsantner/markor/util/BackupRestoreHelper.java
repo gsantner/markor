@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 public class BackupRestoreHelper {
 
     private static final String SAVE_NAME = "markor_settings_backup%s.json";
+    private static final String VERSION = "__VERSION__";
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
@@ -43,6 +44,7 @@ public class BackupRestoreHelper {
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
             Pattern.compile("^pref_key__.*encryption_password.*", Pattern.MULTILINE),
+            Pattern.compile(VERSION, Pattern.MULTILINE),
     };
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -97,6 +99,7 @@ public class BackupRestoreHelper {
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
         try {
             final JSONObject json = new JSONObject();
+            json.put(VERSION, context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName));
             for (final String _pref : PREF_NAMES) {
                 final String pref = getPrefName(context, _pref);
                 final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);

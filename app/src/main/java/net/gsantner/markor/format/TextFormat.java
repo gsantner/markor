@@ -42,6 +42,17 @@ public class TextFormat {
     public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
 
+    // Note: Order here is used to store and retrieve per-document format
+    // Do not change order, append new formats to the end
+    public static final int[] FORMATS = {
+        FORMAT_UNKNOWN,
+        FORMAT_ZIMWIKI,
+        FORMAT_MARKDOWN,
+        FORMAT_PLAIN,
+        FORMAT_TODOTXT,
+        FORMAT_KEYVALUE
+    };
+
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();

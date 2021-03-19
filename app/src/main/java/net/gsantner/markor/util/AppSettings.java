@@ -17,20 +17,25 @@ import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -374,7 +379,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void setDocumentFormat(final String path, final int format) {
         if (fexists(path)) {
-            setInt(PREF_PREFIX_FILE_FORMAT + path, format);
+            final String key = PREF_PREFIX_FILE_FORMAT + path;
+            // Store index in FORMATS. Store nothing if it is not a recognized format
+            for (int i = 0; i < TextFormat.FORMATS.length; i++) {
+                if (TextFormat.FORMATS[i] == format) setInt(key, i);
+            }
         }
     }
 
@@ -382,7 +391,18 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (!fexists(path)) {
             return _default;
         } else {
-            return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
+            final Integer value = getInt(PREF_PREFIX_FILE_FORMAT + path, -1);
+            // Get index in FORMATS
+            if (value >= 0 && value < TextFormat.FORMATS.length) {
+                return TextFormat.FORMATS[value];
+            } else {
+                // If the format has been stored directly, return that
+                for (final int format : TextFormat.FORMATS) {
+                    if (value == format) return format;
+                }
+                // Else return the default
+                return _default;
+            }
         }
     }
 
