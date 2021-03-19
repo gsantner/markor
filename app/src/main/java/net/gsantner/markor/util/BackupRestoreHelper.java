@@ -3,11 +3,14 @@ package net.gsantner.markor.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -99,7 +102,7 @@ public class BackupRestoreHelper {
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
         try {
             final JSONObject json = new JSONObject();
-            json.put(VERSION, context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName));
+            json.put(VERSION, BuildConfig.VERSION_NAME + ", " + BuildConfig.VERSION_CODE);
             for (final String _pref : PREF_NAMES) {
                 final String pref = getPrefName(context, _pref);
                 final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);
@@ -176,32 +179,34 @@ public class BackupRestoreHelper {
                 final String prefName = it.next();
                 final SharedPreferences sp = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
                 final SharedPreferences.Editor edit = sp.edit();
-
-                final JSONObject prefJson = json.getJSONObject(prefName);
-                for (Iterator<String> pit = prefJson.keys(); pit.hasNext(); ) {
-                    final String key = pit.next();
-                    if (includeKey(key)) {
-                        final Object value = prefJson.get(key);
-                        if (value instanceof Integer) {
-                            edit.putInt(key, (Integer) value);
-                        } else if (value instanceof Float) {
-                            edit.putFloat(key, (Float) value);
-                        } else if (value instanceof String) {
-                            edit.putString(key, (String) value);
-                        } else if (value instanceof Boolean) {
-                            edit.putBoolean(key, (Boolean) value);
-                        } else if (value instanceof JSONArray) {
-                            final Set<String> ss = new HashSet<>();
-                            for (int i = 0; i < ((JSONArray) value).length(); i++) {
-                                ss.add(((JSONArray) value).getString(i));
+                final Object _pref = json.get(prefName);
+                if (_pref instanceof JSONObject) {
+                    final JSONObject prefJson = (JSONObject) _pref;
+                    for (Iterator<String> pit = prefJson.keys(); pit.hasNext(); ) {
+                        final String key = pit.next();
+                        if (includeKey(key)) {
+                            final Object value = prefJson.get(key);
+                            if (value instanceof Integer) {
+                                edit.putInt(key, (Integer) value);
+                            } else if (value instanceof Float) {
+                                edit.putFloat(key, (Float) value);
+                            } else if (value instanceof String) {
+                                edit.putString(key, (String) value);
+                            } else if (value instanceof Boolean) {
+                                edit.putBoolean(key, (Boolean) value);
+                            } else if (value instanceof JSONArray) {
+                                final Set<String> ss = new HashSet<>();
+                                for (int i = 0; i < ((JSONArray) value).length(); i++) {
+                                    ss.add(((JSONArray) value).getString(i));
+                                }
+                                edit.putStringSet(key, ss);
+                            } else {
+                                Log.w("backup", "Unhandled backup type");
                             }
-                            edit.putStringSet(key, ss);
-                        } else {
-                            Log.w("backup", "Unhandled backup type");
                         }
                     }
+                    editors.add(edit);
                 }
-                editors.add(edit);
             }
             for (final SharedPreferences.Editor edit : editors) {
                 edit.apply();
