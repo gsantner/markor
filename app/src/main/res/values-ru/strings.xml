@@ -269,7 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_new_documents_always_in_new_window">Открывать документы в отдельных окнах. Переключайтесь между ними с помощью кнопки «Обзор» на устройстве</string>
     <string name="enter_or_select_format">Введите или выберите формат</string>
     <string name="pick_date">Выбрать дату</string>
-    <string name="pick_time">Выбор времени</string>
+    <string name="pick_time">Время Выбирать</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
     <string name="always_use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
     <string name="result">Результат</string>
@@ -290,7 +290,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (приватный)</string>
     <string name="appdata_sdcard">Приложения (SD-карта)</string>
     <string name="internal_storage">Внутренняя память</string>
-    <string name="open_the_document_from_main_view">Вы можете открыть документ из главного вида внизу, файлового браузера или лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
+    <string name="open_the_document_from_main_view">Вы можете открыть документ из главного окна внизу, из файлового браузера или из лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Блокнот — это папка, которую Markor открывает в обозревателе файлов при запуске. Это папка по умолчанию для ваших файлов.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote помогает быстро делать заметки. Это файл в формате Markdown с именем QuickNote.md, расположенный в папке по умолчанию. Вы можете изменить папку в настройках.</string>
     <string name="todo_is_the_easiest_way_">Управляйте задачами с помощью ToDo. Это файл в формате todo.txt, расположенный в папке по умолчанию. Вы можете изменить папку в настройках.</string>
@@ -315,7 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Если в запросе есть звёздочка (*), используется поиск по регулярному выражению.</string>
-    <string name="always_open_with_this_app">Всегда открывать этим приложением</string>
+    <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения.</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить журнал отладки</string>

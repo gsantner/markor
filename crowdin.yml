@@ -58,4 +58,5 @@ files:
         sq: sq # Albanian
         mk: mk # Macedonian
         si-LK: si # Sinhala (Sri Lanka)
+        eo: eo # Esperanto
     translate_attributes: 0
