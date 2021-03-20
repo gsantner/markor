@@ -32,8 +32,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class BackupRestoreHelper {
-
-    private static final String SAVE_NAME = "markor_settings_backup%s.json";
     private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
@@ -64,21 +62,18 @@ public class BackupRestoreHelper {
 
                         @Override
                         public void onFsViewerSelected(String request, File dir) {
-                            createAndSaveBackup(context, getSaveFile(dir));
+                            createAndSaveBackup(context, getSaveFile(context, dir));
                         }
                     }, manager, activity
             );
         }
     }
 
-    public static File getSaveFile(final File folder) {
-        File file;
-        int index = 0;
-        do {
-            file = new File(folder, String.format(SAVE_NAME, (index == 0) ? "" : String.format("_%d", index)));
-            index++;
-        } while (file.exists());
-        return file;
+    public static File getSaveFile(final Context context, final File folder) {
+        final ContextUtils cu = new ContextUtils(context);
+        final String filename = String.format("%s-settings-backup-%s.json", cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", ""), ShareUtil.SDF_IMAGES.format(new Date()));
+        cu.freeContextRef();
+        return new File(folder, filename);
     }
 
     public static String getPrefName(final Context context, final String raw) {
@@ -98,6 +93,7 @@ public class BackupRestoreHelper {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
         final ContextUtils cu = new ContextUtils(context);
         try {
