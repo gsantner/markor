@@ -44,7 +44,7 @@ public class BackupRestoreHelper {
     };
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
-            Pattern.compile("^pref_key__.*encryption_password.*", Pattern.MULTILINE),
+            Pattern.compile(".*password.*", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
             Pattern.compile(VERSION, Pattern.MULTILINE),
     };
 
@@ -132,7 +132,7 @@ public class BackupRestoreHelper {
                 }
             }
             final FileWriter file = new FileWriter(saveLoc);
-            file.write(json.toString(4));
+            file.write(json.toString(2));
             file.flush();
             file.close();
             Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
