@@ -3,14 +3,11 @@ package net.gsantner.markor.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -18,6 +15,7 @@ import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +23,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -33,9 +32,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class BackupRestoreHelper {
-
-    private static final String SAVE_NAME = "markor_settings_backup%s.json";
-    private static final String VERSION = "__VERSION__";
+    private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
@@ -46,8 +43,8 @@ public class BackupRestoreHelper {
     };
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
-            Pattern.compile("^pref_key__.*encryption_password.*", Pattern.MULTILINE),
-            Pattern.compile(VERSION, Pattern.MULTILINE),
+            Pattern.compile(".*password.*", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
+            Pattern.compile(BACKUP_METADATA, Pattern.MULTILINE),
     };
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -65,21 +62,18 @@ public class BackupRestoreHelper {
 
                         @Override
                         public void onFsViewerSelected(String request, File dir) {
-                            createAndSaveBackup(context, getSaveFile(dir));
+                            createAndSaveBackup(context, getSaveFile(context, dir));
                         }
                     }, manager, activity
             );
         }
     }
 
-    public static File getSaveFile(final File folder) {
-        File file;
-        int index = 0;
-        do {
-            file = new File(folder, String.format(SAVE_NAME, (index == 0) ? "" : String.format("_%d", index)));
-            index++;
-        } while (file.exists());
-        return file;
+    public static File getSaveFile(final Context context, final File folder) {
+        final ContextUtils cu = new ContextUtils(context);
+        final String filename = String.format("%s-settings-backup-%s.json", cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", ""), ShareUtil.SDF_IMAGES.format(new Date()));
+        cu.freeContextRef();
+        return new File(folder, filename);
     }
 
     public static String getPrefName(final Context context, final String raw) {
@@ -99,10 +93,30 @@ public class BackupRestoreHelper {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
+        final ContextUtils cu = new ContextUtils(context);
         try {
             final JSONObject json = new JSONObject();
-            json.put(VERSION, BuildConfig.VERSION_NAME + ", " + BuildConfig.VERSION_CODE);
+
+            // Collect metadata for backup file
+            final Date now = new Date();
+            final JSONObject metadata = new JSONObject(new GashMap<>().load(
+                    "BACKUP_DATE", String.format("local %s, utc %s, epoch-timestamp %d", now.toLocaleString(), now.toString(), now.getTime()),
+                    "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
+                    "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
+                    "ISOURCE", cu.getAppInstallationSource(),
+                    "BACKUP_REVISION", "1"
+            ).data());
+            for (final String field : cu.getBuildConfigFields()) {
+                final Object v = cu.getBuildConfigValue(field);
+                if (v != null && !v.getClass().isArray()) {
+                    metadata.put(field, cu.getBuildConfigValue(field));
+                }
+            }
+            json.put(BACKUP_METADATA, metadata);
+
+            // Iterate preferences and their values
             for (final String _pref : PREF_NAMES) {
                 final String pref = getPrefName(context, _pref);
                 final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);
@@ -111,13 +125,11 @@ public class BackupRestoreHelper {
                 for (final String key : map.keySet()) {
                     if (includeKey(key)) {
                         final Object value = map.get(key);
-                        if (
-                            (value instanceof Integer) ||
-                            (value instanceof Long) ||
-                            (value instanceof Float) ||
-                            (value instanceof String) ||
-                            (value instanceof Boolean)
-                        ) {
+                        if ( (value instanceof Integer) ||
+                                (value instanceof Long) ||
+                                (value instanceof Float) ||
+                                (value instanceof String) ||
+                                (value instanceof Boolean)) {
                             prefSon.put(key, value);
                         } else if (value instanceof Set) {
                             final JSONArray lsa = new JSONArray();
@@ -135,7 +147,7 @@ public class BackupRestoreHelper {
                 }
             }
             final FileWriter file = new FileWriter(saveLoc);
-            file.write(json.toString(4));
+            file.write(json.toString(2));
             file.flush();
             file.close();
             Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
@@ -146,6 +158,8 @@ public class BackupRestoreHelper {
             }
             Log.e("backup", e.getMessage());
             Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
+        } finally {
+            cu.freeContextRef();
         }
     }
 
