@@ -43,7 +43,7 @@ public class BackupRestoreHelper {
     };
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
-            Pattern.compile(".*password.*", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
+            Pattern.compile("^(?!PREF_PREFIX_).*password.*$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
             Pattern.compile(BACKUP_METADATA, Pattern.MULTILINE),
     };
 
@@ -71,9 +71,14 @@ public class BackupRestoreHelper {
 
     public static File getSaveFile(final Context context, final File folder) {
         final ContextUtils cu = new ContextUtils(context);
-        final String filename = String.format("%s-settings-backup-%s.json", cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", ""), ShareUtil.SDF_IMAGES.format(new Date()));
-        cu.freeContextRef();
-        return new File(folder, filename);
+        try {
+            final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
+            final String date = ShareUtil.SDF_IMAGES.format(new Date());
+            final String filename = String.format("%s-settings-backup-%s.json", appName, date);
+            return new File(folder, filename);
+        } finally {
+            cu.freeContextRef();
+        }
     }
 
     public static String getPrefName(final Context context, final String raw) {
