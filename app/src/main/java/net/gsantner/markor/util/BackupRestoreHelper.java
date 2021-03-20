@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -16,6 +15,7 @@ import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.regex.Pattern;
 public class BackupRestoreHelper {
 
     private static final String SAVE_NAME = "markor_settings_backup%s.json";
-    private static final String VERSION = "__VERSION__";
+    private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
@@ -45,7 +46,7 @@ public class BackupRestoreHelper {
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
             Pattern.compile(".*password.*", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
-            Pattern.compile(VERSION, Pattern.MULTILINE),
+            Pattern.compile(BACKUP_METADATA, Pattern.MULTILINE),
     };
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -98,9 +99,28 @@ public class BackupRestoreHelper {
     }
 
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
+        final ContextUtils cu = new ContextUtils(context);
         try {
             final JSONObject json = new JSONObject();
-            json.put(VERSION, BuildConfig.VERSION_NAME + ", " + BuildConfig.VERSION_CODE);
+
+            // Collect metadata for backup file
+            final Date now = new Date();
+            final JSONObject metadata = new JSONObject(new GashMap<>().load(
+                    "BACKUP_DATE", String.format("local %s, utc %s, epoch-timestamp %d", now.toLocaleString(), now.toString(), now.getTime()),
+                    "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
+                    "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
+                    "ISOURCE", cu.getAppInstallationSource(),
+                    "BACKUP_REVISION", "1"
+            ).data());
+            for (final String field : cu.getBuildConfigFields()) {
+                final Object v = cu.getBuildConfigValue(field);
+                if (v != null && !v.getClass().isArray()) {
+                    metadata.put(field, cu.getBuildConfigValue(field));
+                }
+            }
+            json.put(BACKUP_METADATA, metadata);
+
+            // Iterate preferences and their values
             for (final String _pref : PREF_NAMES) {
                 final String pref = getPrefName(context, _pref);
                 final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);
@@ -143,6 +163,8 @@ public class BackupRestoreHelper {
             }
             Log.e("backup", e.getMessage());
             Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
+        } finally {
+            cu.freeContextRef();
         }
     }
 
