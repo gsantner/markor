@@ -3,8 +3,6 @@ package net.gsantner.markor.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -112,10 +110,10 @@ public class BackupRestoreHelper {
                     if (includeKey(key)) {
                         final Object value = map.get(key);
                         if (
-                            (value instanceof Integer) ||
-                            (value instanceof Float) ||
-                            (value instanceof String) ||
-                            (value instanceof Boolean)
+                                (value instanceof Integer) ||
+                                        (value instanceof Float) ||
+                                        (value instanceof String) ||
+                                        (value instanceof Boolean)
                         ) {
                             prefSon.put(key, value);
                         } else if (value instanceof Set) {

@@ -17,7 +17,6 @@ import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 
 import net.gsantner.markor.App;
@@ -28,14 +27,11 @@ import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -789,7 +785,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public String getPassword() {
         final char[] pass = new PasswordStore(getContext()).loadKey(R.string.pref_key__encryption_password);
-        return (pass == null)? null : new String(pass);
+        return (pass == null) ? null : new String(pass);
     }
 
     public boolean getNewFileDialogLastUsedEncryption() {

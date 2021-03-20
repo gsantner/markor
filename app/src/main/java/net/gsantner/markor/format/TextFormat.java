@@ -45,12 +45,12 @@ public class TextFormat {
     // Note: Order here is used to store and retrieve per-document format
     // Do not change order, append new formats to the end
     public static final int[] FORMATS = {
-        FORMAT_UNKNOWN,
-        FORMAT_ZIMWIKI,
-        FORMAT_MARKDOWN,
-        FORMAT_PLAIN,
-        FORMAT_TODOTXT,
-        FORMAT_KEYVALUE
+            FORMAT_UNKNOWN,
+            FORMAT_ZIMWIKI,
+            FORMAT_MARKDOWN,
+            FORMAT_PLAIN,
+            FORMAT_TODOTXT,
+            FORMAT_KEYVALUE
     };
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
