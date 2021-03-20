@@ -113,6 +113,7 @@ public class BackupRestoreHelper {
                         final Object value = map.get(key);
                         if (
                             (value instanceof Integer) ||
+                            (value instanceof Long) ||
                             (value instanceof Float) ||
                             (value instanceof String) ||
                             (value instanceof Boolean)
@@ -188,6 +189,8 @@ public class BackupRestoreHelper {
                             final Object value = prefJson.get(key);
                             if (value instanceof Integer) {
                                 edit.putInt(key, (Integer) value);
+                            } else if (value instanceof Long) {
+                                edit.putLong(key, (Long) value);
                             } else if (value instanceof Float) {
                                 edit.putFloat(key, (Float) value);
                             } else if (value instanceof String) {
