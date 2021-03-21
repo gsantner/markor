@@ -279,7 +279,7 @@ public class NewFileDialog extends DialogFragment {
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final char[] pass = new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password);
+            final char[] pass = new AppSettings(getContext()).getPassword().toCharArray();
             bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(t, pass);
         } else {
             bytes = t.getBytes();
