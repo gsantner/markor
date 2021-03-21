@@ -458,7 +458,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
                 if (!TextUtils.isEmpty(password)) {
-                    final String key = activity.getString(R.string.pref_key__encryption_password);
+                    final String key = activity.getString(R.string.pref_key__default_encryption_password);
                     new PasswordStore(activity).storeKey(password, key, PasswordStore.SecurityMode.NONE);
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }
