@@ -135,7 +135,7 @@ public class ContextUtils {
     /**
      * Get String by given string ressource id (nuermic)
      */
-    public String rstr(@StringRes final int strResId, String... a0defaulValue_a1defaultValuekey) {
+    public String rstr(@StringRes final int strResId) {
         try {
             return _context.getString(strResId);
         } catch (Exception e) {
