@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import org.json.JSONArray;
@@ -141,7 +140,7 @@ public class BackupUtils {
                 targetJsonFile.delete();
             }
             Log.e(LOG_PREFIX, e.getMessage());
-            Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, cu.rstr("creation_of_backup_failed", true), Toast.LENGTH_SHORT).show();
         } finally {
             cu.freeContextRef();
         }
@@ -191,7 +190,9 @@ public class BackupUtils {
             }
             System.exit(0);
         } catch (Exception e) {
-            Toast.makeText(context, R.string.could_not_restore_from_backup, Toast.LENGTH_SHORT).show();
+            final ContextUtils cu = new ContextUtils(context);
+            Toast.makeText(context, cu.rstr("could_not_restore_from_backup", true), Toast.LENGTH_SHORT).show();
+            cu.freeContextRef();
         }
     }
 }
