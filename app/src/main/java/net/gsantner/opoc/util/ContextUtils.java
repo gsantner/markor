@@ -135,7 +135,7 @@ public class ContextUtils {
     /**
      * Get String by given string ressource id (nuermic)
      */
-    public String rstr(@StringRes final int strResId) {
+    public String rstr(@StringRes final int strResId, String... a0defaulValue_a1defaultValuekey) {
         try {
             return _context.getString(strResId);
         } catch (Exception e) {
@@ -146,11 +146,11 @@ public class ContextUtils {
     /**
      * Get String by given string ressource identifier (textual)
      */
-    public String rstr(final String strResKey) {
+    public String rstr(final String strResKey, Object... a0getResKeyAsFallback) {
         try {
             return rstr(getResId(ResType.STRING, strResKey));
         } catch (Resources.NotFoundException e) {
-            return null;
+            return a0getResKeyAsFallback != null && a0getResKeyAsFallback.length > 0 ? strResKey : null;
         }
     }
 

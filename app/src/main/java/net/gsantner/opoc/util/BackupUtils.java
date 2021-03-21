@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class BackupUtils {
     protected static final String LOG_PREFIX = BackupUtils.class.getSimpleName();
     protected static final String FIELD_BACKUP_METADATA = "__BACKUP_METADATA__";
