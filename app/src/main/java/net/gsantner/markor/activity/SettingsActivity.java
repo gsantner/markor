@@ -379,11 +379,11 @@ public class SettingsActivity extends AppActivityBase {
                     break;
                 }
                 case R.string.pref_key__backup_settings: {
-                    BackupUtils.backupConfig(getContext(), getFragmentManager());
+                    BackupUtils.showBackupWriteToDialog(getContext(), getFragmentManager());
                     break;
                 }
                 case R.string.pref_key__restore_settings: {
-                    BackupUtils.restoreConfig(getContext(), getFragmentManager());
+                    BackupUtils.showBackupSelectFromDialog(getContext(), getFragmentManager());
                     break;
                 }
             }

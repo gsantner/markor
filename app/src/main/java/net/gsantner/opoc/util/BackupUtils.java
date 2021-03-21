@@ -58,7 +58,7 @@ public class BackupUtils {
             Pattern.compile(FIELD_BACKUP_METADATA, Pattern.MULTILINE),
     };
 
-    public static void backupConfig(final Context context, final FragmentManager manager) {
+    public static void showBackupWriteToDialog(final Context context, final FragmentManager manager) {
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
@@ -72,7 +72,7 @@ public class BackupUtils {
 
                         @Override
                         public void onFsViewerSelected(String request, File dir) {
-                            createAndSaveBackup(context, generateBackupFilepath(context, dir));
+                            makeBackup(context, generateBackupFilepath(context, dir));
                         }
                     }, manager, activity
             );
@@ -99,7 +99,7 @@ public class BackupUtils {
         }
     }
 
-    public static boolean includeKey(final String key) {
+    public static boolean isPrefKeyAllowBackup(final String key) {
         for (final Pattern ep : PREF_EXCLUDE_PATTERNS) {
             if (ep.matcher(key).matches()) {
                 return false;
@@ -108,7 +108,7 @@ public class BackupUtils {
         return true;
     }
 
-    public static void createAndSaveBackup(final Context context, final File jsonFile) {
+    public static void makeBackup(final Context context, final File jsonFile) {
         final ContextUtils cu = new ContextUtils(context);
         try {
             final JSONObject jsonRoot = new JSONObject();
@@ -136,7 +136,7 @@ public class BackupUtils {
                 final Map<String, ?> prefKeyValues = pref.getAll();
                 final JSONObject jsonFromPref = new JSONObject();
                 for (final String prefKey : prefKeyValues.keySet()) {
-                    if (includeKey(prefKey)) {
+                    if (isPrefKeyAllowBackup(prefKey)) {
                         final Object prefValue = prefKeyValues.get(prefKey);
                         if ((prefValue instanceof Integer) ||
                                 (prefValue instanceof Long) ||
@@ -177,7 +177,7 @@ public class BackupUtils {
         }
     }
 
-    public static void restoreConfig(final Context context, final FragmentManager manager) {
+    public static void showBackupSelectFromDialog(final Context context, final FragmentManager manager) {
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
@@ -191,18 +191,17 @@ public class BackupUtils {
 
                         @Override
                         public void onFsViewerSelected(String request, File file) {
-                            loadAndRestoreBackup(context, file);
+                            loadBackup(context, file);
                         }
                     }, manager, activity,
                     input -> input != null && input.exists() && input.toString().trim().toLowerCase().endsWith(".json")
             );
         }
-
     }
 
-    public static void loadAndRestoreBackup(final Context context, final File jsonFile) {
+    public static void loadBackup(final Context context, final File backupFileContainingJson) {
         try {
-            final JSONObject json = new JSONObject(FileUtils.readTextFileFast(jsonFile));
+            final JSONObject json = new JSONObject(FileUtils.readTextFileFast(backupFileContainingJson));
             final List<SharedPreferences.Editor> editors = new ArrayList<>();
             for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                 final String prefName = it.next();
@@ -213,7 +212,7 @@ public class BackupUtils {
                     final JSONObject prefJson = (JSONObject) _pref;
                     for (Iterator<String> pit = prefJson.keys(); pit.hasNext(); ) {
                         final String key = pit.next();
-                        if (includeKey(key)) {
+                        if (isPrefKeyAllowBackup(key)) {
                             final Object value = prefJson.get(key);
                             if (value instanceof Integer) {
                                 edit.putInt(key, (Integer) value);
