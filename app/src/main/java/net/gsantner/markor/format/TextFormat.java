@@ -42,7 +42,13 @@ public class TextFormat {
     public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
 
-    // Note: Order here is used to store and retrieve per-document format
+    public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
+    public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
+    public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
+    public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
+    public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
+
+    // Order here is used for **per-file settings** to store and retrieve format for AppSettings
     // Do not change order, append new formats to the end
     public static final int[] FORMATS = {
             FORMAT_UNKNOWN,
@@ -50,15 +56,17 @@ public class TextFormat {
             FORMAT_MARKDOWN,
             FORMAT_PLAIN,
             FORMAT_TODOTXT,
-            FORMAT_KEYVALUE
+            FORMAT_KEYVALUE,
     };
 
-    public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
-    public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
-    public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
-    public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
-    public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
-    private final static TextConverter[] CONVERTERS = new TextConverter[]{CONVERTER_MARKDOWN, CONVERTER_TODOTXT, CONVERTER_ZIMWIKI, CONVERTER_KEYVALUE, CONVERTER_PLAINTEXT};
+    // Order here is used to **determine** format by it's file extension and/or content heading
+    private final static TextConverter[] CONVERTERS = new TextConverter[]{
+            CONVERTER_MARKDOWN,
+            CONVERTER_TODOTXT,
+            CONVERTER_ZIMWIKI,
+            CONVERTER_KEYVALUE,
+            CONVERTER_PLAINTEXT,
+    };
 
     // Either pass file or null and absolutePath
     public static boolean isTextFile(File file, String... absolutePath) {
