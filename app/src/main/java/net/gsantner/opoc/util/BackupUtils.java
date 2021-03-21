@@ -40,9 +40,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("MalformedFormatString")
 public class BackupUtils {
-    private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
+    protected static final String FIELD_BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
@@ -54,7 +53,7 @@ public class BackupUtils {
 
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
             Pattern.compile("^(?!PREF_PREFIX_).*password.*$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
-            Pattern.compile(BACKUP_METADATA, Pattern.MULTILINE),
+            Pattern.compile(FIELD_BACKUP_METADATA, Pattern.MULTILINE),
     };
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
@@ -107,14 +106,14 @@ public class BackupUtils {
         return true;
     }
 
-    public static void createAndSaveBackup(final Context context, final File saveLoc) {
+    public static void createAndSaveBackup(final Context context, final File jsonFile) {
         final ContextUtils cu = new ContextUtils(context);
         try {
-            final JSONObject json = new JSONObject();
+            final JSONObject jsonRoot = new JSONObject();
 
             // Collect metadata for backup file
             final Date now = new Date();
-            final JSONObject metadata = new JSONObject(new GashMap<>().load(
+            final JSONObject jsonMetadata = new JSONObject(new GashMap<String, String>().load(
                     "BACKUP_DATE", String.format("%s ::: %d", now.toString(), now.getTime()),
                     "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
                     "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
@@ -124,50 +123,50 @@ public class BackupUtils {
             for (final String field : cu.getBuildConfigFields()) {
                 final Object v = cu.getBuildConfigValue(field);
                 if (v != null && !v.getClass().isArray()) {
-                    metadata.put(field, cu.getBuildConfigValue(field));
+                    jsonMetadata.put(field, cu.getBuildConfigValue(field));
                 }
             }
-            json.put(BACKUP_METADATA, metadata);
 
             // Iterate preferences and their values
-            for (final String _pref : PREF_NAMES) {
-                final String pref = getPrefName(context, _pref);
-                final SharedPreferences sp = context.getSharedPreferences(pref, Context.MODE_PRIVATE);
-                final Map<String, ?> map = sp.getAll();
-                final JSONObject prefSon = new JSONObject();
-                for (final String key : map.keySet()) {
-                    if (includeKey(key)) {
-                        final Object value = map.get(key);
-                        if ((value instanceof Integer) ||
-                                (value instanceof Long) ||
-                                (value instanceof Float) ||
-                                (value instanceof String) ||
-                                (value instanceof Boolean)) {
-                            prefSon.put(key, value);
-                        } else if (value instanceof Set) {
-                            final JSONArray lsa = new JSONArray();
-                            for (final String s : sp.getStringSet(key, new HashSet<>())) {
-                                lsa.put(s);
+            for (String prefName : PREF_NAMES) {
+                prefName = getPrefName(context, prefName);
+                final SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+                final Map<String, ?> prefKeyValues = pref.getAll();
+                final JSONObject jsonFromPref = new JSONObject();
+                for (final String prefKey : prefKeyValues.keySet()) {
+                    if (includeKey(prefKey)) {
+                        final Object prefValue = prefKeyValues.get(prefKey);
+                        if ((prefValue instanceof Integer) ||
+                                (prefValue instanceof Long) ||
+                                (prefValue instanceof Float) ||
+                                (prefValue instanceof String) ||
+                                (prefValue instanceof Boolean)) {
+                            jsonFromPref.put(prefKey, prefValue);
+                        } else if (prefValue instanceof Set) {
+                            final JSONArray jsonArray = new JSONArray();
+                            for (final String s : pref.getStringSet(prefKey, new HashSet<>())) {
+                                jsonArray.put(s);
                             }
-                            prefSon.put(key, lsa);
+                            jsonFromPref.put(prefKey, jsonArray);
                         } else {
                             Log.w("backup", "Unhandled backup type");
                         }
                     }
                 }
-                if (prefSon.length() > 0) {
-                    json.put(pref, prefSon);
+                if (jsonFromPref.length() > 0) {
+                    jsonRoot.put(prefName, jsonFromPref);
                 }
             }
-            final FileWriter file = new FileWriter(saveLoc);
-            file.write(json.toString(2));
+            jsonRoot.put(FIELD_BACKUP_METADATA, jsonMetadata);
+            final FileWriter file = new FileWriter(jsonFile);
+            file.write(jsonRoot.toString(2));
             file.flush();
             file.close();
-            Toast.makeText(context, "✔️ " + saveLoc.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "✔️ " + jsonFile.getName(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             // Attempt to delete file if it exists
-            if (saveLoc.exists()) {
-                saveLoc.delete();
+            if (jsonFile.exists()) {
+                jsonFile.delete();
             }
             Log.e("backup", e.getMessage());
             Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
