@@ -410,12 +410,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Replace all</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
-    <string name="backup_restore">Backup / Restore Settings</string>
     <string name="backup_settings">Backup settings</string>
     <string name="restore_settings">Restore settings</string>
-    <string name="creation_of_backup_failed">Creation of backup failed</string>
-    <string name="export_settings_description">Export all settings as a json file</string>
-    <string name="import_settings_description">Import settings from backup json file. Upon success, Markor will restart.</string>
-    <string name="could_not_restore_from_backup">Could not restore from backup</string>
+    <string name="failed_to_create_backup">Failed to create backup</string>
+    <string name="export_settings_to_json_file">Export settings to json file</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Import settings from backup json file. On success, the app is restarted.</string>
+    <string name="failed_to_restore_settings_from_backup">Failed to restore settings from backup</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
 </resources>
