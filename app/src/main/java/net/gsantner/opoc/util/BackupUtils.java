@@ -9,22 +9,14 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.general.DatetimeFormatDialog;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.SearchReplaceDialog;
-import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,38 +37,16 @@ public class BackupUtils {
     protected static final String LOG_PREFIX = BackupUtils.class.getSimpleName();
     protected static final String FIELD_BACKUP_METADATA = "__BACKUP_METADATA__";
 
-    private static final String[] PREF_NAMES = {
-            null, // Default pref
-            SharedPreferencesPropertyBackend.SHARED_PREF_APP,
-            DatetimeFormatDialog.DATETIME_SETTINGS,
-            TextActions.ACTION_ORDER_PREF_NAME,
-            SearchReplaceDialog.SEARCH_REPLACE_SETTINGS
-    };
-
     private static final Pattern[] PREF_EXCLUDE_PATTERNS = {
             Pattern.compile("^(?!PREF_PREFIX_).*password.*$", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE),
             Pattern.compile(FIELD_BACKUP_METADATA, Pattern.MULTILINE),
     };
 
-    public static void showBackupWriteToDialog(final Context context, final FragmentManager manager) {
-        if (context instanceof Activity) {
-            final Activity activity = (Activity) context;
-
-            FilesystemViewerCreator.showFolderDialog(
-                    new FilesystemViewerData.SelectionListenerAdapter() {
-                        @Override
-                        public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
-                            dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select_folder;
-                        }
-
-                        @Override
-                        public void onFsViewerSelected(String request, File dir) {
-                            makeBackup(context, generateBackupFilepath(context, dir));
-                        }
-                    }, manager, activity
-            );
-        }
+    public static List<String> getPrefNamesToBackup() {
+        ArrayList<String> prefNames = new ArrayList<>();
+        prefNames.add(null); // Default pref
+        prefNames.add(SharedPreferencesPropertyBackend.SHARED_PREF_APP);
+        return prefNames;
     }
 
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
@@ -108,7 +78,7 @@ public class BackupUtils {
         return true;
     }
 
-    public static void makeBackup(final Context context, final File jsonFile) {
+    public static void makeBackup(final Context context, final List<String> prefNamesToBackup, final File targetJsonFile) {
         final ContextUtils cu = new ContextUtils(context);
         try {
             final JSONObject jsonRoot = new JSONObject();
@@ -130,7 +100,7 @@ public class BackupUtils {
             }
 
             // Iterate preferences and their values
-            for (String prefName : PREF_NAMES) {
+            for (String prefName : prefNamesToBackup) {
                 prefName = getPrefName(context, prefName);
                 final SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
                 final Map<String, ?> prefKeyValues = pref.getAll();
@@ -160,42 +130,20 @@ public class BackupUtils {
                 }
             }
             jsonRoot.put(FIELD_BACKUP_METADATA, jsonMetadata);
-            final FileWriter file = new FileWriter(jsonFile);
+            final FileWriter file = new FileWriter(targetJsonFile);
             file.write(jsonRoot.toString(2));
             file.flush();
             file.close();
-            Toast.makeText(context, "✔️ " + jsonFile.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "✔️ " + targetJsonFile.getName(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             // Attempt to delete file if it exists
-            if (jsonFile.exists()) {
-                jsonFile.delete();
+            if (targetJsonFile.exists()) {
+                targetJsonFile.delete();
             }
             Log.e(LOG_PREFIX, e.getMessage());
             Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
         } finally {
             cu.freeContextRef();
-        }
-    }
-
-    public static void showBackupSelectFromDialog(final Context context, final FragmentManager manager) {
-        if (context instanceof Activity) {
-            final Activity activity = (Activity) context;
-
-            FilesystemViewerCreator.showFileDialog(
-                    new FilesystemViewerData.SelectionListenerAdapter() {
-                        @Override
-                        public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
-                            dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
-                            dopt.titleText = R.string.select;
-                        }
-
-                        @Override
-                        public void onFsViewerSelected(String request, File file) {
-                            loadBackup(context, file);
-                        }
-                    }, manager, activity,
-                    input -> input != null && input.exists() && input.toString().trim().toLowerCase().endsWith(".json")
-            );
         }
     }
 
