@@ -162,7 +162,7 @@ public class BackupUtils {
                 targetJsonFile.delete();
             }
             Log.e(LOG_PREFIX, e.getMessage());
-            Toast.makeText(context, cu.rstr("creation_of_backup_failed", true), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, cu.rstr("failed_to_create_backup", true), Toast.LENGTH_SHORT).show();
         } finally {
             cu.freeContextRef();
         }
@@ -219,7 +219,7 @@ public class BackupUtils {
             System.exit(0);
         } catch (Exception e) {
             final ContextUtils cu = new ContextUtils(context);
-            Toast.makeText(context, cu.rstr("could_not_restore_from_backup", true), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, cu.rstr("failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
             cu.freeContextRef();
         }
     }
